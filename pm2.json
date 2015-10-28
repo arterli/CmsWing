@@ -1,0 +1,14 @@
+{
+  "apps": [{
+    "name": "d:thinkjsbinf:Projectsvkj",
+    "script": "production.js",
+    "cwd": "d:\thinkjs\bin/f:\Projects\vkj\www",
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}
