@@ -1,0 +1,26 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en");
+
+
+html {
+  height: 100%;  
+}
+
+body {
+  height: 100%;
+  border: 1px solid #d8dde5;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+  background:#fff;  
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #717171;
+  font-size:14px;
+  padding:10px;
+  line-height:1.35em;
+  margin:0;
+  padding:10px;
+}
+
+body:focus{
+	border-color: #66afe9;
+}
