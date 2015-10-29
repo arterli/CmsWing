@@ -28,6 +28,7 @@ var _default = (function (_Base) {
 
   _default.prototype.indexAction = function indexAction() {
     //auto render template file index_index.html
+
     return this.display();
   };
 
