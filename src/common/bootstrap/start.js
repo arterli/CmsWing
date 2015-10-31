@@ -10,3 +10,6 @@
  *     
  * }
  */
+global.aa=function(){
+    console.log(1);
+}
