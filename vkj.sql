@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
+Source Server         : 本地数据库
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : vkj
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-10-31 18:59:38
+Date: 2015-11-02 11:11:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,4 +40,4 @@ CREATE TABLE `vkj_member` (
 -- ----------------------------
 -- Records of vkj_member
 -- ----------------------------
-INSERT INTO `vkj_member` VALUES ('1', 'admin', '123456', 'fdsa@fasf.com', '', '1446275814', '0', '4294967295', '11', '1446275814', '1');
+INSERT INTO `vkj_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', 'fdsa@fasf.com', '', '1446275814', '0', '4294967295', '2130706433', '1446275814', '1');
