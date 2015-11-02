@@ -9,6 +9,7 @@ export default class extends Base {
    */
   indexAction(){
     //auto render template file index_index.html
+    //console.log(this.is_login);
 
     return this.display();
   }

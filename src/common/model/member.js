@@ -3,14 +3,15 @@
  * model
  */
 export default class extends think.model.base {
+
     /**
-     * ÓÃ»§µÇÂ¼ÈÏÖ¤
-     * @param  string  $username ÓÃ»§Ãû
-     * @param  string  $password ÓÃ»§ÃÜÂë
-     * @param  integer $type     ÓÃ»§ÃûÀàĞÍ £¨1-ÓÃ»§Ãû£¬2-ÓÊÏä£¬3-ÊÖ»ú£¬4-UID£©
-     * @return integer           µÇÂ¼³É¹¦-ÓÃ»§ID£¬µÇÂ¼Ê§°Ü-´íÎó±àºÅ
+     * ç”¨æˆ·ç™»å½•è®¤è¯
+     * @param  string  $username ç”¨æˆ·å
+     * @param  string  $password ç”¨æˆ·å¯†ç 
+     * @param  integer $type     ç”¨æˆ·åç±»å‹ ï¼ˆ1-ç”¨æˆ·åï¼Œ2-é‚®ç®±ï¼Œ3-æ‰‹æœºï¼Œ4-UIDï¼‰
+     * @return integer           ç™»å½•æˆåŠŸ-ç”¨æˆ·IDï¼Œç™»å½•å¤±è´¥-é”™è¯¯ç¼–å·
      */
-    async signin(username, password, type = 1){
+    async signin(username, password,ip, type = 1){
         let map={};
         switch (type) {
             case 1:
@@ -26,32 +27,41 @@ export default class extends think.model.base {
                 map.id = username;
                 break;
             default:
-                return 0; //²ÎÊı´íÎó
+                return 0; //å‚æ•°é”™è¯¯
         }
         let user = await this.where(map).find();
         if(!think.isEmpty(user) && user.status){
-            /* ÑéÖ¤ÓÃ»§ÃÜÂë */
+            /* éªŒè¯ç”¨æˆ·å¯†ç  */
             if(password === user.password){
-                this.updateLogin(user.id);//¸üĞÂÓÃ»§µÇÂ¼ĞÅÏ¢
-                return user.id; //µÇÂ¼³É¹¦£¬·µ»ØÓÃ»§ID
+                this.autoLogin(user,ip);//æ›´æ–°ç”¨æˆ·ç™»å½•ä¿¡æ¯ï¼Œè‡ªåŠ¨ç™»é™†
+                /* è®°å½•ç™»å½•SESSIONå’ŒCOOKIES */
+                let userInfo = {
+                    'uid'             : user.id,
+                    'username'        : user.username,
+                    'last_login_time' : user.last_login_time,
+                };
+
+                return userInfo; //ç™»å½•æˆåŠŸï¼Œè¿”å›ç”¨æˆ·ä¿¡æ¯
             } else {
-                return -2; //ÃÜÂë´íÎó
+                return -2; //å¯†ç é”™è¯¯
             }
         } else {
-            return -1; //ÓÃ»§²»´æÔÚ»ò±»½ûÓÃ
+            return -1; //ç”¨æˆ·ä¸å­˜åœ¨æˆ–è¢«ç¦ç”¨
         }
   }
 
     /**
-     * ¸üĞÂÓÃ»§µÇÂ¼ĞÅÏ¢
-     * @param  integer $uid ÓÃ»§ID
+     * è‡ªåŠ¨ç™»å½•ç”¨æˆ·
+     * @param  integer $user ç”¨æˆ·ä¿¡æ¯æ•°ç»„
      */
-    updateLogin(uid){
+    async autoLogin(user,ip){
+        /* æ›´æ–°ç™»å½•ä¿¡æ¯ */
         let data = {
-            'id'              : uid,
             'last_login_time' : Date.now(),
-            'last_login_ip'   : "11",
-    };
-            this.update(data);
+            'last_login_ip'   : _ip2int(ip),
+        };
+        await this.where({id: user.id}).update(data);
+
+
     }
 }
