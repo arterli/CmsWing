@@ -30,7 +30,7 @@ export default class extends think.model.base {
                 return 0; //参数错误
         }
         let user = await this.where(map).find();
-        if(!think.isEmpty(user) && user.status){
+        if(!think.isEmpty(user) && 1 == user.status){
             /* 验证用户密码 */
             if(password === user.password){
                 this.autoLogin(user,ip);//更新用户登录信息，自动登陆

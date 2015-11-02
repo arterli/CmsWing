@@ -12,11 +12,12 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
-
     }
     __before(){
         this.assign({
             "navxs":true,
+            "active":"/admin",
+            "datatables":false,
             "bg":"bg-dark"
         });
     }

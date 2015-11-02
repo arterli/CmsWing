@@ -10,7 +10,8 @@ export default class extends think.controller.base {
      * @return {Promise} []
      */
     async signinAction(){
-
+        //用户登录
+        let is_login = await this.islogin();
         if(this.isPost()){
             let username = this.post('username');
             let password = this.post('password');
@@ -31,26 +32,29 @@ export default class extends think.controller.base {
             }
 
         }else{
-
-
+            if(is_login){
+                this.redirect('/admin/index');
+            }else{
                 return this.display();
-
-
+            }
         }
     }
 
     async logoutAction(){
-
-        if(1){
+        //退出登录
+        let is_login = await this.islogin();
+        if(is_login){
             await this.session();
-            this.end("清除");
-        }else {
+            this.redirect('/admin/public/signin');
+        }else{
             this.redirect('/admin/public/signin');
         }
     }
-    async setUserInfo(userInfo) {
-        this.userInfo = userInfo;
-        await this.session('userInfo', userInfo);
+
+    async islogin(){
+        let user = await this.session('userInfo');
+        let res = think.isEmpty(user) ? false : true;
+        return res;
     }
     verAction(){
        this.end("df11df")

@@ -1,0 +1,37 @@
+<% include inc/before.html %>
+<section id="content">
+    <section class="vbox">
+        <section class="scrollable padder">
+            <div class="m-b-md">
+                <h3 class="m-b-none">用户列表</h3>
+            </div>
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    用户列表
+                    <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
+                </header>
+                <div class="table-responsive">
+                    <table class="table table-striped m-b-none" data-ride="datatables">
+                        <thead>
+                        <tr>
+                            <th style="width:5%"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                            <th  style="width:7%">UID</th>
+                            <th  style="width:15%">用户名</th>
+                            <th  style="width:10%">积分</th>
+                            <th  style="width:10%">登陆次数</th>
+                            <th  style="width:15%">最后登陆时间</th>
+                            <th  style="width:15%">最后登陆IP</th>
+                            <th  style="width:8%">状态</th>
+                            <th  style="width:15%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+    </section>
+    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+</section>
+<% include inc/after.html %>

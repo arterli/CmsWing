@@ -8,27 +8,27 @@ export default class extends think.controller.base {
     super.init(http);
      // http.action = http.method.toLowerCase();
       //console.log(http.method.toLowerCase())
-      this.is_login=await this.islogin();
+
   }
 
 async __before(action){
     //登陆验证
-    console.log(this.is_login);
-    if(!this.is_login){
+    let is_login=await this.islogin();
+    if(!is_login){
         this.redirect('/admin/public/signin');
     }
     this.assign({
         "navxs":false,
+        "active":"/admin",
         "bg":"bg-black"
+
     })
 }
 
     async islogin(){
+      //判断是否登录
         let user = await this.session('userInfo');
-        if(think.isEmpty(user)){
-            return 0;
-        }else{
-            return 1;
-        }
+        let res = think.isEmpty(user) ? false : true;
+        return res;
     }
 }
