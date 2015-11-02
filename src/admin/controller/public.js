@@ -11,14 +11,14 @@ export default class extends Base {
      * @return {Promise} []
      */
     async signinAction(){
-        //
+
         if(this.isPost()){
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
             let res = await this.model("member").signin("admin",password,this.ip());
             if(0<res.uid){
-                await this.session('aaa', "222");
+                await this.session('userInfo', res);
                 //TODO 用户密钥
                 this.redirect('/admin/index');
             }else { //登录失败
@@ -32,21 +32,19 @@ export default class extends Base {
             }
 
         }else{
-            if(0){
-                this.redirect('/admin/index');
-            }else{
-                await this.setUserInfo("fdsfsf");
+
+
                 return this.display();
-            }
+
 
         }
     }
 
     async logoutAction(){
 
-        if(0){
+        if(1){
             await this.session();
-            this.end("fsfs");
+            this.end("清除");
         }else {
             this.redirect('/admin/public/signin');
         }
