@@ -13,10 +13,10 @@ export default class extends think.controller.base {
 
 async __before(action){
     //登陆验证
-
-    //if(!this.is_login){
-    //    this.redirect('/admin/public/signin');
-    //}
+    console.log(this.is_login);
+    if(!this.is_login){
+        this.redirect('/admin/public/signin');
+    }
     this.assign({
         "navxs":false,
         "bg":"bg-black"

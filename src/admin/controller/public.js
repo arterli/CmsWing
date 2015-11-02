@@ -2,9 +2,8 @@
  * Created by arter on 2015/10/29.
  */
 'use strict';
-import Base from './base.js';
 
-export default class extends Base {
+export default class extends think.controller.base {
 
     /**
      * public action
