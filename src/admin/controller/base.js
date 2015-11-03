@@ -1,6 +1,6 @@
 'use strict';
-
-export default class extends think.controller.base {
+import Auth from './auth.js';
+export default class extends Auth {
   /**
    * some base method in here
    */
@@ -20,11 +20,14 @@ async __before(action){
     this.assign({
         "navxs":false,
         "active":"/admin",
+        "datatables":false,
         "bg":"bg-black"
 
     })
 }
-
+    checks(name, uid, type=1, mode='url', relation='or'){
+        this.check(name, uid, type, mode, relation);
+    }
     async islogin(){
       //判断是否登录
         let user = await this.session('userInfo');

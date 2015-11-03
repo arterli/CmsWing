@@ -13,7 +13,7 @@ export default class extends Base {
     indexAction(){
         this.assign({
             "datatables":true,
-            "active":"/admin/user/index"
+            "active":""
         })
         return this.display();
     }
