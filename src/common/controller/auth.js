@@ -187,7 +187,7 @@ export default class extends think.controller.base {
         let authList = [];   //
         rules.forEach ( rule => {
             if (!think.isEmpty(rule['condition'])) { //根据condition进行验证
-                let user = this.getUserInfo(uid);//获取用户信息,一维数组
+                //let user = this.getUserInfo(uid);//获取用户信息,一维数组
 
                // let command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
                 //dump($command);//debug

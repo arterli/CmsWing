@@ -19,7 +19,7 @@ export default class extends Auth {
         let bb=aa.join(",")
         let cc=!(typeof(a) == "undefined")
         //console.log(cc)
-       let check=await this.check("Admin/AuthManager/changeStatus?method=forbidGroup","2");
+       let check=await this.check("Admin/Index/index","1");
        let url = "Admin/AuthManager/changeStatus?method=forbidGroup";
        let url1=Url.parse(url,true).query;
 

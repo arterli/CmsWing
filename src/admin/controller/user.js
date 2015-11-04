@@ -17,4 +17,10 @@ export default class extends Base {
         })
         return this.display();
     }
+
+    userlistAction(){
+        let gets = this.get()
+        console.log(gets)
+
+    }
 }
