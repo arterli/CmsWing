@@ -39,3 +39,25 @@ global.encryptPassword=function(password, md5encoded = false) {
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
+
+//数组去重
+global.unique = function (arr) {
+    var result = [], hash = {};
+    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+        if (!hash[elem]) {
+            result.push(elem);
+            hash[elem] = true;
+        }
+    }
+    return result;
+}
+//inarray
+global.in_array=function (stringToSearch, arrayToSearch) {
+    for (let s = 0; s < arrayToSearch.length; s++) {
+        let thisEntry = arrayToSearch[s].toString();
+        if (thisEntry == stringToSearch) {
+            return true;
+        }
+    }
+    return false;
+}

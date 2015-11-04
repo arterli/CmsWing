@@ -58,6 +58,7 @@
  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
  */
 'use strict';
+var Url = require('url');
 export default class extends think.controller.base {
     //默认配置
 
@@ -92,14 +93,45 @@ export default class extends think.controller.base {
      * @return boolean           通过验证返回true;失败返回false
      */
 
-    check(name, uid, type=1, mode='url', relation='or'){
-         console.log(this._config);
-         console.log(uid);
+    async check(name, uid, type=1, mode='url', relation='or'){
+       // console.log(this._config);
+       // console.log(uid);
         if (!this._config.AUTH_ON)
-        return true;
-       let authList = this.getAuthList(uid,type); //获取用户需要验证的所有有效规则列表
+            return true;
+        let authList = await this.getAuthList(uid,type); //获取用户需要验证的所有有效规则列表
+          // console.log(authList);
 
-     }
+        if (think.isString(name)) {
+            name = name.toLowerCase();
+            if (name.indexOf(',') !== -1) {
+                name = name.split(',');
+            } else {
+                name = [name];
+            }
+        }
+       // console.log(name);
+        let list = []; //保存验证通过的规则名
+        if (mode=='url') {
+            var REQUEST = JSON.stringify(this.param()).toLowerCase();
+        }
+        authList.forEach(v=>{
+           // console.log(v)
+            let query = Url.parse(v,true).query;
+                query = JSON.stringify(query).toLowerCase();
+            //console.log();
+            if(mode=='url' && query == REQUEST && in_array(v,name)){
+                list.push(v)
+            }else if(in_array(v,name)){
+                list.push(v)
+            }
+        })
+        console.log(list);
+        if (relation == 'or' && !think.isEmpty(list)) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 
 
@@ -110,25 +142,72 @@ export default class extends think.controller.base {
      * @param integer $uid  用户id
      * @param integer $type
      */
-      async getAuthList(uid,type) {
+    async getAuthList(uid,type) {
         let _authList = {}; //保存用户验证通过的权限列表
         let a = [];
         a.push(type);
         let t = a.join(',');
-        if (!(typeof(_authList[uid+t]) == "undefined")) {
-            return _authList[uid+t];
+        if (!(typeof(_authList[uid + t]) == "undefined")) {
+            return _authList[uid + t];
         }
-        let session = await this.session('_AUTH_LIST_'+uid+t);
-        if( this._config.AUTH_TYPE==2 && !(typeof(session) == "undefined")){
+        let session = await this.session('_AUTH_LIST_' + uid + t);
+        if (this._config.AUTH_TYPE == 2 && !(typeof(session) == "undefined")) {
             return session;
         }
 
         //读取用户所属用户组
-        let groups = await this.getGroups(1);
-        console.log(groups);
+        let groups = await this.getGroups(uid);
+        //console.log(groups);
+        //let ids ={};
+        let ids = [];
+        groups.forEach(v=> {
+            ids = ids.concat(v.rules.split(","));
+
+        });
+        ids = unique(ids)
+        //console.log(ids);
+
+        if (think.isEmpty(ids)) {
+            _authList[uid.t] = {};
+            return {};
+        }
+        let map = {
+            'id': ['in', ids],
+            'type': type,
+            'status': 1,
+        };
+
+        //读取用户组所有权限规则
+        let rules = await this.model(this._config.AUTH_RULE)
+            .where(map).field('condition,name').select()
+
+       // console.log(rules);
+
+        //循环规则，判断结果。
+        let authList = [];   //
+        rules.forEach ( rule => {
+            if (!think.isEmpty(rule['condition'])) { //根据condition进行验证
+                let user = this.getUserInfo(uid);//获取用户信息,一维数组
+
+               // let command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
+                //dump($command);//debug
+           // @(eval('$condition=(' . $command . ');'));
+               // if ($condition) {
+                  //  $authList[] = strtolower($rule['name']);
+                //}
+            } else {
+                //只要存在就记录
+                authList.push(rule.name.toLowerCase());
+            }
+        })
+        //console.log(authList);
+        _authList[uid.t] = authList;
+        if(this._config['AUTH_TYPE']==2){
+            //规则列表结果保存到session
+            await this.session('_AUTH_LIST_' + uid + t,authList);
+        }
+        return unique(authList);
     }
-
-
     /**
      * 根据用户id获取用户组,返回值为数组
      * @param  uid int     用户id
@@ -136,7 +215,7 @@ export default class extends think.controller.base {
      *                                         array('uid'=>'用户id','group_id'=>'用户组id','title'=>'用户组名称','rules'=>'用户组拥有的规则id,多个,号隔开'),
      *                                         ...)
      */
-   async getGroups(uid) {
+    async getGroups(uid) {
         let groups = {};
         if (!(typeof(groups[uid])=="undefined"))
             return groups[uid];

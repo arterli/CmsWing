@@ -1,5 +1,5 @@
 'use strict';
-import Auth from './auth.js';
+import Auth from './../../common/controller/auth.js';
 export default class extends Auth {
   /**
    * some base method in here
