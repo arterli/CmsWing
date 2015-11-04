@@ -13,11 +13,12 @@ export default class extends Auth {
         //let a={};
         //a.s11="dfsd";
         let aa=[]
+
         aa.push(1)
 
         let bb=aa.join(",")
         let cc=!(typeof(a) == "undefined")
-        //console.log(cc);
+        //console.log(cc)
         this.check("/admin/user/index","2");
         this.end("dd");
     }

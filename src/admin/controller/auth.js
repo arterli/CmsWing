@@ -123,7 +123,32 @@ export default class extends think.controller.base {
             return session;
         }
 
-
+        //读取用户所属用户组
+        let groups = await this.getGroups(1);
+        console.log(groups);
     }
 
+
+    /**
+     * 根据用户id获取用户组,返回值为数组
+     * @param  uid int     用户id
+     * @return array       用户所属的用户组 array(
+     *                                         array('uid'=>'用户id','group_id'=>'用户组id','title'=>'用户组名称','rules'=>'用户组拥有的规则id,多个,号隔开'),
+     *                                         ...)
+     */
+   async getGroups(uid) {
+        let groups = {};
+        if (!(typeof(groups[uid])=="undefined"))
+            return groups[uid];
+        let db=this.model(this._config['AUTH_GROUP_ACCESS']);
+        let user_groups = await db.join({
+            table: this._config['AUTH_GROUP'],
+            //join: "inner", //join 方式，有 left, right, inner 3 种方式
+            as: "c", // 表别名
+            on: ["group_id", "id"] //ON 条件
+        }).where({uid: uid, status: 1}).field("rules").select();
+
+        groups[uid]=user_groups;
+        return groups[uid];
+    }
 }
