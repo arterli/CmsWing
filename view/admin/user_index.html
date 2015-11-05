@@ -1,21 +1,23 @@
 <% include inc/before.html %>
 <section id="content">
     <section class="vbox">
-        <section class="scrollable padder">
-            <div class="m-b-md">
-                <h3 class="m-b-none">用户列表</h3>
+        <header class="header bg-light dk">
+            <div class="btn-group pull-right">
+                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-plus"></i> 新增</button>
+                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
+                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
+                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i> 删除</button>
+
             </div>
+            <p>用户管理</p>
+        </header>
+        <section class="scrollable wrapper">
+
             <section class="panel panel-default">
                 <header class="panel-heading">
                     用户列表
                     <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
-                    <div class="btn-group pull-right">
-                        <button class="btn btn-default btn-xs" type="button"><i class="fa fa-plus"></i> 新增</button>
-                        <button class="btn btn-default btn-xs" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
-                        <button class="btn btn-default btn-xs" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
-                        <button class="btn btn-default btn-xs" type="button"><i class="fa fa-trash-o"></i> 删除</button>
 
-                    </div>
                 </header>
                 <div class="table-responsive">
                     <table class="table table-striped m-b-none" data-ride="datatables">

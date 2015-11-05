@@ -57,7 +57,7 @@ export default class extends think.model.base {
     async autoLogin(user,ip){
         /* 更新登录信息 */
         let data = {
-            'last_login_time' : Date.now(),
+            'last_login_time' : new Date().valueOf(),
             'last_login_ip'   : _ip2int(ip),
         };
         await this.where({id: user.id}).update(data);
