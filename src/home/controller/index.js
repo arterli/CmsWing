@@ -7,9 +7,12 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-    indexAction(){
+  init(http) {
+    super.init(http);
+  }
+  async indexAction(){
     //auto render template file index_index.html
 
-    return this.display();
+   return this.display();
   }
 }

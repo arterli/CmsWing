@@ -1,6 +1,5 @@
 'use strict';
-import Auth from './../../common/controller/auth.js';
-export default class extends Auth {
+export default class extends think.controller.base {
   /**
    * some base method in here
    */
@@ -25,9 +24,7 @@ async __before(action){
 
     })
 }
-    checks(name, uid, type=1, mode='url', relation='or'){
-        this.check(name, uid, type, mode, relation);
-    }
+
     async islogin(){
       //判断是否登录
         let user = await this.session('userInfo');

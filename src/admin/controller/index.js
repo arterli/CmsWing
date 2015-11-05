@@ -12,7 +12,6 @@ export default class extends Base {
   indexAction(){
     //auto render template file index_index.html
     //console.log(this.is_login);
-    this.checks(33);
     //this.islogin();
     return this.display();
   }

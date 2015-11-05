@@ -13,22 +13,24 @@ export default class extends Auth {
    async indexAction(){
         //let a={};
         //a.s11="dfsd";
-        let aa=[]
-        aa.push(1)
-
-        let bb=aa.join(",")
-        let cc=!(typeof(a) == "undefined")
+        //let aa=[]
+        //aa.push(1)
+        //let bb=aa.join(",")
+        //let cc=!(typeof(a) == "undefined")
         //console.log(cc)
-       let check=await this.check("Admin/Index/index","1");
-       let url = "Admin/AuthManager/changeStatus?method=forbidGroup";
-       let url1=Url.parse(url,true).query;
-
-       console.log(check);
+       //let check=await this.check("/Admin/test","1");
+       //console.log(check);
        //console.log(JSON.stringify(this.param()));
-       let REQUEST = JSON.stringify(this.param()).toLowerCase()
+       //let REQUEST = JSON.stringify(this.param()).toLowerCase()
       // console.log(Object.is(JSON.stringify(url1).toLowerCase(), JSON.stringify(this.param()).toLowerCase()));
-        this.end("dd");
-
+      //  this.end("dd");
+       let Auth = think.adapter("auth", "rbac");
+       let auth = new Auth(1);
+       let res = await auth.check("/admin/index");
+       //let roles =this.model();
+       // console.log(roles);
+       console.log(res);
+       this.end();
     }
 
 
