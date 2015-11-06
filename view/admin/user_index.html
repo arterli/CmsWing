@@ -1,9 +1,58 @@
 <% include inc/before.html %>
 <section id="content">
+    <section class="hbox stretch">
+
+        <aside id="asideres" class="aside-lg bg-light b-r hide">
+            <div class="wrapper">
+                <h4 class="m-t-none">新增用户 </h4>
+                <form data-validate="" id="register">
+                    <div class="form-group">
+                        <label>用户名称 <i class="fa fa-info-sign text-xs text-muted">用户名会作为默认的昵称</i></label>
+                        <input type="text" name="username" class="input-sm form-control" placeholder="用户名称" data-required="true" data-Remote="/admin/user/parsley">
+                    </div>
+                    <div class="form-group">
+                        <label>密码 <i class="fa fa-info-sign text-xs text-muted">用户密码不能少于6位</i></label>
+                        <input type="text" name="password" class="datepicker input-sm form-control" placeholder="密码" data-required="true" id="pwd">
+                    </div>
+                    <div class="form-group">
+                        <label>确认密码</label>
+                        <input type="text" class="input-sm form-control" placeholder="再输一次" data-equalto="#pwd" data-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label>邮箱 <i class="fa fa-info-sign text-xs text-muted">用户邮箱，用于找回密码等安全操作</i></label>
+                        <input type="text" name="email" class="form-control" data-type="email" data-required="true"  data-Remote="/admin/user/parsley">
+                    </div>
+                    <div class="form-group" >
+                        <label>用户组</label>
+                        <div>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+                                    <span class="dropdown-label">选择用户组</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-select">
+                                    <li><input type="radio" name="d-s-r"><a href="#">默认</a></li>
+                                    <li class=""><input type="radio" name="d-s-r"><a href="#">商家</a></li>
+                                    <li class=""><input type="radio" name="d-s-r"><a href="#">编辑</a></li>
+                                    <li class=""><input type="radio" name="d-s-r"><a href="#">管理员</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-lg"><button class="btn btn-lg btn-default" id="btn">添加用户</button></div>
+                </form>
+            </div>
+        </aside>
+    <aside>
     <section class="vbox">
         <header class="header bg-light dk">
             <div class="btn-group pull-right">
-                <button class="btn btn-default btn-sm" type="button"><i class="fa fa-plus"></i> 新增</button>
+                <a href="#asideres" class="btn btn-sm btn-default" data-toggle="class:show">
+                    <i class="fa fa-plus text"></i>
+                    <span class="text">添加用户</span>
+                    <i class="fa fa-minus text-active"></i>
+                    <span class="text-active">添加完成</span>
+                </a>
                 <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
                 <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
                 <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i> 删除</button>
@@ -12,7 +61,6 @@
             <p>用户管理</p>
         </header>
         <section class="scrollable wrapper">
-
             <section class="panel panel-default">
                 <header class="panel-heading">
                     用户列表
@@ -42,5 +90,7 @@
         </section>
     </section>
     <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+    </aside>
+    </section>
 </section>
 <% include inc/after.html %>

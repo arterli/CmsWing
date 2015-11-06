@@ -1,76 +1,75 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地数据库
-Source Server Version : 50617
+Source Server         : 本地
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : vkj
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-11-06 11:04:15
+Date: 2015-11-06 21:23:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for vkj_auth_group
+-- Table structure for vkj_auth_role
 -- ----------------------------
-DROP TABLE IF EXISTS `vkj_auth_group`;
-CREATE TABLE `vkj_auth_group` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `title` char(100) NOT NULL DEFAULT '',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `rules` char(80) NOT NULL DEFAULT '',
+DROP TABLE IF EXISTS `vkj_auth_role`;
+CREATE TABLE `vkj_auth_role` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `desc` varchar(255) NOT NULL DEFAULT '',
+  `status` tinyint(11) NOT NULL DEFAULT '1',
+  `rule_ids` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of vkj_auth_group
+-- Records of vkj_auth_role
 -- ----------------------------
-INSERT INTO `vkj_auth_group` VALUES ('1', '默认用户组', '1', '1,2,34');
-INSERT INTO `vkj_auth_group` VALUES ('2', '222', '1', '444');
-
--- ----------------------------
--- Table structure for vkj_auth_group_access
--- ----------------------------
-DROP TABLE IF EXISTS `vkj_auth_group_access`;
-CREATE TABLE `vkj_auth_group_access` (
-  `uid` mediumint(8) unsigned NOT NULL,
-  `group_id` mediumint(8) unsigned NOT NULL,
-  UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
-  KEY `uid` (`uid`),
-  KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of vkj_auth_group_access
--- ----------------------------
-INSERT INTO `vkj_auth_group_access` VALUES ('0', '0');
-INSERT INTO `vkj_auth_group_access` VALUES ('1', '1');
-INSERT INTO `vkj_auth_group_access` VALUES ('3', '2');
+INSERT INTO `vkj_auth_role` VALUES ('1', '规则', '1', '1,2');
 
 -- ----------------------------
 -- Table structure for vkj_auth_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `vkj_auth_rule`;
 CREATE TABLE `vkj_auth_rule` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(80) NOT NULL DEFAULT '',
-  `title` char(20) NOT NULL DEFAULT '',
-  `type` tinyint(1) NOT NULL DEFAULT '1',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  `condition` char(100) NOT NULL DEFAULT '',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `desc` varchar(255) NOT NULL DEFAULT '',
+  `pid` int(11) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(11) NOT NULL DEFAULT '1',
+  `condition` varchar(255) DEFAULT '',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  KEY `status` (`status`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vkj_auth_rule
 -- ----------------------------
-INSERT INTO `vkj_auth_rule` VALUES ('1', 'Admin/Index/index', '首页', '1', '1', '');
+INSERT INTO `vkj_auth_rule` VALUES ('1', '/admin/index', '规则名称', '0', '1', '');
+
+-- ----------------------------
+-- Table structure for vkj_auth_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `vkj_auth_user_role`;
+CREATE TABLE `vkj_auth_user_role` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_role` (`user_id`,`role_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of vkj_auth_user_role
+-- ----------------------------
+INSERT INTO `vkj_auth_user_role` VALUES ('1', '1', '1');
+INSERT INTO `vkj_auth_user_role` VALUES ('2', '1', '2');
 
 -- ----------------------------
 -- Table structure for vkj_member
@@ -94,13 +93,25 @@ CREATE TABLE `vkj_member` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of vkj_member
 -- ----------------------------
-INSERT INTO `vkj_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1446742563230', '2130706433', '1446275814', '1');
+INSERT INTO `vkj_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1446779193061', '2130706433', '1446275814', '1');
 INSERT INTO `vkj_member` VALUES ('2', 'aaa', '11111', '0', 'fdsa@fsaf.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('4', '', '', '0', '', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('6', '1111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa11sfsa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('7', '11111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa111sfsa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('8', '1111111111', '820cb75001125e8ca9341be7b9a88b5f', '0', 'fsa11@fdsaf.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('9', 'admin1', 'd7aff02efcfd6598838a793e0e56bc16', '0', 'fs@fa11sfs1a.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('10', 'gfdg', 'd7aff02efcfd6598838a793e0e56bc16', '0', 'admin@dfsa.cm', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('11', '444', '0128c1c4b9433fa200058bc710adc784', '0', 'fdsf@fsa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('12', '888', '3ae1333424aca381773ca6aee2ad9654', '0', '888@saa.com', '0', '', '0', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('13', '123', '331be45924e51dd5ddaa7245d8afd9da', '0', '1123@fsdf.com', '0', '', '1446799913659', '0', '0', '0', '0', '0');
+INSERT INTO `vkj_member` VALUES ('14', '阿特', 'db1ad0e28f22ed36007fb49d004ea404', '0', 'arterli@qq.com', '0', '', '1446800106502', '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for vkj_session
@@ -114,14 +125,10 @@ CREATE TABLE `vkj_session` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cookie` (`cookie`),
   KEY `expire` (`expire`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vkj_session
 -- ----------------------------
-INSERT INTO `vkj_session` VALUES ('1', '3ocIZzvSl0k6skwSoq7A3QxKAP30fzPM', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":4294967295}}', '1446555423834');
-INSERT INTO `vkj_session` VALUES ('3', 'yZuxLCCHGECOpXDEsotJgGhaVYsQbTBt', '{}', '1446570480864');
-INSERT INTO `vkj_session` VALUES ('4', '0WyQne6OH4cNbrWBIkhAg4waIj0_ktE8', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":4294967295}}', '1446653768943');
-INSERT INTO `vkj_session` VALUES ('5', '4P5t_UI7Lubf3Vi0K7EvZqY7I4T1vOtl', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":4294967295}}', '1446739895468');
-INSERT INTO `vkj_session` VALUES ('6', 'tpbFM1dSA2mEnhaLabHezkek5Vqr5FiW', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1446742351795}}', '1446832519885');
-INSERT INTO `vkj_session` VALUES ('7', 'ZcvKAh_F59FLLztUmPc7OI0B_ERx6zGC', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":4294967295}}', '1446820287416');
+INSERT INTO `vkj_session` VALUES ('8', 'cxMuvu16OXQ0H0RJzO7jTdhxZRXoBpdQ', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":4294967295}}', '1446810438696');
+INSERT INTO `vkj_session` VALUES ('9', 'q7awxcI7ZoSzmwsdIeWB_01G_eBKbvQ9', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1446742563230}}', '1446886816922');

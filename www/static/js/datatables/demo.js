@@ -1,11 +1,13 @@
 +function ($) {
     "use strict";
-
+var oTable;
     $(function () {
 
+        oTable = initTable();
+    });
         // datatable
-        $('[data-ride="datatables"]').each(function () {
-            var oTable = $(this).dataTable({
+        function initTable() {
+            var table =  $('[data-ride="datatables"]').dataTable({
                 "bProcessing": true,
                 "serverSide": true,
                 //"ajax": "/static/js/datatables/datatable.json",
@@ -72,7 +74,8 @@
                     }
                 }
             });
-        });
+            return table;
+        };
 
         $('#growthrate').length && $.ajax('js/datatables/growthrate.csv').done(function (re) {
             var data = $.csv.toArrays(re);
@@ -114,5 +117,69 @@
         });
 
 
-    });
+        $('#register #btn').on('click', function () {
+            $('#register').parsley().validate();
+            if (true === $('#register').parsley().isValid()) {
+               _addFun();
+            }
+            return false;
+        });
+
+        function _addFun() {
+            var jsonData = {
+                'username': $("input[name='username']").val(),
+                'password': $("input[name='password']").val(),
+                'email': $("input[name='email']").val()
+            };
+            $.ajax({
+                url: "/admin/user/adduser",
+                data: jsonData,
+                type: "post",
+                success: function (backdata) {
+                    if (backdata == 1) {
+                        //$("#myModal").modal("hide");
+                        resetFrom();
+                        oTable.fnReloadAjax(oTable.fnSettings());
+                    } else if (backdata == 0) {
+                        alert("插入失败");
+                    } else {
+                        alert("防止数据不断增长，会影响速度，请先删掉一些数据再做测试");
+                    }
+                }, error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        /**
+         * 重置表单
+         */
+        function resetFrom() {
+            $('form').each(function (index) {
+                $('form')[index].reset();
+            });
+        }
+        /*
+         add this plug in
+         // you can call the below function to reload the table with current state
+         Datatables刷新方法
+         oTable.fnReloadAjax(oTable.fnSettings());
+         */
+        $.fn.dataTableExt.oApi.fnReloadAjax = function (oSettings) {
+//oSettings.sAjaxSource = sNewSource;
+            this.fnClearTable(this);
+            this.oApi._fnProcessingDisplay(oSettings, true);
+            var that = this;
+
+            $.getJSON(oSettings.sAjaxSource, null, function (json) {
+                /* Got the data - add it to the table */
+                for (var i = 0; i < json.aaData.length; i++) {
+                    that.oApi._fnAddData(oSettings, json.aaData[i]);
+                }
+                oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+                that.fnDraw(that);
+                that.oApi._fnProcessingDisplay(oSettings, false);
+            });
+        }
+
 }(window.jQuery);
