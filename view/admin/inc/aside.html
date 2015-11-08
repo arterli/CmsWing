@@ -322,17 +322,53 @@
                             </ul>
                         </li>
                     </ul>
-                    <ul class="nav text-sm">
+                    <ul class="nav text-sm" data-ride="collapse">
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
                             <!--<span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>-->
                             系统
                         </li>
-                        <% if(active=="/admin/user/index"){ %><li class="active" ><% }else{ %><li><%}%>
-                            <a href="/admin/user/index.html">
-                                <i class="icon-user icon"></i>
+                        <% if(tactive=="/admin/user"){ %><li class="active" ><% }else{ %><li><%}%>
+                            <a href="#" class="auto">
+                        <span class="pull-right text-muted">
+                          <i class="fa fa-angle-left text"></i>
+                          <i class="fa fa-angle-down text-active"></i>
+                        </span>
+                                <i class="icon-user icon">
+                                </i>
                                 <span>用户管理</span>
                             </a>
+                            <ul class="nav dk text-sm">
+                                <% if(active=="/admin/user/index"){ %><li class="active" ><% }else{ %><li><%}%>
+                                    <a href="/admin/user/index" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+
+                                        <span>用户列表</span>
+                                    </a>
+                                </li>
+                                <% if(active=="/admin/user/auth"){ %><li class="active" ><% }else{ %><li><%}%>
+                                    <a href="/admin/user/auth" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+
+                                        <span>权限管理</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="layout-fluid.html" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+
+                                        <span>用户行为</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="layout-fluid.html" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+
+                                        <span>行为日志</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+
                         <li>
                             <a href="#">
                                 <i class=" icon-settings icon text-success-lter"></i>

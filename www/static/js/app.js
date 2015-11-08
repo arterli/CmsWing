@@ -91,10 +91,12 @@ Modernizr.addTest('ios7 ipad',function(){return!!navigator.userAgent.match(/iPad
   }
 
   Bjax.prototype.complete = function (){
+
     var that = this;
     if( this.$element.is('html') || (this.options.replace) ){
       try{
         window.history.pushState({}, '', this.options.url);
+
       }catch(e){
         window.location.replace(this.options.url)
       }

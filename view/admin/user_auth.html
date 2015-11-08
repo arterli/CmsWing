@@ -1,0 +1,74 @@
+<% include inc/before.html %>
+<section id="content">
+    <section class="hbox stretch">
+
+        <aside id="asideres" class="aside-lg bg-light b-r hide">
+            <div class="wrapper">
+                <h4 class="m-t-none">新增用户组 </h4>
+                <form data-validate="" id="register">
+                    <div class="form-group">
+                        <label>用户组 </label>
+                        <input id="desc" type="text" name="desc" class="input-sm form-control" placeholder="用户组名称" data-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label>描述 </label>
+                        <textarea id="description" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" ></textarea>
+                    </div>
+
+
+                    <div class="m-t-lg"><button class="btn btn-lg btn-default" id="btn">添加用户</button></div>
+                </form>
+            </div>
+        </aside>
+        <aside id="bjax-target" class="aside-lg bg-light b-r hide">
+
+        </aside>
+        <aside>
+            <section class="vbox">
+                <header class="header bg-light dk">
+                    <div class="btn-group pull-right">
+                        <a href="#asideres" class="btn btn-sm btn-default" data-toggle="class:show">
+                            <i class="fa fa-plus text"></i>
+                            <span class="text">添加用户</span>
+                            <i class="fa fa-minus text-active"></i>
+                            <span class="text-active">添加完成</span>
+                        </a>
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
+                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i> 删除</button>
+
+                    </div>
+                    <p>权限管理</p>
+                </header>
+                <section class="scrollable wrapper">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            用户组列表
+                            <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
+
+                        </header>
+                        <div class="table-responsive">
+                            <table class="table table-striped m-b-none" data-ride="datatables">
+                                <thead>
+                                <tr>
+                                    <th style="width:5%"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                    <th  style="width:15%">用户组</th>
+                                    <th  style="width:20%">描述</th>
+                                    <th  style="width:30%">授权</th>
+                                    <th  style="width:10%">状态</th>
+                                    <th  style="width:15%">操作</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+        </aside>
+    </section>
+</section>
+<% include inc/after.html %>

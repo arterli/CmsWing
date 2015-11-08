@@ -11,7 +11,8 @@
  * }
  */
 
-//IPè½¬æˆæ•´å‹
+
+//IP×ª³ÉÕûĞÍ
 global._ip2int=function (ip)
 {
     var num = 0;
@@ -21,7 +22,7 @@ global._ip2int=function (ip)
     return num;
 }
 
-//æ•´å‹è§£æä¸ºIPåœ°å€
+//ÕûĞÍ½âÎöÎªIPµØÖ·
 global._int2iP=function (num)
 {
     var str;
@@ -34,13 +35,13 @@ global._int2iP=function (num)
     return str;
 }
 
-//å¯†ç åŠ å¯†
+//ÃÜÂë¼ÓÃÜ
 global.encryptPassword=function(password, md5encoded = false) {
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
 
-//æ•°ç»„å»é‡
+//Êı×éÈ¥ÖØ
 global.unique = function (arr) {
     var result = [], hash = {};
     for (var i = 0, elem; (elem = arr[i]) != null; i++) {
@@ -63,7 +64,7 @@ global.in_array=function (stringToSearch, arrayToSearch) {
 }
 
 global.times = function (d) {
-    //æ—¥æœŸæ ¼å¼åŒ–
+    //ÈÕÆÚ¸ñÊ½»¯
     var date = new Date(d);
     var y = date.getFullYear();
     var M = date.getMonth() + 1;

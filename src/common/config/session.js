@@ -1,7 +1,20 @@
+'use strict';
+
 /**
- * Created by arter on 2015/11/2.
+ * session configs
  */
 export default {
-    type: "db",
-
+  name: 'thinkjs',
+  type: 'file',
+  secret: 'TJDB~HRS',
+  timeout: 24 * 3600,
+  cookie: { // cookie options
+    length: 32,
+    httponly: true
+  },
+  adapter: {
+    file: {
+      path: think.getPath('common', 'runtime') + '/session',
+    }
+  }
 };

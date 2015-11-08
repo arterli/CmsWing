@@ -17,6 +17,8 @@ export default class extends Base {
         this.assign({
             "navxs":true,
             "active":"/admin",
+            "tactive":"/admin",
+            "selfjs":"admin",
             "datatables":false,
             "bg":"bg-dark"
         });

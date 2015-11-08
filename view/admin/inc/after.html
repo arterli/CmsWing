@@ -12,9 +12,14 @@
 <%if(datatables){%>
 <script src="/static/js/datatables/jquery.dataTables.min.js"></script>
 <script src="/static/js/datatables/jquery.csv-0.71.min.js"></script>
-<script src="/static/js/datatables/demo.js"></script>
 <script src="/static/js/parsley/parsley.min.js"></script>
 <script src="/static/js/parsley/parsley.extend.js"></script>
+<%}%>
+<%if(selfjs=="list"){%>
+<script src="/static/js/datatables/demo.js"></script>
+<%}%>
+<%if(selfjs=="auth"){%>
+<script src="/static/js/datatables/auth.js"></script>
 <%}%>
 <script src="/static/js/app.plugin.js"></script>
 <script type="text/javascript" src="/static/js/jPlayer/jquery.jplayer.min.js"></script>

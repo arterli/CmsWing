@@ -1,9 +1,7 @@
 /**
  * Created by arter on 2015/11/3.
  */
-import Auth from './../../common/controller/auth.js';
-var Url = require('url');
-export default class extends Auth {
+export default class extends think.controller.base {
     init(http) {
         super.init(http);
         // http.action = http.method.toLowerCase();

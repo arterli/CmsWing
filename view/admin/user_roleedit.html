@@ -1,0 +1,55 @@
+<div class="wrapper">
+    <h4 class="m-t-none">编辑用户组 </h4>
+    <form data-validate="" id="eidtform">
+        <div class="form-group">
+            <label>用户名称 <i class="fa fa-info-sign text-xs text-muted">用户名会作为默认的昵称</i></label>
+            <input type="text" id="edesc" name="desc" class="input-sm form-control" placeholder="用户名称" data-required="true" value="<%=data.desc%>">
+        </div>
+        <div class="form-group">
+            <label>密码 <i class="fa fa-info-sign text-xs text-muted">用户密码不能少于6位</i></label>
+            <textarea id="edescription" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" ><%=data.description%></textarea>
+        </div>
+
+       <input id="eid" type="hidden" name="id" value="<%=data.id%>">
+        <div class="m-t-lg"><button class="btn btn-lg btn-default" id="editbtn">修改用户组</button></div>
+    </form>
+</div>
+<script>
+    $(function(){
+
+
+    $("#editbtn").on('click',function(){
+        $('#eidtform').parsley().validate();
+        if (true === $('#eidtform').parsley().isValid()) {
+            _editFunAjax();
+        }
+        return false;
+    })
+    function _editFunAjax() {
+        var id = $("#eid").val();
+        var desc = $("#edesc").val();
+        var description = $("#edescription").val();
+        var jsonData = {
+            "id": id,
+            "desc": desc,
+            "description": description
+        };
+//        console.log(jsonData);
+//        return false;
+        $.ajax({
+            type: 'POST',
+            url: '/admin/user/roleedit',
+            data: jsonData,
+            success: function (json) {
+                if (json) {
+                    //$("#myModal").modal("hide");
+                    //resetFrom();
+                    oTable.fnReloadAjax(oTable.fnSettings());
+                } else {
+                    alert("更新失败");
+                }
+            }
+        });
+    }
+    })
+</script>
