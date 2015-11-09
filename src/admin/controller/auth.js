@@ -6,13 +6,14 @@
 import Base from './base.js';
 
 export default class extends Base {
-    indexAction(){
+   indexAction(){
         this.assign({
             "datatables":true,
             "active":"/admin/auth/index",
             "tactive":"/admin/user",
             "selfjs":"auth"
         })
+
         return this.display();
     }
 
@@ -72,7 +73,11 @@ export default class extends Base {
         })
         return this.display();
     }
-
+    async testAction(){
+      console.log(1111111111111);
+     await this.returnNodes(false);
+        this.end();
+  }
     /**
      * 返回后台节点数据
      * @param boolean $tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
@@ -82,35 +87,42 @@ export default class extends Base {
      *
      * @author
      */
-     async returnNodes(tree = true){
+     async returnNodes(tree=true){
+        let http = this.http;
+        let modelname = http.module;
         let tree_nodes = {};
-        if ( tree && !think.isEmpty(tree_nodes) ) {
-            return tree_nodes[tree];
-        }
-        if(tree){
+        //if ( tree && !think.isEmpty(tree_nodes) ) {
+        //    return tree_nodes;
+        //}
+       if(tree){
             let list =await this.model('menu').field('id,pid,title,url,tip,hide').order('sort asc').select();
             list.forEach (value => {
-                if( stripos($value['url'],MODULE_NAME)!==0 ){
-                    $list[$key]['url'] = MODULE_NAME.'/'.$value['url'];
+                let url =value.url.toLocaleLowerCase()
+                if( url.indexOf(modelname)!==0 ){
+                    value.url = modelname+'/'+value['url'];
+                }
+               //console.log(value['url']);
+            })
+
+            let nodes = get_children(list,0);
+            //nodes.forEachach ( value => {
+            //    if(!empty($value['operator'])){
+            //        $nodes[$key]['child'] = $value['operator'];
+            //        unset($nodes[$key]['operator']);
+            //    }
+            //})
+        }else{
+            let nodes = await this.model('menu').field('title,url,tip,pid').order('sort asc').select();
+            nodes.forEach ( value => {
+                let url =value.url.toLocaleLowerCase()
+                if( url.indexOf(modelname)!==0 ){
+                    value.url = modelname+'/'+value['url'];
                 }
             })
-            $nodes = list_to_tree($list,$pk='id',$pid='pid',$child='operator',$root=0);
-            foreach ($nodes as $key => $value) {
-                if(!empty($value['operator'])){
-                    $nodes[$key]['child'] = $value['operator'];
-                    unset($nodes[$key]['operator']);
-                }
-            }
-        }else{
-            $nodes = M('Menu')->field('title,url,tip,pid')->order('sort asc')->select();
-            foreach ($nodes as $key => $value) {
-                if( stripos($value['url'],MODULE_NAME)!==0 ){
-                    $nodes[$key]['url'] = MODULE_NAME.'/'.$value['url'];
-                }
-            }
+           console.log(nodes);
         }
-        $tree_nodes[(int)$tree]   = $nodes;
-        return $nodes;
+        //tree_nodes   = nodes;
+       // return nodes;
     }
 
 }
