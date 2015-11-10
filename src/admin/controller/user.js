@@ -15,6 +15,11 @@ export default class extends Base {
         this.db=this.model("member")
     }
 
+    /**
+     * 用户首页
+     * @returns {*}
+     */
+
     indexAction(){
         this.assign({
             "datatables":true,

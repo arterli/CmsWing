@@ -6,22 +6,119 @@
 import Base from './base.js';
 
 export default class extends Base {
-   indexAction(){
+    /**
+     * 后台节点配置的url作为规则存入auth_rule
+     * 执行新节点的插入,已有节点的更新,无效规则的删除三项任务
+     * @author
+     */
+    async updaterules() {
+        //需要新增的节点必然位于$nodes
+        let nodes = await this.returnnodes(false);
+        //think.log(nodes);
+        let AuthRule = this.model('auth_rule');
+        let map = {'module': 'admin', 'type': ['in', [1, 2]]};//status全部取出,以进行更新
+        //需要更新和删除的节点必然位于$rules
+        let rules = await AuthRule.where(map).order('name').select();
+
+        //构建insert数据
+        let data = {};//保存需要插入和更新的新节点
+
+        nodes.forEach(value=> {
+            let temp = {};
+            temp.name = value.url;
+            temp.desc = value.title;
+            temp.module = 'admin';
+            if (value.pid > 0) {
+                temp.type = 1;
+            } else {
+                temp.type = 2;
+            }
+            temp.status = 1;
+            //$data[strtolower($temp['name'].$temp['module'].$temp['type'])] = $temp;//去除重复项
+            let url = temp.name + temp.module + temp.type;
+            url = url.toLocaleLowerCase();
+            data[url] = temp;
+
+        })
+        //console.log(rules);
+        let update = [];//保存需要更新的节点
+        let ids = [];//保存需要删除的节点的id
+        let diff = {};
+        rules.forEach((rule, i) => {
+            let key = rule.name + rule.module + rule.type;
+            key = key.toLocaleLowerCase();
+            if (!think.isEmpty(data[key])) {//如果数据库中的规则与配置的节点匹配,说明是需要更新的节点
+                data[key].id = rule.id;//为需要更新的节点补充id值
+                update.push(data[key]);
+                delete data[key];
+                // console.log(i);
+                // rules.splice(i,1);
+                delete rule.condition;
+                delete rule.pid;
+                //console.log(rule);
+                diff[rule.id] = rule;
+            } else {
+                if (rule.status == 1) {
+                    ids.push(rule.id);
+                }
+            }
+        });
+
+        // console.log(update);
+        //console.log(rules);
+        // console.log(diff);
+        //console.log(data);
+        if (!think.isEmpty(update)) {
+            update.forEach(row=> {
+                //console.log(isObjectValueEqual(row, diff[row.id]))
+               // console.log(row)
+                //console.log(diff[row.id])
+                if (!isObjectValueEqual(row, diff[row.id])) {
+
+                    AuthRule.where({id: row.id}).update(row);
+                    //console.log(row);
+                }
+            })
+        }
+        //console.log(ids);
+        if (!think.isEmpty(ids)) {
+            AuthRule.where({id: ['IN', ids]}).update({'status': -1});
+            //删除规则是否需要从每个用户组的访问授权表中移除该规则?
+        }
+        // console.log(data);
+        if (!think.isEmpty(data)) {
+            AuthRule.addMany(obj_values(data));
+        }
+        //if ( $AuthRule->getDbError() ) {
+        //    trace('['.__METHOD__.']:'.$AuthRule->getDbError());
+        //    return false;
+        //}else{
+        //    return true;
+        //}
+        return true;
+    }
+
+
+    /**
+     * 用户首页
+     * @returns {*}
+     */
+    indexAction() {
         this.assign({
-            "datatables":true,
-            "active":"/admin/auth/index",
-            "tactive":"/admin/user",
-            "selfjs":"auth"
+            "datatables": true,
+            "active": "/admin/auth/index",
+            "tactive": "/admin/user",
+            "selfjs": "auth"
         })
 
         return this.display();
     }
 
-    async roleAction(){
+    async roleAction() {
         let gets = this.get();
         let draw = gets.draw;
         let res = await this.model('auth_role').field("id,desc,status,description").order("id ASC").select();
-        let data={
+        let data = {
             "draw": draw,
             "data": res
         }
@@ -29,100 +126,81 @@ export default class extends Base {
         return this.json(data);
     }
 
-    async roleeditAction(){
-        if(this.isAjax("post")){
-            let id=this.post("id");
+    async roleeditAction() {
+        if (this.isAjax("post")) {
+            let id = this.post("id");
             let desc = this.post("desc");
             let description = this.post("description");
-            let data = await this.model('auth_role').where({id:id}).update({desc:desc,description:description});
+            let data = await this.model('auth_role').where({id: id}).update({desc: desc, description: description});
             return this.json(data);
-        }else{
+        } else {
             let id = this.get("id");
-            let res = await this.model('auth_role').where({id:id}).find();
+            let res = await this.model('auth_role').where({id: id}).find();
             this.assign({
-                data:res
+                data: res
             })
             return this.display();
         }
     }
 
-    async roleaddAction(){
-        let data=this.post();
+    async roleaddAction() {
+        let data = this.post();
         //console.log(1111111111111111)
         let res = await this.model('auth_role').add(data);
 
-        if(res){
+        if (res) {
             return this.json(1);
-        }else{
+        } else {
             return this.json(0)
         }
     }
-    async roledelAction(){
+
+    async roledelAction() {
         let id = this.post("id");
         //console.log(id);
-        let res = await this.model('auth_role').where({id:id}).delete();
+        let res = await this.model('auth_role').where({id: id}).delete();
         return this.json(res);
     }
-    accessAction(){
-        //访问授权
+
+    /**
+     * 权限列表
+     * @returns {*}
+     */
+    async accessAction() {
+        await this.updaterules();//更新权限节点
+        let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
+        let node_list = await this.returnnodes();
+        let map       = {module:"admin",type:2,status:1};
+        let main_rules=this.model('auth_rule').where(map).field("name,id").select();
+        let nap       = {module:"admin",type:1,status:1};
+        let child_rules = this.model('auth_rule').where(nap).field('name,id').select();
+        let this_role = {};
+            auth_role.forEach(role=>{
+                if(role.id==this.get("id")){
+                    this_role = role;
+                }
+            })
+        console.log(node_list);
         this.assign({
-            "datatables":true,
-            "active":"/admin/auth",
-            "tactive":"/admin/user",
-            "selfjs":"auth"
+            "datatables": true,
+            "active": "/admin/auth",
+            "tactive": "/admin/user",
+            "selfjs": "auth",
+            "main_rules":main_rules,
+            "auth_rules":child_rules,
+            "node_list":node_list,
+            "auth_role":auth_role,
+            "this_role":this_role
         })
         return this.display();
     }
-    async testAction(){
-      console.log(1111111111111);
-     await this.returnNodes(false);
-        this.end();
-  }
-    /**
-     * 返回后台节点数据
-     * @param boolean $tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
-     * @retrun array
-     *
-     * 注意,返回的主菜单节点数组中有'controller'元素,以供区分子节点和主节点
-     *
-     * @author
-     */
-     async returnNodes(tree=true){
-        let http = this.http;
-        let modelname = http.module;
-        let tree_nodes = {};
-        //if ( tree && !think.isEmpty(tree_nodes) ) {
-        //    return tree_nodes;
-        //}
-       if(tree){
-            let list =await this.model('menu').field('id,pid,title,url,tip,hide').order('sort asc').select();
-            list.forEach (value => {
-                let url =value.url.toLocaleLowerCase()
-                if( url.indexOf(modelname)!==0 ){
-                    value.url = modelname+'/'+value['url'];
-                }
-               //console.log(value['url']);
-            })
 
-            let nodes = get_children(list,0);
-            //nodes.forEachach ( value => {
-            //    if(!empty($value['operator'])){
-            //        $nodes[$key]['child'] = $value['operator'];
-            //        unset($nodes[$key]['operator']);
-            //    }
-            //})
-        }else{
-            let nodes = await this.model('menu').field('title,url,tip,pid').order('sort asc').select();
-            nodes.forEach ( value => {
-                let url =value.url.toLocaleLowerCase()
-                if( url.indexOf(modelname)!==0 ){
-                    value.url = modelname+'/'+value['url'];
-                }
-            })
-           console.log(nodes);
-        }
-        //tree_nodes   = nodes;
-       // return nodes;
+    async testAction() {
+
+        let ss = await this.updaterules();
+        //console.log(ss);
+        this.end();
     }
+
 
 }
