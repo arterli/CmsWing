@@ -171,9 +171,9 @@ export default class extends Base {
         //let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
         //let node_list = await this.returnnodes();
         //let map       = {module:"admin",type:2,status:1};
-        //let main_rules=this.model('auth_rule').where(map).field("name,id").select();
+        //let main_rules= await this.model('auth_rule').where(map).field("name,id").select();
         //let nap       = {module:"admin",type:1,status:1};
-        //let child_rules = this.model('auth_rule').where(nap).field('name,id').select();
+        //let child_rules = await this.model('auth_rule').where(nap).field('name,id').select();
         //let this_role = {};
         //    auth_role.forEach(role=>{
         //        if(role.id==this.get("id")){

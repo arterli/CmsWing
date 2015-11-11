@@ -3,7 +3,7 @@
  * template config
  */
 export default {
-  type: 'ejs',
+  type: 'nunjucks',
   content_type: 'text/html',
   file_ext: '.html',
   file_depr: '_',

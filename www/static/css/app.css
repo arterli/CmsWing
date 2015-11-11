@@ -3914,3 +3914,53 @@ fieldset[disabled] .i-checks input + i:before {
     height: 65%;
   }
 }
+
+#category_tree {}
+
+#category_tree ul{list-style-type: none;padding-left: 0px;}
+
+#category_tree > ul >li{
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+#category_tree > ul >li>span{
+  background-color: #f7fafa;
+  display: block;
+  border-bottom: 1px solid #eaeef1;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  padding: 5px 15px;
+}
+#category_tree > ul >li>ul{
+
+}
+#category_tree>ul>li>ul>li>span{
+
+  color: #8a6d3b;
+  padding-bottom:5px ;
+ display: inline-block;
+
+}
+#category_tree > ul > li > ul >li{
+
+  border-bottom: 1px solid #eaeef1;
+
+  border-radius: 4px;
+  padding: 15px;
+}
+#category_tree > ul > li > ul >li:last-child{
+  border-bottom: 0px ;
+  padding-bottom: 15px;
+
+}
+#category_tree > ul >li>ul>li>ul{
+padding-left: 0px;
+}
+#category_tree > ul >li>ul>li>ul>li{
+  background-color: #fff;
+  display: inline-table;
+  margin-right: 15px;
+}

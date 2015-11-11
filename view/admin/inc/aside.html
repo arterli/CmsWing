@@ -1,10 +1,9 @@
 <!-- .aside -->
-<aside class="<%= bg %> dk aside hidden-print <% if(navxs){ %> nav-xs <% } %>" id="nav">
+<aside class="{{bg}} dk aside hidden-print {%if navxs %} nav-xs {% endif %}" id="nav">
     <section class="vbox">
         <section class="scrollable">
             <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
                  data-size="10px" data-railOpacity="0.2">
-
 
                 <!-- nav -->
                 <nav class="nav-primary hidden-xs">
@@ -327,7 +326,7 @@
                             <!--<span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>-->
                             系统
                         </li>
-                        <% if(tactive=="/admin/user"){ %><li class="active" ><% }else{ %><li><%}%>
+                        {% if tactive=="/admin/user" %}<li class="active" >{% else %}<li>{% endif %}
                             <a href="#" class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -338,14 +337,14 @@
                                 <span>用户管理</span>
                             </a>
                             <ul class="nav dk text-sm">
-                                <% if(active=="/admin/user/index"){ %><li class="active" ><% }else{ %><li><%}%>
+                                {% if active=="/admin/user/index" %}<li class="active" >{% else %}<li>{% endif %}
                                     <a href="/admin/user/index" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
 
                                         <span>用户列表</span>
                                     </a>
                                 </li>
-                                <% if(active=="/admin/auth/index"){ %><li class="active" ><% }else{ %><li><%}%>
+                                {% if active=="/admin/auth/index" %}<li class="active" >{% else %}<li>{% endif %}
                                     <a href="/admin/auth/index" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
 
