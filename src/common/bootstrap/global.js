@@ -12,7 +12,12 @@
  */
 
 
-//IPת������
+/**
+ * ip转数字
+ * @param ip
+ * @returns {number}
+ * @private
+ */
 global._ip2int=function (ip)
 {
     var num = 0;
@@ -22,7 +27,12 @@ global._ip2int=function (ip)
     return num;
 }
 
-//���ͽ���ΪIP��ַ
+/**
+ * 数字转ip
+ * @param num
+ * @returns {string|*}
+ * @private
+ */
 global._int2iP=function (num)
 {
     var str;
@@ -35,13 +45,22 @@ global._int2iP=function (num)
     return str;
 }
 
-//�������
+/**
+ * 密码加密
+ * @param password
+ * @param md5encoded
+ * @returns {*}
+ */
 global.encryptPassword=function(password, md5encoded = false) {
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
 
-//����ȥ��
+/**
+ * 数组去重
+ * @param arr
+ * @returns {Array}
+ */
 global.unique = function (arr) {
     var result = [], hash = {};
     for (var i = 0, elem; (elem = arr[i]) != null; i++) {
@@ -52,7 +71,12 @@ global.unique = function (arr) {
     }
     return result;
 }
-//inarray
+/**
+ * in_array
+ * @param stringToSearch
+ * @param arrayToSearch
+ * @returns {boolean}
+ */
 global.in_array=function (stringToSearch, arrayToSearch) {
     for (let s = 0; s < arrayToSearch.length; s++) {
         let thisEntry = arrayToSearch[s].toString();
@@ -62,9 +86,13 @@ global.in_array=function (stringToSearch, arrayToSearch) {
     }
     return false;
 }
-
+/**
+ * 时间格式化
+ * @param d
+ * @returns {string}
+ */
 global.times = function (d) {
-    //���ڸ�ʽ��
+
     var date = new Date(d);
     var y = date.getFullYear();
     var M = date.getMonth() + 1;
@@ -83,7 +111,7 @@ global.times = function (d) {
  * 排序函数
  */
 function sort_node(v, w) {
-    return v["taxis"] - w["taxis"];
+    return v["sort"] - w["sort"];
 }
 
 /**

@@ -28,8 +28,14 @@
                         Dropdown
                     </header>
                     <div class="panel-body clearfix">
+                        <form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
+                        <div id="category_tree">
 
-                       2222222222222222
+                        </div>
+                        <input type="hidden" name="id" value="<%=thisid%>" />
+                        <button type="submit" class="btn submit-btn ajax-post" target-form="auth-form">确 定</button>
+                        <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+                        </form>
                     </div>
                 </section>
             </section>
@@ -38,4 +44,76 @@
 
     </section>
 </section>
+
 <% include inc/after.html %>
+<script>
+
+    /* 生成HTML ul/li 形式 */
+    function category_to_html(nodes){
+        var html = [];
+        var size = nodes.length;
+        var left = null;
+        var right = null;
+        var text;
+        var stack = [];
+
+        html.push("<ul>");
+
+        for (var i = 0; i < size; i++) {
+            left = nodes[i];
+
+            text = [left["id"],left["title"]].join(",");
+            //text = '<span><i class="glyphicon glyphicon-folder-open"></i>  Parent </span> <a href="#"><i class="glyphicon glyphicon-eye-open"></i></a> <code>id:11</code> <code>排序:2</code> <code>别名:飞洒</code> <code>文章数量:333</code> <a href="">修改</a> <a href="">删除</a>';
+            if (i + 1 < size) {
+                right = nodes[i + 1];
+                /* 入深 */
+                if (left["deep"] < right["deep"]) {
+                    html.push("<li class='parent_li'>");
+                    html.push(text);
+                    html.push("<ul>");
+                    stack.push(1);
+                } else {
+                    html.push("<li>");
+                    html.push(text);
+                    html.push("</li>");
+                }
+                /* 逐层跳出 */
+                if (left["deep"] > right["deep"]) {
+                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
+                        stack.pop();
+                        html.push( "</ul>");
+                        html.push("</li>");
+                    }
+                }
+            } else {
+                if (stack.length > 0) {
+                    html.push("<li>");
+                    html.push(text);
+                    html.push("</li>");
+                    while (stack.pop()) {
+                        html.push( "</ul>");
+                        html.push("</li>");
+                    }
+                } else {
+                    html.push("<li>");
+                    html.push(text);
+                    html.push("</li>");
+                }
+            }
+        }
+        html.push( "</ul>");
+        return html.join("\n");
+    }
+    var id = $("input[name='id']").val();
+    $.ajax({
+        type: "POST",
+        url: "/admin/auth/accessdata",
+        data: {id:id},
+        success: function (msg) {
+            /* 展示生成的HTML */
+            $("#category_tree").html(category_to_html(msg.node_list));
+        }
+            });
+
+
+</script>

@@ -28,7 +28,8 @@ export default class extends think.controller.base {
        let res = await auth.check("/admin/test1");
        //let roles =this.model();
        // console.log(roles);
-       console.log(res);
+       let http = this.http;
+       console.log(http.action);
        this.end();
     }
 
