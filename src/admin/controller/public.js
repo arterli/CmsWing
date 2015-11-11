@@ -16,7 +16,7 @@ export default class extends think.controller.base {
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
-            let res = await this.model("member").signin("admin",password,this.ip());
+            let res = await this.model("member").signin(username,password,this.ip());
             if(0<res.uid){
                 await this.session('userInfo', res);
                 //TODO 用户密钥
