@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : shopnc_svn
-Source Server Version : 50621
-Source Host           : 192.168.88.250:3306
+Source Server         : 本地
+Source Server Version : 50520
+Source Host           : localhost:3306
 Source Database       : vkj
 
 Target Server Type    : MYSQL
-Target Server Version : 50621
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-11-11 18:21:49
+Date: 2015-11-11 18:33:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,15 +25,17 @@ CREATE TABLE `vkj_auth_role` (
   `description` varchar(80) NOT NULL DEFAULT '' COMMENT '描述信息',
   `status` tinyint(11) NOT NULL DEFAULT '1',
   `rule_ids` varchar(255) DEFAULT '',
+  `module` varchar(20) NOT NULL DEFAULT '' COMMENT '用户组所属模块',
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '组类型',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vkj_auth_role
 -- ----------------------------
-INSERT INTO `vkj_auth_role` VALUES ('1', '规则', '分身55', '1', '1,2');
-INSERT INTO `vkj_auth_role` VALUES ('2', '测试用户组', '', '1', '');
-INSERT INTO `vkj_auth_role` VALUES ('19', '版主', '2222', '1', '2');
+INSERT INTO `vkj_auth_role` VALUES ('1', '规则', '分身55', '1', '1,2', 'admin', '1');
+INSERT INTO `vkj_auth_role` VALUES ('2', '测试用户组', '', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_role` VALUES ('19', '版主', '2222', '1', '2', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for vkj_auth_rule
@@ -46,16 +48,126 @@ CREATE TABLE `vkj_auth_rule` (
   `pid` int(11) unsigned NOT NULL DEFAULT '0',
   `status` tinyint(11) NOT NULL DEFAULT '1',
   `condition` varchar(255) DEFAULT '',
+  `module` varchar(20) NOT NULL COMMENT '规则所属module',
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `module` (`module`,`status`,`type`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vkj_auth_rule
 -- ----------------------------
-INSERT INTO `vkj_auth_rule` VALUES ('1', '/admin/index', '规则名称', '0', '1', '');
-INSERT INTO `vkj_auth_rule` VALUES ('2', '/admin/test', '用户编辑', '0', '1', '');
+INSERT INTO `vkj_auth_rule` VALUES ('1', 'admin/article/index', '文档列表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('2', 'admin/article/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('3', 'admin/article/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('4', 'admin/article/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('5', 'admin/article/update', '保存', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('6', 'admin/article/autoSave', '保存草稿', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('7', 'admin/article/move', '移动', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('8', 'admin/article/copy', '复制', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('9', 'admin/article/paste', '粘贴', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('10', 'admin/article/batchOperate', '导入', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('11', 'admin/article/recycle', '回收站', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('12', 'admin/article/permit', '还原', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('13', 'admin/article/clear', '清空', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('14', 'admin/User/index', '用户信息', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('15', 'admin/User/add', '新增用户', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('16', 'admin/User/action', '用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('17', 'admin/User/addaction', '新增用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('18', 'admin/User/editaction', '编辑用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('19', 'admin/User/saveAction', '保存用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('20', 'admin/User/setStatus', '变更行为状态', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('21', 'admin/User/changeStatus?method=forbidUser', '禁用会员', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('22', 'admin/User/changeStatus?method=resumeUser', '启用会员', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('23', 'admin/User/changeStatus?method=deleteUser', '删除会员', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('24', 'admin/AuthManager/index', '权限管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('25', 'admin/AuthManager/changeStatus?method=deleteGroup', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('26', 'admin/AuthManager/changeStatus?method=forbidGroup', '禁用', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('27', 'admin/AuthManager/changeStatus?method=resumeGroup', '恢复', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('28', 'admin/AuthManager/createGroup', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('29', 'admin/AuthManager/editGroup', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('30', 'admin/AuthManager/writeGroup', '保存用户组', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('31', 'admin/AuthManager/group', '授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('32', 'admin/AuthManager/access', '访问授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('33', 'admin/AuthManager/user', '成员授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('34', 'admin/AuthManager/removeFromGroup', '解除授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('35', 'admin/AuthManager/addToGroup', '保存成员授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('36', 'admin/AuthManager/category', '分类授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('37', 'admin/AuthManager/addToCategory', '保存分类授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('38', 'admin/AuthManager/modelauth', '模型授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('39', 'admin/AuthManager/addToModel', '保存模型授权', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('40', 'admin/Addons/create', '创建', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('41', 'admin/Addons/checkForm', '检测创建', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('42', 'admin/Addons/preview', '预览', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('43', 'admin/Addons/build', '快速生成插件', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('44', 'admin/Addons/config', '设置', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('45', 'admin/Addons/disable', '禁用', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('46', 'admin/Addons/enable', '启用', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('47', 'admin/Addons/install', '安装', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('48', 'admin/Addons/uninstall', '卸载', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('49', 'admin/Addons/saveconfig', '更新配置', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('50', 'admin/Addons/adminList', '插件后台列表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('51', 'admin/Addons/execute', 'URL方式访问插件', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('52', 'admin/model/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('53', 'admin/model/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('54', 'admin/model/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('55', 'admin/model/update', '保存数据', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('56', 'admin/Attribute/index', '属性管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('57', 'admin/Attribute/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('58', 'admin/Attribute/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('59', 'admin/Attribute/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('60', 'admin/Attribute/update', '保存数据', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('61', 'admin/Config/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('62', 'admin/Config/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('63', 'admin/Config/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('64', 'admin/Config/save', '保存', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('65', 'admin/Channel/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('66', 'admin/Channel/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('67', 'admin/Channel/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('68', 'admin/Category/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('69', 'admin/Category/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('70', 'admin/Category/remove', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('71', 'admin/Category/operate/type/move', '移动', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('72', 'admin/Category/operate/type/merge', '合并', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('73', 'admin/Database/index?type=export', '备份数据库', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('74', 'admin/Database/export', '备份', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('75', 'admin/Database/optimize', '优化表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('76', 'admin/Database/repair', '修复表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('77', 'admin/Database/index?type=import', '还原数据库', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('78', 'admin/Database/import', '恢复', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('79', 'admin/Database/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('80', 'admin/Menu/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('81', 'admin/Menu/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('82', 'admin/Action/actionlog', '行为日志', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('83', 'admin/User/updatePassword', '修改密码', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('84', 'admin/User/updateNickname', '修改昵称', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('85', 'admin/action/edit', '查看行为日志', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('86', 'admin/think/add', '新增数据', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('87', 'admin/think/edit', '编辑数据', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('88', 'admin/Menu/import', '导入', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('89', 'admin/Model/generate', '生成', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('90', 'admin/Addons/addHook', '新增钩子', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('91', 'admin/Addons/edithook', '编辑钩子', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('92', 'admin/Article/sort', '文档排序', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('93', 'admin/Config/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('94', 'admin/Menu/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('95', 'admin/Channel/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('96', 'admin/think/lists', '数据列表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('97', 'admin/Article/examine', '审核列表', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('98', 'admin/Index/index', '首页', '0', '1', '', 'admin', '2');
+INSERT INTO `vkj_auth_rule` VALUES ('99', 'admin/Addons/index', '插件管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('100', 'admin/Config/group', '网站设置', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('101', 'admin/Article/index', '内容', '0', '1', '', 'admin', '2');
+INSERT INTO `vkj_auth_rule` VALUES ('102', 'admin/Addons/hooks', '钩子管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('103', 'admin/Category/index', '分类管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('104', 'admin/User/index', '用户', '0', '1', '', 'admin', '2');
+INSERT INTO `vkj_auth_rule` VALUES ('105', 'admin/Model/index', '模型管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('106', 'admin/Config/group', '系统', '0', '1', '', 'admin', '2');
+INSERT INTO `vkj_auth_rule` VALUES ('107', 'admin/Config/index', '配置管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('108', 'admin/Menu/index', '菜单管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('109', 'admin/other', '其他', '0', '1', '', 'admin', '2');
+INSERT INTO `vkj_auth_rule` VALUES ('110', 'admin/Channel/index', '导航管理', '0', '1', '', 'admin', '1');
+INSERT INTO `vkj_auth_rule` VALUES ('111', 'admin/Addons/index', '扩展', '0', '1', '', 'admin', '2');
 
 -- ----------------------------
 -- Table structure for vkj_auth_user_role
@@ -103,7 +215,7 @@ CREATE TABLE `vkj_member` (
 -- ----------------------------
 -- Records of vkj_member
 -- ----------------------------
-INSERT INTO `vkj_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1447214125976', '2130706433', '1446275814', '1');
+INSERT INTO `vkj_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1447140295911', '2130706433', '1446275814', '1');
 INSERT INTO `vkj_member` VALUES ('2', 'aaa', '11111', '0', 'fdsa@fsaf.com', '0', '', '0', '0', '0', '0', '0', '0');
 INSERT INTO `vkj_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '0');
 INSERT INTO `vkj_member` VALUES ('4', '', '', '0', '', '0', '', '0', '0', '0', '0', '0', '0');
@@ -234,7 +346,7 @@ INSERT INTO `vkj_menu` VALUES ('89', '修复表', '86', '0', 'Database/repair', 
 INSERT INTO `vkj_menu` VALUES ('90', '还原数据库', '68', '0', 'Database/index?type=import', '0', '', '数据备份', '0', '1');
 INSERT INTO `vkj_menu` VALUES ('91', '恢复', '90', '0', 'Database/import', '0', '数据库恢复', '', '0', '1');
 INSERT INTO `vkj_menu` VALUES ('92', '删除', '90', '0', 'Database/del', '0', '删除备份文件', '', '0', '1');
-INSERT INTO `vkj_menu` VALUES ('93', '其他', '0', '5', 'other', '1', '', '', '0', '1');
+INSERT INTO `vkj_menu` VALUES ('93', '其他', '0', '15', 'other', '1', '', '', '0', '1');
 INSERT INTO `vkj_menu` VALUES ('96', '新增', '75', '0', 'Menu/add', '0', '', '系统设置', '0', '1');
 INSERT INTO `vkj_menu` VALUES ('98', '编辑', '75', '0', 'Menu/edit', '0', '', '', '0', '1');
 INSERT INTO `vkj_menu` VALUES ('106', '行为日志', '16', '0', 'Action/actionlog', '0', '', '行为管理', '0', '1');
