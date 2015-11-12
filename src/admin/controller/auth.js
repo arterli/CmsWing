@@ -167,26 +167,28 @@ export default class extends Base {
      * @returns {*}
      */
     async accessAction() {
-        //await this.updaterules();//更新权限节点
-        //let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
+        await this.updaterules();//更新权限节点
+        let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
         //let node_list = await this.returnnodes();
         //let map       = {module:"admin",type:2,status:1};
         //let main_rules= await this.model('auth_rule').where(map).field("name,id").select();
         //let nap       = {module:"admin",type:1,status:1};
         //let child_rules = await this.model('auth_rule').where(nap).field('name,id').select();
-        //let this_role = {};
-        //    auth_role.forEach(role=>{
-        //        if(role.id==this.get("id")){
-        //            this_role = role;
-        //        }
-        //    })
+        let this_role = {};
+            auth_role.forEach(role=>{
+                if(role.id==this.get("id")){
+                    this_role = role;
+                }
+            })
         //console.log(node_list);
         this.assign({
             "datatables": true,
             "active": "/admin/auth",
             "tactive": "/admin/user",
             "selfjs": "auth",
-            "thisid":this.get("id")
+            "thisid":this.get("id"),
+            "auth_role":auth_role,
+            "this_role":this_role
         })
         return this.display();
     }
@@ -194,21 +196,25 @@ export default class extends Base {
         await this.updaterules();//更新权限节点
         let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
         let node_list = await this.returnnodes();
-        let map       = {module:"admin",type:2,status:1};
+        let map       = {module:"admin",type:['IN',[1,2]],status:1};
         let main_rules=await this.model('auth_rule').where(map).field("name,id").select();
-        let nap       = {module:"admin",type:1,status:1};
-        let child_rules =await this.model('auth_rule').where(nap).field('name,id').select();
+        //let nap       = {module:"admin",type:1,status:1};
+        //let child_rules =await this.model('auth_rule').where(nap).field('name,id').select();
         let this_role = {};
         auth_role.forEach(role=>{
             if(role.id==this.post("id")){
                 this_role = role;
             }
         })
+        let m_rules = {}
+        main_rules.forEach(v=>{
+            let obj = {}
+             obj[v.name]=v.id;
+            Object.assign(m_rules,obj)
+        })
         let data = {
-            "main_rules":main_rules,
-            "auth_rules":child_rules,
+            "main_rules":m_rules,
             "node_list":node_list,
-            "auth_role":auth_role,
             "this_role":this_role
         }
         return this.json(data);

@@ -3,47 +3,50 @@
 <link rel="stylesheet" href="/static/js/datatables/datatables.css" type="text/css"/>
 {% endblock %}
 {% block content %}
-    <section class="hbox stretch">
-        <section class="vbox">
-            <header class="header bg-light dk">
-                <div class="btn-group pull-right">
-                    <a href="#asideres" class="btn btn-sm btn-default" data-toggle="class:show">
-                        <i class="fa fa-plus text"></i>
-                        <span class="text">添加用户</span>
-                        <i class="fa fa-minus text-active"></i>
-                        <span class="text-active">添加完成</span>
-                    </a>
-                    <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
-                    <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
-                    <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i> 删除</button>
+<section class="hbox stretch">
+    <section class="vbox">
+        <header class="header bg-light dk">
+            <div class="btn-group pull-right">
+                <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                    <span class="dropdown-label">{{ this_role.desc }}</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-select accessselect">
+                    {% for item in auth_role %}
+                    <li {%if thisid== item.id %}class="active" {% endif %}><input name="d-s-r" checked="" type="radio"
+                                                                                  value="/admin/auth/access/id/{{item.id}}"><a
+                            href="#">{{ item.desc }}</a></li>
+                    {% endfor %}
+                    <li class="disabled"><input name="d-s-r" disabled="" type="radio"><a href="#">I'm disabled</a></li>
 
-                </div>
-                <p>权限管理</p>
-            </header>
-            <section class="scrollable wrapper">
-                <form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="POST" class="form-horizontal auth-form">
-                    <div id="category_tree"></div>
-                    <input type="hidden" name="id" value="{{thisid}}" />
-                    <button type="submit" class="btn submit-btn ajax-post" target-form="auth-form">确 定</button>
-                    <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
-                </form>
-                <section class="panel panel-default pos-rlt clearfix">
-                    <header class="panel-heading">
-                        <ul class="nav nav-pills pull-right">
-                            <li>
-                                <a class="panel-toggle text-muted" href="#"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
-                            </li>
-                        </ul>
-                        Dropdown
-                    </header>
-                    <div class="panel-body clearfix">
+                </ul>
 
-                    </div>
-                </section>
-            </section>
+            </div>
+            <ul class="nav nav-tabs pull-left">
+            <li class="active"><a data-toggle="tab" href="#messages-2"><i class="fa fa-comments text-muted"></i> 权限管理 </a></li>
+            <li class=""><a data-toggle="tab" href="#profile-2"><i class="fa fa-user text-muted"></i> Profile</a></li>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-cog text-muted"></i> Settings <b class="caret"></b></a>
+                <ul class="dropdown-menu text-left">
+                    <li><a data-toggle="tab" href="#dropdown1">@fat</a></li>
+                    <li><a data-toggle="tab" href="#dropdown2">@mdo</a></li>
+                </ul>
+            </li>
+        </ul>
+        </header>
+        <section class="scrollable wrapper">
+            <form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="POST"
+                  class="form-horizontal auth-form">
+                <div id="category_tree"></div>
+                <input type="hidden" name="id" value="{{thisid}}"/>
+                <button type="submit" class="btn submit-btn ajax-post" target-form="auth-form">确 定</button>
+                <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+            </form>
+
         </section>
-
     </section>
+
+</section>
 {% endblock%}
 
 {% block script%}
@@ -54,77 +57,99 @@
 <script src="/static/js/datatables/auth.js"></script>
 
 <script>
+    +function ($) {
+        /* 生成HTML ul/li 形式 */
+        function category_to_html(nodes, mian) {
+            var html = [];
+            var size = nodes.length;
+            var left = null;
+            var right = null;
+            var text;
+            var stack = [];
 
-    /* 生成HTML ul/li 形式 */
-    function category_to_html(nodes){
-        var html = [];
-        var size = nodes.length;
-        var left = null;
-        var right = null;
-        var text;
-        var stack = [];
+            html.push("<ul>");
 
-        html.push("<ul>");
+            for (var i = 0; i < size; i++) {
+                left = nodes[i];
 
-        for (var i = 0; i < size; i++) {
-            left = nodes[i];
-
-            //text = [left["id"],left["title"]].join(",");
-            text = '<span><label class="checkbox-inline i-checks">\
-                    <input type="checkbox" value="option1"><i></i>\
-                    '+left['title']+'\
+                //text = [left["id"],left["title"]].join(",");
+                text = '<span><label class="checkbox-inline i-checks">\
+            <input class="auth_rules" type="checkbox" name="rules[]" value="' + mian[left.url] + '" ><i></i>\
+                    ' + left['title'] + left.url + mian[left.url] + '\
                     </label></span>';
-            if (i + 1 < size) {
-                right = nodes[i + 1];
-                /* 入深 */
-                if (left["deep"] < right["deep"]) {
-                    html.push("<li class='parent_li'>");
-                    html.push(text);
-                    html.push("<ul>");
-                    stack.push(1);
-                } else {
-                    html.push("<li>");
-                    html.push(text);
-                    html.push("</li>");
-                }
-                /* 逐层跳出 */
-                if (left["deep"] > right["deep"]) {
-                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
-                        stack.pop();
-                        html.push( "</ul>");
+                if (i + 1 < size) {
+                    right = nodes[i + 1];
+                    /* 入深 */
+                    if (left["deep"] < right["deep"]) {
+                        html.push("<li class='parent_li'>");
+                        html.push(text);
+                        html.push("<ul>");
+                        stack.push(1);
+                    } else {
+                        html.push("<li>");
+                        html.push(text);
                         html.push("</li>");
                     }
-                }
-            } else {
-                if (stack.length > 0) {
-                    html.push("<li>");
-                    html.push(text);
-                    html.push("</li>");
-                    while (stack.pop()) {
-                        html.push( "</ul>");
-                        html.push("</li>");
+                    /* 逐层跳出 */
+                    if (left["deep"] > right["deep"]) {
+                        for (var j = 0; j < left["deep"] - right["deep"]; j++) {
+                            stack.pop();
+                            html.push("</ul>");
+                            html.push("</li>");
+                        }
                     }
                 } else {
-                    html.push("<li>");
-                    html.push(text);
-                    html.push("</li>");
+                    if (stack.length > 0) {
+                        html.push("<li>");
+                        html.push(text);
+                        html.push("</li>");
+                        while (stack.pop()) {
+                            html.push("</ul>");
+                            html.push("</li>");
+                        }
+                    } else {
+                        html.push("<li>");
+                        html.push(text);
+                        html.push("</li>");
+                    }
                 }
             }
+            html.push("</ul>");
+            return html.join("\n");
         }
-        html.push( "</ul>");
-        return html.join("\n");
-    }
-    var id = $("input[name='id']").val();
-    $.ajax({
-        type: "POST",
-        url: "/admin/auth/accessdata",
-        data: {id:id},
-        success: function (msg) {
-            /* 展示生成的HTML */
-            $("#category_tree").html(category_to_html(msg.node_list));
-        }
+
+        var id = $("input[name='id']").val();
+        $.ajax({
+            type: "POST",
+            url: "/admin/auth/accessdata",
+            data: {id: id},
+            success: function (msg) {
+                /* 展示生成的HTML */
+                $("#category_tree").html(category_to_html(msg.node_list, msg.main_rules));
+
+            }
+        }).done(function (e) {
+            var rules = e.this_role.rule_ids;
+            rules = rules.split(",");
+
+            $('.auth_rules').each(function () {
+                if ($.inArray(this.value, rules) > -1) {
+                    $(this).prop('checked', true);
+                }
+                if (this.value == '') {
+                    $(this).closest('span').remove();
+                }
+            });
+            //全选节点
+            $('.parent_li span input').on('change', function () {
+                $(this).closest('li').find('ul').find('input').prop('checked', this.checked);
             });
 
+            $('.accessselect li').on('click', function () {
+                location.href = $(this).find("input").val();
+            });
+        });
 
+    }(jQuery);
 </script>
 {% endblock %}
