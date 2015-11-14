@@ -170,7 +170,7 @@ global.get_children = function (nodes, parent) {
     }
     /*
      * 有序树非递归前序遍历
-     * http://ds.fzu.edu.cn/fine/resources/FlashContent.asp?id=51
+     *
      * */
     var stack = [];
     /* 前序操作栈 - 分类编号 */

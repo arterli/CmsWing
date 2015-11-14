@@ -33,5 +33,9 @@ export default class extends think.controller.base {
        this.end();
     }
 
+    nunjucksAction(){
 
+        this.assign("date",new Date().valueOf());
+        return this.display()
+    }
 }

@@ -182,8 +182,7 @@ export default class extends Base {
             })
         //console.log(node_list);
         this.assign({
-            "datatables": true,
-            "active": "/admin/auth",
+            "active": "/admin/auth/index",
             "tactive": "/admin/user",
             "selfjs": "auth",
             "thisid":this.get("id"),
