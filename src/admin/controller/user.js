@@ -22,10 +22,10 @@ export default class extends Base {
 
     indexAction(){
         this.assign({
-            "datatables":true,
+
             "active":"/admin/user/index",
             "tactive":"/admin/user",
-            "selfjs":"list"
+
         })
         return this.display();
     }

@@ -70,7 +70,7 @@
 
                     <!--<li class="m-b hidden-nav-xs"></li>-->
                     <!--</ul>-->
-                    <ul class="nav"  data-ride="collapse">
+                    <ul class="nav" data-ride="collapse">
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
                             <span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>
                             功能
@@ -124,7 +124,6 @@
                                 <li>
                                     <a href="profile.html" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
-
                                         <span>Profile</span>
                                     </a>
                                 </li>
@@ -184,7 +183,9 @@
                             <!--<span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>-->
                             系统
                         </li>
-                        {% if tactive=="/admin/user" %}<li class="active" >{% else %}<li>{% endif %}
+                        {% if tactive=="/admin/user" %}
+                        <li class="active">{% else %}
+                        <li>{% endif %}
                             <a href="#" class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -195,14 +196,18 @@
                                 <span>用户管理</span>
                             </a>
                             <ul class="nav dk text-sm">
-                                {% if active=="/admin/user/index" %}<li class="active" >{% else %}<li>{% endif %}
+                                {% if active=="/admin/user/index" %}
+                                <li class="active">{% else %}
+                                <li>{% endif %}
                                     <a href="/admin/user/index" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
 
                                         <span>用户列表</span>
                                     </a>
                                 </li>
-                                {% if active=="/admin/auth/index" %}<li class="active" >{% else %}<li>{% endif %}
+                                {% if active=="/admin/auth/index" %}
+                                <li class="active">{% else %}
+                                <li>{% endif %}
                                     <a href="/admin/auth/index" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
 
@@ -226,12 +231,56 @@
                             </ul>
                         </li>
 
-                        <li>
+                        {% if tactive=="sysm" %}
+                        <li class="active">{% else %}
+                        <li>{% endif %}
                             <a href="#">
+                                 <span class="pull-right text-muted">
+                          <i class="fa fa-angle-left text"></i>
+                          <i class="fa fa-angle-down text-active"></i>
+                        </span>
                                 <i class=" icon-settings icon text-success-lter"></i>
-                                <b class="badge bg-success dker pull-right">9</b>
                                 <span>系统设置</span>
                             </a>
+
+                        <ul class="nav dk text-sm">
+                            {% if active=="/admin/setup/index" %}
+                            <li class="active">{% else %}
+                            <li>{% endif %}
+                                <a href="/admin/setup/index" class="auto">
+                                    <i class="fa fa-angle-right text-xs"></i>
+
+                                    <span>网站设置</span>
+                                </a>
+                            </li>
+                            {% if active=="/admin/menu/index" %}
+                            <li class="active">{% else %}
+                            <li>{% endif %}
+                                <a href="/admin/menu/index" class="auto">
+                                    <i class="fa fa-angle-right text-xs"></i>
+
+                                    <span>菜单管理</span>
+                                </a>
+                            </li>
+                            {% if active=="/admin/channel/index" %}
+                            <li class="active">{% else %}
+                            <li>{% endif %}
+                                <a href="/admin/channel/index" class="auto">
+                                    <i class="fa fa-angle-right text-xs"></i>
+
+                                    <span>导航管理</span>
+                                </a>
+                            </li>
+                            {% if active=="/admin/database/index" %}
+                            <li class="active">{% else %}
+                            <li>{% endif %}
+                                <a href="/admin/database/index" class="auto">
+                                    <i class="fa fa-angle-right text-xs"></i>
+
+                                    <span>数据备份</span>
+                                </a>
+                            </li>
+                        </ul>
                         </li>
                     </ul>
                 </nav>
