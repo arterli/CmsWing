@@ -52,6 +52,11 @@ export default class extends Base {
        return this.json(data);
     }
 
+    /**
+     * adduser
+     * 添加用户
+     * @returns {Promise|*}
+     */
     async adduserAction(){
          let data=this.post();
              data.password = encryptPassword(data.password);
@@ -64,6 +69,33 @@ export default class extends Base {
         }
 
     }
+
+    /**
+     * userdel
+     * 用户删除
+     * @returns {Promise|*}
+     */
+    async userdelAction() {
+        let id = this.post("id");
+        //console.log(id);
+        let res = await this.db.where({id: id}).delete();
+        return this.json(res);
+    }
+    /**
+     * 改变角色状态
+     * @returns {Promise|*}
+     */
+    async chstaAction(){
+        let res = await this.db.update(this.get());
+        if(res){
+            return this.json(res);
+        }
+    }
+
+    /**
+     * 注册异步验证用户数据
+     * @returns {Promise|*}
+     */
     async parsleyAction(){
         //验证
         let data=this.get();

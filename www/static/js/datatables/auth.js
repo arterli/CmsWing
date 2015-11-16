@@ -35,12 +35,17 @@ function initTable() {
             {
                 "mRender": function (data, type, row) {
 
-                    return '<a href="#" class="active" data-toggle="class"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                    if(data==1){
+                    return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+')"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                    }else{
+                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+')"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
+
+                    }
                 }, "bSortable": false, "aTargets": [4]
             },
             {
                 "mRender": function (data, type, row) {
-                    var url1 = "/admin/user/roleedit/id/" + data;
+                    var url1 = "/admin/auth/roleedit/id/" + data;
                     //var url2 = "/admin/user/roledel/id/"+data;
                     return '<a class="btn btn-default btn-xs" data-bjax="" data-target="#bjax-target"  href=' + url1 + ' onclick="_editBn()">编辑</a> ' +
                         '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';
@@ -140,6 +145,7 @@ function _addFun() {
     var jsonData = {
         'desc': $("#desc").val(),
         'description': $("#description").val(),
+        'type':1
     };
     // alert(jsonData.description)
     $.ajax({
@@ -193,6 +199,25 @@ function resetFrom() {
         $('form')[index].reset();
     });
 }
+/**
+ * 改变角色状态
+ */
+function _chsta(status,id){
+    $.ajax({
+        url:"/admin/auth/chsta",
+        data:{status:status,id:id},
+        success:function(res){
+            if(res){
+                oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
+            }else{
+                alert("状态更新失败！");
+            }
+        }
+    })
+
+
+}
+
 /*
  add this plug in
  // you can call the below function to reload the table with current state

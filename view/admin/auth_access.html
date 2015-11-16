@@ -29,11 +29,11 @@
         </ul>
         </header>
         <section class="scrollable wrapper">
-            <form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded" method="POST"
+            <form action="/admin/auth/writerole" enctype="application/x-www-form-urlencoded" method="POST"
                   class="form-horizontal auth-form">
                 <div id="category_tree"></div>
                 <input type="hidden" name="id" value="{{thisid}}"/>
-                <button type="submit" class="btn submit-btn ajax-post" target-form="auth-form">确 定</button>
+                <button type="submit" class="btn submit-btn " target-form="auth-form">确 定</button>
                 <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
             </form>
 
@@ -68,8 +68,8 @@
 
                 //text = [left["id"],left["title"]].join(",");
                 text = '<span><label class="checkbox-inline i-checks">\
-            <input class="auth_rules" type="checkbox" name="rules[]" value="' + mian[left.url] + '" ><i></i>\
-                    ' + left['title'] + left.url + mian[left.url] + '\
+            <input class="auth_rules" type="checkbox" name="rules" value="' + mian[left.url] + '" ><i></i>\
+                    ' + left['title'] +  '\
                     </label></span>';
                 if (i + 1 < size) {
                     right = nodes[i + 1];
@@ -124,8 +124,9 @@
             }
         }).done(function (e) {
             var rules = e.this_role.rule_ids;
+            if(rules){
             rules = rules.split(",");
-
+            }
             $('.auth_rules').each(function () {
                 if ($.inArray(this.value, rules) > -1) {
                     $(this).prop('checked', true);

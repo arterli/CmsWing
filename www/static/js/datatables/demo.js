@@ -1,4 +1,4 @@
-+function ($) {
+
     "use strict";
 var oTable;
     $(function () {
@@ -19,14 +19,19 @@ var oTable;
 
                     {
                         "mRender": function (data, type, row) {
+                            if(data==1){
+                                return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+')"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                            }else{
+                                return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+')"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
 
-                            return '<a href="#" class="active" data-toggle="class"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                            }
                         }, "bSortable": false, "aTargets": [7]
                     },
                     {
                         "mRender": function (data, type, row) {
 
-                            return '<a class="btn btn-default btn-xs" href="#'+data+'">编辑</a> <a class="btn btn-default btn-xs" href="#">删除</a>';
+                            return '<a class="btn btn-default btn-xs" href="#'+data+'">编辑</a>' +
+                                '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';;
                         }, "bSortable": false, "aTargets": [8]
                     },
                     {
@@ -129,7 +134,8 @@ var oTable;
             var jsonData = {
                 'username': $("input[name='username']").val(),
                 'password': $("input[name='password']").val(),
-                'email': $("input[name='email']").val()
+                'email': $("input[name='email']").val(),
+                'status':1
             };
             $.ajax({
                 url: "/admin/user/adduser",
@@ -159,6 +165,46 @@ var oTable;
                 $('form')[index].reset();
             });
         }
+    /**
+     * 改变用户状态
+     */
+    function _chsta(status,id){
+        $.ajax({
+            url:"/admin/user/chsta",
+            data:{status:status,id:id},
+            success:function(res){
+                if(res){
+                    oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
+                }else{
+                    alert("状态更新失败！");
+                }
+            }
+        })
+
+
+    }
+    /**
+     * 删除
+     * @param id
+     * @private
+     */
+    function _deleteFun(id) {
+
+        $.ajax({
+            url: "/admin/user/userdel",
+            data: {"id": id},
+            type: "post",
+            success: function (backdata) {
+                if (backdata) {
+                    oTable.fnReloadAjax(oTable.fnSettings());
+                } else {
+                    alert("删除失败");
+                }
+            }, error: function (error) {
+                console.log(error);
+            }
+        });
+    }
         /*
          add this plug in
          // you can call the below function to reload the table with current state
@@ -182,4 +228,3 @@ var oTable;
             });
         }
 
-}(window.jQuery);

@@ -100,7 +100,7 @@ export default class extends Base {
 
 
     /**
-     * 用户首页
+     * index权限管理首页
      * @returns {*}
      */
     indexAction() {
@@ -114,6 +114,11 @@ export default class extends Base {
         return this.display();
     }
 
+    /**
+     * role
+     * 权限管理首页ajax角色列表
+     * @returns {Promise|*}
+     */
     async roleAction() {
         let gets = this.get();
         let draw = gets.draw;
@@ -155,6 +160,11 @@ export default class extends Base {
         }
     }
 
+    /**
+     * roldel
+     * 角色删除
+     * @returns {Promise|*}
+     */
     async roledelAction() {
         let id = this.post("id");
         //console.log(id);
@@ -225,5 +235,34 @@ export default class extends Base {
         this.end();
     }
 
+    /**
+     * 管理员用户组数据写入/更新
+     *
+     */
+    async writeroleAction(){
+        let map={};
+        map.rule_ids = this.post("rules");
+        if(think.isArray(map.rule_ids)){
+        map.rule_ids = map.rule_ids.sort(function(a,b){return a-b}).join(",");
+        }
+        map.module = "admin";
+        map.type = 1;
+        let id = this.post("id");
+        let role = this.model("auth_role");
+            await role.where({id:id}).update(map);
+            return this.success({name:"更新成功"});
 
+    }
+
+    /**
+     * 改变角色状态
+     * @returns {Promise|*}
+     */
+    async chstaAction(){
+        let role = this.model("auth_role");
+        let res = await role.update(this.get());
+        if(res){
+            return this.json(res);
+        }
+    }
 }

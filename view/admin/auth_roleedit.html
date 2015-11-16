@@ -1,13 +1,13 @@
-<div class="wrapper">
-    <h4 class="m-t-none">编辑用户组 </h4>
+<div class="wrapper" >
+    <h4 class="m-t-none">编辑用户组 <span class="pull-right "><a href="#" id="colse"><i class="fa fa-times icon-muted fa-fw"></i></a></span></h4>
     <form data-validate="" id="eidtform">
         <div class="form-group">
             <label>用户名称 <i class="fa fa-info-sign text-xs text-muted">用户名会作为默认的昵称</i></label>
-            <input type="text" id="edesc" name="desc" class="input-sm form-control" placeholder="用户名称" data-required="true" value="<%=data.desc%>">
+            <input type="text" id="edesc" name="desc" class="input-sm form-control" placeholder="用户名称" data-required="true" value="{{data.desc}}">
         </div>
         <div class="form-group">
             <label>密码 <i class="fa fa-info-sign text-xs text-muted">用户密码不能少于6位</i></label>
-            <textarea id="edescription" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" ><%=data.description%></textarea>
+            <textarea id="edescription" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" >{{data.description}}</textarea>
         </div>
 
        <input id="eid" type="hidden" name="id" value="<%=data.id%>">
@@ -15,7 +15,14 @@
     </form>
 </div>
 <script>
+
     $(function(){
+
+        $("#colse").click(function(){
+            $("#bjax-target").addClass("hide");
+        })
+
+
 
 
     $("#editbtn").on('click',function(){
@@ -38,7 +45,7 @@
 //        return false;
         $.ajax({
             type: 'POST',
-            url: '/admin/user/roleedit',
+            url: '/admin/auth/roleedit',
             data: jsonData,
             success: function (json) {
                 if (json) {
