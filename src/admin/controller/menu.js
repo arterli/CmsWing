@@ -25,7 +25,7 @@ export default class extends Base {
     }
 
     /**
-     * ajax获取菜单列表
+     * getlist
      */
     async getlistAction(){
         let pid = this.get("pid")||0;
@@ -34,7 +34,7 @@ export default class extends Base {
         let data = await this.db.where({id:pid}).find();
         }
         let i = pid;
-        //循环查找pid，直到pid=0
+        //
         let breadcrumb = []
         while (i!=0)
         {
@@ -44,7 +44,7 @@ export default class extends Base {
 
         }
         let all_menu = await this.db.field('id,title').select();
-        //all_men转换
+        //all_men
         let obj = {};
           all_menu.forEach(v=>{
               obj[v.id]=v.title;
@@ -53,7 +53,7 @@ export default class extends Base {
         let map = {};
         map.pid = pid;
         let list = await this.db.where(map).order("sort asc ,id asc").select();
-        //list重组
+        //list
         if(list){
             list.forEach((v,k)=>{
                 if(v.pid){
@@ -90,6 +90,31 @@ export default class extends Base {
         if(res){
             return this.json(res);
         }
+    }
+    /**
+     * 编辑菜单
+     * @returns {*}
+     */
+    async editAction() {
+        if (this.isAjax("post")) {
+            let id = this.post("id");
+            let desc = this.post("desc");
+            let description = this.post("description");
+            let data = await this.model('auth_role').where({id: id}).update({desc: desc, description: description});
+            return this.json(data);
+        } else {
+            let id = this.get("id");
+            let res = await this.db.where({id: id}).find();
+            console.log(res);
+            this.assign({
+                data: res
+            })
+            return this.display();
+        }
+    }
+
+    addAction(){
+        return this.display();
     }
     aabbAction(){
         console.log(1)

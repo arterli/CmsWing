@@ -5,34 +5,19 @@
 {% block content %}
 <section class="hbox stretch">
 
-    <aside id="asideres" class="aside-lg bg-light b-r hide">
-        <div class="wrapper">
-            <h4 class="m-t-none">新增角色 </h4>
-            <form data-validate="" id="register">
-                <div class="form-group">
-                    <label>用户组 </label>
-                    <input id="desc" type="text" name="desc" class="input-sm form-control" placeholder="角色名称" data-required="true">
-                </div>
-                <div class="form-group">
-                    <label>描述 </label>
-                    <textarea id="description" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" ></textarea>
-                </div>
-                <div class="m-t-lg"><button class="btn btn-lg btn-default" id="btn">添加角色</button></div>
-            </form>
-        </div>
-    </aside>
-    <aside id="bjax-target" class="aside-lg bg-light b-r hide">
+
+    <aside id="bjax-target" class="aside-lg  bg-light b-r hide">
 
     </aside>
     <aside>
         <section class="vbox">
             <header class="header bg-light dk">
                 <div class="btn-group pull-right">
-                    <a href="#asideres" class="btn btn-sm btn-default" data-toggle="class:show">
+                    <a href="/admin/menu/add#bjax-target" class="btn btn-sm btn-default" data-toggle="class:show" data-bjax="" data-target="#bjax-target">
                         <i class="fa fa-plus text"></i>
-                        <span class="text">添加角色</span>
-                        <i class="fa fa-minus text-active"></i>
-                        <span class="text-active">添加完成</span>
+                        <span class="text">添加菜单</span>
+                        <i class="fa fa-plus text-active"></i>
+                        <span class="text-active">添加菜单</span>
                     </a>
                     <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
                     <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
@@ -61,9 +46,9 @@
                                 <th  style="width:10%">上级菜单</th>
                                 <th  style="width:10%">分组</th>
                                 <th  style="width:20%">URL</th>
-                                <th  style="width:5%">排序</th>
-                                <th  style="width:20%">仅开发者模式显示开发模式</th>
-                                <th  style="width:5%">隐藏</th>
+                                <th  style="width:10%">排序</th>
+                                <th  style="width:10%">开发模式</th>
+                                <th  style="width:10%">隐藏</th>
                                 <th  style="width:10%">操作</th>
 
                             </tr>

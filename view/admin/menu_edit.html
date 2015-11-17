@@ -1,0 +1,112 @@
+<section class="vbox">
+<section class="scrollable wrapper" >
+    <h4 class="m-t-none">编辑菜单 <span class="pull-right "><a href="#" id="colse"><i class="fa fa-times icon-muted fa-fw"></i></a></span></h4>
+    <form data-validate="" id="eidtform">
+        <div class="form-group">
+            <label>名称 <i class="fa fa-info-sign text-xs text-muted">用于后台显示的配置标题</i></label>
+            <input type="text" id="title" name="title" class="input-sm form-control" placeholder="菜单名称" data-required="true" value="{{data.title}}">
+        </div>
+        <div class="form-group">
+            <label>排序 <i class="fa fa-info-sign text-xs text-muted">用于分组显示的顺序</i></label>
+            <input id="sort" type="text" name="sort" class=" input-sm form-control" placeholder="排序" data-required="true" value="{{data.sort}}" >
+        </div>
+        <div class="form-group">
+            <label>连接 <i class="fa fa-info-sign text-xs text-muted">如：index/index</i></label>
+            <input id="url" type="text" name="url" class=" input-sm form-control" placeholder="url" data-required="true" value="{{data.url}}" >
+        </div>
+        <div class="form-group">
+            <label>上级菜单 <i class="fa fa-info-sign text-xs text-muted">所属的上级菜单</i></label>
+            <select class="form-control m-b" name="account">
+                <option>option 1</option>
+                <option>option 2</option>
+                <option>option 3</option>
+                <option>option 4</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>分组 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
+            <input id="group" type="text" name="group" class=" input-sm form-control" placeholder="分组" data-required="true" value="{{data.group}}" >
+        </div>
+        <div class="form-group">
+            <label>是否隐藏 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
+            <div class="">
+            <label class="radio-inline i-checks">
+                <input type="radio" value="0" name="hide" checked>
+                <i></i>
+                是
+            </label>
+            <label class="radio-inline i-checks">
+                <input type="radio" value="1" name="hide">
+                <i></i>
+               否
+            </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>仅开发者模式可见 <i class="fa fa-info-sign text-xs text-muted"></i></label>
+            <div class="">
+                <label class="radio-inline i-checks">
+                    <input type="radio" value="0" name="is_dev" checked>
+                    <i></i>
+                    是
+                </label>
+                <label class="radio-inline i-checks">
+                    <input type="radio" value="1" name="is_dev">
+                    <i></i>
+                    否
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>说明 <i class="fa fa-info-sign text-xs text-muted">菜单详细说明</i></label>
+            <input id="tip" type="text" name="tip" class=" input-sm form-control" placeholder="说明" data-required="true" value="{{data.tip}}" >
+        </div>
+        <input id="eid" type="hidden" name="id" value="<%=data.id%>">
+        <div class="m-t-lg"><button class="btn btn-block btn-primary" id="editbtn">编辑菜单</button></div>
+        <div class="m-t-lg"></div>
+    </form>
+</section>
+</section>
+<script>
+
+    $(function(){
+
+        $("#colse").click(function(){
+            $("#bjax-target").removeClass("show");
+        })
+
+        $("#editbtn").on('click',function(){
+            $('#eidtform').parsley().validate();
+            if (true === $('#eidtform').parsley().isValid()) {
+                _editFunAjax();
+            }
+            return false;
+        })
+        function _editFunAjax() {
+            var id = $("#eid").val();
+            var desc = $("#edesc").val();
+            var description = $("#edescription").val();
+            var jsonData = {
+                "id": id,
+                "desc": desc,
+                "description": description
+            };
+//        console.log(jsonData);
+//        return false;
+            $.ajax({
+                type: 'POST',
+                url: '/admin/auth/roleedit',
+                data: jsonData,
+                success: function (json) {
+                    if (json) {
+                        //$("#myModal").modal("hide");
+                        //resetFrom();
+                        oTable.fnReloadAjax(oTable.fnSettings());
+                    } else {
+                        alert("更新失败");
+                    }
+                }
+            });
+        }
+    })
+</script>
