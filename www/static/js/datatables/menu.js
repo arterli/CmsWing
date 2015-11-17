@@ -37,7 +37,7 @@ function initTable() {
         "aoColumnDefs": [
             {
                 "mRender": function (data, type, row) {
-                        return '<a href="#" class="text-info-lter"  onclick="_getlist('+row.id+')">'+data+'</a>';
+                        return '<a href="javascript:void(0);" class="text-info-lter"  onclick="_getlist('+row.id+')">'+data+'</a>';
 
                 }, "bSortable": false, "aTargets": [2]
             },
@@ -45,9 +45,9 @@ function initTable() {
                 "mRender": function (data, type, row) {
 
                     if(data==1){
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',2)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                        return '<a href="javascript:void(0);" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',2)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
                     }else{
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',2)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
+                        return '<a href="javascript:void(0);" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',2)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
 
                     }
                 }, "bSortable": false, "aTargets": [7]
@@ -55,9 +55,9 @@ function initTable() {
             {
                 "mRender": function (data, type, row) {
                     if(data==1){
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',1)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                        return '<a href="javascript:void(0);" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',1)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
                     }else{
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',1)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
+                        return '<a href="javascript:void(0);" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',1)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
 
                     }
                 }, "bSortable": false, "aTargets": [8]
@@ -132,14 +132,14 @@ function _getlist(pid){
                 if(k+1 == n){
                     html='<li class="active text-xs">'+v.title+'</li>'
                 }else{
-                    html='<li><a href="#" onclick="_getlist('+v.id+')">'+v.title+'</a></li>'
+                    html='<li><a href="javascript:void(0);" onclick="_getlist('+v.id+')">'+v.title+'</a></li>'
                 }
 
                 nav.push(html);
             })
             }
         console.log(nav.join(""));
-       $('.breadcrumb').html('<li><a href="#" onclick="_getlist(0)"><i class="fa fa-list-ul"></i> 菜单列表</a></li>'+nav.join(""));
+       $('.breadcrumb').html('<li><a href="javascript:void(0);" onclick="_getlist(0)"><i class="fa fa-list-ul"></i> 菜单列表</a></li>'+nav.join(""));
     });
 }
 /**
