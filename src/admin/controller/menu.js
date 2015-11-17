@@ -12,19 +12,65 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
+        this.db = this.model('menu');
     }
-    __before(){
-        this.assign({
-            "tactive":"sysm",
-            "bg":"bg-black"
-        });
-    }
+
     indexAction(){
         //auto render template file index_index.html
         this.assign({
+            "tactive":"sysm",
             "active":"/admin/menu/index",
         })
         return this.display();
+    }
+
+    /**
+     * ajax获取菜单列表
+     */
+    async getlistAction(){
+        let pid = this.get("pid")||0;
+        let draw = this.get("draw");
+        if(pid){
+        let data = await this.db.where({id:pid}).find();
+        }
+        let i = pid;
+        //循环查找pid，直到pid=0
+        let breadcrumb = []
+        while (i!=0)
+        {
+            let nav = await this.db.where({id:i}).field("id,title,pid").find();
+            breadcrumb.push(nav);
+            i = nav.pid;
+
+        }
+        let all_menu = await this.db.field('id,title').select();
+        //all_men转换
+        let obj = {};
+          all_menu.forEach(v=>{
+              obj[v.id]=v.title;
+          })
+
+        let map = {};
+        map.pid = pid;
+        let list = await this.db.where(map).order("sort asc ,id asc").select();
+        //list重组
+        if(list){
+            list.forEach((v,k)=>{
+                if(v.pid){
+                    v.up_title=obj[v.pid];
+                }else{
+                    v.up_title="一级菜单";
+                }
+            })
+        }
+        let relist = {
+            "draw": draw,
+            "data": list,
+            "breadcrumb":breadcrumb.reverse()
+        }
+        //console.log(data);
+        return this.json(relist);
+
     }
     aabbAction(){
         console.log(1)
