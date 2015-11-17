@@ -45,20 +45,19 @@ function initTable() {
                 "mRender": function (data, type, row) {
 
                     if(data==1){
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+')"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',2)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
                     }else{
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+')"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
+                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',2)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
 
                     }
                 }, "bSortable": false, "aTargets": [7]
             },
             {
                 "mRender": function (data, type, row) {
-
                     if(data==1){
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+')"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
+                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(0,'+row.id+',1)"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>';
                     }else{
-                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+')"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
+                        return '<a href="#" class="active" data-toggle="class" onclick="_chsta(1,'+row.id+',1)"><i class="fa fa-check text-success text"></i><i class="fa fa-times text-danger text-active"></i></a>';
 
                     }
                 }, "bSortable": false, "aTargets": [8]
@@ -125,9 +124,6 @@ function initTable() {
  */
 function _getlist(pid){
     oTable.ajax.url( '/admin/menu/getlist/pid/'+pid ).load(function(e){
-        //<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-        //<li><a href="#"><i class="fa fa-list-ul"></i> Elements</a></li>
-        //<li class="active">Components</li>
         if(e.breadcrumb){
             var nav = []
             var html;
@@ -240,13 +236,14 @@ function resetFrom() {
 /**
  * 改变角色状态
  */
-function _chsta(status,id){
+function _chsta(status,id,key){
     $.ajax({
-        url:"/admin/auth/chsta",
-        data:{status:status,id:id},
+        url:"/admin/menu/chsta",
+        data:{status:status,id:id,key:key},
         success:function(res){
             if(res){
-                oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
+                oTable.ajax.reload();
+                //oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
             }else{
                 alert("状态更新失败！");
             }

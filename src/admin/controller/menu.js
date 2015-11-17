@@ -72,6 +72,25 @@ export default class extends Base {
         return this.json(relist);
 
     }
+    /**
+     * 改变状态
+     * @returns {Promise|*}
+     */
+    async chstaAction(){
+          //let gets = this.get();
+          let map = {};
+        //console.log(gets);
+        if(this.get("key")==1){
+            map.hide = this.get("status");
+        }else{
+            map.is_dev = this.get("status");
+        }
+        map.id = this.get("id");
+        let res = await this.db.update(map);
+        if(res){
+            return this.json(res);
+        }
+    }
     aabbAction(){
         console.log(1)
     }
