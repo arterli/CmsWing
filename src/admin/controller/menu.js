@@ -98,14 +98,12 @@ export default class extends Base {
     async editAction() {
         if (this.isAjax("post")) {
             let id = this.post("id");
-            let desc = this.post("desc");
-            let description = this.post("description");
-            let data = await this.model('auth_role').where({id: id}).update({desc: desc, description: description});
+            let data = await this.db.where({id: id}).update(this.post());
             return this.json(data);
         } else {
             let id = this.get("id");
             let res = await this.db.where({id: id}).find();
-            console.log(res);
+           // console.log(res);
             this.assign({
                 data: res
             })
@@ -113,8 +111,40 @@ export default class extends Base {
         }
     }
 
-    addAction(){
+    /**
+     * 添加菜单
+     * @returns {*}
+     */
+    async addAction(){
+        if(this.isAjax("post")){
+         let data = this.post();
+            data.status = 1;
+            let add = await this.db.add(data);
+            return this.json(add);
+        }else{
         return this.display();
+        }
+    }
+
+    /**
+     * 删除菜单
+     * @returns {Promise|*}
+     */
+      async deleteAction(){
+          let id = this.post("id");
+          //console.log(id);
+          let res = await this.db.where({id: id}).delete();
+          return this.json(res);
+        }
+
+    /**
+     * 获取上级菜单
+     * @returns {Promise|*}
+     */
+    async getmenuAction(){
+        let menu = await this.returnnodes();
+       // console.log(menu);
+        return this.json(menu);
     }
     aabbAction(){
         console.log(1)

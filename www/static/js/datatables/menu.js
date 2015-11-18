@@ -138,7 +138,7 @@ function _getlist(pid){
                 nav.push(html);
             })
             }
-        console.log(nav.join(""));
+        //console.log(nav.join(""));
        $('.breadcrumb').html('<li><a href="javascript:void(0);" onclick="_getlist(0)"><i class="fa fa-list-ul"></i> 菜单列表</a></li>'+nav.join(""));
     });
 }
@@ -175,32 +175,6 @@ function _editFunAjax() {
     });
 }
 
-function _addFun() {
-    var jsonData = {
-        'desc': $("#desc").val(),
-        'description': $("#description").val(),
-        'type':1
-    };
-    // alert(jsonData.description)
-    $.ajax({
-        url: "/admin/auth/roleadd",
-        data: jsonData,
-        type: "post",
-        success: function (backdata) {
-            if (backdata == 1) {
-                //$("#myModal").modal("hide");
-                resetFrom();
-                oTable.fnReloadAjax(oTable.fnSettings());
-            } else if (backdata == 0) {
-                alert("插入失败");
-            } else {
-                alert("防止数据不断增长，会影响速度，请先删掉一些数据再做测试");
-            }
-        }, error: function (error) {
-            console.log(error);
-        }
-    });
-}
 
 /**
  * 删除
@@ -210,12 +184,13 @@ function _addFun() {
 function _deleteFun(id) {
 
     $.ajax({
-        url: "/admin/auth/roledel",
+        url: "/admin/menu/delete",
         data: {"id": id},
         type: "post",
         success: function (backdata) {
             if (backdata) {
-                oTable.fnReloadAjax(oTable.fnSettings());
+                oTable.ajax.reload();
+                alert("删除成功");
             } else {
                 alert("删除失败");
             }

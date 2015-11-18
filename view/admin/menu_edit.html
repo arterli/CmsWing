@@ -8,7 +8,7 @@
         </div>
         <div class="form-group">
             <label>排序 <i class="fa fa-info-sign text-xs text-muted">用于分组显示的顺序</i></label>
-            <input id="sort" type="text" name="sort" class=" input-sm form-control" placeholder="排序" data-required="true" value="{{data.sort}}" >
+            <input id="sort" type="text" name="sort" class=" input-sm form-control" placeholder="排序"  value="{{data.sort}}" >
         </div>
         <div class="form-group">
             <label>连接 <i class="fa fa-info-sign text-xs text-muted">如：index/index</i></label>
@@ -16,27 +16,23 @@
         </div>
         <div class="form-group">
             <label>上级菜单 <i class="fa fa-info-sign text-xs text-muted">所属的上级菜单</i></label>
-            <select class="form-control m-b" name="account">
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-                <option>option 4</option>
+            <select class="form-control m-b" name="pid" id="pid" data-pid="{{data.pid}}">
             </select>
         </div>
         <div class="form-group">
             <label>分组 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
-            <input id="group" type="text" name="group" class=" input-sm form-control" placeholder="分组" data-required="true" value="{{data.group}}" >
+            <input id="group" type="text" name="group" class=" input-sm form-control" placeholder="分组"  value="{{data.group}}" >
         </div>
         <div class="form-group">
             <label>是否隐藏 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
             <div class="">
             <label class="radio-inline i-checks">
-                <input type="radio" value="0" name="hide" checked>
+                <input type="radio" value="1" name="hide" {% if data.hide == 1 %}checked{% endif %}>
                 <i></i>
                 是
             </label>
             <label class="radio-inline i-checks">
-                <input type="radio" value="1" name="hide">
+                <input type="radio" value="0" name="hide" {% if data.hide == 0 %}checked{% endif %}>
                 <i></i>
                否
             </label>
@@ -46,12 +42,12 @@
             <label>仅开发者模式可见 <i class="fa fa-info-sign text-xs text-muted"></i></label>
             <div class="">
                 <label class="radio-inline i-checks">
-                    <input type="radio" value="0" name="is_dev" checked>
+                    <input type="radio" value="1" name="is_dev" {% if data.is_dev == 1 %}checked{% endif %}>
                     <i></i>
                     是
                 </label>
                 <label class="radio-inline i-checks">
-                    <input type="radio" value="1" name="is_dev">
+                    <input type="radio" value="0" name="is_dev" {% if data.is_dev == 0 %}checked{% endif %}>
                     <i></i>
                     否
                 </label>
@@ -59,9 +55,9 @@
         </div>
         <div class="form-group">
             <label>说明 <i class="fa fa-info-sign text-xs text-muted">菜单详细说明</i></label>
-            <input id="tip" type="text" name="tip" class=" input-sm form-control" placeholder="说明" data-required="true" value="{{data.tip}}" >
+            <input id="tip" type="text" name="tip" class=" input-sm form-control" placeholder="说明"  value="{{data.tip}}" >
         </div>
-        <input id="eid" type="hidden" name="id" value="<%=data.id%>">
+        <input id="eid" type="hidden" name="id" value="{{data.id}}">
         <div class="m-t-lg"><button class="btn btn-block btn-primary" id="editbtn">编辑菜单</button></div>
         <div class="m-t-lg"></div>
     </form>
@@ -84,29 +80,72 @@
         })
         function _editFunAjax() {
             var id = $("#eid").val();
-            var desc = $("#edesc").val();
-            var description = $("#edescription").val();
+            var title = $("#title").val();
+            var sort = $("#sort").val();
+            var url = $("#url").val();
+            var pid = $("#pid").val();
+            var group = $("#group").val();
+            var hide=  $("input[name='hide']:checked").val();
+            var is_dev=  $("input[name='is_dev']:checked").val();
+            var tip = $("input[name='tip']").val();
             var jsonData = {
-                "id": id,
-                "desc": desc,
-                "description": description
+                "id":id,
+                "title": title,
+                "sort": sort,
+                "url": url,
+                "pid":pid,
+                "group":group,
+                "hide":hide,
+                "is_dev":is_dev,
+                "tip":tip
             };
-//        console.log(jsonData);
-//        return false;
             $.ajax({
                 type: 'POST',
-                url: '/admin/auth/roleedit',
+                url: '/admin/menu/edit',
                 data: jsonData,
                 success: function (json) {
                     if (json) {
                         //$("#myModal").modal("hide");
                         //resetFrom();
-                        oTable.fnReloadAjax(oTable.fnSettings());
+                        oTable.ajax.reload();
                     } else {
                         alert("更新失败");
                     }
                 }
             });
+        }
+
+        //获取上级菜单
+        $.ajax({
+            url: "/admin/menu/getmenu",
+            success: function (msg) {
+                /* 展示生成的HTML */
+                console.log(msg)
+                $("#pid").html(category_to_html(msg));
+
+            }
+        });
+        /* 生成HTML ul/li 形式 */
+        function category_to_html(nodes) {
+            var html = [];
+            var size = nodes.length;
+            var left = null;
+            var pid = $("#pid").attr("data-pid");
+            var selected = null
+            if(pid ==0){
+                html.push('<option value="0" selected="selected">一级菜单</option>');
+            }
+            for (var i = 0; i < size; i++) {
+                left = nodes[i];
+
+                if(left['id']==pid){
+                    html.push('<option value="' + left['id'] +'" selected="selected">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+
+                }else{
+                html.push('<option value="' + left['id'] +'"' +pid+'>'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }
+            }
+            return html.join("\n");
         }
     })
 </script>

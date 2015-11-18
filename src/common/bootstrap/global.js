@@ -142,9 +142,8 @@ global.get_children = function (nodes, parent) {
     var stack = children.slice(0);
     /* easy clone */
 
-
     while (stack.length > 0
-        /* just in case */ && jumper++ < 200) {
+        /* just in case */ && jumper++ < 400) {
         var shift_node = stack.shift();
         var list = [];
         /* 当前子节点列表 */
@@ -191,7 +190,7 @@ global.get_children = function (nodes, parent) {
     /* 建立根节点 */
 
     while (stack.length > 0) {
-        if (jumper++ > 200) {
+        if (jumper++ > 400) {
             break;
         }
         top = stack[stack.length - 1];
