@@ -1,0 +1,61 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/js/nestable/nestable.css" type="text/css" />
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>平台主页</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h4 class="m-t-none">Nestable list
+                    <button id="nestable-menu" class="btn btn-xs btn-default active" data-toggle="button">
+                        <i class="fa fa-plus text fa-fw"></i>
+                        <span class="text">Expand All</span>
+                        <i class="fa fa-minus text-active fa-fw"></i>
+                        <span class="text-active">Collapse All</span>
+                    </button>
+                </h4>
+                <div id="xx">123</div>
+                <div class="dd" id="nestable1">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="1">
+                            <div class="dd-handle">Item 1</div>
+                        </li>
+                        <li class="dd-item" data-id="2">
+                            <div class="dd-handle">Item 2</div>
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="3" data-title = "ddd"><div class="dd-handle">Item 3</div></li>
+                                <li class="dd-item" data-id="4"><div class="dd-handle">Item 4</div></li>
+                                <li class="dd-item" data-id="5">
+                                    <div class="dd-handle">Item 5</div>
+                                    <ol class="dd-list">
+                                        <li class="dd-item" data-id="6"><div class="dd-handle">Item 6</div></li>
+                                        <li class="dd-item" data-id="7"><div class="dd-handle">Item 7</div></li>
+                                        <li class="dd-item" data-id="8"><div class="dd-handle">Item 8</div></li>
+                                    </ol>
+                                </li>
+                                <li class="dd-item" data-id="9"><div class="dd-handle">Item 9</div></li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/js/sortable/jquery.sortable.js"></script>
+<script src="/static/js/nestable/jquery.nestable.js"></script>
+<script src="/static/js/nestable/demo.js"></script>
+{% endblock %}

@@ -10,7 +10,10 @@ $(document).ready(function()
     $('#nestable2').nestable({
         group: 1
     });
-
+    $('#nestable1').nestable().on('change', function(){
+        var r = $('.dd').nestable('serialize');
+        $("#xx").html(JSON.stringify(r));    //改变排序之后的数据
+    });
     var $expand = false;
     $('#nestable-menu').on('click', function(e)
     {

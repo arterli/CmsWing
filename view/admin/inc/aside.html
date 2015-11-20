@@ -253,6 +253,15 @@
                                     <span>网站设置</span>
                                 </a>
                             </li>
+                            {% if active=="/admin/category/index" %}
+                            <li class="active">{% else %}
+                            <li>{% endif %}
+                                <a href="/admin/category/index" class="auto">
+                                    <i class="fa fa-angle-right text-xs"></i>
+
+                                    <span>分类管理</span>
+                                </a>
+                            </li>
                             {% if active=="/admin/menu/index" %}
                             <li class="active">{% else %}
                             <li>{% endif %}
