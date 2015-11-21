@@ -15,9 +15,22 @@ export default class extends Base {
             "tactive":"sysm",
             "active":"/admin/category/index",
         })
-        let tree = await this.model('category').gettree(0,"id,name,title,sort,pid,allow_publish,status");
-          console.log(tree);
         //auto render template file index_index.html
+        return this.display();
+    }
+    async gettreeAction(){
+        let tree = await this.model('category').gettree(0,"id,name,title,sort,pid,allow_publish,status");
+        return this.json(tree);
+    }
+
+    /**
+     * 添加栏目
+     */
+    async addAction(){
+        this.assign({
+            "tactive":"sysm",
+            "active":"/admin/category/index",
+        })
         return this.display();
     }
 }

@@ -1,48 +1,22 @@
 {% extends "./inc/base.html" %}
 {% block style %}
-<link rel="stylesheet" href="/static/js/nestable/nestable.css" type="text/css" />
+<link rel="stylesheet" href="/static/js/tree/tree.css" type="text/css" />
 {% endblock %}
 {% block content %}
 <section class="vbox">
     <header class="header bg-light dk">
-        <p>平台主页</p>
+        <div class="btn-group pull-right">
+            <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加分类</a>
+        </div>
+        <p>分类管理</p>
     </header>
     <section class="scrollable wrapper">
 
         <div class="row">
 
             <div class="col-lg-12">
-                <h4 class="m-t-none">Nestable list
-                    <button id="nestable-menu" class="btn btn-xs btn-default active" data-toggle="button">
-                        <i class="fa fa-plus text fa-fw"></i>
-                        <span class="text">Expand All</span>
-                        <i class="fa fa-minus text-active fa-fw"></i>
-                        <span class="text-active">Collapse All</span>
-                    </button>
-                </h4>
-                <div id="xx">123</div>
-                <div class="dd" id="nestable1">
-                    <ol class="dd-list">
-                        <li class="dd-item" data-id="1">
-                            <div class="dd-handle">Item 1</div>
-                        </li>
-                        <li class="dd-item" data-id="2">
-                            <div class="dd-handle">Item 2</div>
-                            <ol class="dd-list">
-                                <li class="dd-item" data-id="3" data-title = "ddd"><div class="dd-handle">Item 3</div></li>
-                                <li class="dd-item" data-id="4"><div class="dd-handle">Item 4</div></li>
-                                <li class="dd-item" data-id="5">
-                                    <div class="dd-handle">Item 5</div>
-                                    <ol class="dd-list">
-                                        <li class="dd-item" data-id="6"><div class="dd-handle">Item 6</div></li>
-                                        <li class="dd-item" data-id="7"><div class="dd-handle">Item 7</div></li>
-                                        <li class="dd-item" data-id="8"><div class="dd-handle">Item 8</div></li>
-                                    </ol>
-                                </li>
-                                <li class="dd-item" data-id="9"><div class="dd-handle">Item 9</div></li>
-                            </ol>
-                        </li>
-                    </ol>
+
+                <div class="tree">
                 </div>
 
             </div>
@@ -54,8 +28,95 @@
 {% endblock %}
 
 {% block script %}
-<script src="/static/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="/static/js/sortable/jquery.sortable.js"></script>
-<script src="/static/js/nestable/jquery.nestable.js"></script>
-<script src="/static/js/nestable/demo.js"></script>
+<!--<script type="text/javascript" src="/static/js/tree/tree.js"></script>-->
+<script type="text/javascript">
+    /* 生成HTML ul/li 形式 */
+    function category_to_html(nodes) {
+        var html = [];
+        var size = nodes.length;
+        var left = null;
+        var right = null;
+        var text;
+        var stack = [];
+
+        html.push("<ul>");
+
+        for (var i = 0; i < size; i++) {
+            left = nodes[i];
+
+            //text = [left["id"],left["name"]].join(",");
+            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["name"]+' </code><a href="#"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>发布:' + left["allow_publish"] + '</code> <code>文章数量:333</code> <a href="/admin/category/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">删除</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">移动</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">合并</a>';
+            if (i + 1 < size) {
+                right = nodes[i + 1];
+                /* 入深 */
+                if (left["deep"] < right["deep"]) {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-folder-open"></i>   ' + left["title"] + '</span> ')
+                    html.push(text);
+                    html.push("<ul>");
+                    stack.push(1);
+                } else {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span> ');
+                    html.push(text);
+                    html.push("</li>");
+                }
+                /* 逐层跳出 */
+                if (left["deep"] > right["deep"]) {
+                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
+                        stack.pop();
+                        html.push("</ul>");
+                        html.push("</li>");
+                    }
+                }
+            } else {
+                if (stack.length > 0) {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
+                    html.push(text);
+                    html.push("</li>");
+                    while (stack.pop()) {
+                        html.push("</ul>");
+                        html.push("</li>");
+                    }
+                } else {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
+                    html.push(text);
+                    html.push("</li>");
+                }
+            }
+        }
+        html.push("</ul>");
+        return html.join("\n");
+    }
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "/admin/category/gettree",
+            success: function (msg) {
+                /* 展示生成的HTML */
+              $(".tree").html(category_to_html(msg));
+                console.log(msg);
+
+                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+                $('.tree li.parent_li > span').on('click', function (e) {
+                    var children = $(this).parent('li.parent_li').find(' > ul > li');
+                    if (children.is(":visible")) {
+                        children.hide('fast');
+                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-folder-close').removeClass('glyphicon-folder-open');
+                    } else {
+                        children.show('fast');
+                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-folder-open').removeClass('glyphicon-folder-close');
+                    }
+                    e.stopPropagation();
+                });
+            }
+        })
+
+
+    });
+
+</script>
+
 {% endblock %}
