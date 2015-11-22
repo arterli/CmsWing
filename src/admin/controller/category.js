@@ -10,6 +10,11 @@ export default class extends Base {
      * index action
      * @return {Promise} []
      */
+
+    init(http){
+        super.init(http);
+        this.db = this.model('category');
+    }
     async indexAction(){
         this.assign({
             "tactive":"sysm",
@@ -19,7 +24,7 @@ export default class extends Base {
         return this.display();
     }
     async gettreeAction(){
-        let tree = await this.model('category').gettree(0,"id,name,title,sort,pid,allow_publish,status");
+        let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
         return this.json(tree);
     }
 
@@ -27,10 +32,15 @@ export default class extends Base {
      * 添加栏目
      */
     async addAction(){
-        this.assign({
-            "tactive":"sysm",
-            "active":"/admin/category/index",
-        })
-        return this.display();
+        if(this.isPost()){
+           console.log(this.post())
+        }else{
+            this.assign({
+                "tactive":"sysm",
+                "active":"/admin/category/index",
+            })
+            return this.display();
+        }
+
     }
 }

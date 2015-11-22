@@ -91,8 +91,8 @@ global.in_array=function (stringToSearch, arrayToSearch) {
  * @param d
  * @returns {string}
  */
-global.times = function (d) {
-
+global.times = function (d,sec) {
+    var time;
     var date = new Date(d);
     var y = date.getFullYear();
     var M = date.getMonth() + 1;
@@ -103,7 +103,14 @@ global.times = function (d) {
     h = h < 10 ? "0" + h : h;
     var m = date.getMinutes();
     m = m < 10 ? "0" + m : m;
-    var time = y + "-" + M + "-" + d + " " + h + ":" + m;
+    var s = date.getSeconds();
+    s = s < 10 ? "0" + s : s;
+    if(sec){
+        time = y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
+    }else{
+        time = y + "-" + M + "-" + d + " " + h + ":" + m;
+    }
+
     return time;
 }
 
