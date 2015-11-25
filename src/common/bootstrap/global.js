@@ -269,7 +269,30 @@ global.isObjectValueEqual=function(a, b) {
     // are considered equivalent
     return true;
 }
-
+/**
+ * trim()
+ * @param str [删除左右两端的空格]
+ * @returns {*|void|string|XML}
+ */
+global.trim = function (str){
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}
+/**
+ * ltrim()
+ * @param str [删除左边的空格]
+ * @returns {*|void|string|XML}
+ */
+global.ltrim = function (str){
+    return str.replace(/(^\s*)/g,"");
+}
+/**
+ * rtrim()
+ * @param str [删除右边的空格]
+ * @returns {*|void|string|XML}
+ */
+global.rtrim = function (str){
+    return str.replace(/(\s*$)/g,"");
+}
 /**
  * 把返回的数据集转换成Tree
  * @param array $list 要转换的数据集

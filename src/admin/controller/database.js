@@ -97,11 +97,18 @@ export default class extends Base {
             fs.writeFileSync(lock, new Date())
         }
         //fs.unlinkSync(lock)
-      //paths=path.basename(path)
+
+        //think.isWritable 判断目录是否可写
+        //paths=path.basename(path)
         //console.log(paths);
         this.end(paths);
     }
-    aabbAction(){
-        console.log(1)
+   async aabbAction(){
+        let Database = think.adapter("database" , "mysql");
+        let db = new Database("1","2","3");
+        await db.backup("vkj_menu",0);
+        //let dbs = new Database("111","222","333");
+        //dbs.backup("aaa","bbb");
+        this.end();
     }
 }
