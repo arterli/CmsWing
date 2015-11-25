@@ -2,7 +2,7 @@
 /**
  * base adapter
  */
-    import Fs from 'fs';
+import Fs from 'fs';
 export default class extends think.adapter.base {
     /**
      * init
@@ -18,12 +18,16 @@ export default class extends think.adapter.base {
         this.type = type;
     }
 
-    write(sql){
-        let paths = think.ROOT_PATH +"/data/ss.sql";
+    /**
+     * 写入sql语句
+     * @param {String} sql [要写入的SQL语句]
+     */
+    write(sql) {
+        let paths = think.ROOT_PATH + "/data/ss.sql";
 
-        if(!think.isFile(paths)){
+        if (!think.isFile(paths)) {
             let db = think.config('db');
-            let sql  = "-- -----------------------------\n";
+            let sql = "-- -----------------------------\n";
             sql += "-- Think MySQL Data Transfer \n";
             sql += "-- \n";
             sql += "-- Host     : " + db.host + "\n";
@@ -31,15 +35,16 @@ export default class extends think.adapter.base {
             sql += "-- Database : " + db.name + "\n";
             sql += "-- \n";
             sql += "-- Part : #{$this->file['part']}\n";
-            sql += "-- Date : " + times(new Date(),"s") + "\n";
+            sql += "-- Date : " + times(new Date(), "s") + "\n";
             sql += "-- -----------------------------\n\n";
             sql += "SET FOREIGN_KEY_CHECKS = 0;\n\n";
-            Fs.appendFileSync(paths, sql );
+            Fs.appendFileSync(paths, sql);
         }
-        let aa=  Fs.appendFileSync(paths, sql );
-       //console.log(aa);
+        Fs.appendFileSync(paths, sql);
+        //console.log(aa);
         //TODO
     }
+
     /**
      * 备份表结构
      * @param  {String}  table [表名]
@@ -60,7 +65,7 @@ export default class extends think.adapter.base {
             sql += "-- -----------------------------\n";
             sql += "DROP TABLE IF EXISTS " + table + ";\n";
             sql += trim(result[0]['Create Table']) + ";\n\n";
-           //console.log(sql);
+            //console.log(sql);
             this.write(sql)
             //if(false === this.write(sql)){
             //  return false;
