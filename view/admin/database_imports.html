@@ -1,0 +1,82 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class=""><a data-toggle="tab" href="/admin/database/index"><i class="fa fa-comments text-muted"></i>
+                备份数据库 </a></li>
+            <li class="active"><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i>
+                还原数据</a></li>
+        </ul>
+    </header>
+
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                已备份的数据库
+            </header>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+                        <th>备份名称</th>
+                        <th>卷数</th>
+                        <th>类型</th>
+                        <th>数据大小</th>
+                        <th>备份时间</th>
+                        <th>状态</th>
+                        <th style="width:210px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in fileslist %}
+                    <tr>
+                        <td>{{ item.dir }}</td>
+                        <td>{{ item.part }}</td>
+                        <td>SQL</td>
+                        <td>{{ item.size | format_bytes}}</td>
+                        <td>{{ item.ctime | format_time('s')}}</td>
+                        <td class="infos">-</td>
+                        <td>
+                            <button class="btn  btn-default btn-xs optimize" data-dir="{{ item.dir }}">还原</button>
+                            <button class="btn  btn-default btn-xs repair" data-dir="{{ item.dir }}">打包下载</button>
+                            <button class="btn  btn-default btn-xs rmdir" data-dir="{{ item.dir }}">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    (function ($) {
+          $(".rmdir").click(function(){
+              var dir=$(this).attr("data-dir");
+              $.ajax({
+                  "url":"/admin/database/rmdir",
+                  "data":{"path":dir},
+                  "success": function (res) {
+                     alert(res.info);
+                      window.location.reload();
+                  }
+              })
+          })
+
+        $(".nav-tabs > li > a").click(function () {
+            location.href = $(this).attr("href");
+        })
+    })(jQuery);
+</script>
+{% endblock %}

@@ -17,12 +17,6 @@ export default class extends Base {
         super.init(http);
     }
 
-    __before() {
-        this.assign({
-            "tactive": "sysm",
-            "bg": "bg-black"
-        });
-    }
 
     /**
      * 数据库列表
@@ -31,6 +25,7 @@ export default class extends Base {
     async indexAction() {
         //auto render template file index_index.html
         this.assign({
+            "tactive": "sysm",
             "active": "/admin/database/index",
         })
         //let DB = think.adapter('db', this.config.type || 'mysql');
@@ -93,13 +88,13 @@ export default class extends Base {
         let id = Number(this.param('id'))
         let start = Number(this.param('start'))
         if (this.isPost() && !think.isEmpty(tables) && think.isArray(tables)) {
-            console.log(tables)
+            //console.log(tables)
             let paths = think.ROOT_PATH + "/data/";
             think.mkdir(paths);
             //备份配置
             let config = {
                 'path': paths,
-                'part': 20971520,
+                'part': 20*1024*1024,
                 'compress': 1,
                 'level': 9
             }
@@ -135,39 +130,58 @@ export default class extends Base {
                     'info': '初始化成功！',
                     'tables': tables,
                     'tab': tab,
-                    'status':1
+                    'status': 1
                 })
             } else {
                 return this.json({
                     'info': "初始化失败，备份文件创建失败！",
-                    'status':0
+                    'status': 0
                 })
             }
         } else if (this.isGet() && think.isNumber(id) && think.isNumber(start)) {
             let table = await this.session('backup_tables');
-            console.log(table)
-            if(table[++id]){
+            //备份指定表
+            let backup_file = await this.session('backup_file');
+            //console.log(backup_file);
+            let backup_config = await this.session('backup_config');
+            let Database = think.adapter("database", "mysql");
+            let db = new Database(backup_file, backup_config, 'export');
+            start = await db.backup(table[id], start);
+            if (false === start) {
+                return this.fail("备份出错！")
+            } else if (0 === start) {//下一表
+                if (table[++id]) {
+                    let tab = {'id': id, 'start': 0};
+                    return this.json({
+                        'info': '备份完成！',
+                        'tab': tab,
+                        'status': 1
+                    })
+                } else {
+                    let lock = await this.session('backup_config');
 
-                let tab = {'id': id, 'start': 0};
-                return this.json({
-                    'info': '备份完成！',
-                    'tab': tab,
-                    'status':1
-                })
-            }else{
-                let lock = await this.session('backup_config');
-
-                if(think.isFile(lock.path+'backup.lock')){
-                fs.unlinkSync(lock.path+'backup.lock')
+                    if (think.isFile(lock.path + 'backup.lock')) {
+                        fs.unlinkSync(lock.path + 'backup.lock')
+                    }
+                    await this.session('backup_tables', null);
+                    await this.session('backup_file', null);
+                    await this.session('backup_config', null);
+                    return this.json({
+                        'info': '备份完成！',
+                        'status': 1
+                    })
                 }
-                await this.session('backup_tables', null);
-                await this.session('backup_file', null);
-                await this.session('backup_config', null);
+            } else {
+                let tab = {'id': id, 'start': start[0]};
+                let rate = Math.floor(100 * (start[0] / start[1]));
                 return this.json({
-                    'info': '备份完成！',
-                    'status':1
+                    'info': "正在备份..." + rate + "%",
+                    'tab': tab,
+                    'status': 1
                 })
             }
+        } else {
+            return this.fail("参数错误！")
         }
         //fs.unlinkSync(lock)
         //think.isWritable 判断目录是否可写
@@ -177,6 +191,71 @@ export default class extends Base {
         //this.end(v);
     }
 
+    importsAction() {
+
+
+        /**
+         * 遍历文件夹，获取所有文件夹里面的文件信息
+         * @param path
+         * @returns {Array}
+         */
+
+        function geFileList(path) {
+            var filesList = [];
+            readFile(path, filesList);
+            return filesList;
+        }
+
+        /**
+         * 遍历读取文件
+         * @param path
+         * @param filesList
+         */
+        function readFile(path, filesList) {
+            let files = fs.readdirSync(path);//需要用到同步读取
+            //console.log(files);
+            files.forEach(walk);
+            function walk(file) {
+                let states = fs.statSync(path + '/' + file);
+                if (states.isDirectory()) {
+                    var dir = {};
+                    dir.dir = file;
+
+                    let files = fs.readdirSync(path + '/' + file);
+                    let size = 0;
+                    files.forEach(v=> {
+                        let states = fs.statSync(path + '/' + file + '/' + v);
+                        size = size + states.size;
+                    })
+                    dir.size = size;
+                    dir.part = files.length;
+                    dir.ctime = states.ctime;
+                    filesList.push(dir);
+
+                }
+            }
+        }
+
+        let paths = think.ROOT_PATH + "/data/";
+        let filesList = geFileList(paths)
+        this.assign({
+            "tactive": "sysm",
+            "active": "/admin/database/index",
+            "fileslist": filesList
+        })
+
+        this.display();
+    }
+   async rmdirAction(){
+       let dir = this.get("path");
+       let paths = think.ROOT_PATH + "/data/" + dir;
+       await think.rmdir(paths);
+       return this.json({
+           'info': "删除成功",
+           'dir': dir,
+           'status': 1
+       })
+   }
     async aabbAction() {
         let Database = think.adapter("database", "mysql");
         let db = new Database("1", "2", "3");

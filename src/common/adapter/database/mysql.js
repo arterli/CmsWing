@@ -23,9 +23,9 @@ export default class extends think.adapter.base {
      * @return boolean true - 写入成功，false - 写入失败
      */
     create(){
-        let backuppath = this.config.path;
-        let filenmae = backuppath+this.file.name+'-'+this.file.part+'.sql';
-        console.log(filenmae);
+        let backuppath = this.config.path+this.file.name;
+        let filenmae = backuppath+'/'+this.file.name+'-'+this.file.part+'.sql';
+        think.mkdir(backuppath);
 
         if (!think.isFile(filenmae)) {
             let db = think.config('db');
@@ -55,26 +55,29 @@ export default class extends think.adapter.base {
      * 写入sql语句
      * @param {String} sql [要写入的SQL语句]
      */
-    write(sql) {
-        let paths = think.ROOT_PATH + "/data/ss.sql";
+    async write(sql) {
 
-        if (!think.isFile(paths)) {
-            let db = think.config('db');
-            let sql = "-- -----------------------------\n";
-            sql += "-- Think MySQL Data Transfer \n";
-            sql += "-- \n";
-            sql += "-- Host     : " + db.host + "\n";
-            sql += "-- Port     : " + db.port + "\n";
-            sql += "-- Database : " + db.name + "\n";
-            sql += "-- \n";
-            sql += "-- Part : #{$this->file['part']}\n";
-            sql += "-- Date : " + times(new Date(), "s") + "\n";
-            sql += "-- -----------------------------\n\n";
-            sql += "SET FOREIGN_KEY_CHECKS = 0;\n\n";
-            Fs.appendFileSync(paths, sql);
-        }
-        let aa = Fs.appendFileSync(paths, sql);
-        console.log(aa);
+        let size=sql.length;
+       //console.log(size)
+        let backuppath = this.config.path+this.file.name;
+        let filenmae = backuppath+'/'+this.file.name+'-'+this.file.part+'.sql';
+       // console.log(filenmae)
+            let states = Fs.statSync(filenmae)
+            this.size = states.size + size;
+        //console.log(this.size+"-"+this.config.part) ;
+            if(this.size > this.config.part){//分卷
+
+                this.file.part++;
+                this.create();
+                let http = this.http;
+               //think.session(http);
+               await http.session('backup_file', this.file);
+                //await think.session('backup_file', this.file);
+
+            }
+        let aa = Fs.appendFileSync(filenmae, sql);
+
+        //console.log(aa);
         //TODO
     }
 
@@ -86,7 +89,7 @@ export default class extends think.adapter.base {
      */
     async backup(table, start) {
         //数据库对象
-        console.log(think.config('db'))
+        //console.log(think.config('db'))
         let db = think.model('mysql', think.config('db'));
         //备份表结构
         if (0 == start) {
