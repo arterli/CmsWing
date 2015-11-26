@@ -16,14 +16,14 @@
                     </header>
                     <div class="row wrapper">
                         <div class="col-sm-5 m-b-xs">
-                            <button class="btn btn-success" data-toggle="class:show inline" data-target="#spin" data-loading-text="正在备份...">备份数据库</button> <i class="fa fa-spin fa-spinner hide" id="spin"></i>
+                            <button class="btn btn-success" id="export" data-toggle="class:show inline" data-target="#spin" data-loading-text="正在备份...">备份数据库</button> <i class="fa fa-spin fa-spinner hide" id="spin"></i>
                             <button class="btn  btn-success"  id="optimize">优化表</button>
                             <button class="btn  btn-success"  id="repair">修复表</button>
 
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped b-t b-light">
+                        <table class="table table-striped b-t b-light"  id="export-form">
                             <thead>
                             <tr>
                                 <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox" checked="checked"><i></i></label></th>
@@ -67,8 +67,7 @@
 {% block script %}
     <script type="text/javascript">
         (function($){
-            var $form = $("#export-form"), $export = $("#export"), tables
-            $optimize = $("#optimize"), $repair = $("#repair");
+            var $form = $("#export-form"), $export = $("#export"), tables , $optimize = $("#optimize"), $repair = $("#repair");
             //优化表
             $("button.optimize").click(function () {
                tables = $(this).attr("data-tables");
@@ -115,6 +114,7 @@
             }
 
             function repair(tables){
+
                 $.ajax({
                     "type":"POST",
                     "url":"/admin/database/repair",
@@ -142,60 +142,98 @@
 //            });
 
             $export.click(function(){
-                $export.parent().children().addClass("disabled");
-                $export.html("正在发送备份请求...");
-                $.post(
-                        $form.attr("action"),
-                        $form.serialize(),
-                        function(data){
-                            if(data.status){
-                                tables = data.tables;
-                                $export.html(data.info + "开始备份，请不要关闭本页面！");
-                                backup(data.tab);
-                                window.onbeforeunload = function(){ return "正在备份数据库，请不要关闭！" }
-                            } else {
-                                updateAlert(data.info,'alert-error');
-                                $export.parent().children().removeClass("disabled");
-                                $export.html("立即备份");
-                                setTimeout(function(){
-                                    $('#top-alert').find('button').click();
-                                    $(that).removeClass('disabled').prop('disabled',false);
-                                },1500);
-                            }
-                        },
-                        "json"
-                );
-                return false;
+                tables =  $('input[name="tables"]:checked');
+                var arr=[];
+                tables.each(function(){
+                    var sfruit=$(this).val();
+                    arr.push(sfruit);
+                });
+
+                tables=arr.join(",");
+                $.ajax({
+                    "type":"POST",
+                    "url":"/admin/database/export",
+                    "data":{"tables":tables},
+                    "success":function(data){
+                       if(data.status){
+                           tables = data.tables;
+                           backup(data.tab,data.status,data.tables);
+                           window.onbeforeunload = function(){ return "正在备份数据库，请不要关闭！" }
+                       }
+                    }
+                })
+
+//                $.post(
+//                        $form.attr("action"),
+//                        $form.serialize(),
+//                        function(data){
+//                            if(data.status){
+//                                tables = data.tables;
+//                                $export.html(data.info + "开始备份，请不要关闭本页面！");
+//                                backup(data.tab);
+//                                window.onbeforeunload = function(){ return "正在备份数据库，请不要关闭！" }
+//                            } else {
+//                                updateAlert(data.info,'alert-error');
+//                                $export.parent().children().removeClass("disabled");
+//                                $export.html("立即备份");
+//                                setTimeout(function(){
+//                                    $('#top-alert').find('button').click();
+//                                    $(that).removeClass('disabled').prop('disabled',false);
+//                                },1500);
+//                            }
+//                        },
+//                        "json"
+//                );
+                //return false;
             });
 
-            function backup(tab, status){
+            function backup(tab, status ,tables){
                 status && showmsg(tab.id, "开始备份...(0%)");
-                $.get($form.attr("action"), tab, function(data){
-                    if(data.status){
-                        showmsg(tab.id, data.info);
+                $.ajax({
+                    "url":"/admin/database/export",
+                    "data":tab,
+                    "success":function(data){
+                        if(data.status){
+                            showmsg(tab.id, data.info);
+                            if(!$.isPlainObject(data.tab)){
+                               $export.removeClass('active disabled').removeAttr("disabled")
 
-                        if(!$.isPlainObject(data.tab)){
-                            $export.parent().children().removeClass("disabled");
-                            $export.html("备份完成，点击重新备份");
-                            window.onbeforeunload = function(){ return null }
-                            return;
+                                alert("备份完成")
+
+                                window.onbeforeunload = function(){ return null }
+                                return;
+                            }
+                            backup(data.tab, tab.id != data.tab.id);
                         }
-                        backup(data.tab, tab.id != data.tab.id);
-                    } else {
-                        updateAlert(data.info,'alert-error');
-                        $export.parent().children().removeClass("disabled");
-                        $export.html("立即备份");
-                        setTimeout(function(){
-                            $('#top-alert').find('button').click();
-                            $(that).removeClass('disabled').prop('disabled',false);
-                        },1500);
                     }
-                }, "json");
+                })
+
+//                $.get($form.attr("action"), tab, function(data){
+//                    if(data.status){
+//                        showmsg(tab.id, data.info);
+//
+//                        if(!$.isPlainObject(data.tab)){
+//                            $export.parent().children().removeClass("disabled");
+//                            $export.html("备份完成，点击重新备份");
+//                            window.onbeforeunload = function(){ return null }
+//                            return;
+//                        }
+//                        backup(data.tab, tab.id != data.tab.id);
+//                    } else {
+//                        updateAlert(data.info,'alert-error');
+//                        $export.parent().children().removeClass("disabled");
+//                        $export.html("立即备份");
+//                        setTimeout(function(){
+//                            $('#top-alert').find('button').click();
+//                            $(that).removeClass('disabled').prop('disabled',false);
+//                        },1500);
+//                    }
+//                }, "json");
 
             }
 
             function showmsg(id, msg){
-                $form.find("input[value=" + tables[id] + "]").closest("tr").find(".info").html(msg);
+                $form.find("input[value=" + tables[id] + "]").closest("tr").find(".infos").html(msg);
             }
         })(jQuery);
     </script>
