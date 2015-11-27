@@ -17,6 +17,8 @@ export default class extends think.controller.base {
         if (!is_login) {
             this.redirect('/admin/public/signin');
         }
+        let user = await this.session('userInfo');
+        this.assign("userinfo",user);
         this.assign({
             "navxs": false,
             "active": "/admin",
@@ -31,6 +33,7 @@ export default class extends think.controller.base {
     async islogin() {
         //判断是否登录
         let user = await this.session('userInfo');
+
         let res = think.isEmpty(user) ? false : true;
         return res;
     }

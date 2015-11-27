@@ -8,6 +8,7 @@ import fs  from 'fs';
 import path from 'path';
 import request from 'request';
 import targz from 'tar.gz';
+import http from 'http';
 export default class extends Base {
     /**
      * index action
@@ -89,7 +90,7 @@ export default class extends Base {
         let start = Number(this.param('start'))
         if (this.isPost() && !think.isEmpty(tables) && think.isArray(tables)) {
             //console.log(tables)
-            let paths = think.ROOT_PATH + "/data/";
+            let paths = think.RESOURCE_PATH + "/backup/";
             think.mkdir(paths);
             //备份配置
             let config = {
@@ -236,7 +237,7 @@ export default class extends Base {
             }
         }
 
-        let paths = think.ROOT_PATH + "/data/";
+        let paths = think.RESOURCE_PATH + "/backup/";
         let filesList = geFileList(paths)
         this.assign({
             "tactive": "sysm",
@@ -248,8 +249,13 @@ export default class extends Base {
     }
    async rmdirAction(){
        let dir = this.get("path");
-       let paths = think.ROOT_PATH + "/data/" + dir;
+       let paths = think.RESOURCE_PATH + "/backup/" + dir;
+       //删除目录
        await think.rmdir(paths);
+       //删除对应压缩包
+       if(think.isFile(paths+".tar.gz")){
+           fs.unlinkSync(paths+".tar.gz");
+       }
        return this.json({
            'info': "删除成功",
            'dir': dir,
@@ -267,18 +273,47 @@ export default class extends Base {
 
     targzAction() {
         // Streams
-        let paths = think.ROOT_PATH + "/data";
-        var read = targz().createReadStream(paths + "/sql");
-        var parse = fs.createWriteStream(paths + '/ss.tar.gz');
+        if(this.isGet()){
+            let paths = think.RESOURCE_PATH ;
+            let path = "/backup/";
+            let dir =paths+path+this.get("dir");
+            let tar = paths+path+this.get("dir")+".tar.gz"
+            if(!think.isFile(tar)){
+                //var read = targz().createReadStream(dir);
+                //var parse = fs.createWriteStream(tar);
+                //read.pipe(parse);
+                let self= this;
+                targz().compress(dir, tar)
+                    .then(function(){
+                        self.success({'name':"tar",'url':self.get("dir")})
+                    })
+                    .catch(function(err){
+                        console.log('Something is wrong ', err.stack);
+                    });
 
-        //targz().extract(paths+"/ss.tar.gz", paths+'/sql')
-        //    .then(function(){
-        //        console.log('Job done!');
-        //    })
-        //    .catch(function(err){
-        //        console.log('Something is wrong ', err.stack);
-        //    });
-        read.pipe(parse);
-        this.end(1);
+            }else{
+                this.success({'name':"download",'url':this.get("dir")})
+            }
+        }else if(this.isPost()){
+            let paths = think.RESOURCE_PATH ;
+            let path = "/backup/";
+            let tar = paths+path+this.post("name")+".tar.gz"
+            this.download(tar);
+        }
+    }
+    httpedAction(){
+        http.get("http://www.kancloud.cn/tag/JavaScript", function(res) {
+            console.log('STATUS: ' + res.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(res.headers));
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                console.log('BODY: ' + chunk);
+            });
+            res.on('end', function() {
+                console.log('No more data in response.')
+            })
+        }).on('error', function(e) {
+            console.log("Got error: " + e.message);
+        });
     }
 }

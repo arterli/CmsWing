@@ -40,7 +40,7 @@
                         <td class="infos">-</td>
                         <td>
                             <button class="btn  btn-default btn-xs optimize" data-dir="{{ item.dir }}">还原</button>
-                            <button class="btn  btn-default btn-xs repair" data-dir="{{ item.dir }}">打包下载</button>
+                            <button class="btn  btn-default btn-xs tar" data-dir="{{ item.dir }}">打包下载</button>
                             <button class="btn  btn-default btn-xs rmdir" data-dir="{{ item.dir }}">删除</button>
                         </td>
                     </tr>
@@ -73,7 +73,48 @@
                   }
               })
           })
+         $(".tar").click(function(){
+             var dir=$(this).attr("data-dir");
+             window.onbeforeunload = function () {
+                 return "正在备份数据库，请不要关闭！"
+             }
+             tar(dir,$(this));
+         })
 
+        function tar(dir,self){
+            self.html("正在压缩...")
+            $.ajax({
+                "url":"/admin/database/targz",
+                "data":{"dir":dir},
+                "success": function (res) {
+                    if (res) {
+                        if (res.data.name=="download") {
+                            self.html("打包下载")
+                            window.onbeforeunload = function () {
+                                return null
+                            }
+                            $.download("/admin/database/targz",'name='+res.data.url+'','post' );
+                            return;
+                        }
+                        tar(dir,self);
+                    }
+                }
+            })
+        }
+        // Ajax 文件下载
+        jQuery.download = function(url, data, method){    // 获得url和data
+        if( url && data ){
+            // data 是 string 或者 array/object
+            data = typeof data == 'string' ? data : jQuery.param(data);        // 把参数组装成 form的  input
+            var inputs = '';
+            jQuery.each(data.split('&'), function(){
+                var pair = this.split('=');
+                inputs+='<input type="hidden" name="'+ pair[0] +'" value="'+ pair[1] +'" />';
+            });        // request发送请求
+            jQuery('<form action="'+ url +'" method="'+ (method||'post') +'">'+inputs+'</form>')
+                    .appendTo('body').submit().remove();
+        };
+    };
         $(".nav-tabs > li > a").click(function () {
             location.href = $(this).attr("href");
         })
