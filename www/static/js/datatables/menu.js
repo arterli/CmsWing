@@ -149,31 +149,7 @@ function _getlist(pid){
 function _editBn() {
     $("#bjax-target").addClass("show");
 }
-function _editFunAjax() {
-    alert(1)
-    var id = $("#eid").val();
-    var desc = $("#edesc").val();
-    var description = $("#edescription").val();
-    var jsonData = {
-        "id": id,
-        "desc": desc,
-        "description": description
-    };
-    $.ajax({
-        type: 'POST',
-        url: '/admin/auth/roleedit',
-        data: jsonData,
-        success: function (json) {
-            if (json) {
-                //$("#myModal").modal("hide");
-                resetFrom();
-                oTable.fnReloadAjax(oTable.fnSettings());
-            } else {
-                alert("更新失败");
-            }
-        }
-    });
-}
+
 
 
 /**
@@ -182,7 +158,17 @@ function _editFunAjax() {
  * @private
  */
 function _deleteFun(id) {
-
+    swal({
+            title: "你确定?",
+            text: "你将要删除的数据不能恢复!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的!",
+            cancelButtonText: "就不!",
+            closeOnConfirm: false
+        },
+        function(){
     $.ajax({
         url: "/admin/menu/delete",
         data: {"id": id},
@@ -190,7 +176,7 @@ function _deleteFun(id) {
         success: function (backdata) {
             if (backdata) {
                 oTable.ajax.reload();
-                alert("删除成功");
+                swal("删除成功!", "该数据已经被删除.", "success");
             } else {
                 alert("删除失败");
             }
@@ -198,6 +184,7 @@ function _deleteFun(id) {
             console.log(error);
         }
     });
+        });
 }
 
 /**
@@ -218,9 +205,9 @@ function _chsta(status,id,key){
         success:function(res){
             if(res){
                 oTable.ajax.reload();
-                //oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
+                toastr.success('状态更新成功！')
             }else{
-                alert("状态更新失败！");
+                toastr.error("状态更新失败！");
             }
         }
     })

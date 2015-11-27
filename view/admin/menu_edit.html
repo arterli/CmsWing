@@ -105,11 +105,10 @@
                 data: jsonData,
                 success: function (json) {
                     if (json) {
-                        //$("#myModal").modal("hide");
-                        //resetFrom();
                         oTable.ajax.reload();
+                        toastr.success("编辑成功！")
                     } else {
-                        alert("更新失败");
+                        toastr.error("编辑失败！")
                     }
                 }
             });

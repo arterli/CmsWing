@@ -10,7 +10,7 @@
             <textarea id="edescription" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" >{{data.description}}</textarea>
         </div>
 
-       <input id="eid" type="hidden" name="id" value="<%=data.id%>">
+       <input id="eid" type="hidden" name="id" value="{{data.id}}">
         <div class="m-t-lg"><button class="btn btn-lg btn-default" id="editbtn">修改用户组</button></div>
     </form>
 </div>
@@ -52,8 +52,9 @@
                     //$("#myModal").modal("hide");
                     //resetFrom();
                     oTable.fnReloadAjax(oTable.fnSettings());
+                    toastr.success('编辑成功!')
                 } else {
-                    alert("更新失败");
+                    toastr.error('编辑失败！')
                 }
             }
         });

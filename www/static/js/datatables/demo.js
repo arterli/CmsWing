@@ -5,6 +5,8 @@ var oTable;
 
         oTable = initTable();
     });
+
+
         // datatable
         function initTable() {
             var table =  $('[data-ride="datatables"]').dataTable({
@@ -146,6 +148,7 @@ var oTable;
                         //$("#myModal").modal("hide");
                         resetFrom();
                         oTable.fnReloadAjax(oTable.fnSettings());
+                        toastr.success('删除成功!')
                     } else if (backdata == 0) {
                         alert("插入失败");
                     } else {
@@ -189,21 +192,35 @@ var oTable;
      * @private
      */
     function _deleteFun(id) {
+        swal({
+                title: "你确定?",
+                text: "你将要删除用户，并且不能恢复!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "是的!",
+                cancelButtonText: "就不!",
+                closeOnConfirm: false
+            },
+            function(){
+                $.ajax({
+                    url: "/admin/user/userdel",
+                    data: {"id": id},
+                    type: "post",
+                    success: function (backdata) {
+                        if (backdata) {
+                            oTable.fnReloadAjax(oTable.fnSettings());
+                            swal("删除成功!", "该用户已经被删除.", "success");
+                        } else {
+                            alert("删除失败");
+                        }
+                    }, error: function (error) {
+                        console.log(error);
+                    }
+                });
 
-        $.ajax({
-            url: "/admin/user/userdel",
-            data: {"id": id},
-            type: "post",
-            success: function (backdata) {
-                if (backdata) {
-                    oTable.fnReloadAjax(oTable.fnSettings());
-                } else {
-                    alert("删除失败");
-                }
-            }, error: function (error) {
-                console.log(error);
-            }
-        });
+            });
+
     }
         /*
          add this plug in

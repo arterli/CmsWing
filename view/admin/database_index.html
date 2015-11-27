@@ -97,7 +97,7 @@
         $("button.repair").click(function () {
             tables = $(this).attr("data-tables");
 
-            optimize(tables)
+            repair(tables)
         })
         $repair.click(function () {
             tables = $('input[name="tables"]:checked');
@@ -116,7 +116,7 @@
                 "url": "/admin/database/optimize",
                 "data": {"tables": tables},
                 "success": function (res) {
-                    alert(tables)
+                    toastr.success("优化表成功！")
                 }
             })
         }
@@ -128,7 +128,7 @@
                 "url": "/admin/database/repair",
                 "data": {"tables": tables},
                 "success": function (res) {
-                    alert(tables)
+                    toastr.success("修复表成功！")
                 }
             })
         }
@@ -175,6 +175,7 @@
                             window.onbeforeunload = function () {
                                 return null
                             }
+                            toastr.success("备份数据成功！")
                             return;
                         }
                         backup(data.tab, tab.id != data.tab.id);

@@ -128,8 +128,9 @@
 
                         oTable.ajax.reload();
                         resetFrom();
+                        toastr.success("添加成功！")
                     } else {
-                        alert("更新失败");
+                        toastr.error("添加失败！")
                     }
                 }
             });

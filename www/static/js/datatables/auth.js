@@ -115,31 +115,7 @@ function initTable() {
 function _editBn() {
     $("#bjax-target").removeClass("hide");
 }
-function _editFunAjax() {
-    alert(1)
-    var id = $("#eid").val();
-    var desc = $("#edesc").val();
-    var description = $("#edescription").val();
-    var jsonData = {
-        "id": id,
-        "desc": desc,
-        "description": description
-    };
-    $.ajax({
-        type: 'POST',
-        url: '/admin/auth/roleedit',
-        data: jsonData,
-        success: function (json) {
-            if (json) {
-                //$("#myModal").modal("hide");
-                resetFrom();
-                oTable.fnReloadAjax(oTable.fnSettings());
-            } else {
-                alert("更新失败");
-            }
-        }
-    });
-}
+
 
 function _addFun() {
     var jsonData = {
@@ -157,8 +133,9 @@ function _addFun() {
                 //$("#myModal").modal("hide");
                 resetFrom();
                 oTable.fnReloadAjax(oTable.fnSettings());
+                toastr.success('添加角色成功！')
             } else if (backdata == 0) {
-                alert("插入失败");
+                toastr.error('添加失败！')
             } else {
                 alert("防止数据不断增长，会影响速度，请先删掉一些数据再做测试");
             }
@@ -174,7 +151,17 @@ function _addFun() {
  * @private
  */
 function _deleteFun(id) {
-
+    swal({
+            title: "你确定?",
+            text: "你将要删除的数据不能恢复!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是的!",
+            cancelButtonText: "就不!",
+            closeOnConfirm: false
+        },
+        function(){
     $.ajax({
         url: "/admin/auth/roledel",
         data: {"id": id},
@@ -182,6 +169,7 @@ function _deleteFun(id) {
         success: function (backdata) {
             if (backdata) {
                 oTable.fnReloadAjax(oTable.fnSettings());
+                swal("删除成功!", "该数据已经被删除.", "success");
             } else {
                 alert("删除失败");
             }
@@ -189,6 +177,7 @@ function _deleteFun(id) {
             console.log(error);
         }
     });
+        });
 }
 
 /**
@@ -209,8 +198,9 @@ function _chsta(status,id){
         success:function(res){
             if(res){
                 oTable.fnReloadAjax(oTable.fnSettings());//刷新表格
+                toastr.success('更新状态成功！')
             }else{
-                alert("状态更新失败！");
+                toastr.error('状态更新失败！')
             }
         }
     })
