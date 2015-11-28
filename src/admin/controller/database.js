@@ -6,7 +6,6 @@
 import Base from './base.js';
 import fs  from 'fs';
 import path from 'path';
-import request from 'request';
 import targz from 'tar.gz';
 import http from 'http';
 export default class extends Base {

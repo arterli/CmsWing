@@ -1,8 +1,8 @@
 {
   "apps": [{
-    "name": "C:usersarterliWebstormProjectsnew_vkj",
+    "name": "cmswing",
     "script": "www/production.js",
-    "cwd": "C:\users\arterli\WebstormProjects/new_vkj",
+    "cwd": "/usr/web/cmswing",
     "max_memory_restart": "1G",
     "autorestart": true,
     "node_args": [],
