@@ -33,7 +33,7 @@ var oTable;
                         "mRender": function (data, type, row) {
 
                             return '<a class="btn btn-default btn-xs" href="#'+data+'">编辑</a>' +
-                                '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';;
+                                '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';
                         }, "bSortable": false, "aTargets": [8]
                     },
                     {

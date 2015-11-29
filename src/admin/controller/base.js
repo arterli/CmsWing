@@ -17,8 +17,13 @@ export default class extends think.controller.base {
         if (!is_login) {
             this.redirect('/admin/public/signin');
         }
+        //用户信息
         let user = await this.session('userInfo');
         this.assign("userinfo",user);
+        //网站配置
+        this.setup = await this.model("setup").getset();
+        this.assign("setup",this.setup);
+
         this.assign({
             "navxs": false,
             "active": "/admin",
