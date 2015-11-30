@@ -22,6 +22,7 @@ export default class extends Base {
         })
         //auto render template file index_index.html
         return this.display();
+       
     }
     async gettreeAction(){
         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
