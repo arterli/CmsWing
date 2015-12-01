@@ -20,6 +20,7 @@ export default class extends Base {
         let id = this.get('id')||1;
         let type = this.setup.CONFIG_GROUP_LIST;
         let list = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
+       console.log(list)
        if(list){
            this.assign('list',list);
        }
@@ -29,7 +30,7 @@ export default class extends Base {
             "meta_title":type[id]+"设置",
             "id":id
         })
-
+        
         return this.display();
     }
 
@@ -45,7 +46,6 @@ export default class extends Base {
             let map = {};
             map.status = 1;
             let gets = this.get();
-            console.log(gets);
             let start = parseInt(gets.start);
             let length = parseInt(gets.length);
             let draw = gets.draw;
