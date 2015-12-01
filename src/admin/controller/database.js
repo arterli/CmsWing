@@ -22,7 +22,7 @@ export default class extends Base {
      * 数据库列表
      * @returns {*}
      */
-    async indexAction() {
+    * indexAction() {
         //auto render template file index_index.html
         this.assign({
             "tactive": "sysm",
@@ -30,7 +30,7 @@ export default class extends Base {
         })
         //let DB = think.adapter('db', this.config.type || 'mysql');
         //this._db = new DB(this.config);
-        let list = await this.model().query('SHOW TABLE STATUS');
+        let list = yield this.model().query('SHOW TABLE STATUS');
         // console.log(list)
         this.assign("list", list);
         return this.display();
