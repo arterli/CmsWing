@@ -25,7 +25,7 @@ node_modules/
 
 # IDE config
 .idea
-
+.vscode
 # output
 output/
 output.tar.gz
