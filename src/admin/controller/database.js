@@ -39,12 +39,12 @@ export default class extends Base {
     /**
      * 优化表
      */
-    async optimizeAction() {
+    * optimizeAction() {
         let list;
         if (this.isPost()) {
             let tables = this.post('tables');
             if (tables) {
-                list = await this.model().query("OPTIMIZE TABLE " + tables);
+                list = yield this.model().query("OPTIMIZE TABLE " + tables);
                 return this.json(list);
             } else {
                 return this.fail(88, "请指定要修复的表！")
