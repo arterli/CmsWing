@@ -18,12 +18,18 @@ export default class extends Base {
     async indexAction(){
         //auto render template file index_index.html
         let id = this.get('id')||1;
-        let list   = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
-        console.log(list);
+        let type = this.setup.CONFIG_GROUP_LIST;
+        let list = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
+       if(list){
+           this.assign('list',list);
+       }
         this.assign({
             "tactive":"sysm",
             "active":"/admin/setup/index",
+            "meta_title":type[id]+"设置",
+            "id":id
         })
+
         return this.display();
     }
 
@@ -65,6 +71,7 @@ export default class extends Base {
                 "recordsFiltered": list.count,
                 "data": list.data
             }
+
             return this.json(data);
         }
     }

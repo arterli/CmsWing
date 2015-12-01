@@ -3,9 +3,9 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            <li class="active"><a href="#"> 备份数据库 </a></li>
-            <li class=""><a href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 还原数据</a>
-            </li>
+            {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
+            <li {%if id == ingredient %}class="active"{% endif %} ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
+            {% endfor %}
         </ul>
     </header>
     <section class="scrollable wrapper">
@@ -14,7 +14,7 @@
 
             <div class="col-lg-12">
                 <p>网站设置 <span
-                        class="text-muted">(replace the '.' with '-')</span></p>
+                        class="text-muted">(replace the '.' with '-')fdsaf</span></p>
             </div>
 
         </div>
