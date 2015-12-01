@@ -40,6 +40,7 @@ export default class extends Base {
      * 优化表
      */
     * optimizeAction() {
+        
         let list;
         if (this.isPost()) {
             let tables = this.post('tables');
