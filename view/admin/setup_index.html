@@ -15,35 +15,37 @@
                 </header>
                 <div class="panel-body">
                   <form method="get" class="form-horizontal">
+                  {% for item in list %}  
+                 
                     <div class="form-group">
-                      <label class="col-sm-2 control-label">With help</label>
+                      <label class="col-sm-2 control-label">{{ item.title }}</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control">
-                        <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-                      </div>
-                    </div>
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Select</label>
-                      <div class="col-sm-10">
-                        <select class="form-control m-b" name="account">
+                        {% if item.type == 0 %}
+                        <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                        <span class="help-block m-b-none">{{item.remark}}</span>
+                        {% elif item.type == 1 %}
+                         <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                        <span class="help-block m-b-none">{{item.remark}}</span>
+                        {% elif item.type == 2 %}
+                         <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                         <span class="help-block m-b-none">{{item.remark}}</span>
+                         {% elif item.type == 3 %}
+                          <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                         <span class="help-block m-b-none">{{item.remark}}</span>
+                         {% elif item.type == 4 %}
+                         <select class="form-control m-b" name="config[AUTH_CONFIG]">
                           <option>option 1</option>
                           <option>option 2</option>
                           <option>option 3</option>
                           <option>option 4</option>
-                        </select>
+                         </select>
+                        {% endif %}
+                       
                       </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Drag and Drop</label>
-                      <div class="col-sm-10">
-                        <textarea class="form-control" name="config[AUTH_CONFIG]">AUTH_ON:1
-AUTH_TYPE:2</textarea>
-                      </div>
-                    </div>
-                    
-                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    {% endfor %}
+
                     <div class="form-group">
                       <div class="col-sm-4 col-sm-offset-2">
                            <button class="btn btn-primary" type="submit">确定</button>
