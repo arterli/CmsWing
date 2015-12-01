@@ -11,5 +11,5 @@ var instance = new thinkjs({
 });
 //watch compile code
 instance.compile();
-
+//instance.compile({retainLines: true, log: true})
 instance.run();

@@ -3,21 +3,61 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            <li class="active"><a href="#"> 备份数据库 </a></li>
-            <li class=""><a href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 还原数据</a>
-            </li>
+            {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
+            <li {%if id == ingredient %}class="active"{% endif %} ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
+            {% endfor %}
         </ul>
     </header>
     <section class="scrollable wrapper">
+  <section class="panel panel-default">
+                <header class="panel-heading font-bold">
+                  Form elements
+                </header>
+                <div class="panel-body">
+                  <form method="get" class="form-horizontal">
+                  {% for item in list %}  
+                 
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label">{{ item.title }}</label>
+                      <div class="col-sm-10">
+                        {% if item.type == 0 %}
+                        <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                        <span class="help-block m-b-none">{{item.remark}}</span>
+                        {% elif item.type == 1 %}
+                         <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                        <span class="help-block m-b-none">{{item.remark}}</span>
+                        {% elif item.type == 2 %}
+                         <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                         <span class="help-block m-b-none">{{item.remark}}</span>
+                         {% elif item.type == 3 %}
+                          <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                         <span class="help-block m-b-none">{{item.remark}}</span>
+                         {% elif item.type == 4 %}
+                         <select class="form-control m-b" name="config[AUTH_CONFIG]">
+                          <option>option 1</option>
+                          <option>option 2</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                         </select>
+                        {% endif %}
+                       
+                      </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                    {% endfor %}
 
-        <div class="row">
-
-            <div class="col-lg-12">
-                <p>网站设置 <span
-                        class="text-muted">(replace the '.' with '-')</span></p>
-            </div>
-
-        </div>
+                    <div class="form-group">
+                      <div class="col-sm-4 col-sm-offset-2">
+                           <button class="btn btn-primary" type="submit">确定</button>
+                        <button class="btn btn-default" type="submit">返回</button>
+                       
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </section>
+     </section>
+     
     </section>
 </section>
 

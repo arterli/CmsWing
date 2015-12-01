@@ -94,7 +94,7 @@ export default class extends Base {
             //备份配置
             let config = {
                 'path': paths,
-                'part': 20*1024*1024,
+                'part': 20 * 1024 * 1024,
                 'compress': 1,
                 'level': 9
             }
@@ -193,7 +193,6 @@ export default class extends Base {
 
     importsAction() {
 
-
         /**
          * 遍历文件夹，获取所有文件夹里面的文件信息
          * @param path
@@ -246,21 +245,23 @@ export default class extends Base {
 
         this.display();
     }
-   async rmdirAction(){
-       let dir = this.get("path");
-       let paths = think.RESOURCE_PATH + "/backup/" + dir;
-       //删除目录
-       await think.rmdir(paths);
-       //删除对应压缩包
-       if(think.isFile(paths+".tar.gz")){
-           fs.unlinkSync(paths+".tar.gz");
-       }
-       return this.json({
-           'info': "删除成功",
-           'dir': dir,
-           'status': 1
-       })
-   }
+
+    async rmdirAction() {
+        let dir = this.get("path");
+        let paths = think.RESOURCE_PATH + "/backup/" + dir;
+        //删除目录
+        await think.rmdir(paths);
+        //删除对应压缩包
+        if (think.isFile(paths + ".tar.gz")) {
+            fs.unlinkSync(paths + ".tar.gz");
+        }
+        return this.json({
+            'info': "删除成功",
+            'dir': dir,
+            'status': 1
+        })
+    }
+
     async aabbAction() {
         let Database = think.adapter("database", "mysql");
         let db = new Database("1", "2", "3");
@@ -272,46 +273,47 @@ export default class extends Base {
 
     targzAction() {
         // Streams
-        if(this.isGet()){
-            let paths = think.RESOURCE_PATH ;
+        if (this.isGet()) {
+            let paths = think.RESOURCE_PATH;
             let path = "/backup/";
-            let dir =paths+path+this.get("dir");
-            let tar = paths+path+this.get("dir")+".tar.gz"
-            if(!think.isFile(tar)){
+            let dir = paths + path + this.get("dir");
+            let tar = paths + path + this.get("dir") + ".tar.gz"
+            if (!think.isFile(tar)) {
                 //var read = targz().createReadStream(dir);
                 //var parse = fs.createWriteStream(tar);
                 //read.pipe(parse);
-                let self= this;
+                let self = this;
                 targz().compress(dir, tar)
-                    .then(function(){
-                        self.success({'name':"tar",'url':self.get("dir")})
+                    .then(function () {
+                        self.success({'name': "tar", 'url': self.get("dir")})
                     })
-                    .catch(function(err){
+                    .catch(function (err) {
                         console.log('Something is wrong ', err.stack);
                     });
 
-            }else{
-                this.success({'name':"download",'url':this.get("dir")})
+            } else {
+                this.success({'name': "download", 'url': this.get("dir")})
             }
-        }else if(this.isPost()){
-            let paths = think.RESOURCE_PATH ;
+        } else if (this.isPost()) {
+            let paths = think.RESOURCE_PATH;
             let path = "/backup/";
-            let tar = paths+path+this.post("name")+".tar.gz"
+            let tar = paths + path + this.post("name") + ".tar.gz"
             this.download(tar);
         }
     }
-    httpedAction(){
-        http.get("http://www.kancloud.cn/tag/JavaScript", function(res) {
+
+    httpedAction() {
+        http.get("http://www.kancloud.cn/tag/JavaScript", function (res) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));
             res.setEncoding('utf8');
             res.on('data', function (chunk) {
                 console.log('BODY: ' + chunk);
             });
-            res.on('end', function() {
+            res.on('end', function () {
                 console.log('No more data in response.')
             })
-        }).on('error', function(e) {
+        }).on('error', function (e) {
             console.log("Got error: " + e.message);
         });
     }
