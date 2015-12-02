@@ -16,7 +16,6 @@
  * ========================================================= */
 
 (function( $ ) {
-
 	var ErrorMsgs = {
 		formatInvalidInputErrorMsg : function(input) {
 			return "Invalid input value '" + input + "' passed in";
@@ -49,7 +48,6 @@
 								.insertBefore(this.element)
 								.append(this.element);
 		}
-
 		this.id = this.element.data('slider-id')||options.id;
 		if (this.id) {
 			this.picker[0].id = this.id;

@@ -2,7 +2,6 @@
  * Created by arter on 2015/11/16.
  */
 'use strict';
-
 import Base from './base.js';
 import fs  from 'fs';
 import path from 'path';

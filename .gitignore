@@ -30,5 +30,8 @@ node_modules/
 output/
 output.tar.gz
 
+#typings
+typings/
+
 #app
 app/

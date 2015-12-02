@@ -4,7 +4,7 @@
 'use strict';
 
 import Base from './base.js';
-
+//import Http from 'http';
 export default class extends Base {
     /**
      * index action
@@ -15,11 +15,11 @@ export default class extends Base {
         this.db = this.model('setup');
     }
 
-    async indexAction(){
+    * indexAction(){
         //auto render template file index_index.html
         let id = this.get('id')||1;
         let type = this.setup.CONFIG_GROUP_LIST;
-        let list = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
+        let list = yield this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
        console.log(list)
        if(list){
            this.assign('list',list);
@@ -41,7 +41,7 @@ export default class extends Base {
        })
         return this.display();
     }
-    async groupdataAction(){
+    * groupdataAction(){
         if(this.isGet()){
             let map = {};
             map.status = 1;
@@ -55,7 +55,7 @@ export default class extends Base {
                 map.group   =   gets.group||0;
             }
                        //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
-            let list = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
+            let list = yield this.db.limit(start, length).where(map).order("sort ASC").countSelect()
             list.data.forEach(v =>{
                 if(v.group){
                 v.group=this.setup.CONFIG_GROUP_LIST[v.group];
@@ -75,15 +75,14 @@ export default class extends Base {
             return this.json(data);
         }
     }
-    async aabbAction(){
+    aabbAction(){
 
         //obj = "export default "+JSON.stringify(obj)
         //let filename = think.getPath("common", "model");
         //this.config("setup",{"aa":"bbb"})
 
        // let value = await this.model("setup").getset();
-          let str = '2:24242\r\nf:fsfs';
-
+        let str = '2:24242\r\nf:fsfs';
         let val = parse_config_attr(str);
         this.end(val);
         //fs.writeFileSync(filename, obj, [options])
