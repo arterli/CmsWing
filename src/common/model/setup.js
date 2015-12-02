@@ -1,4 +1,3 @@
-
 'use strict';
 /**
  * model
@@ -26,7 +25,19 @@ export default class extends think.model.base {
         let list = await this.where(map).order("sort ASC").field(["name","value"]).select();
         let obj = {}
         list.forEach(v =>{
-            obj[v.name]=parse_config_attr(v.value);
+            if(v.value.search(/\r\n/ig)>-1){
+                v.value=v.value.split("\r\n");
+                let obj ={}
+                v.value.forEach(n =>{
+                    n=n.split(":");
+                    obj[n[0]]=n[1];
+                })
+
+                v.value = obj;
+            }
+            obj[v.name]=v.value;
+
+
         })
         return obj;
     }

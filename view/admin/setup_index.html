@@ -9,31 +9,32 @@
         </ul>
     </header>
     <section class="scrollable wrapper">
+
   <section class="panel panel-default">
                 <header class="panel-heading font-bold">
                   {{meta_title}}
                 </header>
                 <div class="panel-body">
-                  <form method="get" class="form-horizontal">
+                  <form method="post" action="/admin/setup/save" class="form-horizontal" id="ajaxForm">
                   {% for item in list %}  
                  
                     <div class="form-group">
                       <label class="col-sm-2 control-label">{{ item.title }}</label>
                       <div class="col-sm-10">
                         {% if item.type == 0 %}
-                          <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                          <input type="text" class="form-control" name="{{item.name}}" value="{{ item.value }}">
                         <span class="help-block m-b-none">{{item.remark}}</span>
                         {% elif item.type == 1 %}
-                         <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                         <input type="text" class="form-control" name="{{item.name}}" value="{{ item.value }}">
                         <span class="help-block m-b-none">{{item.remark}}</span>
                         {% elif item.type == 2 %}
-                         <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                         <textarea class="form-control" name="{{item.name}}"  style="height: 100px">{{ item.value }}</textarea>
                          <span class="help-block m-b-none">{{item.remark}}</span>
                          {% elif item.type == 3 %}
-                          <textarea class="form-control" name="config[AUTH_CONFIG]">{{ item.value }}</textarea>
+                          <textarea class="form-control" name="{{item.name}}"  style="height: 100px">{{ item.value }}</textarea>
                          <span class="help-block m-b-none">{{item.remark}}</span>
                          {% elif item.type == 4 %}
-                         <select class="form-control m-b" name="config[AUTH_CONFIG]">
+                         <select class="form-control m-b" name="{{item.name}}">
                              {% for index, items in item.extra|parse_config_attr %}
                           <option value="{{index}}" {% if item.value == index %} selected {% endif %}>{{items}}</option>
                              {% endfor%}
@@ -47,17 +48,40 @@
 
                     <div class="form-group">
                       <div class="col-sm-4 col-sm-offset-2">
-                           <button class="btn btn-primary" type="submit">确定</button>
-                        <button class="btn btn-default" type="submit">返回</button>
+                           <button class="btn btn-primary" type="submit" id="btn">确定</button>
+                        <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
                        
                       </div>
                     </div>
                   </form>
                 </div>
               </section>
+
      </section>
      
     </section>
 </section>
 
 {% endblock %}
+{% block script%}
+<script type="text/javascript">
+    $(function(){
+        $('#ajaxForm #btn').on('click', function () {
+            var jsonData = $('#ajaxForm').serialize();
+            console.log(jsonData);
+            $.ajax({
+                type:"POST",
+                url: "/admin/setup/save",
+                data: jsonData,
+                success: function (data) {
+                    toastr.success('配置成功!')
+                    window.location.reload();
+                }
+            });
+            return false;
+        });
+    })
+
+
+    </script>
+{% endblock%}

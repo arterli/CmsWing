@@ -11,11 +11,15 @@
             <li ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>
+        <div class="btn-group pull-right">
+            <a class="btn btn-default btn-sm" href="/admin/setup/add"><i class="fa fa-check-square-o"></i> 添加配置</a>
+
+        </div>
     </header>
     <section class="scrollable wrapper">
         <section class="panel panel-default">
             <header class="panel-heading">
-                DataTables
+                配置列表
                 <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
             </header>
             <div class="table-responsive">
@@ -79,8 +83,8 @@
                     targets: 6,
                     render: function (data, type, row) {
                         //console.log(data);
-                        var html = '<a class="btn btn-default btn-xs" href="/admin/setup/add/'+data.id+'">编辑</a> ' +
-                                ' <a class="btn btn-default btn-xs roledel" href="javascript:void(0);">删除</a>';
+                        var html = '<a class="btn btn-default btn-xs" href="/admin/setup/edit/id/'+data.id+'">编辑</a> ' +
+                                ' <a class="btn btn-default btn-xs del" onclick="del('+ data.id +')">删除</a>';
                         return html;
                     }
                 }
@@ -120,5 +124,31 @@
             table.ajax.url( '/admin/setup/groupdata/group/'+groupid ).load();
         })
     } );
+
+    function del(id) {
+        swal({
+                    title: "你确定?",
+                    text: "你将要删除配置，并且不能恢复!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "是的!",
+                    cancelButtonText: "就不!",
+                    closeOnConfirm: false
+                },
+                function(){
+                    $.ajax({
+                        url: "/admin/setup/del",
+                        data: {
+                            "id": id
+                        }, success: function (data) {
+
+                            location.href = "/admin/setup/group";
+                        }
+                    });
+
+                });
+
+    }
 </script>
 {% endblock %}

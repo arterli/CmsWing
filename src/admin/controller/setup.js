@@ -4,7 +4,6 @@
 'use strict';
 
 import Base from './base.js';
-
 export default class extends Base {
     /**
      * index action
@@ -80,15 +79,96 @@ export default class extends Base {
      * 新增配置
      *
      */
-    addAction(){
+    async addAction(){
         if(this.isPost()){
-
+            let data = this.post();
+            data.status = 1;
+            data.update_time = new Date().valueOf();
+            let addres =await this.db.add(data);
+            if(addres){
+                think.cache("setup", null);
+                return this.json(1)
+            }else {
+                return this.json(0)
+            }
         }else {
-            this.assign("meta_title","新增配置")
-            think.log(222);
+            this.assign({
+                "tactive":"sysm",
+                "active":"/admin/setup/group",
+                "meta_title":"新增配置",
+                "action":"/admin/setup/add"
+            })
+
             this.display();
         }
     }
+    //编辑配置
+    async editAction(){
+        if(this.isPost()){
+            let data = this.post();
+            data.status = 1;
+            data.create_time = new Date().valueOf();
+            let upres =await this.db.update(data);
+            if(upres){
+                think.cache("setup", null);
+                return this.json(1)
+            }else {
+                return this.json(0)
+            }
+        }else {
+            let map = {};
+            map.id = this.get("id");
+            let info = await this.db.where(map).find();
+            this.assign("info",info);
+            this.assign({
+                "tactive":"sysm",
+                "active":"/admin/setup/group",
+                "meta_title":"编辑配置",
+                "action":"/admin/setup/edit"
+            })
+            this.display();
+        }
+
+    }
+    async saveAction(){
+        let post = this.post();
+        //console.log(post);
+        for(let v in post){
+            this.db.where({name: v}).update({value: post[v]});
+        }
+        think.cache("setup", null);
+        this.json(1)
+    }
+
+//删除配置
+    async delAction(){
+        let id = this.get("id");
+        let res = await this.db.where({id:id}).delete();
+        if(res){
+            think.cache("setup", null);
+            return this.json(1)
+        }else {
+            return this.json(0)
+        }
+    }
+    /**
+     * 添加配置异步验证数据
+     * @returns {Promise|*}
+     */
+    async parsleyAction(){
+        //验证
+        let data=this.get();
+        // console.log(data);
+        let res = await this.db.where(data).find();
+        // console.log(res);
+        if(think.isEmpty(res)){
+            return this.json(1);
+        }else{
+            return this.json(0);
+        }
+    }
+
+
     async aabbAction(){
 
         //obj = "export default "+JSON.stringify(obj)

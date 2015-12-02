@@ -160,14 +160,7 @@ var oTable;
             });
         }
 
-        /**
-         * 重置表单
-         */
-        function resetFrom() {
-            $('form').each(function (index) {
-                $('form')[index].reset();
-            });
-        }
+
     /**
      * 改变用户状态
      */
