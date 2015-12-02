@@ -4,7 +4,6 @@
 'use strict';
 
 import Base from './base.js';
-
 export default class extends Base {
     /**
      * 后台节点配置的url作为规则存入auth_rule

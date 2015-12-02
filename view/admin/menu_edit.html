@@ -21,7 +21,11 @@
         </div>
         <div class="form-group">
             <label>分组 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
-            <input id="group" type="text" name="group" class=" input-sm form-control" placeholder="分组"  value="{{data.group}}" >
+            <select class="form-control m-b" name="group" id="group">
+                {% for index, items in setup.MEUN_GROUP %}
+                <option value="{{index}}"  {% if data.group == index %} selected {% endif %}>{{items}}</option>
+                {% endfor%}
+            </select>
         </div>
         <div class="form-group">
             <label>是否隐藏 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>

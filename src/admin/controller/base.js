@@ -43,6 +43,8 @@ export default class extends think.controller.base {
         return res;
     }
 
+
+
     /**
      * 返回后台节点数据
      * @param boolean $tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)

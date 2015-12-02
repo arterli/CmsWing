@@ -68,7 +68,6 @@
     $(function(){
         $('#ajaxForm #btn').on('click', function () {
             var jsonData = $('#ajaxForm').serialize();
-            console.log(jsonData);
             $.ajax({
                 type:"POST",
                 url: "/admin/setup/save",

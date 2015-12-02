@@ -175,7 +175,7 @@ export default class extends Base {
         //let filename = think.getPath("common", "model");
         //this.config("setup",{"aa":"bbb"})
 
-        let value = await this.model("setup").getset();
+        let value = await this.model("menu").getallmenu();
         this.end(value);
         //fs.writeFileSync(filename, obj, [options])
     }

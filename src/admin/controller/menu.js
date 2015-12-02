@@ -61,6 +61,8 @@ export default class extends Base {
                 }else{
                     v.up_title="一级菜单";
                 }
+                //console.log(this.setup.MEUN_GROUP)
+                v.group=this.setup.MEUN_GROUP[v.group];
             })
         }
         let relist = {
