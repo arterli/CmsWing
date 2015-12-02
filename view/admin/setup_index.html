@@ -4,14 +4,14 @@
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
             {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
-            <li {%if id == ingredient %}class="active"{% endif %} ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
+            <li {%if id == ingredient %}class="active"{% endif %} ><a href="/admin/setup/index/id/{{ ingredient }}"  data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>
     </header>
     <section class="scrollable wrapper">
   <section class="panel panel-default">
                 <header class="panel-heading font-bold">
-                  Form elements
+                  {{meta_title}}
                 </header>
                 <div class="panel-body">
                   <form method="get" class="form-horizontal">
@@ -21,7 +21,7 @@
                       <label class="col-sm-2 control-label">{{ item.title }}</label>
                       <div class="col-sm-10">
                         {% if item.type == 0 %}
-                        <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
+                          <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
                         <span class="help-block m-b-none">{{item.remark}}</span>
                         {% elif item.type == 1 %}
                          <input type="text" class="form-control" name="item[{{item.name}}]" value="{{ item.value }}">
@@ -34,10 +34,9 @@
                          <span class="help-block m-b-none">{{item.remark}}</span>
                          {% elif item.type == 4 %}
                          <select class="form-control m-b" name="config[AUTH_CONFIG]">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
+                             {% for index, items in item.extra|parse_config_attr %}
+                          <option value="{{index}}" {% if item.value == index %} selected {% endif %}>{{items}}</option>
+                             {% endfor%}
                          </select>
                         {% endif %}
                        

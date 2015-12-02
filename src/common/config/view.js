@@ -47,6 +47,13 @@ export default {
           }
           return time;
         })
+
+        /**
+         *分析枚举类型配置值 格式 a:名称1,b:名称2
+         */
+        env.addFilter("parse_config_attr",function(str){
+          return parse_config_attr(str)
+        })
       }
     }
   }

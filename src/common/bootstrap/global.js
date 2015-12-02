@@ -278,6 +278,30 @@ global.trim = function (str){
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 /**
+ * 分析枚举类型配置值 格式 a:名称1,b:名称2
+ * @param str
+ * @returns {*}
+ */
+global.parse_config_attr = function (str){
+    let strs;
+    if(str.search(/\r\n/ig)>-1){
+        strs=str.split("\r\n");
+    }else if(str.search(/,/ig)>-1){
+        strs=str.split(",");
+    }else{
+        return str;
+    }
+    if(think.isArray(strs)){
+        let obj ={}
+        strs.forEach(n =>{
+            n=n.split(":");
+            obj[n[0]]=n[1];
+        })
+        return obj;
+    }
+
+}
+/**
  * ltrim()
  * @param str [删除左边的空格]
  * @returns {*|void|string|XML}

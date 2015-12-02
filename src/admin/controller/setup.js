@@ -81,8 +81,11 @@ export default class extends Base {
         //let filename = think.getPath("common", "model");
         //this.config("setup",{"aa":"bbb"})
 
-        let value = await this.model("setup").getset();
-        this.end(value);
+       // let value = await this.model("setup").getset();
+          let str = '2:24242\r\nf:fsfs';
+
+        let val = parse_config_attr(str);
+        this.end(val);
         //fs.writeFileSync(filename, obj, [options])
     }
 }

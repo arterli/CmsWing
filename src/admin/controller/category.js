@@ -15,7 +15,7 @@ export default class extends Base {
         super.init(http);
         this.db = this.model('category');
     }
-    async indexAction(){
+     indexAction(){
         this.assign({
             "tactive":"sysm",
             "active":"/admin/category/index",
@@ -24,15 +24,15 @@ export default class extends Base {
         return this.display();
        
     }
-    async gettreeAction(){
-        let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
+    * gettreeAction(){
+        let tree = yield this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
         return this.json(tree);
     }
 
     /**
      * 添加栏目
      */
-    async addAction(){
+    addAction(){
         if(this.isPost()){
            console.log(this.post())
         }else{
