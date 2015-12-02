@@ -3,7 +3,8 @@
  */
 'use strict';
 
-import  Base from './base.js';
+import Base from './base.js';
+
 export default class extends Base {
     /**
      * index action
@@ -13,6 +14,7 @@ export default class extends Base {
         super.init(http);
         this.db = this.model('setup');
     }
+
     async indexAction(){
         //auto render template file index_index.html
         let id = this.get('id')||1;
@@ -27,14 +29,15 @@ export default class extends Base {
             "meta_title":type[id]+"设置",
             "id":id
         })
-        
+
         return this.display();
     }
 
-   groupAction(){
+         groupAction(){
        this.assign({
            "tactive":"sysm",
            "active":"/admin/setup/group",
+           "meta_title":"配置管理"
        })
         return this.display();
     }
@@ -51,7 +54,7 @@ export default class extends Base {
             if(gets.group){
                 map.group   =   gets.group||0;
             }
-                       //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
+            //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
             let list = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
             list.data.forEach(v =>{
                 if(v.group){
@@ -72,16 +75,28 @@ export default class extends Base {
             return this.json(data);
         }
     }
-    aabbAction(){
+
+    /**
+     * 新增配置
+     *
+     */
+    addAction(){
+        if(this.isPost()){
+
+        }else {
+            this.assign("meta_title","新增配置")
+            think.log(222);
+            this.display();
+        }
+    }
+    async aabbAction(){
 
         //obj = "export default "+JSON.stringify(obj)
         //let filename = think.getPath("common", "model");
         //this.config("setup",{"aa":"bbb"})
 
-       // let value = await this.model("setup").getset();
-        let str = '2:24242\r\nf:fsfs';
-        let val = parse_config_attr(str);
-        this.end(val);
+        let value = await this.model("setup").getset();
+        this.end(value);
         //fs.writeFileSync(filename, obj, [options])
     }
 }
