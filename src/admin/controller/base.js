@@ -4,7 +4,7 @@ export default class extends think.controller.base {
     /**
      * some base method in here
      */
-    async init(http) {
+    init(http) {
         super.init(http);
         // http.action = http.method.toLowerCase();
         //console.log(http.method.toLowerCase())

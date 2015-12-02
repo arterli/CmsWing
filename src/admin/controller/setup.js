@@ -3,8 +3,7 @@
  */
 'use strict';
 
-import Base from './base.js';
-//import Http from 'http';
+import  Base from './base.js';
 export default class extends Base {
     /**
      * index action
@@ -14,13 +13,11 @@ export default class extends Base {
         super.init(http);
         this.db = this.model('setup');
     }
-
-    * indexAction(){
+    async indexAction(){
         //auto render template file index_index.html
         let id = this.get('id')||1;
         let type = this.setup.CONFIG_GROUP_LIST;
-        let list = yield this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
-       console.log(list)
+        let list = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
        if(list){
            this.assign('list',list);
        }
@@ -41,7 +38,7 @@ export default class extends Base {
        })
         return this.display();
     }
-    * groupdataAction(){
+    async groupdataAction(){
         if(this.isGet()){
             let map = {};
             map.status = 1;
@@ -55,7 +52,7 @@ export default class extends Base {
                 map.group   =   gets.group||0;
             }
                        //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
-            let list = yield this.db.limit(start, length).where(map).order("sort ASC").countSelect()
+            let list = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
             list.data.forEach(v =>{
                 if(v.group){
                 v.group=this.setup.CONFIG_GROUP_LIST[v.group];
