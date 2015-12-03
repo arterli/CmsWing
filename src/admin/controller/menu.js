@@ -13,14 +13,11 @@ export default class extends Base {
     init(http){
         super.init(http);
         this.db = this.model('menu');
+        this.tactive = "setup"
     }
 
     indexAction(){
         //auto render template file index_index.html
-        this.assign({
-            "tactive":"sysm",
-            "active":"/admin/menu/index",
-        })
         return this.display();
     }
 
@@ -62,7 +59,7 @@ export default class extends Base {
                     v.up_title="一级菜单";
                 }
                 //console.log(this.setup.MEUN_GROUP)
-                v.group=this.setup.MEUN_GROUP[v.group];
+                v.group=this.setup.MENU_GROUP[v.group];
             })
         }
         let relist = {
@@ -90,6 +87,7 @@ export default class extends Base {
         map.id = this.get("id");
         let res = await this.db.update(map);
         if(res){
+            think.cache("adminenu", null);//清除菜单缓存
             return this.json(res);
         }
     }
@@ -101,6 +99,7 @@ export default class extends Base {
         if (this.isAjax("post")) {
             let id = this.post("id");
             let data = await this.db.where({id: id}).update(this.post());
+            think.cache("adminenu", null);//清除菜单缓存
             return this.json(data);
         } else {
             let id = this.get("id");
@@ -122,6 +121,7 @@ export default class extends Base {
          let data = this.post();
             data.status = 1;
             let add = await this.db.add(data);
+            think.cache("adminenu", null);//清除菜单缓存
             return this.json(add);
         }else{
         return this.display();
@@ -136,6 +136,7 @@ export default class extends Base {
           let id = this.post("id");
           //console.log(id);
           let res = await this.db.where({id: id}).delete();
+        think.cache("adminenu", null);//清除菜单缓存
           return this.json(res);
         }
 
@@ -148,7 +149,8 @@ export default class extends Base {
        // console.log(menu);
         return this.json(menu);
     }
-    aabbAction(){
-        console.log(1)
+    async aabbAction(){
+        let value = await this.model("menu").getallmenu();
+        this.end(value);
     }
 }

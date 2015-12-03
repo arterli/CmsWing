@@ -22,8 +22,14 @@ export default class extends think.controller.base {
         this.assign("userinfo",user);
         //网站配置
         this.setup = await this.model("setup").getset();
+        //后台菜单
+        this.adminmenu = await this.model('menu').adminmenu();
         this.assign("setup",this.setup);
-
+        //菜单当前状态
+        let http = this.http;
+        this.active=http.pathname.replace(/admin\//,""),
+        //this.active = http.controller+'/'+http.action;
+            think.log(this.active);
         this.assign({
             "navxs": false,
             "active": "/admin",

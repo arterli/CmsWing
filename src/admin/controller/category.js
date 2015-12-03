@@ -14,18 +14,16 @@ export default class extends Base {
     init(http){
         super.init(http);
         this.db = this.model('category');
+        this.tactive = "setup";
     }
      indexAction(){
-        this.assign({
-            "tactive":"sysm",
-            "active":"/admin/category/index",
-        })
+
         //auto render template file index_index.html
         return this.display();
        
     }
-    * gettreeAction(){
-        let tree = yield this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
+    async gettreeAction(){
+        let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
         return this.json(tree);
     }
 

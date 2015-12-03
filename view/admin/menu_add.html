@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label>分组 <i class="fa fa-info-sign text-xs text-muted">用于左侧分组二级菜单</i></label>
                 <select class="form-control m-b" name="group" id="group">
-                    {% for index, items in setup.MEUN_GROUP %}
+                    {% for index, items in setup.MENU_GROUP %}
                     <option value="{{index}}">{{items}}</option>
                     {% endfor%}
                 </select>

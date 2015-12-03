@@ -319,6 +319,25 @@ global.rtrim = function (str){
 }
 /**
  * 把返回的数据集转换成Tree
+ * @param array data 要转换的数据集
+ * @param string pid parent标记字段
+ * @return array
+ */
+global.arr_to_tree = function (data,pid){
+    var result = [] , temp;
+    for(var i in data){
+        if(data[i].pid==pid){
+            result.push(data[i]);
+            temp = arr_to_tree(data,data[i].id);
+            if(temp.length>0){
+                data[i].children=temp;
+            }
+        }
+    }
+    return result;
+}
+/**
+ * 把返回的数据集转换成Tree
  * @param array $list 要转换的数据集
  * @param string $pid parent标记字段
  * @param string $level level标记字段

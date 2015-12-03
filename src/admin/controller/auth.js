@@ -5,6 +5,10 @@
 
 import Base from './base.js';
 export default class extends Base {
+    init(http) {
+        super.init(http);
+        this.tactive = "user";
+    }
     /**
      * 后台节点配置的url作为规则存入auth_rule
      * 执行新节点的插入,已有节点的更新,无效规则的删除三项任务

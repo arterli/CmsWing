@@ -14,8 +14,8 @@ export default class extends Base {
      */
     init(http) {
         super.init(http);
+        this.tactive = "setup"
     }
-
 
     /**
      * 数据库列表
@@ -23,10 +23,7 @@ export default class extends Base {
      */
     async indexAction() {
         //auto render template file index_index.html
-        this.assign({
-            "tactive": "sysm",
-            "active": "/admin/database/index",
-        })
+
         //let DB = think.adapter('db', this.config.type || 'mysql');
         //this._db = new DB(this.config);
         let list = await this.model().query('SHOW TABLE STATUS');
@@ -237,8 +234,6 @@ export default class extends Base {
         let paths = think.RESOURCE_PATH + "/backup/";
         let filesList = geFileList(paths)
         this.assign({
-            "tactive": "sysm",
-            "active": "/admin/database/index",
             "fileslist": filesList
         })
 

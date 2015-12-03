@@ -13,6 +13,7 @@ export default class extends Base {
     init(http) {
         super.init(http);
         this.db=this.model("member")
+        this.tactive = "user";
     }
 
     /**
@@ -21,12 +22,6 @@ export default class extends Base {
      */
 
     indexAction(){
-        this.assign({
-
-            "active":"/admin/user/index",
-            "tactive":"/admin/user",
-
-        })
         return this.display();
     }
 

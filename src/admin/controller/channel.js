@@ -12,13 +12,9 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
+        this.tactive = "setup"
     }
-    __before(){
-        this.assign({
-            "tactive":"sysm",
-            "bg":"bg-black"
-        });
-    }
+
     indexAction(){
         //auto render template file index_index.html
         this.assign({

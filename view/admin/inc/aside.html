@@ -71,11 +71,18 @@
                     <!--<li class="m-b hidden-nav-xs"></li>-->
                     <!--</ul>-->
                     <ul class="nav" data-ride="collapse">
+                        <!--111111111111111111-->
+                        {% for i, v in controller.setup.MENU_GROUP%}
+                        {% if i!= 0 and i != 99  %}
+
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                            <span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>
-                            功能
+                            <span class="pull-right"><a href="#{{ i }}"><i class="icon-plus i-lg"></i></a></span>
+                            {{ v }}
                         </li>
-                        <li>
+                        {% for v in controller.adminmenu[i] %}
+                        {% if controller.tactive == v.url %}
+                        <li class="active">{% else %}
+                        <li>{% endif %}
                             <a href="javascript:void(0);" class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -83,223 +90,26 @@
                         </span>
                                 <i class="icon-screen-desktop icon">
                                 </i>
-                                <span>微砍价</span>
+                                <span>{{v.title}}</span>
                             </a>
                             <ul class="nav dk text-sm">
-                                <li>
-                                    <a href="layout-color.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Color option</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-boxed.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Boxed layout</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-fluid.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Fluid layout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0);" hideFocus="true" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                <i class="icon-grid icon">
-                                </i>
-                                <span>Pages</span>
-                            </a>
-                            <ul class="nav dk text-sm">
-                                <li>
-                                    <a href="profile.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-                                        <span>Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="blog.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Blog</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="invoice.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Invoice</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="gmap.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Google Map</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="jvectormap.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Vector Map</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="signin.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Signin</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="signup.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>Signup</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="404.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>404</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                            <!--<span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>-->
-                            系统
-                        </li>
-                        {% if tactive=="/admin/user" %}
-                        <li class="active">{% else %}
-                        <li>{% endif %}
-                            <a href="javascript:void(0);" hideFocus="true" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                <i class="icon-user icon">
-                                </i>
-                                <span>用户管理</span>
-                            </a>
-                            <ul class="nav dk text-sm">
-                                {% if active=="/admin/user/index" %}
+                                {% for c in v.children %}
+                                {% if controller.active == c.url %}
                                 <li class="active">{% else %}
                                 <li>{% endif %}
-                                    <a href="/admin/user/index" class="auto">
+                                    <a href="/admin/{{c.url}}" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
 
-                                        <span>用户列表</span>
+                                        <span>{{c.title}}</span>
                                     </a>
                                 </li>
-                                {% if active=="/admin/auth/index" %}
-                                <li class="active">{% else %}
-                                <li>{% endif %}
-                                    <a href="/admin/auth/index" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>权限管理</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-fluid.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>用户行为</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-fluid.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-
-                                        <span>行为日志</span>
-                                    </a>
-                                </li>
+                                {% endfor%}
                             </ul>
                         </li>
-
-                        {% if tactive=="sysm" %}
-                        <li class="active">{% else %}
-                        <li>{% endif %}
-                            <a href="javascript:void(0);" hideFocus="true" class="auto">
-                               <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                <i class=" icon-settings icon text-success-lter"></i>
-                                <span>系统设置</span>
-                            </a>
-
-                        <ul class="nav dk text-sm">
-                            {% if active=="/admin/setup/index" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/setup/index" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>网站设置</span>
-                                </a>
-                            </li>
-                            {% if active=="/admin/setup/group" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/setup/group" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>配置管理</span>
-                                </a>
-                            </li>
-                            {% if active=="/admin/category/index" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/category/index" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>分类管理</span>
-                                </a>
-                            </li>
-                            {% if active=="/admin/menu/index" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/menu/index" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>菜单管理</span>
-                                </a>
-                            </li>
-                            {% if active=="/admin/channel/index" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/channel/index" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>导航管理</span>
-                                </a>
-                            </li>
-                            {% if active=="/admin/database/index" %}
-                            <li class="active">{% else %}
-                            <li>{% endif %}
-                                <a href="/admin/database/index" class="auto">
-                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                    <span>数据备份</span>
-                                </a>
-                            </li>
-                        </ul>
-                        </li>
+                        {% endfor%}
+                        {% endif %}
+                        {% endfor %}
+                        <!--11111111111111111111-->
                     </ul>
                 </nav>
                 <!-- / nav -->

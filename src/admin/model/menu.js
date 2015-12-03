@@ -4,6 +4,13 @@
  */
 export default class extends think.model.base {
 
+    async adminmenu(){
+        let menu = await think.cache("adminenu", () => {
+            return this.getallmenu();
+        }, {timeout: 365 * 24 * 3600});
+
+        return menu;
+    }
     //获取后台全部菜单
     async getallmenu(){
         let where = {}
@@ -12,7 +19,8 @@ export default class extends think.model.base {
         if(!setup.DEVELOP_MODE){// 是否开发者模式
             where.is_dev    =   0;
         }
-        let group = setup.MEUN_GROUP;
+        let group = setup.MENU_GROUP;
+        think.log(group)
         //let pid = await this.topmenu();
         var arr = {};
             for(var v of Object.keys(group)){
@@ -24,7 +32,7 @@ export default class extends think.model.base {
                 }
                 if(!think.isEmpty(menu)){
                     //arr.push(obj[v.id]=menu)
-                    arr[v]=get_children(menu,0);
+                    arr[v]=arr_to_tree(menu,0);
                 }
 
 

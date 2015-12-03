@@ -12,6 +12,7 @@ export default class extends Base {
     init(http){
         super.init(http);
         this.db = this.model('setup');
+        this.tactive = "setup"
     }
 
     async indexAction(){
@@ -23,21 +24,14 @@ export default class extends Base {
            this.assign('list',list);
        }
         this.assign({
-            "tactive":"sysm",
-            "active":"/admin/setup/index",
             "meta_title":type[id]+"设置",
             "id":id
         })
-
         return this.display();
     }
 
-         groupAction(){
-       this.assign({
-           "tactive":"sysm",
-           "active":"/admin/setup/group",
-           "meta_title":"配置管理"
-       })
+    groupAction(){
+
         return this.display();
     }
     async groupdataAction(){
