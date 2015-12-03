@@ -141,7 +141,7 @@ Modernizr.addTest('ios7 ipad',function(){return!!navigator.userAgent.match(/iPad
     var that = this;
     this.$bar.stop().animate({
         width: per + '%'
-    }, 500, 'linear', function(){
+    }, 200, 'linear', function(){
       if(per == 100) that.update();
     });
   }
