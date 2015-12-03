@@ -11,14 +11,15 @@
             <li ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>
-        <div class="btn-group pull-right">
-            <a class="btn btn-default btn-sm" href="/admin/setup/add"><i class="fa fa-check-square-o"></i> 添加配置</a>
 
-        </div>
     </header>
     <section class="scrollable wrapper">
         <section class="panel panel-default">
             <header class="panel-heading">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-success btn-xs" href="/admin/setup/add"><i class="fa fa-check-square-o"></i> 添加配置</a>
+
+                </div>
                 配置列表
                 <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
             </header>

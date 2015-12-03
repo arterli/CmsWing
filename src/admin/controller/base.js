@@ -29,7 +29,7 @@ export default class extends think.controller.base {
         let http = this.http;
         this.active=http.pathname.replace(/admin\//,""),
         //this.active = http.controller+'/'+http.action;
-            think.log(this.active);
+            //think.log(this.active);
         this.assign({
             "navxs": false,
             "active": "/admin",
