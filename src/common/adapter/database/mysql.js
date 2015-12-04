@@ -30,7 +30,7 @@ export default class extends think.adapter.base {
         if (!think.isFile(filenmae)) {
             let db = think.config('db');
             let sql = "-- -----------------------------\n";
-            sql += "-- Think MySQL Data Transfer \n";
+            sql += "-- CmsWing MySQL Data Transfer \n";
             sql += "-- \n";
             sql += "-- Host     : " + db.host + "\n";
             sql += "-- Port     : " + db.port + "\n";
