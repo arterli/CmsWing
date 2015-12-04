@@ -7,6 +7,7 @@ var instance = new thinkjs({
   APP_PATH: rootPath + '/app',
   ROOT_PATH: rootPath,
   RESOURCE_PATH: __dirname,
+  CMSWING_VERSION:'1.0.0',
   env: 'production'
 });
 
