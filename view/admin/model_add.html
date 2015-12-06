@@ -1,0 +1,127 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="{{action}}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型标识</label>
+
+                                <div class="col-sm-10">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control  " name="name" value=""
+                                                   data-required="true" data-Remote="/admin/setup/parsley">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">请输入文档模型标识</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型名称</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control  " name="title" value=""
+                                                   data-required="true" data-Remote="/admin/setup/parsley">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">请输入模型的名称</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="extend">
+                                                <option value="0">独立模型</option>
+                                                <option value="1">文档模型</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">引擎类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="extend">
+                                                <option value="MyISAM">MyISAM</option>
+                                                <option value="InnoDB">InnoDB</option>
+                                                <option value="MEMORY">MEMORY</option>
+                                                <option value="BLACKHOLE">BLACKHOLE</option>
+                                                <option value="MRG_MYISAM">MRG_MYISAM</option>
+                                                <option value="ARCHIVE">ARCHIVE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否需要主键</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="need_pk">
+                                                <option value="1" selected="selected">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">选“是”则会新建默认的id字段作为主键</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary btn-s-md" type="submit" id="btn">确定</button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+{% endblock%}
+
+{% block script%}
+
+{% endblock%}

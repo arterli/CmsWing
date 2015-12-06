@@ -27,7 +27,8 @@ export default class extends think.controller.base {
         this.assign("setup",this.setup);
         //菜单当前状态
         let http = this.http;
-        this.active=http.pathname.replace(/admin\//,""),
+        this.active=http.pathname,
+            console.log(this.active);
         //this.active = http.controller+'/'+http.action;
             //think.log(this.active);
         this.assign({
@@ -62,7 +63,7 @@ export default class extends think.controller.base {
      */
     async returnnodes(tree = true) {
         let http = this.http;
-        let modelname = http.module;
+        //let modelname = http.module;
         let tree_nodes = [];
         if (tree && !think.isEmpty(tree_nodes)) {
             return tree_nodes;
@@ -70,13 +71,13 @@ export default class extends think.controller.base {
         let nodes;
         if (tree) {
             var list = await this.model('menu').field('id,pid,title,url,tip,hide').order('sort asc').select();
-            list.forEach(value => {
-                let url = value.url.toLocaleLowerCase()
-                if (url.indexOf(modelname) !== 0) {
-                    value.url = modelname + '/' + value['url'];
-                }
-                //console.log(value['url']);
-            })
+            //list.forEach(value => {
+            //    let url = value.url.toLocaleLowerCase()
+            //    if (url.indexOf(modelname) !== 0) {
+            //        value.url = modelname + '/' + value['url'];
+            //    }
+            //    //console.log(value['url']);
+            //})
 
             nodes = get_children(list, 0);
             //nodes.forEachach ( value => {
@@ -87,12 +88,12 @@ export default class extends think.controller.base {
             //})
         } else {
             nodes = await this.model('menu').field('title,url,tip,pid').order('sort asc').select();
-            nodes.forEach(value => {
-                let url = value.url.toLocaleLowerCase()
-                if (url.indexOf(modelname) !== 0) {
-                    value.url = modelname + '/' + value['url'];
-                }
-            })
+            //nodes.forEach(value => {
+            //    let url = value.url.toLocaleLowerCase()
+            //    if (url.indexOf(modelname) !== 0) {
+            //        value.url = modelname + '/' + value['url'];
+            //    }
+            //})
             //console.log(nodes);
         }
         tree_nodes = nodes;

@@ -4,7 +4,7 @@
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
             {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
-            <li {%if id == ingredient %}class="active"{% endif %} ><a href="/admin/setup/index/id/{{ ingredient }}"  data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
+            <li {%if id == ingredient %}class="active"{% endif %} ><a href="/admin/setup/index?id={{ ingredient }}"  data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>
     </header>

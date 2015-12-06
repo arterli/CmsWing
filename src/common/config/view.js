@@ -54,6 +54,16 @@ export default {
         env.addFilter("parse_config_attr",function(str){
           return parse_config_attr(str)
         })
+        env.addFilter("show_status_op",function(status){
+          // 获取数据的状态操作
+            switch (status){
+              case 0  : return    '启用';     break;
+              case 1  : return    '禁用';     break;
+              case 2  : return    '审核';       break;
+              default : return    false;      break;
+
+          }
+        })
       }
     }
   }
