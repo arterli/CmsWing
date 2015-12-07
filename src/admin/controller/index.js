@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-import Os from 'os';
+import {type} from 'os';
 /**
  * 后台首页控制器
  * @author 阿特 <arterli@qq.com>
@@ -18,7 +18,7 @@ export default class extends Base {
     let node = process.versions;
     this.assign({
       'version':think.CMSWING_VERSION,
-      'OS':Os.type(),
+      'OS':type(),
       'nodejs_v':node.node
     })
     console.log(111)

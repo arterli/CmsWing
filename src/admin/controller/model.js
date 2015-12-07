@@ -35,10 +35,22 @@ export default class extends Base {
      * 新建模型
      * @returns {*}
      */
-    addAction(){
+    async addAction(){
+       if(this.isPost()){
+          let data = this.post();
+           console.log(data);
+           data.create_time = new Date().valueOf();
+           data.update_time = new Date().valueOf();
+           data.status = 1
+           let res = await this.db.add(data);
+           if(res){
+               return this.success({name:"添加成功",url:"/admin/model/index"});
+           }
+       }else {
        this.active="admin/model/index"
        this.meta_title = "新建模型"
        return this.display()
+       }
     }
 
     /**
@@ -50,5 +62,9 @@ export default class extends Base {
         this.meta_title = "生成模型"
         return this.display()
     }
+
+    /**
+     * 更新模型
+     */
 
 }

@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="{{action}}">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add" data-validate="parsley">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">模型标识</label>
 
@@ -17,8 +17,7 @@
 
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control  " name="name" value=""
-                                                   data-required="true" data-Remote="/admin/setup/parsley">
+                                            <input type="text" class="form-control  " name="name" value="" data-required="true">
                                         </div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none">请输入文档模型标识</span>
@@ -68,7 +67,7 @@
                                 <div class="col-sm-10">
                                     <div class="row">
                                         <div class="col-md-4 ">
-                                            <select class="form-control " name="extend">
+                                            <select class="form-control " name="engine_type">
                                                 <option value="MyISAM">MyISAM</option>
                                                 <option value="InnoDB">InnoDB</option>
                                                 <option value="MEMORY">MEMORY</option>
@@ -104,7 +103,7 @@
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary btn-s-md" type="submit" id="btn">确定</button>
+                                    <button class="btn btn-primary btn-s-md ajax-post confirm" type="submit" target-form="form-horizontal">确定</button>
                                     <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
                                             type="submit">返回
                                     </button>
@@ -123,5 +122,7 @@
 {% endblock%}
 
 {% block script%}
+<script src="/static/js/parsley/parsley.min.js"></script>
+<script src="/static/js/parsley/parsley.extend.js"></script>
 
 {% endblock%}

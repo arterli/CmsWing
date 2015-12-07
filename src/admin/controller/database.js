@@ -1,6 +1,3 @@
-/**
- * Created by arter on 2015/11/16.
- */
 'use strict';
 import Base from './base.js';
 import fs  from 'fs';
@@ -16,14 +13,12 @@ export default class extends Base {
         super.init(http);
         this.tactive = "setup"
     }
-
     /**
      * 数据库列表
      * @returns {*}
      */
     async indexAction() {
         //auto render template file index_index.html
-
         //let DB = think.adapter('db', this.config.type || 'mysql');
         //this._db = new DB(this.config);
         let list = await this.model().query('SHOW TABLE STATUS');
@@ -37,6 +32,7 @@ export default class extends Base {
      */
     async optimizeAction() {
         let list;
+        
         if (this.isPost()) {
             let tables = this.post('tables');
             if (tables) {
@@ -297,6 +293,7 @@ export default class extends Base {
     }
 
     httpedAction() {
+        
         http.get("http://www.kancloud.cn/tag/JavaScript", function (res) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));

@@ -1,12 +1,7 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "commonjs",
-        "declaration": true,
-        "noImplicitAny": false,
-        "removeComments": true,
-        "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true
+        "module": "commonjs"
+      
     }
 }
