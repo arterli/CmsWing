@@ -1,19 +1,85 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
+Source Server         : 本地数据库
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2015-12-04 19:17:14
+Date: 2015-12-07 10:07:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for cmswing_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_attribute`;
+CREATE TABLE `cmswing_attribute` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '字段名',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '字段注释',
+  `field` varchar(100) NOT NULL DEFAULT '' COMMENT '字段定义',
+  `type` varchar(20) NOT NULL DEFAULT '' COMMENT '数据类型',
+  `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字段默认值',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示',
+  `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '参数',
+  `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '模型id',
+  `is_must` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否必填',
+  `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `validate_rule` varchar(255) NOT NULL DEFAULT '',
+  `validate_time` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `error_info` varchar(100) NOT NULL DEFAULT '',
+  `validate_type` varchar(25) NOT NULL DEFAULT '',
+  `auto_rule` varchar(100) NOT NULL DEFAULT '',
+  `auto_time` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `auto_type` varchar(25) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `model_id` (`model_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+
+-- ----------------------------
+-- Records of cmswing_attribute
+-- ----------------------------
+INSERT INTO `cmswing_attribute` VALUES ('1', 'uid', '用户ID', 'int(10) unsigned NOT NULL ', 'num', '0', '', '0', '', '1', '0', '1', '1384508362', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('2', 'name', '标识', 'char(40) NOT NULL ', 'string', '', '同一根节点下标识不重复', '1', '', '1', '0', '1', '1383894743', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('3', 'title', '标题', 'char(80) NOT NULL ', 'string', '', '文档标题', '1', '', '1', '0', '1', '1383894778', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('4', 'category_id', '所属分类', 'int(10) unsigned NOT NULL ', 'string', '', '', '0', '', '1', '0', '1', '1384508336', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('5', 'description', '描述', 'char(140) NOT NULL ', 'textarea', '', '', '1', '', '1', '0', '1', '1383894927', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('6', 'root', '根节点', 'int(10) unsigned NOT NULL ', 'num', '0', '该文档的顶级文档编号', '0', '', '1', '0', '1', '1384508323', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('7', 'pid', '所属ID', 'int(10) unsigned NOT NULL ', 'num', '0', '父文档编号', '0', '', '1', '0', '1', '1384508543', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('8', 'model_id', '内容模型ID', 'tinyint(3) unsigned NOT NULL ', 'num', '0', '该文档所对应的模型', '0', '', '1', '0', '1', '1384508350', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('9', 'type', '内容类型', 'tinyint(3) unsigned NOT NULL ', 'select', '2', '', '1', '1:目录\r\n2:主题\r\n3:段落', '1', '0', '1', '1384511157', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('10', 'position', '推荐位', 'smallint(5) unsigned NOT NULL ', 'checkbox', '0', '多个推荐则将其推荐值相加', '1', '[DOCUMENT_POSITION]', '1', '0', '1', '1383895640', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('11', 'link_id', '外链', 'int(10) unsigned NOT NULL ', 'num', '0', '0-非外链，大于0-外链ID,需要函数进行链接与编号的转换', '1', '', '1', '0', '1', '1383895757', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('12', 'cover_id', '封面', 'int(10) unsigned NOT NULL ', 'picture', '0', '0-无封面，大于0-封面图片ID，需要函数处理', '1', '', '1', '0', '1', '1384147827', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('13', 'display', '可见性', 'tinyint(3) unsigned NOT NULL ', 'radio', '1', '', '1', '0:不可见\r\n1:所有人可见', '1', '0', '1', '1386662271', '1383891233', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('14', 'deadline', '截至时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '0-永久有效', '1', '', '1', '0', '1', '1387163248', '1383891233', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('15', 'attach', '附件数量', 'tinyint(3) unsigned NOT NULL ', 'num', '0', '', '0', '', '1', '0', '1', '1387260355', '1383891233', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('16', 'view', '浏览量', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '1', '0', '1', '1383895835', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('17', 'comment', '评论数', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '1', '0', '1', '1383895846', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('18', 'extend', '扩展统计字段', 'int(10) unsigned NOT NULL ', 'num', '0', '根据需求自行使用', '0', '', '1', '0', '1', '1384508264', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('19', 'level', '优先级', 'int(10) unsigned NOT NULL ', 'num', '0', '越高排序越靠前', '1', '', '1', '0', '1', '1383895894', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('20', 'create_time', '创建时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '', '1', '', '1', '0', '1', '1383895903', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('21', 'update_time', '更新时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '', '0', '', '1', '0', '1', '1384508277', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('22', 'status', '数据状态', 'tinyint(4) NOT NULL ', 'radio', '0', '', '0', '-1:删除\r\n0:禁用\r\n1:正常\r\n2:待审核\r\n3:草稿', '1', '0', '1', '1384508496', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('23', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html\r\n1:ubb\r\n2:markdown', '2', '0', '1', '1384511049', '1383891243', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('24', 'content', '文章内容', 'text NOT NULL ', 'editor', '', '', '1', '', '2', '0', '1', '1383896225', '1383891243', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('25', 'template', '详情页显示模板', 'varchar(100) NOT NULL ', 'string', '', '参照display方法参数的定义', '1', '', '2', '0', '1', '1383896190', '1383891243', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('26', 'bookmark', '收藏数', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '2', '0', '1', '1383896103', '1383891243', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('27', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html\r\n1:ubb\r\n2:markdown', '3', '0', '1', '1387260461', '1383891252', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('28', 'content', '下载详细描述', 'text NOT NULL ', 'editor', '', '', '1', '', '3', '0', '1', '1383896438', '1383891252', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('29', 'template', '详情页显示模板', 'varchar(100) NOT NULL ', 'string', '', '', '1', '', '3', '0', '1', '1383896429', '1383891252', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('30', 'file_id', '文件ID', 'int(10) unsigned NOT NULL ', 'file', '0', '需要函数处理', '1', '', '3', '0', '1', '1383896415', '1383891252', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('31', 'download', '下载次数', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '3', '0', '1', '1383896380', '1383891252', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('32', 'size', '文件大小', 'bigint(20) unsigned NOT NULL ', 'num', '0', '单位bit', '1', '', '3', '0', '1', '1383896371', '1383891252', '', '0', '', '', '', '0', '');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -52,132 +118,123 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
 -- ----------------------------
-INSERT INTO `cmswing_auth_rule` VALUES ('9', 'admin/article/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('10', 'admin/Article/index', '网站内容', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('11', 'admin/Index/index', '首页', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('12', 'admin/article/add1', '新增1', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('13', 'admin/1111', '222', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('14', 'admin/user/add', '333', '0', '-1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('15', 'admin/article/index', '文档列表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('16', 'admin/article/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('17', 'admin/article/setStatus', '改变状态', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('18', 'admin/article/update', '保存', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('19', 'admin/article/autoSave', '保存草稿', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('20', 'admin/article/move', '移动', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('21', 'admin/article/copy', '复制', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('22', 'admin/article/paste', '粘贴', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('23', 'admin/article/batchOperate', '导入', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('24', 'admin/article/recycle', '回收站', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('25', 'admin/article/permit', '还原', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('26', 'admin/article/clear', '清空', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('27', 'admin/user/index', '用户信息', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('28', 'admin/User/add', '新增用户', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('29', 'admin/User/action', '用户行为', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('30', 'admin/User/addaction', '新增用户行为', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('31', 'admin/User/editaction', '编辑用户行为', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('32', 'admin/User/saveAction', '保存用户行为', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('33', 'admin/User/setStatus', '变更行为状态', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('34', 'admin/User/changeStatus?method=forbidUser', '禁用会员', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('35', 'admin/User/changeStatus?method=resumeUser', '启用会员', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('36', 'admin/User/changeStatus?method=deleteUser', '删除会员', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('37', 'admin/AuthManager/index', '权限管理', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('38', 'admin/AuthManager/changeStatus?method=deleteGroup', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('39', 'admin/AuthManager/changeStatus?method=forbidGroup', '禁用', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('40', 'admin/AuthManager/changeStatus?method=resumeGroup', '恢复', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('41', 'admin/AuthManager/createGroup', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('42', 'admin/AuthManager/editGroup', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('43', 'admin/AuthManager/writeGroup', '保存用户组', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('44', 'admin/AuthManager/group', '授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('45', 'admin/AuthManager/access', '访问授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('46', 'admin/AuthManager/user', '成员授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('47', 'admin/AuthManager/removeFromGroup', '解除授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('48', 'admin/AuthManager/addToGroup', '保存成员授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('49', 'admin/AuthManager/category', '分类授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('50', 'admin/AuthManager/addToCategory', '保存分类授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('51', 'admin/AuthManager/modelauth', '模型授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('52', 'admin/AuthManager/addToModel', '保存模型授权', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('53', 'admin/Addons/create', '创建', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('54', 'admin/Addons/checkForm', '检测创建', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('55', 'admin/Addons/preview', '预览', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('56', 'admin/Addons/build', '快速生成插件', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('57', 'admin/Addons/config', '设置', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('58', 'admin/Addons/disable', '禁用', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('59', 'admin/Addons/enable', '启用', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('60', 'admin/Addons/install', '安装', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('61', 'admin/Addons/uninstall', '卸载', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('62', 'admin/Addons/saveconfig', '更新配置', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('63', 'admin/Addons/adminList', '插件后台列表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('64', 'admin/Addons/execute', 'URL方式访问插件', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('65', 'admin/model/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('66', 'admin/model/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('67', 'admin/model/setStatus', '改变状态', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('68', 'admin/model/update', '保存数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('69', 'admin/Attribute/index', '属性管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('70', 'admin/Attribute/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('71', 'admin/Attribute/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('72', 'admin/Attribute/setStatus', '改变状态', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('73', 'admin/Attribute/update', '保存数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('74', 'admin/Config/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('75', 'admin/Config/del', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('76', 'admin/Config/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('77', 'admin/Config/save', '保存', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('78', 'admin/Channel/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('79', 'admin/Channel/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('80', 'admin/Channel/del', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('81', 'admin/Category/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('82', 'admin/Category/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('83', 'admin/Category/remove', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('84', 'admin/Category/operate/type/move', '移动', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('85', 'admin/Category/operate/type/merge', '合并', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('86', 'admin/Database/index?type=export', '备份数据库', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('87', 'admin/Database/export', '备份', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('88', 'admin/Database/optimize', '优化表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('89', 'admin/Database/repair', '修复表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('90', 'admin/Database/index?type=import', '还原数据库', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('91', 'admin/Database/import', '恢复', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('92', 'admin/Database/del', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('93', 'admin/Menu/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('94', 'admin/Menu/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('95', 'admin/Action/actionlog', '行为日志', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('96', 'admin/User/updatePassword', '修改密码', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('97', 'admin/User/updateNickname', '修改昵称', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('98', 'admin/action/edit', '查看行为日志', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('99', 'admin/think/add', '新增数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('100', 'admin/think/edit', '编辑数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('101', 'admin/Menu/import', '导入', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('102', 'admin/Model/generate', '生成', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('103', 'admin/Addons/addHook', '新增钩子', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('104', 'admin/Addons/edithook', '编辑钩子', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('105', 'admin/Article/sort', '文档排序', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('106', 'admin/Config/sort', '排序', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('107', 'admin/Menu/sort', '排序', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('108', 'admin/Channel/sort', '排序', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('109', 'admin/think/lists', '数据列表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('110', 'admin/Article/examine', '审核列表', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('111', 'admin/Addons/index', '插件管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('112', 'admin/Config/group', '网站设置', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('113', 'admin/Addons/hooks', '钩子管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('114', 'admin/category/index', '分类管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('115', 'admin/User/index', '用户', '0', '-1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('116', 'admin/Model/index', '模型管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('117', 'admin/Config/group', '系统', '0', '-1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('118', 'admin/Config/index', '配置管理', '0', '-1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('119', 'admin/menu/index', '菜单管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('120', 'admin/other', '其他', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('121', 'admin/channel/index', '导航管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('122', 'admin/Addons/index', '扩展', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('123', 'admin/setup/index', '网站设置', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('124', 'admin/auth/index', '权限管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('125', 'admin/user', '用户管理', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('126', 'admin/setup', '系统设置', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('127', 'admin/setup/group', '配置管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('128', 'admin/database/index', '备份数据库', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('129', 'admin/database/imports', '还原数据库', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('1', 'article/index', '文档列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('2', 'article/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('3', 'article/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('4', 'article/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('5', 'article/update', '保存', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('6', 'article/autoSave', '保存草稿', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('7', 'article/move', '移动', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('8', 'article/copy', '复制', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('9', 'article/paste', '粘贴', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('10', 'article/batchOperate', '导入', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('11', 'article/recycle', '回收站', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('12', 'article/permit', '还原', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('13', 'article/clear', '清空', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('14', 'User/add', '新增用户', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('15', 'User/addaction', '新增用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('16', 'User/editaction', '编辑用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('17', 'User/saveAction', '保存用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('18', 'User/setStatus', '变更行为状态', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('19', 'User/changeStatus?method=forbidUser', '禁用会员', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('20', 'User/changeStatus?method=resumeUser', '启用会员', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('21', 'User/changeStatus?method=deleteUser', '删除会员', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('22', 'AuthManager/changeStatus?method=deleteGroup', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('23', 'AuthManager/changeStatus?method=forbidGroup', '禁用', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('24', 'AuthManager/changeStatus?method=resumeGroup', '恢复', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('25', 'AuthManager/createGroup', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('26', 'AuthManager/editGroup', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('27', 'AuthManager/writeGroup', '保存用户组', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('28', 'AuthManager/group', '授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('29', 'AuthManager/access', '访问授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('30', 'AuthManager/user', '成员授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('31', 'AuthManager/removeFromGroup', '解除授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('32', 'AuthManager/addToGroup', '保存成员授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('33', 'AuthManager/category', '分类授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('34', 'AuthManager/addToCategory', '保存分类授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('35', 'AuthManager/modelauth', '模型授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('36', 'AuthManager/addToModel', '保存模型授权', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('37', 'Addons/create', '创建', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('38', 'Addons/checkForm', '检测创建', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('39', 'Addons/preview', '预览', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('40', 'Addons/build', '快速生成插件', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('41', 'Addons/config', '设置', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('42', 'Addons/disable', '禁用', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('43', 'Addons/enable', '启用', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('44', 'Addons/install', '安装', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('45', 'Addons/uninstall', '卸载', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('46', 'Addons/saveconfig', '更新配置', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('47', 'Addons/adminList', '插件后台列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('48', 'Addons/execute', 'URL方式访问插件', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('49', 'model/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('50', 'model/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('51', 'model/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('52', 'model/update', '保存数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('53', 'Attribute/index', '属性管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('54', 'Attribute/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('55', 'Attribute/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('56', 'Attribute/setStatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('57', 'Attribute/update', '保存数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('58', 'Config/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('59', 'Config/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('60', 'Config/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('61', 'Config/save', '保存', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('62', 'Channel/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('63', 'Channel/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('64', 'Channel/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('65', 'Category/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('66', 'Category/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('67', 'Category/remove', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('68', 'Category/operate/type/move', '移动', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('69', 'Category/operate/type/merge', '合并', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('70', 'Database/export', '备份', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('71', 'Database/optimize', '优化表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('72', 'Database/repair', '修复表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('73', 'Database/import', '恢复', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('74', 'Database/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('75', 'Menu/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('76', 'Menu/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('77', 'User/updatePassword', '修改密码', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('78', 'User/updateNickname', '修改昵称', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('79', 'action/edit', '查看行为日志', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('80', 'think/add', '新增数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('81', 'think/edit', '编辑数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('82', 'Menu/import', '导入', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('83', 'Model/generate', '生成', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('84', 'Addons/addHook', '新增钩子', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('85', 'Addons/edithook', '编辑钩子', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('86', 'Article/sort', '文档排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('87', 'Config/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('88', 'Menu/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('89', 'Channel/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('90', 'think/lists', '数据列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('91', 'Article/examine', '审核列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('92', 'wenz/mang', '内容管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('93', 'admin/index/index', '首页', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('94', 'admin/user/index', '用户信息', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('95', 'Addons/index', '插件管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('96', 'admin/setup/index', '网站设置', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('97', 'Article/index', '网站内容', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('98', 'admin/auth/index', '权限管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('99', 'Addons/hooks', '钩子管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('100', 'admin/category/index', '分类管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('101', 'user', '用户管理', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('102', 'admin/user/action', '用户行为', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('103', 'admin/model/index', '模型管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('104', 'setup', '系统设置', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('105', 'admin/setup/group', '配置管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('106', 'admin/action/actionlog', '行为日志', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('107', 'admin/menu/index', '菜单管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('108', 'other', '其他', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('109', 'admin/channel/index', '导航管理', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('110', 'Addons/index', '扩展', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('111', 'admin/database/index', '备份数据库', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('112', 'admin/database/imports', '还原数据库', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -268,7 +325,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449197940773', '2130706433', '1446275814', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449379795885', '2130706433', '1446275814', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('6', '1111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa11sfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
@@ -303,7 +360,7 @@ CREATE TABLE `cmswing_menu` (
 -- ----------------------------
 -- Records of cmswing_menu
 -- ----------------------------
-INSERT INTO `cmswing_menu` VALUES ('1', '首页', '0', '1', 'Index/index', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('1', '首页', '0', '1', 'admin/index/index', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('2', '网站内容', '0', '2', 'Article/index', '0', '', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('3', '文档列表', '2', '0', 'article/index', '0', '', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('4', '新增', '3', '0', 'article/add', '0', '', '0', '0', '1');
@@ -319,9 +376,9 @@ INSERT INTO `cmswing_menu` VALUES ('13', '回收站', '2', '0', 'article/recycle
 INSERT INTO `cmswing_menu` VALUES ('14', '还原', '13', '0', 'article/permit', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('15', '清空', '13', '0', 'article/clear', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('16', '用户管理', '0', '3', 'user', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('17', '用户信息', '16', '1', 'user/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('17', '用户信息', '16', '1', 'admin/user/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('18', '新增用户', '17', '0', 'User/add', '0', '添加新用户', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('19', '用户行为', '16', '3', 'User/action', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('19', '用户行为', '16', '3', 'admin/user/action', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('20', '新增用户行为', '19', '0', 'User/addaction', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('21', '编辑用户行为', '19', '0', 'User/editaction', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('22', '保存用户行为', '19', '0', 'User/saveAction', '0', '\"用户->用户行为\"保存编辑和新增的用户行为', '0', '0', '1');
@@ -329,7 +386,7 @@ INSERT INTO `cmswing_menu` VALUES ('23', '变更行为状态', '19', '0', 'User/
 INSERT INTO `cmswing_menu` VALUES ('24', '禁用会员', '19', '0', 'User/changeStatus?method=forbidUser', '0', '\"用户->用户信息\"中的禁用', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('25', '启用会员', '19', '0', 'User/changeStatus?method=resumeUser', '0', '\"用户->用户信息\"中的启用', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('26', '删除会员', '19', '0', 'User/changeStatus?method=deleteUser', '0', '\"用户->用户信息\"中的删除', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('27', '权限管理', '16', '2', 'auth/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('27', '权限管理', '16', '2', 'admin/auth/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('28', '删除', '27', '0', 'AuthManager/changeStatus?method=deleteGroup', '0', '删除用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('29', '禁用', '27', '0', 'AuthManager/changeStatus?method=forbidGroup', '0', '禁用用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('30', '恢复', '27', '0', 'AuthManager/changeStatus?method=resumeGroup', '0', '恢复已禁用的用户组', '0', '0', '1');
@@ -360,7 +417,7 @@ INSERT INTO `cmswing_menu` VALUES ('54', '更新配置', '44', '0', 'Addons/save
 INSERT INTO `cmswing_menu` VALUES ('55', '插件后台列表', '44', '0', 'Addons/adminList', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('56', 'URL方式访问插件', '44', '0', 'Addons/execute', '0', '控制是否有权限通过url访问插件控制器方法', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('57', '钩子管理', '43', '2', 'Addons/hooks', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('58', '模型管理', '68', '3', 'Model/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('58', '模型管理', '68', '3', 'admin/model/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('59', '新增', '58', '0', 'model/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('60', '编辑', '58', '0', 'model/edit', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('61', '改变状态', '58', '0', 'model/setStatus', '0', '', '0', '0', '1');
@@ -371,34 +428,34 @@ INSERT INTO `cmswing_menu` VALUES ('65', '编辑', '63', '0', 'Attribute/edit', 
 INSERT INTO `cmswing_menu` VALUES ('66', '改变状态', '63', '0', 'Attribute/setStatus', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('67', '保存数据', '63', '0', 'Attribute/update', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('68', '系统设置', '0', '4', 'setup', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('69', '网站设置', '68', '1', 'setup/index', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('70', '配置管理', '68', '4', 'setup/group', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('69', '网站设置', '68', '1', 'admin/setup/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('70', '配置管理', '68', '4', 'admin/setup/group', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('71', '编辑', '70', '0', 'Config/edit', '0', '新增编辑和保存配置', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('72', '删除', '70', '0', 'Config/del', '0', '删除配置', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('73', '新增', '70', '0', 'Config/add', '0', '新增配置', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('74', '保存', '70', '0', 'Config/save', '0', '保存配置', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('75', '菜单管理', '68', '5', 'menu/index', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('76', '导航管理', '68', '6', 'channel/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('75', '菜单管理', '68', '5', 'admin/menu/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('76', '导航管理', '68', '6', 'admin/channel/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('77', '新增', '76', '0', 'Channel/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('78', '编辑', '76', '0', 'Channel/edit', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('79', '删除', '76', '0', 'Channel/del', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('80', '分类管理', '68', '2', 'category/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('80', '分类管理', '68', '2', 'admin/category/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('81', '编辑', '80', '0', 'Category/edit', '0', '编辑和保存栏目分类', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('82', '新增', '80', '0', 'Category/add', '0', '新增栏目分类', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('83', '删除', '80', '0', 'Category/remove', '0', '删除栏目分类', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('84', '移动', '80', '0', 'Category/operate/type/move', '0', '移动栏目分类', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('85', '合并', '80', '0', 'Category/operate/type/merge', '0', '合并栏目分类', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('86', '备份数据库', '68', '7', 'database/index', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('86', '备份数据库', '68', '7', 'admin/database/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('87', '备份', '86', '0', 'Database/export', '0', '备份数据库', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('88', '优化表', '86', '0', 'Database/optimize', '0', '优化数据表', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('89', '修复表', '86', '0', 'Database/repair', '0', '修复数据表', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('90', '还原数据库', '68', '8', 'database/imports', '1', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('90', '还原数据库', '68', '8', 'admin/database/imports', '1', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('91', '恢复', '90', '0', 'Database/import', '0', '数据库恢复', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('92', '删除', '90', '0', 'Database/del', '0', '删除备份文件', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('93', '其他', '0', '5', 'other', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('96', '新增', '75', '0', 'Menu/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('98', '编辑', '75', '0', 'Menu/edit', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('106', '行为日志', '16', '4', 'Action/actionlog', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('106', '行为日志', '16', '4', 'admin/action/actionlog', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('108', '修改密码', '16', '0', 'User/updatePassword', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('109', '修改昵称', '16', '0', 'User/updateNickname', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('110', '查看行为日志', '106', '0', 'action/edit', '1', '', '0', '0', '1');
@@ -415,6 +472,42 @@ INSERT INTO `cmswing_menu` VALUES ('121', '排序', '76', '0', 'Channel/sort', '
 INSERT INTO `cmswing_menu` VALUES ('122', '数据列表', '58', '0', 'think/lists', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('123', '审核列表', '3', '0', 'Article/examine', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('126', '内容管理', '2', '0', 'wenz/mang', '0', '12152', '1', '0', '1');
+
+-- ----------------------------
+-- Table structure for cmswing_model
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_model`;
+CREATE TABLE `cmswing_model` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
+  `name` char(30) NOT NULL DEFAULT '' COMMENT '模型标识',
+  `title` char(30) NOT NULL DEFAULT '' COMMENT '模型名称',
+  `extend` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '继承的模型',
+  `relation` varchar(30) NOT NULL DEFAULT '' COMMENT '继承与被继承模型的关联字段',
+  `need_pk` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '新建表时是否需要主键字段',
+  `field_sort` text COMMENT '表单字段排序',
+  `field_group` varchar(255) NOT NULL DEFAULT '1:基础' COMMENT '字段分组',
+  `attribute_list` text COMMENT '属性列表（表的字段）',
+  `attribute_alias` varchar(255) NOT NULL DEFAULT '' COMMENT '属性别名定义',
+  `template_list` varchar(100) NOT NULL DEFAULT '' COMMENT '列表模板',
+  `template_add` varchar(100) NOT NULL DEFAULT '' COMMENT '新增模板',
+  `template_edit` varchar(100) NOT NULL DEFAULT '' COMMENT '编辑模板',
+  `list_grid` text COMMENT '列表定义',
+  `list_row` smallint(2) unsigned NOT NULL DEFAULT '10' COMMENT '列表数据长度',
+  `search_key` varchar(50) NOT NULL DEFAULT '' COMMENT '默认搜索字段',
+  `search_list` varchar(255) NOT NULL DEFAULT '' COMMENT '高级搜索的字段',
+  `create_time` bigint(15) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` bigint(15) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
+  `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+
+-- ----------------------------
+-- Records of cmswing_model
+-- ----------------------------
+INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1', '{\"1\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1384507827', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"3\",\"24\",\"2\",\"5\"],\"2\":[\"9\",\"13\",\"19\",\"10\",\"12\",\"16\",\"17\",\"26\",\"20\",\"14\",\"11\",\"25\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260622', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_session
