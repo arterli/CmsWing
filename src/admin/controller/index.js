@@ -21,7 +21,7 @@ export default class extends Base {
       'OS':Os.type(),
       'nodejs_v':node.node
     })
-    console.log()
+    console.log(111)
     return this.display();
   }
 }
