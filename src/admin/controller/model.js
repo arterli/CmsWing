@@ -48,9 +48,24 @@ export default class extends Base {
            }
        }else {
        this.active="admin/model/index"
-       this.meta_title = "新建模型"
+       this.meta_title = "添加模型"
        return this.display()
        }
+    }
+
+    /**
+     * 编辑模型
+     *
+     */
+    editAction(){
+        let id = this.get("id");
+        if(think.isEmpty(id)){
+            this.fail('参数不能为空！');
+        }
+        this.active="admin/model/index"
+        this.meta_title = "编辑模型"
+    this.display();
+
     }
 
     /**
