@@ -17,7 +17,7 @@
                                         <a class="btn btn-sm btn-info " href="/admin/model/add">
                                             新增
                                         </a>
-                                        <a class="btn btn-sm btn-info" href="#">
+                                        <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/model/del">
                                            启用
                                         </a>
                                         <a class="btn btn-sm btn-info" href="#">
@@ -53,7 +53,7 @@
                                     <tbody>
                                     {% for item in list %}
                                     <tr>
-                                        <td><label class="checkbox m-n i-checks"><input type="checkbox" name="post[]"><i></i></label></td>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
                                         <td><a data-id="{$vo.id}" href="{:U('model/edit?id='.$vo['id'])}" class="text-info">{{item.title}}</a></td>

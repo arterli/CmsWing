@@ -35,10 +35,10 @@ $('.ajax-get').click(function(){
                     }
                 },1500);
             }else{
-                toastr.error(data.data.name);
+                toastr.error(data.errmsg);
                 setTimeout(function(){
                     if (data.data.url) {
-                        location.href=data.url;
+                        location.href=data.data.url;
                     }else{
                         toastr.clear()
                     }
@@ -59,20 +59,24 @@ $('.ajax-get').click(function(){
  * confirm,
  */
 $('.ajax-post').click(function(){
-    $('[data-validate="parsley"]').parsley().validate();
+
     var target,query,form;
     var target_form = $(this).attr('target-form');
     var that = this;
     var nead_confirm=false;
-    if(true === $('[data-validate="parsley"]').parsley().isValid() && ($(this).attr('type')=='submit') || (target = $(this).attr('href')) || (target = $(this).attr('url')) ){
+    if(($(this).attr('type')=='submit') || (target = $(this).attr('href')) || (target = $(this).attr('url')) ){
         form = $('.'+target_form);
-
         if ($(this).attr('hide-data') === 'true'){//无数据时也可以使用的功能
             form = $('.hide-data');
             query = form.serialize();
         }else if (form.get(0)==undefined){
             return false;
         }else if ( form.get(0).nodeName=='FORM' ){
+            //表单验证
+            $('[data-validate="parsley"]').parsley().validate();
+            if(true !== $('[data-validate="parsley"]').parsley().isValid()){
+                return false;
+            }
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){
                     return false;
@@ -85,8 +89,10 @@ $('.ajax-post').click(function(){
             }
             query = form.serialize();
         }else if( form.get(0).nodeName=='INPUT' || form.get(0).nodeName=='SELECT' || form.get(0).nodeName=='TEXTAREA') {
+
             form.each(function(k,v){
                 if(v.type=='checkbox' && v.checked==true){
+
                     nead_confirm = true;
                 }
             })
@@ -106,6 +112,7 @@ $('.ajax-post').click(function(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
+            console.log(data)
             if (data.errno==0) {
                 if (data.data.url) {
 
@@ -124,7 +131,8 @@ $('.ajax-post').click(function(){
                     }
                 },1500);
             }else{
-                toastr.error(data.data.info);
+                console.log(data);
+                toastr.error(data.errmsg);
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
                     if (data.url) {

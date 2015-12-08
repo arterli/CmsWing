@@ -64,7 +64,16 @@ export default class extends Base {
     }
 
     /**
-     * 更新模型
+     * 删除模型模型
      */
-
+   async delAction (){
+        let ids = this.get('id');
+        think.isEmpty(ids) && this.fail("参数不能为空")
+        let res = await this.db.del(ids)
+        if(!res){
+            this.fail("删除失败");
+        }else {
+            this.success({name:"删除成功！"});
+        }
+    }
 }
