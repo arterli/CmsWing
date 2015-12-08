@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地数据库
-Source Server Version : 50617
+Source Server         : 本地
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-12-07 10:07:55
+Date: 2015-12-08 15:40:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -299,6 +299,82 @@ CREATE TABLE `cmswing_category` (
 INSERT INTO `cmswing_category` VALUES ('1', 'blog', '博客', '0', '0', '10', '', '', '', '', '', '', '', '2,3', '2', '2,1', '0', '0', '1', '0', '0', '1', '', '1379474947', '1382701539', '1', '0', '');
 
 -- ----------------------------
+-- Table structure for cmswing_document
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_document`;
+CREATE TABLE `cmswing_document` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `name` char(40) NOT NULL DEFAULT '' COMMENT '标识',
+  `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
+  `category_id` int(10) unsigned NOT NULL COMMENT '所属分类',
+  `group_id` smallint(3) unsigned NOT NULL COMMENT '所属分组',
+  `description` char(140) NOT NULL DEFAULT '' COMMENT '描述',
+  `root` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '根节点',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属ID',
+  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '内容类型',
+  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
+  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '外链',
+  `cover_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '封面',
+  `display` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '可见性',
+  `deadline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '截至时间',
+  `attach` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '附件数量',
+  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
+  `comment` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `extend` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '扩展统计字段',
+  `level` int(10) NOT NULL DEFAULT '0' COMMENT '优先级',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  KEY `idx_category_status` (`category_id`,`status`),
+  KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+
+-- ----------------------------
+-- Records of cmswing_document
+-- ----------------------------
+INSERT INTO `cmswing_document` VALUES ('1', '1', '', 'OneThink1.1开发版发布', '2', '0', '期待已久的OneThink最新版发布', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1406001413', '1406001413', '1');
+
+-- ----------------------------
+-- Table structure for cmswing_document_article
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_document_article`;
+CREATE TABLE `cmswing_document_article` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文档ID',
+  `parse` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容解析类型',
+  `content` text NOT NULL COMMENT '文章内容',
+  `template` varchar(100) NOT NULL DEFAULT '' COMMENT '详情页显示模板',
+  `bookmark` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型文章表';
+
+-- ----------------------------
+-- Records of cmswing_document_article
+-- ----------------------------
+INSERT INTO `cmswing_document_article` VALUES ('1', '0', '<h1>\r\n	OneThink1.1开发版发布&nbsp;\r\n</h1>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>OneThink是一个开源的内容管理框架，基于最新的ThinkPHP3.2版本开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内WEB应用傻瓜式开发的新潮流。&nbsp;</strong> \r\n</p>\r\n<h2>\r\n	主要特性：\r\n</h2>\r\n<p>\r\n	1. 基于ThinkPHP最新3.2版本。\r\n</p>\r\n<p>\r\n	2. 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。&nbsp;\r\n</p>\r\n<p>\r\n	3. 文档模型/分类体系：通过和文档模型绑定，以及不同的文档类型，不同分类可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。\r\n</p>\r\n<p>\r\n	4. 开源免费：OneThink遵循Apache2开源协议,免费提供使用。&nbsp;\r\n</p>\r\n<p>\r\n	5. 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。\r\n</p>\r\n<p>\r\n	6. 云端部署：通过驱动的方式可以轻松支持平台的部署，让您的网站无缝迁移，内置已经支持SAE和BAE3.0。\r\n</p>\r\n<p>\r\n	7. 云服务支持：即将启动支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。\r\n</p>\r\n<p>\r\n	8. 安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。&nbsp;\r\n</p>\r\n<p>\r\n	9. 应用仓库：官方应用仓库拥有大量来自第三方插件和应用模块、模板主题，有众多来自开源社区的贡献，让您的网站“One”美无缺。&nbsp;\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>&nbsp;OneThink集成了一个完善的后台管理体系和前台模板标签系统，让你轻松管理数据和进行前台网站的标签式开发。&nbsp;</strong> \r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<h2>\r\n	后台主要功能：\r\n</h2>\r\n<p>\r\n	1. 用户Passport系统\r\n</p>\r\n<p>\r\n	2. 配置管理系统&nbsp;\r\n</p>\r\n<p>\r\n	3. 权限控制系统\r\n</p>\r\n<p>\r\n	4. 后台建模系统&nbsp;\r\n</p>\r\n<p>\r\n	5. 多级分类系统&nbsp;\r\n</p>\r\n<p>\r\n	6. 用户行为系统&nbsp;\r\n</p>\r\n<p>\r\n	7. 钩子和插件系统\r\n</p>\r\n<p>\r\n	8. 系统日志系统&nbsp;\r\n</p>\r\n<p>\r\n	9. 数据备份和还原\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	&nbsp;[ 官方下载：&nbsp;<a href=\"http://www.onethink.cn/download.html\" target=\"_blank\">http://www.onethink.cn/download.html</a>&nbsp;&nbsp;开发手册：<a href=\"http://document.onethink.cn/\" target=\"_blank\">http://document.onethink.cn/</a>&nbsp;]&nbsp;\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>OneThink开发团队 2013~2014</strong> \r\n</p>', '', '0');
+
+-- ----------------------------
+-- Table structure for cmswing_document_download
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_document_download`;
+CREATE TABLE `cmswing_document_download` (
+  `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文档ID',
+  `parse` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容解析类型',
+  `content` text NOT NULL COMMENT '下载详细描述',
+  `template` varchar(100) NOT NULL DEFAULT '' COMMENT '详情页显示模板',
+  `file_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件ID',
+  `download` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '下载次数',
+  `size` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型下载表';
+
+-- ----------------------------
+-- Records of cmswing_document_download
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for cmswing_member
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_member`;
@@ -325,7 +401,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449379795885', '2130706433', '1446275814', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449555552723', '2130706433', '1446275814', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('6', '1111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa11sfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
@@ -500,7 +576,7 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
 
 -- ----------------------------
 -- Records of cmswing_model
@@ -508,6 +584,14 @@ CREATE TABLE `cmswing_model` (
 INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1', '{\"1\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1384507827', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"3\",\"24\",\"2\",\"5\"],\"2\":[\"9\",\"13\",\"19\",\"10\",\"12\",\"16\",\"17\",\"26\",\"20\",\"14\",\"11\",\"25\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260622', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('5', 'arterli', '测试模型', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '0', '0', '0', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('6', 'abcs', '222', '1', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449491907904', '1449491907905', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('12', '111', '222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449493887353', '1449493887353', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('13', '111', '222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449493925446', '1449493925446', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('14', '1111', '1111', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494039079', '1449494039079', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('15', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494083198', '1449494083198', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('16', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494104781', '1449494104781', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('17', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494265830', '1449494265830', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -581,3 +665,42 @@ INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表�
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
+
+-- ----------------------------
+-- Table structure for onethink_document
+-- ----------------------------
+DROP TABLE IF EXISTS `onethink_document`;
+CREATE TABLE `onethink_document` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `name` char(40) NOT NULL DEFAULT '' COMMENT '标识',
+  `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
+  `category_id` int(10) unsigned NOT NULL COMMENT '所属分类',
+  `group_id` smallint(3) unsigned NOT NULL COMMENT '所属分组',
+  `description` char(140) NOT NULL DEFAULT '' COMMENT '描述',
+  `root` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '根节点',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属ID',
+  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '内容类型',
+  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
+  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '外链',
+  `cover_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '封面',
+  `display` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '可见性',
+  `deadline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '截至时间',
+  `attach` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '附件数量',
+  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
+  `comment` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `extend` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '扩展统计字段',
+  `level` int(10) NOT NULL DEFAULT '0' COMMENT '优先级',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  KEY `idx_category_status` (`category_id`,`status`),
+  KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+
+-- ----------------------------
+-- Records of onethink_document
+-- ----------------------------
+INSERT INTO `onethink_document` VALUES ('1', '1', '', 'OneThink1.1开发版发布', '2', '0', '期待已久的OneThink最新版发布', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1406001413', '1406001413', '1');
