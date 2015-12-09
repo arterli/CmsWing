@@ -57,11 +57,24 @@ export default class extends Base {
      * 编辑模型
      *
      */
-    editAction(){
+    async editAction(){
         let id = this.get("id");
         if(think.isEmpty(id)){
             this.fail('参数不能为空！');
         }
+        let data = await this.db.find(id);
+        console.log(data);
+        data.attribute_list = think.isEmpty(data.attribute_list) ? '':data.attribute_list.split(",");
+        console.log(data.attribute_list);
+        let fields = await this.model('attribute').where({model_id:data.id}).field('id,name,title,is_show').select();
+        //是否继承了其他模型
+        if(data.extend != 0){
+            var extend_fields = await this.model('attribute').where({model_id:data.extend}).field('id,name,title,is_show').select();
+            var allfields = extend_fields.concat(fields);
+        }
+        console.log(fields)
+
+        this.assign({'fields':fields,'extend_fields':extend_fields,'allfields':allfields,'info':data})
         this.active="admin/model/index"
         this.meta_title = "编辑模型"
     this.display();
