@@ -19,6 +19,7 @@ export default class extends Base {
         this.tactive = "setup"
     }
 
+
     async indexAction() {
         let map = {'status': ['>', -1]}
         let data = await this.db.where(map).page(this.get('page')).countSelect();
