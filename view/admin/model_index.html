@@ -63,7 +63,7 @@
                                         </td>
                                         <td><a href="#" class="text-info">数据</a>
                                             <a href="#" class="ajax-get text-info">{{item.status|show_status_op}}</a>
-                                            <a href="#" class="text-info">编辑</a>
+                                            <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                     </tr>
                                     {% else %}
@@ -83,7 +83,7 @@
 
 
                                     <div class="col-sm-12 text-right text-center-xs">
-                                        {{pagerData}}
+                                        {{pagerData | safe}}
                                     </div>
                                 </div>
                             </footer>
