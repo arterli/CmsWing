@@ -1,12 +1,14 @@
 {% extends "./inc/base.html" %}
 {% block style %}
-<link rel="stylesheet" href="/static/js/chosen/chosen.css" type="text/css" />
+<link rel="stylesheet" href="/static/js/chosen/chosen.css" type="text/css"/>
+<link rel="stylesheet" href="/static/js/nestable/nestable.css" type="text/css"/>
 <style>
-    .chzn-container-multi .chzn-choices .search-choice{
+    .chzn-container-multi .chzn-choices .search-choice {
         margin: 3px 5px;
         display: block;
     }
-    .chzn-container-multi .chzn-choices li{
+
+    .chzn-container-multi .chzn-choices li {
         float: none;
     }
 </style>
@@ -22,113 +24,226 @@
                 <section class="panel panel-default">
                     <header class="panel-heading text-right bg-light">
                         <ul class="nav nav-tabs pull-left">
-                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-cog text-muted"></i> 基础</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-cog text-muted"></i> 设计</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-cog text-muted"></i>
+                                基础</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-cog text-muted"></i> 设计</a>
+                            </li>
                             <li class="">
-                                <a data-toggle="tab"  href="#tab-3"><i class="fa fa-cog text-muted"></i> 高级</a>
+                                <a data-toggle="tab" href="#tab-3"><i class="fa fa-cog text-muted"></i> 高级</a>
                             </li>
                         </ul>
                         <span class="hidden-sm">Left</span>
                     </header>
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add" data-validate="parsley">
-                        <div class="tab-content">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add"
+                              data-validate="parsley">
+                            <div class="tab-content">
 
-                            <div id="tab-1" class="tab-pane fade active in">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">模型标识</label>
+                                <div id="tab-1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模型标识</label>
 
-                                    <div class="col-sm-10">
+                                        <div class="col-sm-10">
 
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control  " name="name" value="{{info.name}}" data-required="true">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none">请输入文档模型标识</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">模型名称</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <input type="text" class="form-control  " name="title" value="{{info.title}}"
-                                                       data-required="true" data-Remote="/admin/setup/parsley">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none">请输入模型的名称</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">模型类型</label>
-
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-4 ">
-                                                <select class="form-control " name="extend">
-                                                    <option value="0" {% if info.extend == 0 %}selected {% endif %}>独立模型</option>
-                                                    <option value="1" {% if info.extend == 1 %}selected {% endif %}>文档模型</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="name"
+                                                           value="{{info.name}}" data-required="true">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">请输入文档模型标识</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模型名称</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="title"
+                                                           value="{{info.title}}"
+                                                           data-required="true" data-Remote="/admin/setup/parsley">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">请输入模型的名称</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模型类型</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="extend">
+                                                        <option value="0" {% if info.extend== 0 %}selected {% endif %}>
+                                                            独立模型
+                                                        </option>
+                                                        <option value="1" {% if info.extend== 1 %}selected {% endif %}>
+                                                            文档模型
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
+                                <div id="tab-2" class="tab-pane fade">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">选择字段</label>
 
-                            </div>
-                            <div id="tab-2" class="tab-pane fade">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">选择字段</label>
-                                    <div class="col-sm-10">
-                                        <select style="width:260px" multiple class="chosen-select">
-                                            {% if fields %}
+                                        <div class="col-sm-10">
+                                            <select style="width:260px" multiple class="chosen-select">
+                                                {% if fields %}
 
-                                            <optgroup label="自定义字段">
-                                                {% for v in fields %}
-                                                <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
+                                                <optgroup label="自定义字段">
+                                                    {% for v in fields %}
+                                                    <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                                {% endif %}
+                                                {% if extend_fields %}
+
+                                                <optgroup label="系统字段">
+                                                    {% for v in extend_fields %}
+                                                    <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
+                                                    {% endfor %}
+                                                </optgroup>
+                                                {% endif %}
+
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段别名定义</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <textarea name="attribute_alias" class="form-control">{{info.attribute_alias}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（用于表单显示的名称）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">表单显示分组</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="field_group"
+                                                           value="{{info.field_group}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（用于表单显示的分组，以及设置该模型表单排序的显示）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">表单整理</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                {% for ingredient, amount in info.field_sort|strToJson %}
+
+                                                <div class="col-sm-3">
+                                                    <div class="panel panel-default">
+                                                        <header class="panel-heading">
+                                                            <ul class="nav nav-pills pull-right">
+                                                                <li>
+                                                                    <a class="panel-toggle text-muted" href="#"><i
+                                                                            class="fa fa-caret-down text-active"></i><i
+                                                                            class="fa fa-caret-up text"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                            {% set field_group = info.field_group|parse_config_attr %}
+                                                            {{field_group[ingredient]}}
+                                                        </header>
+                                                        <div class="panel-body clearfix">
+                                                            <div id="nestable1" class="dd ">
+                                                                <ol class="dd-list">
+                                                                    {% for item in amount %}
+
+                                                                    <li data-id="{{item}}" class="dd-item">
+                                                                        <div class="dd-handle"> {{ allfields[item].title}} <span class="label bg-light">{{allfields[item].name}}</span></div>
+                                                                    </li>
+                                                                    {% else %}
+                                                                    <div class="dd-empty"></div>
+                                                                    {% endfor %}
+
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 {% endfor %}
-                                            </optgroup>
-                                            {% endif %}
-                                            {% if extend_fields %}
+                                                <div class="col-sm-3">
+                                                    <div class="panel panel-default">
+                                                        <header class="panel-heading">
+                                                            <ul class="nav nav-pills pull-right">
+                                                                <li>
+                                                                    <a class="panel-toggle text-muted" href="#"><i
+                                                                            class="fa fa-caret-down text-active"></i><i
+                                                                            class="fa fa-caret-up text"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                            Dropdown
+                                                        </header>
+                                                        <div class="panel-body clearfix">
+                                                            <div id="nestable2" class="dd">
+                                                                <ol class="dd-list">
 
-                                            <optgroup label="系统字段">
-                                                {% for v in extend_fields %}
-                                                <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
-                                                {% endfor %}
-                                            </optgroup>
-                                            {% endif %}
-
-
-                                        </select>
+                                                                    <div class="dd-empty"></div>
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（直接拖动进行排序）</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                            </div>
 
-                            <div id="tab-3" class="tab-pane fade">dropdown1</div>
-
-                        </div>
-                        <div class="line line-dashed b-b line-lg pull-in"></div>
-                        <div class="form-group">
-                            <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary btn-s-md ajax-post confirm" type="submit" target-form="form-horizontal">确定</button>
-                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
-                                        type="submit">返回
-                                </button>
+                                <div id="tab-3" class="tab-pane fade">dropdown1</div>
 
                             </div>
-                        </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary btn-s-md ajax-post confirm" type="submit"
+                                            target-form="form-horizontal">确定
+                                    </button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </section>
@@ -144,9 +259,25 @@
 <script src="/static/js/parsley/parsley.min.js"></script>
 <script src="/static/js/parsley/parsley.extend.js"></script>
 <script src="/static/js/chosen/chosen.jquery.min.js"></script>
+<script src="/static/js/nestable/jquery.nestable.js"></script>
 <script>
-    $(".chosen-select").chosen({
-            placeholder_text:"选择字段"
+    $(document).ready(function () {
+
+        // activate Nestable for list 1
+        $('.dd').nestable({
+            group: 0,
+            maxDepth:1,
+        });
+
+        // activate Nestable for list 2
+//        $('#nestable2').nestable({
+//            group: 1
+//        });
+
+        $(".chosen-select").chosen({
+            placeholder_text: "选择字段"
+        });
     });
+
 </script>
 {% endblock%}

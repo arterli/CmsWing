@@ -64,6 +64,13 @@ export default {
 
           }
         })
+        env.addFilter("strToJson", function (str) {
+
+            return JSON.parse(str);
+
+
+        })
+
       }
     }
   }
