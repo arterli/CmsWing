@@ -63,7 +63,7 @@ export default class extends Base {
             this.fail('参数不能为空！');
         }
         let data = await this.db.find(id);
-        //console.log(data);
+        console.log(data);
         data.attribute_list = think.isEmpty(data.attribute_list) ? '':data.attribute_list.split(",");
         console.log(data.attribute_list);
         let fields = await this.model('attribute').where({model_id:data.id}).field('id,name,title,is_show').select();
@@ -71,13 +71,20 @@ export default class extends Base {
         if(data.extend != 0){
             var extend_fields = await this.model('attribute').where({model_id:data.extend}).field('id,name,title,is_show').select();
             var allfields = extend_fields.concat(fields);
+
         }
-        //console.log(fields)
         //改造数组
-        let obj={}
+        var obj={}
+        if(allfields){
         for(let v of allfields ){
             obj[v.id]=v;
         }
+        }else {
+            for(let v of fields ){
+                obj[v.id]=v;
+            }
+        }
+        console.log(obj)
         this.assign({'fields':fields,'extend_fields':extend_fields,'allfields':obj,'info':data})
         this.active="admin/model/index"
         this.meta_title = "编辑模型"
