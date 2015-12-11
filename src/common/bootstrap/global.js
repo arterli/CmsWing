@@ -289,7 +289,7 @@ global.parse_config_attr = function (str){
     }else if(str.search(/,/ig)>-1){
         strs=str.split(",");
     }else{
-        return str;
+        strs=[str];
     }
     if(think.isArray(strs)){
         let obj ={}

@@ -63,9 +63,9 @@ export default class extends Base {
             this.fail('参数不能为空！');
         }
         let data = await this.db.find(id);
-        console.log(data);
+       // console.log(data);
         data.attribute_list = think.isEmpty(data.attribute_list) ? '':data.attribute_list.split(",");
-        console.log(data.attribute_list);
+       // console.log(data.attribute_list);
         let fields = await this.model('attribute').where({model_id:data.id}).field('id,name,title,is_show').select();
         //是否继承了其他模型
         if(data.extend != 0){
@@ -84,7 +84,7 @@ export default class extends Base {
                 obj[v.id]=v;
             }
         }
-        console.log(obj)
+        //console.log(obj)
         this.assign({'fields':fields,'extend_fields':extend_fields,'allfields':obj,'info':data})
         this.active="admin/model/index"
         this.meta_title = "编辑模型"
