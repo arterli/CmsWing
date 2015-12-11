@@ -25,7 +25,7 @@ export default class extends Base {
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
-        this.assign('pagerData', page); //这里assign的变量必须为pagerData，分页展示使用
+        this.assign('pagerData', page); //分页展示使用
         this.assign('list', data.data);
         this.meta_title = "模型管理";
         return this.display()

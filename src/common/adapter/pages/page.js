@@ -3,9 +3,11 @@
  * base adapter
  */
     /*
+    let data = await this.model('user').where(map).page(this.get('page')).countSelect();//查询数据库
     let Pages = think.adapter("pages", "page"); //加载名为 page 的 pages Adapter
     let pages = new Pages(); //实例化 Adapter
-    let page = pages.pages(data);
+    let page = pages.pages(data);//传入数据库查询返回的数据集
+    this.assign('list', data.data);//输出到模板
 */
 export default class extends think.adapter.base {
   /**
