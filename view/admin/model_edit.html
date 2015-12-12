@@ -35,7 +35,7 @@
                         <span class="hidden-sm">Left</span>
                     </header>
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add"
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/edit"
                               data-validate="parsley">
                             <div class="tab-content">
 
@@ -65,7 +65,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control  " name="title"
                                                            value="{{info.title}}"
-                                                           data-required="true" data-Remote="/admin/setup/parsley">
+                                                           data-required="true" >
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none">请输入模型的名称</span>
@@ -103,12 +103,14 @@
                                         <label class="col-sm-2 control-label">选择字段</label>
 
                                         <div class="col-sm-10">
-                                            <select style="width:260px" multiple class="chosen-select">
+
+                                            <select style="width:260px" multiple class="chosen-select" name="attribute_list">
+
                                                 {% if fields %}
 
                                                 <optgroup label="自定义字段">
                                                     {% for v in fields %}
-                                                    <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
+                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}  selected="selected" {% endif %}>{{v.title}} : {{v.name}}</option>
                                                     {% endfor %}
                                                 </optgroup>
                                                 {% endif %}
@@ -116,7 +118,7 @@
 
                                                 <optgroup label="系统字段">
                                                     {% for v in extend_fields %}
-                                                    <option value="{{v.id}}">{{v.title}} : {{v.name}}</option>
+                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}  selected="selected" {% endif %}>{{v.title}} : {{v.name}}</option>
                                                     {% endfor %}
                                                 </optgroup>
                                                 {% endif %}
@@ -198,7 +200,7 @@
                                                 </div>
 
                                                 {% endfor %}
-                                                <div class="col-sm-3">
+                                                <div class="col-sm-3 hide">
                                                     <div class="panel panel-default">
                                                         <header class="panel-heading">
                                                             <ul class="nav nav-pills pull-right">
@@ -235,7 +237,7 @@
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-primary btn-s-md ajax-post confirm" type="submit"
+                                    <button class="btn btn-primary btn-s-md ajax-post " type="submit"
                                             target-form="form-horizontal">确定
                                     </button>
                                     <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"

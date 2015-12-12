@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-12-08 15:40:49
+Date: 2015-12-12 20:42:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,7 +43,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -80,6 +80,8 @@ INSERT INTO `cmswing_attribute` VALUES ('29', 'template', '详情页显示模板
 INSERT INTO `cmswing_attribute` VALUES ('30', 'file_id', '文件ID', 'int(10) unsigned NOT NULL ', 'file', '0', '需要函数处理', '1', '', '3', '0', '1', '1383896415', '1383891252', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('31', 'download', '下载次数', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '3', '0', '1', '1383896380', '1383891252', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('32', 'size', '文件大小', 'bigint(20) unsigned NOT NULL ', 'num', '0', '单位bit', '1', '', '3', '0', '1', '1383896371', '1383891252', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('33', 'title', '标题', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '38', '0', '1', '1449654579', '1449654579', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('34', 'user', 'user', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '38', '0', '1', '1449654738', '1449654738', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -401,7 +403,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449555552723', '2130706433', '1446275814', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1449909795991', '2130706433', '1446275814', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('6', '1111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa11sfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
@@ -576,7 +578,7 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
 
 -- ----------------------------
 -- Records of cmswing_model
@@ -585,13 +587,17 @@ INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1
 INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"3\",\"24\",\"2\",\"5\"],\"2\":[\"9\",\"13\",\"19\",\"10\",\"12\",\"16\",\"17\",\"26\",\"20\",\"14\",\"11\",\"25\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260622', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('5', 'arterli', '测试模型', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '0', '0', '0', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('6', 'abcs', '222', '1', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449491907904', '1449491907905', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('12', '111', '222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449493887353', '1449493887353', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('13', '111', '222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449493925446', '1449493925446', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('14', '1111', '1111', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494039079', '1449494039079', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('15', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494083198', '1449494083198', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('16', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494104781', '1449494104781', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('17', '1111', '2222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449494265830', '1449494265830', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('28', '111', '111', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571101776', '1449571101776', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('29', '2222', '222', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571112036', '1449571112036', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('30', '333', '333', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571121881', '1449571121881', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('31', '444', '444', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571132502', '1449571132502', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('32', '6666', '6666', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571143000', '1449571143000', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('33', '777', '7777', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571153669', '1449571153669', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('34', '888', '888', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571163930', '1449571163930', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('35', '999', '999', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571526609', '1449571526609', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('36', '99999', '9999', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449571577701', '1449571577701', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('37', 'document', '基础文档', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1449910729885', '1449910729885', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('38', 'test', '测试独立模型', '1', '', '1', '{\"1\":[\"13\",\"12\",\"17\",\"34\"]}', '1:基础,2:拓展', '13,12,17,34', '', '', '', '', 'user:用户名\r\ntitle:标题', '10', '', '', '1449654414', '1449912915', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -665,42 +671,3 @@ INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表�
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
-
--- ----------------------------
--- Table structure for onethink_document
--- ----------------------------
-DROP TABLE IF EXISTS `onethink_document`;
-CREATE TABLE `onethink_document` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
-  `uid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `name` char(40) NOT NULL DEFAULT '' COMMENT '标识',
-  `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
-  `category_id` int(10) unsigned NOT NULL COMMENT '所属分类',
-  `group_id` smallint(3) unsigned NOT NULL COMMENT '所属分组',
-  `description` char(140) NOT NULL DEFAULT '' COMMENT '描述',
-  `root` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '根节点',
-  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属ID',
-  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '2' COMMENT '内容类型',
-  `position` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '推荐位',
-  `link_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '外链',
-  `cover_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '封面',
-  `display` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '可见性',
-  `deadline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '截至时间',
-  `attach` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '附件数量',
-  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',
-  `comment` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
-  `extend` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '扩展统计字段',
-  `level` int(10) NOT NULL DEFAULT '0' COMMENT '优先级',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
-  PRIMARY KEY (`id`),
-  KEY `idx_category_status` (`category_id`,`status`),
-  KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
-
--- ----------------------------
--- Records of onethink_document
--- ----------------------------
-INSERT INTO `onethink_document` VALUES ('1', '1', '', 'OneThink1.1开发版发布', '2', '0', '期待已久的OneThink最新版发布', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1406001413', '1406001413', '1');

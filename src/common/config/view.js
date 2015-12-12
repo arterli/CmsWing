@@ -68,9 +68,19 @@ export default {
 
             return JSON.parse(str);
 
-
+        })
+        env.addFilter("strToArray",function (srt){
+          if(srt){
+            var s = "abc,abcd,aaa";
+            console.log(srt)
+            let ss = s.split(",");// 在每个逗号(,)处进行分解。
+            return ss;
+          }
         })
 
+        env.addFilter("in_Array",function (str,arr){
+          return in_array(str,arr);
+        })
       }
     }
   }

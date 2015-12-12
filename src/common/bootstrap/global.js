@@ -5,7 +5,7 @@
 
 /**
  * use global.xxx to define global functions
- * 
+ *
  * global.fn1 = function(){
  *     
  * }
@@ -18,8 +18,7 @@
  * @returns {number}
  * @private
  */
-global._ip2int=function (ip)
-{
+global._ip2int = function (ip) {
     var num = 0;
     ip = ip.split(".");
     num = Number(ip[0]) * 256 * 256 * 256 + Number(ip[1]) * 256 * 256 + Number(ip[2]) * 256 + Number(ip[3]);
@@ -33,8 +32,7 @@ global._ip2int=function (ip)
  * @returns {string|*}
  * @private
  */
-global._int2iP=function (num)
-{
+global._int2iP = function (num) {
     var str;
     var tt = new Array();
     tt[0] = (num >>> 24) >>> 0;
@@ -51,7 +49,7 @@ global._int2iP=function (num)
  * @param md5encoded
  * @returns {*}
  */
-global.encryptPassword=function(password, md5encoded = false) {
+global.encryptPassword = function (password, md5encoded = false) {
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
@@ -77,7 +75,7 @@ global.unique = function (arr) {
  * @param arrayToSearch
  * @returns {boolean}
  */
-global.in_array=function (stringToSearch, arrayToSearch) {
+global.in_array = function (stringToSearch, arrayToSearch) {
     for (let s = 0; s < arrayToSearch.length; s++) {
         let thisEntry = arrayToSearch[s].toString();
         if (thisEntry == stringToSearch) {
@@ -91,7 +89,7 @@ global.in_array=function (stringToSearch, arrayToSearch) {
  * @param d
  * @returns {string}
  */
-global.times = function (d,sec) {
+global.times = function (d, sec) {
     var time;
     var date = new Date(d);
     var y = date.getFullYear();
@@ -105,9 +103,9 @@ global.times = function (d,sec) {
     m = m < 10 ? "0" + m : m;
     var s = date.getSeconds();
     s = s < 10 ? "0" + s : s;
-    if(sec){
+    if (sec) {
         time = y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
-    }else{
+    } else {
         time = y + "-" + M + "-" + d + " " + h + ":" + m;
     }
 
@@ -229,21 +227,21 @@ global.get_children = function (nodes, parent) {
  * @param obj
  * @returns {Array}
  */
-global.obj_values=function (obj){
-        let objkey=Object.keys(obj);
-        let objarr=[];
-        objkey.forEach(key=>{
-            objarr.push(obj[key]);
-        })
-        return objarr;
-        }
+global.obj_values = function (obj) {
+    let objkey = Object.keys(obj);
+    let objarr = [];
+    objkey.forEach(key=> {
+        objarr.push(obj[key]);
+    })
+    return objarr;
+}
 /**
  * 判断对象是否相等
  * @param a
  * @param b
  * @returns {boolean}
  */
-global.isObjectValueEqual=function(a, b) {
+global.isObjectValueEqual = function (a, b) {
     // Of course, we can do it use for in
     // Create arrays of property names
     var aProps = Object.getOwnPropertyNames(a);
@@ -274,7 +272,7 @@ global.isObjectValueEqual=function(a, b) {
  * @param str [删除左右两端的空格]
  * @returns {*|void|string|XML}
  */
-global.trim = function (str){
+global.trim = function (str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 /**
@@ -282,20 +280,20 @@ global.trim = function (str){
  * @param str
  * @returns {*}
  */
-global.parse_config_attr = function (str){
+global.parse_config_attr = function (str) {
     let strs;
-    if(str.search(/\r\n/ig)>-1){
-        strs=str.split("\r\n");
-    }else if(str.search(/,/ig)>-1){
-        strs=str.split(",");
-    }else{
-        strs=[str];
+    if (str.search(/\r\n/ig) > -1) {
+        strs = str.split("\r\n");
+    } else if (str.search(/,/ig) > -1) {
+        strs = str.split(",");
+    } else {
+        strs = [str];
     }
-    if(think.isArray(strs)){
-        let obj ={}
-        strs.forEach(n =>{
-            n=n.split(":");
-            obj[n[0]]=n[1];
+    if (think.isArray(strs)) {
+        let obj = {}
+        strs.forEach(n => {
+            n = n.split(":");
+            obj[n[0]] = n[1];
         })
         return obj;
     }
@@ -306,16 +304,16 @@ global.parse_config_attr = function (str){
  * @param str [删除左边的空格]
  * @returns {*|void|string|XML}
  */
-global.ltrim = function (str){
-    return str.replace(/(^\s*)/g,"");
+global.ltrim = function (str) {
+    return str.replace(/(^\s*)/g, "");
 }
 /**
  * rtrim()
  * @param str [删除右边的空格]
  * @returns {*|void|string|XML}
  */
-global.rtrim = function (str){
-    return str.replace(/(\s*$)/g,"");
+global.rtrim = function (str) {
+    return str.replace(/(\s*$)/g, "");
 }
 /**
  * 把返回的数据集转换成Tree
@@ -323,14 +321,14 @@ global.rtrim = function (str){
  * @param string pid parent标记字段
  * @return array
  */
-global.arr_to_tree = function (data,pid){
-    var result = [] , temp;
-    for(var i in data){
-        if(data[i].pid==pid){
+global.arr_to_tree = function (data, pid) {
+    var result = [], temp;
+    for (var i in data) {
+        if (data[i].pid == pid) {
             result.push(data[i]);
-            temp = arr_to_tree(data,data[i].id);
-            if(temp.length>0){
-                data[i].children=temp;
+            temp = arr_to_tree(data, data[i].id);
+            if (temp.length > 0) {
+                data[i].children = temp;
             }
         }
     }
