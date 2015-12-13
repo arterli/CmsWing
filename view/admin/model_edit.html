@@ -65,7 +65,7 @@
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control  " name="title"
                                                            value="{{info.title}}"
-                                                           data-required="true" >
+                                                           data-required="true">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none">请输入模型的名称</span>
@@ -104,13 +104,16 @@
 
                                         <div class="col-sm-10">
 
-                                            <select style="width:260px" multiple class="chosen-select" name="attribute_list">
+                                            <select style="width:260px" multiple class="chosen-select"
+                                                    name="attribute_list">
 
                                                 {% if fields %}
 
                                                 <optgroup label="自定义字段">
                                                     {% for v in fields %}
-                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}  selected="selected" {% endif %}>{{v.title}} : {{v.name}}</option>
+                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}
+                                                            selected="selected" {% endif %}>{{v.title}} : {{v.name}}
+                                                    </option>
                                                     {% endfor %}
                                                 </optgroup>
                                                 {% endif %}
@@ -118,30 +121,15 @@
 
                                                 <optgroup label="系统字段">
                                                     {% for v in extend_fields %}
-                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}  selected="selected" {% endif %}>{{v.title}} : {{v.name}}</option>
+                                                    <option value="{{v.id}}" {% if v.id|in_Array(info.attribute_list) %}
+                                                            selected="selected" {% endif %}>{{v.title}} : {{v.name}}
+                                                    </option>
                                                     {% endfor %}
                                                 </optgroup>
                                                 {% endif %}
 
 
                                             </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">字段别名定义</label>
-
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-4 ">
-                                                    <textarea name="attribute_alias" class="form-control">{{info.attribute_alias}}</textarea>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（用于表单显示的名称）</span>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -165,8 +153,10 @@
                                         <label class="col-sm-2 control-label">表单整理</label>
 
                                         <div class="col-sm-10">
+                                            <input type="hidden" id="nestable-output" name="field_sort">
                                             <div class="row">
-                                                {% for ingredient, amount in info.field_sort|strToJson %}
+                                                {% set field_sort = info.field_sort|strToJson %}
+                                                {% for ingredient, amount in info.field_group|parse_config_attr %}
 
                                                 <div class="col-sm-3">
                                                     <div class="panel panel-default">
@@ -178,21 +168,28 @@
                                                                             class="fa fa-caret-up text"></i></a>
                                                                 </li>
                                                             </ul>
-                                                            {% set field_group = info.field_group|parse_config_attr %}
-                                                            {{field_group[ingredient]}}
+                                                            {{amount}}
                                                         </header>
                                                         <div class="panel-body clearfix">
-                                                            <div id="nestable1" class="dd ">
+                                                            <div id="nestable{{ingredient}}" class="dd nestable"
+                                                                 data-group="{{ingredient}}">
                                                                 <ol class="dd-list">
-                                                                    {% for item in amount %}
 
-                                                                    <li data-id="{{item}}" class="dd-item">
-                                                                        <div class="dd-handle"> {{ allfields[item].title}} <span class="label bg-light">{{allfields[item].name}}</span></div>
+                                                                    {% for key , value in allfields %}
+                                                                    {% if value.group == ingredient and value.is_show ==
+                                                                    1 %}
+                                                                    <li data-id="{{key}}" class="dd-item">
+                                                                        <div class="dd-handle"> {{ value.title}} <span
+                                                                                class="label bg-light">{{value.name}}</span>
+                                                                        </div>
                                                                     </li>
-                                                                    {% else %}
-                                                                    <div class="dd-empty"></div>
+                                                                    {% endif %}
                                                                     {% endfor %}
-
+                                                                    {% if field_sort[ingredient]|isempty %}
+                                                                    <li class="dd-item empty">
+                                                                        <div class="dd-handle bg-light dk">拖拽到此</div>
+                                                                    </li>
+                                                                    {% endif %}
                                                                 </ol>
                                                             </div>
                                                         </div>
@@ -200,30 +197,71 @@
                                                 </div>
 
                                                 {% endfor %}
-                                                <div class="col-sm-3 hide">
-                                                    <div class="panel panel-default">
-                                                        <header class="panel-heading">
-                                                            <ul class="nav nav-pills pull-right">
-                                                                <li>
-                                                                    <a class="panel-toggle text-muted" href="#"><i
-                                                                            class="fa fa-caret-down text-active"></i><i
-                                                                            class="fa fa-caret-up text"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                            Dropdown
-                                                        </header>
-                                                        <div class="panel-body clearfix">
-                                                            <div id="nestable2" class="dd">
-                                                                <ol class="dd-list">
 
-                                                                    <div class="dd-empty"></div>
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none">（直接拖动进行排序）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段别名定义</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <textarea name="attribute_alias" class="form-control">{{info.attribute_alias}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（用于表单显示的名称）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">列表定义</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <textarea name="attribute_alias" class="form-control">{{info.list_grid}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（默认列表模板的展示规则）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">默认搜索字段</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="search_key"
+                                                           value="{{info.search_key}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（默认列表模板的默认搜索项）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">高级搜索字段</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="search_list"
+                                                           value="{{info.search_list}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（默认列表模板的高级搜索项）</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,12 +269,77 @@
                                 </div>
 
 
-                                <div id="tab-3" class="tab-pane fade">dropdown1</div>
+                                <div id="tab-3" class="tab-pane fade">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">列表模板</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="template_list"
+                                                           value="{{info.template_list}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（自定义的列表模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">新增模板</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="template_add"
+                                                           value="{{info.template_add}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（自定义的新增模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">编辑模板</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="template_edit"
+                                                           value="{{info.template_edit}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（自定义的编辑模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">列表数据大小</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="list_row"
+                                                           value="{{info.list_row}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">（默认列表模板的分页属性）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{{info.id}}">
                                     <button class="btn btn-primary btn-s-md ajax-post " type="submit"
                                             target-form="form-horizontal">确定
                                     </button>
@@ -265,12 +368,41 @@
 <script>
     $(document).ready(function () {
 
-        // activate Nestable for list 1
-        $('.dd').nestable({
-            group: 0,
-            maxDepth:1,
-        });
+        var obj = {}
+        var updateOutput = function (e) {
+            var list = e.length ? e : $(e.target),
+                    output = list.data('output');
 
+            // console.log(list.nestable('serialize'));
+            if (list.find("li").length > 1) {
+                list.find(".empty").remove();
+            }
+            var arr = [];
+            $.each(list.nestable('serialize'), function (k, v) {
+                if (v.id) {
+                    arr.push(v.id)
+                }
+
+            })
+
+            var goruid = list.attr('data-group')
+            if (arr.length > 0) {
+                obj[goruid] = arr.join(",").split(",")
+            } else {
+                obj[goruid] = arr
+            }
+
+            if (window.JSON) {
+                output.val(window.JSON.stringify(obj)); //, null, 2));
+            } else {
+                output.val('JSON browser support required for this demo.');
+            }
+        };
+
+        $.each($(".dd"), function (key, val) {
+            $(val).nestable({maxDepth: 1}).on('change', updateOutput);
+            updateOutput($(val).data('output', $('#nestable-output')));
+        })
         // activate Nestable for list 2
 //        $('#nestable2').nestable({
 //            group: 1
@@ -278,7 +410,67 @@
 
         $(".chosen-select").chosen({
             placeholder_text: "选择字段"
+        }).change(function (e) {
+            var ids = $('[name = "attribute_list" ]').val()
+            var arr = $("#nestable-output").val()
+
+            arr = JSON.parse(arr);
+            var narr = []
+            $.each(arr, function (k, v) {
+                $.each(v, function (n, m) {
+                    narr.push(m)
+                })
+            })
+            if (ids) {
+                if (ids.length > narr.length) {
+                    $.each(ids, function (k, v) {
+                        if ($.inArray(v, narr) == -1) {
+                            var text = $("[name='attribute_list']").find('option[value=' + v + ']').text();
+                            var textarr = text.split(":")
+                            //console.log(textarr);
+                            var htm = '<li class="dd-item" data-id="' + v + '"><div class="dd-handle"> ' + textarr[0] + ' <span class="label bg-light">' + textarr[1] + '</span></div></li>'
+                            if ($(".nestable").eq(0).find(".dd-list").length) {
+                                $(".nestable").eq(0).find(".dd-list").append(htm)
+                            } else {
+                                $(".nestable").eq(0).empty();
+                                $(".nestable").eq(0).html('<ol class="dd-list">' + htm + '</ol>')
+                            }
+
+                            $.each($(".dd"), function (key, val) {
+                                updateOutput($(val).data('output', $('#nestable-output')));
+                            })
+                            // $("p").append("<b>Hello</b>");
+                        }
+
+                    })
+                } else if (ids.length < narr.length) {
+                    $.each(narr, function (k, v) {
+                        if ($.inArray(v, ids) == -1) {
+                            var clas = '[data-id=' + v + ']'
+
+                            $.each($(".dd"), function (key, val) {
+                                $(val).find(".dd-list > li" + clas).remove();
+                                if ($(val).find(".dd-list > li").length == 0) {
+                                    $(val).html('<div class="dd-empty"></div>');
+                                }
+                                updateOutput($(val).data('output', $('#nestable-output')));
+                            })
+                            // $("p").append("<b>Hello</b>");
+                        }
+
+                    })
+                }
+            } else {
+                $.each($(".dd"), function (key, val) {
+                    $(val).html('<div class="dd-empty"></div>');
+                    updateOutput($(val).data('output', $('#nestable-output')));
+                })
+            }
+
+           // console.log(ids)
+           // console.log(narr)
         });
+
     });
 
 </script>

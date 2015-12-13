@@ -19,6 +19,7 @@ $('.ajax-get').click(function(){
     }
     if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
         $.get(target).success(function(data){
+
             if (data.errno==0) {
                 if (data.data.url) {
                     toastr.success(data.data.name + ' 页面即将自动跳转~');
@@ -33,7 +34,7 @@ $('.ajax-get').click(function(){
                     }else{
                         location.reload();
                     }
-                },1500);
+                },1000);
             }else{
                 toastr.error(data.errmsg);
                 setTimeout(function(){
@@ -42,7 +43,7 @@ $('.ajax-get').click(function(){
                     }else{
                         toastr.clear()
                     }
-                },1500);
+                },1000);
             }
         });
 
@@ -112,7 +113,8 @@ $('.ajax-post').click(function(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
-            console.log(data)
+            //console.log(data)
+            //return false;
             if (data.errno==0) {
                 if (data.data.url) {
 

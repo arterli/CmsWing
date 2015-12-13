@@ -28,7 +28,7 @@ export default class extends think.controller.base {
         //菜单当前状态
         let http = this.http;
         this.active=http.pathname,
-            console.log(this.active);
+            //console.log(this.active);
         //this.active = http.controller+'/'+http.action;
             //think.log(this.active);
         this.assign({

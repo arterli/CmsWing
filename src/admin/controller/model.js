@@ -38,7 +38,7 @@ export default class extends Base {
     async addAction() {
         if (this.isPost()) {
             let data = this.post();
-            console.log(data);
+            //console.log(data);
             data.create_time = new Date().valueOf();
             data.update_time = new Date().valueOf();
             data.status = 1
@@ -60,7 +60,12 @@ export default class extends Base {
     async editAction() {
         if (this.isPost()) {
             let post = this.post()
-            console.log(post);
+            post.update_time = new Date().valueOf();
+           console.log(post);
+            let res =await this.db.update(post);
+            if(res){
+                return this.success({name:"更新模型成功!",url: "/admin/model/index"})
+            }
         } else {
             let id = this.get("id");
             let allfields;
@@ -68,9 +73,9 @@ export default class extends Base {
                 this.fail('参数不能为空！');
             }
             let data = await this.db.find(id);
-            console.log(data);
+           // console.log(data);
             data.attribute_list = think.isEmpty(data.attribute_list) ? '' : data.attribute_list.split(",");
-            console.log(data.attribute_list);
+           // console.log(data.attribute_list);
             let fields = await this.model('attribute').where({model_id: data.id}).field('id,name,title,is_show').select();
             //是否继承了其他模型
             if (data.extend != 0) {
@@ -87,7 +92,7 @@ export default class extends Base {
                 }
                 //console.log(field);
             }
-            console.log(allfields);
+            //console.log(allfields);
             //改造数组
             var obj = {}
             if (allfields) {
@@ -103,19 +108,19 @@ export default class extends Base {
             let field_sort = JSON.parse(data.field_sort);
             if (!think.isEmpty(field_sort)) {
                 for (let group in field_sort) {
-                    console.log(field_sort[group])
+                    //console.log(field_sort[group])
                     //for(var value of field_sort[group]){
                     //    console.log(value)
                     //}
                     field_sort[group].forEach((v, k)=> {
                         obj[v].group = group;
                         obj[v].sort = k;
-                        console.log(v, k)
+                        //console.log(v, k)
                     })
                 }
             }
-            console.log(field_sort);
-            console.log(obj)
+           // console.log(field_sort);
+           // console.log(obj)
             this.assign({'fields': fields, 'extend_fields': extend_fields, 'allfields': obj, 'info': data})
             this.active = "admin/model/index"
             this.meta_title = "编辑模型"

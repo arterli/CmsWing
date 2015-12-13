@@ -81,6 +81,10 @@ export default {
         env.addFilter("in_Array",function (str,arr){
           return in_array(str,arr);
         })
+
+        env.addFilter("isempty",function(any){
+          return think.isEmpty(any);
+        })
       }
     }
   }
