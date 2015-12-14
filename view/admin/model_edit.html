@@ -55,7 +55,8 @@
                                                            value="{{info.name}}" data-required="true">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">请输入文档模型标识</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入文档模型标识</span>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +73,7 @@
                                                            data-required="true">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">请输入模型的名称</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入模型的名称</span>
                                                 </div>
                                             </div>
 
@@ -95,7 +96,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 配置分组 用于批量设置 不分组则不会显示在系统设置中</span>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -134,6 +136,8 @@
 
 
                                             </select>
+
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 只有新增了字段，该表才会真正建立</span>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -147,7 +151,7 @@
                                                            value="{{info.field_group}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（用于表单显示的分组，以及设置该模型表单排序的显示）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单显示的分组，以及设置该模型表单排序的显示</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -203,7 +207,7 @@
                                                 {% endfor %}
 
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（直接拖动进行排序）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 直接拖动进行排序</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +222,7 @@
                                                     <textarea name="attribute_alias" class="form-control">{{info.attribute_alias}}</textarea>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（用于表单显示的名称）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单显示的名称</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,10 +234,10 @@
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-4 ">
-                                                    <textarea name="attribute_alias" class="form-control">{{info.list_grid}}</textarea>
+                                                    <textarea name="list_grid" class="form-control">{{info.list_grid}}</textarea>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（默认列表模板的展示规则）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认列表模板的展示规则</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -249,7 +253,7 @@
                                                            value="{{info.search_key}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（默认列表模板的默认搜索项）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认列表模板的默认搜索项</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -265,7 +269,7 @@
                                                            value="{{info.search_list}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（默认列表模板的高级搜索项）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认列表模板的高级搜索项</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,7 +288,7 @@
                                                            value="{{info.template_list}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（自定义的列表模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 自定义的列表模板，放在src\view\cmswing下，不写则使用默认模板</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -300,7 +304,7 @@
                                                            value="{{info.template_add}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（自定义的新增模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 自定义的新增模板，放在src\view\cmswing下，不写则使用默认模板</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,7 +320,7 @@
                                                            value="{{info.template_edit}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（自定义的编辑模板，放在src\view\cmswing下，不写则使用默认模板）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 自定义的编辑模板，放在src\view\cmswing下，不写则使用默认模板</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -332,7 +336,7 @@
                                                            value="{{info.list_row}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（默认列表模板的分页属性）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认列表模板的分页属性</span>
                                                 </div>
                                             </div>
                                         </div>

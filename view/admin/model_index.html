@@ -8,7 +8,8 @@
 
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                Responsive Table
+                                模型表列表
+                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
                             </header>
                             <div class="row wrapper">
 
@@ -56,7 +57,7 @@
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
-                                        <td><a data-id="{$vo.id}" href="{:U('model/edit?id='.$vo['id'])}" class="text-info">{{item.title}}</a></td>
+                                        <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
                                         <td>{{item.create_time | format_time(1)}}</td>
                                         <td>
                                             <a href="#" class="active" data-toggle="class"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>

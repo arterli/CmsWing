@@ -69,8 +69,8 @@
                                                     <select class="form-control " name="type" id="data-type">
                                                         <option value="">----请选择----</option>
                                                         {% for key ,value in null|get_attribute_type %}
-                                                        <option value="{{key}}" rule="{{value[1]}}" {% if info.extend==
-                                                                0 %}selected {% endif %}>
+                                                        <option value="{{key}}" rule="{{value[1]}}" {% if info.type==
+                                                                key %}selected {% endif %}>
                                                             {{value[0]}}
                                                         </option>
                                                         {% endfor %}
@@ -156,10 +156,10 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="is_show">
-                                                        <option value="1">始终显示</option>
-                                                        <option value="2">新增显示</option>
-                                                        <option value="3">编辑显示</option>
-                                                        <option value="0">不显示</option>
+                                                        <option value="1" {% if info.is_show== 1 %}selected {% endif %}>始终显示</option>
+                                                        <option value="2" {% if info.is_show== 2 %}selected {% endif %}>新增显示</option>
+                                                        <option value="3" {% if info.is_show== 3 %}selected {% endif %}>编辑显示</option>
+                                                        <option value="0" {% if info.is_show== 0 %}selected {% endif %}>不显示</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -176,8 +176,8 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="is_must">
-                                                        <option value="0">否</option>
-                                                        <option value="1">是</option>
+                                                        <option value="0" {% if info.is_must== 0 %}selected {% endif %}>否</option>
+                                                        <option value="1" {% if info.is_must== 1 %}selected {% endif %}>是</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -189,7 +189,7 @@
 
                                 </div>
                                 <div id="tab-2" class="tab-pane fade">
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">验证方式</label>
 
@@ -197,14 +197,14 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="validate_type">
-                                                        <option value="regex">正则验证</option>
-                                                        <option value="function">函数验证</option>
-                                                        <option value="unique">唯一验证</option>
-                                                        <option value="length">长度验证</option>
-                                                        <option value="in">验证在范围内</option>
-                                                        <option value="notin">验证不在范围内</option>
-                                                        <option value="between">区间验证</option>
-                                                        <option value="notbetween">不在区间验证</option>
+                                                        <option value="regex" {% if info.validate_type == "regex" %}selected {% endif %}>正则验证</option>
+                                                        <option value="function" {% if info.validate_type == "function" %}selected {% endif %}>函数验证</option>
+                                                        <option value="unique" {% if info.validate_type == "unique" %}selected {% endif %}>唯一验证</option>
+                                                        <option value="length" {% if info.validate_type == "length" %}selected {% endif %}>长度验证</option>
+                                                        <option value="in" {% if info.validate_type == "in" %}selected {% endif %}>验证在范围内</option>
+                                                        <option value="notin" {% if info.validate_type == "notin" %}selected {% endif %}>验证不在范围内</option>
+                                                        <option value="between" {% if info.validate_type == "between" %}selected {% endif %}>区间验证</option>
+                                                        <option value="notbetween" {% if info.validate_type == "notbetween" %}selected {% endif %}>不在区间验证</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -251,9 +251,9 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="validate_time">
-                                                        <option value="3">始 终</option>
-                                                        <option value="1">新 增</option>
-                                                        <option value="2">编 辑</option>
+                                                        <option value="3" {% if info.validate_time == 3 %}selected {% endif %}>始 终</option>
+                                                        <option value="1" {% if info.validate_time == 1 %}selected {% endif %}>新 增</option>
+                                                        <option value="2" {% if info.validate_time == 2 %}selected {% endif %}>编 辑</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -270,9 +270,9 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="auto_type">
-                                                        <option value="function">函数</option>
-                                                        <option value="field">字段</option>
-                                                        <option value="string">字符串</option>
+                                                        <option value="function" {% if info.auto_type == "function" %}selected {% endif %}>函数</option>
+                                                        <option value="field" {% if info.auto_type == "field" %}selected {% endif %}>字段</option>
+                                                        <option value="string" {% if info.auto_type == "string" %}selected {% endif %}>字符串</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
@@ -304,9 +304,9 @@
                                             <div class="row">
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="auto_time">
-                                                        <option value="3">始 终</option>
-                                                        <option value="1">新 增</option>
-                                                        <option value="2">编 辑</option>
+                                                        <option value="3" {% if info.auto_time == 3 %}selected {% endif %}>始 终</option>
+                                                        <option value="1"  {% if info.auto_time == 1 %}selected {% endif %}>新 增</option>
+                                                        <option value="2" {% if info.auto_time == 2 %}selected {% endif %}>编 辑</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">

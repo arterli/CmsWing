@@ -62,6 +62,7 @@ export default class extends Base {
             let post = this.post()
             post.update_time = new Date().valueOf();
            console.log(post);
+            post.attribute_list=post.attribute_list.join(",");
             let res =await this.db.update(post);
             if(res){
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})
@@ -112,11 +113,15 @@ export default class extends Base {
                     //for(var value of field_sort[group]){
                     //    console.log(value)
                     //}
+
                     field_sort[group].forEach((v, k)=> {
+                        if(obj[v]){
                         obj[v].group = group;
                         obj[v].sort = k;
+                        }
                         //console.log(v, k)
                     })
+
                 }
             }
            // console.log(field_sort);

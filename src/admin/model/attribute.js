@@ -17,17 +17,33 @@ export default class extends think.model.base {
 
         if(think.isEmpty(data.id)){//新增字段
             data.create_time = new Date().valueOf();
+            data.status = 1;
             let id = await this.add(data);
             if(!id){
                 return false;
             }
             if(create){
                 //新增表字段
-
+            let res = await this.addField(data);
+                if(!res){
+                    this.delete(id)
+                    return false;
+                }
             }
 
-        }else {
-
+        }else {//更新数据
+            if(create){
+                //更新表字段
+                let res = await this.updateField(data);
+                if(!res){
+                    return false;
+                }
+            }
+            data.update_time = new Date().valueOf();
+            let status = await this.update(data);
+            if(!status){
+                return false;
+            }
         }
         return data;
     }
@@ -64,35 +80,30 @@ export default class extends think.model.base {
         var def;
         var sql;
         //获取默认值
-        if(_filed.value === ''){
+        var value=_filed.value;
+        if(value === ''){
             def = '';
-        }else if(think.isNumberString(_filed.value)){
-            def = ' DEFAULT '+_field.value;
-        }else if(think.isString(_filed.value)){
-            def = ' DEFAULT \''+_field.value+'\'';
+        }else if(think.isNumberString(value)){
+            def = ' DEFAULT '+value;
+        }else if(think.isString(value)){
+            def = ' DEFAULT \''+value+'\'';
         }else {
             def = '';
         }
 
-       // let sql1= " CREATE TABLE IF NOT EXISTS \`"+this.table_name+"\` (\`id \` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'主键\' ,\`"+ fil.name+"\`  ${field.field} ${def} COMMENT \'${field.title}\' ," ;
         if(table_exist){
-            console.log(this.table_name)
-            sql = `ALTER TABLE ${this.table_name} ADD COLUMN ${field.name}  ${field.field}  ${def} COMMENT '${field.title}';`
+            let fie = _filed;
+            sql = `ALTER TABLE \`${this.table_name}\` ADD COLUMN \`${fie.name}\`  ${fie.field}  ${def} COMMENT \'${fie.title}\';`
+            sql = this.parseSql(sql);
         }else {//新建表时是否默认新增‘id主键’字段
 
             let model_info = await this.model('model').where({id:_filed.model_id}).field('engine_type,need_pk').find();
             if(model_info.need_pk){
-                let fil=_filed;
-                sql =" CREATE TABLE IF NOT EXISTS \`"+this.table_name+"\` (\`id \` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'主键\' ,\`"+ fil.name +"\`  ${field.field} ${def} COMMENT \'${field.title}\' ,"
-               //" PRIMARY KEY (id))"+
-               // "ENGINE=${model_info.engine_type}"+
-               // "DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci"+
-               // "CHECKSUM=0"+
-               // "ROW_FORMAT=DYNAMIC"+
-               // "DELAY_KEY_WRITE=0;"
-            }else {
-                sql = ` CREATE TABLE IF NOT EXISTS ${this.table_name} (
-                ${field.name}  ${field.field} ${def} COMMENT '${field.title}'
+                let fie = _filed;
+                sql =` CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
+                \`id\`  int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'主键\' ,
+                \`${fie.name}\`  ${fie.field} ${def} COMMENT \'${fie.title}\' ,
+                PRIMARY KEY (\`id\`)
                 )
                 ENGINE=${model_info.engine_type}
                 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -100,10 +111,64 @@ export default class extends think.model.base {
                 ROW_FORMAT=DYNAMIC
                 DELAY_KEY_WRITE=0
                 ;`
+                sql = this.parseSql(sql);
+            }else {
+                let fie = _filed;
+                sql = `  CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
+                \`${fie.name}\`  ${fie.field} ${def} COMMENT \'${fie.title}\'
+                )
+                ENGINE=${model_info.engine_type}
+                DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+                CHECKSUM=0
+                ROW_FORMAT=DYNAMIC
+                DELAY_KEY_WRITE=0
+                ;`
+                sql = this.parseSql(sql);
             }
         }
-        //let res = await think.model('mysql',think.config("db")).execute(sql);
+        let res = await think.model('mysql',think.config("db")).execute(sql);
+
+       return res==0;
+
+    }
+    /**
+     * 更新表字段
+     * @param array _field 需要更新的字段属性
+     * @return boolean true 成功 ， false 失败
+     * @author
+     */
+    async updateField(_field){
+        //检查表是否存在
+        let table_exist = await this.checkTableExist(_field.model_id);
+
+        //获取原字段名
+        let last_field = await this.where({id:_field.id}).getField('name');
+
+        //获取默认值
+        let def = _field.value!='' ? ' DEFAULT '+_field.value : '';
+
+        let sql = `ALTER TABLE \`${this.table_name}\` CHANGE COLUMN \`${last_field}\` \`${_field.name}\`  ${_field.field} ${def} COMMENT \'${_field.title}\' ;`
+        sql = this.parseSql(sql);
         console.log(sql);
+        let res = await think.model('mysql',think.config("db")).execute(sql);
+        return res==0;
     }
 
+    /**
+     * 删除一个字段
+     * @param array $field 需要删除的字段属性
+     * @return boolean true 成功 ， false 失败
+     * @author
+     */
+    async  deleteField(_field){
+        //检查表是否存在
+        let table_exist = await this.checkTableExist(_field.model_id);
+
+        let sql = `ALTER TABLE \`${this.table_name}\` DROP COLUMN \`${_field.name}\`;`
+
+        sql = this.parseSql(sql);
+        console.log(sql);
+        let res = await think.model('mysql',think.config("db")).execute(sql);
+        return res==0;
+    }
 }
