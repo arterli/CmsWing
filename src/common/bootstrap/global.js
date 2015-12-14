@@ -334,3 +334,22 @@ global.arr_to_tree = function (data, pid) {
     }
     return result;
 }
+// 获取属性类型信息
+global.get_attribute_type = function (type){
+    // TODO 可以加入系统配置
+    let _type = {
+        'num'       :  ['数字','int(10) UNSIGNED NOT NULL'],
+        'string'    :  ['字符串','varchar(255) NOT NULL'],
+        'textarea'  :  ['文本框','text NOT NULL'],
+        'date'      :  ['日期','int(10) NOT NULL'],
+        'datetime'  :  ['时间','int(10) NOT NULL'],
+        'bool'      :  ['布尔','tinyint(2) NOT NULL'],
+        'select'    :  ['枚举','char(50) NOT NULL'],
+        'radio'     :  ['单选','char(10) NOT NULL'],
+        'checkbox'  :  ['多选','varchar(100) NOT NULL'],
+        'editor'    :  ['编辑器','text NOT NULL'],
+        'picture'   :  ['上传图片','int(10) UNSIGNED NOT NULL'],
+        'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
+}
+    return type?_type[type][0]:_type;
+}

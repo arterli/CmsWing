@@ -85,6 +85,10 @@ export default {
         env.addFilter("isempty",function(any){
           return think.isEmpty(any);
         })
+        //获取字段类型信息
+        env.addFilter("get_attribute_type",function(str){
+          return get_attribute_type(str);
+        })
       }
     }
   }

@@ -42,7 +42,7 @@
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                        <th style="width:60px;">编号</th>
+                                        <th style="width:80px;">编号</th>
                                         <th class="">标识</th>
                                         <th class="">名称</th>
                                         <th class="">创建时间</th>
@@ -64,6 +64,7 @@
                                         <td><a href="#" class="text-info">数据</a>
                                             <a href="#" class="ajax-get text-info">{{item.status|show_status_op}}</a>
                                             <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
+                                            <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                     </tr>
                                     {% else %}
