@@ -48,7 +48,7 @@
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                         <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
-                        <td><a data-id="{{item.id}}" href="/admin/attribute/edit?model_id={{item.id}}" class="text-info">{{item.title}}</a></td>
+                        <td><a data-id="{{item.id}}" href="/admin/attribute/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
                         <td>{{item.type|get_attribute_type}}</td>
                         <td>
                             {{item.create_time | format_time(1)}}
