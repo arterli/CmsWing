@@ -130,4 +130,19 @@ export default class extends Base {
             this.success({name:'删除成功', url:`/admin/attribute/index/model_id/${info.model_id}`});
         }
     }
+
+    /**
+     * 新增字段检查同一张表是否有相同的字段
+     */
+    async checknameAction(){
+       let name = this.get('name');
+        let model_id = this.get('model_id');
+        let id = this.get('id');
+       let res = await this.db.checkName(name,model_id,id);
+        if(res){
+            return this.json(1);
+        }else {
+            return this.json(0);
+        }
+    }
 }

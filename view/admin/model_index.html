@@ -18,10 +18,10 @@
                                         <a class="btn btn-sm btn-info " href="/admin/model/add">
                                             新增
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/model/del">
+                                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/model/setstatus/status/1"  target-form="ids">
                                            启用
                                         </a>
-                                        <a class="btn btn-sm btn-info" href="#">
+                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/status/0" target-form="ids">
                                         禁用
                                     </a>
                                         <a class="btn btn-sm btn-info" href="/admin/model/generate">
@@ -60,10 +60,12 @@
                                         <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
                                         <td>{{item.create_time | format_time(1)}}</td>
                                         <td>
-                                            <a href="#" class="active" data-toggle="class"><i class="fa fa-check text-success text-active"></i><i class="fa fa-times text-danger text"></i></a>
+                                            <a href="/admin/model/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
+                                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                            </a>
                                         </td>
                                         <td><a href="#" class="text-info">数据</a>
-                                            <a href="#" class="ajax-get text-info">{{item.status|show_status_op}}</a>
                                             <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
                                             <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>

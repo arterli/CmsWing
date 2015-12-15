@@ -32,11 +32,10 @@
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control  " name="name"
-                                                           value="{{info.name}}" data-required="true">
+                                                    <input type="text" class="form-control  " name="name" value="{{info.name}}" data-required="true" data-Remote="/admin/attribute/checkname/model_id/{{model_id}}/id/{{info.id}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">请输入字段名 英文字母开头，长度不超过30</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入字段名 英文字母开头，长度不超过30</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,7 +52,7 @@
                                                            data-required="true">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">请输入字段标题，用于表单显示</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入字段标题，用于表单显示</span>
                                                 </div>
                                             </div>
 
@@ -77,7 +76,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">用于表单中的展示方式</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单中的展示方式</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -93,7 +92,7 @@
                                                            value="{{info.field}}" id="data-field" data-required="true">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">字段属性的sql表示</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 字段属性的sql表示</span>
                                                 </div>
                                             </div>
 
@@ -109,7 +108,7 @@
                                                     <textarea name="extra" class="form-control">{{info.extra}}</textarea>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">布尔、枚举、多选字段类型的定义数据</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 布尔、枚举、多选字段类型的定义数据</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +124,7 @@
                                                            value="{{info.value}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">字段的默认值</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 字段的默认值</span>
                                                 </div>
                                             </div>
 
@@ -142,7 +141,7 @@
                                                            value="{{info.remark}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">用于表单中的提示</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单中的提示</span>
                                                 </div>
                                             </div>
 
@@ -163,7 +162,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">是否显示在表单中</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否显示在表单中</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -181,7 +180,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">用于自动验证</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于自动验证</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +222,7 @@
                                                     <input type="text" class="form-control" name="validate_rule" value="{{info.validate_rule}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">（根据验证方式定义相关验证规则）</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 根据验证方式定义相关验证规则</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -291,7 +290,7 @@
                                                     <input type="text" class="form-control" name="auto_rule" value="{{info.auto_rule}}">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none">根据完成方式订阅相关规则</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 根据完成方式订阅相关规则</span>
                                                 </div>
                                             </div>
                                         </div>

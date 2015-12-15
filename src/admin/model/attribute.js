@@ -156,7 +156,7 @@ export default class extends think.model.base {
 
     /**
      * 删除一个字段
-     * @param array $field 需要删除的字段属性
+     * @param array field 需要删除的字段属性
      * @return boolean true 成功 ， false 失败
      * @author
      */
@@ -171,4 +171,21 @@ export default class extends think.model.base {
         let res = await think.model('mysql',think.config("db")).execute(sql);
         return res==0;
     }
+
+
+    /**
+     * 检查同一张表是否有相同的字段
+     * @param name 要验证的字段名称
+     * @param model_id 要验证的字段的模型id
+     * @author
+     */
+    async checkName(name,model_id,id){
+        let map = {'name':name, 'model_id':model_id};
+        if(!think.isEmpty(id)){
+            map.id = ["!=", id];
+        }
+        let res = await this.where(map).find();
+        return think.isEmpty(res);
+    }
+
 }

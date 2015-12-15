@@ -34,5 +34,18 @@ export default class extends think.model.base {
 
         return true;
     }
-
+    /**
+     * 检查是否有相同的表名
+     * @param name 要验证的字段名称
+     * @param model_id 要验证的字段的模型id
+     * @author
+     */
+    async checkName(name,id){
+        let map = {'name':name};
+        if(!think.isEmpty(id)){
+            map.id = ["!=", id];
+        }
+        let res = await this.where(map).find();
+        return think.isEmpty(res);
+    }
 }

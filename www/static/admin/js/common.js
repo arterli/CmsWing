@@ -38,8 +38,8 @@ $('.ajax-get').click(function(){
             }else{
                 toastr.error(data.errmsg);
                 setTimeout(function(){
-                    if (data.data.url) {
-                        location.href=data.data.url;
+                    if (data.data) {
+                        location.href=data.data;
                     }else{
                         toastr.clear()
                     }
@@ -137,8 +137,8 @@ $('.ajax-post').click(function(){
                 toastr.error(data.errmsg);
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
-                    if (data.url) {
-                        location.href=data.data.url;
+                    if (data.data) {
+                        location.href=data.data;
                     }else{
                         toastr.clear()
                     }

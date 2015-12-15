@@ -32,11 +32,7 @@
                                 <a data-toggle="tab" href="#tab-3"><i class="fa fa-cog text-muted"></i> 高级</a>
                             </li>
                         </ul>
-                         <div class="btn-group pull-right">
-                            <a href="/admin/attribute/add?model_id={{info.id}}" class="btn btn-info btn-xs"><i class="fa  fa-plus"></i> 新增字段</a>
-                             <a href="/admin/attribute/index/model_id/{{info.id}}" class="btn btn-dark btn-xs"><i class="fa fa-cogs"></i> 管理字段</a>
 
-                        </div>
                     </header>
                     <div class="panel-body">
                         <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/edit"
@@ -52,7 +48,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control  " name="name"
-                                                           value="{{info.name}}" data-required="true">
+                                                           value="{{info.name}}" data-required="true" data-Remote="/admin/model/checkname/id/{{info.id}}">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入文档模型标识</span>
@@ -109,7 +105,13 @@
                                         <label class="col-sm-2 control-label">选择字段</label>
 
                                         <div class="col-sm-10">
+                                            <div class=" m-b-xs">
+                                                <div class="btn-group ">
+                                                    <a href="/admin/attribute/add?model_id={{info.id}}" class="btn btn-info btn-xs "><i class="fa  fa-plus"></i> 新增字段</a>
+                                                    <a href="/admin/attribute/index/model_id/{{info.id}}" class="btn btn-dark btn-xs"><i class="fa fa-cogs"></i> 管理字段</a>
 
+                                                </div>
+                                            </div>
                                             <select style="width:260px" multiple class="chosen-select"
                                                     name="attribute_list">
 
