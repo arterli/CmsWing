@@ -73,4 +73,5 @@ export default class extends Base {
         this.assign('list_grids', ngrids);
         return this.display();
     }
+
 }
