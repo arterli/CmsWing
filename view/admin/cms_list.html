@@ -6,7 +6,84 @@
         <p>{{controller.meta_title}}</p>
     </header>
     <section class="scrollable wrapper">
-    cms_list
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+                <i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+                        <a class="btn btn-sm btn-info " href="/admin/model/add">
+                            新增
+                        </a>
+                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/model/setstatus/status/1"  target-form="ids">
+                            删除
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        {% for field in list_grids %}
+                        <th >{{field.title}}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
+                        <td>{{item.create_time | format_time(1)}}</td>
+                        <td>
+                            <a href="/admin/model/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
+                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                            </a>
+                        </td>
+                        <td><a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>
+                            <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
+                            <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
+                            <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+        </section>
     </section>
 </section>
 
