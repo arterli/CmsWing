@@ -61,8 +61,10 @@ export default class extends Base {
         if (this.isPost()) {
             let post = this.post()
             post.update_time = new Date().valueOf();
-           console.log(post);
-            post.attribute_list=post.attribute_list.join(",");
+           if(think.isArray(post.attribute_list)){
+               post.attribute_list=post.attribute_list.join(",");
+           }
+
             let res =await this.db.update(post);
             if(res){
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})

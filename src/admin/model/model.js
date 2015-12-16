@@ -48,4 +48,24 @@ export default class extends think.model.base {
         let res = await this.where(map).find();
         return think.isEmpty(res);
     }
+    /**
+     * 获取表名（不含表前缀）
+     * @param string $model_id
+     * @return string 表名
+     * @author huajie <banhuajie@163.com>
+     */
+    async get_table_name(model_id = null){
+        if(think.isEmpty(model_id)){
+            return false;
+        }
+       let name;
+        let info = await this.where({id:model_id}).find();
+        if(info.extend != 0){
+            name = await this.where({id:info.extend}).find();
+            name = name.name+'_'
+        }
+        name += info.name;
+        return name.replace(/undefined/, "");
+    }
+
 }

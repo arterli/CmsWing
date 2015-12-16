@@ -20,7 +20,7 @@ export default class extends think.model.base {
             where.is_dev    =   0;
         }
         let group = setup.MENU_GROUP;
-        think.log(group)
+        //think.log(group)
         //let pid = await this.topmenu();
         var arr = {};
             for(var v of Object.keys(group)){

@@ -24,10 +24,10 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="input-group pull-right">
-                        <input type="text" class="input-sm form-control" placeholder="Search">
+                    <div class="input-group pull-right search-form">
+                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字" value="{{http.get('title')}}">
                       <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
                       </span>
                     </div>
                 </div>
@@ -87,3 +87,31 @@
 </section>
 
 {% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function(){
+            //搜索功能
+            $("#search").click(function(){
+                var url = $(this).attr('url');
+                var query  = $('.search-form').find('input').serialize();
+                query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+                query = query.replace(/^&/g,'');
+                if( url.indexOf('?')>0 ){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            });
+
+            //回车自动提交
+            $('.search-form').find('input').keyup(function(event){
+                if(event.keyCode===13){
+                    $("#search").click();
+                }
+            });
+
+        })
+    </script>
+{% endblock %}}

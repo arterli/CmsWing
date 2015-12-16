@@ -67,9 +67,46 @@ export default class extends Base {
         console.log(ngrids)
         // 过滤重复字段信息
         fields=unique(fields);
-        console.log(fields)
+        console.log(model)
+        //关键字搜索
+        let map = {}
+        let key = model.search_key?model.search_key:'title';
+        let self = this;
+        let iskey = this.param()
+        if(!think.isEmpty(iskey[key])){
+            map[key] = ['like',`%${this.get(key)}%`];
+            delete iskey[key];
+        }
+        console.log(iskey)
+        //条件搜索
+        for(let k in iskey){
+           if(in_array(k,fields)){
+               map[k]=iskey[k];
+           }
+        }
+       console.log(map);
+        if(!think.isEmpty(model.list_row)){
+            this.config("db.nums_per_page",model.list_row)
+        }
+
+        //let http =this.http;
+        //读取模型数据列表
+        if(model.extend){
+            let name =await this.model('model').get_table_name(model.id);
+            let parent = await this.model('model').get_table_name(model.extend);
+            let fix = this.config('db.prefix');
+            let key = in_array('id',fields);
+            console.log(key);
+            if(false === key){
+                fields.push(`${fix}${parent}.id as id`);
+            }else {
+                fields[key] = `${fix}${parent}.id as id`;
+            }
+            console.log(fields);
+        }
         this.meta_title=model.title + '列表';
         this.active = "admin/model/index";
+        this.assign('model', model);
         this.assign('list_grids', ngrids);
         return this.display();
     }
