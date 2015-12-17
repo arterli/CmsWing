@@ -124,6 +124,7 @@ export default class extends Base {
                  /* 执行查询 */
                 .countSelect();
         }
+        
         console.log(data);
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
