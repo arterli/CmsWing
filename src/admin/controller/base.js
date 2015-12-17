@@ -198,4 +198,45 @@ export default class extends think.controller.base {
         tree_nodes = nodes;
         return nodes;
     }
+    /**
+     * 处理文档列表显示
+     * @param array list 列表数据
+     * @param integer model_id 模型id
+     */
+     async parseDocumentList(list,model_id=null){
+        model_id = model_id ? model_id : 1;
+        let attrList = await this.model('attribute').get_model_attribute(model_id,false,'id,name,type,extra');
+        //this.end(attrList);
+        if(think.isArray(list)){
+
+            list.forEach ((data ,k)=>{
+                console.log(data);
+                    for(let key in data){
+                        console.log(key)
+                    if(!think.isEmpty(attrList[key])){
+                        let extra      =   attrList[key]['extra'];
+                        let type       =   attrList[key]['type'];
+                        console.log(extra);
+                        if('select'== type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
+                            // 枚举/多选/单选/布尔型
+                            let options    =  parse_config_attr(extra);
+                            let oparr= Object.keys(options);
+                            if(options && in_array(data[key],oparr)) {
+                                data[key]    =   options[data[key]];
+                            }
+                        }else if('date'==type){ // 日期型
+                            data[key]    =   dateformat('Y-m-d',data[key]);
+                        }else if('datetime' == type){ // 时间型
+                            data[key]    =   dateformat('Y-m-d H:i',data[key]);
+                        }
+                    }
+                }
+                data.model_id = model_id;
+                list[k]   =   data;
+            })
+            console.log(list)
+        return list;
+    }
+}
+
 }

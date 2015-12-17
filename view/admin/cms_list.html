@@ -43,23 +43,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for item in list %}
+                    {% for data in list_data %}
                     <tr>
-                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                        <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
-                        <td>{{item.create_time | format_time(1)}}</td>
-                        <td>
-                            <a href="/admin/model/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
-                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
-                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
-                            </a>
-                        </td>
-                        <td><a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>
-                            <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
-                            <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
-                            <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label></td>
+                        {% for grid in list_grids %}
+                        <td>{{data|get_list_field(grid)| safe}}</td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

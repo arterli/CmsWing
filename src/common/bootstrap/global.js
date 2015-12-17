@@ -10,7 +10,7 @@
  *     
  * }
  */
-
+//import url from 'url';
 
 /**
  * ip转数字
@@ -352,4 +352,114 @@ global.get_attribute_type = function (type){
         'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
 }
     return type?_type[type][0]:_type;
+}
+/**
+ * 时间戳格式化 dateformat()
+ * @param extra 'Y-m-d H:i:s'
+ * @param date  时间戳
+ * @return  '2015-12-17 15:39:44'
+ */
+  global.dateformat=function(extra,date){
+      let D = new Date(date);
+      let time={
+          "Y":D.getFullYear(),
+          'm':D.getMonth() + 1,
+          'd':D.getDate(),
+          'H':D.getHours(),
+          'i':D.getMinutes(),
+          's':D.getSeconds()
+      }
+      let key = extra.split(/\W/);
+      let _date;
+      for(let k of key){
+        time[k] = time[k] < 10 ? "0" + s : time[k]
+         _date=extra.replace(k,time[k])
+        extra=_date;
+      }
+      return _date;
+ }
+
+//global.call_user_func = function (cb, params) {
+//    let func = global.cb;
+//    func.apply(cb, params);
+//}
+/* 解析列表定义规则*/
+
+global.get_list_field=function (data, grid){
+    let data2={};
+    let value;
+    // 获取当前字段数据
+    //console.log(grid);
+    for( let field of grid.field){
+           let temp;
+           let array = field.split('|');//TODO
+          // console.log(array);
+           temp = data[array[0]];
+           //console.log(temp);
+            // 函数支持
+            if(!think.isEmpty(array[1])){
+                temp = call_user_func(array[1], temp);
+            }
+            data2[array[0]]    =   temp;
+    }
+    //console.log(data2);
+    if(!think.isEmpty(grid.format)){
+     // value  =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data2){return $data2[$match[1]];}, $grid['format']);
+    }else{
+        value  =  data2[Object.keys(data2)];
+    }
+   // console.log(value);
+    // 链接支持
+    if('title' == grid['field'][0] && '目录' == data['type'] ){
+        // 目录类型自动设置子文档列表链接
+        grid['href']   =   '[LIST]';
+    }
+    if(!think.isEmpty(grid['href'])){
+        //grid['href']='[aabbcc]';
+        let links  =   grid['href'].split(',');
+           //console.log(links);
+        let val =[]
+        for(let link of links){
+            let array  =   link.split('|');
+            let href   =   array[0];
+
+            //console.log(href);
+            let matches = href.match(/^\[([a-z_]+)\]$/);
+            if(matches){
+                val.push(data2[matches[1]])
+               // console.log(val);
+            }else{
+                let show   =  !think.isEmpty(array[1])?array[1]:value;
+               // console.log(show)
+                // 替换系统特殊字符串
+                let hrefs={
+                    '[DELETE]':'setstatus?status=-1&ids=[id]',
+                    '[EDIT]': 'edit?id=[id]&model=[model_id]&cate_id=[category_id]',
+                    '[LIST]': 'index?pid=[id]&model=[model_id]&cate_id=[category_id]'
+                }
+                href = hrefs[href];
+                let url = require('url')
+                //let http = require("http");
+                //console.log(http.controller)
+                let query =url.parse(href,true,true).query;
+                let pathname =url.parse(href,true,true).pathname;
+                let u = {}
+                for(let k in query){
+                    let key =query[k].replace(/(^\[)|(\]$)/g, "");
+                    if(data[key]) {
+                     u[k]= href = query[k].replace(query[k], data[key])
+                    }
+                }
+                 href=url.format({
+                     pathname:pathname,
+                     query:u
+                 });
+
+               val.push( '<a href="'+href+'" class="text-info">'+show+'</a> ') ;
+            }
+        }
+        value  =   val.join(" ");
+    }
+    //console.log(value)
+    return value;
 }

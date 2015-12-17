@@ -188,4 +188,34 @@ export default class extends think.model.base {
         return think.isEmpty(res);
     }
 
+    /**
+     * 获取属性信息并缓存
+     * @param int id 属性id
+     * @param string field 要获取的字段名
+     * @return string  属性信息
+     */
+    async get_model_attribute(model_id,group = true,fields = true){
+        let map;
+        //验证ID
+        if(think.isEmpty(model_id)||!think.isNumberString(model_id)){
+            return '';
+        }
+       //获取属性
+        map = {model_id:model_id};
+        let extend  = await this.model('model').where({id:model_id}).getField('extend',true);
+        console.log(extend);
+        if(extend){
+            map = {model_id:['IN',[model_id,extend]]}
+        }
+       let info = await this.where(map).field(fields).select();
+        let attr = {};
+        if(group){
+            //TODO
+        }else {
+       for(let v of info ){
+           attr[v.name] = v;
+       }
+        }
+        return attr;
+    }
 }

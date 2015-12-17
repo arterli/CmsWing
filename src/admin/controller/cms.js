@@ -125,15 +125,17 @@ export default class extends Base {
                 .countSelect();
         }
         
-        console.log(data);
+        console.log(ngrids);
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
+        data.data = await this.parseDocumentList(data.data,model.id)
         this.assign('pagerData', page); //分页展示使用
         this.meta_title=model.title + '列表';
         this.active = "admin/model/index";
         this.assign('model', model);
         this.assign('list_grids', ngrids);
+        this.assign('list_data',data.data);
         return this.display();
     }
 

@@ -89,6 +89,11 @@ export default {
         env.addFilter("get_attribute_type",function(str){
           return get_attribute_type(str);
         })
+        //格式化字段列表
+        env.addFilter("get_list_field",function(data,grid){
+          return get_list_field(data,grid);
+        })
+
       }
     }
   }

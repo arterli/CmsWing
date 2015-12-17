@@ -37,4 +37,16 @@ export default class extends think.controller.base {
         this.assign("date",new Date().valueOf());
         return this.display()
     }
+    funAction(){
+        function add(a,b)
+        {
+            add.call(sub,3,1);
+        }
+        function sub(a,b)
+        {
+            console.log(a-b);
+        }
+
+
+    }
 }
