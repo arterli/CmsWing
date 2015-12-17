@@ -88,11 +88,12 @@ export default class extends Base {
         if(!think.isEmpty(model.list_row)){
             this.config("db.nums_per_page",model.list_row)
         }
-
         //let http =this.http;
         //读取模型数据列表
+        let name;
+        let data;
         if(model.extend){
-            let name =await this.model('model').get_table_name(model.id);
+                name =await this.model('model').get_table_name(model.id);
             let parent = await this.model('model').get_table_name(model.extend);
             let fix = this.config('db.prefix');
             let key = in_array('id',fields);
@@ -103,7 +104,31 @@ export default class extends Base {
                 fields[key] = `${fix}${parent}.id as id`;
             }
             console.log(fields);
+
+        }else {
+            if(model.need_pk){
+                in_array('id', fields) || fields.push('id');
+            }
+            console.log(fields)
+            name =await this.model('model').get_table_name(model.id);
+            console.log(name)
+            data=await this.model(name)
+                /* 查询指定字段，不指定则查询所有字段 */
+                  .field(fields)
+                 // 查询条件
+                  .where(map)
+                 /* 默认通过id逆序排列 */
+                 .order(model.need_pk?'id DESC':'')
+                 /* 数据分页 */
+                 .page(this.get("page"))
+                 /* 执行查询 */
+                .countSelect();
         }
+        console.log(data);
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(data);
+        this.assign('pagerData', page); //分页展示使用
         this.meta_title=model.title + '列表';
         this.active = "admin/model/index";
         this.assign('model', model);
