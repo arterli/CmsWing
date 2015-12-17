@@ -30,6 +30,7 @@ export default class extends Base {
         //this._db = new DB(this.config);
         let list = await this.model().query('SHOW TABLE STATUS');
         // console.log(list)
+        this.meta_title='备份数据库';
         this.assign("list", list);
         return this.display();
     }
@@ -239,7 +240,7 @@ export default class extends Base {
         this.assign({
             "fileslist": filesList
         })
-
+        this.meta_title='还原数据库';
         this.display();
     }
 
