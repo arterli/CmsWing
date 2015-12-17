@@ -203,7 +203,7 @@ export default class extends think.model.base {
        //获取属性
         map = {model_id:model_id};
         let extend  = await this.model('model').where({id:model_id}).getField('extend',true);
-        console.log(extend);
+        //console.log(extend);
         if(extend){
             map = {model_id:['IN',[model_id,extend]]}
         }

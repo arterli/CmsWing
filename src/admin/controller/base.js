@@ -40,12 +40,7 @@ export default class extends think.controller.base {
             //think.log(this.active);
             this.assign({
                 "navxs": false,
-                "active": "/admin",
-                "tactive": "/admin",
-                "selfjs": "admin",
-                "datatables": false,
                 "bg": "bg-black"
-
             })
     }
 
@@ -153,6 +148,7 @@ export default class extends think.controller.base {
        }
        let map = {id:['IN',ids]};
         //let get = this.get();
+    //this.end(status);
     switch (status){
         case -1 :
             await this.delete(model, map, {'success':'删除成功','error':'删除失败'});
@@ -210,13 +206,13 @@ export default class extends think.controller.base {
         if(think.isArray(list)){
 
             list.forEach ((data ,k)=>{
-                console.log(data);
+                //console.log(data);
                     for(let key in data){
-                        console.log(key)
+                        //console.log(key)
                     if(!think.isEmpty(attrList[key])){
                         let extra      =   attrList[key]['extra'];
                         let type       =   attrList[key]['type'];
-                        console.log(extra);
+                        //console.log(extra);
                         if('select'== type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
                             // 枚举/多选/单选/布尔型
                             let options    =  parse_config_attr(extra);
@@ -234,7 +230,7 @@ export default class extends think.controller.base {
                 data.model_id = model_id;
                 list[k]   =   data;
             })
-            console.log(list)
+            //console.log(list)
         return list;
     }
 }

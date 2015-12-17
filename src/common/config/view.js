@@ -90,8 +90,8 @@ export default {
           return get_attribute_type(str);
         })
         //格式化字段列表
-        env.addFilter("get_list_field",function(data,grid){
-          return get_list_field(data,grid);
+        env.addFilter("get_list_field",function(data,grid, controller,module){
+          return get_list_field(data,grid, controller,module);
         })
 
       }

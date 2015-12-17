@@ -14,10 +14,10 @@
 
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
-                        <a class="btn btn-sm btn-info " href="/admin/model/add">
+                        <a class="btn btn-sm btn-info " href="/admin/cms/add/model/{{model.id}}">
                             新增
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/model/setstatus/status/1"  target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids"  href="/admin/cms/del/model/{{model.id}}"  >
                             删除
                         </a>
 
@@ -47,11 +47,11 @@
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label></td>
                         {% for grid in list_grids %}
-                        <td>{{data|get_list_field(grid)| safe}}</td>
+                        <td>{{data|get_list_field(grid,http.controller)| safe}}</td>
                         {% endfor %}
                     </tr>
                     {% else %}
-                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                    <tr><td colspan="{{list_grids|length + 1}}"><div class="alert alert-warning alert-block">
                         <button data-dismiss="alert" class="close" type="button">×</button>
                         <p>This would display if the 'item' collection were empty</p>
                     </div></td></tr>

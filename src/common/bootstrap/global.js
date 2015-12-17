@@ -372,20 +372,36 @@ global.get_attribute_type = function (type){
       let key = extra.split(/\W/);
       let _date;
       for(let k of key){
-        time[k] = time[k] < 10 ? "0" + s : time[k]
+        time[k] = time[k] < 10 ? "0" + time[k] : time[k]
          _date=extra.replace(k,time[k])
         extra=_date;
       }
       return _date;
  }
+global.array_search=function (arr, str){
+    // 如果可以的话，调用原生方法
+    if(arr && arr.indexOf){
+        return arr.indexOf(str);
+    }
 
+    var len = arr.length;
+    for(var i = 0; i < len; i++){
+        // 定位该元素位置
+        if(arr[i] == str){
+            return i;
+        }
+    }
+
+    // 数组中不存在该元素
+    return false;
+}
 //global.call_user_func = function (cb, params) {
 //    let func = global.cb;
 //    func.apply(cb, params);
 //}
 /* 解析列表定义规则*/
 
-global.get_list_field=function (data, grid){
+global.get_list_field=function (data, grid, controller,module="admin"){
     let data2={};
     let value;
     // 获取当前字段数据
@@ -439,19 +455,19 @@ global.get_list_field=function (data, grid){
                 }
                 href = hrefs[href];
                 let url = require('url')
-                //let http = require("http");
-                //console.log(http.controller)
                 let query =url.parse(href,true,true).query;
                 let pathname =url.parse(href,true,true).pathname;
                 let u = {}
                 for(let k in query){
                     let key =query[k].replace(/(^\[)|(\]$)/g, "");
                     if(data[key]) {
-                     u[k]= href = query[k].replace(query[k], data[key])
+                     u[k]=  query[k].replace(query[k], data[key])
+                    }else if(think.isNumberString(key)){
+                        u[k]= query[k];
                     }
                 }
                  href=url.format({
-                     pathname:pathname,
+                     pathname:`/${module}/${controller}/${pathname}`,
                      query:u
                  });
 
