@@ -4,7 +4,7 @@
 
     //ajax get请求
 /**
- * <a href="#" class="confirm ajax-get text-info">删除</a></td>
+ * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
  *
  */
 
@@ -19,7 +19,6 @@ $('.ajax-get').click(function(){
     }
     if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
         $.get(target).success(function(data){
-
             if (data.errno==0) {
                 if (data.data.url) {
                     toastr.success(data.data.name + ' 页面即将自动跳转~');
@@ -120,7 +119,7 @@ $('.ajax-post').click(function(){
 
                     toastr.success(data.data.name + ' 页面即将自动跳转~');
                 }else{
-                    toastr.success(data.data.info);
+                    toastr.success(data.data.name);
                 }
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
@@ -133,7 +132,7 @@ $('.ajax-post').click(function(){
                     }
                 },1500);
             }else{
-                console.log(data);
+                //console.log(data);
                 toastr.error(data.errmsg);
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);

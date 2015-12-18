@@ -10,7 +10,7 @@
  *     
  * }
  */
-//import url from 'url';
+import url from 'url';
 
 /**
  * ip转数字
@@ -426,13 +426,13 @@ global.get_list_field=function (data, grid, controller,module="admin"){
     }
    // console.log(value);
     // 链接支持
-    if('title' == grid['field'][0] && '目录' == data['type'] ){
+    if('title' == grid.field[0] && '目录' == data.type ){
         // 目录类型自动设置子文档列表链接
-        grid['href']   =   '[LIST]';
+        grid.href   =   '[LIST]';
     }
-    if(!think.isEmpty(grid['href'])){
+    if(!think.isEmpty(grid.href)){
         //grid['href']='[aabbcc]';
-        let links  =   grid['href'].split(',');
+        let links  =   grid.href.split(',');
            //console.log(links);
         let val =[]
         for(let link of links){
@@ -454,7 +454,7 @@ global.get_list_field=function (data, grid, controller,module="admin"){
                     '[LIST]': 'index?pid=[id]&model=[model_id]&cate_id=[category_id]'
                 }
                 href = hrefs[href];
-                let url = require('url')
+                //let url = require('url')
                 let query =url.parse(href,true,true).query;
                 let pathname =url.parse(href,true,true).pathname;
                 let u = {}

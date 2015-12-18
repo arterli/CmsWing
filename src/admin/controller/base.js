@@ -77,9 +77,10 @@ export default class extends think.controller.base {
         if (res) {
             this.success({name: msg.success, url: msg.url});
         } else {
-            this.fail(msg.error,msg.url);
+            this.fail(msg.error, msg.url);
         }
     }
+
     /**
      * 禁用条目
      * @param String model 模型名称,供D函数使用的参数
@@ -89,10 +90,11 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-    async forbid ( model , where = {} , msg = { 'success':'状态禁用成功！', 'error':'状态禁用失败！'}){
-    let data    =  {'status' : 0};
-    await this.editRow( model , data, where, msg);
+    async forbid(model, where = {}, msg = {'success': '状态禁用成功！', 'error': '状态禁用失败！'}) {
+        let data = {'status': 0};
+        await this.editRow(model, data, where, msg);
     }
+
     /**
      * 恢复条目
      * @param String model 模型名称,供D函数使用的参数
@@ -102,10 +104,11 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-     async resume (  model , where = {} , msg = { 'success':'状态恢复成功！', 'error':'状态恢复失败！'}){
-    let data    = {'status' : 1};
-    await this.editRow(   model , data, where, msg);
-}
+    async resume(model, where = {}, msg = {'success': '状态恢复成功！', 'error': '状态恢复失败！'}) {
+        let data = {'status': 1};
+        await this.editRow(model, data, where, msg);
+    }
+
     /**
      * 还原条目
      * @param string $model 模型名称,供D函数使用的参数
@@ -114,55 +117,55 @@ export default class extends think.controller.base {
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      * @author arterli <arterli@qq.com>
      */
-    async restore (  model , where = {} , msg = { 'success':'状态还原成功！', 'error':'状态还原失败！'}){
-    let data    = {'status' : 1};
-    where   = think.extend({'status': -1},where);
-    await this.editRow(   model , data, where, msg);
-}
+    async restore(model, where = {}, msg = {'success': '状态还原成功！', 'error': '状态还原失败！'}) {
+        let data = {'status': 1};
+        where = think.extend({'status': -1}, where);
+        await this.editRow(model, data, where, msg);
+    }
 
-/**
- * 条目假删除
- * @param string $model 模型名称,供D函数使用的参数
- * @param array  $where 查询时的where()方法的参数
- * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
- *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
- *
- * @author arterli <arterli@qq.com>
- */
-    async delete ( model , where = {} , msg = {'success':'删除成功！', 'error':'删除失败！'}) {
-    let data   =   {'status' : -1};
-    await this.editRow(   model , data, where, msg);
-}
+    /**
+     * 条目假删除
+     * @param string $model 模型名称,供D函数使用的参数
+     * @param array  $where 查询时的where()方法的参数
+     * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
+     *
+     * @author arterli <arterli@qq.com>
+     */
+    async delete(model, where = {}, msg = {'success': '删除成功！', 'error': '删除失败！'}) {
+        let data = {'status': -1};
+        await this.editRow(model, data, where, msg);
+    }
 
-/**
+    /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction() {
-       let http =this.http;
-       let model =http.controller;
-       let ids = this.param('ids');
-       let status = this.param('status');
-            status = parseInt(status);
-       if(think.isEmpty(ids)){
-           this.fail("请选择要操作的数据");
-       }
-       let map = {id:['IN',ids]};
+    async setstatusAction(self, model = this.http.controller) {
+        ///let http =this.http;
+        //let model =http.controller;
+        let ids = this.param('ids');
+        let status = this.param('status');
+        status = parseInt(status);
+        if (think.isEmpty(ids)) {
+            this.fail("请选择要操作的数据");
+        }
+        let map = {id: ['IN', ids]};
         //let get = this.get();
-    //this.end(status);
-    switch (status){
-        case -1 :
-            await this.delete(model, map, {'success':'删除成功','error':'删除失败'});
-            break;
-        case 0  :
-            await this.forbid(model, map, {'success':'禁用成功','error':'禁用失败'});
-            break;
-        case 1  :
-            await this.resume(model, map, {'success':'启用成功','error':'启用失败'});
-            break;
-        default :
-                   this.fail('参数错误');
-            break;
-    }
+        //this.end(status);
+        switch (status) {
+            case -1 :
+                await this.delete(model, map, {'success': '删除成功', 'error': '删除失败'});
+                break;
+            case 0  :
+                await this.forbid(model, map, {'success': '禁用成功', 'error': '禁用失败'});
+                break;
+            case 1  :
+                await this.resume(model, map, {'success': '启用成功', 'error': '启用失败'});
+                break;
+            default :
+                this.fail('参数错误');
+                break;
+        }
 
     }
 
@@ -194,45 +197,46 @@ export default class extends think.controller.base {
         tree_nodes = nodes;
         return nodes;
     }
+
     /**
      * 处理文档列表显示
      * @param array list 列表数据
      * @param integer model_id 模型id
      */
-     async parseDocumentList(list,model_id=null){
+    async parseDocumentList(list, model_id = null) {
         model_id = model_id ? model_id : 1;
-        let attrList = await this.model('attribute').get_model_attribute(model_id,false,'id,name,type,extra');
+        let attrList = await this.model('attribute').get_model_attribute(model_id, false, 'id,name,type,extra');
         //this.end(attrList);
-        if(think.isArray(list)){
+        if (think.isArray(list)) {
 
-            list.forEach ((data ,k)=>{
+            list.forEach((data, k)=> {
                 //console.log(data);
-                    for(let key in data){
-                        //console.log(key)
-                    if(!think.isEmpty(attrList[key])){
-                        let extra      =   attrList[key]['extra'];
-                        let type       =   attrList[key]['type'];
+                for (let key in data) {
+                    //console.log(key)
+                    if (!think.isEmpty(attrList[key])) {
+                        let extra = attrList[key]['extra'];
+                        let type = attrList[key]['type'];
                         //console.log(extra);
-                        if('select'== type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
+                        if ('select' == type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
                             // 枚举/多选/单选/布尔型
-                            let options    =  parse_config_attr(extra);
-                            let oparr= Object.keys(options);
-                            if(options && in_array(data[key],oparr)) {
-                                data[key]    =   options[data[key]];
+                            let options = parse_config_attr(extra);
+                            let oparr = Object.keys(options);
+                            if (options && in_array(data[key], oparr)) {
+                                data[key] = options[data[key]];
                             }
-                        }else if('date'==type){ // 日期型
-                            data[key]    =   dateformat('Y-m-d',data[key]);
-                        }else if('datetime' == type){ // 时间型
-                            data[key]    =   dateformat('Y-m-d H:i',data[key]);
+                        } else if ('date' == type) { // 日期型
+                            data[key] = dateformat('Y-m-d', data[key]);
+                        } else if ('datetime' == type) { // 时间型
+                            data[key] = dateformat('Y-m-d H:i', data[key]);
                         }
                     }
                 }
                 data.model_id = model_id;
-                list[k]   =   data;
+                list[k] = data;
             })
             //console.log(list)
-        return list;
+            return list;
+        }
     }
-}
 
 }

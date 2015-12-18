@@ -39,7 +39,7 @@ export default class extends Base {
         //解析列表规则
         let fields = [];
         let grids  = trim(model.list_grid).split('\r\n');
-       // console.log(grids)
+        console.log(model)
         let ngrids=[];
         for (var value of grids){
             if(trim(value) === ''){
@@ -130,7 +130,7 @@ export default class extends Base {
                 .countSelect();
         }
         
-        //console.log(data);
+       // console.log(ngrids);
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
@@ -145,10 +145,28 @@ export default class extends Base {
     }
     /**
      * 设置一条或者多条数据的状态
-     * @author
      */
     async setstatusAction() {
-        await this.action("document", "setstatus");
+        await super.setstatusAction(this,'document');
     }
+    //TODO 模型添加数据
+   async addAction(){
+       //获取模型信息
+       let model_id = this.get("model")
+       let model = await this.model("model").where({status:1,id:model_id}).find();
+       model || this.fail('模型不存在！');
+       if(this.isPost()){
+           //TODO 后台验证后续天极
 
+       }
+   }
+    // TODO 模型编辑数据
+    editAction(){
+        // TODO
+    }
+    // TODO  模型数据验证
+    checkAttr(Model,model_id){
+        // TODO
+
+    }
 }
