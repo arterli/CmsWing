@@ -27,11 +27,12 @@ export default class extends Base {
             "meta_title":type[id]+"设置",
             "id":id
         })
+        this.meta_title='网站配置';
         return this.display();
     }
 
     groupAction(){
-
+        this.meta_title = "配置管理"
         return this.display();
     }
     async groupdataAction(){
@@ -64,7 +65,6 @@ export default class extends Base {
                 "recordsFiltered": list.count,
                 "data": list.data
             }
-
             return this.json(data);
         }
     }
@@ -87,12 +87,10 @@ export default class extends Base {
             }
         }else {
             this.assign({
-                "tactive":"sysm",
-                "active":"/admin/setup/group",
-                "meta_title":"新增配置",
                 "action":"/admin/setup/add"
             })
-
+            this.active = "admin/model/index"
+            this.meta_title="新增配置";
             this.display();
         }
     }
@@ -115,11 +113,10 @@ export default class extends Base {
             let info = await this.db.where(map).find();
             this.assign("info",info);
             this.assign({
-                "tactive":"sysm",
-                "active":"/admin/setup/group",
-                "meta_title":"编辑配置",
                 "action":"/admin/setup/edit"
             })
+            this.active = "admin/model/index"
+            this.meta_title="编辑新增";
             this.display();
         }
 

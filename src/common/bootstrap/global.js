@@ -395,6 +395,24 @@ global.array_search=function (arr, str){
     // 数组中不存在该元素
     return false;
 }
+global.array_diff=function (arr1,arr2){
+    //var arr1 = ["i", "b", "c", "d", "e", "f","x",""]; //数组A
+    //var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
+    var temp = []; //临时数组1
+    var temparray = [];//临时数组2
+    for (var i = 0; i < arr2.length; i++) {
+        temp[arr2[i]] = true;//巧妙地方：把数组B的值当成临时数组1的键并赋值为真
+    }
+    for (var i = 0; i < arr1.length; i++) {
+        if (!temp[arr1[i]]) {
+            temparray.push(arr1[i]);//巧妙地方：同时把数组A的值当成临时数组1的键并判断是否为真，如果不为真说明没重复，就合并到一个新数组里，这样就可以得到一个全新并无重复的数组
+        }
+    };
+    //if(think.isEmpty(temparray)){
+    //    return false
+    //}
+    return temparray;
+}
 //global.call_user_func = function (cb, params) {
 //    let func = global.cb;
 //    func.apply(cb, params);
@@ -404,6 +422,7 @@ global.array_search=function (arr, str){
 global.get_list_field=function (data, grid, controller,module="admin"){
     let data2={};
     let value;
+
     // 获取当前字段数据
     //console.log(grid);
     for( let field of grid.field){

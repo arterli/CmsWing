@@ -22,6 +22,7 @@ export default class extends Base {
 
     indexAction(){
         //auto render template file index_index.html
+        this.meta_title='菜单管理';
         return this.display();
     }
 

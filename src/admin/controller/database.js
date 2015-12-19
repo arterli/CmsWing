@@ -240,6 +240,7 @@ export default class extends Base {
         this.assign({
             "fileslist": filesList
         })
+        this.active = "admin/database/index"
         this.meta_title='还原数据库';
         this.display();
     }

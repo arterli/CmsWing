@@ -32,15 +32,23 @@ export default class extends Base {
       }else { // 子文档列表
         models = await this.model("category").get_category(cate_id,'model_sub');
       }
+      console.log(think.isNumberString(models));
+      console.log(think.isNumber(model_id));
       if(think.isNumber(model_id) && think.isNumberString(models)){
+
         // 绑定多个模型 取基础模型的列表定义
         model = await this.model('model').where({name:'document'}).find();
+        console.log(model);
       }else{
-        model_id   =   model_id ?'': models;
+
+        model_id   =   model_id ?model_id: models;
         //获取模型信息
-        model =  await this.model('model').where({id:['IN',[model_id]]}).select();;
+        model =  await this.model('model').where({id:['IN',[model_id]]}).find();;
+
         if (think.isEmpty(model['list_grid'])) {
-          model['list_grid'] = await this.model('model').field('list_grid').where({name:'document'}).find();
+          let data =await this.model('model').field('list_grid').where({name:'document'}).find();
+          model.list_grid = data.list_grid;
+          console.log(model.list_grid);
         }
       }
       this.assign('model',models.split(","))
@@ -54,13 +62,14 @@ export default class extends Base {
     //解析列表规则
     let fields = [];
     let ngrids = [];
-    let grids = model.list_grid.split("\r\n");
+    //console.log(model);
+   let grids = model.list_grid.split("\r\n");
     for (let value of grids){
       //字段:标题:链接
       let val = value.split(":");
       //支持多个字段显示
       let field = val[0].split(",");
-      value = {filed:field,title:val[1]}
+      value = {field:field,title:val[1]}
 
       if(!think.isEmpty(val[2])){
         value.href  = val[2];
@@ -70,7 +79,7 @@ export default class extends Base {
         // 显示格式定义
         [values.title,values.format]    =   val[1].split('|');
       }
-      console.log(field);
+      //console.log(field);
       for( let val  of field){
         let array	=	val.split('|');
         fields.push(array[0]) ;
@@ -87,6 +96,8 @@ export default class extends Base {
     //console.log(model);
     let list = await this.getDocumentList(cate_id,model_id,position,fields,group_id);
     list = await this.parseDocumentList(list,model_id);
+    console.log(list);
+   // list = await this.parseDocumentList(list,model_id);
     this.assign('model_id',model_id);
     this.assign('group_id',group_id);
     this.assign('position',position);
@@ -95,6 +106,9 @@ export default class extends Base {
     this.assign('list_grids',ngrids);
     this.assign('model_list',model);
     this.meta_title='内容管理';
+    this.assign({
+      "navxs":true,
+    });
     return this.display();
   }
   /**
@@ -106,6 +120,7 @@ export default class extends Base {
    * @param integer $group_id 分组id
    */
   async getDocumentList(cate_id=0,model_id=null,position=null,field=true,group_id=null){
+    //console.log(2222222);
     /* 查询条件初始化 */
     let map = {};
     let status;
@@ -126,7 +141,7 @@ export default class extends Base {
       map.update_time = {'<=':24*60*60 + new Date(this.param('time-end').valueOf())};
     }
     if ( !think.isEmpty(this.get('nickname')) ) {
-      map.uid = this.model('member').where({'nickname':this.param('nickname')}).getField('uid');
+      map.uid = await this.model('member').where({'nickname':this.param('nickname')}).getField('uid');
     }
 
     // 构建列表数据
@@ -135,21 +150,39 @@ export default class extends Base {
     if(cate_id){
       map.category_id =   cate_id;
     }
+   // console.log(map);
     map.pid         =   this.param('pid')||0;
-    if(map.pid){ // 子文档列表忽略分类
+    //console.log(map.pid);
+    if(map.pid != 0){ // 子文档列表忽略分类
       delete map.category_id;
     }
     Document.alias('DOCUMENT');
     if(!think.isEmpty(model_id)){
       map.model_id    =   model_id;
-
-      if(think.isArray(field) && array_diff(await Document.getTableFields(),field)){
-        let modelName  =   this.model('model').getFieldById(model_id,'name');
-        Document.join('__DOCUMENT_'+strtoupper(modelName)+'__ '+modelName+' ON DOCUMENT.id='+modelName+'.id');
-        let key = array_search('id',$field);
+      await Document.select();
+      let tablefields = Object.keys(await Document.getTableFields());
+      //console.log(array_diff(tablefields,field));
+      // console.log(field);
+      //return
+      if(think.isArray(field) && array_diff(tablefields,field)){
+        let modelName  =  await this.model('model').where({id:model_id}).getField('name');
+        //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
+       // let sql = Document.parseSql(sql)
+       console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+       // return
+        //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
+        //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+        Document.alias('DOCUMENT').join({
+          table: `document_${modelName[0]}`,
+          join: "inner",
+          as: modelName[0],
+          on: ["id", "id"]
+        })
+        let key = array_search(field,'id');
+        console.log(key)
         if(false  !== key){
           delete field[key];
-          field.push('DOCUMENT.id') ;
+          field[key]='DOCUMENT.id' ;
         }
       }
     }
@@ -159,22 +192,28 @@ export default class extends Base {
     if(!think.isEmpty(group_id)){
       map['group_id']	=	group_id;
     }
-    let list = this.lists(Document,map,'level DESC,DOCUMENT.id DESC',field);
+    console.log(field);
+    let list=await Document.where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+    let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+    let pages = new Pages(); //实例化 Adapter
+    let page = pages.pages(list);
+    console.log(page);
+    //let list = this.lists(Document,map,'level DESC,DOCUMENT.id DESC',field);
 
-    if(map['pid']){
+    if(map['pid'] != 0){
       // 获取上级文档
-      let article    =   Document.field('id,title,type').find(map['pid']);
+      let article    =   await Document.field('id,title,type').find(map['pid']);
       this.assign('article',article);
     }
     //检查该分类是否允许发布内容
-    let allow_publish  =   get_category($cate_id, 'allow_publish');
-
+    let allow_publish  =   this.model("category").get_category(cate_id,'groups');
+    this.assign('pagerData', page); //分页展示使用
     this.assign('status', status);
     this.assign('allow',  allow_publish);
     this.assign('pid',    map.pid);
 
     this.meta_title = '文档列表';
-    return list;
+    return list.data;
   }
 
 }

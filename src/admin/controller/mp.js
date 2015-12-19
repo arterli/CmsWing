@@ -12,6 +12,7 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
+
     }
 
     indexAction(){
