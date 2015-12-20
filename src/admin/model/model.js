@@ -67,5 +67,42 @@ export default class extends think.model.base {
         name += info.name;
         return name.replace(/undefined/, "");
     }
+    /**
+     * 获取文档模型信息并缓存
+     * @param  integer id    模型ID
+     * @param  string  field 模型字段
+     * @return array
+     */
+    async get_document_model(id = null, field = null){
 
+        /* 非法分类ID */
+        if(!(think.isNumberString(id) || think.isNumber(id))){
+            return '';
+        }
+
+        /* 读取缓存数据 */
+        let list = await think.cache("get_document_model", () => {
+            return this._get_document_model();
+        }, {timeout: 365 * 24 * 3600});
+
+
+        /* 根据条件返回数据 */
+        if(think.isNumber(id)){
+            return list;
+        } else if(think.isNumber(field)){
+            return list[id];
+        } else {
+            return list[id][field];
+        }
+    }
+    /* 获取模型名称 */
+    async _get_document_model(){
+        let lists = {}
+        let map   = {'status' : 1, 'extend': 1};
+        let model = await this.where(map).select();
+        for(let v of model){
+            lists[v.id] = v
+        }
+        return lists;
+    }
 }

@@ -19,6 +19,7 @@ export default class extends Base {
     let models;
     let groups;
     let model;
+    let _model;
     if(!think.isEmpty(cate_id)){
       let pid = this.get("pid")||0;
       // 获取列表绑定的模型
@@ -32,13 +33,14 @@ export default class extends Base {
       }else { // 子文档列表
         models = await this.model("category").get_category(cate_id,'model_sub');
       }
-      console.log(think.isNumberString(models));
-      console.log(think.isNumber(model_id));
-      if(think.isNumber(model_id) && think.isNumberString(models)){
+      console.log(models);
+      console.log(!think.isNumberString(models));
+      console.log(think.isEmpty(model_id));
+      if(think.isEmpty(model_id) && !think.isNumberString(models)){
 
         // 绑定多个模型 取基础模型的列表定义
         model = await this.model('model').where({name:'document'}).find();
-        console.log(model);
+       //console.log(model);
       }else{
 
         model_id   =   model_id ?model_id: models;
@@ -52,12 +54,14 @@ export default class extends Base {
         }
       }
       this.assign('model',models.split(","))
+      _model=models.split(",")
     }else { // 子文档列表
       //获取模型信息
       model = await this.model("model").where({name:"document"}).find();
       model_id = null;
       cate_id = 0;
       this.assign('model',null);
+      _model = null;
     }
     //解析列表规则
     let fields = [];
@@ -96,8 +100,27 @@ export default class extends Base {
     //console.log(model);
     let list = await this.getDocumentList(cate_id,model_id,position,fields,group_id);
     list = await this.parseDocumentList(list,model_id);
-    console.log(list);
-   // list = await this.parseDocumentList(list,model_id);
+    //console.log(list);
+    //获取面包屑信息
+    let nav = await this.model('category').get_parent_category(cate_id);
+    this.assign('breadcrumb',nav);
+    //获取模型信息
+    let modellist = [];
+
+    console.log(_model)
+    if(think.isEmpty(_model)){
+      modellist = null;
+    }else {
+      for(let val of _model){
+        let modelobj = {}
+        modelobj.id = val;
+        modelobj.title = await this.model("model").get_document_model(val,"title");
+        modellist.push(modelobj);
+      }
+    }
+    console.log(this.setup.DOCUMENT_POSITION)
+    this.assign('modellist',modellist);
+    this.assign('cate_id',cate_id);
     this.assign('model_id',model_id);
     this.assign('group_id',group_id);
     this.assign('position',position);
@@ -197,7 +220,7 @@ export default class extends Base {
     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
     let pages = new Pages(); //实例化 Adapter
     let page = pages.pages(list);
-    console.log(page);
+   // console.log(page);
     //let list = this.lists(Document,map,'level DESC,DOCUMENT.id DESC',field);
 
     if(map['pid'] != 0){
@@ -206,7 +229,9 @@ export default class extends Base {
       this.assign('article',article);
     }
     //检查该分类是否允许发布内容
-    let allow_publish  =   this.model("category").get_category(cate_id,'groups');
+    let allow_publish  =  await this.model("category").get_category(cate_id,'allow_publish');
+
+    this.assign('_total', list.count);//该分类下的文档总数
     this.assign('pagerData', page); //分页展示使用
     this.assign('status', status);
     this.assign('allow',  allow_publish);
@@ -215,5 +240,17 @@ export default class extends Base {
     this.meta_title = '文档列表';
     return list.data;
   }
-
+  /**
+   * 显示左边菜单，进行权限控制
+   * @author
+   */
+  async getmenuAction(){
+    let cate = await this.model("category").where({status:1}).field('id,title as name,pid,allow_publish').order('pid,sort').select();
+    for(let val of cate){
+      val.url=`/admin/article/index/cate_id/${val.id}`;
+      val.target = '_self';
+    }
+    //think.log(cate);
+    return this.json(arr_to_tree(cate,0))
+  }
 }

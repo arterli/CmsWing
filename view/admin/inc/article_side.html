@@ -1,77 +1,16 @@
 <aside class="aside bg-light dk" id="sidebar">
-    <section class="vbox animated fadeInUp">
+    <section class="vbox">
         <section class="scrollable hover">
-            <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto">
-                <ul id="tree" class="ztree"></ul>
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--All-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item active">-->
-                    <!--acoustic-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--ambient-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--blues-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--classical-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--country-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--electronic-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--emo-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--folk-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--hardcore-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--hip hop-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--indie-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--jazz-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--latin-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--metal-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--pop-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--pop punk-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--punk-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--reggae-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--rnb-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--rock-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--soul-->
-                <!--</a>-->
-                <!--<a href="genres.html" class="list-group-item">-->
-                    <!--world-->
-                <!--</a>-->
+            <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto ">
+                <section class="panel panel-success m-b-none">
+                    <header class="panel-heading">
+
+                            <button class="btn btn-default btn-xs" id="expandAllBtn" type="button">展开</button>
+                            <button class="btn btn-default btn-xs" id="collapseAllBtn" type="button">折叠</button>
+
+                    </header>
+                </section>
+                <ul id="tree" class="ztree" data-cate="{{http.get('cate_id')}}"></ul>
             </div>
         </section>
     </section>

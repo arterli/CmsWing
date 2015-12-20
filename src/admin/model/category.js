@@ -69,4 +69,21 @@ export default class extends think.model.base {
         }
         return lists;
     }
+    /**
+     * 获取参数的所有父级分类
+     * @param int id 分类id
+     * @return array 参数分类和父类的信息集合
+     * @author
+     */
+    async get_parent_category(id){
+        let breadcrumb = []
+        while (id!=0)
+        {
+            let nav = await this.where({'id':id,'status':1}).field("id,title,pid").find();
+            breadcrumb.push(nav);
+            id = nav.pid;
+
+        }
+       return breadcrumb.reverse()
+    }
 }
