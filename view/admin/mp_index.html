@@ -1,10 +1,10 @@
-<% include inc/before.html %>
-            <section id="content">
+{% extends "./inc/base.html" %}
+{% block content %}
                 <section class="vbox">
                     <section id="bjax-target">
                         <section class="hbox stretch">
                             <!-- side content -->
-                            <% include inc/side.html %>
+                            {% include "./inc/mp_side.html" %}
                             <!-- / side content -->
                             <section>
                                 <section class="vbox">
@@ -21,6 +21,4 @@
                     </section>
 
                 </section>
-                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
-            </section>
-<% include inc/after.html %>
+{% endblock %}

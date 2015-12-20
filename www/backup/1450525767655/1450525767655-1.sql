@@ -1,23 +1,20 @@
-/*
-Navicat MySQL Data Transfer
+-- -----------------------------
+-- CmsWing MySQL Data Transfer 
+-- 
+-- Host     : 127.0.0.1
+-- Port     : 3306
+-- Database : cmswing
+-- 
+-- Part : #1
+-- Date : 2015-12-19 19:49:27
+-- -----------------------------
 
-Source Server         : 本地
-Source Server Version : 50520
-Source Host           : localhost:3306
-Source Database       : cmswing
+SET FOREIGN_KEY_CHECKS = 0;
 
-Target Server Type    : MYSQL
-Target Server Version : 50520
-File Encoding         : 65001
 
-Date: 2015-12-19 22:22:56
-*/
-
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for cmswing_attribute
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_attribute`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_attribute`;
 CREATE TABLE `cmswing_attribute` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -43,11 +40,11 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
 
--- ----------------------------
--- Records of cmswing_attribute
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_attribute`
+-- -----------------------------
 INSERT INTO `cmswing_attribute` VALUES ('1', 'uid', '用户ID', 'int(10) unsigned NOT NULL ', 'num', '0', '', '0', '', '1', '0', '1', '1384508362', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('2', 'name', '标识', 'char(40) NOT NULL ', 'string', '', '同一根节点下标识不重复', '1', '', '1', '0', '1', '1383894743', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('3', 'title', '标题', 'char(80) NOT NULL ', 'string', '', '文档标题', '1', '', '1', '0', '1', '1383894778', '1383891233', '', '0', '', '', '', '0', '');
@@ -56,11 +53,14 @@ INSERT INTO `cmswing_attribute` VALUES ('5', 'description', '描述', 'char(140)
 INSERT INTO `cmswing_attribute` VALUES ('6', 'root', '根节点', 'int(10) unsigned NOT NULL ', 'num', '0', '该文档的顶级文档编号', '0', '', '1', '0', '1', '1384508323', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('7', 'pid', '所属ID', 'int(10) unsigned NOT NULL ', 'num', '0', '父文档编号', '0', '', '1', '0', '1', '1384508543', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('8', 'model_id', '内容模型ID', 'tinyint(3) unsigned NOT NULL ', 'num', '0', '该文档所对应的模型', '0', '', '1', '0', '1', '1384508350', '1383891233', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('9', 'type', '内容类型', 'tinyint(3) unsigned NOT NULL ', 'select', '2', '', '1', '1:目录\r\n2:主题\r\n3:段落', '1', '0', '1', '1384511157', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('9', 'type', '内容类型', 'tinyint(3) unsigned NOT NULL ', 'select', '2', '', '1', '1:目录
+2:主题
+3:段落', '1', '0', '1', '1384511157', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('10', 'position', '推荐位', 'smallint(5) unsigned NOT NULL ', 'checkbox', '0', '多个推荐则将其推荐值相加', '1', '[DOCUMENT_POSITION]', '1', '0', '1', '1383895640', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('11', 'link_id', '外链', 'int(10) unsigned NOT NULL ', 'num', '0', '0-非外链，大于0-外链ID,需要函数进行链接与编号的转换', '1', '', '1', '0', '1', '1383895757', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('12', 'cover_id', '封面', 'int(10) unsigned NOT NULL ', 'picture', '0', '0-无封面，大于0-封面图片ID，需要函数处理', '1', '', '1', '0', '1', '1384147827', '1383891233', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('13', 'display', '可见性', 'tinyint(3) unsigned NOT NULL ', 'radio', '1', '', '1', '0:不可见\r\n1:所有人可见', '1', '0', '1', '1386662271', '1383891233', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('13', 'display', '可见性', 'tinyint(3) unsigned NOT NULL ', 'radio', '1', '', '1', '0:不可见
+1:所有人可见', '1', '0', '1', '1386662271', '1383891233', '', '0', '', 'regex', '', '0', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('14', 'deadline', '截至时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '0-永久有效', '1', '', '1', '0', '1', '1387163248', '1383891233', '', '0', '', 'regex', '', '0', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('15', 'attach', '附件数量', 'tinyint(3) unsigned NOT NULL ', 'num', '0', '', '0', '', '1', '0', '1', '1387260355', '1383891233', '', '0', '', 'regex', '', '0', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('16', 'view', '浏览量', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '1', '0', '1', '1383895835', '1383891233', '', '0', '', '', '', '0', '');
@@ -69,12 +69,20 @@ INSERT INTO `cmswing_attribute` VALUES ('18', 'extend', '扩展统计字段', 'i
 INSERT INTO `cmswing_attribute` VALUES ('19', 'level', '优先级', 'int(10) unsigned NOT NULL ', 'num', '0', '越高排序越靠前', '1', '', '1', '0', '1', '1383895894', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('20', 'create_time', '创建时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '', '1', '', '1', '0', '1', '1383895903', '1383891233', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('21', 'update_time', '更新时间', 'int(10) unsigned NOT NULL ', 'datetime', '0', '', '0', '', '1', '0', '1', '1384508277', '1383891233', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('22', 'status', '数据状态', 'tinyint(4) NOT NULL ', 'radio', '0', '', '0', '-1:删除\r\n0:禁用\r\n1:正常\r\n2:待审核\r\n3:草稿', '1', '0', '1', '1384508496', '1383891233', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('23', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html\r\n1:ubb\r\n2:markdown', '2', '0', '1', '1384511049', '1383891243', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('22', 'status', '数据状态', 'tinyint(4) NOT NULL ', 'radio', '0', '', '0', '-1:删除
+0:禁用
+1:正常
+2:待审核
+3:草稿', '1', '0', '1', '1384508496', '1383891233', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('23', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html
+1:ubb
+2:markdown', '2', '0', '1', '1384511049', '1383891243', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('24', 'content', '文章内容', 'text NOT NULL ', 'editor', '', '', '1', '', '2', '0', '1', '1383896225', '1383891243', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('25', 'template', '详情页显示模板', 'varchar(100) NOT NULL ', 'string', '', '参照display方法参数的定义', '1', '', '2', '0', '1', '1383896190', '1383891243', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('26', 'bookmark', '收藏数', 'int(10) unsigned NOT NULL ', 'num', '0', '', '1', '', '2', '0', '1', '1383896103', '1383891243', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('27', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html\r\n1:ubb\r\n2:markdown', '3', '0', '1', '1387260461', '1383891252', '', '0', '', 'regex', '', '0', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('27', 'parse', '内容解析类型', 'tinyint(3) unsigned NOT NULL ', 'select', '0', '', '0', '0:html
+1:ubb
+2:markdown', '3', '0', '1', '1387260461', '1383891252', '', '0', '', 'regex', '', '0', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('28', 'content', '下载详细描述', 'text NOT NULL ', 'editor', '', '', '1', '', '3', '0', '1', '1383896438', '1383891252', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('29', 'template', '详情页显示模板', 'varchar(100) NOT NULL ', 'string', '', '', '1', '', '3', '0', '1', '1383896429', '1383891252', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('30', 'file_id', '文件ID', 'int(10) unsigned NOT NULL ', 'file', '0', '需要函数处理', '1', '', '3', '0', '1', '1383896415', '1383891252', '', '0', '', '', '', '0', '');
@@ -88,14 +96,14 @@ INSERT INTO `cmswing_attribute` VALUES ('44', 'testvarchar', '测试字符串', 
 INSERT INTO `cmswing_attribute` VALUES ('40', 'username', '用户名称', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '39', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('45', 'testdate', '测试日期', 'bigint(13) NOT NULL', 'date', '', '', '1', '', '40', '0', '1', '0', '1450412511553', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('46', 'testnun', '测试数字', 'int(10) UNSIGNED NOT NULL', 'num', '', '', '1', '', '40', '0', '1', '0', '1450412574764', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('47', 'testbool', '测试布尔', 'tinyint(2) NOT NULL', 'bool', '1', '', '1', '1:是\r\n2:否', '40', '0', '1', '0', '1450412802959', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('47', 'testbool', '测试布尔', 'tinyint(2) NOT NULL', 'bool', '1', '', '1', '1:是
+2:否', '40', '0', '1', '0', '1450412802959', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('48', 'testpicture', '测试上传图片', 'int(10) UNSIGNED NOT NULL', 'picture', '', '', '1', '', '40', '0', '1', '0', '1450416534420', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('49', 'testfile', '测试上传附件', 'int(10) UNSIGNED NOT NULL', 'file', '', '', '1', '', '40', '0', '1', '0', '1450416616549', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('50', 'title', '文章标题', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '41', '0', '1', '0', '1450534650444', '', '3', '', 'regex', '', '3', 'function');
 
--- ----------------------------
--- Table structure for cmswing_auth_role
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_auth_role`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_auth_role`;
 CREATE TABLE `cmswing_auth_role` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -108,16 +116,16 @@ CREATE TABLE `cmswing_auth_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_auth_role
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_auth_role`
+-- -----------------------------
 INSERT INTO `cmswing_auth_role` VALUES ('1', '规则', '分身55111', '1', '10,12,13', 'admin', '1');
 INSERT INTO `cmswing_auth_role` VALUES ('2', '测试用户组', '', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_role` VALUES ('19', '版主', '2222', '1', '2', 'admin', '1');
 
--- ----------------------------
--- Table structure for cmswing_auth_rule
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_auth_rule`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_auth_rule`;
 CREATE TABLE `cmswing_auth_rule` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -132,9 +140,9 @@ CREATE TABLE `cmswing_auth_rule` (
   KEY `module` (`module`,`status`,`type`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_auth_rule
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_auth_rule`
+-- -----------------------------
 INSERT INTO `cmswing_auth_rule` VALUES ('1', 'article/index', '文档列表', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('2', 'article/add', '新增', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('3', 'article/edit', '编辑', '0', '1', '', 'admin', '1');
@@ -253,9 +261,9 @@ INSERT INTO `cmswing_auth_rule` VALUES ('115', 'admin/attribute/edit', '编辑',
 INSERT INTO `cmswing_auth_rule` VALUES ('116', 'admin/attribute/setStatus', '改变状态', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('117', 'admin/attribute/update', '保存数据', '0', '1', '', 'admin', '1');
 
--- ----------------------------
--- Table structure for cmswing_auth_user_role
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_auth_user_role`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_auth_user_role`;
 CREATE TABLE `cmswing_auth_user_role` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -265,16 +273,16 @@ CREATE TABLE `cmswing_auth_user_role` (
   UNIQUE KEY `user_role` (`user_id`,`role_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_auth_user_role
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_auth_user_role`
+-- -----------------------------
 INSERT INTO `cmswing_auth_user_role` VALUES ('1', '1', '1');
 INSERT INTO `cmswing_auth_user_role` VALUES ('2', '1', '2');
 INSERT INTO `cmswing_auth_user_role` VALUES ('3', '14', '19');
 
--- ----------------------------
--- Table structure for cmswing_category
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_category`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_category`;
 CREATE TABLE `cmswing_category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
@@ -310,16 +318,16 @@ CREATE TABLE `cmswing_category` (
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
--- ----------------------------
--- Records of cmswing_category
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_category`
+-- -----------------------------
 INSERT INTO `cmswing_category` VALUES ('1', 'blog', '博客', '0', '0', '10', '', '', '', '', '', '', '', '2,3', '2', '2,1', '0', '0', '1', '0', '0', '1', '', '1379474947', '1382701539', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2,3', '2', '2,1,3', '0', '1', '1', '0', '1', '1', '', '1379475028', '1386839751', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('39', '222', '2222', '2', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '2,1,3', '0', '2', '1', '0', '0', '', '', '1447235659', '1447235770', '1', '0', '11111');
 
--- ----------------------------
--- Table structure for cmswing_document
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_document`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_document`;
 CREATE TABLE `cmswing_document` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
@@ -351,15 +359,15 @@ CREATE TABLE `cmswing_document` (
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
 
--- ----------------------------
--- Records of cmswing_document
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_document`
+-- -----------------------------
 INSERT INTO `cmswing_document` VALUES ('1', '1', '', 'CmsWing1.0测试版发布', '2', '0', '期待已久的OneThink最新版发布', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1450337973080', '1450337973080', '1');
-INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '465464', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1450510498', '1450510498', '-1');
+INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '465464', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1450510498', '1450510498', '1');
 
--- ----------------------------
--- Table structure for cmswing_document_article
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_document_article`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_document_article`;
 CREATE TABLE `cmswing_document_article` (
   `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文档ID',
@@ -370,14 +378,103 @@ CREATE TABLE `cmswing_document_article` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型文章表';
 
--- ----------------------------
--- Records of cmswing_document_article
--- ----------------------------
-INSERT INTO `cmswing_document_article` VALUES ('1', '0', '<h1>\r\n	OneThink1.1开发版发布&nbsp;\r\n</h1>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>OneThink是一个开源的内容管理框架，基于最新的ThinkPHP3.2版本开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内WEB应用傻瓜式开发的新潮流。&nbsp;</strong> \r\n</p>\r\n<h2>\r\n	主要特性：\r\n</h2>\r\n<p>\r\n	1. 基于ThinkPHP最新3.2版本。\r\n</p>\r\n<p>\r\n	2. 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。&nbsp;\r\n</p>\r\n<p>\r\n	3. 文档模型/分类体系：通过和文档模型绑定，以及不同的文档类型，不同分类可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。\r\n</p>\r\n<p>\r\n	4. 开源免费：OneThink遵循Apache2开源协议,免费提供使用。&nbsp;\r\n</p>\r\n<p>\r\n	5. 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。\r\n</p>\r\n<p>\r\n	6. 云端部署：通过驱动的方式可以轻松支持平台的部署，让您的网站无缝迁移，内置已经支持SAE和BAE3.0。\r\n</p>\r\n<p>\r\n	7. 云服务支持：即将启动支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。\r\n</p>\r\n<p>\r\n	8. 安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。&nbsp;\r\n</p>\r\n<p>\r\n	9. 应用仓库：官方应用仓库拥有大量来自第三方插件和应用模块、模板主题，有众多来自开源社区的贡献，让您的网站“One”美无缺。&nbsp;\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>&nbsp;OneThink集成了一个完善的后台管理体系和前台模板标签系统，让你轻松管理数据和进行前台网站的标签式开发。&nbsp;</strong> \r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<h2>\r\n	后台主要功能：\r\n</h2>\r\n<p>\r\n	1. 用户Passport系统\r\n</p>\r\n<p>\r\n	2. 配置管理系统&nbsp;\r\n</p>\r\n<p>\r\n	3. 权限控制系统\r\n</p>\r\n<p>\r\n	4. 后台建模系统&nbsp;\r\n</p>\r\n<p>\r\n	5. 多级分类系统&nbsp;\r\n</p>\r\n<p>\r\n	6. 用户行为系统&nbsp;\r\n</p>\r\n<p>\r\n	7. 钩子和插件系统\r\n</p>\r\n<p>\r\n	8. 系统日志系统&nbsp;\r\n</p>\r\n<p>\r\n	9. 数据备份和还原\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	&nbsp;[ 官方下载：&nbsp;<a href=\"http://www.onethink.cn/download.html\" target=\"_blank\">http://www.onethink.cn/download.html</a>&nbsp;&nbsp;开发手册：<a href=\"http://document.onethink.cn/\" target=\"_blank\">http://document.onethink.cn/</a>&nbsp;]&nbsp;\r\n</p>\r\n<p>\r\n	<br />\r\n</p>\r\n<p>\r\n	<strong>OneThink开发团队 2013~2014</strong> \r\n</p>', '', '0');
+-- -----------------------------
+-- Records of `cmswing_document_article`
+-- -----------------------------
+INSERT INTO `cmswing_document_article` VALUES ('1', '<h1>
+	OneThink1.1开发版发布&nbsp;
+</h1>
+<p>
+	<br />
+</p>
+<p>
+	<strong>OneThink是一个开源的内容管理框架，基于最新的ThinkPHP3.2版本开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内WEB应用傻瓜式开发的新潮流。&nbsp;</strong> 
+</p>
+<h2>
+	主要特性：
+</h2>
+<p>
+	1. 基于ThinkPHP最新3.2版本。
+</p>
+<p>
+	2. 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。&nbsp;
+</p>
+<p>
+	3. 文档模型/分类体系：通过和文档模型绑定，以及不同的文档类型，不同分类可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。
+</p>
+<p>
+	4. 开源免费：OneThink遵循Apache2开源协议,免费提供使用。&nbsp;
+</p>
+<p>
+	5. 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。
+</p>
+<p>
+	6. 云端部署：通过驱动的方式可以轻松支持平台的部署，让您的网站无缝迁移，内置已经支持SAE和BAE3.0。
+</p>
+<p>
+	7. 云服务支持：即将启动支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。
+</p>
+<p>
+	8. 安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。&nbsp;
+</p>
+<p>
+	9. 应用仓库：官方应用仓库拥有大量来自第三方插件和应用模块、模板主题，有众多来自开源社区的贡献，让您的网站“One”美无缺。&nbsp;
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<strong>&nbsp;OneThink集成了一个完善的后台管理体系和前台模板标签系统，让你轻松管理数据和进行前台网站的标签式开发。&nbsp;</strong> 
+</p>
+<p>
+	<br />
+</p>
+<h2>
+	后台主要功能：
+</h2>
+<p>
+	1. 用户Passport系统
+</p>
+<p>
+	2. 配置管理系统&nbsp;
+</p>
+<p>
+	3. 权限控制系统
+</p>
+<p>
+	4. 后台建模系统&nbsp;
+</p>
+<p>
+	5. 多级分类系统&nbsp;
+</p>
+<p>
+	6. 用户行为系统&nbsp;
+</p>
+<p>
+	7. 钩子和插件系统
+</p>
+<p>
+	8. 系统日志系统&nbsp;
+</p>
+<p>
+	9. 数据备份和还原
+</p>
+<p>
+	<br />
+</p>
+<p>
+	&nbsp;[ 官方下载：&nbsp;<a href="http://www.onethink.cn/download.html" target="_blank">http://www.onethink.cn/download.html</a>&nbsp;&nbsp;开发手册：<a href="http://document.onethink.cn/" target="_blank">http://document.onethink.cn/</a>&nbsp;]&nbsp;
+</p>
+<p>
+	<br />
+</p>
+<p>
+	<strong>OneThink开发团队 2013~2014</strong> 
+</p>', '', '0');
 
--- ----------------------------
--- Table structure for cmswing_document_download
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_document_download`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_document_download`;
 CREATE TABLE `cmswing_document_download` (
   `id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文档ID',
@@ -390,28 +487,14 @@ CREATE TABLE `cmswing_document_download` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型下载表';
 
--- ----------------------------
--- Records of cmswing_document_download
--- ----------------------------
-INSERT INTO `cmswing_document_download` VALUES ('3', '0', '456456464', '', '1', '0', '103928');
+-- -----------------------------
+-- Records of `cmswing_document_download`
+-- -----------------------------
+INSERT INTO `cmswing_document_download` VALUES ('3', '456456464', '', '1', '0', '103928');
 
--- ----------------------------
--- Table structure for cmswing_document_testmode
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_document_testmode`;
-CREATE TABLE `cmswing_document_testmode` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(255) NOT NULL COMMENT '文章标题',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_document_testmode
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_document_testmodel
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_document_testmodel`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_document_testmodel`;
 CREATE TABLE `cmswing_document_testmodel` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -425,13 +508,10 @@ CREATE TABLE `cmswing_document_testmodel` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Records of cmswing_document_testmodel
--- ----------------------------
 
--- ----------------------------
--- Table structure for cmswing_member
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_member`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_member`;
 CREATE TABLE `cmswing_member` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
@@ -453,9 +533,9 @@ CREATE TABLE `cmswing_member` (
   KEY `status` (`status`)
 ) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- ----------------------------
--- Records of cmswing_member
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_member`
+-- -----------------------------
 INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1450499293584', '2130706433', '1446275814', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
@@ -468,9 +548,9 @@ INSERT INTO `cmswing_member` VALUES ('20', 'eeee', 'd7aff02efcfd6598838a793e0e56
 INSERT INTO `cmswing_member` VALUES ('21', 'fdsfas', '824afcbcb4524936b2f5190cf3631f55', '0', 'faa@ddddd.com', '0', '', '1448635989804', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('22', 'tttttt', 'd7aff02efcfd6598838a793e0e56bc16', '0', '111111@fdsaf.ocm', '0', '', '1448636118837', '0', '0', '0', '0', '1');
 
--- ----------------------------
--- Table structure for cmswing_menu
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_menu`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_menu`;
 CREATE TABLE `cmswing_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
@@ -488,9 +568,9 @@ CREATE TABLE `cmswing_menu` (
   KEY `status` (`status`)
 ) ENGINE=MyISAM AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_menu
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_menu`
+-- -----------------------------
 INSERT INTO `cmswing_menu` VALUES ('1', '首页', '0', '1', 'admin/index/index', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('2', '网站内容', '0', '2', 'article', '0', '', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('3', '内容管理', '2', '0', 'admin/article/index', '0', '', '1', '0', '1');
@@ -512,27 +592,27 @@ INSERT INTO `cmswing_menu` VALUES ('18', '新增用户', '17', '0', 'User/add', 
 INSERT INTO `cmswing_menu` VALUES ('19', '用户行为', '16', '3', 'admin/user/action', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('20', '新增用户行为', '19', '0', 'User/addaction', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('21', '编辑用户行为', '19', '0', 'User/editaction', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('22', '保存用户行为', '19', '0', 'User/saveAction', '0', '\"用户->用户行为\"保存编辑和新增的用户行为', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('23', '变更行为状态', '19', '0', 'User/setStatus', '0', '\"用户->用户行为\"中的启用,禁用和删除权限', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('24', '禁用会员', '19', '0', 'User/changeStatus?method=forbidUser', '0', '\"用户->用户信息\"中的禁用', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('25', '启用会员', '19', '0', 'User/changeStatus?method=resumeUser', '0', '\"用户->用户信息\"中的启用', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('26', '删除会员', '19', '0', 'User/changeStatus?method=deleteUser', '0', '\"用户->用户信息\"中的删除', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('22', '保存用户行为', '19', '0', 'User/saveAction', '0', '"用户->用户行为"保存编辑和新增的用户行为', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('23', '变更行为状态', '19', '0', 'User/setStatus', '0', '"用户->用户行为"中的启用,禁用和删除权限', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('24', '禁用会员', '19', '0', 'User/changeStatus?method=forbidUser', '0', '"用户->用户信息"中的禁用', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('25', '启用会员', '19', '0', 'User/changeStatus?method=resumeUser', '0', '"用户->用户信息"中的启用', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('26', '删除会员', '19', '0', 'User/changeStatus?method=deleteUser', '0', '"用户->用户信息"中的删除', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('27', '权限管理', '16', '2', 'admin/auth/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('28', '删除', '27', '0', 'AuthManager/changeStatus?method=deleteGroup', '0', '删除用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('29', '禁用', '27', '0', 'AuthManager/changeStatus?method=forbidGroup', '0', '禁用用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('30', '恢复', '27', '0', 'AuthManager/changeStatus?method=resumeGroup', '0', '恢复已禁用的用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('31', '新增', '27', '0', 'AuthManager/createGroup', '0', '创建新的用户组', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('32', '编辑', '27', '0', 'AuthManager/editGroup', '0', '编辑用户组名称和描述', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('33', '保存用户组', '27', '0', 'AuthManager/writeGroup', '0', '新增和编辑用户组的\"保存\"按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('34', '授权', '27', '0', 'AuthManager/group', '0', '\"后台  用户  用户信息\"列表页的\"授权\"操作按钮,用于设置用户所属用户组', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('35', '访问授权', '27', '0', 'AuthManager/access', '0', '\"后台  用户  权限管理\"列表页的\"访问授权\"操作按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('36', '成员授权', '27', '0', 'AuthManager/user', '0', '\"后台  用户  权限管理\"列表页的\"成员授权\"操作按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('37', '解除授权', '27', '0', 'AuthManager/removeFromGroup', '0', '\"成员授权\"列表页内的解除授权操作按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('38', '保存成员授权', '27', '0', 'AuthManager/addToGroup', '0', '\"用户信息\"列表页\"授权\"时的\"保存\"按钮和\"成员授权\"里右上角的\"添加\"按钮)', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('39', '分类授权', '27', '0', 'AuthManager/category', '0', '\"后台  用户  权限管理\"列表页的\"分类授权\"操作按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('40', '保存分类授权', '27', '0', 'AuthManager/addToCategory', '0', '\"分类授权\"页面的\"保存\"按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('41', '模型授权', '27', '0', 'AuthManager/modelauth', '0', '\"后台  用户  权限管理\"列表页的\"模型授权\"操作按钮', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('42', '保存模型授权', '27', '0', 'AuthManager/addToModel', '0', '\"分类授权\"页面的\"保存\"按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('33', '保存用户组', '27', '0', 'AuthManager/writeGroup', '0', '新增和编辑用户组的"保存"按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('34', '授权', '27', '0', 'AuthManager/group', '0', '"后台  用户  用户信息"列表页的"授权"操作按钮,用于设置用户所属用户组', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('35', '访问授权', '27', '0', 'AuthManager/access', '0', '"后台  用户  权限管理"列表页的"访问授权"操作按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('36', '成员授权', '27', '0', 'AuthManager/user', '0', '"后台  用户  权限管理"列表页的"成员授权"操作按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('37', '解除授权', '27', '0', 'AuthManager/removeFromGroup', '0', '"成员授权"列表页内的解除授权操作按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('38', '保存成员授权', '27', '0', 'AuthManager/addToGroup', '0', '"用户信息"列表页"授权"时的"保存"按钮和"成员授权"里右上角的"添加"按钮)', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('39', '分类授权', '27', '0', 'AuthManager/category', '0', '"后台  用户  权限管理"列表页的"分类授权"操作按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('40', '保存分类授权', '27', '0', 'AuthManager/addToCategory', '0', '"分类授权"页面的"保存"按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('41', '模型授权', '27', '0', 'AuthManager/modelauth', '0', '"后台  用户  权限管理"列表页的"模型授权"操作按钮', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('42', '保存模型授权', '27', '0', 'AuthManager/addToModel', '0', '"分类授权"页面的"保存"按钮', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('43', '扩展', '0', '7', 'Addons/index', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('44', '插件管理', '43', '1', 'Addons/index', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('45', '创建', '44', '0', 'Addons/create', '0', '服务器上创建插件结构向导', '0', '0', '1');
@@ -604,9 +684,9 @@ INSERT INTO `cmswing_menu` VALUES ('122', '数据列表', '58', '0', 'think/list
 INSERT INTO `cmswing_menu` VALUES ('123', '审核列表', '3', '0', 'Article/examine', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('126', '其他', '2', '0', 'wenz/mang', '0', '12152', '1', '0', '1');
 
--- ----------------------------
--- Table structure for cmswing_model
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_model`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_model`;
 CREATE TABLE `cmswing_model` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
@@ -631,20 +711,37 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
 
--- ----------------------------
--- Records of cmswing_model
--- ----------------------------
-INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1', '{\"1\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1384507827', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"24\"],\"2\":[\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1450406625226', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('40', 'testmodel', '测试继承模型', '1', '', '1', '{\"1\":[\"3\",\"43\",\"44\",\"45\",\"46\",\"47\"]}', '1:基础', '43,44,45,46,47,3', '', '', '', '', 'id:编号\r\ntesttext:测试文本框\r\ntestvarchar:测试字符串\r\ntestdate:测试日期\r\ntestnum:测试数字\r\ntestbool:测试布尔\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '10', '', '', '1450410826136', '1450417019831', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('41', 'testmode', '测试模型', '1', '', '1', '{\"1\":[\"50\",\"1\"]}', '1:基础', '50,1', '', '', '', '', 'title:文章标题:[EDIT]\r\nuid:用户\r\nid:操作:[DELETE]|删除', '10', '', '', '1450534617546', '1450534885804', '1', 'MyISAM');
+-- -----------------------------
+-- Records of `cmswing_model`
+-- -----------------------------
+INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1', '{"1":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22"]}', '1:基础', '', '', '', '', '', 'id:编号
+title:标题:[EDIT]
+type:类型
+update_time:最后更新
+status:状态
+view:浏览
+id:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1384507827', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{"1":["2","3","5","24"],"2":["9","10","11","12","13","14","16","17","19","20","25","26"]}', '1:基础,2:扩展', '', '', '', '', '', 'id:编号
+title:标题:[EDIT]
+type:类型
+update_time:最后更新
+status:状态
+view:浏览
+id:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1450406625226', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{"1":["3","28","30","32","2","5","31"],"2":["13","10","27","9","12","16","17","19","11","20","14","29"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('40', 'testmodel', '测试继承模型', '1', '', '1', '{"1":["3","43","44","45","46","47"]}', '1:基础', '43,44,45,46,47,3', '', '', '', '', 'id:编号
+testtext:测试文本框
+testvarchar:测试字符串
+testdate:测试日期
+testnum:测试数字
+testbool:测试布尔
+id:操作:[EDIT]|编辑,[DELETE]|删除', '10', '', '', '1450410826136', '1450417019831', '1', 'MyISAM');
 
--- ----------------------------
--- Table structure for cmswing_session
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_session`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_session`;
 CREATE TABLE `cmswing_session` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -656,13 +753,10 @@ CREATE TABLE `cmswing_session` (
   KEY `expire` (`expire`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_session
--- ----------------------------
 
--- ----------------------------
--- Table structure for cmswing_setup
--- ----------------------------
+-- -----------------------------
+-- Table structure for `cmswing_setup`
+-- -----------------------------
 DROP TABLE IF EXISTS `cmswing_setup`;
 CREATE TABLE `cmswing_setup` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
@@ -683,34 +777,87 @@ CREATE TABLE `cmswing_setup` (
   KEY `group` (`group`)
 ) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of cmswing_setup
--- ----------------------------
+-- -----------------------------
+-- Records of `cmswing_setup`
+-- -----------------------------
 INSERT INTO `cmswing_setup` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '4294967295', '1379235274', '1', 'CmsWing内容管理框架', '0');
 INSERT INTO `cmswing_setup` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'CmsWing内容管理框架', '1');
 INSERT INTO `cmswing_setup` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'nodej,comswing,内容管理框架,thinkjs', '8');
 INSERT INTO `cmswing_setup` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1');
-INSERT INTO `cmswing_setup` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2');
+INSERT INTO `cmswing_setup` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字
+1:字符
+2:文本
+3:数组
+4:枚举', '2');
 INSERT INTO `cmswing_setup` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1379235859', '1', '', '9');
-INSERT INTO `cmswing_setup` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表推荐\r\n2:频道推荐\r\n4:首页推荐', '3');
-INSERT INTO `cmswing_setup` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '4');
-INSERT INTO `cmswing_setup` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10');
-INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统', '4');
-INSERT INTO `cmswing_setup` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1379313407', '1', '1:视图\r\n2:控制器', '6');
-INSERT INTO `cmswing_setup` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1379409564', '1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8');
-INSERT INTO `cmswing_setup` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1379484591', '1', '1', '1');
+INSERT INTO `cmswing_setup` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表推荐
+2:频道推荐
+4:首页推荐', '3');
+INSERT INTO `cmswing_setup` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见
+1:仅注册会员可见
+2:仅管理员可见', '4');
+INSERT INTO `cmswing_setup` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认
+blue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10');
+INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本
+2:内容
+3:用户
+4:系统', '4');
+INSERT INTO `cmswing_setup` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1379313407', '1', '1:视图
+2:控制器', '6');
+INSERT INTO `cmswing_setup` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1379409564', '1', 'AUTH_ON:1
+AUTH_TYPE:2', '8');
+INSERT INTO `cmswing_setup` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能
+1:开启草稿功能
+', '新增文章时的草稿功能配置', '1379484332', '1379484591', '1', '1', '1');
 INSERT INTO `cmswing_setup` VALUES ('24', 'DRAFT_AOTOSAVE_INTERVAL', '0', '自动保存草稿时间', '2', '', '自动保存草稿的时间间隔，单位：秒', '1379484574', '1386143323', '1', '60', '2');
 INSERT INTO `cmswing_setup` VALUES ('25', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1380427745', '1', '10', '10');
-INSERT INTO `cmswing_setup` VALUES ('26', 'USER_ALLOW_REGISTER', '4', '是否允许用户注册', '3', '0:关闭注册\r\n1:允许注册', '是否开放用户注册', '1379504487', '1379504580', '1', '1', '3');
-INSERT INTO `cmswing_setup` VALUES ('27', 'CODEMIRROR_THEME', '4', '预览插件的CodeMirror主题', '4', '3024-day:3024 day\r\n3024-night:3024 night\r\nambiance:ambiance\r\nbase16-dark:base16 dark\r\nbase16-light:base16 light\r\nblackboard:blackboard\r\ncobalt:cobalt\r\neclipse:eclipse\r\nelegant:elegant\r\nerlang-dark:erlang-dark\r\nlesser-dark:lesser-dark\r\nmidnight:midnight', '详情见CodeMirror官网', '1379814385', '1384740813', '1', 'ambiance', '3');
+INSERT INTO `cmswing_setup` VALUES ('26', 'USER_ALLOW_REGISTER', '4', '是否允许用户注册', '3', '0:关闭注册
+1:允许注册', '是否开放用户注册', '1379504487', '1379504580', '1', '1', '3');
+INSERT INTO `cmswing_setup` VALUES ('27', 'CODEMIRROR_THEME', '4', '预览插件的CodeMirror主题', '4', '3024-day:3024 day
+3024-night:3024 night
+ambiance:ambiance
+base16-dark:base16 dark
+base16-light:base16 light
+blackboard:blackboard
+cobalt:cobalt
+eclipse:eclipse
+elegant:elegant
+erlang-dark:erlang-dark
+lesser-dark:lesser-dark
+midnight:midnight', '详情见CodeMirror官网', '1379814385', '1384740813', '1', 'ambiance', '3');
 INSERT INTO `cmswing_setup` VALUES ('28', 'DATA_BACKUP_PATH', '1', '数据库备份根路径', '4', '', '路径必须以 / 结尾', '1381482411', '1381482411', '1', './Data/', '5');
 INSERT INTO `cmswing_setup` VALUES ('29', 'DATA_BACKUP_PART_SIZE', '0', '数据库备份卷大小', '4', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1381482488', '1381729564', '1', '20971520', '7');
-INSERT INTO `cmswing_setup` VALUES ('30', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381729544', '1', '1', '9');
-INSERT INTO `cmswing_setup` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通\r\n4:一般\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '10');
-INSERT INTO `cmswing_setup` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭\r\n1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11');
-INSERT INTO `cmswing_setup` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '0');
-INSERT INTO `cmswing_setup` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '0');
+INSERT INTO `cmswing_setup` VALUES ('30', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩
+1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381729544', '1', '1', '9');
+INSERT INTO `cmswing_setup` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通
+4:一般
+9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '10');
+INSERT INTO `cmswing_setup` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭
+1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11');
+INSERT INTO `cmswing_setup` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox
+1:article/mydocument
+2:Category/tree
+3:Index/verify
+4:file/upload
+5:file/download
+6:user/updatePassword
+7:user/updateNickname
+8:user/submitPassword
+9:user/submitNickname
+10:file/uploadpicture', '0');
+INSERT INTO `cmswing_setup` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook
+1:Addons/edithook
+2:Addons/delhook
+3:Addons/updateHook
+4:Admin/getMenus
+5:Admin/recordList
+6:AuthManager/updateRules
+7:AuthManager/tree', '0');
 INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '1386645376', '1387178083', '1', '10', '0');
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
-INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
-INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
+INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭
+1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
+INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组
+1:内容
+3:系统
+99:微信', '33');

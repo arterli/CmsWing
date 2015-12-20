@@ -19,6 +19,7 @@ export default class extends Base {
      indexAction(){
 
         //auto render template file index_index.html
+         this.meta_title = "分类管理"
         return this.display();
        
     }
@@ -38,6 +39,7 @@ export default class extends Base {
                 "tactive":"sysm",
                 "active":"/admin/category/index",
             })
+            this.meta_title = "添加分类"
             return this.display();
         }
 

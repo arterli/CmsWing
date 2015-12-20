@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 'use strict';
 import Base from './base.js';
 import fs  from 'fs';
@@ -23,6 +30,7 @@ export default class extends Base {
         //this._db = new DB(this.config);
         let list = await this.model().query('SHOW TABLE STATUS');
         // console.log(list)
+        this.meta_title='备份数据库';
         this.assign("list", list);
         return this.display();
     }
@@ -232,7 +240,8 @@ export default class extends Base {
         this.assign({
             "fileslist": filesList
         })
-
+        this.active = "admin/database/index"
+        this.meta_title='还原数据库';
         this.display();
     }
 

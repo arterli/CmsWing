@@ -35,3 +35,4 @@ typings/
 
 #app
 app/
+/nbproject/private/

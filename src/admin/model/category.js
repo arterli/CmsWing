@@ -40,6 +40,33 @@ export default class extends think.model.base {
 
         return info;
      }
+    /**
+     * 获取分类信息并缓存分类
+     * @param  integer id    分类ID
+     * @param  string  field 要获取的字段名
+     * @return string         分类信息
+     */
+    async get_category(id, field = null){
 
+        /* 非法分类ID */
+        if(think.isEmpty(id) || !think.isNumberString(id)){
+            return '';
+        }
+            let list = await think.cache("sys_category_list", () => {
+              return this.getallcate();
+            }, {timeout: 365 * 24 * 3600});
+        if(think.isEmpty(list) || 1 != list[id].status){//不存在分类，或分类被禁用
+            return '';
+        }
+        return think.isNumber(field) ? list[id] : list[id][field];
+    }
 
+    async getallcate(){
+        let lists = {}
+        let cate=  await this.select()
+        for(let v of cate){
+            lists[v.id] = v
+        }
+        return lists;
+    }
 }

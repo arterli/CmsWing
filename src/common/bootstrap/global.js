@@ -5,12 +5,12 @@
 
 /**
  * use global.xxx to define global functions
- * 
+ *
  * global.fn1 = function(){
  *     
  * }
  */
-
+import url from 'url';
 
 /**
  * ip转数字
@@ -18,8 +18,7 @@
  * @returns {number}
  * @private
  */
-global._ip2int=function (ip)
-{
+global._ip2int = function (ip) {
     var num = 0;
     ip = ip.split(".");
     num = Number(ip[0]) * 256 * 256 * 256 + Number(ip[1]) * 256 * 256 + Number(ip[2]) * 256 + Number(ip[3]);
@@ -33,8 +32,7 @@ global._ip2int=function (ip)
  * @returns {string|*}
  * @private
  */
-global._int2iP=function (num)
-{
+global._int2iP = function (num) {
     var str;
     var tt = new Array();
     tt[0] = (num >>> 24) >>> 0;
@@ -51,7 +49,7 @@ global._int2iP=function (num)
  * @param md5encoded
  * @returns {*}
  */
-global.encryptPassword=function(password, md5encoded = false) {
+global.encryptPassword = function (password, md5encoded = false) {
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
@@ -77,7 +75,7 @@ global.unique = function (arr) {
  * @param arrayToSearch
  * @returns {boolean}
  */
-global.in_array=function (stringToSearch, arrayToSearch) {
+global.in_array = function (stringToSearch, arrayToSearch) {
     for (let s = 0; s < arrayToSearch.length; s++) {
         let thisEntry = arrayToSearch[s].toString();
         if (thisEntry == stringToSearch) {
@@ -91,7 +89,7 @@ global.in_array=function (stringToSearch, arrayToSearch) {
  * @param d
  * @returns {string}
  */
-global.times = function (d,sec) {
+global.times = function (d, sec) {
     var time;
     var date = new Date(d);
     var y = date.getFullYear();
@@ -105,9 +103,9 @@ global.times = function (d,sec) {
     m = m < 10 ? "0" + m : m;
     var s = date.getSeconds();
     s = s < 10 ? "0" + s : s;
-    if(sec){
+    if (sec) {
         time = y + "-" + M + "-" + d + " " + h + ":" + m + ":" + s;
-    }else{
+    } else {
         time = y + "-" + M + "-" + d + " " + h + ":" + m;
     }
 
@@ -229,21 +227,21 @@ global.get_children = function (nodes, parent) {
  * @param obj
  * @returns {Array}
  */
-global.obj_values=function (obj){
-        let objkey=Object.keys(obj);
-        let objarr=[];
-        objkey.forEach(key=>{
-            objarr.push(obj[key]);
-        })
-        return objarr;
-        }
+global.obj_values = function (obj) {
+    let objkey = Object.keys(obj);
+    let objarr = [];
+    objkey.forEach(key=> {
+        objarr.push(obj[key]);
+    })
+    return objarr;
+}
 /**
  * 判断对象是否相等
  * @param a
  * @param b
  * @returns {boolean}
  */
-global.isObjectValueEqual=function(a, b) {
+global.isObjectValueEqual = function (a, b) {
     // Of course, we can do it use for in
     // Create arrays of property names
     var aProps = Object.getOwnPropertyNames(a);
@@ -274,7 +272,7 @@ global.isObjectValueEqual=function(a, b) {
  * @param str [删除左右两端的空格]
  * @returns {*|void|string|XML}
  */
-global.trim = function (str){
+global.trim = function (str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 /**
@@ -282,20 +280,20 @@ global.trim = function (str){
  * @param str
  * @returns {*}
  */
-global.parse_config_attr = function (str){
+global.parse_config_attr = function (str) {
     let strs;
-    if(str.search(/\r\n/ig)>-1){
-        strs=str.split("\r\n");
-    }else if(str.search(/,/ig)>-1){
-        strs=str.split(",");
-    }else{
-        return str;
+    if (str.search(/\r\n/ig) > -1) {
+        strs = str.split("\r\n");
+    } else if (str.search(/,/ig) > -1) {
+        strs = str.split(",");
+    } else {
+        strs = [str];
     }
-    if(think.isArray(strs)){
-        let obj ={}
-        strs.forEach(n =>{
-            n=n.split(":");
-            obj[n[0]]=n[1];
+    if (think.isArray(strs)) {
+        let obj = {}
+        strs.forEach(n => {
+            n = n.split(":");
+            obj[n[0]] = n[1];
         })
         return obj;
     }
@@ -306,16 +304,16 @@ global.parse_config_attr = function (str){
  * @param str [删除左边的空格]
  * @returns {*|void|string|XML}
  */
-global.ltrim = function (str){
-    return str.replace(/(^\s*)/g,"");
+global.ltrim = function (str) {
+    return str.replace(/(^\s*)/g, "");
 }
 /**
  * rtrim()
  * @param str [删除右边的空格]
  * @returns {*|void|string|XML}
  */
-global.rtrim = function (str){
-    return str.replace(/(\s*$)/g,"");
+global.rtrim = function (str) {
+    return str.replace(/(\s*$)/g, "");
 }
 /**
  * 把返回的数据集转换成Tree
@@ -323,63 +321,180 @@ global.rtrim = function (str){
  * @param string pid parent标记字段
  * @return array
  */
-global.arr_to_tree = function (data,pid){
-    var result = [] , temp;
-    for(var i in data){
-        if(data[i].pid==pid){
+global.arr_to_tree = function (data, pid) {
+    var result = [], temp;
+    for (var i in data) {
+        if (data[i].pid == pid) {
             result.push(data[i]);
-            temp = arr_to_tree(data,data[i].id);
-            if(temp.length>0){
-                data[i].children=temp;
+            temp = arr_to_tree(data, data[i].id);
+            if (temp.length > 0) {
+                data[i].children = temp;
             }
         }
     }
     return result;
 }
-/**
- * 把返回的数据集转换成Tree
- * @param array $list 要转换的数据集
- * @param string $pid parent标记字段
- * @param string $level level标记字段
- * @return array
-
-global.list_to_tree=function (list, pk='id', pid = 'pid', child = '_child', root = 0) {
-    // 创建Tree
-    let tree =[];
-    let parent = {};
-        parent[child] =[];
-    let arr = [];
-    if(think.isArray(list)) {
-        // 创建基于主键的数组引用
-        let refer = {};
-        list.forEach((data,key)=>{
-            refer[data[pk]] =list[key];
-        })
-        list.forEach((data,key)=>{
-            let parendId = data[pid];
-            if(root == parendId){
-                tree.push(list[key])
-            }else{
-                if(!think.isEmpty(refer[parendId])){
-                    parent = refer[parendId];
-                    arr.push(list[key]);
-                    parent[child] =arr;
-                }
-            }
-        })
-        //foreach ($list as $key => $data) {
-        //    // 判断是否存在parent
-        //    $parentId =  $data[$pid];
-        //    if ($root == $parentId) {
-        //        $tree[] =& $list[$key];
-        //    }else{
-        //        if (isset($refer[$parentId])) {
-        //            $parent =& $refer[$parentId];
-        //            $parent[$child][] =& $list[$key];
-        //        }
-        //    }
-        //}
-    }
-    return tree;
+// 获取属性类型信息
+global.get_attribute_type = function (type){
+    // TODO 可以加入系统配置
+    let _type = {
+        'num'       :  ['数字','int(10) UNSIGNED NOT NULL'],
+        'string'    :  ['字符串','varchar(255) NOT NULL'],
+        'textarea'  :  ['文本框','text NOT NULL'],
+        'date'      :  ['日期','bigint(13) NOT NULL'],
+        'datetime'  :  ['时间','bigint(13) NOT NULL'],
+        'bool'      :  ['布尔','tinyint(2) NOT NULL'],
+        'select'    :  ['枚举','char(50) NOT NULL'],
+        'radio'     :  ['单选','char(10) NOT NULL'],
+        'checkbox'  :  ['多选','varchar(100) NOT NULL'],
+        'editor'    :  ['编辑器','text NOT NULL'],
+        'picture'   :  ['上传图片','int(10) UNSIGNED NOT NULL'],
+        'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
 }
+    return type?_type[type][0]:_type;
+}
+/**
+ * 时间戳格式化 dateformat()
+ * @param extra 'Y-m-d H:i:s'
+ * @param date  时间戳
+ * @return  '2015-12-17 15:39:44'
  */
+  global.dateformat=function(extra,date){
+      let D = new Date(date);
+      let time={
+          "Y":D.getFullYear(),
+          'm':D.getMonth() + 1,
+          'd':D.getDate(),
+          'H':D.getHours(),
+          'i':D.getMinutes(),
+          's':D.getSeconds()
+      }
+      let key = extra.split(/\W/);
+      let _date;
+      for(let k of key){
+        time[k] = time[k] < 10 ? "0" + time[k] : time[k]
+         _date=extra.replace(k,time[k])
+        extra=_date;
+      }
+      return _date;
+ }
+global.array_search=function (arr, str){
+    // 如果可以的话，调用原生方法
+    if(arr && arr.indexOf){
+        return arr.indexOf(str);
+    }
+
+    var len = arr.length;
+    for(var i = 0; i < len; i++){
+        // 定位该元素位置
+        if(arr[i] == str){
+            return i;
+        }
+    }
+
+    // 数组中不存在该元素
+    return false;
+}
+global.array_diff=function (arr1,arr2){
+    //var arr1 = ["i", "b", "c", "d", "e", "f","x",""]; //数组A
+    //var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
+    var temp = []; //临时数组1
+    var temparray = [];//临时数组2
+    for (var i = 0; i < arr2.length; i++) {
+        temp[arr2[i]] = true;//巧妙地方：把数组B的值当成临时数组1的键并赋值为真
+    }
+    for (var i = 0; i < arr1.length; i++) {
+        if (!temp[arr1[i]]) {
+            temparray.push(arr1[i]);//巧妙地方：同时把数组A的值当成临时数组1的键并判断是否为真，如果不为真说明没重复，就合并到一个新数组里，这样就可以得到一个全新并无重复的数组
+        }
+    };
+    //if(think.isEmpty(temparray)){
+    //    return false
+    //}
+    return temparray;
+}
+//global.call_user_func = function (cb, params) {
+//    let func = global.cb;
+//    func.apply(cb, params);
+//}
+/* 解析列表定义规则*/
+
+global.get_list_field=function (data, grid, controller,module="admin"){
+    let data2={};
+    let value;
+
+    // 获取当前字段数据
+    //console.log(grid);
+    for( let field of grid.field){
+           let temp;
+           let array = field.split('|');//TODO
+          // console.log(array);
+           temp = data[array[0]];
+           //console.log(temp);
+            // 函数支持
+            if(!think.isEmpty(array[1])){
+                temp = call_user_func(array[1], temp);
+            }
+            data2[array[0]]    =   temp;
+    }
+    //console.log(data2);
+    if(!think.isEmpty(grid.format)){
+     // value  =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data2){return $data2[$match[1]];}, $grid['format']);
+    }else{
+        value  =  data2[Object.keys(data2)];
+    }
+   // console.log(value);
+    // 链接支持
+    if('title' == grid.field[0] && '目录' == data.type ){
+        // 目录类型自动设置子文档列表链接
+        grid.href   =   '[LIST]';
+    }
+    if(!think.isEmpty(grid.href)){
+        //grid['href']='[aabbcc]';
+        let links  =   grid.href.split(',');
+           //console.log(links);
+        let val =[]
+        for(let link of links){
+            let array  =   link.split('|');
+            let href   =   array[0];
+
+            //console.log(href);
+            let matches = href.match(/^\[([a-z_]+)\]$/);
+            if(matches){
+                val.push(data2[matches[1]])
+               // console.log(val);
+            }else{
+                let show   =  !think.isEmpty(array[1])?array[1]:value;
+               // console.log(show)
+                // 替换系统特殊字符串
+                let hrefs={
+                    '[DELETE]':'setstatus?status=-1&ids=[id]',
+                    '[EDIT]': 'edit?id=[id]&model=[model_id]&cate_id=[category_id]',
+                    '[LIST]': 'index?pid=[id]&model=[model_id]&cate_id=[category_id]'
+                }
+                href = hrefs[href];
+                //let url = require('url')
+                let query =url.parse(href,true,true).query;
+                let pathname =url.parse(href,true,true).pathname;
+                let u = {}
+                for(let k in query){
+                    let key =query[k].replace(/(^\[)|(\]$)/g, "");
+                    if(data[key]) {
+                     u[k]=  query[k].replace(query[k], data[key])
+                    }else if(think.isNumberString(key)){
+                        u[k]= query[k];
+                    }
+                }
+                 href=url.format({
+                     pathname:`/${module}/${controller}/${pathname}`,
+                     query:u
+                 });
+
+               val.push( '<a href="'+href+'" class="text-info">'+show+'</a> ') ;
+            }
+        }
+        value  =   val.join(" ");
+    }
+    //console.log(value)
+    return value;
+}

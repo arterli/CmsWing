@@ -22,7 +22,6 @@ export default class extends think.controller.base {
        //let REQUEST = JSON.stringify(this.param()).toLowerCase()
       // console.log(Object.is(JSON.stringify(url1).toLowerCase(), JSON.stringify(this.param()).toLowerCase()));
       //  this.end("dd");
-
        let Auth = think.adapter("auth", "rbac");
        let auth = new Auth(14);
        let res = await auth.check("/admin/test1");
@@ -37,5 +36,17 @@ export default class extends think.controller.base {
 
         this.assign("date",new Date().valueOf());
         return this.display()
+    }
+    funAction(){
+        function add(a,b)
+        {
+            add.call(sub,3,1);
+        }
+        function sub(a,b)
+        {
+            console.log(a-b);
+        }
+
+
     }
 }

@@ -4,7 +4,7 @@
 
     //ajax get请求
 /**
- * <a href="#" class="confirm ajax-get text-info">删除</a></td>
+ * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
  *
  */
 
@@ -33,16 +33,16 @@ $('.ajax-get').click(function(){
                     }else{
                         location.reload();
                     }
-                },1500);
+                },1000);
             }else{
                 toastr.error(data.errmsg);
                 setTimeout(function(){
-                    if (data.data.url) {
-                        location.href=data.data.url;
+                    if (data.data) {
+                        location.href=data.data;
                     }else{
                         toastr.clear()
                     }
-                },1500);
+                },1000);
             }
         });
 
@@ -112,13 +112,14 @@ $('.ajax-post').click(function(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
-            console.log(data)
+            //console.log(data)
+            //return false;
             if (data.errno==0) {
                 if (data.data.url) {
 
                     toastr.success(data.data.name + ' 页面即将自动跳转~');
                 }else{
-                    toastr.success(data.data.info);
+                    toastr.success(data.data.name);
                 }
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
@@ -131,12 +132,12 @@ $('.ajax-post').click(function(){
                     }
                 },1500);
             }else{
-                console.log(data);
+                //console.log(data);
                 toastr.error(data.errmsg);
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
-                    if (data.url) {
-                        location.href=data.data.url;
+                    if (data.data) {
+                        location.href=data.data;
                     }else{
                         toastr.clear()
                     }

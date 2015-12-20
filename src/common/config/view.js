@@ -64,6 +64,36 @@ export default {
 
           }
         })
+        env.addFilter("strToJson", function (str) {
+
+            return JSON.parse(str);
+
+        })
+        env.addFilter("strToArray",function (srt){
+          if(srt){
+            var s = "abc,abcd,aaa";
+            console.log(srt)
+            let ss = s.split(",");// 在每个逗号(,)处进行分解。
+            return ss;
+          }
+        })
+
+        env.addFilter("in_Array",function (str,arr){
+          return in_array(str,arr);
+        })
+
+        env.addFilter("isempty",function(any){
+          return think.isEmpty(any);
+        })
+        //获取字段类型信息
+        env.addFilter("get_attribute_type",function(str){
+          return get_attribute_type(str);
+        })
+        //格式化字段列表
+        env.addFilter("get_list_field",function(data,grid, controller,module){
+          return get_list_field(data,grid, controller,module);
+        })
+
       }
     }
   }

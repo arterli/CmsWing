@@ -12,22 +12,16 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
+
     }
-    __before(){
-        this.assign({
-            "navxs":true,
-            "active":"/admin",
-            "tactive":"/admin",
-            "selfjs":"admin",
-            "datatables":false,
-            "bg":"bg-dark"
-        });
-    }
+
     indexAction(){
         //auto render template file index_index.html
+        this.meta_title= '微信管理';
         this.assign({
-
-        })
+            "navxs":true,
+            "bg":"bg-dark"
+        });
         //fdsafsa
         return this.display();
     }
