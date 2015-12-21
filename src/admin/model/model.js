@@ -87,9 +87,9 @@ export default class extends think.model.base {
 
 
         /* 根据条件返回数据 */
-        if(think.isNumber(id)){
+        if(think.isEmpty(id)){
             return list;
-        } else if(think.isNumber(field)){
+        } else if(think.isEmpty(field)){
             return list[id];
         } else {
             return list[id][field];

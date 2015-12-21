@@ -1,0 +1,112 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+{% endblock%}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/article_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+
+                        <!-- .breadcrumb -->
+                        <ul class="breadcrumb">
+                            <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
+                            {% for nav in breadcrumb%}
+                            {% if info.category_id == nav.id %}
+                            <li class="active">{{nav.title}} : {{controller.meta_title}}</li>
+                            {%else%}
+                            <li><a href="/admin/article/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                        <!-- / .breadcrumb -->
+                        <div class="row">
+                            <div class="col-lg-10"><section class="panel panel-default">
+                                <header class="panel-heading text-right bg-light">
+                                    <ul class="nav nav-tabs pull-left">
+                                        {% for key ,group in model.field_group | parse_config_attr %}
+                                        <li {% if 1 == key %} class="active" {% endif %}><a data-toggle="tab" href="#tabl-{{key}}"><i class="fa fa-comments text-muted"></i> {{group}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    <span class="hidden-sm">Left</span>
+                                </header>
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        {% for key ,group in model.field_group | parse_config_attr %}
+                                        <div id="tabl-{{key}}" class="tab-pane fade {% if 1 == key %}active in{% endif %}"> {{group}}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section></div>
+                            <div class="col-lg-2">fdsf</div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    <!--
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/article/getmenu",
+            otherParam: ["action", "add"]
+        },
+        view: {
+            showLine: true,
+            selectedMulti: false,
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess
+        }
+    };
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        //console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id= $("#"+treeId).attr("data-cate");
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        console.log(treeId)
+        treeObj.selectNode(curMenu);
+    };
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+                type = e.data.type,
+                nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+
+
+    //-->
+    $(function(){
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting).expandAll(true);
+        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+
+    })
+</script>
+{% endblock %}}

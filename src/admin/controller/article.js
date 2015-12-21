@@ -118,7 +118,7 @@ export default class extends Base {
         modellist.push(modelobj);
       }
     }
-    console.log(this.setup.DOCUMENT_POSITION)
+    //console.log(this.setup.DOCUMENT_POSITION)
     this.assign('modellist',modellist);
     this.assign('cate_id',cate_id);
     this.assign('model_id',model_id);
@@ -252,5 +252,54 @@ export default class extends Base {
     }
     //think.log(cate);
     return this.json(arr_to_tree(cate,0))
+  }
+
+  /**
+   * 新增文档
+   */
+  async addAction(){
+    let cate_id = this.get("cate_id")||0;
+    let model_id = this.get("model_id")||0;
+    let group_id = this.get("group_id")||'';
+    think.isEmpty(cate_id) &&  this.fail("参数不能为空");
+    think.isEmpty(model_id) && this.fail("该分类未绑定模型");
+
+    //检查该分类是否允许发布
+    let allow_publish = await this.model("category").check_category(cate_id);
+    console.log(allow_publish);
+    !allow_publish && this.fail("该分类不允许发布内容");
+
+    //获取当先的模型信息
+    let model = await this.model("model").get_document_model(model_id);
+
+    //处理结果
+    let info = {};
+    info.pid = this.get("pid")?this.get("pid"):0;
+    info.model_id = model_id;
+    info.category_id = cate_id;
+    info.group_id = group_id;
+
+    if(info.pid){
+      let article = await this.model("document").field('id,title,type').find(info.pid);
+      this.assign("article",article);
+    }
+    //获取表单字段排序
+    let fields = await this.model("attribute").get_model_attribute(model.id);
+    console.log(fields);
+    //获取当前分类文档的类型
+    let type_list = await this.model("category").get_type_bycate(cate_id);
+    //获取面包屑信息
+    let nav = await this.model('category').get_parent_category(cate_id);
+    //console.log(model);
+    this.assign('breadcrumb',nav);
+    this.assign('info',info);
+    this.assign('type_list',type_list);
+    this.assign('model',model);
+    this.meta_title = '新增'+model.title;
+    this.active = "admin/article/index";
+    this.assign({
+      "navxs":true,
+    });
+    return this.display();
   }
 }

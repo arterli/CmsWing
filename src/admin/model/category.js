@@ -86,4 +86,43 @@ export default class extends think.model.base {
         }
        return breadcrumb.reverse()
     }
+
+    /**
+     * 验证分类是否允许发布内容
+     * @param id 分类id
+     * @returns {boolean} true-允许发布内容，false-不允许发布内容
+     */
+    async check_category(id){
+        if(think.isObject(id)){
+            id.type = !think.isEmpty(id.type)?id.type:2;
+            let type = await this.get_category(id.category_id,'type');
+            type = type.split(",");
+            return in_array(id.type,type);
+        }else {
+            let publish = await this.get_category(id,'allow_publish');
+            return publish ? true : false;
+        }
+    }
+
+    /**
+     * 获取当前分类的文档类型
+     * @param id
+     * @returns {*}文档类型对象
+     */
+   async get_type_bycate(id=null){
+        if(think.isEmpty(id)){
+            return false
+        }
+       let type_list = think.config("document_model_type");
+       let model_type = await this.where({id:id}).getField("type",1);
+
+       model_type = model_type[0].split(",");
+
+      for (let key in type_list){
+          if(!in_array(key,model_type)){
+              delete type_list[key];
+          }
+      }
+  return type_list;
+    }
 }
