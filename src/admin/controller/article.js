@@ -293,6 +293,7 @@ export default class extends Base {
     //console.log(model);
     this.assign('breadcrumb',nav);
     this.assign('info',info);
+    this.assign('fields',fields);
     this.assign('type_list',type_list);
     this.assign('model',model);
     this.meta_title = '新增'+model.title;

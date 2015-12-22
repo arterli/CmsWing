@@ -38,11 +38,83 @@
                                     <span class="hidden-sm">Left</span>
                                 </header>
                                 <div class="panel-body">
+                                    <form id="form" action="/admin/article/add" method="post" class="form-horizontal">
                                     <div class="tab-content">
+
                                         {% for key ,group in model.field_group | parse_config_attr %}
-                                        <div id="tabl-{{key}}" class="tab-pane fade {% if 1 == key %}active in{% endif %}"> {{group}}</div>
+                                        <div id="tabl-{{key}}" class="tab-pane fade {% if 1 == key %}active in{% endif %}">
+                                            {% for field in fields[key] %}
+                                            {% if field.is_show == 1 or field.is_show == 2 %}
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">{{field.title}}</label>
+
+                                                <div class="col-sm-10">
+
+                                                    <div class="row">
+                                                        {% if field.type == "num" %}
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.type}}" data-required="true" >
+                                                        </div>
+                                                        {% elif field.type == "string" %}
+                                                        <div class="col-md-10">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.type}}" data-required="true" >
+                                                        </div>
+                                                        {% elif field.type == "textarea" %}
+                                                        <div class="col-md-8">
+                                                            <textarea name="{{field.name}}" class="form-control">{{field.type}}</textarea>
+                                                        </div>
+                                                        {% elif field.type == "date" %}
+                                                        <div class="col-md-8">
+                                                            <textarea name="{{field.name}}" class="form-control">{{field.type}}</textarea>
+                                                        </div>
+                                                        {% elif field.type == "datetime" %}
+                                                        <div class="col-md-8">
+                                                            <textarea name="{{field.name}}" class="form-control">{{field.type}}</textarea>
+                                                        </div>
+                                                        {% elif field.type == "bool" %}
+                                                        <div class="col-md-4">
+                                                            <select class="form-control " name="{{field.name}}">
+                                                                {% for k ,v in field.extra|parse_config_attr %}
+                                                                <option value="{{k}}" {% if field.value == k%} selected {%endif%}>{{v}}{{field.type}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% elif field.type == "select" %}
+                                                        <div class="col-md-4">
+                                                            <select class="form-control " name="{{field.name}}">
+                                                                {% for k ,v in field.extra|parse_config_attr %}
+                                                                <option value="{{k}}" {% if field.value == k%} selected {%endif%}>{{v}}{{field.type}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% elif field.type == "radio" %}
+                                                        <div class="col-sm-10">
+                                                            {% for k ,v in field.extra|parse_config_attr %}
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="{{k}}" name="field.name" {% if field.value == k%} checked {%endif%}><i></i> {{v}}{{field.type}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="col-md-10">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}" data-required="true" >
+                                                        </div>
+                                                        {% endif %}
+                                                        {% if field.remark %}
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark}}</span>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            {% endif %}
+                                            {% endfor%}</div>
                                         {% endfor %}
                                     </div>
+                                        </form>
                                 </div>
                             </section></div>
                             <div class="col-lg-2">fdsf</div>
