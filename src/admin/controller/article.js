@@ -303,4 +303,8 @@ export default class extends Base {
     });
     return this.display();
   }
+  updateAction(){
+     let post1 = this.post();
+     console.log(post1);
+  }
 }
