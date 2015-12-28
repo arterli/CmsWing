@@ -75,15 +75,15 @@
                                                     <div class="row">
                                                         {% if field.type == "num" %}
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.type}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}{{field.type}}" data-required="true" >
                                                         </div>
                                                         {% elif field.type == "string" %}
                                                         <div class="col-md-10">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.type}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}{{field.type}}" data-required="true" >
                                                         </div>
                                                         {% elif field.type == "textarea" %}
                                                         <div class="col-md-8">
-                                                            <textarea name="{{field.name}}" class="form-control">{{field.type}}</textarea>
+                                                            <textarea name="{{field.name}}" class="form-control">{{field.value}}{{field.type}}</textarea>
                                                         </div>
                                                         {% elif field.type == "date" %}
                                                         <div class="col-md-3">
@@ -102,7 +102,7 @@
                                                             </select>
                                                         </div>
                                                         {% elif field.type == "select" %}
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-3">
                                                             <select class="form-control " name="{{field.name}}">
                                                                 {% for k ,v in field.extra|parse_config_attr %}
                                                                 <option value="{{k}}" {% if field.value == k%} selected {%endif%}>{{v}}{{field.type}}</option>
@@ -145,11 +145,11 @@
                                                                thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
 
                                                            // Web Uploader实例
-                                                               uploader;
+                                                               uploader_{{field.name}};
 
                                                        // 初始化Web Uploader
                                                        // 初始化Web Uploader
-                                                       var uploader = WebUploader.create({
+                                                       var uploader_{{field.name}} = WebUploader.create({
                                                            // 选完文件后，是否自动上传。
                                                            auto: true,
                                                            // swf文件路径
@@ -170,7 +170,7 @@
                                                            }
                                                        });
                                                        // 当有文件添加进来的时候
-                                                       uploader.on( 'fileQueued', function( file ) {
+                                                       uploader_{{field.name}}.on( 'fileQueued', function( file ) {
                                                            var $li = $(
                                                                            '<div id="' + file.id + '" class="file-item thumbnail">' +
                                                                            '<img>' +
@@ -182,7 +182,7 @@
                                                            $list_{{field.name}}.html( $li );
 
                                                            // 创建缩略图
-                                                           uploader.makeThumb( file, function( error, src ) {
+                                                           uploader_{{field.name}}.makeThumb( file, function( error, src ) {
                                                                if ( error ) {
                                                                    $img.replaceWith('<span>不能预览</span>');
                                                                    return;
@@ -193,7 +193,7 @@
                                                        });
 
                                                        // 文件上传过程中创建进度条实时显示。
-                                                       uploader.on( 'uploadProgress', function( file, percentage ) {
+                                                       uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
 
                                                            var $li = $( '#'+file.id ),
                                                                    $percent = $li.find('.progress span');
@@ -209,13 +209,13 @@
                                                        });
 
                                                        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-                                                       uploader.on( 'uploadSuccess', function( file,res ) {
+                                                       uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
                                                            $( '#'+file.id ).addClass('upload-state-done');
                                                            $("#cover_id_{{field.name}}").val(res);
                                                        });
 
                                                        // 文件上传失败，现实上传出错。
-                                                       uploader.on( 'uploadError', function( file ) {
+                                                       uploader_{{field.name}}.on( 'uploadError', function( file ) {
                                                            var $li = $( '#'+file.id ),
                                                                    $error = $li.find('div.error');
 
@@ -228,17 +228,130 @@
                                                        });
 
                                                        // 完成上传完了，成功或者失败，先删除进度条。
-                                                       uploader.on( 'uploadComplete', function( file ) {
+                                                       uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
                                                            $( '#'+file.id ).find('.progress').remove();
                                                        });
                                                    </script>
                                                             </div>
+                                                        {% elif field.type == "file" %}
 
-                                                        {% else %}
                                                         <div class="col-md-10">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}" data-required="true" >
+                                                            <!--用来存放文件信息-->
+                                                            <div id="thelist_{{field.name}}" class="uploader-list"></div>
+                                                            <div class="btns">
+                                                                <input type="hidden" name="{{field.name}}" value="{{data[field['name']]}}"/>
+                                                                <div id="picker_{{field.name}}" class="picker">选择文件</div>
+                                                                <a id="ctlBtn_{{field.name}}" class="btn btn-default">开始上传</a>
+                                                            </div>
+                                                            <script type="text/javascript">
+                                                                jQuery(function() {
+                                                                    var $ = jQuery,
+                                                                            $list_{{field.name}} = $('#thelist_{{field.name}}'),
+                                                                            $btn_{{field.name}} = $('#ctlBtn_{{field.name}}'),
+                                                                            state = 'pending',
+                                                                            uploader_{{field.name}};
+
+                                                                    uploader_{{field.name}} = WebUploader.create({
+
+                                                                        // 不压缩image
+                                                                        resize: false,
+
+                                                                        // swf文件路径
+                                                                        swf:'/static/admin/js/webuploader/Uploader.swf',
+
+                                                                        // 文件接收服务端。
+                                                                        server: '/admin/file/upload',
+
+                                                                        // 选择文件的按钮。可选。
+                                                                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                                                        pick: {
+                                                                            id:'#picker_{{field.name}}',
+                                                                            multiple: false
+                                                                        },
+                                                                        fileNumLimit:1
+                                                                    });
+
+                                                                    // 当有文件添加进来的时候
+                                                                    uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+
+                                                                        $list_{{field.name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
+                                                                                ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
+                                                                                '<h4 class="info">' + file.name + '</h4>' +
+                                                                                '<p class="state">等待上传...</p>' +
+                                                                                '</div>' );
+                                                                            var $li_{{field.name}} = $( '#'+file.id );
+                                                                                $li_{{field.name}}.on('click', '.remove-this', function() {
+                                                                                    uploader_{{field.name}}.removeFile( file.id );
+//                                                                                 $list_{{field.name}}.html("");
+                                                                                })
+
+                                                                    });
+
+                                                                    // 文件上传过程中创建进度条实时显示。
+                                                                    uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+                                                                        var $li_{{field.name}} = $( '#'+file.id ),
+                                                                                $percent_{{field.name}} = $li_{{field.name}}.find('.progress .progress-bar');
+
+                                                                        // 避免重复创建
+                                                                        if ( !$percent_{{field.name}}.length ) {
+                                                                            $percent_{{field.name}} = $('<div class="progress progress-striped active">' +
+                                                                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                                                                                    '</div>' +
+                                                                                    '</div>').appendTo( $li_{{field.name}} ).find('.progress-bar');
+                                                                        }
+
+                                                                        $li_{{field.name}}.find('p.state').text('上传中');
+
+                                                                        $percent_{{field.name}}.css( 'width', percentage * 100 + '%' );
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                                                                        var name = "{{field.name}}";
+                                                                        $("input[name="+name+"]").val(res.id);
+                                                                        $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                                                                        $( '#'+file.id ).find('p.state').text('上传出错');
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                                                                        $( '#'+file.id ).find('.progress').fadeOut();
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'all', function( type ) {
+                                                                        if ( type === 'startUpload' ) {
+                                                                            state = 'uploading';
+                                                                        } else if ( type === 'stopUpload' ) {
+                                                                            state = 'paused';
+                                                                        } else if ( type === 'uploadFinished' ) {
+                                                                            state = 'done';
+                                                                        }
+
+                                                                        if ( state === 'uploading' ) {
+                                                                            $btn_{{field.name}}.text('暂停上传');
+                                                                        } else {
+                                                                            $btn_{{field.name}}.text('开始上传');
+                                                                        }
+                                                                    });
+
+                                                                    $btn_{{field.name}}.on( 'click', function() {
+                                                                        if ( state === 'uploading' ) {
+                                                                            uploader_{{field.name}}.stop();
+                                                                        } else {
+                                                                            uploader_{{field.name}}.upload();
+                                                                        }
+                                                                    });
+                                                                });
+
+                                                            </script>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" data-required="true" >
                                                         </div>
                                                         {% endif %}
+
                                                         {% if field.remark %}
                                                         <div class="col-md-12">
                                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark}}</span>
@@ -248,6 +361,7 @@
                                                 </div>
                                             </div>
                                             {% endif %}
+
                                             {% endfor%}</div>
                                         {% endfor %}
                                     </div>

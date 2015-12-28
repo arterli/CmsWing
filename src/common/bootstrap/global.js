@@ -7,9 +7,12 @@
  * use global.xxx to define global functions
  *
  * global.fn1 = function(){
- *     
+ *
  * }
  */
+//global.xxx = async () => {
+//    let data = await Promise.resolve(111)
+//}
 import url from 'url';
 
 /**

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2015-12-25 22:19:39
+Date: 2015-12-28 22:18:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,7 +43,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -92,6 +92,7 @@ INSERT INTO `cmswing_attribute` VALUES ('47', 'testbool', '测试布尔', 'tinyi
 INSERT INTO `cmswing_attribute` VALUES ('48', 'testpicture', '测试上传图片', 'int(10) UNSIGNED NOT NULL', 'picture', '', '', '1', '', '40', '0', '1', '0', '1450416534420', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('49', 'testfile', '测试上传附件', 'int(10) UNSIGNED NOT NULL', 'file', '', '', '1', '', '40', '0', '1', '0', '1450416616549', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('50', 'title', '文章标题', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '41', '0', '1', '0', '1450534650444', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('51', 'picurl', '上传图片', 'int(10) UNSIGNED NOT NULL', 'picture', '', '', '1', '', '43', '0', '1', '0', '1451110019548', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -398,6 +399,20 @@ CREATE TABLE `cmswing_document_download` (
 INSERT INTO `cmswing_document_download` VALUES ('3', '0', '456456464', '', '1', '0', '103928');
 
 -- ----------------------------
+-- Table structure for cmswing_document_picsys
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_document_picsys`;
+CREATE TABLE `cmswing_document_picsys` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `picurl` int(10) unsigned NOT NULL COMMENT '上传图片',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_document_picsys
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for cmswing_document_testmode
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_document_testmode`;
@@ -432,6 +447,38 @@ CREATE TABLE `cmswing_document_testmodel` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for cmswing_file
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_file`;
+CREATE TABLE `cmswing_file` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件ID',
+  `name` char(30) NOT NULL DEFAULT '' COMMENT '原始文件名',
+  `savename` char(30) NOT NULL DEFAULT '' COMMENT '保存名称',
+  `savepath` char(30) NOT NULL DEFAULT '' COMMENT '文件保存路径',
+  `ext` char(5) NOT NULL DEFAULT '' COMMENT '文件后缀',
+  `mime` char(40) NOT NULL DEFAULT '' COMMENT '文件mime类型',
+  `size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件md5',
+  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
+  `location` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '文件保存位置',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '远程地址',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '上传时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_md5` (`md5`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='文件表';
+
+-- ----------------------------
+-- Records of cmswing_file
+-- ----------------------------
+INSERT INTO `cmswing_file` VALUES ('1', 'moban112.rar', '7oxGhtNhy1_e9VP2Ru4_mzaP.rar', '/upload/download/2015-12-28/', '', 'application/octet-stream', '592673', '2d2dde4c500f81674bd22c9a6338da7a', '', '0', '', '1451307240706');
+INSERT INTO `cmswing_file` VALUES ('2', 'phpcms_v9.5.10_UTF8.zip', 'dO_l1-u7cEotnGzHhyTVzsSD.zip', '/upload/download/2015-12-28/', '', '\"application/octet-stream', '8723992', 'c42373e0aa56b52c9e8556e638fe6919', '', '0', '', '1451307241462');
+INSERT INTO `cmswing_file` VALUES ('3', '悦蕾网设计文件.zip', 'm5Cui2KNThJXZh06idj9QVD4.zip', '/upload/download/2015-12-28/', '', '\"application/octet-stream', '20521434', 'f87ff613f19c83329445ffde24994b89', '', '0', '', '1451307242115');
+INSERT INTO `cmswing_file` VALUES ('4', 'moban112.rar', 'ey3_2TwS5t0-PE1Oya_U4C6r.rar', '/upload/download/2015-12-28/', '', 'application/octet-stream', '592673', 'ab5d018ad9e839bbeb6e4eff04a38d1d', '', '0', '', '1451308335223');
+INSERT INTO `cmswing_file` VALUES ('5', 'fex-team-webuploader-0.1.5-56-', 'sa7e06WygQCHs9iWStUoh88P.zip', '/upload/download/2015-12-28/', '', '\"application/octet-stream', '3703904', '889b7f0e638d0048d98d6f794073f58b', '', '0', '', '1451308989436');
+INSERT INTO `cmswing_file` VALUES ('6', 'proui(1).rar', 'y-x_4UmVkUJ1X84d8A42OqSP.rar', '/upload/download/2015-12-28/', '', 'application/octet-stream', '7179376', '4744342697b42fa9a0027c4ca264321c', '', '0', '', '1451309847621');
+INSERT INTO `cmswing_file` VALUES ('7', '1448609511220.tar.gz', 'MXuucSEw9QTLG5-H36jFLGul.gz', '/upload/download/2015-12-28/', '', 'application/gzip', '8113', '6b60a7131d182c7a97932e5a61d0d8db', '', '0', '', '1451310113941');
+
+-- ----------------------------
 -- Table structure for cmswing_member
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_member`;
@@ -458,7 +505,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1451040598401', '2130706433', '1446275814', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '0', 'fdsa@fasf.com', '0', '', '1446275814', '0', '1451287210833', '2130706433', '1446275814', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fsa@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('5', '111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fasfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('6', '1111111', '310d5bedeea2159d7d8c2b0d639715ad', '0', 'fs@fa11sfsa.com', '0', '', '0', '0', '0', '0', '0', '1');
@@ -467,8 +514,6 @@ INSERT INTO `cmswing_member` VALUES ('17', '444', 'f7e25d9f66d34161c7fba005eae01
 INSERT INTO `cmswing_member` VALUES ('18', '4444', 'd7aff02efcfd6598838a793e0e56bc16', '0', 'dafa@fas.com', '0', '', '1448635774111', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('19', 'wwww', 'd7aff02efcfd6598838a793e0e56bc16', '0', '111111@fasfa.com', '0', '', '1448635802250', '0', '0', '0', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('20', 'eeee', 'd7aff02efcfd6598838a793e0e56bc16', '0', 'ljllj@sfa.com', '0', '', '1448635944022', '0', '0', '0', '0', '1');
-INSERT INTO `cmswing_member` VALUES ('21', 'fdsfas', '824afcbcb4524936b2f5190cf3631f55', '0', 'faa@ddddd.com', '0', '', '1448635989804', '0', '0', '0', '0', '1');
-INSERT INTO `cmswing_member` VALUES ('22', 'tttttt', 'd7aff02efcfd6598838a793e0e56bc16', '0', '111111@fdsaf.ocm', '0', '', '1448636118837', '0', '0', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_menu
@@ -633,17 +678,18 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
 
 -- ----------------------------
 -- Records of cmswing_model
 -- ----------------------------
 INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础文档', '0', '', '1', '{\"1\":[\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1384507827', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"24\"],\"2\":[\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '2,3,5,24,9,10,11,12,13,14,16,17,19,20,25,26', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1450406625226', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"12\",\"9\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1451110235647', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('40', 'testmodel', '测试继承模型', '1', '', '1', '{\"1\":[\"3\",\"43\",\"44\",\"45\",\"46\",\"47\"]}', '1:基础', '43,44,45,46,47,3', '', '', '', '', 'id:编号\r\ntesttext:测试文本框\r\ntestvarchar:测试字符串\r\ntestdate:测试日期\r\ntestnum:测试数字\r\ntestbool:测试布尔\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '10', '', '', '1450410826136', '1450417019831', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('41', 'testmode', '测试模型', '1', '', '1', '{\"1\":[\"50\",\"1\"]}', '1:基础', '50,1', '', '', '', '', 'title:文章标题:[EDIT]\r\nuid:用户\r\nid:操作:[DELETE]|删除', '10', '', '', '1450534617546', '1450534885804', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('42', 'aabbaa', 'fsdfdsf', '0', '', '1', null, '1:基础', null, '', '', '', '', null, '10', '', '', '1451023067920', '1451023067920', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('43', 'picsys', '图片系统', '1', '', '1', '{\"1\":[\"3\",\"51\"]}', '1:基础', '51,3', '', '', '', '', 'title:标题\r\npicurl:上传图片', '10', '', '', '1451109883722', '1451110136896', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_picture
@@ -658,7 +704,7 @@ CREATE TABLE `cmswing_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -671,6 +717,14 @@ INSERT INTO `cmswing_picture` VALUES ('5', '/upload/picture/2015-12-25/1KlWY4ut1
 INSERT INTO `cmswing_picture` VALUES ('6', '/upload/picture/2015-12-25/4HLlzNvjnlyUnKY8X6Y-U6h1.jpg', '', '', '', '1', '1451052030761');
 INSERT INTO `cmswing_picture` VALUES ('7', '/upload/picture/2015-12-25/gax_wWo9sZR-JZ_b0DBiugta.jpg', '', '', '', '1', '1451052354530');
 INSERT INTO `cmswing_picture` VALUES ('8', '/upload/picture/2015-12-25/NZ4-YBz5LHnCqp2sqDFwIfWs.png', '', '', '', '1', '1451052483035');
+INSERT INTO `cmswing_picture` VALUES ('9', '/upload/picture/2015-12-26/BUNOS_nHpdGFKtdZvYKDRQ49.png', '', '', '', '1', '1451110257877');
+INSERT INTO `cmswing_picture` VALUES ('10', '/upload/picture/2015-12-26/VD4YVQCeo2mvRJ_KkMGYHKSW.png', '', '', '', '1', '1451110401131');
+INSERT INTO `cmswing_picture` VALUES ('11', '/upload/picture/2015-12-28/eoBllez-pPPyHe1Lj-pWxr7W.jpg', '', '', '', '1', '1451301404071');
+INSERT INTO `cmswing_picture` VALUES ('12', '/upload/picture/2015-12-28/_K9Z1B2lCgpRsXhRou2dwdlg.jpg', '', '', '', '1', '1451303946844');
+INSERT INTO `cmswing_picture` VALUES ('13', '/upload/picture/2015-12-28/rk4XLHU1fZ_XsS1YA6atoOWB.jpg', '', '', '', '1', '1451303973834');
+INSERT INTO `cmswing_picture` VALUES ('14', '/upload/picture/2015-12-28/9keT7MphBbnHeWjHIIqRaXdj.jpg', '', '', '', '1', '1451307702105');
+INSERT INTO `cmswing_picture` VALUES ('15', '/upload/picture/2015-12-28/FlgennevswlBDjJUcr0RtRTP.jpg', '', '', '', '1', '1451307713630');
+INSERT INTO `cmswing_picture` VALUES ('16', '/upload/picture/2015-12-28/otYhAIEH88KXND-CWLYB-Vbc.png', '', '', '', '1', '1451309044762');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -740,7 +794,7 @@ INSERT INTO `cmswing_setup` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '�
 INSERT INTO `cmswing_setup` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭\r\n1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11');
 INSERT INTO `cmswing_setup` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '0');
 INSERT INTO `cmswing_setup` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '0');
-INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '1386645376', '1387178083', '1', '10', '0');
+INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '4294967295', '1387178083', '1', '10', '0');
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');

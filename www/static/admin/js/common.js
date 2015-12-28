@@ -33,7 +33,7 @@ $('.ajax-get').click(function(){
                     }else{
                         location.reload();
                     }
-                },1000);
+                },1500);
             }else{
                 toastr.error(data.errmsg);
                 setTimeout(function(){
@@ -42,7 +42,7 @@ $('.ajax-get').click(function(){
                     }else{
                         toastr.clear()
                     }
-                },1000);
+                },1500);
             }
         });
 

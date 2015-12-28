@@ -303,6 +303,17 @@ export default class extends Base {
     });
     return this.display();
   }
+  //编辑文档
+  async editAction(){
+    let id = this.get('id')||"";
+    if(think.isEmpty(id)){
+      this.fail("参数不能为空");
+    }
+    //获取详细数据；
+    let document = this.model("document")
+    let data = await document.detail(id);
+      console.log(data);
+  }
   updateAction(){
      let post1 = this.post();
      console.log(post1);

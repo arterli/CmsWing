@@ -26,12 +26,14 @@ export default class extends think.controller.rest {
     console.log(this.resource)
     console.log(this.id)
     let data;
-    if (this.id) {
+    if (think.isNumberString(this.id)) {
       let pk = yield this.modelInstance.getPk();
       data = yield this.modelInstance.where({[pk]: this.id}).find();
       return this.success(data);
+    }else {
+      data = yield this.modelInstance.select();
     }
-    data = yield this.modelInstance.select();
+
     return this.success(data);
   }
 

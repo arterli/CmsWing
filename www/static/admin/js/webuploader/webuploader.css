@@ -25,7 +25,12 @@
 	opacity: 0.6;
 	pointer-events:none;
 }
-
+.picker {
+	display: inline-block;
+	line-height: 1.42857;
+	margin: 0 12px 0 0;
+	vertical-align: middle;
+}
 .uploader-list {
 	overflow: hidden;
 	width: 100%;
