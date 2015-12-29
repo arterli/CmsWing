@@ -285,7 +285,7 @@ export default class extends Base {
     }
     //获取表单字段排序
     let fields = await this.model("attribute").get_model_attribute(model.id);
-    console.log(fields);
+    //console.log(fields);
     //获取当前分类文档的类型
     let type_list = await this.model("category").get_type_bycate(cate_id);
     //获取面包屑信息
@@ -312,7 +312,33 @@ export default class extends Base {
     //获取详细数据；
     let document = this.model("document")
     let data = await document.detail(id);
-      console.log(data);
+    //let model =  this.model("model").getmodel(2);
+    if(data.pid != 0){
+      //获取上级文档
+      let article = document.field("id,title,type").find(data.pid);
+      this.assign('article',article);
+    }
+    let model = await this.model("model").get_document_model(data.model_id);
+    this.assign('data',data);
+    this.assign('model_id',data.model_id);
+    this.assign('model',model);
+    //获取表单字段排序
+    let fields = await this.model("attribute").get_model_attribute(model.id);
+    this.assign('fields',fields);
+    //获取当前分类文档的类型
+    let type_list = await this.model("category").get_type_bycate(data.category_id);
+    //获取面包屑信息
+    let nav = await this.model('category').get_parent_category(data.category_id);
+    //console.log(model);
+    this.assign('breadcrumb',nav);
+    //console.log(model);
+    this.assign('type_list',type_list);
+    this.meta_title = '编辑'+model.title;
+    this.active = "admin/article/index";
+    this.assign({
+      "navxs":true,
+    });
+    this.display();
   }
   updateAction(){
      let post1 = this.post();

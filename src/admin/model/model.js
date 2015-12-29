@@ -73,6 +73,7 @@ export default class extends think.model.base {
      * @param  string  field 模型字段
      * @return array
      */
+
     async get_document_model(id = null, field = null){
 
         /* 非法分类ID */
@@ -104,5 +105,8 @@ export default class extends think.model.base {
             lists[v.id] = v
         }
         return lists;
+    }
+    getmodel(id){
+        return id;
     }
 }

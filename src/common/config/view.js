@@ -93,7 +93,15 @@ export default {
         env.addFilter("get_list_field",function(data,grid, controller,module){
           return get_list_field(data,grid, controller,module);
         })
-
+        /**
+         * 时间戳格式化 dateformat()
+         * @param extra 'Y-m-d H:i:s'
+         * @param date  时间戳
+         * @return  '2015-12-17 15:39:44'
+         */
+        env.addFilter("dateformat",function(extra, date){
+          return dateformat(date,extra);
+        })
       }
     }
   }

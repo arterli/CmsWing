@@ -1,0 +1,468 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+<!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
+<script src="/static/admin/js/jquery.min.js"></script>
+<!--<script src="/static/admin/js/uploadify/jquery.uploadify.min.js"></script>-->
+<link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
+<script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+<style type="text/css">
+    .tab-content > .tab-pane{
+        position: absolute !important;
+        clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+        clip: rect(1px,1px,1px,1px);
+        display: block;
+    }
+    .tab-content > .active {
+        position:static !important;
+        clip: inherit; /* IE6, IE7 */
+        clip:inherit;
+        display: block;
+    }
+
+</style>
+{% endblock%}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/article_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+
+                        <!-- .breadcrumb -->
+                        <ul class="breadcrumb">
+                            <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
+                            {% for nav in breadcrumb%}
+                            {% if data.category_id == nav.id %}
+                            <li class="active">{{nav.title}} : {{controller.meta_title}}</li>
+                            {%else%}
+                            <li><a href="/admin/article/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                        <!-- / .breadcrumb -->
+                        <div class="row">
+                            <div class="col-lg-10"><section class="panel panel-default">
+                                <header class="panel-heading text-right bg-light">
+                                    <ul class="nav nav-tabs pull-left">
+                                        {% for key ,group in model.field_group | parse_config_attr %}
+                                        <li {% if 1 == key %} class="active" {% endif %}><a data-toggle="tab" href="#tabl-{{key}}"><i class="fa fa-comments text-muted"></i> {{group}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    <span class="hidden-sm">Left</span>
+                                </header>
+                                <div class="panel-body">
+                                    <form id="ajaxForm" action="/admin/article/update" method="post" class="form-horizontal" data-validate="parsley">
+                                    <div class="tab-content">
+
+                                        {% for key ,group in model.field_group | parse_config_attr %}
+                                        <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
+                                            {% for field in fields[key] %}
+                                            {% if field.is_show == 1 or field.is_show == 2 %}
+                                            <div class="form-group">
+
+                                                <label class="col-sm-2 control-label">{{field.title}}</label>
+
+                                                <div class="col-sm-10">
+
+                                                    <div class="row">
+                                                        {% if field.type == "num" %}
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}" data-required="true" >
+                                                        </div>
+                                                        {% elif field.type == "string" %}
+                                                        <div class="col-md-10">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}" data-required="true" >
+                                                        </div>
+                                                        {% elif field.type == "textarea" %}
+                                                        <div class="col-md-8">
+                                                            <textarea name="{{field.name}}" class="form-control">{{data[field.name]}}</textarea>
+                                                        </div>
+                                                        {% elif field.type == "date" %}
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="{{field.name}}" class="form-control date" value="{{data[field.name]|dateformat('Y-m-d')}}" placeholder="请选择日期" />
+                                                        </div>
+                                                        {% elif field.type == "datetime" %}
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="{{field.name}}" class="form-control time" value="{{data[field.name]|dateformat('Y-m-d H:i')}}" placeholder="请选择时间" />
+                                                        </div>
+                                                        {% elif field.type == "bool" %}
+                                                        <div class="col-md-4">
+                                                            <select class="form-control " name="{{field.name}}">
+                                                                {% for k ,v in field.extra|parse_config_attr %}
+                                                                <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% elif field.type == "select" %}
+                                                        <div class="col-md-3">
+                                                            <select class="form-control " name="{{field.name}}">
+                                                                {% for k ,v in field.extra|parse_config_attr %}
+                                                                <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        {% elif field.type == "radio" %}
+                                                        <div class="col-sm-10">
+                                                            {% for k ,v in field.extra|parse_config_attr %}
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="{{k}}" name="{{field.name}}" {% if data[field.name] == k%} checked {%endif%}><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% elif field.type == "checkbox" %}
+                                                        <div class="col-sm-10">
+                                                            {% for k ,v in field.extra|parse_config_attr %}
+                                                            <label class="checkbox-inline i-checks">
+                                                                <input type="checkbox" value="{{k}}" name="{{field.name}}" {% if data[field.name] == k%} checked {%endif%}><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% elif field.type == "editor" %}
+                                                        <div class="col-sm-10">
+                                                            <div id="epiceditor" ></div>
+                                                        </div>
+                                                        {% elif field.type == "picture" %}
+                                                        <div class="col-sm-10">
+                                                            <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}"/>
+                                                            <div id="fileList_{{field.name}}" class="uploader-list"></div>
+                                                            <div id="filePicker_{{field.name}}">选择图片</div>
+
+                                                        <script type="text/javascript">
+                                                           $list_{{field.name}} = $('#fileList_{{field.name}}'),
+                                                           // 优化retina, 在retina下这个值是2
+                                                               ratio_{{field.name}} = window.devicePixelRatio || 1,
+
+                                                           // 缩略图大小
+                                                               thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
+                                                               thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
+
+                                                           // Web Uploader实例
+                                                               uploader_{{field.name}};
+
+                                                       // 初始化Web Uploader
+                                                       // 初始化Web Uploader
+                                                       var uploader_{{field.name}} = WebUploader.create({
+                                                           // 选完文件后，是否自动上传。
+                                                           auto: true,
+                                                           // swf文件路径
+                                                           swf: '/static/admin/js/webuploader/Uploader.swf',
+                                                           // 文件接收服务端。
+                                                           server: '/admin/file/uploadpic',
+                                                           // 选择文件的按钮。可选。
+                                                           // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                                           pick: {
+                                                               id:'#filePicker_{{field.name}}',
+                                                               multiple: false
+                                                           },
+                                                           // 只允许选择图片文件。
+                                                           accept: {
+                                                               title: 'Images',
+                                                               extensions: 'gif,jpg,jpeg,bmp,png',
+                                                               mimeTypes: 'image/*'
+                                                           }
+                                                       });
+                                                       // 当有文件添加进来的时候
+                                                       uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+                                                           var $li = $(
+                                                                           '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                                                           '<img>' +
+                                                                           '<div class="info">' + file.name + '</div>' +
+                                                                           '</div>'
+                                                                   ),
+                                                                   $img = $li.find('img');
+
+                                                           $list_{{field.name}}.html( $li );
+
+                                                           // 创建缩略图
+                                                           uploader_{{field.name}}.makeThumb( file, function( error, src ) {
+                                                               if ( error ) {
+                                                                   $img.replaceWith('<span>不能预览</span>');
+                                                                   return;
+                                                               }
+
+                                                               $img.attr( 'src', src );
+                                                           }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
+                                                       });
+
+                                                       // 文件上传过程中创建进度条实时显示。
+                                                       uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+
+                                                           var $li = $( '#'+file.id ),
+                                                                   $percent = $li.find('.progress span');
+
+                                                           // 避免重复创建
+                                                           if ( !$percent.length ) {
+                                                               $percent = $('<p class="progress"><span></span></p>')
+                                                                       .appendTo( $li )
+                                                                       .find('span');
+                                                           }
+
+                                                           $percent.css( 'width', percentage * 100 + '%' );
+                                                       });
+
+                                                       // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                                                       uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                                                           $( '#'+file.id ).addClass('upload-state-done');
+                                                           $("#cover_id_{{field.name}}").val(res);
+                                                       });
+
+                                                       // 文件上传失败，现实上传出错。
+                                                       uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                                                           var $li = $( '#'+file.id ),
+                                                                   $error = $li.find('div.error');
+
+                                                           // 避免重复创建
+                                                           if ( !$error.length ) {
+                                                               $error = $('<div class="error"></div>').appendTo( $li );
+                                                           }
+
+                                                           $error.text('上传失败');
+                                                       });
+
+                                                       // 完成上传完了，成功或者失败，先删除进度条。
+                                                       uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                                                           $( '#'+file.id ).find('.progress').remove();
+                                                       });
+                                                   </script>
+                                                            </div>
+                                                        {% elif field.type == "file" %}
+
+                                                        <div class="col-md-10">
+                                                            <!--用来存放文件信息-->
+                                                            <div id="thelist_{{field.name}}" class="uploader-list"></div>
+                                                            <div class="btns">
+                                                                <input type="hidden" name="{{field.name}}" value="{{data[field['name']]}}"/>
+                                                                <div id="picker_{{field.name}}" class="picker">选择文件</div>
+                                                                <a id="ctlBtn_{{field.name}}" class="btn btn-default">开始上传</a>
+                                                            </div>
+                                                            <script type="text/javascript">
+                                                                jQuery(function() {
+                                                                    var $ = jQuery,
+                                                                            $list_{{field.name}} = $('#thelist_{{field.name}}'),
+                                                                            $btn_{{field.name}} = $('#ctlBtn_{{field.name}}'),
+                                                                            state = 'pending',
+                                                                            uploader_{{field.name}};
+
+                                                                    uploader_{{field.name}} = WebUploader.create({
+
+                                                                        // 不压缩image
+                                                                        resize: false,
+
+                                                                        // swf文件路径
+                                                                        swf:'/static/admin/js/webuploader/Uploader.swf',
+
+                                                                        // 文件接收服务端。
+                                                                        server: '/admin/file/upload',
+
+                                                                        // 选择文件的按钮。可选。
+                                                                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                                                        pick: {
+                                                                            id:'#picker_{{field.name}}',
+                                                                            multiple: false
+                                                                        },
+                                                                        fileNumLimit:1
+                                                                    });
+
+                                                                    // 当有文件添加进来的时候
+                                                                    uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+
+                                                                        $list_{{field.name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
+                                                                                ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
+                                                                                '<h4 class="info">' + file.name + '</h4>' +
+                                                                                '<p class="state">等待上传...</p>' +
+                                                                                '</div>' );
+                                                                            var $li_{{field.name}} = $( '#'+file.id );
+                                                                                $li_{{field.name}}.on('click', '.remove-this', function() {
+                                                                                    uploader_{{field.name}}.removeFile( file.id );
+//                                                                                 $list_{{field.name}}.html("");
+                                                                                })
+
+                                                                    });
+
+                                                                    // 文件上传过程中创建进度条实时显示。
+                                                                    uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+                                                                        var $li_{{field.name}} = $( '#'+file.id ),
+                                                                                $percent_{{field.name}} = $li_{{field.name}}.find('.progress .progress-bar');
+
+                                                                        // 避免重复创建
+                                                                        if ( !$percent_{{field.name}}.length ) {
+                                                                            $percent_{{field.name}} = $('<div class="progress progress-striped active">' +
+                                                                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                                                                                    '</div>' +
+                                                                                    '</div>').appendTo( $li_{{field.name}} ).find('.progress-bar');
+                                                                        }
+
+                                                                        $li_{{field.name}}.find('p.state').text('上传中');
+
+                                                                        $percent_{{field.name}}.css( 'width', percentage * 100 + '%' );
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                                                                        var name = "{{field.name}}";
+                                                                        $("input[name="+name+"]").val(res.id);
+                                                                        $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                                                                        $( '#'+file.id ).find('p.state').text('上传出错');
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                                                                        $( '#'+file.id ).find('.progress').fadeOut();
+                                                                    });
+
+                                                                    uploader_{{field.name}}.on( 'all', function( type ) {
+                                                                        if ( type === 'startUpload' ) {
+                                                                            state = 'uploading';
+                                                                        } else if ( type === 'stopUpload' ) {
+                                                                            state = 'paused';
+                                                                        } else if ( type === 'uploadFinished' ) {
+                                                                            state = 'done';
+                                                                        }
+
+                                                                        if ( state === 'uploading' ) {
+                                                                            $btn_{{field.name}}.text('暂停上传');
+                                                                        } else {
+                                                                            $btn_{{field.name}}.text('开始上传');
+                                                                        }
+                                                                    });
+
+                                                                    $btn_{{field.name}}.on( 'click', function() {
+                                                                        if ( state === 'uploading' ) {
+                                                                            uploader_{{field.name}}.stop();
+                                                                        } else {
+                                                                            uploader_{{field.name}}.upload();
+                                                                        }
+                                                                    });
+                                                                });
+
+                                                            </script>
+                                                        </div>
+                                                        {% else %}
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" data-required="true" >
+                                                        </div>
+                                                        {% endif %}
+
+                                                        {% if field.remark %}
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark}}</span>
+                                                        </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+
+                                            {% endfor%}</div>
+                                        {% endfor %}
+                                    </div>
+                                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                                        <div class="form-group">
+                                            <div class="col-sm-4 col-sm-offset-2">
+                                                <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                                        type="submit">返回
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        </form>
+                                </div>
+                            </section></div>
+                            <div class="col-lg-2">
+                               left
+                                  </div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<!-- markdown -->
+<script src="/static/admin/js/markdown/epiceditor.min.js"></script>
+<script src="/static/admin/js/markdown/demo.js"></script>
+
+<script type="text/javascript">
+    <!--
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/article/getmenu",
+            otherParam: ["action", "add"]
+        },
+        view: {
+            showLine: true,
+            selectedMulti: false,
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess
+        }
+    };
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        //console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id= $("#"+treeId).attr("data-cate");
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        console.log(treeId)
+        treeObj.selectNode(curMenu);
+    };
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+                type = e.data.type,
+                nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+
+
+    //-->
+    $(function(){
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting).expandAll(true);
+        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+        $('.date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+
+
+    })
+</script>
+{% endblock %}}
