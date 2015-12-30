@@ -11,7 +11,7 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  indexAction(){
+  async indexAction(){
     //auto render template file index_index.html
     this.config = this.config("ueditor");
     let action = this.get("action");
@@ -46,7 +46,7 @@ export default class extends Base {
 
       /* 抓取远程文件 */
       case 'catchimage':
-        result = this.crawler();
+        result = await this.crawler();
         break;
 
       default:
@@ -58,6 +58,7 @@ export default class extends Base {
     }
    console.log(this.get("callback")) ;
     //返回结果
+    console.log(result);
     this.jsonp(result);
 
   }
@@ -74,20 +75,6 @@ export default class extends Base {
      *     "size" : "",           //文件大小
      * }
      */
-    //let obj={
-    //     "state" : "SUCCESS",          //上传状态，上传成功时必须返回"SUCCESS"
-    //     "url" : "",            //返回的地址
-    //     "title" : "",          //新文件名
-    //     "original" : "",       //原始文件名
-    //     "type" : "" ,           //文件类型
-    //       "size" : "",           //文件大小
-    // }
-
-
-      //var filed = this.file("upfile");
-      //var oriName = filed.originalFilename;
-      //var size = filed.size;
-      //var path = filed.path;
       let action = this.get("action");
       let base64 = "upload";
       let config = {};
@@ -137,7 +124,7 @@ export default class extends Base {
   }
 
   //抓取远程图片
-  crawler(){
+  async crawler(){
     /* 上传配置 */
     let config = {
       "pathFormat" : this.config['catcherPathFormat'],
@@ -147,11 +134,109 @@ export default class extends Base {
     };
     let fieldName = this.config['catcherFieldName'];
     let source = this.post(fieldName+"[]");
+    let list = [];
     for(let imgUrl of source){
       let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
       let upload = new up(imgUrl, config, "remote"); //实例化 Adapter
-      let info =  upload.getFileInfo();
-      //TODO
+      let info =  await upload.saveRemote();
+      //console.log(info);
+      list.push({"state":"SUCCESS","url":info.url,"size":431521,"title":info.title,"original":info.original,"source":imgUrl});
+    }
+   //console.log(think.isEmpty(list));
+    return {
+      state:!think.isEmpty(list) ? 'SUCCESS':'ERROR',
+      list:list
+    }
+  }
+
+  /**
+   * 获取已上传的文件列表
+   */
+  uploadlist() {
+    var allowFiles, listSize, path;
+    //判断类型
+    switch (this.get("action")) {
+      //列出文件
+      case 'listfile':
+        allowFiles = this.config['fileManagerAllowFiles'];
+        listSize = this.config['fileManagerListSize'];
+        path = this.config['fileManagerListPath'];
+        break;
+      //列出图片
+      case 'listimage':
+      default:
+        allowFiles = this.config['imageManagerAllowFiles'];
+        listSize = this.config['imageManagerListSize'];
+        path = this.config['imageManagerListPath'];
+    }
+    //allowFiles = allowFiles.join("").replace(/[.]/g,"|").substr(1);
+    /* 获取参数 */
+    var size = this.get('size') ? this.get('size') : listSize;
+    var start = this.get('start') ? this.get('start') : 0;
+    var end = parseInt(size) + parseInt(start);
+    /* 获取文件列表 */
+    path = path.substr(0, path.lastIndexOf("/"));
+    var files = this.scanFolder(path).files;
+    if (files.length == 0) {
+      return {
+        "state": "no match file",
+        "list": [],
+        "start": start,
+        "total": files.length
+      }
+    }
+    /* 获取指定范围的列表 */
+    var len = files.length;
+    var files_n=[];
+    for(var i = 0; i<len ; i++){
+      var t= files[i].substr(files[i].lastIndexOf(".")).toLocaleLowerCase();
+      if(in_array(t,allowFiles)){
+        files_n.push(files[i])
+      }
+    }
+
+    var lenn=files_n.length;
+    for (var i = Math.min(end, lenn) - 1,list=[]; i < lenn && i >= 0 && i >= start; i--) {
+      var f=files_n[i];
+      list.push({url:f});
+    }
+    console.log(list);
+    return {
+      "state": "SUCCESS",
+      "list": list,
+      "start": start,
+      "total": files.length
+    };
+
+  }
+  /**
+   * 遍历获取目录下的指定类型的文件
+   */
+  scanFolder(path) {
+    var fileList = [],
+        folderList = [],
+        walk = function (path, fileList, folderList) {
+          let files = fs.readdirSync(think.RESOURCE_PATH+"/"+path);
+          files.forEach(function (item) {
+            var tmpPath = path + '/' + item,
+                stats = fs.statSync(think.RESOURCE_PATH+"/"+tmpPath);
+
+            if (stats.isDirectory()) {
+              walk(tmpPath, fileList, folderList);
+              folderList.push(tmpPath);
+            } else {
+              fileList.push(tmpPath);
+            }
+          });
+        };
+
+    walk(path, fileList, folderList);
+
+    console.log('扫描' + path + '成功');
+
+    return {
+      'files': fileList,
+      'folders': folderList
     }
   }
 }

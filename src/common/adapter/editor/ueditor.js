@@ -4,19 +4,20 @@
  */
 import fs from 'fs';
 import path from 'path';
+import http from 'http';
 export default class extends think.adapter.base {
   /**
    * init
    * @return {[]}         []
    */
-  init(fileField, config, type = "upload",http){
+ init(fileField, config, type = "upload",http){
     //super.init(http);
     this.http = http;
     this.fileField = fileField;
     this.config = config;
     this.type = type;
     if (type == "remote") {
-      this.saveRemote();
+      //await this.saveRemote();
     } else if(type == "base64") {
       this.upBase64();
     } else {
@@ -103,6 +104,64 @@ export default class extends think.adapter.base {
     }
 
   }
+
+  spiderImage(imgUrl,filePath) {
+    let deferred = think.defer();
+    http.get(imgUrl, function (res) {
+      var imgData = "";
+      res.setEncoding("binary");
+      res.on("data", function (chunk) {
+        imgData += chunk;
+      });
+
+      res.on("end", function () {
+        fs.writeFileSync(filePath, imgData, "binary");
+        deferred.resolve(filePath);
+      });
+    });
+    return deferred.promise;
+  }
+  /**
+   * 拉取远程图片
+   * @return mixed
+   */
+  async saveRemote(){
+    let imgUrl = this.fileField;
+    //imgUrl = imgUrl.replace(/&amp;/,"&");
+    //http开头验证
+    if (imgUrl.indexOf("http") !== 0) {
+      this.stateInfo = "链接不是http链接";
+      return;
+    }
+    //TODO 各种验证后面弄
+    let m = imgUrl.match(/[\/]([^\/]*)[\.]?[^\.\/]*$/)[1];
+    this.oriName = m ? m:"";
+    //console.log(this.oriName);
+    this.fileSize = imgUrl.length;//TODO 这里有问题，后面弄
+    this.fileType = this.getFileExt();
+    this.fullName = this.getFullName();
+    this.filePath = this.getFilePath();
+    this.fileName = this.getFileName();
+    let filePath = this.filePath;
+    let fullName =this.fullName;
+    think.mkdir(this.filePath.replace(this.fileName, ""));
+    let promises = await this.spiderImage(imgUrl,filePath);
+   // console.log(promises);
+    if(think.isFile(promises)){
+      this.stateInfo = "SUCCESS";
+    }else{
+      this.stateInfo ='文件保存时出错';
+    }
+    return {
+      "state" : this.stateInfo,
+      "url" : this.fullName,
+      "title" : this.fileName,
+      "original" : this.oriName,
+      "type" : this.fileType,
+      "size" : this.fileSize
+    };
+  }
+
   /**
    * 获取文件扩展名
    * @return string
