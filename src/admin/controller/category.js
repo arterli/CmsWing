@@ -31,10 +31,17 @@ export default class extends Base {
     /**
      * 添加栏目
      */
-    addAction(){
+    async addAction(){
         if(this.isPost()){
            console.log(this.post())
         }else{
+
+            //获取模型信息；
+            let model = await this.model("model").get_document_model();
+            //console.log(obj_values(model));
+            this.assign("models",obj_values(model));
+            //获取运行的文档类型
+
             this.assign({
                 "tactive":"sysm",
                 "active":"/admin/category/index",

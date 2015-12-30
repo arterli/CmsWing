@@ -77,9 +77,9 @@ export default class extends think.model.base {
     async get_document_model(id = null, field = null){
 
         /* 非法分类ID */
-        if(!(think.isNumberString(id) || think.isNumber(id))){
-            return '';
-        }
+        //if(!(think.isNumberString(id) || think.isNumber(id))){
+        //    return '555';
+        //}
 
         /* 读取缓存数据 */
         let list = await think.cache("get_document_model", () => {

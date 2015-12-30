@@ -56,9 +56,7 @@ export default class extends Base {
 
         break;
     }
-   console.log(this.get("callback")) ;
     //返回结果
-    console.log(result);
     this.jsonp(result);
 
   }
@@ -200,7 +198,7 @@ export default class extends Base {
       var f=files_n[i];
       list.push({url:f});
     }
-    console.log(list);
+
     return {
       "state": "SUCCESS",
       "list": list,

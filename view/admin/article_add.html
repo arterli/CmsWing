@@ -100,7 +100,7 @@
                                                         </div>
                                                         {% elif field.type == "bool" %}
                                                         <div class="col-md-4">
-                                                            <select class="form-control " name="{{field.name}}">
+                                                            <select class="form-control" name="{{field.name}}">
                                                                 {% for k ,v in field.extra|parse_config_attr %}
                                                                 <option value="{{k}}" {% if field.value == k%} selected {%endif%}>{{v}}</option>
                                                                 {% endfor %}
@@ -131,9 +131,9 @@
                                                             {% endfor %}
                                                         </div>
                                                         {% elif field.type == "editor" %}
-                                                        <div class="col-sm-10">
+                                                        <div class="col-sm-12">
                                                             <!-- 加载编辑器的容器 -->
-                                                            <script id="Editor_{{field.name}}" name="{{field.name}}" type="text/plain">
+                                                            <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">
 
                                                              </script>
                                                             <!-- 实例化编辑器 -->
@@ -377,11 +377,10 @@
                                                 </div>
                                             </div>
                                             {% endif %}
-
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
                                             {% endfor%}</div>
                                         {% endfor %}
                                     </div>
-                                        <div class="line line-dashed b-b line-lg pull-in"></div>
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">
                                                 <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
