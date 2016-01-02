@@ -173,7 +173,7 @@
         }
         };
     function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
-        //console.log(treeNode)
+       // console.log(treeNode)
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         treeObj.expandAll(true);
         var id= $("#"+treeId).attr("data-cate");

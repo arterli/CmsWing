@@ -33,7 +33,14 @@ export default class extends Base {
      */
     async addAction(){
         if(this.isPost()){
-           console.log(this.post())
+            let data = this.post();
+            data.status = 1;
+            let res = await this.model("category").updates(data);
+            if(res){
+                this.success({name:"新增成功！",url:"/admin/category/index"});
+            }else {
+                this.fail("更新失败！");
+            }
         }else{
 
             //获取模型信息；
@@ -41,14 +48,36 @@ export default class extends Base {
             //console.log(obj_values(model));
             this.assign("models",obj_values(model));
             //获取运行的文档类型
-
-            this.assign({
-                "tactive":"sysm",
-                "active":"/admin/category/index",
-            })
+            this.active="admin/category/index";
+            this.action = "/admin/category/add"
             this.meta_title = "添加分类"
             return this.display();
         }
 
+    }
+
+    /**编辑分类
+     *
+     */
+    async editAction(){
+       let category = this.model("category");
+        if(this.isPost()){
+        console.log(this.post());
+        }else {
+          let id = this.get("cid");
+            console.log(id);
+            //获取分类信息
+            let info = await category.find(id);
+            this.assign("info",info);
+            console.log(info);
+            //获取模型信息；
+            let model = await this.model("model").get_document_model();
+            //console.log(obj_values(model));
+            this.assign("models",obj_values(model));
+            this.active="admin/category/index";
+                this.action = "/admin/category/edit";
+                this.meta_title = "编辑分类";
+           return this.display("add");
+        }
     }
 }
