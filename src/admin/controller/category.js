@@ -62,7 +62,14 @@ export default class extends Base {
     async editAction(){
        let category = this.model("category");
         if(this.isPost()){
-        console.log(this.post());
+            let data = this.post();
+            data.status = 1;
+            let res = await this.model("category").updates(data);
+            if(res){
+                this.success({name:"更新成功！",url:"/admin/category/index"});
+            }else {
+                this.fail("更新失败！");
+            }
         }else {
           let id = this.get("cid");
             console.log(id);
@@ -77,7 +84,7 @@ export default class extends Base {
             this.active="admin/category/index";
                 this.action = "/admin/category/edit";
                 this.meta_title = "编辑分类";
-           return this.display("add");
+           return this.display();
         }
     }
 }

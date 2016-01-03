@@ -34,7 +34,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3">
-                                        <select class="form-control" name="pid" id="pid">
+                                        <select class="form-control" name="pid" id="pid" data-pid="{{info.pid}}">
                                         </select>
                                         </div>
                                             <div class="col-md-12">
@@ -48,7 +48,7 @@
                                     <label class="col-sm-2 control-label">分类名称</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-3"><input name="title" type="text" class="form-control" ></div>
+                                        <div class="col-md-3"><input name="title" type="text" class="form-control" value="{{info.title}}"></div>
                                             <div class="col-md-12">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                         </div>
@@ -60,7 +60,7 @@
                                     <label class="col-sm-2 control-label">分类标识</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-3"><input name="name" type="text" class="form-control"></div>
+                                        <div class="col-md-3"><input name="name" type="text" value="{{info.name}}" class="form-control"></div>
                                             <div class="col-md-12">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母.</span>
                                         </div>
@@ -72,7 +72,7 @@
                                     <label class="col-sm-2 control-label">分组定义</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><textarea name="groups"  class="form-control"></textarea></div>
+                                        <div class="col-md-5"><textarea name="groups"  class="form-control">{{info.groups}}</textarea></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 分组定义</span>
                                         </div>
@@ -86,13 +86,13 @@
                                         <div class="row">
                                         <div class="col-md-10">
                                         <label class="radio-inline i-checks">
-                                            <input type="radio" value="0" name="allow_publish"><i></i> 不允许
+                                            <input type="radio" {% if 0 == info.allow_publish %} checked="checked" {% endif %} value="0" name="allow_publish"><i></i> 不允许
                                         </label>
                                         <label class="radio-inline i-checks">
-                                            <input type="radio"  value="1" name="allow_publish"><i></i> 仅允许后台
+                                            <input type="radio" {% if 1 == info.allow_publish %} checked="checked" {% endif %} value="1" name="allow_publish"><i></i> 仅允许后台
                                         </label>
                                         <label class="radio-inline i-checks">
-                                            <input type="radio"  value="2" name="allow_publish"><i></i> 允许前后台
+                                            <input type="radio" {% if 2 == info.allow_publish %} checked="checked" {% endif %} value="2" name="allow_publish"><i></i> 允许前后台
                                         </label>
                                         </div>
                                         <div class="col-md-12">
@@ -108,10 +108,10 @@
                                     <div class="row">
                                     <div class="col-md-10">
                                         <label class="radio-inline i-checks">
-                                            <input type="radio"  value="0" name="check"><i></i> 不需要
+                                            <input type="radio" {% if 0 == info.check %} checked="checked" {% endif %} value="0" name="check"><i></i> 不需要
                                         </label>
                                         <label class="radio-inline i-checks">
-                                            <input type="radio"  value="1" name="check"><i></i> 需要
+                                            <input type="radio" {% if 1 == info.check %} checked="checked" {% endif %} value="1" name="check"><i></i> 需要
                                         </label>
                                     </div>
                                         <div class="col-md-12">
@@ -128,7 +128,7 @@
                                         <div class="col-md-10">
                                             {% for key , val in http.config("document_model_type") %}
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox"  value="{{key}}" name="type"><i></i> {{val}}
+                                                <input type="checkbox" {% if key == info.check %} checked="checked" {% endif %} value="{{key}}" name="type"><i></i> {{val}}
                                             </label>
                                             {% endfor%}
                                         </div>
@@ -146,7 +146,7 @@
                                         <div class="col-md-10">
                                             {% for list in models %}
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" value="{{list.id}}" name="model"><i></i> {{list.title}}
+                                                <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %} value="{{list.id}}" name="model"><i></i> {{list.title}}
                                             </label>
                                            {% endfor %}
                                         </div>
@@ -164,7 +164,7 @@
                                         <div class="col-md-10">
                                             {% for list in models %}
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox"   value="{{list.id}}" name="model_sub"><i></i> {{list.title}}
+                                                <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %}  value="{{list.id}}" name="model_sub"><i></i> {{list.title}}
                                             </label>
                                             {% endfor %}
 
@@ -300,13 +300,13 @@
                                         <div class="row">
                                         <div class="col-md-10">
                                             <label class="radio-inline i-checks">
-                                                <input type="radio"  value="1" name="display"><i></i> 所有人可见
+                                                <input type="radio" {% if 1 == info.display %} checked="checked" {% endif %} value="1" name="display"><i></i> 所有人可见
                                             </label>
                                             <label class="radio-inline i-checks">
-                                                <input type="radio"   value="0" name="display"><i></i> 不可见
+                                                <input type="radio"  {% if 0 == info.display %} checked="checked" {% endif %} value="0" name="display"><i></i> 不可见
                                             </label>
                                             <label class="radio-inline i-checks">
-                                                <input type="radio"    value="2" name="display"><i></i> 管理员可见
+                                                <input type="radio"  {% if 2 == info.display %} checked="checked" {% endif %}  value="2" name="display"><i></i> 管理员可见
                                             </label>
                                         </div>
                                         <div class="col-md-12">
@@ -320,7 +320,7 @@
                                     <label class="col-sm-2 control-label">排序</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-2"><input name="sort" value="0" type="text" class="form-control"></div>
+                                        <div class="col-md-2"><input name="sort" value="{{info.sort}}" type="text" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 仅对当前层级分类有效</span>
                                         </div>
@@ -332,7 +332,7 @@
                                     <label class="col-sm-2 control-label">列表行数</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-2"><input name="list_row"  type="text" value="10" class="form-control"></div>
+                                        <div class="col-md-2"><input name="list_row"  type="text" value="{{info.list_row}}" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 列表行数</span>
                                         </div>
@@ -344,7 +344,7 @@
                                     <label class="col-sm-2 control-label">网页标题</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                        <div class="col-md-5"><input name="meta_title" value="{{info.meta_title}}" type="text" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 网页标题</span>
                                         </div>
@@ -357,7 +357,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-5">
-                                            <textarea class="form-control" name="keywords"></textarea></div>
+                                            <textarea class="form-control" name="keywords">{{info.keywords}}</textarea></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
                                         </div>
@@ -370,7 +370,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-5">
-                                            <textarea name="description" class="form-control"></textarea></div>
+                                            <textarea name="description" class="form-control">{{info.description}}</textarea></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 描述</span>
                                         </div>
@@ -382,7 +382,7 @@
                                     <label class="col-sm-2 control-label">频道模板</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><input name="template_index" type="text"  class="form-control"></div>
+                                        <div class="col-md-3"><input name="template_index" type="text" value="{{info.template_index}}" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
                                         </div>
@@ -394,7 +394,7 @@
                                     <label class="col-sm-2 control-label">列表模板</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><input name="template_lists"  type="text" class="form-control"></div>
+                                        <div class="col-md-3"><input name="template_lists" value="{{info.template_lists}}" type="text" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
                                         </div></div>
@@ -405,7 +405,7 @@
                                     <label class="col-sm-2 control-label">详情模板</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><input name="template_detail"  type="text" class="form-control"></div>
+                                        <div class="col-md-3"><input name="template_detail" value="{{info.template_detail}}" type="text" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
                                         </div></div>
@@ -416,7 +416,7 @@
                                     <label class="col-sm-2 control-label">编辑模板</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-5"><input name="template_edit"  type="text" class="form-control"></div>
+                                        <div class="col-md-3"><input name="template_edit" value="{{info.template_edit}}" type="text" class="form-control"></div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
                                         </div></div>
@@ -428,6 +428,7 @@
                         </div>
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{{info.id|default('',true)}}">
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
                                 </div>
@@ -469,10 +470,18 @@
             var html = [];
             var size = nodes.length;
             var left = null;
+            var pid ="{{info.pid}}";
+            var check = "";
+            if(pid==0){
+                check =  'selected="selected"';
+            }
             html.push('<option value="0" selected="selected">一级菜单</option>');
             for (var i = 0; i < size; i++) {
                 left = nodes[i];
-                html.push('<option value="' + left['id'] +  '">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                if(pid == left.id){
+                    check =  'selected="selected"';
+                }
+                html.push('<option value="' + left['id'] +  '" '+check+'>'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
             }
             return html.join("\n");
         }
