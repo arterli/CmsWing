@@ -26,7 +26,8 @@ export default class extends Base {
     this.assign({
       'version':think.CMSWING_VERSION,
       'OS':type(),
-      'nodejs_v':node.node
+      'nodejs_v':node.node,
+      'thinkjs':think.version
     })
     console.log(111)
     return this.display();

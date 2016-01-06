@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 'use strict';
 
 import Base from './base.js';
@@ -33,9 +40,9 @@ export default class extends Base {
       }else { // 子文档列表
         models = await this.model("category").get_category(cate_id,'model_sub');
       }
-      console.log(models);
-      console.log(!think.isNumberString(models));
-      console.log(think.isEmpty(model_id));
+      //console.log(models);
+      //console.log(!think.isNumberString(models));
+      //console.log(think.isEmpty(model_id));
       if(think.isEmpty(model_id) && !think.isNumberString(models)){
 
         // 绑定多个模型 取基础模型的列表定义
@@ -78,10 +85,12 @@ export default class extends Base {
       if(!think.isEmpty(val[2])){
         value.href  = val[2];
       }
-     // console.log(value);
+     console.log(val[1]);
+      if(val[1]){
       if(val[1].indexOf('|') > -1){
         // 显示格式定义
         [values.title,values.format]    =   val[1].split('|');
+      }
       }
       //console.log(field);
       for( let val  of field){

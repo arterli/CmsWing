@@ -102,6 +102,15 @@ export default {
         env.addFilter("dateformat",function(extra, date){
           return dateformat(date,extra);
         })
+        /**
+         * 获取行为类型
+         * @param intger type 类型
+         * @param bool all 是否返回全部类型
+         * @author arterli <arterli@qq.com>
+         */
+        env.addFilter("get_action_type",function(type, all = false){
+          return get_action_type(type,all);
+        })
       }
     }
   }

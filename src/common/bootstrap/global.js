@@ -501,3 +501,20 @@ global.get_list_field=function (data, grid, controller,module="admin"){
     //console.log(value)
     return value;
 }
+
+/**
+ * 获取行为类型
+ * @param intger type 类型
+ * @param bool all 是否返回全部类型
+ * @author arterli <arterli@qq.com>
+ */
+global.get_action_type=function (type, all = false){
+    let list = {
+        1:'系统',
+        2:'用户',
+};
+    if(all){
+        return list;
+    }
+    return list[type];
+}

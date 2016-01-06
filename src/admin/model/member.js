@@ -65,5 +65,23 @@ export default class extends think.model.base {
 
     }
 
+    /**
+     * 根据用户ID获取用户昵称
+     * @param  integer $uid 用户ID
+     * @return string       用户昵称
+     */
 
+    async get_nickname(uid=0){
+      if(!(uid && think.isNumberString(uid))){
+          let user = await this.session('userInfo');
+          return user.username;
+      }
+        //获取缓存数据
+
+        let name;
+        let info = await this.field("username").find(uid);
+        name = info.username;
+        return name;
+
+    }
 }
