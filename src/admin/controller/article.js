@@ -57,7 +57,7 @@ export default class extends Base {
         if (think.isEmpty(model['list_grid'])) {
           let data =await this.model('model').field('list_grid').where({name:'document'}).find();
           model.list_grid = data.list_grid;
-          console.log(model.list_grid);
+          console.log(33);
         }
       }
       this.assign('model',models.split(","))
@@ -85,7 +85,7 @@ export default class extends Base {
       if(!think.isEmpty(val[2])){
         value.href  = val[2];
       }
-     console.log(val[1]);
+     console.log(222);
       if(val[1]){
       if(val[1].indexOf('|') > -1){
         // 显示格式定义
@@ -116,7 +116,7 @@ export default class extends Base {
     //获取模型信息
     let modellist = [];
 
-    console.log(_model)
+    console.log(111111111)
     if(think.isEmpty(_model)){
       modellist = null;
     }else {
@@ -224,8 +224,9 @@ export default class extends Base {
     if(!think.isEmpty(group_id)){
       map['group_id']	=	group_id;
     }
-    console.log(field);
-    let list=await Document.where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+    console.log(44);
+    let list=await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+    //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
     let pages = new Pages(); //实例化 Adapter
     let page = pages.pages(list);

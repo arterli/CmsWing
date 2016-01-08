@@ -49,4 +49,10 @@ export default class extends think.controller.base {
 
 
     }
+    momentAction(){
+        let moment = require('moment');
+        let datetime = moment().unix();
+        moment(1318874398806).unix();
+        console.log( moment(1318874398806).format("dddd, MMMM Do YYYY, h:mm:ss a"));
+    }
 }
