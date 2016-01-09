@@ -23,6 +23,10 @@ export default class extends Base {
     return this.display();
   }
 
+  /**
+   * 日志列表
+   * @returns {*}
+     */
   async logAction(){
     //获取列表数据
     let map={}

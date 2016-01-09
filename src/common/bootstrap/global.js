@@ -518,3 +518,33 @@ global.get_action_type=function (type, all = false){
     }
     return list[type];
 }
+
+
+/**
+ * 返回一个自定义用户函数给出的第一个参数
+ *  call_user_func（回调 函数名， [参数]）
+ * @param cb  函数名
+ * @param params 数组格式传入参数
+ */
+global.call_user_func=function(cb, params) {
+    let func = eval(cb);
+    if(!think.isArray(params)){
+       params = [params];
+    }
+    return func.apply(cb, params);
+}
+
+/**
+ *根据uid获取用户昵称
+ * @param uid 用户id
+ * @returns Promise {*}
+ */
+global.get_nickname = async (uid) => {
+    let data = await think.model('member',think.config("db"),'admin').get_nickname(uid)
+    return data;
+}
+//时间格式
+global.time_format = (time)=>{
+
+    return dateformat('Y-m-d H:i:s',time);
+}

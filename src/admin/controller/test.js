@@ -37,17 +37,61 @@ export default class extends think.controller.base {
         this.assign("date",new Date().valueOf());
         return this.display()
     }
-    funAction(){
-        function add(a,b)
-        {
-            add.call(sub,3,1);
-        }
-        function sub(a,b)
-        {
-            console.log(a-b);
+    async funAction(){
+    let str = "[user|get_nickname]在[time|time_format]登录了后台[model]";
+        let match = str.match(/\[(\S+?)\]/g);
+        //console.log(match);
+        if(!think.isEmpty(match)){
+            let user_id = 1;
+            let record_id = 3;
+            let model = "mmm";
+
+            let log={
+                user :user_id,
+                record:record_id,
+                model:model,
+                time: new Date().valueOf(),
+                data:{
+                    user :user_id,
+                    record:record_id,
+                    model:model,
+                    time: new Date().valueOf(),
+                }
+            }
+
+            let replace = []
+            for(let val of match){
+                val= val.replace(/(^\[)|(\]$)/g, "");
+                let param = val.split('|');
+                //console.log(param);
+                if(!think.isEmpty(param[1])){
+                    replace.push(await call_user_func(param[1],log[param[0]]))
+                }else {
+                    replace.push(log[param[0]])
+                }
+            }
+            let data= replace;
+
+            str.replace(/\[(\S+?)\]/g, function(word){
+               // return word.substring(0,1).toUpperCase()+word.substring(1);
+                console.log(word)
+            });
+            console.log(data);
+        }else {
+
         }
 
-
+        //var funcs = ['test1', 'test2'];
+        //for(var i=0;i<funcs.length;i++) {
+        //    call_user_func(funcs[i], ["ddd", "cc"]);
+        //}
+        //
+        //let test1=function(a, b) {
+        //    console.log(a + b + 'is a good gay');
+        //}
+        //let test2=function(a) {
+        //    console.log(a+" is sb");
+        //}
     }
     momentAction(){
         let moment = require('moment');
