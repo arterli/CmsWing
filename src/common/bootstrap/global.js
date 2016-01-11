@@ -540,6 +540,7 @@ global.call_user_func=function(cb, params) {
  * @returns Promise {*}
  */
 global.get_nickname = async (uid) => {
+    console.log(uid);
     let data = await think.model('member',think.config("db"),'admin').get_nickname(uid)
     return data;
 }
@@ -547,4 +548,30 @@ global.get_nickname = async (uid) => {
 global.time_format = (time)=>{
 
     return dateformat('Y-m-d H:i:s',time);
+}
+
+global.str_replace=function(search, replace, subject, count){
+    var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
+        f = [].concat(search),
+        r = [].concat(replace),
+        s = subject,
+        ra = r instanceof Array, sa = s instanceof Array;
+    s = [].concat(s);
+    if(count){
+        this.window[count] = 0;
+    }
+
+    for(i=0, sl=s.length; i < sl; i++){
+        if(s[i] === ''){
+            continue;
+        }
+        for(j=0, fl=f.length; j < fl; j++){
+            temp = s[i]+'';
+            repl = ra ? (r[j] !== undefined ? r[j] : '') : r[0];
+            s[i] = (temp).split(f[j]).join(repl);
+            if(count && s[i] !== temp){
+                this.window[count] += (temp.length-s[i].length)/f[j].length;}
+        }
+    }
+    return sa ? s : s[0];
 }

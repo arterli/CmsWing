@@ -19,8 +19,9 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  indexAction(){
+  async indexAction(){
     //auto render template file index_index.html
+    //await this.model("action").log("user_login","member",1,1,this.ip(),this.http.url);
     this.meta_title=this.locale('meta_title_admin');
     let node = process.versions;
     this.assign({
@@ -29,7 +30,7 @@ export default class extends Base {
       'nodejs_v':node.node,
       'thinkjs':think.version
     })
-    console.log(111)
+    //console.log(111)
     return this.display();
   }
 }

@@ -18,6 +18,9 @@ export default class extends think.controller.base {
             password = encryptPassword(password);
             let res = await this.model("member").signin(username,password,this.ip());
             if(0<res.uid){
+                //记录用户登录行为
+                await this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
+                //console.log(11111111111111);
                 await this.session('userInfo', res);
                 //TODO 用户密钥
                 this.redirect('/admin/index');

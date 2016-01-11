@@ -33,7 +33,7 @@ export default class extends think.model.base {
         if(!think.isEmpty(user) && 1 == user.status){
             /* 验证用户密码 */
             if(password === user.password){
-                this.autoLogin(user,ip);//更新用户登录信息，自动登陆
+                await this.autoLogin(user,ip);//更新用户登录信息，自动登陆
                 /* 记录登录SESSION和COOKIES */
                 let userInfo = {
                     'uid'             : user.id,
@@ -60,8 +60,8 @@ export default class extends think.model.base {
             'last_login_time' : new Date().valueOf(),
             'last_login_ip'   : _ip2int(ip),
         };
-        await this.where({id: user.id}).update(data);
-
+       let use= await this.where({id: user.id}).update(data);
+       await this.where({id:user.id}).increment('login');
 
     }
 
@@ -72,10 +72,10 @@ export default class extends think.model.base {
      */
 
     async get_nickname(uid=0){
-      if(!(uid && think.isNumberString(uid))){
-          let user = await this.session('userInfo');
-          return user.username;
-      }
+      //if(!(uid && think.isNumberString(uid))){
+      //    let user = await this.session('userInfo');
+      //    return user.username;
+      //}
         //获取缓存数据
 
         let name;

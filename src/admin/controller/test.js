@@ -71,16 +71,16 @@ export default class extends think.controller.base {
                 }
             }
             let data= replace;
-
-            str.replace(/\[(\S+?)\]/g, function(word){
-               // return word.substring(0,1).toUpperCase()+word.substring(1);
-                console.log(word)
-            });
-            console.log(data);
+            let ss= str_replace(match,replace,str);
+            //for (let i=0 ; i < match.length;i++ ){
+            //    let nstr = str.replace(match[i],replace[i]);
+            //    console.log(nstr);
+            //}
+            console.log(ss);
         }else {
-
+            let ss = str;
         }
-
+        console.log(this.http.url);
         //var funcs = ['test1', 'test2'];
         //for(var i=0;i<funcs.length;i++) {
         //    call_user_func(funcs[i], ["ddd", "cc"]);
