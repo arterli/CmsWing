@@ -112,7 +112,7 @@ export default class extends think.model.base {
 
     /**
      * 解析行为规则
-     * 规则定义  table:table|field:field|condition:$condition|rule:rule[|cycle:cycle|max:max][;......]
+     * 规则定义  table:table|field:field|condition:condition|rule:rule[|cycle:cycle|max:max][;......]
      * 规则字段解释：table->要操作的数据表，不需要加表前缀；
      *              field->要操作的字段；
      *              condition->操作的条件，目前支持字符串，默认变量 ${self} 为执行行为的用户

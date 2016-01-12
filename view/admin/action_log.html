@@ -14,11 +14,11 @@
 
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
-                        <a class="btn btn-sm btn-info " href="/admin/action/add">
+                        <a class="btn btn-sm btn-info ajax-get confirm" href="/admin/action/clear">
                             清空
                         </a>
 
-                        <a class="btn btn-sm btn-info" href="/admin/action/del">
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/remove" target-form="ids">
                             删除
                         </a>
                     </div>
@@ -41,6 +41,7 @@
                         <th class="">行为名称</th>
                         <th class="">执行者</th>
                         <th class="">执行时间</th>
+                        <th class="">详细信息</th>
                         <th class="">操作</th>
                     </tr>
                     </thead>
@@ -52,10 +53,10 @@
                         <td>{{item.action_id}}</td>
                         <td>{{item.user_id}}</td>
                         <td>{{item.create_time|dateformat("Y-m-d H:i:s")}}</td>
-
+                        <td class="text-sm">{{item.remark}}</td>
                         <td>
                             <a href="/admin/action/edit?id={{item.id}}" class="text-info">详情</a>
-                            <a href="/admin/action/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                            <a href="/admin/action/remove?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

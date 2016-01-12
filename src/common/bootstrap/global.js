@@ -509,10 +509,11 @@ global.get_list_field=function (data, grid, controller,module="admin"){
  * @author arterli <arterli@qq.com>
  */
 global.get_action_type=function (type, all = false){
+
     let list = {
         1:'系统',
         2:'用户',
-};
+      };
     if(all){
         return list;
     }

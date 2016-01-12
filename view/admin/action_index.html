@@ -24,7 +24,7 @@
                         <a class="btn btn-sm btn-info ajax-post" href="/admin/action/setstatus/status/0" target-form="ids">
                             禁用
                         </a>
-                        <a class="btn btn-sm btn-info" href="/admin/action/del">
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/setstatus/status/-1" target-form="ids">
                             删除
                         </a>
                     </div>
@@ -69,7 +69,7 @@
                         </td>
                         <td>
                             <a href="/admin/action/edit?id={{item.id}}" class="text-info">编辑</a>
-                            <a href="/admin/action/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                            <a href="/admin/action/setstatus?ids={{item.id}}&status=-1" class="confirm ajax-get text-info">删除</a></td>
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
