@@ -24,7 +24,7 @@
                                 <li><a href="/admin/article/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
                                 {% endif %}
                                 {% endfor %}
-
+                                {%if article.id >0 %}<li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                             </ul>
                             <!-- / .breadcrumb -->
 
@@ -54,16 +54,20 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
                                         <div class="btn-group">
-                                            <button data-toggle="dropdown" class="btn btn-info btn-sm dropdown-toggle {% if allow == 0 %}disabled{% endif %}" >添加内容 <span class="caret"></span></button>
+                                            <button {%if model|length > 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add dropdown-toggle {% if allow == 0 %}disabled{% endif %}"  {%if model|length == 1 %}
+                                            url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
+                                            >添加内容  {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
+                                            {%if model|length > 1 %}
                                             <ul class="dropdown-menu">
-                                                {%if model|length > 1 %}
+
                                                 {% for val in modellist%}
                                                 <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}" class="text-info">添加{{val.title}}</a></li>
                                                 {% endfor %}
-                                                {% endif %}
-                                                <li class="divider"></li>
-                                                <li><a href="#">添加内容</a></li>
+
+                                                <!--<li class="divider"></li>-->
+                                                <!--<li><a href="#">添加内容</a></li>-->
                                             </ul>
+                                            {% endif %}
                                         </div>
                                         <div class="btn-group">
                                         <a class="btn btn-sm btn-info " href="/admin/cms/add/model/{{model.id}}">
@@ -220,6 +224,13 @@
             }
         });
 
+        //只有一个模型时，点击新增
+        $('.document_add').click(function(){
+            var url = $(this).attr('url');
+            if(url != undefined && url != ''){
+                window.location.href = url;
+            }
+        });
     })
 </script>
 {% endblock %}}

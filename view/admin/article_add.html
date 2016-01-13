@@ -50,6 +50,7 @@
                             <li><a href="/admin/article/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
                             {% endif %}
                             {% endfor %}
+                            {%if article.id>0 %}<li> <a href="{:U('index','cate_id='.$cate_id.'&pid='.$article['id'])}"><i class="fa fa-list-ul"></i> {{article.title}}</a> </li>{% endif %}
 
                         </ul>
                         <!-- / .breadcrumb -->
@@ -80,11 +81,11 @@
                                                     <div class="row">
                                                         {% if field.type == "num" %}
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}"  >
                                                         </div>
                                                         {% elif field.type == "string" %}
                                                         <div class="col-md-10">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{field.value}}"  >
                                                         </div>
                                                         {% elif field.type == "textarea" %}
                                                         <div class="col-md-8">
@@ -364,7 +365,7 @@
                                                         </div>
                                                         {% else %}
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}"  >
                                                         </div>
                                                         {% endif %}
 
@@ -384,10 +385,13 @@
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">
                                                 <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
-                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
-                                                        type="submit">返回
-                                                </button>
-
+                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+                                                <input type="hidden" name="id" value="{{info.id}}"/>
+                                                <input type="hidden" name="pid" value="{{info.pid}}"/>
+                                                <input type="hidden" name="model_id" value="{{info.model_id}}"/>
+                                                <input type="hidden" name="group_id" value="{{info.group_id}}"/>
+                                                <input type="hidden" name="category_id" value="{{info.category_id}}">
+                                                <input type="hidden" name="uid" value="{{userinfo.uid}}">
                                             </div>
                                         </div>
                                         </form>

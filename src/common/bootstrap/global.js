@@ -13,8 +13,6 @@
 //global.xxx = async () => {
 //    let data = await Promise.resolve(111)
 //}
-import url from 'url';
-
 /**
  * ip转数字
  * @param ip
@@ -446,16 +444,19 @@ global.get_list_field=function (data, grid, controller,module="admin"){
     }else{
         value  =  data2[Object.keys(data2)];
     }
-   // console.log(value);
+
     // 链接支持
     if('title' == grid.field[0] && '目录' == data.type ){
         // 目录类型自动设置子文档列表链接
         grid.href   =   '[LIST]';
+    }else if('title' == grid.field[0]){
+        grid.href = '[EDIT]';
     }
+
     if(!think.isEmpty(grid.href)){
-        //grid['href']='[aabbcc]';
+
         let links  =   grid.href.split(',');
-           //console.log(links);
+
         let val =[]
         for(let link of links){
             let array  =   link.split('|');
@@ -471,34 +472,26 @@ global.get_list_field=function (data, grid, controller,module="admin"){
                // console.log(show)
                 // 替换系统特殊字符串
                 let hrefs={
-                    '[DELETE]':'setstatus?status=-1&ids=[id]',
-                    '[EDIT]': 'edit?id=[id]&model=[model_id]&cate_id=[category_id]',
-                    '[LIST]': 'index?pid=[id]&model=[model_id]&cate_id=[category_id]'
+                    '[DELETE]':'setstatus/status/-1/ids/[id]',
+                    '[EDIT]': 'edit/id/[id]/model/[model_id]/cate_id/[category_id]',
+                    '[LIST]': 'index/pid/[id]/model/[model_id]/cate_id/[category_id]'
                 }
                 href = hrefs[href];
-                //let url = require('url')
-                let query =url.parse(href,true,true).query;
-                let pathname =url.parse(href,true,true).pathname;
-                let u = {}
-                for(let k in query){
-                    let key =query[k].replace(/(^\[)|(\]$)/g, "");
-                    if(data[key]) {
-                     u[k]=  query[k].replace(query[k], data[key])
-                    }else if(think.isNumberString(key)){
-                        u[k]= query[k];
-                    }
+                let match = href.match(/\[(\S+?)\]/g);
+                let u = [];
+                for(let k of match){
+                    let key =k.replace(/(^\[)|(\]$)/g, "");
+                    u.push( data[key]);
                 }
-                 href=url.format({
-                     pathname:`/${module}/${controller}/${pathname}`,
-                     query:u
-                 });
 
-               val.push( '<a href="'+href+'" class="text-info">'+show+'</a> ') ;
+                let query = str_replace(match,u,href);
+                let href1 =`/${module}/${controller}/${query}`;
+               val.push( '<a href="'+href1+'" class="text-info">'+show+'</a> ') ;
             }
         }
         value  =   val.join(" ");
     }
-    //console.log(value)
+   // console.log(value)
     return value;
 }
 

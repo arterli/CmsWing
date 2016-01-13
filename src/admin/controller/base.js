@@ -25,8 +25,8 @@ export default class extends think.controller.base {
             this.redirect('/admin/public/signin');
         }
         //用户信息
-        let user = await this.session('userInfo');
-        this.assign("userinfo", user);
+        this.user = await this.session('userInfo');
+        this.assign("userinfo", this.user);
         //网站配置
         this.setup = await this.model("setup").getset();
         //后台菜单
