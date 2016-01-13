@@ -214,7 +214,7 @@ export default class extends Base {
                     on: ["id", "id"]
                 })
                 let key = array_search(field, 'id');
-                console.log(key)
+                //console.log(key)
                 if (false !== key) {
                     delete field[key];
                     field[key] = 'DOCUMENT.id';
@@ -227,7 +227,7 @@ export default class extends Base {
         if (!think.isEmpty(group_id)) {
             map['group_id'] = group_id;
         }
-        console.log(44);
+        //console.log(44);
         let list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -358,6 +358,9 @@ export default class extends Base {
         this.display();
     }
 
+    /**
+     * 更新或者添加数据
+     */
     async updateAction() {
         let data = this.post();
         let res = await this.model('document').updates(data);
@@ -376,5 +379,11 @@ export default class extends Base {
         }
 
 
+    }
+    /**
+     * 设置一条或者多条数据的状态
+     */
+    async setstatusAction() {
+        await super.setstatusAction(this,'document');
     }
 }

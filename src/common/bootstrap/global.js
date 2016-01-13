@@ -429,7 +429,7 @@ global.get_list_field=function (data, grid, controller,module="admin"){
     for( let field of grid.field){
            let temp;
            let array = field.split('|');//TODO
-          // console.log(array);
+           //console.log(array);
            temp = data[array[0]];
            //console.log(temp);
             // 函数支持
@@ -476,17 +476,21 @@ global.get_list_field=function (data, grid, controller,module="admin"){
                     '[EDIT]': 'edit/id/[id]/model/[model_id]/cate_id/[category_id]',
                     '[LIST]': 'index/pid/[id]/model/[model_id]/cate_id/[category_id]'
                 }
-                href = hrefs[href];
-                let match = href.match(/\[(\S+?)\]/g);
+                let match = hrefs[href].match(/\[(\S+?)\]/g);
                 let u = [];
                 for(let k of match){
                     let key =k.replace(/(^\[)|(\]$)/g, "");
                     u.push( data[key]);
                 }
-
-                let query = str_replace(match,u,href);
+                let query = str_replace(match,u,hrefs[href]);
                 let href1 =`/${module}/${controller}/${query}`;
-               val.push( '<a href="'+href1+'" class="text-info">'+show+'</a> ') ;
+                //console.log(href);
+                if(href == "[DELETE]"){
+                    val.push( '<a href="'+href1+'" class="text-info ajax-get confirm">'+show+'</a> ') ;
+                }else {
+                    val.push( '<a href="'+href1+'" class="text-info">'+show+'</a> ') ;
+                }
+
             }
         }
         value  =   val.join(" ");
@@ -540,7 +544,6 @@ global.get_nickname = async (uid) => {
 }
 //时间格式
 global.time_format = (time)=>{
-
     return dateformat('Y-m-d H:i:s',time);
 }
 
