@@ -21,7 +21,7 @@ export default class extends Base {
    */
   async indexAction(){
     //auto render template file index_index.html
-    await this.model("action").log("testaction","member",1,1,this.ip(),this.http.url);
+    await this.model("action").log("testaction","member",this.user.uid,this.user.uid,this.ip(),this.http.url);//测试日志行为
     this.meta_title=this.locale('meta_title_admin');
     let node = process.versions;
     this.assign({

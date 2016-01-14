@@ -83,7 +83,7 @@ export default class extends think.model.base {
                 return false;
             }
         } else { //更新数据
-            let status = this.model(modle).update(data);
+            let status = this.model(model).update(data);
             if(!status){
                 this.error = '更新数据失败！';
                 return false;
@@ -153,7 +153,7 @@ export default class extends think.model.base {
             let check 	=	await this.model('Category').where({id:cid}).getField('check',true);
             status = 	check ? 2 : 1;
         }else{				//更新
-            status = await this.where({id:id}).getField.getField('status',true);
+            status = await this.where({id:id}).getField('status',true);
             //编辑草稿改变状态
             if(status == 3){
                 status = 1;

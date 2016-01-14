@@ -80,11 +80,11 @@
                                                     <div class="row">
                                                         {% if field.type == "num" %}
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}"  >
                                                         </div>
                                                         {% elif field.type == "string" %}
                                                         <div class="col-md-10">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field.name]}}" >
                                                         </div>
                                                         {% elif field.type == "textarea" %}
                                                         <div class="col-md-8">
@@ -362,7 +362,7 @@
                                                         </div>
                                                         {% else %}
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" data-required="true" >
+                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" >
                                                         </div>
                                                         {% endif %}
 
@@ -383,10 +383,12 @@
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">
                                                 <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
-                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
-                                                        type="submit">返回
-                                                </button>
-
+                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+                                                <input type="hidden" name="id" value="{{data.id}}"/>
+                                                <input type="hidden" name="pid" value="{{data.pid}}"/>
+                                                <input type="hidden" name="model_id" value="{{data.model_id}}"/>
+                                                <input type="hidden" name="group_id" value="{{data.group_id}}"/>
+                                                <input type="hidden" name="category_id" value="{{data.category_id}}">
                                             </div>
                                         </div>
                                         </form>

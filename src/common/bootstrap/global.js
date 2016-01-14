@@ -546,7 +546,14 @@ global.get_nickname = async (uid) => {
 global.time_format = (time)=>{
     return dateformat('Y-m-d H:i:s',time);
 }
-
+/**
+ * str_replace(条件[]，替换内容[],被替换的内容)
+ * @param search
+ * @param replace
+ * @param subject
+ * @param count
+ * @returns {*}
+ */
 global.str_replace=function(search, replace, subject, count){
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
         f = [].concat(search),
@@ -572,3 +579,4 @@ global.str_replace=function(search, replace, subject, count){
     }
     return sa ? s : s[0];
 }
+

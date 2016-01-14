@@ -33,9 +33,9 @@ export default class extends think.controller.base {
         this.adminmenu = await this.model('menu').adminmenu();
         this.assign("setup", this.setup);
         //菜单当前状态
-        let http = this.http;
-        this.active = http.pathname,
-            //console.log(this.active);
+
+        this.active = this.http.url.slice(1),
+            console.log(this.active);
             //this.active = http.controller+'/'+http.action;
             //think.log(this.active);
             this.assign({
@@ -44,14 +44,28 @@ export default class extends think.controller.base {
             })
     }
 
+    /**
+     * 判断是否登录
+     * @returns {boolean}
+     */
     async islogin() {
         //判断是否登录
         let user = await this.session('userInfo');
 
-        let res = think.isEmpty(user) ? false : true;
+        let res = think.isEmpty(user) ? false : user.uid;
         return res;
     }
 
+    /**
+     * 检查当前用户是否为管理员
+     * @param uid
+     * @returns {*|boolean}
+     */
+    async is_admin(uid = null){
+
+        uid = think.isEmpty(uid) ? await this.islogin() : uid;
+        return uid && (in_array(parseInt(uid),this.config('user_administrator')));
+    }
     /**
      * 对数据表中的单行或多行记录执行修改 GET参数id为数字或逗号分隔的数字
      *

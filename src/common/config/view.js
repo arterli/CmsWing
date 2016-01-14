@@ -64,6 +64,20 @@ export default {
 
           }
         })
+        /**
+         * 获取文档的类型文字
+         */
+        env.addFilter("get_document_type",function(type = null){
+          if(think.isEmpty(type)){
+            return false;
+          }
+          switch (type){
+            case 1  : return    '目录'; break;
+            case 2  : return    '主题'; break;
+            case 3  : return    '段落'; break;
+            default : return    false;  break;
+          }
+        })
         env.addFilter("strToJson", function (str) {
 
             return JSON.parse(str);

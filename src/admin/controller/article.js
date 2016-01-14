@@ -387,4 +387,30 @@ export default class extends Base {
     async setstatusAction() {
         await super.setstatusAction(this,'document');
     }
+
+    /**
+     * 回收站列表
+     */
+    async recycleAction(){
+        let map={status:-1};
+        if(await this.is_admin()){
+ //TODO
+        }
+
+        let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(list);
+        for(let val of list.data){
+            val.category=await this.model('category').get_category(val.category_id,"title");
+            val.username = await this.model('member').get_nickname(val.uid);
+        }
+
+        this.assign("_total",list.count)
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', list.data);
+        this.meta_title = "回收站";
+        return this.display()
+
+    }
 }

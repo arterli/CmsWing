@@ -58,7 +58,10 @@ export default class extends think.model.base {
         if(think.isEmpty(list) || 1 != list[id].status){//不存在分类，或分类被禁用
             return '';
         }
-        return think.isNumber(field) ? list[id] : list[id][field];
+       //// console.log(list);
+       // console.log(list[id]);
+        //console.log(think.isNumber(field));
+        return think.isEmpty(field) ? list[id] : list[id][field];
     }
 
     async getallcate(){
