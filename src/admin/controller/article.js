@@ -191,11 +191,12 @@ export default class extends Base {
         if (map.pid != 0) { // 子文档列表忽略分类
             delete map.category_id;
         }
-        Document.alias('DOCUMENT');
+
+        //console.log(array_diff(tablefields,field));
         if (!think.isEmpty(model_id)) {
             map.model_id = model_id;
             await Document.select();
-            let tablefields = Object.keys(await Document.getTableFields());
+            let tablefields = Object.keys(await Document.getSchema());
             //console.log(array_diff(tablefields,field));
             // console.log(field);
             //return
@@ -328,7 +329,7 @@ export default class extends Base {
         }
         //获取详细数据；
         let document = this.model("document")
-        let data = await document.detail(id);
+        let data = await document.details(id);
         //let model =  this.model("model").getmodel(2);
         if (data.pid != 0) {
             //获取上级文档
@@ -368,7 +369,7 @@ export default class extends Base {
         if (res) {
             //行为记录
             if (!res.data.id) {
-                await this.model("action", 'admin').log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
+                await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
                 this.success({name: "添加成功", url: "/admin/article/index/cate_id/" + res.data.category_id});
             } else {
                 this.success({name: "更新成功", url: "/admin/article/index/cate_id/" + res.data.category_id});

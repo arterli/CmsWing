@@ -19,11 +19,11 @@ export default class extends think.model.base {
         if(!setup.DEVELOP_MODE){// 是否开发者模式
             where.is_dev    =   0;
         }
-        let group = setup.MENU_GROUP;
+        let groups = setup.MENU_GROUP;
         //think.log(group)
         //let pid = await this.topmenu();
         var arr = {};
-            for(var v of Object.keys(group)){
+            for(var v of Object.keys(groups)){
                 //let obj = {}
 
                 where.group=v;
@@ -65,8 +65,8 @@ export default class extends think.model.base {
         if(!setup.DEVELOP_MODE){// 是否开发者模式
             where.is_dev    =   0;
         }
-        let group =await this.where(where).field("group").order('sort asc').select();
+        let groups =await this.where(where).field("group").order('sort asc').select();
         //console.log(menu);
-        return group;
+        return groups;
     }
 }

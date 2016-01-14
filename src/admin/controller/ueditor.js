@@ -31,7 +31,7 @@ export default class extends Base {
       /* 上传文件 */
       case 'uploadfile':
 
-        result = this.upload();
+        result = this.uploads();
         //console.log(result);
         break;
 
@@ -61,7 +61,7 @@ export default class extends Base {
 
   }
 
-  upload(){
+  uploads(){
     /**
      * 得到上传文件所对应的各个参数,数组结构
      * obj={

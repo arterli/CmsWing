@@ -10,7 +10,7 @@ export default class extends think.model.base {
      * @param id
      * @returns {*}
      */
-  async detail(id){
+  async details(id){
         //获取基础数据
       let info=await this.field(true).find(id);
       if(! (think.isObject(info) || 1 !== info.status)){

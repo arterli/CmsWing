@@ -67,7 +67,7 @@ export default class extends think.controller.base {
         let id = this.param('id');
         id = think.isArray(id) ? id : id;
         //如存在id字段，则加入该条件
-        let fields = this.model(model).getTableFields();
+        let fields = this.model(model).getSchema();
         if (in_array('id', fields) && !think.isEmpty(id)) {
             where = think.extend({'id': ['IN', id]}, where);
         }

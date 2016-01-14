@@ -49,8 +49,8 @@ export default class extends Base {
                 map.group   =   gets.group||0;
             }
             //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
-            let list = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
-            list.data.forEach(v =>{
+            let lists = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
+            lists.data.forEach(v =>{
                 if(v.group){
                 v.group=this.setup.CONFIG_GROUP_LIST[v.group];
                 }else{
@@ -61,9 +61,9 @@ export default class extends Base {
 
             let data={
                 "draw": draw,
-                "recordsTotal": list.count,
-                "recordsFiltered": list.count,
-                "data": list.data
+                "recordsTotal": lists.count,
+                "recordsFiltered": lists.count,
+                "data": lists.data
             }
             return this.json(data);
         }

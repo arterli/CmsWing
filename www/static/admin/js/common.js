@@ -132,8 +132,15 @@ $('.ajax-post').click(function(){
                     }
                 },1500);
             }else{
-                //console.log(data);
-                toastr.error(data.errmsg);
+                if(data.errno==1001){
+                    $.each(data.errmsg,function(i,n){
+                        toastr.error(n);
+                    })
+                }else {
+                    toastr.error(data.errmsg);
+                }
+                console.log(data);
+
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
                     if (data.data) {

@@ -9,7 +9,7 @@ export default class extends think.model.base {
      */
     async getset(){
         let value = await think.cache("setup", () => {
-            return this.list();
+            return this.lists();
         }, {timeout: 365 * 24 * 3600});
 
         return value;
@@ -19,7 +19,7 @@ export default class extends think.model.base {
      * 获取网站配置
      * @returns {{}}
      */
-    async list (){
+    async lists (){
         let map = {}
         map.status = 1;
         let list = await this.where(map).order("sort ASC").field(["name","value"]).select();
