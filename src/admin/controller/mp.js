@@ -17,6 +17,7 @@ export default class extends Base {
 
     indexAction(){
         //auto render template file index_index.html
+        console.log(this.adminmenu["99"]);
         this.meta_title= '微信管理';
         this.assign({
             "navxs":true,

@@ -26,7 +26,7 @@
                                 <ul class="dropdown-menu animated fadeInRight aside text-left">
                                     <li>
                                         <span class="arrow top hidden-nav-xs"></span>
-                                        <a href="/admin/mp/index">公共账号设置</a>
+                                        <a href="/admin/mpbase/index">公共账号设置</a>
                                     </li>
                                     <li>
                                         <a href="profile.html">群发功能</a>
@@ -45,7 +45,8 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="modal.lockme.html" data-toggle="ajaxModal">更多功能</a>
+                                        <a href="/admin/mpbase/index" >公众平台管理</a>
+                                        <!--data-toggle="ajaxModal"-->
                                     </li>
                                 </ul>
                             </div>
@@ -74,7 +75,6 @@
                         <!--111111111111111111-->
                         {% for i, v in controller.setup.MENU_GROUP%}
                         {% if i!= 0 and i != 99  %}
-
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
                             <span class="pull-right"><a href="#{{ i }}"><i class="icon-plus i-lg"></i></a></span>
                             {{ v }}

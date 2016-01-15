@@ -2,16 +2,27 @@
     <section class="vbox animated fadeInUp">
         <section class="scrollable hover">
             <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto">
-                <a href="genres.html" class="list-group-item">
-                    All
+                {% for i, v in controller.setup.MENU_GROUP%}
+                        {% if  i == 99  %}
+                <!--<a href="genres.html" class="list-group-item">
+                    {{ v }}
+                </a>-->
+                  {% for v in controller.adminmenu[i] %}
+                      
+                <a href="/{{v.url}}" class="list-group-item  {% if controller.active == v.url %} active {% endif %}">
+                    {{v.title}}
                 </a>
-                <a href="genres.html" class="list-group-item active">
-                    acoustic
+                {% for c in v.children %}
+                                
+                <a href="/{{c.url}}" class="list-group-item {% if controller.active == c.url %} active {% endif %}">
+               
+                  {{c.title}}
                 </a>
-                <a href="genres.html" class="list-group-item">
-                    ambient
-                </a>
-                <a href="genres.html" class="list-group-item">
+                {% endfor%}
+                {% endfor%}
+                        {% endif %}
+                        {% endfor %}
+                <!--<a href="genres.html" class="list-group-item">
                     blues
                 </a>
                 <a href="genres.html" class="list-group-item">
@@ -70,7 +81,7 @@
                 </a>
                 <a href="genres.html" class="list-group-item">
                     world
-                </a>
+                </a>-->
             </div>
         </section>
     </section>

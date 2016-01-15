@@ -1,3 +1,4 @@
+
 'use strict';
 
 import Base from './base.js';
@@ -14,7 +15,6 @@ export default class extends Base {
   * indexAction(){
     //auto render template file index_index.html
     let action = yield this.model('action').where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
-
     let _pages = think.adapter("pages","page");
     let pages = new _pages();
     let page = pages.pages(action);
@@ -76,7 +76,6 @@ export default class extends Base {
    * 更新行为
    */
   * updateAction(){
-
     let data = this.post();
     if(think.isEmpty(data.id)){
       data.status=1;

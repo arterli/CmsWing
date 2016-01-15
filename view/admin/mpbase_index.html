@@ -1,0 +1,47 @@
+{% extends "./inc/base.html" %} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                     <header class="header bg-light b-b">
+                            <p>{{controller.meta_title}}</p>
+                        </header>
+                    <section class="scrollable wrapper">
+                       
+                        <section class="panel panel-default">
+                    <header class="panel-heading text-right bg-light">
+                      <ul class="nav nav-tabs pull-left">
+                        <li class=""><a data-toggle="tab" href="#messages-2"><i class="fa fa-comments text-muted"></i></a></li>
+                        <li class="active"><a data-toggle="tab" href="#profile-2"><i class="fa fa-user text-muted"></i> Profile</a></li>
+                        <li class="dropdown">
+                          <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-cog text-muted"></i> Settings <b class="caret"></b></a>
+                          <ul class="dropdown-menu text-left">
+                            <li><a data-toggle="tab" href="#dropdown1">@fat</a></li>
+                            <li><a data-toggle="tab" href="#dropdown2">@mdo</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <span class="hidden-sm">Left</span>
+                    </header>
+                    <div class="panel-body">
+                      <div class="tab-content">              
+                        <div id="messages-2" class="tab-pane fade">message</div>
+                        <div id="profile-2" class="tab-pane fade active in">profile</div>
+                        <div id="dropdown1" class="tab-pane fade">dropdown1</div>
+                        <div id="dropdown2" class="tab-pane fade">dropdown2</div>
+                      </div>
+                    </div>
+                  </section>
+
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}

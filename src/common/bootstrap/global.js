@@ -1,3 +1,5 @@
+
+
 /**
  * this file will be loaded before server started
  * you can define global functions used in controllers, models, templates
@@ -361,6 +363,7 @@ global.get_attribute_type = function (type){
  * @param date  时间戳
  * @return  '2015-12-17 15:39:44'
  */
+/* global dateformat */
   global.dateformat=function(extra,date){
       let D = new Date(date);
       let time={
@@ -551,7 +554,7 @@ global.get_nickname = function*(uid){
 global.time_format = (time)=>{
     return dateformat('Y-m-d H:i:s',time);
 }
-/**
+/* global str_replace()
  * str_replace(条件[]，替换内容[],被替换的内容)
  * @param search
  * @param replace
@@ -559,6 +562,8 @@ global.time_format = (time)=>{
  * @param count
  * @returns {*}
  */
+
+
 global.str_replace=function(search, replace, subject, count){
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
         f = [].concat(search),
