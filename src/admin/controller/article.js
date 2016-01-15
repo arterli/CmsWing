@@ -19,7 +19,7 @@ export default class extends Base {
      * index action
      * @return {Promise} []
      */
-    async indexAction() {
+    *indexAction() {
         let cate_id = this.get('cate_id') || null;
         let model_id = this.get('model_id') || null;
         let position = this.get('position') || null;
@@ -28,18 +28,19 @@ export default class extends Base {
         let groups;
         let model;
         let _model;
+        //console.log(2222);
         if (!think.isEmpty(cate_id)) {
             let pid = this.get("pid") || 0;
             // 获取列表绑定的模型
             if (pid == 0) {
-                models = await this.model("category").get_category(cate_id, 'model');
+                models = yield this.model("category").get_category(cate_id, 'model');
                 // 获取分组定义
-                groups = await this.model("category").get_category(cate_id, 'groups');
+                groups = yield this.model("category").get_category(cate_id, 'groups');
                 if (groups) {
                     groups = parse_config_attr(groups);
                 }
             } else { // 子文档列表
-                models = await this.model("category").get_category(cate_id, 'model_sub');
+                models = yield this.model("category").get_category(cate_id, 'model_sub');
             }
             //console.log(models);
             //console.log(!think.isNumberString(models));
@@ -47,26 +48,26 @@ export default class extends Base {
             if (think.isEmpty(model_id) && !think.isNumberString(models)) {
 
                 // 绑定多个模型 取基础模型的列表定义
-                model = await this.model('model').where({name: 'document'}).find();
+                model = yield this.model('model').where({name: 'document'}).find();
                 //console.log(model);
             } else {
 
                 model_id = model_id ? model_id : models;
                 //获取模型信息
-                model = await this.model('model').where({id: ['IN', [model_id]]}).find();
+                model = yield this.model('model').where({id: ['IN', [model_id]]}).find();
                 ;
 
                 if (think.isEmpty(model['list_grid'])) {
-                    let data = await this.model('model').field('list_grid').where({name: 'document'}).find();
+                    let data = yield this.model('model').field('list_grid').where({name: 'document'}).find();
                     model.list_grid = data.list_grid;
-                    console.log(33);
+                    //console.log(33);
                 }
             }
             this.assign('model', models.split(","))
             _model = models.split(",")
         } else { // 子文档列表
             //获取模型信息
-            model = await this.model("model").where({name: "document"}).find();
+            model = yield this.model("model").where({name: "document"}).find();
             model_id = null;
             cate_id = 0;
             this.assign('model', null);
@@ -108,12 +109,12 @@ export default class extends Base {
         //过滤重复字段
         fields = unique(fields);
         //console.log(fields);
-        //console.log(model);
-        let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id);
-        list = await this.parseDocumentList(list, model_id);
+       console.log(model_id);
+        let list = yield this.getDocumentList(cate_id, model_id, position, fields, group_id);
+         list = yield this.parseDocumentList(list, model_id);
         //console.log(list);
         //获取面包屑信息
-        let nav = await this.model('category').get_parent_category(cate_id);
+        let nav = yield this.model('category').get_parent_category(cate_id);
         this.assign('breadcrumb', nav);
         //获取模型信息
         let modellist = [];
@@ -125,7 +126,7 @@ export default class extends Base {
             for (let val of _model) {
                 let modelobj = {}
                 modelobj.id = val;
-                modelobj.title = await this.model("model").get_document_model(val, "title");
+                modelobj.title = yield this.model("model").get_document_model(val, "title");
                 modellist.push(modelobj);
             }
         }
@@ -154,9 +155,10 @@ export default class extends Base {
      * @param mixed $field 字段列表
      * @param integer $group_id 分组id
      */
-    async getDocumentList(cate_id = 0, model_id = null, position = null, field = true, group_id = null) {
+    * getDocumentList(cate_id, model_id, position, field, group_id) {
         //console.log(2222222);
         /* 查询条件初始化 */
+        cate_id = cate_id||0,field=field||true;
         let map = {};
         let status;
         if (!think.isEmpty(this.get('title'))) {
@@ -176,7 +178,7 @@ export default class extends Base {
             map.update_time = {'<=': 24 * 60 * 60 + new Date(this.param('time-end').valueOf())};
         }
         if (!think.isEmpty(this.get('nickname'))) {
-            map.uid = await this.model('member').where({'nickname': this.param('nickname')}).getField('uid');
+            map.uid = yield this.model('member').where({'nickname': this.param('nickname')}).getField('uid');
         }
 
         // 构建列表数据
@@ -195,19 +197,20 @@ export default class extends Base {
         //console.log(array_diff(tablefields,field));
         if (!think.isEmpty(model_id)) {
             map.model_id = model_id;
-            await Document.select();
-            let tablefields = Object.keys(await Document.getSchema());
+            yield Document.select();
+            let tablefields = Object.keys(yield Document.getSchema());
             //console.log(array_diff(tablefields,field));
             // console.log(field);
             //return
             if (think.isArray(field) && array_diff(tablefields, field)) {
-                let modelName = await this.model('model').where({id: model_id}).getField('name');
+                let modelName = yield this.model('model').where({id: model_id}).getField('name');
                 //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 // let sql = Document.parseSql(sql)
                 console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
                 // return
                 //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+                console.log(3333333333);
                 Document.alias('DOCUMENT').join({
                     table: `document_${modelName[0]}`,
                     join: "inner",
@@ -222,30 +225,31 @@ export default class extends Base {
                 }
             }
         }
+        //console.log(field);
+        //console.log(1111111);
         if (!think.isEmpty(position)) {
             map[1] = "position & {$position} = {$position}";
         }
         if (!think.isEmpty(group_id)) {
             map['group_id'] = group_id;
         }
-        //console.log(44);
-        let list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
-        //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
+
+        let list = yield Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+        //let list=yield this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(list);
-        // console.log(page);
-        //let list = this.lists(Document,map,'level DESC,DOCUMENT.id DESC',field);
+
 
         if (map['pid'] != 0) {
             // 获取上级文档
-            let article = await Document.field('id,title,type').find(map['pid']);
+            let article = yield Document.field('id,title,type').find(map['pid']);
             this.assign('article', article);
             console.log(article);
         }
 
         //检查该分类是否允许发布内容
-        let allow_publish = await this.model("category").get_category(cate_id, 'allow_publish');
+        let allow_publish = yield this.model("category").get_category(cate_id, 'allow_publish');
 
         this.assign('_total', list.count);//该分类下的文档总数
         this.assign('pagerData', page); //分页展示使用
@@ -261,8 +265,8 @@ export default class extends Base {
      * 显示左边菜单，进行权限控制
      * @author
      */
-    async getmenuAction() {
-        let cate = await this.model("category").where({status: 1}).field('id,title as name,pid,allow_publish').order('pid,sort').select();
+    * getmenuAction() {
+        let cate = yield this.model("category").where({status: 1}).field('id,title as name,pid,allow_publish').order('pid,sort').select();
         for (let val of cate) {
             val.url = `/admin/article/index/cate_id/${val.id}`;
             val.target = '_self';
@@ -274,7 +278,7 @@ export default class extends Base {
     /**
      * 新增文档
      */
-    async addAction() {
+    * addAction() {
         let cate_id = this.get("cate_id") || 0;
         let model_id = this.get("model_id") || 0;
         let group_id = this.get("group_id") || '';
@@ -282,12 +286,12 @@ export default class extends Base {
         think.isEmpty(model_id) && this.fail("该分类未绑定模型");
 
         //检查该分类是否允许发布
-        let allow_publish = await this.model("category").check_category(cate_id);
+        let allow_publish = yield this.model("category").check_category(cate_id);
         console.log(allow_publish);
         !allow_publish && this.fail("该分类不允许发布内容");
 
         //获取当先的模型信息
-        let model = await this.model("model").get_document_model(model_id);
+        let model = yield this.model("model").get_document_model(model_id);
 
         //处理结果
         let info = {};
@@ -297,16 +301,17 @@ export default class extends Base {
         info.group_id = group_id;
 
         if (info.pid) {
-            let article = await this.model("document").field('id,title,type').find(info.pid);
+            let article = yield this.model("document").field('id,title,type').find(info.pid);
             this.assign("article", article);
         }
         //获取表单字段排序
-        let fields = await this.model("attribute").get_model_attribute(model.id);
-        //console.log(fields);
+        let fields = yield this.model("attribute").get_model_attribute(model.id,true);
+        think.log(fields);
         //获取当前分类文档的类型
-        let type_list = await this.model("category").get_type_bycate(cate_id);
+        let type_list = yield this.model("category").get_type_bycate(cate_id);
+        //console.log(type_list);
         //获取面包屑信息
-        let nav = await this.model('category').get_parent_category(cate_id);
+        let nav = yield this.model('category').get_parent_category(cate_id);
         //console.log(model);
         this.assign('breadcrumb', nav);
         this.assign('info', info);
@@ -322,31 +327,31 @@ export default class extends Base {
     }
 
     //编辑文档
-    async editAction() {
+    * editAction() {
         let id = this.get('id') || "";
         if (think.isEmpty(id)) {
             this.fail("参数不能为空");
         }
         //获取详细数据；
         let document = this.model("document")
-        let data = await document.details(id);
+        let data = yield document.details(id);
         //let model =  this.model("model").getmodel(2);
         if (data.pid != 0) {
             //获取上级文档
             let article = document.field("id,title,type").find(data.pid);
             this.assign('article', article);
         }
-        let model = await this.model("model").get_document_model(data.model_id);
+        let model = yield this.model("model").get_document_model(data.model_id);
         this.assign('data', data);
         this.assign('model_id', data.model_id);
         this.assign('model', model);
         //获取表单字段排序
-        let fields = await this.model("attribute").get_model_attribute(model.id);
+        let fields = yield this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
         //获取当前分类文档的类型
-        let type_list = await this.model("category").get_type_bycate(data.category_id);
+        let type_list = yield this.model("category").get_type_bycate(data.category_id);
         //获取面包屑信息
-        let nav = await this.model('category').get_parent_category(data.category_id);
+        let nav = yield this.model('category').get_parent_category(data.category_id);
         //console.log(model);
         this.assign('breadcrumb', nav);
         //console.log(model);
@@ -362,14 +367,14 @@ export default class extends Base {
     /**
      * 更新或者添加数据
      */
-    async updateAction() {
+    * updateAction() {
         let data = this.post();
-        let res = await this.model('document').updates(data);
+        let res = yield this.model('document').updates(data);
         console.log(res);
         if (res) {
             //行为记录
             if (!res.data.id) {
-                await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
+                yield this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
                 this.success({name: "添加成功", url: "/admin/article/index/cate_id/" + res.data.category_id});
             } else {
                 this.success({name: "更新成功", url: "/admin/article/index/cate_id/" + res.data.category_id});
@@ -384,26 +389,26 @@ export default class extends Base {
     /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction() {
-        await super.setstatusAction(this,'document');
+    * setstatusAction() {
+        yield super.setstatusAction(this,'document');
     }
 
     /**
      * 回收站列表
      */
-    async recycleAction(){
+    * recycleAction(){
         let map={status:-1};
-        if(await this.is_admin()){
+        if(yield this.is_admin()){
  //TODO
         }
 
-        let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
+        let list = yield this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(list);
         for(let val of list.data){
-            val.category=await this.model('category').get_category(val.category_id,"title");
-            val.username = await this.model('member').get_nickname(val.uid);
+            val.category=yield this.model('category').get_category(val.category_id,"title");
+            val.username = yield this.model('member').get_nickname(val.uid);
         }
 
         this.assign("_total",list.count)

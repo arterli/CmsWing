@@ -67,8 +67,8 @@
                                 <div class="panel-body">
                                     <form id="ajaxForm" action="/admin/article/update" method="post" class="form-horizontal" data-validate="parsley">
                                     <div class="tab-content">
-
                                         {% for key ,group in model.field_group | parse_config_attr %}
+
                                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                                             {% for field in fields[key] %}
                                             {% if field.is_show == 1 or field.is_show == 2 %}

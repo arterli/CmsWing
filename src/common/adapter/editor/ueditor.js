@@ -10,14 +10,15 @@ export default class extends think.adapter.base {
    * init
    * @return {[]}         []
    */
- init(fileField, config, type = "upload",http){
+ init(fileField, config, type ,http){
+      type = type||"upload";
     //super.init(http);
     this.http = http;
     this.fileField = fileField;
     this.config = config;
     this.type = type;
     if (type == "remote") {
-      //await this.saveRemote();
+      //yield this.saveRemote();
     } else if(type == "base64") {
       this.upBase64();
     } else {
@@ -125,7 +126,7 @@ export default class extends think.adapter.base {
    * 拉取远程图片
    * @return mixed
    */
-  async saveRemote(){
+  * saveRemote(){
     let imgUrl = this.fileField;
     //imgUrl = imgUrl.replace(/&amp;/,"&");
     //http开头验证
@@ -145,7 +146,7 @@ export default class extends think.adapter.base {
     let filePath = this.filePath;
     let fullName =this.fullName;
     think.mkdir(this.filePath.replace(this.fileName, ""));
-    let promises = await this.spiderImage(imgUrl,filePath);
+    let promises = yield this.spiderImage(imgUrl,filePath);
    // console.log(promises);
     if(think.isFile(promises)){
       this.stateInfo = "SUCCESS";

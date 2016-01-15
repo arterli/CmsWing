@@ -473,15 +473,19 @@
             var pid ="{{info.pid}}";
             var check = "";
             if(pid==0){
-                check =  'selected="selected"';
+                html.push('<option value="0" selected="selected">一级菜单</option>');
+            }else {
+                html.push('<option value="0" >一级菜单</option>');
             }
-            html.push('<option value="0" selected="selected">一级菜单</option>');
             for (var i = 0; i < size; i++) {
                 left = nodes[i];
                 if(pid == left.id){
-                    check =  'selected="selected"';
+                    html.push('<option value="' + left['id'] +  '" selected="selected">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }else {
+                    html.push('<option value="' + left['id'] + '">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
                 }
-                html.push('<option value="' + left['id'] +  '" '+check+'>'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                console.log(left.id);
+
             }
             return html.join("\n");
         }

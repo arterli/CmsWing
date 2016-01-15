@@ -13,7 +13,7 @@ export default class extends Base {
     return this.display();
   }
   //上传文件
-  async uploadAction(){
+  * uploadAction(){
     let file = think.extend({}, this.file('file'));
     console.log(file);
     let filepath = file.path;
@@ -33,7 +33,7 @@ export default class extends Base {
         md5:think.md5(basename)
       }
       console.log(data);
-      var res = await this.model("file").data(data).add();
+      var res = yield this.model("file").data(data).add();
     }else{
       console.log('not exist')
     }
@@ -41,7 +41,7 @@ export default class extends Base {
   }
 
   //上传图片
-  async uploadpicAction(){
+  * uploadpicAction(){
     let file = think.extend({}, this.file('file'));
 
     let filepath = file.path;
@@ -63,7 +63,7 @@ export default class extends Base {
         status:1,
 
       }
-     var res = await this.model("picture").data(data).add();
+     var res = yield this.model("picture").data(data).add();
     }else{
       console.log('not exist')
     }

@@ -18,14 +18,14 @@ export default class extends Base {
      * 执行新节点的插入,已有节点的更新,无效规则的删除三项任务
      * @author
      */
-    async updaterules() {
+    * updaterules() {
         //需要新增的节点必然位于$nodes
-        let nodes = await this.returnnodes(false);
+        let nodes = yield this.returnnodes(false);
         //think.log(nodes);
         let AuthRule = this.model('auth_rule');
         let map = {'module': 'admin', 'type': ['in', [1, 2]]};//status全部取出,以进行更新
         //需要更新和删除的节点必然位于$rules
-        let rules = await AuthRule.where(map).order('name').select();
+        let rules = yield AuthRule.where(map).order('name').select();
 
         //构建insert数据
         let data = {};//保存需要插入和更新的新节点
@@ -126,10 +126,10 @@ export default class extends Base {
      * 权限管理首页ajax角色列表
      * @returns {Promise|*}
      */
-    async roleAction() {
+    * roleAction() {
         let gets = this.get();
         let draw = gets.draw;
-        let res = await this.model('auth_role').field("id,desc,status,description").order("id ASC").select();
+        let res = yield this.model('auth_role').field("id,desc,status,description").order("id ASC").select();
         let data = {
             "draw": draw,
             "data": res
@@ -138,16 +138,16 @@ export default class extends Base {
         return this.json(data);
     }
 
-    async roleeditAction() {
+    * roleeditAction() {
         if (this.isAjax("post")) {
             let id = this.post("id");
             let desc = this.post("desc");
             let description = this.post("description");
-            let data = await this.model('auth_role').where({id: id}).update({desc: desc, description: description});
+            let data = yield this.model('auth_role').where({id: id}).update({desc: desc, description: description});
             return this.json(data);
         } else {
             let id = this.get("id");
-            let res = await this.model('auth_role').where({id: id}).find();
+            let res = yield this.model('auth_role').where({id: id}).find();
             this.assign({
                 data: res
             })
@@ -155,10 +155,10 @@ export default class extends Base {
         }
     }
 
-    async roleaddAction() {
+    * roleaddAction() {
         let data = this.post();
         //console.log(1111111111111111)
-        let res = await this.model('auth_role').add(data);
+        let res = yield this.model('auth_role').add(data);
 
         if (res) {
             return this.json(1);
@@ -172,10 +172,10 @@ export default class extends Base {
      * 角色删除
      * @returns {Promise|*}
      */
-    async roledelAction() {
+    * roledelAction() {
         let id = this.post("id");
         //console.log(id);
-        let res = await this.model('auth_role').where({id: id}).delete();
+        let res = yield this.model('auth_role').where({id: id}).delete();
         return this.json(res);
     }
 
@@ -183,14 +183,14 @@ export default class extends Base {
      * 权限列表
      * @returns {*}
      */
-    async accessAction() {
-        await this.updaterules();//更新权限节点
-        let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
-        //let node_list = await this.returnnodes();
+    * accessAction() {
+        yield this.updaterules();//更新权限节点
+        let auth_role = yield this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
+        //let node_list = yield this.returnnodes();
         //let map       = {module:"admin",type:2,status:1};
-        //let main_rules= await this.model('auth_rule').where(map).field("name,id").select();
+        //let main_rules= yield this.model('auth_rule').where(map).field("name,id").select();
         //let nap       = {module:"admin",type:1,status:1};
-        //let child_rules = await this.model('auth_rule').where(nap).field('name,id').select();
+        //let child_rules = yield this.model('auth_rule').where(nap).field('name,id').select();
         let this_role = {};
             auth_role.forEach(role=>{
                 if(role.id==this.get("id")){
@@ -208,14 +208,14 @@ export default class extends Base {
         })
         return this.display();
     }
-    async accessdataAction() {
-        await this.updaterules();//更新权限节点
-        let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
-        let node_list = await this.returnnodes();
+    * accessdataAction() {
+        yield this.updaterules();//更新权限节点
+        let auth_role = yield this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
+        let node_list = yield this.returnnodes();
         let map       = {module:"admin",type:['IN',[1,2]],status:1};
-        let main_rules=await this.model('auth_rule').where(map).field("name,id").select();
+        let main_rules=yield this.model('auth_rule').where(map).field("name,id").select();
         //let nap       = {module:"admin",type:1,status:1};
-        //let child_rules =await this.model('auth_rule').where(nap).field('name,id').select();
+        //let child_rules =yield this.model('auth_rule').where(nap).field('name,id').select();
         let this_role = {};
         auth_role.forEach(role=>{
             if(role.id==this.post("id")){
@@ -235,9 +235,9 @@ export default class extends Base {
         }
         return this.json(data);
     }
-    async testAction() {
+    * testAction() {
 
-        let ss = await this.updaterules();
+        let ss = yield this.updaterules();
         //console.log(ss);
         this.end();
     }
@@ -246,7 +246,7 @@ export default class extends Base {
      * 管理员用户组数据写入/更新
      *
      */
-    async writeroleAction(){
+    * writeroleAction(){
         let map={};
         map.rule_ids = this.post("rules");
         if(think.isArray(map.rule_ids)){
@@ -256,7 +256,7 @@ export default class extends Base {
         map.type = 1;
         let id = this.post("id");
         let role = this.model("auth_role");
-            await role.where({id:id}).update(map);
+            yield role.where({id:id}).update(map);
             return this.success({name:"更新成功"});
 
     }
@@ -265,9 +265,9 @@ export default class extends Base {
      * 改变角色状态
      * @returns {Promise|*}
      */
-    async chstaAction(){
+    * chstaAction(){
         let role = this.model("auth_role");
-        let res = await role.update(this.get());
+        let res = yield role.update(this.get());
         if(res){
             return this.json(res);
         }

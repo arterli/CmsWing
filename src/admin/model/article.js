@@ -10,9 +10,9 @@ export default class extends think.model.base {
      * @param id
      * @returns {*}
      */
-  async detail(id){
+  * detail(id){
         //获取基础数据
-      let info=await this.field(true).find(id);
+      let info=yield this.field(true).find(id);
 
 
       return info;

@@ -7,7 +7,7 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  async indexAction(){
+  * indexAction(){
     //auto render template file index_index.html
     return this.display();
   }

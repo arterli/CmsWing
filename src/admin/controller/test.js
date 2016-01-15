@@ -8,7 +8,7 @@ export default class extends think.controller.base {
         //console.log(http.method.toLowerCase())
 
     }
-   async indexAction(){
+   * indexAction(){
         //let a={};
         //a.s11="dfsd";
         //let aa=[]
@@ -16,7 +16,7 @@ export default class extends think.controller.base {
         //let bb=aa.join(",")
         //let cc=!(typeof(a) == "undefined")
         //console.log(cc)
-       //let check=await this.check("/Admin/test","1");
+       //let check=yield this.check("/Admin/test","1");
        //console.log(check);
        //console.log(JSON.stringify(this.param()));
        //let REQUEST = JSON.stringify(this.param()).toLowerCase()
@@ -24,7 +24,7 @@ export default class extends think.controller.base {
       //  this.end("dd");
        let Auth = think.adapter("auth", "rbac");
        let auth = new Auth(14);
-       let res = await auth.check("/admin/test1");
+       let res = yield auth.check("/admin/test1");
        //let roles =this.model();
        // console.log(roles);
        let http = this.http;
@@ -37,7 +37,7 @@ export default class extends think.controller.base {
         this.assign("date",new Date().valueOf());
         return this.display()
     }
-    async funAction(){
+    * funAction(){
     let str = "[user|get_nickname]在[time|time_format]登录了后台[model]";
         let match = str.match(/\[(\S+?)\]/g);
         //console.log(match);
@@ -65,7 +65,7 @@ export default class extends think.controller.base {
                 let param = val.split('|');
                 //console.log(param);
                 if(!think.isEmpty(param[1])){
-                    replace.push(await call_user_func(param[1],log[param[0]]))
+                    replace.push(yield call_user_func(param[1],log[param[0]]))
                 }else {
                     replace.push(log[param[0]])
                 }

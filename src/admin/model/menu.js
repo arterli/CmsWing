@@ -4,31 +4,31 @@
  */
 export default class extends think.model.base {
 
-    async adminmenu(){
-        let menu = await think.cache("adminenu", () => {
+    * adminmenu(){
+        let menu = yield think.cache("adminenu", () => {
             return this.getallmenu();
         }, {timeout: 365 * 24 * 3600});
 
         return menu;
     }
     //获取后台全部菜单
-    async getallmenu(){
+    * getallmenu(){
         let where = {}
         where.hide = 0;
-        let setup = await this.model("setup").getset();
+        let setup = yield this.model("setup").getset();
         if(!setup.DEVELOP_MODE){// 是否开发者模式
             where.is_dev    =   0;
         }
         let groups = setup.MENU_GROUP;
         //think.log(group)
-        //let pid = await this.topmenu();
+        //let pid = yield this.topmenu();
         var arr = {};
             for(var v of Object.keys(groups)){
                 //let obj = {}
 
                 where.group=v;
                 if( where.group != 0){
-              var menu =await this.where(where).order('sort asc').select();
+              var menu =yield this.where(where).order('sort asc').select();
                 }
                 if(!think.isEmpty(menu)){
                     //arr.push(obj[v.id]=menu)
@@ -43,29 +43,29 @@ export default class extends think.model.base {
         return arr;
     }
     //获取顶级菜单
-   async topmenu(){
+   * topmenu(){
        let where = {}
        where.hide = 0;
        where.pid = 0;
-       let setup = await this.model("setup").getset();
+       let setup = yield this.model("setup").getset();
        if(!setup.DEVELOP_MODE){// 是否开发者模式
            where.is_dev    =   0;
        }
-       let menu =await this.where(where).order('sort asc').select();
+       let menu =yield this.where(where).order('sort asc').select();
        //console.log(menu);
        return menu;
    }
 
     //获取顶级菜单分组
-    async group(id){
+    * group(id){
         let where = {}
         where.hide = 0;
         where.pid = id;
-        let setup = await this.model("setup").getset();
+        let setup = yield this.model("setup").getset();
         if(!setup.DEVELOP_MODE){// 是否开发者模式
             where.is_dev    =   0;
         }
-        let groups =await this.where(where).field("group").order('sort asc').select();
+        let groups =yield this.where(where).field("group").order('sort asc').select();
         //console.log(menu);
         return groups;
     }

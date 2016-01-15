@@ -70,12 +70,12 @@ export default class extends think.adapter.base {
    * @param  {Boolean} and  [condition]
    * @return {Promise}      []
    */
-  async check(name, and){
+  * check(name, and){
 
     if (think.isString(name)) {
       name = name.split(',');
     }
-    let authList =await this.getAuthList();
+    let authList =yield this.getAuthList();
 
     if (name.length === 1) {
       return authList.indexOf(name[0]) > -1;
@@ -87,18 +87,18 @@ export default class extends think.adapter.base {
       return authList.indexOf(item) > -1;
     });
   }
-  async _getAuthList(){
+  * _getAuthList(){
     let data;
     if (this.config.type === 1) {
-      data = await this.flushAuthList();
+      data = yield this.flushAuthList();
     }else{
       let http = this.http;
       let key = this.config('auth_key');
       think.session(this.http);
-      let data = await http.session.get(key);
+      let data = yield http.session.get(key);
       if(think.isEmpty(data)){
-        data = await this.flushAuthList();
-        await http.session.set(key, data);
+        data = yield this.flushAuthList();
+        yield http.session.set(key, data);
       }
     }
     return data;
@@ -107,8 +107,8 @@ export default class extends think.adapter.base {
    * get auth list
    * @return {Promise} []
    */
-  async getAuthList(){
-    let data = await Promise.all([this._getAuthList(), this.getUserInfo()]);
+  * getAuthList(){
+    let data = yield Promise.all([this._getAuthList(), this.getUserInfo()]);
 
     let authList = data[0];
     let userInfo = data[1];
@@ -133,8 +133,8 @@ export default class extends think.adapter.base {
    * flush auth list
    * @return {Promise} []
    */
-  async flushAuthList(){
-    let ids = await this.getRuleIds();
+  * flushAuthList(){
+    let ids = yield this.getRuleIds();
     let model = think.model(this.config.rule,think.config('db'));
     return model.field('name,condition').where({id: ['IN', ids], status: 1}).select();
   }
@@ -142,11 +142,11 @@ export default class extends think.adapter.base {
    * get user info
    * @return {Promise} []
    */
-  async getUserInfo(){
+  * getUserInfo(){
     if (!think.isEmpty(this.config.userInfo)) {
       return this.config.userInfo;
     }
-    let data = await think.model(this.config.user,think.config('db')).where({id: this.userId}).find();
+    let data = yield think.model(this.config.user,think.config('db')).where({id: this.userId}).find();
     this.config.userInfo = data;
     return data;
   }
@@ -154,8 +154,8 @@ export default class extends think.adapter.base {
    * get rule ids
    * @return {Promise} []
    */
-  async getRuleIds(){
-    let data = await this.getRoles();
+  * getRuleIds(){
+    let data = yield this.getRoles();
 
     let ids = [];
     data.forEach(item => {

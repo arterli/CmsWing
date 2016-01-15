@@ -23,12 +23,12 @@ export default class extends Base {
      * 字段列表
      * @return {Promise} []
      */
-    async indexAction(){
+    * indexAction(){
         let model_id = this.get('model_id');
-        //await this.db.checkTableExist(model_id);
+        //yield this.db.checkTableExist(model_id);
         //console.log(think.isNumber(85));
-        let modelname = await this.model("model").field('title').find(model_id);
-        let list = await this.db.where({model_id:model_id}).page(this.get('page')).countSelect();
+        let modelname = yield this.model("model").field('title').find(model_id);
+        let list = yield this.db.where({model_id:model_id}).page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(list);
@@ -48,9 +48,9 @@ export default class extends Base {
      * 新增字段
      * @returns {*}
      */
-    async addAction(){
+    * addAction(){
         let model_id = this.get('model_id');
-        let modelname = await this.model("model").field('title').find(model_id);
+        let modelname = yield this.model("model").field('title').find(model_id);
         this.meta_title="新增字段";
         this.active = "admin/model/index";
         this.assign({
@@ -65,19 +65,19 @@ export default class extends Base {
      * 编辑页面初始化
      * @author huajie <banhuajie@163.com>
      */
-    async editAction(){
+    * editAction(){
         let id = this.get('id');
         if(think.isEmpty(id)){
             this.fail('参数不能为空！');
         }
 
         /*获取一条记录的详细数据*/
-        let data = await this.db.find(id);
+        let data = yield this.db.find(id);
         if(!data){
             this.fail('错误');
         }
-        let model  =  await this.model('model').field('title,name,field_group').find(data.model_id);
-        let modelname = await this.model("model").field('title').find(data.model_id);
+        let model  =  yield this.model('model').field('title,name,field_group').find(data.model_id);
+        let modelname = yield this.model("model").field('title').find(data.model_id);
         this.assign('model',model);
         this.assign('info', data);
         this.active = "admin/model/index";
@@ -93,10 +93,10 @@ export default class extends Base {
      * 更新一条数据
      * @author
      */
-    async updateAction(){
+    * updateAction(){
         let post = this.post();
         //console.log(post);
-        let res = await this.db.upattr(post,true);
+        let res = yield this.db.upattr(post,true);
         //console.log(res);
         if(res){
             this.success({name:res.id?'更新成功':'新增成功', url:`/admin/attribute/index/model_id/${res.model_id}`});
@@ -109,19 +109,19 @@ export default class extends Base {
      * 删除一条数据
      * @author
      */
-    async delAction(){
+    * delAction(){
         let id = this.get('id');
         think.isEmpty(id) && this.fail('参数错误！');
 
-        let info = await this.db.where({id:id}).find();
+        let info = yield this.db.where({id:id}).find();
         console.log(info)
         think.isEmpty(info) && this.fail('该字段不存在！');
 
         //删除属性数据
-        let res = await this.db.where({id:id}).delete();
+        let res = yield this.db.where({id:id}).delete();
 
         //删除表字段
-        await this.db.deleteField(info);
+        yield this.db.deleteField(info);
         if(!res){
             this.fail('操作失败！');
         }else{
@@ -134,11 +134,11 @@ export default class extends Base {
     /**
      * 新增字段检查同一张表是否有相同的字段
      */
-    async checknameAction(){
+    * checknameAction(){
        let name = this.get('name');
         let model_id = this.get('model_id');
         let id = this.get('id');
-       let res = await this.db.checkName(name,model_id,id);
+       let res = yield this.db.checkName(name,model_id,id);
         if(res){
             return this.json(1);
         }else {

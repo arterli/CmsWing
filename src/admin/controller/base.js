@@ -18,19 +18,19 @@ export default class extends think.controller.base {
 
     }
 
-    async __before(action) {
+    * __before(action) {
         //登陆验证
-        let is_login = await this.islogin();
+        let is_login = yield this.islogin();
         if (!is_login) {
             this.redirect('/admin/public/signin');
         }
         //用户信息
-        this.user = await this.session('userInfo');
+        this.user = yield this.session('userInfo');
         this.assign("userinfo", this.user);
         //网站配置
-        this.setup = await this.model("setup").getset();
+        this.setup = yield this.model("setup").getset();
         //后台菜单
-        this.adminmenu = await this.model('menu').adminmenu();
+        this.adminmenu = yield this.model('menu').adminmenu();
         this.assign("setup", this.setup);
         //菜单当前状态
 
@@ -48,9 +48,9 @@ export default class extends think.controller.base {
      * 判断是否登录
      * @returns {boolean}
      */
-    async islogin() {
+    * islogin() {
         //判断是否登录
-        let user = await this.session('userInfo');
+        let user = yield this.session('userInfo');
 
         let res = think.isEmpty(user) ? false : user.uid;
         return res;
@@ -61,9 +61,9 @@ export default class extends think.controller.base {
      * @param uid
      * @returns {*|boolean}
      */
-    async is_admin(uid = null){
-
-        uid = think.isEmpty(uid) ? await this.islogin() : uid;
+    * is_admin(uid){
+         uid = uid||null;
+        uid = think.isEmpty(uid) ? yield this.islogin() : uid;
         return uid && (in_array(parseInt(uid),this.config('user_administrator')));
     }
     /**
@@ -77,7 +77,7 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-    async editRow(model, data, where, msg) {
+    * editRow(model, data, where, msg) {
         let id = this.param('id');
         id = think.isArray(id) ? id : id;
         //如存在id字段，则加入该条件
@@ -87,7 +87,7 @@ export default class extends think.controller.base {
         }
 
         msg = think.extend({'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax()}, msg);
-        let res = await this.model(model).where(where).update(data);
+        let res = yield this.model(model).where(where).update(data);
         if (res) {
             this.success({name: msg.success, url: msg.url});
         } else {
@@ -104,9 +104,10 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-    async forbid(model, where = {}, msg = {'success': '状态禁用成功！', 'error': '状态禁用失败！'}) {
+    * forbid(model, where, msg) {
+        where=where||{},msg =msg|| {'success': '状态禁用成功！', 'error': '状态禁用失败！'};
         let data = {'status': 0};
-        await this.editRow(model, data, where, msg);
+        yield this.editRow(model, data, where, msg);
     }
 
     /**
@@ -118,9 +119,10 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-    async resume(model, where = {}, msg = {'success': '状态恢复成功！', 'error': '状态恢复失败！'}) {
+    * resume(model, where, msg) {
+        where=where||{},msg =msg|| {'success': '状态恢复成功！', 'error': '状态恢复失败！'};
         let data = {'status': 1};
-        await this.editRow(model, data, where, msg);
+        yield this.editRow(model, data, where, msg);
     }
 
     /**
@@ -131,10 +133,11 @@ export default class extends think.controller.base {
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      * @author arterli <arterli@qq.com>
      */
-    async restore(model, where = {}, msg = {'success': '状态还原成功！', 'error': '状态还原失败！'}) {
+    * restore(model, where, msg ) {
+        where=where||{},msg =msg|| {'success': '状态还原成功！', 'error': '状态还原失败！'};
         let data = {'status': 1};
         where = think.extend({'status': -1}, where);
-        await this.editRow(model, data, where, msg);
+        yield this.editRow(model, data, where, msg);
     }
 
     /**
@@ -146,17 +149,17 @@ export default class extends think.controller.base {
      *
      * @author arterli <arterli@qq.com>
      */
-    async delete(model, where = {}, msg = {'success': '删除成功！', 'error': '删除失败！'}) {
+    * delete(model, where, msg) {
+        where=where||{},msg =msg|| {'success': '删除成功！', 'error': '删除失败！'};
         let data = {'status': -1};
-        await this.editRow(model, data, where, msg);
+        yield this.editRow(model, data, where, msg);
     }
 
     /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction(self, model = this.http.controller) {
-        ///let http =this.http;
-        //let model =http.controller;
+    * setstatusAction(self, model) {
+        model =model||this.http.controller;
         let ids = this.param('ids');
         let status = this.param('status');
         status = parseInt(status);
@@ -168,13 +171,13 @@ export default class extends think.controller.base {
         //this.end(status);
         switch (status) {
             case -1 :
-                await this.delete(model, map, {'success': '删除成功', 'error': '删除失败'});
+                yield this.delete(model, map, {'success': '删除成功', 'error': '删除失败'});
                 break;
             case 0  :
-                await this.forbid(model, map, {'success': '禁用成功', 'error': '禁用失败'});
+                yield this.forbid(model, map, {'success': '禁用成功', 'error': '禁用失败'});
                 break;
             case 1  :
-                await this.resume(model, map, {'success': '启用成功', 'error': '启用失败'});
+                yield this.resume(model, map, {'success': '启用成功', 'error': '启用失败'});
                 break;
             default :
                 this.fail('参数错误');
@@ -193,7 +196,8 @@ export default class extends think.controller.base {
      *
      * @author
      */
-    async returnnodes(tree = true) {
+    * returnnodes(tree) {
+        tree= tree||true;
         let http = this.http;
         //let modelname = http.module;
         let tree_nodes = [];
@@ -202,10 +206,10 @@ export default class extends think.controller.base {
         }
         let nodes;
         if (tree) {
-            var list = await this.model('menu').field('id,pid,title,url,tip,hide').order('sort asc').select();
+            var list = yield this.model('menu').field('id,pid,title,url,tip,hide').order('sort asc').select();
             nodes = get_children(list, 0);
         } else {
-            nodes = await this.model('menu').field('title,url,tip,pid').order('sort asc').select();
+            nodes = yield this.model('menu').field('title,url,tip,pid').order('sort asc').select();
 
         }
         tree_nodes = nodes;
@@ -217,20 +221,21 @@ export default class extends think.controller.base {
      * @param array list 列表数据
      * @param integer model_id 模型id
      */
-    async parseDocumentList(list, model_id = null) {
-        model_id = model_id ? model_id : 1;
-        let attrList = await this.model('attribute').get_model_attribute(model_id, false, 'id,name,type,extra');
+    * parseDocumentList(list, model_id) {
+        model_id = model_id||1;
+        let attrList = yield this.model('attribute').get_model_attribute(model_id, false, 'id,name,type,extra');
+        //attrList=attrList[model_id];
         //this.end(attrList);
+       // console.log(attrList);
         if (think.isArray(list)) {
-
             list.forEach((data, k)=> {
                 //console.log(data);
                 for (let key in data) {
-                    //console.log(key)
+                   //console.log(key)
                     if (!think.isEmpty(attrList[key])) {
                         let extra = attrList[key]['extra'];
                         let type = attrList[key]['type'];
-                        //console.log(extra);
+                        console.log(extra);
                         if ('select' == type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
                             // 枚举/多选/单选/布尔型
                             let options = parse_config_attr(extra);
@@ -248,7 +253,7 @@ export default class extends think.controller.base {
                 data.model_id = model_id;
                 list[k] = data;
             })
-            //console.log(list)
+            //console.log(222)
             return list;
         }
     }

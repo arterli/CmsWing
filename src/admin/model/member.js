@@ -11,7 +11,8 @@ export default class extends think.model.base {
      * @param  integer $type     用户名类型 （1-用户名，2-邮箱，3-手机，4-UID）
      * @return integer           登录成功-用户ID，登录失败-错误编号
      */
-    async signin(username, password,ip, type = 1){
+    * signin(username, password,ip, type){
+        type=type||1;
         let map={};
         switch (type) {
             case 1:
@@ -29,11 +30,11 @@ export default class extends think.model.base {
             default:
                 return 0; //参数错误
         }
-        let user = await this.where(map).find();
+        let user = yield this.where(map).find();
         if(!think.isEmpty(user) && 1 == user.status){
             /* 验证用户密码 */
             if(password === user.password){
-                await this.autoLogin(user,ip);//更新用户登录信息，自动登陆
+                yield this.autoLogin(user,ip);//更新用户登录信息，自动登陆
                 /* 记录登录SESSION和COOKIES */
                 let userInfo = {
                     'uid'             : user.id,
@@ -54,14 +55,14 @@ export default class extends think.model.base {
      * 自动登录用户
      * @param  integer $user 用户信息数组
      */
-    async autoLogin(user,ip){
+    * autoLogin(user,ip){
         /* 更新登录信息 */
         let data = {
             'last_login_time' : new Date().valueOf(),
             'last_login_ip'   : _ip2int(ip),
         };
-       let use= await this.where({id: user.id}).update(data);
-       await this.where({id:user.id}).increment('login');
+       let use= yield this.where({id: user.id}).update(data);
+       yield this.where({id:user.id}).increment('login');
 
     }
 
@@ -71,15 +72,16 @@ export default class extends think.model.base {
      * @return string       用户昵称
      */
 
-    async get_nickname(uid=0){
+    * get_nickname(uid){
+        uid=uid||0;
       //if(!(uid && think.isNumberString(uid))){
-      //    let user = await this.session('userInfo');
+      //    let user = yield this.session('userInfo');
       //    return user.username;
       //}
         //获取缓存数据
 
         let name;
-        let info = await this.field("username").find(uid);
+        let info = yield this.field("username").find(uid);
         name = info.username;
         return name;
 

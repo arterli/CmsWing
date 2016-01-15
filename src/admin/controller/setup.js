@@ -15,11 +15,11 @@ export default class extends Base {
         this.tactive = "setup"
     }
 
-    async indexAction(){
+    * indexAction(){
         //auto render template file index_index.html
         let id = this.get('id')||1;
         let type = this.setup.CONFIG_GROUP_LIST;
-        let list = await this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
+        let list = yield this.model("setup").where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
        if(list){
            this.assign('list',list);
        }
@@ -35,7 +35,7 @@ export default class extends Base {
         this.meta_title = "配置管理"
         return this.display();
     }
-    async groupdataAction(){
+    * groupdataAction(){
         if(this.isGet()){
             let map = {};
             map.status = 1;
@@ -49,7 +49,7 @@ export default class extends Base {
                 map.group   =   gets.group||0;
             }
             //如果缓存 userList 不存在，则查询数据库，并将值设置到缓存中
-            let lists = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
+            let lists = yield this.db.limit(start, length).where(map).order("sort ASC").countSelect()
             lists.data.forEach(v =>{
                 if(v.group){
                 v.group=this.setup.CONFIG_GROUP_LIST[v.group];
@@ -73,12 +73,12 @@ export default class extends Base {
      * 新增配置
      *
      */
-    async addAction(){
+    * addAction(){
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
             data.update_time = new Date().valueOf();
-            let addres =await this.db.add(data);
+            let addres =yield this.db.add(data);
             if(addres){
                 think.cache("setup", null);
                 return this.json(1)
@@ -95,12 +95,12 @@ export default class extends Base {
         }
     }
     //编辑配置
-    async editAction(){
+    * editAction(){
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
             data.create_time = new Date().valueOf();
-            let upres =await this.db.update(data);
+            let upres =yield this.db.update(data);
             if(upres){
                 think.cache("setup", null);
                 return this.json(1)
@@ -110,7 +110,7 @@ export default class extends Base {
         }else {
             let map = {};
             map.id = this.get("id");
-            let info = await this.db.where(map).find();
+            let info = yield this.db.where(map).find();
             this.assign("info",info);
             this.assign({
                 "action":"/admin/setup/edit"
@@ -121,7 +121,7 @@ export default class extends Base {
         }
 
     }
-    async saveAction(){
+    * saveAction(){
         let post = this.post();
         //console.log(post);
         for(let v in post){
@@ -132,9 +132,9 @@ export default class extends Base {
     }
 
 //删除配置
-    async delAction(){
+    * delAction(){
         let id = this.get("id");
-        let res = await this.db.where({id:id}).delete();
+        let res = yield this.db.where({id:id}).delete();
         if(res){
             think.cache("setup", null);
             return this.json(1)
@@ -146,11 +146,11 @@ export default class extends Base {
      * 添加配置异步验证数据
      * @returns {Promise|*}
      */
-    async parsleyAction(){
+    * parsleyAction(){
         //验证
         let data=this.get();
         // console.log(data);
-        let res = await this.db.where(data).find();
+        let res = yield this.db.where(data).find();
         // console.log(res);
         if(think.isEmpty(res)){
             return this.json(1);
@@ -160,13 +160,13 @@ export default class extends Base {
     }
 
 
-    async aabbAction(){
+    * aabbAction(){
 
         //obj = "export default "+JSON.stringify(obj)
         //let filename = think.getPath("common", "model");
         //this.config("setup",{"aa":"bbb"})
 
-        let value = await this.model("menu").getallmenu();
+        let value = yield this.model("menu").getallmenu();
         this.end(value);
         //fs.writeFileSync(filename, obj, [options])
     }

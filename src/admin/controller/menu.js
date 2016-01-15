@@ -29,23 +29,23 @@ export default class extends Base {
     /**
      * getlist
      */
-    async getlistAction(){
+    * getlistAction(){
         let pid = this.get("pid")||0;
         let draw = this.get("draw");
         if(pid){
-        let data = await this.db.where({id:pid}).find();
+        let data = yield this.db.where({id:pid}).find();
         }
         let i = pid;
         //
         let breadcrumb = []
         while (i!=0)
         {
-            let nav = await this.db.where({id:i}).field("id,title,pid").find();
+            let nav = yield this.db.where({id:i}).field("id,title,pid").find();
             breadcrumb.push(nav);
             i = nav.pid;
 
         }
-        let all_menu = await this.db.field('id,title').select();
+        let all_menu = yield this.db.field('id,title').select();
         //all_men
         let obj = {};
           all_menu.forEach(v=>{
@@ -54,7 +54,7 @@ export default class extends Base {
 
         let map = {};
         map.pid = pid;
-        let list = await this.db.where(map).order("sort asc ,id asc").select();
+        let list = yield this.db.where(map).order("sort asc ,id asc").select();
         //list
         if(list){
             list.forEach((v,k)=>{
@@ -80,7 +80,7 @@ export default class extends Base {
      * 改变状态
      * @returns {Promise|*}
      */
-    async chstaAction(){
+    * chstaAction(){
           //let gets = this.get();
           let map = {};
         //console.log(gets);
@@ -90,7 +90,7 @@ export default class extends Base {
             map.is_dev = this.get("status");
         }
         map.id = this.get("id");
-        let res = await this.db.update(map);
+        let res = yield this.db.update(map);
         if(res){
             think.cache("adminenu", null);//清除菜单缓存
             return this.json(res);
@@ -100,15 +100,15 @@ export default class extends Base {
      * 编辑菜单
      * @returns {*}
      */
-    async editAction() {
+    * editAction() {
         if (this.isAjax("post")) {
             let id = this.post("id");
-            let data = await this.db.where({id: id}).update(this.post());
+            let data = yield this.db.where({id: id}).update(this.post());
             think.cache("adminenu", null);//清除菜单缓存
             return this.json(data);
         } else {
             let id = this.get("id");
-            let res = await this.db.where({id: id}).find();
+            let res = yield this.db.where({id: id}).find();
            // console.log(res);
             this.assign({
                 data: res
@@ -121,11 +121,11 @@ export default class extends Base {
      * 添加菜单
      * @returns {*}
      */
-    async addAction(){
+    * addAction(){
         if(this.isAjax("post")){
          let data = this.post();
             data.status = 1;
-            let add = await this.db.add(data);
+            let add = yield this.db.add(data);
             think.cache("adminenu", null);//清除菜单缓存
             return this.json(add);
         }else{
@@ -137,10 +137,10 @@ export default class extends Base {
      * 删除菜单
      * @returns {Promise|*}
      */
-      async deleteAction(){
+      * deleteAction(){
           let id = this.post("id");
           //console.log(id);
-          let res = await this.db.where({id: id}).delete();
+          let res = yield this.db.where({id: id}).delete();
         think.cache("adminenu", null);//清除菜单缓存
           return this.json(res);
         }
@@ -149,13 +149,13 @@ export default class extends Base {
      * 获取上级菜单
      * @returns {Promise|*}
      */
-    async getmenuAction(){
-        let menu = await this.returnnodes();
+    * getmenuAction(){
+        let menu = yield this.returnnodes();
        // console.log(menu);
         return this.json(menu);
     }
-    async aabbAction(){
-        let value = await this.model("menu").getallmenu();
+    * aabbAction(){
+        let value = yield this.model("menu").getallmenu();
         this.end(value);
     }
 }

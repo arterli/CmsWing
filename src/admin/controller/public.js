@@ -9,19 +9,19 @@ export default class extends think.controller.base {
      * public action
      * @return {Promise} []
      */
-    async signinAction(){
+    * signinAction(){
         //用户登录
-        let is_login = await this.islogin();
+        let is_login = yield this.islogin();
         if(this.isPost()){
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
-            let res = await this.model("member").signin(username,password,this.ip());
+            let res = yield this.model("member").signin(username,password,this.ip(),1);
             if(0<res.uid){
                 //记录用户登录行为
-                await this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
+                //yield this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
                 //console.log(11111111111111);
-                await this.session('userInfo', res);
+                yield this.session('userInfo', res);
                 //TODO 用户密钥
                 this.redirect('/admin/index');
             }else { //登录失败
@@ -43,19 +43,19 @@ export default class extends think.controller.base {
         }
     }
 
-    async logoutAction(){
+    * logoutAction(){
         //退出登录
-        let is_login = await this.islogin();
+        let is_login = yield this.islogin();
         if(is_login){
-            await this.session();
+            yield this.session();
             this.redirect('/admin/public/signin');
         }else{
             this.redirect('/admin/public/signin');
         }
     }
 
-    async islogin(){
-        let user = await this.session('userInfo');
+    * islogin(){
+        let user = yield this.session('userInfo');
         let res = think.isEmpty(user) ? false : true;
         return res;
     }

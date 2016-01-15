@@ -10,8 +10,8 @@
  *
  * }
  */
-//global.xxx = async () => {
-//    let data = await Promise.resolve(111)
+//global.xxx = * () => {
+//    let data = yield Promise.resolve(111)
 //}
 /**
  * ip转数字
@@ -50,7 +50,8 @@ global._int2iP = function (num) {
  * @param md5encoded
  * @returns {*}
  */
-global.encryptPassword = function (password, md5encoded = false) {
+global.encryptPassword = function (password, md5encoded) {
+    md5encoded = md5encoded||false;
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
@@ -420,7 +421,9 @@ global.array_diff=function (arr1,arr2){
 //}
 /* 解析列表定义规则*/
 
-global.get_list_field=function (data, grid, controller,module="admin"){
+global.get_list_field=function (data, grid, controller,module){
+    module = module||"admin";
+    //console.log(module);
     let data2={};
     let value;
 
@@ -477,14 +480,16 @@ global.get_list_field=function (data, grid, controller,module="admin"){
                     '[LIST]': 'index/pid/[id]/model/[model_id]/cate_id/[category_id]'
                 }
                 let match = hrefs[href].match(/\[(\S+?)\]/g);
+               // console.log(match);
                 let u = [];
                 for(let k of match){
                     let key =k.replace(/(^\[)|(\]$)/g, "");
                     u.push( data[key]);
                 }
+              // console.log(u);
                 let query = str_replace(match,u,hrefs[href]);
                 let href1 =`/${module}/${controller}/${query}`;
-                //console.log(href);
+                //console.log(query);
                 if(href == "[DELETE]"){
                     val.push( '<a href="'+href1+'" class="text-info ajax-get confirm">'+show+'</a> ') ;
                 }else {
@@ -495,7 +500,7 @@ global.get_list_field=function (data, grid, controller,module="admin"){
         }
         value  =   val.join(" ");
     }
-   // console.log(value)
+   //console.log(value)
     return value;
 }
 
@@ -505,8 +510,8 @@ global.get_list_field=function (data, grid, controller,module="admin"){
  * @param bool all 是否返回全部类型
  * @author arterli <arterli@qq.com>
  */
-global.get_action_type=function (type, all = false){
-
+global.get_action_type=function (type, all){
+ all=all||false;
     let list = {
         1:'系统',
         2:'用户',
@@ -537,9 +542,9 @@ global.call_user_func=function(cb, params) {
  * @param uid 用户id
  * @returns Promise {*}
  */
-global.get_nickname = async (uid) => {
-    console.log(uid);
-    let data = await think.model('member',think.config("db"),'admin').get_nickname(uid)
+global.get_nickname = function*(uid){
+    //console.log(uid);
+    let data = yield think.model('member',think.config("db"),'admin').get_nickname(uid)
     return data;
 }
 //时间格式

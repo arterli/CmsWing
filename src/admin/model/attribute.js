@@ -9,7 +9,7 @@ export default class extends think.model.base {
      * @return Boolean  fasle 失败 ， int  成功 返回完整的数据
      * @author
      */
-    async upattr(data, create) {
+    * upattr(data, create) {
         //获取数据对象
         if (think.isEmpty(data)) {
             return false;
@@ -18,13 +18,13 @@ export default class extends think.model.base {
         if (think.isEmpty(data.id)) {//新增字段
             data.create_time = new Date().valueOf();
             data.status = 1;
-            let id = await this.add(data);
+            let id = yield this.add(data);
             if (!id) {
                 return false;
             }
             if (create) {
                 //新增表字段
-                let res = await this.addField(data);
+                let res = yield this.addField(data);
                 if (!res) {
                     this.delete(id)
                     return false;
@@ -34,13 +34,13 @@ export default class extends think.model.base {
         } else {//更新数据
             if (create) {
                 //更新表字段
-                let res = await this.updateField(data);
+                let res = yield this.updateField(data);
                 if (!res) {
                     return false;
                 }
             }
             data.update_time = new Date().valueOf();
-            let status = await this.update(data);
+            let status = yield this.update(data);
             if (!status) {
                 return false;
             }
@@ -54,18 +54,18 @@ export default class extends think.model.base {
      * @return Number 是否存在
      * @author
      */
-    async checkTableExist(model_id) {
+    * checkTableExist(model_id) {
         let table_name;
         let extend_model;
         let Model = this.model("model");
-        let model = await Model.where({id: model_id}).field("name,extend").find();
+        let model = yield Model.where({id: model_id}).field("name,extend").find();
         if (model.extend == 0) {//独立模型表名
             table_name = this.table_name = think.config("db").prefix + model.name.toLowerCase();
         } else {
-            extend_model = await Model.where({id: model.extend}).field("name,extend").find();
+            extend_model = yield Model.where({id: model.extend}).field("name,extend").find();
             table_name = this.table_name = think.config("db").prefix + extend_model.name.toLowerCase() + '_' + model.name.toLowerCase();
         }
-        let res = await think.model('mysql', think.config("db")).query(`SHOW TABLES LIKE '${table_name}'`)
+        let res = yield think.model('mysql', think.config("db")).query(`SHOW TABLES LIKE '${table_name}'`)
         return res.length;
     }
 
@@ -75,9 +75,9 @@ export default class extends think.model.base {
      * @return Boolean  true 成功 ， false 失败
      * @author
      */
-    async addField(_filed) {
+    * addField(_filed) {
         //检查表是否存在
-        let table_exist = await this.checkTableExist(_filed.model_id);
+        let table_exist = yield this.checkTableExist(_filed.model_id);
         var def;
         var sql;
         //获取默认值
@@ -98,7 +98,7 @@ export default class extends think.model.base {
             sql = this.parseSql(sql);
         } else {//新建表时是否默认新增‘id主键’字段
 
-            let model_info = await this.model('model').where({id: _filed.model_id}).field('engine_type,need_pk').find();
+            let model_info = yield this.model('model').where({id: _filed.model_id}).field('engine_type,need_pk').find();
             if (model_info.need_pk) {
                 let fie = _filed;
                 sql = ` CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
@@ -127,7 +127,7 @@ export default class extends think.model.base {
                 sql = this.parseSql(sql);
             }
         }
-        let res = await think.model('mysql', think.config("db")).execute(sql);
+        let res = yield think.model('mysql', think.config("db")).execute(sql);
 
         return res == 0;
 
@@ -139,12 +139,12 @@ export default class extends think.model.base {
      * @return boolean true 成功 ， false 失败
      * @author
      */
-    async updateField(_field) {
+    * updateField(_field) {
         //检查表是否存在
-        let table_exist = await this.checkTableExist(_field.model_id);
+        let table_exist = yield this.checkTableExist(_field.model_id);
 
         //获取原字段名
-        let last_field = await this.where({id: _field.id}).getField('name');
+        let last_field = yield this.where({id: _field.id}).getField('name');
 
         //获取默认值
         let def = _field.value != '' ? ' DEFAULT ' + _field.value : '';
@@ -152,7 +152,7 @@ export default class extends think.model.base {
         let sql = `ALTER TABLE \`${this.table_name}\` CHANGE COLUMN \`${last_field}\` \`${_field.name}\`  ${_field.field} ${def} COMMENT \'${_field.title}\' ;`
         sql = this.parseSql(sql);
         console.log(sql);
-        let res = await think.model('mysql', think.config("db")).execute(sql);
+        let res = yield think.model('mysql', think.config("db")).execute(sql);
         return res == 0;
     }
 
@@ -162,15 +162,15 @@ export default class extends think.model.base {
      * @return boolean true 成功 ， false 失败
      * @author
      */
-    async  deleteField(_field) {
+    *  deleteField(_field) {
         //检查表是否存在
-        let table_exist = await this.checkTableExist(_field.model_id);
+        let table_exist = yield this.checkTableExist(_field.model_id);
 
         let sql = `ALTER TABLE \`${this.table_name}\` DROP COLUMN \`${_field.name}\`;`
 
         sql = this.parseSql(sql);
         console.log(sql);
-        let res = await think.model('mysql', think.config("db")).execute(sql);
+        let res = yield think.model('mysql', think.config("db")).execute(sql);
         return res == 0;
     }
 
@@ -181,12 +181,12 @@ export default class extends think.model.base {
      * @param model_id 要验证的字段的模型id
      * @author
      */
-    async checkName(name, model_id, id) {
+    * checkName(name, model_id, id) {
         let map = {'name': name, 'model_id': model_id};
         if (!think.isEmpty(id)) {
             map.id = ["!=", id];
         }
-        let res = await this.where(map).find();
+        let res = yield this.where(map).find();
         return think.isEmpty(res);
     }
 
@@ -196,7 +196,9 @@ export default class extends think.model.base {
      * @param string field 要获取的字段名
      * @return string  属性信息
      */
-    async get_model_attribute(model_id, group = true, fields = true) {
+    * get_model_attribute(model_id, group, fields) {
+        //group=group?true:false;
+        //fields=fields?true:false;
         let map;
         //验证ID
         if (think.isEmpty(model_id) || !think.isNumberString(model_id)) {
@@ -204,18 +206,18 @@ export default class extends think.model.base {
         }
         //获取属性
         map = {model_id: model_id};
-        let extend = await this.model('model').where({id: model_id}).getField('extend', true);
+        let extend = yield this.model('model').where({id: model_id}).getField('extend', true);
         //console.log(extend);
         if (extend) {
             map = {model_id: ['IN', [model_id, extend]]}
         }
-        let info = await this.where(map).field(fields).select();
+        let info = yield this.where(map).field(fields).select();
         let attr = {};
         if (group) {
             for (let val of info) {
                 attr[val.id] = val;
             }
-            let model = await this.model('model').field("field_sort,attribute_list,attribute_alias").find(model_id);
+            let model = yield this.model('model').field("field_sort,attribute_list,attribute_alias").find(model_id);
             let attribute;
             if (model.attribute_list) {
                 attribute = model.attribute_list.split(",")

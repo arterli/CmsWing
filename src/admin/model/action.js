@@ -9,20 +9,21 @@ export default class extends think.model.base {
      * @param string field 需要获取的字段
      * @author arterli <arterli@qq.com>
      */
-    async get_action(id = null, field = null){
+    * get_action(id, field){
+        id=id||null,field=field||null;
         if(think.isEmpty(id) && !think.isNumberString(id)){
             return false;
         }
        let list = {}
             let map = {'status':['>', -1], 'id':id};
-            list[id] = await this.where(map).field(true).find();
+            list[id] = yield this.where(map).field(true).find();
 
         return think.isEmpty(field) ? list[id] : list[id][field];
     }
 
     /**
      * 记录行为日志，并执行该行为的规则
-     * await this.model("action").log("action","model","record_id","user_id",this.ip(),this.http.url)
+     * yield this.model("action").log("action","model","record_id","user_id",this.ip(),this.http.url)
      * @param string action 行为标识
      * @param string model 触发行为的模型名
      * @param int record_id 触发行为的记录id
@@ -30,22 +31,22 @@ export default class extends think.model.base {
      * @return boolean
      * @author arterli <arterli@qq.com>
      */
-   async log(action = null, model = null, record_id = null, user_id = null, ip , url){
-
+   * log(action, model, record_id, user_id, ip , url){
+    //action=action||null,model=model||null,record_id=record_id||null,user_id=user_id||null;
         //参数检查
         if(think.isEmpty(action) || think.isEmpty(model) || think.isEmpty(record_id)){
             return '参数不能为空';
         }
 
         if(think.isEmpty(user_id)){
-            let user = await this.session('userInfo');
+            let user = yield this.session('userInfo');
             let id = user.id;
             user_id = id;
         }
 
         //查询行为，判断是否执行
 
-        let action_info = await this.where({name:action}).find();
+        let action_info = yield this.where({name:action}).find();
         if(action_info.status != 1){
             return '改行为被禁用';
         }
@@ -84,7 +85,13 @@ export default class extends think.model.base {
                    let param = val.split('|');
                    console.log(param);
                    if(!think.isEmpty(param[1])){
-                       replace.push(await call_user_func(param[1],log[param[0]]));
+
+                      if(param[0]=='user'){
+                          replace.push(yield call_user_func(param[1],log[param[0]]));
+                      }else {
+                          replace.push(call_user_func(param[1],log[param[0]]));
+                      }
+
                    }else {
                        replace.push(log[param[0]])
                    }
@@ -101,12 +108,12 @@ export default class extends think.model.base {
            data.remark = '操作url:'+url
 
        }
-        console.log(data);
-       await this.model("action_log").add(data);
+        //console.log(data);
+       yield this.model("action_log").add(data);
 
         if(!think.isEmpty(action_info.rule)){
-            let rules = await this.parse_action(action,user_id);
-            let res = await this.execute_action(rules,action_info.id,user_id);
+            let rules = yield this.parse_action(action,user_id);
+            let res = yield this.execute_action(rules,action_info.id,user_id);
         }
     }
 
@@ -126,7 +133,7 @@ export default class extends think.model.base {
      * @author arterli <arterli@qq.com>
      */
 
-    async parse_action(action=null,self){
+    * parse_action(action,self){
         if(think.isEmpty(action)){
             return false;
         }
@@ -138,7 +145,7 @@ export default class extends think.model.base {
             map = {"name":action};
         }
         //查询行为信息
-        let info = await this.where(map).find();
+        let info = yield this.where(map).find();
         if(!info || info.status != 1){
             return false;
         }
@@ -148,7 +155,7 @@ export default class extends think.model.base {
         let rules = info.rule;
         rules = str_replace('${self}',self,rules);
         rules = rules.split(";");
-         console.log(rules);
+         //console.log(rules);
         let ret = [];
         for (let val of rules){
             if(val){
@@ -176,7 +183,9 @@ export default class extends think.model.base {
      * @return boolean false 失败 ， true 成功
      * @author arterli <arterli@qq.com>
      */
-    async execute_action(rules = false, action_id = null, user_id = null){
+    * execute_action(rules, action_id, user_id){
+       // console.log(rules + action_id + user_id);
+
         if(!rules || think.isEmpty(action_id) || think.isEmpty(user_id)){
             return false;
         }
@@ -190,7 +199,7 @@ export default class extends think.model.base {
             }
             map.create_time = [">",new Date().valueOf() - rule.cycle * 3600 * 1000]
             console.log(map);
-           let exec_count = await this.model("action_log").where(map).count();
+           let exec_count = yield this.model("action_log").where(map).count();
             console.log(exec_count);
             if(exec_count>rule.max){
                 continue;
@@ -201,10 +210,10 @@ export default class extends think.model.base {
             let step =parseInt(rule.rule);
             let res;
             if(step >= 0){
-                res = await model.where(rule.condition).increment(field, step);
+                res = yield model.where(rule.condition).increment(field, step);
             }else {
                 step = Math.abs(step);
-                res = await model.where(rule.condition).decrement(field, step);
+                res = yield model.where(rule.condition).decrement(field, step);
             }
             //console.log(Math.abs(step));
             if(!res){

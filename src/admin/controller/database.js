@@ -24,11 +24,11 @@ export default class extends Base {
      * 数据库列表
      * @returns {*}
      */
-    async indexAction() {
+    * indexAction() {
         //auto render template file index_index.html
         //let DB = think.adapter('db', this.config.type || 'mysql');
         //this._db = new DB(this.config);
-        let list = await this.model().query('SHOW TABLE STATUS');
+        let list = yield this.model().query('SHOW TABLE STATUS');
         // console.log(list)
         this.meta_title='备份数据库';
         this.assign("list", list);
@@ -38,13 +38,13 @@ export default class extends Base {
     /**
      * 优化表
      */
-    async optimizeAction() {
+    * optimizeAction() {
         let list;
         
         if (this.isPost()) {
             let tables = this.post('tables');
             if (tables) {
-                list = await this.model().query("OPTIMIZE TABLE " + tables);
+                list = yield this.model().query("OPTIMIZE TABLE " + tables);
                 return this.json(list);
             } else {
                 return this.fail(88, "请指定要修复的表！")
@@ -59,12 +59,12 @@ export default class extends Base {
      * 修复表
      * @returns {*}
      */
-    async repairAction() {
+    * repairAction() {
         let list;
         if (this.isPost()) {
             let tables = this.post("tables");
             if (tables) {
-                list = await this.model().query('REPAIR TABLE ' + tables)
+                list = yield this.model().query('REPAIR TABLE ' + tables)
                 return this.json(list);
             } else {
                 return this.fail(88, "请指定要修复的表！")
@@ -83,7 +83,7 @@ export default class extends Base {
      * @param  Integer start  起始行数
      * @author
      */
-    async exportAction() {
+    * exportAction() {
         let tables = this.param('tables').split(',');
         let id = Number(this.param('id'))
         let start = Number(this.param('start'))
@@ -109,17 +109,17 @@ export default class extends Base {
             }
             //检查备份目录是否可写
             think.isWritable(config.path) || this.fail('备份目录不存在或不可写，请检查后重试！');
-            await this.session('backup_config', config);
+            yield this.session('backup_config', config);
 
             //生成备份文件信息
             let file = {
                 'name': new Date().valueOf(),
                 'part': 1,
             };
-            await this.session('backup_file', file);
+            yield this.session('backup_file', file);
 
             //缓存要备份的表
-            await this.session('backup_tables', tables);
+            yield this.session('backup_tables', tables);
 
             //创建备份文件
             let Database = think.adapter("database", "mysql");
@@ -139,14 +139,14 @@ export default class extends Base {
                 })
             }
         } else if (this.isGet() && think.isNumber(id) && think.isNumber(start)) {
-            let table = await this.session('backup_tables');
+            let table = yield this.session('backup_tables');
             //备份指定表
-            let backup_file = await this.session('backup_file');
+            let backup_file = yield this.session('backup_file');
             //console.log(backup_file);
-            let backup_config = await this.session('backup_config');
+            let backup_config = yield this.session('backup_config');
             let Database = think.adapter("database", "mysql");
             let db = new Database(backup_file, backup_config, 'export');
-            start = await db.backup(table[id], start);
+            start = yield db.backup(table[id], start);
             if (false === start) {
                 return this.fail("备份出错！")
             } else if (0 === start) {//下一表
@@ -158,14 +158,14 @@ export default class extends Base {
                         'status': 1
                     })
                 } else {
-                    let lock = await this.session('backup_config');
+                    let lock = yield this.session('backup_config');
 
                     if (think.isFile(lock.path + 'backup.lock')) {
                         fs.unlinkSync(lock.path + 'backup.lock')
                     }
-                    await this.session('backup_tables', null);
-                    await this.session('backup_file', null);
-                    await this.session('backup_config', null);
+                    yield this.session('backup_tables', null);
+                    yield this.session('backup_file', null);
+                    yield this.session('backup_config', null);
                     return this.json({
                         'info': '备份完成！',
                         'status': 1
@@ -187,7 +187,7 @@ export default class extends Base {
         //think.isWritable 判断目录是否可写
         //paths=path.basename(path)
         //console.log(paths);
-        //let v = await this.session('backup_file');
+        //let v = yield this.session('backup_file');
         //this.end(v);
     }
 
@@ -245,11 +245,11 @@ export default class extends Base {
         this.display();
     }
 
-    async rmdirAction() {
+    * rmdirAction() {
         let dir = this.get("path");
         let paths = think.RESOURCE_PATH + "/backup/" + dir;
         //删除目录
-        await think.rmdir(paths);
+        yield think.rmdir(paths);
         //删除对应压缩包
         if (think.isFile(paths + ".tar.gz")) {
             fs.unlinkSync(paths + ".tar.gz");
@@ -261,10 +261,10 @@ export default class extends Base {
         })
     }
 
-    async aabbAction() {
+    * aabbAction() {
         let Database = think.adapter("database", "mysql");
         let db = new Database("1", "2", "3");
-        await db.backup("vkj_member", 0);
+        yield db.backup("vkj_member", 0);
         //let dbs = new Database("111","222","333");
         //dbs.backup("aaa","bbb");
         this.end();

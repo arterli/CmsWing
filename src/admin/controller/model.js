@@ -19,9 +19,9 @@ export default class extends Base {
         this.tactive = "setup"
     }
 
-    async indexAction() {
+    * indexAction() {
         let map = {'status': ['>', -1]}
-        let data = await this.db.where(map).page(this.get('page')).countSelect();
+        let data = yield this.db.where(map).page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
@@ -35,14 +35,14 @@ export default class extends Base {
      * 新建模型
      * @returns {*}
      */
-    async addAction() {
+    * addAction() {
         if (this.isPost()) {
             let data = this.post();
             //console.log(data);
             data.create_time = new Date().valueOf();
             data.update_time = new Date().valueOf();
             data.status = 1
-            let res = await this.db.add(data);
+            let res = yield this.db.add(data);
             if (res) {
                 this.cache("get_document_model", null);//清除模型缓存
                 return this.success({name: "添加成功", url: "/admin/model/index"});
@@ -58,7 +58,7 @@ export default class extends Base {
      * 编辑模型
      *
      */
-    async editAction() {
+    * editAction() {
         if (this.isPost()) {
             let post = this.post()
             post.update_time = new Date().valueOf();
@@ -66,7 +66,7 @@ export default class extends Base {
                post.attribute_list=post.attribute_list.join(",");
            }
 
-            let res =await this.db.update(post);
+            let res =yield this.db.update(post);
             if(res){
                 this.cache("get_document_model", null);//清除模型缓存
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})
@@ -77,14 +77,14 @@ export default class extends Base {
             if (think.isEmpty(id)) {
                 this.fail('参数不能为空！');
             }
-            let data = await this.db.find(id);
+            let data = yield this.db.find(id);
            // console.log(data);
             data.attribute_list = think.isEmpty(data.attribute_list) ? '' : data.attribute_list.split(",");
            // console.log(data.attribute_list);
-            let fields = await this.model('attribute').where({model_id: data.id}).field('id,name,title,is_show').select();
+            let fields = yield this.model('attribute').where({model_id: data.id}).field('id,name,title,is_show').select();
             //是否继承了其他模型
             if (data.extend != 0) {
-                var extend_fields = await this.model('attribute').where({model_id: data.extend}).field('id,name,title,is_show').select();
+                var extend_fields = yield this.model('attribute').where({model_id: data.extend}).field('id,name,title,is_show').select();
                 allfields = fields.concat(extend_fields);
             } else {
                 allfields = fields;
@@ -150,10 +150,10 @@ export default class extends Base {
     /**
      * 删除模型模型
      */
-    async delAction() {
+    * delAction() {
         let ids = this.get('id');
         think.isEmpty(ids) && this.fail("参数不能为空")
-        let res = await this.db.del(ids)
+        let res = yield this.db.del(ids)
         if (!res) {
             this.fail("删除失败");
         } else {
@@ -164,10 +164,10 @@ export default class extends Base {
     /**
      * 新增字段检查同一张表是否有相同的字段
      */
-    async checknameAction(){
+    * checknameAction(){
         let name = this.get('name');
         let id = this.get('id');
-        let res = await this.db.checkName(name,id);
+        let res = yield this.db.checkName(name,id);
         if(res){
             return this.json(1);
         }else {
