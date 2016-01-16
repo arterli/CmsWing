@@ -54,7 +54,7 @@ global._int2iP = function (num) {
  * @param md5encoded
  * @returns {*}
  */
-/*global encryptPassword(password:any, md5encoded:any):{} */
+/*global encryptPassword */
 global.encryptPassword = function (password, md5encoded) {
     md5encoded = md5encoded||false;
     password = md5encoded ? password : think.md5(password);

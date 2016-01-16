@@ -19,7 +19,7 @@ export default class extends think.controller.base {
             let res = yield this.model("member").signin(username,password,this.ip(),1);
             if(0<res.uid){
                 //记录用户登录行为
-                //yield this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
+                yield this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
                 //console.log(11111111111111);
                 yield this.session('userInfo', res);
                 //TODO 用户密钥
