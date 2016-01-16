@@ -9,7 +9,7 @@ export default class extends think.model.base {
      * @return Boolean  fasle 失败 ， int  成功 返回完整的数据
      * @author
      */
-    * upattr(data, create) {
+    *upattr(data, create) {
         //获取数据对象
         if (think.isEmpty(data)) {
             return false;
@@ -60,10 +60,10 @@ export default class extends think.model.base {
         let Model = this.model("model");
         let model = yield Model.where({id: model_id}).field("name,extend").find();
         if (model.extend == 0) {//独立模型表名
-            table_name = this.table_name = think.config("db").prefix + model.name.toLowerCase();
+            table_name = this.table_name = think.parseConfig(true, think.config("db")).prefix + model.name.toLowerCase();
         } else {
             extend_model = yield Model.where({id: model.extend}).field("name,extend").find();
-            table_name = this.table_name = think.config("db").prefix + extend_model.name.toLowerCase() + '_' + model.name.toLowerCase();
+            table_name = this.table_name = think.parseConfig(true, think.config("db")).prefix + extend_model.name.toLowerCase() + '_' + model.name.toLowerCase();
         }
         let res = yield think.model('mysql', think.config("db")).query(`SHOW TABLES LIKE '${table_name}'`)
         return res.length;
