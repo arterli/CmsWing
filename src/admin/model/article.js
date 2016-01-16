@@ -12,7 +12,7 @@ export default class extends think.model.base {
      */
   * detail(id){
         //获取基础数据
-      let info=yield this.field(true).find(id);
+      let info=yield this.find(id);
 
 
       return info;

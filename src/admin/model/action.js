@@ -37,7 +37,7 @@ export default class extends think.model.base {
         if(think.isEmpty(action) || think.isEmpty(model) || think.isEmpty(record_id)){
             return '参数不能为空';
         }
-
+        
         if(think.isEmpty(user_id)){
             let user = yield this.session('userInfo');
             let id = user.id;

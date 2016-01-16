@@ -22,8 +22,8 @@ export default class extends Base {
   
   * indexAction(){
     //auto render template file index_index.html
-    console.log(think.config("db").prefix);
-    yield this.model("action").log("testaction","member",this.user.uid,this.user.uid,this.ip(),this.http.url);//测试日志行为
+    console.log(think.parseConfig(true,think.config("db")).prefix);
+    //yield this.model("action").log("testaction","member",this.user.uid,this.user.uid,this.ip(),this.http.url);//测试日志行为
     this.meta_title=this.locale('meta_title_admin');
     let mysqlv=yield this.model('mysql').query("select version()");
     let node = process.versions;

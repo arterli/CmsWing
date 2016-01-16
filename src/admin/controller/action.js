@@ -22,6 +22,7 @@ export default class extends Base {
     this.assign("list",action.data);
     this.meta_title = "用户行为";
     return this.display();
+    
   }
 
   /**

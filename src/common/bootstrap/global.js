@@ -21,6 +21,7 @@
  * @returns {number}
  * @private
  */
+/* global _ip2int(ip)*/
 global._ip2int = function (ip) {
     var num = 0;
     ip = ip.split(".");
@@ -35,6 +36,7 @@ global._ip2int = function (ip) {
  * @returns {string|*}
  * @private
  */
+/*global _int2ip(num: number) */
 global._int2iP = function (num) {
     var str;
     var tt = new Array();
@@ -52,6 +54,7 @@ global._int2iP = function (num) {
  * @param md5encoded
  * @returns {*}
  */
+/*global encryptPassword(password:any, md5encoded:any):{} */
 global.encryptPassword = function (password, md5encoded) {
     md5encoded = md5encoded||false;
     password = md5encoded ? password : think.md5(password);
@@ -63,6 +66,7 @@ global.encryptPassword = function (password, md5encoded) {
  * @param arr
  * @returns {Array}
  */
+/* global unique */
 global.unique = function (arr) {
     var result = [], hash = {};
     for (var i = 0, elem; (elem = arr[i]) != null; i++) {
@@ -79,6 +83,7 @@ global.unique = function (arr) {
  * @param arrayToSearch
  * @returns {boolean}
  */
+/* global in_array */
 global.in_array = function (stringToSearch, arrayToSearch) {
     for (let s = 0; s < arrayToSearch.length; s++) {
         let thisEntry = arrayToSearch[s].toString();
@@ -89,6 +94,7 @@ global.in_array = function (stringToSearch, arrayToSearch) {
     return false;
 }
 /**
+ * global times
  * 时间格式化
  * @param d
  * @returns {string}
@@ -124,6 +130,7 @@ function sort_node(v, w) {
 }
 
 /**
+ * global get_children
  * 获取子集分类 （这里是获取所有子集）
  */
 global.get_children = function (nodes, parent) {
@@ -231,6 +238,7 @@ global.get_children = function (nodes, parent) {
  * @param obj
  * @returns {Array}
  */
+/* global obj_values */
 global.obj_values = function (obj) {
     let objkey = Object.keys(obj);
     let objarr = [];
@@ -245,6 +253,7 @@ global.obj_values = function (obj) {
  * @param b
  * @returns {boolean}
  */
+/* global isObjectValueEqual */
 global.isObjectValueEqual = function (a, b) {
     // Of course, we can do it use for in
     // Create arrays of property names
@@ -276,6 +285,7 @@ global.isObjectValueEqual = function (a, b) {
  * @param str [删除左右两端的空格]
  * @returns {*|void|string|XML}
  */
+/* global trim */
 global.trim = function (str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
@@ -284,6 +294,7 @@ global.trim = function (str) {
  * @param str
  * @returns {*}
  */
+/* global parse_config_attr */
 global.parse_config_attr = function (str) {
     let strs;
     if (str.search(/\r\n/ig) > -1) {
@@ -308,14 +319,17 @@ global.parse_config_attr = function (str) {
  * @param str [删除左边的空格]
  * @returns {*|void|string|XML}
  */
+/* global ltrim */
 global.ltrim = function (str) {
     return str.replace(/(^\s*)/g, "");
 }
 /**
+ * 
  * rtrim()
  * @param str [删除右边的空格]
  * @returns {*|void|string|XML}
  */
+/* global rtrim */
 global.rtrim = function (str) {
     return str.replace(/(\s*$)/g, "");
 }
@@ -325,6 +339,7 @@ global.rtrim = function (str) {
  * @param string pid parent标记字段
  * @return array
  */
+/* global arr_to_tree */
 global.arr_to_tree = function (data, pid) {
     var result = [], temp;
     for (var i in data) {
@@ -339,6 +354,7 @@ global.arr_to_tree = function (data, pid) {
     return result;
 }
 // 获取属性类型信息
+/* global get_attribute_type */
 global.get_attribute_type = function (type){
     // TODO 可以加入系统配置
     let _type = {
@@ -383,6 +399,7 @@ global.get_attribute_type = function (type){
       }
       return _date;
  }
+ /* global array_search */
 global.array_search=function (arr, str){
     // 如果可以的话，调用原生方法
     if(arr && arr.indexOf){
@@ -400,6 +417,7 @@ global.array_search=function (arr, str){
     // 数组中不存在该元素
     return false;
 }
+ /* global array_diff */
 global.array_diff=function (arr1,arr2){
     //var arr1 = ["i", "b", "c", "d", "e", "f","x",""]; //数组A
     //var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
@@ -423,7 +441,7 @@ global.array_diff=function (arr1,arr2){
 //    func.apply(cb, params);
 //}
 /* 解析列表定义规则*/
-
+ /* global get_list_field */
 global.get_list_field=function (data, grid, controller,module){
     module = module||"admin";
     //console.log(module);
@@ -513,6 +531,7 @@ global.get_list_field=function (data, grid, controller,module){
  * @param bool all 是否返回全部类型
  * @author arterli <arterli@qq.com>
  */
+ /* global get_action_type */
 global.get_action_type=function (type, all){
  all=all||false;
     let list = {
@@ -532,6 +551,7 @@ global.get_action_type=function (type, all){
  * @param cb  函数名
  * @param params 数组格式传入参数
  */
+/* global call_user_func */
 global.call_user_func=function(cb, params) {
     let func = eval(cb);
     if(!think.isArray(params)){
@@ -545,12 +565,14 @@ global.call_user_func=function(cb, params) {
  * @param uid 用户id
  * @returns Promise {*}
  */
+/* global get_nickname */
 global.get_nickname = function*(uid){
     //console.log(uid);
     let data = yield think.model('member',think.config("db"),'admin').get_nickname(uid)
     return data;
 }
 //时间格式
+/* global time_format */
 global.time_format = (time)=>{
     return dateformat('Y-m-d H:i:s',time);
 }
@@ -562,7 +584,6 @@ global.time_format = (time)=>{
  * @param count
  * @returns {*}
  */
-
 
 global.str_replace=function(search, replace, subject, count){
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,

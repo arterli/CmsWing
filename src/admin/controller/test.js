@@ -37,7 +37,17 @@ export default class extends think.controller.base {
         this.assign("date",new Date().valueOf());
         return this.display()
     }
+  
+      
+       *tesfAction(){
+          let model = this.model('sfsfsdf');
+          let affectedRows = yield model.where({id: ['>', 100]}).delete();
+          sfsfsdf 
+          }
+   
     * funAction(){
+        
+       
     let str = "[user|get_nickname]在[time|time_format]登录了后台[model]";
         let match = str.match(/\[(\S+?)\]/g);
         //console.log(match);
@@ -58,7 +68,7 @@ export default class extends think.controller.base {
                     time: new Date().valueOf(),
                 }
             }
-
+       
             let replace = []
             for(let val of match){
                 val= val.replace(/(^\[)|(\]$)/g, "");
