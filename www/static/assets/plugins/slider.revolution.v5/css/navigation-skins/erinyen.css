@@ -1,0 +1,276 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ ERINYEN SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.erinyen.tparrows {
+  cursor:pointer;
+  background:#000;
+  background:rgba(0,0,0,0.5);
+  min-width:70px;
+  min-height:70px;
+  position:absolute;
+  display:block;
+  z-index:100;
+  border-radius:35px;   
+}
+
+.erinyen.tparrows:before {
+  font-family: "revicons";
+  font-size:20px;
+  color:#fff;
+  display:block;
+  line-height: 70px;
+  text-align: center;    
+  z-index:2;
+  position:relative;
+}
+.erinyen.tparrows.tp-leftarrow:before {
+  content: "\e824";
+}
+.erinyen.tparrows.tp-rightarrow:before {
+  content: "\e825";
+}
+
+.erinyen .tp-title-wrap { 
+  position:absolute;
+  z-index:1;
+  display:inline-block;
+  background:#000;
+  background:rgba(0,0,0,0.5);
+  min-height:70px;
+  line-height:70px;
+  top:0px;
+  margin-left:0px;
+  border-radius:35px;
+  overflow:hidden; 
+  transition: opacity 0.3s;
+  -webkit-transition:opacity 0.3s;
+  -moz-transition:opacity 0.3s;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  transform: scale(0);  
+  visibility:hidden;
+  opacity:0;
+}
+
+.erinyen.tparrows:hover .tp-title-wrap{
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  transform: scale(1);
+  opacity:1;
+  visibility:visible;
+}
+        
+ .erinyen.tp-rightarrow .tp-title-wrap { 
+   right:0px;
+   margin-right:0px;margin-left:0px;
+   -webkit-transform-origin:100% 50%;
+  border-radius:35px;
+  padding-right:20px;
+  padding-left:10px;
+ }
+
+
+.erinyen.tp-leftarrow .tp-title-wrap { 
+   padding-left:20px;
+  padding-right:10px;
+}
+
+.erinyen .tp-arr-titleholder {
+  letter-spacing: 3px;
+   position:relative;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transform:translateX(200px);  
+  text-transform:uppercase;
+  color:#fff;
+  font-weight:600;
+  font-size:13px;
+  line-height:70px;
+  white-space:nowrap;
+  padding:0px 20px;
+  margin-left:11px;
+  opacity:0;  
+}
+
+.erinyen .tp-arr-imgholder {
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
+  background-position:center center;
+  background-size:cover;
+    }
+ .erinyen .tp-arr-img-over {
+   width:100%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
+   background:#000;
+   background:rgba(0,0,0,0.5);
+        }
+.erinyen.tp-rightarrow .tp-arr-titleholder {
+   transform:translateX(-200px); 
+   margin-left:0px; margin-right:11px;
+      }
+
+.erinyen.tparrows:hover .tp-arr-titleholder {
+   transform:translateX(0px);
+   -webkit-transform:translateX(0px);
+  transition-delay: 0.1s;
+  opacity:1;
+}
+
+/* BULLETS */
+.erinyen.tp-bullets {
+}
+.erinyen.tp-bullets:before {
+	content:" ";
+	position:absolute;
+	width:100%;
+	height:100%;
+	background: #555555; /* old browsers */
+    background: -moz-linear-gradient(top,  #555555 0%, #222222 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#555555), color-stop(100%,#222222)); /* chrome,safari4+ */
+    background: -webkit-linear-gradient(top,  #555555 0%,#222222 100%); /* chrome10+,safari5.1+ */
+    background: -o-linear-gradient(top,  #555555 0%,#222222 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(top,  #555555 0%,#222222 100%); /* ie10+ */
+    background: linear-gradient(to bottom,  #555555 0%,#222222 100%); /* w3c */
+    filter: progid:dximagetransform.microsoft.gradient( startcolorstr="#555555", endcolorstr="#222222",gradienttype=0 ); /* ie6-9 */
+	padding:10px 15px;
+	margin-left:-15px;margin-top:-10px;
+	box-sizing:content-box;
+   border-radius:10px;
+   box-shadow:0px 0px 2px 1px rgba(33,33,33,0.3);
+}
+.erinyen .tp-bullet {
+	width:13px;
+	height:13px;
+	position:absolute;
+	background:#111;	
+	border-radius:50%;
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.erinyen .tp-bullet:hover,
+.erinyen .tp-bullet.selected {
+	background: #e5e5e5; /* old browsers */
+background: -moz-linear-gradient(top,  #e5e5e5 0%, #999999 100%); /* ff3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e5e5e5), color-stop(100%,#999999)); /* chrome,safari4+ */
+background: -webkit-linear-gradient(top,  #e5e5e5 0%,#999999 100%); /* chrome10+,safari5.1+ */
+background: -o-linear-gradient(top,  #e5e5e5 0%,#999999 100%); /* opera 11.10+ */
+background: -ms-linear-gradient(top,  #e5e5e5 0%,#999999 100%); /* ie10+ */
+background: linear-gradient(to bottom,  #e5e5e5 0%,#999999 100%); /* w3c */
+filter: progid:dximagetransform.microsoft.gradient( startcolorstr="#e5e5e5", endcolorstr="#999999",gradienttype=0 ); /* ie6-9 */
+  border:1px solid #555;
+  width:12px;height:12px;
+}
+.erinyen .tp-bullet-image {
+}
+.erinyen .tp-bullet-title {
+}
+
+
+/* THUMBS */
+.erinyen .tp-thumb {
+opacity:1
+}
+
+.erinyen .tp-thumb-over {
+  background:#000;
+  background:rgba(0,0,0,0.25);
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:1;
+  -webkit-transition:all 0.3s;
+  transition:all 0.3s;
+}
+
+.erinyen .tp-thumb-more:before {
+  font-family: "revicons";
+  font-size:12px;
+  color:#aaa;
+  color:rgba(255,255,255,0.75);
+  display:block;
+  line-height: 12px;
+  text-align: left;    
+  z-index:2;
+  position:absolute;
+  top:20px;
+  right:20px;
+  z-index:2;
+}
+.erinyen .tp-thumb-more:before {
+  content: "\e825";
+}
+
+.erinyen .tp-thumb-title {
+  font-family:"Raleway";
+  letter-spacing:1px;
+  font-size:12px;
+  color:#fff;
+  display:block;
+  line-height: 15px;
+  text-align: left;    
+  z-index:2;
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:2;
+  padding:20px 35px 20px 20px;
+  width:100%;
+  height:100%;
+  box-sizing:border-box;
+  transition:all 0.3s;
+  -webkit-transition:all 0.3s;
+  font-weight:500;
+}
+
+.erinyen .tp-thumb.selected .tp-thumb-more:before,
+.erinyen .tp-thumb:hover .tp-thumb-more:before {
+ color:#aaa;
+
+}
+
+.erinyen .tp-thumb.selected .tp-thumb-over,
+.erinyen .tp-thumb:hover .tp-thumb-over {
+ background:#fff;
+}
+.erinyen .tp-thumb.selected .tp-thumb-title,
+.erinyen .tp-thumb:hover .tp-thumb-title {
+  color:#000;
+
+}
+
+
+/* TABS */
+.erinyen .tp-tab-title {
+    color:#a8d8ee;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    font-family:"Roboto Slab"
+    margin-bottom:5px;
+}
+
+.erinyen .tp-tab-desc {
+	font-size:18px;
+    font-weight:400;
+    color:#fff;
+    line-height:25px;
+	font-family:"Roboto Slab";
+}
+      
+

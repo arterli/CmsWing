@@ -1,0 +1,72 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ URANUS SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.uranus.tparrows {
+  width:50px;
+  height:50px;
+  background:transparent;
+ }
+ .uranus.tparrows:before {
+ width:50px;
+ height:50px;
+ line-height:50px;
+ font-size:40px;
+ transition:all 0.3s;
+-webkit-transition:all 0.3s;
+ }
+ 
+  .uranus.tparrows:hover:before {
+    opacity:0.75;
+  }
+
+/* BULLETS */
+.uranus .tp-bullet{
+	border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0);
+  -webkit-transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+  background:transparent;
+}
+.uranus .tp-bullet.selected,
+.uranus .tp-bullet:hover {
+  box-shadow: 0 0 0 2px #FFF;
+  border:none;
+  border-radius: 50%;
+
+   background:transparent;
+}
+
+
+
+.uranus .tp-bullet-inner {
+  background-color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-color: rgba(255, 255, 255, 0.3);
+  text-indent: -999em;
+  cursor: pointer;
+  position: absolute;
+}
+
+.uranus .tp-bullet.selected .tp-bullet-inner,
+.uranus .tp-bullet:hover .tp-bullet-inner{
+ transform: scale(0.4);
+ -webkit-transform: scale(0.4);
+ background-color:#fff;
+}
+

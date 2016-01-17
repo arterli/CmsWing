@@ -1,0 +1,29 @@
+{
+  "name": "nivoslider",
+  "version": "3.2",
+  "title": "Nivo Slider",
+  "author": {
+    "name": "Gilbert Pellegrom",
+    "url": "http://gilbert.pellegrom.me"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/gilbitron/Nivo-Slider/blob/master/license.txt"
+    }
+  ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
+  "description": "The Most Awesome jQuery Image Slider.",
+  "keywords": [
+    "slider",
+    "animation",
+    "effect"
+  ],
+  "homepage": "http://nivo.dev7studios.com",
+  "docs": "http://nivo.dev7studios.com/support",
+  "demo": "http://nivo.dev7studios.com/demos",
+  "download": "http://nivo.dev7studios.com/pricing",
+  "bugs": "https://github.com/gilbitron/Nivo-Slider/issues"
+}

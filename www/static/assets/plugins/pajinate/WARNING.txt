@@ -1,0 +1,4 @@
+jquery.pajinate.bootstrap.min.js
+
+Is a modified pajinate script for bootstrap.
+DO NOT EDIT & DO NOT DELETE IT!

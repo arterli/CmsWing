@@ -1,0 +1,177 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ DIONE SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.dione.tparrows {
+  height:100%;
+  width:100px;
+  background:transparent;
+  background:rgba(0,0,0,0);
+  line-height:100%;
+  transition:all 0.3s;
+-webkit-transition:all 0.3s;
+}
+
+.dione.tparrows:hover {
+ background:rgba(0,0,0,0.45);
+ }
+.dione .tp-arr-imgwrapper {
+ width:100px;
+ left:0px;
+ position:absolute;
+ height:100%;
+ top:0px;
+ overflow:hidden;
+ }
+.dione.tp-rightarrow .tp-arr-imgwrapper {
+left:auto;
+right:0px;
+}
+
+.dione .tp-arr-imgholder {
+background-position:center center;
+background-size:cover;
+width:100px;
+height:100%;
+top:0px;
+visibility:hidden;
+transform:translateX(-50px);
+-webkit-transform:translateX(-50px);
+transition:all 0.3s;
+-webkit-transition:all 0.3s;
+opacity:0;
+left:0px;
+}
+
+.dione.tparrows.tp-rightarrow .tp-arr-imgholder {
+  right:0px;
+  left:auto;
+  transform:translateX(50px);
+ -webkit-transform:translateX(50px);
+}
+
+.dione.tparrows:before {
+position:absolute;
+line-height:30px;
+margin-left:-22px;
+top:50%;
+left:50%;
+font-size:30px;
+margin-top:-15px;
+transition:all 0.3s;
+-webkit-transition:all 0.3s;
+}
+
+.dione.tparrows.tp-rightarrow:before {
+margin-left:6px;
+}
+
+.dione.tparrows:hover:before {
+  transform:translateX(-20px);
+-webkit-transform:translateX(-20px);
+opacity:0;
+}
+
+.dione.tparrows.tp-rightarrow:hover:before {
+  transform:translateX(20px);
+-webkit-transform:translateX(20px);
+}
+
+.dione.tparrows:hover .tp-arr-imgholder {
+ transform:translateX(0px);
+-webkit-transform:translateX(0px);
+opacity:1;
+visibility:visible;
+}
+
+
+
+/* BULLETS */
+.dione .tp-bullet { 
+    opacity:1;
+    width:50px;
+    height:50px;    
+    padding:3px;
+    background:#000;
+    background-color:rgba(0,0,0,0.25);
+    margin:0px;
+    box-sizing:border-box;
+    transition:all 0.3s;
+    -webkit-transition:all 0.3s;
+
+  }
+
+.dione .tp-bullet-image {
+   display:block;
+   box-sizing:border-box;
+   position:relative;
+    -webkit-box-shadow: inset 5px 5px 10px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: inset 5px 5px 10px 0px rgba(0,0,0,0.25);
+  box-shadow: inset 5px 5px 10px 0px rgba(0,0,0,0.25);
+  width:44px;
+  height:44px;
+  background-size:cover;
+  background-position:center center;
+ }  
+.dione .tp-bullet-title { 
+     position:absolute; 
+   bottom:65px;
+     display:inline-block;
+     left:50%;
+     background:#000;
+     background:rgba(0,0,0,0.75);
+     color:#fff;
+     padding:10px 30px;
+     border-radius:4px;
+   -webkit-border-radius:4px;
+     opacity:0;
+      transition:all 0.3s;
+    -webkit-transition:all 0.3s;
+    transform: translateZ(0.001px) translateX(-50%) translateY(14px);
+    transform-origin:50% 100%;
+    -webkit-transform: translateZ(0.001px) translateX(-50%) translateY(14px);
+    -webkit-transform-origin:50% 100%;
+    opacity:0;
+    white-space:nowrap;
+ }
+
+.dione .tp-bullet:hover .tp-bullet-title {
+     transform:rotateX(0deg) translateX(-50%);
+    -webkit-transform:rotateX(0deg) translateX(-50%);
+    opacity:1;
+}
+
+.dione .tp-bullet.selected,
+.dione .tp-bullet:hover  {
+  
+   background: rgba(255,255,255,1);
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(119,119,119,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(119,119,119,1)));
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(119,119,119,1) 100%);
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(119,119,119,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(119,119,119,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(119,119,119,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#ffffff", endColorstr="#777777", GradientType=0 );
+ 
+      }
+.dione .tp-bullet-title:after {
+        content:" ";
+        position:absolute;
+        left:50%;
+        margin-left:-8px;
+        width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 8px 0 8px;
+    border-color: rgba(0,0,0,0.75) transparent transparent transparent;
+        bottom:-8px;
+   }
+
+

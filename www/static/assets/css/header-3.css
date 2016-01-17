@@ -1,0 +1,118 @@
+#topMain>li>a {
+	height:96px;
+	line-height:76px;
+}
+#topMain.nav-pills>li {
+	margin-left:10px !important;
+}
+#topMain.nav-pills>li:first-child {
+	margin-left:0 !important;
+}
+#topMain>li>a>span.bordered {
+	padding:10px 15px;
+	border:rgba(0,0,0,0.05) 1px solid;
+
+	-webkit-border-radius: 3px;
+	   -moz-border-radius: 3px;
+			border-radius: 3px;
+}
+#header.fixed #topMain>li>a {
+	margin-top:10px;
+}
+
+#topMain.nav-pills>li>a {
+	color:#1F262D;
+	font-weight:400;
+	background-color:transparent;
+	padding-left:0 !important;
+	padding-right:0 !important;
+} 
+#topMain.nav-pills>li:hover>a, 
+#topMain.nav-pills>li:focus>a {
+	color:#1F262D;
+}
+#topMain.nav-pills>li.active>a>span.bordered,
+#topMain.nav-pills>li:hover>a>span.bordered, 
+#topMain.nav-pills>li:focus>a>span.bordered {
+	background-color:rgba(0,0,0,0.01);
+}
+
+#topMain.nav-pills>li.active>a {
+	color:#687482;
+}
+#header.fixed #topNav #topMain>li>a {
+	margin-top:0px;
+}
+#topNav .navbar-collapse {
+	float:right;
+}
+
+#topNav a.logo {
+	height:96px;
+	line-height:96px;
+	overflow:hidden;
+	display:inline-block;
+}
+
+#header ul.nav-second-main {
+	border-left:0;
+}
+
+
+@media only screen and (max-width: 1024px) {
+	#topMain.nav-pills>li>a {
+		font-size:13px;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	#topMain.nav-pills>li {
+		margin-left:0 !important;
+	}
+	#topMain>li>a>span.bordered {
+		color:#151515;
+		display:block !important;
+		padding-top:0;
+		height:40px;
+		border:0;
+
+		-webkit-border-radius: 0;
+		   -moz-border-radius: 0;
+				border-radius: 0;
+	}
+
+	/* Force 60px */
+	#header {
+		height:60px !important;
+	}
+	#header #topNav a.logo {
+		height:60px !important;
+		line-height:50px !important;
+	}
+	#header #topNav a.logo>img {
+		max-height:60px !important;
+	}
+	#header #topNav #topMain>li>a {
+		height:40px !important;
+		line-height:40px !important;
+		padding-top:0;
+	}
+
+
+	#topMain>li {
+		border-bottom:rgba(0,0,0,0.1) 1px solid;
+	}
+	#topMain>li:last-child {
+		border-bottom:0;
+	}
+
+		#header li.search .search-box {
+			margin:0 !important;
+			position:fixed;
+			left:0; right:0;
+			top:60px !important;
+			width:100%;
+			background-color:#fff;
+			border-top:rgba(0,0,0,0.1) 1px solid;
+		}
+}
