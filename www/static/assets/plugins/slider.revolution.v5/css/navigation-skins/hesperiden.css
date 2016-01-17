@@ -1,0 +1,187 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ HESPERIDEN SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.hesperiden.tparrows {
+	cursor:pointer;
+	background:#000;
+	background:rgba(0,0,0,0.5);
+	width:40px;
+	height:40px;
+	position:absolute;
+	display:block;
+	z-index:100;
+    border-radius: 50%;
+}
+.hesperiden.tparrows:hover {
+	background:#000;
+}
+.hesperiden.tparrows:before {
+	font-family: "revicons";
+	font-size:20px;
+	color:#fff;
+	display:block;
+	line-height: 40px;
+	text-align: center;
+}
+.hesperiden.tparrows.tp-leftarrow:before {
+	content: "\e82c";
+    margin-left:-3px;
+}
+.hesperiden.tparrows.tp-rightarrow:before {
+	content: "\e82d";
+    margin-right:-3px;
+}
+
+/* BULLETS */
+.hesperiden.tp-bullets {
+}
+.hesperiden.tp-bullets:before {
+	content:" ";
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:transparent;
+	padding:10px;
+	margin-left:-10px;margin-top:-10px;
+	box-sizing:content-box;
+   border-radius:8px;
+  
+}
+.hesperiden .tp-bullet {
+	width:12px;
+	height:12px;
+	position:absolute;
+	background: #999999; /* old browsers */
+    background: -moz-linear-gradient(top,  #999999 0%, #e1e1e1 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#999999), 
+    color-stop(100%,#e1e1e1)); /* chrome,safari4+ */
+    background: -webkit-linear-gradient(top,  #999999 0%,#e1e1e1 100%); /* chrome10+,safari5.1+ */
+    background: -o-linear-gradient(top,  #999999 0%,#e1e1e1 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(top,  #999999 0%,#e1e1e1 100%); /* ie10+ */
+    background: linear-gradient(to bottom,  #999999 0%,#e1e1e1 100%); /* w3c */
+    filter: progid:dximagetransform.microsoft.gradient( 
+    startcolorstr="#999999", endcolorstr="#e1e1e1",gradienttype=0 ); /* ie6-9 */
+	border:3px solid #e5e5e5;
+	border-radius:50%;
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.hesperiden .tp-bullet:hover,
+.hesperiden .tp-bullet.selected {
+	background:#666;
+}
+.hesperiden .tp-bullet-image {
+}
+.hesperiden .tp-bullet-title {
+}
+
+
+/* THUMBS */
+.hesperiden .tp-thumb {
+  opacity:1;
+  -webkit-perspective: 600px;
+  perspective: 600px;
+}
+.hesperiden .tp-thumb .tp-thumb-title {
+    font-size:12px;
+    position:absolute;
+    margin-top:-10px;
+    color:#fff;
+    display:block;
+    z-index:1000;
+    background-color:#000;
+    padding:5px 10px; 
+    bottom:0px;
+    left:0px;
+    width:100%;
+  box-sizing:border-box;
+    text-align:center;
+    overflow:hidden;
+    white-space:nowrap;
+    transition:all 0.3s;
+    -webkit-transition:all 0.3s;
+    transform:rotatex(90deg) translatez(0.001px);
+    transform-origin:50% 100%;
+    -webkit-transform:rotatex(90deg) translatez(0.001px);
+    -webkit-transform-origin:50% 100%;
+    opacity:0;
+ }
+.hesperiden .tp-thumb:hover .tp-thumb-title {
+  	 transform:rotatex(0deg);
+    -webkit-transform:rotatex(0deg);
+    opacity:1;
+}
+
+/* TABS */
+.hesperiden .tp-tab { 
+  opacity:1;      
+  padding:10px;
+  box-sizing:border-box;
+  font-family: "Roboto", sans-serif;
+  border-bottom: 1px solid #e5e5e5;
+ }
+.hesperiden .tp-tab-image 
+{ 
+  width:60px;
+  height:60px; max-height:100%; max-width:100%;
+  position:relative;
+  display:inline-block;
+  float:left;
+
+}
+.hesperiden .tp-tab-content 
+{
+    background:rgba(0,0,0,0); 
+    position:relative;
+    padding:15px 15px 15px 85px;
+ left:0px;
+ overflow:hidden;
+ margin-top:-15px;
+    box-sizing:border-box;
+    color:#333;
+    display: inline-block;
+    width:100%;
+    height:100%;
+ position:absolute; }
+.hesperiden .tp-tab-date
+  {
+  display:block;
+  color: #aaa;
+  font-weight:500;
+  font-size:12px;
+  margin-bottom:0px;
+  }
+.hesperiden .tp-tab-title 
+{
+    display:block;	
+    text-align:left;
+    color:#333;
+    font-size:14px;
+    font-weight:500;
+    text-transform:none;
+    line-height:17px;
+}
+.hesperiden .tp-tab:hover,
+.hesperiden .tp-tab.selected {
+	background:#eee; 
+}
+
+.hesperiden .tp-tab-mask {
+}
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 960px) {
+
+}
+@media only screen and (max-width: 768px) {
+
+}
+

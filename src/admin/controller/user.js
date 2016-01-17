@@ -14,13 +14,14 @@ export default class extends Base {
         super.init(http);
         this.db=this.model("member")
         this.tactive = "user";
+      
     }
 
     /**
      * 用户首页
      * @returns {*}
      */
-
+  
     indexAction(){
         return this.display();
     }

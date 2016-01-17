@@ -1,0 +1,11 @@
+/** FASHION 
+	home-theme-fashion.html 
+ ********************************************* **/
+@import url(http://fonts.googleapis.com/css?family=Cinzel+Decorative);
+.font-cinzel-decorative {
+	font-family: "Cinzel Decorative" !important;
+}
+.slider .font-cinzel-decorative {
+	font-size:110px;
+	text-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+}

@@ -1,0 +1,74 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ PERSEPHONE SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.persephone.tparrows {
+	cursor:pointer;
+	background:#aaa;
+	background:rgba(200,200,200,0.5);
+	width:40px;
+	height:40px;
+	position:absolute;
+	display:block;
+	z-index:100;
+  border:1px solid #f5f5f5;
+}
+.persephone.tparrows:hover {
+	background:#333;
+}
+.persephone.tparrows:before {
+	font-family: "revicons";
+	font-size:15px;
+	color:#fff;
+	display:block;
+	line-height: 40px;
+	text-align: center;
+}
+.persephone.tparrows.tp-leftarrow:before {
+	content: "\e824";
+}
+.persephone.tparrows.tp-rightarrow:before {
+	content: "\e825";
+}
+
+
+
+/* BULLETS */
+.persephone.tp-bullets {
+}
+.persephone.tp-bullets:before {
+	content:" ";
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:#transparent;
+	padding:10px;
+	margin-left:-10px;margin-top:-10px;
+	box-sizing:content-box;
+}
+.persephone .tp-bullet {
+	width:12px;
+	height:12px;
+	position:absolute;
+	background:#aaa;
+	border:1px solid #e5e5e5;	
+	cursor: pointer;
+	box-sizing:content-box;
+}
+.persephone .tp-bullet:hover,
+.persephone .tp-bullet.selected {
+	background:#222;
+}
+.persephone .tp-bullet-image {
+}
+.persephone .tp-bullet-title {
+}
+
+

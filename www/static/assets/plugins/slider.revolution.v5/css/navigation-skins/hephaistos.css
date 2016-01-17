@@ -1,0 +1,81 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ HEPHAISTOS SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.hephaistos.tparrows {
+	cursor:pointer;
+	background:#000;
+	background:rgba(0,0,0,0.5);
+	width:40px;
+	height:40px;
+	position:absolute;
+	display:block;
+	z-index:100;
+    border-radius:50%;
+}
+.hephaistos.tparrows:hover {
+	background:#000;
+}
+.hephaistos.tparrows:before {
+	font-family: "revicons";
+	font-size:18px;
+	color:#fff;
+	display:block;
+	line-height: 40px;
+	text-align: center;
+}
+.hephaistos.tparrows.tp-leftarrow:before {
+	content: "\e82c";
+  margin-left:-2px;
+  
+}
+.hephaistos.tparrows.tp-rightarrow:before {
+	content: "\e82d";
+   margin-right:-2px;
+}
+
+
+
+/* BULLETS */
+.hephaistos.tp-bullets {
+}
+.hephaistos.tp-bullets:before {
+	content:" ";
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:transparent;
+	padding:10px;
+	margin-left:-10px;margin-top:-10px;
+	box-sizing:content-box;
+}
+.hephaistos .tp-bullet {
+	width:12px;
+	height:12px;
+	position:absolute;
+	background:#999;
+	border:3px solid #f5f5f5;
+	border-radius:50%;
+	cursor: pointer;
+	box-sizing:content-box;
+  box-shadow: 0px 0px 2px 1px rgba(130,130,130, 0.3);
+
+}
+.hephaistos .tp-bullet:hover,
+.hephaistos .tp-bullet.selected {
+	background:#fff;
+    border-color:#000;
+}
+.hephaistos .tp-bullet-image {
+}
+.hephaistos .tp-bullet-title {
+}
+
+

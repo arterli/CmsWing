@@ -1,0 +1,94 @@
+/** WEDDING 
+	home-theme-wedding.html
+ ********************************************* **/
+#slider .slider-featured-text {
+	color:#fff;
+	font-size:90px;
+	line-height:90px;
+	font-weight:800;
+}
+#slider .slider-featured-text .row>div span {
+	font-size:50px;
+}
+#slider .big-amp {
+	font-size:170px;
+	line-height:140px;
+}
+
+.menu-center {
+	display:inline-block;
+	margin-left:auto;
+	margin-right:auto;
+}
+.countdown-section {
+	border:0 !important;
+	margin-left:3px;
+}
+.countdown.bordered-squared .countdown-amount,
+.countdown.bordered .countdown-amount {
+	border-color:rgba(255,255,255,0.3) !important;
+}
+
+@media only screen and (max-width: 992px) {
+	.menu-center {
+		display:block;
+	}
+	#slider div.slider-featured-text {
+		padding-left:0;
+		padding-right:0;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#slider .slider-featured-text .row>div {
+		margin:0;
+	}
+	#slider .slider-featured-text {
+		font-size:60px;
+		line-height:60px;
+	}
+	#slider .slider-featured-text .row>div span {
+		font-size:40px;
+	}
+	#slider .big-amp {
+		font-size:100px;
+	}
+}
+@media only screen and (max-height: 475px) {
+	#slider .slider-featured-text .row>div {
+		float:left !important;
+		width:33.30%;
+		margin-top:30px;
+	}
+	#slider .slider-featured-text {
+		font-size:30px;
+		line-height:60px;
+	}
+	#slider .slider-featured-text .row>div span {
+		font-size:30px;
+	}
+	#slider .big-amp {
+		font-size:80px;
+	}
+}
+
+
+/* 
+	 - small fixes -
+	- centered menu -
+*/
+#header {
+	height:96px;
+}
+#header.header-md {
+	height:70px;
+}
+#header.header-sm {
+	height:60px;
+}
+@media only screen and (max-width: 992px) {
+	#header,
+	#header.header-md,
+	#header.header-sm {
+		height:inherit;
+	}
+}
