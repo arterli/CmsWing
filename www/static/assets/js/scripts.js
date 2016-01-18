@@ -107,9 +107,9 @@
 		_slimScroll();
 		_modalAutoLoad();
 		_bgimage();
-		_widget_flickr();
-		_widget_twitter();
-		_widget_facebook();
+		// _widget_flickr();
+		// _widget_twitter();
+		// _widget_facebook();
 		_widget_dribbble();
 		_widget_media();
 

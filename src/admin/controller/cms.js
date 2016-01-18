@@ -15,7 +15,7 @@ import Base from './base.js';
 export default class extends Base {
     init(http) {
         super.init(http);
-        this.tactive = "setup"
+        this.tactive = "setup";
     }
     /**
      * list action
@@ -29,6 +29,7 @@ export default class extends Base {
     //view:浏览
     //id:操作:[EDIT]|编辑,[DELETE]|删除
     * listAction(){
+        
         //auto render template file index_index.html
         let model = this.get('model')
          !think.isEmpty(model)|| this.fail("模型名标识必须有！");

@@ -51,9 +51,9 @@ export default class extends think.controller.base {
     * islogin() {
         //判断是否登录
         let user = yield this.session('userInfo');
-
         let res = think.isEmpty(user) ? false : user.uid;
         return res;
+        
     }
 
     /**
