@@ -35,7 +35,7 @@ export default class extends think.model.base {
 
         let map = {"status":{">":-1}}
         let list = yield this.field(field).where(map).order('sort').select();
-        console.log(list);
+        //console.log(list);
         list = get_children(list,id);
         let info = list;
 

@@ -93,7 +93,10 @@ export default {
                 })
 
                 env.addFilter("in_Array", function (str, arr) {
-                    return in_array(str, arr);
+                    if (!think.isArray(arr)){
+                        arr= arr.split(",");
+                    }
+                        return in_array(str, arr);
                 })
 
                 env.addFilter("isempty", function (any) {
@@ -125,12 +128,12 @@ export default {
                 env.addFilter("get_action_type", function (type, all = false) {
                     return get_action_type(type, all);
                 })
-               env.addFilter("stj",function(str){  
-                   return eval('(' + str + ')');
-               })
+                env.addFilter("stj", function (str) {
+                    return eval('(' + str + ')');
+                })
                 env.addExtension('mytas', {
                     tags: ['mytas'],
-                    parse: function *(parser, nodes, lexer) {
+                    parse: function* (parser, nodes, lexer) {
                         //     var node;
                         //     var endBlock;
 
@@ -207,15 +210,15 @@ export default {
                                 tag.lineno,
                                 tag.colno);
                         }
-                        
+
                         node.value = parser.parseExpression();
-                        let aa =  think.model('action_log', think.config("db"))
-                                .select().then(data=>{
-                                    return data;
-                                    //node.value.value ='[{ a: 1 }, { a: 2 }]';
-                                });
+                        let aa = think.model('action_log', think.config("db"))
+                            .select().then(data=> {
+                                return data;
+                                //node.value.value ='[{ a: 1 }, { a: 2 }]';
+                            });
                         console.log(aa);
-                        node.value.value ='[{ a: 1 }, { a: 2 }]';
+                        node.value.value = '[{ a: 1 }, { a: 2 }]';
                         console.log(node.value);
                         parser.advanceAfterBlockEnd(tag.value);
 
@@ -231,6 +234,28 @@ export default {
                         //console.log(body())
                         
                         return [{ a: 1 }, { a: 2 }];
+
+                    }
+                });
+                env.addExtension('tagtest', {
+                    tags: ['tagtest'],
+                    parse: function (parser, nodes, lexer) {
+                        var tok = parser.nextToken();
+                        var args = parser.parseSignature(null, true);
+                        parser.advanceAfterBlockEnd(tok.value);
+                        //return new nodes.CallExtension(this, 'run', args);
+                        return new nodes.CallExtensionAsync(this, 'run', args)
+                    },
+                    run: function (context, args ,callback) {
+                       // console.log(args);
+                        
+                        for (var arg in args) {
+                            console.log(arg);
+                            if (arg !== '__keywords') {
+                                 var ss = think.model('action_log', think.config("db")).select();
+                             context.ctx[arg] =ss; 
+                            }
+                        }
 
                     }
                 });

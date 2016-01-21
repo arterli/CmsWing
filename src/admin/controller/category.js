@@ -72,7 +72,7 @@ export default class extends Base {
             }
         }else {
           let id = this.get("cid");
-            console.log(id);
+           console.log(id);
             //获取分类信息
             let info = yield category.find(id);
             this.assign("info",info);

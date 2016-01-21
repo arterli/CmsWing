@@ -13,7 +13,7 @@ export default {
       port: '3306',
       database: 'cmswing',
       user: 'root',
-      password: 'root',
+      password: '',
       prefix: 'cmswing_',
       encoding: 'utf8'
     },
