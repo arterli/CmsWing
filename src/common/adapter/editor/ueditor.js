@@ -77,7 +77,7 @@ export default class extends think.adapter.base {
     let img = new Buffer(base64Data, 'base64');
     //console.log(img.length);
     this.oriName = this.config['oriName'];
-    console.log(this.oriName);
+    //console.log(this.oriName);
     this.fileSize = img.length;
     this.fileType = this.getFileExt();
     this.fullName = this.getFullName();

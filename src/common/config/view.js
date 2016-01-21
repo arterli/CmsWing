@@ -67,7 +67,7 @@ export default {
         /**
          * 获取文档的类型文字
          */
-        env.addFilter("get_document_type",function(type = null){
+        env.addFilter("get_document_type",function(type){
           if(think.isEmpty(type)){
             return false;
           }
@@ -122,9 +122,10 @@ export default {
          * @param bool all 是否返回全部类型
          * @author arterli <arterli@qq.com>
          */
-        env.addFilter("get_action_type",function(type, all = false){
+        env.addFilter("get_action_type",function(type, all){
           return get_action_type(type,all);
         })
+       
       }
     }
   }

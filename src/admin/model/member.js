@@ -74,12 +74,7 @@ export default class extends think.model.base {
 
     * get_nickname(uid){
         uid=uid||0;
-      //if(!(uid && think.isNumberString(uid))){
-      //    let user = yield this.session('userInfo');
-      //    return user.username;
-      //}
-        //获取缓存数据
-
+        //TODO 缓存处理后续
         let name;
         let info = yield this.field("username").find(uid);
         name = info.username;

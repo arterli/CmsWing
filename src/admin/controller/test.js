@@ -1,7 +1,8 @@
 /**
  * Created by arter on 2015/11/3.
  */
-export default class extends think.controller.base {
+import Base from './base.js'
+export default class extends Base {
     init(http) {
         super.init(http);
         // http.action = http.method.toLowerCase();
@@ -104,9 +105,11 @@ export default class extends think.controller.base {
         //}
     }
     momentAction(){
-        let moment = require('moment');
-        let datetime = moment().unix();
-        moment(1318874398806).unix();
-        console.log( moment(1318874398806).format("dddd, MMMM Do YYYY, h:mm:ss a"));
+        // let moment = require('moment');
+        // let datetime = moment().unix();
+        // moment(1318874398806).unix();
+        // console.log( moment(1318874398806).format("dddd, MMMM Do YYYY, h:mm:ss a"));
+        think.log(this.setup.WEIXIN_TYPE['2'],"配置输出");
+        this.end();
     }
 }

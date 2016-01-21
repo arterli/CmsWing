@@ -584,7 +584,7 @@ global.time_format = (time)=>{
  * @param count
  * @returns {*}
  */
-
+/* global str_replace */
 global.str_replace=function(search, replace, subject, count){
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
         f = [].concat(search),
