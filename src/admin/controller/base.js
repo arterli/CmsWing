@@ -33,15 +33,29 @@ export default class extends think.controller.base {
         this.adminmenu = yield this.model('menu').adminmenu();
         this.assign("setup", this.setup);
         //菜单当前状态
-
+        
+        /**
+         * 权限验证超级管理员
+         */
+        let url = this.http.module+think.sep+this.http.controller+think.sep+this.http.action;
+        console.log(url);
+        let is_admin = yield this.is_admin();
+        console.log(is_admin);
+        if(!is_admin){
+        let Auth = think.adapter("auth", "rbac");
+        let url = this.http.module+think.sep+this.http.controller+think.sep+this.http.action;
+        console.log(url);
+        let auth = new Auth(this.user.uid);
+        let res = yield auth.check(url);
+        }
         this.active = this.http.url.slice(1),
-           // console.log(this.active);
-            //this.active = http.controller+'/'+http.action;
-            //think.log(this.active);
-            this.assign({
-                "navxs": false,
-                "bg": "bg-black"
-            })
+        // console.log(this.active);
+        //this.active = http.controller+'/'+http.action;
+        //think.log(this.active);
+        this.assign({
+            "navxs": false,
+            "bg": "bg-black"
+        })
     }
 
     /**
@@ -53,7 +67,7 @@ export default class extends think.controller.base {
         let user = yield this.session('userInfo');
         let res = think.isEmpty(user) ? false : user.uid;
         return res;
-        
+
     }
 
     /**
@@ -61,10 +75,10 @@ export default class extends think.controller.base {
      * @param uid
      * @returns {*|boolean}
      */
-    * is_admin(uid){
-         uid = uid||null;
+    * is_admin(uid) {
+        uid = uid || null;
         uid = think.isEmpty(uid) ? yield this.islogin() : uid;
-        return uid && (in_array(parseInt(uid),this.config('user_administrator')));
+        return uid && (in_array(parseInt(uid), this.config('user_administrator')));
     }
     /**
      * 对数据表中的单行或多行记录执行修改 GET参数id为数字或逗号分隔的数字
@@ -83,13 +97,13 @@ export default class extends think.controller.base {
         //如存在id字段，则加入该条件
         let fields = this.model(model).getSchema();
         if (in_array('id', fields) && !think.isEmpty(id)) {
-            where = think.extend({'id': ['IN', id]}, where);
+            where = think.extend({ 'id': ['IN', id] }, where);
         }
 
-        msg = think.extend({'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax()}, msg);
+        msg = think.extend({ 'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax() }, msg);
         let res = yield this.model(model).where(where).update(data);
         if (res) {
-            this.success({name: msg.success, url: msg.url});
+            this.success({ name: msg.success, url: msg.url });
         } else {
             this.fail(msg.error, msg.url);
         }
@@ -105,8 +119,8 @@ export default class extends think.controller.base {
      * @author arterli <arterli@qq.com>
      */
     * forbid(model, where, msg) {
-        where=where||{},msg =msg|| {'success': '状态禁用成功！', 'error': '状态禁用失败！'};
-        let data = {'status': 0};
+        where = where || {}, msg = msg || { 'success': '状态禁用成功！', 'error': '状态禁用失败！' };
+        let data = { 'status': 0 };
         yield this.editRow(model, data, where, msg);
     }
 
@@ -120,8 +134,8 @@ export default class extends think.controller.base {
      * @author arterli <arterli@qq.com>
      */
     * resume(model, where, msg) {
-        where=where||{},msg =msg|| {'success': '状态恢复成功！', 'error': '状态恢复失败！'};
-        let data = {'status': 1};
+        where = where || {}, msg = msg || { 'success': '状态恢复成功！', 'error': '状态恢复失败！' };
+        let data = { 'status': 1 };
         yield this.editRow(model, data, where, msg);
     }
 
@@ -133,10 +147,10 @@ export default class extends think.controller.base {
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      * @author arterli <arterli@qq.com>
      */
-    * restore(model, where, msg ) {
-        where=where||{},msg =msg|| {'success': '状态还原成功！', 'error': '状态还原失败！'};
-        let data = {'status': 1};
-        where = think.extend({'status': -1}, where);
+    * restore(model, where, msg) {
+        where = where || {}, msg = msg || { 'success': '状态还原成功！', 'error': '状态还原失败！' };
+        let data = { 'status': 1 };
+        where = think.extend({ 'status': -1 }, where);
         yield this.editRow(model, data, where, msg);
     }
 
@@ -150,8 +164,8 @@ export default class extends think.controller.base {
      * @author arterli <arterli@qq.com>
      */
     * delete(model, where, msg) {
-        where=where||{},msg =msg|| {'success': '删除成功！', 'error': '删除失败！'};
-        let data = {'status': -1};
+        where = where || {}, msg = msg || { 'success': '删除成功！', 'error': '删除失败！' };
+        let data = { 'status': -1 };
         yield this.editRow(model, data, where, msg);
     }
 
@@ -159,27 +173,27 @@ export default class extends think.controller.base {
      * 设置一条或者多条数据的状态
      */
     * setstatusAction(self, model) {
-        model =model||this.http.controller;
+        model = model || this.http.controller;
         let ids = this.param('ids');
         let status = this.param('status');
         status = parseInt(status);
         if (think.isEmpty(ids)) {
             this.fail("请选择要操作的数据");
         }
-        let map = {id: ['IN', ids]};
+        let map = { id: ['IN', ids] };
         //let get = this.get();
         //this.end(status);
         switch (status) {
-            case -1 :
-                yield this.delete(model, map, {'success': '删除成功', 'error': '删除失败'});
+            case -1:
+                yield this.delete(model, map, { 'success': '删除成功', 'error': '删除失败' });
                 break;
-            case 0  :
-                yield this.forbid(model, map, {'success': '禁用成功', 'error': '禁用失败'});
+            case 0:
+                yield this.forbid(model, map, { 'success': '禁用成功', 'error': '禁用失败' });
                 break;
-            case 1  :
-                yield this.resume(model, map, {'success': '启用成功', 'error': '启用失败'});
+            case 1:
+                yield this.resume(model, map, { 'success': '启用成功', 'error': '启用失败' });
                 break;
-            default :
+            default:
                 this.fail('参数错误');
                 break;
         }
@@ -197,7 +211,7 @@ export default class extends think.controller.base {
      * @author
      */
     * returnnodes(tree) {
-        tree= tree||true;
+        tree = tree || true;
         let http = this.http;
         //let modelname = http.module;
         let tree_nodes = [];
@@ -222,16 +236,16 @@ export default class extends think.controller.base {
      * @param integer model_id 模型id
      */
     * parseDocumentList(list, model_id) {
-        model_id = model_id||1;
+        model_id = model_id || 1;
         let attrList = yield this.model('attribute').get_model_attribute(model_id, false, 'id,name,type,extra');
         //attrList=attrList[model_id];
         //this.end(attrList);
-       // console.log(attrList);
+        // console.log(attrList);
         if (think.isArray(list)) {
-            list.forEach((data, k)=> {
+            list.forEach((data, k) => {
                 //console.log(data);
                 for (let key in data) {
-                   //console.log(key)
+                    //console.log(key)
                     if (!think.isEmpty(attrList[key])) {
                         let extra = attrList[key]['extra'];
                         let type = attrList[key]['type'];

@@ -139,15 +139,15 @@ export default class extends think.model.base {
         /* 添加或更新数据 */
         if(think.isEmpty(data.id)){
             data.create_time=new Date().getTime();
-            data.model =think.isArray(data.model)? data.model.join(","):"";
-            data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):"";
-            data.type = think.isArray(data.type)?data.type.join(","):"";
+            data.model =think.isArray(data.model)? data.model.join(","):data.model;
+            data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
+            data.type = think.isArray(data.type)?data.type.join(","):data.model;
             res = this.add(data);
 
         }else{
             data.update_time=new Date().getTime();
-            data.model =think.isArray(data.model)? data.model.join(","):"";
-            data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):"";
+            data.model =think.isArray(data.model)? data.model.join(","):data.model;
+            data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
             data.type = think.isArray(data.type)?data.type.join(","):"";
             res = this.update(data);
         }

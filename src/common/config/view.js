@@ -93,10 +93,11 @@ export default {
                 })
 
                 env.addFilter("in_Array", function (str, arr) {
-                    if (!think.isArray(arr)){
-                        arr= arr.split(",");
+                    if (!think.isArray(arr)) {
+                        arr = arr.split(",");
                     }
-                        return in_array(str, arr);
+                    console.log(arr);
+                    return in_array(str, arr);
                 })
 
                 env.addFilter("isempty", function (any) {
@@ -246,14 +247,16 @@ export default {
                         //return new nodes.CallExtension(this, 'run', args);
                         return new nodes.CallExtensionAsync(this, 'run', args)
                     },
-                    run: function (context, args ,callback) {
-                       // console.log(args);
+                    run: function (context, args, callback) {
+                        // console.log(args);
                         
                         for (var arg in args) {
                             console.log(arg);
                             if (arg !== '__keywords') {
-                                 var ss = think.model('action_log', think.config("db")).select();
-                             context.ctx[arg] =ss; 
+                                think.model('action_log', think.config("db")).select().then(function (data) {
+                                    callback(data);
+                                });
+                                context.ctx[arg] = "11";
                             }
                         }
 

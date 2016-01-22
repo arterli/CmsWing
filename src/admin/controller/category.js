@@ -64,6 +64,8 @@ export default class extends Base {
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
+            console.log(data);
+            
             let res = yield this.model("category").updates(data);
             if(res){
                 this.success({name:"更新成功！",url:"/admin/category/index"});
