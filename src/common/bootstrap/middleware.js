@@ -22,3 +22,12 @@
 //};
 //
 //think.middleware('debug_toolbar', debugToolbar(conf));
+import wechatMiddleware from 'think-wechat';
+
+think.middleware('parse_wechat', wechatMiddleware({
+    wechat: {
+        token: 'fdsfsd',
+        appid: 'fdsfdsf',
+        encodingAESKey: ''
+    }
+}));

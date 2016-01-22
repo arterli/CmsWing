@@ -1,10 +1,15 @@
-fdsfs <hr>
-{{foo}}
-{% tagtest as="cid=1,mid=2,num=10" %}
+tags测试 <hr>
+<!--
+mid:模型id mide=1 [1基础模型，2文章，3下载。。。]
+limit: 设置查询结果的限制条件 limit=10,limit=[3-10]
+where:
+cid: 栏目id ,cid=1,全部栏目 cid=all 或者不写
 
-<hr>
+order:排序 ，order=["id DESC"-"name ASC"]
+-->
+{% tagtest as="mid=1,cid=2,limit=6,order=id DESC" %}
 {% for val in as %}
 
-{{val}}
+{{val.id}}=={{val.title}}<hr>
 
 {%endfor%}

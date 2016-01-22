@@ -10,7 +10,7 @@ export default {
     root_path: think.ROOT_PATH + '/view',
     adapter: {
         nunjucks: {
-            prerender: function (nunjucks, env) {
+            prerender: (nunjucks, env)=> {
                 /**
                  * 格式化字节大小
                  * @param  number size      字节数
@@ -132,136 +132,8 @@ export default {
                 env.addFilter("stj", function (str) {
                     return eval('(' + str + ')');
                 })
-                env.addExtension('mytas', {
-                    tags: ['mytas'],
-                    parse: function* (parser, nodes, lexer) {
-                        //     var node;
-                        //     var endBlock;
 
-
-                        //     var tag = parser.nextToken();//当前定义的tags
-                        //    // var tok = parser.peekToken();
-
-                        //     console.log(tag)
-                        //    // console.log(tok);
-                        //     var args = parser.parseSignature(null, true);
-                        //     parser.advanceAfterBlockEnd(tag.value);
-
-                        //     var body = parser.parseUntilBlocks('else', 'endtruncate');
-                        //     var errorBody = null;
-
-                        //     if (parser.skipSymbol('else')) {
-                        //         parser.skip(lexer.TOKEN_BLOCK_END);
-                        //         errorBody = parser.parseUntilBlocks('endmytas');
-                        //     }
-
-                        //     parser.advanceAfterBlockEnd();
-
-                        // get the tag token
-                        // var tag = parser.nextToken();
-                        // //var tok = parser.peekToken();
-                        // console.log(tag);
-                        // //console.log(tok);
-                        // // parse the args and move after the block end. passing true
-                        // // as the second arg is required if there are no parentheses
-                        // //console.log(parser.parsePrimary())
-                        // var args = parser.parseSignature(null, true);
-                        // parser.advanceAfterBlockEnd(tag.value);
-                        // console.log(args);
-                        // var node = new nodes.Set(tag.lineno, tag.colno, []);
-                        // var target;
-                        // while ((target = parser.parsePrimary())) {
-                        //     node.targets.push(target);
-
-                        //     if (!parser.skip(lexer.TOKEN_COMMA)) {
-                        //         break;
-                        //     }
-                        // }
-                        // // parse the body and possibly the error block, which is optional
-                        // var body = parser.parseUntilBlocks('else', 'endtruncate');
-                        // var errorBody = null;
-
-                        // if (parser.skipSymbol('else')) {
-                        //     parser.skip(lexer.TOKEN_BLOCK_END);
-                        //     errorBody = parser.parseUntilBlocks('endmytas');
-                        // }
-
-                        // parser.advanceAfterBlockEnd();
-                        // return "ddd";
-                        // See above for notes about CallExtension
-                        /// return new nodes.CallExtension(this, 'run', args, [body, errorBody]);
-                        var tag = parser.peekToken();
-                        if (!parser.skipSymbol('mytas')) {
-                            parser.fail('parseSet: expected set', tag.lineno, tag.colno);
-                        }
-
-                        var node = new nodes.Set(tag.lineno, tag.colno, []);
-
-                        var target;
-                        while ((target = parser.parsePrimary())) {
-                            node.targets.push(target);
-
-                            if (!parser.skip(lexer.TOKEN_COMMA)) {
-                                break;
-                            }
-                        }
-
-                        if (!parser.skipValue(lexer.TOKEN_OPERATOR, '=')) {
-                            parser.fail('parseSet: expected = in set tag',
-                                tag.lineno,
-                                tag.colno);
-                        }
-
-                        node.value = parser.parseExpression();
-                        let aa = think.model('action_log', think.config("db"))
-                            .select().then(data=> {
-                                return data;
-                                //node.value.value ='[{ a: 1 }, { a: 2 }]';
-                            });
-                        console.log(aa);
-                        node.value.value = '[{ a: 1 }, { a: 2 }]';
-                        console.log(node.value);
-                        parser.advanceAfterBlockEnd(tag.value);
-
-                        return node;
-
-                    },
-                    run: function (context, arg, body, errorBody) {
-                        // let ar = args.split(',')
-                        console.log(arg)
-                        //let aa = think.model('action', think.config("db")).select();   
-                        //console.log(aa);
-                        // console.log(errorBody())
-                        //console.log(body())
-                        
-                        return [{ a: 1 }, { a: 2 }];
-
-                    }
-                });
-                env.addExtension('tagtest', {
-                    tags: ['tagtest'],
-                    parse: function (parser, nodes, lexer) {
-                        var tok = parser.nextToken();
-                        var args = parser.parseSignature(null, true);
-                        parser.advanceAfterBlockEnd(tok.value);
-                        //return new nodes.CallExtension(this, 'run', args);
-                        return new nodes.CallExtensionAsync(this, 'run', args)
-                    },
-                    run: function (context, args, callback) {
-                        // console.log(args);
-                        
-                        for (var arg in args) {
-                            console.log(arg);
-                            if (arg !== '__keywords') {
-                                think.model('action_log', think.config("db")).select().then(function (data) {
-                                    callback(data);
-                                });
-                                context.ctx[arg] = "11";
-                            }
-                        }
-
-                    }
-                });
+                env.addExtension('tagtest', new mytags(),true);
                 //console.log(env);
             }
         }
