@@ -7,7 +7,7 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  *indexAction(){
+  async indexAction(){
     //auto render template file index_index.html
     //当前模板路径
     function RemoteExtension() {
@@ -71,7 +71,7 @@ let tplpath = this.config('view.root_path')+think.sep+this.http.module+think.sep
 //   return val+"333333333333";
 //        });
 // let dd=nunjucks.render('test_index.html', { foo: 'bar' });
-//     let content = yield this.fetch();
+//     let content = await this.fetch();
 //     console.log(envs);
     // this.end(dd);
     this.assign({foo:'bar'})

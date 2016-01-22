@@ -11,7 +11,7 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  * indexAction(){
+  async indexAction(){
     //auto render template file index_index.html
     this.config = this.config("ueditor");
     let action = this.get("action");
@@ -46,7 +46,7 @@ export default class extends Base {
 
       /* 抓取远程文件 */
       case 'catchimage':
-        result = yield this.crawler();
+        result = await this.crawler();
         break;
 
       default:
@@ -122,7 +122,7 @@ export default class extends Base {
   }
 
   //抓取远程图片
-  * crawler(){
+  async crawler(){
     /* 上传配置 */
     let config = {
       "pathFormat" : this.config['catcherPathFormat'],
@@ -136,7 +136,7 @@ export default class extends Base {
     for(let imgUrl of source){
       let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
       let upload = new up(imgUrl, config, "remote"); //实例化 Adapter
-      let info =  yield upload.saveRemote();
+      let info =  await upload.saveRemote();
       //console.log(info);
       list.push({"state":"SUCCESS","url":info.url,"size":431521,"title":info.title,"original":info.original,"source":imgUrl});
     }

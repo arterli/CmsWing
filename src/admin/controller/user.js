@@ -26,14 +26,14 @@ export default class extends Base {
         return this.display();
     }
 
-    * userlistAction(){
+    async userlistAction(){
         //用户列表
         let gets = this.get()
         let start = parseInt(gets.start);
         let length = parseInt(gets.length);
         let draw = gets.draw;
         let key = gets['search[value]'];
-        let userList =yield this.db.limit(start, length).where({username: ["like", "%"+key+"%"]}).field("id,username,score,login,last_login_ip,last_login_time,status").order("id DESC").countSelect()
+        let userList =await this.db.limit(start, length).where({username: ["like", "%"+key+"%"]}).field("id,username,score,login,last_login_ip,last_login_time,status").order("id DESC").countSelect()
         userList.data.forEach(v=>{
             v.last_login_time=times(v.last_login_time)
             v.last_login_ip=_int2iP(v.last_login_ip)
@@ -53,11 +53,11 @@ export default class extends Base {
      * 添加用户
      * @returns {Promise|*}
      */
-    * adduserAction(){
+    async adduserAction(){
          let data=this.post();
              data.password = encryptPassword(data.password);
              data.reg_time = new Date().valueOf();
-        let res = yield this.db.add(data);
+        let res = await this.db.add(data);
         if(res){
             return this.json(1);
         }else{
@@ -71,18 +71,18 @@ export default class extends Base {
      * 用户删除
      * @returns {Promise|*}
      */
-    * userdelAction() {
+    async userdelAction() {
         let id = this.post("id");
         //console.log(id);
-        let res = yield this.db.where({id: id}).delete();
+        let res = await this.db.where({id: id}).delete();
         return this.json(res);
     }
     /**
      * 改变角色状态
      * @returns {Promise|*}
      */
-    * chstaAction(){
-        let res = yield this.db.update(this.get());
+    async chstaAction(){
+        let res = await this.db.update(this.get());
         if(res){
             return this.json(res);
         }
@@ -92,11 +92,11 @@ export default class extends Base {
      * 注册异步验证用户数据
      * @returns {Promise|*}
      */
-    * parsleyAction(){
+    async parsleyAction(){
         //验证
         let data=this.get();
        // console.log(data);
-        let res = yield this.db.where(data).find();
+        let res = await this.db.where(data).find();
        // console.log(res);
         if(think.isEmpty(res)){
         return this.json(1);

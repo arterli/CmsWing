@@ -22,16 +22,16 @@ export default class extends think.controller.rest {
   __before(){
 
   }
-  * getAction(){
+  async getAction(){
     console.log(this.resource)
     console.log(this.id)
     let data;
     if (think.isNumberString(this.id)) {
-      let pk = yield this.modelInstance.getPk();
-      data = yield this.modelInstance.where({[pk]: this.id}).find();
+      let pk = await this.modelInstance.getPk();
+      data = await this.modelInstance.where({[pk]: this.id}).find();
       return this.success(data);
     }else {
-      data = yield this.modelInstance.select();
+      data = await this.modelInstance.select();
     }
 
     return this.success(data);

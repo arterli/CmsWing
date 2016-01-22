@@ -8,10 +8,10 @@ export default class extends Base {
    * @return {Promise} []
    */
   //频道页
-  *indexAction(){
+  async indexAction(){
     //auto render template file index_index.html
    let id = this.get('category')||0;
-   let cate = yield this.category(id);
+   let cate = await this.category(id);
    this.meta_title = cate.meta_title ? cate.meta_title : cate.title;//标题
    this.keywords = cate.keywords ? cate.keywords : '';//seo关键词
    this.description = cate.description ? cate.description : "";//seo描述

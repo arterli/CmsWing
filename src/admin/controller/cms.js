@@ -28,14 +28,14 @@ export default class extends Base {
     //status:状态
     //view:浏览
     //id:操作:[EDIT]|编辑,[DELETE]|删除
-    * listAction(){
+    async listAction(){
         
         //auto render template file index_index.html
         let model = this.get('model')
          !think.isEmpty(model)|| this.fail("模型名标识必须有！");
 
         //获取模型信息
-        model = yield this.model('model').where({name:model}).find();
+        model = await this.model('model').where({name:model}).find();
         !think.isEmpty(model) || this.fail("模型不存在！");
         //解析列表规则
         let fields = [];
@@ -93,8 +93,8 @@ export default class extends Base {
         let name;
         let data;
         if(model.extend){
-                name =yield this.model('model').get_table_name(model.id);
-            let parent = yield this.model('model').get_table_name(model.extend);
+                name =await this.model('model').get_table_name(model.id);
+            let parent = await this.model('model').get_table_name(model.extend);
             let fix = this.config('db.prefix');
             let key = array_search(fields,'id');
             //console.log(key);
@@ -105,7 +105,7 @@ export default class extends Base {
 
             }
            // console.log(fields);
-            data=yield this.model(parent).join({
+            data=await this.model(parent).join({
                 table: name,
                 join: "inner", //join 方式，有 left, right, inner 3 种方式
                 as: "c", // 表别名
@@ -116,9 +116,9 @@ export default class extends Base {
                 in_array('id', fields) || fields.push('id');
             }
             //console.log(fields)
-            name =yield this.model('model').get_table_name(model.id);
+            name =await this.model('model').get_table_name(model.id);
             //console.log(name)
-            data=yield this.model(name)
+            data=await this.model(name)
                 /* 查询指定字段，不指定则查询所有字段 */
                   .field(fields)
                  // 查询条件
@@ -135,7 +135,7 @@ export default class extends Base {
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
-        data.data = yield this.parseDocumentList(data.data,model.id)
+        data.data = await this.parseDocumentList(data.data,model.id)
         this.assign('pagerData', page); //分页展示使用
         this.meta_title=model.title + '列表';
         this.active = "admin/model/index";
@@ -147,14 +147,14 @@ export default class extends Base {
     /**
      * 设置一条或者多条数据的状态
      */
-    * setstatusAction() {
-        yield super.setstatusAction(this,'document');
+    async setstatusAction() {
+        await super.setstatusAction(this,'document');
     }
     //TODO 模型添加数据
-   * addAction(){
+   async addAction(){
        //获取模型信息
        let model_id = this.get("model")
-       let model = yield this.model("model").where({status:1,id:model_id}).find();
+       let model = await this.model("model").where({status:1,id:model_id}).find();
        model || this.fail('模型不存在！');
        if(this.isPost()){
            //TODO 后台验证后续天极

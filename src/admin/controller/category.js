@@ -23,19 +23,19 @@ export default class extends Base {
         return this.display();
        
     }
-    * gettreeAction(){
-        let tree = yield this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
+    async gettreeAction(){
+        let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
         return this.json(tree);
     }
 
     /**
      * 添加栏目
      */
-    * addAction(){
+    async addAction(){
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
-            let res = yield this.model("category").updates(data);
+            let res = await this.model("category").updates(data);
             if(res){
                 this.success({name:"新增成功！",url:"/admin/category/index"});
             }else {
@@ -44,7 +44,7 @@ export default class extends Base {
         }else{
 
             //获取模型信息；
-            let model = yield this.model("model").get_document_model();
+            let model = await this.model("model").get_document_model();
             //console.log(obj_values(model));
             this.assign("models",obj_values(model));
             //获取运行的文档类型
@@ -59,14 +59,14 @@ export default class extends Base {
     /**编辑分类
      *
      */
-    * editAction(){
+    async editAction(){
        let category = this.model("category");
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
             console.log(data);
             
-            let res = yield this.model("category").updates(data);
+            let res = await this.model("category").updates(data);
             if(res){
                 this.success({name:"更新成功！",url:"/admin/category/index"});
             }else {
@@ -76,11 +76,11 @@ export default class extends Base {
           let id = this.get("cid");
            console.log(id);
             //获取分类信息
-            let info = yield category.find(id);
+            let info = await category.find(id);
             this.assign("info",info);
             console.log(info);
             //获取模型信息；
-            let model = yield this.model("model").get_document_model();
+            let model = await this.model("model").get_document_model();
             //console.log(obj_values(model));
             this.assign("models",obj_values(model));
             this.active="admin/category/index";

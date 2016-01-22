@@ -12,8 +12,8 @@
  *
  * }
  */
-//global.xxx = * () => {
-//    let data = yield Promise.resolve(111)
+//global.xxx = async () => {
+//    let data = await Promise.resolve(111)
 //}
 /**
  * ip转数字
@@ -566,9 +566,9 @@ global.call_user_func=function(cb, params) {
  * @returns Promise {*}
  */
 /* global get_nickname */
-global.get_nickname = function*(uid){
+global.get_nickname =async (uid) => {
     //console.log(uid);
-    let data = yield think.model('member',think.config("db"),'admin').get_nickname(uid)
+    let data = await think.model('member',think.config("db"),'admin').get_nickname(uid)
     return data;
 }
 //时间格式

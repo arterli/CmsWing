@@ -9,7 +9,7 @@ export default class extends Base {
         //console.log(http.method.toLowerCase())
 
     }
-   * indexAction(){
+   async indexAction(){
         //let a={};
         //a.s11="dfsd";
         //let aa=[]
@@ -17,7 +17,7 @@ export default class extends Base {
         //let bb=aa.join(",")
         //let cc=!(typeof(a) == "undefined")
         //console.log(cc)
-       //let check=yield this.check("/Admin/test","1");
+       //let check=await this.check("/Admin/test","1");
        //console.log(check);
        //console.log(JSON.stringify(this.param()));
        //let REQUEST = JSON.stringify(this.param()).toLowerCase()
@@ -25,7 +25,7 @@ export default class extends Base {
       //  this.end("dd");
        let Auth = think.adapter("auth", "rbac");
        let auth = new Auth(14);
-       let res = yield auth.check("/admin/test1");
+       let res = await auth.check("/admin/test1");
        //let roles =this.model();
        // console.log(roles);
        let http = this.http;
@@ -40,13 +40,12 @@ export default class extends Base {
     }
   
       
-       *tesfAction(){
+       async tesfAction(){
           let model = this.model('sfsfsdf');
-          let affectedRows = yield model.where({id: ['>', 100]}).delete();
-          sfsfsdf 
+          let affectedRows = await model.where({id: ['>', 100]}).delete();
           }
    
-    * funAction(){
+    async funAction(){
         
        
     let str = "[user|get_nickname]在[time|time_format]登录了后台[model]";
@@ -76,7 +75,7 @@ export default class extends Base {
                 let param = val.split('|');
                 //console.log(param);
                 if(!think.isEmpty(param[1])){
-                    replace.push(yield call_user_func(param[1],log[param[0]]))
+                    replace.push(await call_user_func(param[1],log[param[0]]))
                 }else {
                     replace.push(log[param[0]])
                 }

@@ -55,7 +55,7 @@ export default class extends think.adapter.base {
      * 写入sql语句
      * @param {String} sql [要写入的SQL语句]
      */
-    * write(sql) {
+    async write(sql) {
 
         let size = sql.length;
         //console.log(size)
@@ -71,8 +71,8 @@ export default class extends think.adapter.base {
             this.create();
             let http = this.http;
             //think.session(http);
-            yield http.session('backup_file', this.file);
-            //yield think.session('backup_file', this.file);
+            await http.session('backup_file', this.file);
+            //await think.session('backup_file', this.file);
 
         }
         let aa = Fs.appendFileSync(filenmae, sql);
@@ -87,13 +87,13 @@ export default class extends think.adapter.base {
      * @param  {Integer} start [起始行数]
      * @return {Boolean}        false - [备份失败]
      */
-    * backup(table, start) {
+    async backup(table, start) {
         //数据库对象
         //console.log(think.config('db'))
         let db = think.model('mysql', think.config('db'));
         //备份表结构
         if (0 == start) {
-            let result = yield db.query("SHOW CREATE TABLE " + table);
+            let result = await db.query("SHOW CREATE TABLE " + table);
             //console.log(result);
             let sql = "\n";
             sql += "-- -----------------------------\n";
@@ -108,7 +108,7 @@ export default class extends think.adapter.base {
             //}
         }
         //数据总数
-        let result = yield db.query("SELECT COUNT(*) AS count FROM " + table);
+        let result = await db.query("SELECT COUNT(*) AS count FROM " + table);
         let count = result[0].count;
         //console.log(count);
         //备份表数据
@@ -124,7 +124,7 @@ export default class extends think.adapter.base {
 
 
             //备份数据记录
-            result = yield db.query("SELECT * FROM " + table + " LIMIT " + start + " , 1000");
+            result = await db.query("SELECT * FROM " + table + " LIMIT " + start + " , 1000");
             result.forEach(row => {
                 //console.log(obj_values(row).join("', '"))
                 let sql = "INSERT INTO `" + table + "` VALUES ('" + obj_values(row).join("', '") + "');\n";

@@ -10,7 +10,7 @@ export default class extends think.model.base {
     * @param  {string} field 查询字段
     * @return {array} 分类信息
     */
-   *info(id,field){
+   async info(id,field){
        field=think.isEmpty(field)||'';
        let map = {};
        if(think.isNumberString(id)){
@@ -18,7 +18,7 @@ export default class extends think.model.base {
        }else{
            map.name = id;
        }
-       return this.field(field).where(map).find();
+       return await this.field(field).where(map).find();
    }
    
 }

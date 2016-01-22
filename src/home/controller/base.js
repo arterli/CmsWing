@@ -5,22 +5,22 @@ export default class extends think.controller.base {
         super.init(http);
     }
 
-    *__before() {
+    async __before() {
         //网站配置
-        this.setup = yield this.model("setup").getset();
+        this.setup = await this.model("setup").getset();
         //获取当前分类信息
        //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
     }
   //获取分类信息
-  *category(id , field){
+  async category(id , field){
       id = id||0;
       field = field||"";
       console.log(id);
       if(think.isEmpty(id)){     
            this.fail( '没有指定数据分类！'); 
       }
-      let cate = yield this.model("category").info(id,field);
+      let cate = await this.model("category").info(id,field);
       //console.log(cate);
       if(cate && 1 == cate.status)
          {
