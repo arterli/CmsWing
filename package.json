@@ -13,7 +13,8 @@
     "babel-runtime": "6.x.x",
     "nunjucks": "^2.1.0",
     "wechat-api": "^1.20.0",
-    "tar.gz": "^1.0.2"
+    "tar.gz": "^1.0.2",
+    "think-wechat":"*"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
