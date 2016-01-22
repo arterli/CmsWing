@@ -18,7 +18,7 @@ export default class extends think.controller.base {
 
     }
 
-    async __before(action) {
+    async __before() {
         //登陆验证
         let is_login = await this.islogin();
         if (!is_login) {
@@ -37,17 +37,22 @@ export default class extends think.controller.base {
         /**
          * 权限验证超级管理员
          */
-        let url = this.http.module+think.sep+this.http.controller+think.sep+this.http.action;
-        console.log(url);
+        //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
+        //console.log(url);
         let is_admin = await this.is_admin();
-        console.log(is_admin);
+        //console.log(is_admin);
+        let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
         if(!is_admin){
         let Auth = think.adapter("auth", "rbac");
-        let url = this.http.module+think.sep+this.http.controller+think.sep+this.http.action;
-        console.log(url);
         let auth = new Auth(this.user.uid);
         let res = await auth.check(url);
+            console.log(url);
+            console.log(res);
+            if(!res){
+                return this.fail('未授权访问!');
+            }
         }
+        //console.log(this.user.uid);
         this.active = this.http.url.slice(1),
         // console.log(this.active);
         //this.active = http.controller+'/'+http.action;
