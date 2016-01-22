@@ -53,9 +53,12 @@ export default class extends Base {
             let post = this.post();
              if(!think.isEmpty(post)){
                 post =  JSON.stringify(post);
-                 let api = new weiapi('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+                 let api = new weiapi('wxf417a542a02aa8fc', '564033623a2ea9b19119f0164289ba45');
+                 /*api.sendText('oJMTsw7cOcQRr32Cze3nDQ9mJKCU', 'Hello world', (err, result)=>{
+                     console.log("hehe");
+                 });*/
                  let self = this;
-                 api.getUser("oVe9Ew0zHFp0up1CeNcK2J5RL4xs", (err,result)=>{
+                 api.getUser("oJMTsw7cOcQRr32Cze3nDQ9mJKCU", (err,result)=>{
                      if(think.isEmpty(err)){
                          think.log(result,"fds");
                          self.success({name:result,url:"/admin/mpbase1/huifu"});
