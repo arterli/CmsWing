@@ -21,7 +21,7 @@ export default class extends think.controller.base {
            this.fail( '没有指定数据分类！'); 
       }
       let cate = await this.model("category").info(id,field);
-      //console.log(cate);
+
       if(cate && 1 == cate.status)
          {
          

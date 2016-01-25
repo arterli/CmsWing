@@ -129,12 +129,13 @@ export default {
                 env.addFilter("get_action_type", function (type, all = false) {
                     return get_action_type(type, all);
                 })
-                env.addFilter("stj", function (str) {
-                    return eval('(' + str + ')');
-                })
+
+                env.addFilter("get_nickname",async function (uid) {
+                    return await get_nickname(uid);
+                },true)
 
                 env.addExtension('tagtest', new mytags(),true);
-                //console.log(env);
+
             }
         }
     }
