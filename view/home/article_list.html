@@ -259,11 +259,12 @@
 							<div class="blog-post-item">
 
 								<!-- IMAGE -->
+                         {% if val.cover_id>0 %}
 								<figure class="margin-bottom-20">
-									<img class="img-responsive" src="/static/assets/images/demo/content_slider/10-min.jpg" alt="">
+									<img class="img-responsive" src="{{val.cover_id|get_cover('path')}}" alt="">
 								</figure>
-
-								<h2><a href="blog-single-default.html">{{val.title}}</a></h2>
+                         {% endif %}
+								<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
 
 								<ul class="blog-post-info list-inline">
 									<li>
@@ -291,14 +292,14 @@
 									<li>
 										<a href="#">
 											<i class="fa fa-user"></i> 
-											<span class="font-lato">{{val.uid}}</span>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
 										</a>
 									</li>
 								</ul>
 
 								<p>{{val.description}}</p>
 
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
+								<a href="{{val.name|get_url(val.id)}}" class="btn btn-reveal btn-default">
 									<i class="fa fa-plus"></i>
 									<span>Read More</span>
 								</a>

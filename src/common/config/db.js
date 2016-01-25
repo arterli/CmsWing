@@ -9,11 +9,11 @@ export default {
   log_connect: true,
   adapter: {
     mysql: {
-      host: '192.168.1.120',
+      host: '127.0.0.1',
       port: '3306',
       database: 'cmswing',
       user: 'root',
-      password: '123456',
+      password: '',
       prefix: 'cmswing_',
       encoding: 'utf8'
     },

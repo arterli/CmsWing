@@ -130,11 +130,28 @@ export default {
                     return get_action_type(type, all);
                 })
 
-
-                env.addFilter("get_nickname",async function (uid) {
-                    return await get_nickname(uid);
+                /**
+                 * 获取用户名称
+                 */
+                env.addFilter("get_nickname",async (uid,callback) => {
+                    let data = await get_nickname(uid);
+                    callback(null,data);
                 },true)
+                /**
+                 * 获取文档url
+                 */
+                env.addFilter('get_url',(name,id) => {
+                    return get_url(name,id)
+                })
+                /**
+                 * 获取文档封面图
+                 */
+                env.addFilter('get_cover', async (cover_id,field,callback) => {
 
+                    let data = await get_cover(cover_id,field);
+                    callback(null,data);
+
+                },true)
                 env.addExtension('tagtest', new mytags(),true);
 
             }

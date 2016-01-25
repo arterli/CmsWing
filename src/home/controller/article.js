@@ -12,6 +12,7 @@ export default class extends Base {
     //auto render template file index_index.html
    let id = this.get('category')||0;
    let cate = await this.category(id);
+       cate = think.extend({},cate);
    this.meta_title = cate.meta_title ? cate.meta_title : cate.title;//标题
    this.keywords = cate.keywords ? cate.keywords : '';//seo关键词
    this.description = cate.description ? cate.description : "";//seo描述
@@ -29,7 +30,11 @@ export default class extends Base {
 
       let id = this.get('category')||0;
       let cate = await this.category(id);
-      let map = {'status': ['>', -1]}
+      cate = think.extend({},cate);
+      //获取当前分类的所有子栏目
+      let subcate = await this.model('category',{},'admin').get_sub_category(cate.id);
+      subcate.push(cate.id);
+      let map = {'status': ['>', -1],'category_id':['IN',subcate]};
       let data = await this.model('document').where(map).page(this.get('page')).order('update_time DESC').countSelect();
       let html = pagination(data, this.http, {});
       this.assign('pagination', html);

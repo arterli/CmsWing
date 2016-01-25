@@ -68,7 +68,20 @@ export default class extends think.model.base {
     async getallcate(){
         let lists = {}
         let cate=  await this.select()
-        for(let v of cate){
+        for(let v of cate) {
+            if (v.allow_publish == 0){
+                if (think.isEmpty(v.name)) {
+                    v.url = `/channel/${v.name}`
+                } else {
+                    v.url = `/channel/${v.id}`
+                }
+        }else {
+                if (think.isEmpty(v.name)) {
+                    v.url = `/column/${v.name}`
+                } else {
+                    v.url = `/column/${v.id}`
+                }
+            }
             lists[v.id] = v
         }
         return lists;
@@ -90,7 +103,20 @@ export default class extends think.model.base {
         }
        return breadcrumb.reverse()
     }
-
+    async get_sub_category(id){
+        let cat = await this.select();
+        let data = sub_cate(cat,id);
+        let arr=[];
+        if(data[0]) {
+            arr.push(data[0]);
+        }
+        if(data[1]){
+            for(let val of data[1].split(',')){
+                arr.push(parseInt(val));
+            };
+        }
+        return arr;
+    }
     /**
      * 验证分类是否允许发布内容
      * @param id 分类id

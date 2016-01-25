@@ -353,6 +353,21 @@ global.arr_to_tree = function (data, pid) {
     }
     return result;
 }
+/* global arr_to_tree */
+global.sub_cate = function (data, pid) {
+    var result = [], temp;
+    for (var i in data) {
+        if (data[i].pid == pid) {
+            //console.log(data[i]);
+            result.push(data[i].id);
+            temp = sub_cate(data, data[i].id);
+            if (temp.length > 0) {
+                result.push(temp.join(',')) ;
+            }
+        }
+    }
+    return result;
+}
 // 获取属性类型信息
 /* global get_attribute_type */
 global.get_attribute_type = function (type){
@@ -610,4 +625,32 @@ global.str_replace=function(search, replace, subject, count){
     }
     return sa ? s : s[0];
 }
+/**
+ * 获取文档地址
+ * @param name 文档表示
+ * @param id   文档id
+ * @returns {*}
+ */
+global.get_url=(name,id)=>{
 
+    if(!think.isEmpty(name)){
+        return `/detail/${name}`;
+    }else {
+        return `/detail/${id}`;
+    }
+}
+/**
+ * 获取文档封面图片
+ * @param int cover_id
+ * @param string field
+ * @return 完整的数据  或者  指定的field字段值
+ * @author arterli <arterli@qq.com>
+ */
+global.get_cover=async (cover_id,field)=>{
+
+    if(think.isEmpty(cover_id)){
+        return false;
+    }
+    let picture = await think.model('picture',think.config("db")).where({'status':1}).find(cover_id);
+    return think.isEmpty(field) ? picture : picture[field];
+}
