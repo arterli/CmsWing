@@ -130,6 +130,7 @@ export default {
                     return get_action_type(type, all);
                 })
 
+
                 env.addFilter("get_nickname",async function (uid) {
                     return await get_nickname(uid);
                 },true)
