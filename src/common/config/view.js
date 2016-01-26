@@ -153,6 +153,10 @@ export default {
 
                 },true)
                 env.addExtension('tagtest', new mytags(),true);
+                /**
+                 * 获取分类标签
+                 */
+                env.addExtension('tagtest', new column(),true);
 
             }
         }

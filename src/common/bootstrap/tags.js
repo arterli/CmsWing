@@ -77,4 +77,44 @@ global.mytags= function(){
         };
 
 }
+/**
+ * 获取通缉栏目标签
+ */
+global.column= function(){
+
+    this.tags= ['column'];
+    this.parse = function (parser, nodes, lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let pid = !think.isEmpty(args.pid) ?args.pid:false;
+        let cid = !think.isEmpty(args.cid) ?args.cid:false;
+        let column = await think.model('category', think.config("db"),'admin').get_all_category();
+        let arr=[];
+        //获取同级栏目
+        if(pid){
+            for (let val of column){
+               if(val.pid == pid){
+                   arr.push(val);
+               }
+            }
+        }
+        //获取子栏目
+        if(cid){
+            for (let val of column){
+                if(val.pid == cid){
+                    arr.push(val);
+                }
+            }
+        }
+        context.ctx[data] = !think.isEmpty(arr)?arr:false;
+        return callback(null,'');
+    };
+
+}
 

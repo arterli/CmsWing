@@ -128,12 +128,12 @@
                                         <div class="col-md-10">
                                             {% for key , val in http.config("document_model_type") %}
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" {% if key == info.check %} checked="checked" {% endif %} value="{{key}}" name="type"><i></i> {{val}}
+                                                <input type="checkbox" {% if key| in_Array(info.type) %} checked="checked" {% endif %} value="{{key}}" name="type"><i></i> {{val}}
                                             </label>
                                             {% endfor%}
                                         </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否允许发布内容</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 允许文档类型</span>
                                         </div>
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                         <div class="col-md-10">
                                             {% for list in models %}
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %}  value="{{list.id}}" name="model_sub"><i></i> {{list.title}}
+                                                <input type="checkbox" {% if list.id | in_Array(info.model_sub) %} checked="checked" {% endif %}  value="{{list.id}}" name="model_sub"><i></i> {{list.title}}
                                             </label>
                                             {% endfor %}
 

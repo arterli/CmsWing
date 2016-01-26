@@ -35,6 +35,7 @@ export default class extends Base {
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
+            console.log(data);
             let res = await this.model("category").updates(data);
             if(res){
                 this.success({name:"新增成功！",url:"/admin/category/index"});
@@ -89,4 +90,6 @@ export default class extends Base {
            return this.display();
         }
     }
+
+
 }

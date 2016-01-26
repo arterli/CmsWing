@@ -72,13 +72,13 @@ export default class extends think.model.base {
         let cate=  await this.select()
         for(let v of cate) {
             if (v.allow_publish == 0){
-                if (think.isEmpty(v.name)) {
+                if (!think.isEmpty(v.name)) {
                     v.url = `/channel/${v.name}`
                 } else {
                     v.url = `/channel/${v.id}`
                 }
         }else {
-                if (think.isEmpty(v.name)) {
+                if (!think.isEmpty(v.name)) {
                     v.url = `/column/${v.name}`
                 } else {
                     v.url = `/column/${v.id}`
@@ -113,7 +113,7 @@ export default class extends think.model.base {
             arr.push(data[0]);
         }
         if(data[1]){
-            for(let val of data[1].split(',')){
+            for(let val of [data[1]]){
                 arr.push(parseInt(val));
             };
         }
@@ -159,6 +159,11 @@ export default class extends think.model.base {
   return type_list;
     }
 
+    /**
+     *
+     * @param data
+     * @returns {*}
+     */
     async updates(data){
         if(think.isEmpty(data)){
             return false;
@@ -170,6 +175,7 @@ export default class extends think.model.base {
             data.model =think.isArray(data.model)? data.model.join(","):data.model;
             data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
             data.type = think.isArray(data.type)?data.type.join(","):data.model;
+            console.log(data);
             res = this.add(data);
 
         }else{
@@ -180,7 +186,39 @@ export default class extends think.model.base {
             res = this.update(data);
         }
         think.cache("sys_category_list",null);
+        think.cache("all_category",null);
         return res;
 
+    }
+
+    /**
+     *
+     */
+    async get_all_category(){
+        //let list ="22";
+        let list = await think.cache("all_category", () => {
+            return this.get_colunm();
+        }, {timeout: 365 * 24 * 3600});
+        return list;
+    }
+
+    async get_colunm(){
+        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish').order('pid,sort').select();
+        for(let v of lists) {
+            if (v.allow_publish == 0){
+                if (!think.isEmpty(v.title)) {
+                    v.url = `/channel/${v.title}`
+                } else {
+                    v.url = `/channel/${v.id}`
+                }
+            }else {
+                if (!think.isEmpty(v.title)) {
+                    v.url = `/column/${v.title}`
+                } else {
+                    v.url = `/column/${v.id}`
+                }
+            }
+        }
+        return lists;
     }
 }

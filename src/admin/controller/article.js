@@ -268,7 +268,7 @@ export default class extends Base {
      */
 
     async getmenuAction() {
-        let cate = await this.model("category").where({status: 1}).field('id,title as name,pid,allow_publish').order('pid,sort').select();
+        let cate = await this.model("category").get_all_category();
         for (let val of cate) {
             val.url = `/admin/article/index/cate_id/${val.id}`;
             val.target = '_self';
