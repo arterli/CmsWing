@@ -37,7 +37,6 @@ export default class extends Base {
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         this.assign('list', data.data);
-        console.log(data.data);
         for(let val of data.data){
             val.uid = await this.model('member').get_nickname(val.uid);
         }

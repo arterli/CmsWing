@@ -7,13 +7,14 @@ export default {
   type: 'mysql',
   log_sql: true,
   log_connect: true,
+
   adapter: {
     mysql: {
-      host: '127.0.0.1',
+      host: '192.168.1.120',
       port: '3306',
       database: 'cmswing',
       user: 'root',
-      password: '',
+      password: '123456',
       prefix: 'cmswing_',
       encoding: 'utf8'
     },
