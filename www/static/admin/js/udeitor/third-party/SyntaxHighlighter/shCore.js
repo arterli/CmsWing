@@ -1775,7 +1775,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     {
         var target = e.target,
             highlighterDiv = findParentElement(target, '.syntaxhighlighter'),
-            container = findParentElement(target, '.container'),
+            container = findParentElement(target, '.container1'),
             textarea = document.createElement('textarea'),
             highlighter
             ;
@@ -2272,7 +2272,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
                     + '<tr>'
                     + (gutter ? '<td class="gutter">' + this.getLineNumbersHtml(code) + '</td>' : '')
                     + '<td class="code">'
-                    + '<div class="container">'
+                    + '<div class="container1">'
                     + html
                     + '</div>'
                     + '</td>'

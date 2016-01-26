@@ -18,7 +18,7 @@ export default class extends think.model.base {
           return false;
       }
      //获取模型数据
-      let table =await this.model("model","admin").get_table_name(info.model_id);
+      let table =await this.model("model").get_table_name(info.model_id);
         let detail = await this.model(table).find(id)
          info = think.extend({},info,detail);
         return info;
