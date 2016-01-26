@@ -7,7 +7,7 @@ cid: 栏目id ,cid=1,全部栏目 cid=all 或者不写
 
 order:排序 ，order=["id DESC"-"name ASC"]
 -->
-{% tagtest list="mid=1,cid=2,limit=6,order=id DESC" %}
+{% tagtest list="mid=1,cid=all,limit=[10-5],order=id ASC" %}
 {% for val in list %}
 
 {{val.id}}=={{val.title}}<hr>

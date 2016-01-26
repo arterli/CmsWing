@@ -1,0 +1,161 @@
+.app-mobile-con {
+    border: 1px solid #ebebeb;
+    border-radius: 18px 18px 0 0;
+    width:350px;
+}
+.app-header {
+    height: 70px;
+    background:url(../img/weixin_iphone_head.png) no-repeat scroll center center;
+}
+
+.app-entry {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #c5c5c5;
+    margin: 0 auto;
+    min-height: 200px;
+    padding-bottom: 11px;
+    width: 320px;
+}
+.app-entry-hader .app-black-head {
+    background: rgba(0, 0, 0, 0) url("../img/weixin_titlebar.png") no-repeat scroll 0 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    height: 64px;
+    line-height: 46px;
+    padding: 18px 60px 0;
+    text-align: center;
+}
+.app-entry-hader .app-black-head span {
+    display: inline-block;
+    height: 46px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+}
+
+.app-entry-fileds .app-sortul {
+    border: 1px solid #aeaeae;
+    margin: 10px 15px;
+}
+.app-article:first-child{
+    height: 170px;
+}
+.app-article {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    overflow:hidden;
+    position:relative;
+}
+.app-article:last-child{
+    border-bottom:0px;
+}
+.app-article .app-msg{
+    margin: 10px;
+    position: relative;
+    width: 266px;
+}
+
+.app-msg-first  .app-msg-thumb-wrap{
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+.app-msg-first .app-msg-title {
+    background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+    bottom: 0;
+    box-sizing: border-box;
+    color: #fff;
+    line-height: 44px;
+    max-height: 56px;
+    overflow: hidden;
+    padding: 0 5px;
+    position: absolute;
+    width: 100%;
+    word-break: break-all;
+    word-wrap: break-word;
+    z-index: 1;
+}
+.app-msg-first .app-msg-thumb-wrap p {
+    background-color: #ececec;
+    bottom: 0;
+    color: #c0c0c0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    left: 0;
+    line-height: 150px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    height:150px;
+}
+.app-article .app-msg h4{
+    margin-top:0px;
+    margin-bottom:0px;
+    font-size:12px;
+    color:#000;
+}
+.app-article .app-msg-first h4{
+    color:#fff;
+}
+.app-article .app-msg-others {
+    min-height: 40px;
+    position: relative;
+    width: 268px;
+}
+.app-article .app-actions {
+    border: 0 none;
+    width: 286px;
+    bottom: -1px;
+    box-sizing: border-box;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    z-index: 2;
+}
+.app-article .app-actions .app-actions-wrap {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+}
+.app-article .app-actions .app-actions-wrap span {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 1px;
+    padding: 0 5px;
+}
+.app-article .app-actions .app-actions-wrap span:hover{
+    color: #ddd;
+    cursor:pointer;
+}
+.app-article:hover{
+    background-color:#ececec;
+    cursor:move;
+}
+.app-not-moveable:hover{
+    cursor:pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

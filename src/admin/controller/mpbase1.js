@@ -4,6 +4,9 @@ import Base from './base.js';
 import weiapi from 'wechat-api';
 
 export default class extends Base {
+
+    //var a = 1;
+
     /**
     * index action
     * @return {Promise} []
@@ -77,19 +80,51 @@ export default class extends Base {
          return this.display();
          }
         }
+
+    /**
+    * 素材管理
+    * */
+    async materialAction() {
+        //conosle.log(this.a);
+        this.meta_title="素材管理";
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        //let cat=await this.model('category').get_category(1,"url");
+        //获取某个栏目的所有子栏目
+        let subcat = await this.model('category').get_sub_category(1);
+        let cate = await this.model('category').select();
+        //let treecat = arr_to_tree(cate,42)
+        //console.log(treecat)
+        this.display();
+    }
+
+    /**
+     *测试
+     */
+    testAction(){
+        let wapi = new weiapi("wxf417a542a02aa8fc", "564033623a2ea9b19119f0164289ba45");
+        let self = this;
+        wapi.uploadMaterial('F:\\nodejs-www\\CmsWing\\www\\static\\admin\\img\\m0.jpg', "image", function(err, res){
+            think.log(res);
+            console.log("err= "+err);
+            self.end(res);
+        });
+        //this.end();
+    }
+
+    /**
+     *新建图文
+     */
+    createlocalAction(){
+        this.meta_title="新建高级图文";
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        this.display();
+    }
+
     /**
      * 设置一条或者多条数据的状态
      */
     * setstatusAction() {
         yield super.setstatusAction(this,'member_public');
     }
-    /**
-     * 自定义菜单
-     */
-    * customAction() {
-        this.meta_title="自定义菜单";
-        
-        this.assign({"navxs": true,"bg": "bg-dark"});
-        return this.display();
-    }
+
 }
