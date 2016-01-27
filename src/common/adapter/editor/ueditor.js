@@ -34,7 +34,7 @@ export default class extends think.adapter.base {
   upFile(){
     let http=this.http;
     let file = http.file(this.fileField);
-   console.log(file);
+   //console.log(file);
     if(!think.isFile(file.path)){
       this.stateInfo = "找不到临时文件";
       return;
