@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
+Source Server         : 本地数据库
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-01-26 20:57:28
+Date: 2016-01-28 18:29:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -126,6 +126,7 @@ INSERT INTO `cmswing_action_log` VALUES ('169', '4', '1', '2130706433', 'documen
 INSERT INTO `cmswing_action_log` VALUES ('170', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-26 11:03:03登录了后台', '1', '1453777383803');
 INSERT INTO `cmswing_action_log` VALUES ('171', '4', '1', '2130706433', 'document', '56', 'admin在2016-01-26 11:09:23发表了一篇文章。\r\n表document，记录编号56。fdsfsa', '1', '1453777763813');
 INSERT INTO `cmswing_action_log` VALUES ('172', '4', '1', '2130706433', 'document', '57', 'admin在2016-01-26 14:13:29发表了一篇文章。\r\n表document，记录编号57。fdsfsa', '1', '1453788809941');
+INSERT INTO `cmswing_action_log` VALUES ('173', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-27 23:24:48登录了后台', '1', '1453908288544');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -451,6 +452,31 @@ INSERT INTO `cmswing_category` VALUES ('48', 'tags', '模板标签', '46', '0', 
 INSERT INTO `cmswing_category` VALUES ('49', 'architecture', '构架设计', '46', '0', '10', '', '', '', '', '', '', '', '2', '2,3', '', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 
 -- ----------------------------
+-- Table structure for cmswing_channel
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_channel`;
+CREATE TABLE `cmswing_channel` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '频道ID',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级频道ID',
+  `title` char(30) NOT NULL COMMENT '频道标题',
+  `url` char(100) NOT NULL COMMENT '频道连接',
+  `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '导航排序',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `target` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '新窗口打开',
+  PRIMARY KEY (`id`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_channel
+-- ----------------------------
+INSERT INTO `cmswing_channel` VALUES ('1', '0', '首页', '/', '1', '1379475111', '1379923177', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/Article/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('3', '0', '官网', 'http://www.onethink.cn', '3', '1379475154', '1387163458', '1', '0');
+
+-- ----------------------------
 -- Table structure for cmswing_document
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_document`;
@@ -750,7 +776,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '260', 'arterli@qq.com', '29', '', '1452513965683', '0', '1453777383716', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '270', 'arterli@qq.com', '30', '', '1452513965683', '0', '1453908288490', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
