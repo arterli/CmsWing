@@ -8,7 +8,7 @@
         <div class="btn-group pull-right">
             <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加分类</a>
         </div>
-        <p>分类管理</p>
+        <p>{{controller.meta_title}}</p>
     </header>
     <section class="scrollable wrapper">
 
@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block script %}
-<!--<script type="text/javascript" src="/static/js/tree/tree.js"></script>-->
+
 <script type="text/javascript">
     /* 生成HTML ul/li 形式 */
     function category_to_html(nodes) {

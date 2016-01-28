@@ -1,20 +1,122 @@
 {% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/admin/js/tree/tree.css" type="text/css" />
+{% endblock %}
 {% block content %}
 <section class="vbox">
     <header class="header bg-light dk">
-        <p>平台主页</p>
+        <div class="btn-group pull-right">
+            <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加导航</a>
+        </div>
+        <p>{{controller.meta_title}}</p>
     </header>
     <section class="scrollable wrapper">
 
         <div class="row">
 
             <div class="col-lg-12">
-                <p>导航管理 <span
-                        class="text-muted">(replace the '.' with '-')</span></p>
+
+                <div class="tree">
+                </div>
+
             </div>
 
         </div>
     </section>
 </section>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+    /* 生成HTML ul/li 形式 */
+    function category_to_html(nodes) {
+        var html = [];
+        var size = nodes.length;
+        var left = null;
+        var right = null;
+        var text;
+        var stack = [];
+
+        html.push("<ul>");
+
+        for (var i = 0; i < size; i++) {
+            left = nodes[i];
+
+            //text = [left["id"],left["name"]].join(",");
+            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["url"]+' </code><a href="'+left["url"]+'" target="_blank"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>创建时间:' + left["create_time"] + '</code> <a href="/admin/channel/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">删除</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">移动</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">合并</a>';
+            if (i + 1 < size) {
+                right = nodes[i + 1];
+                /* 入深 */
+                if (left["deep"] < right["deep"]) {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-folder-open"></i>   ' + left["title"] + '</span> ')
+                    html.push(text);
+                    html.push("<ul>");
+                    stack.push(1);
+                } else {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span> ');
+                    html.push(text);
+                    html.push("</li>");
+                }
+                /* 逐层跳出 */
+                if (left["deep"] > right["deep"]) {
+                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
+                        stack.pop();
+                        html.push("</ul>");
+                        html.push("</li>");
+                    }
+                }
+            } else {
+                if (stack.length > 0) {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
+                    html.push(text);
+                    html.push("</li>");
+                    while (stack.pop()) {
+                        html.push("</ul>");
+                        html.push("</li>");
+                    }
+                } else {
+                    html.push("<li>");
+                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
+                    html.push(text);
+                    html.push("</li>");
+                }
+            }
+        }
+        html.push("</ul>");
+        return html.join("\n");
+    }
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "/admin/channel/getchannel",
+            success: function (msg) {
+                /* 展示生成的HTML */
+                $(".tree").html(category_to_html(msg));
+                console.log(msg);
+
+                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
+                $('.tree li.parent_li > span').on('click', function (e) {
+                    var children = $(this).parent('li.parent_li').find(' > ul > li');
+                    if (children.is(":visible")) {
+                        children.hide('fast');
+                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-folder-close').removeClass('glyphicon-folder-open');
+                    } else {
+                        children.show('fast');
+                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-folder-open').removeClass('glyphicon-folder-close');
+                    }
+                    e.stopPropagation();
+                });
+            }
+        })
+
+
+    });
+
+</script>
 
 {% endblock %}

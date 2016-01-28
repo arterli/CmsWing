@@ -12,15 +12,21 @@ export default class extends Base {
      */
     init(http){
         super.init(http);
+        this.db = this.model('channel');
         this.tactive = "setup"
     }
 
     indexAction(){
         //auto render template file index_index.html
+        this.meta_title = "导航管理";
         this.assign({
             "active":"/admin/channel/index",
         })
         return this.display();
+    }
+    async getchannelAction(){
+        let tree = await this.db.get_channel_cache();
+        return this.json(tree);
     }
     aabbAction(){
         console.log(1)
