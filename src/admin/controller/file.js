@@ -69,4 +69,11 @@ export default class extends Base {
     }
     this.json(res);
   }
+
+  //图片选择
+  selectpicAction(){
+    //let pics =
+    this.assign("field", {"name":"uploadimg"});
+    this.display();
+  }
 }

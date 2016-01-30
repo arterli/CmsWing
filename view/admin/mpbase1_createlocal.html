@@ -34,59 +34,103 @@
                                                 <div class="app-entry-hader"><div class="app-black-head"><span>高级图文</span></div></div>
                                                 <div class="app-entry-fileds">
                                                     <div class="app-sortul">
-                                                        <div class="app-article app-not-moveable js-notmoveball">
-                                                            <div class="app-msg app-msg-first">
-                                                                <h4 class="app-msg-title">标题</h4>
-                                                                <div class="app-msg-thumb-wrap">
-                                                                    <p>封面图片</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="app-actions">
-                                                                <div class="app-actions-wrap">
-                                                                    <span class="app-action app-edit">编辑</span>
-                                                                </div>
-                                                            </div>
+                                                        <div id="nestable1" class="dd">
+                                                            <ol class="dd-list">
+                                                                <li data-id="1" class="dd-item">
+                                                                    <div class="dd-handle-nodrag">
+                                                                        <div class="app-article app-not-moveable js-notmoveball">
+                                                                            <div class="app-msg app-msg-first">
+                                                                                <h4 class="app-msg-title">标题</h4>
+                                                                                <div class="app-msg-thumb-wrap">
+                                                                                    <p>封面图片</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="app-hide-edit-sec" style="display:block;">
+                                                                        <div class="app-es-arrow"></div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">链接到</div>
+                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                                        </div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">标题</div>
+                                                                            <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                                        </div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
+                                                                            <div class="app-es-line-con"><a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selectpic" >添加图片</a></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                <li data-id="2" class="dd-item" >
+                                                                    <div class="dd-handle-nodrag">
+                                                                        <div class="app-article">
+                                                                            <div class="app-msg app-msg-others">
+                                                                                <h4 class="app-msg-title">标题</h4>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="app-hide-edit-sec">
+                                                                        <div class="app-es-arrow"></div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">链接到</div>
+                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                                        </div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">标题</div>
+                                                                            <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                                        </div>
+                                                                        <div class="app-es-line">
+                                                                            <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
+                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">添加图片</a></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ol>
                                                         </div>
-                                                        <div class="app-article">
-                                                            <div class="app-msg app-msg-others">
-                                                                <h4 class="app-msg-title">标题</h4>
-                                                            </div>
-                                                            <div class="app-actions">
-                                                                <div class="app-actions-wrap">
-                                                                    <span class="app-action app-edit">编辑</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="app-article">
-                                                            <div class="app-msg app-msg-others">
-                                                                <h4 class="app-msg-title">标题</h4>
-                                                            </div>
-                                                            <div class="app-actions">
-                                                                <div class="app-actions-wrap">
-                                                                    <span class="app-action app-edit">编辑</span>
-                                                                    <span class="app-action app-del">删除</span>
-                                                                </div>
-                                                            </div>
+                                                        <div class="app-actions" id="app-btns">
+                                                            <span class="app-action app-del hide" id="app-del-btn">删除</span>
+                                                            <span  class="app-action app-edit">编辑</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row m-b">
-                                            <div class="col-sm-4">
-                                                <div id="nestable1" class="dd">
-                                                    <ol class="dd-list">
-
-                                                        <li data-id="1" class="dd-item"><div class="dd-handle">Item 1</div></li>
-                                                        <li data-id="2" class="dd-item"><div class="dd-handle">Item 2</div></li>
-                                                        <li data-id="3" class="dd-item"><div class="dd-handle">Item 3</div></li>
-                                                        <li data-id="4" class="dd-item"><div class="dd-handle">Item 4</div></li>
-                                                    </ol>
+                                            <div class="app-add-btn" id="add-item-li">
+                                                <h4><span>新增+</span></h4>
+                                                <!-- hide dom for js add begin -->
+                                                <div class="hide" id="hide-item">
+                                                    <li data-id="3" class="dd-item">
+                                                        <div class="dd-handle">
+                                                            <div class="app-article">
+                                                                <div class="app-msg app-msg-others">
+                                                                    <h4 class="app-msg-title">标题</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="app-hide-edit-sec">
+                                                            <div class="app-es-arrow"></div>
+                                                            <div class="app-es-line">
+                                                                <div class="app-es-line-top">链接到</div>
+                                                                <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                            </div>
+                                                            <div class="app-es-line">
+                                                                <div class="app-es-line-top">标题</div>
+                                                                <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                            </div>
+                                                            <div class="app-es-line">
+                                                                <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
+                                                                <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">添加图片</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
                                                 </div>
                                             </div>
+                                            <!-- hide dom for js add end -->
                                         </div>
                                     </div>
                                     <div id="dropdown1" class="tab-pane fade">dropdown1</div>
+                                    <div class="test"></div>
                                 </div>
                             </div>
                         </section>
@@ -108,11 +152,108 @@
 
     $(document).ready(function()
     {
+        //test
+        $("a[data-toggle=ajaxModal]").trigger("click");
 
         // activate Nestable for list 1
         $('#nestable1').nestable({
-            group: 1
+            maxDepth:1
         });
+
+        $(".dd-list").on("mouseover", function(e){
+            var e = e || window.event;
+            var target = e.target || e.srcElement;
+            var item = "";
+            if(target.tagName == "li")
+            {
+                item = target;
+            }
+            else
+            {
+                item = $(target).closest("li");
+            }
+            var itemId = $(item).attr("data-id");
+            btnsPosHandle(itemId);
+        }).on("mouseout", function(e){
+
+        });
+
+        $("#add-item-li").on("click", function(){
+            //内容最多10个
+            if($("#nestable1").find("ol").children().length >= 10)
+            {
+                toastr.warning('最多添加十条数据');
+                return;
+            }
+            maxDataId++;
+            overBtnPos = maxDataId;
+            $("#hide-item").find("li").attr("data-id", maxDataId);
+            var item = $("#hide-item").html();
+            $("#nestable1").find("ol").append(item);
+            $(".app-actions").find(".app-edit").trigger("click");
+        });
+
+        $(".app-actions").find(".app-edit").on("click", function(){
+            btnPos = overBtnPos;
+            var item = $("#nestable1").find("li[data-id="+btnPos+"]");
+            item.siblings().find(".app-hide-edit-sec").css({"display":"none"});
+            item.find(".app-hide-edit-sec").css({"display":"block"});
+        });
+
+        $(".app-actions").find(".app-del").on("click", function(){
+            swal({
+                title: "确定删除?",
+                text: "删除后不可恢复，请谨慎操作",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确认",
+                cancelButtonText: "取消",
+                closeOnConfirm: true
+            },
+            function(){
+                var item = $("#nestable1").find("li[data-id="+overBtnPos+"]");
+                $(item.prev()).trigger("mouseover");
+                if(btnPos == item.attr("data-id"))
+                {
+                    $(".app-actions").find(".app-edit").trigger("click");
+                }
+                item.remove();
+            });
+        });
+
+        var btnsPosHandle = function(itemId){
+            if(!itemId){return;}
+            overBtnPos = itemId;
+            var item = $("#nestable1").find("li[data-id="+itemId+"]");
+            var itemIndex = $(item).index() + 1;
+            var newPos = 0;
+            if(parseInt(itemId) == 1)
+            {
+                newPos = 148;
+            }
+            else
+            {
+                newPos = 148 + (itemIndex - 1)*61;
+            }
+            if($.inArray(itemId, new Array("1", "2")) != -1)
+            {
+                $("#app-btns > .app-del").addClass("hide");
+            }
+            else
+            {
+                $("#app-btns > .app-del").removeClass("hide");
+            }
+            $("#app-btns").css({"top":newPos+"px", "display":"block"});
+        }
+
+
+
+        /*面板初始化数据*/
+        var btnPos = 1; //按钮默认初始化在第一个位置
+        var overBtnPos = 1; //按钮mouseover在哪个位置
+        var maxDataId = 2;  //当前data-id最大值
+
 
     });
 
