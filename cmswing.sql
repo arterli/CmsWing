@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地数据库
-Source Server Version : 50617
+Source Server         : 本地
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-01-28 18:41:35
+Date: 2016-02-02 18:43:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,67 +66,26 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=174 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=205 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
 -- ----------------------------
-INSERT INTO `cmswing_action_log` VALUES ('118', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 14:58:47测试了日志member和1和[object Object]', '1', '1452841127353');
-INSERT INTO `cmswing_action_log` VALUES ('119', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 14:58:49测试了日志member和1和[object Object]', '1', '1452841129099');
-INSERT INTO `cmswing_action_log` VALUES ('120', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 14:58:50测试了日志member和1和[object Object]', '1', '1452841130416');
-INSERT INTO `cmswing_action_log` VALUES ('121', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 15:00:37测试了日志member和1和[object Object]', '1', '1452841237034');
-INSERT INTO `cmswing_action_log` VALUES ('122', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 15:00:42测试了日志member和1和[object Object]', '1', '1452841242531');
-INSERT INTO `cmswing_action_log` VALUES ('123', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:11:26测试了日志member和1和[object Object]', '1', '1452845486500');
-INSERT INTO `cmswing_action_log` VALUES ('124', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:12:12测试了日志member和1和[object Object]', '1', '1452845532461');
-INSERT INTO `cmswing_action_log` VALUES ('125', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:46测试了日志member和1和[object Object]', '1', '1452845686138');
-INSERT INTO `cmswing_action_log` VALUES ('126', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:46测试了日志member和1和[object Object]', '1', '1452845686150');
-INSERT INTO `cmswing_action_log` VALUES ('127', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:46测试了日志member和1和[object Object]', '1', '1452845686153');
-INSERT INTO `cmswing_action_log` VALUES ('128', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:46测试了日志member和1和[object Object]', '1', '1452845686156');
-INSERT INTO `cmswing_action_log` VALUES ('129', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:46测试了日志member和1和[object Object]', '1', '1452845686159');
-INSERT INTO `cmswing_action_log` VALUES ('130', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 16:14:51测试了日志member和1和[object Object]', '1', '1452845691485');
-INSERT INTO `cmswing_action_log` VALUES ('131', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 17:32:39测试了日志member和1和[object Object]', '1', '1452850359757');
-INSERT INTO `cmswing_action_log` VALUES ('132', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 17:39:39测试了日志member和1和[object Object]', '1', '1452850779286');
-INSERT INTO `cmswing_action_log` VALUES ('133', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 18:48:07测试了日志member和1和[object Object]', '1', '1452854887293');
-INSERT INTO `cmswing_action_log` VALUES ('134', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 19:17:26测试了日志member和1和[object Object]', '1', '1452856646649');
-INSERT INTO `cmswing_action_log` VALUES ('135', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 19:22:24测试了日志member和1和[object Object]', '1', '1452856944736');
-INSERT INTO `cmswing_action_log` VALUES ('136', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 19:31:36测试了日志member和1和[object Object]', '1', '1452857496034');
-INSERT INTO `cmswing_action_log` VALUES ('137', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 19:48:56测试了日志member和1和[object Object]', '1', '1452858536216');
-INSERT INTO `cmswing_action_log` VALUES ('138', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 20:05:56测试了日志member和1和[object Object]', '1', '1452859556613');
-INSERT INTO `cmswing_action_log` VALUES ('139', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 20:06:17测试了日志member和1和[object Object]', '1', '1452859577464');
-INSERT INTO `cmswing_action_log` VALUES ('140', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:56:48测试了日志member和1和[object Object]', '1', '1452866208133');
-INSERT INTO `cmswing_action_log` VALUES ('141', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:58:01测试了日志member和1和[object Object]', '1', '1452866281564');
-INSERT INTO `cmswing_action_log` VALUES ('142', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:58:53测试了日志member和1和[object Object]', '1', '1452866333231');
-INSERT INTO `cmswing_action_log` VALUES ('143', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:59:29测试了日志member和1和[object Object]', '1', '1452866369709');
-INSERT INTO `cmswing_action_log` VALUES ('144', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:59:29测试了日志member和1和[object Object]', '1', '1452866369711');
-INSERT INTO `cmswing_action_log` VALUES ('145', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 21:59:52测试了日志member和1和[object Object]', '1', '1452866392330');
-INSERT INTO `cmswing_action_log` VALUES ('146', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 22:00:22测试了日志member和1和[object Object]', '1', '1452866422573');
-INSERT INTO `cmswing_action_log` VALUES ('147', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 22:01:49测试了日志member和1和[object Object]', '1', '1452866509623');
-INSERT INTO `cmswing_action_log` VALUES ('148', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 22:01:56测试了日志member和1和[object Object]', '1', '1452866516683');
-INSERT INTO `cmswing_action_log` VALUES ('149', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 22:01:58测试了日志member和1和[object Object]', '1', '1452866518541');
-INSERT INTO `cmswing_action_log` VALUES ('150', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-15 22:02:09测试了日志member和1和[object Object]', '1', '1452866529824');
-INSERT INTO `cmswing_action_log` VALUES ('151', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 12:27:20测试了日志member和1和[object Object]', '1', '1452918440248');
-INSERT INTO `cmswing_action_log` VALUES ('152', '4', '1', '2130706433', 'document', '50', 'admin在2016-01-16 12:44:56发表了一篇文章。\r\n表document，记录编号50。', '1', '1452919496981');
-INSERT INTO `cmswing_action_log` VALUES ('153', '4', '1', '2130706433', 'document', '51', 'admin在2016-01-16 12:45:28发表了一篇文章。\r\n表document，记录编号51。', '1', '1452919528601');
-INSERT INTO `cmswing_action_log` VALUES ('154', '4', '1', '2130706433', 'document', '52', 'admin在2016-01-16 12:49:53发表了一篇文章。\r\n表document，记录编号52。', '1', '1452919793879');
-INSERT INTO `cmswing_action_log` VALUES ('155', '4', '1', '2130706433', 'document', '53', 'admin在2016-01-16 12:58:26发表了一篇文章。\r\n表document，记录编号53。fdsfsa', '1', '1452920306466');
-INSERT INTO `cmswing_action_log` VALUES ('156', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:00:47测试了日志member和1和[object Object]', '1', '1452920447071');
-INSERT INTO `cmswing_action_log` VALUES ('157', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:01:42测试了日志member和1和[object Object]', '1', '1452920502264');
-INSERT INTO `cmswing_action_log` VALUES ('158', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:13:26测试了日志member和1和[object Object]', '1', '1452921206763');
-INSERT INTO `cmswing_action_log` VALUES ('159', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:32:34测试了日志member和1和[object Object]', '1', '1452922354633');
-INSERT INTO `cmswing_action_log` VALUES ('160', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:32:34测试了日志member和1和[object Object]', '1', '1452922354638');
-INSERT INTO `cmswing_action_log` VALUES ('161', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:32:45测试了日志member和1和[object Object]', '1', '1452922365834');
-INSERT INTO `cmswing_action_log` VALUES ('162', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:33:04测试了日志member和1和[object Object]', '1', '1452922384614');
-INSERT INTO `cmswing_action_log` VALUES ('163', '13', '1', '2130706433', 'member', '1', 'admin在2016-01-16 13:33:08测试了日志member和1和[object Object]', '1', '1452922388950');
-INSERT INTO `cmswing_action_log` VALUES ('164', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-18 14:44:42登录了后台', '1', '1453099482647');
-INSERT INTO `cmswing_action_log` VALUES ('165', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-21 16:23:20登录了后台', '1', '1453364600561');
-INSERT INTO `cmswing_action_log` VALUES ('166', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-22 20:20:45登录了后台', '1', '1453465245600');
-INSERT INTO `cmswing_action_log` VALUES ('167', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-23 13:07:47登录了后台', '1', '1453525667356');
-INSERT INTO `cmswing_action_log` VALUES ('168', '4', '1', '2130706433', 'document', '54', 'admin在2016-01-23 13:08:01发表了一篇文章。\r\n表document，记录编号54。fdsfsa', '1', '1453525681922');
-INSERT INTO `cmswing_action_log` VALUES ('169', '4', '1', '2130706433', 'document', '55', 'admin在2016-01-25 16:40:02发表了一篇文章。\r\n表document，记录编号55。fdsfsa', '1', '1453711202764');
-INSERT INTO `cmswing_action_log` VALUES ('170', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-26 11:03:03登录了后台', '1', '1453777383803');
-INSERT INTO `cmswing_action_log` VALUES ('171', '4', '1', '2130706433', 'document', '56', 'admin在2016-01-26 11:09:23发表了一篇文章。\r\n表document，记录编号56。fdsfsa', '1', '1453777763813');
-INSERT INTO `cmswing_action_log` VALUES ('172', '4', '1', '2130706433', 'document', '57', 'admin在2016-01-26 14:13:29发表了一篇文章。\r\n表document，记录编号57。fdsfsa', '1', '1453788809941');
-INSERT INTO `cmswing_action_log` VALUES ('173', '1', '1', '2130706433', 'member', '1', 'admin在2016-01-27 23:24:48登录了后台', '1', '1453908288544');
+INSERT INTO `cmswing_action_log` VALUES ('190', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454400241037');
+INSERT INTO `cmswing_action_log` VALUES ('191', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454400255299');
+INSERT INTO `cmswing_action_log` VALUES ('192', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-02 16:47:49登录了后台', '1', '1454402869097');
+INSERT INTO `cmswing_action_log` VALUES ('193', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405194321');
+INSERT INTO `cmswing_action_log` VALUES ('194', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405426062');
+INSERT INTO `cmswing_action_log` VALUES ('195', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405476543');
+INSERT INTO `cmswing_action_log` VALUES ('196', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405517582');
+INSERT INTO `cmswing_action_log` VALUES ('197', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405528526');
+INSERT INTO `cmswing_action_log` VALUES ('198', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405553533');
+INSERT INTO `cmswing_action_log` VALUES ('199', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405567394');
+INSERT INTO `cmswing_action_log` VALUES ('200', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405619501');
+INSERT INTO `cmswing_action_log` VALUES ('201', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405627288');
+INSERT INTO `cmswing_action_log` VALUES ('202', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405643656');
+INSERT INTO `cmswing_action_log` VALUES ('203', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405662878');
+INSERT INTO `cmswing_action_log` VALUES ('204', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405679388');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -467,14 +426,25 @@ CREATE TABLE `cmswing_channel` (
   `target` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_channel
 -- ----------------------------
 INSERT INTO `cmswing_channel` VALUES ('1', '0', '首页', '/', '1', '1379475111', '1379923177', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/Article/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
-INSERT INTO `cmswing_channel` VALUES ('3', '0', '官网', 'http://www.onethink.cn', '3', '1379475154', '1387163458', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('3', '0', '外部链接', 'http://www.cmswing.com', '3', '1379475154', '1454396773062', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('10', '0', '测试导航', '11111', '5', '1454399423443', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('11', '10', '222', '1111', '0', '1454400241024', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('12', '10', '1111', '222211', '0', '1454400255255', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('13', '0', '文档', '/channel/doc', '3', '1454405194251', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('14', '13', '快速入门', '/column/start', '0', '1454405426043', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('15', '13', '模板标签', '/column/tags', '1', '1454405476532', '1454405553528', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('16', '13', '构架设计', '/column/architecture', '3', '1454405517570', '1454405567389', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('17', '10', '测试1', '1111', '0', '1454405619456', '1454405627281', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('18', '10', '测试2', '22222', '0', '1454405643640', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('19', '18', '测试21', '212121', '0', '1454405662868', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('20', '18', '测试22', '33333', '0', '1454405679378', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_document
@@ -776,7 +746,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '270', 'arterli@qq.com', '30', '', '1452513965683', '0', '1453908288490', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '290', 'arterli@qq.com', '32', '', '1452513965683', '0', '1454402869080', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
