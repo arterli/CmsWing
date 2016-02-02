@@ -10,7 +10,7 @@ export default class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     this.meta_title = "首页";
-
+//erwrwr
     return this.display();
   }
 }
