@@ -1,8 +1,8 @@
 {% extends "./inc/base.html" %}
 {% block content %}
-     <!-- 
-				PAGE HEADER 
-				
+     <!--
+				PAGE HEADER
+
 				CLASSES:
 					.page-header-xs	= 20px margins
 					.page-header-md	= 50px margins
@@ -217,6 +217,7 @@
 									<span class="txt">DESIGN</span>
 									<span class="num">6</span>
 								</a>
+
 								<a class="tag" href="#">
 									<span class="txt">DEVELOPMENT</span>
 									<span class="num">3</span>
@@ -276,18 +277,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">{{val.view}} Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">{{val.category_id}}</span>
@@ -298,7 +299,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">{{val.uid|get_nickname}}</span>
 										</a>
 									</li>
@@ -327,7 +328,6 @@
 						</div>
 
 					</div>
-
 
 				</div>
 			</section>
