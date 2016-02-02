@@ -274,7 +274,19 @@
 .app-hide-edit-sec .app-input-tips-word {
     padding: 0 4px;
 }
-
+.app-hide-edit-sec .app-es-selected-url {
+    background-color: #468847;
+    color: #fff;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin-right: 20px;
+    display:none;
+}
+.app-hide-edit-sec .app-es-selected-url:hover{
+    color:#fff;
+    text-decoration: none;
+    cursor:pointer;
+}
 
 
 

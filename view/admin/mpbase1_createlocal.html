@@ -51,7 +51,10 @@
                                                                         <div class="app-es-arrow"></div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">链接到</div>
-                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                                            <div class="app-es-line-con app-url-con">
+                                                                                <a class="app-es-selected-url">我是第一个来的</a>
+                                                                                <a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selecturl">设置链接到的页面地址</a>
+                                                                            </div>
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">标题</div>
@@ -80,9 +83,9 @@
                                                                     </div>
                                                                     <div class="app-hide-edit-sec">
                                                                         <div class="app-es-arrow"></div>
-                                                                        <div class="app-es-line">
-                                                                            <div class="app-es-line-top">链接到</div>
-                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                                        <div class="app-es-line-con app-url-con">
+                                                                            <a class="app-es-selected-url">我是第一个来的</a>
+                                                                            <a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selecturl">设置链接到的页面地址</a>
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">标题</div>
@@ -124,9 +127,9 @@
                                                         </div>
                                                         <div class="app-hide-edit-sec">
                                                             <div class="app-es-arrow"></div>
-                                                            <div class="app-es-line">
-                                                                <div class="app-es-line-top">链接到</div>
-                                                                <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">设置链接到的页面地址</a></div>
+                                                            <div class="app-es-line-con app-url-con">
+                                                                <a class="app-es-selected-url">我是第一个来的</a>
+                                                                <a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selecturl">设置链接到的页面地址</a>
                                                             </div>
                                                             <div class="app-es-line">
                                                                 <div class="app-es-line-top">标题</div>
@@ -149,7 +152,14 @@
                                         </div>
                                     </div>
                                     <div id="dropdown1" class="tab-pane fade">dropdown1</div>
-                                    <div class="test"></div>
+                                    <div class="form-horizontal" style="margin-top:20px;">
+                                        <div class="form-group">
+                                            <div class="col-sm-4">
+                                                <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -172,7 +182,7 @@
     $(document).ready(function()
     {
         //test
-        $("a[data-toggle=ajaxModal]:first").trigger("click");
+        //$("a[data-toggle=ajaxModal]:first").trigger("click");
 
         // activate Nestable for list 1
         $('#nestable1').nestable({
@@ -298,10 +308,12 @@
     {
         this.src = ""; //图片地址
         this.picid = ""; //图片数据库id
+        this.urlid = ""; //链接ID
+        this.urlpath = ""; //链接url
+        this.urltitle = ""; //链接title
         this.handlePic = function(){
             if(this.src && this.picid)
             {
-                //TODO 处理图片
                 var url = "/admin/file/getpic";
                 var params = {"id":this.picid};
                 $.post(url, params, function(data){
@@ -320,6 +332,16 @@
                         $(item).find(".app-img-pre-show-right .app-es-btn").text("重新选择");
                     }
                 }, "json");
+            }
+        }
+
+        this.handleUrl = function(){
+            //TODO 处理链接
+            if(this.urlpath && this.urlid && this.urltitle)
+            {
+                var item = $("#nestable1").find("li[data-id="+btnPos+"]");
+                $(item).find(".app-hide-edit-sec .app-url-con a:first").css({"display":"inline"}).text(this.urltitle).attr("href", this.urlpath).attr("urlid", this.urlid);
+                $(item).find(".app-hide-edit-sec .app-url-con a:last").text("修改");
             }
         }
     }

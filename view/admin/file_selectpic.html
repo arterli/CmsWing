@@ -21,6 +21,7 @@
                             {% for item in pics %}
                             <li class="file-pic-li" picid="{{item.id}}">
                                 <img class="file-pic-img" style="height:100px;" src="{{item.path}}" />
+                                <div class="file-pic-size-tips">250x250</div>
                             </li>
                             {% endfor %}
                         </ul>
@@ -183,6 +184,37 @@
             pic.src = $(this).attr("src");
             var pcb = new picSelectCallback();
             pcb.handlePic.call(pic, "");
+        });
+
+        var getnetpic = false;
+        $(".file-s-getnetpic").on("click", function(){
+            if(!getnetpic)
+            {
+                getnetpic = true;
+                var picurl = $(this).parent().find("input").val();
+                if(!picurl)
+                {
+                    toastr.warning('不合法的图片地址');
+                    return;
+                }
+                var btn = $(this);
+                btn.text("提取中...");
+                var url = "/admin/file/savenetpic";
+                var params = {"picurl":picurl};
+                $.post(url, params, function(data){
+                    btn.text("提取");
+                    getnetpic = false;
+                    if(data.status == "1")
+                    {
+                        var pic = new Object();
+                        pic.picid = data.id;
+                        pic.src = data.path;
+                        var pcb = new picSelectCallback();
+                        pcb.handlePic.call(pic, "");
+                    }
+                    $("[data-dismiss=modal]").trigger("click");
+                }, "json");
+            }
         });
     })
 </script>

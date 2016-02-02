@@ -25,18 +25,38 @@
     overflow: hidden;
     margin-bottom:10px;
     text-align:center;
+    position:relative;
 }
 .file-pic-img {
     height: 100px;
-    max-width: 98%;
+    max-width: 90%;
     cursor:pointer;
+}
+.file-pic-size-tips {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 90%;
+    height: 20px;
+    line-height: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    margin: 0 5%;
+}
+.file-pic-li:hover .file-pic-size-tips{
+    display:none;
 }
 
 
 
 
 
+/*Ñ¡Ôñurl begin*/
 
+
+
+
+/*Ñ¡Ôñurl end*/
 
 
 

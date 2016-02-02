@@ -3,6 +3,7 @@
 import Base from './base.js';
 import fs from 'fs';
 import path from 'path';
+import request from 'request';
 export default class extends Base {
   /**
    * index action
@@ -76,6 +77,44 @@ export default class extends Base {
     this.assign("pics", pics);
     this.assign("field", {"name":"uploadimg"});
     this.display();
+  }
+
+  //链接选择
+  selecturlAction(){
+    this.assign("articles", [1, 2, 3, 4, 5, 6]);
+    this.display();
+  }
+
+  /**
+   * 保存提取到的网络图片
+   */
+  async savenetpicAction(){
+    //let urlstr = "http://a2.att.hudong.com/38/59/300001054794129041591416974.jpg";
+    let urlstr = this.post("picurl");
+    let urlarr = urlstr.split(".");
+    let uploadwwwdir = '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
+    let uploadPath = think.RESOURCE_PATH + uploadwwwdir;
+    think.mkdir(uploadPath);
+    //TODO 图片写入未完成就返回了数据，导致前台无法显示
+    let picname = new Date().getTime()+""+Math.floor(1000000*Math.random())+'.'+urlarr[urlarr.length - 1];
+    let writestream = await fs.createWriteStream(uploadPath+'/'+picname);
+    let readstream = await request(urlstr);
+    await readstream.pipe( writestream );
+    let data ={
+      path:uploadwwwdir+ '/' + picname,
+      create_time:new Date().getTime(),
+      status:1
+    }
+    let res = await this.model("picture").data(data).add();
+    if(res)
+    {
+      data.id = res;
+      this.end(data);
+    }
+    else
+    {
+      this.end({"status":0});
+    }
   }
 
   //根据图片id获取图片信息
