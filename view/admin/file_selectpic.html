@@ -1,0 +1,156 @@
+{% block style %}
+<link href="/static/admin/css/file-select.css" rel="stylesheet" type="style/css" />
+<link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
+<script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+{% endblock %}
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <section class="panel panel-default file-s-header">
+            <header class="panel-heading text-right bg-light clearfix file-s-sec-h" >
+                <ul class="nav nav-tabs pull-left">
+                    <li><a data-toggle="tab" href="#file-pic-select-content-1"><i class="fa fa-comments text-muted"></i>&nbsp;用过的图片</a></li>
+                    <li class="active"><a data-toggle="tab" href="#file-pic-select-content-2"><i class="fa fa-user text-muted"></i>&nbsp;新图片</a></li>
+                </ul>
+                <span class="hidden-sm"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
+            </header>
+            <div class="panel-body">
+                <div class="tab-content">
+                    <div id="file-pic-select-content-1" class="tab-pane fade">message</div>
+                    <div id="file-pic-select-content-2" class="tab-pane fade active in form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">网络图片</label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input placeholder="请填写网络图片地址" type="text" class="form-control  " name="template" value="" style="width:70%;float:left;margin-right:10px;" />
+                                        <span class="btn btn-default file-s-getnetpic">提取</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">本地图片</label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-10">
+                                    <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}"/>
+                                    <div id="fileList_{{field.name}}" class="uploader-list"></div>
+                                    <div id="filePicker_{{field.name}}">选择图片</div>
+
+                                    <script type="text/javascript">
+                                        $list_{{field.name}} = $('#fileList_{{field.name}}'),
+                                            // 优化retina, 在retina下这个值是2
+                                                ratio_{{field.name}} = window.devicePixelRatio || 1,
+
+                                            // 缩略图大小
+                                                thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
+                                        thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
+
+                                        // Web Uploader实例
+                                        uploader_{{field.name}};
+
+                                        // 初始化Web Uploader
+                                        // 初始化Web Uploader
+                                        var uploader_{{field.name}} = WebUploader.create({
+                                            // 选完文件后，是否自动上传。
+                                            auto: true,
+                                            // swf文件路径
+                                            swf: '/static/admin/js/webuploader/Uploader.swf',
+                                            // 文件接收服务端。
+                                            server: '/admin/file/uploadpic',
+                                            // 选择文件的按钮。可选。
+                                            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                            pick: {
+                                                id:'#filePicker_{{field.name}}',
+                                                multiple: false
+                                            },
+                                            // 只允许选择图片文件。
+                                            accept: {
+                                                title: 'Images',
+                                                extensions: 'gif,jpg,jpeg,bmp,png',
+                                                mimeTypes: 'image/*'
+                                            }
+                                        });
+                                        // 当有文件添加进来的时候
+                                        uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+                                            var $li = $(
+                                                            '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                                            '<img>' +
+                                                            '<div class="info">' + file.name + '</div>' +
+                                                            '</div>'
+                                                    ),
+                                                    $img = $li.find('img');
+
+                                            $list_{{field.name}}.html( $li );
+
+                                            // 创建缩略图
+                                            uploader_{{field.name}}.makeThumb( file, function( error, src ) {
+                                                if ( error ) {
+                                                    $img.replaceWith('<span>不能预览</span>');
+                                                    return;
+                                                }
+
+                                                $img.attr( 'src', src );
+                                            }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
+                                        });
+
+                                        // 文件上传过程中创建进度条实时显示。
+                                        uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+
+                                            var $li = $( '#'+file.id ),
+                                                    $percent = $li.find('.progress span');
+
+                                            // 避免重复创建
+                                            if ( !$percent.length ) {
+                                                $percent = $('<p class="progress"><span></span></p>')
+                                                        .appendTo( $li )
+                                                        .find('span');
+                                            }
+
+                                            $percent.css( 'width', percentage * 100 + '%' );
+                                        });
+
+                                        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                                        uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                                            $( '#'+file.id ).addClass('upload-state-done');
+                                            $("#cover_id_{{field.name}}").val(res);
+                                        });
+
+                                        // 文件上传失败，现实上传出错。
+                                        uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                                            var $li = $( '#'+file.id ),
+                                                    $error = $li.find('div.error');
+
+                                            // 避免重复创建
+                                            if ( !$error.length ) {
+                                                $error = $('<div class="error"></div>').appendTo( $li );
+                                            }
+
+                                            $error.text('上传失败');
+                                        });
+
+                                        // 完成上传完了，成功或者失败，先删除进度条。
+                                        uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                                            $( '#'+file.id ).find('.progress').remove();
+                                        });
+                                    </script>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>上传图片，不大于1Mb...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal-footer file-s-footer">
+            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary">Save</a>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
