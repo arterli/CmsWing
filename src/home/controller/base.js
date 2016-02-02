@@ -7,7 +7,6 @@ export default class extends think.controller.base {
 
     async __before() {
         //网站配置
-        this.model('setup').
         this.setup = await this.model("setup").getset();
         //获取当前分类信息
        //console.log(action);

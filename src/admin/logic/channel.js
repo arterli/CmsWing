@@ -12,13 +12,12 @@ export default class extends think.logic.base {
   indexAction(){
 
   }
-
-  updateAction(){
+  //添加导航验证
+  updatesAction(){
     this.rules = {
-      name:"alphaNumericDash",
-      title:"required|maxLength:80",
-      group_id:"int|default:0",
-
+      title:"required",
+      url:"required",
+      status:"int|default:1"
     }
   }
 }

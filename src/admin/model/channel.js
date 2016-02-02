@@ -50,16 +50,27 @@ export default class extends think.model.base {
             return false;
         }
         let res;
+        let obj;
         /* 添加或更新数据 */
         if(think.isEmpty(data.id)){
-            console.log(data);
+          data.create_time=new Date().getTime();
             res = this.add(data);
-
+            if(res){
+              obj={id:res,err:1};//添加成功
+            }else {
+              obj={err:2};//新增失败
+            }
         }else{
+            data.update_time=new Date().getTime();
             res = this.update(data);
+            if(res){
+              obj={id:res,err:3};//更新成功
+            }else {
+              obj = {err:4};//更新失败
+            }
         }
         think.cache("get_channel_cache",null);//更新频道缓存信息
-        return res;
+        return obj;
 
     }
 }

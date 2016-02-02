@@ -1,6 +1,5 @@
 
 'use strict';
-
 import Base from './base.js';
 export default class extends Base {
   init(http) {
@@ -88,6 +87,7 @@ export default class extends Base {
         this.fail("添加失败！");
       }
     }else {
+
       data.update_time = Date.now();
       let res = await this.model("action").update(data);
       if(res){

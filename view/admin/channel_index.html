@@ -6,7 +6,7 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <div class="btn-group pull-right">
-            <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加导航</a>
+            <a href="/admin/channel/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加导航</a>
         </div>
         <p>{{controller.meta_title}}</p>
     </header>
@@ -45,7 +45,7 @@
             left = nodes[i];
 
             //text = [left["id"],left["name"]].join(",");
-            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["url"]+' </code><a href="'+left["url"]+'" target="_blank"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>创建时间:' + left["create_time"] + '</code> <a href="/admin/channel/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">删除</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">移动</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">合并</a>';
+            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["url"]+' </code><a href="'+left["url"]+'" target="_blank"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>创建时间:' + left["create_time"] + '</code> <a href="/admin/channel/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="/admin/channel/del/id/' + left["id"] + '"  class="confirm ajax-get text-info">删除</a>';
             if (i + 1 < size) {
                 right = nodes[i + 1];
                 /* 入深 */
@@ -97,7 +97,46 @@
             success: function (msg) {
                 /* 展示生成的HTML */
                 $(".tree").html(category_to_html(msg));
-                console.log(msg);
+                $('.ajax-get').click(function(){
+                    var target;
+                    var that = this;
+                    if ( $(this).hasClass('confirm') ) {
+                        if(!confirm('确认要执行该操作吗?')){
+                            return false;
+                        }
+                    }
+                    if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
+                        $.get(target).success(function(data){
+                            if (data.errno==0) {
+                                if (data.data.url) {
+                                    toastr.success(data.data.name + ' 页面即将自动跳转~');
+                                }else{
+                                    toastr.success(data.data.name);
+                                }
+                                setTimeout(function(){
+                                    if (data.data.url) {
+                                        location.href=data.data.url;
+                                    }else if( $(that).hasClass('no-refresh')){
+                                        toastr.clear()
+                                    }else{
+                                        location.reload();
+                                    }
+                                },1500);
+                            }else{
+                                toastr.error(data.errmsg);
+                                setTimeout(function(){
+                                    if (data.data) {
+                                        location.href=data.data;
+                                    }else{
+                                        toastr.clear()
+                                    }
+                                },1500);
+                            }
+                        });
+
+                    }
+                    return false;
+                });
 
                 $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
                 $('.tree li.parent_li > span').on('click', function (e) {

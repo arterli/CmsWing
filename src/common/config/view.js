@@ -156,8 +156,11 @@ export default {
                 /**
                  * 获取分类标签
                  */
-                env.addExtension('tagtest', new column(),true);
-
+                env.addExtension('column', new column(),true);
+                /**
+                 * 获取导航标签
+                 */
+                env.addExtension('channel', new channel(),true);
             }
         }
     }

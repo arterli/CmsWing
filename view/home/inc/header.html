@@ -1,6 +1,6 @@
 
 			<div id="header" class="sticky shadow-after-3 clearfix">
-<!-- 
+<!--
 				AVAILABLE HEADER CLASSES
 
 				Default nav height: 96px
@@ -14,7 +14,7 @@
 				.static			= static header
 				.dark			= dark header
 				.bottom			= header on bottom
-				
+
 				shadow-before-1 = shadow 1 header top
 				shadow-after-1 	= shadow 1 header bottom
 				shadow-before-2 = shadow 2 header top
@@ -52,7 +52,7 @@
 											</span>
 										</div>
 									</form>
-								</div> 
+								</div>
 							</li>
 							<!-- /SEARCH -->
 
@@ -60,7 +60,7 @@
 							<li class="quick-cart">
 								<a href="#">
 									<span class="badge badge-aqua btn-xs badge-corner">2</span>
-									<i class="fa fa-shopping-cart"></i> 
+									<i class="fa fa-shopping-cart"></i>
 								</a>
 								<div class="quick-cart-box">
 									<h4>Shop Cart</h4>
@@ -108,9 +108,9 @@
 							<img src="/static/assets/images/logo_dark.png" alt="" />
 						</a>
 
-						<!-- 
-							Top Nav 
-							
+						<!--
+							Top Nav
+
 							AVAILABLE CLASSES:
 							submenu-dark = dark sub menu
 						-->
@@ -119,18 +119,43 @@
 
 								<!--
 									NOTE
-									
+
 									For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
-									Direct Link Example: 
+									Direct Link Example:
 
 									<li>
 										<a href="#">HOME</a>
 									</li>
 								-->
-								<ul id="topMain" class="nav nav-pills nav-main">
+                <ul id="topMain" class="nav nav-pills nav-main">
+									{% channel data='channel', num='4'%}
+									{% for val in channel%}
+									<li class="{% if val.children %}dropdown{% endif %} {% if http.url == val.url %}active{% endif %}" >
+
+										<a {% if val.children%}class="dropdown-toggle"{% endif %} href="{{val.url}}">{{val.title}}</a>
+										{% if val.children%}
+										<ul class="dropdown-menu">
+											{% for _val in val.children%}
+											<li class="{% if _val.children%}dropdown{% endif %}">
+												<a  {% if _val.children%}class="dropdown-toggle"{% endif %} href="{{_val.url}}">{{_val.title}}</a>
+												{% if _val.children%}
+												<ul class="dropdown-menu">
+													{% for __val in _val.children%}
+													<li><a href="{{__val.url}}">{{__val.title}}</a></li>
+													{% endfor %}
+												</ul>
+												{% endif %}
+											</li>
+										  {% endfor %}
+										</ul>
+										{% endif %}
+									</li>
+									{% endfor%}
+								</ul>
+
+								<ul id="topMain" class="nav nav-pills nav-main" style="display:none" >
 									<li class="dropdown active"><!-- HOME -->
 										<a class="dropdown-toggle" href="#">
-											HOME
 										</a>
 										<ul class="dropdown-menu">
 											<li class="dropdown active">
@@ -760,7 +785,7 @@
 															<li><a href="portfolio-masonry-4-columns.html">4 COLUMNS</a></li>
 															<li><a href="portfolio-masonry-5-columns.html">5 COLUMNS</a></li>
 															<li><a href="portfolio-masonry-6-columns.html">6 COLUMNS</a></li>
-															
+
 														</ul>
 													</div>
 
