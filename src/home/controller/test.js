@@ -8,6 +8,7 @@ export default class extends Base {
    * @return {Promise} []
    */
   async indexAction(){
+    //fdsfsdfs
     //auto render template file index_index.html
     //当前模板路径
     function RemoteExtension() {
@@ -64,7 +65,7 @@ let tplpath = this.config('view.root_path')+think.sep+this.http.module+think.sep
 //env.addExtension('remote', new RemoteExtension());
 //nunjucks.precompile(this.config('view.root_path'), {env: env })
 //console.log(new nunjucks.FileSystemLoader(think.config('view.root_path')));
-    
+
 //     let envs = nunjucks.configure(this.config('view.root_path')+think.sep+this.http.module, { autoescape: true });
 //     envs.addExtension('RemoteExtension', new RemoteExtension());
 //     envs.addFilter('tsetfun', function(val) {
