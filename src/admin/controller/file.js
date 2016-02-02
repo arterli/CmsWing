@@ -71,9 +71,16 @@ export default class extends Base {
   }
 
   //图片选择
-  selectpicAction(){
-    //let pics =
+  async selectpicAction(){
+    let pics = await this.model("picture").limit(2, 15).select();
+    this.assign("pics", pics);
     this.assign("field", {"name":"uploadimg"});
     this.display();
+  }
+
+  //根据图片id获取图片信息
+  async getpicAction(){
+    let pic = await this.model("picture").where({"id":parseInt(this.post("id"))}).find();
+    this.end(pic);
   }
 }

@@ -40,9 +40,9 @@
                                                                     <div class="dd-handle-nodrag">
                                                                         <div class="app-article app-not-moveable js-notmoveball">
                                                                             <div class="app-msg app-msg-first">
-                                                                                <h4 class="app-msg-title">标题</h4>
+                                                                                <h4 class="app-msg-title" style="line-height:44px;height:44px;">标题</h4>
                                                                                 <div class="app-msg-thumb-wrap">
-                                                                                    <p>封面图片</p>
+                                                                                    <p class="app-img-pre-show-left">封面图片</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -55,11 +55,16 @@
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">标题</div>
-                                                                            <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                                            <div class="app-es-line-con"><input class="form-control app-title-input" type="text" /></div>
+                                                                            <div class="app-input-tips-con help-block error-message">标题最多64个字符,当前长度<span class="app-input-tips-word">100</span>个，超出<span class="app-input-tips-word">20</span>个</div>
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
-                                                                            <div class="app-es-line-con"><a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selectpic" >添加图片</a></div>
+                                                                            <div class="app-es-line-con app-img-pre-show-right">
+                                                                                <div class="">
+                                                                                </div>
+                                                                                <a class="app-es-btn" data-toggle="ajaxModal" href="/admin/file/selectpic" >添加图片</a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -68,6 +73,8 @@
                                                                         <div class="app-article">
                                                                             <div class="app-msg app-msg-others">
                                                                                 <h4 class="app-msg-title">标题</h4>
+                                                                                <div class="app-img-pre-show-small">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -79,11 +86,16 @@
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">标题</div>
-                                                                            <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                                            <div class="app-es-line-con"><input class="form-control app-title-input" type="text" /></div>
+                                                                            <div class="app-input-tips-con help-block error-message">标题最多64个字符,当前长度<span class="app-input-tips-word">100</span>个，超出<span class="app-input-tips-word">20</span>个</div>
                                                                         </div>
                                                                         <div class="app-es-line">
                                                                             <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
-                                                                            <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">添加图片</a></div>
+                                                                            <div class="app-es-line-con app-img-pre-show-right">
+                                                                                <div class="img-pre-show">
+                                                                                </div>
+                                                                                <a class="app-es-btn" data-toggle="ajaxModal"  href="/admin/file/selectpic">添加图片</a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -105,6 +117,8 @@
                                                             <div class="app-article">
                                                                 <div class="app-msg app-msg-others">
                                                                     <h4 class="app-msg-title">标题</h4>
+                                                                    <div class="app-img-pre-show-small">
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -116,11 +130,16 @@
                                                             </div>
                                                             <div class="app-es-line">
                                                                 <div class="app-es-line-top">标题</div>
-                                                                <div class="app-es-line-con"><input class="form-control" type="text" /></div>
+                                                                <div class="app-es-line-con"><input class="form-control app-title-input" type="text" /></div>
+                                                                <div class="app-input-tips-con help-block error-message">标题最多64个字符,当前长度<span class="app-input-tips-word">100</span>个，超出<span class="app-input-tips-word">20</span>个</div>
                                                             </div>
                                                             <div class="app-es-line">
                                                                 <div class="app-es-line-top">封面<span class="text-muted"> (图片建议尺寸360x200像素) </span></div>
-                                                                <div class="app-es-line-con"><a class="app-es-btn" href="javascript:void(0)">添加图片</a></div>
+                                                                <div class="app-es-line-con app-img-pre-show-right">
+                                                                    <div class="img-pre-show">
+                                                                    </div>
+                                                                    <a class="app-es-btn" data-toggle="ajaxModal"  href="/admin/file/selectpic">添加图片</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </li>
@@ -153,7 +172,7 @@
     $(document).ready(function()
     {
         //test
-        $("a[data-toggle=ajaxModal]").trigger("click");
+        $("a[data-toggle=ajaxModal]:first").trigger("click");
 
         // activate Nestable for list 1
         $('#nestable1').nestable({
@@ -247,15 +266,63 @@
             $("#app-btns").css({"top":newPos+"px", "display":"block"});
         }
 
-
-
-        /*面板初始化数据*/
-        var btnPos = 1; //按钮默认初始化在第一个位置
-        var overBtnPos = 1; //按钮mouseover在哪个位置
-        var maxDataId = 2;  //当前data-id最大值
-
+        $("#nestable1").on("keyup", function(e){
+            var e = e || window.event;
+            var target = e.target || e.srcElement;
+            if($(target).hasClass("app-title-input"))
+            {
+                var item = $("#nestable1").find("li[data-id="+btnPos+"]");
+                var text = $(target).val();
+                var tipsdiv = $(item).find(".app-hide-edit-sec .app-input-tips-con");
+                if(text.length > 64){
+                    tipsdiv.css({"display":"block"});
+                    tipsdiv.find("span:first").text(text.length);
+                    tipsdiv.find("span:last").text(text.length - 64);
+                }
+                else
+                {
+                    tipsdiv.css({"display":"none"});
+                }
+                $(item).find("h4.app-msg-title").text(text);
+            }
+        });
 
     });
+
+    /*面板初始化数据*/
+    var btnPos = 1; //按钮默认初始化在第一个位置
+    var overBtnPos = 1; //按钮mouseover在哪个位置
+    var maxDataId = 2;  //当前data-id最大值
+
+    function picSelectCallback()
+    {
+        this.src = ""; //图片地址
+        this.picid = ""; //图片数据库id
+        this.handlePic = function(){
+            if(this.src && this.picid)
+            {
+                //TODO 处理图片
+                var url = "/admin/file/getpic";
+                var params = {"id":this.picid};
+                $.post(url, params, function(data){
+                    if(data.path)
+                    {
+                        var item = $("#nestable1").find("li[data-id="+btnPos+"]");
+                        if(btnPos == 1)
+                        {
+                            $(item).find(".app-img-pre-show-left").css({"background-image":"url("+data.path+")"}).text("");
+                        }
+                        else
+                        {
+                            $(item).find(".app-img-pre-show-small").html('<img src="'+data.path+'" />');
+                        }
+                        $(item).find(".app-img-pre-show-right > div:first").html('<img style="width:100px;max-height:100px;" src="'+data.path+'" />');
+                        $(item).find(".app-img-pre-show-right .app-es-btn").text("重新选择");
+                    }
+                }, "json");
+            }
+        }
+    }
 
 </script>
 

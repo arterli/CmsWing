@@ -10,9 +10,27 @@
 }
 .file-s-footer{
     margin-top:0px;
+    border-top:0px;
 }
-
-
+.file-pic-ul {
+    margin: 0;
+    padding: 0;
+}
+.file-pic-li {
+    list-style: none;
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+    height: 100px;
+    overflow: hidden;
+    margin-bottom:10px;
+    text-align:center;
+}
+.file-pic-img {
+    height: 100px;
+    max-width: 98%;
+    cursor:pointer;
+}
 
 
 

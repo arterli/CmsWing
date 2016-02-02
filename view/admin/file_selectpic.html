@@ -9,14 +9,22 @@
         <section class="panel panel-default file-s-header">
             <header class="panel-heading text-right bg-light clearfix file-s-sec-h" >
                 <ul class="nav nav-tabs pull-left">
-                    <li><a data-toggle="tab" href="#file-pic-select-content-1"><i class="fa fa-comments text-muted"></i>&nbsp;用过的图片</a></li>
+                    <li ><a data-toggle="tab" href="#file-pic-select-content-1"><i class="fa fa-comments text-muted"></i>&nbsp;用过的图片</a></li>
                     <li class="active"><a data-toggle="tab" href="#file-pic-select-content-2"><i class="fa fa-user text-muted"></i>&nbsp;新图片</a></li>
                 </ul>
                 <span class="hidden-sm"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
             </header>
             <div class="panel-body">
                 <div class="tab-content">
-                    <div id="file-pic-select-content-1" class="tab-pane fade">message</div>
+                    <div id="file-pic-select-content-1" class="tab-pane fade in form-horizontal">
+                        <ul class="file-pic-ul" id="file-pic-select-usedpic">
+                            {% for item in pics %}
+                            <li class="file-pic-li" picid="{{item.id}}">
+                                <img class="file-pic-img" style="height:100px;" src="{{item.path}}" />
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                     <div id="file-pic-select-content-2" class="tab-pane fade active in form-horizontal">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">网络图片</label>
@@ -144,13 +152,38 @@
                             </div>
                         </div>
                         <div class="line line-dashed b-b line-lg pull-in"></div>
+                        <div class="modal-footer file-s-footer">
+                            <a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+                            <a href="#" id="pic_select_finally_save_btn" class="btn btn-primary">确定使用</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-        <div class="modal-footer file-s-footer">
-            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-primary">Save</a>
-        </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
+{% block script %}
+<script>
+    $(function(){
+
+        $("#pic_select_finally_save_btn").on("click", function(){
+            //关闭model并将选中的图片id返回
+            $("[data-dismiss=modal]").trigger("click");
+            var pic = new Object();
+            pic.picid = $("#cover_id_uploadimg").val();
+            pic.src = $("#fileList_uploadimg").find("img").attr("src");
+            var pcb = new picSelectCallback();
+            pcb.handlePic.call(pic, "");
+        });
+
+        $("#file-pic-select-usedpic li img").on("click", function(){
+            $("[data-dismiss=modal]").trigger("click");
+            var pic = new Object();
+            pic.picid = $(this).parent().attr("picid");
+            pic.src = $(this).attr("src");
+            var pcb = new picSelectCallback();
+            pcb.handlePic.call(pic, "");
+        });
+    })
+</script>
+{% endblock %}
