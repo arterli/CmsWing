@@ -10,7 +10,7 @@ export default class extends Base {
 
     }
    async indexAction(){
-        //let a={};
+        //let a={};///
         //a.s11="dfsd";
         //let aa=[]
         //aa.push(1)
@@ -38,16 +38,16 @@ export default class extends Base {
         this.assign("date",new Date().valueOf());
         return this.display()
     }
-  
-      
+
+
        async tesfAction(){
           let model = this.model('sfsfsdf');
           let affectedRows = await model.where({id: ['>', 100]}).delete();
           }
-   
+
     async funAction(){
-        
-       
+
+
     let str = "[user|get_nickname]在[time|time_format]登录了后台[model]";
         let match = str.match(/\[(\S+?)\]/g);
         //console.log(match);
@@ -68,7 +68,7 @@ export default class extends Base {
                     time: new Date().valueOf(),
                 }
             }
-       
+
             let replace = []
             for(let val of match){
                 val= val.replace(/(^\[)|(\]$)/g, "");
