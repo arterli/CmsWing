@@ -15,6 +15,7 @@ export default class extends Base {
     //auto render template file index_index.html
     this.config = this.config("ueditor");
     let action = this.get("action");
+    think.log(action);
     let result;
     switch (action) {
       case 'config':
@@ -77,6 +78,7 @@ export default class extends Base {
       let base64 = "upload";
       let config = {};
       let fieldName;
+
       switch (action) {
         case 'uploadimage':
           config = {
@@ -132,6 +134,11 @@ export default class extends Base {
     };
     let fieldName = this.config['catcherFieldName'];
     let source = this.post(fieldName+"[]");
+    if(think.isArray(source)) {
+      source = source;
+    }else{
+      source = [source];
+    }
     let list = [];
     for(let imgUrl of source){
       let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter

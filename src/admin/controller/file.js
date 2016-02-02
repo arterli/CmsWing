@@ -85,37 +85,73 @@ export default class extends Base {
     this.display();
   }
 
-  /**
-   * 保存提取到的网络图片
-   */
   async savenetpicAction(){
-    //let urlstr = "http://a2.att.hudong.com/38/59/300001054794129041591416974.jpg";
-    let urlstr = this.post("picurl");
-    let urlarr = urlstr.split(".");
-    let uploadwwwdir = '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
-    let uploadPath = think.RESOURCE_PATH + uploadwwwdir;
-    think.mkdir(uploadPath);
-    //TODO 图片写入未完成就返回了数据，导致前台无法显示
-    let picname = new Date().getTime()+""+Math.floor(1000000*Math.random())+'.'+urlarr[urlarr.length - 1];
-    let writestream = await fs.createWriteStream(uploadPath+'/'+picname);
-    let readstream = await request(urlstr);
-    await readstream.pipe( writestream );
-    let data ={
-      path:uploadwwwdir+ '/' + picname,
-      create_time:new Date().getTime(),
-      status:1
-    }
-    let res = await this.model("picture").data(data).add();
-    if(res)
-    {
-      data.id = res;
-      this.end(data);
-    }
-    else
-    {
-      this.end({"status":0});
-    }
+    //抓取远程图片
+      /* 上传配置 */
+      this.config = this.config("ueditor");
+      let config = {
+        "pathFormat" : this.config['catcherPathFormat'],
+        "maxSize" : this.config['catcherMaxSize'],
+        "allowFiles" : this.config['catcherAllowFiles'],
+        "oriName" : "remote.png"
+      };
+      let fieldName = this.config['catcherFieldName'];
+      let urlstr = this.post("picurl");
+      let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
+      let upload = new up(urlstr, config, "remote"); //实例化 Adapter
+      let info =  await upload.saveRemote();
+      console.log(info);
+     // let obj = {"state":"SUCCESS","url":info.url,"size":431521,"title":info.title,"original":info.original,"source":imgUrl};
+      let data ={
+        path:info.url,
+        create_time:new Date().getTime(),
+        status:1
+      }
+      let res = await this.model("picture").data(data).add();
+      if(res)
+      {
+        data.id = res;
+       return this.json(data);
+      }
+      else
+      {
+        return this.json({"status":0});
+      }
+
   }
+
+
+  ///**
+  // * 保存提取到的网络图片
+  // */
+  //async savenetpicAction(){
+  //  //let urlstr = "http://a2.att.hudong.com/38/59/300001054794129041591416974.jpg";
+  //  let urlstr = this.post("picurl");
+  //  let urlarr = urlstr.split(".");
+  //  let uploadwwwdir = '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
+  //  let uploadPath = think.RESOURCE_PATH + uploadwwwdir;
+  //  think.mkdir(uploadPath);
+  //  //TODO 图片写入未完成就返回了数据，导致前台无法显示
+  //  let picname = new Date().getTime()+""+Math.floor(1000000*Math.random())+'.'+urlarr[urlarr.length - 1];
+  //  let writestream = await fs.createWriteStream(uploadPath+'/'+picname);
+  //  let readstream = await request(urlstr);
+  //  await readstream.pipe( writestream );
+  //  let data ={
+  //    path:uploadwwwdir+ '/' + picname,
+  //    create_time:new Date().getTime(),
+  //    status:1
+  //  }
+  //  let res = await this.model("picture").data(data).add();
+  //  if(res)
+  //  {
+  //    data.id = res;
+  //    this.end(data);
+  //  }
+  //  else
+  //  {
+  //    this.end({"status":0});
+  //  }
+  //}
 
   //根据图片id获取图片信息
   async getpicAction(){

@@ -127,6 +127,7 @@ export default class extends think.adapter.base {
    * @return mixed
    */
   async saveRemote(){
+      think.log("dddddd")
     let imgUrl = this.fileField;
     //imgUrl = imgUrl.replace(/&amp;/,"&");
     //http开头验证
