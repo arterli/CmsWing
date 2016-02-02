@@ -39,4 +39,27 @@ export default class extends think.model.base {
 
         return info;
     }
+
+    /**
+     * 更新或者编辑信息
+     * @param data
+     * @returns {*}
+     */
+    async updates(data){
+        if(think.isEmpty(data)){
+            return false;
+        }
+        let res;
+        /* 添加或更新数据 */
+        if(think.isEmpty(data.id)){
+            console.log(data);
+            res = this.add(data);
+
+        }else{
+            res = this.update(data);
+        }
+        think.cache("get_channel_cache",null);//更新频道缓存信息
+        return res;
+
+    }
 }

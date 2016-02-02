@@ -48,8 +48,9 @@ export default class extends Base {
       /* 模板赋值并渲染模板 */
       this.assign('category',cate);
       this.assign('list',data.data);
-      //console.log(data)
-      let temp=cate.template_index?`list_${cate.template_index}`:"";
+      console.log(cate)
+      let temp=cate.template_lists?`list_${cate.template_lists}`:"";
+      think.log(temp);
       return this.display(temp);
   }
   //详情页
