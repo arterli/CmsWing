@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-02-03 12:00:31
+Date: 2016-02-03 12:24:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -88,6 +88,8 @@ INSERT INTO `cmswing_action_log` VALUES ('203', '9', '1', '2130706433', 'channel
 INSERT INTO `cmswing_action_log` VALUES ('204', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405679388');
 INSERT INTO `cmswing_action_log` VALUES ('205', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-03 11:12:51登录了后台', '1', '1454469171355');
 INSERT INTO `cmswing_action_log` VALUES ('206', '1', '2', '2130706433', 'member', '2', 'mawt在2016-02-03 11:27:47登录了后台', '1', '1454470067827');
+INSERT INTO `cmswing_action_log` VALUES ('207', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-03 11:59:28登录了后台', '1', '1454471968932');
+INSERT INTO `cmswing_action_log` VALUES ('208', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-03 12:15:58登录了后台', '1', '1454472958817');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -748,7 +750,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '290', 'arterli@qq.com', '33', '', '1452513965683', '0', '1454469171318', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '290', 'arterli@qq.com', '35', '', '1452513965683', '0', '1454472958791', '2130706433', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('2', 'mawt', 'e051070da90d8f227ee2eb0805abce79', '10', '415905335@qq.com', '1', '', '1454469174833', '0', '1454470067818', '2130706433', '0', '1');
 INSERT INTO `cmswing_member` VALUES ('3', '4544', 'd7aff02efcfd6598838a793e0e56bc16', '0', '254515@qq.com', '0', '', '1454469273738', '0', '0', '0', '0', '1');
 
@@ -803,7 +805,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -922,6 +924,7 @@ INSERT INTO `cmswing_menu` VALUES ('123', '审核列表', '3', '0', 'Article/exa
 INSERT INTO `cmswing_menu` VALUES ('126', '其他', '2', '0', 'wenz/mang', '0', '12152', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('127', '微信', '0', '5', 'admin/mpbase/index', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('128', '公共账号管理', '127', '0', 'admin/mpbase/seting', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('129', '素材管理', '127', '0', 'admin/mpbase1/material', '0', '', '99', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -976,7 +979,7 @@ CREATE TABLE `cmswing_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -1015,6 +1018,7 @@ INSERT INTO `cmswing_picture` VALUES ('31', '/upload/picture/2016-01-16/B6s5nw1H
 INSERT INTO `cmswing_picture` VALUES ('32', '/upload/picture/2016-01-16/4AUwAgwK0MM_McU6tZYQuG5H.png', '', '', '', '1', '1452920302896');
 INSERT INTO `cmswing_picture` VALUES ('33', '/upload/picture/2016-01-25/Oqefa8OlJGa9tYQAOn4LzDNo.png', '', '', '', '1', '1453694903926');
 INSERT INTO `cmswing_picture` VALUES ('34', '/upload/picture/2016-01-25/YgJNn-vAHrTojIMJaa5b_NZF.png', '', '', '', '1', '1453703626503');
+INSERT INTO `cmswing_picture` VALUES ('35', '/upload/picture/2016-02-03/1pJDQ3XwaDBn1Ra__v8T84Vj.jpg', '', '', '', '1', '1454473330807');
 
 -- ----------------------------
 -- Table structure for cmswing_session

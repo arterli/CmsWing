@@ -3,7 +3,6 @@
 import Base from './base.js';
 import fs from 'fs';
 import path from 'path';
-import request from 'request';
 export default class extends Base {
   /**
    * index action
@@ -155,7 +154,9 @@ export default class extends Base {
 
   //根据图片id获取图片信息
   async getpicAction(){
-    let pic = await this.model("picture").where({"id":parseInt(this.post("id"))}).find();
+      let id = this.post("id");
+    //let pic = await this.model("picture").where({"id":parseInt(this.post("id"))}).find();
+      let pic = await get_cover(id);
     this.end(pic);
   }
 }
