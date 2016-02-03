@@ -32,7 +32,7 @@ output.tar.gz
 
 #typings
 typings/
-src/common/config/db.js
+
 #app
 app/
 runtime/
