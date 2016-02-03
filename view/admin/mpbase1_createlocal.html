@@ -1,4 +1,9 @@
-{% extends "./inc/base.html" %} {% block content %}
+{% extends "./inc/base.html" %}
+{% block style %}
+<link href="/static/admin/js/nestable/nestable.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/css/weixin.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
 <section class="vbox">
     <section id="bjax-target">
         <section class="hbox stretch">
@@ -349,11 +354,3 @@
 </script>
 
 {% endblock %}
-{% block style %}
-<link href="/static/admin/js/nestable/nestable.css" rel="stylesheet" type="text/css" />
-<link href="/static/admin/css/weixin.css" rel="stylesheet" type="text/css" />
-<<<<<<< 75e944fb14c7d92b38e8c7cae999defb38274e0d
-{% endblock %}
-=======
-{% endblock %}
->>>>>>> weixin
