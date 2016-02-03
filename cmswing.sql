@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
-Source Host           : localhost:3306
+Source Server         : server
+Source Server Version : 50621
+Source Host           : 192.168.1.120:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-02-02 18:43:25
+Date: 2016-02-03 12:00:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=205 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -86,6 +86,8 @@ INSERT INTO `cmswing_action_log` VALUES ('201', '9', '1', '2130706433', 'channel
 INSERT INTO `cmswing_action_log` VALUES ('202', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405643656');
 INSERT INTO `cmswing_action_log` VALUES ('203', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405662878');
 INSERT INTO `cmswing_action_log` VALUES ('204', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1454405679388');
+INSERT INTO `cmswing_action_log` VALUES ('205', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-03 11:12:51登录了后台', '1', '1454469171355');
+INSERT INTO `cmswing_action_log` VALUES ('206', '1', '2', '2130706433', 'member', '2', 'mawt在2016-02-03 11:27:47登录了后台', '1', '1454470067827');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -533,7 +535,7 @@ INSERT INTO `cmswing_document` VALUES ('49', '1', '', '313123123', '40', '0', ''
 INSERT INTO `cmswing_document` VALUES ('50', '1', '', 'fdsfdsafdsaf', '45', '0', 'fsdfdsafdsafdsafadsfdsa', '0', '0', '45', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919496657', '1452919496657', '-1');
 INSERT INTO `cmswing_document` VALUES ('51', '1', '', 'fdsfdsaffs', '45', '0', 'fdsafdsaf', '0', '50', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919528234', '1452919692041', '1');
 INSERT INTO `cmswing_document` VALUES ('52', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', 'fdsfadsafdsa', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919793690', '1452919793690', '1');
-INSERT INTO `cmswing_document` VALUES ('53', '1', '', 'dsfdsfsfsd', '45', '0', 'fdsfsdfsdfsd', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452920306456', '1452920306456', '1');
+INSERT INTO `cmswing_document` VALUES ('53', '1', '', 'dsfdsfsfsd', '45', '0', 'fdsfsdfsdfsd', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452920306456', '1452920306456', '-1');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1');
 
 -- ----------------------------
@@ -741,12 +743,14 @@ CREATE TABLE `cmswing_member` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '290', 'arterli@qq.com', '32', '', '1452513965683', '0', '1454402869080', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '290', 'arterli@qq.com', '33', '', '1452513965683', '0', '1454469171318', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('2', 'mawt', 'e051070da90d8f227ee2eb0805abce79', '10', '415905335@qq.com', '1', '', '1454469174833', '0', '1454470067818', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('3', '4544', 'd7aff02efcfd6598838a793e0e56bc16', '0', '254515@qq.com', '0', '', '1454469273738', '0', '0', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -1086,3 +1090,18 @@ INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示�
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
 INSERT INTO `cmswing_setup` VALUES ('57', 'haha', '4', '教师', '4', '0:体育老师\r\n1:音乐老师\r\n2:其他老师', '', '0', '4294967295', '1', '', '0');
 INSERT INTO `cmswing_setup` VALUES ('58', 'aaaa', '3', '的撒大', '4', '0:sss\r\n1:aaaa', '', '4294967295', '4294967295', '1', '1', '0');
+
+-- ----------------------------
+-- View structure for 11
+-- ----------------------------
+DROP VIEW IF EXISTS `11`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `11` AS SELECT
+cw_article.gid,
+cw_article.title,
+cw_article.date,
+cw_user.username,
+cw_category.catename
+FROM
+cw_article
+LEFT JOIN cw_category ON cw_article.cateid = cw_category.cid
+LEFT JOIN cw_user ON cw_article.author = cw_user.uid ;
