@@ -1,4 +1,4 @@
-/*ÖØÖÃnestable ÑùÊ½*/
+/*æ”¾å¤§è¨æ³•*/
 .dd-handle{
     margin:0;
     /*padding:0;*/
@@ -165,7 +165,7 @@
 }
 
 
-/*±à¼­É¾³ı°´Å¥*/
+/*ï¿½à¼­É¾ï¿½ï¿½ï¿½ï¿½Å¥*/
 .app-actions {
     width: auto;
     position: absolute;
@@ -197,7 +197,7 @@
 }
 
 
-/*ÓÒ²àµ¯³ö±à¼­*/
+
 .app-hide-edit-sec {
     position: absolute;
     right: -485px;
@@ -287,6 +287,3 @@
     text-decoration: none;
     cursor:pointer;
 }
-
-
-
