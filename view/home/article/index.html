@@ -1,8 +1,8 @@
-{% extends "./inc/base.html" %}
+{% extends "../inc/base.html" %}
 {% block content %}
-     <!-- 
-				PAGE HEADER 
-				
+     <!--
+				PAGE HEADER
+
 				CLASSES:
 					.page-header-xs	= 20px margins
 					.page-header-md	= 50px margins
@@ -55,25 +55,22 @@
 							<hr />
 
 							<!-- side navigation -->
+							{%column data="cate",cid=category.id%}
+							{%if cate%}
 							<div class="side-nav margin-bottom-60 margin-top-30">
-
 								<div class="side-nav-head">
 									<button class="fa fa-bars"></button>
-									<h4>CATEGORIES</h4>
+									<h4>{{category.title}} 子分类</h4>
 								</div>
 								<ul class="list-group list-group-bordered list-group-noicon uppercase">
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(12)</span> MEDIA</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(8)</span> MOVIES</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(32)</span> NEW</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(16)</span> TUTORIALS</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(2)</span> DEVELOPMENT</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(1)</span> UNCATEGORIZED</a></li>
-
+									{%for val in cate%}
+									<li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
+									{%endfor%}
 								</ul>
 								<!-- /side navigation -->
-
-							
 							</div>
+							{%endif%}
+
 
 
 							<!-- JUSTIFIED TAB -->
@@ -218,7 +215,7 @@
 
 
 							<!-- TWIITER WIDGET -->
-							<h3 class="hidden-xs size-16 margin-bottom-10">TWITTER FEED</h3>							
+							<h3 class="hidden-xs size-16 margin-bottom-10">TWITTER FEED</h3>
 							<ul class="hidden-xs widget-twitter margin-bottom-60" data-php="php/twitter/tweet.php" data-username="stepofweb" data-limit="3">
 								<li></li>
 							</ul>
@@ -296,18 +293,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">June 29, 2015</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">28 Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">Design</span>
@@ -318,7 +315,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">John Doe</span>
 										</a>
 									</li>
@@ -348,18 +345,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">June 29, 2015</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">28 Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">Design</span>
@@ -370,7 +367,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">John Doe</span>
 										</a>
 									</li>
@@ -402,18 +399,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">June 29, 2015</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">28 Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">Design</span>
@@ -424,7 +421,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">John Doe</span>
 										</a>
 									</li>
@@ -454,18 +451,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">June 29, 2015</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">28 Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">Design</span>
@@ -476,7 +473,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">John Doe</span>
 										</a>
 									</li>
@@ -501,18 +498,18 @@
 								<ul class="blog-post-info list-inline">
 									<li>
 										<a href="#">
-											<i class="fa fa-clock-o"></i> 
+											<i class="fa fa-clock-o"></i>
 											<span class="font-lato">June 29, 2015</span>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-comment-o"></i> 
+											<i class="fa fa-comment-o"></i>
 											<span class="font-lato">28 Comments</span>
 										</a>
 									</li>
 									<li>
-										<i class="fa fa-folder-open-o"></i> 
+										<i class="fa fa-folder-open-o"></i>
 
 										<a class="category" href="#">
 											<span class="font-lato">Design</span>
@@ -523,7 +520,7 @@
 									</li>
 									<li>
 										<a href="#">
-											<i class="fa fa-user"></i> 
+											<i class="fa fa-user"></i>
 											<span class="font-lato">John Doe</span>
 										</a>
 									</li>

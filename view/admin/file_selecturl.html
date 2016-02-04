@@ -1,118 +1,117 @@
 {% block style %}
-<link href="/static/admin/css/file-select.css" rel="stylesheet" type="text/css" />
-{% endblock %}
+<link href="/static/admin/css/file-select.css" rel="stylesheet" type="text/css" /> {% endblock %}
 <div class="modal-dialog">
-    <div class="modal-content">
+  <div class="modal-content">
 
-        <section class="panel panel-default file-s-header">
-            <header class="panel-heading text-right bg-light clearfix file-s-sec-h" >
-                <ul class="nav nav-tabs pull-left">
-                    <li class="active"><a data-toggle="tab" href="#file-url-select-content-1"><i class="fa fa-comments text-muted"></i>&nbsp;文章链接</a></li>
-                    <li><a data-toggle="tab" href="#file-url-select-content-2"><i class="fa fa-user text-muted"></i>&nbsp;目录链接</a></li>
-                    <li><a data-toggle="tab" href="#file-url-select-content-3"><i class="fa fa-user text-muted"></i>&nbsp;自定义链接</a></li>
-                </ul>
-                <span class="hidden-sm"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
-            </header>
+    <section class="panel panel-default file-s-header">
+      <header class="panel-heading text-right bg-light clearfix file-s-sec-h">
+        <ul class="nav nav-tabs pull-left">
+          <li class="active"><a data-toggle="tab" href="#file-url-select-content-1"><i class="fa fa-comments text-muted"></i>&nbsp;文章链接</a></li>
+          <li><a data-toggle="tab" href="#file-url-select-content-2"><i class="fa fa-user text-muted"></i>&nbsp;目录链接</a></li>
+          <li><a data-toggle="tab" href="#file-url-select-content-3"><i class="fa fa-user text-muted"></i>&nbsp;自定义链接</a></li>
+        </ul>
+        <span class="hidden-sm"><button type="button" class="close" data-dismiss="modal">&times;</button></span>
+      </header>
 
-            <div class="panel-body">
-                <div class="tab-content">
-                    <div id="file-url-select-content-1" class="tab-pane fade active in form-horizontal">
-                        <div class="table-responsive">
-                            <table class="table table-striped b-t b-light">
-                                <thead>
-                                <tr>
-                                    <th>标题</th>
+      <div class="panel-body">
+        <div class="tab-content">
+          <div id="file-url-select-content-1" class="tab-pane fade active in form-horizontal">
+            <div class="table-responsive">
+              <table class="table table-striped b-t b-light">
+                <thead>
+                  <tr>
+                    <th>标题</th>
 
-                                    <th>类型</th>
+                    <th>类型</th>
 
-                                    <th>最后更新</th>
+                    <th>最后更新</th>
 
-                                    <th>状态</th>
+                    <th>状态</th>
 
-                                    <th>浏览</th>
+                    <th>浏览</th>
 
-                                    <th>操作</th>
+                    <th>操作</th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for item in articles %}
-                                <tr>
-                                    <td><a href="/admin/article/edit/id/48/model/1/cate_id/40" class="text-info">gfdgdfgfdg</a> </td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in articles %}
+                  <tr>
+                    <td><a href="/admin/article/edit/id/48/model/1/cate_id/40" class="text-info">gfdgdfgfdg</a> </td>
 
-                                    <td>主题</td>
+                    <td>主题</td>
 
-                                    <td>2016-01-15 14:42</td>
+                    <td>2016-01-15 14:42</td>
 
-                                    <td>正常</td>
+                    <td>正常</td>
 
-                                    <td>0</td>
+                    <td>0</td>
 
-                                    <td><span urltitle="你好世界" urlpath="/admin/article" urlid="28" class="btn btn-default url-save-btn">选用</span></td>
+                    <td><span urltitle="你好世界" urlpath="/admin/article" urlid="28" class="btn btn-default url-save-btn">选用</span></td>
 
-                                </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div id="file-url-select-content-2" class="tab-pane fade in form-horizontal">
-                        group2
-                    </div>
-                    <div id="file-url-select-content-3" class="tab-pane fade in form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">自定链接</label>
-                            <div class="col-sm-10">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <input placeholder="请填写自定义链接地址" type="text" class="form-control  " name="template" value="" style="width:70%;float:left;margin-right:10px;" />
-                                        <span class="btn btn-default file-s-getneturl">确定</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-        </section>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+          </div>
+          <div id="file-url-select-content-2" class="tab-pane fade in form-horizontal">
+            group2
+          </div>
+          <div id="file-url-select-content-3" class="tab-pane fade in form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">自定链接</label>
+              <div class="col-sm-10">
+                <div class="row">
+                  <div class="col-md-10">
+                    <input placeholder="请填写自定义链接地址" type="text" class="form-control  " name="template" value="" style="width:70%;float:left;margin-right:10px;" />
+                    <span class="btn btn-default file-s-getneturl">确定</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->
 {% block script %}
 <script>
-    $(function(){
+  $(function() {
 
-        $(".tab-content").on("click", function(e){
-            //关闭model并将选中的url id及url返回
-            var e = e || window.event;
-            var target = e.target || e.srcElement;
-            if($(target).hasClass("url-save-btn"))
-            {
-                var url = new Object();
-                url.urlid = $(target).attr("urlid");
-                url.urlpath = $(target).attr("urlpath");
-                url.urltitle = $(target).attr("urltitle");
-                var pcb = new picSelectCallback();
-                pcb.handleUrl.call(url, "");
-                $("[data-dismiss=modal]:first").trigger("click");
-            }
-        });
+    $(".tab-content").on("click", function(e) {
+      //关闭model并将选中的url id及url返回
+      var e = e || window.event;
+      var target = e.target || e.srcElement;
+      if ($(target).hasClass("url-save-btn")) {
+        var url = new Object();
+        url.urlid = $(target).attr("urlid");
+        url.urlpath = $(target).attr("urlpath");
+        url.urltitle = $(target).attr("urltitle");
+        var pcb = new picSelectCallback();
+        pcb.handleUrl.call(url, "");
+        $("[data-dismiss=modal]:first").trigger("click");
+      }
+    });
 
-        $(".file-s-getneturl").on("click", function(){
-            var urlpath = $(this).parent().find("input").val();
-            if(!urlpath)
-            {
-                toastr.warning('不合法的链接地址');
-                return;
-            }
-            var url = new Object();
-            url.urlid = "-1"; //自定义外链特殊取值
-            url.urlpath = urlpath;
-            url.urltitle = "自定义链接";
-            var pcb = new picSelectCallback();
-            pcb.handleUrl.call(url, "");
-            $("[data-dismiss=modal]:first").trigger("click");
-        });
+    $(".file-s-getneturl").on("click", function() {
+      var urlpath = $(this).parent().find("input").val();
+      if (!urlpath) {
+        toastr.warning('不合法的链接地址');
+        return;
+      }
+      var url = new Object();
+      url.urlid = "-1"; //自定义外链特殊取值
+      url.urlpath = urlpath;
+      url.urltitle = "自定义链接";
+      var pcb = new picSelectCallback();
+      pcb.handleUrl.call(url, "");
+      $("[data-dismiss=modal]:first").trigger("click");
+    });
 
-    })
+  })
 </script>
 {% endblock %}
