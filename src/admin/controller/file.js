@@ -1,8 +1,8 @@
 'use strict';
 
 import Base from './base.js';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 export default class extends Base {
   /**
    * index action
@@ -43,7 +43,6 @@ export default class extends Base {
   //上传图片
   async uploadpicAction(){
     let file = think.extend({}, this.file('file'));
-
     let filepath = file.path;
     console.log(file);
     let ret = {'status':1,'info':'上传成功','data':""}
