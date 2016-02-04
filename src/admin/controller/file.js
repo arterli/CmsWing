@@ -14,6 +14,7 @@ export default class extends Base {
   }
   //上传文件
   async uploadAction(){
+    
     let file = think.extend({}, this.file('file'));
     console.log(file);
     let filepath = file.path;

@@ -3,6 +3,7 @@
 
 					<!-- right -->
 					<ul class="top-links list-inline pull-right">
+                        {% if controller.is_login %}
 						<li class="text-welcome hidden-xs">Welcome to Smarty, <strong>John Doe</strong></li>
 						<li>
 							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
@@ -16,30 +17,24 @@
 								<li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
 							</ul>
 						</li>
+                        {% else %}
+                        <li><a href="/user/login"><i class="fa fa-user-plus"></i> 登录</a></li>
+						<li><a href="/user/register"><i class="fa fa-thumbs-o-up"></i> 注册</a></li>
+                        {% endif %}
 					</ul>
 
 					<!-- left -->
 					<ul class="top-links list-inline">
-						<li class="hidden-xs"><a href="page-contact-1.html">CONTACT</a></li>
+						<li class="hidden-xs"><a href="page-contact-1.html">联系我们</a></li>
 						<li>
-							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><img class="flag-lang" src="/static/assets/images/flags/us.png" width="16" height="11" alt="lang" /> ENGLISH</a>
+							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><img class="flag-lang" src="/static/assets/images/flags/cn.png" width="16" height="11" alt="lang" /> 简体中文</a>
 							<ul class="dropdown-langs dropdown-menu">
 								<li><a tabindex="-1" href="#"><img class="flag-lang" src="/static/assets/images/flags/us.png" width="16" height="11" alt="lang" /> ENGLISH</a></li>
 								<li class="divider"></li>
-								<li><a tabindex="-1" href="#"><img class="flag-lang" src="/static/assets/images/flags/de.png" width="16" height="11" alt="lang" /> GERMAN</a></li>
-								<li><a tabindex="-1" href="#"><img class="flag-lang" src="/static/assets/images/flags/ru.png" width="16" height="11" alt="lang" /> RUSSIAN</a></li>
-								<li><a tabindex="-1" href="#"><img class="flag-lang" src="/static/assets/images/flags/it.png" width="16" height="11" alt="lang" /> ITALIAN</a></li>
+								
 							</ul>
 						</li>
-						<li>
-							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#">USD</a>
-							<ul class="dropdown-langs dropdown-menu">
-								<li><a tabindex="-1" href="#">USD</a></li>
-								<li class="divider"></li>
-								<li><a tabindex="-1" href="#">EUR</a></li>
-								<li><a tabindex="-1" href="#">GBP</a></li>
-							</ul>
-						</li>
+						
 					</ul>
 
 				</div>

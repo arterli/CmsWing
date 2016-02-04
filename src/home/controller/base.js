@@ -8,10 +8,24 @@ export default class extends think.controller.base {
   async __before() {
       //网站配置
       this.setup = await this.model("setup").getset();
+      //当前登录状态
+      this.is_login = await this.islogin();
       //获取当前分类信息
       //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
     }
+    /**
+     * 判断是否登录
+     * @returns {boolean}
+     */
+    async islogin() {
+        //判断是否登录
+        //let user = await this.session('userInfo');
+        //let res = think.isEmpty(user) ? false : user.uid;
+        return false;
+
+    }
+    
     //获取分类信息
   async category(id, field) {
     id = id || 0;

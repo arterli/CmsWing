@@ -1,0 +1,158 @@
+{% extends "../inc/base.html" %} {% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <h1>{{controller.meta_title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户</a></li>
+            <li class="active">登录</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+
+
+<!-- -->
+			<section>
+				<div class="container">
+					
+					<div class="row">
+
+						<!-- LOGIN -->
+						<div class="col-md-6 col-sm-6">
+
+							<!-- login form -->
+							<form action="#" method="post" class="sky-form boxed">
+
+								<header class="size-18 margin-bottom-20">
+									{{controller.meta_title}}
+								</header>
+								
+								<fieldset class="nomargin">
+
+									<label class="input margin-bottom-10">
+										<i class="ico-append fa fa-envelope"></i>
+										<input required type="email" placeholder="Email address">
+										<b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+									</label>
+								
+									<label class="input margin-bottom-10">
+										<i class="ico-append fa fa-lock"></i>
+										<input required type="password" placeholder="Password">
+										<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+									</label>
+
+									<div class="clearfix note margin-bottom-30">
+										<a class="pull-right" href="#">忘记密码?</a>
+									</div>
+									
+									
+
+								</fieldset>
+
+								<footer>
+                                    <div class="row">
+
+										<div class="col-md-6 col-sm-6 col-xs-6">
+											<label class="checkbox weight-300">
+										<input type="checkbox" name="checkbox-inline">
+										<i></i> 记住登录状态
+									</label>
+											
+										</div>
+
+										<div class="col-md-6 col-sm-6 col-xs-6 text-right">
+
+											<button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> 登录</button>
+
+										</div>
+
+									</div>
+									
+								</footer>
+
+							</form>
+							<!-- /login form -->
+
+							<!-- ALERT -->
+							<div class="alert alert-mini alert-danger margin-bottom-30">
+								<strong>错误!</strong> 错误提示!
+							</div><!-- /ALERT -->
+
+						</div>
+						<!-- /LOGIN -->
+
+						 <!-- SOCIAL LOGIN -->
+            <div class="col-md-6 col-sm-6">
+                <form action="#" method="post" class="sky-form boxed">
+
+                    <header class="size-18 margin-bottom-20">
+                        使用你最常用的社交账号登陆
+                    </header>
+
+                    <fieldset class="nomargin">
+
+                        <div class="row">
+
+                            <div class="col-md-8 col-md-offset-2">
+
+                                <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
+                                    <i class="fa fa-weixin"></i> 使用微信账号登录
+                                </a>
+
+                                <a class="btn btn-block btn-social btn-twitter margin-bottom-10">
+                                    <i class="fa fa-qq"></i> 使用QQ账号登录
+                                </a>
+
+                                <a class="btn btn-block btn-social btn-google margin-bottom-10">
+                                    <i class="fa fa-weibo"></i> 使用新浪微博账号登录
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <footer>
+                        还没有账号 <a href="/user/register"><strong>立即注册!</strong></a>
+                    </footer>
+
+                </form>
+
+            </div>
+            <!-- /SOCIAL LOGIN -->
+
+					</div>
+
+					
+				</div>
+			</section>
+			<!-- / -->
+{% endblock %}
+{% block script %}
+
+        {% endblock %}

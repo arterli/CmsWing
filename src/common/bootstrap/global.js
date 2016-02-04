@@ -29,7 +29,6 @@ global._ip2int = function (ip) {
     num = num >>> 0;
     return num;
 }
-
 /**
  * 数字转ip
  * @param num
@@ -646,6 +645,7 @@ global.get_url=(name,id)=>{
  * @return 完整的数据  或者  指定的field字段值
  * @author arterli <arterli@qq.com>
  */
+/*global get_cover*/
 global.get_cover=async (cover_id,field)=>{
 
     if(think.isEmpty(cover_id)){

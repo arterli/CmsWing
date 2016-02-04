@@ -7,10 +7,10 @@
 // +----------------------------------------------------------------------
 'use strict';
 import Base from './base.js';
-import fs  from 'fs';
-import path from 'path';
-import targz from 'tar.gz';
-import http from 'http';
+import * as fs  from 'fs';
+import * as path from 'path';
+import * as targz from 'tar.gz';
+import * as http from 'http';
 export default class extends Base {
     /**
      * index action
@@ -18,7 +18,8 @@ export default class extends Base {
      */
     init(http) {
         super.init(http);
-        this.tactive = "setup"
+        this.tactive = "setup";
+        
     }
     /**
      * 数据库列表
@@ -32,6 +33,7 @@ export default class extends Base {
         // console.log(list)
         this.meta_title='备份数据库';
         this.assign("list", list);
+        
         return this.display();
     }
 
@@ -302,7 +304,7 @@ export default class extends Base {
     }
 
     httpedAction() {
-        
+       
         http.get("http://www.kancloud.cn/tag/JavaScript", function (res) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));
