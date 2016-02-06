@@ -90,7 +90,7 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+        //console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
@@ -134,8 +134,42 @@ global.column= function(){
      let data = think.isEmpty(args.data) ?"data":args.data;
      let channel = await think.model('channel', think.config("db"),'admin').get_channel_cache();
      channel = arr_to_tree(channel,0);
-     console.log(channel);
+    // console.log(channel);
      context.ctx[data] = channel;
      return callback(null,'');
    }
  }
+
+/**
+ * 获取数据标签
+ * {% topic data = "data"%}
+ * topic:标签名称
+ * data:接受返回数据的变量名称，例: data = "data"
+ * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
+ * cid: 栏目id ,单个栏目 cid="1",多个栏目 cid = "1,2,3,4" , 不写调取全部栏目
+ * {{name|get_url(id)}}文章链接
+ */
+global.topic = function(){
+    this.tags = ['topic'];
+    this.parse = function (parser, nodes, lexer) {
+        let tok = parser.nextToken();
+        let args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args);
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let where = {'status':1};
+        let data = think.isEmpty(args.data) ? "data" : args.data;
+        let limit = think.isEmpty(args.limit) ? "10" : args.limit;
+        let cid = think.isEmpty(args.cid) ? false :{'category_id':['IN',args.cid]};
+        if(cid){
+            where = think.extend({},where,cid);
+        }
+        console.log(where);
+        let topic = await think.model('document', think.config("db")).where(where).limit(limit).select();
+        //console.log(topic)
+        context.ctx[data] = topic;
+        return callback(null, '');
+    }
+}

@@ -75,27 +75,30 @@
 
 							<!-- JUSTIFIED TAB -->
 							<div class="tabs nomargin-top hidden-xs margin-bottom-60">
-
+                                
 								<!-- tabs -->
 								<ul class="nav nav-tabs nav-bottom-border nav-justified">
 									<li class="active">
 										<a href="#tab_1" data-toggle="tab">
-											Popular
+											最热
 										</a>
 									</li>
 									<li>
 										<a href="#tab_2" data-toggle="tab">
-											Recent
+											最新
 										</a>
 									</li>
 								</ul>
-
+                                  
 								<!-- tabs content -->
 								<div class="tab-content margin-bottom-60 margin-top-30">
 
 									<!-- POPULAR -->
 									<div id="tab_1" class="tab-pane active">
-
+                                        <!--topic tags test-->
+                                      {% topic data = "data", limit = "3", cid = "2" %}
+                                      <!--返回数据赋值给变量data,遍历data-->
+                                      {% for val in data %}       
 										<div class="row tab-post"><!-- post -->
 											<div class="col-md-3 col-sm-3 col-xs-3">
 												<a href="blog-sidebar-left.html">
@@ -103,11 +106,11 @@
 												</a>
 											</div>
 											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-												<small>June 29 2014</small>
+												<a href="{{val.name|get_url(val.id)}}" class="tab-post-link">{{val.title}}</a>
+												<small>{{val.update_time|dateformat('Y-m-d H:i:s')}}</small>
 											</div>
 										</div><!-- /post -->
-
+                                      {% endfor %}
 										<div class="row tab-post"><!-- post -->
 											<div class="col-md-3 col-sm-3 col-xs-3">
 												<a href="blog-sidebar-left.html">

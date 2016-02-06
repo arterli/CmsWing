@@ -80,6 +80,10 @@ export default class extends Base {
     this.meta_title = info.title; //标题
     this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
     this.description = cate.description ? cate.description : ""; //seo描述
+    
+    //访问统计
+    await this.model('document').where({id:info.id}).increment('view');
+    
     //获取模板
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');

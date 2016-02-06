@@ -2,7 +2,7 @@
  * Created by Arterli on 2016/1/24.
  */
 export default [
-    [/^channel\/(.*)$/, "home/article/index?category=:1"],
-    [/^column\/(.*)$/, "home/article/list?category=:1"],
-    [/^detail\/(.*)$/, "home/article/detail?id=:1"]
+    [/^channel\/(.*)$/, "home/topic/index?category=:1"],
+    [/^column\/(.*)$/, "home/topic/list?category=:1"],
+    [/^detail\/(.*)$/, "home/topic/detail?id=:1"]
 ];

@@ -5,12 +5,20 @@ import Base from './base.js';
 export default class extends Base {
   /**
    * index action
+   * 用户中心主页
    * @return {Promise} []
    */
   indexAction(){
     //auto render template file index_index.html
+    this.meta_title = "用户中心";
     return this.display();
   }
+//   用户设置
+  setingAction(){
+      this.meta_title = "用户设置";
+      return this.display();
+  }
+  
   /**
    * 注册页面
    */

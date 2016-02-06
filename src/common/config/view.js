@@ -112,7 +112,7 @@ export default {
                     return get_list_field(data, grid, controller, module);
                 })
                 /**
-                 * 时间戳格式化 dateformat()
+                 * 时间戳格式化 dateformat('Y-m-d H:i:s')
                  * @param extra 'Y-m-d H:i:s'
                  * @param date  时间戳
                  * @return  '2015-12-17 15:39:44'
@@ -161,6 +161,10 @@ export default {
                  * 获取导航标签
                  */
                 env.addExtension('channel', new channel(),true);
+                /**
+                 * 获取数据标签
+                 */
+               env.addExtension('topic', new topic(),true);
             }
         }
     }
