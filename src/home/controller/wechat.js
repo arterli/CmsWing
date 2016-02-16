@@ -1,6 +1,7 @@
 'use strict';
 
 import Base from './base.js';
+import Api from 'wechat-api';
 export default class extends Base {
     /**
      * 微信服务器验证
@@ -17,7 +18,11 @@ export default class extends Base {
   textAction(){
     var message = this.post();
     var msg = message.Content.trim();
+    if(msg =="我是谁"){
+        this.reply("我是鞠焕尧");
+    }else{
     this.reply('测试成功:'+msg);
+    }
   }
   eventAction(){
     var message = this.post();

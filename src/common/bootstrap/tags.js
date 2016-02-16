@@ -166,6 +166,7 @@ global.topic = function(){
         if(cid){
             where = think.extend({},where,cid);
         }
+    
         console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).select();
         //console.log(topic)

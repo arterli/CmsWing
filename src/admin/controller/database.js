@@ -7,10 +7,10 @@
 // +----------------------------------------------------------------------
 'use strict';
 import Base from './base.js';
-import * as fs  from 'fs';
-import * as path from 'path';
-import * as targz from 'tar.gz';
-import * as http from 'http';
+import fs  from 'fs';
+import path from 'path';
+import targz from 'tar.gz';
+import http from 'http';
 export default class extends Base {
     /**
      * index action
