@@ -308,7 +308,7 @@ export default class extends Base {
         }
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
-        think.log(fields);
+        //think.log(fields);
         //获取当前分类文档的类型
         let type_list = await this.model("category").get_type_bycate(cate_id);
         //console.log(type_list);

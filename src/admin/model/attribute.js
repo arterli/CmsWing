@@ -170,7 +170,7 @@ export default class extends think.model.base {
         let sql = `ALTER TABLE \`${this.table_name}\` DROP COLUMN \`${_field.name}\`;`
 
         sql = this.parseSql(sql);
-        console.log(sql);
+       // console.log(sql);
         let res = await think.model('mysql', think.config("db")).execute(sql);
         return res == 0;
     }
@@ -258,21 +258,28 @@ export default class extends think.model.base {
                 if (!think.isEmpty(model.attribute_alias)) {
                     //let alias  = preg_split('/[;\r\n]+/s', model.attribute_alias);
                     let alias = model.attribute_alias.split('\r\n');
+                    //think.log(alias);
                     let fields = {};
                     for (let value of alias) {
                         let val = value.split(':');
+                        //think.log(val);
                         fields[val[0]] = val[1];
                     }
-
+                    //think.log(fields);
                     for (let value in group) {
                         group[value].forEach((v, k)=> {
                             if (!think.isEmpty(fields[v.name])) {
-                                group[value]['title'] = fields[v.name];
+                                //think.log(group[value][k]);
+                                group[value][k]['title'] = fields[v.name];
+                               
                             }
                         })
+                         //think.log(group[value]['title']);
                     }
+                    
                 }
                 attr = group;
+                //think.log(attr);
             }
         } else {
             for (let v of info) {
