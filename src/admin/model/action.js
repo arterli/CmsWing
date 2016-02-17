@@ -37,7 +37,7 @@ export default class extends think.model.base {
         if(think.isEmpty(action) || think.isEmpty(model) || think.isEmpty(record_id)){
             return '参数不能为空';
         }
-        
+
         if(think.isEmpty(user_id)){
             let user = await this.session('userInfo');
             let id = user.id;
@@ -48,7 +48,7 @@ export default class extends think.model.base {
 
         let action_info = await this.where({name:action}).find();
         if(action_info.status != 1){
-            return '改行为被禁用';
+            return '该行为被禁用';
         }
 
         //插入行为日志
@@ -83,7 +83,7 @@ export default class extends think.model.base {
                for(let val of match){
                    val= val.replace(/(^\[)|(\]$)/g, "");
                    let param = val.split('|');
-                   console.log(param);
+                   //console.log(param);
                    if(!think.isEmpty(param[1])){
 
                       if(param[0]=='user'){
@@ -98,7 +98,7 @@ export default class extends think.model.base {
                }
 
                data.remark= str_replace(match,replace,action_info.log);
-               console.log(data.remark)
+               //console.log(data.remark)
 
            }else {
                data.remark = action_info.log;
@@ -113,6 +113,7 @@ export default class extends think.model.base {
 
         if(!think.isEmpty(action_info.rule)){
             let rules = await this.parse_action(action,user_id);
+            console.log(rules);
             let res = await this.execute_action(rules,action_info.id,user_id);
         }
     }

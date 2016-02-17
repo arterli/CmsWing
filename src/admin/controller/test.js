@@ -103,12 +103,19 @@ export default class extends Base {
         //    console.log(a+" is sb");
         //}
     }
-    momentAction(){
+     async momentAction(){
         // let moment = require('moment');
         // let datetime = moment().unix();
         // moment(1318874398806).unix();
         // console.log( moment(1318874398806).format("dddd, MMMM Do YYYY, h:mm:ss a"));
-        think.log(this.setup.WEIXIN_TYPE['2'],"配置输出");
-        this.end();
+        let set = await this.model("setup").getset()
+        //think.log(this.setup.WEIXIN_TYPE['2'],"配置输出");
+        this.end(set);
+    }
+    adaAction(){
+      let cas = think.adapter("school", "calss"); //加载名为 dot 的 Template Adapter
+      let cass = new cas(); //实例化 Adapter
+      let name = cass.getname(1);
+      console.log(name)
     }
 }

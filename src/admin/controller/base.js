@@ -33,7 +33,7 @@ export default class extends think.controller.base {
         this.adminmenu = await this.model('menu').adminmenu();
         this.assign("setup", this.setup);
         //菜单当前状态
-        
+
         /**
          * 权限验证超级管理员
          */
@@ -46,8 +46,6 @@ export default class extends think.controller.base {
         let Auth = think.adapter("auth", "rbac");
         let auth = new Auth(this.user.uid);
         let res = await auth.check(url);
-            console.log(url);
-            console.log(res);
             if(!res){
                 return this.fail('未授权访问!');
             }

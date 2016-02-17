@@ -10,7 +10,7 @@ export default {
     root_path: think.ROOT_PATH + '/view',
     adapter: {
         nunjucks: {
-            prerender: (nunjucks, env)=> {
+            prerender: (nunjucks, env) => {
                 /**
                  * 格式化字节大小
                  * @param  number size      字节数
@@ -120,6 +120,7 @@ export default {
                 env.addFilter("dateformat", function (extra, date) {
                     return dateformat(date, extra);
                 })
+                
                 /**
                  * 获取行为类型
                  * @param intger type 类型
@@ -133,39 +134,39 @@ export default {
                 /**
                  * 获取用户名称
                  */
-                env.addFilter("get_nickname",async (uid,callback) => {
+                env.addFilter("get_nickname", async(uid, callback) => {
                     let data = await get_nickname(uid);
                     callback(null,data);
-                },true)
-                /**
-                 * 获取文档url
-                 */
-                env.addFilter('get_url',(name,id) => {
-                    return get_url(name,id)
-                })
+            }, true)
+            /**
+             * 获取文档url
+             */
+            env.addFilter('get_url', (name, id) => {
+                return get_url(name, id)
+            })
                 /**
                  * 获取文档封面图
                  */
-                env.addFilter('get_cover', async (cover_id,field,callback) => {
+                env.addFilter('get_cover', async(cover_id, field, callback) => {
 
-                    let data = await get_cover(cover_id,field);
+                let data = await get_cover(cover_id, field);
                     callback(null,data);
 
-                },true)
-                env.addExtension('tagtest', new mytags(),true);
-                /**
-                 * 获取分类标签
-                 */
-                env.addExtension('column', new column(),true);
-                /**
-                 * 获取导航标签
-                 */
-                env.addExtension('channel', new channel(),true);
-                /**
-                 * 获取数据标签
-                 */
-               env.addExtension('topic', new topic(),true);
-            }
-        }
+        }, true)
+        env.addExtension('tagtest', new mytags(), true);
+        /**
+         * 获取分类标签
+         */
+        env.addExtension('column', new column(), true);
+        /**
+         * 获取导航标签
+         */
+        env.addExtension('channel', new channel(), true);
+        /**
+         * 获取数据标签
+         */
+        env.addExtension('topic', new topic(), true);
+    }
+}
     }
 };

@@ -19,11 +19,11 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
-  
+
   async indexAction(){
     //auto render template file index_index.html
     console.log(think.parseConfig(true,think.config("db")).prefix);
-    //await this.model("action").log("testaction","member",this.user.uid,this.user.uid,this.ip(),this.http.url);//测试日志行为
+    await this.model("action").log("chufa","member","sdffds",this.user.uid,this.ip(),this.http.url);//测试日志行为
     this.meta_title=this.locale('meta_title_admin');
     let mysqlv=await this.model('mysql').query("select version()");
     let node = process.versions;

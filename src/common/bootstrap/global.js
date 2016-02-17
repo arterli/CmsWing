@@ -448,7 +448,7 @@ global.array_diff=function (arr1,arr2){
         }
     };
     //if(think.isEmpty(temparray)){
-    //    return false
+    //    return 
     //}
     return temparray;
 }

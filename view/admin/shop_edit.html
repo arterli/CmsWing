@@ -1,0 +1,43 @@
+{% extends "./inc/base.html" %} 
+{% block style %} 
+{% endblock%}
+ {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+
+            <section>
+                <section class="vbox">
+                    <section class="scrollable padder-lg">
+                        <h2 class="font-thin m-b">edit</h2>
+                        <div class="row row-sm">
+  <!-- 加载编辑器的容器 -->
+  <form id="ajaxForm" action="/admin/shop/edit" method="post" class="form-horizontal" data-validate="parsley">
+    <script id="container" name="neirong" type="text/plain">
+      
+    </script>
+    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                                <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+</form>
+                        </div>
+
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %} 
+{% block script%}
+ <!-- 加载编辑器的容器 -->
+    <script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
+    <!-- 实例化编辑器 -->
+    <script type="text/javascript">
+        var ue = UE.getEditor('container');
+    </script>
+{% endblock %}
