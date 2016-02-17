@@ -1,7 +1,6 @@
 'use strict';
 
 import Base from './base.js';
-import Api from 'wechat-api';
 export default class extends Base {
     /**
      * 微信服务器验证
