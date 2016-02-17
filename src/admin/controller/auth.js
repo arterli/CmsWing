@@ -26,7 +26,6 @@ export default class extends Base {
         let map = {'module': 'admin', 'type': ['in', [1, 2]]};//status全部取出,以进行更新
         //需要更新和删除的节点必然位于$rules
         let rules = await AuthRule.where(map).order('name').select();
-
         //构建insert数据
         let data = {};//保存需要插入和更新的新节点
 
