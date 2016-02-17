@@ -49,52 +49,20 @@
                     <div id="filePicker_{{field.name}}">选择图片</div>
 
                     <script type="text/javascript">
-                      $list_ {
-                        {
-                          field.name
-                        }
-                      } = $('#fileList_{{field.name}}'),
+                      $list_{{field.name}} = $('#fileList_{{field.name}}'),
                         // 优化retina, 在retina下这个值是2
-                        ratio_ {
-                          {
-                            field.name
-                          }
-                        } = window.devicePixelRatio || 1,
+                        ratio_{{field.name}} = window.devicePixelRatio || 1,
 
                         // 缩略图大小
-                        thumbnailWidth_ {
-                          {
-                            field.name
-                          }
-                        } = 100 * ratio_ {
-                          {
-                            field.name
-                          }
-                        },
-                        thumbnailHeight_ {
-                          {
-                            field.name
-                          }
-                        } = 100 * ratio_ {
-                          {
-                            field.name
-                          }
-                        },
+                        thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
+                        thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
 
                         // Web Uploader实例
-                        uploader_ {
-                          {
-                            field.name
-                          }
-                        };
+                        uploader_{{field.name}};
 
                       // 初始化Web Uploader
                       // 初始化Web Uploader
-                      var uploader_ {
-                        {
-                          field.name
-                        }
-                      } = WebUploader.create({
+                      var uploader_{{field.name}} = WebUploader.create({
                         // 选完文件后，是否自动上传。
                         auto: true,
                         // swf文件路径
@@ -115,11 +83,7 @@
                         }
                       });
                       // 当有文件添加进来的时候
-                      uploader_ {
-                        {
-                          field.name
-                        }
-                      }.on('fileQueued', function(file) {
+                      uploader_{{field.name}}.on('fileQueued', function(file) {
                         var $li = $(
                             '<div id="' + file.id + '" class="file-item thumbnail">' +
                             '<img>' +
@@ -128,41 +92,21 @@
                           ),
                           $img = $li.find('img');
 
-                        $list_ {
-                          {
-                            field.name
-                          }
-                        }.html($li);
+                        $list_{{field.name}}.html($li);
 
                         // 创建缩略图
-                        uploader_ {
-                          {
-                            field.name
-                          }
-                        }.makeThumb(file, function(error, src) {
+                        uploader_{{field.name}}.makeThumb(file, function(error, src) {
                           if (error) {
                             $img.replaceWith('<span>不能预览</span>');
                             return;
                           }
 
                           $img.attr('src', src);
-                        }, thumbnailWidth_ {
-                          {
-                            field.name
-                          }
-                        }, thumbnailHeight_ {
-                          {
-                            field.name
-                          }
-                        });
+                        }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}});
                       });
 
                       // 文件上传过程中创建进度条实时显示。
-                      uploader_ {
-                        {
-                          field.name
-                        }
-                      }.on('uploadProgress', function(file, percentage) {
+                      uploader_{{field.name}}.on('uploadProgress', function(file, percentage) {
 
                         var $li = $('#' + file.id),
                           $percent = $li.find('.progress span');
@@ -178,21 +122,13 @@
                       });
 
                       // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-                      uploader_ {
-                        {
-                          field.name
-                        }
-                      }.on('uploadSuccess', function(file, res) {
+                      uploader_{{field.name}}.on('uploadSuccess', function(file, res) {
                         $('#' + file.id).addClass('upload-state-done');
                         $("#cover_id_{{field.name}}").val(res);
                       });
 
                       // 文件上传失败，现实上传出错。
-                      uploader_ {
-                        {
-                          field.name
-                        }
-                      }.on('uploadError', function(file) {
+                      uploader_{{field.name}}.on('uploadError', function(file) {
                         var $li = $('#' + file.id),
                           $error = $li.find('div.error');
 
@@ -205,11 +141,7 @@
                       });
 
                       // 完成上传完了，成功或者失败，先删除进度条。
-                      uploader_ {
-                        {
-                          field.name
-                        }
-                      }.on('uploadComplete', function(file) {
+                      uploader_{{field.name}}.on('uploadComplete', function(file) {
                         $('#' + file.id).find('.progress').remove();
                       });
                     </script>
