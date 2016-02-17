@@ -384,7 +384,8 @@ global.get_attribute_type = function (type){
         'editor'    :  ['编辑器','text NOT NULL'],
         'picture'   :  ['上传图片','int(10) UNSIGNED NOT NULL'],
         'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
-        'suk'       :  ['商品规格','text NOT NULL']
+        'suk'       :  ['商品规格','text NOT NULL'],
+        'pics'      :  ['多图上传','varchar(255) NOT NULL']
 }
     return type?_type[type][0]:_type;
 }

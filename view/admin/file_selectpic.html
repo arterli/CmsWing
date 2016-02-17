@@ -44,6 +44,21 @@
               <div class="col-sm-10">
                 <div class="row">
                   <div class="col-sm-10">
+                      <style type="text/css">
+    .tab-content > .tab-pane{
+        position: absolute !important;
+        clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+        clip: rect(1px,1px,1px,1px);
+        display: block;
+    }
+    .tab-content > .active {
+        position:static !important;
+        clip: inherit; /* IE6, IE7 */
+        clip:inherit;
+        display: block;
+    }
+
+</style>
                     <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}" />
                     <div id="fileList_{{field.name}}" class="uploader-list"></div>
                     <div id="filePicker_{{field.name}}">选择图片</div>

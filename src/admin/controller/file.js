@@ -69,7 +69,11 @@ export default class extends Base {
     }
     this.json(res);
   }
-
+  //上传多图
+  picsAction(){
+      let file = think.extend({},this.file('file'));
+      console.log(file);
+  }
   //图片选择
   async selectpicAction(){
     let pics = await this.model("picture").limit(2, 15).select();
