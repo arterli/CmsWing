@@ -5,7 +5,7 @@ import Base from './base.js';
 export default class extends Base {
     /**
     * index action
-    * @return {Promise} []12
+    * @return {Promise} []1212
     */
     init(http) {
         super.init(http);
