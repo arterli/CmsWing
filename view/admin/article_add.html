@@ -116,7 +116,7 @@
                                                            <i class="fa fa-plus text"></i>
                                                             </footer>
                                                         </section>
-                                                        <section class="panel panel-default">
+                                                        <section class="panel panel-default {{field.name}}_table hide">
                 <header class="panel-heading">
                  商品库存
                 </header>
@@ -192,7 +192,34 @@
                                                                        $("#{{field.name}}_addsuk").removeClass("hide");
                                                                    }
                                                                 }
+                                                                //添加一级规格
+                                                               
+                                                                $(document).on('change','.chosen-select',function(){
+                                                                    var val = $('.chosen-select').val();//获取选中的值
+                                                                    var tex = $('.chosen-select option:selected').text();//选择选择的文字
+                                                                   drawThead()//绘制表头
+                                                                    //console.log(val);
+                                                                    //console.log(tex);
+                                                                })
                                                                 
+                                                                //绘制表头
+                                                                function drawThead(){
+                                                                    var arr = $('.chosen-select');
+                                                                    var narr=[];
+                                                                   $.each(arr,function(k,v){
+                                                                       narr.push($(v).find("option:selected").text());
+                                                                   })
+                                                                   //console.log(narr);
+                                                                   var thHtml = "";
+                                                                    thHtml += "";
+                                                                    for (cSort = 0; cSort <= narr.length - 1; cSort++) {
+                                                                        thHtml += '<th class="active">' + narr[cSort] + "</th>";
+                                                                    }
+                                                                    thHtml += '<th class="active">价格</th><th class="active">库存</th><th class="active">编码</th><th class="active">销量</th>';
+                                                                    thHtml += "";
+                                                                     $(".{{field.name}}_table").removeClass("hide");
+                                                                     $(".{{field.name}}_table table thead tr").html(thHtml);
+                                                                }
                                                                 //添加规格
                                                                 $("#{{field.name}}_addsuk").click(function(){
                                                                     var size = $(".{{field.name}}_body>section").size()+1;
@@ -200,10 +227,11 @@
                                                                                             <header class="panel-heading bg-light no-border">\
                                                                                             <div class="clearfix">\
                                                                                                 <select style="width:260px" class="chosen-select">\
-                                                                                                                                            <option value="AK">颜色</option>\
-                                                                                                                                            <option value="HI">尺码</option>\
-                                                                                                                                    </select>\
-                                                                                                                             <a  class="close {{field.name}}_close" id="select-'+size+'" >×</a>\
+                                                                                                <option value="AK">颜色</option>\
+                                                                                                <option value="HI">尺码</option>\
+                                                                                                <option value="111">规格</option>\
+                                                                                                </select>\
+                                                                                                <a  class="close {{field.name}}_close" id="select-'+size+'" >×</a>\
                                                                                             </div>\
                                                                                             </header>\
                                                                                             <div class="list-group no-radius alt">\
@@ -213,20 +241,113 @@
                                                                                             </div>\
                                                                                         </section>'
                                                                    $('.{{field.name}}_body').append({{field.name}}_select);
-                                                                   $('.chosen-select').chosen();
+                                                                   $('.chosen-select').chosen({ placeholder_text: "选择规则"});
+                                                                  
                                                                    $('.tags').tagsInput({
                                                                        width:'auto',
                                                                        height:'43px',
                                                                        onChange: function(elem, elem_tags)
-				{
-                    console.log(elem_tags);
-					var languages = ['php','ruby','javascript'];
-					$('.tag', elem_tags).each(function()
-					{
-						if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
-							$(this).css('background-color', 'yellow');
-					});
-				}
+                                                                            {
+                                                                                $(".{{field.name}}_table").removeClass("hide");
+                                                                                drawThead()//绘制表头
+                                                                                //console.log($(".tags"));
+                                                                                var narr=[];
+                                                                                 var obj={};
+                                                                                var item;
+                                                                                 var tbHtml = "";
+                                                                                 var n;
+                                                                                 $.each($(".tags"),function(k,v){
+                                                                                 //narr.push($(v).val());
+                                                                                 item=$(v).val().split(",");
+      
+                                                                                // console.log(k);
+                                                                                // console.log(item);
+                                                                                 
+                                                                                 if(item[0].length != 0){
+                                                                                     if(k==0){
+                                                                                         n=item.length;
+                                                                                        $.each(item,function(n,m){
+                                                                                            obj.name = m;
+                                                                                            console.log(obj);
+                                                                                            narr.push(obj);
+                                                                                        })
+                                                                                         
+                                                                                     }
+                                                                                           if(k==1){
+                                                                                                //console.log(k);
+                                                                                                 n=n*item.length;
+                                                                                            obj['ch']=[]
+                                                                                            var _obj = {};
+                                                                                          $.each(item,function(nn,mm){
+                                                                                              //console.log(mm)
+                                                                                            _obj.name = mm; 
+                                                                                             obj['ch'].push(_obj);
+                                                                                        })
+                                                                                       
+                                                                                     }
+                                                                                      if(k==2){
+                                                                                                //console.log(k);
+                                                                                                n=n*item.length;
+                                                                                            obj['ch']['ch']=[]
+                                                                                            var __obj = {};
+                                                                                          $.each(item,function(nnn,mmm){
+                                                                                            console.log(mmm)
+                                                                                            __obj.name = mmm;
+                                                                                            
+                                                                                        })
+                                                                                        obj['ch']['ch'].push(__obj);
+                                                                                     }
+                                                                                     
+                                                                                 
+                                                                                    //  for(y=1; y<=n;y++){
+                                                                                    //       tbHtml += "<tr>";
+                                                                                    //  if(obj.ch.ch[y]){
+                                                                                    //  tbHtml += "<td rowspan='1'>" + obj.ch.ch[y] + "</td>";
+                                                                                    //  }
+                                                                                    //  tbHtml += '<td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td>0</td>';
+                                                                                    //  tbHtml += "</tr>";
+                                                                                    //  }
+                                                                                    //  $.each(item,function(_k,_v){
+                                                                                    //  tbHtml += "<tr>";
+                                                                                    //  tbHtml += "<td rowspan='" + k+1 + "'>" + _v + "</td>";
+                                                                                    //  tbHtml += '<td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td><input type="text" placeholder=".input-sm" class="form-control input-sm"></td>\
+                                                                                    //             <td>0</td>';
+                                                                                    //  tbHtml += "</tr>";
+                                                                                    //  })
+                                                                                    //$(".{{field.name}}_table table tbody").html(tbHtml); 
+                                                                                 }
+                                                                                 
+                                                                                   })
+                                                                                    console.log(narr);
+                                                                                     $.each(narr,function(k,v){
+                                                                                         //console.log(v);
+                                                                                         if(v.ch){
+                                                                                             $.each(v.ch,function(_k,_v){
+                                                                                                 console.log(_v);
+                                                                                                 if(_v.ch){
+                                                                                                     $.each(_v.ch,function(__k,__v){
+                                                                                                         console.log(__v);
+                                                                                                     })
+                                                                                                 }
+                                                                                             })
+                                                                                         }
+                                                                                     })
+                                                                                  
+                                                                                  // console.log(n);
+                                                                                 //console.log(narr);
+                                                                                // var languages = ['php','ruby','javascript'];
+                                                                                // $('.tag', elem_tags).each(function(k,v)
+                                                                                // {
+                                                                                //     console.log(k);
+                                                                                //     if($(this).text().search(new RegExp('\\b(' + languages.join('|') + ')\\b')) >= 0)
+                                                                                //         $(this).css('background-color', 'yellow');
+                                                                                // });
+                                                                            }
                                                                        });
                                                                    cout();
                                                                    
