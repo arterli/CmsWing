@@ -252,7 +252,7 @@
                                                                                 drawThead()//绘制表头
                                                                                 //console.log($(".tags"));
                                                                                 var narr=[];
-                                                                                 var obj={};
+                                                                                 
                                                                                 var item;
                                                                                  var tbHtml = "";
                                                                                  var n;
@@ -260,13 +260,14 @@
                                                                                  //narr.push($(v).val());
                                                                                  item=$(v).val().split(",");
       
-                                                                                // console.log(k);
-                                                                                // console.log(item);
-                                                                                 
+                                                                                 console.log(v);
+                                                                                 //console.log(item);return;
+                                                                                 //[{name:1,ch:[{name:55,ch:[{name:77,name:88},{}]},{name:66}]},{name:2},{name:3}]
                                                                                  if(item[0].length != 0){
                                                                                      if(k==0){
                                                                                          n=item.length;
                                                                                         $.each(item,function(n,m){
+                                                                                            var obj={};
                                                                                             obj.name = m;
                                                                                             console.log(obj);
                                                                                             narr.push(obj);
@@ -276,26 +277,34 @@
                                                                                            if(k==1){
                                                                                                 //console.log(k);
                                                                                                  n=n*item.length;
-                                                                                            obj['ch']=[]
-                                                                                            var _obj = {};
-                                                                                          $.each(item,function(nn,mm){
-                                                                                              //console.log(mm)
-                                                                                            _obj.name = mm; 
-                                                                                             obj['ch'].push(_obj);
-                                                                                        })
-                                                                                       
+                                                                                            
+                                                                                            var ch_arr = [];
+                                                                                            $.each(item,function(nn,mm){
+                                                                                            //console.log(mm)
+                                                                                                var _obj = {};
+                                                                                                _obj.name = mm; 
+                                                                                                ch_arr.push(_obj);
+                                                                                            });
+                                                                                            for(var i = 0; i < narr.length; i++ ){
+                                                                                                narr[i].ch = ch_arr;
+                                                                                            }
                                                                                      }
                                                                                       if(k==2){
                                                                                                 //console.log(k);
                                                                                                 n=n*item.length;
-                                                                                            obj['ch']['ch']=[]
-                                                                                            var __obj = {};
-                                                                                          $.each(item,function(nnn,mmm){
-                                                                                            console.log(mmm)
-                                                                                            __obj.name = mmm;
-                                                                                            
-                                                                                        })
-                                                                                        obj['ch']['ch'].push(__obj);
+                                                                                            var ch_arr = [];
+                                                                                            $.each(item,function(nn,mm){
+                                                                                              //console.log(mm)
+                                                                                                var _obj = {};
+                                                                                                _obj.name = mm; 
+                                                                                                ch_arr.push(_obj);
+                                                                                            });
+                                                                                            for(var i = 0; i < narr.length; i++ ){
+                                                                                                for(var j = 0; j < narr[i].ch.length; j++ ){
+                                                                                                    var tmp = narr[i].ch;
+                                                                                                    tmp[j].ch = ch_arr; 
+                                                                                                }
+                                                                                            }
                                                                                      }
                                                                                      
                                                                                  
