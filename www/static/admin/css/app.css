@@ -3300,6 +3300,9 @@ a.bg-light:focus {
 .media-lg {
   min-width: 120px;
 }
+.p-none {
+  padding: 0;
+}
 .avatar {
   position: relative;
   display: block;
