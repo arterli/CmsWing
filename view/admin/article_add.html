@@ -212,14 +212,17 @@
             var tbHtml="";
             var tbHtml1="";
             var tbHtml2="";
+             var v_sku_price="";
+             var v_sku_stock="";
+             var v_sku_code="";
             //获取上次chucun的数据；
-            var predata = $("#{{field.name}}").val();
+            var predatas = $("#{{field.name}}").val();
             
-            if(predata){
-                predata = $.parseJSON(predata);
-            predata = predata.data; 
+            if(predatas){
+            var predata = $.parseJSON(predatas).data; 
             }        
-            console.log(predata);
+            //console.log(predata);
+             
                 $.each(narr,function(k,v){
                     if(v.ch){
                         $.each(v.ch,function(_k,_v){ 
@@ -244,11 +247,13 @@
                 // }
                 try{
                 // 可能会导致错误的代码
-                var v_sku_price,v_sku_stock,v_sku_code;
+               var v_sku_price="";
+             var v_sku_stock="";
+             var v_sku_code="";
                  var d_=predata[k]['ch'][_k]["ch"][__k];
-                    v_sku_price= d_['sku_price'];
-                    v_sku_stock= d_['sku_stock'];
-                    v_sku_code= d_['sku_code'];
+                    v_sku_price= d_['sku_price']?d_['sku_price']:"";
+                    v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
+                    v_sku_code= d_['sku_code']?d_['sku_code']:"";
                 } catch(error){
                 // 在错误发生时怎么处理
                 } 
@@ -292,11 +297,10 @@
                 // }
                  try{
                 // 可能会导致错误的代码
-                var v_sku_price,v_sku_stock,v_sku_code;
                  var d_=predata[k]["ch"][_k];
-                    v_sku_price= d_['sku_price'];
-                    v_sku_stock= d_['sku_stock'];
-                    v_sku_code= d_['sku_code'];
+                    v_sku_price= d_['sku_price']?d_['sku_price']:"";
+                    v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
+                    v_sku_code= d_['sku_code']?d_['sku_code']:"";
                 } catch(error){
                 // 在错误发生时怎么处理
                 } 
@@ -322,13 +326,13 @@
                         })
                     }else{
                         //输出一级表格
-                       var v_sku_price,v_sku_stock,v_sku_code;
-                     
+            
                        if(predata){
                            if(predata[k]){
-                           v_sku_price= predata[k]['sku_price'];
-                           v_sku_stock= predata[k]['sku_stock'];
-                           v_sku_code= predata[k]['sku_code'];
+                           //console.log(predata[k]['sku_price'] != null)
+                           v_sku_price= predata[k]['sku_price'] ? predata[k]['sku_price']:"";
+                           v_sku_stock= predata[k]['sku_stock'] ? predata[k]['sku_stock']:"";
+                           v_sku_code= predata[k]['sku_code'] ? predata[k]['sku_code']:"";
                            }
                        }
                         tbHtml += "<tr>";
@@ -377,7 +381,7 @@
               _obj.sku_code  = $("#sku_code_"+k).val();
               bianli_arr.push(_obj);
            });
-           console.log(JSON.stringify(bianli_arr));
+           //console.log(JSON.stringify(bianli_arr));
          
            function bianli (arr){
                 for(var i = 0; i < arr.length; i++){
@@ -386,8 +390,8 @@
                             bianli(arr[i].ch);
                         }else{
                             var sh = bianli_arr.shift();
-                            console.log(sh);
-                            console.log(arr[i]);
+                            //console.log(sh);
+                            //console.log(arr[i]);
                             for(var k in sh){
                                 arr[i][k] = sh[k];
                             }
@@ -397,9 +401,9 @@
                 }
                 return arr;
             }
-           console.log(JSON.stringify(narr));
+           //console.log(JSON.stringify(narr));
            var result = bianli(JSON.parse(localStorage.getItem("$narr")));
-           console.log(JSON.stringify(result));
+          // console.log(JSON.stringify(result));
            
            //拼装储存数据
             var {{field.name}}_info={
