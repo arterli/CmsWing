@@ -362,60 +362,54 @@
         $(document).on('change','.sku_price,.sku_stock,.sku_code',function(){
             chandate();
         })
+        
         function chandate(){
            var type = gettype();
            var narr = getstru();
-            var i = 0;
-             $.each(narr,function(k,v){
-                    if(v.ch){
-                        $.each(v.ch,function(_k,_v){ 
-                            if(_v.ch){
-                            
-                                $.each(_v.ch,function(__k,__v){
-                var sku_price="#sku_price_"+i;
-                var sku_stock="#sku_stock_"+i;
-                var sku_code="#sku_code_"+i;
-               
-                __v.sku_price=$(sku_price).val();
-                __v.sku_stock=$(sku_stock).val();
-                __v.sku_code=$(sku_code).val();
-
-                i=i+1; 
-                                })
-                            }else{
-                var sku_price="#sku_price_"+i;
-                var sku_stock="#sku_stock_"+i;
-                var sku_code="#sku_code_"+i;
-                //console.log(_v.sku_price);
-                console.log(_v);
-                console.log(_v.sku_price);
-                _v.sku_price=$(sku_price).val();
-                _v=$.extend({}, _v);
-                // _v.sku_stock=$(sku_stock).val();
-                // _v.sku_code=$(sku_code).val();
-                i=i+1;
+           localStorage.setItem('$narr', JSON.stringify(narr));
+ 
+           var ntr = $(".suk_table").find("tbody>tr");
+           var bianli_arr = [];
+           $.each(ntr, function(k,v){
+              var _obj = {};
+              _obj.sku_price = $("#sku_price_"+k).val();
+              _obj.sku_stock = $("#sku_stock_"+k).val();
+              _obj.sku_code  = $("#sku_code_"+k).val();
+              bianli_arr.push(_obj);
+           });
+           console.log(JSON.stringify(bianli_arr));
+         
+           function bianli (arr){
+                for(var i = 0; i < arr.length; i++){
+                    try{
+                        if(arr[i].ch){
+                            bianli(arr[i].ch);
+                        }else{
+                            var sh = bianli_arr.shift();
+                            console.log(sh);
+                            console.log(arr[i]);
+                            for(var k in sh){
+                                arr[i][k] = sh[k];
                             }
-                        })
-                    }else{
-                
-                var sku_price="#sku_price_"+i;
-                var sku_stock="#sku_stock_"+i;
-                var sku_code="#sku_code_"+i;
-               console.log(sku_price);
-                v.sku_price=$(sku_price).val();
-                v.sku_stock=$(sku_stock).val();
-                v.sku_code=$(sku_code).val();
-                i=i+1;
+                        }
+                    }catch(e){
                     }
-                })
-                 var {{field.name}}_info={
-                type:type,
-                data:narr
+                }
+                return arr;
             }
-            console.log(JSON.stringify(narr));
+           console.log(JSON.stringify(narr));
+           var result = bianli(JSON.parse(localStorage.getItem("$narr")));
+           console.log(JSON.stringify(result));
+           
+           //拼装储存数据
+            var {{field.name}}_info={
+                type:type,
+                data:result
+            }
             $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
-           $(document).on('change','.sku_price,.sku_stock,.sku_code',function(){})
-        }  
+        }
+        
+       
         //获取类型
         function gettype(){
         var arr = $('.chosen-select');    
