@@ -372,7 +372,7 @@ global.sub_cate = function (data, pid) {
 global.get_attribute_type = function (type){
     // TODO 可以加入系统配置
     let _type = {
-        'num'       :  ['数字','int(10) UNSIGNED NOT NULL'],
+        'num'       :  ['数字','int(10) unsigned NOT NULL'],
         'string'    :  ['字符串','varchar(255) NOT NULL'],
         'textarea'  :  ['文本框','text NOT NULL'],
         'date'      :  ['日期','bigint(13) NOT NULL'],
@@ -382,11 +382,11 @@ global.get_attribute_type = function (type){
         'radio'     :  ['单选','char(10) NOT NULL'],
         'checkbox'  :  ['多选','varchar(100) NOT NULL'],
         'editor'    :  ['编辑器','text NOT NULL'],
-        'picture'   :  ['上传图片','int(10) UNSIGNED NOT NULL'],
-        'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
+        'picture'   :  ['上传图片','int(10) unsigned NOT NULL'],
+        'file'      :  ['上传附件','int(10) unsigned NOT NULL'],
         'suk'       :  ['商品规格','text NOT NULL'],
         'pics'      :  ['多图上传','varchar(255) NOT NULL'],
-        'price'      :  ['价格','int(10) UNSIGNED NOT NULL']
+        'price'     :  ['价格','varchar(255) NOT NULL']
 }
     return type?_type[type][0]:_type;
 }
