@@ -141,7 +141,12 @@
                 <footer class="panel-footer">
                   <div class="row">
                     <div class="col-sm-10 hidden-xs">
-                      批量设置: <a class="btn btn-sm btn-default">价格</a> <a class="btn btn-sm btn-default">库存</a>                 
+                      批量设置: <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
+      data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置价格' 
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入价格' id='price-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-price' href='###'>保存</a></div>">价格</a>
+      <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
+      data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置库存' 
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入库存' id='stock-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-stock'  href='###'>保存</a></div>">库存</a>                 
                     </div>
                     
                   </div>
@@ -153,6 +158,19 @@
             $("#{{field.name}}").val("");
         //初始化
             cout()
+        //批量设置价格
+        $(document).on('click',"#js-batch-price",function(){
+            var price=$("#price-batch-txt").val();
+            $(".sku_price").val(price);
+            chandate();
+            $('.popover-hide').popover('hide');
+        });
+         $(document).on('click',"#js-batch-stock",function(){
+            var stock=$("#stock-batch-txt").val();
+            $(".sku_stock").val(stock);
+            chandate();
+            $('.popover-hide').popover('hide');
+        });
         //记录添加规格的个数
         function cout(){
             var size = $(".{{field.name}}_body>section").size();
