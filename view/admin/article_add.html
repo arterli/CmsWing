@@ -184,6 +184,7 @@
                 $(".{{field.name}}_body").addClass("hide");
                 $(".{{field.name}}_table").addClass("hide");
                  $("#present_price").attr("disabled",false);
+                 $("input[name='total_stock']").attr("disabled",false);
             }
             if(size > 2){
                 $("#{{field.name}}_addsuk").addClass("hide");
@@ -430,6 +431,7 @@
                 data:result
             }
             $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+            //关联价格
             var pricearr=[];
             $.each($(".sku_price"),function(){
                pricearr.push($(this).val());
@@ -444,10 +446,14 @@
              }else{
                  $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
                   var p ='{present_price:'+pricearr[0]+'-'+pricearr[pricearr.length-1]+',discount_price:'+$("#discount_price").val()+'}'
-                 console.log(p);
                  $("#price").val(p);
              }
-       
+             //关联库存
+             var total_stockarr = 0;
+             $.each($(".sku_stock"),function(){
+                 total_stockarr=Number($(this).val())+total_stockarr; 
+             })
+              $("input[name='total_stock']").val(total_stockarr);
         }
         
        
@@ -549,7 +555,9 @@
                                                             
                                                             drawThead()//绘制表头
                                                             drawTbody()//绘制表格
+                                                            //当有规格添加时锁定价格和库存
                                                              $("#present_price").attr("disabled",true);
+                                                             $("input[name='total_stock']").attr("disabled",true);
                                                         }
                                                     });
                                                 cout();
@@ -564,11 +572,12 @@
                                                     drawTbody()//绘制表格
                                                     cout();
                                             })
-                                            
+                                            //关联价格
                                          $(document).on('change','#present_price,#discount_price',function(){
                                              $("#price").val('{present_price:'+$("#present_price").val()+',discount_price:'+$("#discount_price").val()+'}')
                                          })   
                                         })
+                                        
                                     </script>
                                     </div>
     {% elif field.type == "price" %}
