@@ -57,7 +57,19 @@
 		/* --- */
 	});
 
-
+    // ajax modal
+    $(document).on('click', '[data-toggle="ajaxModal"]',
+      function(e) {
+        $('#ajaxModal').remove();
+        e.preventDefault();
+        var $this = $(this)
+          , $remote = $this.data('remote') || $this.attr('href')
+          , $modal = $('<div class="modal fade" id="ajaxModal"><div class="modal-body"></div></div>');
+        $('body').append($modal);
+        $modal.modal();
+        $modal.load($remote);
+      }
+    );
 /** Init
 	Ajax Reinit:		Init(true);
  **************************************************************** **/
