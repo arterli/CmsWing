@@ -78,7 +78,7 @@ global.mytags= function(){
 
 }
 /**
- * 获取通缉栏目标签
+ * 获取同一级栏目标签
  */
 global.column= function(){
 
@@ -139,6 +139,7 @@ global.column= function(){
      return callback(null,'');
    }
  }
+
 
 /**
  * 获取数据标签

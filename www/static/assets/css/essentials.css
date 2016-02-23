@@ -171,10 +171,10 @@ a, a:focus, a:hover, a:active {
   cursor:pointer;
 }
 
-p, pre, ul, ol, dl, dd, blockquote,
+/*p, pre, ul, ol, dl, dd, blockquote,
 address, table, fieldset, form { 
 	margin-bottom: 30px; 
-}
+}*/
 
 canvas {
 	width: 100% !important;
@@ -263,9 +263,9 @@ h2 {
 }
 
 h3 {
-	font-size: 24px;
+	font-size: 18px;
 	letter-spacing: normal;
-	margin: 0 0 32px 0;
+	margin: 0 0 20px 0;
 }
 
 h4 {
@@ -4461,7 +4461,7 @@ div.alert.bordered-top p {
 /** 22. Dividers
 *************************************************** **/
 div.divider {
-	margin:40px 0;
+	margin:20px 0;
 	position:relative;
 	display:block;
 	min-height:20px;

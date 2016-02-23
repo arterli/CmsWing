@@ -7,9 +7,15 @@ cid: 栏目id ,cid=1,全部栏目 cid=all 或者不写
 
 order:排序 ，order=["id DESC"-"name ASC"]
 -->
-{% tagtest list="mid=1,cid=all,limit=[10-5],order=id ASC" %}
+<!--{% tagtest list="mid=1,cid=all,limit=[10-5],order=id ASC" %}
 {% for val in list %}
 
 {{val.id}}=={{val.title}}<hr>
 
+{%endfor%}-->
+
+{% topic data = "list",cid="2,48",limit="10"%}
+
+{% for val in list%}
+{{val.id}}==<a href="{{val.name|get_url(val.id)}}">{{val.title}}</a>{% if val.cover_id >0 %}<img src="{{val.cover_id|get_cover('path')}}">{%endif%}<hr>
 {%endfor%}
