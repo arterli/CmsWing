@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
 <!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
 <script src="/static/admin/js/jquery.min.js"></script>
-
+<script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <!--<script src="/static/admin/js/uploadify/jquery.uploadify.min.js"></script>-->
 <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
 <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
@@ -106,6 +106,87 @@
                 <div class="col-md-3">
                     <input type="text" name="{{field.name}}" class="form-control time" value="" placeholder="请选择时间" />
                 </div>
+                 {% elif field.type == "freight" %}
+                <div class="col-md-5">
+                    <input type="hidden" name="{{field.name}}" value='{"type":0,"val":0}'' id="{{field.name}}"/>
+                   <table  class="table table-bordered b-t b-light m-b-none">
+                        <tr><td>
+                    <div class="radio i-checks">
+                          <label>
+                            <input type="radio" checked="" value="0" id="js-unified-postage" name="{{field.name}}_radio">
+                            <i></i>
+                            统一运费 
+                          </label>
+                         
+                        </div>
+                        </td>
+                        <td>
+                       <div class="radio i-checks">
+                          <label>
+                            <input type="radio" value="1" id="js-use-delivery" name="{{field.name}}_radio">
+                            <i></i>
+                            运费模板
+                          </label>
+                        </div>
+                         
+                        </td></tr>
+                        <tr><td colspan="2">
+                            <div class="radio-tab1">
+                       <div class="input-group ">
+                          <span class="input-group-addon">￥</span>
+                          <input type="text" class="form-control" style="width:100px" value="0" id="js-postage">
+                        </div>
+                            </div>
+                            <div class="radio-tab2 hide ">
+                          <select style="width:260px" data-placeholder="请选择运费模板" class="chosen-select" id="js-delivery-template">
+                               <option value=""></option>
+                                <option value="1">测试运费模板1</option>
+                                <option value="2">测试运费模板2</option>
+                        </select>
+                            </div>
+                        </td>
+                        </tr>
+                            </table>
+                            <script>
+                             $.each($("[name='{{field.name}}_radio']"),function(){
+                                 
+                                 $(this).click(function(){
+                                     var id = $(this).val();
+                                     var val;
+                                     if(0 == id){
+                                      val = $("#js-postage").val()
+                                      $(".radio-tab1").removeClass('hide');
+                                      $(".radio-tab2").addClass('hide');
+                                     }else{
+                                      val =$("#js-delivery-template  option:selected").val();
+                                       $(".radio-tab1").addClass('hide');
+                                      $(".radio-tab2").removeClass('hide');   
+                                     }
+                                     var o = {"type":id,"val":val};
+                                     $("#{{field.name}}").val(JSON.stringify(o));
+                                 })
+                                 
+                             })
+                             $("#js-postage").on("focus",function(){
+                                  val = $("#js-postage").val()
+                                  var o = {"type":0,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                             $("#js-postage").on("change",function(){
+                                 val = $("#js-postage").val()
+                                  var o = {"type":0,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                             
+                              $(".chosen-select").chosen().change(function(){
+                                 //$("#js-unified-postage").attr("checked",false);
+                                
+                                 val =$("#js-delivery-template  option:selected").val();
+                                 var o = {"type":1,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                            </script>
+                </div>
                     {% elif field.type == "suk" %}
                 <div class="col-md-10">
                     <input type="hidden" name="{{field.name}}" class="form-control" value="" id="{{field.name}}" />
@@ -119,7 +200,7 @@
                     </section>
                     <footer class="panel-footer btn btn-block" id="{{field.name}}_addsuk">
                     <!-- chat form -->
-                    <i class="fa fa-plus text"></i>
+                    <i class="fa fa-plus text"></i> 添加规格项目
                     </footer>
                 </section>
                 <section class="panel panel-default {{field.name}}_table hide">
@@ -427,8 +508,8 @@
            
            //拼装储存数据
             var {{field.name}}_info={
-                type:type,
-                data:result
+                "type":type,
+                "data":result
             }
             $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
             //关联价格
@@ -441,11 +522,11 @@
             });
              if(pricearr[pricearr.length-1]==pricearr[0]){
                  $("#present_price").val(pricearr[0]);
-                var p='{present_price:'+pricearr[0]+',discount_price:'+$("#discount_price").val()+'}'
+                var p='{"present_price":'+pricearr[0]+',"discount_price":'+$("#discount_price").val()+'}'
                  $("#price").val(p);
              }else{
                  $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
-                  var p ='{present_price:'+pricearr[0]+'-'+pricearr[pricearr.length-1]+',discount_price:'+$("#discount_price").val()+'}'
+                  var p ='{"present_price":'+pricearr[0]+'-'+pricearr[pricearr.length-1]+',"discount_price":'+$("#discount_price").val()+'}'
                  $("#price").val(p);
              }
              //关联库存
@@ -529,7 +610,8 @@
                                                 var {{field.name}}_select ='<section class="panel panel-default m-b-none select-'+size+'">\
                                                                         <header class="panel-heading bg-light no-border">\
                                                                         <div class="clearfix">\
-                                                                            <select style="width:260px" class="chosen-select">\
+                                                                            <select style="width:260px" class="chosen-select" data-placeholder="请选择规格">\
+                                                                            <option value=""></option>\
                                                                             <option value="AK">颜色</option>\
                                                                             <option value="HI">尺码</option>\
                                                                             <option value="111">规格</option>\
@@ -574,7 +656,7 @@
                                             })
                                             //关联价格
                                          $(document).on('change','#present_price,#discount_price',function(){
-                                             $("#price").val('{present_price:'+$("#present_price").val()+',discount_price:'+$("#discount_price").val()+'}')
+                                             $("#price").val('{"present_price":'+$("#present_price").val()+',"discount_price":'+$("#discount_price").val()+'}')
                                          })   
                                         })
                                         
@@ -886,7 +968,7 @@
 
                                     {% if field.remark %}
                                     <div class="col-md-12">
-                                        <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark}}</span>
+                                        <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark|safe}}</span>
                                     </div>
                                     {% endif %}
                                 </div>

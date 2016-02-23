@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-22 18:37:47
+Date: 2016-02-23 23:19:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=220 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=226 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -101,6 +101,12 @@ INSERT INTO `cmswing_action_log` VALUES ('216', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('217', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 16:34:11登录了后台', '1', '1456130051697');
 INSERT INTO `cmswing_action_log` VALUES ('218', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 16:41:05登录了后台', '1', '1456130465312');
 INSERT INTO `cmswing_action_log` VALUES ('219', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 18:12:31登录了后台', '1', '1456135951216');
+INSERT INTO `cmswing_action_log` VALUES ('220', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-23 12:23:22登录了后台', '1', '1456201402544');
+INSERT INTO `cmswing_action_log` VALUES ('221', '4', '1', '2130706433', 'document', '59', 'admin在2016-02-23 12:51:12发表了一篇文章。\r\n表document，记录编号59。fdsfsa', '1', '1456203072378');
+INSERT INTO `cmswing_action_log` VALUES ('222', '4', '1', '2130706433', 'document', '60', 'admin在2016-02-23 12:52:58发表了一篇文章。\r\n表document，记录编号60。fdsfsa', '1', '1456203178172');
+INSERT INTO `cmswing_action_log` VALUES ('223', '4', '1', '2130706433', 'document', '61', 'admin在2016-02-23 16:19:11发表了一篇文章。\r\n表document，记录编号61。fdsfsa', '1', '1456215551792');
+INSERT INTO `cmswing_action_log` VALUES ('224', '4', '1', '2130706433', 'document', '62', 'admin在2016-02-23 22:14:17发表了一篇文章。\r\n表document，记录编号62。fdsfsa', '1', '1456236857620');
+INSERT INTO `cmswing_action_log` VALUES ('225', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-23 22:35:06登录了后台', '1', '1456238106887');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -113,7 +119,7 @@ CREATE TABLE `cmswing_attribute` (
   `field` varchar(100) NOT NULL DEFAULT '' COMMENT '字段定义',
   `type` varchar(20) NOT NULL DEFAULT '' COMMENT '数据类型',
   `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字段默认值',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `remark` text NOT NULL COMMENT '备注',
   `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示',
   `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '参数',
   `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '模型id',
@@ -130,7 +136,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -195,6 +201,7 @@ INSERT INTO `cmswing_attribute` VALUES ('75', 'join_level_discount', '会员折�
 INSERT INTO `cmswing_attribute` VALUES ('77', 'invoice', '发票', 'char(10) NOT NULL', 'radio', '0', '', '1', '0:无\r\n1:有', '4', '0', '1', '0', '1456129640083', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('79', 'warranty', '保修', 'char(10) NOT NULL', 'radio', '0', '', '1', '0:无\r\n1:有', '4', '0', '1', '0', '1456129729338', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('81', 'goods_detail', '商品详情', 'text NOT NULL', 'editor', '', '', '1', '', '4', '1', '1', '0', '1456130237178', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('83', 'freight', '设置运费', 'varchar(255) NOT NULL', 'freight', '', ' <a class=\"js-refresh-delivery text-info-dk\" href=\"javascript:;\">刷新</a>\r\n                                <span class=\"c-gray\">|</span>\r\n                                <a href=\"#\" target=\"_blank\" class=\"text-info-dk\">新建</a>\r\n                                <span class=\"c-gray\">|</span>\r\n                                <a href=\"#\" target=\"_blank\" class=\"text-info-dk\">如何设置合适的运费模板？</a>', '1', '', '4', '1', '1', '1456206927526', '1456205924096', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -457,7 +464,7 @@ CREATE TABLE `cmswing_channel` (
 -- Records of cmswing_channel
 -- ----------------------------
 INSERT INTO `cmswing_channel` VALUES ('1', '0', '首页', '/', '1', '1379475111', '1379923177', '1', '0');
-INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/Article/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/topic/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('3', '0', '外部链接', 'http://www.cmswing.com', '3', '1379475154', '1454396773062', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('10', '0', '测试导航', '11111', '5', '1454399423443', '0', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('11', '10', '222', '1111', '0', '1454400241024', '0', '1', '0');
@@ -506,7 +513,7 @@ CREATE TABLE `cmswing_document` (
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`category_id`,`status`),
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
 
 -- ----------------------------
 -- Records of cmswing_document
@@ -563,7 +570,11 @@ INSERT INTO `cmswing_document` VALUES ('51', '1', '', 'fdsfdsaffs', '45', '0', '
 INSERT INTO `cmswing_document` VALUES ('52', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', 'fdsfadsafdsa', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919793690', '1452919793690', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('53', '1', '', 'dsfdsfsfsd', '45', '0', 'fdsfsdfsdfsd', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452920306456', '1452920306456', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1455708692570', '1', '72,73,74', '0');
+INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1455708692570', '1', '72,73,74', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('59', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203072311', '1456203072311', '1', '', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('60', '1', '', 'fdsfsdf5555', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203178151', '1456203178151', '1', '', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('61', '1', '', 'gfdgdf', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456215551669', '1456215551669', '1', '', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('62', '1', '', '测试唱片', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456236857429', '1456236857430', '1', '75,76', '{\"present_price\":100,\"discount_price\":88}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -658,13 +669,18 @@ CREATE TABLE `cmswing_document_shop` (
   `invoice` char(10) NOT NULL DEFAULT '0' COMMENT '发票',
   `warranty` char(10) NOT NULL DEFAULT '0' COMMENT '保修',
   `goods_detail` text NOT NULL COMMENT '商品详情',
+  `freight` varchar(255) NOT NULL COMMENT '设置运费',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_document_shop
 -- ----------------------------
-INSERT INTO `cmswing_document_shop` VALUES ('58', 'sukgfdgfdg', '', '0', '0', '1', '0', '0', '');
+INSERT INTO `cmswing_document_shop` VALUES ('58', 'sukgfdgfdg', '', '0', '0', '1', '0', '0', '', '');
+INSERT INTO `cmswing_document_shop` VALUES ('59', '{\"type\":[\"颜色\"],\"data\":[{\"name\":\"11\",\"type\":\"颜色\",\"sku_price\":\"8\",\"sku_stock\":\"9\",\"sku_code\":\"\"}]}', '', '0', '0', '1', '0', '0', '<p>fsdfdsfsd<br/></p>', '');
+INSERT INTO `cmswing_document_shop` VALUES ('60', '', '', '10', '0', '1', '0', '0', '<p>5454<br/></p>', '');
+INSERT INTO `cmswing_document_shop` VALUES ('61', '', '', '40', '0', '1', '0', '0', '<p>54545454545<br/></p>', '{\"type\":0,\"val\":\"101\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('62', '', '', '100', '0', '1', '0', '0', '<p>1111111111<br/></p>', '{\"type\":0,\"val\":\"10\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_file
@@ -725,7 +741,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '320', 'arterli@qq.com', '44', '', '1452513965683', '0', '1456135951200', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '360', 'arterli@qq.com', '46', '', '1452513965683', '0', '1456238106853', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -933,7 +949,7 @@ CREATE TABLE `cmswing_model` (
 INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础模型', '0', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1455680364521', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1453711249446', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"65\",\"67\",\"71\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"73\",\"75\",\"77\",\"79\"],\"4\":[\"2\",\"10\",\"9\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:物流/其它,4:高级信息', '63,69,71,73,75,77,79,81,2,3,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片', '', '', '', '', '10', '', '', '1455680338771', '1456130639971', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"65\",\"67\",\"71\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"83\",\"73\",\"75\",\"77\",\"79\"],\"4\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:物流/其它,4:高级信息', '63,69,71,73,75,77,79,81,83,2,3,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片', '', '', '', 'id:编号\r\npics:商品图\r\ntitle:商品名称:[EDIT]\r\nprice|formatprice:价格\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\ntotal_stock:总库存\r\nview:浏览量\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '10', '', '', '1455680338771', '1456238145623', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_picture
@@ -948,7 +964,7 @@ CREATE TABLE `cmswing_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=77 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -1027,6 +1043,8 @@ INSERT INTO `cmswing_picture` VALUES ('71', '/upload/picture/2016-02-17/iDlgPDta
 INSERT INTO `cmswing_picture` VALUES ('72', '/upload/picture/2016-02-17/vcj2HR7Y3luK4M1Jk72YpjUU.png', '', '', '', '1', '1455708689996');
 INSERT INTO `cmswing_picture` VALUES ('73', '/upload/picture/2016-02-17/Y_83VJuAlZVYWc7fOCO6B8rh.png', '', '', '', '1', '1455708690066');
 INSERT INTO `cmswing_picture` VALUES ('74', '/upload/picture/2016-02-17/JQ5VJcVR3YRsgtxam6lg9wV7.png', '', '', '', '1', '1455708690070');
+INSERT INTO `cmswing_picture` VALUES ('75', '/upload/picture/2016-02-23/4oG7lGGocXEDbM3LT-ESGqwt.jpg', '', '', '', '1', '1456236833650');
+INSERT INTO `cmswing_picture` VALUES ('76', '/upload/picture/2016-02-23/Nw4N4viqLvUJrg_ewYRd8sN0.jpg', '', '', '', '1', '1456236833735');
 
 -- ----------------------------
 -- Table structure for cmswing_session

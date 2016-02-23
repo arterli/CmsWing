@@ -110,8 +110,14 @@ export default class extends Base {
         //过滤重复字段
         fields = unique(fields);
         //console.log(fields);
-       console.log(model_id);
+       // console.log(model_id);
         let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id);
+        for(let val of list){
+            if(val.pics){
+                val.pics = await get_pics_one(val.pics,"path");
+            }
+        }
+        console.log(list);
          list = await this.parseDocumentList(list, model_id);
         //console.log(list);
         //获取面包屑信息
@@ -211,7 +217,7 @@ export default class extends Base {
                 // return
                 //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
-                console.log(3333333333);
+                //console.log(3333333333);
                 Document.alias('DOCUMENT').join({
                     table: `document_${modelName[0]}`,
                     join: "inner",

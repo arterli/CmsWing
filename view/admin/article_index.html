@@ -1,6 +1,12 @@
 {% extends "./inc/base.html" %} {% block style %}
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
-<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css"> {% endblock%} {% block content %}
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+<style>
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+        vertical-align:middle;
+    }
+</style>
+ {% endblock%} {% block content %}
 <section class="vbox">
     <section id="bjax-target">
         <section class="hbox stretch">

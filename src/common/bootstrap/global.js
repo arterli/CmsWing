@@ -386,7 +386,8 @@ global.get_attribute_type = function (type){
         'file'      :  ['上传附件','int(10) unsigned NOT NULL'],
         'suk'       :  ['商品规格','text NOT NULL'],
         'pics'      :  ['多图上传','varchar(255) NOT NULL'],
-        'price'     :  ['价格','varchar(255) NOT NULL']
+        'price'     :  ['价格','varchar(255) NOT NULL'],
+        'freight'   :  ['运费','varchar(255) NOT NULL']
 }
     return type?_type[type][0]:_type;
 }
@@ -657,3 +658,70 @@ global.get_cover=async (cover_id,field)=>{
     let picture = await think.model('picture',think.config("db")).where({'status':1}).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
+
+/**
+ * 获取多图封面
+ * @param array arr_id
+ * @param string field
+ * @return 完整的数据或者 指定的field字段值
+ * @author arterli <arterli@qq.com>
+ */
+/*global get_pics_one */
+global.get_pics_one = async (arr_id,field)=>{
+    if(think.isEmpty(arr_id)){
+        return false;
+    }
+    var arr=arr_id.split(",");
+    return get_cover(arr[0],field);
+    
+}
+//{present_price:100,discount_price:80}
+global.formatprice=function(price) {
+    let pr= JSON.parse(price);
+    return "现价：￥"+formatCurrency(pr.present_price);
+}
+    /** 
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式 
+     * 
+     * @param num 数值(Number或者String) 
+     * @return 金额格式的字符串,如'1,234,567.45' 
+     * @type String 
+     */  
+    /*global formatCurrency */
+  global.formatCurrency = function (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+            num = "0";  
+        let sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*100+0.50000000001);  
+        let cents = num%100;  
+        num = Math.floor(num/100).toString();  
+        if(cents<10)  
+        cents = "0" + cents;  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  
+       
+    /** 
+     * 将数值四舍五入(保留1位小数)后格式化成金额形式 
+     * 
+     * @param num 数值(Number或者String) 
+     * @return 金额格式的字符串,如'1,234,567.4' 
+     * @type String 
+     */  
+    /*global formatCurrencyTenThou */
+  global.formatCurrencyTenThou = function (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+        num = "0";  
+        let sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*10+0.50000000001);  
+        let cents = num%10;  
+        num = Math.floor(num/10).toString();  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  
