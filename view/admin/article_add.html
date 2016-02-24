@@ -62,7 +62,7 @@
                         </ul>
                         <!-- / .breadcrumb -->
                         <div class="row">
-                            <div class="col-lg-10"><section class="panel panel-default">
+                            <div class="col-lg-12"><section class="panel panel-default">
                                 <header class="panel-heading text-right bg-light">
                                     <ul class="nav nav-tabs pull-left">
                                         {% for key ,group in model.field_group | parse_config_attr %}
@@ -138,7 +138,7 @@
                         </div>
                             </div>
                             <div class="radio-tab2 hide ">
-                          <select style="width:260px" data-placeholder="请选择运费模板" class="chosen-select" id="js-delivery-template">
+                          <select style="width:260px" data-placeholder="请选择运费模板" class="chosen-select1" id="js-delivery-template">
                                <option value=""></option>
                                 <option value="1">测试运费模板1</option>
                                 <option value="2">测试运费模板2</option>
@@ -178,9 +178,8 @@
                                  $("#{{field.name}}").val(JSON.stringify(o));
                              })
                              
-                              $(".chosen-select").chosen().change(function(){
+                              $(".chosen-select1").chosen().change(function(){
                                  //$("#js-unified-postage").attr("checked",false);
-                                
                                  val =$("#js-delivery-template  option:selected").val();
                                  var o = {"type":1,"val":val};
                                  $("#{{field.name}}").val(JSON.stringify(o));
@@ -666,7 +665,7 @@
                                     </script>
                                     </div>
     {% elif field.type == "price" %}
-    <div class="col-md-4 ">
+    <div class="col-md-5">
     <input type="hidden" name="{{field.name}}" id="price">
     <div class="row">
     <div class="col-md-6">   <div class="input-group ">
@@ -996,7 +995,7 @@
                     </form>
             </div>
         </section></div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 hide">
             left
             </div>
                         </div>
