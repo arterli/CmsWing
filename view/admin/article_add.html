@@ -288,9 +288,10 @@
             var arr = $('.chosen-select');
             var narr=[];
             $.each(arr,function(k,v){
+                if($(v).find("option:selected").text().length>0)
                 narr.push($(v).find("option:selected").text());
             })
-            //console.log(narr);
+           console.log(narr);
             var thHtml = "";
             thHtml += "";
                 thHtml += "<tr>";
@@ -526,7 +527,7 @@
                  $("#price").val(p);
              }else{
                  $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
-                  var p ='{"present_price":'+pricearr[0]+'-'+pricearr[pricearr.length-1]+',"discount_price":'+$("#discount_price").val()+'}'
+                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":'+$("#discount_price").val()+'}'
                  $("#price").val(p);
              }
              //关联库存
@@ -543,6 +544,7 @@
         var arr = $('.chosen-select');    
         var type=[];
         $.each(arr,function(k,v){
+        if($(v).find("option:selected").text().length>0)
         type.push($(v).find("option:selected").text());
         })
         return type;
@@ -626,8 +628,8 @@
                                                                         </div>\
                                                                     </section>'
                                                 $('.{{field.name}}_body').append({{field.name}}_select);
+                                               if($(".chosen-select").length){  
                                                 $('.chosen-select').chosen({ placeholder_text: "选择规则"});
-                                                
                                                 $('.tags').tagsInput({
                                                     width:'auto',
                                                     height:'43px',
@@ -642,6 +644,7 @@
                                                              $("input[name='total_stock']").attr("disabled",true);
                                                         }
                                                     });
+                                                    }
                                                 cout();
                                                 
                                             })
@@ -664,17 +667,16 @@
                                     </div>
     {% elif field.type == "price" %}
     <div class="col-md-4 ">
-        <input type="hidden" name="{{field.name}}" id="price">
-        <div class="row">
-            <div class="col-md-6">   <div class="input-group ">
-                          <span class="input-group-addon">￥</span>
-                          <input type="text" class="form-control" id="present_price">
-                        </div>  </div>
-      <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  class="form-control" id="discount_price">  </div>
-            
-        </div>         
+    <input type="hidden" name="{{field.name}}" id="price">
+    <div class="row">
+    <div class="col-md-6">   <div class="input-group ">
+    <span class="input-group-addon">￥</span>
+    <input type="text" class="form-control" id="present_price">
+    </div>  </div>
+    <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  class="form-control" id="discount_price">  </div>  
+    </div>         
     </div>
-                                        {% elif field.type == "pics" %}
+                                    {% elif field.type == "pics" %}
                                     <div class="col-md-10">
                                         <input type="hidden" name="{{field.name}}" class="form-control" value="" id="{{field.name}}" />
                                     <div id="uploader" class="wu-example">
@@ -695,7 +697,7 @@
                                     </div>
                                 </div>
                                 <script src="/static/admin/js/webuploader/pics.js" type="text/javascript"></script>
-                                    </div>
+                                </div>
                                     {% elif field.type == "bool" %}
                                     <div class="col-md-4">
                                         <select class="form-control" name="{{field.name}}">

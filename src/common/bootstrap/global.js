@@ -678,7 +678,32 @@ global.get_pics_one = async (arr_id,field)=>{
 //{present_price:100,discount_price:80}
 global.formatprice=function(price) {
     let pr= JSON.parse(price);
-    return "现价：￥"+formatCurrency(pr.present_price);
+    var present_price;
+     console.log(pr);
+     if(think.isNumber(pr.present_price)){
+        pr.present_price=pr.present_price.toString();
+     }
+    var price = pr.present_price.split("-");
+    if(price.length >1){
+        present_price = formatCurrency(price[0])+"-"+formatCurrency(price[1]);
+    }else{
+        present_price = formatCurrency(price[0])
+    }
+    if(think.isEmpty(pr.discount_price)){
+        return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span></span>`;
+    }else{
+        return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span> <br>原价:￥${formatCurrency(pr.discount_price)}</span>`;
+    }
+    
+}
+
+global.present_price = function (price,type) {
+    let pr= JSON.parse(price);
+    if(1==type){
+        return pr.present_price;
+    }else{
+        return pr.discount_price;
+    }
 }
     /** 
      * 将数值四舍五入(保留2位小数)后格式化成金额形式 

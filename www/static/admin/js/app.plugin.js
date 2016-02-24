@@ -161,6 +161,6 @@
 
 	//chosen
 	//$(".chosen-select").length && $(".chosen-select").chosen();
-//$(".chosen-select").chosen();
+   //$(".chosen-select").chosen();
   });
 }(window.jQuery);

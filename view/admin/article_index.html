@@ -87,17 +87,7 @@
                                             粘贴
                                         </a>
                                         </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
-                                                微信图文
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
-                                                高级图文
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
-                                                推送
-                                            </a>
-                                        </div>
+                                       
                                         <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
                                             删除
                                         </a>
@@ -158,9 +148,21 @@
                             </div>
                             <footer class="panel-footer">
                                 <div class="row">
-
-
-                                    <div class="col-sm-12 text-right text-center-xs">
+                                 <div class="col-md-6">
+                                      <div class="btn-group">
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
+                                                微信图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
+                                                高级图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="/admin/cms/del/model/{{model.id}}">
+                                                推送
+                                            </a>
+                                        </div>
+                                 </div>
+                                  
+                                    <div class="col-md-6 text-right text-center-xs">
                                         {{pagerData | safe}}
                                     </div>
                                 </div>

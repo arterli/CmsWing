@@ -3,8 +3,11 @@
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
 <link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+<link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
+<link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
 <!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
 <script src="/static/admin/js/jquery.min.js"></script>
+<script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <!--<script src="/static/admin/js/uploadify/jquery.uploadify.min.js"></script>-->
 <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
 <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
@@ -26,7 +29,10 @@
         clip:inherit;
         display: block;
     }
-
+table tr td{
+    font-weight: normal;
+    vertical-align: middle !important;
+}
 </style>
 {% endblock%}
 {% block content %}
@@ -98,6 +104,1151 @@
                                                         <div class="col-md-3">
                                                             <input type="text" name="{{field.name}}" class="form-control time" value="{{data[field.name]|dateformat('Y-m-d H:i')}}" placeholder="请选择时间" />
                                                         </div>
+                 {% elif field.type == "freight" %}
+                <div class="col-md-5">
+                    <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}'' id="{{field.name}}"/>
+                    {% set freight = data[field.name]|strToJson %}
+                   <table  class="table table-bordered b-t b-light m-b-none">
+                        <tr><td>
+                    <div class="radio i-checks">
+                          <label>
+                            <input type="radio" {%if freight.type == 0%}checked=""{%endif%} value="0" id="js-unified-postage" name="{{field.name}}_radio">
+                            <i></i>
+                            统一运费 
+                          </label>
+                         
+                        </div>
+                        </td>
+                        <td>
+                       <div class="radio i-checks">
+                          <label>
+                            <input type="radio" {%if freight.type == 1%}checked=""{%endif%} value="1" id="js-use-delivery" name="{{field.name}}_radio">
+                            <i></i>
+                            运费模板
+                          </label>
+                        </div>
+                         
+                        </td></tr>
+                        <tr><td colspan="2">
+                            <div class="radio-tab1">
+                       <div class="input-group {%if freight.type == 1%}hide{%endif%}">
+                          <span class="input-group-addon">￥</span>
+                          <input type="text" class="form-control" style="width:100px" value="{%if freight.type == 0%}{{freight.val}}{%else%}0{%endif%}" id="js-postage">
+                        </div>
+                            </div>
+                            <div class="radio-tab2 {%if freight.type == 0%}hide{%endif%} ">
+                          <select style="width:260px" data-placeholder="请选择运费模板" class="chosen-select" id="js-delivery-template">
+                                <option value=""></option>
+                                <option value="1" {%if freight.val == 1 and freight.type==1 %} selected="selected"{%endif%}>测试运费模板1</option>
+                                <option value="2" {%if freight.val == 2 and freight.type==1 %} selected="selected"{%endif%}>测试运费模板2</option>
+                        </select>
+                            </div>
+                        </td>
+                        </tr>
+                            </table>
+                            <script>
+                             $.each($("[name='{{field.name}}_radio']"),function(){
+                                 
+                                 $(this).click(function(){
+                                     var id = $(this).val();
+                                     var val;
+                                     if(0 == id){
+                                      val = $("#js-postage").val()
+                                      $(".radio-tab1").removeClass('hide');
+                                      $(".radio-tab2").addClass('hide');
+                                     }else{
+                                      val =$("#js-delivery-template  option:selected").val();
+                                       $(".radio-tab1").addClass('hide');
+                                      $(".radio-tab2").removeClass('hide');   
+                                     }
+                                     var o = {"type":id,"val":val};
+                                     $("#{{field.name}}").val(JSON.stringify(o));
+                                 })
+                                 
+                             })
+                             $("#js-postage").on("focus",function(){
+                                  val = $("#js-postage").val()
+                                  var o = {"type":0,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                             $("#js-postage").on("change",function(){
+                                 val = $("#js-postage").val()
+                                  var o = {"type":0,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                             
+                              $(".chosen-select").chosen().change(function(){
+                                 //$("#js-unified-postage").attr("checked",false);
+                                
+                                 val =$("#js-delivery-template  option:selected").val();
+                                 var o = {"type":1,"val":val};
+                                 $("#{{field.name}}").val(JSON.stringify(o));
+                             })
+                            </script>
+                </div>
+                  {% elif field.type == "suk" %}
+                <div class="col-md-10">
+                    <input type="hidden" name="{{field.name}}" class="form-control" value="{{data[field.name]}}" id="{{field.name}}" />
+                    <section class="panel panel-default">
+                    <header class="panel-heading {{field.name}}_heading hide"><ul class="nav nav-pills pull-right">
+                        <li>
+                          <a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
+                        </li>
+                      </ul>商品规格</header>
+                    <section class="chat-list panel-body {{field.name}}_body hide">
+                        {% set pp = data[field.name]|strToJson%}
+                        {% set n = 0 %}
+                        {% for v in pp.type %}
+                         {% set n = n+1 %}
+                          <section class="panel panel-default m-b-none select-{{n}}">
+                                        <header class="panel-heading bg-light no-border">
+                                        <div class="clearfix">
+                                            <select style="width:260px" class="chosen-select" data-placeholder="请选择规格">
+                                            <option value="AK">颜色</option>
+                                            <option value="HI">尺码</option>
+                                            <option value="111">规格</option>
+                                            </select>
+                                            <a  class="close {{field.name}}_close" id="select-{{n}}" >×</a>
+                                        </div>
+                                        </header>
+                                        <div class="list-group no-radius alt">
+                                        <div href="#" class="list-group-item">
+                                        <input type="text" class="tags" value="" />
+                                        </div>
+                                        </div>
+                                    </section>
+                                    {%endfor%}
+                    </section>
+                    <footer class="panel-footer btn btn-block" id="{{field.name}}_addsuk">
+                    <!-- chat form -->
+                    <i class="fa fa-plus text"></i> 添加规格项目
+                    </footer>
+                </section>
+                <section class="panel panel-default {{field.name}}_table hide">
+                <header class="panel-heading">
+                    <ul class="nav nav-pills pull-right">
+                        <li>
+                          <a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
+                        </li>
+                      </ul>
+                 商品库存
+                </header>
+              
+                <div class="table-responsive panel-body p-none">
+                  <table class="table table-bordered b-t b-light">
+                    <thead> </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+                <footer class="panel-footer">
+                  <div class="row">
+                    <div class="col-sm-10 hidden-xs">
+                      批量设置: <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
+      data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置价格' 
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入价格' id='price-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-price' href='###'>保存</a></div>">价格</a>
+      <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
+      data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置库存' 
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入库存' id='stock-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-stock'  href='###'>保存</a></div>">库存</a>                 
+                    </div>
+                    
+                  </div>
+                </footer>
+              </section>
+        <script>
+        $(function(){
+         var stock_val = '{{data[field.name]|safe}}';
+         console.log(stock_val);
+         if(stock_val){
+             stock_val = JSON.parse(stock_val);
+             //console.log(stock_val);
+             var arr1=[];
+             var nn=0
+             $.each(stock_val.data,function(k,v){
+                arr1.push(v.name);
+                var arr2=[];
+                if(v.ch){
+                    $.each(v.ch,function(_k,_v){
+                       // console.log(_v.name);
+                        arr2.push(_v.name);
+                        var arr3 = [];
+                        if(_v.ch){
+                           $.each(_v.ch,function(__k,__v){
+                              arr3.push(__v.name); 
+                              
+                           }) 
+                        }
+                        if(_k==0 && k==0){
+                   $(".tags").eq(2).val(arr3.join(",")); 
+                }
+                    })
+                }
+                console.log(arr2);
+                if(k==0){
+                   $(".tags").eq(1).val(arr2.join(",")); 
+                }
+             }) 
+             $(".tags").eq(0).val(arr1.join(","));
+             }
+        //初始化
+         $('.tags').tagsInput({
+            width:'auto',
+            height:'43px',
+            defaultText:'添加规格',
+            onChange: function(elem, elem_tags)
+                {
+                    
+                    drawThead()//绘制表头
+                    drawTbody()//绘制表格
+                    //当有规格添加时锁定价格和库存
+                        $("#present_price").attr("disabled",true);
+                        $("input[name='total_stock']").attr("disabled",true);
+                }
+            });
+            cout()
+        //批量设置价格
+        $(document).on('click',"#js-batch-price",function(){
+            var price=$("#price-batch-txt").val();
+            $(".sku_price").val(price);
+            chandate();
+            $('.popover-hide').popover('hide');
+        });
+         $(document).on('click',"#js-batch-stock",function(){
+            var stock=$("#stock-batch-txt").val();
+            $(".sku_stock").val(stock);
+            chandate();
+            $('.popover-hide').popover('hide');
+        });
+        //记录添加规格的个数
+        function cout(){
+            var size = $(".{{field.name}}_body>section").size();
+            if(size!=0){
+                    $(".{{field.name}}_heading").removeClass("hide");
+                $(".{{field.name}}_body").removeClass("hide");
+                $(".{{field.name}}_table").removeClass("hide");
+               
+            }else{
+                    $(".{{field.name}}_heading").addClass("hide");
+                $(".{{field.name}}_body").addClass("hide");
+                $(".{{field.name}}_table").addClass("hide");
+                 $("#present_price").attr("disabled",false);
+                 $("input[name='total_stock']").attr("disabled",false);
+            }
+            if(size > 2){
+                $("#{{field.name}}_addsuk").addClass("hide");
+            }else{
+                $("#{{field.name}}_addsuk").removeClass("hide");
+            }
+        }
+        //添加一级规格
+       
+        $(document).on('change','.chosen-select',function(){
+            var val = $('.chosen-select').val();//获取选中的值
+            var tex = $('.chosen-select option:selected').text();//选择选择的文字
+            drawThead()//绘制表头
+            //console.log(val);
+            //console.log(tex);
+        })
+
+        //绘制表头
+        function drawThead(){
+            var arr = $('.chosen-select');
+            var narr=[];
+            $.each(arr,function(k,v){
+                if($(v).find("option:selected").text().length>0)
+                narr.push($(v).find("option:selected").text());
+            })
+            //console.log(narr);
+            var thHtml = "";
+            thHtml += "";
+                thHtml += "<tr>";
+            for (cSort = 0; cSort <= narr.length - 1; cSort++) {
+                thHtml += '<th class="active">' + narr[cSort] + "</th>";
+            }
+            thHtml += '<th class="active">价格</th><th class="active">库存</th><th class="active">编码</th><th class="active">销量</th>';
+            thHtml += "</tr>";
+            thHtml += "";
+                $(".{{field.name}}_table").removeClass("hide");
+                $(".{{field.name}}_table table thead").html(thHtml);
+        }
+
+        //绘制表格
+        function drawTbody(){
+        $(".{{field.name}}_table").removeClass("hide");
+         var type = gettype();
+         var narr = getstru();
+            var i=0;
+            var tbHtml="";
+            var tbHtml1="";
+            var tbHtml2="";
+             var v_sku_price="";
+             var v_sku_stock="";
+             var v_sku_code="";
+            //获取上次chucun的数据；
+            var predatas = $("#{{field.name}}").val();
+            if(stock_val){
+            var predata = stock_val.data;
+            }else if(predatas){
+            var predata = $.parseJSON(predatas).data; 
+            }        
+            //console.log(predata);
+             
+                $.each(narr,function(k,v){
+                    if(v.ch){
+                        $.each(v.ch,function(_k,_v){ 
+                            if(_v.ch){
+                            
+                                $.each(_v.ch,function(__k,__v){
+                                    
+                //输出三级表格
+                //  var v_sku_price,v_sku_stock,v_sku_code;
+                // if(predata){
+                //     if(predata[k]['ch']){
+                //     if(predata[k]['ch'][_k]['ch']){
+                //         console.log(predata[k]['ch'][_k]["ch"][__k])
+                //         var d_=predata[k]['ch'][_k]["ch"][__k];
+                //     if(d_){
+                //     v_sku_price= d_['sku_price'];
+                //     v_sku_stock= d_['sku_stock'];
+                //     v_sku_code= d_['sku_code'];
+                //     }
+                //     }
+                //     }
+                // }
+                try{
+                // 可能会导致错误的代码
+               var v_sku_price="";
+             var v_sku_stock="";
+             var v_sku_code="";
+                 var d_=predata[k]['ch'][_k]["ch"][__k];
+                    v_sku_price= d_['sku_price']?d_['sku_price']:"";
+                    v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
+                    v_sku_code= d_['sku_code']?d_['sku_code']:"";
+                } catch(error){
+                // 在错误发生时怎么处理
+                } 
+                var g = v.ch.length * _v.ch.length;          
+                tbHtml += "<tr>";
+                if(i % g == 0){
+                tbHtml += "<td rowspan="+v.ch.length*_v.ch.length+">" + v.name + "</td>";
+                }
+                if( __k % _v.ch.length == 0){
+                tbHtml += "<td rowspan="+_v.ch.length+">" + _v.name + "</td>";
+                }
+                tbHtml += "<td rowspan='1'>" + __v.name + "</td>";
+                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price" id="sku_price_'+i+'"></td>\
+                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
+                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code"  id="sku_code_'+i+'"></td>\
+                        <td>0</td>';
+                tbHtml += "</tr>";
+                var sku_price="#sku_price_"+i;
+                var sku_stock="#sku_stock_"+i;
+                var sku_code="#sku_code_"+i;
+                
+                __v.sku_price=$(sku_price).val();
+                __v.sku_stock=$(sku_stock).val();
+                __v.sku_code=$(sku_code).val();
+                i=i+1; 
+                                })
+                            }else{
+                                //输出二级表格
+                // var v_sku_price,v_sku_stock,v_sku_code;
+                     
+                // if(predata){
+                //     if(predata[k]['ch']){
+                //         console.log(predata[k]["ch"][_k])
+                //         var d_=predata[k]["ch"][_k];
+                //     if(d_){
+                //     v_sku_price= d_['sku_price'];
+                //     v_sku_stock= d_['sku_stock'];
+                //     v_sku_code= d_['sku_code'];
+                //     }
+                //     }
+                // }
+                 try{
+                // 可能会导致错误的代码
+                 var d_=predata[k]["ch"][_k];
+                    v_sku_price= d_['sku_price']?d_['sku_price']:"";
+                    v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
+                    v_sku_code= d_['sku_code']?d_['sku_code']:"";
+                } catch(error){
+                // 在错误发生时怎么处理
+                } 
+                tbHtml += "<tr>";
+                if( _k % v.ch.length == 0){
+                tbHtml += "<td rowspan="+v.ch.length+">" + v.name + "</td>";
+                }
+                tbHtml += "<td rowspan='1'>" + _v.name + "</td>";
+                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>\
+                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
+                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>\
+                        <td>0</td>';
+                tbHtml += "</tr>";
+                var sku_price="#sku_price_"+i;
+                var sku_stock="#sku_stock_"+i;
+                var sku_code="#sku_code_"+i;
+                
+                _v.sku_price=$(sku_price).val();
+                _v.sku_stock=$(sku_stock).val();
+                _v.sku_code=$(sku_code).val();
+                i=i+1;
+                            }
+                        })
+                    }else{
+                        //输出一级表格
+            
+                       if(predata){
+                           if(predata[k]){
+                           //console.log(predata[k]['sku_price'] != null)
+                           v_sku_price= predata[k]['sku_price'] ? predata[k]['sku_price']:"";
+                           v_sku_stock= predata[k]['sku_stock'] ? predata[k]['sku_stock']:"";
+                           v_sku_code= predata[k]['sku_code'] ? predata[k]['sku_code']:"";
+                           }
+                       }
+                        tbHtml += "<tr>";
+                tbHtml += "<td rowspan='1'>" + v.name + "</td>";
+                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>'+
+                          '<td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>'+
+                          '<td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>'+
+                          '<td>0</td>';
+                tbHtml += "</tr>";
+                var sku_price="#sku_price_"+i;
+                var sku_stock="#sku_stock_"+i;
+                var sku_code="#sku_code_"+i;
+               
+                v.sku_price=$(sku_price).val();
+                v.sku_stock=$(sku_stock).val();
+                v.sku_code=$(sku_code).val();
+                i=i+1;
+                    }
+                })
+                //console.log(tbHtml1);
+            
+            $(".{{field.name}}_table table tbody").html(tbHtml); 
+            //拼装储存数据
+            var {{field.name}}_info={
+                type:type,
+                data:narr
+            }
+            $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+                                                                }
+        // 储存数据
+        $(document).on('change','.sku_price,.sku_stock,.sku_code',function(){
+            chandate();
+        })
+        
+        function chandate(){
+           var type = gettype();
+           var narr = getstru();
+           localStorage.setItem('$narr', JSON.stringify(narr));
+ 
+           var ntr = $(".suk_table").find("tbody>tr");
+           var bianli_arr = [];
+           $.each(ntr, function(k,v){
+              var _obj = {};
+              _obj.sku_price = $("#sku_price_"+k).val();
+              _obj.sku_stock = $("#sku_stock_"+k).val();
+              _obj.sku_code  = $("#sku_code_"+k).val();
+              bianli_arr.push(_obj);
+           });
+           //console.log(JSON.stringify(bianli_arr));
+         
+           function bianli (arr){
+                for(var i = 0; i < arr.length; i++){
+                    try{
+                        if(arr[i].ch){
+                            bianli(arr[i].ch);
+                        }else{
+                            var sh = bianli_arr.shift();
+                            //console.log(sh);
+                            //console.log(arr[i]);
+                            for(var k in sh){
+                                arr[i][k] = sh[k];
+                            }
+                        }
+                    }catch(e){
+                    }
+                }
+                return arr;
+            }
+           //console.log(JSON.stringify(narr));
+           var result = bianli(JSON.parse(localStorage.getItem("$narr")));
+          // console.log(JSON.stringify(result));
+           
+           //拼装储存数据
+            var {{field.name}}_info={
+                "type":type,
+                "data":result
+            }
+            $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+            //关联价格
+            var pricearr=[];
+            $.each($(".sku_price"),function(){
+               pricearr.push($(this).val());
+            })
+            pricearr.sort(function(a,b){
+            return a-b;
+            });
+             if(pricearr[pricearr.length-1]==pricearr[0]){
+                 $("#present_price").val(pricearr[0]);
+                var p='{"present_price":'+pricearr[0]+',"discount_price":'+$("#discount_price").val()+'}'
+                 $("#price").val(p);
+             }else{
+                 $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
+                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":'+$("#discount_price").val()+'}'
+                 $("#price").val(p);
+             }
+             //关联库存
+             var total_stockarr = 0;
+             $.each($(".sku_stock"),function(){
+                 total_stockarr=Number($(this).val())+total_stockarr; 
+             })
+              $("input[name='total_stock']").val(total_stockarr);
+        }
+        
+       
+        //获取类型
+        function gettype(){
+        var arr = $('.chosen-select');    
+        var type=[];
+        $.each(arr,function(k,v){
+        if($(v).find("option:selected").text().length>0)
+        type.push($(v).find("option:selected").text());
+        })
+        return type;
+        }
+        //数据机构
+        function getstru(){
+        var narr=[];
+       
+        $.each($(".tags"),function(k,v){
+        var type = gettype();
+        //narr.push($(v).val());
+        item=$(v).val().split(",");
+        //获取类型
+       
+            if(item[0].length != 0){
+                if(k==0){
+                $.each(item,function(n,m){
+                    var obj={};
+                    obj.name = m;
+                    obj.type = type[k]
+                    // console.log(obj);
+                    narr.push(obj);
+                })
+                    
+                }
+                    if(k==1){
+                    var ch_arr = [];
+                    $.each(item,function(nn,mm){
+                    //console.log(mm)
+                        var _obj = {};
+                        _obj.name = mm; 
+                        _obj.type = type[k]
+                        ch_arr.push(_obj);
+                    });
+                    for(var i = 0; i < narr.length; i++ ){
+                        narr[i].ch = ch_arr;
+                    }
+                }
+                if(k==2){
+                    var ch_arr = [];
+                    $.each(item,function(nn,mm){
+                        //console.log(mm)
+                        var _obj = {};
+                        _obj.name = mm; 
+                        _obj.type = type[k]
+                        ch_arr.push(_obj);
+                    });
+                    for(var i = 0; i < narr.length; i++ ){
+                        for(var j = 0; j < narr[i].ch.length; j++ ){
+                            var tmp = narr[i].ch;
+                            tmp[j].ch = ch_arr; 
+                        }
+                    }
+                }
+
+            }
+            
+            })
+            
+            return narr;
+        }
+                                            //添加规格
+                                            $("#{{field.name}}_addsuk").click(function(){
+                                                var size = $(".{{field.name}}_body>section").size()+1;
+                                                var {{field.name}}_select ='<section class="panel panel-default m-b-none select-'+size+'">\
+                                                                        <header class="panel-heading bg-light no-border">\
+                                                                        <div class="clearfix">\
+                                                                            <select style="width:260px" class="chosen-select" data-placeholder="请选择规格">\
+                                                                            <option value=""></option>\
+                                                                            <option value="AK">颜色</option>\
+                                                                            <option value="HI">尺码</option>\
+                                                                            <option value="111">规格</option>\
+                                                                            </select>\
+                                                                            <a  class="close {{field.name}}_close" id="select-'+size+'" >×</a>\
+                                                                        </div>\
+                                                                        </header>\
+                                                                        <div class="list-group no-radius alt">\
+                                                                        <div href="#" class="list-group-item">\
+                                                                        <input type="text" class="tags" value="" />\
+                                                                        </div>\
+                                                                        </div>\
+                                                                    </section>'
+                                                $('.{{field.name}}_body').append({{field.name}}_select);
+                                                 if($(".chosen-select").length){ 
+                                                $('.chosen-select').chosen();
+                                                $('.tags').tagsInput({
+                                                    width:'auto',
+                                                    height:'43px',
+                                                    defaultText:'添加规格',
+                                                    onChange: function(elem, elem_tags)
+                                                        {
+                                                            
+                                                            drawThead()//绘制表头
+                                                            drawTbody()//绘制表格
+                                                            //当有规格添加时锁定价格和库存
+                                                             $("#present_price").attr("disabled",true);
+                                                             $("input[name='total_stock']").attr("disabled",true);
+                                                        }
+                                                    });
+                                                 }
+                                                cout();
+                                                
+                                            })
+                                            //删除规格
+                                            $(document).on('click',".{{field.name}}_close",function(){
+                                                var select = $(this).attr("id");
+                                                select ="."+select;
+                                                $('section').remove(select);
+                                                    drawThead()//绘制表头
+                                                    drawTbody()//绘制表格
+                                                    cout();
+                                            })
+                                            //关联价格
+                                         $(document).on('change','#present_price,#discount_price',function(){
+                                             $("#price").val('{"present_price":'+$("#present_price").val()+',"discount_price":'+$("#discount_price").val()+'}')
+                                         })   
+                                        })
+                                        
+                                    </script>
+                                    </div>
+         {% elif field.type == "price" %}
+    <div class="col-md-4 ">
+    <input type="hidden" name="{{field.name}}" value="{{data[field.name]}}" id="price">
+    <div class="row">
+    <div class="col-md-6">   <div class="input-group ">
+    <span class="input-group-addon">￥</span>
+    <input type="text" class="form-control" value="{{data[field.name]|present_price('1')}}" id="present_price">
+    </div>  </div>
+    <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  value="{{data[field.name]|present_price('2')}}"  class="form-control" id="discount_price">  </div>  
+    </div>         
+    </div>
+        {% elif field.type == "pics" %}
+        <div class="col-md-10">
+        <input type="hidden" name="{{field.name}}" class="form-control" id="{{field.name}}" value="{{data[field.name]}}"/>
+        <div id="uploader" class="wu-example">
+        <div class="queueList">
+        <div id="dndArea" class="placeholder">
+        <div id="filePicker"></div>
+        <p>或将照片拖到这里，单次最多可选300张</p>
+        </div>
+        </div>
+        <div class="statusBar" style="display:none;">
+        <div class="progress">
+        <span class="text">0%</span>
+        <span class="percentage"></span>
+        </div><div class="info"></div>
+        <div class="btns">
+        <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
+        </div>
+        </div>
+        </div>
+        <!--<script src="/static/admin/js/webuploader/pics.js" type="text/javascript"></script>-->
+        <script>
+            jQuery(function () {
+        var $ = jQuery,    // just in case. Make sure it's not an other libaray.
+
+        $wrap = $('#uploader'),
+
+        // 图片容器
+        $queue = $('<ul class="filelist"></ul>')
+            .appendTo($wrap.find('.queueList')),
+
+        // 状态栏，包括进度和控制按钮
+        $statusBar = $wrap.find('.statusBar'),
+
+        // 文件总体选择信息。
+        $info = $statusBar.find('.info'),
+
+        // 上传按钮
+        $upload = $wrap.find('.uploadBtn'),
+
+        // 没选择文件之前的内容。
+        $placeHolder = $wrap.find('.placeholder'),
+
+        // 总体进度条
+        $progress = $statusBar.find('.progress').hide(),
+
+        // 添加的文件数量
+        fileCount = 0,
+
+        // 添加的文件总大小
+        fileSize = 0,
+
+        // 优化retina, 在retina下这个值是2
+        ratio = window.devicePixelRatio || 1,
+
+        // 缩略图大小
+        thumbnailWidth = 110 * ratio,
+        thumbnailHeight = 110 * ratio,
+
+        // 可能有pedding, ready, uploading, confirm, done.
+        state = 'pedding',
+
+        // 所有文件的进度信息，key为file id
+        percentages = {},
+
+        supportTransition = (function () {
+            var s = document.createElement('p').style,
+                r = 'transition' in s ||
+                    'WebkitTransition' in s ||
+                    'MozTransition' in s ||
+                    'msTransition' in s ||
+                    'OTransition' in s;
+            s = null;
+            return r;
+        })(),
+
+        // WebUploader实例
+        uploader;
+
+    if (!WebUploader.Uploader.support()) {
+        alert('Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
+        throw new Error('WebUploader does not support the browser you are using.');
+    }
+
+    // 实例化
+    uploader = WebUploader.create({
+        pick: {
+            id: '#filePicker',
+            label: '点击选择图片'
+        },
+        dnd: '#uploader .queueList',
+        paste: document.body,
+
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        },
+
+        // swf文件路径
+        swf: '/static/js/webuploader/Uploader.swf',
+
+        disableGlobalDnd: true,
+
+        chunked: true,
+        // server: 'http://webuploader.duapp.com/server/fileupload.php',
+        server: '/admin/file/uploadpic',
+        fileNumLimit: 300,
+        fileSizeLimit: 5 * 1024 * 1024,    // 200 M
+        fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
+    });
+
+    // 添加“添加文件”的按钮，
+    uploader.addButton({
+        id: '#filePicker2',
+        label: '继续添加'
+    });
+    uploader.on('uploadSuccess', function (file, res) {
+        var id = $("#{{field.name}}").val();
+        var ids;
+        if(id){
+           ids = id+','+res 
+        }else{
+            ids = res;
+        }
+        
+        console.log(ids);
+       $("#{{field.name}}").val(ids);
+    });
+    //编辑的时候载入图片
+    if("{{data[field.name]}}".length >0){
+    {% for val in data[field.name]|strToArray%}
+    var picobj = {}
+    var picurl = "{{val|get_cover("path")}}";
+    picobj.src = picurl;
+    picobj.id = {{val}};
+    picobj.name = {{val}};
+    addpic(picobj);
+    {% endfor %}
+    }
+    function addpic(file){
+    $placeHolder.addClass('element-invisible');
+    $statusBar.show();
+    $queue.parent().addClass('filled');   
+      var $li = $('<li id="' + file.id + '">' +
+            '<p class="title">' + file.name + '</p>' +
+            '<p class="imgWrap"></p>' +
+            '<p class="progress"><span></span></p>' +
+            '</li>'),
+
+            $btns = $('<div class="file-panel">' +
+                '<span class="cancel">删除</span>' +
+                '<span class="rotateRight">向右旋转</span>' +
+                '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+            $prgress = $li.find('p.progress span'),
+            $wrap = $li.find('p.imgWrap'),
+            $info = $('<p class="error"></p>');
+             var img = $('<img src="' + file.src + '">');
+                $wrap.empty().append(img);
+            $li.appendTo($queue);  
+    }
+    // 当有文件添加进来时执行，负责view的创建
+    function addFile(file) {
+        //console.log(file.id);
+        var $li = $('<li id="' + file.id + '">' +
+            '<p class="title">' + file.name + '</p>' +
+            '<p class="imgWrap"></p>' +
+            '<p class="progress"><span></span></p>' +
+            '</li>'),
+
+            $btns = $('<div class="file-panel">' +
+                '<span class="cancel">删除</span>' +
+                '<span class="rotateRight">向右旋转</span>' +
+                '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+            $prgress = $li.find('p.progress span'),
+            $wrap = $li.find('p.imgWrap'),
+            $info = $('<p class="error"></p>'),
+
+            showError = function (code) {
+                switch (code) {
+                    case 'exceed_size':
+                        text = '文件大小超出';
+                        break;
+
+                    case 'interrupt':
+                        text = '上传暂停';
+                        break;
+
+                    default:
+                        text = '上传失败，请重试';
+                        break;
+                }
+
+                $info.text(text).appendTo($li);
+            };
+
+        if (file.getStatus() === 'invalid') {
+            showError(file.statusText);
+        } else {
+            // @todo lazyload
+            $wrap.text('预览中');
+            uploader.makeThumb(file, function (error, src) {
+                if (error) {
+                    $wrap.text('不能预览');
+                    return;
+                }
+
+                var img = $('<img src="' + src + '">');
+                $wrap.empty().append(img);
+            }, thumbnailWidth, thumbnailHeight);
+
+            percentages[file.id] = [file.size, 0];
+            file.rotation = 0;
+        }
+
+        file.on('statuschange', function (cur, prev) {
+            if (prev === 'progress') {
+                $prgress.hide().width(0);
+            } else if (prev === 'queued') {
+                $li.off('mouseenter mouseleave');
+                $btns.remove();
+            }
+
+            // 成功
+            if (cur === 'error' || cur === 'invalid') {
+                console.log(file.statusText);
+                showError(file.statusText);
+                percentages[file.id][1] = 1;
+            } else if (cur === 'interrupt') {
+                showError('interrupt');
+            } else if (cur === 'queued') {
+                percentages[file.id][1] = 0;
+            } else if (cur === 'progress') {
+                $info.remove();
+                $prgress.css('display', 'block');
+            } else if (cur === 'complete') {
+                $li.append('<span class="success"></span>');
+            }
+
+            $li.removeClass('state-' + prev).addClass('state-' + cur);
+        });
+
+        $li.on('mouseenter', function () {
+            $btns.stop().animate({ height: 30 });
+        });
+
+        $li.on('mouseleave', function () {
+            $btns.stop().animate({ height: 0 });
+        });
+
+        $btns.on('click', 'span', function () {
+            var index = $(this).index(),
+                deg;
+
+            switch (index) {
+                case 0:
+                    uploader.removeFile(file);
+                    return;
+
+                case 1:
+                    file.rotation += 90;
+                    break;
+
+                case 2:
+                    file.rotation -= 90;
+                    break;
+            }
+
+            if (supportTransition) {
+                deg = 'rotate(' + file.rotation + 'deg)';
+                $wrap.css({
+                    '-webkit-transform': deg,
+                    '-mos-transform': deg,
+                    '-o-transform': deg,
+                    'transform': deg
+                });
+            } else {
+                $wrap.css('filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation=' + (~~((file.rotation / 90) % 4 + 4) % 4) + ')');
+                // use jquery animate to rotation
+                // $({
+                //     rotation: rotation
+                // }).animate({
+                //     rotation: file.rotation
+                // }, {
+                //     easing: 'linear',
+                //     step: function( now ) {
+                //         now = now * Math.PI / 180;
+
+                //         var cos = Math.cos( now ),
+                //             sin = Math.sin( now );
+
+                //         $wrap.css( 'filter', "progid:DXImageTransform.Microsoft.Matrix(M11=" + cos + ",M12=" + (-sin) + ",M21=" + sin + ",M22=" + cos + ",SizingMethod='auto expand')");
+                //     }
+                // });
+            }
+
+
+        });
+        //console.log($queue)
+        $li.appendTo($queue);
+    }
+
+    // 负责view的销毁
+    function removeFile(file) {
+        var $li = $('#' + file.id);
+
+        delete percentages[file.id];
+        updateTotalProgress();
+        $li.off().find('.file-panel').off().end().remove();
+    }
+
+    function updateTotalProgress() {
+        var loaded = 0,
+            total = 0,
+            spans = $progress.children(),
+            percent;
+
+        $.each(percentages, function (k, v) {
+            total += v[0];
+            loaded += v[0] * v[1];
+        });
+
+        percent = total ? loaded / total : 0;
+
+        spans.eq(0).text(Math.round(percent * 100) + '%');
+        spans.eq(1).css('width', Math.round(percent * 100) + '%');
+        updateStatus();
+    }
+
+    function updateStatus() {
+        var text = '', stats;
+
+        if (state === 'ready') {
+            text = '选中' + fileCount + '张图片，共' +
+            WebUploader.formatSize(fileSize) + '。';
+        } else if (state === 'confirm') {
+            stats = uploader.getStats();
+            if (stats.uploadFailNum) {
+                text = '已成功上传' + stats.successNum + '张照片至XX相册，' +
+                stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+            }
+
+        } else {
+            stats = uploader.getStats();
+            text = '共' + fileCount + '张（' +
+            WebUploader.formatSize(fileSize) +
+            '），已上传' + stats.successNum + '张';
+
+            if (stats.uploadFailNum) {
+                text += '，失败' + stats.uploadFailNum + '张';
+            }
+        }
+
+        $info.html(text);
+    }
+
+    function setState(val) {
+        var file, stats;
+
+        if (val === state) {
+            return;
+        }
+
+        $upload.removeClass('state-' + state);
+        $upload.addClass('state-' + val);
+        state = val;
+
+        switch (state) {
+            case 'pedding':
+                $placeHolder.removeClass('element-invisible');
+                $queue.parent().removeClass('filled');
+                $queue.hide();
+                $statusBar.addClass('element-invisible');
+                uploader.refresh();
+                break;
+
+            case 'ready':
+                $placeHolder.addClass('element-invisible');
+                $('#filePicker2').removeClass('element-invisible');
+                $queue.parent().addClass('filled');
+                $queue.show();
+                $statusBar.removeClass('element-invisible');
+                uploader.refresh();
+                break;
+
+            case 'uploading':
+                $('#filePicker2').addClass('element-invisible');
+                $progress.show();
+                $upload.text('暂停上传');
+                break;
+
+            case 'paused':
+                $progress.show();
+                $upload.text('继续上传');
+                break;
+
+            case 'confirm':
+                $progress.hide();
+                $upload.text('开始上传').addClass('disabled');
+
+                stats = uploader.getStats();
+                if (stats.successNum && !stats.uploadFailNum) {
+                    setState('finish');
+                    return;
+                }
+                break;
+            case 'finish':
+                stats = uploader.getStats();
+                if (stats.successNum) {
+                    alert('上传成功');
+                } else {
+                    // 没有成功的图片，重设
+                    state = 'done';
+                    location.reload();
+                }
+                break;
+        }
+
+        updateStatus();
+    }
+
+    uploader.onUploadProgress = function (file, percentage) {
+        var $li = $('#' + file.id),
+            $percent = $li.find('.progress span');
+
+        $percent.css('width', percentage * 100 + '%');
+        percentages[file.id][1] = percentage;
+        updateTotalProgress();
+    };
+
+    uploader.onFileQueued = function (file) {
+        fileCount++;
+        fileSize += file.size;
+
+        if (fileCount === 1) {
+            $placeHolder.addClass('element-invisible');
+            $statusBar.show();
+        }
+
+        addFile(file);
+        setState('ready');
+        updateTotalProgress();
+    };
+
+    uploader.onFileDequeued = function (file) {
+        fileCount--;
+        fileSize -= file.size;
+
+        if (!fileCount) {
+            setState('pedding');
+        }
+
+        removeFile(file);
+        updateTotalProgress();
+
+    };
+
+    uploader.on('all', function (type) {
+        var stats;
+        switch (type) {
+            case 'uploadFinished':
+                setState('confirm');
+                break;
+
+            case 'startUpload':
+                setState('uploading');
+                break;
+
+            case 'stopUpload':
+                setState('paused');
+                break;
+
+        }
+    });
+
+    uploader.onError = function (code) {
+        alert('Eroor: ' + code);
+    };
+
+    $upload.on('click', function () {
+        if ($(this).hasClass('disabled')) {
+            return false;
+        }
+
+        if (state === 'ready') {
+            uploader.upload();
+        } else if (state === 'paused') {
+            uploader.upload();
+        } else if (state === 'uploading') {
+            uploader.stop();
+        }
+    });
+
+    $info.on('click', '.retry', function () {
+        uploader.retry();
+    });
+
+    $info.on('click', '.ignore', function () {
+        alert('todo');
+    });
+
+    $upload.addClass('state-' + state);
+    updateTotalProgress();
+});
+        </script>
+        </div>
                                                         {% elif field.type == "bool" %}
                                                         <div class="col-md-4">
                                                             <select class="form-control " name="{{field.name}}">
@@ -143,242 +1294,255 @@
                                                                 });
                                                             </script>
                                                         </div>
-                                                        {% elif field.type == "picture" %}
-                                                        <div class="col-sm-10">
-                                                            <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}"/>
-                                                            <div id="fileList_{{field.name}}" class="uploader-list"></div>
-                                                            <div id="filePicker_{{field.name}}">选择图片</div>
+    {% elif field.type == "picture" %}
+    <div class="col-sm-10">
+        <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}" value="{{data[field.name]}}"/>
+        <div id="fileList_{{field.name}}" class="uploader-list"></div>
+        <div id="filePicker_{{field.name}}">选择图片</div>
 
-                                                        <script type="text/javascript">
-                                                           $list_{{field.name}} = $('#fileList_{{field.name}}'),
-                                                           // 优化retina, 在retina下这个值是2
-                                                               ratio_{{field.name}} = window.devicePixelRatio || 1,
+    <script type="text/javascript">
+        $list_{{field.name}} = $('#fileList_{{field.name}}'),
+        // 优化retina, 在retina下这个值是2
+            ratio_{{field.name}} = window.devicePixelRatio || 1,
 
-                                                           // 缩略图大小
-                                                               thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
-                                                               thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
+        // 缩略图大小
+            thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
+            thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
 
-                                                           // Web Uploader实例
-                                                               uploader_{{field.name}};
+        // Web Uploader实例
+            uploader_{{field.name}};
 
-                                                       // 初始化Web Uploader
-                                                       // 初始化Web Uploader
-                                                       var uploader_{{field.name}} = WebUploader.create({
-                                                           // 选完文件后，是否自动上传。
-                                                           auto: true,
-                                                           // swf文件路径
-                                                           swf: '/static/admin/js/webuploader/Uploader.swf',
-                                                           // 文件接收服务端。
-                                                           server: '/admin/file/uploadpic',
-                                                           // 选择文件的按钮。可选。
-                                                           // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                                                           pick: {
-                                                               id:'#filePicker_{{field.name}}',
-                                                               multiple: false
-                                                           },
-                                                           // 只允许选择图片文件。
-                                                           accept: {
-                                                               title: 'Images',
-                                                               extensions: 'gif,jpg,jpeg,bmp,png',
-                                                               mimeTypes: 'image/*'
-                                                           }
-                                                       });
-                                                       // 当有文件添加进来的时候
-                                                       uploader_{{field.name}}.on( 'fileQueued', function( file ) {
-                                                           var $li = $(
-                                                                           '<div id="' + file.id + '" class="file-item thumbnail">' +
-                                                                           '<img>' +
-                                                                           '<div class="info">' + file.name + '</div>' +
-                                                                           '</div>'
-                                                                   ),
-                                                                   $img = $li.find('img');
+    // 初始化Web Uploader
+    // 初始化Web Uploader
+    var uploader_{{field.name}} = WebUploader.create({
+        // 选完文件后，是否自动上传。
+        auto: true,
+        // swf文件路径
+        swf: '/static/admin/js/webuploader/Uploader.swf',
+        // 文件接收服务端。
+        server: '/admin/file/uploadpic',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: {
+            id:'#filePicker_{{field.name}}',
+            multiple: false
+        },
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+    //当有图片时加载图片
+    var cover_id="{{data[field.name]}}";
+    if(cover_id != 0){
+        var picurl = "{{data[field.name]|get_cover('path')}}"
+        var $li = $(
+                        '<div id="' + cover_id + '" class="file-item thumbnail thumb-lg">' +
+                        '<img src="'+picurl+'">' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
 
-                                                           $list_{{field.name}}.html( $li );
+        $list_{{field.name}}.html( $li );
+    }
+    // 当有文件添加进来的时候
+    uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+        var $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
 
-                                                           // 创建缩略图
-                                                           uploader_{{field.name}}.makeThumb( file, function( error, src ) {
-                                                               if ( error ) {
-                                                                   $img.replaceWith('<span>不能预览</span>');
-                                                                   return;
-                                                               }
+        $list_{{field.name}}.html( $li );
 
-                                                               $img.attr( 'src', src );
-                                                           }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
-                                                       });
+        // 创建缩略图
+        uploader_{{field.name}}.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
 
-                                                       // 文件上传过程中创建进度条实时显示。
-                                                       uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+            $img.attr( 'src', src );
+        }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
+    });
 
-                                                           var $li = $( '#'+file.id ),
-                                                                   $percent = $li.find('.progress span');
+    // 文件上传过程中创建进度条实时显示。
+    uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
 
-                                                           // 避免重复创建
-                                                           if ( !$percent.length ) {
-                                                               $percent = $('<p class="progress"><span></span></p>')
-                                                                       .appendTo( $li )
-                                                                       .find('span');
-                                                           }
+        var $li = $( '#'+file.id ),
+                $percent = $li.find('.progress span');
 
-                                                           $percent.css( 'width', percentage * 100 + '%' );
-                                                       });
+        // 避免重复创建
+        if ( !$percent.length ) {
+            $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo( $li )
+                    .find('span');
+        }
 
-                                                       // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-                                                       uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
-                                                           $( '#'+file.id ).addClass('upload-state-done');
-                                                           $("#cover_id_{{field.name}}").val(res);
-                                                       });
+        $percent.css( 'width', percentage * 100 + '%' );
+    });
 
-                                                       // 文件上传失败，现实上传出错。
-                                                       uploader_{{field.name}}.on( 'uploadError', function( file ) {
-                                                           var $li = $( '#'+file.id ),
-                                                                   $error = $li.find('div.error');
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+        $( '#'+file.id ).addClass('upload-state-done');
+        $("#cover_id_{{field.name}}").val(res);
+    });
 
-                                                           // 避免重复创建
-                                                           if ( !$error.length ) {
-                                                               $error = $('<div class="error"></div>').appendTo( $li );
-                                                           }
+    // 文件上传失败，现实上传出错。
+    uploader_{{field.name}}.on( 'uploadError', function( file ) {
+        var $li = $( '#'+file.id ),
+                $error = $li.find('div.error');
 
-                                                           $error.text('上传失败');
-                                                       });
+        // 避免重复创建
+        if ( !$error.length ) {
+            $error = $('<div class="error"></div>').appendTo( $li );
+        }
 
-                                                       // 完成上传完了，成功或者失败，先删除进度条。
-                                                       uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
-                                                           $( '#'+file.id ).find('.progress').remove();
-                                                       });
-                                                   </script>
-                                                            </div>
-                                                        {% elif field.type == "file" %}
+        $error.text('上传失败');
+    });
 
-                                                        <div class="col-md-10">
-                                                            <!--用来存放文件信息-->
-                                                            <div id="thelist_{{field.name}}" class="uploader-list"></div>
-                                                            <div class="btns">
-                                                                <input type="hidden" name="{{field.name}}" value="{{data[field['name']]}}"/>
-                                                                <div id="picker_{{field.name}}" class="picker">选择文件</div>
-                                                                <a id="ctlBtn_{{field.name}}" class="btn btn-default">开始上传</a>
-                                                            </div>
-                                                            <script type="text/javascript">
-                                                                jQuery(function() {
-                                                                    var $ = jQuery,
-                                                                            $list_{{field.name}} = $('#thelist_{{field.name}}'),
-                                                                            $btn_{{field.name}} = $('#ctlBtn_{{field.name}}'),
-                                                                            state = 'pending',
-                                                                            uploader_{{field.name}};
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').remove();
+    });
+</script>
+        </div>
+    {% elif field.type == "file" %}
 
-                                                                    uploader_{{field.name}} = WebUploader.create({
+    <div class="col-md-10">
+        <!--用来存放文件信息-->
+        <div id="thelist_{{field.name}}" class="uploader-list"></div>
+        <div class="btns">
+            <input type="hidden" name="{{field.name}}" value="{{data[field['name']]}}"/>
+            <div id="picker_{{field.name}}" class="picker">选择文件</div>
+            <a id="ctlBtn_{{field.name}}" class="btn btn-default">开始上传</a>
+        </div>
+        <script type="text/javascript">
+            jQuery(function() {
+                var $ = jQuery,
+                        $list_{{field.name}} = $('#thelist_{{field.name}}'),
+                        $btn_{{field.name}} = $('#ctlBtn_{{field.name}}'),
+                        state = 'pending',
+                        uploader_{{field.name}};
 
-                                                                        // 不压缩image
-                                                                        resize: false,
+                uploader_{{field.name}} = WebUploader.create({
 
-                                                                        // swf文件路径
-                                                                        swf:'/static/admin/js/webuploader/Uploader.swf',
+                    // 不压缩image
+                    resize: false,
 
-                                                                        // 文件接收服务端。
-                                                                        server: '/admin/file/upload',
+                    // swf文件路径
+                    swf:'/static/admin/js/webuploader/Uploader.swf',
 
-                                                                        // 选择文件的按钮。可选。
-                                                                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                                                                        pick: {
-                                                                            id:'#picker_{{field.name}}',
-                                                                            multiple: false
-                                                                        },
-                                                                        fileNumLimit:1
-                                                                    });
+                    // 文件接收服务端。
+                    server: '/admin/file/upload',
 
-                                                                    // 当有文件添加进来的时候
-                                                                    uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id:'#picker_{{field.name}}',
+                        multiple: false
+                    },
+                    fileNumLimit:1
+                });
+               
+                // 当有文件添加进来的时候
+                uploader_{{field.name}}.on( 'fileQueued', function( file ) {
 
-                                                                        $list_{{field.name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
-                                                                                ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
-                                                                                '<h4 class="info">' + file.name + '</h4>' +
-                                                                                '<p class="state">等待上传...</p>' +
-                                                                                '</div>' );
-                                                                            var $li_{{field.name}} = $( '#'+file.id );
-                                                                                $li_{{field.name}}.on('click', '.remove-this', function() {
-                                                                                    uploader_{{field.name}}.removeFile( file.id );
+                    $list_{{field.name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
+                            ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
+                            '<h4 class="info">' + file.name + '</h4>' +
+                            '<p class="state">等待上传...</p>' +
+                            '</div>' );
+                        var $li_{{field.name}} = $( '#'+file.id );
+                            $li_{{field.name}}.on('click', '.remove-this', function() {
+                                uploader_{{field.name}}.removeFile( file.id );
 //                                                                                 $list_{{field.name}}.html("");
-                                                                                })
+                            })
 
-                                                                    });
+                });
 
-                                                                    // 文件上传过程中创建进度条实时显示。
-                                                                    uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
-                                                                        var $li_{{field.name}} = $( '#'+file.id ),
-                                                                                $percent_{{field.name}} = $li_{{field.name}}.find('.progress .progress-bar');
+                // 文件上传过程中创建进度条实时显示。
+                uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+                    var $li_{{field.name}} = $( '#'+file.id ),
+                            $percent_{{field.name}} = $li_{{field.name}}.find('.progress .progress-bar');
 
-                                                                        // 避免重复创建
-                                                                        if ( !$percent_{{field.name}}.length ) {
-                                                                            $percent_{{field.name}} = $('<div class="progress progress-striped active">' +
-                                                                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                                                                                    '</div>' +
-                                                                                    '</div>').appendTo( $li_{{field.name}} ).find('.progress-bar');
-                                                                        }
+                    // 避免重复创建
+                    if ( !$percent_{{field.name}}.length ) {
+                        $percent_{{field.name}} = $('<div class="progress progress-striped active">' +
+                                '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                                '</div>' +
+                                '</div>').appendTo( $li_{{field.name}} ).find('.progress-bar');
+                    }
 
-                                                                        $li_{{field.name}}.find('p.state').text('上传中');
+                    $li_{{field.name}}.find('p.state').text('上传中');
 
-                                                                        $percent_{{field.name}}.css( 'width', percentage * 100 + '%' );
-                                                                    });
+                    $percent_{{field.name}}.css( 'width', percentage * 100 + '%' );
+                });
 
-                                                                    uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
-                                                                        var name = "{{field.name}}";
-                                                                        $("input[name="+name+"]").val(res.id);
-                                                                        $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
-                                                                    });
+                uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                    var name = "{{field.name}}";
+                    $("input[name="+name+"]").val(res.id);
+                    $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
+                });
 
-                                                                    uploader_{{field.name}}.on( 'uploadError', function( file ) {
-                                                                        $( '#'+file.id ).find('p.state').text('上传出错');
-                                                                    });
+                uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                    $( '#'+file.id ).find('p.state').text('上传出错');
+                });
 
-                                                                    uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
-                                                                        $( '#'+file.id ).find('.progress').fadeOut();
-                                                                    });
+                uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                    $( '#'+file.id ).find('.progress').fadeOut();
+                });
 
-                                                                    uploader_{{field.name}}.on( 'all', function( type ) {
-                                                                        if ( type === 'startUpload' ) {
-                                                                            state = 'uploading';
-                                                                        } else if ( type === 'stopUpload' ) {
-                                                                            state = 'paused';
-                                                                        } else if ( type === 'uploadFinished' ) {
-                                                                            state = 'done';
-                                                                        }
+                uploader_{{field.name}}.on( 'all', function( type ) {
+                    if ( type === 'startUpload' ) {
+                        state = 'uploading';
+                    } else if ( type === 'stopUpload' ) {
+                        state = 'paused';
+                    } else if ( type === 'uploadFinished' ) {
+                        state = 'done';
+                    }
 
-                                                                        if ( state === 'uploading' ) {
-                                                                            $btn_{{field.name}}.text('暂停上传');
-                                                                        } else {
-                                                                            $btn_{{field.name}}.text('开始上传');
-                                                                        }
-                                                                    });
+                    if ( state === 'uploading' ) {
+                        $btn_{{field.name}}.text('暂停上传');
+                    } else {
+                        $btn_{{field.name}}.text('开始上传');
+                    }
+                });
 
-                                                                    $btn_{{field.name}}.on( 'click', function() {
-                                                                        if ( state === 'uploading' ) {
-                                                                            uploader_{{field.name}}.stop();
-                                                                        } else {
-                                                                            uploader_{{field.name}}.upload();
-                                                                        }
-                                                                    });
-                                                                });
+                $btn_{{field.name}}.on( 'click', function() {
+                    if ( state === 'uploading' ) {
+                        uploader_{{field.name}}.stop();
+                    } else {
+                        uploader_{{field.name}}.upload();
+                    }
+                });
+            });
 
-                                                            </script>
-                                                        </div>
-                                                        {% else %}
-                                                        <div class="col-md-2">
-                                                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" >
-                                                        </div>
-                                                        {% endif %}
+        </script>
+    </div>
+                        {% else %}
+                        <div class="col-md-2">
+                            <input type="text" class="form-control  " name="{{field.name}}" value="{{data[field['name']]}}" >
+                        </div>
+                        {% endif %}
 
-                                                        {% if field.remark %}
-                                                        <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark}}</span>
-                                                        </div>
-                                                        {% endif %}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endif %}
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                                            {% endfor%}</div>
-                                        {% endfor %}
-                                    </div>
+                        {% if field.remark %}
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark|safe}}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            {% endfor%}</div>
+        {% endfor %}
+    </div>
 
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">
@@ -415,10 +1579,8 @@
 <script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script src="/static/admin/js/parsley/parsley.min.js"></script>
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
-<!-- markdown -->
-<script src="/static/admin/js/markdown/epiceditor.min.js"></script>
-<script src="/static/admin/js/markdown/demo.js"></script>
-
+<script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 <script type="text/javascript">
     <!--
     var zTree;
