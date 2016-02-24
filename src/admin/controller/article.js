@@ -138,6 +138,7 @@ export default class extends Base {
             }
         }
         //console.log(this.setup.DOCUMENT_POSITION)
+        console.log(groups);
         this.assign('modellist', modellist);
         this.assign('cate_id', cate_id);
         this.assign('model_id', model_id);

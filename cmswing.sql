@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
+Source Server         : 本地数据库
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-02-23 23:19:10
+Date: 2016-02-24 10:19:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=226 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=227 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -107,6 +107,7 @@ INSERT INTO `cmswing_action_log` VALUES ('222', '4', '1', '2130706433', 'documen
 INSERT INTO `cmswing_action_log` VALUES ('223', '4', '1', '2130706433', 'document', '61', 'admin在2016-02-23 16:19:11发表了一篇文章。\r\n表document，记录编号61。fdsfsa', '1', '1456215551792');
 INSERT INTO `cmswing_action_log` VALUES ('224', '4', '1', '2130706433', 'document', '62', 'admin在2016-02-23 22:14:17发表了一篇文章。\r\n表document，记录编号62。fdsfsa', '1', '1456236857620');
 INSERT INTO `cmswing_action_log` VALUES ('225', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-23 22:35:06登录了后台', '1', '1456238106887');
+INSERT INTO `cmswing_action_log` VALUES ('226', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-24 01:13:20登录了后台', '1', '1456247600439');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -429,7 +430,7 @@ CREATE TABLE `cmswing_category` (
 -- Records of cmswing_category
 -- ----------------------------
 INSERT INTO `cmswing_category` VALUES ('1', 'blog', '博客', '0', '0', '10', '', 'fsf,犯得上发射点,', 'fdsfdsafdsafas', '', '', '', '', '2,3', '2', '2,1', '0', '0', '1', '0', '0', '1', '', '1379474947', '1382701539', '1', '0', '');
-INSERT INTO `cmswing_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2,3', '2', '1,2', '0', '1', '1', '0', '1', '1', '', '1379475028', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2,3', '2', '1,2', '0', '1', '1', '0', '1', '1', '', '1379475028', '4294967295', '1', '0', '0:aaaa\r\n1:bbbb\r\n2:cccc\r\n3:dddd');
 INSERT INTO `cmswing_category` VALUES ('39', '222', '2222', '2', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '2,1,3', '0', '2', '1', '0', '0', '1', '', '1447235659', '1447235770', '1', '0', '11111');
 INSERT INTO `cmswing_category` VALUES ('40', 'pic', '图片上传', '0', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '', '0', '1', '1', '0', '0', '1', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('41', 'aaaa', '三级分类测试', '39', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
@@ -741,7 +742,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '360', 'arterli@qq.com', '46', '', '1452513965683', '0', '1456238106853', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '360', 'arterli@qq.com', '47', '', '1452513965683', '0', '1456247600399', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public

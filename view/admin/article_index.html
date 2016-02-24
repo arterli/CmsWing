@@ -43,8 +43,8 @@
                                     class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
                                     {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id %}<strong>全部</strong>{%else%}
                                     <a
-                                    href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}">{{key}}</a>{%
-                                        else %}<strong>{{key}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
+                                    href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                        else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
                             </header>
                             <div class="row wrapper">
 
