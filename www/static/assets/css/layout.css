@@ -1194,13 +1194,13 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 	section.dark.page-header {
 		color: #fff;
     text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
-    background: #378503;
-    background: -moz-linear-gradient(45deg, #1F221F 0%, #0CA818 100%);
-    background: -webkit-linear-gradient(45deg, #1F221F 0%,#0CA818 100%);
-    background: -o-linear-gradient(45deg, #1F221F 0%,#0CA818 100%);
-    background: -ms-linear-gradient(45deg, #1F221F 0%,#0CA818 100%);
-    background: linear-gradient(45deg, #1F221F 0%,#0CA818 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1F221F', endColorstr='#0CA818',GradientType=1 );
+    background: #666;
+    background: -moz-linear-gradient(45deg, #1F221F 0%, #666 100%);
+    background: -webkit-linear-gradient(45deg, #1F221F 0%,#666 100%);
+    background: -o-linear-gradient(45deg, #1F221F 0%,#666 100%);
+    background: -ms-linear-gradient(45deg, #1F221F 0%,#666 100%);
+    background: linear-gradient(45deg, #1F221F 0%,#666 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1F221F', endColorstr='#666',GradientType=1 );
     -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
     -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
     box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);

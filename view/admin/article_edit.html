@@ -588,13 +588,17 @@ table tr td{
             pricearr.sort(function(a,b){
             return a-b;
             });
+            var discount_price = $("#discount_price").val();
+            if(discount_price == ""){
+               discount_price =0;
+            }
              if(pricearr[pricearr.length-1]==pricearr[0]){
                  $("#present_price").val(pricearr[0]);
-                var p='{"present_price":'+pricearr[0]+',"discount_price":'+$("#discount_price").val()+'}'
+                var p='{"present_price":"'+pricearr[0]+'","discount_price":"'+discount_price+'"}'
                  $("#price").val(p);
              }else{
                  $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
-                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":'+$("#discount_price").val()+'}'
+                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":"'+discount_price+'"}'
                  $("#price").val(p);
              }
              //关联库存
@@ -726,7 +730,13 @@ table tr td{
                                             })
                                             //关联价格
                                          $(document).on('change','#present_price,#discount_price',function(){
-                                             $("#price").val('{"present_price":'+$("#present_price").val()+',"discount_price":'+$("#discount_price").val()+'}')
+                                              var discount_price;
+                                             if($("#discount_price").val()){
+                                                 discount_price = $("#discount_price").val()
+                                             }else{
+                                                 discount_price = 0
+                                             }
+                                             $("#price").val('{"present_price":"'+$("#present_price").val()+'","discount_price":"'+discount_price+'"}')
                                          })   
                                         })
                                         
@@ -738,9 +748,9 @@ table tr td{
     <div class="row">
     <div class="col-md-6">   <div class="input-group ">
     <span class="input-group-addon">￥</span>
-    <input type="text" class="form-control" value="{{data[field.name]|present_price('1')}}" id="present_price">
+    <input type="text" class="form-control" value="{{data[field.name]|get_price('1')}}" id="present_price">
     </div>  </div>
-    <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  value="{{data[field.name]|present_price('2')}}"  class="form-control" id="discount_price">  </div>  
+    <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  value="{{data[field.name]|get_price('2')}}"  class="form-control" id="discount_price">  </div>  
     </div>         
     </div>
         {% elif field.type == "pics" %}
@@ -1282,7 +1292,7 @@ table tr td{
                                                             {% endfor %}
                                                         </div>
                                                         {% elif field.type == "editor" %}
-                                                        <div class="col-sm-12" >
+                                                        <div class="col-sm-10" >
                                                             <!-- 加载编辑器的容器 -->
                                                             <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">{{data[field['name']]|safe}}</script>
                                                             <!-- 实例化编辑器 -->

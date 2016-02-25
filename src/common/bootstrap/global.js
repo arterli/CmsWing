@@ -133,6 +133,7 @@ function sort_node(v, w) {
  * 获取子集分类 （这里是获取所有子集）
  */
 global.get_children = function (nodes, parent) {
+    console.log(11);
     var children = [];
     var last = [];
     /* 未访问的节点 */
@@ -158,7 +159,7 @@ global.get_children = function (nodes, parent) {
     /* easy clone */
 
     while (stack.length > 0
-        /* just in case */ && jumper++ < 400) {
+        /* just in case */ && jumper++ < 1000) {
         var shift_node = stack.shift();
         var list = [];
         /* 当前子节点列表 */
@@ -205,7 +206,7 @@ global.get_children = function (nodes, parent) {
     /* 建立根节点 */
 
     while (stack.length > 0) {
-        if (jumper++ > 400) {
+        if (jumper++ > 1000) {
             break;
         }
         top = stack[stack.length - 1];
@@ -689,22 +690,50 @@ global.formatprice=function(price) {
     }else{
         present_price = formatCurrency(price[0])
     }
-    if(think.isEmpty(pr.discount_price)){
+    if(pr.discount_price == 0){
         return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span></span>`;
     }else{
         return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span> <br>原价:￥${formatCurrency(pr.discount_price)}</span>`;
     }
     
 }
-
-global.present_price = function (price,type) {
+//获取价格格式化
+global.get_price_format = function (price,type) {
     let pr= JSON.parse(price);
     if(1==type){
-        return pr.present_price;
+    let prices = pr.present_price.split("-");
+    if(prices.length >1){
+        present_price = formatCurrency(prices[0])+"-"+formatCurrency(prices[1]);
     }else{
-        return pr.discount_price;
+        present_price = formatCurrency(prices[0])
+    }
+    return present_price;
+    }else{
+        if(pr.discount_price==0){
+            return "";
+        }else{
+     return formatCurrency(pr.discount_price);
+        }
+        
     }
 }
+//获取价格不格式化
+global.get_price = function (price,type) {
+    if(price){
+    price= JSON.parse(price);
+    if(1==type){
+        return price.present_price;
+    }else{
+        if(price.discount_price==0){
+            return "";
+        }else{
+            return price.discount_price;
+        }
+        
+    }
+    }
+}
+
     /** 
      * 将数值四舍五入(保留2位小数)后格式化成金额形式 
      * 

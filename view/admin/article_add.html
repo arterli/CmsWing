@@ -520,13 +520,17 @@
             pricearr.sort(function(a,b){
             return a-b;
             });
+            var discount_price = $("#discount_price").val();
+            if(discount_price == ""){
+               discount_price =0;
+            }
              if(pricearr[pricearr.length-1]==pricearr[0]){
                  $("#present_price").val(pricearr[0]);
-                var p='{"present_price":'+pricearr[0]+',"discount_price":'+$("#discount_price").val()+'}'
+                var p='{"present_price":"'+pricearr[0]+'","discount_price":"'+discount_price+'"}'
                  $("#price").val(p);
              }else{
                  $("#present_price").val(pricearr[0]+"-"+pricearr[pricearr.length-1]);
-                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":'+$("#discount_price").val()+'}'
+                  var p ='{"present_price":"'+pricearr[0]+'-'+pricearr[pricearr.length-1]+'","discount_price":"'+discount_price+'"}'
                  $("#price").val(p);
              }
              //关联库存
@@ -658,7 +662,13 @@
                                             })
                                             //关联价格
                                          $(document).on('change','#present_price,#discount_price',function(){
-                                             $("#price").val('{"present_price":'+$("#present_price").val()+',"discount_price":'+$("#discount_price").val()+'}')
+                                             var discount_price;
+                                             if($("#discount_price").val()){
+                                                 discount_price = $("#discount_price").val()
+                                             }else{
+                                                 discount_price = 0
+                                             }
+                                             $("#price").val('{"present_price":"'+$("#present_price").val()+'","discount_price":"'+discount_price+'"}')
                                          })   
                                         })
                                         
@@ -730,7 +740,7 @@
                                         {% endfor %}
                                     </div>
                                     {% elif field.type == "editor" %}
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-10">
                                         <!-- 加载编辑器的容器 -->
                                         <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">
 
