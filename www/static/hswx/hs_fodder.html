@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="umeditor_utf8_php/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/hs_wx_base.css"/>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="umeditor_utf8_php/umeditor.config.js"></script>
+    	<script type="text/javascript" charset="utf-8" src="umeditor_utf8_php/umeditor.js"></script>
+    	<script type="text/javascript" src="umeditor_utf8_php/lang/zh-cn/zh-cn.js"></script>
+	</head>
+	<body>
+		
+		<div class="hs-ui">
+			<!--box start-->
+			<div class="hs-fodder-box" id="hs-current-box">
+				<div class="hs-fodder-box-left">
+					<div class="hs-fodder-finshed">
+						<div class="hs-fodder-status-title">图文列表</div>
+						<div class="hs-fodder-finshed-list">
+							<div class="hs-fodder-items">
+								<div class="hs-fodder-item active">
+									<div class="hs-fodder-item-first">
+										<div class="hs-fodder-item-container hs-item-cover">
+											<i class="hs-default-wxpic"></i>
+											<div class="hs-item-title-h4">标题</div>
+										</div>
+										<div class="hs-fodder-item-mask">
+											<a class="hs-igup" href="javascript:;" alt="上移">向上</a>
+											<a class="hs-igdp" href="javascript:;" alt="下移">向下</a>
+											<a class="hs-igdl" href="javascript:;" alt="删除">删除</a>
+										</div>
+									</div>
+									<div class="hs-fodder-item-second">
+										<div class="hs-fodder-item-container">
+											<div class="hs-fodder-item-rpic hs-item-cover">
+												<i class="hs-default-wxpic-2"></i>
+											</div>
+											<div class="hs-item-title-h4-2">标题</div>
+										</div>
+										<div class="hs-fodder-item-mask">
+											<a class="hs-igup" href="javascript:;" alt="上移">向上</a>
+											<a class="hs-igdp" href="javascript:;" alt="下移">向下</a>
+											<a class="hs-igdl" href="javascript:;" alt="删除">删除</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<a onclick="return false;" title="添加一篇图文" class="hs-fodder-add" href="javascript:void(0);">
+	                            <i class="hs-icon35 hs-add-gray">增加一条</i>
+	                        </a>
+						</div>
+					</div>
+				</div>
+				<div class="hs-fodder-box-right">c</div>
+				<div class="hs-fodder-box-middle">
+					<!--<div class="hs-um-other">
+						<input type="text" class="hs-um-title" placeholder="请在这里输入标题" />
+						<input type="text" class="hs-um-author" placeholder="请输入作者" />
+						<hr />
+					</div>-->
+					<!--style给定宽度可以影响编辑器的最终宽度-->
+					<script type="text/plain" id="myEditor" style="width:100%!important;min-height:300px;">
+					   	<p>这里我可以写一些输入提示</p>
+					</script>
+					
+					<!--start-->
+					<div class="hs-fodder-high-area">
+						<div class="hs-high-title" style="padding: 30px 0 20px 0;">
+							发布样式编辑
+						</div>
+						<div class="hs-high-img">
+							<div class="hs-high-title">封面  <span class="hs-c-8d8d8d">大图片建议尺寸：900像素 * 500像素</span></div>
+							<div class="hs-upload-wrap">
+								<a class="hs-upload-btn" id="hsfilePicker" href="javascript:;">本地上传</a>
+								<!--上传封面-->
+							    <!--用来存放item-->
+							    <div id="hsfileList" class="hs-uploader-list"></div>
+							</div>
+						</div>
+						
+						<div class="hs-high-imptxt">
+							<div class="hs-high-title">摘要 <span class="hs-c-8d8d8d">选填，如果不填写会默认抓取正文前54个字</span></div>
+							<div class="hs-high-txt">
+								<textarea id="digest" class="hs-high-textare"></textarea>
+							</div>
+						</div>
+						
+						<div class="hs-source-url">
+							<div class="hs-form-row">
+								<label class="hs-form-label"><input type="checkbox" class="hs-checkbox hs-source-url-checkbox"/> 原文链接</label>
+								<div class="hs-form-control">
+									<input type="text" class="hs-source-url-input hs-input" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--end-->
+				</div>
+				
+			</div>
+			<!--box end-->
+			
+			<!--fixed footer start-->
+			<div class="tool_area_wrp">
+                <div id="js_save_success" class="page_tips success" style="display:none;">
+                    <div class="inner">保存成功</div>
+                </div>
+                <div class="js_bot_bar tool_area">
+                    <div class="tool_bar">
+                        <span id="js_fold" class="mini_tips icon_before l fold_tips"><i class="icon_appmsg_edit_folder"></i><span>展开正文</span></span>
+                        
+                        <span id="js_send" class="btn btn_input btn_default r"><button type="button">保存并群发</button></span>
+                        <span id="js_preview" class="btn btn_input btn_default r no_extra"><button type="button">预览</button></span>
+                        <span id="js_submit" class="btn btn_input btn_primary r"><button type="button">保存</button></span>
+                    </div>
+                </div>
+            </div>
+			<!--fixed footer end-->
+		</div>
+		
+		
+		
+		
+		<script src="js/webuploader.min.js"></script>
+	    <script src="js/hs_fodder.js"></script>
+	</body>
+</html>
