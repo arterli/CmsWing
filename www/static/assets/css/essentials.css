@@ -13214,7 +13214,7 @@ section.dark .md-editor.md-fullscreen-mode {
 }
 .icheckbox_sm-blue.checked, .radio_sm-blue.checked {
     background: #fff;
-    background: url(icon-right.png) no-repeat right bottom;
+    background: url(../images/icon-right.png) no-repeat right bottom;
     border: 2px solid #0095ff;
     color: #333;
 }
