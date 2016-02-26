@@ -133,6 +133,7 @@ function sort_node(v, w) {
  * 获取子集分类 （这里是获取所有子集）
  */
 global.get_children = function (nodes, parent) {
+    console.log(11);
     var children = [];
     var last = [];
     /* 未访问的节点 */
@@ -158,7 +159,7 @@ global.get_children = function (nodes, parent) {
     /* easy clone */
 
     while (stack.length > 0
-        /* just in case */ && jumper++ < 400) {
+        /* just in case */ && jumper++ < 1000) {
         var shift_node = stack.shift();
         var list = [];
         /* 当前子节点列表 */
@@ -205,7 +206,7 @@ global.get_children = function (nodes, parent) {
     /* 建立根节点 */
 
     while (stack.length > 0) {
-        if (jumper++ > 400) {
+        if (jumper++ > 1000) {
             break;
         }
         top = stack[stack.length - 1];
@@ -372,7 +373,7 @@ global.sub_cate = function (data, pid) {
 global.get_attribute_type = function (type){
     // TODO 可以加入系统配置
     let _type = {
-        'num'       :  ['数字','int(10) UNSIGNED NOT NULL'],
+        'num'       :  ['数字','int(10) unsigned NOT NULL'],
         'string'    :  ['字符串','varchar(255) NOT NULL'],
         'textarea'  :  ['文本框','text NOT NULL'],
         'date'      :  ['日期','bigint(13) NOT NULL'],
@@ -382,10 +383,12 @@ global.get_attribute_type = function (type){
         'radio'     :  ['单选','char(10) NOT NULL'],
         'checkbox'  :  ['多选','varchar(100) NOT NULL'],
         'editor'    :  ['编辑器','text NOT NULL'],
-        'picture'   :  ['上传图片','int(10) UNSIGNED NOT NULL'],
-        'file'      :  ['上传附件','int(10) UNSIGNED NOT NULL'],
+        'picture'   :  ['上传图片','int(10) unsigned NOT NULL'],
+        'file'      :  ['上传附件','int(10) unsigned NOT NULL'],
         'suk'       :  ['商品规格','text NOT NULL'],
-        'pics'      :  ['多图上传','varchar(255) NOT NULL']
+        'pics'      :  ['多图上传','varchar(255) NOT NULL'],
+        'price'     :  ['价格','varchar(255) NOT NULL'],
+        'freight'   :  ['运费','varchar(255) NOT NULL']
 }
     return type?_type[type][0]:_type;
 }
@@ -656,3 +659,124 @@ global.get_cover=async (cover_id,field)=>{
     let picture = await think.model('picture',think.config("db")).where({'status':1}).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
+
+/**
+ * 获取多图封面
+ * @param array arr_id
+ * @param string field
+ * @return 完整的数据或者 指定的field字段值
+ * @author arterli <arterli@qq.com>
+ */
+/*global get_pics_one */
+global.get_pics_one = async (arr_id,field)=>{
+    if(think.isEmpty(arr_id)){
+        return false;
+    }
+    var arr=arr_id.split(",");
+    return get_cover(arr[0],field);
+    
+}
+//{present_price:100,discount_price:80}
+global.formatprice=function(price) {
+    let pr= JSON.parse(price);
+    var present_price;
+     console.log(pr);
+     if(think.isNumber(pr.present_price)){
+        pr.present_price=pr.present_price.toString();
+     }
+    var price = pr.present_price.split("-");
+    if(price.length >1){
+        present_price = formatCurrency(price[0])+"-"+formatCurrency(price[1]);
+    }else{
+        present_price = formatCurrency(price[0])
+    }
+    if(pr.discount_price == 0){
+        return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span></span>`;
+    }else{
+        return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span> <br>原价:￥${formatCurrency(pr.discount_price)}</span>`;
+    }
+    
+}
+//获取价格格式化
+global.get_price_format = function (price,type) {
+    let pr= JSON.parse(price);
+    if(1==type){
+    let prices = pr.present_price.split("-");
+    let present_price;
+    if(prices.length >1){
+        present_price = formatCurrency(prices[0])+"-"+formatCurrency(prices[1]);
+    }else{
+        present_price = formatCurrency(prices[0])
+    }
+    return present_price;
+    }else{
+        if(pr.discount_price==0){
+            return "";
+        }else{
+     return formatCurrency(pr.discount_price);
+        }
+        
+    }
+}
+//获取价格不格式化
+global.get_price = function (price,type) {
+    if(price){
+    price= JSON.parse(price);
+    if(1==type){
+        return price.present_price;
+    }else{
+        if(price.discount_price==0){
+            return "";
+        }else{
+            return price.discount_price;
+        }
+        
+    }
+    }
+}
+
+    /** 
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式 
+     * 
+     * @param num 数值(Number或者String) 
+     * @return 金额格式的字符串,如'1,234,567.45' 
+     * @type String 
+     */  
+    /*global formatCurrency */
+  global.formatCurrency = function (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+            num = "0";  
+        let sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*100+0.50000000001);  
+        let cents = num%100;  
+        num = Math.floor(num/100).toString();  
+        if(cents<10)  
+        cents = "0" + cents;  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  
+       
+    /** 
+     * 将数值四舍五入(保留1位小数)后格式化成金额形式 
+     * 
+     * @param num 数值(Number或者String) 
+     * @return 金额格式的字符串,如'1,234,567.4' 
+     * @type String 
+     */  
+    /*global formatCurrencyTenThou */
+  global.formatCurrencyTenThou = function (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+        num = "0";  
+        let sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*10+0.50000000001);  
+        let cents = num%10;  
+        num = Math.floor(num/10).toString();  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  

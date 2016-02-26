@@ -79,15 +79,13 @@ export default {
                     }
                 })
                 env.addFilter("strToJson", function (str) {
-
-                    return JSON.parse(str);
-
+                   if(!think.isEmpty(str)){
+                        return JSON.parse(str);
+                   }      
                 })
-                env.addFilter("strToArray", function (srt) {
-                    if (srt) {
-                        var s = "abc,abcd,aaa";
-                        console.log(srt)
-                        let ss = s.split(",");// 在每个逗号(,)处进行分解。
+                env.addFilter("strToArray", function (str) {
+                    if (!think.isEmpty(str)) {
+                        let ss = str.split(",");// 在每个逗号(,)处进行分解。
                         return ss;
                     }
                 })
@@ -103,6 +101,7 @@ export default {
                 env.addFilter("isempty", function (any) {
                     return think.isEmpty(any);
                 })
+               
                 //获取字段类型信息
                 env.addFilter("get_attribute_type", function (str) {
                     return get_attribute_type(str);
@@ -137,7 +136,7 @@ export default {
                 env.addFilter("get_nickname", async(uid, callback) => {
                     let data = await get_nickname(uid);
                     callback(null,data);
-            }, true)
+                 }, true)
             /**
              * 获取文档url
              */
@@ -153,6 +152,18 @@ export default {
                     callback(null,data);
 
         }, true)
+        
+         //价格格式化
+                env.addFilter("get_price_format", function (price,type) {
+                    return get_price_format(price,type);
+                })
+                
+        /**
+         * 获取商品价格不格式
+         */
+        env.addFilter('get_price',function (price,type){
+            return get_price(price,type);
+        })
         env.addExtension('tagtest', new mytags(), true);
         /**
          * 获取分类标签

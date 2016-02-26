@@ -72,7 +72,7 @@ export default class extends Base {
     /* 获取详细信息*/
     let document = this.model('document');
     let info = await document.detail(id);
-
+    console.log(info);
     //分类信息
     let cate = await this.category(info.category_id);
     cate = think.extend({}, cate);

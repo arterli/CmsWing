@@ -252,7 +252,7 @@ export default class extends think.controller.base {
                     if (!think.isEmpty(attrList[key])) {
                         let extra = attrList[key]['extra'];
                         let type = attrList[key]['type'];
-                        console.log(extra);
+                        //console.log(extra);
                         if ('select' == type || 'checkbox' == type || 'radio' == type || 'bool' == type) {
                             // 枚举/多选/单选/布尔型
                             let options = parse_config_attr(extra);
@@ -264,6 +264,8 @@ export default class extends think.controller.base {
                             data[key] = dateformat('Y-m-d', data[key]);
                         } else if ('datetime' == type) { // 时间型
                             data[key] = dateformat('Y-m-d H:i', data[key]);
+                        } else if('pics' === type){
+                            data[key] = `<span class="thumb-sm"><img alt="..." src="${data[key]}"></span>`;
                         }
                     }
                 }

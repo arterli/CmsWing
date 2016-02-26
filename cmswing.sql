@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-17 19:26:12
+Date: 2016-02-25 20:58:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=209 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=247 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -90,6 +90,44 @@ INSERT INTO `cmswing_action_log` VALUES ('205', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('206', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1455681109058');
 INSERT INTO `cmswing_action_log` VALUES ('207', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1455681125879');
 INSERT INTO `cmswing_action_log` VALUES ('208', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-17 12:48:24登录了后台', '1', '1455684504579');
+INSERT INTO `cmswing_action_log` VALUES ('209', '4', '1', '2130706433', 'document', '58', 'admin在2016-02-17 19:31:32发表了一篇文章。\r\n表document，记录编号58。fdsfsa', '1', '1455708692716');
+INSERT INTO `cmswing_action_log` VALUES ('210', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-18 10:56:55登录了后台', '1', '1455764215700');
+INSERT INTO `cmswing_action_log` VALUES ('211', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-19 10:26:30登录了后台', '1', '1455848790913');
+INSERT INTO `cmswing_action_log` VALUES ('212', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-20 09:47:01登录了后台', '1', '1455932821736');
+INSERT INTO `cmswing_action_log` VALUES ('213', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-20 10:50:32登录了后台', '1', '1455936632327');
+INSERT INTO `cmswing_action_log` VALUES ('214', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-20 13:07:50登录了后台', '1', '1455944870985');
+INSERT INTO `cmswing_action_log` VALUES ('215', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 13:55:26登录了后台', '1', '1456120526503');
+INSERT INTO `cmswing_action_log` VALUES ('216', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 14:05:41登录了后台', '1', '1456121141084');
+INSERT INTO `cmswing_action_log` VALUES ('217', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 16:34:11登录了后台', '1', '1456130051697');
+INSERT INTO `cmswing_action_log` VALUES ('218', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 16:41:05登录了后台', '1', '1456130465312');
+INSERT INTO `cmswing_action_log` VALUES ('219', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-22 18:12:31登录了后台', '1', '1456135951216');
+INSERT INTO `cmswing_action_log` VALUES ('220', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-23 12:23:22登录了后台', '1', '1456201402544');
+INSERT INTO `cmswing_action_log` VALUES ('221', '4', '1', '2130706433', 'document', '59', 'admin在2016-02-23 12:51:12发表了一篇文章。\r\n表document，记录编号59。fdsfsa', '1', '1456203072378');
+INSERT INTO `cmswing_action_log` VALUES ('222', '4', '1', '2130706433', 'document', '60', 'admin在2016-02-23 12:52:58发表了一篇文章。\r\n表document，记录编号60。fdsfsa', '1', '1456203178172');
+INSERT INTO `cmswing_action_log` VALUES ('223', '4', '1', '2130706433', 'document', '61', 'admin在2016-02-23 16:19:11发表了一篇文章。\r\n表document，记录编号61。fdsfsa', '1', '1456215551792');
+INSERT INTO `cmswing_action_log` VALUES ('224', '4', '1', '2130706433', 'document', '62', 'admin在2016-02-23 22:14:17发表了一篇文章。\r\n表document，记录编号62。fdsfsa', '1', '1456236857620');
+INSERT INTO `cmswing_action_log` VALUES ('225', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-23 22:35:06登录了后台', '1', '1456238106887');
+INSERT INTO `cmswing_action_log` VALUES ('226', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-24 01:13:20登录了后台', '1', '1456247600439');
+INSERT INTO `cmswing_action_log` VALUES ('227', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-24 11:17:51登录了后台', '1', '1456283871586');
+INSERT INTO `cmswing_action_log` VALUES ('228', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456284882291');
+INSERT INTO `cmswing_action_log` VALUES ('229', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-24 13:17:13登录了后台', '1', '1456291033561');
+INSERT INTO `cmswing_action_log` VALUES ('230', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-24 17:38:48登录了后台', '1', '1456306728998');
+INSERT INTO `cmswing_action_log` VALUES ('231', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-25 12:15:40登录了后台', '1', '1456373740257');
+INSERT INTO `cmswing_action_log` VALUES ('232', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456385981605');
+INSERT INTO `cmswing_action_log` VALUES ('233', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456385996651');
+INSERT INTO `cmswing_action_log` VALUES ('234', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386031148');
+INSERT INTO `cmswing_action_log` VALUES ('235', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386084291');
+INSERT INTO `cmswing_action_log` VALUES ('236', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386107201');
+INSERT INTO `cmswing_action_log` VALUES ('237', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386145630');
+INSERT INTO `cmswing_action_log` VALUES ('238', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386192241');
+INSERT INTO `cmswing_action_log` VALUES ('239', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386241238');
+INSERT INTO `cmswing_action_log` VALUES ('240', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386248014');
+INSERT INTO `cmswing_action_log` VALUES ('241', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386280706');
+INSERT INTO `cmswing_action_log` VALUES ('242', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1456386307655');
+INSERT INTO `cmswing_action_log` VALUES ('243', '4', '1', '2130706433', 'document', '63', 'admin在2016-02-25 16:26:18发表了一篇文章。\r\n表document，记录编号63。fdsfsa', '1', '1456388778375');
+INSERT INTO `cmswing_action_log` VALUES ('244', '4', '1', '2130706433', 'document', '64', 'admin在2016-02-25 16:54:56发表了一篇文章。\r\n表document，记录编号64。fdsfsa', '1', '1456390496774');
+INSERT INTO `cmswing_action_log` VALUES ('245', '4', '1', '2130706433', 'document', '65', 'admin在2016-02-25 17:57:30发表了一篇文章。\r\n表document，记录编号65。fdsfsa', '1', '1456394250227');
+INSERT INTO `cmswing_action_log` VALUES ('246', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-25 19:46:05登录了后台', '1', '1456400765915');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -102,7 +140,7 @@ CREATE TABLE `cmswing_attribute` (
   `field` varchar(100) NOT NULL DEFAULT '' COMMENT '字段定义',
   `type` varchar(20) NOT NULL DEFAULT '' COMMENT '数据类型',
   `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字段默认值',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `remark` text NOT NULL COMMENT '备注',
   `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示',
   `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '参数',
   `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '模型id',
@@ -119,7 +157,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -128,7 +166,7 @@ INSERT INTO `cmswing_attribute` VALUES ('1', 'uid', '用户ID', 'int(10) unsigne
 INSERT INTO `cmswing_attribute` VALUES ('2', 'name', '标识', 'char(40) NOT NULL ', 'string', '', '同一根节点下标识不重复', '1', '', '1', '0', '1', '1383894743', '1455692156629', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('3', 'title', '标题', 'char(80) NOT NULL ', 'string', '', '文档标题', '1', '', '1', '0', '1', '1383894778', '1455692156629', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('4', 'category_id', '所属分类', 'int(10) unsigned NOT NULL ', 'string', '', '', '0', '', '1', '0', '1', '1384508336', '1455692156629', '', '0', '', '', '', '0', '');
-INSERT INTO `cmswing_attribute` VALUES ('5', 'description', '描述', 'char(140) NOT NULL ', 'textarea', '', '', '1', '', '1', '0', '1', '1383894927', '1455692156629', '', '0', '', '', '', '0', '');
+INSERT INTO `cmswing_attribute` VALUES ('5', 'description', '描述', 'char(140) NOT NULL ', 'textarea', '', '简介(选填，微信分享给好友时会显示这里的文案)', '1', '', '1', '0', '1', '1456398274652', '1455692156629', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('6', 'root', '根节点', 'int(10) unsigned NOT NULL ', 'num', '0', '该文档的顶级文档编号', '0', '', '1', '0', '1', '1384508323', '1455692156629', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('7', 'pid', '所属ID', 'int(10) unsigned NOT NULL ', 'num', '0', '父文档编号', '0', '', '1', '0', '1', '1384508543', '1455692156629', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('8', 'model_id', '内容模型ID', 'tinyint(3) unsigned NOT NULL ', 'num', '0', '该文档所对应的模型', '0', '', '1', '0', '1', '1384508350', '1455692156629', '', '0', '', '', '', '0', '');
@@ -174,8 +212,17 @@ INSERT INTO `cmswing_attribute` VALUES ('58', 'uppic', '图片上传', 'int(10) 
 INSERT INTO `cmswing_attribute` VALUES ('60', 'picinfo', '图片说明', 'text NOT NULL', 'textarea', '', '', '1', '', '44', '0', '1', '0', '1451878215891', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('61', 'bbq', '编辑器', 'text NOT NULL', 'editor', '', '', '1', '', '44', '0', '1', '0', '1451878885909', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('62', 'picss', '图片', 'int(10) UNSIGNED NOT NULL', 'picture', '', '上传图片，不大于400兆', '1', '', '45', '0', '1', '0', '1452918866690', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('63', 'suk', '商品规格', 'text NOT NULL', 'suk', '', '', '1', '', '4', '0', '1', '0', '1455680862339', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('63', 'suk', '库存/规格', 'text NOT NULL', 'suk', '', '', '1', '', '4', '0', '1', '1455769829822', '1455680862339', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('65', 'pics', '多图上传', 'varchar(255) NOT NULL', 'pics', '', '', '1', '', '1', '0', '1', '0', '1455692156629', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('67', 'price', '价格', 'varchar(255) NOT NULL', 'price', '', '', '1', '', '1', '0', '1', '0', '1456122357598', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('69', 'goods_no', '商家编码', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '4', '0', '1', '1456128840440', '1456128738327', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('71', 'total_stock', '总库存', 'int(10) unsigned NOT NULL', 'num', '0', '总库存为 0 时，会上架到『已售罄的商品』列表里  发布后商品同步更新，以库存数字为准', '1', '', '4', '0', '1', '1456129021000', '1456128960735', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('73', 'quota', '每人限购', 'int(10) unsigned NOT NULL', 'num', '0', ' 0 代表不限购', '1', '', '4', '0', '1', '0', '1456129417690', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('75', 'join_level_discount', '会员折扣', 'varchar(100) NOT NULL', 'checkbox', '1', '', '1', '1:参加会员折扣', '4', '0', '1', '0', '1456129558129', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('77', 'invoice', '发票', 'char(10) NOT NULL', 'radio', '0', '', '1', '0:无\r\n1:有', '4', '0', '1', '0', '1456129640083', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('79', 'warranty', '保修', 'char(10) NOT NULL', 'radio', '0', '', '1', '0:无\r\n1:有', '4', '0', '1', '0', '1456129729338', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('81', 'goods_detail', '商品详情', 'text NOT NULL', 'editor', '', '', '1', '', '4', '1', '1', '0', '1456130237178', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('83', 'freight', '设置运费', 'varchar(255) NOT NULL', 'freight', '', ' <a class=\"js-refresh-delivery text-info-dk\" href=\"javascript:;\">刷新</a>\r\n                                <span class=\"c-gray\">|</span>\r\n                                <a href=\"#\" target=\"_blank\" class=\"text-info-dk\">新建</a>\r\n                                <span class=\"c-gray\">|</span>\r\n                                <a href=\"#\" target=\"_blank\" class=\"text-info-dk\">如何设置合适的运费模板？</a>', '1', '', '4', '1', '1', '1456206927526', '1456205924096', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -397,24 +444,32 @@ CREATE TABLE `cmswing_category` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`name`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 -- ----------------------------
 -- Records of cmswing_category
 -- ----------------------------
 INSERT INTO `cmswing_category` VALUES ('1', 'blog', '博客', '0', '0', '10', '', 'fsf,犯得上发射点,', 'fdsfdsafdsafas', '', '', '', '', '2,3', '2', '2,1', '0', '0', '1', '0', '0', '1', '', '1379474947', '1382701539', '1', '0', '');
-INSERT INTO `cmswing_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2,3', '2', '1,2', '0', '1', '1', '0', '1', '1', '', '1379475028', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2,3', '2', '1,2', '0', '1', '1', '0', '1', '1', '', '1379475028', '4294967295', '1', '0', '0:aaaa\r\n1:bbbb\r\n2:cccc\r\n3:dddd');
 INSERT INTO `cmswing_category` VALUES ('39', '222', '2222', '2', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '2,1,3', '0', '2', '1', '0', '0', '1', '', '1447235659', '1447235770', '1', '0', '11111');
 INSERT INTO `cmswing_category` VALUES ('40', 'pic', '图片上传', '0', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '', '0', '1', '1', '0', '0', '1', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('41', 'aaaa', '三级分类测试', '39', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('42', 'tttttt', '四级分类', '41', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('43', 'ssg', '五级', '42', '0', '10', '', '', '', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '1', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('44', 'hhh', '六级', '43', '0', '10', '', '', '', '', '', '', '', '2,3', '2,3', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
-INSERT INTO `cmswing_category` VALUES ('45', 'shop', '商城', '0', '0', '10', '', '', '', '', '', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('45', 'shop', '商城', '0', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('46', 'doc', '文档', '0', '0', '10', '', '', '', '', '', '', '', '2', '2', '', '0', '0', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('47', 'start', '快速入门', '46', '0', '10', '', '', '', '', '', '', '', '2', '2,3', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('48', 'tags', '模板标签', '46', '0', '10', '', '', '', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '0', '1', '0', '');
 INSERT INTO `cmswing_category` VALUES ('49', 'architecture', '构架设计', '46', '0', '10', '', '', '', '', '', '', '', '2', '2,3', '', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('50', 'men', '男士', '45', '1', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('51', 'msneakers', '鞋', '50', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('52', 'maccessories', '配饰', '50', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('53', 'mclothing', '服装', '50', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '4294967295', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('54', 'women', '女士', '45', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '4', '0', '1', '1', '0', '0', '', null, '4294967295', '0', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('55', 'wsneakers', '鞋', '54', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '0', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('56', 'wclothing', '服装', '54', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '0', '1', '0', '');
+INSERT INTO `cmswing_category` VALUES ('57', 'waccessories', '配饰', '54', '0', '10', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '1', '', null, '4294967295', '0', '1', '0', '');
 
 -- ----------------------------
 -- Table structure for cmswing_channel
@@ -432,13 +487,13 @@ CREATE TABLE `cmswing_channel` (
   `target` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_channel
 -- ----------------------------
 INSERT INTO `cmswing_channel` VALUES ('1', '0', '首页', '/', '1', '1379475111', '1379923177', '1', '0');
-INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/Article/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('2', '0', '博客', '/topic/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('3', '0', '外部链接', 'http://www.cmswing.com', '3', '1379475154', '1454396773062', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('10', '0', '测试导航', '11111', '5', '1454399423443', '0', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('11', '10', '222', '1111', '0', '1454400241024', '0', '1', '0');
@@ -451,7 +506,15 @@ INSERT INTO `cmswing_channel` VALUES ('17', '10', '测试1', '1111', '0', '14544
 INSERT INTO `cmswing_channel` VALUES ('18', '10', '测试2', '22222', '0', '1454405643640', '0', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('19', '18', '测试21', '212121', '0', '1454405662868', '0', '1', '0');
 INSERT INTO `cmswing_channel` VALUES ('20', '18', '测试22', '33333', '0', '1454405679378', '0', '1', '0');
-INSERT INTO `cmswing_channel` VALUES ('21', '0', '商城', '/channel/shop', '5', '1455681109020', '1455681125874', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('21', '0', '商城', '/column/shop', '5', '1455681109020', '1456284882283', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('22', '21', ' 男士', '/column/men', '0', '1456385981567', '1456385996644', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('23', '21', '女士', '/column/women', '0', '1456386031139', '0', '1', '1');
+INSERT INTO `cmswing_channel` VALUES ('24', '22', '鞋', '/column/msneakers', '0', '1456386084280', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('25', '22', '配饰', '/column/maccessories', '0', '1456386107187', '1456386145624', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('26', '22', '服装', '/column/mclothing', '0', '1456386192230', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('27', '23', '鞋', '/column/wsneakers', '0', '1456386241191', '1456386248008', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('28', '23', '服装', '/column/wclothing', '0', '1456386280696', '0', '1', '0');
+INSERT INTO `cmswing_channel` VALUES ('29', '23', '配饰', '/column/waccessories', '0', '1456386307640', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_document
@@ -464,7 +527,7 @@ CREATE TABLE `cmswing_document` (
   `title` char(80) NOT NULL DEFAULT '' COMMENT '标题',
   `category_id` int(10) unsigned NOT NULL COMMENT '所属分类',
   `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
-  `description` char(140) NOT NULL DEFAULT '' COMMENT '描述',
+  `description` char(140) NOT NULL COMMENT '描述',
   `root` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '根节点',
   `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属ID',
   `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
@@ -483,66 +546,75 @@ CREATE TABLE `cmswing_document` (
   `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   `pics` varchar(255) NOT NULL COMMENT '多图上传',
+  `price` varchar(255) NOT NULL COMMENT '价格',
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`category_id`,`status`),
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
 
 -- ----------------------------
 -- Records of cmswing_document
 -- ----------------------------
-INSERT INTO `cmswing_document` VALUES ('1', '1', 'cmswing', 'CmsWing1.0测试版发布', '2', '0', '期待已久的最新版发布', '0', '0', '2', '2', '0', '0', '33', '1', '0', '0', '8', '0', '0', '0', '1450337973080', '1450337973080', '0', '');
-INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '465464', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1450510498', '1450510498', '1', '');
-INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '0', '1', '1451018700', '0', '0', '0', '0', '0', '1451018700', '1451030139', '1', '');
-INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '');
-INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1453711202518', '1453711202518', '1', '');
-INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1453777763757', '1453777763757', '1', '');
-INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453789112170', '1', '');
-INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('12', '1', '', '222222222222222222222', '2', '0', '22222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('13', '1', '', '222222222222222222222222221111111111111', '2', '0', '21212', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('14', '1', '', '666666666', '2', '0', '666666666', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('15', '1', '', '66666666611', '2', '0', '66666666611', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('16', '1', '', '6666666661133', '2', '0', '6666666661133333333333', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('17', '1', '', '245546456546', '2', '0', '456546', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('18', '1', '', '3123123', '2', '0', '132213', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('19', '1', '', '456546', '2', '0', '546546', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '2016', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('20', '1', '', '456546456', '2', '0', '546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '2016', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('21', '1', '', '8888888888', '39', '0', '45654', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687667869', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('22', '1', '', '9999999999', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687704515', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('23', '1', '', '77777777', '39', '0', '7777777777777', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687916935', '0', '0', '');
-INSERT INTO `cmswing_document` VALUES ('24', '1', '', '6666666', '39', '0', '6666666666', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452688032174', '1452688032174', '0', '');
-INSERT INTO `cmswing_document` VALUES ('25', '1', '', '5654', '39', '0', '6546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689847691', '1452689847691', '1', '');
-INSERT INTO `cmswing_document` VALUES ('26', '1', '', '555555', '2', '0', '555555555', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689894271', '1452689894271', '2', '');
-INSERT INTO `cmswing_document` VALUES ('27', '1', '', '似的大师傅但是f\'d\'s', '2', '0', ' f第三方打撒放', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689920378', '1452689920378', '2', '');
-INSERT INTO `cmswing_document` VALUES ('28', '1', '', '犯得上发射点f都是富士达', '2', '0', '都是放大撒冯绍峰是', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1441717080000', '1452689967653', '2', '');
-INSERT INTO `cmswing_document` VALUES ('29', '1', '', '333333', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690238124', '1452690238124', '1', '');
-INSERT INTO `cmswing_document` VALUES ('30', '1', '', '555555555', '2', '0', '5555555', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690518649', '1452690518649', '2', '');
-INSERT INTO `cmswing_document` VALUES ('31', '1', '', '546456', '2', '0', '', '0', '30', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690572967', '1452690572967', '2', '');
-INSERT INTO `cmswing_document` VALUES ('32', '1', '', 'fdgfdsg', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452761583069', '1452761583069', '1', '');
-INSERT INTO `cmswing_document` VALUES ('33', '1', '', '563546456', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452761911599', '1452761911599', '1', '');
-INSERT INTO `cmswing_document` VALUES ('34', '1', '', '', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452762563599', '1452762563599', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('35', '1', '', '', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452764041381', '1452764041381', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('36', '1', '', 'gfdsg gfds gds', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452764244127', '1452764244127', '1', '');
-INSERT INTO `cmswing_document` VALUES ('37', '1', '', '11111111', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766628568', '1452766628568', '1', '');
-INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766677479', '1452766677479', '1', '');
-INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766900091', '1452766900091', '1', '');
-INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('42', '1', '', 'fdsfdsf fdsfsf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839059576', '1452839059576', '1', '');
-INSERT INTO `cmswing_document` VALUES ('43', '1', '', 'fdsfdsfsf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839077384', '1452839077384', '1', '');
-INSERT INTO `cmswing_document` VALUES ('44', '1', '', 'hgfhf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839165142', '1452839165142', '1', '');
-INSERT INTO `cmswing_document` VALUES ('45', '1', '', 'gdfgfdg', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839193203', '1452839193203', '1', '');
-INSERT INTO `cmswing_document` VALUES ('46', '1', '', '44564', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839946185', '1452839946185', '1', '');
-INSERT INTO `cmswing_document` VALUES ('47', '1', '', '46546456', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840009983', '1452840009983', '1', '');
-INSERT INTO `cmswing_document` VALUES ('48', '1', '', 'gfdgdfgfdg', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840133503', '1452840133503', '1', '');
-INSERT INTO `cmswing_document` VALUES ('49', '1', '', '313123123', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840491846', '1452840491846', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('50', '1', '', 'fdsfdsafdsaf', '45', '0', 'fsdfdsafdsafdsafadsfdsa', '0', '0', '45', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919496657', '1452919496657', '-1', '');
-INSERT INTO `cmswing_document` VALUES ('51', '1', '', 'fdsfdsaffs', '45', '0', 'fdsafdsaf', '0', '50', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919528234', '1452919692041', '1', '');
-INSERT INTO `cmswing_document` VALUES ('52', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', 'fdsfadsafdsa', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919793690', '1452919793690', '1', '');
-INSERT INTO `cmswing_document` VALUES ('53', '1', '', 'dsfdsfsfsd', '45', '0', 'fdsfsdfsdfsd', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452920306456', '1452920306456', '1', '');
-INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '');
+INSERT INTO `cmswing_document` VALUES ('1', '1', 'cmswing', 'CmsWing1.0测试版发布', '2', '0', '期待已久的最新版发布', '0', '0', '2', '2', '0', '0', '84', '1', '1970', '0', '8', '0', '0', '0', '2015', '1456306773159', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '465464', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1450510498', '1450510498', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '0', '1', '1451018700', '0', '0', '0', '0', '0', '1451018700', '1451030139', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1453711202518', '1453711202518', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '1', '0', '0', '0', '2016', '1453789112170', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('12', '1', '', '222222222222222222222', '2', '0', '22222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('13', '1', '', '222222222222222222222222221111111111111', '2', '0', '21212', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('14', '1', '', '666666666', '2', '0', '666666666', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('15', '1', '', '66666666611', '2', '0', '66666666611', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('16', '1', '', '6666666661133', '2', '0', '6666666661133333333333', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('17', '1', '', '245546456546', '2', '0', '456546', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('18', '1', '', '3123123', '2', '0', '132213', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('19', '1', '', '456546', '2', '0', '546546', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '2016', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('20', '1', '', '456546456', '2', '0', '546', '0', '0', '2', '2', '0', '0', '86', '1', '1970', '0', '0', '0', '0', '0', '1970', '1456307199726', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('21', '1', '', '8888888888', '39', '0', '45654', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687667869', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('22', '1', '', '9999999999', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687704515', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('23', '1', '', '77777777', '39', '0', '7777777777777', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452687916935', '0', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('24', '1', '', '6666666', '39', '0', '6666666666', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452688032174', '1452688032174', '0', '', '0');
+INSERT INTO `cmswing_document` VALUES ('25', '1', '', '5654', '39', '0', '6546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689847691', '1452689847691', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('26', '1', '', '555555', '2', '0', '555555555', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689894271', '1452689894271', '2', '', '0');
+INSERT INTO `cmswing_document` VALUES ('27', '1', '', '似的大师傅但是f\'d\'s', '2', '0', ' f第三方打撒放', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452689920378', '1452689920378', '2', '', '0');
+INSERT INTO `cmswing_document` VALUES ('28', '1', '', '犯得上发射点f都是富士达', '2', '0', '都是放大撒冯绍峰是', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1441717080000', '1452689967653', '2', '', '0');
+INSERT INTO `cmswing_document` VALUES ('29', '1', '', '333333', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690238124', '1452690238124', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('30', '1', '', '555555555', '2', '0', '5555555', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690518649', '1452690518649', '2', '', '0');
+INSERT INTO `cmswing_document` VALUES ('31', '1', '', '546456', '2', '0', '', '0', '30', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452690572967', '1452690572967', '2', '', '0');
+INSERT INTO `cmswing_document` VALUES ('32', '1', '', 'fdgfdsg', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452761583069', '1452761583069', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('33', '1', '', '563546456', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452761911599', '1452761911599', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('34', '1', '', '', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452762563599', '1452762563599', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('35', '1', '', '', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452764041381', '1452764041381', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('36', '1', '', 'gfdsg gfds gds', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452764244127', '1452764244127', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('37', '1', '', '11111111', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766628568', '1452766628568', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766677479', '1452766677479', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766900091', '1452766900091', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('42', '1', '', 'fdsfdsf fdsfsf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839059576', '1452839059576', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('43', '1', '', 'fdsfdsfsf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839077384', '1452839077384', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('44', '1', '', 'hgfhf', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839165142', '1452839165142', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('45', '1', '', 'gdfgfdg', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839193203', '1452839193203', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('46', '1', '', '44564', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452839946185', '1452839946185', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('47', '1', '', '46546456', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840009983', '1452840009983', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('48', '1', '', 'gfdgdfgfdg', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840133503', '1452840133503', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('49', '1', '', '313123123', '40', '0', '', '0', '0', '44', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452840491846', '1452840491846', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('50', '1', '', 'fdsfdsafdsaf', '45', '0', 'fsdfdsafdsafdsafadsfdsa', '0', '0', '45', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919496657', '1452919496657', '-1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('51', '1', '', 'fdsfdsaffs', '45', '0', 'fdsafdsaf', '0', '50', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919528234', '1452919692041', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('52', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', 'fdsfadsafdsa', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452919793690', '1452919793690', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('53', '1', '', 'dsfdsfsfsd', '45', '0', 'fdsfsdfsdfsd', '0', '0', '45', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452920306456', '1452920306456', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1456305969296', '1', '72,73,74', '{\"present_price\":8,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('59', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203072311', '1456305816537', '1', '79,80', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('60', '1', '', 'fdsfsdf5555', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203178151', '1456305771036', '1', '81', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('61', '1', '', 'gfdgdf', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456215551669', '1456304825972', '1', '82', '{\"present_price\":\"10-101\",\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('62', '1', '', '测试唱片', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456236857429', '1456305874738', '1', '75,76', '{\"present_price\":100,\"discount_price\":88}');
+INSERT INTO `cmswing_document` VALUES ('63', '1', '', '犯得上发生', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456388778234', '1456388778234', '1', '', '{\"present_price\":\"12-23\",\"discount_price\":10}');
+INSERT INTO `cmswing_document` VALUES ('64', '1', '', '2222', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456390496719', '1456390496719', '1', '87', '{\"present_price\":\"10-20\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试女装商品', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '49', '0', '0', '0', '1456394250128', '1456399481274', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"100-1008\",\"discount_price\":\"80\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -561,7 +633,7 @@ CREATE TABLE `cmswing_document_article` (
 -- ----------------------------
 -- Records of cmswing_document_article
 -- ----------------------------
-INSERT INTO `cmswing_document_article` VALUES ('1', '0', '范德萨范德萨测试1·11111111111111111111111111', '', '0', '');
+INSERT INTO `cmswing_document_article` VALUES ('1', '0', '<p>范德萨范德萨测试1·11111111111111111111111111</p>', '', '0', '');
 INSERT INTO `cmswing_document_article` VALUES ('4', '0', '<p>gfdgdf<br/></p>', '', '0', '');
 INSERT INTO `cmswing_document_article` VALUES ('7', '0', '<p>111111111111111<br/></p>', '', '0', '<p>111111111111<br/></p>');
 INSERT INTO `cmswing_document_article` VALUES ('8', '0', '<p>111111111111111<br/></p>', '', '0', '<p>111111111111<br/></p>');
@@ -624,90 +696,34 @@ CREATE TABLE `cmswing_document_download` (
 INSERT INTO `cmswing_document_download` VALUES ('3', '0', '456456464', '', '1', '0', '103928');
 
 -- ----------------------------
--- Table structure for cmswing_document_modelpic
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_document_modelpic`;
-CREATE TABLE `cmswing_document_modelpic` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `uppic` int(10) unsigned NOT NULL COMMENT '图片上传',
-  `picinfo` text NOT NULL COMMENT '图片说明',
-  `bbq` text NOT NULL COMMENT '编辑器',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_document_modelpic
--- ----------------------------
-INSERT INTO `cmswing_document_modelpic` VALUES ('29', '20', '14345', '<p>6546<br/></p>');
-INSERT INTO `cmswing_document_modelpic` VALUES ('45', '23', 'bvcbcvb', '<p>vcb<br/></p>');
-INSERT INTO `cmswing_document_modelpic` VALUES ('46', '24', '4654645', '<p>654645<br/></p>');
-INSERT INTO `cmswing_document_modelpic` VALUES ('47', '25', '654645645', '<p>6546456<br/></p>');
-INSERT INTO `cmswing_document_modelpic` VALUES ('48', '26', 'dfgfdg', '<p>gfdgfdg<br/></p>');
-INSERT INTO `cmswing_document_modelpic` VALUES ('49', '27', '123213321313', '<p>3213213213213<br/></p>');
-
--- ----------------------------
--- Table structure for cmswing_document_pic
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_document_pic`;
-CREATE TABLE `cmswing_document_pic` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `picss` int(10) unsigned NOT NULL COMMENT '图片',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_document_pic
--- ----------------------------
-INSERT INTO `cmswing_document_pic` VALUES ('52', '31');
-INSERT INTO `cmswing_document_pic` VALUES ('53', '32');
-
--- ----------------------------
 -- Table structure for cmswing_document_shop
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_document_shop`;
 CREATE TABLE `cmswing_document_shop` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `suk` text NOT NULL COMMENT '商品规格',
+  `suk` text NOT NULL COMMENT '库存/规格',
+  `goods_no` varchar(255) NOT NULL COMMENT '商家编码',
+  `total_stock` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '总库存',
+  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '每人限购',
+  `join_level_discount` varchar(100) NOT NULL DEFAULT '1' COMMENT '会员折扣',
+  `invoice` char(10) NOT NULL DEFAULT '0' COMMENT '发票',
+  `warranty` char(10) NOT NULL DEFAULT '0' COMMENT '保修',
+  `goods_detail` text NOT NULL COMMENT '商品详情',
+  `freight` varchar(255) NOT NULL COMMENT '设置运费',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_document_shop
 -- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_document_testmode
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_document_testmode`;
-CREATE TABLE `cmswing_document_testmode` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(255) NOT NULL COMMENT '文章标题',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_document_testmode
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_document_testmodel
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_document_testmodel`;
-CREATE TABLE `cmswing_document_testmodel` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `testtext` text NOT NULL COMMENT '测试文本框',
-  `testvarchar` varchar(255) NOT NULL DEFAULT '测试字符串默认值' COMMENT '测试字符串',
-  `testdate` bigint(13) NOT NULL COMMENT '测试日期',
-  `testnun` int(10) unsigned NOT NULL COMMENT '测试数字',
-  `testbool` tinyint(2) NOT NULL DEFAULT '1' COMMENT '测试布尔',
-  `testpicture` int(10) unsigned NOT NULL COMMENT '测试上传图片',
-  `testfile` int(10) unsigned NOT NULL COMMENT '测试上传附件',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_document_testmodel
--- ----------------------------
+INSERT INTO `cmswing_document_shop` VALUES ('58', '{\"type\":[\"颜色\"],\"data\":[{\"name\":\"11\",\"type\":\"颜色\",\"sku_price\":\"8\",\"sku_stock\":\"9\",\"sku_code\":\"\"}]}', '', '0', '0', '1', '0', '0', '', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('59', '{\"type\":[\"颜色\"],\"data\":[{\"name\":\"11\",\"type\":\"颜色\",\"sku_price\":\"8\",\"sku_stock\":\"9\",\"sku_code\":\"\"}]}', '', '0', '0', '1', '0', '0', '<p>fsdfdsfsd<br/></p>', '{\"type\":1,\"val\":\"1\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('60', '', '', '10', '0', '1', '0', '0', '<p>5454<br/></p>', '{\"type\":0,\"val\":\"20\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('61', '{\"type\":[\"颜色\",\"颜色\",\"颜色\"],\"data\":[{\"name\":\"2121\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fdsf\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"fds\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]},{\"name\":\"sfs\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fdsf\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"fds\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]},{\"name\":\"fds\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fdsf\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"fds\",\"type\":\"颜色\",\"ch\":[{\"name\":\"fsdf\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"f s\",\"type\":\"颜色\",\"sku_price\":\"10\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"ssss\",\"type\":\"颜色\",\"sku_price\":\"101\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]}]}', '', '1440', '0', '1', '0', '0', '<p>54545454545<br/></p>', '{\"type\":1,\"val\":\"2\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('62', '{\"type\":[\"颜色\",\"颜色\",\"颜色\"],\"data\":[{\"name\":\"11\",\"type\":\"颜色\",\"ch\":[{\"name\":\"222\",\"type\":\"颜色\",\"ch\":[{\"name\":\"333\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"222\",\"sku_code\":\"\"}]}]}]}', '', '100', '0', '1', '0', '0', '<p>1111111111<br/></p>', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('63', '{\"type\":[\"颜色\"],\"data\":[{\"name\":\"aa\",\"type\":\"颜色\",\"ch\":[{\"name\":\"bb\",\"sku_price\":\"12\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"cc\",\"type\":\"颜色\",\"ch\":[{\"name\":\"bb\",\"sku_price\":\"23\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]}', '', '0', '0', '1', '0', '0', '<p>1111111111111111<br/></p>', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('64', '{\"type\":[\"颜色\"],\"data\":[{\"name\":\"111\",\"type\":\"颜色\",\"ch\":[{\"name\":\"222\",\"sku_price\":\"10\",\"sku_stock\":\"12\",\"sku_code\":\"\"}]},{\"name\":\"11\",\"type\":\"颜色\",\"ch\":[{\"name\":\"222\",\"sku_price\":\"20\",\"sku_stock\":\"12\",\"sku_code\":\"\"}]}]}', '', '0', '0', '1', '0', '0', '<p>111<br/></p>', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('65', '{\"type\":[\"颜色\",\"颜色\"],\"data\":[{\"name\":\"S\",\"type\":\"颜色\",\"ch\":[{\"name\":\"黑色\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"10\",\"sku_code\":\"UY7321987\"},{\"name\":\"红色\",\"type\":\"颜色\",\"sku_price\":\"120\",\"sku_stock\":\"101\",\"sku_code\":\"UY7321988\"}]},{\"name\":\"M\",\"type\":\"颜色\",\"ch\":[{\"name\":\"黑色\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"10\",\"sku_code\":\"UY7321987\"},{\"name\":\"红色\",\"type\":\"颜色\",\"sku_price\":\"120\",\"sku_stock\":\"101\",\"sku_code\":\"UY7321988\"}]},{\"name\":\"L\",\"type\":\"颜色\",\"ch\":[{\"name\":\"黑色\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"10\",\"sku_code\":\"UY7321987\"},{\"name\":\"红色\",\"type\":\"颜色\",\"sku_price\":\"120\",\"sku_stock\":\"101\",\"sku_code\":\"UY7321988\"}]},{\"name\":\"XL\",\"type\":\"颜色\",\"ch\":[{\"name\":\"黑色\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"10\",\"sku_code\":\"UY7321987\"},{\"name\":\"红色\",\"type\":\"颜色\",\"sku_price\":\"120\",\"sku_stock\":\"101\",\"sku_code\":\"UY7321988\"}]}]}', 'UY7321987 ', '80', '0', '1', '0', '0', '<p>111111111111111111111111111111111111111111111111111111111111111111111111111<br/></p>', '{\"type\":0,\"val\":\"10\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_file
@@ -768,7 +784,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '300', 'arterli@qq.com', '34', '', '1452513965683', '0', '1455684504547', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '390', 'arterli@qq.com', '52', '', '1452513965683', '0', '1456400765892', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -976,7 +992,7 @@ CREATE TABLE `cmswing_model` (
 INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础模型', '0', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\"]}', '1:基础', '', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1455680364521', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1453711249446', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"63\",\"65\"],\"2\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基础,2:高级', '63,2,3,4,9,10,16,19,65', 'title:商品名称\r\npics:商品图片', '', '', '', '', '10', '', '', '1455680338771', '1455699966624', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"65\",\"67\",\"71\",\"5\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"83\",\"73\",\"75\",\"77\",\"79\"],\"4\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:物流/其它,4:高级信息', '63,69,71,73,75,77,79,81,83,2,3,5,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片\r\ndescription:商品简介', '', '', '', 'id:编号\r\npics:商品图\r\ntitle:商品名称:[EDIT]\r\nprice|formatprice:价格\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\ntotal_stock:总库存\r\nview:浏览量\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '10', '', '', '1455680338771', '1456398589731', '1', 'MyISAM');
 
 -- ----------------------------
 -- Table structure for cmswing_picture
@@ -991,7 +1007,7 @@ CREATE TABLE `cmswing_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -1067,6 +1083,40 @@ INSERT INTO `cmswing_picture` VALUES ('68', '/upload/picture/2016-02-17/FECkq195
 INSERT INTO `cmswing_picture` VALUES ('69', '/upload/picture/2016-02-17/GniOHS1QY2ddoe0Wnc0N4Uei.png', '', '', '', '1', '1455699167792');
 INSERT INTO `cmswing_picture` VALUES ('70', '/upload/picture/2016-02-17/P9-IYSXgs1gTkQX-0jjbdM6M.png', '', '', '', '1', '1455699167863');
 INSERT INTO `cmswing_picture` VALUES ('71', '/upload/picture/2016-02-17/iDlgPDtaWAnqRv9dGuGHUHzS.png', '', '', '', '1', '1455699167891');
+INSERT INTO `cmswing_picture` VALUES ('72', '/upload/picture/2016-02-17/vcj2HR7Y3luK4M1Jk72YpjUU.png', '', '', '', '1', '1455708689996');
+INSERT INTO `cmswing_picture` VALUES ('73', '/upload/picture/2016-02-17/Y_83VJuAlZVYWc7fOCO6B8rh.png', '', '', '', '1', '1455708690066');
+INSERT INTO `cmswing_picture` VALUES ('74', '/upload/picture/2016-02-17/JQ5VJcVR3YRsgtxam6lg9wV7.png', '', '', '', '1', '1455708690070');
+INSERT INTO `cmswing_picture` VALUES ('75', '/upload/picture/2016-02-23/4oG7lGGocXEDbM3LT-ESGqwt.jpg', '', '', '', '1', '1456236833650');
+INSERT INTO `cmswing_picture` VALUES ('76', '/upload/picture/2016-02-23/Nw4N4viqLvUJrg_ewYRd8sN0.jpg', '', '', '', '1', '1456236833735');
+INSERT INTO `cmswing_picture` VALUES ('77', '/upload/picture/2016-02-24/T5E0Gb_7LVHEMZrP8yDzqKb6.png', '', '', '', '1', '1456290063424');
+INSERT INTO `cmswing_picture` VALUES ('78', '/upload/picture/2016-02-24/t4OJv1qpjTUfBIU5YbK_3dZy.jpg', '', '', '', '1', '1456290063442');
+INSERT INTO `cmswing_picture` VALUES ('79', '/upload/picture/2016-02-24/bE22Yn_xZtzDaCBRpjqm4Smq.png', '', '', '', '1', '1456290102319');
+INSERT INTO `cmswing_picture` VALUES ('80', '/upload/picture/2016-02-24/iXADeXYxj-dqUsUdqZkLB-tO.png', '', '', '', '1', '1456290102431');
+INSERT INTO `cmswing_picture` VALUES ('81', '/upload/picture/2016-02-24/ZwMTBjoh_K7xFBjw0Z5iyJ1-.jpg', '', '', '', '1', '1456290128970');
+INSERT INTO `cmswing_picture` VALUES ('82', '/upload/picture/2016-02-24/BBCDgD4bL2ZmqYKE85cza_Ku.jpg', '', '', '', '1', '1456290146439');
+INSERT INTO `cmswing_picture` VALUES ('83', '/upload/picture/2016-02-24/B_uAOKyaGh_REFH5rnwRhuZV.jpg', '', '', '', '1', '1456306069801');
+INSERT INTO `cmswing_picture` VALUES ('84', '/upload/picture/2016-02-24/7dsjUWMwil4X36NwwO5CjOrz.png', '', '', '', '1', '1456306769396');
+INSERT INTO `cmswing_picture` VALUES ('85', '/upload/picture/2016-02-24/Z4WW6sicGmpzHdc-TjzyFxjC.jpg', '', '', '', '1', '1456307138230');
+INSERT INTO `cmswing_picture` VALUES ('86', '/upload/picture/2016-02-24/d_6cQjY2Upfs1JH-IB3aN8Jn.jpg', '', '', '', '1', '1456307197896');
+INSERT INTO `cmswing_picture` VALUES ('87', '/upload/picture/2016-02-25/AI9935U42KDQeJwjEDbEenq2.png', '', '', '', '1', '1456390485523');
+INSERT INTO `cmswing_picture` VALUES ('88', '/upload/picture/2016-02-25/GaaxWzxUQukhVipP1cPoFA7b.jpg', '', '', '', '1', '1456394032645');
+INSERT INTO `cmswing_picture` VALUES ('89', '/upload/picture/2016-02-25/qcqxmZ773WoIGMPeJi9NrN7i.jpg', '', '', '', '1', '1456394032891');
+INSERT INTO `cmswing_picture` VALUES ('90', '/upload/picture/2016-02-25/tGfsacJrfU-IGUPoyOnBa_A3.jpg', '', '', '', '1', '1456394033042');
+INSERT INTO `cmswing_picture` VALUES ('91', '/upload/picture/2016-02-25/-rHapXzhi2nv6vSvVxsa7QeJ.jpg', '', '', '', '1', '1456394033174');
+INSERT INTO `cmswing_picture` VALUES ('92', '/upload/picture/2016-02-25/a3mW2IUP0gyNK_F9VBU-CDnl.jpg', '', '', '', '1', '1456396319612');
+INSERT INTO `cmswing_picture` VALUES ('93', '/upload/picture/2016-02-25/NYyh-sChqwXkfIw7Wj00vu4D.jpg', '', '', '', '1', '1456396319946');
+INSERT INTO `cmswing_picture` VALUES ('94', '/upload/picture/2016-02-25/UsozucdB94Yyu7pd0-Bpdsmm.jpg', '', '', '', '1', '1456396320256');
+INSERT INTO `cmswing_picture` VALUES ('95', '/upload/picture/2016-02-25/4QI5lJWnqyOW07OlLlDpVb8k.jpg', '', '', '', '1', '1456396320413');
+INSERT INTO `cmswing_picture` VALUES ('96', '/upload/picture/2016-02-25/XDmOIKEoMgWdkxd6ymaTdCFG.jpg', '', '', '', '1', '1456396320615');
+INSERT INTO `cmswing_picture` VALUES ('97', '/upload/picture/2016-02-25/hwKQTB3uOCvp8zJBd8ZGUgPa.jpg', '', '', '', '1', '1456396320743');
+INSERT INTO `cmswing_picture` VALUES ('98', '/upload/picture/2016-02-25/68T5qhK0UKrZ4IzUov5P7Fv0.jpg', '', '', '', '1', '1456396320865');
+INSERT INTO `cmswing_picture` VALUES ('99', '/upload/picture/2016-02-25/q8AVyFtsWng-YeUCcygEs3GX.jpg', '', '', '', '1', '1456396320976');
+INSERT INTO `cmswing_picture` VALUES ('100', '/upload/picture/2016-02-25/yZTUfSB_ACj8M-7xzpXPF2yC.jpg', '', '', '', '1', '1456396321138');
+INSERT INTO `cmswing_picture` VALUES ('101', '/upload/picture/2016-02-25/BSTiRb49Kkl1pj8OFmJtYTxL.jpg', '', '', '', '1', '1456396321258');
+INSERT INTO `cmswing_picture` VALUES ('102', '/upload/picture/2016-02-25/c7EhQZ6DBqnvQp2eKHGluS4t.jpg', '', '', '', '1', '1456396321394');
+INSERT INTO `cmswing_picture` VALUES ('103', '/upload/picture/2016-02-25/xoDO5YmxqUmvo6UVQcnKQ6ye.jpg', '', '', '', '1', '1456396321490');
+INSERT INTO `cmswing_picture` VALUES ('104', '/upload/picture/2016-02-25/m-seuHTLjuuyqpBOOGZfXX0a.jpg', '', '', '', '1', '1456396321619');
+INSERT INTO `cmswing_picture` VALUES ('105', '/upload/picture/2016-02-25/0bCgkzjur_kv-fkIsuC-6h_5.jpg', '', '', '', '1', '1456396321784');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -1140,5 +1190,3 @@ INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表�
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
-INSERT INTO `cmswing_setup` VALUES ('57', 'haha', '4', '教师', '4', '0:体育老师\r\n1:音乐老师\r\n2:其他老师', '', '0', '4294967295', '1', '', '0');
-INSERT INTO `cmswing_setup` VALUES ('58', 'aaaa', '3', '的撒大', '4', '0:sss\r\n1:aaaa', '', '4294967295', '4294967295', '1', '1', '0');

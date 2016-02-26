@@ -20,7 +20,7 @@ export default class extends think.controller.rest {
    * @return {Promise} []
    */
   __before(){
-
+   
   }
   async getAction(){
     console.log(this.resource)

@@ -160,7 +160,7 @@
   setTimeout(function(){addMsg($msg);}, 1500);
 
 	//chosen
-	$(".chosen-select").length && $(".chosen-select").chosen();
-
+	//$(".chosen-select").length && $(".chosen-select").chosen();
+   //$(".chosen-select").chosen();
   });
 }(window.jQuery);

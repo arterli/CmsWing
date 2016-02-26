@@ -6,6 +6,7 @@
 	color:#1F262D;
 	font-weight:400;
 	background-color:transparent;
+    font-size: 16px;
 } 
 #topMain.nav-pills>li:hover>a, 
 #topMain.nav-pills>li:focus>a {
