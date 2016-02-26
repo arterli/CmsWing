@@ -147,9 +147,39 @@
 									</div>
 									<!-- /countdown -->
 
-
+                                  <hr/>
+                                    <div class="icheck">
+                        <div class="sex">
+                            <input type="radio" id="sex-man" name="radio-sex" value="0" checked>
+                            <label for="sex-man">男</label>
+                        </div>
+                        <div class="sex">
+                            <input type="radio" id="sex-woman" name="radio-sex" value="1" >
+                            <label for="sex-woman">女</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="line-radio-disabled" disabled>
+                            <label for="line-radio-disabled">Disabled</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="line-radio-disabled-checked" checked disabled>
+                            <label for="line-radio-disabled-checked">Disabled &amp; checked</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="check1" name="checkbox" value="000" />
+                            <label for="check1">女</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="check2" name="checkbox" value="111" />
+                            <label for="check2">女</label>
+                        </div>
+                        <div>
+                        <input type="checkbox" id="check3" name="checkbox" value="222" />
+                        <label for="check3">女</label>
+                    </div>
+                    </div>
 									<hr />
-
+                                      
 									<!-- FORM -->
 									<form class="clearfix form-inline nomargin" method="get" action="shop-cart.html">
 										<input type="hidden" name="product_id" value="1" />
@@ -287,16 +317,15 @@
 
 
 							<ul id="myTab" class="nav nav-tabs nav-top-border margin-top-80" role="tablist">
-								<li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">Description</a></li>
-								<li role="presentation"><a href="#specs" role="tab" data-toggle="tab">Specifications</a></li>
-								<li role="presentation"><a href="#reviews" role="tab" data-toggle="tab">Reviews (2)</a></li>
+								<li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">商品介绍</a></li>
+								<li role="presentation"><a href="#specs" role="tab" data-toggle="tab">规格参数</a></li>
+								<li role="presentation"><a href="#reviews" role="tab" data-toggle="tab">商品评价 (2)</a></li>
 							</ul>
 
 							<div class="tab-content padding-top-20">
 								<!-- DESCRIPTION -->
 								<div role="tabpanel" class="tab-pane fade in active" id="description">
-									<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Aliquam fermentum commodo magna, id pretium nisi elementum at. Nulla molestie, ligula in fringilla rhoncus, risus leo dictum est, nec egestas nunc sem tincidunt turpis. Sed posuere consectetur est at lobortis.</p>
-									<p>Donec blandit ultrices condimentum. Aliquam fermentum commodo magna, id pretium nisi elementum at. Nulla molestie, ligula in fringilla rhoncus, risus leo dictum est, nec egestas nunc sem tincidunt turpis. Sed posuere consectetur est at lobortis.</p>
+                                  {{info.goods_detail|safe}}
 								</div>
 								
 								<!-- SPECIFICATIONS -->
@@ -924,6 +953,7 @@
         rootPath: '/static/admin/js/udeitor/'
     })
 </script>
+
 <!-- PAGE LEVEL SCRIPTS -->
 		<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
 {% endblock %}

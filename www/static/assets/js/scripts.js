@@ -89,6 +89,7 @@
 
 		// Reinit on Ajax
 		_owl_carousel();
+        _icheck();
 		_flexslider();
 		_popover();
 		_lightbox();
@@ -816,8 +817,29 @@
 
 	}
 
+/**icheck 
+ *********************************************************************/
+   function _icheck(){
+       var _container = $("div.icheck");
+       console.log(_container.length)
+       if(_container.length > 0){
+           
+           loadScript(plugin_path + 'icheck/icheck.min.js', function(){
+                $('.icheck input').each(function(){
+                            var self = $(this),
+                                    label = self.next(),
+                                    label_text = label.text();
 
-
+                            label.remove();
+                            self.iCheck({
+                                checkboxClass: 'icheckbox_sm-blue',
+                                radioClass: 'radio_sm-blue',
+                                insert: label_text
+                            });
+                        });
+           })
+       }
+   }
 /** 03. OWL Carousel
  **************************************************************** **/
 	function _owl_carousel() {

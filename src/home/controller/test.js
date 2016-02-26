@@ -25,7 +25,7 @@ export default class extends Base {
       
      this.assign('url',"http://wx.qlogo.cn/mmopen/CjI64f6iblexHK4xia2Sf5KepCRL3geeUZa5FalTA0lvIEf6pzfAMasrVJKYiaMDJB3cnVMcFMSIWFaNIwQKAw2XosEg6qtF7Mc/0");
      this.display();
-      //this.end("我是鞠焕尧"); 
+      
   }
-  
+ 
 }
