@@ -1,0 +1,164 @@
+{% extends "./inc/base.html" %} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                      <div class="col-lg-10">
+                        <section class="panel panel-default">
+                            <header class="panel-heading text-right bg-light">
+                                <ul class="nav nav-tabs ">
+                                    <li class="active"><a href="#">新建群发消息</a></li>
+                                    <li class=""><a  href="/admin/mpbase/masssend">已发送</a></li>
+                                </ul>
+
+                            </header>
+                            <div class="panel-body">
+                                <div  class="tab-content">
+                                    <div class="form-group pull-in clearfix">
+                                        <div class="col-lg-4">
+                                            <label>群发对象</label>
+                                            <div class="">
+                                            <select id="group_type" class="input-sm form-control input-s-sm inline ">
+                                                <option value="0">全部用户</option>
+                                                <option value="1">按分组选择</option>
+                                            </select>
+                                            <select id="group_object" class="input-sm form-control input-s-sm inline hidden" >
+                                                {% for item in groups %}
+                                                    <option value="{{ item.id }}">{{ item.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label> 性别</label>
+                                            <div class="">
+                                            <select class="input-sm form-control input-s-sm inline v-middle">
+                                                <option value="0">全部</option>
+                                                <option value="1">男</option>
+                                                <option value="2">女</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>群发地区</label>
+                                            <div class="">
+                                            <select class="input-sm form-control input-s-sm inline v-middle">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>
+                                            </select>
+                                            <select class="input-sm form-control input-s-sm inline v-middle">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>
+                                            </select>
+                                            <select class="input-sm form-control input-s-sm inline v-middle">
+                                                <option value="0">Bulk action</option>
+                                                <option value="1">Delete selected</option>
+                                                <option value="2">Bulk edit</option>
+                                                <option value="3">Export</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="profile-2" class="tab-pane fade ">profile</div>
+                                </div>
+                            </div>
+                        </section>
+                          <section class="panel panel-default">
+                              <header class="panel-heading bg-light">
+                                  <ul class="nav nav-tabs nav-justified">
+                                      <li class="active"><a data-toggle="tab" href="#graphic_message"><i class="fa fa-list-alt text-muted"> 图文消息</i></a></li>
+                                      <li><a data-toggle="tab" href="#home"><i class="fa fa-pencil text-muted"> 文字</i></a></li>
+                                      <li><a data-toggle="tab" href="#profile"><i class="fa fa-picture-o text-muted"> 图片</i></a></li>
+                                      <li><a data-toggle="tab" href="#messages"><i class="fa fa-microphone text-muted"> 语音</i></a></li>
+                                      <li><a data-toggle="tab" href="#settings"><i class="fa fa-video-camera text-muted"> 视频</i></a></li>
+                                  </ul>
+                              </header>
+                              <div class="panel-body">
+                                  <div class="tab-content">
+                                      <div id="graphic_message" class="tab-pane active">
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>从素材库中选择</small>
+                                          </div>
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>上传图文消息</small>
+                                          </div>
+                                      </div>
+                                      <div id="home" class="tab-pane">
+                                          <textarea name="content" class="form-control" style="min-height:200px;"></textarea>
+                                      </div>
+                                      <div id="profile" class="tab-pane">
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>从素材库中选择</small>
+                                          </div>
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>上传图片</small>
+                                          </div>
+                                      </div>
+                                      <div id="messages" class="tab-pane">
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>从素材库中选择</small>
+                                          </div>
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>新建语音</small>
+                                          </div>
+                                      </div>
+                                      <div id="settings" class="tab-pane">
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>从素材库中选择</small>
+                                          </div>
+                                          <div class="col-sm-6 dropfile visible-lg">
+                                              <small>新建视频</small>
+                                          </div>
+                                      </div>
+                                      <div class="line line-dashed b-b line-lg pull-in"></div>
+                                      <div class="form-group">
+                                          <div class="col-sm-4">
+                                              <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                              <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                      </div>
+                            <div class="col-log-2">demo</div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+{% block script%}
+<script type="text/javascript">
+    $(function(){
+        $('#group_type').on('change', function () {
+            var type_class = $(this).val();
+            if(type_class == 1){
+                $('#group_object').removeClass('hidden');
+            }else{
+                $('#group_object').addClass('hidden');
+            }
+
+        });
+    })
+
+
+</script>
+{% endblock%}

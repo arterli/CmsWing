@@ -1,0 +1,61 @@
+{% extends "./inc/base.html" %} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                            <div class="col-lg-10">
+                                <section class="panel panel-default">
+                                    <header class="panel-heading text-right bg-light">
+                                        <ul class="nav nav-tabs ">
+                                            <li class=""><a href="/admin/mpbase/mass">新建群发消息</a></li>
+                                            <li class="active"><a  href="/admin/mpbase/masssend">已发送</a></li>
+                                        </ul>
+
+                                    </header>
+                                </section>
+                                <section class="vbox panel panel-default">
+                                    <!--<header class="panel-heading">Stats</header>-->
+                                    <table class="table table-striped m-b-none">
+                                        <thead>
+                                        <tr>
+                                            <th>消息类型</th>
+                                            <th style="width:400px;">发送设置</th>
+                                            <th style="width:150px;">发送状态</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="sparkline" data-bar-color="#1bb399" data-type="bar" data-height="19">士大夫士大夫大师傅</div>
+                                            </td>
+                                            <td>App downloads</td>
+                                            <td class="text-success">
+                                                <i class="fa fa-level-up"></i> 40%
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+                            <div class="col-log-2">demo</div>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+
+
