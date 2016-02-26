@@ -129,7 +129,18 @@ export default {
                 env.addFilter("get_action_type", function (type, all = false) {
                     return get_action_type(type, all);
                 })
-
+                /**
+                 * 获取模型字段信息 
+                 * @param model_id 模型id 或 模型名称
+                 * @param id 数据id
+                 * @param field 字段
+                 * @param return 整条数据或字段数据
+                 * @author arterli <arterli@qq.com>
+                 */
+                env.addFilter("getmodelfield", async(id,model_id,field, callback) => {
+                    let data = await getmodelfield(model_id,id,field);
+                    callback(null,data);
+                 }, true)
                 /**
                  * 获取用户名称
                  */

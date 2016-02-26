@@ -27,11 +27,12 @@
         <h1>{{category.title}}</h1>
 
         <!-- breadcrumbs -->
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Blog</a></li>
-            <li class="active">Left Sidebar</li>
-        </ol><!-- /breadcrumbs -->
+					<ol class="breadcrumb f-14">
+                        <li><a href="/">首页</a></li>
+                        {%for val in breadcrumb %}
+                        <li><a href="{{val.url}}">{{val.title}}</a></li>
+                        {% endfor %}
+					</ol><!-- /breadcrumbs -->
 
         <!-- page tabs -->
         {%column data="cate",pid=category.pid%}
@@ -121,7 +122,7 @@
 
 									<!-- price -->
 									<div class="shop-item-price text-danger">
-										<span class="line-through nopadding-left">¥{{info.price|get_price_format('2')}}</span>
+										{% if info.price|get_price_format('2') %}<span class="line-through nopadding-left">¥{{info.price|get_price_format('2')}}</span>{%endif%}
 										¥{{info.price|get_price_format('1')}}
 									</div>
 									<!-- /price -->
@@ -757,47 +758,24 @@
 
 								<div class="side-nav-head">
 									<button class="fa fa-bars"></button>
-									<h4>CATEGORIES</h4>
+									<h4>商城分类</h4>
 								</div>
 
 								<ul class="list-group list-group-bordered list-group-noicon uppercase">
-									<li class="list-group-item active">
-										<a class="dropdown-toggle" href="#">WOMEN</a>
+									 {% column data="list",tree=breadcrumb[0].id %}
+                                     {% for val in list %}
+									<li class="list-group-item {%if breadcrumb[1].id == val.id%} active {%endif%}">
+										<a  {% if val.children %}class="dropdown-toggle"{%endif%} href="{{val.title}}">{{val.name}}</a>
+                                        {% if val.children %}
 										<ul>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(123)</span> Shoes &amp; Boots</a></li>
-											<li class="active"><a href="#"><span class="size-11 text-muted pull-right">(331)</span> Top &amp; Blouses</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(234)</span> Dresses &amp; Skirts</a></li>
+                                            {% for _val in val.children %}
+											<li {%if breadcrumb[2].id == _val.id%}class="active" {%endif%}><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
+                                            {%endfor%}
+                                            
 										</ul>
+                                        {%endif%}
 									</li>
-									<li class="list-group-item">
-										<a class="dropdown-toggle" href="#">MEN</a>
-										<ul>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Accessories</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(67)</span> Shoes &amp; Boots</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(32)</span> Dresses &amp; Skirts</a></li>
-											<li class="active"><a href="#"><span class="size-11 text-muted pull-right">(78)</span> Top &amp; Blouses</a></li>
-										</ul>
-									</li>
-									<li class="list-group-item">
-										<a class="dropdown-toggle" href="#">JEWELLERY</a>
-										<ul>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(23)</span> Dresses &amp; Skirts</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(34)</span> Shoes &amp; Boots</a></li>
-											<li class="active"><a href="#"><span class="size-11 text-muted pull-right">(21)</span> Top &amp; Blouses</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Accessories</a></li>
-										</ul>
-									</li>
-									<li class="list-group-item">
-										<a class="dropdown-toggle" href="#">KIDS</a>
-										<ul>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(88)</span> Shoes &amp; Boots</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(22)</span> Dresses &amp; Skirts</a></li>
-											<li><a href="#"><span class="size-11 text-muted pull-right">(31)</span> Accessories</a></li>
-											<li class="active"><a href="#"><span class="size-11 text-muted pull-right">(18)</span> Top &amp; Blouses</a></li>
-										</ul>
-									</li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(189)</span> ACCESSORIES</a></li>
-									<li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(61)</span> GLASSES</a></li>
+                                    {%endfor%}
 
 								</ul>
 

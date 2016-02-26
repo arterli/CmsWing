@@ -11,10 +11,12 @@
  * global.fn1 = function(){
  *
  * }
+ * 
+ *global.xxx = async () => {
+ *   let data = await Promise.resolve(111)
+ *}
  */
-//global.xxx = async () => {
-//    let data = await Promise.resolve(111)
-//}
+
 /**
  * ip转数字
  * @param ip
@@ -700,7 +702,11 @@ global.formatprice=function(price) {
 //获取价格格式化
 global.get_price_format = function (price,type) {
     let pr= JSON.parse(price);
+    
     if(1==type){
+        if(think.isNumber(pr.present_price)){
+        pr.present_price=pr.present_price.toString();
+     }
     let prices = pr.present_price.split("-");
     let present_price;
     if(prices.length >1){
@@ -708,15 +714,17 @@ global.get_price_format = function (price,type) {
     }else{
         present_price = formatCurrency(prices[0])
     }
-    return present_price;
+    price = present_price;
     }else{
+   
         if(pr.discount_price==0){
-            return "";
+         price = "";
         }else{
-     return formatCurrency(pr.discount_price);
+         price = formatCurrency(pr.discount_price);
         }
         
     }
+    return price;
 }
 //获取价格不格式化
 global.get_price = function (price,type) {
@@ -780,3 +788,4 @@ global.get_price = function (price,type) {
         num.substring(num.length-(4*i+3));  
         return (((sign)?'':'-') + num + '.' + cents);  
     }  
+    

@@ -301,7 +301,7 @@ table tr td{
                     drawTbody()//绘制表格
                     //当有规格添加时锁定价格和库存
                         $("#present_price").attr("disabled",true);
-                        $("input[name='total_stock']").attr("disabled",true);
+                        //$("input[name='total_stock']").attr("disabled",true);
                 }
             });
             cout()
@@ -331,7 +331,7 @@ table tr td{
                 $(".{{field.name}}_body").addClass("hide");
                 $(".{{field.name}}_table").addClass("hide");
                  $("#present_price").attr("disabled",false);
-                 $("input[name='total_stock']").attr("disabled",false);
+                //$("input[name='total_stock']").attr("disabled",false);
             }
             if(size > 2){
                 $("#{{field.name}}_addsuk").addClass("hide");
@@ -712,7 +712,7 @@ table tr td{
                                                             drawTbody()//绘制表格
                                                             //当有规格添加时锁定价格和库存
                                                              $("#present_price").attr("disabled",true);
-                                                             $("input[name='total_stock']").attr("disabled",true);
+                                                             //$("input[name='total_stock']").attr("disabled",true);
                                                         }
                                                     });
                                                  }

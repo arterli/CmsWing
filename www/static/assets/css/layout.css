@@ -361,6 +361,15 @@ body.bg-grey #wrapper {
 .wrapper-lg {
     padding: 30px;
 }
+.f-16{
+    font-size: 16px !important;
+}
+.f-14{
+    font-size: 14px !important;
+}
+.text-intercept{
+    display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
 section {
 	display: block;
 	position: relative;
