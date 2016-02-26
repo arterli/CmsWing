@@ -138,12 +138,7 @@
 										<strong>商家编码:</strong> {{info.goods_no}}
 									</div>
 
-                                    {% if info.description %}
-									<!-- short description -->
-									<p>{{info.description}}</p>
-									<!-- /short description -->
-                                    {% endif %}
-
+                                   <hr />
 									<!-- countdown -->
 									<div class="text-center">
 										<h5>折扣时间</h5>
@@ -243,14 +238,14 @@
 
 
 									<hr />
+                                        {% if info.description %}
+									<!-- short description -->
+									<small class="text-muted">{{info.description}}</small>
+<hr />
+									<!-- /short description -->
+                                    {% endif %}
 
-									<small class="text-muted">
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, 
-										commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim 
-										massa, sodales tempor convallis et.
-									</small>
-
-									<hr />
+									
 
 									<!-- Share -->
 									<div class="pull-right">

@@ -702,6 +702,7 @@ global.get_price_format = function (price,type) {
     let pr= JSON.parse(price);
     if(1==type){
     let prices = pr.present_price.split("-");
+    let present_price;
     if(prices.length >1){
         present_price = formatCurrency(prices[0])+"-"+formatCurrency(prices[1]);
     }else{
