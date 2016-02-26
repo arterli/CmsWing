@@ -1,0 +1,13 @@
+body{
+         background: none;
+            color: #333;
+        }
+        .sex{
+            width: 68px;
+            height: 40px;
+            display: inline-block;
+        }
+        .user-sex{
+            width: 200px;
+            margin: 100px auto;
+        }
