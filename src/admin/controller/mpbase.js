@@ -104,8 +104,8 @@ export default class extends Base {
     async getusersAction(){
         this.meta_title="获取粉丝信息";
         let user_model = this.model('user');
-        //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        // let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         //let finduser = await this.model('user').countSelect();
         let self = this;
         //获取关注者列表
@@ -144,7 +144,7 @@ export default class extends Base {
                 }
                 let resusers = await userinfo(api);
                 let resinfo = resusers['user_info_list'];
-               //self.end(resinfo);
+               console.log(resinfo);
                 console.log("开始：")
                for (var key in resinfo) {
                        var element = resinfo[key];
@@ -152,7 +152,8 @@ export default class extends Base {
                }
                tmp_openids = [];
             }
-        }       
+        } 
+        console.log(tmp_openids);      
     }
     
     /**
