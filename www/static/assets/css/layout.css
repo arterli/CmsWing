@@ -1316,8 +1316,14 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 
 
 
+    @media only screen and (max-width: 767px){
+        .page-header.page-header-xs ul.page-header-tabs{
+            margin-top: 20px; 
+        }
+       
+    }
 
-	@media only screen and (max-width: 767px) {
+	/*@media only screen and (max-width: 767px) {
 		.page-header ul.page-header-tabs {
 			background-color:rgba(0,0,0,0.03);
 			padding:6px;
@@ -1340,7 +1346,7 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 		.page-header ul.page-header-tabs.dark>li {
 			border:0;
 		}
-	}
+	}*/
 
 	
 	
@@ -7618,9 +7624,9 @@ ul.search-history {
 }
 
 @media only screen and (max-width: 768px) {
-	#header.fixed {
+	/*#header.fixed {
 		position:relative;
-	}
+	}*/
 	
 	#header.transparent + #slider h1 {
 		margin-top:80px !important;
