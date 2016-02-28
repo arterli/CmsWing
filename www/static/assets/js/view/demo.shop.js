@@ -192,6 +192,84 @@
 			jQuery(this).parent().addClass('active');
 		});
 
+        /**选择商品类型 */
+        
+        $('input').on('ifChecked', function(event){
+            var shoptype = $(".icheck");
+            var arr =[]
+           $.each(shoptype,function(k,v) {
+            //console.log(this)
+               var item = $(this).find('input:radio:checked').val()
+               if(item){
+                   arr.push(item); 
+               }
+            })
+            if(arr.length == shoptype.length){
+                var aa = getsuk(arr)
+                console.log(aa.sku_price);
+                $("price").text(formatCurrency(aa.sku_price));
+                $("#price").val(formatCurrency(aa.sku_price));
+            } 
+       });
+        function formatCurrency (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+            num = "0";  
+        var sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*100+0.50000000001);  
+        var cents = num%100;  
+        num = Math.floor(num/100).toString();  
+        if(cents<10)  
+        cents = "0" + cents;  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  
+       function getsuk(arr) {
+           var suk = $(".ichecks").attr("data-icheck-info");
+           suk = JSON.parse(suk);
+           //wallsuk(suk.data,arr);
+           var suk_;
+           $.each(suk.data,function (k,v) {
+               if(v.name==arr[0]){
+                  if(v.ch){
+                      $.each(v.ch,function (k_,v_) {
+                          if(v_.name == arr[1]){
+                             if(v_.ch){
+                                 $.each(v.ch,function (k__,v__) {
+                          if(v__.name == arr[2]){
+                             
+                             suk_ = v__;
+                          }
+                      })
+                             }else{
+                                  suk_ = v_;
+                             }  
+                             
+                          }
+                      })
+                  }else{
+                     suk_ = v;
+                  }
+               }
+           })
+           return suk_;
+       }
+        function wallsuk(arr,arr2) {
+             console.log(arr2);
+               var i = 0
+               $.each(arr,function (k,v) {
+
+                   if(v.ch && v.name == arr2[i]){ 
+                       wallsuk(v.ch,arr2);
+                      i=i+1;
+                   }else {
+                       console.log(v);
+                   }
+             
+               })
+           }
 
 
 

@@ -828,7 +828,7 @@
                 $('.icheck input').each(function(){
                             var self = $(this),
                                     label = self.next(),
-                                    label_text = label.text();
+                                    label_text = label.html();
 
                             label.remove();
                             self.iCheck({

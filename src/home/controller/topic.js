@@ -71,7 +71,7 @@ export default class extends Base {
        //获取面包屑信息
       let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
       this.assign('breadcrumb', breadcrumb);
-     // console.log(breadcrumb)
+      //console.log(breadcrumb)
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       this.assign('list', data.data);
