@@ -62,9 +62,9 @@
 							
 								<!-- IMAGE -->
 								<div class="col-lg-6 col-sm-6">
-									
-									<div class="thumbnail relative margin-bottom-3">
-                                        {% set pic = info.pics|strToArray%}
+									 {% set pic = info.pics|strToArray%}
+									<div class="thumbnail relative margin-bottom-3 ">
+                                       
                                         
 										<!-- 
 											IMAGE ZOOM 
@@ -95,7 +95,8 @@
 
 									<!-- Thumbnails (required height:100px) -->
                                     {% if pic|length >1%}
-									<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}'>
+									<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" 
+                                    data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false,"itemsMobile":[479,5]}'>
 										{% for val in pic%}
                                         <a class="thumbnail active" href="{{val|get_cover('path')}}">
 											<img src="{{val|get_cover('path')}}" height="100" alt="" />
