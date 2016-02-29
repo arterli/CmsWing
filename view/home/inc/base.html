@@ -17,7 +17,7 @@
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
 	<!-- WEB FONTS : use %7C instead of | (pipe) -->
-	<!--<link href="http://fonts.useso.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />-->
+	<link href="http://fonts.useso.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
 	<!-- CORE CSS -->
 	<link href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -237,61 +237,38 @@
 		</a>
 
 		<div class="sidepanel-content">
-			<h2 class="sidepanel-title">Explore Smarty</h2>
+			<h2 class="sidepanel-title">网站导航</h2>
 
 			<!-- SIDE NAV -->
 			<ul class="list-group">
 
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-heart"></i> ABOUT US
-					</a>
-				</li>
-				<li class="list-group-item list-toggle">
-					<!-- add "active" to stay open on page load -->
-					<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1" class="collapsed">
-						<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>
-						<i class="ico-category et-strategy"></i> PORTFOLIO
-					</a>
-					<ul id="collapse-1" class="list-unstyled collapse">
-						<!-- add "in" to stay open on page load -->
-						<li><a href="#"><i class="fa fa-angle-right"></i> 1 COLUMN</a></li>
-						<li class="active">
-							<span class="badge">New</span>
-							<a href="#"><i class="fa fa-angle-right"></i> 2 COLUMNS</a>
-						</li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> 3 COLUMNS</a></li>
-					</ul>
-				</li>
-				<li class="list-group-item list-toggle">
-					<!-- add "active" to stay open on page load -->
-					<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" class="collapsed">
-						<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>
-						<i class="ico-category et-trophy"></i> PORTFOLIO
-					</a>
-					<ul id="collapse-2" class="list-unstyled collapse">
-						<!-- add "in" to stay open on page load -->
-						<li><a href="#"><i class="fa fa-angle-right"></i> SLIDER</a></li>
-						<li class="active"><a href="#"><i class="fa fa-angle-right"></i> HEADERS</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> FOOTERS</a></li>
-					</ul>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-happy"></i> BLOG
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-beaker"></i> FEATURES
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-map-pin"></i> CONTACT
-					</a>
-				</li>
+                 {% channel data='channel', num='4'%} {% for val in channel%}
+						<li class="list-group-item {% if val.children %}list-toggle{% endif %} {% if http.url == val.url %}active{% endif %} ">
 
+							<a {% if val.children%}data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-{{val.id}}" class="collapsed"{% else %} href="{{val.url}}" {% endif %}>
+                                {% if val.children%}<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>{% endif %}
+                                <i class="ico-category et-heart"></i> {{val.title}}</a> 
+                                
+                                {% if val.children%}
+							<ul id="collapse-{{val.id}}" class="list-unstyled collapse">
+								{% for _val in val.children%}
+								<li class="{% if _val.children%}{% endif %}">
+									<a {% if _val.children%}class="" {% endif %} href="{{_val.url}}"><i class="fa fa-angle-right"> </i>{{_val.title}}</a> {% if _val.children%}
+									<ul class="list-unstyled">
+										{% for __val in _val.children%}
+                                        <span class="badge hide">New</span>
+										<a href="{{__val.url}}"> <li><i class="fa fa-angle-right"> </i> {{__val.title}}</a></li>
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</li>
+						{% endfor%}
+				
+				
 			</ul>
 			<!-- /SIDE NAV -->
 

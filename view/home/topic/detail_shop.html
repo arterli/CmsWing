@@ -62,9 +62,9 @@
 							
 								<!-- IMAGE -->
 								<div class="col-lg-6 col-sm-6">
-									
-									<div class="thumbnail relative margin-bottom-3">
-                                        {% set pic = info.pics|strToArray%}
+									 {% set pic = info.pics|strToArray%}
+									<div class="thumbnail relative margin-bottom-3 ">
+                                       
                                         
 										<!-- 
 											IMAGE ZOOM 
@@ -95,7 +95,8 @@
 
 									<!-- Thumbnails (required height:100px) -->
                                     {% if pic|length >1%}
-									<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}'>
+									<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" 
+                                    data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false,"itemsMobile":[479,5]}'>
 										{% for val in pic%}
                                         <a class="thumbnail active" href="{{val|get_cover('path')}}">
 											<img src="{{val|get_cover('path')}}" height="100" alt="" />
@@ -123,7 +124,7 @@
 									<!-- price -->
 									<div class="shop-item-price text-danger">
 										{% if info.price|get_price_format('2') %}<span class="line-through nopadding-left">¥{{info.price|get_price_format('2')}}</span>{%endif%}
-										¥{{info.price|get_price_format('1')}}
+										¥<price>{{info.price|get_price_format('1')}}</price>
 									</div>
 									<!-- /price -->
 
@@ -148,104 +149,60 @@
 									<!-- /countdown -->
 
                                   <hr/>
-                                    <div class="icheck">
-                        <div class="sex">
-                            <input type="radio" id="sex-man" name="radio-sex" value="0" checked>
-                            <label for="sex-man">男</label>
-                        </div>
-                        <div class="sex">
-                            <input type="radio" id="sex-woman" name="radio-sex" value="1" >
-                            <label for="sex-woman">女</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="line-radio-disabled" disabled>
-                            <label for="line-radio-disabled">Disabled</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="line-radio-disabled-checked" checked disabled>
-                            <label for="line-radio-disabled-checked">Disabled &amp; checked</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check1" name="checkbox" value="000" />
-                            <label for="check1">女</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="check2" name="checkbox" value="111" />
-                            <label for="check2">女</label>
-                        </div>
-                        <div>
-                        <input type="checkbox" id="check3" name="checkbox" value="222" />
-                        <label for="check3">女</label>
-                    </div>
-                    </div>
-									<hr />
-                                      
+                                 
 									<!-- FORM -->
-									<form class="clearfix form-inline nomargin" method="get" action="shop-cart.html">
-										<input type="hidden" name="product_id" value="1" />
-
+									<form class="clearfix form-inline nomargin ichecks" method="get" action="shop-cart.html" data-icheck-info ="{{info.suk}}">
+                                         <!--{{info.suk}}-->
+                            {% if info.suk %}
+                            {% set suk = info.suk|strToJson%}
+                            {% set i = 0 %}
+                            {% for item in suk.type%}
+                            <div class="icheck m-b" >
+                            <div class="item">
+                            {{item}}:
+                            </div>
+                            {% if i == 0 %}
+                            {% for _item in suk.data %}
+                            <!--{{suk.data[0].name}}-->
+                            <div class="item">
+                            <input type="radio"  name="size1" value="{{_item.name}}" >
+                            <label for="sex-man"><img class="m-r-xs" height="30" alt="" src="/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg">{{_item.name}}</label>
+                            </div>
+                            {% endfor %}
+                            {% elif i==1 %}
+                            {% for _item in suk.data[0].ch %}
+                            <!--{{suk.data[0].name}}-->
+                            <div class="item">
+                            <input type="radio"  name="size2" value="{{_item.name}}" >
+                            <label for="sex-man">{{_item.name}}</label>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            {% for _item in suk.data[0].ch[0].ch %}
+                            <!--{{suk.data[0].name}}-->
+                            <div class="item">
+                            <input type="radio"  name="size3" value="{{_item.name}}" >
+                            <label for="sex-man">{{_item.name}}</label>
+                            </div>
+                            {% endfor %}
+                            {% endif %} 
+                          </div>
+                          {% set i = i+1%}
+                          {% endfor %}
+									<hr />
+                          {% endif %}
+										<input type="hidden" name="product_id" value="{{info.id}}" />
+                                        <input type="hidden" id="price" name="price" value="{{info.price|get_price_format('1')}}" />
 										<!-- see assets/js/view/demo.shop.js -->
-										<input type="hidden" id="color" name="color" value="yellow" />
+										
 										<input type="hidden" id="qty" name="qty" value="1" />
-										<input type="hidden" id="size" name="size" value="5" />
+										
 										<!-- see assets/js/view/demo.shop.js -->
-
-										<div class="btn-group pull-left product-opt-color">
-											<button type="button" class="btn btn-default dropdown-toggle product-color-dd noradius" data-toggle="dropdown">&nbsp;
-												<span class="caret"></span> 
-												<span id="product-selected-color" class="tag shop-color" style="background-color:#F0E68C"></span>
-											</button>
-
-											<!-- 
-												href = required to be hex color starting with: #
-												data-val = color name or color id from the database 
-											-->
-											<ul id="product-color-dd" class="dropdown-menu clearfix" role="menu">
-												<li class="active"><a class="tag shop-color" data-val="purple" href="#800080" style="background-color:#800080"></a></li>
-												<li><a class="tag shop-color" data-val="red" href="#FF0000" style="background-color:#FF0000"></a></li>
-												<li><a class="tag shop-color" data-val="pink" href="#FF0080" style="background-color:#FF0080"></a></li>
-												<li><a class="tag shop-color" data-val="orange" href="#FF6600" style="background-color:#FF6600"></a></li>
-												<li><a class="tag shop-color" data-val="grey" href="#E0DCC8" style="background-color:#E0DCC8"></a></li>
-												<li><a class="tag shop-color" data-val="yellow" href="#F0E68C" style="background-color:#F0E68C"></a></li>
-												<li><a class="tag shop-color" data-val="light-yellow" href="#FFFFD0" style="background-color:#FFFFD0"></a></li>
-												<li><a class="tag shop-color" style="background-color:#4B0082"></a></li>
-												<li><a class="tag shop-color" data-val="dark-grey" href="#666666" style="background-color:#666666"></a></li>
-												<li><a class="tag shop-color" data-val="green" href="#00FF00" style="background-color:#00FF00"></a></li>
-											</ul>
-										</div><!-- /btn-group -->
-
-										<div class="btn-group pull-left product-opt-size">
-											<button type="button" class="btn btn-default dropdown-toggle product-size-dd noradius" data-toggle="dropdown">
-												<span class="caret"></span>
-												Size <small id="product-selected-size">(<span>5</span>)</small>
-											</button>
-
-											<!-- data-val = size value or size id -->
-											<ul id="product-size-dd" class="dropdown-menu" role="menu">
-												<li class="active"><a data-val="5" href="#">5</a></li>
-												<li><a data-val="5.5" href="#">5.5</a></li>
-												<li><a data-val="6" href="#">6</a></li>
-												<li><a data-val="6.5" href="#">6.5</a></li>
-												<li><a data-val="7" href="#">7</a></li>
-												<li><a data-val="7.5" href="#">7.7</a></li>
-												<li><a data-val="8" href="#">8</a></li>
-												<li><a data-val="8.5" href="#">8.5</a></li>
-												<li><a data-val="9" href="#">9</a></li>
-												<li><a data-val="9.5" href="#">9.5</a></li>
-												<li><a data-val="10" href="#">10</a></li>
-												<li><a data-val="10.5" href="#">10.5</a></li>
-												<li><a data-val="11" href="#">11</a></li>
-												<li><a data-val="11.5" href="#">11.5</a></li>
-												<li><a data-val="12" href="#">12</a></li>
-												<li><a data-val="13" href="#">13</a></li>
-												<li><a data-val="14" href="#">14</a></li>
-											</ul>
-										</div><!-- /btn-group -->
 
 										<div class="btn-group pull-left product-opt-qty">
 											<button type="button" class="btn btn-default dropdown-toggle product-qty-dd noradius" data-toggle="dropdown">
 												<span class="caret"></span>
-												Qty <small id="product-selected-qty">(<span>5</span>)</small>
+												数量 <small id="product-selected-qty">(<span>1</span>)</small>
 											</button>
 
 											<ul id="product-qty-dd" class="dropdown-menu clearfix" role="menu">
@@ -262,7 +219,7 @@
 											</ul>
 										</div><!-- /btn-group -->
 
-										<button class="btn btn-primary pull-left product-add-cart noradius">ADD TO CART</button>
+										<button class="btn btn-primary pull-left product-add-cart noradius">添加到购物车</button>
 									
 									</form>
 									<!-- /FORM -->

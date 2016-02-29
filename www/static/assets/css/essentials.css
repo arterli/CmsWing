@@ -13196,7 +13196,7 @@ section.dark .md-editor.md-fullscreen-mode {
     position: relative;
     display: block;
     margin: 0;
-    padding: 0;
+    padding: 0 5px;
     font-size: 14px;
     line-height: 36px;
     color: #999;
@@ -13207,6 +13207,7 @@ section.dark .md-editor.md-fullscreen-mode {
     cursor: pointer;
     text-align: center;
     border: 2px solid #CCCCCC;
+    
 }
 .icheckbox_sm-blue:hover, .radio_sm-blue:hover{
     border: #0095ff solid 2px;
@@ -13227,4 +13228,7 @@ section.dark .md-editor.md-fullscreen-mode {
 }
 .icheckbox_sm-blue.checked:hover, .radio_sm-blue.checked:hover{
     border-color: #0095ff;
+}
+.icheck .item{
+    display: inline-block;
 }
