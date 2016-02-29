@@ -21,9 +21,8 @@ ul {
 	word-break: break-all;
 	width: 980px;
 	height: 625px;
-	margin: 0px auto;
-	border: 1px solid;
-}
+	/*margin: 0px auto;*/
+	border: 1px solid #e7e7eb;}
 
 .hs_main_hd {
 	margin: 14px 30px 0;
