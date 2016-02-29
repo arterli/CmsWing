@@ -10005,7 +10005,7 @@ UM.registerUI('bold italic redo undo underline strikethrough superscript subscri
                 editorBody = null;
 
             if( !this.isFullState() ) {
-                return;
+                //return;
             }
 
             $win = $( window );

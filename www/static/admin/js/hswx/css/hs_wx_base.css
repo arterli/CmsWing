@@ -381,20 +381,20 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 
 
 /* fodder page 素材页面 start */
-.hs-fodder-box{ position: relative; height: 1000px;}
+.hs-fodder-box{ position: relative; height: auto;}
 .hs-fodder-box-left{ position: absolute; left: 0; }
-.hs-fodder-box-right{ position: absolute; right: 0; }
-.hs-fodder-box-middle{ position: relative; margin: 0 211px 0 250px;}
+.hs-fodder-box-right{ position: absolute; right: 0; font-size:0; }
+.hs-fodder-box-middle{ position: relative; margin: 0 /*211px*/0 0 250px;}
 .hs-fodder-status-title{ padding: 20px 20px 0 20px; }
 .hs-fodder-box-left, .hs-fodder-box-right, .hs-fodder-box-middle{ height: 100%; }
-.hs-fodder-box-middle .edui-container{ box-shadow: none; border-color: #E7E7EB; margin-left: -1px; }
+.hs-fodder-box-middle .edui-container{ box-shadow: none; border-color: #E7E7EB; margin-left: -1px; width: 100% !important; min-width: 558px!important;  }
 .hs-fodder-box-middle .edui-container .edui-toolbar{ box-shadow: none; border-bottom-color: #E7E7EB; height: 55px!important; }
 .hs-fodder-box-middle .edui-body-container{ width: 100%!important; margin-top: 110px; padding: 20px; }
 .hs-fodder-box-middle .hs-um-other input{ border: none; outline: none; display: block; width: 100%; }
 .hs-um-title{ height: 40px; font-size: 24px; margin: 0; }
 .hs-um-author{ font-size: 14px; padding: 15px 0; }
 .hs-um-other{ position: absolute; z-index: 1000; width: 100%; padding: 0 20px; margin-top: 75px; }
-.hs-um-other > hr{ height: 1px; border: none; border-top: 1px solid #E7E7EB;}
+.hs-um-other > hr{ height: 1px; border: none; border-top: 1px solid #E7E7EB; margin: 0; }
 .hs-fodder-finshed{ border-right: 1px solid #e7e7eb; background-color: #f8f8f8; width: 250px;}
 .hs-fodder-finshed-list{ padding: 20px;}
 
