@@ -57,19 +57,7 @@
 		/* --- */
 	});
 
-    // ajax modal
-    $(document).on('click', '[data-toggle="ajaxModal"]',
-      function(e) {
-        $('#ajaxModal').remove();
-        e.preventDefault();
-        var $this = $(this)
-          , $remote = $this.data('remote') || $this.attr('href')
-          , $modal = $('<div class="modal fade" id="ajaxModal"><div class="modal-body"></div></div>');
-        $('body').append($modal);
-        $modal.modal();
-        $modal.load($remote);
-      }
-    );
+  
 /** Init
 	Ajax Reinit:		Init(true);
  **************************************************************** **/
@@ -90,6 +78,7 @@
 		// Reinit on Ajax
 		_owl_carousel();
         _icheck();
+        _ajaxmodal();
 		_flexslider();
 		_popover();
 		_lightbox();
@@ -125,12 +114,27 @@
 		// _widget_facebook();
 		_widget_dribbble();
 		_widget_media();
-
+        _cart();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
 
-
+  // ajax modal
+  function _ajaxmodal() {
+     $(document).on('click', '[data-toggle="ajaxModal"]',
+      function(e) {
+        $('#ajaxModal').remove();
+        e.preventDefault();
+        var $this = $(this)
+          , $remote = $this.data('remote') || $this.attr('href')
+          , $modal = $('<div class="modal fade" id="ajaxModal"><div class="modal-body"></div></div>');
+        $('body').append($modal);
+        $modal.modal();
+        $modal.load($remote);
+      }
+    ); 
+  }
+    
 
 /** Preloader
  **************************************************************** **/
@@ -750,7 +754,74 @@
 
 	}
 
-
+    /**cart 
+     * 
+    *********************************************************************/
+     function _cart() {
+          
+         $('.product-add-cart').click(function(e) {
+             e.preventDefault();
+             //验证todo
+            var shoptype = $(".icheck");
+            var arr =[]
+           $.each(shoptype,function(k,v) {
+            //console.log(this)
+               var item = $(this).find('input:radio:checked').val()
+               if(item){
+                   arr.push(item); 
+               }
+            })
+            // console.log(arr.length);
+            // console.log(shoptype.length);
+            if(arr.length != shoptype.length){
+               _toastr("添加失败，请选择商品规格!","top-right","error",false);
+               return false;
+               
+            } 
+            var str = $(".ichecks").serialize();
+            $.ajax({
+            type: "POST",
+            url: "/cart/addcart",
+            data: str
+            }).done(function( msg ) {
+                
+                if(msg){
+                    _toastr("添加购物车成功!","top-right","success",false);
+                }
+                $("total").html("￥"+formatCurrency(msg.total));
+                $("#badge-corner").html(msg.num);
+                var html = '';
+                var htmlarr = [];
+                $.each(msg.data,function (k,v) {
+                html='<a href="'+v.url+'">'+				
+                    '<img src="'+v.pic+'" width="45" height="45" alt="" />'+
+                    '<h6><span>'+v.qty+'x</span> '+v.title+'</h6>'+
+                    '<small>￥'+formatCurrency(v.price)+' <span class="size-11 text-muted">['+v.type+']</span></small>'+
+                    '</a>';
+                htmlarr.push(html);
+                })
+            $(".quick-cart-wrapper").html(htmlarr.join(""));
+							
+            //console.log(msg);
+            });
+         })
+         
+          function formatCurrency (num) {  
+        num = num.toString().replace(/\$|\,/g,'');  
+        if(isNaN(num))  
+            num = "0";  
+        var sign = (num == (num = Math.abs(num)));  
+        num = Math.floor(num*100+0.50000000001);  
+        var cents = num%100;  
+        num = Math.floor(num/100).toString();  
+        if(cents<10)  
+        cents = "0" + cents;  
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
+        num = num.substring(0,num.length-(4*i+3))+','+  
+        num.substring(num.length-(4*i+3));  
+        return (((sign)?'':'-') + num + '.' + cents);  
+    }  
+     }
 
 /** 02. Animate
 
@@ -2619,7 +2690,7 @@
 			});
 		}
 
-
+     
 
 		/** Color Picker
 		 ******************* **/
@@ -3409,8 +3480,6 @@
 		}
 
 	}
-
-
 
 
 

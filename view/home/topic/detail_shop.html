@@ -151,7 +151,7 @@
                                   <hr/>
                                  
 									<!-- FORM -->
-									<form class="clearfix form-inline nomargin ichecks" method="get" action="shop-cart.html" data-icheck-info ="{{info.suk}}">
+									<form class="clearfix form-inline nomargin ichecks"   data-icheck-info ="{{info.suk}}">
                                          <!--{{info.suk}}-->
                             {% if info.suk %}
                             {% set suk = info.suk|strToJson%}
@@ -192,7 +192,7 @@
 									<hr />
                           {% endif %}
 										<input type="hidden" name="product_id" value="{{info.id}}" />
-                                        <input type="hidden" id="price" name="price" value="{{info.price|get_price_format('1')}}" />
+                                        <input type="hidden" id="type" name="type" value="" />
 										<!-- see assets/js/view/demo.shop.js -->
 										
 										<input type="hidden" id="qty" name="qty" value="1" />
@@ -219,7 +219,7 @@
 											</ul>
 										</div><!-- /btn-group -->
 
-										<button class="btn btn-primary pull-left product-add-cart noradius">添加到购物车</button>
+										<button class="btn btn-danger pull-left product-add-cart noradius "> <i class="fa fa-cart-plus "></i> 添加到购物车</button>
 									
 									</form>
 									<!-- /FORM -->
