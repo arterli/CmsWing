@@ -15,7 +15,61 @@
                     </header>
                     <section class="scrollable wrapper">
                         <!--陈金龙 start-->
-                        
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                素材列表
+                                <i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+                                <div class="col-sm-9 m-b-xs">
+                                    <div>
+                                        <a class="btn btn-sm btn-info" href="/admin/mpbase2/fodder">新增素材</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-default">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                            <th style="width:80px;">编号</th>
+                                            <th class="">封面图</th>
+                                            <th class="">标题</th>
+                                            <th >操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in fodder_list %}
+                                        {% set arts = item.material_content|strToJson %}
+                                        {% set art = arts.articles[0] %}
+                                        <tr>
+                                            <td><label class="checkbox m-n i-checks"><input type="checkbox" class="ids" name="ids" value="{{item.id}}" /></label></td>
+                                            <td>{{item.id}}</td>
+                                            <td><img class="img-responsive" src="{{art.hs_image_id | get_cover('path')}}"/></td>
+                                            <td>{{art.title}}</td>
+                                            <td>
+                                                <a class="text-info" href="">编辑</a>
+                                                <a class="text-info" href="">删除</a>                                                
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 text-right text-center-xs">{{pagerData|safe}}</div>
+                                </div>
+                            </footer>
+                        </section>
                         <!--陈金龙 end-->
                     </section>
                 </section>
