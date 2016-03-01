@@ -97,6 +97,66 @@ export default class extends Base {
         this.assign({"navxs": true,"bg": "bg-dark"});
         return self.display();
     }
+
+    /**
+     * 微信自定义菜单管理页面
+     */
+    async selfmenuAction(){
+
+        this.meta_title = "自定义菜单";
+        let menu_model = this.model('wx_menu');
+        let data = await menu_model.select();
+        let self = this;
+        let  menu = {
+                "menu": {
+                    "button": []
+                }
+            };
+        let str =  JSON.stringify(menu);
+        this.assign('menu',str);
+        return self.display();
+    }
+
+    /**
+     * 添加微信自定义菜单
+     */
+    async addselfmenuAction(){
+
+        let m_id = this.post("id");
+        let name = this.post("name");
+        let sort = this.post('sort');
+        //console.log(id);
+        return this.json(res);
+
+    }
+
+    ///**
+    // * 更新微信自定义菜单
+    // */
+    //async updateselfmenuAction(){
+    //
+    //}
+    /**
+     * mawt ceshi
+     */
+    //async mawtAction(){
+    //
+    //    let menu_model = this.model('wx_material');
+    //    let data = await menu_model.select();
+    //    let menu = {};
+    //    let self = this;
+    //    if(data){
+    //        menu = createSelfMenu();
+    //    }else{
+    //        menu = {
+    //                    "menu": {
+    //                        "button": []
+    //                    }
+    //                };
+    //    }
+    //    this.assign('menu',menu);
+    //    return self.display();
+    //}
     
     /**
      * 监听微信关注或取消，进行本地用户数据更新
@@ -178,7 +238,7 @@ export default class extends Base {
                 }
                 let resusers = await userinfo(api);
                 let resinfo = resusers['user_info_list'];
-               //self.end(resinfo);
+               console.log(resinfo);
                 console.log("开始：")
                for (var key in resinfo) {
                        var element = resinfo[key];
@@ -200,6 +260,26 @@ export default class extends Base {
                }
                tmp_openids = [];
             }
+        } 
+        console.log(tmp_openids);      
+    }
+    
+    /**
+     * 群发信息
+     */
+    async bymasssendAction(media_id,receivers){
+        let self = this;
+        self.end(media_id);
+         let mass = function(api){
+            let deferred = think.defer();
+            api.massSendNews(media_id,receivers,(err,result)=>{
+                if(!think.isEmpty(result)){
+                    deferred.resolve(result);
+                }else{
+                    console.error('err'+err);
+                }
+            });
+            return deferred.promise;
         }
         if(isadd){
             this.success({name:"操作成功！",url:"/admin/mpbase/menu"}); 
@@ -312,30 +392,23 @@ export default class extends Base {
         
         
     }
-    /**
-     * 查看用户列表
-     */
-    async menuAction(){
-        let data = await this.model('wx_user').page(this.get('page')).countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
-        let page = pages.pages(data);
-        this.assign('pagerData', page); //分页展示使用
-        this.assign('list', data.data);
-        
-        this.assign({"navxs": true,"bg": "bg-dark"});
-        return this.display();
-    }
+
     
     
     
     /**
      * 自定义菜单
      */
-    async customAction() {
+    async selfmenuAction() {
         this.meta_title="自定义菜单";
-        
-        this.assign({"navxs": true,"bg": "bg-dark"});
-        return this.display();
+        let self = this;
+        let menu = {
+            "menu": {
+                "button": []
+            }
+        };
+        let str = JSON.stringify(menu);
+        this.assign('menu',str);
+        return self.display();
     }
 }
