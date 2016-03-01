@@ -43,6 +43,7 @@ export default class extends Base{
         let img_result = await wx(this.api, data);
         if(img_result){
             await model.where({id:thumb_id}).update({url: img_result, source_id: img_result.media_id});
+            img_result.hs_image_src = data.path;
             this.end(img_result);
         }else{
             this.end("");
@@ -55,6 +56,10 @@ export default class extends Base{
     async savefodderAction(){
         let self = this;
         let params = self.post("params");
+        let edit_id = self.get("edit_id");
+        if(edit_id){
+            self.success({"name":"编辑暂未开通", url:""});
+        }
         try{
             var anews = JSON.parse(params);
         
@@ -76,7 +81,8 @@ export default class extends Base{
                 let data = {
                     "media_id": wxres.media_id,
                     "material_content": params,
-                    "wxgzh": 0
+                    "wxgzh": 0,
+                    "add_time": new Date().getTime();
                 }
                 let effect = await model.add(data);
                 if(effect){
@@ -89,7 +95,9 @@ export default class extends Base{
         }
     }
     
-    
+    /**
+     * 素材列表
+     */
     async fodderlistAction(){
         let self = this;
         self.meta_title = "微信素材列表";
@@ -103,4 +111,18 @@ export default class extends Base{
         self.assign('fodder_list', data.data);
         return this.display();
     }
+    
+    /**
+     * 编辑
+     */  
+    async foddereditAction(){
+        let id = this.get('id');
+        //this.end(id)
+        let model = this.model("wx_material");
+        let data = await model.where({'id': id}).find();
+        this.assign('data', JSON.stringify(data));
+        //this.end(data);
+        return this.display('fodder');
+    }
+    
 }

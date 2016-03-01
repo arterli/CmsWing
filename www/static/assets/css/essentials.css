@@ -13199,7 +13199,7 @@ section.dark .md-editor.md-fullscreen-mode {
     padding: 0 5px;
     font-size: 14px;
     line-height: 36px;
-    color: #999;
+    color: #666666;
     background: #fff;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -13210,13 +13210,13 @@ section.dark .md-editor.md-fullscreen-mode {
     
 }
 .icheckbox_sm-blue:hover, .radio_sm-blue:hover{
-    border: #0095ff solid 2px;
+    border: #d43f3a solid 2px;
     color: #333;
 }
 .icheckbox_sm-blue.checked, .radio_sm-blue.checked {
     background: #fff;
     background: url(../images/icon-right.png) no-repeat right bottom;
-    border: 2px solid #0095ff;
+    border: 2px solid #d43f3a;
     color: #333;
 }
 .icheckbox_sm-blue.disabled, .radio_sm-blue.disabled {
@@ -13227,7 +13227,7 @@ section.dark .md-editor.md-fullscreen-mode {
     border-color: #ccc;
 }
 .icheckbox_sm-blue.checked:hover, .radio_sm-blue.checked:hover{
-    border-color: #0095ff;
+    border-color: #d43f3a;
 }
 .icheck .item{
     display: inline-block;

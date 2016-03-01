@@ -41,7 +41,7 @@ export default class extends Base {
           };
       }
       console.log(arr);
-     
+      
       //获取商品详细信息
       //{total:222,data:[{title:"dfd",price:34,pic:2,}]}
        //arr.push(data);
