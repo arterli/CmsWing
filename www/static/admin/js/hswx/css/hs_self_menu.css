@@ -14,7 +14,17 @@ ul {
 	list-style: none;
 	padding-left: 0px;
 }
-
+.hs_save_btn {
+	background-color:#44b549 ;
+	border: 0px;
+	padding:10px;
+	border-radius: 3px;
+	width: 150px;
+	letter-spacing: 6px;
+	text-align: center;
+	color: white;
+	font-size: 19px;
+}
 .hs_col_main {
 	vertical-align: top;
 	word-wrap: break-word;
@@ -24,37 +34,14 @@ ul {
 	/*margin: 0px auto;*/
 	border: 1px solid #e7e7eb;}
 
-.hs_main_hd {
-	margin: 14px 30px 0;
-}
-
-.hs_ml {
-	float: left;
-}
-
-.hs_fr {
-	float: right
-}
-
-.hs_mt {
-	margin-top: 30px;
-}
-
-.hs_mt_15 {
-	margin-top: 15px;
-}
-
-.hs_mr_20 {
-	margin-right: 20px;
-}
-
-.hs_ml_20 {
-	margin-left: 20px;
-}
-
-.hs_mt_5 {
-	margin-top: 5px;
-}
+.hs_main_hd {margin: 14px 30px 0;}
+.hs_ml {float: left;}
+.hs_fr {float: right;}
+.hs_mt {margin-top: 30px;}
+.hs_mt_15 {margin-top: 15px;}
+.hs_mr_20 {margin-right: 20px;}
+.hs_ml_20 {margin-left: 20px;}
+.hs_mt_5 {margin-top: 5px;}
 .hs_menu_hidden {display: none;}
 .hs_arrow {
 	position: absolute;
@@ -119,7 +106,6 @@ ul {
 	left: 0;
 	right: 0;
 	height: 50px;
-	
 	width: 319px;
 	list-style: none;
 	padding-left: 0px;
