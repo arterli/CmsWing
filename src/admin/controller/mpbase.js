@@ -97,6 +97,66 @@ export default class extends Base {
         this.assign({"navxs": true,"bg": "bg-dark"});
         return self.display();
     }
+
+    /**
+     * 微信自定义菜单管理页面
+     */
+    async selfmenuAction(){
+
+        this.meta_title = "自定义菜单";
+        let menu_model = this.model('wx_menu');
+        let data = await menu_model.select();
+        let self = this;
+        let  menu = {
+                "menu": {
+                    "button": []
+                }
+            };
+        let str =  JSON.stringify(menu);
+        this.assign('menu',str);
+        return self.display();
+    }
+
+    /**
+     * 添加微信自定义菜单
+     */
+    async addselfmenuAction(){
+
+        let m_id = this.post("id");
+        let name = this.post("name");
+        let sort = this.post('sort');
+        //console.log(id);
+        return this.json(res);
+
+    }
+
+    ///**
+    // * 更新微信自定义菜单
+    // */
+    //async updateselfmenuAction(){
+    //
+    //}
+    /**
+     * mawt ceshi
+     */
+    //async mawtAction(){
+    //
+    //    let menu_model = this.model('wx_material');
+    //    let data = await menu_model.select();
+    //    let menu = {};
+    //    let self = this;
+    //    if(data){
+    //        menu = createSelfMenu();
+    //    }else{
+    //        menu = {
+    //                    "menu": {
+    //                        "button": []
+    //                    }
+    //                };
+    //    }
+    //    this.assign('menu',menu);
+    //    return self.display();
+    //}
     
     /**
      * 获取微信公众账号用户信息并保存到本地库
@@ -240,21 +300,21 @@ export default class extends Base {
 
         this.assign({"navxs": true,"bg": "bg-dark"});
         return this.display();
-        
-        
-        
     }
 
-    
-    
-    
     /**
      * 自定义菜单
      */
-    async customAction() {
+    async selfmenuAction() {
         this.meta_title="自定义菜单";
-        
-        this.assign({"navxs": true,"bg": "bg-dark"});
-        return this.display();
+        let self = this;
+        let menu = {
+            "menu": {
+                "button": []
+            }
+        };
+        let str = JSON.stringify(menu);
+        this.assign('menu',str);
+        return self.display();
     }
 }

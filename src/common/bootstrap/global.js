@@ -787,38 +787,34 @@ global.get_price = function (price,type) {
         num = num.substring(0,num.length-(4*i+3))+','+  
         num.substring(num.length-(4*i+3));  
         return (((sign)?'':'-') + num + '.' + cents);  
-    }  
-   /**
-    * 获取商品suk suk, arr:类型数组
-    */
+    }
+
+    /**
+     * 构建微信菜单数据结构
+     * @param data
+     * @returns {{menu: {button: Array}}}
+     */
+    global.createSelfMenu = function(data){
+        let menu = {
+                        "menu": {
+                            "button": []
+                        }
+                    };
+        let button = [];
+        for(var i=0;i<data.length;i++){
+            if(data[i].pid == '0'){
+                let item = {"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
+                button.push(item);
+            }
+        }
+        for(var x=0;x<button.length;x++){
+            for(var y=0;y<data.length;y++){
+                if(data[y].pid == button[x].m_id){
+                    let sitem = {"type":data[y].type,"sort":data[y].sort,"name":data[y].name,"url":data[y].url,"media_id":data[y].media_id};
+                    button[x].sub_button.push(sitem);
+                }
+            }
+        }
+        return menu;
+    };
     
-    /*global getsuk */
-   global.getsuk=function (suk,arr) {
-          //console.log(suk);
-           var suk_;
-           suk.forEach(function (v,k) {
-              
-               if(v.name==arr[0]){
-                  if(v.ch){
-                      v.ch.forEach(function (v_,k_) {
-                          if(v_.name == arr[1]){
-                             if(v_.ch){
-                                 v_.ch.forEach(function (v__,k__) {
-                          if(v__.name == arr[2]){
-                             
-                             suk_ = v__;
-                          }
-                      })
-                             }else{
-                                  suk_ = v_;
-                             }  
-                             
-                          }
-                      })
-                  }else{
-                     suk_ = v;
-                  }
-               }
-           })
-           return suk_;
-       }
