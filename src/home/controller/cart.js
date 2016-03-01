@@ -20,11 +20,11 @@ export default class extends Base {
       let data = this.post();
       data = think.extend({},data);
       let arr=[];
-      let cart = this.cookie("cart_goods_item");
+      let cart = this.cartdata;
       if(think.isEmpty(cart)){
          arr.push(data);
       }else{
-          cart = JSON.parse(cart);
+          //cart = JSON.parse(cart);
           //console.log(cart);
           let typearr = []
           //已有购物车数量相加
@@ -41,7 +41,7 @@ export default class extends Base {
           };
       }
       console.log(arr);
-     
+      
       //获取商品详细信息
       //{total:222,data:[{title:"dfd",price:34,pic:2,}]}
        //arr.push(data);
@@ -57,12 +57,14 @@ export default class extends Base {
           dataobj.title=goods.title;
          //console.log(goods);
           if(think.isEmpty(goods.suk)){
-            dataobj.price=get_price(goods.price,1);
+            dataobj.price=get_price(goods.price,1) * Number(val.qty);
+            dataobj.unit_price =get_price(goods.price,1);
           }else{
             let suk = JSON.parse(goods.suk);
             let arr_ = val.type.split(",");
             let getpr = getsuk(suk.data,arr_);
             dataobj.price = Number(getpr.sku_price) * Number(val.qty);
+            dataobj.unit_price =Number(getpr.sku_price);
             //console.log(dataobj.price);   
            }
           dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
@@ -75,7 +77,16 @@ export default class extends Base {
           num.push(dataobj.qty);
        }
         //缓存购物车
-     this.cookie("cart_goods_item",JSON.stringify(dataarr)); //将 cookie theme 值设置为 default
+     if(this.is_login){
+         await this.model('cart').where({uid:this.user.uid}).delete()
+         for(let val of dataarr){
+                val.uid = this.user.uid;
+                this.model('cart').add(val);
+            }
+     }else{
+       this.cookie("cart_goods_item",JSON.stringify(dataarr)); //将 cookie theme 值设置为 default  
+     }
+     
       let cartinfo = {
           total:eval(total.join('+')),
           num:eval(num.join('+')),
@@ -83,5 +94,10 @@ export default class extends Base {
       }
     
      return this.json(cartinfo);
+  }
+  
+  //获取订单信息
+  getorderinfoAction(){
+      
   }
 }

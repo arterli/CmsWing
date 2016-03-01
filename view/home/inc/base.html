@@ -17,7 +17,7 @@
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
 	<!-- WEB FONTS : use %7C instead of | (pipe) -->
-	<link href="http://fonts.useso.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+	<!--<link href="http://fonts.useso.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />-->
 
 	<!-- CORE CSS -->
 	<link href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -337,6 +337,9 @@
     $("#year").html(year);
     </script>
 	{% block script %}{% endblock %}
+    <!--[if lte IE 9]>
+<script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
+<![endif]-->
 </body>
 
 </html>

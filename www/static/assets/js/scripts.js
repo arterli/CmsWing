@@ -115,6 +115,7 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
+        _login();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
@@ -239,8 +240,30 @@
 
 	};
 
-
- 
+/**
+ * 用户登录
+ */
+  function _login (){
+      $(document).on('submit','#login',function(e){
+          var data=$(this).serialize()
+         $.ajax({ 
+             type: "POST", 
+             url: "/user/login",
+             data: data,
+             success: function(msg){
+                    if(msg.errno < 0){
+                       _toastr(msg.errmsg,"top-right","error",false);  
+                    }else{
+                      //$('#ajaxModal').remove();
+                      location.reload(true); 
+                    }
+                    } 
+                    });
+         
+         
+           return false;
+      })
+  }
 /** 00. Slider Full Height
  **************************************************************** **/
 	function _slider_full() {
@@ -758,9 +781,15 @@
      * 
     *********************************************************************/
      function _cart() {
-          
-         $('.product-add-cart').click(function(e) {
-             e.preventDefault();
+         var _container =  $('.product-add-cart');
+        
+		if(_container.length > 0) {
+			loadScript(plugin_path + 'jquery-fly/jquery.fly.min.js', function() {
+			var offset = $(".quick-cart").offset();  //结束的地方的元素
+            console.log(offset);
+			$('.product-add-cart').click(function(event) {
+             event.preventDefault();
+             var addcar = $(this);
              //验证todo
             var shoptype = $(".icheck");
             var arr =[]
@@ -778,7 +807,22 @@
                return false;
                
             } 
-            var str = $(".ichecks").serialize();
+            var img = $("figure").find('img').attr('src');
+            console.log(img);
+		    var flyer = $('<img  width="80" src="'+img+'">');
+            flyer.fly({
+			start: {
+				left: event.pageX,
+				top: event.pageY
+			},
+			end: {
+				left: offset.left+10,
+				top: offset.top+10,
+				width: 0,
+				height: 0
+			},
+			onEnd: function(){
+				var str = $(".ichecks").serialize();
             $.ajax({
             type: "POST",
             url: "/cart/addcart",
@@ -804,7 +848,20 @@
 							
             //console.log(msg);
             });
-         })
+				//addcar.css("cursor","default").removeClass('orange').unbind('click');
+				
+			}
+           
+		});
+         
+            
+         })	
+			
+			});
+		
+		}
+          
+         
          
           function formatCurrency (num) {  
         num = num.toString().replace(/\$|\,/g,'');  

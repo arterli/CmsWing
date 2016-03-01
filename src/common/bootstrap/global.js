@@ -716,7 +716,7 @@ global.get_price_format = function (price,type) {
     }
     price = present_price;
     }else{
-   
+
         if(pr.discount_price==0){
          price = "";
         }else{
@@ -787,7 +787,7 @@ global.get_price = function (price,type) {
         num = num.substring(0,num.length-(4*i+3))+','+  
         num.substring(num.length-(4*i+3));  
         return (((sign)?'':'-') + num + '.' + cents);  
-    }  
+    }
    /**
     * 获取商品suk suk, arr:类型数组
     */
@@ -822,3 +822,34 @@ global.get_price = function (price,type) {
            })
            return suk_;
        }
+
+    /**
+     * 构建微信菜单数据结构
+     * @param data
+     * @returns {{menu: {button: Array}}}
+     */
+    global.createSelfMenu = function(data){
+        let menu = {
+                        "menu": {
+                            "button": []
+                        }
+                    };
+        let button = [];
+        for(var i=0;i<data.length;i++){
+            if(data[i].pid == '0'){
+                let item = {"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
+                menu.menu.button.push(item);
+                button.push(item);
+            }
+        }
+        for(var x=0;x<button.length;x++){
+            for(var y=0;y<data.length;y++){
+                if(data[y].pid == button[x].m_id){
+                    let sitem = {"type":data[y].type,"sort":data[y].sort,"name":data[y].name,"url":data[y].url,"media_id":data[y].media_id};
+                    button[x].sub_button.push(sitem);
+                }
+            }
+        }
+        return menu;
+    };
+    

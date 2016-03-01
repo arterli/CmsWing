@@ -47,7 +47,7 @@ export default class extends think.controller.base {
         //退出登录
         let is_login = await this.islogin();
         if(is_login){
-            await this.session();
+            await this.session('userInfo', null);
             this.redirect('/admin/public/signin');
         }else{
             this.redirect('/admin/public/signin');

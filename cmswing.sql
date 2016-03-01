@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50520
-Source Host           : localhost:3306
+Source Server         : 局域
+Source Server Version : 50621
+Source Host           : 192.168.1.120:3306
 Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-02-26 18:21:01
+Date: 2016-03-01 20:23:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=257 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=274 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -138,6 +138,23 @@ INSERT INTO `cmswing_action_log` VALUES ('253', '4', '1', '2130706433', 'documen
 INSERT INTO `cmswing_action_log` VALUES ('254', '4', '1', '2130706433', 'document', '69', 'admin在2016-02-26 14:15:32发表了一篇文章。\r\n表document，记录编号69。fdsfsa', '1', '1456467332659');
 INSERT INTO `cmswing_action_log` VALUES ('255', '4', '1', '2130706433', 'document', '70', 'admin在2016-02-26 14:32:47发表了一篇文章。\r\n表document，记录编号70。fdsfsa', '1', '1456468367260');
 INSERT INTO `cmswing_action_log` VALUES ('256', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-26 16:46:19登录了后台', '1', '1456476379696');
+INSERT INTO `cmswing_action_log` VALUES ('257', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-27 12:06:13登录了后台', '1', '1456545973927');
+INSERT INTO `cmswing_action_log` VALUES ('258', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-27 15:10:49登录了后台', '1', '1456557049727');
+INSERT INTO `cmswing_action_log` VALUES ('259', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 13:42:55登录了后台', '1', '1456810975466');
+INSERT INTO `cmswing_action_log` VALUES ('260', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 14:31:15登录了后台', '1', '1456813875233');
+INSERT INTO `cmswing_action_log` VALUES ('261', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:00:21登录了后台', '1', '1456826421516');
+INSERT INTO `cmswing_action_log` VALUES ('262', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:02:26登录了后台', '1', '1456826546146');
+INSERT INTO `cmswing_action_log` VALUES ('263', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:02:38登录了后台', '1', '1456826558950');
+INSERT INTO `cmswing_action_log` VALUES ('264', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:05:52登录了后台', '1', '1456826752027');
+INSERT INTO `cmswing_action_log` VALUES ('265', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:21:43登录了后台', '1', '1456827703418');
+INSERT INTO `cmswing_action_log` VALUES ('266', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:32:31登录了后台', '1', '1456828351546');
+INSERT INTO `cmswing_action_log` VALUES ('267', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:32:43登录了后台', '1', '1456828363638');
+INSERT INTO `cmswing_action_log` VALUES ('268', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:34:35登录了后台', '1', '1456828475037');
+INSERT INTO `cmswing_action_log` VALUES ('269', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 18:34:57登录了后台', '1', '1456828497058');
+INSERT INTO `cmswing_action_log` VALUES ('270', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 19:46:10登录了后台', '1', '1456832770718');
+INSERT INTO `cmswing_action_log` VALUES ('271', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 19:47:09登录了后台', '1', '1456832829533');
+INSERT INTO `cmswing_action_log` VALUES ('272', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 20:08:30登录了后台', '1', '1456834110313');
+INSERT INTO `cmswing_action_log` VALUES ('273', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 20:22:32登录了后台', '1', '1456834952865');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -271,7 +288,7 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
@@ -398,6 +415,8 @@ INSERT INTO `cmswing_auth_rule` VALUES ('119', 'article', '网站内容', '0', '
 INSERT INTO `cmswing_auth_rule` VALUES ('120', 'admin/action/index', '用户行为', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('121', 'admin/action/log', '行为日志', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('122', 'admin/article/recycle', '回收站', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('123', 'admin/mpbase/index', '微信', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('124', 'admin/mpbase/seting', '公共账号管理', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -417,6 +436,31 @@ CREATE TABLE `cmswing_auth_user_role` (
 INSERT INTO `cmswing_auth_user_role` VALUES ('1', '1', '1');
 INSERT INTO `cmswing_auth_user_role` VALUES ('2', '1', '2');
 INSERT INTO `cmswing_auth_user_role` VALUES ('3', '14', '19');
+
+-- ----------------------------
+-- Table structure for cmswing_cart
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_cart`;
+CREATE TABLE `cmswing_cart` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `qty` int(11) NOT NULL COMMENT '商品数量',
+  `type` varchar(255) DEFAULT NULL COMMENT '商品类型',
+  `price` int(11) NOT NULL COMMENT '商品价格小计',
+  `title` varchar(255) NOT NULL COMMENT '商品标题',
+  `unit_price` int(11) NOT NULL COMMENT '商品单价',
+  `pic` varchar(255) DEFAULT NULL COMMENT '商品图片',
+  `url` varchar(255) DEFAULT NULL COMMENT '商品地址',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_cart
+-- ----------------------------
+INSERT INTO `cmswing_cart` VALUES ('51', '1', '69', '2', '黄色,M', '334', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('52', '1', '69', '3', '红色,M', '501', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('53', '1', '69', '1', '蓝色,L', '167', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -570,7 +614,7 @@ INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '4654
 INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '0', '1', '1451018700', '0', '0', '0', '0', '0', '1451018700', '1451030139', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1453711202518', '1453711202518', '1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '2', '0', '0', '0', '2016', '1453789112170', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
 INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
@@ -604,10 +648,10 @@ INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766900091', '1452766900091', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
-INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
-INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '17', '0', '0', '0', '1456468367173', '1456468896293', '1', '125,126', '{\"present_price\":\"80-100\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
+INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
+INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '55', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
+INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '337', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '31', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1456305969296', '1', '72,73,74', '{\"present_price\":8,\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('59', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203072311', '1456305816537', '1', '79,80', '{\"present_price\":100,\"discount_price\":\"0\"}');
@@ -616,8 +660,8 @@ INSERT INTO `cmswing_document` VALUES ('61', '1', '', 'gfdgdf', '45', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('62', '1', '', '测试唱片', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456236857429', '1456305874738', '1', '75,76', '{\"present_price\":100,\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('63', '1', '', '犯得上发生', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456388778234', '1456388778234', '1', '81', '{\"present_price\":\"12-23\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('64', '1', '', '2222', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456390496719', '1456390496719', '1', '87', '{\"present_price\":\"10-20\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '58', '0', '0', '0', '1456394250128', '1456460285526', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('66', '1', '', '测试商品的长度测试商品的长度测试商品的长度测试商品的长度测试商品的长度', '57', '0', '法大师傅大师傅放的说法都是放到富士达电风扇放到', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1456459666532', '1456459682701', '1', '106', '{\"present_price\":\"100\",\"discount_price\":\"120\"}');
+INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '62', '0', '0', '0', '1456394250128', '1456460285526', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('66', '1', '', '测试商品的长度测试商品的长度测试商品的长度测试商品的长度测试商品的长度', '57', '0', '法大师傅大师傅放的说法都是放到富士达电风扇放到', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '36', '0', '0', '0', '1456459666532', '1456459682701', '1', '106', '{\"present_price\":\"100\",\"discount_price\":\"120\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -731,7 +775,7 @@ INSERT INTO `cmswing_document_shop` VALUES ('66', '', '', '10', '0', '1', '0', '
 INSERT INTO `cmswing_document_shop` VALUES ('67', '', '', '0', '0', '1', '0', '0', '<p>&nbsp;放大撒放大撒放大撒放到电风扇犯得上发射点</p>', '{\"type\":0,\"val\":\"10\"}');
 INSERT INTO `cmswing_document_shop` VALUES ('68', '', '', '10', '0', '1', '0', '0', '<p>1111222222222222222</p>', '{\"type\":1,\"val\":\"2\"}');
 INSERT INTO `cmswing_document_shop` VALUES ('69', '{\"type\":[\"颜色\",\"颜色\"],\"data\":[{\"name\":\"红色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"101\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"黄色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"蓝色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]}', 'UK2545843664', '70', '0', '1', '0', '0', '<p>22222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
-INSERT INTO `cmswing_document_shop` VALUES ('70', '{\"type\":[\"颜色\",\"颜色\"],\"data\":[{\"name\":\"紫不溜秋\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"颜色\",\"sku_price\":\"80\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"颜色\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"5\",\"sku_code\":\"\"}]},{\"name\":\"黄了吧唧\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"颜色\",\"sku_price\":\"80\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"颜色\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]}]}', 'uk888888888', '79', '0', '1', '0', '0', '<p>22222222222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('70', '{\"type\":[\"颜色\",\"尺码\"],\"data\":[{\"name\":\"紫不溜秋\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"尺码\",\"sku_price\":\"50\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"尺码\",\"sku_price\":\"60\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]},{\"name\":\"黄了吧唧\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"尺码\",\"sku_price\":\"55\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"尺码\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"尺码\",\"sku_price\":\"200\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]}]}', 'uk888888888', '128', '0', '1', '0', '0', '<p>22222222222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_file
@@ -792,7 +836,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '410', 'arterli@qq.com', '57', '', '1452513965683', '0', '1456476379677', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '420', 'arterli@qq.com', '74', '', '1452513965683', '0', '1456834952848', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -845,7 +889,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=133 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -964,6 +1008,10 @@ INSERT INTO `cmswing_menu` VALUES ('123', '审核列表', '3', '0', 'Article/exa
 INSERT INTO `cmswing_menu` VALUES ('126', '其他', '2', '0', 'wenz/mang', '0', '12152', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('127', '微信', '0', '5', 'admin/mpbase/index', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('128', '公共账号管理', '127', '0', 'admin/mpbase/seting', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('129', '群发消息', '127', '0', 'admin/mpbase/mass', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('130', '素材管理', '127', '0', 'admin/mpbase2/fodderlist', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('131', '微信用户管理', '127', '0', 'admin/mpbase/menu', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('132', '自定义菜单', '127', '1', 'admin/mpbase/selfmenu', '0', '', '99', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -1014,138 +1062,140 @@ CREATE TABLE `cmswing_picture` (
   `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信',
+  `source_id` varchar(255) DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
 -- ----------------------------
-INSERT INTO `cmswing_picture` VALUES ('1', '/Uploads/Picture/2015-12-25/567cf54a36ea6.png', '', 'f3eaa6c12a36de8a052d1d77cd9dc1e1', 'd4a24c871be2dc3be7607d3102b42523b1f4a683', '1', '1451029834');
-INSERT INTO `cmswing_picture` VALUES ('2', '/Uploads/Picture/2015-12-25/567d3a8788fe6.png', '', 'ca283b4bfceaf203177b9e9acf3241c3', '9ff89de6ae933c3b0de83652c101fb1b284e0d65', '1', '1451047559');
-INSERT INTO `cmswing_picture` VALUES ('3', '/upload/picture/2015-12-25/rbLGp9vjY1DemXO0DRY7JzVT.png', '', '', '', '1', '1451051924514');
-INSERT INTO `cmswing_picture` VALUES ('4', '/upload/picture/2015-12-25/2sSUNAWwQ-yPaPS9boIcBY2K.jpg', '', '', '', '1', '1451051961775');
-INSERT INTO `cmswing_picture` VALUES ('5', '/upload/picture/2015-12-25/1KlWY4ut1DqYl6bmX_DoQ6B1.png', '', '', '', '1', '1451052022238');
-INSERT INTO `cmswing_picture` VALUES ('6', '/upload/picture/2015-12-25/4HLlzNvjnlyUnKY8X6Y-U6h1.jpg', '', '', '', '1', '1451052030761');
-INSERT INTO `cmswing_picture` VALUES ('7', '/upload/picture/2015-12-25/gax_wWo9sZR-JZ_b0DBiugta.jpg', '', '', '', '1', '1451052354530');
-INSERT INTO `cmswing_picture` VALUES ('8', '/upload/picture/2015-12-25/NZ4-YBz5LHnCqp2sqDFwIfWs.png', '', '', '', '1', '1451052483035');
-INSERT INTO `cmswing_picture` VALUES ('9', '/upload/picture/2015-12-26/BUNOS_nHpdGFKtdZvYKDRQ49.png', '', '', '', '1', '1451110257877');
-INSERT INTO `cmswing_picture` VALUES ('10', '/upload/picture/2015-12-26/VD4YVQCeo2mvRJ_KkMGYHKSW.png', '', '', '', '1', '1451110401131');
-INSERT INTO `cmswing_picture` VALUES ('11', '/upload/picture/2015-12-28/eoBllez-pPPyHe1Lj-pWxr7W.jpg', '', '', '', '1', '1451301404071');
-INSERT INTO `cmswing_picture` VALUES ('12', '/upload/picture/2015-12-28/_K9Z1B2lCgpRsXhRou2dwdlg.jpg', '', '', '', '1', '1451303946844');
-INSERT INTO `cmswing_picture` VALUES ('13', '/upload/picture/2015-12-28/rk4XLHU1fZ_XsS1YA6atoOWB.jpg', '', '', '', '1', '1451303973834');
-INSERT INTO `cmswing_picture` VALUES ('14', '/upload/picture/2015-12-28/9keT7MphBbnHeWjHIIqRaXdj.jpg', '', '', '', '1', '1451307702105');
-INSERT INTO `cmswing_picture` VALUES ('15', '/upload/picture/2015-12-28/FlgennevswlBDjJUcr0RtRTP.jpg', '', '', '', '1', '1451307713630');
-INSERT INTO `cmswing_picture` VALUES ('16', '/upload/picture/2015-12-28/otYhAIEH88KXND-CWLYB-Vbc.png', '', '', '', '1', '1451309044762');
-INSERT INTO `cmswing_picture` VALUES ('17', '/upload/picture/2015-12-29/eSiieCg7cLbJClblvYeklqF7.jpg', '', '', '', '1', '1451395596202');
-INSERT INTO `cmswing_picture` VALUES ('18', '/upload/picture/2015-12-30/dR7zwL2u8nMHxkpmJLDH-6Ht.png', '', '', '', '1', '1451464802409');
-INSERT INTO `cmswing_picture` VALUES ('19', '/upload/picture/2016-01-04/G5cGMPq8xeUIPmAIli83-HdK.png', '', '', '', '1', '1451878852719');
-INSERT INTO `cmswing_picture` VALUES ('20', '/upload/picture/2016-01-13/9TLUUw6FONF2lLRLwMknhzLN.png', '', '', '', '1', '1452690230397');
-INSERT INTO `cmswing_picture` VALUES ('21', '/upload/picture/2016-01-15/QqIiJShMeQ_EpAI_ebRZdXfq.png', '', '', '', '1', '1452839151989');
-INSERT INTO `cmswing_picture` VALUES ('22', '/upload/picture/2016-01-15/H0axv1GKpLYhrnDTye86lZxV.png', '', '', '', '1', '1452839162017');
-INSERT INTO `cmswing_picture` VALUES ('23', '/upload/picture/2016-01-15/9sUsetciafo39OXxRz4mxlru.png', '', '', '', '1', '1452839189799');
-INSERT INTO `cmswing_picture` VALUES ('24', '/upload/picture/2016-01-15/YlshdvV8jGEdn4RvLFxlzGRS.png', '', '', '', '1', '1452839942254');
-INSERT INTO `cmswing_picture` VALUES ('25', '/upload/picture/2016-01-15/Hho7m8ZiOpsvTOX6qX2i2oPq.png', '', '', '', '1', '1452840007315');
-INSERT INTO `cmswing_picture` VALUES ('26', '/upload/picture/2016-01-15/Tlp9bAaVOO1ytcJ-2tz9cZl9.png', '', '', '', '1', '1452840130366');
-INSERT INTO `cmswing_picture` VALUES ('27', '/upload/picture/2016-01-15/I6NNoG58d-FYJfWV2eUhe7iJ.png', '', '', '', '1', '1452840489639');
-INSERT INTO `cmswing_picture` VALUES ('28', '/upload/picture/2016-01-16/LkPB5Z4AZfaGtMoVVbJwqzMW.jpg', '', '', '', '1', '1452919474738');
-INSERT INTO `cmswing_picture` VALUES ('29', '/upload/picture/2016-01-16/FCkGU9Nteynkd6k6Vxj98Llq.JPG', '', '', '', '1', '1452919524092');
-INSERT INTO `cmswing_picture` VALUES ('30', '/upload/picture/2016-01-16/uDdVHERiQP9HSPeVV1BBehm-.jpg', '', '', '', '1', '1452919681703');
-INSERT INTO `cmswing_picture` VALUES ('31', '/upload/picture/2016-01-16/B6s5nw1H4ia9AzxC5tXjU7MV.png', '', '', '', '1', '1452919791633');
-INSERT INTO `cmswing_picture` VALUES ('32', '/upload/picture/2016-01-16/4AUwAgwK0MM_McU6tZYQuG5H.png', '', '', '', '1', '1452920302896');
-INSERT INTO `cmswing_picture` VALUES ('33', '/upload/picture/2016-01-25/Oqefa8OlJGa9tYQAOn4LzDNo.png', '', '', '', '1', '1453694903926');
-INSERT INTO `cmswing_picture` VALUES ('34', '/upload/picture/2016-01-25/YgJNn-vAHrTojIMJaa5b_NZF.png', '', '', '', '1', '1453703626503');
-INSERT INTO `cmswing_picture` VALUES ('35', '/upload/picture/2016-02-17/upcIkYfahsrA2v91WVrnwnnT.png', '', '', '', '1', '1455685465490');
-INSERT INTO `cmswing_picture` VALUES ('36', '/upload/picture/2016-02-17/9x8ATjsn0yWCOD12-Sg8IZ9b.png', '', '', '', '1', '1455685468060');
-INSERT INTO `cmswing_picture` VALUES ('37', '/upload/picture/2016-02-17/WuD6azDV2nzjpsuw0THr9H8Z.png', '', '', '', '1', '1455697076519');
-INSERT INTO `cmswing_picture` VALUES ('38', '/upload/picture/2016-02-17/NJ6ZrgTPMiIdq2jwG4D2oW57.png', '', '', '', '1', '1455697076555');
-INSERT INTO `cmswing_picture` VALUES ('39', '/upload/picture/2016-02-17/GVVfiEt7mJx3ythCiusaF1Bd.png', '', '', '', '1', '1455697076630');
-INSERT INTO `cmswing_picture` VALUES ('40', '/upload/picture/2016-02-17/bByJqpKt_0LIhxW0HCOfevST.png', '', '', '', '1', '1455697076728');
-INSERT INTO `cmswing_picture` VALUES ('41', '/upload/picture/2016-02-17/XIbYnHMsBQDJPzLI3wnwtpwy.png', '', '', '', '1', '1455697076749');
-INSERT INTO `cmswing_picture` VALUES ('42', '/upload/picture/2016-02-17/h5SYnoyk2Zdb8vOBAbuK-jkh.png', '', '', '', '1', '1455697076807');
-INSERT INTO `cmswing_picture` VALUES ('43', '/upload/picture/2016-02-17/hOf9UPDW8x8PfP-y2tGluL-y.png', '', '', '', '1', '1455697076920');
-INSERT INTO `cmswing_picture` VALUES ('44', '/upload/picture/2016-02-17/yZ-lYx4grjwjnUaCkGgStK_x.png', '', '', '', '1', '1455697076973');
-INSERT INTO `cmswing_picture` VALUES ('45', '/upload/picture/2016-02-17/Z-flFprPTM2NjKjUUG-2JNQR.png', '', '', '', '1', '1455698404323');
-INSERT INTO `cmswing_picture` VALUES ('46', '/upload/picture/2016-02-17/E_LFQxuWpam9uDfN0fLMML8v.png', '', '', '', '1', '1455698404405');
-INSERT INTO `cmswing_picture` VALUES ('47', '/upload/picture/2016-02-17/FXWeBn2e3p_w7_4ovPI_JqQz.png', '', '', '', '1', '1455698404446');
-INSERT INTO `cmswing_picture` VALUES ('48', '/upload/picture/2016-02-17/8JAxQijhowZNgUSGCtCeBvmV.png', '', '', '', '1', '1455698477924');
-INSERT INTO `cmswing_picture` VALUES ('49', '/upload/picture/2016-02-17/GtcJUi6Z58qRaSfprJtcA2xP.png', '', '', '', '1', '1455698478060');
-INSERT INTO `cmswing_picture` VALUES ('50', '/upload/picture/2016-02-17/fJT_8mv42Eza2tefFg8c57F-.png', '', '', '', '1', '1455698478095');
-INSERT INTO `cmswing_picture` VALUES ('51', '/upload/picture/2016-02-17/yjXlg40MFFfX2tmWuoFNHCX_.png', '', '', '', '1', '1455698912408');
-INSERT INTO `cmswing_picture` VALUES ('52', '/upload/picture/2016-02-17/vs_6iKCSkezHgFLqWrGo_yG6.png', '', '', '', '1', '1455698912510');
-INSERT INTO `cmswing_picture` VALUES ('53', '/upload/picture/2016-02-17/sitYEDcx3KXnAO9Soa9-3n1Z.png', '', '', '', '1', '1455698912516');
-INSERT INTO `cmswing_picture` VALUES ('54', '/upload/picture/2016-02-17/5Vepdn_g1ZCn0ZxlbkCrJLx0.png', '', '', '', '1', '1455698912552');
-INSERT INTO `cmswing_picture` VALUES ('55', '/upload/picture/2016-02-17/wUexvivri6hdozn5s4nGG-6l.png', '', '', '', '1', '1455698994835');
-INSERT INTO `cmswing_picture` VALUES ('56', '/upload/picture/2016-02-17/EF8xNu270Hibe6AjVD9ZNFn_.png', '', '', '', '1', '1455698994908');
-INSERT INTO `cmswing_picture` VALUES ('57', '/upload/picture/2016-02-17/GgxHP6rDiZapWid3a0lOycGt.png', '', '', '', '1', '1455698994979');
-INSERT INTO `cmswing_picture` VALUES ('58', '/upload/picture/2016-02-17/shnPDRcYY92WRiZnyYSymwWV.png', '', '', '', '1', '1455698995013');
-INSERT INTO `cmswing_picture` VALUES ('59', '/upload/picture/2016-02-17/3t5RrngSZy-Eyavdgfonb6pC.png', '', '', '', '1', '1455698995068');
-INSERT INTO `cmswing_picture` VALUES ('60', '/upload/picture/2016-02-17/y8YSTPw5PA1bjpVM2NydM9UO.png', '', '', '', '1', '1455698995147');
-INSERT INTO `cmswing_picture` VALUES ('61', '/upload/picture/2016-02-17/plyovRYkXbFfE2kU_KUVN4Qk.png', '', '', '', '1', '1455698995178');
-INSERT INTO `cmswing_picture` VALUES ('62', '/upload/picture/2016-02-17/L7FaMEY2fipWoIY6aDamQPFH.png', '', '', '', '1', '1455699100368');
-INSERT INTO `cmswing_picture` VALUES ('63', '/upload/picture/2016-02-17/OT8G_tuLQfIf6BuP9nZWq7Tq.png', '', '', '', '1', '1455699100421');
-INSERT INTO `cmswing_picture` VALUES ('64', '/upload/picture/2016-02-17/Jb8ux4j2x4rbO4-Sz4Z3ZJfL.png', '', '', '', '1', '1455699126352');
-INSERT INTO `cmswing_picture` VALUES ('65', '/upload/picture/2016-02-17/ogwNEUNphebpL1jPGt4Y3d3s.png', '', '', '', '1', '1455699126412');
-INSERT INTO `cmswing_picture` VALUES ('66', '/upload/picture/2016-02-17/hbrF4GZBm4XNCW4WEXYOpDN0.png', '', '', '', '1', '1455699126457');
-INSERT INTO `cmswing_picture` VALUES ('67', '/upload/picture/2016-02-17/N05WpPOegd79k3x22kDITuzH.png', '', '', '', '1', '1455699126528');
-INSERT INTO `cmswing_picture` VALUES ('68', '/upload/picture/2016-02-17/FECkq195UjlNHw_TMs8zzDHE.png', '', '', '', '1', '1455699167743');
-INSERT INTO `cmswing_picture` VALUES ('69', '/upload/picture/2016-02-17/GniOHS1QY2ddoe0Wnc0N4Uei.png', '', '', '', '1', '1455699167792');
-INSERT INTO `cmswing_picture` VALUES ('70', '/upload/picture/2016-02-17/P9-IYSXgs1gTkQX-0jjbdM6M.png', '', '', '', '1', '1455699167863');
-INSERT INTO `cmswing_picture` VALUES ('71', '/upload/picture/2016-02-17/iDlgPDtaWAnqRv9dGuGHUHzS.png', '', '', '', '1', '1455699167891');
-INSERT INTO `cmswing_picture` VALUES ('72', '/upload/picture/2016-02-17/vcj2HR7Y3luK4M1Jk72YpjUU.png', '', '', '', '1', '1455708689996');
-INSERT INTO `cmswing_picture` VALUES ('73', '/upload/picture/2016-02-17/Y_83VJuAlZVYWc7fOCO6B8rh.png', '', '', '', '1', '1455708690066');
-INSERT INTO `cmswing_picture` VALUES ('74', '/upload/picture/2016-02-17/JQ5VJcVR3YRsgtxam6lg9wV7.png', '', '', '', '1', '1455708690070');
-INSERT INTO `cmswing_picture` VALUES ('75', '/upload/picture/2016-02-23/4oG7lGGocXEDbM3LT-ESGqwt.jpg', '', '', '', '1', '1456236833650');
-INSERT INTO `cmswing_picture` VALUES ('76', '/upload/picture/2016-02-23/Nw4N4viqLvUJrg_ewYRd8sN0.jpg', '', '', '', '1', '1456236833735');
-INSERT INTO `cmswing_picture` VALUES ('77', '/upload/picture/2016-02-24/T5E0Gb_7LVHEMZrP8yDzqKb6.png', '', '', '', '1', '1456290063424');
-INSERT INTO `cmswing_picture` VALUES ('78', '/upload/picture/2016-02-24/t4OJv1qpjTUfBIU5YbK_3dZy.jpg', '', '', '', '1', '1456290063442');
-INSERT INTO `cmswing_picture` VALUES ('79', '/upload/picture/2016-02-24/bE22Yn_xZtzDaCBRpjqm4Smq.png', '', '', '', '1', '1456290102319');
-INSERT INTO `cmswing_picture` VALUES ('80', '/upload/picture/2016-02-24/iXADeXYxj-dqUsUdqZkLB-tO.png', '', '', '', '1', '1456290102431');
-INSERT INTO `cmswing_picture` VALUES ('81', '/upload/picture/2016-02-24/ZwMTBjoh_K7xFBjw0Z5iyJ1-.jpg', '', '', '', '1', '1456290128970');
-INSERT INTO `cmswing_picture` VALUES ('82', '/upload/picture/2016-02-24/BBCDgD4bL2ZmqYKE85cza_Ku.jpg', '', '', '', '1', '1456290146439');
-INSERT INTO `cmswing_picture` VALUES ('83', '/upload/picture/2016-02-24/B_uAOKyaGh_REFH5rnwRhuZV.jpg', '', '', '', '1', '1456306069801');
-INSERT INTO `cmswing_picture` VALUES ('84', '/upload/picture/2016-02-24/7dsjUWMwil4X36NwwO5CjOrz.png', '', '', '', '1', '1456306769396');
-INSERT INTO `cmswing_picture` VALUES ('85', '/upload/picture/2016-02-24/Z4WW6sicGmpzHdc-TjzyFxjC.jpg', '', '', '', '1', '1456307138230');
-INSERT INTO `cmswing_picture` VALUES ('86', '/upload/picture/2016-02-24/d_6cQjY2Upfs1JH-IB3aN8Jn.jpg', '', '', '', '1', '1456307197896');
-INSERT INTO `cmswing_picture` VALUES ('87', '/upload/picture/2016-02-25/AI9935U42KDQeJwjEDbEenq2.png', '', '', '', '1', '1456390485523');
-INSERT INTO `cmswing_picture` VALUES ('88', '/upload/picture/2016-02-25/GaaxWzxUQukhVipP1cPoFA7b.jpg', '', '', '', '1', '1456394032645');
-INSERT INTO `cmswing_picture` VALUES ('89', '/upload/picture/2016-02-25/qcqxmZ773WoIGMPeJi9NrN7i.jpg', '', '', '', '1', '1456394032891');
-INSERT INTO `cmswing_picture` VALUES ('90', '/upload/picture/2016-02-25/tGfsacJrfU-IGUPoyOnBa_A3.jpg', '', '', '', '1', '1456394033042');
-INSERT INTO `cmswing_picture` VALUES ('91', '/upload/picture/2016-02-25/-rHapXzhi2nv6vSvVxsa7QeJ.jpg', '', '', '', '1', '1456394033174');
-INSERT INTO `cmswing_picture` VALUES ('92', '/upload/picture/2016-02-25/a3mW2IUP0gyNK_F9VBU-CDnl.jpg', '', '', '', '1', '1456396319612');
-INSERT INTO `cmswing_picture` VALUES ('93', '/upload/picture/2016-02-25/NYyh-sChqwXkfIw7Wj00vu4D.jpg', '', '', '', '1', '1456396319946');
-INSERT INTO `cmswing_picture` VALUES ('94', '/upload/picture/2016-02-25/UsozucdB94Yyu7pd0-Bpdsmm.jpg', '', '', '', '1', '1456396320256');
-INSERT INTO `cmswing_picture` VALUES ('95', '/upload/picture/2016-02-25/4QI5lJWnqyOW07OlLlDpVb8k.jpg', '', '', '', '1', '1456396320413');
-INSERT INTO `cmswing_picture` VALUES ('96', '/upload/picture/2016-02-25/XDmOIKEoMgWdkxd6ymaTdCFG.jpg', '', '', '', '1', '1456396320615');
-INSERT INTO `cmswing_picture` VALUES ('97', '/upload/picture/2016-02-25/hwKQTB3uOCvp8zJBd8ZGUgPa.jpg', '', '', '', '1', '1456396320743');
-INSERT INTO `cmswing_picture` VALUES ('98', '/upload/picture/2016-02-25/68T5qhK0UKrZ4IzUov5P7Fv0.jpg', '', '', '', '1', '1456396320865');
-INSERT INTO `cmswing_picture` VALUES ('99', '/upload/picture/2016-02-25/q8AVyFtsWng-YeUCcygEs3GX.jpg', '', '', '', '1', '1456396320976');
-INSERT INTO `cmswing_picture` VALUES ('100', '/upload/picture/2016-02-25/yZTUfSB_ACj8M-7xzpXPF2yC.jpg', '', '', '', '1', '1456396321138');
-INSERT INTO `cmswing_picture` VALUES ('101', '/upload/picture/2016-02-25/BSTiRb49Kkl1pj8OFmJtYTxL.jpg', '', '', '', '1', '1456396321258');
-INSERT INTO `cmswing_picture` VALUES ('102', '/upload/picture/2016-02-25/c7EhQZ6DBqnvQp2eKHGluS4t.jpg', '', '', '', '1', '1456396321394');
-INSERT INTO `cmswing_picture` VALUES ('103', '/upload/picture/2016-02-25/xoDO5YmxqUmvo6UVQcnKQ6ye.jpg', '', '', '', '1', '1456396321490');
-INSERT INTO `cmswing_picture` VALUES ('104', '/upload/picture/2016-02-25/m-seuHTLjuuyqpBOOGZfXX0a.jpg', '', '', '', '1', '1456396321619');
-INSERT INTO `cmswing_picture` VALUES ('105', '/upload/picture/2016-02-25/0bCgkzjur_kv-fkIsuC-6h_5.jpg', '', '', '', '1', '1456396321784');
-INSERT INTO `cmswing_picture` VALUES ('106', '/upload/picture/2016-02-26/5ZoCC1EvrqSaHRar81MYZtgC.jpg', '', '', '', '1', '1456459679579');
-INSERT INTO `cmswing_picture` VALUES ('107', '/upload/picture/2016-02-26/iRuL7cWSXq2nGugZD-UUjXQm.jpg', '', '', '', '1', '1456460626835');
-INSERT INTO `cmswing_picture` VALUES ('108', '/upload/picture/2016-02-26/FhXzoJlRXlh4kew-3ErOaFyb.jpg', '', '', '', '1', '1456460626870');
-INSERT INTO `cmswing_picture` VALUES ('109', '/upload/picture/2016-02-26/0KZWd7jZygj8ZvcWds6kMRcE.jpg', '', '', '', '1', '1456467143191');
-INSERT INTO `cmswing_picture` VALUES ('110', '/upload/picture/2016-02-26/rYFzL5wmYwAscCm6DgWzRZ2p.jpg', '', '', '', '1', '1456467143278');
-INSERT INTO `cmswing_picture` VALUES ('111', '/upload/picture/2016-02-26/dsU37BoOnRlgGLX-7xunE-zb.jpg', '', '', '', '1', '1456467143369');
-INSERT INTO `cmswing_picture` VALUES ('112', '/upload/picture/2016-02-26/RoqIK96VedfIplTWaVdnt3Hq.jpg', '', '', '', '1', '1456467143452');
-INSERT INTO `cmswing_picture` VALUES ('113', '/upload/picture/2016-02-26/0En7my_7ip_cita-jkOv-7T3.jpg', '', '', '', '1', '1456467143514');
-INSERT INTO `cmswing_picture` VALUES ('114', '/upload/picture/2016-02-26/owCi6MqvZzAONlxUZJNe1nXB.jpg', '', '', '', '1', '1456467143612');
-INSERT INTO `cmswing_picture` VALUES ('115', '/upload/picture/2016-02-26/C1Hv5Ewz8JIIXmvNofiCK0AR.jpg', '', '', '', '1', '1456467143685');
-INSERT INTO `cmswing_picture` VALUES ('116', '/upload/picture/2016-02-26/QtWCJoqLDAuJqMtDXMQbSJm7.jpg', '', '', '', '1', '1456467143767');
-INSERT INTO `cmswing_picture` VALUES ('117', '/upload/picture/2016-02-26/m0fzi2FxtQyT_xT5msvkvzFE.jpg', '', '', '', '1', '1456467143845');
-INSERT INTO `cmswing_picture` VALUES ('118', '/upload/picture/2016-02-26/LlXhaPE4jBnkGlcHBLb4W_DQ.jpg', '', '', '', '1', '1456467143941');
-INSERT INTO `cmswing_picture` VALUES ('119', '/upload/picture/2016-02-26/0_A3UhB2SMAPuTyvF6EGxs1X.jpg', '', '', '', '1', '1456467143999');
-INSERT INTO `cmswing_picture` VALUES ('120', '/upload/picture/2016-02-26/daHi2ELprmXWL7FVUblhny1x.jpg', '', '', '', '1', '1456467144112');
-INSERT INTO `cmswing_picture` VALUES ('121', '/upload/picture/2016-02-26/V5WWrW4vvR6jIfqQ1gKewONr.jpg', '', '', '', '1', '1456467144140');
-INSERT INTO `cmswing_picture` VALUES ('122', '/upload/picture/2016-02-26/LkJDOVPlhqRlM_YuwZFeskmz.jpg', '', '', '', '1', '1456467144233');
-INSERT INTO `cmswing_picture` VALUES ('123', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '', '', '', '1', '1456467366632');
-INSERT INTO `cmswing_picture` VALUES ('124', '/upload/picture/2016-02-26/5YUpFuw_uPb5sU-UMtOh9UVG.jpg', '', '', '', '1', '1456467366710');
-INSERT INTO `cmswing_picture` VALUES ('125', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '', '', '', '1', '1456468194336');
-INSERT INTO `cmswing_picture` VALUES ('126', '/upload/picture/2016-02-26/iJ-GwDggGfzfMI9RkF5kZmaI.jpg', '', '', '', '1', '1456468194418');
+INSERT INTO `cmswing_picture` VALUES ('1', '/Uploads/Picture/2015-12-25/567cf54a36ea6.png', '', 'f3eaa6c12a36de8a052d1d77cd9dc1e1', 'd4a24c871be2dc3be7607d3102b42523b1f4a683', '1', '1451029834', null, null);
+INSERT INTO `cmswing_picture` VALUES ('2', '/Uploads/Picture/2015-12-25/567d3a8788fe6.png', '', 'ca283b4bfceaf203177b9e9acf3241c3', '9ff89de6ae933c3b0de83652c101fb1b284e0d65', '1', '1451047559', null, null);
+INSERT INTO `cmswing_picture` VALUES ('3', '/upload/picture/2015-12-25/rbLGp9vjY1DemXO0DRY7JzVT.png', '', '', '', '1', '1451051924514', null, null);
+INSERT INTO `cmswing_picture` VALUES ('4', '/upload/picture/2015-12-25/2sSUNAWwQ-yPaPS9boIcBY2K.jpg', '', '', '', '1', '1451051961775', null, null);
+INSERT INTO `cmswing_picture` VALUES ('5', '/upload/picture/2015-12-25/1KlWY4ut1DqYl6bmX_DoQ6B1.png', '', '', '', '1', '1451052022238', null, null);
+INSERT INTO `cmswing_picture` VALUES ('6', '/upload/picture/2015-12-25/4HLlzNvjnlyUnKY8X6Y-U6h1.jpg', '', '', '', '1', '1451052030761', null, null);
+INSERT INTO `cmswing_picture` VALUES ('7', '/upload/picture/2015-12-25/gax_wWo9sZR-JZ_b0DBiugta.jpg', '', '', '', '1', '1451052354530', null, null);
+INSERT INTO `cmswing_picture` VALUES ('8', '/upload/picture/2015-12-25/NZ4-YBz5LHnCqp2sqDFwIfWs.png', '', '', '', '1', '1451052483035', null, null);
+INSERT INTO `cmswing_picture` VALUES ('9', '/upload/picture/2015-12-26/BUNOS_nHpdGFKtdZvYKDRQ49.png', '', '', '', '1', '1451110257877', null, null);
+INSERT INTO `cmswing_picture` VALUES ('10', '/upload/picture/2015-12-26/VD4YVQCeo2mvRJ_KkMGYHKSW.png', '', '', '', '1', '1451110401131', null, null);
+INSERT INTO `cmswing_picture` VALUES ('11', '/upload/picture/2015-12-28/eoBllez-pPPyHe1Lj-pWxr7W.jpg', '', '', '', '1', '1451301404071', null, null);
+INSERT INTO `cmswing_picture` VALUES ('12', '/upload/picture/2015-12-28/_K9Z1B2lCgpRsXhRou2dwdlg.jpg', '', '', '', '1', '1451303946844', null, null);
+INSERT INTO `cmswing_picture` VALUES ('13', '/upload/picture/2015-12-28/rk4XLHU1fZ_XsS1YA6atoOWB.jpg', '', '', '', '1', '1451303973834', null, null);
+INSERT INTO `cmswing_picture` VALUES ('14', '/upload/picture/2015-12-28/9keT7MphBbnHeWjHIIqRaXdj.jpg', '', '', '', '1', '1451307702105', null, null);
+INSERT INTO `cmswing_picture` VALUES ('15', '/upload/picture/2015-12-28/FlgennevswlBDjJUcr0RtRTP.jpg', '', '', '', '1', '1451307713630', null, null);
+INSERT INTO `cmswing_picture` VALUES ('16', '/upload/picture/2015-12-28/otYhAIEH88KXND-CWLYB-Vbc.png', '', '', '', '1', '1451309044762', null, null);
+INSERT INTO `cmswing_picture` VALUES ('17', '/upload/picture/2015-12-29/eSiieCg7cLbJClblvYeklqF7.jpg', '', '', '', '1', '1451395596202', null, null);
+INSERT INTO `cmswing_picture` VALUES ('18', '/upload/picture/2015-12-30/dR7zwL2u8nMHxkpmJLDH-6Ht.png', '', '', '', '1', '1451464802409', null, null);
+INSERT INTO `cmswing_picture` VALUES ('19', '/upload/picture/2016-01-04/G5cGMPq8xeUIPmAIli83-HdK.png', '', '', '', '1', '1451878852719', null, null);
+INSERT INTO `cmswing_picture` VALUES ('20', '/upload/picture/2016-01-13/9TLUUw6FONF2lLRLwMknhzLN.png', '', '', '', '1', '1452690230397', null, null);
+INSERT INTO `cmswing_picture` VALUES ('21', '/upload/picture/2016-01-15/QqIiJShMeQ_EpAI_ebRZdXfq.png', '', '', '', '1', '1452839151989', null, null);
+INSERT INTO `cmswing_picture` VALUES ('22', '/upload/picture/2016-01-15/H0axv1GKpLYhrnDTye86lZxV.png', '', '', '', '1', '1452839162017', null, null);
+INSERT INTO `cmswing_picture` VALUES ('23', '/upload/picture/2016-01-15/9sUsetciafo39OXxRz4mxlru.png', '', '', '', '1', '1452839189799', null, null);
+INSERT INTO `cmswing_picture` VALUES ('24', '/upload/picture/2016-01-15/YlshdvV8jGEdn4RvLFxlzGRS.png', '', '', '', '1', '1452839942254', null, null);
+INSERT INTO `cmswing_picture` VALUES ('25', '/upload/picture/2016-01-15/Hho7m8ZiOpsvTOX6qX2i2oPq.png', '', '', '', '1', '1452840007315', null, null);
+INSERT INTO `cmswing_picture` VALUES ('26', '/upload/picture/2016-01-15/Tlp9bAaVOO1ytcJ-2tz9cZl9.png', '', '', '', '1', '1452840130366', null, null);
+INSERT INTO `cmswing_picture` VALUES ('27', '/upload/picture/2016-01-15/I6NNoG58d-FYJfWV2eUhe7iJ.png', '', '', '', '1', '1452840489639', null, null);
+INSERT INTO `cmswing_picture` VALUES ('28', '/upload/picture/2016-01-16/LkPB5Z4AZfaGtMoVVbJwqzMW.jpg', '', '', '', '1', '1452919474738', null, null);
+INSERT INTO `cmswing_picture` VALUES ('29', '/upload/picture/2016-01-16/FCkGU9Nteynkd6k6Vxj98Llq.JPG', '', '', '', '1', '1452919524092', null, null);
+INSERT INTO `cmswing_picture` VALUES ('30', '/upload/picture/2016-01-16/uDdVHERiQP9HSPeVV1BBehm-.jpg', '', '', '', '1', '1452919681703', null, null);
+INSERT INTO `cmswing_picture` VALUES ('31', '/upload/picture/2016-01-16/B6s5nw1H4ia9AzxC5tXjU7MV.png', '', '', '', '1', '1452919791633', null, null);
+INSERT INTO `cmswing_picture` VALUES ('32', '/upload/picture/2016-01-16/4AUwAgwK0MM_McU6tZYQuG5H.png', '', '', '', '1', '1452920302896', null, null);
+INSERT INTO `cmswing_picture` VALUES ('33', '/upload/picture/2016-01-25/Oqefa8OlJGa9tYQAOn4LzDNo.png', '', '', '', '1', '1453694903926', null, null);
+INSERT INTO `cmswing_picture` VALUES ('34', '/upload/picture/2016-01-25/YgJNn-vAHrTojIMJaa5b_NZF.png', '', '', '', '1', '1453703626503', null, null);
+INSERT INTO `cmswing_picture` VALUES ('35', '/upload/picture/2016-02-17/upcIkYfahsrA2v91WVrnwnnT.png', '', '', '', '1', '1455685465490', null, null);
+INSERT INTO `cmswing_picture` VALUES ('36', '/upload/picture/2016-02-17/9x8ATjsn0yWCOD12-Sg8IZ9b.png', '', '', '', '1', '1455685468060', null, null);
+INSERT INTO `cmswing_picture` VALUES ('37', '/upload/picture/2016-02-17/WuD6azDV2nzjpsuw0THr9H8Z.png', '', '', '', '1', '1455697076519', null, null);
+INSERT INTO `cmswing_picture` VALUES ('38', '/upload/picture/2016-02-17/NJ6ZrgTPMiIdq2jwG4D2oW57.png', '', '', '', '1', '1455697076555', null, null);
+INSERT INTO `cmswing_picture` VALUES ('39', '/upload/picture/2016-02-17/GVVfiEt7mJx3ythCiusaF1Bd.png', '', '', '', '1', '1455697076630', null, null);
+INSERT INTO `cmswing_picture` VALUES ('40', '/upload/picture/2016-02-17/bByJqpKt_0LIhxW0HCOfevST.png', '', '', '', '1', '1455697076728', null, null);
+INSERT INTO `cmswing_picture` VALUES ('41', '/upload/picture/2016-02-17/XIbYnHMsBQDJPzLI3wnwtpwy.png', '', '', '', '1', '1455697076749', null, null);
+INSERT INTO `cmswing_picture` VALUES ('42', '/upload/picture/2016-02-17/h5SYnoyk2Zdb8vOBAbuK-jkh.png', '', '', '', '1', '1455697076807', null, null);
+INSERT INTO `cmswing_picture` VALUES ('43', '/upload/picture/2016-02-17/hOf9UPDW8x8PfP-y2tGluL-y.png', '', '', '', '1', '1455697076920', null, null);
+INSERT INTO `cmswing_picture` VALUES ('44', '/upload/picture/2016-02-17/yZ-lYx4grjwjnUaCkGgStK_x.png', '', '', '', '1', '1455697076973', null, null);
+INSERT INTO `cmswing_picture` VALUES ('45', '/upload/picture/2016-02-17/Z-flFprPTM2NjKjUUG-2JNQR.png', '', '', '', '1', '1455698404323', null, null);
+INSERT INTO `cmswing_picture` VALUES ('46', '/upload/picture/2016-02-17/E_LFQxuWpam9uDfN0fLMML8v.png', '', '', '', '1', '1455698404405', null, null);
+INSERT INTO `cmswing_picture` VALUES ('47', '/upload/picture/2016-02-17/FXWeBn2e3p_w7_4ovPI_JqQz.png', '', '', '', '1', '1455698404446', null, null);
+INSERT INTO `cmswing_picture` VALUES ('48', '/upload/picture/2016-02-17/8JAxQijhowZNgUSGCtCeBvmV.png', '', '', '', '1', '1455698477924', null, null);
+INSERT INTO `cmswing_picture` VALUES ('49', '/upload/picture/2016-02-17/GtcJUi6Z58qRaSfprJtcA2xP.png', '', '', '', '1', '1455698478060', null, null);
+INSERT INTO `cmswing_picture` VALUES ('50', '/upload/picture/2016-02-17/fJT_8mv42Eza2tefFg8c57F-.png', '', '', '', '1', '1455698478095', null, null);
+INSERT INTO `cmswing_picture` VALUES ('51', '/upload/picture/2016-02-17/yjXlg40MFFfX2tmWuoFNHCX_.png', '', '', '', '1', '1455698912408', null, null);
+INSERT INTO `cmswing_picture` VALUES ('52', '/upload/picture/2016-02-17/vs_6iKCSkezHgFLqWrGo_yG6.png', '', '', '', '1', '1455698912510', null, null);
+INSERT INTO `cmswing_picture` VALUES ('53', '/upload/picture/2016-02-17/sitYEDcx3KXnAO9Soa9-3n1Z.png', '', '', '', '1', '1455698912516', null, null);
+INSERT INTO `cmswing_picture` VALUES ('54', '/upload/picture/2016-02-17/5Vepdn_g1ZCn0ZxlbkCrJLx0.png', '', '', '', '1', '1455698912552', null, null);
+INSERT INTO `cmswing_picture` VALUES ('55', '/upload/picture/2016-02-17/wUexvivri6hdozn5s4nGG-6l.png', '', '', '', '1', '1455698994835', null, null);
+INSERT INTO `cmswing_picture` VALUES ('56', '/upload/picture/2016-02-17/EF8xNu270Hibe6AjVD9ZNFn_.png', '', '', '', '1', '1455698994908', null, null);
+INSERT INTO `cmswing_picture` VALUES ('57', '/upload/picture/2016-02-17/GgxHP6rDiZapWid3a0lOycGt.png', '', '', '', '1', '1455698994979', null, null);
+INSERT INTO `cmswing_picture` VALUES ('58', '/upload/picture/2016-02-17/shnPDRcYY92WRiZnyYSymwWV.png', '', '', '', '1', '1455698995013', null, null);
+INSERT INTO `cmswing_picture` VALUES ('59', '/upload/picture/2016-02-17/3t5RrngSZy-Eyavdgfonb6pC.png', '', '', '', '1', '1455698995068', null, null);
+INSERT INTO `cmswing_picture` VALUES ('60', '/upload/picture/2016-02-17/y8YSTPw5PA1bjpVM2NydM9UO.png', '', '', '', '1', '1455698995147', null, null);
+INSERT INTO `cmswing_picture` VALUES ('61', '/upload/picture/2016-02-17/plyovRYkXbFfE2kU_KUVN4Qk.png', '', '', '', '1', '1455698995178', null, null);
+INSERT INTO `cmswing_picture` VALUES ('62', '/upload/picture/2016-02-17/L7FaMEY2fipWoIY6aDamQPFH.png', '', '', '', '1', '1455699100368', null, null);
+INSERT INTO `cmswing_picture` VALUES ('63', '/upload/picture/2016-02-17/OT8G_tuLQfIf6BuP9nZWq7Tq.png', '', '', '', '1', '1455699100421', null, null);
+INSERT INTO `cmswing_picture` VALUES ('64', '/upload/picture/2016-02-17/Jb8ux4j2x4rbO4-Sz4Z3ZJfL.png', '', '', '', '1', '1455699126352', null, null);
+INSERT INTO `cmswing_picture` VALUES ('65', '/upload/picture/2016-02-17/ogwNEUNphebpL1jPGt4Y3d3s.png', '', '', '', '1', '1455699126412', null, null);
+INSERT INTO `cmswing_picture` VALUES ('66', '/upload/picture/2016-02-17/hbrF4GZBm4XNCW4WEXYOpDN0.png', '', '', '', '1', '1455699126457', null, null);
+INSERT INTO `cmswing_picture` VALUES ('67', '/upload/picture/2016-02-17/N05WpPOegd79k3x22kDITuzH.png', '', '', '', '1', '1455699126528', null, null);
+INSERT INTO `cmswing_picture` VALUES ('68', '/upload/picture/2016-02-17/FECkq195UjlNHw_TMs8zzDHE.png', '', '', '', '1', '1455699167743', null, null);
+INSERT INTO `cmswing_picture` VALUES ('69', '/upload/picture/2016-02-17/GniOHS1QY2ddoe0Wnc0N4Uei.png', '', '', '', '1', '1455699167792', null, null);
+INSERT INTO `cmswing_picture` VALUES ('70', '/upload/picture/2016-02-17/P9-IYSXgs1gTkQX-0jjbdM6M.png', '', '', '', '1', '1455699167863', null, null);
+INSERT INTO `cmswing_picture` VALUES ('71', '/upload/picture/2016-02-17/iDlgPDtaWAnqRv9dGuGHUHzS.png', '', '', '', '1', '1455699167891', null, null);
+INSERT INTO `cmswing_picture` VALUES ('72', '/upload/picture/2016-02-17/vcj2HR7Y3luK4M1Jk72YpjUU.png', '', '', '', '1', '1455708689996', null, null);
+INSERT INTO `cmswing_picture` VALUES ('73', '/upload/picture/2016-02-17/Y_83VJuAlZVYWc7fOCO6B8rh.png', '', '', '', '1', '1455708690066', null, null);
+INSERT INTO `cmswing_picture` VALUES ('74', '/upload/picture/2016-02-17/JQ5VJcVR3YRsgtxam6lg9wV7.png', '', '', '', '1', '1455708690070', null, null);
+INSERT INTO `cmswing_picture` VALUES ('75', '/upload/picture/2016-02-23/4oG7lGGocXEDbM3LT-ESGqwt.jpg', '', '', '', '1', '1456236833650', null, null);
+INSERT INTO `cmswing_picture` VALUES ('76', '/upload/picture/2016-02-23/Nw4N4viqLvUJrg_ewYRd8sN0.jpg', '', '', '', '1', '1456236833735', null, null);
+INSERT INTO `cmswing_picture` VALUES ('77', '/upload/picture/2016-02-24/T5E0Gb_7LVHEMZrP8yDzqKb6.png', '', '', '', '1', '1456290063424', null, null);
+INSERT INTO `cmswing_picture` VALUES ('78', '/upload/picture/2016-02-24/t4OJv1qpjTUfBIU5YbK_3dZy.jpg', '', '', '', '1', '1456290063442', null, null);
+INSERT INTO `cmswing_picture` VALUES ('79', '/upload/picture/2016-02-24/bE22Yn_xZtzDaCBRpjqm4Smq.png', '', '', '', '1', '1456290102319', null, null);
+INSERT INTO `cmswing_picture` VALUES ('80', '/upload/picture/2016-02-24/iXADeXYxj-dqUsUdqZkLB-tO.png', '', '', '', '1', '1456290102431', null, null);
+INSERT INTO `cmswing_picture` VALUES ('81', '/upload/picture/2016-02-24/ZwMTBjoh_K7xFBjw0Z5iyJ1-.jpg', '', '', '', '1', '1456290128970', null, null);
+INSERT INTO `cmswing_picture` VALUES ('82', '/upload/picture/2016-02-24/BBCDgD4bL2ZmqYKE85cza_Ku.jpg', '', '', '', '1', '1456290146439', null, null);
+INSERT INTO `cmswing_picture` VALUES ('83', '/upload/picture/2016-02-24/B_uAOKyaGh_REFH5rnwRhuZV.jpg', '', '', '', '1', '1456306069801', null, null);
+INSERT INTO `cmswing_picture` VALUES ('84', '/upload/picture/2016-02-24/7dsjUWMwil4X36NwwO5CjOrz.png', '', '', '', '1', '1456306769396', null, null);
+INSERT INTO `cmswing_picture` VALUES ('85', '/upload/picture/2016-02-24/Z4WW6sicGmpzHdc-TjzyFxjC.jpg', '', '', '', '1', '1456307138230', null, null);
+INSERT INTO `cmswing_picture` VALUES ('86', '/upload/picture/2016-02-24/d_6cQjY2Upfs1JH-IB3aN8Jn.jpg', '', '', '', '1', '1456307197896', null, null);
+INSERT INTO `cmswing_picture` VALUES ('87', '/upload/picture/2016-02-25/AI9935U42KDQeJwjEDbEenq2.png', '', '', '', '1', '1456390485523', null, null);
+INSERT INTO `cmswing_picture` VALUES ('88', '/upload/picture/2016-02-25/GaaxWzxUQukhVipP1cPoFA7b.jpg', '', '', '', '1', '1456394032645', null, null);
+INSERT INTO `cmswing_picture` VALUES ('89', '/upload/picture/2016-02-25/qcqxmZ773WoIGMPeJi9NrN7i.jpg', '', '', '', '1', '1456394032891', null, null);
+INSERT INTO `cmswing_picture` VALUES ('90', '/upload/picture/2016-02-25/tGfsacJrfU-IGUPoyOnBa_A3.jpg', '', '', '', '1', '1456394033042', null, null);
+INSERT INTO `cmswing_picture` VALUES ('91', '/upload/picture/2016-02-25/-rHapXzhi2nv6vSvVxsa7QeJ.jpg', '', '', '', '1', '1456394033174', null, null);
+INSERT INTO `cmswing_picture` VALUES ('92', '/upload/picture/2016-02-25/a3mW2IUP0gyNK_F9VBU-CDnl.jpg', '', '', '', '1', '1456396319612', null, null);
+INSERT INTO `cmswing_picture` VALUES ('93', '/upload/picture/2016-02-25/NYyh-sChqwXkfIw7Wj00vu4D.jpg', '', '', '', '1', '1456396319946', null, null);
+INSERT INTO `cmswing_picture` VALUES ('94', '/upload/picture/2016-02-25/UsozucdB94Yyu7pd0-Bpdsmm.jpg', '', '', '', '1', '1456396320256', null, null);
+INSERT INTO `cmswing_picture` VALUES ('95', '/upload/picture/2016-02-25/4QI5lJWnqyOW07OlLlDpVb8k.jpg', '', '', '', '1', '1456396320413', null, null);
+INSERT INTO `cmswing_picture` VALUES ('96', '/upload/picture/2016-02-25/XDmOIKEoMgWdkxd6ymaTdCFG.jpg', '', '', '', '1', '1456396320615', null, null);
+INSERT INTO `cmswing_picture` VALUES ('97', '/upload/picture/2016-02-25/hwKQTB3uOCvp8zJBd8ZGUgPa.jpg', '', '', '', '1', '1456396320743', null, null);
+INSERT INTO `cmswing_picture` VALUES ('98', '/upload/picture/2016-02-25/68T5qhK0UKrZ4IzUov5P7Fv0.jpg', '', '', '', '1', '1456396320865', null, null);
+INSERT INTO `cmswing_picture` VALUES ('99', '/upload/picture/2016-02-25/q8AVyFtsWng-YeUCcygEs3GX.jpg', '', '', '', '1', '1456396320976', null, null);
+INSERT INTO `cmswing_picture` VALUES ('100', '/upload/picture/2016-02-25/yZTUfSB_ACj8M-7xzpXPF2yC.jpg', '', '', '', '1', '1456396321138', null, null);
+INSERT INTO `cmswing_picture` VALUES ('101', '/upload/picture/2016-02-25/BSTiRb49Kkl1pj8OFmJtYTxL.jpg', '', '', '', '1', '1456396321258', null, null);
+INSERT INTO `cmswing_picture` VALUES ('102', '/upload/picture/2016-02-25/c7EhQZ6DBqnvQp2eKHGluS4t.jpg', '', '', '', '1', '1456396321394', null, null);
+INSERT INTO `cmswing_picture` VALUES ('103', '/upload/picture/2016-02-25/xoDO5YmxqUmvo6UVQcnKQ6ye.jpg', '', '', '', '1', '1456396321490', null, null);
+INSERT INTO `cmswing_picture` VALUES ('104', '/upload/picture/2016-02-25/m-seuHTLjuuyqpBOOGZfXX0a.jpg', '', '', '', '1', '1456396321619', null, null);
+INSERT INTO `cmswing_picture` VALUES ('105', '/upload/picture/2016-02-25/0bCgkzjur_kv-fkIsuC-6h_5.jpg', '', '', '', '1', '1456396321784', null, null);
+INSERT INTO `cmswing_picture` VALUES ('106', '/upload/picture/2016-02-26/5ZoCC1EvrqSaHRar81MYZtgC.jpg', '', '', '', '1', '1456459679579', null, null);
+INSERT INTO `cmswing_picture` VALUES ('107', '/upload/picture/2016-02-26/iRuL7cWSXq2nGugZD-UUjXQm.jpg', '', '', '', '1', '1456460626835', null, null);
+INSERT INTO `cmswing_picture` VALUES ('108', '/upload/picture/2016-02-26/FhXzoJlRXlh4kew-3ErOaFyb.jpg', '', '', '', '1', '1456460626870', null, null);
+INSERT INTO `cmswing_picture` VALUES ('109', '/upload/picture/2016-02-26/0KZWd7jZygj8ZvcWds6kMRcE.jpg', '', '', '', '1', '1456467143191', null, null);
+INSERT INTO `cmswing_picture` VALUES ('110', '/upload/picture/2016-02-26/rYFzL5wmYwAscCm6DgWzRZ2p.jpg', '', '', '', '1', '1456467143278', null, null);
+INSERT INTO `cmswing_picture` VALUES ('111', '/upload/picture/2016-02-26/dsU37BoOnRlgGLX-7xunE-zb.jpg', '', '', '', '1', '1456467143369', null, null);
+INSERT INTO `cmswing_picture` VALUES ('112', '/upload/picture/2016-02-26/RoqIK96VedfIplTWaVdnt3Hq.jpg', '', '', '', '1', '1456467143452', null, null);
+INSERT INTO `cmswing_picture` VALUES ('113', '/upload/picture/2016-02-26/0En7my_7ip_cita-jkOv-7T3.jpg', '', '', '', '1', '1456467143514', null, null);
+INSERT INTO `cmswing_picture` VALUES ('114', '/upload/picture/2016-02-26/owCi6MqvZzAONlxUZJNe1nXB.jpg', '', '', '', '1', '1456467143612', null, null);
+INSERT INTO `cmswing_picture` VALUES ('115', '/upload/picture/2016-02-26/C1Hv5Ewz8JIIXmvNofiCK0AR.jpg', '', '', '', '1', '1456467143685', null, null);
+INSERT INTO `cmswing_picture` VALUES ('116', '/upload/picture/2016-02-26/QtWCJoqLDAuJqMtDXMQbSJm7.jpg', '', '', '', '1', '1456467143767', null, null);
+INSERT INTO `cmswing_picture` VALUES ('117', '/upload/picture/2016-02-26/m0fzi2FxtQyT_xT5msvkvzFE.jpg', '', '', '', '1', '1456467143845', null, null);
+INSERT INTO `cmswing_picture` VALUES ('118', '/upload/picture/2016-02-26/LlXhaPE4jBnkGlcHBLb4W_DQ.jpg', '', '', '', '1', '1456467143941', null, null);
+INSERT INTO `cmswing_picture` VALUES ('119', '/upload/picture/2016-02-26/0_A3UhB2SMAPuTyvF6EGxs1X.jpg', '', '', '', '1', '1456467143999', null, null);
+INSERT INTO `cmswing_picture` VALUES ('120', '/upload/picture/2016-02-26/daHi2ELprmXWL7FVUblhny1x.jpg', '', '', '', '1', '1456467144112', null, null);
+INSERT INTO `cmswing_picture` VALUES ('121', '/upload/picture/2016-02-26/V5WWrW4vvR6jIfqQ1gKewONr.jpg', '', '', '', '1', '1456467144140', null, null);
+INSERT INTO `cmswing_picture` VALUES ('122', '/upload/picture/2016-02-26/LkJDOVPlhqRlM_YuwZFeskmz.jpg', '', '', '', '1', '1456467144233', null, null);
+INSERT INTO `cmswing_picture` VALUES ('123', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '', '', '', '1', '1456467366632', null, null);
+INSERT INTO `cmswing_picture` VALUES ('124', '/upload/picture/2016-02-26/5YUpFuw_uPb5sU-UMtOh9UVG.jpg', '', '', '', '1', '1456467366710', null, null);
+INSERT INTO `cmswing_picture` VALUES ('125', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '', '', '', '1', '1456468194336', null, null);
+INSERT INTO `cmswing_picture` VALUES ('126', '/upload/picture/2016-02-26/iJ-GwDggGfzfMI9RkF5kZmaI.jpg', '', '', '', '1', '1456468194418', null, null);
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -1192,7 +1242,7 @@ CREATE TABLE `cmswing_setup` (
 -- Records of cmswing_setup
 -- ----------------------------
 INSERT INTO `cmswing_setup` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '4294967295', '1379235274', '1', 'CmsWing内容管理框架', '0');
-INSERT INTO `cmswing_setup` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'CmsWing内容管理框架1122', '1');
+INSERT INTO `cmswing_setup` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'CmsWing内容管理框架', '1');
 INSERT INTO `cmswing_setup` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'nodej,comswing,内容管理框架,thinkjs22', '8');
 INSERT INTO `cmswing_setup` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1');
 INSERT INTO `cmswing_setup` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2');
@@ -1219,3 +1269,94 @@ INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表�
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
+
+-- ----------------------------
+-- Table structure for cmswing_wx_material
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_wx_material`;
+CREATE TABLE `cmswing_wx_material` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `media_id` varchar(255) DEFAULT NULL COMMENT '微信素材media_id',
+  `material_content` text COMMENT '素材详细内容',
+  `web_token` varchar(255) DEFAULT '0' COMMENT '该素材所从属的微信公众号id,  0为测试或发生错误的数据',
+  `add_time` int(13) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_wx_material
+-- ----------------------------
+INSERT INTO `cmswing_wx_material` VALUES ('1', '_T5vdk0ukzhzvgf7GWp5-4RreXVaPxOn_IrKS7rlFtU', '{\"articles\":[{\"title\":\"输入一个测试标题\",\"thumb_media_id\":\"_T5vdk0ukzhzvgf7GWp5-6noZb5ZM_OZkDadVrMCRW4\",\"author\":\"陈金龙\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">这里是我上传的一张地图</span></p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":109,\"hs_image_data_src\":\"data:image/jpeg;base64,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\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwqHen4nn1qjkFQqUWLLerGMNjNe9csqicibcRIYojAUn5mYZoA65GliaXp9iceAOJsK5xNtFNAiafp2Xwg/0?wx_fmt=jpeg\"}]}', '0', null);
+INSERT INTO `cmswing_wx_material` VALUES ('2', '_T5vdk0ukzhzvgf7GWp5--WNGVN4lMsMlWz-ttERZww', '{\"articles\":[{\"title\":\"标题\",\"thumb_media_id\":\"_T5vdk0ukzhzvgf7GWp5-x4laFqlnatdb6JkSXbjvt0\",\"author\":\"xiaochen\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>呵呵</p>\",\"content_source_url\":\"http://www.baidu.com/啊啊啊\",\"hs_image_id\":110,\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwqHen4nn1qjkFQqUWLLerGMNjNe9csqicibcRIYojAUn5mYZoA65GliaXp9iceAOJsK5xNtFNAiafp2Xwg/0?wx_fmt=jpeg\"},{\"title\":\"小标题\",\"thumb_media_id\":\"_T5vdk0ukzhzvgf7GWp5-9sayyDeIgDsBTtjDc-Em2A\",\"author\":\"陈金龙\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>内容</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":111,\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwqHen4nn1qjkFQqUWLLerGMnIFpo4k8zKOBGYA4CAwQPqsZ5ykVBaGibXFjfbRC0NpdjopNBPjsCWw/0?wx_fmt=jpeg\"}]}', '0', null);
+INSERT INTO `cmswing_wx_material` VALUES ('3', '_T5vdk0ukzhzvgf7GWp5-xMrtFYD-LSmwKP6fAq4KcM', '{\"articles\":[{\"title\":\"加一个标题\",\"thumb_media_id\":\"_T5vdk0ukzhzvgf7GWp5-8fMU69GAtMey0KSD8fXRos\",\"author\":\"陈金龙\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>加一个标题内容<span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">加一个标题内容</span></p>\",\"content_source_url\":\"http://www.taobao.com\",\"hs_image_id\":112,\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwqHen4nn1qjkFQqUWLLerGM8e6qtXibybA12H44Rcar2ibJrRxJFkvIUtseabuLI3U0wdictyXD4b6MQ/0?wx_fmt=jpeg\"}]}', '0', null);
+INSERT INTO `cmswing_wx_material` VALUES ('4', 'p6OXmVqDPkpfiJ-be4FF6_Uzlj0btio03_elJEeZNMU', '{\"articles\":[{\"title\":\"这个里面有多个图文\",\"thumb_media_id\":\"p6OXmVqDPkpfiJ-be4FF66E4o96eHyIFm5vnAUrpfIA\",\"author\":\"最新\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p><span style=\\\"font-family:微软雅黑\\\"><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span><span style=\\\"line-height: 22.4px; white-space: normal;\\\">你好</span></span></p>\",\"content_source_url\":\"http://www.taobao.com\",\"hs_image_id\":115,\"hs_image_src\":\"/upload/picture/2016-03-01/g2KWkOlI6LDaBFnIBF31gEXO.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwosVgKQAV2AfCKt1op43PdExhiaBrqSuke5dmUgyGXRnvInopqdXjwFaJs8r5JdjgdcUgdSWJJPyAg/0?wx_fmt=jpeg\"},{\"title\":\"这是第2个图文\",\"thumb_media_id\":\"p6OXmVqDPkpfiJ-be4FF6_WXG5z4ACrp0A-LM2fwLL0\",\"author\":\"2\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文这是第2个图文</p>\",\"content_source_url\":\"\",\"hs_image_id\":116,\"hs_image_src\":\"/upload/picture/2016-03-01/tohL7KZz-_lxUh1nz8nwX2Zl.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwosVgKQAV2AfCKt1op43PdEwcbxSPd8PQnDRSuhXoAUKA8icK2glv2Gic1btsPYqsVw1kotyRulkIkA/0?wx_fmt=jpeg\"},{\"title\":\"这是第3个图文\",\"thumb_media_id\":\"p6OXmVqDPkpfiJ-be4FF65gLu-HVwd4ShS9M0er-De4\",\"author\":\"3\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文这是第3个图文</p>\",\"content_source_url\":\"\",\"hs_image_id\":117,\"hs_image_src\":\"/upload/picture/2016-03-01/_snKvhMzIwI8Q1Nmo9f-ZLju.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwosVgKQAV2AfCKt1op43PdEJ8y7UCqS66hwSib8vqKib2uiaibzWmDYqmTGB2QPaBCGeqafLrWWpRWoDw/0?wx_fmt=jpeg\"}]}', '0', null);
+
+-- ----------------------------
+-- Table structure for cmswing_wx_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_wx_menu`;
+CREATE TABLE `cmswing_wx_menu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `m_id` varchar(50) DEFAULT NULL COMMENT '微信菜单ID',
+  `sort` tinyint(4) DEFAULT '0' COMMENT '菜单排序字段',
+  `pid` varchar(10) DEFAULT '0' COMMENT '0: 一级菜单 1：二级菜单',
+  `title` varchar(50) DEFAULT NULL COMMENT '菜单名',
+  `keyword` varchar(100) DEFAULT NULL COMMENT '关联关键词',
+  `url` varchar(255) DEFAULT NULL COMMENT '关联URL',
+  `web_token` varchar(255) DEFAULT NULL COMMENT '公众号Token',
+  `type` varchar(30) DEFAULT 'click' COMMENT 'click:点击推送事件 \r\nview：点击跳转URL\r\nscancode_push:扫码推事件\r\nscancode_waitmsg：扫码推事件且弹出“消息接收中”提示框\r\npic_sysphoto：弹出系统拍照发图\r\npic_photo_or_album：弹出拍照或者相册发图\r\npic_weixin：弹出微信相册发图器\r\nlocation_select：弹出地理位置选择器\r\nmedia_id：下发消息（除文本消息）\r\nview_limited：跳转图文消息URL\r\n',
+  `status` tinyint(11) DEFAULT NULL,
+  `media_id` varchar(50) DEFAULT NULL COMMENT '永久素材ID',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_wx_menu
+-- ----------------------------
+INSERT INTO `cmswing_wx_menu` VALUES ('40', '1456822629280', '1', '0', null, null, null, '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('41', '1456822683255', '1', '0', null, null, null, '', 'click', null, '');
+
+-- ----------------------------
+-- Table structure for cmswing_wx_user
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_wx_user`;
+CREATE TABLE `cmswing_wx_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '粉丝ID',
+  `subscribe` int(11) DEFAULT NULL COMMENT '用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。',
+  `openid` varchar(100) DEFAULT NULL COMMENT '用户的标识，对当前公众号唯一',
+  `nickname` varchar(200) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT '用户的昵称',
+  `sex` int(11) DEFAULT NULL COMMENT '用户的性别，值为1时是男性，值为2时是女性，值为0时是未知',
+  `city` varchar(50) DEFAULT NULL COMMENT '用户所在城市',
+  `country` varchar(50) DEFAULT NULL COMMENT '用户所在国家',
+  `province` varchar(50) DEFAULT NULL COMMENT '用户所在省份',
+  `language` varchar(50) DEFAULT NULL COMMENT '用户的语言，简体中文为zh_CN',
+  `headimgurl` text COMMENT '用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空。若用户更换头像，原有头像URL将失效。',
+  `subscribe_time` bigint(13) DEFAULT NULL COMMENT '用户关注时间，为时间戳。如果用户曾多次关注，则取最后关注时间',
+  `unionid` varchar(100) DEFAULT NULL COMMENT '只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。',
+  `remark` text COMMENT '公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注',
+  `groupid` int(11) DEFAULT NULL COMMENT '用户所在的分组ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1550 DEFAULT CHARSET=utf8 COMMENT='微信粉丝表';
+
+-- ----------------------------
+-- Records of cmswing_wx_user
+-- ----------------------------
+INSERT INTO `cmswing_wx_user` VALUES ('1546', '1', 'oVe9Ew0zHFp0up1CeNcK2J5RL4xs', ' 峰 『 沃 』 梅 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/UGrobmT8GcL0wqQfIXnh272odLgoryg9knBYuJ7RsD90F1AfnpfcJzgwnQBBHg1zMwc3Sqewia7JZuicsMEqJVHg/0', '1453348404', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1547', '1', 'oVe9Ewyd7Lw1bKPTtBvCSbB13DtU', ' 陈 金 龙 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Gs59CFdXOrxBwyeGUibzpeROqORmm3ABL9eT85OCA5wty6g7QvAgQjsDFsEDGYRKn2AlfRA0U1vrXZxfcpjofXssPwaIibqda5/0', '1456284018', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1548', '1', 'oVe9Ew3z2pS_vbEneAJMPA_DJ0TQ', ' 小 马 哥 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/YzwhFs1wyaibAhvXdtribZCpoz0nEuCFeIx56GIMmEeFD9u0h8WakGw25gWYks7tGFdB9PPIWHwQ7zTiaUzMKMzeTicHic2TzoWB3/0', '1456284127', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1549', '1', 'oVe9Ew1nEItmuu-H5NoeZpK0xLzo', ' s t u p i d ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/YzwhFs1wyaicBr8tmkj5ib0CXAerJ9ia6L83lJXxobVTDmEicAjp7CxSLuV5kPXZOEpn5ibOd3zLZwV324ohyeRZkzyefh9U1mqys/0', '1453533101', null, '', '0');
+
+-- ----------------------------
+-- View structure for 11
+-- ----------------------------
+DROP VIEW IF EXISTS `11`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `11` AS SELECT
+cw_article.gid,
+cw_article.title,
+cw_article.date,
+cw_user.username,
+cw_category.catename
+FROM
+cw_article
+LEFT JOIN cw_category ON cw_article.cateid = cw_category.cid
+LEFT JOIN cw_user ON cw_article.author = cw_user.uid ;

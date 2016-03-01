@@ -121,11 +121,13 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 .hs-etap-image .hs-etap-icon{ background: url(../img/hs_base_editor.png) 0 -60px no-repeat; }
 .hs-etap-audio .hs-etap-icon{ background: url(../img/hs_base_editor.png) 0 -180px no-repeat; }
 .hs-etap-video .hs-etap-icon{ background: url(../img/hs_base_editor.png) 0 -120px no-repeat; }
+.hs-etap-news .hs-etap-icon{ background: url(../img/hs_base_editor.png) 0 -240px no-repeat; }
 
 .hs-etap-text:hover  .hs-etap-icon, .hs-etap-text.active  .hs-etap-icon{ background-position: 0 -30px; }
 .hs-etap-image:hover .hs-etap-icon, .hs-etap-image.active .hs-etap-icon{ background-position: 0 -90px; }
 .hs-etap-audio:hover .hs-etap-icon, .hs-etap-audio.active .hs-etap-icon{ background-position: 0 -210px; }
 .hs-etap-video:hover .hs-etap-icon, .hs-etap-video.active .hs-etap-icon{ background-position: 0 -150px; }
+.hs-etap-news:hover .hs-etap-icon, .hs-etap-news.active .hs-etap-icon{ background-position: 0 -270px; }
 
 .hs-etap-panel{
 	min-height: 216px;

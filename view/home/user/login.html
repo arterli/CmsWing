@@ -9,18 +9,18 @@
                 <div class="col-sm-6 b-r">
                     <!--<h3 class="m-t-none m-b">已有账号</h3>
                     <p>Sign in to meet your friends.</p>-->
-                    <form role="form" class="sky-form ">
+                    <form role="form" class="sky-form" id="login" method="post">
                         
                            <div class="form-group">
                             <label>用户名</label>
                           
-                            <input type="text" class="form-control" placeholder="用户名" required="">
+                            <input type="text" name="username" class="form-control" placeholder="用户名" required="">
                             
                         </div>
                         <div class="form-group">
                             <label>密码</label>
                             
-                            <input type="password" class="form-control" placeholder="密码">
+                            <input type="password" name="password" class="form-control" placeholder="密码" required="">
                             <div class="clearfix note">
                                 <a href="#" class="pull-right">忘记密码?</a>
                             </div>
