@@ -115,6 +115,7 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
+        _login();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
@@ -239,8 +240,30 @@
 
 	};
 
-
- 
+/**
+ * 用户登录
+ */
+  function _login (){
+      $(document).on('submit','#login',function(e){
+          var data=$(this).serialize()
+         $.ajax({ 
+             type: "POST", 
+             url: "/user/login",
+             data: data,
+             success: function(msg){
+                    if(msg.errno < 0){
+                       _toastr(msg.errmsg,"top-right","error",false);  
+                    }else{
+                      //$('#ajaxModal').remove();
+                      location.reload(true); 
+                    }
+                    } 
+                    });
+         
+         
+           return false;
+      })
+  }
 /** 00. Slider Full Height
  **************************************************************** **/
 	function _slider_full() {

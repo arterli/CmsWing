@@ -788,6 +788,40 @@ global.get_price = function (price,type) {
         num.substring(num.length-(4*i+3));  
         return (((sign)?'':'-') + num + '.' + cents);  
     }
+   /**
+    * 获取商品suk suk, arr:类型数组
+    */
+    
+    /*global getsuk */
+   global.getsuk=function (suk,arr) {
+          //console.log(suk);
+           var suk_;
+           suk.forEach(function (v,k) {
+              
+               if(v.name==arr[0]){
+                  if(v.ch){
+                      v.ch.forEach(function (v_,k_) {
+                          if(v_.name == arr[1]){
+                             if(v_.ch){
+                                 v_.ch.forEach(function (v__,k__) {
+                          if(v__.name == arr[2]){
+                             
+                             suk_ = v__;
+                          }
+                      })
+                             }else{
+                                  suk_ = v_;
+                             }  
+                             
+                          }
+                      })
+                  }else{
+                     suk_ = v;
+                  }
+               }
+           })
+           return suk_;
+       }
 
     /**
      * 构建微信菜单数据结构

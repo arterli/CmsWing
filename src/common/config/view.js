@@ -83,6 +83,11 @@ export default {
                         return JSON.parse(str);
                    }      
                 })
+                 env.addFilter("jsonToStr", function (json) {
+                   if(!think.isEmpty(json)){
+                        return JSON.stringify(json);   
+                   }      
+                })
                 env.addFilter("strToArray", function (str) {
                     if (!think.isEmpty(str)) {
                         let ss = str.split(",");// 在每个逗号(,)处进行分解。

@@ -4,9 +4,9 @@
 					<!-- right -->
 					<ul class="top-links list-inline pull-right">
                         {% if controller.is_login %}
-						<li class="text-welcome hidden-xs">Welcome to Smarty, <strong>John Doe</strong></li>
+						<li class="text-welcome hidden-xs">您好, <strong>{{controller.user.username}}</strong></li>
 						<li>
-							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> MY ACCOUNT</a>
+							<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> 会员中心</a>
 							<ul class="dropdown-menu pull-right">
 								<li><a tabindex="-1" href="#"><i class="fa fa-history"></i> ORDER HISTORY</a></li>
 								<li class="divider"></li>
@@ -14,7 +14,7 @@
 								<li><a tabindex="-1" href="#"><i class="fa fa-edit"></i> MY REVIEWS</a></li>
 								<li><a tabindex="-1" href="#"><i class="fa fa-cog"></i> MY SETTINGS</a></li>
 								<li class="divider"></li>
-								<li><a tabindex="-1" href="#"><i class="glyphicon glyphicon-off"></i> LOGOUT</a></li>
+								<li><a tabindex="-1" href="/user/logout"><i class="glyphicon glyphicon-off"></i> 退出登录</a></li>
 							</ul>
 						</li>
                         {% else %}

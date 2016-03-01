@@ -105,7 +105,7 @@
 										</a>
 										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
 										<div class="total_price">￥<span>{{val.price|formatCurrency}}</span></div>
-										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; ￥21.00</div>
+										<div class="qty"><input type="number" value="{{val.qty}}" name="qty" maxlength="3" max="999" min="1" /> &times; ￥{{val.unit_price|formatCurrency}}</div>
 										<div class="clearfix"></div>
 									</div>
 									<!-- /cart item -->
@@ -148,7 +148,7 @@
 								</div>
 
 								<div class="toggle">
-									<label>选择快递</label>
+									<label>配送至：</label>
 
 									<div class="toggle-content">
 										<p>To get a shipping estimate, please enter your destination.</p>
@@ -191,7 +191,7 @@
 										</span>
 										<span class="clearfix">
 											<span class="pull-right">￥0.00</span>
-											<span class="pull-left">折扣:</span>
+											<span class="pull-left">优惠:</span>
 										</span>
 										<span class="clearfix">
 											<span class="pull-right">￥0.00</span>
@@ -201,13 +201,20 @@
 										<hr />
 
 										<span class="clearfix">
-											<span class="pull-right size-20">￥120.75</span>
+											<span class="pull-right size-20">￥{{controller.cart.total|formatCurrency}}</span>
 											<strong class="pull-left">合计:</strong>
 										</span>
 
 										<hr />
-
-										<a href="shop-checkout.html" class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> 立即结算</a>
+                                        <form action="#" method="post" class="nomargin">
+                                        <input type="hidden" value="{{controller.cart.data|jsonToStr}}" name="goods_item">
+                                        {% if controller.is_login %}
+							<button  class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> 立即结算</button>
+                            {%else%}
+                            <a  class="btn btn-primary btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
+                            {% endif %}
+										
+                                        </form>
 									</div>
 								</div>
 							</div>
