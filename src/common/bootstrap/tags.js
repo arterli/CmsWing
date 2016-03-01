@@ -79,6 +79,14 @@ global.mytags= function(){
 }
 /**
  * 获取同一级栏目标签
+ *
+ * @param data:接受返回数据的变量名称，例: data = "list"
+ *  {% colum data="list",pid=1 %}
+ * @param pid: 获取同级栏目
+ * {% colum data="list",pid=1 %}
+ * @param cid: 获取里栏目
+ * {% colum data="list",tree=1 %}
+ * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
  */
 global.column= function(){
 
@@ -90,29 +98,35 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        //console.log(args);
+        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
+        let tree = !think.isEmpty(args.tree) ?args.tree:false;
         let column = await think.model('category', think.config("db"),'admin').get_all_category();
         let arr=[];
         //获取同级栏目
+        
         if(pid){
             for (let val of column){
                if(val.pid == pid){
                    arr.push(val);
                }
             }
-        }
-        //获取子栏目
-        if(cid){
+             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+        }else if(cid){
             for (let val of column){
                 if(val.pid == cid){
                     arr.push(val);
                 }
             }
+             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+        }else if(tree){
+            let trees = arr_to_tree(column,tree);
+            console.log(trees)
+            context.ctx[data] = !think.isEmpty(trees)?trees:false;
         }
-        context.ctx[data] = !think.isEmpty(arr)?arr:false;
+       
         return callback(null,'');
     };
 

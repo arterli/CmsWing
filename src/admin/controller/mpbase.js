@@ -2,6 +2,7 @@
 
 import Base from './base.js';
 import API from 'wechat-api';
+
 export default class extends Base {
     /**
     * index action
@@ -135,9 +136,9 @@ export default class extends Base {
      */
     async getusersAction(){
         this.meta_title="获取粉丝信息";
-        let user_model = this.model('wx_user');
-        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let user_model = this.model('user');
+        //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         //let finduser = await this.model('user').countSelect();
         let self = this;
         //获取关注者列表
@@ -147,7 +148,7 @@ export default class extends Base {
                 if(!think.isEmpty(result)){
                    deferred.resolve(result);
                 }else{
-                    Console.error('err'+err);
+                    Console.error('err'+err)
                 } 
             });
             return deferred.promise;
@@ -156,8 +157,6 @@ export default class extends Base {
         let useropenid = res['data']['openid'];
         let count = res['count'];
        //self.end(useropenid);
-       //判断数据是否存在
-       
         
         //批量获取用户基本信息
         let isadd = false;
@@ -179,9 +178,8 @@ export default class extends Base {
                 }
                 let resusers = await userinfo(api);
                 let resinfo = resusers['user_info_list'];
-                //console.log(resinfo);
-                //self.end(resinfo);
-               console.log("开始：")
+               //self.end(resinfo);
+                console.log("开始：")
                for (var key in resinfo) {
                        var element = resinfo[key];
                        //self.end(element.openid);
@@ -211,6 +209,7 @@ export default class extends Base {
               
     }
     
+
     /**
      * 根据条件筛选进行群发--通过openid,只能是认证服务号使用
      * 通过分组groupid进行群发，认证后的订阅号和服务号都可以使用
@@ -249,6 +248,7 @@ export default class extends Base {
         
         //判断是通过groupid还是openid进行群发
         if(group_type == 1){
+            self.end('1');
             //分组群发
             switch (send_type) {
                 case 1://图文
@@ -271,7 +271,7 @@ export default class extends Base {
         }else{
             //self.end('0');
             if(think.isEmpty(province)){
-                //self.end('10');
+                //self.end(province);
                 //全部群发
                 res =await bymasssend(api,media_id,true);
             }else{

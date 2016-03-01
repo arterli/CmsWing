@@ -88,21 +88,21 @@
 						<img class="footer-logo" src="/static/assets/images/logo-footer.png" alt="" />
 
 						<!-- Small Description -->
-						<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+						<p>简单而强大的内容管理框架,让WEB开发更快速!</p>
 
 						<!-- Contact Address -->
 						<address>
 								<ul class="list-unstyled">
 									<li class="footer-sprite address">
-										PO Box 21132<br>
-										Here Weare St, Melbourne<br>
-										Vivas 2355 Australia<br>
+										中国 陕西<br>
+										西安雁塔区高新路<br>
+										望庭国际1号楼2单元24层<br>
 									</li>
 									<li class="footer-sprite phone">
-										Phone: 1-800-565-2390
+										电话: 86-029-88365435
 									</li>
 									<li class="footer-sprite email">
-										<a href="mailto:support@yourname.com">support@yourname.com</a>
+										<a href="mailto:admin@cmswing.com">admin@cmswing.com</a>
 									</li>
 								</ul>
 							</address>
@@ -113,7 +113,7 @@
 					<div class="col-md-3">
 
 						<!-- Latest Blog Post -->
-						<h4 class="letter-spacing-1">LATEST NEWS</h4>
+						<h4 class="letter-spacing-1">最新公告</h4>
 						<ul class="footer-posts list-unstyled">
 							<li>
 								<a href="#">Donec sed odio dui. Nulla vitae elit libero, a pharetra augue</a>
@@ -135,15 +135,15 @@
 					<div class="col-md-2">
 
 						<!-- Links -->
-						<h4 class="letter-spacing-1">EXPLORE SMARTY</h4>
+						<h4 class="letter-spacing-1">了解 CmsWing</h4>
 						<ul class="footer-links list-unstyled">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Our Services</a></li>
-							<li><a href="#">Our Clients</a></li>
-							<li><a href="#">Our Pricing</a></li>
-							<li><a href="#">Smarty Tour</a></li>
-							<li><a href="#">Contact Us</a></li>
+							<li><a href="#">网站首页</a></li>
+							<li><a href="#">关于我们</a></li>
+							<li><a href="#">二次开发</a></li>
+							<li><a href="#">模板开发</a></li>
+							<li><a href="#">帮助中心</a></li>
+							<li><a href="#">我们的服务</a></li>
+							<li><a href="#">联系我们</a></li>
 						</ul>
 						<!-- /Links -->
 
@@ -152,8 +152,8 @@
 					<div class="col-md-4">
 
 						<!-- Newsletter Form -->
-						<h4 class="letter-spacing-1">KEEP IN TOUCH</h4>
-						<p>Subscribe to Our Newsletter to get Important News &amp; Offers</p>
+						<h4 class="letter-spacing-1">邮件订阅</h4>
+						<p>订阅我们的邮件，以获得重要版本升级信息</p>
 
 						<form class="validate" action="php/newsletter.php" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
 							<div class="input-group">
@@ -237,61 +237,38 @@
 		</a>
 
 		<div class="sidepanel-content">
-			<h2 class="sidepanel-title">Explore Smarty</h2>
+			<h2 class="sidepanel-title">网站导航</h2>
 
 			<!-- SIDE NAV -->
 			<ul class="list-group">
 
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-heart"></i> ABOUT US
-					</a>
-				</li>
-				<li class="list-group-item list-toggle">
-					<!-- add "active" to stay open on page load -->
-					<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1" class="collapsed">
-						<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>
-						<i class="ico-category et-strategy"></i> PORTFOLIO
-					</a>
-					<ul id="collapse-1" class="list-unstyled collapse">
-						<!-- add "in" to stay open on page load -->
-						<li><a href="#"><i class="fa fa-angle-right"></i> 1 COLUMN</a></li>
-						<li class="active">
-							<span class="badge">New</span>
-							<a href="#"><i class="fa fa-angle-right"></i> 2 COLUMNS</a>
-						</li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> 3 COLUMNS</a></li>
-					</ul>
-				</li>
-				<li class="list-group-item list-toggle">
-					<!-- add "active" to stay open on page load -->
-					<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" class="collapsed">
-						<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>
-						<i class="ico-category et-trophy"></i> PORTFOLIO
-					</a>
-					<ul id="collapse-2" class="list-unstyled collapse">
-						<!-- add "in" to stay open on page load -->
-						<li><a href="#"><i class="fa fa-angle-right"></i> SLIDER</a></li>
-						<li class="active"><a href="#"><i class="fa fa-angle-right"></i> HEADERS</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> FOOTERS</a></li>
-					</ul>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-happy"></i> BLOG
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-beaker"></i> FEATURES
-					</a>
-				</li>
-				<li class="list-group-item">
-					<a href="#">
-						<i class="ico-category et-map-pin"></i> CONTACT
-					</a>
-				</li>
+                 {% channel data='channel', num='4'%} {% for val in channel%}
+						<li class="list-group-item {% if val.children %}list-toggle{% endif %} {% if http.url == val.url %}active{% endif %} ">
 
+							<a {% if val.children%}data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-{{val.id}}" class="collapsed"{% else %} href="{{val.url}}" {% endif %}>
+                                {% if val.children%}<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>{% endif %}
+                                <i class="ico-category et-heart"></i> {{val.title}}</a> 
+                                
+                                {% if val.children%}
+							<ul id="collapse-{{val.id}}" class="list-unstyled collapse">
+								{% for _val in val.children%}
+								<li class="{% if _val.children%}{% endif %}">
+									<a {% if _val.children%}class="" {% endif %} href="{{_val.url}}"><i class="fa fa-angle-right"> </i>{{_val.title}}</a> {% if _val.children%}
+									<ul class="list-unstyled">
+										{% for __val in _val.children%}
+                                        <span class="badge hide">New</span>
+										<a href="{{__val.url}}"> <li><i class="fa fa-angle-right"> </i> {{__val.title}}</a></li>
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</li>
+						{% endfor%}
+				
+				
 			</ul>
 			<!-- /SIDE NAV -->
 

@@ -1,12 +1,12 @@
 var _HS_UM = UM.getEditor("myEditor");
 // 初始化Web Uploader
-var uploader = WebUploader.create({
+var _hs_uploader = WebUploader.create({
     // 选完文件后，是否自动上传。
     auto: true,
     // swf文件路径
-//			    swf: '/js/Uploader.swf',
+    swf: '/static/hswx/js/Uploader.swf',
     // 文件接收服务端。
-    server: '',
+    server: '/admin/file/uploadpic',
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
     pick: '#hsfilePicker',
@@ -15,25 +15,12 @@ var uploader = WebUploader.create({
         title: 'Images',
         extensions: 'gif,jpg,jpeg,bmp,png',
         mimeTypes: 'image/*'
-    },
-    name: 'tmp_name'
+    }
 });
-
-// 当有文件添加进来的时候
-uploader.on('fileQueued', function( file ) {
-	console.log(file);
-    // $list为容器jQuery实例
-	
-    // 创建缩略图
-    // 如果为非图片文件，可以不用调用此方法。
-    // thumbnailWidth x thumbnailHeight 为 100 x 100
-    uploader.makeThumb( file, function( error, src ) {
-        if ( error ) {
-            console.error('图片上传错误');
-            return;
-        }
-        
-    }, 100, 'auto');
+_hs_uploader.on('uploadSuccess', function(file, id) {
+    $.getJSON('/admin/mpbase2/wxuploadtmp',{"thumb_id":id}, function(res){
+        _hs_update_item_data({"hs_image_id": id, "thumb_media_id":res.media_id, "hs_image_wx_src":res.url});
+    });
 });
 ;$(function(){
 	/**
@@ -49,6 +36,7 @@ uploader.on('fileQueued', function( file ) {
 	$(document).on('click', '.hs-fodder-item', function(){
 		$('.hs-fodder-item').removeClass('active');
 		$(this).addClass('active');
+        _hs_wx_edit_fodder($(this).data("item_data"));
 	});
 	
 	/**
@@ -64,23 +52,47 @@ uploader.on('fileQueued', function( file ) {
 	 * 监听标题的改变事件
 	 */
 	$(document).on('keyup', '.hs-um-title', function(){
-		_hs_update_item_title(this.value);
+		_hs_update_item_data({'title': this.value});
+	});
+    /**
+	 * 监听作者的改变事件
+	 */
+	$(document).on('keyup', '.hs-um-author', function(){
+		_hs_update_item_data({'author': this.value});
 	});
 	
 	/**
 	 * 监听原文链接功能
 	 */
 	$(document).on('click', '.hs-source-url-checkbox', function(){
+        var inp = $('.hs-source-url-input');
 		if($(this).is(":checked")){
-			$('.hs-source-url-input').show();
+			inp.show();
+            _hs_update_item_data({'content_source_url':inp.val()});
 		}else{
-			$('.hs-source-url-input').hide();
+			inp.hide();
+            _hs_update_item_data({'content_source_url':""});
 		}
 	});
+    $(document).on('keyup', '.hs-source-url-input', function(){
+        _hs_update_item_data({'content_source_url':this.value});
+    });
 	
 	/**
-	 * 监听页面滚动事件
+	 * 监听编辑器内容的改变
 	 */
+    _HS_UM.addListener("contentChange", function(){
+        var content = _HS_UM.getContent();
+        _hs_update_item_data({"content": content});
+    });
+    
+    /**
+     * 监听摘要
+     */
+    $(document).on("keyup", "#digest", function() {
+        _hs_update_item_data({"digest": this.value});
+    });
+    
 
 	/**
 	 * 定位于顶部
@@ -96,20 +108,6 @@ uploader.on('fileQueued', function( file ) {
 		}
 	});
 });
-var _hs_wx_fodder = {
-  	"articles": [
-    //若新增的是多图文素材，则此处应还有几段articles结构
- 	]
-}
-/*{
-   "title": TITLE,
-   "thumb_media_id": THUMB_MEDIA_ID,
-   "author": AUTHOR,
-   "digest": DIGEST,
-   "show_cover_pic": SHOW_COVER_PIC(0 / 1),
-   "content": CONTENT,
-   "content_source_url": CONTENT_SOURCE_URL
-},*/
 
 /**
  * 布局编辑器数据
@@ -135,8 +133,7 @@ function _hs_wx_edit_fodder(obj){
 		_pic.html('');//图片
 		_digest.val(obj.digest);
 	}else{
-		console.log(false)
-		_HS_UM.execCommand('cleardoc');
+		_HS_UM.setContent('');
 		_title.val('').focus()
 		_author.val('')
 		_source_url.val('')
@@ -149,34 +146,34 @@ function _hs_wx_edit_fodder(obj){
 /**
  * 获取编辑器数据
  */
-function _hs_wx_get_editor(){
-	var _title = $(".hs-um-title");
-	var _author = $('.hs-um-author');
-//	var _umbody 通过百度编辑器设定
-	var _source_url = $('.hs-source-url-input');
-	var _source_url_c = $('.hs-source-url-checkbox');
+// function _hs_wx_get_editor(){
+// 	var _title = $(".hs-um-title");
+// 	var _author = $('.hs-um-author');
+// //	var _umbody 通过百度编辑器设定
+// 	var _source_url = $('.hs-source-url-input');
+// 	var _source_url_c = $('.hs-source-url-checkbox');
 	
-	var _pic = $("#hsfileList");
-	var _digest = $("#digest");
+// 	var _pic = $("#hsfileList");
+// 	var _digest = $("#digest");
 	
-	var TITLE = _title.val(),
-		THUMB_MEDIA_ID = 0,
-		AUTHOR = _author.val(),
-		DIGEST = _digest.val(),
-		SHOW_COVER_PIC = 1; //封面
-		CONTENT = '',
-		CONTENT_SOURCE_URL = _source_url_c.is(":checked") ? _source_url.val() : '';
-	var _tmp = {
-		   "title": TITLE,
-		   "thumb_media_id": THUMB_MEDIA_ID,
-		   "author": AUTHOR,
-		   "digest": DIGEST,
-		   "show_cover_pic": SHOW_COVER_PIC,
-		   "content": CONTENT,
-		   "content_source_url": CONTENT_SOURCE_URL
-		}	
-	return _tmp;
-}
+// 	var TITLE = _title.val(),
+// 		THUMB_MEDIA_ID = 0,
+// 		AUTHOR = _author.val(),
+// 		DIGEST = _digest.val(),
+// 		SHOW_COVER_PIC = 1; //封面
+// 		CONTENT = '',
+// 		CONTENT_SOURCE_URL = _source_url_c.is(":checked") ? _source_url.val() : '';
+// 	var _tmp = {
+// 		   "title": TITLE,
+// 		   "thumb_media_id": THUMB_MEDIA_ID,
+// 		   "author": AUTHOR,
+// 		   "digest": DIGEST,
+// 		   "show_cover_pic": SHOW_COVER_PIC,
+// 		   "content": CONTENT,
+// 		   "content_source_url": CONTENT_SOURCE_URL
+// 		}	
+// 	return _tmp;
+// }
 
 /**
  * 获取当前选中的item
@@ -235,7 +232,7 @@ function _hs_update_item_image(src){
 function _hs_fodder_item(){
 	var _dom = ['<div class="hs-fodder-item active">',
 	'	<div class="hs-fodder-item-first">',
-	'		<div class="hs-fodder-item-container">',
+	'		<div class="hs-fodder-item-container hs-item-cover">',
 	'			<i class="hs-default-wxpic"></i>',
 	'			<div class="hs-item-title-h4">标题</div>',
 	'		</div>',
@@ -247,7 +244,7 @@ function _hs_fodder_item(){
 	'	</div>',
 	'	<div class="hs-fodder-item-second">',
 	'		<div class="hs-fodder-item-container">',
-	'			<div class="hs-fodder-item-rpic">',
+	'			<div class="hs-fodder-item-rpic hs-item-cover">',
 	'				<i class="hs-default-wxpic-2"></i>',
 	'			</div>',
 	'			<div class="hs-item-title-h4-2">标题</div>',
@@ -262,4 +259,62 @@ function _hs_fodder_item(){
 	$('.hs-fodder-item').removeClass('active');
 	_hs_wx_edit_fodder(null);//重置编辑器数据
 	$('.hs-fodder-items').append(_dom);
+}
+
+/**
+ * 更新整个item 的数据
+ */
+function _hs_update_item_data(params) {
+    var _default = {
+        "title": "标题",
+        "thumb_media_id": "",
+        "author": "",
+        "digest": "",
+        "show_cover_pic": 0,
+        "content": "",
+        "content_source_url": "",
+        
+        "hs_image_id":0,
+        "hs_image_wx_src":""
+    };
+    var _item = _hs_current_item();
+    var _current_data = _item.data("item_data");
+    var _data = null;
+    if(_current_data){
+        _data = $.extend(_current_data, params);
+    }else{
+        _data = $.extend(_default, params);
+    }
+    _item.data("item_data", _data);
+    _hs_update_item_title(_data.title || "标题", _item);
+    _hs_update_item_image(_data.hs_image_wx_src, _item);
+}
+function _hs_query_item_data() {
+    var _item = _hs_current_item();
+    var _data = _item.data("item_data");
+    console.log(JSON.stringify(_data));
+}
+
+
+function _hs_submit_articles() {
+    var _items = $(".hs-fodder-item");
+    var _hs_wx_fodder = {
+        "articles": [
+        //若新增的是多图文素材，则此处应还有几段articles结构
+        ]
+    };
+    _items.each(function(k, v) {
+        var d = $(v).data("item_data");
+        if(d){
+            _hs_wx_fodder.articles.push(d);
+        }else{
+            alert("第"+(k+1)+"个item项数据不完整");
+            return false;
+        }
+    });        
+    var params = JSON.stringify(_hs_wx_fodder);
+    $.post('/admin/mpbase2/savefodder', {"params":params}, function(data) {
+        console.log('结果：')
+        console.log(data);
+    },'json');
 }

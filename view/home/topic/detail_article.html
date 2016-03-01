@@ -26,11 +26,12 @@
         <h1>{{category.title}}</h1>
 
         <!-- breadcrumbs -->
-        <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Blog</a></li>
-            <li class="active">Left Sidebar</li>
-        </ol><!-- /breadcrumbs -->
+					<ol class="breadcrumb f-14">
+                        <li><a href="/">首页</a></li>
+                        {%for val in breadcrumb %}
+                        <li><a href="{{val.url}}">{{val.title}}</a></li>
+                        {% endfor %}
+					</ol><!-- /breadcrumbs -->
 
         <!-- page tabs -->
         {%column data="cate",pid=category.pid%}

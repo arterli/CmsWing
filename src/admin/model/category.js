@@ -91,14 +91,30 @@ export default class extends think.model.base {
     /**
      * 获取参数的所有父级分类
      * @param int id 分类id
+     * @param true true 带url
      * @return array 参数分类和父类的信息集合
      * @author
      */
-    async get_parent_category(id){
+    async get_parent_category(id,url){
         let breadcrumb = []
         while (id!=0)
         {
-            let nav = await this.where({'id':id,'status':1}).field("id,title,pid").find();
+            let nav = await this.where({'id':id,'status':1}).field("id,title,pid,allow_publish,name").find();
+            if(url){
+             if (nav.allow_publish == 0){
+                if (!think.isEmpty(nav.name)) {
+                    nav.url = `/channel/${nav.name}`
+                } else {
+                    nav.url = `/channel/${nav.id}`
+                }
+        }else {
+                if (!think.isEmpty(nav.name)) {
+                    nav.url = `/column/${nav.name}`
+                } else {
+                    nav.url = `/column/${nav.id}`
+                }
+            }
+            }
             breadcrumb.push(nav);
             id = nav.pid;
 

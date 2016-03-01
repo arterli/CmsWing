@@ -18,7 +18,9 @@ export default class extends Base {
       this.description = cate.description ? cate.description : ""; //seo描述
       //频道页只显示模板，默认不读取任何内容
       //内容可以通过模板标签自行定制
-
+      //获取面包屑信息
+      let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+      this.assign('breadcrumb', breadcrumb);
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       let temp = cate.template_index ? `index_${cate.template_index}` : "";
@@ -34,26 +36,48 @@ export default class extends Base {
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
       subcate.push(cate.id);
+      //获取模型列表数据个数
+      if(cate.model.split(",").length == 1){
+         let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
+         if(pagenum !=0){
+         this.config("db.nums_per_page",pagenum);
+         }
+         
+      }
+      
       let map = {
-        'status': ['>', -1],
+        'status': ['=', 1],
         'category_id': ['IN', subcate]
       };
       let data = await this.model('document').where(map).page(this.get('page')).order('update_time DESC').countSelect();
-      let html = pagination(data, this.http, {});
+      let html = pagination(data, this.http, {
+    desc: false, //show description
+    pageNum: 2, 
+    url: '', //page url, when not set, it will auto generated
+    class: 'nomargin', //pagenation extra class
+    text: {
+      next: '下一页',
+      prev: '上一页',
+      total: 'count: ${count} , pages: ${pages}'
+    }
+});
       this.assign('pagination', html);
 
       //seo
       this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
       this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
       this.description = cate.description ? cate.description : ""; //seo描述
-
-
+      
+       //获取面包屑信息
+      let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+      this.assign('breadcrumb', breadcrumb);
+      //console.log(breadcrumb)
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       this.assign('list', data.data);
-      console.log(cate)
+      //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
-      think.log(temp);
+      //think.log(temp);
       return this.display(temp);
     }
     //详情页
@@ -83,7 +107,9 @@ export default class extends Base {
     
     //访问统计
     await this.model('document').where({id:info.id}).increment('view');
-    
+    //获取面包屑信息
+      let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+      this.assign('breadcrumb', breadcrumb);
     //获取模板
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
