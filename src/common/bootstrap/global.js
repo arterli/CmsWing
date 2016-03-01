@@ -716,7 +716,7 @@ global.get_price_format = function (price,type) {
     }
     price = present_price;
     }else{
-   
+
         if(pr.discount_price==0){
          price = "";
         }else{
@@ -838,6 +838,7 @@ global.get_price = function (price,type) {
         for(var i=0;i<data.length;i++){
             if(data[i].pid == '0'){
                 let item = {"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
+                menu.menu.button.push(item);
                 button.push(item);
             }
         }

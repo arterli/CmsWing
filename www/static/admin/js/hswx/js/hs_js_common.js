@@ -56,6 +56,7 @@ function _hs_js_tab(e) {
 	var self = $(t);
 	var hsjsTab = self.closest(".hs-js-tab");
 	hsjsTab.find('[jstab-target]').removeClass('active');
+	self.addClass('active');
 	var target = self.attr('jstab-target');
 	var desAll = hsjsTab.find('[jstab-des]');
 	for (var i = 0; i < desAll.length; i++) {
