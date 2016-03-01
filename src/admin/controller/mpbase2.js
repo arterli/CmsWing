@@ -82,7 +82,7 @@ export default class extends Base{
                     "media_id": wxres.media_id,
                     "material_content": params,
                     "wxgzh": 0,
-                    "add_time": new Date().getTime();
+                    "add_time": new Date().getTime()
                 }
                 let effect = await model.add(data);
                 if(effect){
