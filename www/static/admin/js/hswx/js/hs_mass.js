@@ -26,6 +26,18 @@ $(function() {
 			$('#city').hide();
 		}
 	});
+
+	/**
+	 * 类型切换
+	 */
+	$(document).on('click', '#hs-area>li', function(){
+		var pr = $(this).attr('jstab-target');
+		$("#send_type").val(pr);
+	});
+
+
+
+
 	//dialog
 	/*$('').on('click',function(){
 		
