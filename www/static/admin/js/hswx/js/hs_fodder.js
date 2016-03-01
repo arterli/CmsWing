@@ -19,7 +19,8 @@ var _hs_uploader = WebUploader.create({
 });
 _hs_uploader.on('uploadSuccess', function(file, id) {
     $.getJSON('/admin/mpbase2/wxuploadtmp',{"thumb_id":id}, function(res){
-        _hs_update_item_data({"hs_image_id": id, "thumb_media_id":res.media_id, "hs_image_wx_src":res.url});
+        console.log(res);
+        _hs_update_item_data({"hs_image_id": id, "hs_image_src":res.hs_image_src, "thumb_media_id":res.media_id, "hs_image_wx_src":res.url});
     });
 });
 ;$(function(){
@@ -127,8 +128,8 @@ function _hs_wx_edit_fodder(obj){
 		_title.val(obj.title).focus();
 		_author.val(obj.author);
 		if(obj.content_source_url){
-			_source_url.val(obj.content_source_url);
-			_source_url_c.pop("checked", true);
+			_source_url.val(obj.content_source_url).show();
+			_source_url_c.attr("checked", true);
 		}
 		_pic.html('');//图片
 		_digest.val(obj.digest);
@@ -230,7 +231,7 @@ function _hs_update_item_image(src){
  * 新建图文项
  */
 function _hs_fodder_item(){
-	var _dom = ['<div class="hs-fodder-item active">',
+	var _dom = ['<div class="hs-fodder-item '+(arguments[0]==1?"":"active")+'">',
 	'	<div class="hs-fodder-item-first">',
 	'		<div class="hs-fodder-item-container hs-item-cover">',
 	'			<i class="hs-default-wxpic"></i>',
@@ -256,7 +257,9 @@ function _hs_fodder_item(){
 	'		</div>',
 	'	</div>',
 	'</div>'].join("");
+    if(arguments[0] != 1)
 	$('.hs-fodder-item').removeClass('active');
+    if(arguments[1] != 1)
 	_hs_wx_edit_fodder(null);//重置编辑器数据
 	$('.hs-fodder-items').append(_dom);
 }
@@ -275,9 +278,15 @@ function _hs_update_item_data(params) {
         "content_source_url": "",
         
         "hs_image_id":0,
+        "hs_image_src":"",
         "hs_image_wx_src":""
     };
-    var _item = _hs_current_item();
+    var _item = null;
+    if(arguments[1]){
+        _item = arguments[1];
+    }else{
+        _item = _hs_current_item();
+    }
     var _current_data = _item.data("item_data");
     var _data = null;
     if(_current_data){
@@ -287,7 +296,7 @@ function _hs_update_item_data(params) {
     }
     _item.data("item_data", _data);
     _hs_update_item_title(_data.title || "标题", _item);
-    _hs_update_item_image(_data.hs_image_wx_src, _item);
+    _hs_update_item_image(_data.hs_image_src, _item);
 }
 function _hs_query_item_data() {
     var _item = _hs_current_item();
@@ -313,8 +322,12 @@ function _hs_submit_articles() {
         }
     });        
     var params = JSON.stringify(_hs_wx_fodder);
-    $.post('/admin/mpbase2/savefodder', {"params":params}, function(data) {
+    $.post('/admin/mpbase2/savefodder'+(init_is_edit?+"/edit_id="+init_is_edit:""), {"params":params}, function(data) {
         console.log('结果：')
-        console.log(data);
+        if(!data.errno){
+            toastr.success(data.data.name);
+        }
     },'json');
 }
+
+

@@ -206,9 +206,9 @@
             })
             if(arr.length == shoptype.length){
                 var aa = getsuk(arr)
-                console.log(aa.sku_price);
+               // console.log(aa.sku_price);
                 $("price").text(formatCurrency(aa.sku_price));
-                $("#price").val(formatCurrency(aa.sku_price));
+                $("#type").val(arr);
             } 
        });
         function formatCurrency (num) {  
