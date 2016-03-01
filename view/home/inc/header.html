@@ -66,7 +66,7 @@
 						<h4>购物车</h4>
 
 						<div class="quick-cart-wrapper">
-                          {% if controller.cart.data %}
+                          {% if controller.cart.data|length > 0 %}
                           {% for val in controller.cart.data%}
                           <a href="{{val.url}}">				
                     <img src="{{val.pic}}" width="45" height="45" alt="" />
