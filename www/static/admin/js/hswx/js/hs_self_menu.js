@@ -153,12 +153,17 @@ $(function() {
 
 		var data = {};
 		data.id = $('#menu_id').val();
+		data.id = new Date().getTime();
 		data.sort = 1;
 		data.name = $('input[name=hs_menu_name_input]').val();
 		data.pid = $('#menu_f_id').val();
         //post提交菜单数据
 		$.post('/admin/mpbase/addselfmenu',data,function(res){
-
+			if(res == '1'){
+				alert('添加成功！');
+			}else{
+				alert('添加失败!');
+			}
 		})
 	});
 
