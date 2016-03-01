@@ -211,7 +211,7 @@ $(function() {
 		}else{
 			var sort = obj.attr('sort');
 			$('#hs_pre_menu_list>li').removeClass('hs_father_menu_active');
-			$('#hs_pre_menu_list>li div').remove()
+			$('#hs_pre_menu_list>li div').remove();
 			obj.addClass('hs_father_menu_active');
 			var divd = obj.find('div');
 			divd.addClass('hs_menu_child_relative');
