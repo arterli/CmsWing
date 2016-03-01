@@ -168,7 +168,16 @@ export default {
                 env.addFilter("get_price_format", function (price,type) {
                     return get_price_format(price,type);
                 })
-                
+                /** 
+     * 将数值四舍五入(保留1位小数)后格式化成金额形式 
+     * 
+     * @param num 数值(Number或者String) 
+     * @return 金额格式的字符串,如'1,234,567.4' 
+     * @type String 
+     */  
+          env.addFilter("formatCurrency",function (num) {
+              return formatCurrency(num);
+          })
         /**
          * 获取商品价格不格式
          */

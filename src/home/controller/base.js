@@ -13,6 +13,33 @@ export default class extends think.controller.base {
       //获取当前分类信息
       //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
+      //购物车
+      let cartdata = this.cookie("cart_goods_item");
+      console.log(cartdata);
+      let cartinfo;
+      if(think.isEmpty(cartdata)){
+           cartinfo = {
+          total:0,
+          num:0,
+          data:[]
+         }
+          
+      }else{
+          cartdata = JSON.parse(cartdata);
+          let total = [];
+          let num = [];
+          for(let val of cartdata){
+              total.push(val.price);
+              num.push(val.qty); 
+          }
+         cartinfo = {
+          total:eval(total.join('+')),
+          num:eval(num.join('+')),
+          data:cartdata
+         }
+      }
+      this.cart = cartinfo;
+      
     }
     /**
      * 判断是否登录

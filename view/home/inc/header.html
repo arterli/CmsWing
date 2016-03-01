@@ -59,43 +59,34 @@
 				<!-- QUICK SHOP CART -->
 				<li class="quick-cart">
 					<a href="#">
-						<span class="badge badge-aqua btn-xs badge-corner">2</span>
+						<span class="badge badge-aqua btn-xs badge-corner" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span>
 						<i class="fa fa-shopping-cart"></i>
 					</a>
 					<div class="quick-cart-box">
-						<h4>Shop Cart</h4>
+						<h4>购物车</h4>
 
 						<div class="quick-cart-wrapper">
-
-							<a href="#">
-								<!-- cart item -->
-								<img src="/static/assets/images/demo/people/300x300/4-min.jpg" width="45" height="45" alt="" />
-								<h6><span>2x</span> RED BAG WITH HUGE POCKETS</h6>
-								<small>$37.21</small>
-							</a>
-							<!-- /cart item -->
-
-							<a href="#">
-								<!-- cart item -->
-								<img src="/static/assets/images/demo/people/300x300/5-min.jpg" width="45" height="45" alt="" />
-								<h6><span>2x</span> THIS IS A VERY LONG TEXT AND WILL BE TRUNCATED</h6>
-								<small>$17.18</small>
-							</a>
-							<!-- /cart item -->
-
-							<!-- cart no items example -->
-							<!--
+                          {% if controller.cart.data %}
+                          {% for val in controller.cart.data%}
+                          <a href="{{val.url}}">				
+                    <img src="{{val.pic}}" width="45" height="45" alt="" />
+                    <h6><span>{{val.qty}}x</span> {{val.title}}</h6>
+                    <small>￥{{val.price|formatCurrency}} {% if val.type%}<span class="size-11 text-muted">[{{val.type}}]</span>{%endif%}</small>
+                    </a>
+                          {% endfor %}
+                          {%else%}
 										<a class="text-center" href="#">
 											<h6>0 ITEMS ON YOUR CART</h6>
 										</a>
-										-->
+                                        {%endif%}
+										
 
 						</div>
 
 						<!-- quick cart footer -->
 						<div class="quick-cart-footer clearfix">
-							<a href="shop-cart.html" class="btn btn-primary btn-xs pull-right">VIEW CART</a>
-							<span class="pull-left"><strong>TOTAL:</strong> $54.39</span>
+							<a href="/cart" class="btn btn-primary btn-xs pull-right">去购物车结算</a>
+							<span class="pull-left"><strong>合计:</strong> <total>￥{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</total></span>
 						</div>
 						<!-- /quick cart footer -->
 
