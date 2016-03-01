@@ -337,6 +337,9 @@
     $("#year").html(year);
     </script>
 	{% block script %}{% endblock %}
+    <!--[if lte IE 9]>
+<script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
+<![endif]-->
 </body>
 
 </html>

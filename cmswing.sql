@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-26 18:21:01
+Date: 2016-03-01 14:24:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=257 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=260 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -138,6 +138,9 @@ INSERT INTO `cmswing_action_log` VALUES ('253', '4', '1', '2130706433', 'documen
 INSERT INTO `cmswing_action_log` VALUES ('254', '4', '1', '2130706433', 'document', '69', 'admin在2016-02-26 14:15:32发表了一篇文章。\r\n表document，记录编号69。fdsfsa', '1', '1456467332659');
 INSERT INTO `cmswing_action_log` VALUES ('255', '4', '1', '2130706433', 'document', '70', 'admin在2016-02-26 14:32:47发表了一篇文章。\r\n表document，记录编号70。fdsfsa', '1', '1456468367260');
 INSERT INTO `cmswing_action_log` VALUES ('256', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-26 16:46:19登录了后台', '1', '1456476379696');
+INSERT INTO `cmswing_action_log` VALUES ('257', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-27 12:06:13登录了后台', '1', '1456545973927');
+INSERT INTO `cmswing_action_log` VALUES ('258', '1', '1', '2130706433', 'member', '1', 'admin在2016-02-27 15:10:49登录了后台', '1', '1456557049727');
+INSERT INTO `cmswing_action_log` VALUES ('259', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-01 13:42:55登录了后台', '1', '1456810975466');
 
 -- ----------------------------
 -- Table structure for cmswing_attribute
@@ -271,7 +274,7 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
@@ -398,6 +401,8 @@ INSERT INTO `cmswing_auth_rule` VALUES ('119', 'article', '网站内容', '0', '
 INSERT INTO `cmswing_auth_rule` VALUES ('120', 'admin/action/index', '用户行为', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('121', 'admin/action/log', '行为日志', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('122', 'admin/article/recycle', '回收站', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('123', 'admin/mpbase/index', '微信', '0', '1', '', 'admin', '2');
+INSERT INTO `cmswing_auth_rule` VALUES ('124', 'admin/mpbase/seting', '公共账号管理', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -570,7 +575,7 @@ INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '4654
 INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '0', '1', '1451018700', '0', '0', '0', '0', '0', '1451018700', '1451030139', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1453711202518', '1453711202518', '1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '7', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '2', '0', '0', '0', '2016', '1453789112170', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
 INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
@@ -604,10 +609,10 @@ INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766900091', '1452766900091', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
-INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
-INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '17', '0', '0', '0', '1456468367173', '1456468896293', '1', '125,126', '{\"present_price\":\"80-100\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
+INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
+INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '35', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
+INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '336', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '30', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1456305969296', '1', '72,73,74', '{\"present_price\":8,\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('59', '1', '', 'hgfhhgfhgfhfghfghfghfgfdgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456203072311', '1456305816537', '1', '79,80', '{\"present_price\":100,\"discount_price\":\"0\"}');
@@ -616,8 +621,8 @@ INSERT INTO `cmswing_document` VALUES ('61', '1', '', 'gfdgdf', '45', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('62', '1', '', '测试唱片', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456236857429', '1456305874738', '1', '75,76', '{\"present_price\":100,\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('63', '1', '', '犯得上发生', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456388778234', '1456388778234', '1', '81', '{\"present_price\":\"12-23\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('64', '1', '', '2222', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456390496719', '1456390496719', '1', '87', '{\"present_price\":\"10-20\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '58', '0', '0', '0', '1456394250128', '1456460285526', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('66', '1', '', '测试商品的长度测试商品的长度测试商品的长度测试商品的长度测试商品的长度', '57', '0', '法大师傅大师傅放的说法都是放到富士达电风扇放到', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1456459666532', '1456459682701', '1', '106', '{\"present_price\":\"100\",\"discount_price\":\"120\"}');
+INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '59', '0', '0', '0', '1456394250128', '1456460285526', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('66', '1', '', '测试商品的长度测试商品的长度测试商品的长度测试商品的长度测试商品的长度', '57', '0', '法大师傅大师傅放的说法都是放到富士达电风扇放到', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '36', '0', '0', '0', '1456459666532', '1456459682701', '1', '106', '{\"present_price\":\"100\",\"discount_price\":\"120\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -731,7 +736,7 @@ INSERT INTO `cmswing_document_shop` VALUES ('66', '', '', '10', '0', '1', '0', '
 INSERT INTO `cmswing_document_shop` VALUES ('67', '', '', '0', '0', '1', '0', '0', '<p>&nbsp;放大撒放大撒放大撒放到电风扇犯得上发射点</p>', '{\"type\":0,\"val\":\"10\"}');
 INSERT INTO `cmswing_document_shop` VALUES ('68', '', '', '10', '0', '1', '0', '0', '<p>1111222222222222222</p>', '{\"type\":1,\"val\":\"2\"}');
 INSERT INTO `cmswing_document_shop` VALUES ('69', '{\"type\":[\"颜色\",\"颜色\"],\"data\":[{\"name\":\"红色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"101\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"黄色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"蓝色\",\"type\":\"颜色\",\"ch\":[{\"name\":\"S\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"M\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"L\",\"type\":\"颜色\",\"sku_price\":\"167\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]}', 'UK2545843664', '70', '0', '1', '0', '0', '<p>22222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
-INSERT INTO `cmswing_document_shop` VALUES ('70', '{\"type\":[\"颜色\",\"颜色\"],\"data\":[{\"name\":\"紫不溜秋\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"颜色\",\"sku_price\":\"80\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"颜色\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"5\",\"sku_code\":\"\"}]},{\"name\":\"黄了吧唧\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"颜色\",\"sku_price\":\"80\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"颜色\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"颜色\",\"sku_price\":\"100\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]}]}', 'uk888888888', '79', '0', '1', '0', '0', '<p>22222222222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
+INSERT INTO `cmswing_document_shop` VALUES ('70', '{\"type\":[\"颜色\",\"尺码\"],\"data\":[{\"name\":\"紫不溜秋\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"尺码\",\"sku_price\":\"50\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"尺码\",\"sku_price\":\"60\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]},{\"name\":\"黄了吧唧\",\"type\":\"颜色\",\"ch\":[{\"name\":\"肥\",\"type\":\"尺码\",\"sku_price\":\"55\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"特别肥\",\"type\":\"尺码\",\"sku_price\":\"90\",\"sku_stock\":\"5\",\"sku_code\":\"\"},{\"name\":\"相当肥\",\"type\":\"尺码\",\"sku_price\":\"200\",\"sku_stock\":\"54\",\"sku_code\":\"\"}]}]}', 'uk888888888', '128', '0', '1', '0', '0', '<p>22222222222222222222222</p>', '{\"type\":0,\"val\":\"10\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_file
@@ -792,7 +797,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '410', 'arterli@qq.com', '57', '', '1452513965683', '0', '1456476379677', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '420', 'arterli@qq.com', '60', '', '1452513965683', '0', '1456810975385', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -1219,3 +1224,397 @@ INSERT INTO `cmswing_setup` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表�
 INSERT INTO `cmswing_setup` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12');
 INSERT INTO `cmswing_setup` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('56', 'MENU_GROUP', '3', '后台菜单分组', '4', '', '后台菜单分组，左侧栏显示', '4294967295', '4294967295', '1', '0:不分组\r\n1:内容\r\n3:系统\r\n99:微信', '33');
+
+-- ----------------------------
+-- Table structure for cmswing_user
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_user`;
+CREATE TABLE `cmswing_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=381 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_user
+-- ----------------------------
+INSERT INTO `cmswing_user` VALUES ('1', '阿特');
+INSERT INTO `cmswing_user` VALUES ('2', '地球屋零食驿站');
+INSERT INTO `cmswing_user` VALUES ('3', '峰『沃』梅');
+INSERT INTO `cmswing_user` VALUES ('4', 'VIP');
+INSERT INTO `cmswing_user` VALUES ('5', '头狼电商CEO朱加宝');
+INSERT INTO `cmswing_user` VALUES ('6', '???? Bearxiwi ????');
+INSERT INTO `cmswing_user` VALUES ('7', '金');
+INSERT INTO `cmswing_user` VALUES ('8', '杜喜');
+INSERT INTO `cmswing_user` VALUES ('9', 'A du');
+INSERT INTO `cmswing_user` VALUES ('10', '安静');
+INSERT INTO `cmswing_user` VALUES ('11', '花久美');
+INSERT INTO `cmswing_user` VALUES ('12', '可可');
+INSERT INTO `cmswing_user` VALUES ('13', '夜未央');
+INSERT INTO `cmswing_user` VALUES ('14', '萱萱');
+INSERT INTO `cmswing_user` VALUES ('15', 'GG');
+INSERT INTO `cmswing_user` VALUES ('16', '童话@@@');
+INSERT INTO `cmswing_user` VALUES ('17', '领金财务');
+INSERT INTO `cmswing_user` VALUES ('18', '花宝宝');
+INSERT INTO `cmswing_user` VALUES ('19', '高雯');
+INSERT INTO `cmswing_user` VALUES ('20', '啊磊');
+INSERT INTO `cmswing_user` VALUES ('21', '123z');
+INSERT INTO `cmswing_user` VALUES ('22', '一切的一切 ????');
+INSERT INTO `cmswing_user` VALUES ('23', '淘宝店铺号    1879999');
+INSERT INTO `cmswing_user` VALUES ('24', 'xoox');
+INSERT INTO `cmswing_user` VALUES ('25', '旺旺旺');
+INSERT INTO `cmswing_user` VALUES ('26', '????Vicky ????');
+INSERT INTO `cmswing_user` VALUES ('27', 'mi雨泪❤️碎');
+INSERT INTO `cmswing_user` VALUES ('28', '杨丹');
+INSERT INTO `cmswing_user` VALUES ('29', '亚洲杯');
+INSERT INTO `cmswing_user` VALUES ('30', '龙哥');
+INSERT INTO `cmswing_user` VALUES ('31', '一二三亖');
+INSERT INTO `cmswing_user` VALUES ('32', '王庆阳');
+INSERT INTO `cmswing_user` VALUES ('33', '一事无成');
+INSERT INTO `cmswing_user` VALUES ('34', '怪我过份美丽');
+INSERT INTO `cmswing_user` VALUES ('35', '☞你真逗☜');
+INSERT INTO `cmswing_user` VALUES ('36', '孙竹伟');
+INSERT INTO `cmswing_user` VALUES ('37', 'vggjvf');
+INSERT INTO `cmswing_user` VALUES ('38', ' 1234');
+INSERT INTO `cmswing_user` VALUES ('39', '破哥');
+INSERT INTO `cmswing_user` VALUES ('40', '女汉子也有柔情时');
+INSERT INTO `cmswing_user` VALUES ('41', '');
+INSERT INTO `cmswing_user` VALUES ('42', '约驾客服');
+INSERT INTO `cmswing_user` VALUES ('43', '我不是土豪');
+INSERT INTO `cmswing_user` VALUES ('44', '峰');
+INSERT INTO `cmswing_user` VALUES ('45', '娇香世家');
+INSERT INTO `cmswing_user` VALUES ('46', 'Rainbow');
+INSERT INTO `cmswing_user` VALUES ('47', 'dragon-惰');
+INSERT INTO `cmswing_user` VALUES ('48', '心阳');
+INSERT INTO `cmswing_user` VALUES ('49', '蕾拉小姐');
+INSERT INTO `cmswing_user` VALUES ('50', '世界');
+INSERT INTO `cmswing_user` VALUES ('51', '多么哇塞的姑娘');
+INSERT INTO `cmswing_user` VALUES ('52', '幸福来敲门');
+INSERT INTO `cmswing_user` VALUES ('53', '郁.轻.砂');
+INSERT INTO `cmswing_user` VALUES ('54', '快乐女人');
+INSERT INTO `cmswing_user` VALUES ('55', '榆木。');
+INSERT INTO `cmswing_user` VALUES ('56', '陈金龙');
+INSERT INTO `cmswing_user` VALUES ('57', '无敌大美兔');
+INSERT INTO `cmswing_user` VALUES ('58', '蝴蝶效应');
+INSERT INTO `cmswing_user` VALUES ('59', '卢????静宸');
+INSERT INTO `cmswing_user` VALUES ('60', '阿金');
+INSERT INTO `cmswing_user` VALUES ('61', '不潮不酷不帅气');
+INSERT INTO `cmswing_user` VALUES ('62', '程程');
+INSERT INTO `cmswing_user` VALUES ('63', 'A兰敏');
+INSERT INTO `cmswing_user` VALUES ('64', '123');
+INSERT INTO `cmswing_user` VALUES ('65', '残阳');
+INSERT INTO `cmswing_user` VALUES ('66', 'Bonnie');
+INSERT INTO `cmswing_user` VALUES ('67', '沐汐');
+INSERT INTO `cmswing_user` VALUES ('68', '臻磊文化-国栋');
+INSERT INTO `cmswing_user` VALUES ('69', '守望&人生');
+INSERT INTO `cmswing_user` VALUES ('70', '桃夭');
+INSERT INTO `cmswing_user` VALUES ('71', 'M');
+INSERT INTO `cmswing_user` VALUES ('72', '心情');
+INSERT INTO `cmswing_user` VALUES ('73', '小黑子');
+INSERT INTO `cmswing_user` VALUES ('74', '小钱钱，好甜甜');
+INSERT INTO `cmswing_user` VALUES ('75', 'Crazy Zhang');
+INSERT INTO `cmswing_user` VALUES ('76', '✨杨梅果✨');
+INSERT INTO `cmswing_user` VALUES ('77', '邻家小妹');
+INSERT INTO `cmswing_user` VALUES ('78', 'ゝβīnｇ ゞ');
+INSERT INTO `cmswing_user` VALUES ('79', '朱洁');
+INSERT INTO `cmswing_user` VALUES ('80', '花好月圆');
+INSERT INTO `cmswing_user` VALUES ('81', '陈嘉欣');
+INSERT INTO `cmswing_user` VALUES ('82', '翟菀通');
+INSERT INTO `cmswing_user` VALUES ('83', '奔波');
+INSERT INTO `cmswing_user` VALUES ('84', 'SORBO官方微信号');
+INSERT INTO `cmswing_user` VALUES ('85', '刘钰');
+INSERT INTO `cmswing_user` VALUES ('86', '霖');
+INSERT INTO `cmswing_user` VALUES ('87', '小嫩肉');
+INSERT INTO `cmswing_user` VALUES ('88', '嫣然');
+INSERT INTO `cmswing_user` VALUES ('89', '屹舟音响——骆珍');
+INSERT INTO `cmswing_user` VALUES ('90', '转身遇到你');
+INSERT INTO `cmswing_user` VALUES ('91', '可可');
+INSERT INTO `cmswing_user` VALUES ('92', '图图饰品3022-1');
+INSERT INTO `cmswing_user` VALUES ('93', '周梦琦 ');
+INSERT INTO `cmswing_user` VALUES ('94', '小马哥');
+INSERT INTO `cmswing_user` VALUES ('95', '南宫宇轩');
+INSERT INTO `cmswing_user` VALUES ('96', '9头身美女');
+INSERT INTO `cmswing_user` VALUES ('97', '雪意满江山LL');
+INSERT INTO `cmswing_user` VALUES ('98', '红发旗舰店');
+INSERT INTO `cmswing_user` VALUES ('99', '静静');
+INSERT INTO `cmswing_user` VALUES ('100', '起风了');
+INSERT INTO `cmswing_user` VALUES ('101', 'Sunny-soob');
+INSERT INTO `cmswing_user` VALUES ('102', '小翠');
+INSERT INTO `cmswing_user` VALUES ('103', '孤┏ (^ω^)=☞娜');
+INSERT INTO `cmswing_user` VALUES ('104', '蔡蔡');
+INSERT INTO `cmswing_user` VALUES ('105', 'the saltwater room');
+INSERT INTO `cmswing_user` VALUES ('106', '与我共梦');
+INSERT INTO `cmswing_user` VALUES ('107', '安远');
+INSERT INTO `cmswing_user` VALUES ('108', '婷子');
+INSERT INTO `cmswing_user` VALUES ('109', '爱情乞丐');
+INSERT INTO `cmswing_user` VALUES ('110', '结结');
+INSERT INTO `cmswing_user` VALUES ('111', '不二周助');
+INSERT INTO `cmswing_user` VALUES ('112', 'No promises');
+INSERT INTO `cmswing_user` VALUES ('113', '江南名媛');
+INSERT INTO `cmswing_user` VALUES ('114', '薛丽');
+INSERT INTO `cmswing_user` VALUES ('115', 'A 小龙');
+INSERT INTO `cmswing_user` VALUES ('116', 'AN 楠');
+INSERT INTO `cmswing_user` VALUES ('117', '工作小号朋友勿加');
+INSERT INTO `cmswing_user` VALUES ('118', 'Prisoner°');
+INSERT INTO `cmswing_user` VALUES ('119', '泓盛壁纸（沐沐）');
+INSERT INTO `cmswing_user` VALUES ('120', '沈阳田律师');
+INSERT INTO `cmswing_user` VALUES ('121', '陌');
+INSERT INTO `cmswing_user` VALUES ('122', '科学养猪');
+INSERT INTO `cmswing_user` VALUES ('123', '龙城行者');
+INSERT INTO `cmswing_user` VALUES ('124', '招工');
+INSERT INTO `cmswing_user` VALUES ('125', 'LJH.贵云');
+INSERT INTO `cmswing_user` VALUES ('126', '阿阿阿');
+INSERT INTO `cmswing_user` VALUES ('127', '迪塞尔●瑟克赛斯');
+INSERT INTO `cmswing_user` VALUES ('128', '周菁');
+INSERT INTO `cmswing_user` VALUES ('129', '狐狸未出嫁');
+INSERT INTO `cmswing_user` VALUES ('130', '嘉嘉');
+INSERT INTO `cmswing_user` VALUES ('131', 'baby');
+INSERT INTO `cmswing_user` VALUES ('132', '1');
+INSERT INTO `cmswing_user` VALUES ('133', '媚不可挡');
+INSERT INTO `cmswing_user` VALUES ('134', '达舒妮，休闲鞋著名品牌');
+INSERT INTO `cmswing_user` VALUES ('135', '旭');
+INSERT INTO `cmswing_user` VALUES ('136', '广播站9号站????????');
+INSERT INTO `cmswing_user` VALUES ('137', '晟鑫发品全涛');
+INSERT INTO `cmswing_user` VALUES ('138', '酷海风波');
+INSERT INTO `cmswing_user` VALUES ('139', 'JiniwuMini');
+INSERT INTO `cmswing_user` VALUES ('140', '淘宝运营，李');
+INSERT INTO `cmswing_user` VALUES ('141', '春暖花开');
+INSERT INTO `cmswing_user` VALUES ('142', 'Albert-L');
+INSERT INTO `cmswing_user` VALUES ('143', 'Christy');
+INSERT INTO `cmswing_user` VALUES ('144', '时事关注');
+INSERT INTO `cmswing_user` VALUES ('145', 'POTATO');
+INSERT INTO `cmswing_user` VALUES ('146', '二马');
+INSERT INTO `cmswing_user` VALUES ('147', 'jhbsbb');
+INSERT INTO `cmswing_user` VALUES ('148', '威尼斯的湖');
+INSERT INTO `cmswing_user` VALUES ('149', '简');
+INSERT INTO `cmswing_user` VALUES ('150', 'A呦喂????二姐来了');
+INSERT INTO `cmswing_user` VALUES ('151', '微语');
+INSERT INTO `cmswing_user` VALUES ('152', '胡yi_miko');
+INSERT INTO `cmswing_user` VALUES ('153', ' 丁颜男');
+INSERT INTO `cmswing_user` VALUES ('154', '陈唯忆');
+INSERT INTO `cmswing_user` VALUES ('155', '阿让');
+INSERT INTO `cmswing_user` VALUES ('156', '居然');
+INSERT INTO `cmswing_user` VALUES ('157', '小雅');
+INSERT INTO `cmswing_user` VALUES ('158', '小白兔');
+INSERT INTO `cmswing_user` VALUES ('159', '两碗正能量•Henry');
+INSERT INTO `cmswing_user` VALUES ('160', '子雲');
+INSERT INTO `cmswing_user` VALUES ('161', '阿丁');
+INSERT INTO `cmswing_user` VALUES ('162', '灵');
+INSERT INTO `cmswing_user` VALUES ('163', '六月。');
+INSERT INTO `cmswing_user` VALUES ('164', '   海阔天空');
+INSERT INTO `cmswing_user` VALUES ('165', 'Shining财务');
+INSERT INTO `cmswing_user` VALUES ('166', '大加一起玩');
+INSERT INTO `cmswing_user` VALUES ('167', '木茜');
+INSERT INTO `cmswing_user` VALUES ('168', '么么°ε°????');
+INSERT INTO `cmswing_user` VALUES ('169', '小明');
+INSERT INTO `cmswing_user` VALUES ('170', '︶ 子明℡');
+INSERT INTO `cmswing_user` VALUES ('171', '静夜无痕');
+INSERT INTO `cmswing_user` VALUES ('172', '明洞优汇红包跨年');
+INSERT INTO `cmswing_user` VALUES ('173', '彬彬');
+INSERT INTO `cmswing_user` VALUES ('174', '咀');
+INSERT INTO `cmswing_user` VALUES ('175', '一个人的寂寞');
+INSERT INTO `cmswing_user` VALUES ('176', '我就擦了');
+INSERT INTO `cmswing_user` VALUES ('177', '静静');
+INSERT INTO `cmswing_user` VALUES ('178', '阿丹');
+INSERT INTO `cmswing_user` VALUES ('179', '爱我你会火');
+INSERT INTO `cmswing_user` VALUES ('180', '傻瓜');
+INSERT INTO `cmswing_user` VALUES ('181', '百花谷');
+INSERT INTO `cmswing_user` VALUES ('182', 'loli');
+INSERT INTO `cmswing_user` VALUES ('183', 'VC速度');
+INSERT INTO `cmswing_user` VALUES ('184', '红发旗舰店');
+INSERT INTO `cmswing_user` VALUES ('185', '易方达');
+INSERT INTO `cmswing_user` VALUES ('186', '九久竹心');
+INSERT INTO `cmswing_user` VALUES ('187', '每天能有您而HAPPY');
+INSERT INTO `cmswing_user` VALUES ('188', '筱幽');
+INSERT INTO `cmswing_user` VALUES ('189', '陈晨');
+INSERT INTO `cmswing_user` VALUES ('190', 'Mooncherry');
+INSERT INTO `cmswing_user` VALUES ('191', '阿特');
+INSERT INTO `cmswing_user` VALUES ('192', '地球屋零食驿站');
+INSERT INTO `cmswing_user` VALUES ('193', '峰『沃』梅');
+INSERT INTO `cmswing_user` VALUES ('194', 'VIP');
+INSERT INTO `cmswing_user` VALUES ('195', '头狼电商CEO朱加宝');
+INSERT INTO `cmswing_user` VALUES ('196', '???? Bearxiwi ????');
+INSERT INTO `cmswing_user` VALUES ('197', '金');
+INSERT INTO `cmswing_user` VALUES ('198', '杜喜');
+INSERT INTO `cmswing_user` VALUES ('199', 'A du');
+INSERT INTO `cmswing_user` VALUES ('200', '安静');
+INSERT INTO `cmswing_user` VALUES ('201', '花久美');
+INSERT INTO `cmswing_user` VALUES ('202', '可可');
+INSERT INTO `cmswing_user` VALUES ('203', '夜未央');
+INSERT INTO `cmswing_user` VALUES ('204', '萱萱');
+INSERT INTO `cmswing_user` VALUES ('205', 'GG');
+INSERT INTO `cmswing_user` VALUES ('206', '童话@@@');
+INSERT INTO `cmswing_user` VALUES ('207', '领金财务');
+INSERT INTO `cmswing_user` VALUES ('208', '花宝宝');
+INSERT INTO `cmswing_user` VALUES ('209', '高雯');
+INSERT INTO `cmswing_user` VALUES ('210', '啊磊');
+INSERT INTO `cmswing_user` VALUES ('211', '123z');
+INSERT INTO `cmswing_user` VALUES ('212', '一切的一切 ????');
+INSERT INTO `cmswing_user` VALUES ('213', '淘宝店铺号    1879999');
+INSERT INTO `cmswing_user` VALUES ('214', 'xoox');
+INSERT INTO `cmswing_user` VALUES ('215', '旺旺旺');
+INSERT INTO `cmswing_user` VALUES ('216', '????Vicky ????');
+INSERT INTO `cmswing_user` VALUES ('217', 'mi雨泪❤️碎');
+INSERT INTO `cmswing_user` VALUES ('218', '杨丹');
+INSERT INTO `cmswing_user` VALUES ('219', '亚洲杯');
+INSERT INTO `cmswing_user` VALUES ('220', '龙哥');
+INSERT INTO `cmswing_user` VALUES ('221', '一二三亖');
+INSERT INTO `cmswing_user` VALUES ('222', '王庆阳');
+INSERT INTO `cmswing_user` VALUES ('223', '一事无成');
+INSERT INTO `cmswing_user` VALUES ('224', '怪我过份美丽');
+INSERT INTO `cmswing_user` VALUES ('225', '☞你真逗☜');
+INSERT INTO `cmswing_user` VALUES ('226', '孙竹伟');
+INSERT INTO `cmswing_user` VALUES ('227', 'vggjvf');
+INSERT INTO `cmswing_user` VALUES ('228', ' 1234');
+INSERT INTO `cmswing_user` VALUES ('229', '破哥');
+INSERT INTO `cmswing_user` VALUES ('230', '女汉子也有柔情时');
+INSERT INTO `cmswing_user` VALUES ('231', '');
+INSERT INTO `cmswing_user` VALUES ('232', '约驾客服');
+INSERT INTO `cmswing_user` VALUES ('233', '我不是土豪');
+INSERT INTO `cmswing_user` VALUES ('234', '峰');
+INSERT INTO `cmswing_user` VALUES ('235', '娇香世家');
+INSERT INTO `cmswing_user` VALUES ('236', 'Rainbow');
+INSERT INTO `cmswing_user` VALUES ('237', 'dragon-惰');
+INSERT INTO `cmswing_user` VALUES ('238', '心阳');
+INSERT INTO `cmswing_user` VALUES ('239', '蕾拉小姐');
+INSERT INTO `cmswing_user` VALUES ('240', '世界');
+INSERT INTO `cmswing_user` VALUES ('241', '多么哇塞的姑娘');
+INSERT INTO `cmswing_user` VALUES ('242', '幸福来敲门');
+INSERT INTO `cmswing_user` VALUES ('243', '郁.轻.砂');
+INSERT INTO `cmswing_user` VALUES ('244', '快乐女人');
+INSERT INTO `cmswing_user` VALUES ('245', '榆木。');
+INSERT INTO `cmswing_user` VALUES ('246', '陈金龙');
+INSERT INTO `cmswing_user` VALUES ('247', '无敌大美兔');
+INSERT INTO `cmswing_user` VALUES ('248', '蝴蝶效应');
+INSERT INTO `cmswing_user` VALUES ('249', '卢????静宸');
+INSERT INTO `cmswing_user` VALUES ('250', '阿金');
+INSERT INTO `cmswing_user` VALUES ('251', '不潮不酷不帅气');
+INSERT INTO `cmswing_user` VALUES ('252', '程程');
+INSERT INTO `cmswing_user` VALUES ('253', 'A兰敏');
+INSERT INTO `cmswing_user` VALUES ('254', '123');
+INSERT INTO `cmswing_user` VALUES ('255', '残阳');
+INSERT INTO `cmswing_user` VALUES ('256', 'Bonnie');
+INSERT INTO `cmswing_user` VALUES ('257', '沐汐');
+INSERT INTO `cmswing_user` VALUES ('258', '臻磊文化-国栋');
+INSERT INTO `cmswing_user` VALUES ('259', '守望&人生');
+INSERT INTO `cmswing_user` VALUES ('260', '桃夭');
+INSERT INTO `cmswing_user` VALUES ('261', 'M');
+INSERT INTO `cmswing_user` VALUES ('262', '心情');
+INSERT INTO `cmswing_user` VALUES ('263', '小黑子');
+INSERT INTO `cmswing_user` VALUES ('264', '小钱钱，好甜甜');
+INSERT INTO `cmswing_user` VALUES ('265', 'Crazy Zhang');
+INSERT INTO `cmswing_user` VALUES ('266', '✨杨梅果✨');
+INSERT INTO `cmswing_user` VALUES ('267', '邻家小妹');
+INSERT INTO `cmswing_user` VALUES ('268', 'ゝβīnｇ ゞ');
+INSERT INTO `cmswing_user` VALUES ('269', '朱洁');
+INSERT INTO `cmswing_user` VALUES ('270', '花好月圆');
+INSERT INTO `cmswing_user` VALUES ('271', '陈嘉欣');
+INSERT INTO `cmswing_user` VALUES ('272', '翟菀通');
+INSERT INTO `cmswing_user` VALUES ('273', '奔波');
+INSERT INTO `cmswing_user` VALUES ('274', 'SORBO官方微信号');
+INSERT INTO `cmswing_user` VALUES ('275', '刘钰');
+INSERT INTO `cmswing_user` VALUES ('276', '霖');
+INSERT INTO `cmswing_user` VALUES ('277', '小嫩肉');
+INSERT INTO `cmswing_user` VALUES ('278', '嫣然');
+INSERT INTO `cmswing_user` VALUES ('279', '屹舟音响——骆珍');
+INSERT INTO `cmswing_user` VALUES ('280', '转身遇到你');
+INSERT INTO `cmswing_user` VALUES ('281', '可可');
+INSERT INTO `cmswing_user` VALUES ('282', '图图饰品3022-1');
+INSERT INTO `cmswing_user` VALUES ('283', '周梦琦 ');
+INSERT INTO `cmswing_user` VALUES ('284', '小马哥');
+INSERT INTO `cmswing_user` VALUES ('285', '南宫宇轩');
+INSERT INTO `cmswing_user` VALUES ('286', '9头身美女');
+INSERT INTO `cmswing_user` VALUES ('287', '雪意满江山LL');
+INSERT INTO `cmswing_user` VALUES ('288', '红发旗舰店');
+INSERT INTO `cmswing_user` VALUES ('289', '静静');
+INSERT INTO `cmswing_user` VALUES ('290', '起风了');
+INSERT INTO `cmswing_user` VALUES ('291', 'Sunny-soob');
+INSERT INTO `cmswing_user` VALUES ('292', '小翠');
+INSERT INTO `cmswing_user` VALUES ('293', '孤┏ (^ω^)=☞娜');
+INSERT INTO `cmswing_user` VALUES ('294', '蔡蔡');
+INSERT INTO `cmswing_user` VALUES ('295', 'the saltwater room');
+INSERT INTO `cmswing_user` VALUES ('296', '与我共梦');
+INSERT INTO `cmswing_user` VALUES ('297', '安远');
+INSERT INTO `cmswing_user` VALUES ('298', '婷子');
+INSERT INTO `cmswing_user` VALUES ('299', '爱情乞丐');
+INSERT INTO `cmswing_user` VALUES ('300', '结结');
+INSERT INTO `cmswing_user` VALUES ('301', '不二周助');
+INSERT INTO `cmswing_user` VALUES ('302', 'No promises');
+INSERT INTO `cmswing_user` VALUES ('303', '江南名媛');
+INSERT INTO `cmswing_user` VALUES ('304', '薛丽');
+INSERT INTO `cmswing_user` VALUES ('305', 'A 小龙');
+INSERT INTO `cmswing_user` VALUES ('306', 'AN 楠');
+INSERT INTO `cmswing_user` VALUES ('307', '工作小号朋友勿加');
+INSERT INTO `cmswing_user` VALUES ('308', 'Prisoner°');
+INSERT INTO `cmswing_user` VALUES ('309', '泓盛壁纸（沐沐）');
+INSERT INTO `cmswing_user` VALUES ('310', '沈阳田律师');
+INSERT INTO `cmswing_user` VALUES ('311', '陌');
+INSERT INTO `cmswing_user` VALUES ('312', '科学养猪');
+INSERT INTO `cmswing_user` VALUES ('313', '龙城行者');
+INSERT INTO `cmswing_user` VALUES ('314', '招工');
+INSERT INTO `cmswing_user` VALUES ('315', 'LJH.贵云');
+INSERT INTO `cmswing_user` VALUES ('316', '阿阿阿');
+INSERT INTO `cmswing_user` VALUES ('317', '迪塞尔●瑟克赛斯');
+INSERT INTO `cmswing_user` VALUES ('318', '周菁');
+INSERT INTO `cmswing_user` VALUES ('319', '狐狸未出嫁');
+INSERT INTO `cmswing_user` VALUES ('320', '嘉嘉');
+INSERT INTO `cmswing_user` VALUES ('321', 'baby');
+INSERT INTO `cmswing_user` VALUES ('322', '1');
+INSERT INTO `cmswing_user` VALUES ('323', '媚不可挡');
+INSERT INTO `cmswing_user` VALUES ('324', '达舒妮，休闲鞋著名品牌');
+INSERT INTO `cmswing_user` VALUES ('325', '旭');
+INSERT INTO `cmswing_user` VALUES ('326', '广播站9号站????????');
+INSERT INTO `cmswing_user` VALUES ('327', '晟鑫发品全涛');
+INSERT INTO `cmswing_user` VALUES ('328', '酷海风波');
+INSERT INTO `cmswing_user` VALUES ('329', 'JiniwuMini');
+INSERT INTO `cmswing_user` VALUES ('330', '淘宝运营，李');
+INSERT INTO `cmswing_user` VALUES ('331', '春暖花开');
+INSERT INTO `cmswing_user` VALUES ('332', 'Albert-L');
+INSERT INTO `cmswing_user` VALUES ('333', 'Christy');
+INSERT INTO `cmswing_user` VALUES ('334', '时事关注');
+INSERT INTO `cmswing_user` VALUES ('335', 'POTATO');
+INSERT INTO `cmswing_user` VALUES ('336', '二马');
+INSERT INTO `cmswing_user` VALUES ('337', 'jhbsbb');
+INSERT INTO `cmswing_user` VALUES ('338', '威尼斯的湖');
+INSERT INTO `cmswing_user` VALUES ('339', '简');
+INSERT INTO `cmswing_user` VALUES ('340', 'A呦喂????二姐来了');
+INSERT INTO `cmswing_user` VALUES ('341', '微语');
+INSERT INTO `cmswing_user` VALUES ('342', '胡yi_miko');
+INSERT INTO `cmswing_user` VALUES ('343', ' 丁颜男');
+INSERT INTO `cmswing_user` VALUES ('344', '陈唯忆');
+INSERT INTO `cmswing_user` VALUES ('345', '阿让');
+INSERT INTO `cmswing_user` VALUES ('346', '居然');
+INSERT INTO `cmswing_user` VALUES ('347', '小雅');
+INSERT INTO `cmswing_user` VALUES ('348', '小白兔');
+INSERT INTO `cmswing_user` VALUES ('349', '两碗正能量•Henry');
+INSERT INTO `cmswing_user` VALUES ('350', '子雲');
+INSERT INTO `cmswing_user` VALUES ('351', '阿丁');
+INSERT INTO `cmswing_user` VALUES ('352', '灵');
+INSERT INTO `cmswing_user` VALUES ('353', '六月。');
+INSERT INTO `cmswing_user` VALUES ('354', '   海阔天空');
+INSERT INTO `cmswing_user` VALUES ('355', 'Shining财务');
+INSERT INTO `cmswing_user` VALUES ('356', '大加一起玩');
+INSERT INTO `cmswing_user` VALUES ('357', '木茜');
+INSERT INTO `cmswing_user` VALUES ('358', '么么°ε°????');
+INSERT INTO `cmswing_user` VALUES ('359', '小明');
+INSERT INTO `cmswing_user` VALUES ('360', '︶ 子明℡');
+INSERT INTO `cmswing_user` VALUES ('361', '静夜无痕');
+INSERT INTO `cmswing_user` VALUES ('362', '明洞优汇红包跨年');
+INSERT INTO `cmswing_user` VALUES ('363', '彬彬');
+INSERT INTO `cmswing_user` VALUES ('364', '咀');
+INSERT INTO `cmswing_user` VALUES ('365', '一个人的寂寞');
+INSERT INTO `cmswing_user` VALUES ('366', '我就擦了');
+INSERT INTO `cmswing_user` VALUES ('367', '静静');
+INSERT INTO `cmswing_user` VALUES ('368', '阿丹');
+INSERT INTO `cmswing_user` VALUES ('369', '爱我你会火');
+INSERT INTO `cmswing_user` VALUES ('370', '傻瓜');
+INSERT INTO `cmswing_user` VALUES ('371', '百花谷');
+INSERT INTO `cmswing_user` VALUES ('372', 'loli');
+INSERT INTO `cmswing_user` VALUES ('373', 'VC速度');
+INSERT INTO `cmswing_user` VALUES ('374', '红发旗舰店');
+INSERT INTO `cmswing_user` VALUES ('375', '易方达');
+INSERT INTO `cmswing_user` VALUES ('376', '九久竹心');
+INSERT INTO `cmswing_user` VALUES ('377', '每天能有您而HAPPY');
+INSERT INTO `cmswing_user` VALUES ('378', '筱幽');
+INSERT INTO `cmswing_user` VALUES ('379', '陈晨');
+INSERT INTO `cmswing_user` VALUES ('380', 'Mooncherry');

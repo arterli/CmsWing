@@ -198,7 +198,13 @@
 										<input type="hidden" id="qty" name="qty" value="1" />
 										
 										<!-- see assets/js/view/demo.shop.js -->
-
+                                    {% if info.total_stock == 0%}
+                                     <!-- buttons -->
+											<div class="shop-item-buttons text-center">
+												<span class="out-of-stock">已售罄</span><!-- add .clean to remove css characteres -->
+											</div>
+											<!-- /buttons -->
+                                            {% else %}
 										<div class="btn-group pull-left product-opt-qty">
 											<button type="button" class="btn btn-default dropdown-toggle product-qty-dd noradius" data-toggle="dropdown">
 												<span class="caret"></span>
@@ -220,7 +226,7 @@
 										</div><!-- /btn-group -->
 
 										<button class="btn btn-danger pull-left product-add-cart noradius "> <i class="fa fa-cart-plus "></i> 添加到购物车</button>
-									
+									{% endif %}
 									</form>
 									<!-- /FORM -->
 

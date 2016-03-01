@@ -41,21 +41,39 @@
 			<!-- CART -->
 			<section>
 				<div class="container">
+{% if controller.cart.data %}
+<div class="row process-wizard process-wizard-primary">
 
-				
-					<!-- EMPTY CART -->
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<strong>购物车内暂时没有商品!</strong><br />
-							去 <a href="/">首页</a> 挑选喜欢的商品。<br />
-							
-							<span class="label label-warning">{{controller.setup.WEB_SITE_TITLE}}</span>
-						</div>
-					</div>
-					<!-- /EMPTY CART -->
+	<div class="col-xs-3 process-wizard-step active">
+		<div class="text-center process-wizard-stepnum">第一步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">购物车</div>
+	</div>
 
+	<div class="col-xs-3 process-wizard-step disabled"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第二步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">确认订单信息</div>
+	</div>
 
+	<div class="col-xs-3 process-wizard-step disabled"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第三步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">选择支付</div>
+	</div>
 
+	<div class="col-xs-3 process-wizard-step disabled"><!-- active -->
+		<div class="text-center process-wizard-stepnum">第四步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">订购完成</div>
+	</div>
+
+</div>
+<hr/>
 					<!-- CART -->
 					<div class="row">
 
@@ -70,59 +88,34 @@
 									<!-- cart header -->
 									<div class="item head clearfix">
 										<span class="cart_img"></span>
-										<span class="product_name size-13 bold">PRODUCT NAME</span>
+										<span class="product_name size-13 bold">商品名称</span>
 										<span class="remove_item size-13 bold"></span>
-										<span class="total_price size-13 bold">TOTAL</span>
-										<span class="qty size-13 bold">QUANTITY</span>
+										<span class="total_price size-13 bold">小计</span>
+										<span class="qty size-13 bold">数量</span>
 									</div>
 									<!-- /cart header -->
-
+                                     
+                                    {% for val in controller.cart.data%}
 									<!-- cart item -->
 									<div class="item">
-										<div class="cart_img pull-left width-100 padding-10 text-left"><img src="assets/images/demo/shop/products/100x100/p1.jpg" alt="" width="80" /></div>
-										<a href="shop-single-left.html" class="product_name">
-											<span>Man shirt XL</span>
-											<small>Color: Brown, Size: XL</small>
+										<div class="cart_img pull-left width-100 padding-10 text-left"><img src="{{val.pic}}" alt="" width="80" /></div>
+										<a href="{{val.url}}" class="product_name">
+											<span>{{val.title}}</span>
+											{% if val.type%}<small>{{val.type}}</small>{%endif%}
 										</a>
 										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
-										<div class="total_price">$<span>21.00</span></div>
-										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; $21.00</div>
+										<div class="total_price">￥<span>{{val.price|formatCurrency}}</span></div>
+										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; ￥21.00</div>
 										<div class="clearfix"></div>
 									</div>
 									<!-- /cart item -->
-
-									<!-- cart item -->
-									<div class="item">
-										<div class="cart_img pull-left width-100 padding-10 text-left"><img src="assets/images/demo/shop/products/100x100/p8.jpg" alt="" width="80" /></div>
-										<a href="shop-single-left.html" class="product_name">
-											<span>Great Black Shoes For Man and Only Man...</span>
-											<small>Color: Black, Size: 8.5</small>
-										</a>
-										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
-										<div class="total_price">$<span>32.56</span></div>
-										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; $32.56</div>
-										<div class="clearfix"></div>
-									</div>
-									<!-- /cart item -->
-
-									<!-- cart item -->
-									<div class="item">
-										<div class="cart_img pull-left width-100 padding-10 text-left"><img src="assets/images/demo/shop/products/100x100/p13.jpg" alt="" width="80" /></div>
-										<a href="shop-single-left.html" class="product_name">
-											<span>Pink Lady Perfect Shoes</span>
-											<small>Color: Pink, Size: 6.5</small>
-										</a>
-										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
-										<div class="total_price">$<span>67.19</span></div>
-										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; $67.19</div>
-										<div class="clearfix"></div>
-									</div>
-									<!-- /cart item -->
-
+                                  {% endfor %}
+                                     
+									
 
 									<!-- update cart -->
-									<button class="btn btn-success margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-ok"></i> UPDATE CART</button>
-									<button class="btn btn-danger margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-remove"></i> CLEAR CART</button>
+									<button class="btn btn-success margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-ok"></i> 更新购物车</button>
+									<button class="btn btn-danger margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-remove"></i> 清空购物车</button>
 									<!-- /update cart -->
 
 									<div class="clearfix"></div>
@@ -142,7 +135,7 @@
 							<div class="toggle-transparent toggle-bordered-full clearfix">
 
 								<div class="toggle nomargin-top">
-									<label>Voucher</label>
+									<label>优惠券</label>
 
 									<div class="toggle-content">
 										<p>Enter your discount coupon code.</p>
@@ -155,7 +148,7 @@
 								</div>
 
 								<div class="toggle">
-									<label>Shipping tax calculator</label>
+									<label>选择快递</label>
 
 									<div class="toggle-content">
 										<p>To get a shipping estimate, please enter your destination.</p>
@@ -193,28 +186,28 @@
 									<div class="toggle-content">
 										
 										<span class="clearfix">
-											<span class="pull-right">$120.75</span>
-											<strong class="pull-left">Subtotal:</strong>
+											<span class="pull-right">￥120.75</span>
+											<strong class="pull-left">小计:</strong>
 										</span>
 										<span class="clearfix">
-											<span class="pull-right">$0.00</span>
-											<span class="pull-left">Discount:</span>
+											<span class="pull-right">￥0.00</span>
+											<span class="pull-left">折扣:</span>
 										</span>
 										<span class="clearfix">
-											<span class="pull-right">$0.00</span>
-											<span class="pull-left">Shipping:</span>
+											<span class="pull-right">￥0.00</span>
+											<span class="pull-left">运费:</span>
 										</span>
 
 										<hr />
 
 										<span class="clearfix">
-											<span class="pull-right size-20">$120.75</span>
-											<strong class="pull-left">TOTAL:</strong>
+											<span class="pull-right size-20">￥120.75</span>
+											<strong class="pull-left">合计:</strong>
 										</span>
 
 										<hr />
 
-										<a href="shop-checkout.html" class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> Proceed to Checkout</a>
+										<a href="shop-checkout.html" class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> 立即结算</a>
 									</div>
 								</div>
 							</div>
@@ -223,7 +216,18 @@
 
 					</div>
 					<!-- /CART -->
-					
+					 {%else%}
+										<!-- EMPTY CART -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<strong>购物车内暂时没有商品!</strong><br />
+							去 <a href="/">首页</a> 挑选喜欢的商品。<br />
+							
+							<span class="label label-warning">{{controller.setup.WEB_SITE_TITLE}}</span>
+						</div>
+					</div>
+					<!-- /EMPTY CART -->
+                                        {%endif%}
 				</div>
 			</section>
 			<!-- /CART -->
