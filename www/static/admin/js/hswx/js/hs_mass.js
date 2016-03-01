@@ -9,9 +9,9 @@ $(function() {
 	$('#group_type').on('change', function() {
 		var type_class = $(this).val();
 		if (type_class == 1) {
-			$('#group_object').show();
+			$('#group_id').show();
 		} else {
-			$('#group_object').hide();
+			$('#group_id').hide();
 		}
 
 	});
