@@ -77,7 +77,7 @@ export default class extends Base {
      */
      async massAction(){
         this.meta_title="群发功能";
-
+         //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
         let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let self = this;
         //调用用户分组API
@@ -238,7 +238,7 @@ export default class extends Base {
                 }
                 let resusers = await userinfo(api);
                 let resinfo = resusers['user_info_list'];
-               console.log(resinfo);
+               //self.end(resinfo);
                 console.log("开始：")
                for (var key in resinfo) {
                        var element = resinfo[key];
@@ -260,26 +260,6 @@ export default class extends Base {
                }
                tmp_openids = [];
             }
-        } 
-        console.log(tmp_openids);      
-    }
-    
-    /**
-     * 群发信息
-     */
-    async bymasssendAction(media_id,receivers){
-        let self = this;
-        self.end(media_id);
-         let mass = function(api){
-            let deferred = think.defer();
-            api.massSendNews(media_id,receivers,(err,result)=>{
-                if(!think.isEmpty(result)){
-                    deferred.resolve(result);
-                }else{
-                    console.error('err'+err);
-                }
-            });
-            return deferred.promise;
         }
         if(isadd){
             this.success({name:"操作成功！",url:"/admin/mpbase/menu"}); 
@@ -298,25 +278,19 @@ export default class extends Base {
         let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let model = this.model('wx_user');
         let self = this;
-        //let send_type = this.post('send_type');//1:图文2：文字3：图片4：语音5：视频6：卡卷
-        let send_type = 1;
+        let send_type = this.post('send_type');//1:图文2：文字3：图片4：语音5：视频6：卡卷
         let group_id = this.post('group_id');
         //let media_id = this.post('media_id');
-        //let group_type = this.post('group_type');
-        //let sex = this.post('sex');
-        //let province = this.post('province');
-        //let city = this.post('city');
+        let group_type = this.post('group_type');//0:全部用户1：分组
+        let sex = this.post('sex');
+        let province = this.post('province');
+        let city = this.post('city');
         let media_id = 'WnHaYbbZUpy6xrrbADac_zObgAaFqh474Row6ar4PLJXEfVeA2OnR65uUSREYn_i';
         let content = '文本消息';
-        let group_type = 0;
-        let sex = 1;
-        let province = '陕西';
-        let city = '西安';
+        self.end(group_type);
         //通过条件查询本地库数据
         let userinfo = await model.where({'sex':sex,'province':province,'city':city}).field('openid').select();
-        //let userinfo ='aaa';
-       //self.end(userinfo);
-        
+
         let openids = [];
         for (var key in userinfo) {
             if (userinfo.hasOwnProperty(key)) {
@@ -328,22 +302,22 @@ export default class extends Base {
         
         //判断是通过groupid还是openid进行群发
         if(group_type == 1){
-            self.end('1');
+            //self.end('1');
             //分组群发
             switch (send_type) {
-                case 1://图文
+                case 'newsArea'://图文
                     res = await massSendNews(api,media_id,group_id);
                     break;
-                case 2://文本
+                case 'textArea'://文本
                     res = await massSendText(api,content,group_id);
                     break;
-                case 3://图片
+                case 'imageArea'://图片
                     res = await massSendImage(api,media_id,group_id);
                     break;
-                case 4://语音
+                case 'audioArea'://语音
                     res = await massSendVoice(api,media_id,group_id);
                     break;
-                case 5://视频
+                case 'videoArea'://视频
                     res = await massSendVideo(api,media_id,group_id);
                     break;
             }
@@ -358,19 +332,19 @@ export default class extends Base {
                 //self.end('openid');
                 //根据条件通过openid进行群发
                 switch (send_type) {
-                    case 1://图文
+                    case 'newsArea'://图文
                         res = await massSendNews(api,media_id,openids);
                         break;
-                    case 2://文本
+                    case 'textArea'://文本
                         res = await massSendText(api,content,openids);
                         break;
-                    case 3://图片
+                    case 'imageArea'://图片
                         res = await massSendImage(api,media_id,openids);
                         break;
-                    case 4://语音
+                    case 'audioArea'://语音
                         res = await massSendVoice(api,media_id,openids);
                         break;
-                    case 5://视频
+                    case 'videoArea'://视频
                         res = await massSendVideo(api,media_id,openids);
                         break;
                 }
@@ -383,16 +357,31 @@ export default class extends Base {
         //判断是否群发消息是否成功
         if(res['errcode'] == 0){
             //本地保存media_id和msg_id
-
+            this.success({name:"操作成功！",url:"/admin/mpbase/mass"});
+        }else{
+            this.fail("error");
         }
 
-        this.assign({"navxs": true,"bg": "bg-dark"});
-        return this.display();
+        //this.assign({"navxs": true,"bg": "bg-dark"});
+       //return this.display();
         
         
         
     }
-
+    /**
+     * 查看用户列表
+     */
+    async menuAction(){
+        let data = await this.model('wx_user').page(this.get('page')).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(data);
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', data.data);
+        
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        return this.display();
+    }
     
     
     
