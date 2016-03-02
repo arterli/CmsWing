@@ -77,12 +77,26 @@ export default class extends Base{
             let wxres = await wx(self.api, anews);
             let model = self.model('wx_material');
             if(wxres){
-                console.log(anews)
+                let wxg = function(api, data) {
+                    let deferred = think.defer();
+                    api.getMaterial(data, (err, result)=>{
+                        if(err){
+                            deferred.reject(err);
+                        }else{
+                            deferred.resolve(result);
+                        }
+                    });
+                    return deferred.promise;
+                }
+                let wx_news = await wxg(self.api, wxres.media_id);
+                // let wx_news_str = JSON.stringify(wx_news);
+                let time = new Date().getTime();
                 let data = {
                     "media_id": wxres.media_id,
                     "material_content": params,
-                    "wxgzh": 0,
-                    "add_time": new Date().getTime()
+                    "material_wx_content": wx_news+'',
+                    "web_token": 0,
+                    "add_time": time
                 }
                 let effect = await model.add(data);
                 if(effect){
