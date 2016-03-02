@@ -74,10 +74,10 @@
 										<div class="display-table">
 											<div class="display-table-cell vertical-align-middle">
 												<div class="caption-container text-left">
-													<h2>SHOP <strong>NOW</strong> &ndash; 50% OFF</h2>
+													<h2>全场 <strong>限时折扣</strong> &ndash; 50% OFF</h2>
 													<p>
-														This is a category banner rotator<br />
-														for any category of your shop.
+														这是一个商城分类页面的广告位<br />
+														你可以放置您的推广营销内容.
 													</p>
 												</div>
 											</div>
@@ -95,10 +95,10 @@
 										<div class="display-table">
 											<div class="display-table-cell vertical-align-middle">
 												<div class="caption-container text-left">
-													<h2>LOREM IPSUM <strong>DOLOR</strong></h2>
+													<h2>演示广告位置 <strong>就是这里</strong></h2>
 													<p>
-														Unlimited designs, unlimited combinations <br />
-														imagination is the limit!
+														这是一个商城分类页面的广告位<br />
+														你可以放置您的推广营销内容.
 													</p>
 												</div>
 											</div>
@@ -138,7 +138,7 @@
 							<!-- /LIST OPTIONS -->
 
 
-							<ul class="shop-item-list row list-inline nomargin">
+							<ul class="shop-item-list1 row list-inline nomargin">
                                {% for item in list%}
 								<!-- ITEM -->
 								<li class="col-xs-6 col-lg-4 col-md-4 col-sm-4 ">
@@ -164,7 +164,7 @@
 											<!-- /hover buttons -->
                                              <!-- countdown -->
 											<div class="shop-item-counter">
-												<div class="countdown" data-from="January 31, 2018 15:03:26" data-labels="年,月,周,天,小时,分钟,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+												<div class="countdown" data-from="January 31, 2018 15:03:26" data-labels="年,月,周,天,时,分,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
 											</div>
 											<!-- /countdown -->
 											<!-- product more info -->
@@ -228,7 +228,7 @@
 						<div class="col-lg-3 col-md-3 col-sm-3 col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
 
 							<!-- CATEGORIES -->
-							<div class="side-nav margin-bottom-60">
+							<div class="side-nav margin-bottom-40">
 
 								<div class="side-nav-head">
 									<button class="fa fa-bars"></button>
@@ -240,12 +240,13 @@
                                     <!--{{breadcrumb[1].id}}-->
                                      {% column data="list",tree=breadcrumb[0].id %}
                                      {% for val in list %}
-									<li class="list-group-item {%if breadcrumb[1].id == val.id%} active {%endif%}">
-										<a  {% if val.children %}class="dropdown-toggle"{%endif%} href="{{val.title}}">{{val.name}}</a>
+                                     <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
+									<li class="list-group-item active ">
+										<a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.title}}">{{val.name}}</a>
                                         {% if val.children %}
-										<ul>
+										<ul >
                                             {% for _val in val.children %}
-											<li {%if breadcrumb[2].id == _val.id%}class="active" {%endif%}><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
+											<li class="{%if breadcrumb[2].id == _val.id%}active {%endif%}"><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
                                             {%endfor%}
                                             
 										</ul>
@@ -258,78 +259,12 @@
 							</div>
 							<!-- /CATEGORIES -->
 
-							<!-- SIZE -->
-							<div class="margin-bottom-60">
-								<h4>SIZE</h4>
-
-								<a class="tag" href="#">
-									<span class="txt">S</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt bold">M</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">L</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">XL</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">2XL</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">3XL</span>
-								</a>
-								
-								<hr />
-
-								<div class="clearfix size-12">
-									<a class="pull-right glyphicon glyphicon-remove" href="#"></a>
-									SELECTED SIZE: <strong>M</strong>
-								</div>
-							</div>
-							<!-- /SIZE -->
-
-
-							<!-- COLOR -->
-							<div class="margin-bottom-60">
-								<h4>COLOR</h4>
-								
-								<a class="tag shop-color" href="#" style="background-color:#000000"></a>
-								<a class="tag shop-color" href="#" style="background-color:#FFFFFF"></a>
-								<a class="tag shop-color" href="#" style="background-color:#C0C0C0"></a>
-								<a class="tag shop-color" href="#" style="background-color:#0000E0"></a>
-								<a class="tag shop-color" href="#" style="background-color:#800080"></a>
-								<a class="tag shop-color" href="#" style="background-color:#FF0000"></a>
-								<a class="tag shop-color" href="#" style="background-color:#FF0080"></a>
-								<a class="tag shop-color" href="#" style="background-color:#FF6600"></a>
-								<a class="tag shop-color" href="#" style="background-color:#E0DCC8"></a>
-								<a class="tag shop-color" href="#" style="background-color:#F0E68C"></a>
-								<a class="tag shop-color" href="#" style="background-color:#FFFFD0"></a>
-								<a class="tag shop-color" href="#" style="background-color:#4B0082"></a>
-								<a class="tag shop-color" href="#" style="background-color:#666666"></a>
-								<a class="tag shop-color" href="#" style="background-color:#00FF00"></a>
-								<a class="tag shop-color" href="#" style="background-color:#36454F"></a>
-								<a class="tag shop-color" href="#" style="background-color:#F4A460"></a>
-								<a class="tag shop-color" href="#" style="background-color:#0088CC"></a>
-								<a class="tag shop-color" href="#" style="background-color:#B38B6D"></a>
-
-								<hr />
-
-								<div class="clearfix size-12">
-									<a class="pull-right glyphicon glyphicon-remove" href="#"></a>
-									SELECTED COLOR: <strong>Red</strong>
-								</div>
-							</div>
-							<!-- /COLOR -->
-
-
 							<!-- BRANDS -->
-							<div class="side-nav margin-bottom-60">
+							<div class="side-nav margin-bottom-40 hidden-xs">
 
 								<div class="side-nav-head">
 									<button class="fa fa-bars"></button>
-									<h4>BRANDS</h4>
+									<h4>品牌</h4>
 								</div>
 
 								<ul class="list-group list-unstyled">
@@ -347,7 +282,7 @@
 
 
 							<!-- BANNER ROTATOR -->
-							<div class="owl-carousel buttons-autohide controlls-over margin-bottom-60 text-center" data-plugin-options='{"singleItem": true, "autoPlay": 4000, "navigation": true, "pagination": false, "transitionStyle":"goDown"}'>
+							<div class="owl-carousel buttons-autohide controlls-over margin-bottom-40 text-center hidden-xs" data-plugin-options='{"singleItem": true, "autoPlay": 4000, "navigation": true, "pagination": false, "transitionStyle":"goDown"}'>
 								<a href="#">
 									<img class="img-responsive" src="/static/assets/images/demo/shop/banners/off_1.png" width="270" height="350" alt="">
 								</a>
@@ -359,7 +294,7 @@
 
 
 							<!-- FEATURED -->
-							<div class="margin-bottom-60">
+							<div class="margin-bottom-40 hidden-xs">
 
 								<h2 class="owl-featured">FEATURED</h2>
 								<div class="owl-carousel featured" data-plugin-options='{"singleItem": true, "stopOnHover":false, "autoPlay":false, "autoHeight": false, "navigation": true, "pagination": false}'>
@@ -455,7 +390,7 @@
 
 
 							<!-- HTML BLOCK -->
-							<div class="margin-bottom-60">
+							<div class="margin-bottom-40 hidden-xs">
 								<h4>HTML BLOCK</h4>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus eunit.</p>
 

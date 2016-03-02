@@ -95,9 +95,61 @@ export default class extends Base {
     
      return this.json(cartinfo);
   }
-  
+
   //获取订单信息
-  getorderinfoAction(){
+ async getorderinfoAction(){
+      //判断是否登陆
+      //!this.is_login || this.fail('您木有登陆'); 
+      if(!this.is_login){
+          return this.fail("你木有登录！")
+      }
+      this.meta_title = "确认订单信息";//标题1
+    this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
+    this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
+    
+      //let cart_goods = await this.model("cart").where({uid:this.user.uid}).select();
+      let cart_goods = this.cartdata;
+      
+      //联系人
+      let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+      this.assign("addrlist",addrlist);
+       //this.end(cart_goods);
+      return this.display();
       
   }
+  //获取省市三级联动
+  async getareaAction(){
+      
+      let pid = this.get("pid");
+      let area = await this.model('area').where({parent_id:pid}).select()
+      return this.json(area);
+  }
+  
+  //添加联系人地址
+ async addaddrAction(){
+     if(!this.is_login){
+          return this.fail("你木有登录！")
+      }
+      
+      let data = this.post();
+      data.user_id = this.user.uid;
+      if(data.is_default == 1){
+          let find = await this.model("address").where({user_id:this.user.uid,is_default:1}).select();
+          for(let val of find){
+              val.is_default = 0;
+              await this.model("address").update(val);
+          }
+      }
+      let res =await this.model("address").add(data);
+      if(res){
+          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select()
+           return this.success({name:'添加收货人地址成功',data:addrlist});
+      }else{
+          return this.fail( '添加失败！'); 
+          
+      }
+     
+  }
+  
+ //联系人设置为默认
 }

@@ -206,15 +206,13 @@
 										</span>
 
 										<hr />
-                                        <form action="#" method="post" class="nomargin">
-                                        <input type="hidden" value="{{controller.cart.data|jsonToStr}}" name="goods_item">
-                                        {% if controller.is_login %}
-							<button  class="btn btn-primary btn-lg btn-block size-15"><i class="fa fa-mail-forward"></i> 立即结算</button>
+                                       
+                            {% if controller.is_login %}
+							<a  class="btn btn-primary btn-lg btn-block size-15" href="/cart/getorderinfo"><i class="fa fa-mail-forward"></i> 立即结算</a>
                             {%else%}
-                            <a  class="btn btn-primary btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
+                            <a  class="btn btn-danger btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
                             {% endif %}
 										
-                                        </form>
 									</div>
 								</div>
 							</div>

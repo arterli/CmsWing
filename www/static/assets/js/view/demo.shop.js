@@ -194,7 +194,7 @@
 
         /**选择商品类型 */
         
-        $('input').on('ifChecked', function(event){
+        $('.ichecks input').on('ifChecked', function(event){
             var shoptype = $(".icheck");
             var arr =[]
            $.each(shoptype,function(k,v) {
@@ -271,8 +271,75 @@
                })
            }
 
-
-
+        /**订单编辑地址 */
+        // $(document).on("mouseover",".addr-list",function(e) {
+           
+        // })
+        /**省市三级联动 */
+        var areas = $("#areas");
+        if(areas.length > 0){
+           $('.add-addr-dialog').on('show.bs.modal', function () {
+         // 初始化省
+            $.ajax({  
+                url: "/cart/getarea", 
+                data: {"pid":0}, 
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 省份/直辖市 ---</option>']
+                  $.each(msg,function name(k,v) {
+                      province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                  }) 
+                  province_html = province_arr.join("")
+                  $("#province").html(province_html);
+                 } });
+             $("#province").change(function (e) {
+                 var pid = $("#province option:selected").val();
+                  $.ajax({  
+                url: "/cart/getarea", 
+                data: {"pid":pid}, 
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 市 ---</option>']
+                  $.each(msg,function name(k,v) {
+                      province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                  }) 
+                  province_html = province_arr.join("")
+                  $("#city").html(province_html);
+                 } });
+             })
+             
+              $("#city").change(function (e) {
+                 var pid = $("#city option:selected").val();
+                  $.ajax({  
+                url: "/cart/getarea", 
+                data: {"pid":pid}, 
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 县/区 ---</option>']
+                  $.each(msg,function name(k,v) {
+                      province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                  }) 
+                  province_html = province_arr.join("")
+                  $("#county").html(province_html);
+                 } });
+             })
+              /**
+         * 添加收货人地址
+         */
+             
+             $("form.add-addr").submit(function(e){
+                var data =  $(this).serialize()
+                $.ajax({
+                     type: "POST", 
+                     url: "/cart/addaddr",
+                      data: data,
+                       success: function(msg){ 
+                           alert( "Data Saved: " + msg ); } 
+                           });
+                 return false;
+             })
+          })
+        }
+        
+       
+        
 		/** CHECKOUT
 		 ** *********************** **/
 		// New Account show|hide
