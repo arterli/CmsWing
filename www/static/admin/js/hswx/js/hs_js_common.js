@@ -200,3 +200,98 @@ function HS_Mask(){
 		_p.removeChild(_maskObj);
 	}
 }
+
+function _hs_dom_fodder_item(obj){
+	var _dom = ['<div class="hs-fodder-item">',
+	'        <div class="hs-fodder-item-first">',
+	'            <div class="hs-fodder-item-container hs-item-cover" style="background-image:url('+obj.hs_image_src+')">',
+	'                <i class="hs-default-wxpic"></i>',
+	'                <div class="hs-item-title-h4">'+(obj.title?obj.title:'标题')+'</div>',
+	'            </div>',
+	'            <div class="hs-fodder-item-mask">',
+	'                <a class="hs-igup" href="javascript:;" alt="上移">向上</a>',
+	'                <a class="hs-igdp" href="javascript:;" alt="下移">向下</a>',
+	'                <a class="hs-igdl" href="javascript:;" alt="删除">删除</a>',
+	'            </div>',
+	'        </div>',
+	'        <div class="hs-fodder-item-second">',
+	'            <div class="hs-fodder-item-container">',
+	'                <div class="hs-fodder-item-rpic hs-item-cover" style="background-image:url('+obj.hs_image_src+')">',
+	'                    <i class="hs-default-wxpic-2"></i>',
+	'                </div>',
+	'                <div class="hs-item-title-h4-2">'+(obj.title?obj.title:'标题')+'</div>',
+	'            </div>',
+	'            <div class="hs-fodder-item-mask">',
+	'                <a class="hs-igup" href="javascript:;" alt="上移">向上</a>',
+	'                <a class="hs-igdp" href="javascript:;" alt="下移">向下</a>',
+	'                <a class="hs-igdl" href="javascript:;" alt="删除">删除</a>',
+	'            </div>',
+	'        </div>',
+	'    </div>'].join("");
+	return _dom;
+}
+
+
+function hs_show_dialog(type){
+    var noop = function(){};
+    var options = {
+        submit:noop,
+        cancel:noop
+    }
+    if(arguments[1]){
+        for(var k in arguments[1]){
+            options[k] = arguments[1][k];
+        }
+    }
+	var in_imgtext = function(){
+		$.ajax({
+            type:'GET',
+            url:'/admin/mpbase2/asyncfodderlist',
+            async:false,
+            data:'',
+            dataType:'json',
+            success:function(data){
+                var it = [];
+                for(var i = 0; i < data.data.length; i++){
+                    var obj = null;
+                    if(data.data[i].material_content){
+                        var arts = JSON.parse(data.data[i].material_content);
+                        var art = [];
+                        for(var k = 0; k < arts.articles.length; k++){
+                            var itm = _hs_dom_fodder_item(arts.articles[k]);
+                            art.push(itm);
+                        }
+                        it.push('<div class="hs-fodder-items hs-fodder-list-col" id="material_'+data.data[i].id+'">'+art.join('')+'</div>');
+                    }
+                }
+                var d = new HS_Dialog();
+                var h = d.hs_create("选择图文", '<div style="width:80%;margin:auto;padding:30px 0;overflow:hidden;">'+it.join('')+'</div>');
+                d.hs_show(h);
+                var sel_id = '';
+                $('.hs-fodder-list-col').click(function(){
+                    sel_id = $(this).attr('id');
+                    $('.hs-fodder-list-col').removeClass('active');
+                    $(this).addClass('active');
+                    //d.hs_remove();
+                });
+                $('.dialog_hd .pop_closed').click(function(){
+                    d.hs_remove();
+                });
+                $('.dialog_ft [data-index=0]').click(function(e){
+                    options['submit'](e, d, sel_id);
+                    d.hs_remove();
+                });
+                $('.dialog_ft [data-index=1]').click(function(e){
+                    options['cancel'](e);
+                    d.hs_remove();
+                });
+            }
+        });
+	}
+	switch(type){
+		case 'imgtext':
+			in_imgtext();
+		break;
+		default: return false; break;
+	}
+}

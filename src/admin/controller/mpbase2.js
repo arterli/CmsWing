@@ -112,6 +112,13 @@ export default class extends Base{
         return this.display();
     }
     
+    async asyncfodderlistAction(){
+        let self = this;
+        let model = self.model("wx_material");
+        let data = await model.page(this.get('page')).countSelect();
+        self.end(data);
+    }
+    
     /**
      * 编辑
      */  
