@@ -576,7 +576,7 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 }
 
 /*素材列表页*/
-.hs-fodder-list-col{ width: 48%; float: left; margin-right: 2%; margin-bottom: 15px }
+.hs-fodder-list-col{ width: 96%; float: left; margin-right: 4%; margin-bottom: 15px }
 .hs-fodder-list-col .hs-fodder-item-mask{ height: 100%; margin: 0; top: 0; }
 .hs-fodder-list-col:hover .hs-fodder-item-mask{display: none;}
 .hs-fodder-list-col .hs-fodder-item-mask > a{ display: none; }
@@ -608,4 +608,5 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 	left: 50%;
 	margin: -23px;
 }
+.hs-fodder-bigcol{ width: 50%; float: left; height: auto;}
 /* fodder page 素材页面 end */

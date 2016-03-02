@@ -251,7 +251,8 @@ function hs_show_dialog(type){
             data:'',
             dataType:'json',
             success:function(data){
-                var it = [];
+                // var it = [];
+                var it1 = [], it2 = [];
                 for(var i = 0; i < data.data.length; i++){
                     var obj = null;
                     if(data.data[i].material_content){
@@ -261,11 +262,17 @@ function hs_show_dialog(type){
                             var itm = _hs_dom_fodder_item(arts.articles[k]);
                             art.push(itm);
                         }
-                        it.push('<div class="hs-fodder-items hs-fodder-list-col" id="material_'+data.data[i].id+'">'+art.join('')+'</div>');
+                        //it.push('<div class="hs-fodder-items hs-fodder-list-col" id="material_'+data.data[i].id+'">'+art.join('')+'</div>');
+                        if(i%2 == 0){
+                            it1.push('<div class="hs-fodder-items hs-fodder-list-col" id="material_'+data.data[i].id+'">'+art.join('')+'</div>');
+                        }else{
+                            it2.push('<div class="hs-fodder-items hs-fodder-list-col" id="material_'+data.data[i].id+'">'+art.join('')+'</div>');
+                        }
                     }
                 }
+                var divstart = '<div class="hs-fodder-bigcol">', divend = '</div>';
                 var d = new HS_Dialog();
-                var h = d.hs_create("选择图文", '<div style="width:80%;margin:auto;padding:30px 0;overflow:hidden;">'+it.join('')+'</div>');
+                var h = d.hs_create("选择图文", '<div style="width:80%;margin:auto;padding:30px 0;overflow:hidden;">'+divstart+it1.join('')+divend+divstart+it2.join('')+divend+'</div>');
                 d.hs_show(h);
                 var sel_id = '';
                 $('.hs-fodder-list-col').click(function(){
