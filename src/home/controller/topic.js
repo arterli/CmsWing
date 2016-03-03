@@ -78,7 +78,13 @@ export default class extends Base {
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
       //think.log(temp);
-      return this.display(temp);
+      if(checkMobile(this.userAgent())){
+        temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
+       return this.display(`mobile/${this.http.controller}/${temp}`) 
+      }else{
+       return this.display(temp);
+      }
+     
     }
     //详情页
   async detailAction() {

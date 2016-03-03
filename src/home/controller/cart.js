@@ -13,7 +13,7 @@ export default class extends Base {
     this.meta_title = "购物车";//标题1
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
-    console.log(checkMobile(this.userAgent()));
+    //console.log(checkMobile(this.userAgent()));
     return this.display();
   }
   //添加购物车

@@ -1,0 +1,63 @@
+
+{% extends "../inc/base.html" %}
+{% block header%}
+<header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>
+    <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+      <span class="icon icon-menu"></span>
+      导航
+    </a>
+    <h1 class="title">{{controller.meta_title}}</h1>
+  </header>
+{% endblock%}
+{% block nav%}
+  <nav class="bar bar-tab">
+              <a data-no-cache="false" class="tab-item " href="/">
+                  <span class="icon icon-home"></span>
+                  <span class="tab-label">首页</span>
+              </a>
+              <a data-no-cache="false" class="tab-item active" href="/column/start">
+                  <span class="icon icon-browser"></span>
+                  <span class="tab-label">新闻</span>
+              </a>
+              <a data-no-cache="true" class="tab-item " href="#">
+                  <span class="icon icon-star"></span>
+                  <span class="tab-label">商城</span>
+              </a>
+              <a data-no-cache="true" class="tab-item " href="#">
+              <span class="icon icon-cart"></span>
+              <span class="tab-label">购物车</span>
+              </a>
+              <a data-no-cache="true" class="tab-item " href="#">
+                  <span class="icon icon-me"></span>
+                  <span class="tab-label">登录</span>
+              </a>
+          </nav>
+{% endblock%}
+{% block content %}
+ <div class="content">
+ <div class="bar">
+  <div class="searchbar">
+    <a class="searchbar-cancel">取消</a>
+    <div class="search-input">
+      <label class="icon icon-search" for="search"></label>
+      <input type="search" id='search' placeholder='输入关键字...'/>
+    </div>
+  </div>
+</div>
+ <div class="content">
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+  <div class="content-block">
+    <p>这是一个侧栏</p>
+    <p>你可以在这里放用户设置页面</p>
+    <p><a href="#" class="close-panel">关闭</a></p>
+  </div>
+  <div class="list-block">
+    <!-- .... -->
+  </div>
+</div>
+{% endblock%}
