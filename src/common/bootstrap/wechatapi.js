@@ -1,5 +1,5 @@
  
- //fdsfds
+'use strict'
  /* global massend 群发图文消息 */
 global.massSendNews=(api,media_id,receivers)=>{
     let deferred = think.defer();
