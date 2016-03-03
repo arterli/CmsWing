@@ -837,7 +837,7 @@ global.get_price = function (price,type) {
         let button = [];
         for(var i=0;i<data.length;i++){
             if(data[i].pid == '0'){
-                let item = {"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
+                let item = {"id":data[i].id,"m_id":data[i].m_id,"pid":data[i].pid,"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
                 menu.menu.button.push(item);
                 button.push(item);
             }
