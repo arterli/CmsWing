@@ -119,7 +119,14 @@ $(function(){
 	$(document).on('click', '#hs_js_keywords_rule_add', function(){
 		var ruleList = $("#Js_ruleList");
 		var n = ruleList.children('li').length;
-		ruleList.append(_hs_html_keywords_rule_li(++n, '规则名称'));
+        var rul = '规则名称';
+        $.get('/admin/mpbase2/createkrule',{'rule_name':rul}, function(data) {
+            if(data > 0){
+                ruleList.append(_hs_html_keywords_rule_li(++n, rul));
+            }else{
+                toastr.error('添加规则失败');
+            }
+        });
 	});
 	
 	/**

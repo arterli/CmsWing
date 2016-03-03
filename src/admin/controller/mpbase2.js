@@ -6,7 +6,8 @@ import API from 'wechat-api';
 export default class extends Base{
     
     init(http){
-        this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        this.api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         super.init(http);
     }
     
@@ -146,4 +147,21 @@ export default class extends Base{
         return this.display('fodder');
     }
     
+    
+    //-----------------------------------
+    //自动回复
+    async autoreplyAction(){
+        let rule = await this.model('wx_keywords_rule').where({}).select();
+        this.end(rule);
+        return this.display();
+    }
+    /**
+     * 新建规则
+     */
+    async createkruleAction(){
+        let rule_name = this.get('rule_name');
+        let model = this.model('wx_keywords_rule');
+        let id = await model.add({'rule_name': rule_name, 'create_time': new Date().getTime()});
+        this.end(id);
+    }
 }
