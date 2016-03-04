@@ -119,6 +119,12 @@ export default class extends Base {
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
           }
       this.assign("addrlist",addrlist);
+      //支付方式
+      let paylist = await this.model("payment").where({status:1}).select();
+      for(let val of paylist){
+           val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
+        }
+      this.assign("paylist",paylist);
        //this.end(cart_goods);
       return this.display();
       
