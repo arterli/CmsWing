@@ -6,7 +6,8 @@ import API from 'wechat-api';
 export default class extends Base{
     
     init(http){
-        this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        this.api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         super.init(http);
     }
     
@@ -146,4 +147,93 @@ export default class extends Base{
         return this.display('fodder');
     }
     
+    
+    //-----------------------------------
+    //自动回复
+    async autoreplyAction(){
+        let rule = await this.model('wx_keywords_rule').where({}).select();
+        for(let i = 0; i < rule.length; i++){
+            let current = rule[i];
+            let ks = await this.model('wx_keywords').where({id: ['IN', current.keywords_id]}).select();
+            let rs = await this.model('wx_replylist').where({id: ['IN', current.reply_id]}).select();
+            rule[i].ks = ks;
+            rule[i].rs = rs;
+        }
+        this.assign('rulelist', rule);
+        return this.display();
+    }
+    /**
+     * 新建规则
+     */
+    async createkruleAction(){
+        let id = 1;
+        /*let rule_name = this.get('rule_name');
+        let model = this.model('wx_keywords_rule');
+        let id = await model.add({'rule_name': rule_name, 'create_time': new Date().getTime()});
+        */
+        if(id){
+            return this.success({name:"规则添加成功", ruleid: id});
+        }else{
+            return this.fail('添加规则失败');
+        }
+    }
+    
+    
+    
+    /**
+     * 新建回复
+     */  
+    async createrAction(){
+        let type = this.post('type');
+        let model = this.model('wx_replylist');
+        let currtime = new Date().getTime();
+        let currwebtoken = 0;
+        let result = 0;
+        switch (type) {
+            case 'text':
+                let content = this.post('content')
+                result = await model.add({
+                    'type': 'text',
+                    'content': content,
+                    'create_time': currtime,
+                    'web_token': currwebtoken
+                });
+                break;
+            case 'image':
+            break;
+            case 'audio':
+            break;
+            case 'video':
+            break;
+            case 'news':
+            break;
+        }
+        if(result){
+            return this.success({name:'添加回复成功', rid:result });
+        }else{
+            return this.fail('回复添加失败');
+        }
+    }
+    /**
+     * 规则编辑 
+     */
+    async ruleeditAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let edittype = self.post('edittype'); //判断是编辑关键字 1，还是回复内容 2
+        if(edittype == 1){
+            //关键字操作
+            let kmodel = self.model('wx_keywords');
+            let kid = self.post('kid'); //如果带有kid表示该操作为编辑，否则为添加
+            if(kid){
+                
+            }else{ 
+                //新建关键字
+                let kname = self.post('name');
+                let ktype = self.post('type');
+                let kid = await kmodel.add({});
+                return self.json(1)
+            }
+        }
+    }
 }

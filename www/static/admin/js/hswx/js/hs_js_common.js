@@ -160,7 +160,7 @@ function HS_Dialog(settings){
 				'		<button type="button" class="hs-btn hs-dialog-cancel" data-index="1">取消</button>',
 				'	</div>',
 				'</div>'].join("");
-		var _DIV = document.createElement('div');
+		var _DIV = this._div = document.createElement('div');
 		_DIV.className = "dialog_wrp ui-draggable";
 		_DIV.style.width = '846px';
 		_DIV.style.marginLeft = '-423px';
@@ -176,7 +176,7 @@ function HS_Dialog(settings){
 		document.body.appendChild(_div);
 	}
 	this.hs_remove = function(){
-		var obj = document.querySelector('.dialog_wrp');
+		var obj = this._div;//document.querySelector('.dialog_wrp');
 		var _p = obj.parentNode;
 		_p.removeChild(obj);
 		this._mask.remove();

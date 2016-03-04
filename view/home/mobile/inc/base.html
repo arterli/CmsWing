@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{controller.meta_title}} | {{controller.setup.WEB_SITE_TITLE}}</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    
+    {% block style %}{% endblock %}
+</head>
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        <!-- 你的html代码 -->
+        {% block header%}
+        <!--头部-->
+        {% endblock %}
+      {% block nav %}
+           <!--底部菜单-->
+        {% endblock%}
+  
+    <!-- 这里是页面内容区 -->
+    {% block content %}{% endblock %}
+    
+  
+        </div>
+        
+        {% block pageout %}
+        <!--page以外的代码-->
+        {% endblock%}
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <!--<script>$.config = {router: false}</script>-->
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+     {% block script %}{% endblock %}
+     <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
+    <script>$.init()</script>
+  </body>
+</html>

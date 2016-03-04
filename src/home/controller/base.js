@@ -16,6 +16,8 @@ export default class extends think.controller.base {
       //获取当前分类信息
       //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
+      //设置主题
+      //this.http.theme("default);
       //购物车
       let cartdata;
       if(this.is_login){

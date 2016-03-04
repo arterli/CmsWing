@@ -90,13 +90,32 @@
         
 		<div class="icheck addr-list m-b">
             <div class="item">
-            <input type="radio"  name="address" value="1" {% if val.is_default == 1 %} checked {% endif%} >
-                            <label >{% if val.is_default == 1 %} <span class="label label-info">默认地址 </span>{% endif%} {{val.accept_name}}  {{val.province}} {{val.city}} {{val.county}} {{val.addr}} {{val.mobile}} </label>
+            <input type="radio"  name="address" value="{{val.id}}" {% if val.is_default == 1 %} checked {% endif%} >
+                            <label ><ul class="text-left list-inline list-separator margin-bottom-0">
+                                {% if val.is_default == 1 %} 
+								<li>
+									<span class="label label-info">默认地址 </span>
+								</li>
+                                {% endif%}
+								<li>
+									{{val.accept_name}}
+								</li>
+                                <li>
+									{{val.province}} 
+								</li>
+                                <li>
+									{{val.city}} 
+								</li>
+                                <li>
+									{{val.addr}}
+								</li>
+                                <li>{{val.mobile}} </li>
+							</ul>     </label>
                             </div> 
                           <div class="item">
-                                        {% if val.is_default == 0 %}  <a href="#" class="btn btn-default btn-xs" data-addr-id = "{{val.id}}"><i class="fa fa-check white"></i> 设为默认 </a>  {% endif%}
-										<a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit white" data-addr-id = "{{val.id}}" ></i> 编辑 </a>
-										<a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white" data-addr-id = "{{val.id}}"></i> 删除 </a>
+                                        {% if val.is_default == 0 %}  <a href="#" class="btn btn-default btn-xs is_d" data-addr-id = "{{val.id}}" ><i class="fa fa-check white"></i> 设为默认 </a>  {% endif%}
+										<a href="/cart/editaddrmodal/id/{{val.id}}" class="btn btn-default btn-xs edit"  data-toggle="ajaxModal"> <i class="fa fa-edit white"  ></i> 编辑 </a>
+										<a href="#" class="btn btn-default btn-xs del swal"  data-addr-id = "{{val.id}}"><i class="fa fa-times white"></i> 删除 </a>
 						  </div>   
                             
          </div>
@@ -231,10 +250,11 @@
 
 				</form>	
 			</div>
-         
+  
 		</div>
 	</div>
 </div>
+
 {% endblock %}
 
 {% block script%}

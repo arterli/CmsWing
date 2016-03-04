@@ -1,0 +1,111 @@
+
+	<div class="modal-dialog modal-lg ajax-edit-addr-modal">
+		<div class="modal-content">
+
+			<!-- header modal -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title " id="myLargeModalLabel">编辑收货人信息</h4>
+			</div>
+
+			<!-- body modal -->
+			<div class="modal-body">
+				<form  method="post"  class="edit-addr" >
+									<fieldset>
+										<!-- required [php action request] -->
+										<div class="row">
+											<div class="form-group" id="areas">
+												<div class="col-md-3 col-sm-12">
+													<label>所在地区（省份/直辖市） *</label>
+													<select class="form-control pointer " id="province1" name="province" required>
+														<option value="">--- 省份/直辖市 ---</option>
+														{% for val in province %}
+                                                        <option value="{{val.id}}" {% if info.province == val.id %} selected {% endif%}>{{val.name}}</option>
+                                                        {% endfor %}
+													</select>
+												</div>
+                                                <div class="col-md-3 col-sm-12">
+													<label>（市） *</label>
+													<select class="form-control pointer " id="city1" name="city" required>
+														{% for val in city %}
+                                                        <option value="{{val.id}}" {% if info.city == val.id %} selected {% endif%}>{{val.name}}</option>
+                                                        {% endfor %}
+													</select>
+												</div>
+                                                <div class="col-md-3 col-sm-12">
+													<label>（县/区） *</label>
+													<select class="form-control pointer " id="county1" name="county" required>
+														{% for val in county %}
+                                                        <option value="{{val.id}}" {% if info.county == val.id %} selected {% endif%}>{{val.name}}</option>
+                                                        {% endfor %}
+													</select>
+												</div>
+											</div>
+										</div>
+                                          <div class="row">
+											<div class="form-group">
+												<div class="col-md-12 col-sm-12">
+													<label>街道地址 *</label>
+													<textarea class="form-control required" rows="4" name="addr" required>{{info.addr}}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6">
+													<label>邮政编码 *</label>
+													<input type="text" class="form-control required" value="{{info.zip}}" name="zip" required>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<label>手机号码 *</label>
+													<input type="text" class="form-control required" value="{{info.mobile}}" name="mobile" required>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-6 col-sm-6">
+													<label>收货人姓名 *</label>
+													<input type="text" class="form-control required" value="{{info.accept_name}}" name="accept_name" required>
+												</div>
+												<div class="col-md-6 col-sm-6">
+													<label>电话号码 </label>
+													<input type="text" class="form-control " value="{{info.phone}}" name="phone">
+												</div>
+											</div>
+										</div>
+
+										
+
+										<div class="row">
+											<div class="form-group">
+												<div class="col-md-12 col-sm-12">
+													<label>
+														设为默认地址
+														
+													</label>
+													<!-- checkbox -->
+                                        <label class="checkbox">
+                                            <input type="checkbox" value="1" name="is_default" {% if info.is_default == 1%}checked{%endif%}>
+                                            <i></i> 设置为默认收货地址
+                                        </label>
+												</div>
+											</div>
+										</div>
+
+									</fieldset>
+									<div class="row">
+										<div class="col-md-12">
+                                           <input type="hidden" name="id" value="{{info.id}}">
+											<button class="btn btn-3d btn-teal btn-lg btn-block margin-top-30" type="submit">
+												编辑收货人地址
+											</button>
+										</div>
+									</div>
+
+				</form>	
+			</div>
+  
+		</div>
+	</div>
