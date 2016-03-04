@@ -166,22 +166,19 @@ export default class extends Base{
      * 新建规则
      */
     async createkruleAction(){
-        this.end(2);
+        let id = 1;
         /*let rule_name = this.get('rule_name');
         let model = this.model('wx_keywords_rule');
         let id = await model.add({'rule_name': rule_name, 'create_time': new Date().getTime()});
-        this.end(id);
         */
+        if(id){
+            return this.success({name:"规则添加成功", ruleid: id});
+        }else{
+            return this.fail('添加规则失败');
+        }
     }
     
-    /**
-     * 新建关键字
-     */ 
-    async createkAction(){
-        let kname = this.post('name');
-        let ktype = this.post('type');
-        return this.json(1);
-    }
+    
     
     /**
      * 新建回复
@@ -215,6 +212,28 @@ export default class extends Base{
             return this.success({name:'添加回复成功', rid:result });
         }else{
             return this.fail('回复添加失败');
+        }
+    }
+    /**
+     * 规则编辑 
+     */
+    async ruleeditAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let edittype = self.post('edittype'); //判断是编辑关键字 1，还是回复内容 2
+        if(edittype == 1){
+            //关键字操作
+            let kmodel = self.model('wx_keywords');
+            let kid = self.post('kid'); //如果带有kid表示该操作为编辑，否则为添加
+            if(kid){
+                
+            }else{ 
+                //新建关键字
+                let kname = self.post('name');
+                let ktype = self.post('type');
+                let kid = await kmodel.add({});
+                return self.json(1)
+            }
         }
     }
 }

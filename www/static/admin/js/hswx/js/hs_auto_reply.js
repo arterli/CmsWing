@@ -132,6 +132,7 @@ $(function(){
         var dh = d.hs_create('新建关键字', _hs_html_editor_keywords());
         d.hs_show(dh);
         var dialog = $(d._div);
+        var ruleid = $(self).closest('.keywords_rule_item').attr('id');
         $('.hs-dialog-submit[data-index=0]').click(function(){
            var val = dialog.find('.edit_area').html();
            var typ = 1;
@@ -140,7 +141,7 @@ $(function(){
                return false;
            }
            d.hs_remove();
-           $.post('/admin/mpbase2/createk',{'name':val, type: typ},
+           $.post('/admin/mpbase2/ruleedit',{'name':val, type: typ, 'ruleid': ruleid},
                function(data){
                    if(data > 0){
                        toastr.success('添加成功');
@@ -186,10 +187,10 @@ $(function(){
 		var n = ruleList.children('li').length;
         var rul = '规则名称';
         $.get('/admin/mpbase2/createkrule',{'rule_name':rul}, function(data) {
-            if(data > 0){
-                ruleList.append(_hs_html_keywords_rule_li(++n, rul));
+            if(data.errno == 0){
+                ruleList.append(_hs_html_keywords_rule_li(++n, rul, data.data.ruleid));
             }else{
-                toastr.error('添加规则失败');
+                toastr.error(data.errmsg);
             }
         });
 	});

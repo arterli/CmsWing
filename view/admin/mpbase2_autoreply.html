@@ -48,7 +48,7 @@
                             <div class="panel-body hs-ui">
                                 <ul id="Js_ruleList" class="keywords_rule_list">
                                     {% for rule in rulelist %}
-                                    <li class="keywords_rule_item" id="Js_ruleItem_403335945">
+                                    <li class="keywords_rule_item" id="{{rule.id}}">
                                         <div class="keywords_rule_hd no_extra" style="-webkit-transition: all, 1s;">
                                             <div class="info">
                                                 <em class="keywords_rule_num">规则{{loop.index}}:</em>
