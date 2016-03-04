@@ -77,8 +77,8 @@ export default class extends Base {
      */
      async massAction(){
         this.meta_title="群发功能";
-         //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let self = this;
         //调用用户分组API
         let aa = function(api){
@@ -196,9 +196,9 @@ export default class extends Base {
      */
     async getusersAction(){
         this.meta_title="获取粉丝信息";
-        let user_model = this.model('user');
-        //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let user_model = this.model('wx_user');
+        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         //let finduser = await this.model('user').countSelect();
         let self = this;
         //获取关注者列表
@@ -240,18 +240,20 @@ export default class extends Base {
                 let resinfo = resusers['user_info_list'];
                //self.end(resinfo);
                 console.log("开始：")
-               for (var key in resinfo) {
-                       var element = resinfo[key];
+               for (let key in resinfo) {
+                       let element = resinfo[key];
                        //self.end(element.openid);
                        console.log('-------------'+element.openid);
                        //let addres = await user_model.add(element);
                        //let nickname = element.nickname.replace(/(\\x[a-fA-F0-9]{2})*/g, ' ');
                        let nickname = element.nickname.replace(/[\x80-\xfe]*/g, ' ');
                        //let nickname = removeFourChar(element.nickname);
+                       let subscribe_time = element.subscribe_time+'000';
                        element.nickname = nickname;
+                       element.subscribe_time =subscribe_time;
                        
                        let addres = await user_model.thenAdd(element,{openid:element.openid});
-                       console.log('+++++++++'+addres);
+                       //console.log('+++++++++'+addres);
                        if(addres){
                            isadd = true;
                        }else{
@@ -275,22 +277,38 @@ export default class extends Base {
      * 通过分组groupid进行群发，认证后的订阅号和服务号都可以使用
      */
     async masssendAction(){
-        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let model = this.model('wx_user');
+        let media_model = this.model('wx_material');
+        let masssend_model = this.model('wx_masssend');
         let self = this;
         let send_type = this.post('send_type');//1:图文2：文字3：图片4：语音5：视频6：卡卷
         let group_id = this.post('group_id');
-        //let media_id = this.post('media_id');
         let group_type = this.post('group_type');//0:全部用户1：分组
+       // let media_id = 'WnHaYbbZUpy6xrrbADac_zObgAaFqh474Row6ar4PLJXEfVeA2OnR65uUSREYn_i';
+        let me_id = this.post('me_id');
+        let content = this.post('editor_content');
+        content = content.replace(/<.*?mo-/g, '[').replace(/">/g, "]");
+        //self.end(province+city);
+        //查询条件
+        let map={};
         let sex = this.post('sex');
-        let province = this.post('province');
-        let city = this.post('city');
-        let media_id = 'WnHaYbbZUpy6xrrbADac_zObgAaFqh474Row6ar4PLJXEfVeA2OnR65uUSREYn_i';
-        let content = '文本消息';
-        self.end(group_type);
+        if(sex == 1 || sex == 2){
+            map.sex = sex;
+        }
+        let province = this.post('provincetext');
+        if(province != 0){
+            map.province = province;
+        }
+        let city = this.post('citytext');
+        if(city != 0){
+            map.city = city;
+        }
         //通过条件查询本地库数据
-        let userinfo = await model.where({'sex':sex,'province':province,'city':city}).field('openid').select();
-
+        let userinfo = await model.where(map).field('openid').select();
+        let media_id = await media_model.where({'id':me_id}).getField('media_id');
+        media_id = media_id[0];
         let openids = [];
         for (var key in userinfo) {
             if (userinfo.hasOwnProperty(key)) {
@@ -302,7 +320,6 @@ export default class extends Base {
         
         //判断是通过groupid还是openid进行群发
         if(group_type == 1){
-            //self.end('1');
             //分组群发
             switch (send_type) {
                 case 'newsArea'://图文
@@ -323,51 +340,121 @@ export default class extends Base {
             }
             
         }else{
-            //self.end('0');
-            if(think.isEmpty(province)){
-                //self.end(province);
-                //全部群发
-                res =await bymasssend(api,media_id,true);
-            }else{
-                //self.end('openid');
-                //根据条件通过openid进行群发
-                switch (send_type) {
-                    case 'newsArea'://图文
-                        res = await massSendNews(api,media_id,openids);
-                        break;
-                    case 'textArea'://文本
-                        res = await massSendText(api,content,openids);
-                        break;
-                    case 'imageArea'://图片
-                        res = await massSendImage(api,media_id,openids);
-                        break;
-                    case 'audioArea'://语音
-                        res = await massSendVoice(api,media_id,openids);
-                        break;
-                    case 'videoArea'://视频
-                        res = await massSendVideo(api,media_id,openids);
-                        break;
-                }
+            //根据条件通过openid进行群发
+            switch (send_type) {
+                case 'newsArea'://图文
+                    res = await massSendNews(api,media_id,openids);
+                    break;
+                case 'textArea'://文本
+                    res = await massSendText(api,content,openids);
+                    break;
+                case 'imageArea'://图片
+                    res = await massSendImage(api,media_id,openids);
+                    break;
+                case 'audioArea'://语音
+                    res = await massSendVoice(api,media_id,openids);
+                    break;
+                case 'videoArea'://视频
+                    res = await massSendVideo(api,media_id,openids);
+                    break;
             }
         }
         
         let msg_id = res['msg_id'];//发送成功返回消息ID
-        self.end(msg_id);
+        //self.end(msg_id);
         
         //判断是否群发消息是否成功
         if(res['errcode'] == 0){
             //本地保存media_id和msg_id
-            this.success({name:"操作成功！",url:"/admin/mpbase/mass"});
+            //查询图文内容
+            let data = {};
+            if(send_type == 'textArea'){
+                data.msg_id = msg_id;
+                data.material_wx_content = content;
+                data.type = send_type;
+            }else if(me_id){
+                let wx_content = await media_model.where({'id':me_id}).find();
+                //self.end('aaa'+wx_content['material_content']);
+                let material_content = wx_content['material_content'];
+                let material_wx_content = wx_content['material_wx_content'];
+
+                data.mate_id = me_id;
+                data.msg_id = msg_id;
+                data.material_content = material_content;
+                data.material_wx_content = material_wx_content;
+                data.type = send_type;
+            }
+            //self.end(data);
+            let isAdd = masssend_model.thenAdd(data,{msg_id:msg_id});
+            if(isAdd){
+                this.assign({"navxs": true,"bg": "bg-dark"});
+                return this.redirect("/admin/mpbase/mass");
+            }
         }else{
             this.fail("error");
         }
 
         //this.assign({"navxs": true,"bg": "bg-dark"});
        //return this.display();
-        
-        
-        
     }
+
+    /**
+     * 查询已发送的群发消息
+     */
+    async hassendAction(){
+        let self = this;
+        let data = await this.model('wx_masssend').page(this.get('page')).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(data);
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', data.data);
+
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        return self.display();
+    }
+
+    /**
+     * 查询消息URL
+     */
+    async findurlAction(){
+        let self = this;
+        let msg_id = this.get('msg_id');
+        let status = this.get('status');
+        //self.end(status);
+        if(status){
+            return this.redirect('http://www.baidu.com');
+        }else{
+            let masssend_model = this.model('wx_masssend');
+            let news = await masssend_model.where({msg_id:msg_id}).getField('material_wx_content');
+            news = JSON.parse(news);
+            let news_item = news.news_item;
+            //self.end(news_item[0]['url']);
+            let url = news_item[0]['url'];
+            return this.redirect(url);
+        }
+    }
+
+    /**
+     * 删除已发送的消息
+     */
+    async delmassAction(){
+        let masssend_model = this.model('wx_masssend');
+        let self = this;
+        let msg_id = this.get('msg_id');
+        //let isDel = await masssend_model.where({msg_id:msg_id}).delete();
+        let isDel = await masssend_model.where({msg_id:msg_id}).update({del_status:1});
+        if(isDel){
+            this.success({name:"删除成功！",url:"/admin/mpbase/hassend"});
+        }else{
+            this.fail("error");
+        }
+
+
+    }
+
+
+
     /**
      * 查看用户列表
      */

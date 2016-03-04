@@ -1,4 +1,5 @@
 $(function(){
+    
 	/*添加关键字弹出窗*/
 	function _hs_keywords_add(kv, ot){
 		return ['<div class="hs-kvs-add hs-form-horizontal">',
@@ -46,9 +47,10 @@ $(function(){
 	 * 添加关键词规则
 	 * @param {String} rule_n
 	 * @param {String} rule_name
+     * @param {String} rid* 
 	 */
-	function _hs_html_keywords_rule_li(rule_n, rule_name){
-		return ['<li class="keywords_rule_item" id="Js_ruleItem_403335945">',
+	function _hs_html_keywords_rule_li(rule_n, rule_name, rid){
+		return ['<li class="keywords_rule_item" id="'+rid+'">',
 				'        <div class="keywords_rule_hd no_extra" style="-webkit-transition: all, 1s;">',
 				'            <div class="info">',
 				'                <em class="keywords_rule_num">规则'+rule_n+':</em>',
@@ -81,11 +83,36 @@ $(function(){
 				'        </div>',
 				'    </li>'].join("");
 	}
+    
+    /**
+     *
+     */
+    function _hs_html_editor_keywords(){
+        return ['<!--*****-->',
+                '<div class="emotion_editor">',
+                '	<!--<div class="edit_area js_editorArea" style="display: none;"></div>-->',
+                '	<div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;"></div>',
+                '	<div class="editor_toolbar">',
+                '		<a href="javascript:void(0);" class="icon_emotion emotion_switch js_switch">表情</a>',
+                '		<p class="editor_tip opr_tips">，按下Shift+Enter键换行</p>',
+                '		<p class="editor_tip js_editorTip">还可以输入<em>600</em>字</p>',
+                '		<div class="emotion_wrp js_emotionArea">',
+                '			<span class="hook">',
+                '				<span class="hook_dec hook_top"></span>',
+                '			<span class="hook_dec hook_btm"></span>',
+                '			</span>',
+                '			<ul class="emotions" onselectstart="return false;"></ul>',
+                '			<span class="emotions_preview js_emotionPreviewArea"></span>',
+                '		</div>',
+                '	</div>',
+                '</div>',
+                '<!--*****-->'].join("");
+    }
 	/**
 	 * 添加关键字
 	 * */
 	$(document).on('click', '.keywords_add_btn', function(){
-		var exist = $(this).attr('aria-describedby');
+		/*var exist = $(this).attr('aria-describedby');
 		if(exist){
 			return false;
 		}
@@ -99,7 +126,46 @@ $(function(){
 		$(this).on('hide.bs.popover', function () {
 		  return false;
 		});
-		$(this).popover('show');
+		$(this).popover('show');*/
+        var self = this;
+        var d = new HS_Dialog();
+        var dh = d.hs_create('新建关键字', _hs_html_editor_keywords());
+        d.hs_show(dh);
+        var dialog = $(d._div);
+        var ruleid = $(self).closest('.keywords_rule_item').attr('id');
+        $('.hs-dialog-submit[data-index=0]').click(function(){
+           var val = dialog.find('.edit_area').html();
+           var typ = 1;
+           if(!val){
+               toastr.error('关键字不能为空');
+               return false;
+           }
+           d.hs_remove();
+           $.post('/admin/mpbase2/ruleedit',{'name':val, type: typ, 'ruleid': ruleid},
+               function(data){
+                   if(data > 0){
+                       toastr.success('添加成功');
+                       var cf = $(self).closest('.hs-form-horizontal');
+                        var ek = val;
+                        var em = typ;
+                        var target = $(self).closest('.keywords_info');
+                        var target_tip = target.find('.hs-keyword-none-tip');
+                        var target_item_list = target.find('.keywords_item_list');
+                        var emar = ['模糊','全匹配'];
+                        var _html_jn = _hs_keywords_item(ek, emar[em]);
+                        target_tip.hide();
+                        target_item_list.append(_html_jn);
+                   }else{ toastr.error('关键字重复！'); }
+               }
+           );
+        });
+        $('.dialog_hd .pop_closed').click(function(){
+            d.hs_remove();
+        });
+        $('.dialog_ft [data-index=1]').click(function(){
+            d.hs_remove();
+        });
+        
 	});
 	
 	/**
@@ -121,10 +187,10 @@ $(function(){
 		var n = ruleList.children('li').length;
         var rul = '规则名称';
         $.get('/admin/mpbase2/createkrule',{'rule_name':rul}, function(data) {
-            if(data > 0){
-                ruleList.append(_hs_html_keywords_rule_li(++n, rul));
+            if(data.errno == 0){
+                ruleList.append(_hs_html_keywords_rule_li(++n, rul, data.data.ruleid));
             }else{
-                toastr.error('添加规则失败');
+                toastr.error(data.errmsg);
             }
         });
 	});
@@ -147,57 +213,255 @@ $(function(){
 	/**
 	 * 确定添加胶囊
 	 * */
-	$(document).on('click', '.hs-submit-kv', function(){
-		var cf = $(this).closest('.hs-form-horizontal');
-		var ek = cf.find('[name=hsKeywordsRuleText]').val();
-		var em = cf.find('[name=hsKeywordsRule]:checked').val();
-		if(ek == ''){
+	// $(document).on('click', '.hs-submit-kv', function(){
+	// 	var cf = $(this).closest('.hs-form-horizontal');
+	// 	var ek = cf.find('[name=hsKeywordsRuleText]').val();
+	// 	var em = cf.find('[name=hsKeywordsRule]:checked').val();
+	// 	if(ek == ''){
 			
-		}else{
-			var target = $(this).closest('.keywords_info');
-			var target_tip = target.find('.hs-keyword-none-tip');
-			var target_item_list = target.find('.keywords_item_list');
-			var emar = ['模糊','全匹配'];
-			var _html_jn = _hs_keywords_item(ek, emar[em]);
-			target_tip.hide();
-			target_item_list.append(_html_jn);
-			_hs_hide_popver();
-		}
-	});
+	// 	}else{
+	// 		var target = $(this).closest('.keywords_info');
+	// 		var target_tip = target.find('.hs-keyword-none-tip');
+	// 		var target_item_list = target.find('.keywords_item_list');
+	// 		var emar = ['模糊','全匹配'];
+	// 		var _html_jn = _hs_keywords_item(ek, emar[em]);
+	// 		target_tip.hide();
+	// 		target_item_list.append(_html_jn);
+	// 		_hs_hide_popver();
+	// 	}
+	// });
 	
 	/**
 	 * 取消添加胶囊
 	 * */
-	$(document).on('click', '.hs-cancel-kv', function(){
-		_hs_hide_popver();
-	});
+	// $(document).on('click', '.hs-cancel-kv', function(){
+	// 	_hs_hide_popver();
+	// });
 	
 	/**
 	 * body的click事件
 	 */
-	$(document).click(function(e){
-		//to do someing...
-		_hs_hide_popver(e);
-	});
+	// $(document).click(function(e){
+	// 	//to do someing...
+	// 	_hs_hide_popver(e);
+	// });
 	
 	/**
 	 * 关闭popover
 	 * @param {Object} e
 	 */
-	function _hs_hide_popver(e){
-		if(e){
-			var el = e.target;
-			if(!/.*keywords_add_btn.*/.test(el.className)){
-				var _el = $(el);
-				if(_el.closest('.popover').length == 0){
-					$('.popover').remove();
-					$('.keywords_add_btn').removeAttr('aria-describedby');
-				}
-			}
-		}else{
-			$('.popover').remove();
-			$('.keywords_add_btn').removeAttr('aria-describedby');
-		}
-	}
+	// function _hs_hide_popver(e){
+	// 	if(e){
+	// 		var el = e.target;
+	// 		if(!/.*keywords_add_btn.*/.test(el.className)){
+	// 			var _el = $(el);
+	// 			if(_el.closest('.popover').length == 0){
+	// 				$('.popover').remove();
+	// 				$('.keywords_add_btn').removeAttr('aria-describedby');
+	// 			}
+	// 		}
+	// 	}else{
+	// 		$('.popover').remove();
+	// 		$('.keywords_add_btn').removeAttr('aria-describedby');
+	// 	}
+	// }
 	
+    
+    /**
+     * 添加回复
+     */  
+    $(document).on('click', '.keywords_addrec_btn', function(){
+        var self = this;
+        var d = new HS_Dialog();
+        var dh = d.hs_create('新建回复', _hs_reply_editor());
+        d.hs_show(dh);
+        var dialog = $(d._div);
+        $('.hs-dialog-submit[data-index=0]').click(function(){
+            var active = dialog.find('.hs-etap-one.active').attr('jstab-target');
+            var params = {};
+            //根据类型取值
+            switch(active){
+                case 'textArea': 
+                    params.type = 'text';
+                    params.content = dialog.find('.edit_area').html();
+                    //alert('text');
+                break;
+                case 'imageArea': 
+                    alert('image');
+                break;
+                case 'audioArea': 
+                    alert('audio');
+                break;
+                case 'videoArea': 
+                    alert('video');
+                break;
+            }
+            $.post('/admin/mpbase2/creater', params,
+                function (data) {
+                    if(data.errno == 0){
+                        toastr.success(data.data.name);
+                        var reply_panel = $(self).closest('.reply');
+                        reply_panel.find('.hs-keyword-none-tip').hide();
+                        reply_panel.find('.hs-kv-recol').append(_hs_reply_bar(params));
+                        d.hs_remove();
+                    }else{
+                        toastr.error(data.errmsg);
+                    }
+                }
+            );
+        });
+        $('.dialog_hd .pop_closed').click(function(){
+            d.hs_remove();
+        });
+        $('.dialog_ft [data-index=1]').click(function(){
+            d.hs_remove();
+        });
+    });
+    
+    function _hs_reply_editor(){
+        return ['<div class="hs-ui-beditor hs-js-tab hs-auto">',
+        '	<div class="hs-etap-nav">',
+        '		<ul>',
+        '			<li jstab-target="textArea" class="hs-etap-one hs-etap-text active">',
+        '				<a href="javascript:void(0);" onclick="return false;">&nbsp;<i class="hs-etap-icon"></i><span class="hs-etap-title">文字</span></a>',
+        '			</li>',
+        '			<li jstab-target="imageArea" class="hs-etap-one hs-etap-image">',
+        '				<a href="javascript:void(0);" onclick="return false;">&nbsp;<i class="hs-etap-icon"></i><span class="hs-etap-title">图片</span></a>',
+        '			</li>',
+        '			<li jstab-target="audioArea" class="hs-etap-one hs-etap-audio">',
+        '				<a href="javascript:void(0);" onclick="return false;">&nbsp;<i class="hs-etap-icon"></i><span class="hs-etap-title">语音</span></a>',
+        '			</li>',
+        '			<li jstab-target="videoArea" class="hs-etap-one hs-etap-video">',
+        '				<a href="javascript:void(0);" onclick="return false;">&nbsp;<i class="hs-etap-icon"></i><span class="hs-etap-title">视频</span></a>',
+        '			</li>',
+        '		</ul>',
+        '	</div>',
+        '	<div class="hs-etap-panel">',
+        '		<div jstab-des="textArea" class="hs-etap-content">',
+        '			<div class="hs-etap-textArea hs-inner">',
+        '				<!--*****-->',
+        '				<div class="emotion_editor">',
+        '					<!--<div class="edit_area js_editorArea" style="display: none;"></div>-->',
+        '					<div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;"></div>',
+        '					<div class="editor_toolbar">',
+        '						<a href="javascript:void(0);" class="icon_emotion emotion_switch js_switch">表情</a>',
+        '						<p class="editor_tip opr_tips">，按下Shift+Enter键换行</p>',
+        '						<p class="editor_tip js_editorTip">还可以输入<em>600</em>字</p>',
+        '						<div class="emotion_wrp js_emotionArea">',
+        '							<span class="hook">',
+        '								<span class="hook_dec hook_top"></span>',
+        '							<span class="hook_dec hook_btm"></span>',
+        '							</span>',
+        '							<ul class="emotions" onselectstart="return false;"></ul>',
+        '							<span class="emotions_preview js_emotionPreviewArea"></span>',
+        '						</div>',
+        '					</div>',
+        '				</div>',
+        '				<!--*****-->',
+        '			</div>',
+        '		</div>',
+        '		<div jstab-des="imageArea" class="hs-etap-content" style="display: none;">',
+        '			<div class="hs-etap-imageArea hs-inner">',
+        '				<div class="hs-con-cover">',
+        '					<div class="hs-media-cover" onclick="">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '	                            <i class="hs-icon36 hs-icon36-add"></i>',
+        '	                            <strong>从素材库中选择</strong>',
+        '	                        </a>',
+        '			            </span>',
+        '					</div>',
+        '					<div class="hs-media-cover">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '                                <i class="hs-icon36 hs-icon36-add"></i>',
+        '                                <strong>上传图片</strong>',
+        '                            </a>',
+        '			            </span>',
+        '					</div>',
+        '				</div>',
+        '			</div>',
+        '		</div>',
+        '		<div jstab-des="audioArea" class="hs-etap-content" style="display: none;">',
+        '			<div class="hs-etap-audioArea hs-inner">',
+        '				<div class="hs-con-cover">',
+        '					<div class="hs-media-cover">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '	                            <i class="hs-icon36 hs-icon36-add"></i>',
+        '	                            <strong>从素材库中选择</strong>',
+        '	                        </a>',
+        '			            </span>',
+        '					</div>',
+        '					<div class="hs-media-cover">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '                                <i class="hs-icon36 hs-icon36-add"></i>',
+        '                                <strong>新建语音</strong>',
+        '                            </a>',
+        '			            </span>',
+        '					</div>',
+        '				</div>',
+        '			</div>',
+        '		</div>',
+        '		<div jstab-des="videoArea" class="hs-etap-content" style="display: none;">',
+        '			<div class="hs-etap-videoArea hs-inner">',
+        '				<div class="hs-con-cover">',
+        '					<div class="hs-media-cover">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '	                            <i class="hs-icon36 hs-icon36-add"></i>',
+        '	                            <strong>从素材库中选择</strong>',
+        '	                        </a>',
+        '			            </span>',
+        '					</div>',
+        '					<div class="hs-media-cover">',
+        '						<span class="hs-create-access">',
+        '			                <a href="javascript:;">',
+        '                                <i class="hs-icon36 hs-icon36-add"></i>',
+        '                                <strong>新建视频</strong>',
+        '                            </a>',
+        '			            </span>',
+        '					</div>',
+        '				</div>',
+        '			</div>',
+        '		</div>',
+        '	</div>',
+        '</div>'].join("");
+    }
+    
+    /**
+     * 添加回复条数
+     */
+    function _hs_reply_bar(param){
+        var t = c ='';
+        //根据类型赋值
+        switch(param.type){
+            case 'text': 
+                t = '文本'
+                c = param.content;
+            break;
+            case 'imageArea': 
+                alert('image');
+            break;
+            case 'audioArea': 
+                alert('audio');
+            break;
+            case 'videoArea': 
+                alert('video');
+            break;
+        }
+        return ['<li>',
+        '	<div class="hs-reply-content"><span class="hs-kv-rectype">'+t+'</span>'+c+'</div>',
+        '	<div class="hs-reply-opts">',
+        '		<a class="js-edit-it" href="javascript:;">编辑</a> - <a class="js-delete-it" href="javascript:;">删除</a>',
+        '	</div>',
+        '</li>'].join("");
+    }
+
+
+    /**
+     * 关注自动回复
+     */
+
 });
