@@ -329,16 +329,153 @@
                 $.ajax({
                      type: "POST", 
                      url: "/cart/addaddr",
-                      data: data,
-                       success: function(msg){ 
-                           alert( "Data Saved: " + msg ); } 
+                     data: data,
+                     success: function(msg){ 
+                           if(msg.errno == 0){
+                            _toastr(msg.data.name,"top-right","success",false);
+                            $('.add-addr-dialog').modal('hide')
+                            addr_add_html(msg.data.data);
+                            
+                           }else{
+                               _toastr(msg.errmsg,"top-right","error",false); 
+                           }
+                            } 
                            });
                  return false;
              })
           })
         }
-        
+        //设为默认
+        $(document).on("click",'a.is_d',function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-addr-id");
+            $.ajax({
+                url:"/cart/addrisdefault",
+                data:{id:id},
+                success: function (res) {
+                      if(res.errno == 0){
+                            _toastr(res.data.name,"top-right","success",false);
+                          
+                            addr_add_html(res.data.data);
+                            
+                           }else{
+                               _toastr(res.errmsg,"top-right","error",false); 
+                           }
+                }
+            })
+        })
+         //编辑
+
+             $(document).on( "change","#province1",function (e) {
+                 var pid = $("#province1 option:selected").val();
+                  $.ajax({  
+                url: "/cart/getarea", 
+                data: {"pid":pid}, 
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 市 ---</option>']
+                  $.each(msg,function name(k,v) {
+                      province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                  }) 
+                  province_html = province_arr.join("")
+                  $("#city1").html(province_html);
+                 } });
+             })
+             
+            
+                  $(document).on( "change","#city1",function (e) {
+                 var pid = $("#city1 option:selected").val();
+                  $.ajax({  
+                url: "/cart/getarea", 
+                data: {"pid":pid}, 
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 县/区 ---</option>']
+                  $.each(msg,function name(k,v) {
+                      province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                  }) 
+                  province_html = province_arr.join("")
+                  $("#county1").html(province_html);
+                 } });
+             })
+              /**
+         * 添加收货人地址
+         */
+             
+             $(document).on("submit","form.edit-addr",function(e){
+                var data =  $(this).serialize() 
+                $.ajax({
+                     type: "POST", 
+                     url: "/cart/addaddr",
+                     data: data,
+                     success: function(msg){ 
+                           if(msg.errno == 0){
+                            _toastr("编辑收货人地址成功","top-right","success",false);
+                            $('#ajaxModal').modal('hide');
+                            addr_add_html(msg.data.data);
+                            
+                           }else{
+                               _toastr("编辑失败！","top-right","error",false); 
+                           }
+                            } 
+                           });
+                 return false;
+             })
+          
        
+         //编辑
+        $(document).on("click",'a.del',function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-addr-id");
+            swal({
+            title: "您确定要删除该收货地址吗?",
+            text: "删除收货人信息!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+            },
+            function(){
+              $.ajax({
+                url:"/cart/deladdr",
+                data:{id:id},
+                success: function (res) {
+                      if(res.errno == 0){
+                           swal(res.data.name, "您选择的地址已经被删除.", "success");
+                            //_toastr(res.data.name,"top-right","success",false);
+                            addr_add_html(res.data.data);
+                            
+                           }else{
+                                swal(res.errmsg, "您选择的地址删除失败.", "error");
+                              // _toastr(res.errmsg,"top-right","error",false); 
+                           }
+                }
+            })
+           
+            });
+            
+        })
+        
+      function addr_add_html(data){
+             var addrArr = [];
+            $.each(data,function (k,val) {
+            var checked = val.is_default == 1 ? 'checked' : ''; 
+            var is_default =  val.is_default == 1 ? '<li><span class="label label-info">默认地址 </span></li>':'';
+            var is_d_btn =  val.is_default == 0 ? '<a href="#" class="btn btn-default btn-xs is_d" data-addr-id = "'+val.id+'"><i class="fa fa-check white"></i> 设为默认 </a>' :'';
+            var html = '<div class="icheck addr-list m-b">'+
+            '<div class="item">'+
+            '<input type="radio"  name="address" value="'+val.id+'" '+checked+' >'+
+            '<label ><ul class="text-left list-inline list-separator margin-bottom-0">'+is_default +'<li>' + val.accept_name + '</li><li>' + val.province+ '</li><li>' + val.city+ '</li><li>' + val.county+ '</li><li>' + val.addr + '</li><li>'+ val.mobile +'</li></ul></label>'+
+            '</div>'+ 
+            '<div class="item">'+ is_d_btn +
+            '<a  href="/cart/editaddrmodal/id/'+val.id+'" class="btn btn-default btn-xs edit"  data-toggle="ajaxModal" ><i class="fa fa-edit white" ></i> 编辑 </a>'+
+            '<a href="#" class="btn btn-default btn-xs del swal"  data-addr-id = "'+val.id+'"><i class="fa fa-times white" ></i> 删除 </a>'+ 
+            '</div></div>'  
+            addrArr.push(html);  
+            })
+            $(".addr-box").html(addrArr.join(""))
+            _icheck();
+      }
         
 		/** CHECKOUT
 		 ** *********************** **/
