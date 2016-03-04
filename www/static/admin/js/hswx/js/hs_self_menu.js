@@ -4,11 +4,22 @@
 $(function() {
 
 	createMenu();
+
+	/**
+	 * 录入菜单数据到表单
+	 * @param button
+	 */
+	function menuItemAdd(button){
+		$('input[name=hs_menu_name_input]').val(button['name']);
+		$('#menu_id').val(button['m_id']);
+		$('#sort').val(button['sort']);
+		$('#menu_f_id').val(button['pid']);
+		$('#menu_type').val(button['type']);
+		$('.hs_menu_name ').html(button['name']);
+		$('#add_id').val(button['id']);//菜单ID,不存在即是未保存的数据
+		//未完待续
+	}
 	function createMenu() {
-		
-		//initMenuJSON();
-		//var menuJSON = readJSON();
-		var menu = {"menu":{"button":[]}};
 
 		var buttons = menu.menu.button;
 		if(buttons.length>0){
@@ -26,63 +37,61 @@ $(function() {
 		if (buttons.length == 1) {
 			var subbutton = buttons[0].sub_button;
 			var subbuts = buttons[0].sub_button.length;
-			if (subbuts == 0) {
-				domMenu.push('<li sort="' + buttons[0].sort + '" id="' + buttons[0].id + '" class="hs_father_menu"> <span>' + buttons[0].name + '</span></li>');
 
+			//编辑菜单属性数据
+			menuItemAdd(buttons[0]);
+			if (subbuts == 0) {
+				domMenu.push('<li sort="' + buttons[0].sort + '" id="' + buttons[0].m_id + '" class="hs_father_menu"> <span>' + buttons[0].name + '</span>');
+				domMenu.push('<div f_id="'+buttons[0].m_id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative_one">');
+				domMenu.push('<ul class="hs_sub_pre_menu_list">');
+				domMenu.push('<li f_id="'+buttons[0].pid +'" class="hs_add_child_menu  hs_icon_add_child_menu" style="width:135px;"><i class="hs_icon14_menu_add "></i></li>');
+				domMenu.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
 			} else {
-				var childMenu = ['<div class="hs_menu_child_three  hs_menu_child_relative">',
-					'<ul class="hs_sub_pre_menu_list">'
-				];
-				domMenu = ['<li id="' + buttons[0].id + '" class="hs_father_menu"> <span>' + buttons[0].name + '</span>',
-					'<div class="hs_menu_child_three  hs_menu_child_relative">',
-					'<ul class="hs_sub_pre_menu_list"><li class="hs_add_child_menu">菜单名称</li>',
-					'<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>',
-					'</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>',
-					'</li>',
-					'<li class="hs_father_menu hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>'
-				];
+				var childMenu = [];
 				for (var x = 0; x < subbuts; x++) {
-					childMenu.push('<li class="hs_add_child_menu">' + subbutton[x].name + '</li>');
+					childMenu.push('<li class="hs_add_child_menu" style="width:135px;">' + subbutton[x].name + '</li>');
 				}
-				childMenu.push(['</ul> <i class="hs_arrow hs_arrow_out"></i>',
-					'<i class="hs_arrow hs_arrow_in"></i>',
-					'</div>',
-					'</li>',
-				].join(""));
-				domMenu.push(childMenu.join(""));
-				domMenu.push('<li class="hs_father_menu_all hs_menu_add_father hs_menu_add_last"><i class="hs_icon14_menu_add"></i></li>');
-				$('.hs_pre_menu_list').empty();
-				$('.hs_pre_menu_list').append(domMenu.join(""));
+				domMenu = ['<li id="' + buttons[0].m_id + '" class="hs_father_menu"> <span>' + buttons[0].name + '</span>',
+					'<div class="hs_menu_child_three  hs_menu_child_relative_one">',
+					'<ul class="hs_sub_pre_menu_list">',
+					 childMenu.join(""),
+					'<li f_id="'+buttons[0].m_id+'"  class="hs_add_child_menu  hs_icon_add_child_menu " style="width:135px;"><i class="hs_icon14_menu_add"></i></li>',
+					'</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>',
+					'</li>'
+				];
 			}
-			domMenu.push('<li class="hs_father_menu hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>');
+			if (buttons.length == 1) {
+				domMenu.push('<li class="hs_add_child_menu  hs_menu_add_father" style="width:135px;"><i class="hs_icon14_menu_add"></i></li>');
+			}
 		} else {
 			//循环创建子菜单
+			menuItemAdd(buttons[0]);
 			for (var i = 0; i < buttons.length; i++) {
 				var subbut = buttons[i].sub_button;
 				if (subbut.length == 0) {
 					if (i == 0) {
-						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].id + '" class="hs_father_menu_all hs_father_menu_active"> <span>' + buttons[0].name + '</span>');
-						domMenu.push('<div f_id="'+buttons[i].id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
+						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].m_id + '" class="hs_father_menu_all hs_father_menu_active"> <span>' + buttons[i].name + '</span>');
+						domMenu.push('<div f_id="'+buttons[i].m_id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
 						domMenu.push('<ul class="hs_sub_pre_menu_list">');
-						domMenu.push('<li f_id="'+buttons[i].id +'" class="hs_add_child_menu  hs_icon_add_child_menu"><i class="hs_icon14_menu_add "></i></li>');
+						domMenu.push('<li f_id="'+buttons[i].m_id +'" class="hs_add_child_menu  hs_icon_add_child_menu"><i class="hs_icon14_menu_add "></i></li>');
 						domMenu.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
 					} else {
-						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].id + '" class="hs_father_menu_all"> <span>' + buttons[0].name + '</span></li>');
+						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].m_id + '" class="hs_father_menu_all"> <span>' + buttons[i].name + '</span></li>');
 					}
 				} else {
 					if(i == 0){
 						var childMenu = [];
 						for(x in subbut){
-							childMenu.push('<li f_id="'+buttons[i].id+'" sort="'+subbut[x].sort+'" id="'+subbut[x].id+'" class="hs_add_child_menu">' + subbut[x].name + '</li>');
+							childMenu.push('<li f_id="'+buttons[i].m_id+'" sort="'+subbut[x].sort+'" id="'+subbut[x].m_id+'" class="hs_add_child_menu">' + subbut[x].name + '</li>');
 						}
-						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].id + '" class="hs_father_menu_all hs_father_menu_active"> <span>' + buttons[0].name + '</span>');
-						domMenu.push('<div f_id="'+buttons[i].id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
+						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].m_id + '" class="hs_father_menu_all hs_father_menu_active"> <span>' +  buttons[i].name + '</span>');
+						domMenu.push('<div f_id="'+buttons[i].m_id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
 						domMenu.push('<ul class="hs_sub_pre_menu_list">');
 						domMenu.push(childMenu.join(""));
-						domMenu.push('<li class="hs_add_child_menu  hs_icon_add_child_menu"><i class="hs_icon14_menu_add "></i></li>');
+						domMenu.push('<li f_id="' +buttons[i].m_id+'" class="hs_add_child_menu  hs_icon_add_child_menu"><i class="hs_icon14_menu_add "></i></li>');
 						domMenu.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>');
 					}else{
-						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].id + '" class="hs_father_menu_all"> <span>' + buttons[0].name + '</span></li>');
+						domMenu.push('<li sort="' + buttons[i].sort + '" id="' + buttons[i].m_id + '" class="hs_father_menu_all"> <span>' + buttons[i].name + '</span></li>');
 					}
 				}
 			}
@@ -92,6 +101,17 @@ $(function() {
 		}
 		$('.hs_pre_menu_list').html(domMenu.join(""));
 	}
+
+	/**
+	 *  切换到选中的子菜单
+	 */
+	$(document).on('click','.hs_add_child_menu',function(){
+
+		var obj = $(this);
+		$('.hs_menu_name').html(obj.html());
+		$('input[name=hs_menu_name_input]').val(obj.html());
+
+	});
 
 	/**
 	 * 切换菜单类型，消息或者链接 
@@ -112,55 +132,95 @@ $(function() {
 	 * 一级菜单添加事件
 	 */
 	$(document).on('click', '.hs_menu_add_father',function() {
+
 		var time = new Date().getTime();
 		var length = menu.menu.button.length;
+		var buttons = menu.menu.button;
 		var sort = length+1;//要添加菜单的当前排序号
 
-		domMenu = ['<li id="' + time + '" class="hs_father_menu hs_father_menu_active"> <span>' + '菜单名称' + '</span>',
-					'<div class="hs_menu_child_three  hs_menu_child_relative_one">',
-					'<ul class="hs_sub_pre_menu_list">',
-					'<li class="hs_add_child_menu" style="width: 135px;"><i class="hs_icon14_menu_add"></i></li>',
-					'</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>',
-					'</li>',
-					'<li class="hs_father_menu hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>'];
-		menuItem = {
-			"id": time,
-			"type": "",
-			"sort": sort,
-			"name": "菜单名称",
-			"key": "",
-			"sub_button": []
-		};
+		var domMenu = [];
+        if(length == 0){
+			 domMenu = ['<li id="' + time + '" class="hs_father_menu hs_father_menu_active"> <span>' + '菜单名称' + '</span>',
+				'<div class="hs_menu_child_three  hs_menu_child_relative_one">',
+				'<ul class="hs_sub_pre_menu_list">',
+				'<li class="hs_add_child_menu" style="width: 135px;"><i class="hs_icon14_menu_add"></i></li>',
+				'</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>',
+				'</li>',
+				'<li class="hs_father_menu hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>'];
+		}else{
+			for(var x=0;x<length;x++){
+				domMenu.push('<li id="' + buttons[x].m_id + '" class="hs_father_menu_all"><span>' + buttons[x].name + '</span></li>');
+			}
+			domMenu.push('<li id="' + time + '" class="hs_father_menu_all hs_father_menu_active"><span>' + '菜单名称' + '</span>');
+			domMenu.push('<div class="hs_menu_child_three  hs_menu_child_relative">');
+			domMenu.push('<ul class="hs_sub_pre_menu_list">');
+			domMenu.push('<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>');
+			domMenu.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
+			if(length == 1){
+ 				domMenu.push('<li class="hs_father_menu_all hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>');
+			}
+			$(".hs_menu_name").html("菜单名称");
+			$('input[name=hs_menu_name_input]').val('菜单名称');
+			$('#sort').val(length+1);
+			$('#menu_id').val(time);
+			$('#menu_f_id').val('0');
+			$('#add_id').val('');
+			//未完待续
+		}
+		console.log(JSON.stringify(domMenu));
 		$('#hs_pre_menu_list').html(domMenu.join(""));
-		$('.hs_menu_name_input').val('菜单名称');
-		$('#menu_id').val(time);
 	});
 
 	/**
-	 * 同步编辑数据
+	 * 素材类型切换监听
 	 */
-	$(document).on('keyup','input[name=hs_menu_name_input]',function(){
+	$(document).on('click','.hs_menu_message_content .hs-etap-nav li',function(){
 		var obj = $(this);
-		$('#hs_menu_form_area h4').html(obj.val());
-		var menu_id = $('#menu_id').val();
-		$('#'+menu_id).find('span').html(obj.val());
+		alert(obj.attr('jstab-target'));
+		var type = obj.attr('jstab-target');
+		if(type == 'imgtextArea' || type == 'imageArea' || type == 'audioArea' || type == 'videoArea'){
+			$("#menu_type").val('media_id');
+		}
 	});
 
-	///**
-	// * 保存微信菜单
-	// */
+	/**
+	 * 事件类型切换
+	 */
+	$(document).on('click','input[name=menu_type]',function(e){
+
+
+	});
+
+	/**
+	 * 同步微信菜单数据
+	 */
+		$(document).on('keyup','input[name=hs_menu_name_input]',function(){
+			var obj = $(this);
+			$('#hs_menu_form_area h4').html(obj.val());
+			var menu_id = $('#menu_id').val();
+			console.log(menu_id);
+			$('#'+menu_id).find('span').html(obj.val());
+	});
+
+	/**
+	 * 保存微信菜单
+	 */
 	$(document).on('click','.hs_save_btn',function(){
 
 		var data = {};
 		data.id = $('#menu_id').val();
 		data.id = new Date().getTime();
-		data.sort = 1;
+
+		data.sort = $('#sort').val();
 		data.name = $('input[name=hs_menu_name_input]').val();
 		data.pid = $('#menu_f_id').val();
+		data.type = $('#menu_type').val();
+
         //post提交菜单数据
 		$.post('/admin/mpbase/addselfmenu',data,function(res){
 			if(res == '1'){
 				alert('添加成功！');
+				window.location.reload(true);
 			}else{
 				alert('添加失败!');
 			}
@@ -171,36 +231,92 @@ $(function() {
 	 * 添加二级菜单 
 	 */
 	$(document).on('click', '.hs_icon_add_child_menu', function(e) {
-		
+
 		var obj = $(this);
-		var menu = readJSON();//获取所有菜单数据结构
-		var sort = 0;         //新建的二级菜单排序字段
-		var time = new Date().getTime();
-			
-		for(x in menu.menu.button){
-			if(menu.menu.button[x].id == obj.attr('f_id')){
-				sort = menu.menu.button[x].sub_button.length+1;
-				var item = {
-							    "id" :time,
-				                "type": "",
-				                "sort": sort,
-				                "name": "子菜单名称",
-				                "key": ""
-				           };
-				menu.menu.button[x].sub_button.push(item);
+		var fbtn = getFatherButtonById(obj.attr('f_id'));//当前一级菜单
+		var childs = fbtn.sub_button.length;//当前一级菜单的二级菜单数量
+		var childbuttons = fbtn.sub_button;
+		var name = '子菜单名称';
+		var m_id = new Date().getTime();
+		var sort = fbtn.sub_button.length+1;
+		var pid = obj.attr('f_id');
+		var type = '';
+		var url = '';
+		var dom = [];
+		if(menu.menu.button.length == 1){
+             if(childs == 0 ){
+				 dom.push('<span>'+fbtn.name+'</span>');
+				 dom.push('<div class="hs_menu_child  hs_menu_child_relative_one">');
+				 dom.push('<ul class="hs_sub_pre_menu_list">');
+				 dom.push('<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>');
+				 dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
+				 dom.push('<li class="hs_father_menu hs_menu_add_fathe{r"><i class="hs_icon14_menu_add"></i></li>');
+			 }else{
+
+				 dom.push('<span>'+fbtn.name+'</span>');
+				 dom.push('<div class="hs_menu_child  hs_menu_child_relative_one">');
+				 dom.push('<ul class="hs_sub_pre_menu_list">');
+				 for(var x=0;x<childs;x++){
+					 dom.push('<li sort="' +childbuttons[x].sort +'" f_id"'+ childbuttons[x].pid + '" id="' + childbuttons[x].m_id + '" class="hs_father_menu" style="width:135px;"><span>' + childbuttons[x].name + '</span></li>');
+				 }
+				 dom.push('<li f_id="'+ pid + '" id="' + m_id + '" class="hs_father_menu hs_father_menu_active" style="width:135px;"style="width:135px;"><span>' + name + '</span></li>');
+				 dom.push('<li class="hs_add_child_menu  hs_icon_add_child_menu " style="width: 135px;"><i class="hs_icon14_menu_add"></i></li>');
+				 dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
+				 //dom.push('<li class="hs_father_menu hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>');
+			 }
+		}else{
+			if(childs == 0){
+				 dom.push('<span>'+fbtn.name+'</span>');
+				 dom.push('<div class="hs_menu_child_three  hs_menu_child_relative">');
+				 dom.push('<ul class="hs_sub_pre_menu_list">');
+				 dom.push('<li f_id"'+ pid + '" id="' + m_id + '" class="hs_father_menu hs_father_menu_active"><span>' + name + '</span></li>');
+				 dom.push('<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>');
+				 dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
+			 }else{
+				dom.push('<span>'+fbtn.name+'</span>');
+				dom.push('<div class="hs_menu_child_three  hs_menu_child_relative">');
+				dom.push('<ul class="hs_sub_pre_menu_list">');
+				for(var x=0;x<childs;x++){
+					dom.push('<li f_id"'+ childbuttons[x].pid + '" id="' + childbuttons[x].m_id + '" class="hs_father_menu"><span>' + childbuttons[x].name + '</span></li>');
+				}
+				dom.push('<li f_id"'+ pid + '" id="' + m_id + '" class="hs_father_menu hs_father_menu_active"><span>' + name + '</span></li>');
+				dom.push('<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>');
+				dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
+			}
+		}
+		$('#'+pid).empty();
+		$('#'+pid).append(dom.join(""));
+		$('input[name=hs_menu_name_input]').val(name);
+		$('#menu_id').val(m_id);
+		$('#sort').val(sort);
+		$('#menu_f_id').val(pid);
+		$('#menu_type').val('');
+		$('.hs_menu_name ').html(name);
+		//$('#add_id').val(button['id']);//菜单ID,不存在即是未保存的数据
+		//未完待续
+		e.stopPropagation();
+	});
+
+	/**
+	 *  根据菜单ID获取一级菜单详情
+	 */
+	function getFatherButtonById(menu_id){
+
+		var menus = menu.menu.button;
+		var button = {};
+		for(var x=0;x<menus.length;x++){
+			if(menus[x].m_id == menu_id){
+				button = menus[x];
 				break;
 			}
 		}
-		saveJSON(menu);
-		createMenu();
-		e.stopPropagation();
-	});
+		return button;
+	}
 	
 	/**
 	  * 选中切换到子菜单 
 	  */
 	$(document).on('click','.hs_add_child_menu',function(e){
-		
 		e.stopPropagation();
 	});
 
@@ -208,8 +324,7 @@ $(function() {
 	 * 一级菜单切换事件监听
 	 */
 	$(document).on('click', '#hs_pre_menu_list>li:not(.hs_menu_add_father)', function(){
-		 
-		var menu = readJSON();
+
 		var obj = $(this);
 		if(menu.menu.button.length == 0){
 			return;
@@ -222,13 +337,12 @@ $(function() {
 			divd.addClass('hs_menu_child_relative');
 			$('#menu_id').val(obj.attr('id'));
 			$('#hs_menu_form_area .hs_menu_name_input').val(obj.find('span').text());
+			$('.hs_menu_name ').html(obj.find('span').text());
 			var d = showChildMenu(sort);
-			obj.append(d);
+			obj.append(d.join(""));
 		}
 	});
 	
-	 
-
 	/**
 	 * show点击一级菜单的所有二级菜单 
 	 * @param {Object} sort
@@ -236,13 +350,13 @@ $(function() {
 	function showChildMenu(sort) {
 
 		var button; 
-		var menu = readJSON().menu.button;
-		for (x in menu) {
-			if (menu[x].sort == sort) {
-				button = menu[x];
+		var menus = menu.menu.button;
+		for (x in menus) {
+			if (menus[x].sort == sort) {
+				button = menus[x];
 			}
 		}
-		return buildChildMenuDom(button, menu);
+		return buildChildMenuDom(button, menus);
 	}
 
 	/**
@@ -251,38 +365,61 @@ $(function() {
 	 */
 	function buildChildMenuDom(button, buttons) {
 
-		console.log(button);
 		var dom = [];
 		var subbuts = button.sub_button;
 		
 		//没有子菜单的情况
 		if (subbuts.length == 0) {
-			if (buttons.length < 2) {
-				dom = ['<div f_id="'+button.id+'" class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative_one">',
-					'<ul class="hs_sub_pre_menu_list"><li  class="hs_add_child_menu" style="width:135px;">',
+			if (buttons.length< 2) {
+				dom = ['<div f_id="'+button.m_id+'" class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative_one">',
+					'<ul class="hs_sub_pre_menu_list"><li f_id="'+button.m_id+'" class="hs_add_child_menu hs_icon_add_child_menu" style="width:135px;">',
 					'<i class="hs_icon14_menu_add"></i></li></ul>',
 					'<i class="hs_arrow hs_arrow_out"></i>',
 					'<i class="hs_arrow hs_arrow_in"></i></div>'
-				].join("");
+				];
 			} else {
-				dom = ['<div f_id="'+button.id+'" class="hs_menu_child_three hs_child_menu_module hs_menu_child_relative">',
-					'<ul class="hs_sub_pre_menu_list"><li  class="hs_add_child_menu">',
+				dom = ['<div f_id="'+button.m_id+'" class="hs_menu_child hs_child_menu_module hs_menu_child_relative">',
+					'<ul class="hs_sub_pre_menu_list"><li f_id="' + button.m_id+'"  class="hs_add_child_menu hs_icon_add_child_menu">',
 					'<i class="hs_icon14_menu_add"></i></li></ul>',
 					'<i class="hs_arrow hs_arrow_out"></i>',
 					'<i class="hs_arrow hs_arrow_in"></i></div>'
-				].join("");
+				];
 			}
 		}else {
-        	var childMenu = [];
-			for(x in subbuts){
-				childMenu.push('<li f_id="'+button.id+'" sort="'+subbuts[x].sort+'" id="'+subbuts[x].id+'" class="hs_add_child_menu">' + subbuts[x].name + '</li>');
+			var childMenu = [];
+			if(buttons.length < 2 ){
+				for(x in subbuts){
+					childMenu.push('<li f_id="'+button.m_id+'" sort="'+subbuts[x].sort+'" id="'+subbuts[x].m_id+'" class="hs_add_child_menu">' + subbuts[x].name + '</li>');
+				}
+				dom.push('<div f_id="'+button.m_id+'" class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
+				dom.push('<ul class="hs_sub_pre_menu_list">');
+				dom.push(childMenu.join(""));
+				dom.push('<li f_id="'+button.m_id+'" class="hs_add_child_menu hs_icon_add_child_menu" ><i class="hs_icon14_menu_add"></i></li></ul>');
+				dom.push('<i class="hs_arrow hs_arrow_out"></i>');
+				dom.push('<i class="hs_arrow hs_arrow_in"></i></div>');
+			}else{
+				////console.log('er');
+				//for(x in subbuts){
+				//	childMenu.push('<li f_id="'+button.m_id+'" sort="'+subbuts[x].sort+'" id="'+subbuts[x].m_id+'" class="hs_add_child_menu"><span>' + subbuts[x].name + '</span></li>');
+				//}
+				//dom.push('<div f_id="'+button.m_id+'" class="hs_menu_child_three  hs_menu_child_relative">');
+				//dom.push('<ul class="hs_sub_pre_menu_list">');
+				//dom.push(childMenu.join(""));
+				//dom.push('<li f_id="'+button.m_id+'" class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li></ul>');
+				//dom.push('<i class="hs_arrow hs_arrow_out"></i>');
+				//dom.push('<i class="hs_arrow hs_arrow_in"></i></div>');
+				//console.log(JSON.stringify(dom));
+
+				var childMenu = [];
+				for(var x in subbuts){
+					childMenu.push('<li f_id="'+button.m_id+'" sort="'+subbuts[x].sort+'" id="'+ subbuts[x].m_id +'" class="hs_add_child_menu">' + subbuts[x].name + '</li>');
+				}
+				dom.push('<div f_id="'+button.m_id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
+				dom.push('<ul class="hs_sub_pre_menu_list">');
+				dom.push(childMenu.join(""));
+				dom.push('<li f_id="' +button.m_id +'"  class="hs_add_child_menu  hs_icon_add_child_menu"><i class="hs_icon14_menu_add "></i></li>');
+				dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div>');
 			}
-			dom.push('<div f_id="'+button.id+'" class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative">');
-			dom.push('<ul class="hs_sub_pre_menu_list">');
-			dom.push(childMenu.join(""));
-			dom.push('<li  class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li></ul>');
-			dom.push('<i class="hs_arrow hs_arrow_out"></i>');
-			dom.push('<i class="hs_arrow hs_arrow_in"></i></div>')
 		}
 		return dom;
 	}
@@ -293,18 +430,20 @@ $(function() {
 	$(document).on('click', '.hs_del_menu_link', function() {
 
 		alert('确定删除！');
-		var menuid = $('#menu_id').val();
-		var menu = readJSON();
-		for (x in menu.menu.button) {
-			if (menu.menu.button[x].id == menuid) {
-				menu.menu.button.splice(x, 1);
-				break;
+		var menu_id = $("#menu_id").val();
+		var f_id = $("#menu_f_id").val();
+		var data = {
+			"m_id":menu_id,
+			"pid":f_id
+ 		};
+		//异步请求删除数据
+		$.post('/admin/mpbase/delselfmenu',data,function(res){
+			if(res == '1'){
+				alert('删除成功！');
+				window.location.reload(true);
+			}else {
+				alert('删除失败!');
 			}
-		}
-		for(var x=0;x<menu.menu.button.length;x++){
-			menu.menu.button[x].sort = (x+1);
-		}
-		saveJSON(menu);
-		createMenu();
+		})
 	});
 })
