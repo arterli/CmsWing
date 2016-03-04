@@ -152,16 +152,69 @@ export default class extends Base{
     //自动回复
     async autoreplyAction(){
         let rule = await this.model('wx_keywords_rule').where({}).select();
-        this.end(rule);
+        for(let i = 0; i < rule.length; i++){
+            let current = rule[i];
+            let ks = await this.model('wx_keywords').where({id: ['IN', current.keywords_id]}).select();
+            let rs = await this.model('wx_replylist').where({id: ['IN', current.reply_id]}).select();
+            rule[i].ks = ks;
+            rule[i].rs = rs;
+        }
+        this.assign('rulelist', rule);
         return this.display();
     }
     /**
      * 新建规则
      */
     async createkruleAction(){
-        let rule_name = this.get('rule_name');
+        this.end(2);
+        /*let rule_name = this.get('rule_name');
         let model = this.model('wx_keywords_rule');
         let id = await model.add({'rule_name': rule_name, 'create_time': new Date().getTime()});
         this.end(id);
+        */
+    }
+    
+    /**
+     * 新建关键字
+     */ 
+    async createkAction(){
+        let kname = this.post('name');
+        let ktype = this.post('type');
+        return this.json(1);
+    }
+    
+    /**
+     * 新建回复
+     */  
+    async createrAction(){
+        let type = this.post('type');
+        let model = this.model('wx_replylist');
+        let currtime = new Date().getTime();
+        let currwebtoken = 0;
+        let result = 0;
+        switch (type) {
+            case 'text':
+                let content = this.post('content')
+                result = await model.add({
+                    'type': 'text',
+                    'content': content,
+                    'create_time': currtime,
+                    'web_token': currwebtoken
+                });
+                break;
+            case 'image':
+            break;
+            case 'audio':
+            break;
+            case 'video':
+            break;
+            case 'news':
+            break;
+        }
+        if(result){
+            return this.success({name:'添加回复成功', rid:result });
+        }else{
+            return this.fail('回复添加失败');
+        }
     }
 }
