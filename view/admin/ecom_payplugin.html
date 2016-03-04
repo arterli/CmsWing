@@ -25,7 +25,7 @@
                         
                         <th>支付方式</th>
                         
-                        <th>状态</th>
+                        <th>支付描述</th>
                         <th style="width:130px;">操作</th>
                     </tr>
                     </thead>
@@ -33,11 +33,15 @@
                     {% for item in list %}
                     <tr>
                        
-                        <td>{{ item.Name }}</td>
+                        <td> <img src="{{item.logo}}" class="img-responsive img-thumbnail" > {{ item.name }}</td>
                         
-                        <td >未备份</td>
-                        <td> 
-                            <button class="btn  btn-default btn-xs repair" data-tables="{{ item.Name }}">添加使用</button>
+                                        </td></td>
+                       <td>
+                                           {{item.description|safe}}
+                                        </td>
+                        <td>
+                           <a href="/admin/ecom/addpay/id/{{item.id}}" class="text-info">添加使用</a>
+                           
                         </td>
                     </tr>
                     {% endfor %}
