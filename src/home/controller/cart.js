@@ -120,7 +120,7 @@ export default class extends Base {
           }
       this.assign("addrlist",addrlist);
       //支付方式
-      let paylist = await this.model("payment").where({status:1}).select();
+      let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
       for(let val of paylist){
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
         }
