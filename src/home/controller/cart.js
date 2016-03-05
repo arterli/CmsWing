@@ -113,7 +113,18 @@ export default class extends Base {
       
       //联系人
       let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+      for(let val of addrlist){
+              val.province = await this.model("area").where({id:val.province}).getField("name",true);
+              val.city = await this.model("area").where({id:val.city}).getField("name",true);
+              val.county = await this.model("area").where({id:val.county}).getField("name",true);
+          }
       this.assign("addrlist",addrlist);
+      //支付方式
+      let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
+      for(let val of paylist){
+           val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
+        }
+      this.assign("paylist",paylist);
        //this.end(cart_goods);
       return this.display();
       
@@ -126,7 +137,7 @@ export default class extends Base {
       return this.json(area);
   }
   
-  //添加联系人地址
+  //添加或者更新联系人地址
  async addaddrAction(){
      if(!this.is_login){
           return this.fail("你木有登录！")
@@ -141,10 +152,21 @@ export default class extends Base {
               await this.model("address").update(val);
           }
       }
-      let res =await this.model("address").add(data);
+      let res
+      if(think.isEmpty(data.id)){
+        res =await this.model("address").add(data);  
+      }else{
+        res = await this.model("address").update(data);
+      }
+      
       if(res){
-          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select()
-           return this.success({name:'添加收货人地址成功',data:addrlist});
+          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+          for(let val of addrlist){
+              val.province = await this.model("area").where({id:val.province}).getField("name",true);
+              val.city = await this.model("area").where({id:val.city}).getField("name",true);
+              val.county = await this.model("area").where({id:val.county}).getField("name",true);
+          }
+          return this.success({name:'添加收货人地址成功',data:addrlist});
       }else{
           return this.fail( '添加失败！'); 
           
@@ -153,4 +175,59 @@ export default class extends Base {
   }
   
  //联系人设置为默认
+async addrisdefaultAction(){
+     if(!this.is_login){
+          return this.fail("你木有登录！")
+      }
+      let id = this.get("id");
+      let find = await this.model("address").where({user_id:this.user.uid}).select();
+          for(let val of find){
+              if(val.id == id){
+                val.is_default = 1;  
+              }else{
+                val.is_default = 0;   
+              }
+              await this.model("address").update(val);
+               val.province = await this.model("area").where({id:val.province}).getField("name",true);
+              val.city = await this.model("area").where({id:val.city}).getField("name",true);
+              val.county = await this.model("area").where({id:val.county}).getField("name",true);
+          }
+      return this.success({name:'设置成功！',data:find});
+          
+}
+//删除地址
+async deladdrAction(){
+     if(!this.is_login){return this.fail("你木有登录！")};
+     let id = this.get("id");
+     let res = await this.model("address").where({user_id:this.user.uid,id:id}).delete();
+      if(res){
+          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+          for(let val of addrlist){
+              val.province = await this.model("area").where({id:val.province}).getField("name",true);
+              val.city = await this.model("area").where({id:val.city}).getField("name",true);
+              val.county = await this.model("area").where({id:val.county}).getField("name",true);
+          }
+          return this.success({name:'删除成功！',data:addrlist});
+      }else{
+          return this.fail( '删除失败！'); 
+          
+      }
+}
+//编辑地址
+async editaddrmodalAction(){
+    if(!this.is_login){return this.fail("你木有登录！")};
+    let id = this.get("id");
+    //获取地址信息
+    let address = await this.model("address").where({user_id:this.user.uid}).find(id);
+    //获取省份
+    let province = await this.model('area').where({parent_id:0}).select();
+    let city = await this.model('area').where({parent_id:address.province}).select();
+    let county = await this.model('area').where({parent_id:address.city}).select();
+    this.assign("province",province);
+    this.assign("city",city);
+    this.assign("county",county);
+    this.assign("info",address);
+    return this.display();
+}
+
 }

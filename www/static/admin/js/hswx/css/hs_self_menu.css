@@ -2,18 +2,9 @@
  * 自定义菜单样式 
  */
 
-body {
-	font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif;
-}
-
-a {
-	text-decoration: none;
-}
-
-ul {
-	list-style: none;
-	padding-left: 0px;
-}
+body {font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif;}
+a {text-decoration: none;}
+ul {list-style: none;padding-left: 0px;}
 .hs_save_btn {
 	background-color:#44b549 ;
 	border: 0px;
@@ -123,12 +114,13 @@ ul {
 .hs_pre_menu_list .hs_first_li {
 	margin-left: 40px;
 }
-.hs_pre_menu_list .hs_father_menu:first-child {
+.hs_pre_menu_list >.hs_father_menu:first-child {
 	margin-left: 42px;
 }
 .hs_pre_menu_list .hs_father_menu_all:first-child {
 	margin-left: 42px;
 }
+
 .hs_first_li2 {
 	margin-left: 44px;
 	border: 1px solid #44b549;
@@ -228,24 +220,26 @@ ul {
  */
 .hs_menu_child_relative_one {
 	
-    position: relative;
-	bottom:114px;
+    position: absolute;
+	bottom:55px;
 	width: 136px;
 	height: auto;
 	border:1px solid #e7e7eb;
 }
 .hs_sub_pre_menu_list li {
-    width:92px;
+    width:90px;
     height: 50px;
     text-align: center;
     border: 1px solid #E7E7EB;
 }
 
-.hs_sub_pre_menu_list {height: auto;display:block; overflow:hidden;}
+.hs_sub_pre_menu_list {height: auto;display:block; overflow:hidden;	width: 135px; }
 
 /**
  * 一级菜单选中样式
  */
 .hs_father_menu_active {
-	border:1px solid green;
+	border:1px solid #44b549 !important;
+	background-color: #ffffff;
+	color:#44b549;
 }

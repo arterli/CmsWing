@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-03-02 21:52:08
+Date: 2016-03-04 20:50:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=284 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=299 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -165,6 +165,21 @@ INSERT INTO `cmswing_action_log` VALUES ('280', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('281', '1', '1', '3232235892', 'member', '1', 'admin在2016-03-02 14:52:39登录了后台', '1', '1456901559038');
 INSERT INTO `cmswing_action_log` VALUES ('282', '1', '1', '3232235892', 'member', '1', 'admin在2016-03-02 14:57:48登录了后台', '1', '1456901868031');
 INSERT INTO `cmswing_action_log` VALUES ('283', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-02 15:11:47登录了后台', '1', '1456902707615');
+INSERT INTO `cmswing_action_log` VALUES ('284', '1', '1', '3232235892', 'member', '1', 'admin在2016-03-02 21:57:02登录了后台', '1', '1456927022522');
+INSERT INTO `cmswing_action_log` VALUES ('285', '1', '1', '3232235892', 'member', '1', 'admin在2016-03-02 21:57:03登录了后台', '1', '1456927023851');
+INSERT INTO `cmswing_action_log` VALUES ('286', '1', '1', '3232235892', 'member', '1', 'admin在2016-03-02 22:00:59登录了后台', '1', '1456927259666');
+INSERT INTO `cmswing_action_log` VALUES ('287', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-03 09:16:03登录了后台', '1', '1456967763490');
+INSERT INTO `cmswing_action_log` VALUES ('288', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-03 09:17:28登录了后台', '1', '1456967848766');
+INSERT INTO `cmswing_action_log` VALUES ('289', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-03 09:41:18登录了后台', '1', '1456969278382');
+INSERT INTO `cmswing_action_log` VALUES ('290', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-03 12:52:37登录了后台', '1', '1456980757578');
+INSERT INTO `cmswing_action_log` VALUES ('291', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-03 15:18:59登录了后台', '1', '1456989539083');
+INSERT INTO `cmswing_action_log` VALUES ('292', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 09:16:28登录了后台', '1', '1457054188268');
+INSERT INTO `cmswing_action_log` VALUES ('293', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 09:21:57登录了后台', '1', '1457054517161');
+INSERT INTO `cmswing_action_log` VALUES ('294', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 09:19:19登录了后台', '1', '1457054359301');
+INSERT INTO `cmswing_action_log` VALUES ('295', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 09:19:19登录了后台', '1', '1457054359304');
+INSERT INTO `cmswing_action_log` VALUES ('296', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 11:13:45登录了后台', '1', '1457061225650');
+INSERT INTO `cmswing_action_log` VALUES ('297', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 16:12:23登录了后台', '1', '1457079143764');
+INSERT INTO `cmswing_action_log` VALUES ('298', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-04 16:43:38登录了后台', '1', '1457081018764');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -183,19 +198,15 @@ CREATE TABLE `cmswing_address` (
   `addr` varchar(250) DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_address
 -- ----------------------------
-INSERT INTO `cmswing_address` VALUES ('1', '1', '晓飞 宁', '13589100333', '13589100475', '370000', '370100', '370102', '250000', '山东省ddddddd', '0');
+INSERT INTO `cmswing_address` VALUES ('1', '1', '晓飞 宁', '13589100333', '13589100475', '370000', '370100', '370102', '250000', '山东省ddddddd', '1');
 INSERT INTO `cmswing_address` VALUES ('2', '2', 'hgfhfgh', '18681851637', '8688854', '310000', '310100', '310104', '822225', 'htgfhfghgfhgfhgfhfg', '1');
-INSERT INTO `cmswing_address` VALUES ('3', '1', '456546', null, '6546456', '120000', '120100', '120102', '546546', '54236546546', '0');
-INSERT INTO `cmswing_address` VALUES ('4', '1', '456546', '4565464564', '6546456', '110000', '110100', '110103', '546546', '54236546546', '0');
-INSERT INTO `cmswing_address` VALUES ('5', '1', '456546', '4565464564', '6546456', '110000', '110100', '110103', '546546', '5423654654611', '0');
-INSERT INTO `cmswing_address` VALUES ('6', '1', '2222222', '432423', '432424', '120000', '120100', '120102', '710065', 'gfdg的放大撒放大撒放大撒放大放', '0');
-INSERT INTO `cmswing_address` VALUES ('7', '1', '2222222', '432423', '432424', '130000', '130300', '130303', '710065', 'gfdg的放大撒放大撒放大撒放大放', '0');
-INSERT INTO `cmswing_address` VALUES ('8', '1', '2222222', '432423', '432424', '130000', '130300', '130303', '710065', 'gfdg的放大撒放大撒放大撒放大放', '1');
+INSERT INTO `cmswing_address` VALUES ('3', '1', '天津帅小伙', '18651569374', '', '120000', '120100', '120107', '300021', '六大街72号', '0');
+INSERT INTO `cmswing_address` VALUES ('4', '1', '路人丁', '18681851637', '', '110000', '110100', '110101', '710065', '东花市北里20号楼6单元501室 ', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_area
@@ -4060,18 +4071,19 @@ CREATE TABLE `cmswing_cart` (
   `pic` varchar(255) DEFAULT NULL COMMENT '商品图片',
   `url` varchar(255) DEFAULT NULL COMMENT '商品地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_cart
 -- ----------------------------
-INSERT INTO `cmswing_cart` VALUES ('78', '1', '69', '4', '红色,L', '668', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
-INSERT INTO `cmswing_cart` VALUES ('79', '1', '69', '2', '黄色,M', '334', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
-INSERT INTO `cmswing_cart` VALUES ('80', '1', '69', '3', '红色,M', '501', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
-INSERT INTO `cmswing_cart` VALUES ('81', '1', '69', '2', '蓝色,L', '334', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
-INSERT INTO `cmswing_cart` VALUES ('82', '1', '70', '1', '紫不溜秋,肥', '50', '测试商品多规格多价格', '50', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '/detail/70');
-INSERT INTO `cmswing_cart` VALUES ('83', '1', '69', '1', '红色,S', '167', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
-INSERT INTO `cmswing_cart` VALUES ('84', '1', '70', '1', '紫不溜秋,相当肥', '100', '测试商品多规格多价格', '100', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '/detail/70');
+INSERT INTO `cmswing_cart` VALUES ('85', '1', '70', '1', '紫不溜秋,特别肥', '60', '测试商品多规格多价格', '60', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '/detail/70');
+INSERT INTO `cmswing_cart` VALUES ('86', '1', '69', '4', '红色,L', '668', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('87', '1', '69', '2', '黄色,M', '334', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('88', '1', '69', '3', '红色,M', '501', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('89', '1', '69', '2', '蓝色,L', '334', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('90', '1', '70', '1', '紫不溜秋,肥', '50', '测试商品多规格多价格', '50', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '/detail/70');
+INSERT INTO `cmswing_cart` VALUES ('91', '1', '69', '1', '红色,S', '167', '测试商品多个规格相同价格', '167', '/upload/picture/2016-02-26/y3ZiHNl29kiNmnWtdJi87gxd.jpg', '/detail/69');
+INSERT INTO `cmswing_cart` VALUES ('92', '1', '70', '1', '紫不溜秋,相当肥', '100', '测试商品多规格多价格', '100', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '/detail/70');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4209,7 +4221,7 @@ CREATE TABLE `cmswing_document` (
   `level` int(10) NOT NULL DEFAULT '0' COMMENT '优先级',
   `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态0禁用，1启用，-1删除',
   `pics` varchar(255) NOT NULL COMMENT '多图上传',
   `price` varchar(255) NOT NULL COMMENT '价格',
   PRIMARY KEY (`id`),
@@ -4225,7 +4237,7 @@ INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '4654
 INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '0', '1', '1451018700', '0', '0', '0', '0', '0', '1451018700', '1451030139', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1453711202518', '1453711202518', '1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '10', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '2', '0', '0', '0', '2016', '1453789112170', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
 INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
@@ -4259,9 +4271,9 @@ INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452766900091', '1452766900091', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
-INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '66', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
-INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '342', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '6', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
+INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '69', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
+INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '347', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '34', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1456305969296', '1', '72,73,74', '{\"present_price\":8,\"discount_price\":\"0\"}');
@@ -4447,7 +4459,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '420', 'arterli@qq.com', '84', '', '1452513965683', '0', '1456902707564', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '420', 'arterli@qq.com', '99', '', '1452513965683', '0', '1457081018748', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -4500,7 +4512,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -4624,6 +4636,11 @@ INSERT INTO `cmswing_menu` VALUES ('130', '素材管理', '127', '0', 'admin/mpb
 INSERT INTO `cmswing_menu` VALUES ('131', '微信用户管理', '127', '0', 'admin/mpbase/menu', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('132', '自定义菜单', '127', '1', 'admin/mpbase/selfmenu', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('133', '自动回复', '127', '0', 'admin/mpbase2/autoreply', '0', '', '99', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('134', '支付与配送', '0', '3', 'ecom', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('135', '支付方式', '134', '0', 'admin/ecom/payment', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('136', '支付插件', '134', '0', 'admin/ecom/payplugin', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('137', '运费模板', '134', '0', 'admin/ecom/fare', '0', '', '3', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('138', '快递公司', '134', '0', 'admin/ecom/express', '0', '', '3', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -4652,7 +4669,7 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COMMENT='文档模型表';
 
 -- ----------------------------
 -- Records of cmswing_model
@@ -4661,6 +4678,163 @@ INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础模型', '0', '', '1
 INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"25\",\"26\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1453711249446', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', '', '', '0', '', '', '1449340764453', '1387260449', '1', 'MyISAM');
 INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"5\",\"65\",\"67\",\"71\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"83\",\"75\",\"73\",\"77\",\"79\"],\"4\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:物流/其它,4:高级信息', '63,69,71,73,75,77,79,81,83,2,3,5,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片\r\ndescription:商品简介', '', '', '', 'id:编号\r\npics:商品图\r\ntitle:商品名称:[EDIT]\r\nprice|formatprice:价格\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\ntotal_stock:总库存\r\nview:浏览量\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '9', '', '', '1455680338771', '1456477081387', '1', 'MyISAM');
+
+-- ----------------------------
+-- Table structure for cmswing_order
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_order`;
+CREATE TABLE `cmswing_order` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_no` varchar(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `pay_code` varchar(255) DEFAULT NULL,
+  `payment` bigint(20) NOT NULL,
+  `express` bigint(20) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '1',
+  `pay_status` tinyint(1) DEFAULT '0',
+  `delivery_status` tinyint(1) DEFAULT '0',
+  `accept_name` varchar(20) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `province` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `county` bigint(20) DEFAULT NULL,
+  `addr` varchar(250) DEFAULT NULL,
+  `zip` varchar(6) DEFAULT NULL,
+  `payable_amount` float(10,2) DEFAULT NULL,
+  `real_amount` float(10,2) DEFAULT '0.00',
+  `payable_freight` float(10,2) DEFAULT '0.00',
+  `real_freight` float(10,2) DEFAULT '0.00',
+  `pay_time` datetime DEFAULT NULL,
+  `send_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `completion_time` datetime DEFAULT NULL,
+  `user_remark` varchar(255) DEFAULT NULL,
+  `admin_remark` varchar(255) DEFAULT NULL,
+  `handling_fee` float(10,2) DEFAULT '0.00',
+  `is_invoice` tinyint(1) DEFAULT '0',
+  `invoice_title` varchar(100) DEFAULT NULL,
+  `taxes` float(10,2) DEFAULT '0.00',
+  `prom_id` bigint(20) DEFAULT '0',
+  `prom` text,
+  `discount_amount` float(10,2) DEFAULT '0.00',
+  `adjust_amount` float(10,2) DEFAULT '0.00',
+  `adjust_note` varchar(255) DEFAULT NULL,
+  `order_amount` float(10,2) DEFAULT '0.00',
+  `is_print` varchar(255) DEFAULT NULL,
+  `accept_time` varchar(80) DEFAULT NULL,
+  `point` int(5) unsigned DEFAULT '0',
+  `voucher_id` bigint(20) DEFAULT '0',
+  `voucher` text,
+  `type` int(4) unsigned DEFAULT '0',
+  `trading_info` varchar(255) DEFAULT NULL,
+  `is_del` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_order
+-- ----------------------------
+INSERT INTO `cmswing_order` VALUES ('3', '20160229132904600317', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '94.00', '94.00', '8.00', '8.00', '2016-02-29 13:29:13', null, '2016-02-29 13:29:04', null, '441454545', null, '0.00', '1', '1:54545454545', '5.64', '0', null, '0.00', '0.00', null, '107.64', null, null, '0', '0', 'a:0:{}', '0', '', '0');
+INSERT INTO `cmswing_order` VALUES ('4', '20160301151336826470', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '165.00', '165.00', '8.00', '8.00', '2016-03-01 15:57:09', null, '2016-03-01 15:13:36', null, '65465464556', null, '0.00', '0', '', '0.00', '0', null, '0.00', '0.00', null, '173.00', null, null, '0', '0', 'a:0:{}', '0', '', '0');
+INSERT INTO `cmswing_order` VALUES ('5', '20160301160022133398', '2', null, '1', null, '2', '0', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '98.00', '98.00', '8.00', '8.00', null, null, '2016-03-01 16:00:22', null, '', null, '0.00', '0', '', '0.00', '0', null, '0.00', '0.00', null, '106.00', null, null, '0', '0', 'a:0:{}', '0', null, '0');
+
+-- ----------------------------
+-- Table structure for cmswing_order_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_order_goods`;
+CREATE TABLE `cmswing_order_goods` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) DEFAULT NULL,
+  `goods_id` bigint(20) DEFAULT NULL,
+  `product_id` bigint(20) DEFAULT NULL,
+  `goods_price` float(10,2) DEFAULT '0.00',
+  `real_price` float(10,2) DEFAULT '0.00',
+  `goods_nums` int(11) DEFAULT '1',
+  `goods_weight` float DEFAULT '0',
+  `shipments` int(11) DEFAULT '0',
+  `prom_goods` text,
+  `spec` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_order_goods
+-- ----------------------------
+INSERT INTO `cmswing_order_goods` VALUES ('3', '3', '16', '56', '49.00', '49.00', '1', '200', '0', 'a:3:{s:10:\"real_price\";s:5:\"49.00\";s:4:\"note\";s:0:\"\";s:5:\"minus\";s:2:\"-0\";}', 'a:2:{i:2;a:6:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:6:\"颜色\";s:5:\"value\";a:4:{i:0;s:2:\"10\";i:1;s:6:\"红色\";i:2;s:6:\"红色\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:12:\"基本颜色\";s:6:\"is_del\";s:1:\"0\";}i:6;a:6:{s:2:\"id\";s:1:\"6\";s:4:\"name\";s:6:\"尺码\";s:5:\"value\";a:4:{i:0;s:2:\"46\";i:1;s:2:\"XL\";i:2;s:2:\"XL\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:6:\"女式\";s:6:\"is_del\";s:1:\"0\";}}');
+INSERT INTO `cmswing_order_goods` VALUES ('4', '3', '20', '114', '45.00', '45.00', '1', '200', '0', 'a:3:{s:10:\"real_price\";s:5:\"45.00\";s:4:\"note\";s:0:\"\";s:5:\"minus\";s:2:\"-0\";}', 'a:2:{i:2;a:6:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:6:\"颜色\";s:5:\"value\";a:4:{i:0;s:1:\"5\";i:1;s:6:\"白色\";i:2;s:6:\"白色\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:12:\"基本颜色\";s:6:\"is_del\";s:1:\"0\";}i:6;a:6:{s:2:\"id\";s:1:\"6\";s:4:\"name\";s:6:\"尺码\";s:5:\"value\";a:4:{i:0;s:2:\"44\";i:1;s:1:\"M\";i:2;s:1:\"M\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:6:\"女式\";s:6:\"is_del\";s:1:\"0\";}}');
+INSERT INTO `cmswing_order_goods` VALUES ('5', '4', '17', '68', '55.00', '55.00', '3', '200', '0', 'a:3:{s:10:\"real_price\";s:5:\"55.00\";s:4:\"note\";s:0:\"\";s:5:\"minus\";s:2:\"-0\";}', 'a:2:{i:2;a:6:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:6:\"颜色\";s:5:\"value\";a:4:{i:0;s:1:\"5\";i:1;s:6:\"白色\";i:2;s:6:\"白色\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:12:\"基本颜色\";s:6:\"is_del\";s:1:\"0\";}i:6;a:6:{s:2:\"id\";s:1:\"6\";s:4:\"name\";s:6:\"尺码\";s:5:\"value\";a:4:{i:0;s:2:\"45\";i:1;s:1:\"L\";i:2;s:1:\"L\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:6:\"女式\";s:6:\"is_del\";s:1:\"0\";}}');
+INSERT INTO `cmswing_order_goods` VALUES ('6', '5', '19', '105', '49.00', '49.00', '2', '200', '0', 'a:3:{s:10:\"real_price\";s:5:\"49.00\";s:4:\"note\";s:0:\"\";s:5:\"minus\";s:2:\"-0\";}', 'a:2:{i:2;a:6:{s:2:\"id\";s:1:\"2\";s:4:\"name\";s:6:\"颜色\";s:5:\"value\";a:4:{i:0;s:1:\"5\";i:1;s:6:\"白色\";i:2;s:6:\"白色\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:12:\"基本颜色\";s:6:\"is_del\";s:1:\"0\";}i:6;a:6:{s:2:\"id\";s:1:\"6\";s:4:\"name\";s:6:\"尺码\";s:5:\"value\";a:4:{i:0;s:2:\"42\";i:1;s:2:\"XS\";i:2;s:2:\"XS\";i:3;s:0:\"\";}s:4:\"type\";s:1:\"1\";s:4:\"note\";s:6:\"女式\";s:6:\"is_del\";s:1:\"0\";}}');
+
+-- ----------------------------
+-- Table structure for cmswing_order_log
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_order_log`;
+CREATE TABLE `cmswing_order_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `user` varchar(20) DEFAULT NULL,
+  `action` varchar(20) DEFAULT NULL,
+  `addtime` datetime DEFAULT NULL,
+  `result` varchar(10) DEFAULT NULL,
+  `note` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_order_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_payment
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_payment`;
+CREATE TABLE `cmswing_payment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `plugin_id` varchar(32) NOT NULL,
+  `pay_name` varchar(100) NOT NULL,
+  `config` text,
+  `client_type` int(1) DEFAULT '0',
+  `description` text,
+  `note` text,
+  `pay_fee` float(10,2) DEFAULT '0.00',
+  `fee_type` tinyint(1) DEFAULT '0',
+  `sort` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT '0' COMMENT '0禁用，1启用，-1删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_payment
+-- ----------------------------
+INSERT INTO `cmswing_payment` VALUES ('1', '1', '预存款支付', '{\"partner_id\":\"456456456\",\"partner_key\":\"456546464\"}', '2', '预存款是客户在您网站上的虚拟资金帐户。', '', '0.00', '1', '1', '1');
+INSERT INTO `cmswing_payment` VALUES ('5', '5', '腾讯财付通', '{\"partner_id\":\"635645645\",\"partner_key\":\"64565464564\"}', '2', '<p>费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a></p>', '<p>111215855<br/></p>', '15.00', '1', '3', '1');
+INSERT INTO `cmswing_payment` VALUES ('7', '7', '货到付款', '{\"partner_id\":\"1115555\",\"partner_key\":\"22224445\"}', '0', '<p>客户收到商品时，再进行付款，让客户更放心。</p>', '<p>2121321<br/></p>', '0.00', '1', '0', '1');
+
+-- ----------------------------
+-- Table structure for cmswing_pay_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_pay_plugin`;
+CREATE TABLE `cmswing_pay_plugin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `class_name` varchar(30) NOT NULL,
+  `description` text,
+  `logo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_pay_plugin
+-- ----------------------------
+INSERT INTO `cmswing_pay_plugin` VALUES ('1', '预存款支付', 'balance', '预存款是客户在您网站上的虚拟资金帐户。', '/static/admin/img/payments/logos/pay_deposit.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('5', '腾讯财付通', 'tenpay', '费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a>', '/static/admin/img/payments/logos/pay_tenpay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('2', '支付宝[担保交易]', 'alipaytrad', '淘宝买家最熟悉的付款方式：买家先将交易资金存入支付宝并通知卖家发货，买家确认收货后资金自动进入卖家支付宝账户，完成交易 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373121\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipaytrad.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('3', '支付宝[双向接口]', 'alipay', '买家付款时，可选择担保交易或即时到账中的任一支付方式进行付款，完成交易。<a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111300373136\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('6', 'PayPal', 'paypal', 'PayPal 是全球最大的在线支付平台，同时也是目前全球贸易网上支付标准。', '/static/admin/img//payments/logos/pay_paypal.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('4', '支付宝[即时到帐]', 'alipaydirect', '网上交易时，买家的交易资金直接打入卖家支付宝账户，快速回笼交易资金。 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373124\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('7', '货到付款', 'received', '客户收到商品时，再进行付款，让客户更放心。', '/static/admin/img//payments/logos/pay_received.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('8', '支付宝[银行支付]', 'alipaygateway', null, '/static/admin/img//payments/logos/pay_alipay.gif');
 
 -- ----------------------------
 -- Table structure for cmswing_picture
@@ -4677,7 +4851,7 @@ CREATE TABLE `cmswing_picture` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信',
   `source_id` varchar(255) DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -4809,6 +4983,9 @@ INSERT INTO `cmswing_picture` VALUES ('124', '/upload/picture/2016-02-26/5YUpFuw
 INSERT INTO `cmswing_picture` VALUES ('125', '/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg', '', '', '', '1', '1456468194336', null, null);
 INSERT INTO `cmswing_picture` VALUES ('126', '/upload/picture/2016-02-26/iJ-GwDggGfzfMI9RkF5kZmaI.jpg', '', '', '', '1', '1456468194418', null, null);
 INSERT INTO `cmswing_picture` VALUES ('127', '/upload/picture/2016-03-02/bRjow4pnaCqgaMpoOo8h6OXn.jpg', '', '', '', '1', '1456891559436', '0', 'wc0LsqkZlrXnMNstWxP4bHmG-UyzdwtMcuY2wFmWH68');
+INSERT INTO `cmswing_picture` VALUES ('128', '/upload/picture/2016-03-03/23Xpu3B-m6pvp1lr49Syzp1c.png', '', '', '', '1', '1456973153509', '0', 'Pi0Cuuy_spnDgDCEsbVSgIyVWr7sNlOC3n2_op23J6M');
+INSERT INTO `cmswing_picture` VALUES ('129', '/upload/picture/2016-03-03/5k4rgSCzUTbtjE7S0it9cUOV.jpg', '', '', '', '1', '1456995648406', '0', 'tMnUi4E7UQtt-hn3WJc2AX4wuNZPy6HOpTOvnIl05Do');
+INSERT INTO `cmswing_picture` VALUES ('130', '/upload/picture/2016-03-03/PRmw_LzOUt2_YT_cKvFpYal1.png', '', '', '', '1', '1456999712491', '0', 'rYTK-hn-e5tZ8LXb3ncWVmIXbkt7LYka-TMhTP7ao4o');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -4896,11 +5073,18 @@ CREATE TABLE `cmswing_wx_keywords` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `keyword_name` (`keyword_name`),
   UNIQUE KEY `keyword_name_2` (`keyword_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_wx_keywords
 -- ----------------------------
+INSERT INTO `cmswing_wx_keywords` VALUES ('1', 'aaaa', '1', null, null);
+INSERT INTO `cmswing_wx_keywords` VALUES ('2', '你好', '1', '1457083565545', '0');
+INSERT INTO `cmswing_wx_keywords` VALUES ('3', 'adf', '1', '1457087782930', '0');
+INSERT INTO `cmswing_wx_keywords` VALUES ('4', 'aa', '1', '1457087802171', '0');
+INSERT INTO `cmswing_wx_keywords` VALUES ('5', 'abc', '1', '1457088226349', '0');
+INSERT INTO `cmswing_wx_keywords` VALUES ('6', 'aaa', '1', '1457088302105', '0');
+INSERT INTO `cmswing_wx_keywords` VALUES ('7', 'bbb', '1', '1457088324950', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_keywords_rule
@@ -4914,12 +5098,13 @@ CREATE TABLE `cmswing_wx_keywords_rule` (
   `web_token` varchar(255) DEFAULT NULL,
   `create_time` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_wx_keywords_rule
 -- ----------------------------
-INSERT INTO `cmswing_wx_keywords_rule` VALUES ('4', '规则名称', null, null, null, '1456918942329');
+INSERT INTO `cmswing_wx_keywords_rule` VALUES ('1', '规则名称', '1,23,23,23,7', '3', null, '1457088324950');
+INSERT INTO `cmswing_wx_keywords_rule` VALUES ('2', '规则名称', null, null, null, '1456987147018');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_masssend
@@ -4931,15 +5116,22 @@ CREATE TABLE `cmswing_wx_masssend` (
   `create_time` bigint(13) DEFAULT NULL COMMENT '发送时间',
   `sent_count` int(11) DEFAULT NULL COMMENT '发送成功人数',
   `error_count` int(11) DEFAULT NULL COMMENT '发送失败人数',
-  `material_wx_content` text,
+  `material_content` text COMMENT '素材详细内容',
+  `material_wx_content` text COMMENT '微信素材详细内容',
   `type` varchar(50) DEFAULT NULL COMMENT '发送类型',
+  `del_status` int(11) DEFAULT '0' COMMENT '删除状态 0:未删除，1：删除',
   PRIMARY KEY (`msg_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_wx_masssend
 -- ----------------------------
-INSERT INTO `cmswing_wx_masssend` VALUES ('2556288117', null, null, null, null, 'fdsfdsfsdf', 'textArea');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2549930555', '19', null, null, null, '{\"articles\":[{\"title\":\"web\",\"thumb_media_id\":\"rYTK-hn-e5tZ8LXb3ncWVmIXbkt7LYka-TMhTP7ao4o\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"show_cover_pic\":0,\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":130,\"hs_image_src\":\"/upload/picture/2016-03-03/PRmw_LzOUt2_YT_cKvFpYal1.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwoL7ibeGpeLt1m6y6Y2ZdiakibH2Hbgn0qibHic0FBlAmgosnK5KVrhiceFUicyBkia9s5Y33qRFAiaZkiciaqicQ/0?wx_fmt=png\"}]}', '{\"news_item\":[{\"title\":\"web\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108504009259\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzA3NDUyMTU2Nw==&mid=402446899&idx=1&sn=aafae322605e2d5beb5e50c3720dc31d#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/tibZ44DultwoL7ibeGpeLt1m6y6Y2Zdiakib1RKuKUROfiaVm47qN6eNhc9WlNNVtDaevAgxMC8VHGTdWxbb1JmrCbA\\/0?wx_fmt=jpeg\"}]}', 'newsArea', '1');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2549930583', '19', null, null, null, '{\"articles\":[{\"title\":\"web\",\"thumb_media_id\":\"rYTK-hn-e5tZ8LXb3ncWVmIXbkt7LYka-TMhTP7ao4o\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"show_cover_pic\":0,\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":130,\"hs_image_src\":\"/upload/picture/2016-03-03/PRmw_LzOUt2_YT_cKvFpYal1.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwoL7ibeGpeLt1m6y6Y2ZdiakibH2Hbgn0qibHic0FBlAmgosnK5KVrhiceFUicyBkia9s5Y33qRFAiaZkiciaqicQ/0?wx_fmt=png\"}]}', '{\"news_item\":[{\"title\":\"web\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108504009259\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzA3NDUyMTU2Nw==&mid=402446899&idx=1&sn=aafae322605e2d5beb5e50c3720dc31d#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/tibZ44DultwoL7ibeGpeLt1m6y6Y2Zdiakib1RKuKUROfiaVm47qN6eNhc9WlNNVtDaevAgxMC8VHGTdWxbb1JmrCbA\\/0?wx_fmt=jpeg\"}]}', 'newsArea', '0');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2556300611', null, null, null, null, null, '哦怕p\'风格化', 'textArea', '0');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2556305274', null, null, null, null, null, 'fsdsdfsdfsdf[得意]', 'textArea', '1');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2556306296', '17', null, null, null, '{\"articles\":[{\"title\":\"dddd\",\"thumb_media_id\":\"Pi0Cuuy_spnDgDCEsbVSgIyVWr7sNlOC3n2_op23J6M\",\"author\":\"ddd\",\"digest\":\"发大水范德萨分士大夫犯得上发\",\"show_cover_pic\":0,\"content\":\"<p>fsdfdsfdsf犯得上发射点发大水范德萨分</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":128,\"hs_image_src\":\"/upload/picture/2016-03-03/23Xpu3B-m6pvp1lr49Syzp1c.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMEMOpdJBnhYLFdhOIN0oAYqGhAHlZ77fS7tMEicwHvIAibUFibHa6TIpBw/0?wx_fmt=png\"}]}', '{\"news_item\":[{\"title\":\"dddd\",\"author\":\"ddd\",\"digest\":\"发大水范德萨分士大夫犯得上发\",\"content\":\"<p>fsdfdsfdsf犯得上发射点发大水范德萨分<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108510379183\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzI3NjA3NDgzNw==&mid=408816884&idx=1&sn=dd8ccdfbd7d0fd8785f63ed41a1f908d#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMos8AcWWBvpB16DKSHg5iaqW02dFG08sCeEzNXqVQicJCp8vLqib56FdXg\\/0?wx_fmt=jpeg\"}]}', 'newsArea', '1');
+INSERT INTO `cmswing_wx_masssend` VALUES ('2556307496', '18', null, null, null, '{\"articles\":[{\"title\":\"房价上涨\",\"thumb_media_id\":\"tMnUi4E7UQtt-hn3WJc2AX4wuNZPy6HOpTOvnIl05Do\",\"author\":\"二师兄\",\"digest\":\"发士大夫大师傅\",\"show_cover_pic\":0,\"content\":\"<p>但是犯得上犯得上法士大夫大师傅</p>\",\"content_source_url\":\"http://www.qq.com\",\"hs_image_id\":129,\"hs_image_src\":\"/upload/picture/2016-03-03/5k4rgSCzUTbtjE7S0it9cUOV.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMeNzdFx7VFVl0FtWvTuVkPVmabI41zs0VJMtX7OkC9lPNyv4NAjPWXA/0?wx_fmt=jpeg\"}]}', '{\"news_item\":[{\"title\":\"房价上涨\",\"author\":\"二师兄\",\"digest\":\"发士大夫大师傅\",\"content\":\"<p>但是犯得上犯得上法士大夫大师傅<\\/p>\",\"content_source_url\":\"http:\\/\\/www.qq.com\",\"thumb_media_id\":\"1108510386186\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzI3NjA3NDgzNw==&mid=408823830&idx=1&sn=405224e4e5a646c2f19a588bcfe46c6a#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMCn7nlFYTKPjWsYCeGT15PAmHJ2QsN1LXGeFLZ5wv2nmiaZ3fGpxzUiaA\\/0?wx_fmt=jpeg\"}]}', 'newsArea', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_material
@@ -4953,12 +5145,16 @@ CREATE TABLE `cmswing_wx_material` (
   `web_token` varchar(255) DEFAULT '0' COMMENT '该素材所从属的微信公众号id,  0为测试或发生错误的数据',
   `add_time` bigint(13) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_wx_material
 -- ----------------------------
 INSERT INTO `cmswing_wx_material` VALUES ('15', 'wc0LsqkZlrXnMNstWxP4bNz1iPPpmGyfwGJ2wgJgkcY', '{\"articles\":[{\"title\":\"新建一个素材\",\"thumb_media_id\":\"wc0LsqkZlrXnMNstWxP4bHmG-UyzdwtMcuY2wFmWH68\",\"author\":\"abc\",\"digest\":\"\",\"show_cover_pic\":0,\"content\":\"<p>新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":127,\"hs_image_src\":\"/upload/picture/2016-03-02/bRjow4pnaCqgaMpoOo8h6OXn.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44Dultwric4l8k0iaALRJWFicDuYwH5galJS1o34U98jMkBkU05yn5E4zdkKyD3g8h19lMib9HcQyoydJqhM7bA/0?wx_fmt=jpeg\"}]}', '{\"news_item\":[{\"title\":\"新建一个素材\",\"author\":\"abc\",\"digest\":\"\",\"content\":\"<p>新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材新建一个素材<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108503980627\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzA3NDUyMTU2Nw==&mid=402419576&idx=1&sn=f29bef9f1cdbf5884fdaf1d643491297#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/tibZ44Dultwric4l8k0iaALRJWFicDuYwH5gzafJ84ezEvpFgfrFYgIZlHusLrrcoAibQMrmZ5z3t3z7xI6h1WkJOeg\\/0?wx_fmt=jpeg\"}]}', '0', '1456896104387');
+INSERT INTO `cmswing_wx_material` VALUES ('16', 'Pi0Cuuy_spnDgDCEsbVSgHBmC-42gpodrlKtYwWGbcg', '{\"articles\":[{\"title\":\"aaa\",\"thumb_media_id\":\"Pi0Cuuy_spnDgDCEsbVSgIyVWr7sNlOC3n2_op23J6M\",\"author\":\"bbb\",\"digest\":\"sdfsdfdsf\",\"show_cover_pic\":0,\"content\":\"<p>fsdfdsfdsf</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":128,\"hs_image_src\":\"/upload/picture/2016-03-03/23Xpu3B-m6pvp1lr49Syzp1c.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMEMOpdJBnhYLFdhOIN0oAYqGhAHlZ77fS7tMEicwHvIAibUFibHa6TIpBw/0?wx_fmt=png\"}]}', null, '0', '1456973183388');
+INSERT INTO `cmswing_wx_material` VALUES ('17', 'Pi0Cuuy_spnDgDCEsbVSgGz_7_fR7NEZ1cP4x99_75Y', '{\"articles\":[{\"title\":\"dddd\",\"thumb_media_id\":\"Pi0Cuuy_spnDgDCEsbVSgIyVWr7sNlOC3n2_op23J6M\",\"author\":\"ddd\",\"digest\":\"发大水范德萨分士大夫犯得上发\",\"show_cover_pic\":0,\"content\":\"<p>fsdfdsfdsf犯得上发射点发大水范德萨分</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":128,\"hs_image_src\":\"/upload/picture/2016-03-03/23Xpu3B-m6pvp1lr49Syzp1c.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMEMOpdJBnhYLFdhOIN0oAYqGhAHlZ77fS7tMEicwHvIAibUFibHa6TIpBw/0?wx_fmt=png\"}]}', '{\"news_item\":[{\"title\":\"dddd\",\"author\":\"ddd\",\"digest\":\"发大水范德萨分士大夫犯得上发\",\"content\":\"<p>fsdfdsfdsf犯得上发射点发大水范德萨分<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108510379183\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzI3NjA3NDgzNw==&mid=408816884&idx=1&sn=dd8ccdfbd7d0fd8785f63ed41a1f908d#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMos8AcWWBvpB16DKSHg5iaqW02dFG08sCeEzNXqVQicJCp8vLqib56FdXg\\/0?wx_fmt=jpeg\"}]}', '0', '1456973404507');
+INSERT INTO `cmswing_wx_material` VALUES ('18', 'tMnUi4E7UQtt-hn3WJc2AWPLlC8vDXHio-86LjOd1_w', '{\"articles\":[{\"title\":\"房价上涨\",\"thumb_media_id\":\"tMnUi4E7UQtt-hn3WJc2AX4wuNZPy6HOpTOvnIl05Do\",\"author\":\"二师兄\",\"digest\":\"发士大夫大师傅\",\"show_cover_pic\":0,\"content\":\"<p>但是犯得上犯得上法士大夫大师傅</p>\",\"content_source_url\":\"http://www.qq.com\",\"hs_image_id\":129,\"hs_image_src\":\"/upload/picture/2016-03-03/5k4rgSCzUTbtjE7S0it9cUOV.jpg\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMeNzdFx7VFVl0FtWvTuVkPVmabI41zs0VJMtX7OkC9lPNyv4NAjPWXA/0?wx_fmt=jpeg\"}]}', '{\"news_item\":[{\"title\":\"房价上涨\",\"author\":\"二师兄\",\"digest\":\"发士大夫大师傅\",\"content\":\"<p>但是犯得上犯得上法士大夫大师傅<\\/p>\",\"content_source_url\":\"http:\\/\\/www.qq.com\",\"thumb_media_id\":\"1108510386186\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzI3NjA3NDgzNw==&mid=408823830&idx=1&sn=405224e4e5a646c2f19a588bcfe46c6a#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/yNHpDQhqmZlyDdIz7HsuBxC9Na7Ria9XMCn7nlFYTKPjWsYCeGT15PAmHJ2QsN1LXGeFLZ5wv2nmiaZ3fGpxzUiaA\\/0?wx_fmt=jpeg\"}]}', '0', '1456995670824');
+INSERT INTO `cmswing_wx_material` VALUES ('19', 'rYTK-hn-e5tZ8LXb3ncWVq34nywh3T5vb78AdQ41zUY', '{\"articles\":[{\"title\":\"web\",\"thumb_media_id\":\"rYTK-hn-e5tZ8LXb3ncWVmIXbkt7LYka-TMhTP7ao4o\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"show_cover_pic\":0,\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf</p>\",\"content_source_url\":\"http://www.baidu.com\",\"hs_image_id\":130,\"hs_image_src\":\"/upload/picture/2016-03-03/PRmw_LzOUt2_YT_cKvFpYal1.png\",\"hs_image_wx_src\":\"https://mmbiz.qlogo.cn/mmbiz/tibZ44DultwoL7ibeGpeLt1m6y6Y2ZdiakibH2Hbgn0qibHic0FBlAmgosnK5KVrhiceFUicyBkia9s5Y33qRFAiaZkiciaqicQ/0?wx_fmt=png\"}]}', '{\"news_item\":[{\"title\":\"web\",\"author\":\"at\",\"digest\":\"fasdfasdfdasf\",\"content\":\"<p>fasdfasdfasdfasdffasdfdsaf<\\/p>\",\"content_source_url\":\"http:\\/\\/www.baidu.com\",\"thumb_media_id\":\"1108504009259\",\"show_cover_pic\":0,\"url\":\"http:\\/\\/mp.weixin.qq.com\\/s?__biz=MzA3NDUyMTU2Nw==&mid=402446899&idx=1&sn=aafae322605e2d5beb5e50c3720dc31d#rd\",\"thumb_url\":\"http:\\/\\/mmbiz.qpic.cn\\/mmbiz\\/tibZ44DultwoL7ibeGpeLt1m6y6Y2Zdiakib1RKuKUROfiaVm47qN6eNhc9WlNNVtDaevAgxMC8VHGTdWxbb1JmrCbA\\/0?wx_fmt=jpeg\"}]}', '0', '1456999730715');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_menu
@@ -4969,7 +5165,7 @@ CREATE TABLE `cmswing_wx_menu` (
   `name` varchar(50) DEFAULT NULL COMMENT '菜单名称',
   `m_id` varchar(50) DEFAULT NULL COMMENT '微信菜单ID',
   `sort` tinyint(4) DEFAULT '0' COMMENT '菜单排序字段',
-  `pid` varchar(10) DEFAULT '0' COMMENT '0: 一级菜单 1：二级菜单',
+  `pid` varchar(30) DEFAULT '0' COMMENT '0: 一级菜单 1：二级菜单',
   `title` varchar(50) DEFAULT NULL COMMENT '菜单名',
   `keyword` varchar(100) DEFAULT NULL COMMENT '关联关键词',
   `url` varchar(255) DEFAULT NULL COMMENT '关联URL',
@@ -4978,12 +5174,20 @@ CREATE TABLE `cmswing_wx_menu` (
   `status` tinyint(11) DEFAULT NULL,
   `media_id` varchar(50) DEFAULT NULL COMMENT '永久素材ID',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_wx_menu
 -- ----------------------------
 INSERT INTO `cmswing_wx_menu` VALUES ('44', '微信商城', '1456902635288', '1', '0', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('60', '121', '1457079137933', '2', '1456902635288', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('53', '微信卡', '1456993411507', '1', '1456902635288', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('61', '为卡夹', '1457079151148', '2', '0', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('62', '子菜单', '1457079159237', '1', '1457079151148', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('66', '发大水', '1457083378471', '3', '0', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('64', 'say hello', '1457079181772', '1', '1457079168092', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('65', 'fdsfds', '1457080166197', '3', '1456902635288', null, null, '', '', 'click', null, '');
+INSERT INTO `cmswing_wx_menu` VALUES ('67', '画虎', '1457083393294', '1', '1457083378471', null, null, '', '', 'click', null, '');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_replylist
@@ -5005,13 +5209,19 @@ CREATE TABLE `cmswing_wx_replylist` (
   `pic_url` varchar(255) DEFAULT NULL COMMENT '图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200',
   `url` varchar(255) DEFAULT NULL COMMENT '点击图文消息跳转链接',
   `web_token` varchar(255) DEFAULT NULL,
+  `reply_type` int(11) DEFAULT '0' COMMENT '回复类型 1：关注自动回复2：消息自动回复3：关键词自动回复',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_wx_replylist
 -- ----------------------------
-INSERT INTO `cmswing_wx_replylist` VALUES ('2', null, 'image', '', null, null, null, null, null, null, '0', null, null, null, null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('2', null, 'image', '', null, null, null, null, null, null, '0', null, null, null, null, null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('3', '1456998337878', 'text', 'adfadsfasdf', null, null, null, null, null, null, '0', null, null, null, '0', null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('4', '1456999923044', 'text', 'kasdfjj', null, null, null, null, null, null, '0', null, null, null, '0', null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('5', '1457054837059', 'text', 'asdfsa', null, null, null, null, null, null, '0', null, null, null, '0', null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('6', '1457057377461', 'text', '啊打发', null, null, null, null, null, null, '0', null, null, null, '0', null);
+INSERT INTO `cmswing_wx_replylist` VALUES ('7', '1457087578779', 'text', 'adsf&nbsp;', null, null, null, null, null, null, '0', null, null, null, '0', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_user
@@ -5033,15 +5243,224 @@ CREATE TABLE `cmswing_wx_user` (
   `remark` text COMMENT '公众号运营者对粉丝的备注，公众号运营者可在微信公众平台用户管理界面对粉丝添加备注',
   `groupid` int(11) DEFAULT NULL COMMENT '用户所在的分组ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1550 DEFAULT CHARSET=utf8 COMMENT='微信粉丝表';
+) ENGINE=InnoDB AUTO_INCREMENT=1744 DEFAULT CHARSET=utf8 COMMENT='微信粉丝表';
 
 -- ----------------------------
 -- Records of cmswing_wx_user
 -- ----------------------------
-INSERT INTO `cmswing_wx_user` VALUES ('1546', '1', 'oVe9Ew0zHFp0up1CeNcK2J5RL4xs', ' 峰 『 沃 』 梅 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/UGrobmT8GcL0wqQfIXnh272odLgoryg9knBYuJ7RsD90F1AfnpfcJzgwnQBBHg1zMwc3Sqewia7JZuicsMEqJVHg/0', '1453348404', null, '', '0');
-INSERT INTO `cmswing_wx_user` VALUES ('1547', '1', 'oVe9Ewyd7Lw1bKPTtBvCSbB13DtU', ' 陈 金 龙 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Gs59CFdXOrxBwyeGUibzpeROqORmm3ABL9eT85OCA5wty6g7QvAgQjsDFsEDGYRKn2AlfRA0U1vrXZxfcpjofXssPwaIibqda5/0', '1456284018', null, '', '0');
-INSERT INTO `cmswing_wx_user` VALUES ('1548', '1', 'oVe9Ew3z2pS_vbEneAJMPA_DJ0TQ', ' 小 马 哥 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/YzwhFs1wyaibAhvXdtribZCpoz0nEuCFeIx56GIMmEeFD9u0h8WakGw25gWYks7tGFdB9PPIWHwQ7zTiaUzMKMzeTicHic2TzoWB3/0', '1456284127', null, '', '0');
-INSERT INTO `cmswing_wx_user` VALUES ('1549', '1', 'oVe9Ew1nEItmuu-H5NoeZpK0xLzo', ' s t u p i d ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/YzwhFs1wyaicBr8tmkj5ib0CXAerJ9ia6L83lJXxobVTDmEicAjp7CxSLuV5kPXZOEpn5ibOd3zLZwV324ohyeRZkzyefh9U1mqys/0', '1453533101', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1554', '1', 'o33lBt0Pz3rEXUARWtUUO5GxuUG0', ' 阿 特 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr6pFXjQd4NEO1dWC8Atlib6Y5pLdxQHNiaWqpxcZmA5mnxzicYejNoU7uTSuw29sQG04mjwIEO4rBUw/0', '1445592951000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1555', '1', 'o33lBt-rbaJuS11dbRUjNeR12wn4', ' 地 球 屋 零 食 驿 站 ', '1', '淮北', '中国', '安徽', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaELaEUaXdAGrwVV5ykBGM1poDywic7dNuesdhUqH31ic3fdf70GXhS9zQkRZ7wNdfMvYKZQZkxyKwdsw/0', '1440583938000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1556', '1', 'o33lBt0nWQQQD3Yq3pdysE24ambA', ' 峰 『 沃 』 梅 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nyQZ4D4KRialkCj0d4SM4WmDOziclbafaQQXuXUKriawyPsNRbWvpIpsibicuqDkYl5ic3hbkJkxLa6V0A/0', '1445592972000', null, '', '100');
+INSERT INTO `cmswing_wx_user` VALUES ('1557', '1', 'o33lBt5x6w-nsEam58BUdGMfkeDA', ' V I P ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5Mvs7yibR3AXdrU71WnNw8ArZ2q76bznibXicFGVwibkd5Nv5J6nQVKMhZqjIlH15aRpcJpPibPibeW4Gw/0', '1438741015000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1558', '1', 'o33lBt80WXrW2V_-KZ7cSAXwF9P4', ' 头 狼 电 商 C E O 朱 加 宝 ', '1', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJKw5ZcWLxofQJUHhKtpiaqXE5z5wVbUNOb97TzNLcAMzG23FsxIBKm4ZpDjAF4gXXa1KffcdIjNlTY/0', '1428995926000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1559', '1', 'o33lBt2cS_90vF0TKWaIY1Eh13nM', ' � �   B e a r x i w i   � � ', '2', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5Vq0KjBjDgpr0RZCxhhHFJcNaBwjTvej04L2lTQKslj1eQwt5xib9HQrQ034NK3Zt4iaK2TNp3f3icQ/0', '1432717201000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1560', '1', 'o33lBt78cAEU6twkkGX8ymvJmD5s', '  金  ', '2', '洛阳', '中国', '河南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1mQbb7yJ3rGeHFQskYaFmdqOIC1ZARDRrzNjbUXYianm43KurjM2hmfyjOGq5Su8hMAy0awVcIo7cw/0', '1443108841000', null, '金', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1561', '1', 'o33lBtwyePBtiyBzgHdmQN3bXEAY', ' 杜 喜 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuialiaBbYXI6sEHW3tibnRpZiaice1m5CzqRklTmft5T94MPwqC8LxqJyUoJibehPnymfsy9jA1ssQIwUTHVO2MPKkwE/0', '1427964371000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1562', '1', 'o33lBt6seqBYZKgh7__dysE_hUoY', ' A d u ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJK0zHQ3avLfIiaSicFvbjvYsFxdf8GGOricibkGzrSdJiasopxfEiajwWaicxfKPK1aGoD9F6DXvIcFvLia6N/0', '1429611499000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1563', '1', 'o33lBt4eBBFFO2u4hfY28Ry9vN-U', ' 安 静 ', '1', '徐汇', '中国', '上海', 'zh_CN', 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLA4sLtic6pgG7zUaCzjlhwaYibN3EWrJM3fVrgzZsicXgnmdtric9DlhyibzDx0SHnpedwXcBBaE2icUE3A/0', '1429947807000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1564', '1', 'o33lBt1Hv-EjBBCMsVvWhbrz8lKY', ' 花 久 美 ', '1', '泰州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEIPt0Erg6HKiaYL3XXyBiblEabkYRSiaiauCtNmo6MQKHheeSiat4lF8IGbrmyavib15KLlEq1qvLfpHOWQ/0', '1440408128000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1565', '1', 'o33lBt-zyAy1Humy_NW8lplcBH3c', ' 可 可 ', '2', '柳州', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJK0icfwytVEedvicwQ3FiaFVMC7gvSn1Oxv5ibR0nP9aHaEWsL4qtic1SvXqKRUdV0WHsHSTXV2ClNRIlz/0', '1432717169000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1566', '1', 'o33lBt_L0lpsBx9Etdh9MrlKKXd4', ' 夜 未 央 ', '1', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaELSfbvMgyDgqEB6jnFt5a29ry1TFjIKTVcs5mxMZ0deVpgWjGqoJibjficz7KYUCMufrb7vAnNNnPsA/0', '1439127019000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1567', '1', 'o33lBtyC4whTOlC_RcZJB8ci_mPI', ' 萱 萱 ', '2', '昆明', '中国', '云南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpED4laKMoWDztWzxATdC6s9lIQZRHtpQ4UzFdQM7jnuYYszgUaV3m0WIz6cW0gmzN07NXwgVTuAwANGiagKEAbz/0', '1432716862000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1568', '1', 'o33lBt3ohgQvuJjrr6MG0LCw3dA0', ' G G ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEJNuLtPiaF79IpYqMKSbktcz2TRfygu6YM2JuOFgzwDlVicLz8ickbtRFSnCN99w0G14dYW8zvW5wD4w/0', '1440585547000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1569', '1', 'o33lBt0-x92aL7YFkVMWuYtUjzE0', ' 童 话 @ @ @ ', '1', '濮阳', '中国', '河南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nYwicVOdicEmgryd6XhSgGaHFJDm4zb2icKAEb7MrUUPEElqONaia4dyrLeUmwGxYQib2y0Ue94W59CoA/0', '1432606299000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1570', '1', 'o33lBt5H3g0lOrxSbNEMjUyz5CUE', ' 领 金 财 务 ', '2', '', '中国', '重庆', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJKib8Bt1wBxUNag472pUrAkBjSwoXUqPKQvZZuWdiax95QBsrBX5ypibzOh1Nd2PFjfNEApibZjF7m0icA/0', '1440583574000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1571', '1', 'o33lBtx2Qm7V-QrugPOa4ehzy6wI', ' 花 宝 宝  ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpED4laKMoWDwY7vfPqrx7ympzbFwCBsuo877b9B1HtnGSQ8GdIHib5XicibhXLxFuKyaibTuf1AKcJqnkyA77r1bqn/0', '1440584169000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1572', '1', 'o33lBtwLArbUSMCxWf9nAZnVLK4o', ' 高 雯 ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpED4laKMoWDz9s7uTdGyvZI3U6hicPG7Zwib8ez4nibhl6x9oY32nCQAUm8bCdd7KH4wXjjSNMqNeEibPhXnGtbzDN/0', '1432286488000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1573', '1', 'o33lBtyJ6izaBZ3Qzp2Cci8h-2nI', ' 啊 磊 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaELqFicTtzP8ViaImLUsewiakFuYeDs6icric4xEbiccmhvmkhBp1tEb5iazvqnU3ia81ulUmYNNPhPUN4TppA/0', '1432286537000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1574', '1', 'o33lBty-CkPeLKzkXywj1xrRGL4E', ' 1 2 3 z ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJK3oNCBx9476ibfBgcwqdO7y0aRtIImVcJDWdKaDVy3iagUDNweMR0JUsIkgbkHB0jO9pWIaCzHDaxK/0', '1432286457000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1575', '1', 'o33lBt8HZ6gTPyk2pdrgHRPKmfaY', ' 一 切 的 一 切   � � ', '2', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJKyhvpvhWick59EJaWq86GdhTxFLW7AFczPbfDrGoKUNar8jtfYWJymUeYqlFRDC9oRNBf7xdNiaeHJ/0', '1440587002000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1576', '1', 'o33lBt8xJcPqHjluPPXFVTporE_U', ' 淘 宝 店 铺 号         1 8 7 9 9 9 9 ', '2', '金华', '中国', '浙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpED4laKMoWD1xUbbiakZeiawgjR5IPLJkbefBPicPDJhXreHnczytzVQicvY41tqicPPtFibjiaLdicjH028ywECiafIVlK/0', '1440583690000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1577', '1', 'o33lBtzwXTYvexNXc2PMAf-jkxjw', ' a r n o ', '1', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1mianubgat840YsFEnTUX0m87PFBhssmwxkzRg6aCRpdXowiaZLsJHOAtzdpnDuoCGTwsgZcmqjBhFg/0', '1432717729000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1578', '1', 'o33lBt-KbgpHJK7qGEnnh5gd4WOU', ' 旺 旺 旺 ', '1', '柳州', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEI0Nltqq9ChWXa7DEJQZygPRPbb7xTYrZUn7OxWIlqu37RF8tTFpbctqUopEknEADSqFw1x7E4Cibw/0', '1432716908000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1579', '1', 'o33lBt6iNEvu2FfWOfDeIzRt6vyA', ' � � V i c k y   � � ', '2', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuialiaBbYXI6sMkszeajO8M7V8rrAf8JhSiaOoicicEeiba6kicRaIeQOKhK1UBaTv2qicvLGmhXdrL0SmVdbwVdlIVYrB/0', '1440585071000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1580', '1', 'o33lBt_ZcVP7ifRWDKfNTdFTm9GQ', ' m i 雨 泪 ❤ ️ 碎 ', '2', '邯郸', '中国', '河北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/h5ndnicia3Rkw9R27OlfWPHoW6He1w9Oq1C8s8vUibUiawzPic1UmicIzy2atfVL3bljxAFaPPPcnJY5z4FvzKv9aGUO1hl9tWWELO/0', '1432286422000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1581', '1', 'o33lBt1wRrNLHUBVICPGjigMiaAI', ' 杨 丹 ', '1', '', '中国', '贵州', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM52vG8V5veNKjU8e5kMnGCcuESTnTILItovhHfzqrmueR7Qm3psdY9OmWvUKxEibXiaxXqvNibg0B12KnGKwicMeqWwXKU8jXfG9Us/0', '1440584791000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1582', '1', 'o33lBt4bAG5kQ7hvRSD-lgSgwrtU', ' 亚 洲 杯 ', '2', '东莞', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuialiaBbYXI6sPXlgtsXC1icib5B2FbXOlMM4r5cfeicLsOAox3DQstJRtUCKJCc7zv6Oa51As7icdHrujgAfYY97FJZ/0', '1440586427000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1583', '1', 'o33lBtwF6Jhle1tx6YjAO37vj1No', ' 龙 哥 ', '1', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPFA3ibXdOJK4b1pWicZoTX0mKIyEJpibSWkIjrdibrtps5gdQmG3icrWy3HhNicmQEiasd400tGEnXQ7UfL5IJySGwGF/0', '1440584548000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1584', '1', 'o33lBtzoWgoHZP4F1rf2qHDYTVoo', ' 一 二 三 亖 ', '1', '北帕默斯顿', '澳大利亚', '北部地区', 'zh_CN', 'http://wx.qlogo.cn/mmopen/sdXe7M2egibW5MjcC0HIUgOAzkw1tbdfZsY5oBARSpSomZnpx8jm5sZlTBWTJ5sTZWxiamJ08NBN8lfdw5L1LdtbEjjZV0ibqtP/0', '1440585672000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1585', '1', 'o33lBt90dhhy50dH2dT_niVMBRMU', ' 王 庆 阳 ', '1', '渭南', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpED4laKMoWD0G4qvyUCqPcOtpfueKXZMtGn0JkaQrxh1AwJiaA7Zm7IMbYbqBYVqjb12JlflaPEhTZGKGDpVVPw/0', '1431234155000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1586', '1', 'o33lBtwwTpfseijaBjGvr85vgzsI', ' 一 事 无 成 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/sdXe7M2egibW5MjcC0HIUgJYjMjxWv3jgJp9J84ss7VlqibUmDpicSqxNPclcGFvawpibz095X7xTV7PTpqumAQ7x6FOQdMSCLhD/0', '1432286438000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1587', '1', 'o33lBtwsgr0qUHM5sEmmzZkUwylk', ' 怪 我 过 份 美 丽 ', '2', '', '中国香港', '黄大仙区', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1lHL3ibjzPCIO23pahb7f50LibXj7XKc4tUOZWiaIecAtJw1OQB6jLT7bnaWtvFXoYfglsLmOHmxtzLl4Ro2KmleoD/0', '1440584857000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1588', '1', 'o33lBtzQPWTc9X-kPoNQpl4v2dbA', ' ☞ 你 真 逗 ☜ ', '1', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr4ftSnibBTfMibgqOR3JCbhCEMROfavmHKNTHqWmJhqJT4sffIUVg1lq9sGGicFpyXiaTEbaDRYNnxpBETH23kHpl8/0', '1440583711000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1589', '1', 'o33lBt2ylyphz9buW9ShRRwybJsQ', ' 孙 竹 伟 ', '1', '徐汇', '中国', '上海', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabWNNSj9H6v5cT6ATWw8wuFe97N307CHeELu2JnCfVhcYuYCWK8GtfJxNGUGsf7uTevoFibQU3E8EZ/0', '1432946516000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1590', '1', 'o33lBt49EqK4_J05FkzV5XwI5fzE', ' v g g j v f ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsbKtnG0ZvoaQibAUFX9dib5WMyp0mjmnFP5RSZW9BGeP9n4OQXj6iaqicyBpcFpUibO0q8Kzb8DNA5ZUSicXCHvmCS46/0', '1440583600000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1591', '1', 'o33lBt9t4iY6yhJxmisY1fZU2mdg', '   1 2 3 4 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/0vN7h0icqp66sxkGns8JKvsibiaOICsdLgK8XgGEV1tvtib5h9JPics04hmq9LzQ39D0b9dUcUIVIUlwmaia106JJoxEo6oWRa4c1o/0', '1432286453000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1592', '1', 'o33lBt8WJcBmziIcbOEc3J1Kh3qA', ' 破 哥 ', '1', '泉州', '中国', '福建', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabSqOB2CVPsvl1dWsUCibuLP5OONJ6EZtOIVPAeAg4nzahrBVqZfC80UKcrSQGFHVibwtm1wfvZw7uy/0', '1440585293000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1593', '1', 'o33lBt4VOcpqOQEUxPPUS9DLoN30', ' 女 汉 子 也 有 柔 情 时 ', '2', '大兴', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpjfyfOTa6ZNicxT6Obriatr1XRbg6JrYM5ulEibsskkTteYarlMKx0ThjIovgqdDSmkMSRwju8dmwaZO6FficlgEjib/0', '1440586073000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1594', '1', 'o33lBtwmmiPGk3GuTRfMDEuSUANk', '  ', '1', '', '安道尔', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLBgplv4qJqAs9lkZdptQEA5KFP5y4nqxRfmjUunurTOxcjXoUK1FK3XZxVeGaOSPiasGBCCHo8FZ7BstxGWry5ic9E4M46y7StRA/0', '1440583893000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1595', '1', 'o33lBtwXO3Na5dHJyg_4zoL8YkHY', ' 约 驾 客 服 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjFLYXuFSeicvibn99K31plhIxntG6c1ZISqWm0mWMExXcSX2N2vnXjtJwHYkAs4nBBG8cZIcxfeUmKZyzYmEvLfa/0', '1440586721000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1596', '1', 'o33lBtzrZUxGTahubqAzsm6SaSdg', ' 我 不 是 土 豪 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuyha6jTsbyRUOW6AgNLRv9ESEcSw97l757TUDYbpNfQGybIXuPdm8YY16eagh7aria0qFgbq6PAUefqTJgaiaKEy/0', '1440586905000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1597', '1', 'o33lBt026HsWV4hxUizc_SDlPy0c', ' 峰 ', '1', '南京', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHore5YPzUic8FJdL5o5U1gR9RmiaibJCFmFiarQdu2FL8BVxaOUouPgE831nze8ZIR4WrSTN4MXuS00P3huVwvEMVGh/0', '1432606271000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1598', '1', 'o33lBt8zL_YUkncWq4yjx__LhMio', ' 娇 香 世 家 ', '2', '', '中国', '天津', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5AGrn2EpHCLrlUHibd6t4ODxIaBGdtqHaqF0F6lpFJoPqeBTzlSA5iaDiaJM3Jaiae1AzzwZNE1EofOPialhQicucwBGLAx6BOh3nPo/0', '1440585964000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1599', '1', 'o33lBt7D08S0GXeaYOaw3sOVzJrg', ' R a i n b o w ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1E5Pq34EiaY8vcSlVDibs0sfqevTmvvvib9G05iayJB22lO0wQ3Dh6FfKh9MUOArT4VKcKIWpPhB89YL/0', '1429600474000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1600', '1', 'o33lBt1FdLB0HaaTBpBFMDgguP9k', ' d r a g o n - 惰 ', '1', '杨浦', '中国', '上海', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Nc5ibKmjHqIUy2vnibXu3EEoWdGZqASEBW7reVVcQTnrskW29KUrIpeT9XkHdHNIyXhOQUvtOcQOYyljQkO4FPQ1ngIdwvlyhM/0', '1432717000000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1601', '1', 'o33lBtxYEsMGN0YZaI2J-Jcn2gak', ' 心 阳 ', '1', '杭州', '中国', '浙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpKkgT9h4KZpoQ7y0cBkHa9ZrcvVxJ9EnJYOYwicwKE6xJ4kqMnJC2wvkebGTTT0DORsg2YMYyW584sNWyRRkJey/0', '1432716914000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1602', '1', 'o33lBt4M4yzALjWAxf0EWW3xpVzI', ' 蕾 拉 小 姐 ', '2', '望德堂区', '中国', '澳门', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaTjQQKPriaSvqcBPIr7uB72LhPmnlODoPHkbHuBnsiaMgxQaZchldt4QuzFeJWyoGDltu5NI1G2icbzzevRvlhb89/0', '1440584835000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1603', '1', 'o33lBtwQfaoz4VFrxd_drP7qrT_Y', ' 世 界 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM46ONANGNjhU0KFzJIndnmo29gvQcQ9VNBUd6U5wb3ibBY8oiaEeslKiaDpyvwArCIdWotRPT59pbSH8sLE3IgW6vt84Vc5z3C6gY/0', '1432717024000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1604', '1', 'o33lBt1bVHvfbsTEPlriNPYU4GIQ', ' 多 么 哇 塞 的 姑 娘 ', '2', '佛山', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjPlq6RAwBKKibxFSQy8clicT2AoImdFshtMEny4BUD2dNNBZZWnPiakxFqTc8wSbmW1yMn9xzAJpPTYQf6WTKgibDZ/0', '1440585328000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1605', '1', 'o33lBtx9sl2HRvd5tjxPbdtuScVw', ' 幸 福 来 敲 门 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaMIcmtJialKLeDZYNfeG3U0bG5HvYxsyf5tyu0iauGTJUNyNlOyFjOicicamWGtU0a1LAR3uFyfsroA9j1KS3e0CPq/0', '1432286526000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1606', '1', 'o33lBt2rnpEzLwCryhy0QrZb1xQk', ' 郁 . 轻 . 砂 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCtYXmrALIPwDOW4kFOTYGGSa7toY3AF4icnZqnFKAZvic4TGw6A55GrXzDteSpHtAESB9yAYkicb1zLQnRQeLU5WxU/0', '1432717179000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1607', '1', 'o33lBtyeBYwnYxNQwhLW-eZmmrQo', ' 快 乐 女 人 ', '2', '东莞', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaBSFWG6E1y9sX09vNHDibDIfzLmLzByJO7WsnBYFxRhjNxajJUanTibLUFibRW1Fjn379YpXcK40Cib2u6uObK0sGu/0', '1432286532000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1608', '1', 'o33lBtxWqkEyiT8EYyCDaVKbx--Q', ' 榆 木 。 ', '2', '', '捷克共和国', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabaSb5OX7dCa9mtoiamAAg53W7BDe1GYibicHUXBGR1S6wAJBuVhpOAsq7gR5ohnOBcKqjAENATNeDn7/0', '1432286474000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1609', '1', 'o33lBt6Zey0M52UM5EWYLZgXDE0E', ' 陈 金 龙 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2picglhRiaZcwUJLxMV5ChvxH1ntppe0LdgvTQSibRb3jvSLp6udxdqicwnkLSsp9bsicLBIWJwtEpgUyR/0', '1455930727000', null, '', '100');
+INSERT INTO `cmswing_wx_user` VALUES ('1610', '1', 'o33lBt6VlJLy9ZMRRDAP17YHMszI', ' 无 敌 大 美 兔 ', '2', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqG70am30u0xjnmRzYE4ULibxiaia76OibXRYd1rv6dcKdDF1N5rnN6tCibPxErVAqPUbCe5QRHA19pAFhupXicn6hF9Y/0', '1440585978000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1611', '1', 'o33lBt9tafiPIfOKhvQEpmOdyDlc', ' 蝴 蝶 效 应 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1kyFicdCmdln2pficG62icB6vxSlZ4hcHYiagzagU5rrLsRQXibFOIhQveLvaOen6CgPz0uQ38kNN6If74Wc3TSzYNz9/0', '1440585620000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1612', '1', 'o33lBt7QRYM5NcZ8DNgV0io9a7Fw', ' 卢 � � 静 宸 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqjK3pRW6ReF6Tapw4NLVQkMtcAEGvTNfA5xbBIHxaTjcKzxBOibDBHIEkx90PZjOtjds1Mf6auB5vDSU9LVhkMp/0', '1440585023000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1613', '1', 'o33lBt0vJC-CX0fGXzUs7ZUZDdOI', ' 阿 金 ', '2', '金华', '中国', '浙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqNcLBwyJrGnvzFyeV8ia49ZfyeJrtQmickytRgwpnrnZJkpBtqUg6sXdKibq3pkXasLsT7hzicf1Klq0YAu0KstjSD/0', '1448908622000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1614', '1', 'o33lBt0vLQF0je3NLvCP8xRSsNyc', ' 不 潮 不 酷 不 帅 气 ', '1', '石嘴山', '中国', '宁夏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tsejm1Aod3V752cn6tAApTjpsPfweG8ViasfESPbKG4eiaVocz3z4PML9YbibFJkRCicgOWnt8ULNmr2/0', '1447868819000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1615', '1', 'o33lBt5rDWwP568rq1YaOpGQph_4', ' 程 程 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHrgvYVVl35WIXiaVK23PP69g2e8NfyqJHvkQoaTIJTyoHLjR2ONUftggOc2gJ1gLKe1avYHBD61NlfXvKG5vg9HH/0', '1432717167000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1616', '1', 'o33lBt_whLcW4teLSWRLSP1PbIws', ' A 兰 敏 ', '2', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2pice0WOpLv95Rqia8Lr1DUExlI2UUiaLIMyMHEo610ibaWfOdSEuCgAtK6fDCa86U8HuTOOTnR4kLicKib/0', '1453306766000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1617', '1', 'o33lBt-RK6WVJhOMP0hL73zpf0FU', ' 1 2 3 ', '1', '', '丹麦', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsj5RVdtHJkjSt5Z3vDbbcdL3N4kD4nSKUy2gZ1qcQM7eHD7egG1BeWHpB0Yf987x6hSGsCDWzJ1xmhC3tRtOlA3/0', '1432716976000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1618', '1', 'o33lBt2nOy_Osh2NziXnzLIBQALk', ' 残 阳 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/oG5Aqnzg8ozrLfrcRvicQYcXFricOT5bStAUBOaKsIIdtEHbicK2l8Vnhr4WPE8KbMGZM0wWwIWpZLrogL4ibk9TNiaoOWxAN8SXD/0', '1440583798000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1619', '1', 'o33lBtz7dWN12qaCBGq1uDGJYBiI', ' B o n n i e ', '2', '', '博茨瓦纳', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/39vnA4SRXWj8moyMV1c4RwlOtvX9DuhV4XicBn0NPK39XibK15MiaMcpEtgbgVVedbIVnGBxahUDMbItQItVpeAcspIEHljQIOic/0', '1429564000000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1620', '1', 'o33lBtwmp2Auunk0XixOUBnTJmgs', ' 沐 汐 ', '1', '', '毛里求斯', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p2vcRPKH8177jTwUKgpaKTMjKMTM58G2DHRohAKTkiaNb5Gt810Lpox9ap3CjxTwruRzn0icVCMP4C/0', '1432717028000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1621', '1', 'o33lBt3cmgS-ngqkx4AV1_Cjzxi8', ' 臻 磊 文 化 - 国 栋 ', '1', '杭州', '中国', '浙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5YGCiaCLzcLkLpIvL8heGY9jQKgnicoquCCghOw0NZyGmHhibNLC0dZl53T8LBIgafELQcWM6c5w0j6HicndGotPSnXOsVqD4n7AE/0', '1440585165000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1622', '1', 'o33lBt9-N3N8Grp-dPxeJYY-xNPo', ' 守 望 & 人 生 ', '1', '苏州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCup6kRBBiamqp7waYovHYtNER71hA5PFxHFJFF2ibKh6AO9UiagTo2ASQYIACQp5zvxGjicuYl4OaBibibllJ6S9w7l45/0', '1427980681000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1623', '1', 'o33lBt3KPbUXnVPFRWELZUw3ZqTs', ' 桃 夭 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2pyAokfLDl4vQRbJ5SVmzqQibgibQatuFZ5picO1ISyic8dfJgRpmXI4olWe19gDhjhwyG99qjHds1BKf/0', '1442807791000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1624', '1', 'o33lBtwfcvSBrzDbRN03V0PN-duE', ' M ', '2', '衡阳', '中国', '湖南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabTg0N7oBq4E1ic0yPaunCfFQvld2yiak8JsZq9nLPxSeMibuZM4oYuf8vNSnuS814bzFiameiaSCLIX9R/0', '1440585361000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1625', '1', 'o33lBt8jQaNNxYn5mjisjvK_X5r0', ' 心 情 ', '2', '怀化', '中国', '湖南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaBSFWG6E1y9sjYazhADp0icXa6a7IR3wic8BB8VtV5icVfEL1NiaJQKEuRKg4VgrB0nw7S331pCXekkGV29Fs8ic7oz/0', '1440585825000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1626', '1', 'o33lBt6i-XfEpVN0iVrXru-ulOfA', ' 小 黑 子 ', '2', '', '爱尔兰', '奥法利', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsg5NgkIryPqOgmyKgVzf0kAz36nOuTCiby8ibIDxUAnjdtJThhxtamdFgEEqnuZCGOoulykcsiaBfN9t3DNkW6DNOic/0', '1440584249000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1627', '1', 'o33lBt0woCBjMPcQKht2Nf9yVgLA', ' 小 钱 钱 ， 好 甜 甜 ', '2', '廊坊', '中国', '河北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tuZbT0YNwLm10ktQ1Yia8h2Ooxx7gqLmLsicoCdvKR6aEviazATIvEzvlTIFhibvUFHdxz3ic382wFPIW/0', '1432179894000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1628', '1', 'o33lBt9lWZA8cW0P9HUWqsEfLnJM', ' C r a z y   Z h a n g ', '1', '淮安', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/39vnA4SRXWhNecoatPajp7LUaN7U2Cr76b2ay1uSt9FGicdCu0CJDDVGxIakaMqBUIR4A18e1tEmZdeaUexumtO01S4Mk0Kbg/0', '1431612869000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1629', '1', 'o33lBt7gpmhntNflAEWdwQUeUmz0', ' ✨ 杨 梅 果 ✨ ', '2', '长沙', '中国', '湖南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabfpG2BrZnVibcuibHqicfISz4VJBjG96jEY9Gc28JD6h6XtObEKfTjQiaiba3fPWM9wr1ZKiaNC2RKiawCR/0', '1435329112000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1630', '1', 'o33lBt2U_o4vQb_BVxvnLHaXTbSE', ' 邻 家 小 妹 ', '2', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1keV7j0646usR4Apbsbe7ElLeITjictDfk5ZHoamicJWSfFohGCVaRlz4VYx157ESvUyNgj50vtYWUBuL4icNuKZDe/0', '1432605927000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1631', '1', 'o33lBtxlRUkZlx-T-fn3xCu3s6MQ', ' ゝ β ī n ｇ   ゞ ', '1', '东莞', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/2rmYeSicd841EtN7EUyjYWFWGwadic4sic0PVv9ibkRACLQ8ll4VgRe24zyaq91GSY8BFEZWpOqRzib1UVls8uQDxlZ9rl2knxibTb/0', '1440583784000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1632', '1', 'o33lBt5hTzOja017Sy9kN_-86gNI', ' 朱 洁 ', '2', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabQZ6BAIwpXmORGRJic80KBFpkqvA3kG7YxcTJE2GDemia24WIeZmsQMOrNGBx56u8FKrK3B9Jiblgs6/0', '1435216422000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1633', '1', 'o33lBt5IixEOAXIoH34f-Q11Hsbg', ' 花 好 月 圆 ', '1', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsGOhLqIduyy7ICjfRZco8t9Xs4xaKkzqibsGroK0w8g0gjeicTlR1pFRYNj3bibHze3bdP2BzpQJ6Ry1Y9pve4bIN/0', '1429549904000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1634', '1', 'o33lBt23-TwyPdQ_U7lHgwmzxsiM', ' 陈 嘉 欣 ', '1', '徐汇', '中国', '上海', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaEIaGg41670MuDibCjZToVKdhxibhPH1PMc13uqO5xV9gY7znq0nD8kbM6C8xAB6HB00BUholWDEW72VuPnTRz7tYtCick2Tj4cLTY/0', '1432019959000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1635', '1', 'o33lBt9sPEn46zscYbzLFr5Md5QE', ' 翟 菀 通 ', '0', '清远', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgWa4kJc1piciaKVE2ktcZDHRDCV1OIR96ibXjWBASBTJzO1HF73z3MqYvmEiaB4sNUmLMvgo1d8s8FjFiaqh3FeBV2l/0', '1432606151000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1636', '1', 'o33lBt0JtRX8iJwMirUIbOBrQmN0', ' 奔 波 ', '1', '苏州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabcmhjL4zve2kmDqicDFvpFfpABicWXbU52NHcicJdPicib4PN0q7mRSFMBBQcSTzCylVYqPibNkgsIDa6x/0', '1427986478000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1637', '1', 'o33lBt7jG1MDppCf4ZEGrwYx3oaw', ' S O R B O 官 方 微 信 号 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1mxaqAknWGymsWu7HS5eDQa5T8NPedZAYwHPRqEhvRaQxnvcnaTgXogrV8xsI68UiaPtFhV5QEGfqhCRHVCrALJE/0', '1432716733000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1638', '1', 'o33lBt_RbpHyJYLr906kOZBdQ6Zk', ' 刘 钰 ', '2', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4bqRTES5uxdryA9LIgzxJazv4haYQtso8GmwxtRUSDaVCsKjH23NicVPLazQnQ2luGpibbnfQDuzpbB0BjxiaFg38Fzra1xjHOj8/0', '1440586811000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1639', '1', 'o33lBtxnF4ye6M_SBJbfmKa5Qg1o', ' 霖 ', '1', '东莞', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshuEt7PzpB8zQ4FicXrnt0FkmYhY60WFtN701pnWIlhOZFJHv6eWEuX8UnoLlcYFUxI0gyBVcGxM0S1b3tuzSyal/0', '1427971527000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1640', '1', 'o33lBtz0WMKYgrwabtz_iGlTl8tU', ' 小 嫩 肉 ', '2', '朝阳', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCulpYNsjW4Homs7pTBbGCKBrEloLBG1knRuOmy3P7hnUw3LWHrF1XJGkPYvHiceaOTp2AtKZ9CwGUkSGGdy8Xia7N/0', '1440584972000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1641', '1', 'o33lBt3IPARLo2oQfitKvm5TUAyY', ' 嫣 然 ', '2', '桂林', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/EibjpUjmSl19nwq5hDR0GaAoI66ZKqq9Uq3ncofStc770FLS534BjkEJVNTOLcUXhibP24ppIjrODpWPMZpYOc6JgEeyMcoiaLL/0', '1432716931000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1642', '1', 'o33lBt2yEAgfgc24qrfcOJZd8HDU', ' 屹 舟 音 响 — — 骆 珍 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsj9hf9dFoR3lG7gZKhZfibibLmk2VKqCv0ksmjy8GCHRS22l1ERzmuyF3FkazWW9zd7u3KNdpibpwpxOGanicFZjc39/0', '1440585547000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1643', '1', 'o33lBtxPOnHwSQoHhqo8ilwBdfBk', ' 转 身 遇 到 你 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/0X16uwiauYicArXwcUAYk6HnnsIUxMTOR9lcvzDYz9P9NnNA75QO5ojU8v6cDcspibvGeG5wWXpuj5Ixll8G0A4F6GegzEtcFMb/0', '1427684103000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1644', '1', 'o33lBt4bHJdg9tT7niCIJNwJSVRY', ' 可 可 ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsg7B7KDUDg2hLAluMicsJlbPLguoI9ic3OHLewqsqCErMOJspQPfp2Q62ooL0dxX0ePylQW1Dyibh04rCLVBP4dohF/0', '1440584376000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1645', '1', 'o33lBtwBkQbQAuGdyCzyxYwp_bvw', ' 图 图 饰 品 3 0 2 2 - 1 ', '1', '成都', '中国', '四川', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p038kVb4EuGrnrQAvC82LTqzRfMbBGEt9y2epibGLkY3MtmMBqLeK3ZkqRveHibibSLu2meWaiawlldY/0', '1453057823000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1646', '1', 'o33lBt9A91IZktr_apfh7aKB09Wk', ' 周 梦 琦    ', '2', '常州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabdGOsAZJhiaicLfCJm2nEagtVOOQ7ib7F6DeJuibbQZvOZ6Wmvv5TbVm8eialeRV2RBqicqHVDc82JjIDd/0', '1429503549000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1647', '1', 'o33lBt4dRpiREVG9SXfNlnqqWHCg', ' 小 马 哥 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabXkxk1H9cmyHhwTWIqmerb5ou2hjDOBibTrE6Olv0XtZdjHmzZqbDGw6jRON2lwGOJwfOPkHxwF8c/0', '1456127477000', null, '小马哥', '100');
+INSERT INTO `cmswing_wx_user` VALUES ('1648', '1', 'o33lBtxKhdY8CJlSspkQ1tMCs-uc', ' 南 宫 宇 轩 ', '1', '太原', '中国', '山西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p6qKlaSEkvCPWR3l9ZEsWugpTbXiaANc9swxTNlRc1QOxsic8Adf1KzRxibSZq766dBd9EuOpiaiaEX9X/0', '1440238518000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1649', '1', 'o33lBt8mLR4wJmH6nHSNAoISowCQ', ' 9 头 身 美 女 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqkYC6dPtIdEZqlhQDy34A3JnXKELmTrffQVsrT8DqSYg8SplKdmu8HVVjP9krIC4UicY9ibWQN8PcicjoD8TEtCgE/0', '1440584689000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1650', '1', 'o33lBt35oTip-vBsRgJky_kMgf54', ' 一 曲 微 茫 ', '1', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCslAz03U5t5LQNia5am3Yf9teuKp4ia605lkBExatXzkuTHKMJe0pPSgpGmawMVuIjV3pcC30G0EonFW9njuXFqN4/0', '1441939167000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1651', '1', 'o33lBt8akMgPKz9Dx-Cj2Ib8ZIZw', ' 红 发 旗 舰 店 ', '2', '苏州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/S7uPXqWxo0gjzl0hpJfMmAG3sGlCSLj6OwAzCT0HPsYKoCTD3Cx0t1XWQlEj4QwJ1YU1upD6aQuSVo1MFiaYNAIaAMpibsKDZQ/0', '1431596730000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1652', '1', 'o33lBt3jij0WS6-ra26Ve8-TIrMA', ' 静 静 ', '2', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsg0DIWMjkeoFstuVheOothG3PwjElLGR6HI3MsDDUVqCLicdDCsqBZiaLwNuaFY5h0WmAF0icFVeUYV7TNFy3wTkmk/0', '1440583638000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1653', '1', 'o33lBt4Q6gvl4HDLJp4oJUS9sThs', ' 起 风 了 ', '1', '昆明', '中国', '云南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgMegW8FF1VSBrhvEoHqsg4t0ghlX5PqZK0Bn6dQBicaLMbCoKbaFiaE67yajkulWX6ehnGZNrIjsvEAFLibLsSYnia/0', '1440583651000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1654', '1', 'o33lBt5qTBET8zJ7rjg3hVrkUkV4', ' S u n n y - s o o b ', '1', '', '法国', '阿尔勒', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjt2zMtDTibp31IWCsdwCosFwZKtor33Z9gFPaSUAtEcDdcJjicchRodRHROpSyOlkA1vqiaATNCpZmTicufbQSVicBk/0', '1432716701000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1655', '1', 'o33lBt-WjCm1PdBuugz34hq_SJpI', ' 小 翠 ', '2', '石家庄', '中国', '河北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tmCOnzQFMGISwITSSMl2dAEF2eILucwuibrjiaKBd6NPyToXeGSUAgs6icPCRkj1ImIzN0tAvQGsx8ib/0', '1452043760000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1656', '1', 'o33lBt9tBC5EPnTNyWChKvZnzYNI', ' 孤 ┏   ( ^ ω ^ ) = ☞ 娜 ', '2', '', '奥地利', '萨尔茨堡', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabXs05Qfy4DPVuOYms1mLRIGEDpxDHWhNaq4XIatIhv1mZ80fDFlm0pnaqYeEGsq2Nfib2dicm8Qgos/0', '1427684365000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1657', '1', 'o33lBtwoBTIobd1dC-ChYKg8mEAk', ' 蔡 蔡 ', '2', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Nc5ibKmjHqIUy2vnibXu3EEuagJBfR7crHxIqUt2hfO1PUvO4TFORRyHLsRYibJq8ibr5MLHTqlah2jJfqHD92XccnaxGhia9BStA/0', '1427768734000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1658', '1', 'o33lBt8wuWxJGY2-B4OPET-Ef-t0', ' t h e   s a l t w a t e r   r o o m ', '2', '', '阿尔及利亚', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpC2zFdLCQS8Ipf7e2EDQ07ZBvLpK3leTickwJicTLMvSWw2neZkA6Ro8Yiamp53AgRt52xYTQicvhOxKMe06x97icJq/0', '1432716934000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1659', '1', 'o33lBt_cM-YWAHtbUG5X7Je57brY', ' 与 我 共 梦 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1AicQEs2w0xNiaT32MIIBa7icKF7Sw2LiaTAGrBvmdzdIlhM5c8JzDicwlOhMW96QQuhTjSayX1qvBicF6/0', '1432286408000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1660', '1', 'o33lBt_VzBFHkLKCE8Xf8U_6ipnk', ' 安 远 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaeBRqhYJia1tuFjtwZmZT25ZrYXUhMgMYa8mzJfx41Z2lzjIEGXMEYzmRPaldBicmWSByafRTo2tiaiawWTVyiahia8T/0', '1432286505000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1661', '1', 'o33lBt01bvGr7NLKGMWrOGh9G25I', ' 婷 子 ', '2', '吉安', '中国', '江西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tn0jYFlcWB1RRAmx4NhkXDU7WLhXD8slBHC2Siaj6FruozloibdO3YgPhH12MSUEdCjABlLNuBrPJP/0', '1440587015000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1662', '1', 'o33lBtxTZpoexCU0JKly-J5uygKI', ' 爱 情 乞 丐 ', '1', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsj0J8wTXCrjYNMnkO8u598FIes2uW4xzehg3ZqVzsyN4K0Ucrclzpfr65zpG7EnBjV3LzR6fVgO2kpuovKLyrEl/0', '1440585076000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1663', '1', 'o33lBt0rbze-XWuDffsyFMxDlpYw', ' 结 结 ', '2', '沙坪坝', '中国', '重庆', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiatt6sicqSN1dYQcqczbeMz8uwPq5FicnMDreCvNugDf1K1sMFsCrJjFiaCgdePB2gj4tEicZ9MUPLG39W2YbvicyhIT/0', '1432019649000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1664', '1', 'o33lBt7uw3CLwEH6w9ikv91BZmFQ', ' 不 二 周 助 ', '2', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1D07RZ1sXp7SYAqmHDv0pR7AeP2brpYJjMADd9yVX43JREvkdbflBNofCrrA5nicYLgqU42YcOpB8/0', '1429611454000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1665', '1', 'o33lBt2wxk33vPtD1pMU72JRBLDU', ' N o   p r o m i s e s ', '1', '惠州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1Dl59fd2GrUicjfIRrCafl0tPqU1Gqfo4pdW3DxVXGn7qVWPAZBhmTKu6BD570rnFxBuTj8DpOL9N/0', '1440587005000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1666', '1', 'o33lBt1tB1ToiddIRckg1TVYoSv0', ' 江 南 名 媛 ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCs4fULwibACmvaK6eFkuchZKFdBGKiak8FtK8hERoJVAHnhhEN0ckZoYcHfzmOzZR0ZYicZfXHC7icKn9vTnJss2B22/0', '1432286477000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1667', '1', 'o33lBt4ovMZuUnWRXtPPaOKq7iTs', ' 薛 丽 ', '2', '', '中国', '香港', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHrPjcnMI1yytISVJvUyqrpMYg5qEicV9IcOrbsHqYWmSu70ZpfaUSe1bgSfHxfb08ldQdCNQyLqE8RicpSC3aQtgp/0', '1440586856000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1668', '1', 'o33lBt8gTtAKiciZgADWwCrtsBzA', ' A   小 龙 ', '1', '珠海', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p0ibQu3mkQtFL435UianVjicnQc6thicB3m86gUW2kyiaz37cdpb0qzwzguslicvstnnoqeSFVGUAKic6gY/0', '1440586757000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1669', '1', 'o33lBt9-6O7etK9Vj3Sj2HuGlZ3g', ' A N   楠 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabY0K3vstZPKKayAh15VosvJTZ8giaD4l6cXWibCRRibBSKjribFibkCH9sGTuQLJlIgCrSOrUuFCQ9bl2/0', '1429840314000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1670', '1', 'o33lBt8BJ_YipJc4DaYLCOPzaqSg', ' 工 作 小 号 朋 友 勿 加 ', '1', '揭阳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLCZic8lU6ppxW8WOBlrp4O8grb7wXCiaLpkmkpUn11tP1tMRP0d5xkku2dbqg9MAASz4FgOhmTpauXmRNbNIGxtdNEd6lVSytMcU/0', '1432716935000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1671', '1', 'o33lBtx1elfCUN9eUfi0xOnMRG0A', ' P r i s o n e r  ', '2', '', '中国', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaFMqibibVhDpopUbaaCaVJvYS4BrMXyPt4qt3gvL5r9BvcreFywEy3RctNicw3WabLD0kI1l8xEUhlOGleEtwaeso/0', '1440585657000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1672', '1', 'o33lBtydRZqLCjAh1qFdhdmCxEwo', ' 泓 盛 壁 纸 （ 沐 沐 ） ', '2', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpHEpnW8CE9Hwl46nFesa2UMFIY8BndLibyC3pE3XWQ2mXXZ681gQXuDTCLWBy2QVcx4Z6DDzSE2Ntg1jWmkTMibp/0', '1429331262000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1673', '1', 'o33lBt6bBvfv7VkfWFU6uKRFyR94', ' 沈 阳 田 律 师 ', '2', '沈阳', '中国', '辽宁', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabfw21uXUKsKkTF6hhJHjM89sB3vWiaibnk9WUjo5ib1SjywouyNktJhEpv5iaIdrMicfMbZdWldpUKPEe/0', '1431938987000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1674', '1', 'o33lBt1pfqCI59QrQK_YP_Mh9yjQ', ' 陌 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/MHHethDRz5JD2UicNBxCdnJyZOufetKQsfz5ibMAjooComd2q45W5VSibR0DoibVH0SqMsmBa3hDaTRaA8eWhTgn94LicXtDAQJ50/0', '1440586106000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1675', '1', 'o33lBt50KJZQfhCqjQOl69I36wf0', ' 科 学 养 猪 ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsb5ywUiaYBbnz3KvpmVm5UBkeRcRibQ1672BY8UXt2vsOwNypGffTtBfgtRPjABC8gJuQyoZOwqazA5A0H6xromN/0', '1432606264000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1676', '1', 'o33lBt2fj_qSVrAOB6An3IMg1rSY', ' 龙 城 行 者 ', '1', '湘潭', '中国', '湖南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiaEDoxH6QDXknwrpxOuDnbrGt7ZibxulC6mnkboanf1ge02EPoXORaY6ibqZXjkZt5ibcG3rdUwNibA17YxSv7osGns/0', '1432286442000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1677', '1', 'o33lBt6corOUHUwW8AggGOIaxF7M', ' 招 工 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqC42lzd0M6Y2BwjaTYqLoZq8u3dulAl9ajqWEUJZ3ia0ghfIPicqGiafLVIYJDPCzyOh5Rib2Iq76RsoE8NUx7SeVF/0', '1440584865000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1678', '1', 'o33lBt0zLwx8Qb3YJyi8LhVqdnoE', ' L J H . 贵 云 ', '1', '厦门', '中国', '福建', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2pyljXheBye7tVnPk9PyXvTsWTbLqjeK37kwk71VCnyCUPpbDIWSk6vBAlfRfLgGBicarCul53Chf0/0', '1447222768000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1679', '1', 'o33lBt1LmZUg5PQWQuN02Ww010_U', ' 阿 阿 阿 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM6iceIOlCw7oKkABQajyOwPGH5n43nkS45TibEgmSSpjRparR3EgnJEWFj0nFmetOQujibCvlsbLCRt2WVhYAOLOZnU86srdz0drQ/0', '1440583753000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1680', '1', 'o33lBt9AcrB_ayjphdo-t_cTEW1M', ' 迪 塞 尔 ● 瑟 克 赛 斯 ', '1', '檀香山', '美国', '夏威夷', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tkbHUlDmZ7vfXr9JtDJhUg2G3ofuBDtRc8cGDRN0ypkNIxxb84CCt57GGKdow31WtfWWR9K1FTtC/0', '1442912833000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1681', '1', 'o33lBtzSQcXjInF91oIfWOCf71ak', ' 周 菁 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1kGyn96Iv8CT1MqcQeupialZMPyiaI8BL4QlBKVYKOtz6XBqzgqZmGiccNRFwnfHPvnth3Gz7bzatH25s9cbTaoGicS/0', '1440586992000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1682', '1', 'o33lBtypksLinnVt1U0091SuVHo8', ' 狐 狸 未 出 嫁 ', '2', '大庆', '中国', '黑龙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsj5W8ibiangtyH1OhN9K7tpOYxicTIUjaqU32ytpa4KaibHojxkSk7qJXUpUeOE7GoNczEmjDnlVickuNmUQFxnicmwaD/0', '1432716982000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1683', '1', 'o33lBt_fXR2W1jnW9--DdHrsHkPA', ' 嘉 嘉 ', '2', '深圳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p3JiatWRiaIcFrAibMM2sUAFNvTHhSasVEP83O5QrSKHxNaHY6eluol2PgcHib23FB5qLCADLUAHr8DT/0', '1440586191000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1684', '1', 'o33lBt_NxUCwoJe2iYLbriwfa8Ss', ' b a b y ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/dTLpCOsPWicCww62P1QMclLSsxx9cacKUcIfoA9kAoE4z6dXdicc7Zy7z12vr6HZ6WCYDkar9RtFY3ZOl2yWALMnZlkQ4vt33A/0', '1432716698000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1685', '1', 'o33lBt_nyiJ-ENpDiEv2Zt3eMz00', ' 1 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Nc5ibKmjHqIUy2vnibXu3EEp5h3x40C8BibGtxkE4Cib3uYVjwRoljRk5McbZHtMQZ22lb8KWf9lpnH1fj7fqyHRWKRAp71apSOx/0', '1440586136000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1686', '1', 'o33lBt9aOjU6WxvUW5L-M2odnkPw', ' 媚 不 可 挡 ', '2', '', '智利', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCvkdnTHOxnAE9icwpEk9xxKDBRJpndvp3WM7Zwr8nWyLib45stJbrkhPZwR6ZE2ZnbicvicmINQ3BB8wZ0XnHFu3Sicq/0', '1440584627000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1687', '1', 'o33lBt3dE9ABSqO2PeWXrldccRq0', ' 达 舒 妮 ， 休 闲 鞋 著 名 品 牌 ', '2', '揭阳', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM4QeOw76sbibm2wEJkesdF4FkJfEa0MyQnFEEHSB7RJKUg6KppBpd03k9JUZfeRYaoj8RTP5DoWWf3qxRGvRaXyerrGQYlmHcGQ/0', '1444845234000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1688', '1', 'o33lBtxuADJ5vJyBsVXpnfiSk3uQ', ' 旭 ', '2', '邢台', '中国', '河北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM7lLW4aW2EREBeicScWzCCicfsNr2ZdY7RiaqDrRNYqvIAQEAriaM55EaSqEPbuyh1BNIE9eia8AvzuGhDaA1ib9wlfU3P5GaUu2qT0o/0', '1427942394000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1689', '1', 'o33lBt2HzEvcSqLPQGku3fHI2WTk', ' 广 播 站 9 号 站 � � � � ', '1', '营口', '中国', '辽宁', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabY2qGlbiaTUjYbkF1EAuicOiczr8byhZ4dck4icRTibcUkRQaek3tTuDpiawwSIOib9eGuUcGX75eG5sStR/0', '1432621343000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1690', '1', 'o33lBt1ynkXRGG3Y6aO9jd21e39s', ' 晟 鑫 发 品 全 涛 ', '1', '厦门', '中国', '福建', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabTtz4kAAd6dcnu3HDDVFv4ibc0RxbkO5t1ovjGUe74KNeCOd4zMIah8etmWcssxXFj1IK9m3Dr5tU/0', '1442504750000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1691', '1', 'o33lBtx9yuOaQXqN65LABtWNd7NE', ' 酷 海 风 波 ', '1', '株洲', '中国', '湖南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHo0DsjV0jJqt4ow0Fsaa5H5q46SeWJ2ibb377DEtaBqsnbxIRClOXxjJvuiabzWqUcEvg3iaWzfO3ibWVaycJmMHepY/0', '1432472051000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1692', '1', 'o33lBt4RlT4f6E8MdWXV3TpQ_P9Q', ' J i n i w u M i n i ', '1', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1Mw5zEiatNqRicYKDK9czItWIRdmNibzOUAicScqAe3QJozKX8vLLWYkBpiaKCZ9ic3eLpmM8rcQCmZiafv/0', '1440584086000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1693', '1', 'o33lBt7nYaSgoiqgzJ4JSD6hKTOc', ' 淘 宝 运 营 ， 李 ', '1', '合肥', '中国', '安徽', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshERPmTMe3UBeIostk24WXxqaE0DnDfI6TV1gziaLcxBCMejWyHuYtxuoJdB3TKW4ibX0Rxp2ic0DcqR9AxpqKw0FS/0', '1429235593000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1694', '1', 'o33lBt8K5_qH39OK28LBJ5LY4ccA', ' 春 暖 花 开 ', '2', '武威', '中国', '甘肃', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHrTibeDlfr8rEzwgh2icJOY5JK9WPy3L1yx2tzH8urEc0DsD79duxc3ibltKf2YrF50YO9UKUeQNW2hYTCUsRXLJUl/0', '1432717181000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1695', '1', 'o33lBt1c9t-4KaPc9l9C4gQH4Nfk', ' A l b e r t - L ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCtwAnlQsvnSody4ib1vhC4AIiaRJJFo54cztUBe8MFZ8ZlZNAWMrlGwVC8nzal7sDRII9FxczLcSf3yhtIYExJeaL/0', '1446792078000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1696', '1', 'o33lBt0CgfQ8hntVEgkp0CpXlYr0', ' C h r i s t y ', '0', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p7heBJUyyvUfUCmqvZx8Bw9150HcmCMhAcysX4ZT7iacj5V788wVQEANZGVk5eL1fF6fkuJeDuVpl/0', '1438500889000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1697', '1', 'o33lBt7zLaKwIUbCgJYV6BI5PQSo', ' 时 事 关 注 ', '1', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHrlRBWogs4vQSFiaD8CKjzEdpeJeOR76Tet63UTO33YxQpRrWXD2u9aCABR7kLto5QDQRgw0CHTssVJCicMVk934X/0', '1444787353000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1698', '1', 'o33lBt8E7Ipn34nw31LhTFQsIySw', ' P O T A T O ', '1', '营口', '中国', '辽宁', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1CI4qNtGAu8P6Dc5G8962bD4XwFVWgmVwM4T93ticicXyOR4PicbIanujT0iapwZwfQqJKqSubsS6UmX/0', '1430077802000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1699', '1', 'o33lBtwxT_yvvy4r8RzjJ5FHz_oI', ' 二 马 ', '1', '海淀', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p30EF29iboicIuichrhFESaa9HjwVMRb9Xl9QTk1jSibx4ib56jTk0WSS1uuPialLQf1EZjQPcIKcZhLoE/0', '1432544726000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1700', '1', 'o33lBt9NKq2gW0IEFUIJC2nZyJ3c', ' j h b s b b ', '1', '', '阿拉伯联合酋长国', '迪拜', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuot1V3MIOm4tTtV1bdMryJbmtolH5drMqZWlRzN9tcoQ0zR4aPgxNK0R7Ax7iauMPw0ic8HFEJOicaicxvFiclTtIKB/0', '1452509042000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1701', '1', 'o33lBt0fTj-VIqr7ObpLtO9toxrs', ' 威 尼 斯 的 湖 ', '2', '温州', '中国', '浙江', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1K0UhOYMJnbsmnz7XhT0ehNjp9IPeIczicgYaNsjfxZ6dWshOh5xyicDMl8ckwazo02YIMEGQVhQlS/0', '1432606823000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1702', '1', 'o33lBt2OTgwHcsM78Gv1Xxecq3KU', ' 简 ', '1', '沙坪坝', '中国', '重庆', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1thtZdbD9EE2KBwgVvjc0PpuNibX4qudasm1YkFoNwMnmoetmPhe3kib1T4bqLgk0oAhyxwv7nKG1t4/0', '1433220464000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1703', '1', 'o33lBt8yYLYRvfMlITL43r1DzvS4', ' A 呦 喂 � � 二 姐 来 了 ', '2', '', '阿尔巴尼亚', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1IWgkghnauEeja0uh0pAYs7rUSPamgqu9c3cCkU91xyhn1ukxdaeg2RRAVYhib7YjAJk71Wjeryuh/0', '1440586446000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1704', '1', 'o33lBt9k5lyOgDdvqXYM5qnhvMxE', ' 微 语 ', '2', '', '埃及', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCs2lZCXB5ExC0plvyZUCGtCNPLxf311lrRQNRAGXxY5ugljdovNpmNpkfyVgLq8v6xUcTgTvJTficRiacDY6Tdz5y/0', '1440584658000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1705', '1', 'o33lBt86GvmIS0dhDt4sat-1gboc', ' 胡 y i _ m i k o ', '2', '', '阿尔巴尼亚', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjHvT8CgDlk2TJDfrd4KaHgIj5K6AN6RpzZdFk76sOA3GNtGKEa1qzqj26ScnVEVN119QgTlB5hYT24nmnRC9jD/0', '1432717036000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1706', '1', 'o33lBt_OHIJcBsvksQcpQeXxY4Zk', '   丁 颜 男 ', '0', '清远', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHrLc0aJCqatLXzyZDo5OBOrJ0oVPqicETn3ks3YzsicAC6iamRpXfV9dmfweENicsEaibfMp1SD4pMVAq5I5BDmOmfAp/0', '1432544671000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1707', '1', 'o33lBt1lTSYG75inEZDMny_FQPOY', ' 陈 唯 忆 ', '2', '安庆', '中国', '安徽', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p0TsWnVK5C4HhWBBHHWgDgYNQ1oY2oh8TcQ9rELdNCWcek4RLvr4RxCpibroXWe5bEXZlDkTm4MaE/0', '1432716929000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1708', '1', 'o33lBt63KCrD2nXpVQhRBXnrOEZ4', ' 阿 让 ', '2', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nMMlcFv9o1tod6h2crozw3BvckQml8JODg5XKxRibvNbtwnoqszdkYH5WXd9R7tUiaEatp2Zuur42r2vZqrdNDSy/0', '1429611498000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1709', '1', 'o33lBt6ihAItTWZecr5S1OZhKbxs', ' 居 然 ', '1', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHpqSicffsc1Ix3t8RzzTSllO41alialw2r9jrF3leyoQygI4HRZMUtiaGTt0nfRdHptNSMISGBWCiaCq9xAmxicymz68/0', '1440583621000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1710', '1', 'o33lBt5xtfvdEZ3xC9XZwJhpezfc', ' 小 雅 ', '2', '盐城', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1mC9gASz98WEluICu5YiavsB0eJdReiazV2plGbaNlImOJKBfohQssvmVBQDH1xqwoLUrzn1Yq4AtcLUGxkVKg46R/0', '1440583792000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1711', '1', 'o33lBt5MfbEQqKie90E4AR1Gl3aQ', ' 小 白 兔 ', '2', '巴南', '中国', '重庆', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr8iaXsf8YlB1Nibvt3dhMepKLhSCaQva6Z8fibgb8WuJVib0Qxic73NNcRWwfljQYXmwy18ergbricybHYGiatJEWxG6x/0', '1432621259000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1712', '1', 'o33lBtz2GmUyFnrbClDOvxSSFWSM', ' 两 碗 正 能 量 • H e n r y ', '1', '', '新西兰', '北岸', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p9B7NBib9fsS8YWr4XwPIsbnbvicjhJ13zDLqPSz7Hhq8iczBL5Fd26THuS12SzMuCTcVZIEyDyZLt8/0', '1444832579000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1713', '1', 'o33lBt4WmmoFUUWbViOIUA0PEy4A', ' 子 雲 ', '1', '九江', '中国', '江西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiaba0tewhlmZpyftApbY15M42iba69w9IAyZ3FoicOLmI3pypBiaMtXhNMfy9uZQOw8JWbL5Ib2bffMJT/0', '1441337603000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1714', '1', 'o33lBt5UXyTihSDnT1aCoEgATwVs', ' 阿 丁 ', '1', '柳州', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2pzHJMqxVsCeKEUyZ1WbdFfibuqjKic2hiczr5FuCMvr3nSgwOAYkJskg1PeDy6A9GoKE7VbfviaNhhpx/0', '1440585422000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1715', '1', 'o33lBt1KbBtCnh_wUN90Rig_WQKE', ' 灵 ', '2', '', '中国香港', '南区', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsiasOd4TXj1HWzYpxhsiarvWx6N6KpTdsHQYC0T7ZCnxDlD76kr9eUcACiawIehWibJGxr7Q4XyrI2EUpGkuoy1iaZeV/0', '1432716779000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1716', '1', 'o33lBt9hLXTDMG_PRxqO6fWJlmcA', ' 六 月 。 ', '2', '广州', '中国', '广东', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCvOzrV4IxKmpQfeb1BPE32PWJQQ36uRg0k8jARXmbrDxr93iaialRW8u4pWvMvlTGcoSpRic7IL5gv1moj9IMD7BYr/0', '1432716940000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1717', '1', 'o33lBt-Z0ym6qbTQWDN7eUPecoJo', '       海 阔 天 空 ', '1', '亳州', '中国', '安徽', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsgrIx3NJyK2p1V48Zgicky9qooYqDMmypHKcJdqmSCQaLgf5L0unibmaoDHF6pVbzmjV8TgUhcHsBxkqDqdwQmFQ2/0', '1432742439000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1718', '1', 'o33lBtzEolPxQ8IWTntzFytvkNBI', ' S h i n i n g  财 务 ', '2', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Nc5ibKmjHqIUy2vnibXu3EEsLeveguOVibCia5ETTgGpMBcAutrHBK3arsrAXiaraupYyL7LxhiboG4SGp7XkhCTQBTj6tzDIBwc8m/0', '1440585081000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1719', '1', 'o33lBt7hiJzJmoJliHWeUrWbLTqs', ' 大 加 一 起 玩 ', '1', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/sEAesBFgsjSwPDKTRTzn7DJsVMCjl0r0KY1MqRDMzmzFDHJInY74jiaf2icfUoLITJ2atAhic09v04IFVJflCjSF7c5HyFKiajJQ/0', '1440585424000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1720', '1', 'o33lBt9ebdo7uQj-PeMdJDI9Q360', ' 木 茜 ', '2', '', '法国', '巴黎', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5AGrn2EpHCLrlUHibd6t4OD5WTF9p2Yj02RfY9Q81f2yicnlX81vjLW7WDswoOHia6nNMhSwe2es4tW0U19iaXwIrMu1gGKKeiaLUI/0', '1432716856000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1721', '1', 'o33lBt7HasIvzYZ8mivYX7bDbDyk', ' 么 么  ε  � � ', '1', '柳州', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHqDX3tqAc1Stia3ECdNPz9XNu2UTETSBqNvVoJE14n5BuY9jcJen0XVNXgibMUtPhZ3n3Rkg7T3UM4klvyk73iatox/0', '1432606139000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1722', '1', 'o33lBtyMt3rVgh4cP6J9Y1cluxNc', ' 小 明 ', '2', '', '挪威', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshDlQQBOoibUYNbn9mtC24eDj3oAOoN6J5R7juX1dw8YRdib4uMDOxpvwBb31sfhR7zPxFMKglCK6lsOA6O8OXNdz/0', '1446041966000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1723', '1', 'o33lBt_-eaTAuJ6JtYamefa8db-8', ' ︶    子 明 ℡ ', '1', '', '泰国', '普吉', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHp5QfMp08hbywWGrz6VdGnuVHD1csGZmTVlNMwrzcMhVtpic9xrHia59cxand41ypictfUxYN9sGUZ8IxdV3TOOU61/0', '1445887298000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1724', '1', 'o33lBt_8y8Xlm-RT8mXm8c90IJos', ' 静 夜 无 痕 ', '2', '漯河', '中国', '河南', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuc26zx2tSiabd3xU3Om9ueoTBXpaR7vP2KRwKJjknF01qGGAKTiaibwT7WtIBoN9Y7t3GSnNUVaiaMiax2c43WstSka/0', '1440584300000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1725', '1', 'o33lBt6mpbSHX8LFPAxxD8az2rvM', ' 明 洞 优 汇 红 包 跨 年 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshtsflBCld4yiaClnXlK5tXdYuFybO4wwObMnhtYZZsTIRPev82QrewGdFcEVwGsr8Yw2ic84ZIeic6mgTvicOEjn8G/0', '1440584720000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1726', '1', 'o33lBt947S1ZPKpYQ_Out3qYNWhg', ' 彬 彬 ', '2', '贺州', '中国', '广西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjt2zMtDTibp36X91NEeibibicGeXFPe6DEwReEK5UZSIXbmQDPjZcexfcs9KgicPGQsPm2U6TLibDiccc7kOqQz2dWWFF/0', '1432716880000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1727', '1', 'o33lBt1m3pt3cHoOHmb0JmiG882Y', ' 咀 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCts4CyVxDVQku7SKVTiafhLuQYOjxtGbKcs1WnjFB5u5hciaer1tvOiaia26FW1plQOjcLUwJeXiaCepoaMGUIib0Eodib/0', '1440586240000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1728', '1', 'o33lBt7KIYTGlzPrRLxOZ8LT9s-Q', ' 一 个 人 的 寂 寞 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/GAu2xIQCMOYSWdkBFaY778Vdua5SJzaHmHlJ6dA6dgV4YiapPibvlB0ick1bwPcrKp2tXYE3Pug8BqgNe40pdqrRHkPlibEXFXSic/0', '1440583914000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1729', '1', 'o33lBtwyVlFfP4iDgz-z9MZbIJrg', ' 我 就 擦 了 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsAro2KFW8uickAw8Kqtb99TUQh0SfibicfM8m2a52vx5bC6ZUchyOwqx7PI5T6mpkRoDoTTtyqdSjabNB6vNWFvf1/0', '1432621326000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1730', '1', 'o33lBt-gX0ErKUwko80UWzuWgA5g', ' 静 静 ', '2', '', '阿尔巴尼亚', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/ajNVdqHZLLAKpRWicMbNbaUYB5xvGJpKaz1Bosiak2eQEBmTn2s9EppwsB5uhWxgY2pz8HKaDqgmeG9sZC8RU5DbDYp9Eib4ZZP36jYHMhqibaI/0', '1440585498000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1731', '1', 'o33lBt9N3tLOiH73HzZZoX1keC2g', ' 阿 丹 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshPskMg7bGfuJiaz88ZOX7W6nIgwJfpc4otPctO0IMbkbgngsWicu0ibicEUfq2YrX533zrZsluNNdpKVlSbM5KQf0ia/0', '1432606154000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1732', '1', 'o33lBtzkqddJwvFCc5xGXmwU3mUk', ' 李 艳 ', '2', '东城', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1kF6btvbzpCAxQvGWbEfXERLibe9FGaSk5dZxBbnVPhnHhKhzSW1KkJ0roQJuBJcLK4vpxxW6nzRzjWHE8tr7DuX/0', '1440584614000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1733', '1', 'o33lBtxKFRzcN9qCqxOpD23BHs38', ' 傻 瓜 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCvEGbJY7ImPmgnRbOGmFm7fiacjE2e6iakephDrCfxQH1rpbnxg1gUa7QVKBicZLEcic9rHV9434Q3kEcIIbUaeeh8E/0', '1432716680000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1734', '1', 'o33lBt9P9hbpWhqURZn83tP5Yr0s', ' 百 花 谷 ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsueSwMh3oyZFFic8WOfib6y5wohuBk6giaI9CY599XUYokVILGvEppFWmPicgMTylZZ3uCMJpVAib9uFOMIxruTC6jic/0', '1440585575000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1735', '1', 'o33lBt1MBH34FJ8VA5YVUWzo-5Ak', ' l o l i ', '0', '', '', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/3icaBo1PsEFWzdDH1vshS8tVVS8Ly4gCsiaxvq4DcuenvawGDZJITJx6E16MmBjWyG7P0BYNT9ppkiajSibFz7o8LDNZqog2lHwj/0', '1440586934000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1736', '1', 'o33lBt5KkyElTwiwga46DXePvcrQ', ' V C 速 度 ', '1', '', '中国', '', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMsjW1L26LW0Xjeb8CGOVC06ftSsr2T69ARUBloWXMVbDhicVepa6SFOPZEibVWNmPtloNv5R0SxNuqNENh5OCXwSdb/0', '1440585768000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1737', '1', 'o33lBt2z3ViC_GrF3TgPN_C9Y7hE', ' 红 发 旗 舰 店 ', '1', '苏州', '中国', '江苏', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCuXcvStwc05Pls9IJRibSxuDSjxW761IAbx1zLl4BmUzDO2N0kgDibbq1eXASS12fb8x9tJ5HrqRiblAruXO8hYxUI/0', '1431647212000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1738', '1', 'o33lBt9UMDQADei_UTi0WbBov9cg', ' 易 方 达 ', '2', '', '爱尔兰', '都柏林', 'zh_CN', 'http://wx.qlogo.cn/mmopen/RonyQJdLyCsE3e6x8MDGkGc8HvkgnYeXg5epXW1Z2jrwHib4M7gWq6MejyicMnicXibsTyNmwSQAdgehPhkYK7MI8RwXWORJnc0a/0', '1440585266000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1739', '1', 'o33lBt44AAJXHkxTbVcfIUGiZ76g', ' 九 久 竹 心 ', '1', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5ZOJc7aSAUC8PJQL6tf8icZL0G9roCKgVshQcyf545JLia7DTjlGibEdZnezwmuMay5XibtEoaJaNbuRLRbibQCmahDSe0q70tLv3w/0', '1440583644000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1740', '1', 'o33lBt9engNFDVfzKn_CpSH-oQwo', ' 每 天 能 有 您 而 H A P P Y ', '1', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/fW7UrE4OMshaS9mcGS7BXProCRVmaa6LZuRicuB0VNUdekMGasIWODYwBjueToO8yyUad8AYNia60MAmh9X7ZGthiaSba2ZVOAt/0', '1440584191000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1741', '1', 'o33lBtwG7y_dhqdfNdl2ThG55njs', ' 筱 幽 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nZWqUlDfkfGu8D8qVQ1oCOLY83lz6s9cF3Wia0FmR7fJ3A4ssaLVWmfh16ico7f4CeSkNwTy9axTkicEcoyUPlnnC/0', '1440584323000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1742', '1', 'o33lBt2sWA229EzwT-ZAysCEmTlI', ' 陈 晨 ', '2', '', '中国', '北京', 'zh_CN', 'http://wx.qlogo.cn/mmopen/z1rcoMwS0kYFia88Q4ZZ4iathXgFb1iaGFDu1upUwj64AgGBzicBibGC4EzTgzR84nao9UBYR4LbsQmMeBPricEDE6n3LJd75kpIps/0', '1440586950000', null, '', '0');
+INSERT INTO `cmswing_wx_user` VALUES ('1743', '1', 'o33lBt9Y9Dx2FZcKU3o_o8xDDbFw', ' M o o n c h e r r y ', '1', '武汉', '中国', '湖北', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM6cYDypRBYFtic0VaDVu8DqlX1N5iaribVenAqdUn4zajVpseqfAaTTmS0xRndxC8eUnO0M1ZgCoPnVibcicgAq5jfGxIAtn6aN5Uyk/0', '1440583567000', null, '', '0');
+
+-- ----------------------------
+-- Table structure for cmswing_zoning
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_zoning`;
+CREATE TABLE `cmswing_zoning` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `provinces` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_zoning
+-- ----------------------------
+INSERT INTO `cmswing_zoning` VALUES ('12', '华东', '310000,320000,330000,340000,360000');
+INSERT INTO `cmswing_zoning` VALUES ('13', '华北', '110000,120000,130000,140000,150000,370000');
+INSERT INTO `cmswing_zoning` VALUES ('14', '华中', '410000,420000,430000');
+INSERT INTO `cmswing_zoning` VALUES ('15', '华南', '350000,440000,450000,460000');
+INSERT INTO `cmswing_zoning` VALUES ('16', '东北', '210000,220000,230000');
+INSERT INTO `cmswing_zoning` VALUES ('17', '西北', '610000,620000,630000,640000,650000');
+INSERT INTO `cmswing_zoning` VALUES ('18', '西南', '500000,510000,520000,530000,540000');
+INSERT INTO `cmswing_zoning` VALUES ('20', '港澳台', '710000,810000,820000');
 
 -- ----------------------------
 -- View structure for 11
