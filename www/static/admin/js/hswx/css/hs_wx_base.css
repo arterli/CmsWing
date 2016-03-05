@@ -319,6 +319,10 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 .hs-remove-kvs{ position: absolute; right: -6px; margin-top: -6px; display: none; }
 .keywords_item:hover .hs-remove-kvs{ display: block; }
 .keywords_rule_name{ font-weight: 400; }
+.keywords_add_btn, .keywords_addrec_btn{ color: #07d }
+.keywords_rule_hd .info{ position: relative }
+.keywords_rule_hd .info .hs-reply-opts{ top: 0}
+.keywords_rule_hd .info .hs-reply-opts a:hover{ color: #07d; }
 
 /*form*/
 .hs-form-row{ margin-bottom: 10px; overflow: auto;}

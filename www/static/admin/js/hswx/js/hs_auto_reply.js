@@ -55,6 +55,9 @@ $(function(){
 				'            <div class="info">',
 				'                <em class="keywords_rule_num">规则'+rule_n+':</em>',
 				'                <strong class="keywords_rule_name">'+rule_name+'</strong>',
+                '                <div class="hs-reply-opts">',
+                '                    <a class="js-edit-rule" data-id="'+rid+'" href="javascript:;">编辑</a> - <a class="js-delete-rule" data-id="'+rid+'" href="javascript:;">删除</a>',
+                '                </div>',
 				'            </div>',
 				'        </div>',
 				'        <div class="keywords_rule_bd keywords_rule_overview">',
@@ -196,7 +199,28 @@ $(function(){
             }
         });
 	});
-	
+    
+    /**
+     * 删除关键字规则
+     */  
+	$(document).on('click', '.js-delete-rule', function () {
+        if(confirm('确定要删除该规则?')){
+            var self = this;
+            var ruleid = self.getAttribute('data-id');
+            if(ruleid){
+                $.post('/admin/mpbase2/ruledelete',{ruleid:ruleid},
+                    function(data) {
+                        if(data.errno == 0){
+                            toastr.success(data.data.name);
+                            window.location.reload();
+                        }else{
+                            toastr.error(data.errmsg);
+                        }    
+                    }
+                );
+            }
+        }
+    });
 	/**
 	 * 删除关键字
 	 * */
@@ -362,6 +386,10 @@ $(function(){
             function (data) {
                 if(data.errno == 0){
                     toastr.success(data.data.name);
+                    if($(self).closest('li').siblings().length == 0){
+                        var reply_panel = $(self).closest('.reply');
+                        reply_panel.find('.hs-keyword-none-tip').show();
+                    }
                     $(self).closest('li').remove();
                 }else{
                     toastr.fail(data.errmsg);
