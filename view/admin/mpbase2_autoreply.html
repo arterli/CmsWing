@@ -6,6 +6,8 @@
     .dialog_bd .emotion_editor{ margin: 20px 0; }
     .dialog_bd .hs-ui-beditor{ margin: 20px 0; }
     .dialog_bd .hs-ui-beditor .emotion_editor{ margin: 0 }
+    .hs-kv-recol .hs-reply-opts a{ color: #ddd }
+    .dialog_bd .hs-etap-nav ul{padding-left: 20px}
 </style>
 {% endblock %}
 {% block content %}
@@ -26,8 +28,8 @@
                             <header class="panel-heading">
                                 <ul class="nav nav-tabs ">
                                     <li class="active"><a href="#">关键词回复</a></li>
-                                    <li class=""><a href="">消息自动回复</a></li>
-                                    <li class=""><a href="">关注自动回复</a></li>
+                                    <li class=""><a href="/admin/mpbase2/message">消息自动回复</a></li>
+                                    <li class=""><a href="/admin/mpbase2/follow">关注自动回复</a></li>
                                 </ul>
                             </header>
                             <div class="row wrapper">
@@ -53,6 +55,9 @@
                                             <div class="info">
                                                 <em class="keywords_rule_num">规则{{loop.index}}:</em>
                                                 <strong class="keywords_rule_name">{{rule.rule_name}}</strong>
+                                                <div class="hs-reply-opts">
+                                                    <a class="js-edit-rule" data-id="{{rule.id}}" href="javascript:;">编辑</a> - <a class="js-delete-rule" data-id="{{rule.id}}" href="javascript:;">删除</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="keywords_rule_bd keywords_rule_overview">
@@ -63,7 +68,7 @@
                                                     <div class="hs-keyword-none-tip" {% if rule.ks.length %} style="display:none" {% endif %} >没有关键词！</div>
                                                     <div class="keywords_item_list">
                                                         {% for ks in rule.ks %}
-                                                        <div class="keywords_item">
+                                                        <div class="keywords_item" data-kid="{{ks.id}}">
                                                             <a href="javascript:;" class="hs-remove-kvs hs-closed"></a>
                                                             <span class="hs-ik">{{ks.keyword_name}}</span><span class="hs-iv">全匹配</span>
                                                         </div>
@@ -83,7 +88,7 @@
                                                         <li>
                                                             <div class="hs-reply-content"><span class="hs-kv-rectype">{{typeobj[rs.type]}}</span>{{rs.content}}</div>
                                                             <div class="hs-reply-opts">
-                                                                <a class="js-edit-it" href="javascript:;">编辑</a> - <a class="js-delete-it" href="javascript:;">删除</a>
+                                                                <a class="js-edit-it" data-rid="{{rs.id}}" href="javascript:;">编辑</a> - <a class="js-delete-it" data-rid="{{rs.id}}" href="javascript:;">删除</a>
                                                             </div>
                                                         </li>
                                                         {% endfor %}
