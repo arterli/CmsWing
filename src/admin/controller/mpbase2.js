@@ -166,11 +166,10 @@ export default class extends Base{
      * 新建规则
      */
     async createkruleAction(){
-        let id = 1;
-        /*let rule_name = this.get('rule_name');
+        //let id = 1;
+        let rule_name = this.get('rule_name');
         let model = this.model('wx_keywords_rule');
         let id = await model.add({'rule_name': rule_name, 'create_time': new Date().getTime()});
-        */
         if(id){
             return this.success({name:"规则添加成功", ruleid: id});
         }else{
@@ -184,14 +183,20 @@ export default class extends Base{
      * 新建回复
      */  
     async createrAction(){
-        let type = this.post('type');
-        let model = this.model('wx_replylist');
+        let self = this;
+        let type = self.post('type');
+        let ruleid = self.post('ruleid');
+        if(!ruleid){
+            return self.fail('规则不存在');
+        }
+        let model = self.model('wx_replylist');
         let currtime = new Date().getTime();
         let currwebtoken = 0;
         let result = 0;
+        await model.startTrans();
         switch (type) {
             case 'text':
-                let content = this.post('content')
+                let content = self.post('content')
                 result = await model.add({
                     'type': 'text',
                     'content': content,
@@ -208,12 +213,65 @@ export default class extends Base{
             case 'news':
             break;
         }
+        
         if(result){
-            return this.success({name:'添加回复成功', rid:result });
+            let rulemodel = self.model('wx_keywords_rule');
+            let ruledata = await rulemodel.where({id: ruleid}).find();
+            console.log(ruledata);
+            let rs = ruledata.reply_id.split(',');
+            rs.push(result);
+            let r = await rulemodel.where({id:ruleid}).update({'reply_id': rs.join(','), 'create_time': currtime });
+            if(r){
+                await model.commit();
+                return self.success({name:'添加回复成功', rid:result });
+            }else{
+                await model.rollback();
+                return self.fail('回复添加失败');
+            }
         }else{
-            return this.fail('回复添加失败');
+            await model.rollback();
+            return self.fail('回复添加失败');
         }
     }
+    /**
+     * 删除回复
+     */
+    async deleterAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let rid = self.post('rid');
+        let currtime = new Date().getTime();
+        if(ruleid && rid){
+            let model = self.model('wx_replylist');
+            await model.startTrans();
+            let rr = await model.where({id:rid}).delete();
+            if(rr){
+                let rulemodel = self.model('wx_keywords_rule');
+                let ruledata = await rulemodel.where({id: ruleid}).find();
+                let tmp = [];
+                let rs = ruledata.reply_id.split(',');
+                for(let i in rs){
+                    if(rs[i] != rid){
+                        tmp.push(rs[i]);
+                    }
+                }
+                let r = await rulemodel.where({id: ruleid}).update({'reply_id': tmp.join(','), 'create_time': currtime });
+                if(r){
+                    await model.commit();
+                    return self.success({name:'回复删除成功'});
+                }else{
+                    await model.rollback();
+                    return self.fail('回复删除失败');
+                }
+            }else{
+                await model.rollback();
+                return self.fail('删除失败');
+            }
+        }else{
+            return self.fail('提交参数错误');
+        }
+    }
+    
     /**
      * 规则编辑 
      */
@@ -221,34 +279,50 @@ export default class extends Base{
         let self = this;
         let ruleid = self.post('ruleid');
         let rulemodel = self.model('wx_keywords_rule');
-        let ruledata = await rulemodel.find({id:ruleid});
+        let ruledata = await rulemodel.where({id:ruleid}).find();
         let currtime = new Date().getTime();
         let currwebtoken = 0;
         let edittype = self.post('edittype'); //判断是编辑关键字 1，还是回复内容 2
-        if(edittype == 1){
+        if(edittype == 1 && ruleid){
             //关键字操作
             let kmodel = self.model('wx_keywords');
-            let kid = self.post('kid'); //如果带有kid表示该操作为编辑，否则为添加
+            let kid = self.post('kid'); //如果带有kid表示该操作为删除，否则为添加
             if(kid){
-                
+                let r = await kmodel.where({id:kid}).delete();
+                if(r){
+                    let tmp = [];
+                    let ks = ruledata.keywords_id.split(',');
+                    for(let v in ks){
+                        if(ks[v] != kid){
+                            tmp.push(ks[v]);
+                        }
+                    }
+                    await rulemodel.where({id:ruleid}).update({'keywords_id': tmp.join(','), 'create_time': currtime });
+                }
+                return self.json(r);
             }else{ 
                 //新建关键字
                 let kname = self.post('name');
                 let ktype = self.post('type');
-                let kid = await kmodel.add({
-                    'keyword_name': kname,
-                    'match_type': ktype,
-                    'create_time': currtime,
-                    'web_token': currwebtoken
-                });
-                if(kid){
+                let r = 0;
+                try{
+                    r = await kmodel.add({
+                        'keyword_name': kname,
+                        'match_type': ktype,
+                        'create_time': currtime,
+                        'web_token': currwebtoken
+                    });
+                }catch(e){
+                    return self.json(-1);
+                }
+                if(r){
                     let ks = ruledata.keywords_id.split(',');
-                    ks.push(kid);
+                    ks.push(r);
                     await rulemodel.where({id:ruleid}).update({'keywords_id': ks.join(','), 'create_time': currtime });
                 }
-                return self.json(kid);
+                return self.json(r);
             }
-        }else if(edittype == 2){
+        }else if(edittype == 2 && ruleid){
             //回复操作
         }else{}
     }

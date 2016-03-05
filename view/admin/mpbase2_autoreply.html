@@ -63,7 +63,7 @@
                                                     <div class="hs-keyword-none-tip" {% if rule.ks.length %} style="display:none" {% endif %} >没有关键词！</div>
                                                     <div class="keywords_item_list">
                                                         {% for ks in rule.ks %}
-                                                        <div class="keywords_item">
+                                                        <div class="keywords_item" data-kid="{{ks.id}}">
                                                             <a href="javascript:;" class="hs-remove-kvs hs-closed"></a>
                                                             <span class="hs-ik">{{ks.keyword_name}}</span><span class="hs-iv">全匹配</span>
                                                         </div>
@@ -83,7 +83,7 @@
                                                         <li>
                                                             <div class="hs-reply-content"><span class="hs-kv-rectype">{{typeobj[rs.type]}}</span>{{rs.content}}</div>
                                                             <div class="hs-reply-opts">
-                                                                <a class="js-edit-it" href="javascript:;">编辑</a> - <a class="js-delete-it" href="javascript:;">删除</a>
+                                                                <a class="js-edit-it" data-rid="{{rs.id}}" href="javascript:;">编辑</a> - <a class="js-delete-it" data-rid="{{rs.id}}" href="javascript:;">删除</a>
                                                             </div>
                                                         </li>
                                                         {% endfor %}
