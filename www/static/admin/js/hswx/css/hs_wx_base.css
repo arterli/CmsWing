@@ -610,3 +610,10 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 }
 .hs-fodder-bigcol{ width: 50%; float: left; height: auto;}
 /* fodder page 素材页面 end */
+
+
+/*素材选中状态*/
+#newssed .hs-fodder-list-col.active:before,
+#newssed .hs-fodder-list-col.active:after{ display: none }
+#newssed .hs-fodder-list-col{ width: 305px; margin-right: 10px; float: none; display: inline-block }
+#newsdel {color:#459ae9; display: inline-block;position:relative;top: 10px; }
