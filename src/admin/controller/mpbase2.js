@@ -309,6 +309,7 @@ export default class extends Base{
                     r = await kmodel.add({
                         'keyword_name': kname,
                         'match_type': ktype,
+                        'rule_id': ruleid,
                         'create_time': currtime,
                         'web_token': currwebtoken
                     });
