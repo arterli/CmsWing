@@ -5462,17 +5462,3 @@ INSERT INTO `cmswing_zoning` VALUES ('17', '西北', '610000,620000,630000,64000
 INSERT INTO `cmswing_zoning` VALUES ('18', '西南', '500000,510000,520000,530000,540000');
 INSERT INTO `cmswing_zoning` VALUES ('20', '港澳台', '710000,810000,820000');
 
--- ----------------------------
--- View structure for 11
--- ----------------------------
-DROP VIEW IF EXISTS `11`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `11` AS SELECT
-cw_article.gid,
-cw_article.title,
-cw_article.date,
-cw_user.username,
-cw_category.catename
-FROM
-cw_article
-LEFT JOIN cw_category ON cw_article.cateid = cw_category.cid
-LEFT JOIN cw_user ON cw_article.author = cw_user.uid ;

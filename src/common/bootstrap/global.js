@@ -1,5 +1,3 @@
-
-
 /**
  * this file will be loaded before server started
  * you can define global functions used in controllers, models, templates
@@ -11,7 +9,7 @@
  * global.fn1 = function(){
  *
  * }
- * 
+ *
  *global.xxx = async () => {
  *   let data = await Promise.resolve(111)
  *}
@@ -57,7 +55,7 @@ global._int2iP = function (num) {
  */
 /*global encryptPassword */
 global.encryptPassword = function (password, md5encoded) {
-    md5encoded = md5encoded||false;
+    md5encoded = md5encoded || false;
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
 }
@@ -326,7 +324,7 @@ global.ltrim = function (str) {
     return str.replace(/(^\s*)/g, "");
 }
 /**
- * 
+ *
  * rtrim()
  * @param str [删除右边的空格]
  * @returns {*|void|string|XML}
@@ -364,7 +362,7 @@ global.sub_cate = function (data, pid) {
             result.push(data[i].id);
             temp = sub_cate(data, data[i].id);
             if (temp.length > 0) {
-                result.push(temp.join(',')) ;
+                result.push(temp.join(','));
             }
         }
     }
@@ -372,27 +370,27 @@ global.sub_cate = function (data, pid) {
 }
 // 获取属性类型信息
 /* global get_attribute_type */
-global.get_attribute_type = function (type){
+global.get_attribute_type = function (type) {
     // TODO 可以加入系统配置
     let _type = {
-        'num'       :  ['数字','int(10) unsigned NOT NULL'],
-        'string'    :  ['字符串','varchar(255) NOT NULL'],
-        'textarea'  :  ['文本框','text NOT NULL'],
-        'date'      :  ['日期','bigint(13) NOT NULL'],
-        'datetime'  :  ['时间','bigint(13) NOT NULL'],
-        'bool'      :  ['布尔','tinyint(2) NOT NULL'],
-        'select'    :  ['枚举','char(50) NOT NULL'],
-        'radio'     :  ['单选','char(10) NOT NULL'],
-        'checkbox'  :  ['多选','varchar(100) NOT NULL'],
-        'editor'    :  ['编辑器','text NOT NULL'],
-        'picture'   :  ['上传图片','int(10) unsigned NOT NULL'],
-        'file'      :  ['上传附件','int(10) unsigned NOT NULL'],
-        'suk'       :  ['商品规格','text NOT NULL'],
-        'pics'      :  ['多图上传','varchar(255) NOT NULL'],
-        'price'     :  ['价格','varchar(255) NOT NULL'],
-        'freight'   :  ['运费','varchar(255) NOT NULL']
-}
-    return type?_type[type][0]:_type;
+        'num': ['数字', 'int(10) unsigned NOT NULL'],
+        'string': ['字符串', 'varchar(255) NOT NULL'],
+        'textarea': ['文本框', 'text NOT NULL'],
+        'date': ['日期', 'bigint(13) NOT NULL'],
+        'datetime': ['时间', 'bigint(13) NOT NULL'],
+        'bool': ['布尔', 'tinyint(2) NOT NULL'],
+        'select': ['枚举', 'char(50) NOT NULL'],
+        'radio': ['单选', 'char(10) NOT NULL'],
+        'checkbox': ['多选', 'varchar(100) NOT NULL'],
+        'editor': ['编辑器', 'text NOT NULL'],
+        'picture': ['上传图片', 'int(10) unsigned NOT NULL'],
+        'file': ['上传附件', 'int(10) unsigned NOT NULL'],
+        'suk': ['商品规格', 'text NOT NULL'],
+        'pics': ['多图上传', 'varchar(255) NOT NULL'],
+        'price': ['价格', 'varchar(255) NOT NULL'],
+        'freight': ['运费', 'varchar(255) NOT NULL']
+    }
+    return type ? _type[type][0] : _type;
 }
 /**
  * 时间戳格式化 dateformat()
@@ -401,36 +399,36 @@ global.get_attribute_type = function (type){
  * @return  '2015-12-17 15:39:44'
  */
 /* global dateformat */
-  global.dateformat=function(extra,date){
-      let D = new Date(date);
-      let time={
-          "Y":D.getFullYear(),
-          'm':D.getMonth() + 1,
-          'd':D.getDate(),
-          'H':D.getHours(),
-          'i':D.getMinutes(),
-          's':D.getSeconds()
-      }
-      let key = extra.split(/\W/);
-      let _date;
-      for(let k of key){
+global.dateformat = function (extra, date) {
+    let D = new Date(date);
+    let time = {
+        "Y": D.getFullYear(),
+        'm': D.getMonth() + 1,
+        'd': D.getDate(),
+        'H': D.getHours(),
+        'i': D.getMinutes(),
+        's': D.getSeconds()
+    }
+    let key = extra.split(/\W/);
+    let _date;
+    for (let k of key) {
         time[k] = time[k] < 10 ? "0" + time[k] : time[k]
-         _date=extra.replace(k,time[k])
-        extra=_date;
-      }
-      return _date;
- }
- /* global array_search */
-global.array_search=function (arr, str){
+        _date = extra.replace(k, time[k])
+        extra = _date;
+    }
+    return _date;
+}
+/* global array_search */
+global.array_search = function (arr, str) {
     // 如果可以的话，调用原生方法
-    if(arr && arr.indexOf){
+    if (arr && arr.indexOf) {
         return arr.indexOf(str);
     }
 
     var len = arr.length;
-    for(var i = 0; i < len; i++){
+    for (var i = 0; i < len; i++) {
         // 定位该元素位置
-        if(arr[i] == str){
+        if (arr[i] == str) {
             return i;
         }
     }
@@ -438,8 +436,8 @@ global.array_search=function (arr, str){
     // 数组中不存在该元素
     return false;
 }
- /* global array_diff */
-global.array_diff=function (arr1,arr2){
+/* global array_diff */
+global.array_diff = function (arr1, arr2) {
     //var arr1 = ["i", "b", "c", "d", "e", "f","x",""]; //数组A
     //var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
     var temp = []; //临时数组1
@@ -451,7 +449,8 @@ global.array_diff=function (arr1,arr2){
         if (!temp[arr1[i]]) {
             temparray.push(arr1[i]);//巧妙地方：同时把数组A的值当成临时数组1的键并判断是否为真，如果不为真说明没重复，就合并到一个新数组里，这样就可以得到一个全新并无重复的数组
         }
-    };
+    }
+    ;
     //if(think.isEmpty(temparray)){
     //    return 
     //}
@@ -462,87 +461,87 @@ global.array_diff=function (arr1,arr2){
 //    func.apply(cb, params);
 //}
 /* 解析列表定义规则*/
- /* global get_list_field */
-global.get_list_field=function (data, grid, controller,module){
-    module = module||"admin";
+/* global get_list_field */
+global.get_list_field = function (data, grid, controller, module) {
+    module = module || "admin";
     //console.log(module);
-    let data2={};
+    let data2 = {};
     let value;
 
     // 获取当前字段数据
     //console.log(grid);
-    for( let field of grid.field){
-           let temp;
-           let array = field.split('|');//TODO
-           //console.log(array);
-           temp = data[array[0]];
-           //console.log(temp);
-            // 函数支持
-            if(!think.isEmpty(array[1])){
-                temp = call_user_func(array[1], temp);
-            }
-            data2[array[0]]    =   temp;
+    for (let field of grid.field) {
+        let temp;
+        let array = field.split('|');//TODO
+        //console.log(array);
+        temp = data[array[0]];
+        //console.log(temp);
+        // 函数支持
+        if (!think.isEmpty(array[1])) {
+            temp = call_user_func(array[1], temp);
+        }
+        data2[array[0]] = temp;
     }
     //console.log(data2);
-    if(!think.isEmpty(grid.format)){
-     // value  =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data2){return $data2[$match[1]];}, $grid['format']);
-    }else{
-        value  =  data2[Object.keys(data2)];
+    if (!think.isEmpty(grid.format)) {
+        // value  =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data2){return $data2[$match[1]];}, $grid['format']);
+    } else {
+        value = data2[Object.keys(data2)];
     }
 
     // 链接支持
-    if('title' == grid.field[0] && '目录' == data.type ){
+    if ('title' == grid.field[0] && '目录' == data.type) {
         // 目录类型自动设置子文档列表链接
-        grid.href   =   '[LIST]';
-    }else if('title' == grid.field[0]){
+        grid.href = '[LIST]';
+    } else if ('title' == grid.field[0]) {
         grid.href = '[EDIT]';
     }
 
-    if(!think.isEmpty(grid.href)){
+    if (!think.isEmpty(grid.href)) {
 
-        let links  =   grid.href.split(',');
+        let links = grid.href.split(',');
 
-        let val =[]
-        for(let link of links){
-            let array  =   link.split('|');
-            let href   =   array[0];
+        let val = []
+        for (let link of links) {
+            let array = link.split('|');
+            let href = array[0];
 
             //console.log(href);
             let matches = href.match(/^\[([a-z_]+)\]$/);
-            if(matches){
+            if (matches) {
                 val.push(data2[matches[1]])
-               // console.log(val);
-            }else{
-                let show   =  !think.isEmpty(array[1])?array[1]:value;
-               // console.log(show)
+                // console.log(val);
+            } else {
+                let show = !think.isEmpty(array[1]) ? array[1] : value;
+                // console.log(show)
                 // 替换系统特殊字符串
-                let hrefs={
-                    '[DELETE]':'setstatus/status/-1/ids/[id]',
+                let hrefs = {
+                    '[DELETE]': 'setstatus/status/-1/ids/[id]',
                     '[EDIT]': 'edit/id/[id]/model/[model_id]/cate_id/[category_id]',
                     '[LIST]': 'index/pid/[id]/model/[model_id]/cate_id/[category_id]'
                 }
                 let match = hrefs[href].match(/\[(\S+?)\]/g);
-               // console.log(match);
+                // console.log(match);
                 let u = [];
-                for(let k of match){
-                    let key =k.replace(/(^\[)|(\]$)/g, "");
-                    u.push( data[key]);
+                for (let k of match) {
+                    let key = k.replace(/(^\[)|(\]$)/g, "");
+                    u.push(data[key]);
                 }
-              // console.log(u);
-                let query = str_replace(match,u,hrefs[href]);
-                let href1 =`/${module}/${controller}/${query}`;
+                // console.log(u);
+                let query = str_replace(match, u, hrefs[href]);
+                let href1 = `/${module}/${controller}/${query}`;
                 //console.log(query);
-                if(href == "[DELETE]"){
-                    val.push( '<a href="'+href1+'" class="text-info ajax-get confirm">'+show+'</a> ') ;
-                }else {
-                    val.push( '<a href="'+href1+'" class="text-info">'+show+'</a> ') ;
+                if (href == "[DELETE]") {
+                    val.push('<a href="' + href1 + '" class="text-info ajax-get confirm">' + show + '</a> ');
+                } else {
+                    val.push('<a href="' + href1 + '" class="text-info">' + show + '</a> ');
                 }
 
             }
         }
-        value  =   val.join(" ");
+        value = val.join(" ");
     }
-   //console.log(value)
+    //console.log(value)
     return value;
 }
 
@@ -552,14 +551,14 @@ global.get_list_field=function (data, grid, controller,module){
  * @param bool all 是否返回全部类型
  * @author arterli <arterli@qq.com>
  */
- /* global get_action_type */
-global.get_action_type=function (type, all){
- all=all||false;
+/* global get_action_type */
+global.get_action_type = function (type, all) {
+    all = all || false;
     let list = {
-        1:'系统',
-        2:'用户',
-      };
-    if(all){
+        1: '系统',
+        2: '用户',
+    };
+    if (all) {
         return list;
     }
     return list[type];
@@ -573,10 +572,10 @@ global.get_action_type=function (type, all){
  * @param params 数组格式传入参数
  */
 /* global call_user_func */
-global.call_user_func=function(cb, params) {
+global.call_user_func = function (cb, params) {
     let func = eval(cb);
-    if(!think.isArray(params)){
-       params = [params];
+    if (!think.isArray(params)) {
+        params = [params];
     }
     return func.apply(cb, params);
 }
@@ -587,15 +586,15 @@ global.call_user_func=function(cb, params) {
  * @returns Promise {*}
  */
 /* global get_nickname */
-global.get_nickname =async (uid) => {
+global.get_nickname = async (uid) => {
     //console.log(uid);
-    let data = await think.model('member',think.config("db"),'admin').get_nickname(uid)
+    let data = await think.model('member', think.config("db"), 'admin').get_nickname(uid)
     return data;
 }
 //时间格式
 /* global time_format */
-global.time_format = (time)=>{
-    return dateformat('Y-m-d H:i:s',time);
+global.time_format = (time)=> {
+    return dateformat('Y-m-d H:i:s', time);
 }
 /* global str_replace()
  * str_replace(条件[]，替换内容[],被替换的内容)
@@ -606,27 +605,28 @@ global.time_format = (time)=>{
  * @returns {*}
  */
 /* global str_replace */
-global.str_replace=function(search, replace, subject, count){
+global.str_replace = function (search, replace, subject, count) {
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
         f = [].concat(search),
         r = [].concat(replace),
         s = subject,
         ra = r instanceof Array, sa = s instanceof Array;
     s = [].concat(s);
-    if(count){
+    if (count) {
         this.window[count] = 0;
     }
 
-    for(i=0, sl=s.length; i < sl; i++){
-        if(s[i] === ''){
+    for (i = 0, sl = s.length; i < sl; i++) {
+        if (s[i] === '') {
             continue;
         }
-        for(j=0, fl=f.length; j < fl; j++){
-            temp = s[i]+'';
+        for (j = 0, fl = f.length; j < fl; j++) {
+            temp = s[i] + '';
             repl = ra ? (r[j] !== undefined ? r[j] : '') : r[0];
             s[i] = (temp).split(f[j]).join(repl);
-            if(count && s[i] !== temp){
-                this.window[count] += (temp.length-s[i].length)/f[j].length;}
+            if (count && s[i] !== temp) {
+                this.window[count] += (temp.length - s[i].length) / f[j].length;
+            }
         }
     }
     return sa ? s : s[0];
@@ -637,11 +637,11 @@ global.str_replace=function(search, replace, subject, count){
  * @param id   文档id
  * @returns {*}
  */
-global.get_url=(name,id)=>{
+global.get_url = (name, id)=> {
 
-    if(!think.isEmpty(name)){
+    if (!think.isEmpty(name)) {
         return `/detail/${name}`;
-    }else {
+    } else {
         return `/detail/${id}`;
     }
 }
@@ -653,12 +653,12 @@ global.get_url=(name,id)=>{
  * @author arterli <arterli@qq.com>
  */
 /*global get_cover*/
-global.get_cover=async (cover_id,field)=>{
+global.get_cover = async (cover_id, field)=> {
 
-    if(think.isEmpty(cover_id)){
+    if (think.isEmpty(cover_id)) {
         return false;
     }
-    let picture = await think.model('picture',think.config("db")).where({'status':1}).find(cover_id);
+    let picture = await think.model('picture', think.config("db")).where({'status': 1}).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
 
@@ -670,212 +670,226 @@ global.get_cover=async (cover_id,field)=>{
  * @author arterli <arterli@qq.com>
  */
 /*global get_pics_one */
-global.get_pics_one = async (arr_id,field)=>{
-    if(think.isEmpty(arr_id)){
+global.get_pics_one = async (arr_id, field)=> {
+    if (think.isEmpty(arr_id)) {
         return false;
     }
-    var arr=arr_id.split(",");
-    return get_cover(arr[0],field);
-    
+    var arr = arr_id.split(",");
+    return get_cover(arr[0], field);
+
 }
 //{present_price:100,discount_price:80}
-global.formatprice=function(price) {
-    let pr= JSON.parse(price);
+global.formatprice = function (price) {
+    let pr = JSON.parse(price);
     var present_price;
-     console.log(pr);
-     if(think.isNumber(pr.present_price)){
-        pr.present_price=pr.present_price.toString();
-     }
+    console.log(pr);
+    if (think.isNumber(pr.present_price)) {
+        pr.present_price = pr.present_price.toString();
+    }
     var price = pr.present_price.split("-");
-    if(price.length >1){
-        present_price = formatCurrency(price[0])+"-"+formatCurrency(price[1]);
-    }else{
+    if (price.length > 1) {
+        present_price = formatCurrency(price[0]) + "-" + formatCurrency(price[1]);
+    } else {
         present_price = formatCurrency(price[0])
     }
-    if(pr.discount_price == 0){
+    if (pr.discount_price == 0) {
         return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span></span>`;
-    }else{
+    } else {
         return `<span class="text-xs"><span class="text-danger">现价:￥${present_price}</span> <br>原价:￥${formatCurrency(pr.discount_price)}</span>`;
     }
-    
+
 }
 //获取价格格式化
-global.get_price_format = function (price,type) {
-    let pr= JSON.parse(price);
-    
-    if(1==type){
-        if(think.isNumber(pr.present_price)){
-        pr.present_price=pr.present_price.toString();
-     }
-    let prices = pr.present_price.split("-");
-    let present_price;
-    if(prices.length >1){
-        present_price = formatCurrency(prices[0])+"-"+formatCurrency(prices[1]);
-    }else{
-        present_price = formatCurrency(prices[0])
-    }
-    price = present_price;
-    }else{
+global.get_price_format = function (price, type) {
+    let pr = JSON.parse(price);
 
-        if(pr.discount_price==0){
-         price = "";
-        }else{
-         price = formatCurrency(pr.discount_price);
+    if (1 == type) {
+        if (think.isNumber(pr.present_price)) {
+            pr.present_price = pr.present_price.toString();
         }
-        
+        let prices = pr.present_price.split("-");
+        let present_price;
+        if (prices.length > 1) {
+            present_price = formatCurrency(prices[0]) + "-" + formatCurrency(prices[1]);
+        } else {
+            present_price = formatCurrency(prices[0])
+        }
+        price = present_price;
+    } else {
+
+        if (pr.discount_price == 0) {
+            price = "";
+        } else {
+            price = formatCurrency(pr.discount_price);
+        }
+
     }
     return price;
 }
 //获取价格不格式化
-global.get_price = function (price,type) {
-    if(price){
-    price= JSON.parse(price);
-    if(1==type){
-        return price.present_price;
-    }else{
-        if(price.discount_price==0){
-            return "";
-        }else{
-            return price.discount_price;
+global.get_price = function (price, type) {
+    if (price) {
+        price = JSON.parse(price);
+        if (1 == type) {
+            return price.present_price;
+        } else {
+            if (price.discount_price == 0) {
+                return "";
+            } else {
+                return price.discount_price;
+            }
+
         }
-        
-    }
     }
 }
 
-    /** 
-     * 将数值四舍五入(保留2位小数)后格式化成金额形式 
-     * 
-     * @param num 数值(Number或者String) 
-     * @return 金额格式的字符串,如'1,234,567.45' 
-     * @type String 
-     */  
-    /*global formatCurrency */
-  global.formatCurrency = function (num) {  
-        num = num.toString().replace(/\$|\,/g,'');  
-        if(isNaN(num))  
-            num = "0";  
-        let sign = (num == (num = Math.abs(num)));  
-        num = Math.floor(num*100+0.50000000001);  
-        let cents = num%100;  
-        num = Math.floor(num/100).toString();  
-        if(cents<10)  
-        cents = "0" + cents;  
-        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
-        num = num.substring(0,num.length-(4*i+3))+','+  
-        num.substring(num.length-(4*i+3));  
-        return (((sign)?'':'-') + num + '.' + cents);  
-    }  
-       
-    /** 
-     * 将数值四舍五入(保留1位小数)后格式化成金额形式 
-     * 
-     * @param num 数值(Number或者String) 
-     * @return 金额格式的字符串,如'1,234,567.4' 
-     * @type String 
-     */  
-    /*global formatCurrencyTenThou */
-  global.formatCurrencyTenThou = function (num) {  
-        num = num.toString().replace(/\$|\,/g,'');  
-        if(isNaN(num))  
-        num = "0";  
-        let sign = (num == (num = Math.abs(num)));  
-        num = Math.floor(num*10+0.50000000001);  
-        let cents = num%10;  
-        num = Math.floor(num/10).toString();  
-        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
-        num = num.substring(0,num.length-(4*i+3))+','+  
-        num.substring(num.length-(4*i+3));  
-        return (((sign)?'':'-') + num + '.' + cents);  
-    }
-   /**
-    * 获取商品suk suk, arr:类型数组
-    */
-    
-    /*global getsuk */
-   global.getsuk=function (suk,arr) {
-          //console.log(suk);
-           var suk_;
-           suk.forEach(function (v,k) {
-              
-               if(v.name==arr[0]){
-                  if(v.ch){
-                      v.ch.forEach(function (v_,k_) {
-                          if(v_.name == arr[1]){
-                             if(v_.ch){
-                                 v_.ch.forEach(function (v__,k__) {
-                          if(v__.name == arr[2]){
-                             
-                             suk_ = v__;
-                          }
-                      })
-                             }else{
-                                  suk_ = v_;
-                             }  
-                             
-                          }
-                      })
-                  }else{
-                     suk_ = v;
-                  }
-               }
-           })
-           return suk_;
-       }
+/**
+ * 将数值四舍五入(保留2位小数)后格式化成金额形式
+ *
+ * @param num 数值(Number或者String)
+ * @return 金额格式的字符串,如'1,234,567.45'
+ * @type String
+ */
+/*global formatCurrency */
+global.formatCurrency = function (num) {
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+        num = "0";
+    let sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 100 + 0.50000000001);
+    let cents = num % 100;
+    num = Math.floor(num / 100).toString();
+    if (cents < 10)
+        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+        num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+            num.substring(num.length - (4 * i + 3));
+    return (((sign) ? '' : '-') + num + '.' + cents);
+}
 
-    /**
-     * 构建微信菜单数据结构
-     * @param data
-     * @returns {{menu: {button: Array}}}
-     */
-    global.createSelfMenu = function(data){
-        let menu = {
-                        "menu": {
-                            "button": []
+/**
+ * 将数值四舍五入(保留1位小数)后格式化成金额形式
+ *
+ * @param num 数值(Number或者String)
+ * @return 金额格式的字符串,如'1,234,567.4'
+ * @type String
+ */
+/*global formatCurrencyTenThou */
+global.formatCurrencyTenThou = function (num) {
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+        num = "0";
+    let sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 10 + 0.50000000001);
+    let cents = num % 10;
+    num = Math.floor(num / 10).toString();
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+        num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+            num.substring(num.length - (4 * i + 3));
+    return (((sign) ? '' : '-') + num + '.' + cents);
+}
+/**
+ * 获取商品suk suk, arr:类型数组
+ */
+
+/*global getsuk */
+global.getsuk = function (suk, arr) {
+    //console.log(suk);
+    var suk_;
+    suk.forEach(function (v, k) {
+
+        if (v.name == arr[0]) {
+            if (v.ch) {
+                v.ch.forEach(function (v_, k_) {
+                    if (v_.name == arr[1]) {
+                        if (v_.ch) {
+                            v_.ch.forEach(function (v__, k__) {
+                                if (v__.name == arr[2]) {
+
+                                    suk_ = v__;
+                                }
+                            })
+                        } else {
+                            suk_ = v_;
                         }
-                    };
-        let button = [];
-        for(var i=0;i<data.length;i++){
-            if(data[i].pid == '0'){
-                let item = {"id":data[i].id,"m_id":data[i].m_id,"pid":data[i].pid,"type":data[i].type,"name":data[i].name,"sort":data[i].sort,"sub_button":[]};
-                menu.menu.button.push(item);
-                button.push(item);
+
+                    }
+                })
+            } else {
+                suk_ = v;
             }
         }
-        for(var x=0;x<button.length;x++){
-            for(var y=0;y<data.length;y++){
-                if(data[y].pid == button[x].m_id){
-                    let sitem = {"type":data[y].type,"sort":data[y].sort,"name":data[y].name,"url":data[y].url,"media_id":data[y].media_id};
-                    button[x].sub_button.push(sitem);
+    })
+    return suk_;
+}
+
+/**
+ * 构建微信菜单数据结构
+ * @param data
+ * @returns {{menu: {button: Array}}}
+ */
+global.createSelfMenu = function (data) {
+    let menu = {
+        "menu": {
+            "button": []
+        }
+    };
+    let button = [];
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].pid == '0') {
+            let item = {
+                "id": data[i].id,
+                "m_id": data[i].m_id,
+                "pid": data[i].pid,
+                "type": data[i].type,
+                "name": data[i].name,
+                "sort": data[i].sort,
+                "sub_button": []
+            };
+            menu.menu.button.push(item);
+            button.push(item);
+        }
+    }
+    for (var x = 0; x < button.length; x++) {
+        for (var y = 0; y < data.length; y++) {
+            if (data[y].pid == button[x].m_id) {
+                let sitem = {
+                    "type": data[y].type,
+                    "sort": data[y].sort,
+                    "name": data[y].name,
+                    "url": data[y].url,
+                    "media_id": data[y].media_id
+                };
+                button[x].sub_button.push(sitem);
+            }
+        }
+    }
+    return menu;
+};
+
+/**
+ * 验证是否为智能手机
+ * @ param {string} data :this.userAgent;
+ * @ return {bool}
+ */
+/** global checkMobile */
+global.checkMobile = function (agent) {
+    let flag = false;
+    agent = agent.toLowerCase();
+    let keywords = ["android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser"];
+
+    //排除 Windows 桌面系统  
+    if (!(agent.indexOf("windows nt") > -1) || (agent.indexOf("windows nt") > -1 && agent.indexOf("compatible; msie 9.0;") > -1)) {
+        //排除苹果桌面系统  
+        if (!(agent.indexOf("windows nt") > -1) && !agent.indexOf("macintosh") > -1) {
+            for (let item of keywords) {
+                if (agent.indexOf(item) > -1) {
+                    flag = true;
+                    break;
                 }
             }
         }
-        return menu;
-    };
-    
-    /**
- * 验证是否为智能手机
- * @ param {string} data :this.userAgent;
- * @ return {bool} 
- */
-/** global checkMobile */
- global.checkMobile = function(agent){
-     let flag = false;  
-     agent = agent.toLowerCase();  
-     let keywords = [ "android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser" ];  
-    
-    //排除 Windows 桌面系统  
-    if (!(agent.indexOf("windows nt") > -1) || (agent.indexOf("windows nt") > -1 && agent.indexOf("compatible; msie 9.0;") > -1)) {  
-        //排除苹果桌面系统  
-        if (!(agent.indexOf("windows nt") > -1) && !agent.indexOf("macintosh") > -1 ) {  
-            for (let item of keywords) {  
-                if (agent.indexOf(item) > -1 ) {  
-                    flag = true;  
-                    break;  
-                }  
-            }  
-        }  
-    }  
+    }
     return flag;
- }
+}
  

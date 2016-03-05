@@ -474,7 +474,18 @@
             addrArr.push(html);  
             })
             $(".addr-box").html(addrArr.join(""))
-            _icheck();
+            $('.addr-list input').each(function(){
+              var self = $(this),
+                  label = self.next(),
+                  label_text = label.html();
+
+              label.remove();
+              self.iCheck({
+                  checkboxClass: 'icheckbox_sm-blue',
+                  radioClass: 'radio_sm-blue',
+                  insert: label_text
+              });
+          });
       }
         
 		/** CHECKOUT

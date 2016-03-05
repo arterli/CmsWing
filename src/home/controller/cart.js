@@ -125,6 +125,7 @@ export default class extends Base {
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
         }
       this.assign("paylist",paylist);
+
        //this.end(cart_goods);
       return this.display();
       

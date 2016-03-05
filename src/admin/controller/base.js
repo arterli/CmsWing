@@ -265,7 +265,7 @@ export default class extends think.controller.base {
                         } else if ('datetime' == type) { // 时间型
                             data[key] = dateformat('Y-m-d H:i', data[key]);
                         } else if('pics' === type){
-                            data[key] = `<span class="thumb-sm"><img alt="..." src="${data[key]}"></span>`;
+                            data[key] = `<span class="thumb-sm"><img alt="..." src="${data[key]}" class="img-responsive img-thumbnail"></span>`;
                         }
                     }
                 }
