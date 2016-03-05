@@ -128,7 +128,21 @@
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>支付方式</h5>
 					</div>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		  <div class="pay-box">
+        
+        
+		<div class="icheck pay-list m-b">
+             {% for val in paylist %}
+            <div class="item">
+            <input type="radio"  name="payment_id" value="{{val.id}}" >
+                            <label ><img src="{{val.logo}}" height="30" /> {{val.pay_name}} </label>
+                            </div> 
+                           {% endfor %}
+                            
+         </div>
+        
+            
+                    </div>
         </section>
           <section>
         <div class="heading-title heading-line-single margin-bottom-20">

@@ -33,12 +33,18 @@
                     {% for item in list %}
                     <tr>
                        
-                        <td>{{ item.Name }}</td>
+                        <td> <img src="{{item.logo}}" class="img-responsive img-thumbnail" > {{ item.pay_name }}</td>
                         
-                        <td >未备份</td>
+                                        </td></td>
+                       <td>
+                                            <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/payment" class="active ajax-get" data-toggle="class">
+                                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                            </a>
+                                        </td>
                         <td>
-                            <button class="btn  btn-default btn-xs optimize" data-tables="{{ item.Name }}">配置</button>
-                            <button class="btn  btn-default btn-xs repair" data-tables="{{ item.Name }}">删除</button>
+                           <a href="/admin/ecom/editpay/id/{{item.id}}" class="text-info">配置</a>
+                           <a href="/admin/ecom/delpay/id/{{item.id}}" class="confirm ajax-get text-info">删除</a>
                         </td>
                     </tr>
                     {% endfor %}

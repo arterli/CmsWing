@@ -125,9 +125,67 @@ export default class extends Base {
         let m_id = this.post("id");
         let name = this.post("name");
         let sort = this.post('sort');
-        //console.log(id);
-        return this.json(res);
+        let pid = this.post('pid');
+        let type = this.post('type');
+        let url = this.post('url');
+        let web_token = '';
+        let media_id = this.post('media_id');
+        let menu_model =this.model("wx_menu");
 
+        let data = {
+                        "m_id":m_id,
+                        "name":name,
+                        "sort":sort,
+                        "pid":pid,
+                        "type":type,
+                        "web_token":web_token,
+                        "media_id":media_id,
+                        "url":url
+                    };
+        let res = await menu_model.add(data);
+        if(res){
+            return this.json("1");
+        }else{
+            return this.json("2");
+        }
+    }
+
+    /**
+     * 删除微信自定义菜单
+     */
+    async delselfmenuAction(){
+
+        let m_id = this.post('m_id');
+        let pid = this.post('pid');
+        let menu_model =this.model("wx_menu");
+        let res = await menu_model.where({m_id: ["=", m_id]}).delete();
+        if(res){
+            if(pid){
+                let cmenus = await menu_model.where({pid:["=",pid]}).select();
+                let ure = "";
+                for(var x=0;x<cmenus.length;x++){
+                    ure = await menu_model.where({id:["=",cmenus[x].id]}).update({"sort":(x+1)});
+                }
+                if(res && ure){
+                    return this.json("1");
+                }else{
+                    return this.json("2");
+                }
+            }else{
+                let fmenus = await menu_model.where({pid:["=",0]}).select();
+                let ures = "";
+                for(var x=0;x<fmenus.length;x++){
+                    ures =  await menu_model.where({id:["=",fmenus[x].id]}).update({"sort":(x+1)});
+                }
+                if(res && ures){
+                    return this.json("1");
+                }else{
+                    return this.json("2");
+                }
+            }
+        }else{
+            return this.json("2");
+        }
     }
 
     ///**
@@ -186,11 +244,44 @@ export default class extends Base {
             //修改取消订阅用户的状态
             await user_model.where({'openid':FromUserName}).update({'subscribe':0});
         }
-        
-        
     }
-    
-    
+
+    /**
+     * 获取素材详情
+     */
+    async getmaterialinfoAction(){
+
+        let material_model = this.model('wx_material');
+        let materid = this.post('id');
+        let materialinfo = await material_model.where({id: materid}).find();
+        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API('wxe8c1b5ac7db990b6','ebcd685e93715b3470444cf6b7e763e6');
+        let self = this;
+
+        let info = function(api) {
+            let deferred = think.defer();
+            api.getMaterial(materialinfo.media_id,(err,result)=>{
+                if(!think.isEmpty(result)){
+                    deferred.resolve(result);
+                }else{
+                    Console.error('err'+err)
+                }
+            });
+            return deferred.promise;
+        }
+
+        //let res =  await
+        //    info(api);
+        //
+
+        let res = await info(api);
+        console.log(res);
+
+
+
+
+    }
+
     /**
      * 获取微信公众账号用户信息并保存到本地库
      */
@@ -216,7 +307,7 @@ export default class extends Base {
         let res = await users(api);
         let useropenid = res['data']['openid'];
         let count = res['count'];
-       //self.end(useropenid);
+        //self.end(useropenid);
         
         //批量获取用户基本信息
         let isadd = false;
@@ -268,7 +359,6 @@ export default class extends Base {
         }else{
             this.fail("error");
         }
-              
     }
     
 
@@ -469,21 +559,35 @@ export default class extends Base {
         this.assign({"navxs": true,"bg": "bg-dark"});
         return this.display();
     }
-    
-    
-    
+
     /**
-     * 自定义菜单
+     * 自定义菜单页面
      */
     async selfmenuAction() {
         this.meta_title="自定义菜单";
         let self = this;
-        let menu = {
-            "menu": {
-                "button": []
-            }
-        };
-        let str = JSON.stringify(menu);
+        let api = new API('wxe8c1b5ac7db990b6','ebcd685e93715b3470444cf6b7e763e6');
+
+        let info = function(api) {
+            let deferred = think.defer();
+            api.getMenu((err,result)=>{
+                if(!think.isEmpty(result)){
+                    deferred.resolve(result);
+                }else{
+                    Console.error('err'+err)
+                }
+            });
+            return deferred.promise;
+        }
+        let res = await info(api);
+        console.log(JSON.stringify(res));
+
+        let menu_model =this.model("wx_menu");
+        let data = await menu_model.select();
+
+        let d = createSelfMenu(data);
+        //console.log(d.menu.button[0]['type']);
+        let str = JSON.stringify(d);
         this.assign('menu',str);
         return self.display();
     }

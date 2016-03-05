@@ -6,8 +6,8 @@ import API from 'wechat-api';
 export default class extends Base{
     
     init(http){
-        //this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        this.api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        this.api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        //this.api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         super.init(http);
     }
     
@@ -252,4 +252,23 @@ export default class extends Base{
             //回复操作
         }else{}
     }
+
+    /**
+     * 关注自动回复
+     */
+    async followAction(){
+        let self = this;
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        return self.display();
+    }
+    /**
+     * 消息自动回复
+     */
+    async messageAction(){
+        let self = this;
+        this.assign({"navxs": true,"bg": "bg-dark"});
+        return self.display();
+    }
+
+
 }
