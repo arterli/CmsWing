@@ -546,5 +546,59 @@ $(function(){
     /**
      * 关注自动回复
      */
+    /**
+     * 调用模态窗
+     */
+    $(document).on('click','#news-dialog',function(){
+        hs_show_dialog('imgtext',{
+            'submit':function(e,d,i){
+                console.log(i);
+                var media_id = i.substr(9);
+                $("#me_id").val(media_id);
+                var dialog = $(d._div);
+                var newsed = dialog.find('#'+i);
+                var del = '<a id="newsdel" class="clearfix" href="#">删除</a>'
+                if(newsed){
+                    $('#newssed').show();
+                    $('#newssed').html(newsed).append(del);
+                    $('#newsxz').hide();
+                }else{
+                    $('#newsxz').show();
+                    $('#newssed').hide();
+                }
+            }
+        });
+    });
+
+    /**
+     * 点击删除选中的图文
+     */
+    $(document).on('click','#newsdel',function(){
+        $('#newsxz').show();
+        $('#newssed').hide();
+        $('#newssed').html('');
+    });
+
+    //图文选择DIV隐藏
+    //$('#newssed').hide();
+   /* var send_type = $('#send_type').val();
+    $('#hs-area>li').removeClass('active')
+    $('#hs-area>li[jstab-target='+send_type+']').addClass('active');*/
+
+    /**
+     * 自动回复内容类型获取
+     */
+    $(document).on('click', '#hs-area>li', function(){
+        var pr = $(this).attr('jstab-target');
+        $("#send_type").val(pr);
+    });
+    /**
+     * 获取编辑器内容
+     */
+    $(document).on('blur', '#edit_content', function(){
+        var content = $(this).html();
+        $("#editor_content").val(content);
+    });
+
 
 });
