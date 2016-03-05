@@ -309,6 +309,7 @@ export default class extends Base{
                     r = await kmodel.add({
                         'keyword_name': kname,
                         'match_type': ktype,
+                        'rule_id': ruleid,
                         'create_time': currtime,
                         'web_token': currwebtoken
                     });
@@ -326,7 +327,32 @@ export default class extends Base{
             //回复操作
         }else{}
     }
-
+    
+    /**
+     * 删除规则
+     */  
+    async ruledeleteAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let rulemodel = self.model('wx_keywords_rule');
+        await rulemodel.startTrans();
+        let currentrule = await rulemodel.where({id: ruleid}).find();
+        let kids = currentrule.keywords_id;
+        let rids = currentrule.reply_id;
+        let kmodel = self.model('wx_keywords');
+        let rmodel = self.model('wx_replylist');
+        let kres = await kmodel.where({id: ['IN', kids]}).delete();
+        let rres = await rmodel.where({id: ['IN', rids]}).delete();
+        let rulres = await rulemodel.where({id: ruleid}).delete();
+        if(rulres){
+            await rulemodel.commit();
+            return self.success({name:'规则删除成功'});
+        }else{
+            await rulemodel.rollback();
+            return self.fail('规则删除失败');
+        }
+    }
+    
     /**
      * 关注自动回复
      */

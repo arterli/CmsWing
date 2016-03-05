@@ -6,6 +6,8 @@
     .dialog_bd .emotion_editor{ margin: 20px 0; }
     .dialog_bd .hs-ui-beditor{ margin: 20px 0; }
     .dialog_bd .hs-ui-beditor .emotion_editor{ margin: 0 }
+    .hs-kv-recol .hs-reply-opts a{ color: #ddd }
+    .dialog_bd .hs-etap-nav ul{padding-left: 20px}
 </style>
 {% endblock %}
 {% block content %}
@@ -53,6 +55,9 @@
                                             <div class="info">
                                                 <em class="keywords_rule_num">规则{{loop.index}}:</em>
                                                 <strong class="keywords_rule_name">{{rule.rule_name}}</strong>
+                                                <div class="hs-reply-opts">
+                                                    <a class="js-edit-rule" data-id="{{rule.id}}" href="javascript:;">编辑</a> - <a class="js-delete-rule" data-id="{{rule.id}}" href="javascript:;">删除</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="keywords_rule_bd keywords_rule_overview">
