@@ -141,7 +141,7 @@ $(function(){
                return false;
            }
            d.hs_remove();
-           $.post('/admin/mpbase2/ruleedit',{'name':val, type: typ, 'ruleid': ruleid},
+           $.post('/admin/mpbase2/ruleedit',{'name':val, type: typ, 'ruleid': ruleid, 'edittype': 1 },
                function(data){
                    if(data > 0){
                        toastr.success('添加成功');
