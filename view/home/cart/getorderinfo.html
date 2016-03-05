@@ -135,7 +135,7 @@
 		<div class="icheck pay-list m-b">
              {% for val in paylist %}
             <div class="item">
-            <input type="radio"  name="payment" value="{{val.id}}" >
+            <input type="radio"  name="payment" value="{{val.id}}" {% if val.sort == 1 %} checked {% endif%}>
                             <label ><img src="{{val.logo}}" height="30" /> {{val.pay_name}} </label>
                             </div> 
                            {% endfor %}
@@ -219,8 +219,8 @@
     
 </div>
 <div class="row">
-    <div class="col-md-9 hidden-xs"></div>
-    <div class="col-md-3 col-xs-12">
+    <div class="col-md-8 hidden-xs"></div>
+    <div class="col-md-4 col-xs-12">
         <div class="table-responsive margin-top-20">
 	<table class="table">
 		
@@ -260,7 +260,7 @@
 
 		<div class="col-md-8 col-sm-8"><!-- left text -->
 			<p><strong>寄送至：</strong>山东省 济南市 山东省ddddddd 13589100333 </p>
-				<h4><strong>收货人：</strong>李衍强 150****7797</h4>
+				<h4><strong>收货人：</strong>fdsf 150****7797</h4>
 			
 			
 		</div><!-- /left text -->
