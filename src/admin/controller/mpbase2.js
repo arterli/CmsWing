@@ -220,6 +220,10 @@ export default class extends Base{
     async ruleeditAction(){
         let self = this;
         let ruleid = self.post('ruleid');
+        let rulemodel = self.model('wx_keywords_rule');
+        let ruledata = await rulemodel.find({id:ruleid});
+        let currtime = new Date().getTime();
+        let currwebtoken = 0;
         let edittype = self.post('edittype'); //判断是编辑关键字 1，还是回复内容 2
         if(edittype == 1){
             //关键字操作
@@ -231,9 +235,21 @@ export default class extends Base{
                 //新建关键字
                 let kname = self.post('name');
                 let ktype = self.post('type');
-                let kid = await kmodel.add({});
-                return self.json(1)
+                let kid = await kmodel.add({
+                    'keyword_name': kname,
+                    'match_type': ktype,
+                    'create_time': currtime,
+                    'web_token': currwebtoken
+                });
+                if(kid){
+                    let ks = ruledata.keywords_id.split(',');
+                    ks.push(kid);
+                    await rulemodel.where({id:ruleid}).update({'keywords_id': ks.join(','), 'create_time': currtime });
+                }
+                return self.json(kid);
             }
-        }
+        }else if(edittype == 2){
+            //回复操作
+        }else{}
     }
 }
