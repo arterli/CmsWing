@@ -322,10 +322,13 @@ function _hs_submit_articles() {
         }
     });        
     var params = JSON.stringify(_hs_wx_fodder);
-    $.post('/admin/mpbase2/savefodder'+(init_is_edit?+"/edit_id="+init_is_edit:""), {"params":params}, function(data) {
+    $.post('/admin/mpbase2/savefodder'+(init_is_edit?"?edit_id="+init_is_edit:""), {"params":params}, function(data) {
         console.log('结果：')
         if(!data.errno){
             toastr.success(data.data.name);
+            setTimeout(function(){
+                location.href = '/admin/mpbase2/fodderlist';
+            }, 1100);
         }
     },'json');
 }

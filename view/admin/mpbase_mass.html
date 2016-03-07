@@ -47,11 +47,11 @@
 
                                                     <div class="hs_dropdown_menu">
                                                         <select id="group_type" name="group_type"
-                                                                class="hs_select_option">
+                                                                class="hs_select_option form-control">
                                                             <option class="" value="0">全部用户</option>
                                                             <option value="1">按分组选择</option>
                                                         </select>
-                                                        <select id="group_id" name="group_id" class="hs-hide">
+                                                        <select id="group_id" name="group_id" class="hs-hide form-control">
                                                             {% for item in groups %}
                                                             <option value="{{ item.id }}">{{ item.name }}</option>
                                                             {% endfor %}
@@ -62,7 +62,7 @@
                                                     <label class="hs-label">性别</label>
 
                                                     <div class="hs_dropdown_menu">
-                                                        <select id="sex" name="sex" class="">
+                                                        <select id="sex" name="sex" class="form-control">
                                                             <option value="0">全部</option>
                                                             <option value="1">男</option>
                                                             <option value="2">女</option>
@@ -73,9 +73,9 @@
                                                     <label class="hs-label">群发地区</label>
 
                                                     <div class="">
-                                                        <select id="province" name="province" class="">
+                                                        <select id="province" name="province" class="form-control">
                                                         </select>
-                                                        <select id="city" name="city" class="hs-hide">
+                                                        <select id="city" name="city" class="hs-hide form-control">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -84,7 +84,7 @@
                                         </div>
                                     </section>
                                     <section class="panel panel-default">
-                                        <div class="hs-ui hs_xx">
+                                        <div class="hs-ui hs_xx m-lg" style="padding:0">
                                             <div class="hs-ui-beditor hs-js-tab hs-auto">
                                                 <div class="hs-etap-nav">
                                                     <ul id="hs-area">
@@ -245,7 +245,7 @@
                                             </div>
                                         </div>
                                         <!--选择end-->
-                                        <div class="form-group">
+                                        <div class="m-none m-t-n-lg">
                                             <div class="hs_qf">
                                                 <button type="submit" id="btn">群发</button>
                                             </div>

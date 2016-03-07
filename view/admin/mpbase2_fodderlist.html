@@ -24,6 +24,7 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div>
                                         <a class="btn btn-sm btn-info" href="/admin/mpbase2/fodder">新增素材</a>
+                                        <!--<a class="btn btn-sm btn-info" href="/admin/mpbase2">批量删除</a>-->
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -51,13 +52,14 @@
                                         {% set arts = item.material_content|strToJson %}
                                         {% set art = arts.articles[0] %}
                                         <tr>
-                                            <td><label class="checkbox m-n i-checks"><input type="checkbox" class="ids" name="ids" value="{{item.id}}" /></label></td>
+                                            <td><label class="checkbox m-n i-checks"><input type="checkbox" class="ids" name="ids" value="{{item.id}}" /><i></i></label></td>
                                             <td>{{item.id}}</td>
-                                            <td style="width:120px"><img class="img-responsive" src="{{art.hs_image_id | get_cover('path')}}"/></td>
+                                            <td style="width:120px">
+                                                <div style="width:120px"><img class="img-responsive" src="{{art.hs_image_id | get_cover('path')}}"/></div></td>
                                             <td>{{art.title}}</td>
                                             <td>
                                                 <a class="text-info" href="javascript:void(0)" onclick="kkk({{item.id}})">编辑</a>
-                                                <a class="text-info" href="">删除</a>  
+                                                <a class="text-info ajax-get confirm" href="/admin/mpbase2/deletefodder?id={{item.id}}">删除</a>  
                                             </td>
                                         </tr>
                                         {% endfor %}

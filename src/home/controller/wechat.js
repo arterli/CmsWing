@@ -9,21 +9,79 @@ export default class extends Base {
      * @return {Promise} []
      */
     indexAction(){
-    let echostr = this.get('echostr');
-    return this.end(echostr);
-  }
-  reply(message){
-    this.http.res.reply(message);
-  }
-  textAction(){
-    var message = this.post();
-    var msg = message.Content.trim();
-    if(msg =="我是谁"){
-        this.reply("我是鞠焕尧");
-    }else{
-    this.reply('测试成功:'+msg);
+        let echostr = this.get('echostr');
+        return this.end(echostr);
     }
-  }
+    reply(message){
+        this.http.res.reply(message);
+    }
+    /**
+     * 本地数据测试
+     */  
+    async localAction(){
+        let self = this;
+        var key = 'a';
+        let kmodel = self.model('wx_keywords');
+        let isKey = await kmodel.field('rule_id').where({keyword_name: key}).select();
+        if(!think.isEmpty(isKey)){
+            //是关键字
+            let rulemodel = self.model('wx_keywords_rule');
+            let replyliststr = await rulemodel.where({id: isKey[0].rule_id}).getField('reply_id', true);
+            let replylisttmp = replyliststr.split(',');
+            let replylist = [];
+            for(let i in replylisttmp){
+                if(replylisttmp[i] != ''){
+                    replylist.push(replylisttmp[i]);
+                }
+            }
+            if(!think.isEmpty(replylist)){
+                let  randomi = parseInt(Math.random()*replylist.length);
+                let replymodel = self.model('wx_replylist');
+                let data = await replymodel.where({id: replylist[randomi]}).getField('content', true);
+                return self.end(data);
+            }
+        }
+        //普通消息回复
+        let replymodel = self.model('wx_replylist');
+        let data = await replymodel.where({reply_type: 2}).getField('content', true);
+        return self.end(data);
+    }
+    async textAction(){
+        let self = this;
+        var key = 'a';
+        let kmodel = self.model('wx_keywords');
+        let isKey = await kmodel.field('rule_id').where({keyword_name: key}).select();
+        if(!think.isEmpty(isKey)){
+            //是关键字
+            let rulemodel = self.model('wx_keywords_rule');
+            let replyliststr = await rulemodel.where({id: isKey[0].rule_id}).getField('reply_id', true);
+            let replylisttmp = replyliststr.split(',');
+            let replylist = [];
+            for(let i in replylisttmp){
+                if(replylisttmp[i] != ''){
+                    replylist.push(replylisttmp[i]);
+                }
+            }
+            if(!think.isEmpty(replylist)){
+                let  randomi = parseInt(Math.random()*replylist.length);
+                let replymodel = self.model('wx_replylist');
+                let data = await replymodel.where({id: replylist[randomi]}).getField('content', true);
+                return self.reply(data);
+            }
+        }
+        //普通消息回复
+        let replymodel = self.model('wx_replylist');
+        let data = await replymodel.where({reply_type: 2}).getField('content', true);
+        return self.reply(data);
+        
+    // var message = this.post();
+    // var msg = message.Content.trim();
+    // if(msg =="我是谁"){
+    // this.reply("我是鞠焕尧");
+    // }else{
+    // this.reply('测试成功:'+msg);
+    // }
+    }
   eventAction(){
     var message = this.post();
     this.reply(JSON.stringify(message));
