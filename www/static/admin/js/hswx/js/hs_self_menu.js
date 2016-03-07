@@ -27,6 +27,7 @@ $(function() {
 		}
 		var domMenu = [];
 		if(buttons.length == 0){
+			console.log(buttons.length);
 			domMenu = ['<li class="hs_first_li2 hs_menu_add_click hs_add_child_menu hs_menu_add_father" style="width:274px;">',
 						'<span style="text-align: center;font-size: 20px;">',
 						'<span style=";font-weight: bold;" class="glyphicon glyphicon-plus" aria-hidden="true">',
@@ -34,7 +35,8 @@ $(function() {
 						'</li>',
 						];
 		}
-		if (buttons.length == 1) {
+		else if (buttons.length == 1) {
+			console.log("fdhsfhdsf");
 			var subbutton = buttons[0].sub_button;
 			var subbuts = buttons[0].sub_button.length;
 
@@ -44,7 +46,7 @@ $(function() {
 				domMenu.push('<li sort="' + buttons[0].sort + '" id="' + buttons[0].m_id + '" class="hs_father_menu"> <span>' + buttons[0].name + '</span>');
 				domMenu.push('<div f_id="'+buttons[0].m_id +'"  class="hs_menu_child_three hs_child_menu_module  hs_menu_child_relative_one">');
 				domMenu.push('<ul class="hs_sub_pre_menu_list">');
-				domMenu.push('<li f_id="'+buttons[0].pid +'" class="hs_add_child_menu  hs_icon_add_child_menu" style="width:135px;"><i class="hs_icon14_menu_add "></i></li>');
+				domMenu.push('<li f_id="'+buttons[0].m_id +'" class="hs_add_child_menu  hs_icon_add_child_menu" style="width:135px;"><i class="hs_icon14_menu_add "></i></li>');
 				domMenu.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
 			} else {
 				var childMenu = [];
@@ -122,9 +124,11 @@ $(function() {
 		if (obj.val() == '0') {
 			$('.hs_menu_weburl').addClass('hs_menu_hidden');
 			$('.hs_menu_message_content').removeClass('hs_menu_hidden');
+			$('#menu_type').val('click');
 		} else if (obj.val() == '1') {
 			$('.hs_menu_weburl').removeClass('hs_menu_hidden');
 			$('.hs_menu_message_content').addClass('hs_menu_hidden');
+			$('#menu_type').val('view');
 		}
 	});
 
@@ -159,14 +163,16 @@ $(function() {
 			if(length == 1){
  				domMenu.push('<li class="hs_father_menu_all hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>');
 			}
-			$(".hs_menu_name").html("菜单名称");
-			$('input[name=hs_menu_name_input]').val('菜单名称');
-			$('#sort').val(length+1);
-			$('#menu_id').val(time);
-			$('#menu_f_id').val('0');
-			$('#add_id').val('');
 			//未完待续
+		//<span style="text-align: center;font-size: 20px;"><span style=";font-weight: bold;" class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加菜单</span>
 		}
+		$(".hs_menu_name").html("菜单名称");
+		$('input[name=hs_menu_name_input]').val('菜单名称');
+		$('#sort').val(length+1);
+		$('#menu_id').val(time);
+		$('#menu_f_id').val('0');
+		$('#add_id').val('');
+
 		console.log(JSON.stringify(domMenu));
 		$('#hs_pre_menu_list').html(domMenu.join(""));
 	});
@@ -176,7 +182,6 @@ $(function() {
 	 */
 	$(document).on('click','.hs_menu_message_content .hs-etap-nav li',function(){
 		var obj = $(this);
-		alert(obj.attr('jstab-target'));
 		var type = obj.attr('jstab-target');
 		if(type == 'imgtextArea' || type == 'imageArea' || type == 'audioArea' || type == 'videoArea'){
 			$("#menu_type").val('media_id');
@@ -209,9 +214,9 @@ $(function() {
 
 		var data = {};
 		data.id = $('#menu_id').val();
-		data.id = new Date().getTime();
 
 		data.sort = $('#sort').val();
+		data.url = $('#menu_news_url').val();
 		data.name = $('input[name=hs_menu_name_input]').val();
 		data.pid = $('#menu_f_id').val();
 		data.type = $('#menu_type').val();
@@ -248,11 +253,10 @@ $(function() {
 				 dom.push('<span>'+fbtn.name+'</span>');
 				 dom.push('<div class="hs_menu_child  hs_menu_child_relative_one">');
 				 dom.push('<ul class="hs_sub_pre_menu_list">');
-				 dom.push('<li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>');
+				 dom.push('<li f_id="'+pid+'"  id="'+m_id+'" class="hs_add_child_menu" style="width:135px;"><span>'+name+'</span></li>');
+				 dom.push('<li class="hs_add_child_menu" style="width:135px;"><i class="hs_icon14_menu_add"></i></li>');
 				 dom.push('</ul><i class="hs_arrow hs_arrow_out"></i><i class="hs_arrow hs_arrow_in"></i></div></li>');
-				 dom.push('<li class="hs_father_menu hs_menu_add_fathe{r"><i class="hs_icon14_menu_add"></i></li>');
 			 }else{
-
 				 dom.push('<span>'+fbtn.name+'</span>');
 				 dom.push('<div class="hs_menu_child  hs_menu_child_relative_one">');
 				 dom.push('<ul class="hs_sub_pre_menu_list">');
@@ -286,6 +290,7 @@ $(function() {
 		}
 		$('#'+pid).empty();
 		$('#'+pid).append(dom.join(""));
+		console.log(dom.join(""));
 		$('input[name=hs_menu_name_input]').val(name);
 		$('#menu_id').val(m_id);
 		$('#sort').val(sort);
@@ -340,6 +345,17 @@ $(function() {
 			$('.hs_menu_name ').html(obj.find('span').text());
 			var d = showChildMenu(sort);
 			obj.append(d.join(""));
+			var button = getFatherButtonById(obj.attr('id'));
+			if(button.sub_button.length > 0){
+				$('.hs_menu_message_content').hide();
+				$('div').remove('.hs_father_menu_tips');
+				$('.hs_menu_form_bd ').append('<div class="hs_father_menu_tips">'+'已添加子菜单，仅可设置菜单名称'+'</div>');
+				$('input[name=menu_type]').attr('disabled','disabled');
+			}else{
+				$('.hs_menu_message_content').show();
+				$('div').remove('.hs_father_menu_tips');
+				$('input[name=menu_type]').attr('disabled','false');
+			}
 		}
 	});
 	
@@ -398,17 +414,6 @@ $(function() {
 				dom.push('<i class="hs_arrow hs_arrow_out"></i>');
 				dom.push('<i class="hs_arrow hs_arrow_in"></i></div>');
 			}else{
-				////console.log('er');
-				//for(x in subbuts){
-				//	childMenu.push('<li f_id="'+button.m_id+'" sort="'+subbuts[x].sort+'" id="'+subbuts[x].m_id+'" class="hs_add_child_menu"><span>' + subbuts[x].name + '</span></li>');
-				//}
-				//dom.push('<div f_id="'+button.m_id+'" class="hs_menu_child_three  hs_menu_child_relative">');
-				//dom.push('<ul class="hs_sub_pre_menu_list">');
-				//dom.push(childMenu.join(""));
-				//dom.push('<li f_id="'+button.m_id+'" class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li></ul>');
-				//dom.push('<i class="hs_arrow hs_arrow_out"></i>');
-				//dom.push('<i class="hs_arrow hs_arrow_in"></i></div>');
-				//console.log(JSON.stringify(dom));
 
 				var childMenu = [];
 				for(var x in subbuts){
