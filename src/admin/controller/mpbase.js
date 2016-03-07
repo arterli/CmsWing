@@ -118,6 +118,33 @@ export default class extends Base {
     }
 
     /**
+     * 微信端生成自定义菜单
+     */
+    async setupselfmenuAction(){
+        let menu_model = this.model('wx_menu');
+        let data = await menu_model.select();
+        let menu = buildselfmenu(data);
+
+        let info = function(api){
+            let deferred = think.defer();
+            api.createMenu(menu,(err,result)=>{
+                if(!think.isEmpty(result)){
+                    deferred.resolve(result);
+                }else{
+                    Console.error('err'+err)
+                }
+            });
+            return deferred.promise;
+        }
+        let res =await info(api);
+        if(res.errmsg == 'ok'){
+             return this.json('ok');
+        }else{
+            return this.json('no');
+        }
+    }
+
+    /**
      * 添加微信自定义菜单
      */
     async addselfmenuAction(){

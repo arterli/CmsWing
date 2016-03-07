@@ -39,6 +39,7 @@
 
 
 			<!-- CART -->
+             <form method="post" action="/home/cart/createorder">
 			<section>
 				<div class="container">
 
@@ -79,8 +80,8 @@
 						<h4>填写并核对 <span>[订单信息]</span></h4>
 					</div>	
                     
-                    <div class="panel panel-default">
-	<div class="panel-body">
+                    <div class="panel panel-default margin-bottom-0">
+	<div class="panel-body ">
         <section class="padding-bottom-15 padding-top-0">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>收货人信息</h5>
@@ -134,7 +135,7 @@
 		<div class="icheck pay-list m-b">
              {% for val in paylist %}
             <div class="item">
-            <input type="radio"  name="payment_id" value="{{val.id}}" >
+            <input type="radio"  name="payment" value="{{val.id}}" {% if val.sort == 1 %} checked {% endif%}>
                             <label ><img src="{{val.logo}}" height="30" /> {{val.pay_name}} </label>
                             </div> 
                            {% endfor %}
@@ -147,19 +148,135 @@
           <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>送货清单</h5>
+                       <a href="/cart" class="pull-right"><h5><span>返回修改购物车</span></h5></a>
 					</div>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>商品</th>
+				<th>名称</th>
+				<th>规格</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>优惠</th>
+                <th>小计</th>
+			</tr>
+		</thead>
+		<tbody>
+            {% for val in controller.cart.data%}
+			<tr>
+				<td><img src="{{val.pic}}" alt="" width="80" class="img-responsive img-thumbnail" /></td>
+				<td>{{val.title}}</td>
+				<td>{% if val.type%}{{val.type}}{%endif%}</td>
+                <td>￥{{val.unit_price|formatCurrency}}</td>
+                <td>{{val.qty}}</td>
+                <td>无</td>
+                <td>￥{{val.price|formatCurrency}}</td>
+			</tr>
+            {% endfor %}
+		</tbody>
+	</table>
+</div>
         </section>
          <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>发票信息</h5>
 					</div>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+		<div class="table-responsive">
+	<table class="table">
+		
+		<tbody>
+			<tr class="success">
+				<td>Value 1</td>
+				<td>Value 2</td>
+				<td>Value 3</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
+        </section>
+              <section class="padding-bottom-15 padding-top-15">
+        <div class="heading-title heading-line-single margin-bottom-20">
+						<h5>订单促销活动</h5>
+					</div>
+		<div class="table-responsive">
+	<table class="table">
+		
+		<tbody>
+			<tr class="success">
+				<td>Value 1</td>
+				<td>Value 2</td>
+				<td>Value 3</td>
+			</tr>
+			
+		</tbody>
+	</table>
+</div>
         </section>
 	</div>
-</div>		
+    
+</div>
+<div class="row">
+    <div class="col-md-8 hidden-xs"></div>
+    <div class="col-md-4 col-xs-12">
+        <div class="table-responsive margin-top-20">
+	<table class="table">
+		
+		<tbody>
+			<tr class="info">
+				<td class="text-right"><span class="text-danger">{{controller.cart.num}}</span> 件商品，总商品金额：</td>
+				<td>￥{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</td>
+				
+			</tr>
+			<tr class="warning">
+				<td class="text-right">优惠：</td>
+				<td>-￥0.00</td>
+				
+			</tr>
+			<tr class="danger">
+				<td class="text-right">运费：</td>
+				<td >￥5.00</td>
+				
+			</tr>
+			<tr class="success">
+				<td class="text-right text-danger size-18">应付总额：</td>
+				<td class="text-danger size-18">￥29.90</td>
+				
+			</tr>
+			
+		</tbody>
+	</table>
+  
+</div>	
+     </div>	
+
+
 				</div>
+      <div class="callout alert alert-danger  margin-bottom-60">
+
+	<div class="row">
+
+		<div class="col-md-8 col-sm-8"><!-- left text -->
+			<p><strong>寄送至：</strong>山东省 济南市 山东省ddddddd 13589100333 </p>
+				<h4><strong>收货人：</strong>fdsf 150****7797</h4>
+			
+			
+		</div><!-- /left text -->
+
+		
+		<div class="col-md-4 col-sm-4 text-right"><!-- right btn -->
+             <input type="hidden" value="{{controller.cart.data|jsonToStr}}" name="goodslist">
+			<button class="btn btn-danger btn-lg" type="submit">提交订单</button>
+       
+		</div><!-- /right btn -->
+
+	</div>
+
+</div>
 			</section>
+      </form>
 			<!-- /CART -->
 
 <div class="modal fade add-addr-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">

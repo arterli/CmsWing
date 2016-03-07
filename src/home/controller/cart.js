@@ -14,6 +14,7 @@ export default class extends Base {
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
     //console.log(checkMobile(this.userAgent()));
+    //编辑购物车// todou
     return this.display();
   }
   //添加购物车
@@ -104,6 +105,7 @@ export default class extends Base {
       if(!this.is_login){
           return this.fail("你木有登录！")
       }
+      if(think.isEmpty(this.cart.data)){ return this.fail("木有宝贝提交啥订单呢？") }
       this.meta_title = "确认订单信息";//标题1
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
@@ -125,7 +127,12 @@ export default class extends Base {
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
         }
       this.assign("paylist",paylist);
-
+        //购物清单 todo
+        //购物车Post过来的商品id;暂时去购物车内所有的商品
+        
+        
+        
+        
        //this.end(cart_goods);
       return this.display();
       
@@ -230,5 +237,57 @@ async editaddrmodalAction(){
     this.assign("info",address);
     return this.display();
 }
-
+//创建订单
+async createorderAction(){
+    if(!this.is_login){return this.fail("你木有登录！")};
+    let data = this.post();
+    //判断购物车内是否有商品如果没有停止执行，如果有则删除
+    let goodsids;
+    let goodslist =JSON.parse(data.goodslist);
+    let goodsarr=[];
+    for (let goods of goodslist){
+        goodsarr.push(goods.id);
+    }
+    let isgoods = await this.model("cart").where({id:['IN',goodsarr]}).select();
+    delete data.goodslist;
+    //isgoods = [];
+    if(think.isEmpty(isgoods)){
+        return this.fail('请不要重复创建表单！'); 
+    }else{
+        //清空购物车内已经提交的商品
+       await this.model("cart").where({id:['IN',goodsarr]}).delete()
+    }
+    
+    //用户
+    data.user_id=this.user.uid;
+    //生成订单编号//todo
+    let nowtime = new Date().valueOf();
+    data.order_no = nowtime;
+    //添加送货地址
+    let address = await this.model("address").fieldReverse("id,user_id,is_default").find(data.address);
+    data = think.extend(data,address);
+    
+    
+    //生成订单
+    let order_id = await this.model("order").add(data);
+    
+    //储存宝贝
+    //let order_id = 22;
+    console.log(isgoods);
+    let ngoods = [];
+    for(let goods of isgoods){
+      let newgoods = {};
+      newgoods.order_id = order_id;
+      newgoods.goods_id = goods.product_id;
+      newgoods.goods_price = goods.unit_price;
+      newgoods.goods_real_price = goods.unit_price;
+      newgoods.goods_nums = goods.qty;
+      newgoods.prom_goods = JSON.stringify(goods);
+      ngoods.push(newgoods);
+    }
+    console.log(ngoods);
+    await this.model("order_goods").addMany(ngoods);
+    console.log(data);
+    this.end(order_id);
+}
 }

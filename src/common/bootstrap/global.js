@@ -536,7 +536,6 @@ global.get_list_field = function (data, grid, controller, module) {
                 } else {
                     val.push('<a href="' + href1 + '" class="text-info">' + show + '</a> ');
                 }
-
             }
         }
         value = val.join(" ");
