@@ -149,7 +149,8 @@ export default class extends Base{
         //let ids = self.get('ids')
         //return self.end(ids);
         let model = self.model('wx_material');
-        let olddata = await model.where({id: id}).getField('media_id', false);
+        let olddata = await model.where({id: ['IN',id ]}).getField('media_id', false);
+        // return self.end(olddata);
         let wxremove = function (api, data) {
             let deferred = think.defer();
             api.removeMaterial(data, (err, result)=>{
@@ -162,11 +163,19 @@ export default class extends Base{
             return deferred.promise;
         }
         if(!think.isEmpty(olddata)){
-            console.log(olddata)
             let wxres = await wxremove(self.api, olddata[0]);
-            console.log(wxres);
+            // let wxres = { errcode: 0 };
+            // try{
+            //     for(let midi in olddata){
+            //         await wxremove(self.api, olddata[midi]);
+            //     }
+            // }catch(e){
+            //     return self.fail('删除失败');
+            // }
+            //console.log(wxres);
             if(wxres.errcode == 0){
-                let res = await model.where({id: id}).delete();
+                let res = await model.where({id: ['IN', id]}).delete();
+                // let res = true;
                 if(res){
                     return self.success({name: '删除成功'});
                 }
