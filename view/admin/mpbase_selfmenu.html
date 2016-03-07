@@ -7,6 +7,7 @@
 <section class="vbox">
     <section id="bjax-target">
         <section class="hbox stretch">
+
             <!-- side content -->
             {% include "./inc/mp_side.html" %}
             <!-- / side content -->
@@ -77,6 +78,7 @@
                                         <input id="sort" type="hidden" value="">
                                         <input id="menu_type" type="hidden" value="">
                                         <input id="add_id" type="hidden">
+                                        <input id="menu_news_url" type="hidden">
 
                                         <div id="" class="hs_portable_editor">
                                             <div id="" class="hs_menu_hd hs_clearflow">
@@ -119,12 +121,12 @@
                                                             <label>页面地址</label>
                                                         </span>
                                                         <span id="">
-                                                            <input class="hs_menu_url hs_menu_name_input" type="" name="" id="" value=""
+                                                            <input class="hs_menu_url hs_menu_name_input" type="" name="hs_menu_name_input_url" id="" value=""
                                                                    placeholder="url链接"/>
                                                         </span>
                                                     </div>
-                                                    <div id="" class="hs_mt_15" style="margin-left: 73px;">
-                                                        <span id="">
+                                                    <div id="selectnews" class="hs_mt_15" style="margin-left: 73px;">
+                                                        <span id="" >
                                                             <a href="javascript:void(0)" style="color:#459ae9;">从公众号图文消息中选择</a>
                                                         </span>
                                                     </div>
@@ -164,7 +166,7 @@
                                                     <div class="hs-etap-panel">
                                                         <div jstab-des="imgtextArea" class="hs-etap-content">
                                                             <div class="hs-etap-imgtextArea hs-inner">
-                                                                <div class="hs-con-cover">
+                                                                <div id="newsxz" class="hs-con-cover">
                                                                     <div class="hs-media-cover">
                                                                         <span class="hs-create-access">
                                                                             <a href="javascript:;">
@@ -181,6 +183,9 @@
                                                                             </a>
                                                                         </span>
                                                                     </div>
+                                                                </div>
+                                                                <div id="newssed" class="hs-etap-panel" style="display:none;">
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -279,7 +284,7 @@
 <script src="/static/admin/js/hswx/js/hs_self_menu.js"></script>
 <script src="/static/admin/js/hswx/js/hs_js_common.js"></script>
 <script type="text/javascript">
-    var menu = {{ menu | safe }};//已存在的微信菜单数据结构
+    var menu = {{ menu | safe }};//已存在的微信菜单数据结构  selectnews
     var menuItem = {};
     $(function () {
         $('#group_type').on('change', function () {
@@ -291,21 +296,65 @@
             }
         });
 
+        $(document).on('click','#selectnews',function(){
+            hs_show_dialog('imgtext',
+                {'submit':
+                    function(e,d,i){
+                        var d = i;
+                        var meterial_id = d.substr(9);
+                        $('#material_id').val(meterial_id);
+                        var data = {"id":meterial_id};
+                        var div = $("#"+i);
+                        var material_id = i.substr(9);
+                        var data = {"id":material_id};
+                        $.post('/admin/mpbase/getmaterialbyid',data,function(res){
+                            $('input[name=hs_menu_name_input_url]').val(res);
+                            $('#menu_news_url').val(res);
+                        },'text');
+                    }
+                }
+            )
+        });
+
         $(document).on('click','.hs-media-cover',function(){
             hs_show_dialog('imgtext',
-                    {'submit':
-                        function(e,d,i){
-                            console.log(i);
-                            var d = i;
-                            var meterial_id = d.substr(9);
-                            $('#material_id').val(meterial_id);
-                            var data = {"id":meterial_id};
-                            $.post('/admin/mpbase/getmaterialinfo',data,function(){
-
-                            });
-                        }
+                {'submit':
+                    function(e,d,i){
+                        var d = i;
+                        var meterial_id = d.substr(9);
+                        $('#material_id').val(meterial_id);
+                        var data = {"id":meterial_id};
+                        var div = $("#"+i);
+                        $('#newssed').html(div);
+                        $('#newssed').append('<a id="newsdel" class="clearfix" href="#">删除</a>');
+                        $('#newssed').show();
+                        $('#newsxz').hide();
                     }
+                }
             )
+        });
+
+        /**
+         * 删除已有素材
+         */
+        $(document).on('click','#newsdel',function(){
+            $('#newssed').empty();
+            $('#newssed').hide();
+            $('#newsxz').show();
+            $('#material_id').val("");
+        });
+
+        /**
+         * 微信菜单生成
+         */
+        $(document).on('click','.hs_build_menu_wx',function(){
+            $.post('/admin/mpbase/sendselfmenutowx',{},function(res){
+                if(res == '1'){
+                    alert('微信菜单创建成功！');
+                }else{
+                    alert('微信菜单创建失败！');
+                }
+            });
         });
     })
 </script>
