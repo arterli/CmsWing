@@ -309,6 +309,7 @@ export default class extends Base{
                     r = await kmodel.add({
                         'keyword_name': kname,
                         'match_type': ktype,
+                        'rule_id': ruleid,
                         'create_time': currtime,
                         'web_token': currwebtoken
                     });
@@ -326,12 +327,40 @@ export default class extends Base{
             //回复操作
         }else{}
     }
-
+    
+    /**
+     * 删除规则
+     */  
+    async ruledeleteAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let rulemodel = self.model('wx_keywords_rule');
+        await rulemodel.startTrans();
+        let currentrule = await rulemodel.where({id: ruleid}).find();
+        let kids = currentrule.keywords_id;
+        let rids = currentrule.reply_id;
+        let kmodel = self.model('wx_keywords');
+        let rmodel = self.model('wx_replylist');
+        let kres = await kmodel.where({id: ['IN', kids]}).delete();
+        let rres = await rmodel.where({id: ['IN', rids]}).delete();
+        let rulres = await rulemodel.where({id: ruleid}).delete();
+        if(rulres){
+            await rulemodel.commit();
+            return self.success({name:'规则删除成功'});
+        }else{
+            await rulemodel.rollback();
+            return self.fail('规则删除失败');
+        }
+    }
+    
     /**
      * 关注自动回复
      */
     async followAction(){
         let self = this;
+        let model = this.model('wx_replylist');
+        let info =  await model.where({reply_type:1}).find();
+        this.assign('info',info);
         this.assign({"navxs": true,"bg": "bg-dark"});
         return self.display();
     }
@@ -340,9 +369,83 @@ export default class extends Base{
      */
     async messageAction(){
         let self = this;
+        let model = this.model('wx_replylist');
+        let info =  await model.where({reply_type:2}).find();
+        this.assign('info',info);
         this.assign({"navxs": true,"bg": "bg-dark"});
         return self.display();
     }
 
+    /**
+     * 保存回复数据
+     */
+    async saveinfoAction(){
+        let model = this.model('wx_replylist');
+        let media_model = this.model('wx_material');
+        let reply_type = this.post('reply_type');
+        let send_type = this.post('send_type');
+        let editor_content = this.post('editor_content');
+        let me_id = this.post('me_id');
+        //this.end(reply_type+send_type+editor_content);
+        let data = {};
+        //消息回复
+        /*if(reply_type == 2){
+            data.content = editor_content;
+        }else if(reply_type == 1){
+            //关注回复
+
+        }*/
+        //this.end(send_type);
+        if(send_type == 'textArea'){
+            data.type = 'text';
+            data.content = editor_content;
+        }else if(send_type == 'newsArea'){
+            let wx_content = await media_model.where({'id':me_id}).find();
+            //this.end('aaa'+wx_content['material_content']);
+            let material_content = wx_content['material_content'];
+            material_content = JSON.parse(material_content);
+            let targetArr = [];
+            let articles = material_content.articles;
+            for (let key in articles) {
+                let tmpobj = {};
+                tmpobj.title = articles[key]['title'];
+                tmpobj.description = articles[key]['digest'];
+                tmpobj.pic_url =  articles[key]['hs_image_src'];
+                tmpobj.url = articles[key]['content_source_url'];
+                targetArr.push(tmpobj);
+            }
+            data.content = JSON.stringify(targetArr);
+            data.type = 'news';
+        }
+        data.reply_type = reply_type;
+        //this.end(data);
+
+        //查询该类型下是否有保存的回复信息
+        let isAdd = '';
+        let count = await model.where({reply_type:reply_type}).count();
+        if(count > 0){
+            let isDel = await model.where({reply_type:reply_type}).delete();
+            //this.end('del'+isDel);
+            if(isDel){
+                isAdd = await model.thenAdd(data,{reply_type:reply_type});
+            }
+        }else{
+            isAdd = await model.thenAdd(data,{reply_type:reply_type});
+        }
+
+        if(isAdd){
+            if(reply_type == 2){
+                this.assign({"navxs": true,"bg": "bg-dark"});
+                return this.redirect("/admin/mpbase2/message");
+            }else if(reply_type == 1){
+
+                this.assign({"navxs": true,"bg": "bg-dark"});
+                return this.redirect("/admin/mpbase2/follow");
+            }
+        }
+
+
+
+    }
 
 }

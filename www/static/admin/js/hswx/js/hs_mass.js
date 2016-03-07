@@ -81,7 +81,7 @@ $(function() {
 	$(document).on('click','#newsdel',function(){
 		$('#newsxz').show();
 		$('#newssed').hide();
-		$('#newssed').html();
+		$('#newssed').html('');
 	});
 
 	//图文选择DIV隐藏

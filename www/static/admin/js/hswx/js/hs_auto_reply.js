@@ -55,6 +55,9 @@ $(function(){
 				'            <div class="info">',
 				'                <em class="keywords_rule_num">规则'+rule_n+':</em>',
 				'                <strong class="keywords_rule_name">'+rule_name+'</strong>',
+                '                <div class="hs-reply-opts">',
+                '                    <a class="js-edit-rule" data-id="'+rid+'" href="javascript:;">编辑</a> - <a class="js-delete-rule" data-id="'+rid+'" href="javascript:;">删除</a>',
+                '                </div>',
 				'            </div>',
 				'        </div>',
 				'        <div class="keywords_rule_bd keywords_rule_overview">',
@@ -196,7 +199,28 @@ $(function(){
             }
         });
 	});
-	
+    
+    /**
+     * 删除关键字规则
+     */  
+	$(document).on('click', '.js-delete-rule', function () {
+        if(confirm('确定要删除该规则?')){
+            var self = this;
+            var ruleid = self.getAttribute('data-id');
+            if(ruleid){
+                $.post('/admin/mpbase2/ruledelete',{ruleid:ruleid},
+                    function(data) {
+                        if(data.errno == 0){
+                            toastr.success(data.data.name);
+                            window.location.reload();
+                        }else{
+                            toastr.error(data.errmsg);
+                        }    
+                    }
+                );
+            }
+        }
+    });
 	/**
 	 * 删除关键字
 	 * */
@@ -362,6 +386,10 @@ $(function(){
             function (data) {
                 if(data.errno == 0){
                     toastr.success(data.data.name);
+                    if($(self).closest('li').siblings().length == 0){
+                        var reply_panel = $(self).closest('.reply');
+                        reply_panel.find('.hs-keyword-none-tip').show();
+                    }
                     $(self).closest('li').remove();
                 }else{
                     toastr.fail(data.errmsg);
@@ -518,5 +546,59 @@ $(function(){
     /**
      * 关注自动回复
      */
+    /**
+     * 调用模态窗
+     */
+    $(document).on('click','#news-dialog',function(){
+        hs_show_dialog('imgtext',{
+            'submit':function(e,d,i){
+                console.log(i);
+                var media_id = i.substr(9);
+                $("#me_id").val(media_id);
+                var dialog = $(d._div);
+                var newsed = dialog.find('#'+i);
+                var del = '<a id="newsdel" class="clearfix" href="#">删除</a>'
+                if(newsed){
+                    $('#newssed').show();
+                    $('#newssed').html(newsed).append(del);
+                    $('#newsxz').hide();
+                }else{
+                    $('#newsxz').show();
+                    $('#newssed').hide();
+                }
+            }
+        });
+    });
+
+    /**
+     * 点击删除选中的图文
+     */
+    $(document).on('click','#newsdel',function(){
+        $('#newsxz').show();
+        $('#newssed').hide();
+        $('#newssed').html('');
+    });
+
+    //图文选择DIV隐藏
+    //$('#newssed').hide();
+   /* var send_type = $('#send_type').val();
+    $('#hs-area>li').removeClass('active')
+    $('#hs-area>li[jstab-target='+send_type+']').addClass('active');*/
+
+    /**
+     * 自动回复内容类型获取
+     */
+    $(document).on('click', '#hs-area>li', function(){
+        var pr = $(this).attr('jstab-target');
+        $("#send_type").val(pr);
+    });
+    /**
+     * 获取编辑器内容
+     */
+    $(document).on('blur', '#edit_content', function(){
+        var content = $(this).html();
+        $("#editor_content").val(content);
+    });
+
 
 });
