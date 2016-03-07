@@ -11,10 +11,26 @@ ul {list-style: none;padding-left: 0px;}
 	padding:10px;
 	border-radius: 3px;
 	width: 150px;
-	letter-spacing: 6px;
+	letter-spacing: 9px;
 	text-align: center;
 	color: white;
 	font-size: 19px;
+}
+.hs_build_menu_wx {
+	border: 0px;
+	padding:10px;
+	border-radius: 3px;
+	width: 200px;
+	letter-spacing: 9px;
+	text-align: center;
+	color: white;
+	background-color: #44b549;
+	font-size: 19px;
+}
+.hs_father_menu_tips{
+	position: relative;
+	bottom: 163px;
+	color: black;
 }
 .hs_col_main {
 	vertical-align: top;
