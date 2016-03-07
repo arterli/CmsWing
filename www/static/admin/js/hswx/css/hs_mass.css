@@ -21,6 +21,8 @@
 	padding-right: 8px;
     float: left;
 }
+.hs_grid_item select:not(.hs-hide){ display: inline-block; }
+.hs_grid_item select{  width:initial; }
 .hs_main_bd label {
     line-height: 30px;
     font-size: 14px;
