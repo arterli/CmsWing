@@ -160,6 +160,7 @@ export default class extends Base{
             rule[i].rs = rs;
         }
         this.assign('rulelist', rule);
+        this.assign({"navxs": true,"bg": "bg-dark"});
         return this.display();
     }
     /**

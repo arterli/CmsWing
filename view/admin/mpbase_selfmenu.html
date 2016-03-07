@@ -73,6 +73,11 @@
                                     <div id="hs_menu_form_area" class="hs_menu_form_area hs_ml">
                                         <input id="menu_id" type="hidden" value="">
                                         <input id="menu_f_id" type="hidden" name="" value=""/>
+                                        <input id="material_id" type="hidden"  value="">
+                                        <input id="sort" type="hidden" value="">
+                                        <input id="menu_type" type="hidden" value="">
+                                        <input id="add_id" type="hidden">
+
                                         <div id="" class="hs_portable_editor">
                                             <div id="" class="hs_menu_hd hs_clearflow">
                                                 <h4 class="hs_menu_name hs_ml">菜单名称</h4>
@@ -248,13 +253,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="hs_mt_15">
-                                                <span><button class="hs_save_btn">保存</button></span>
-                                            </div>
+                                            <!--<div class="hs_mt_15">-->
+                                                <!--<span><button class="hs_save_btn">保存</button></span>-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="hs_mt_15">
+                            <span><button class="hs_save_btn">保存</button></span>
+                            <span><button class="hs_build_menu_wx">生成菜单</button></span>
                         </div>
                     </section>
                 </section>
@@ -282,42 +291,22 @@
             }
         });
 
-        //重新初始化自定义菜单数据
-        function _reinitMenu() {
+        $(document).on('click','.hs-media-cover',function(){
+            hs_show_dialog('imgtext',
+                    {'submit':
+                        function(e,d,i){
+                            console.log(i);
+                            var d = i;
+                            var meterial_id = d.substr(9);
+                            $('#material_id').val(meterial_id);
+                            var data = {"id":meterial_id};
+                            $.post('/admin/mpbase/getmaterialinfo',data,function(){
 
-        }
-
-        /**
-         * 添加微信菜单
-         * @private
-         */
-        function _addMenu() {
-            var time = new Date().getTime();
-            var jsonData = {
-                'name': '菜单名称',
-                'id': time,
-                'sort': 1
-            };
-            $.ajax({
-                url: "/admin/mpbase/addselfmenu",
-                data: jsonData,
-                type: "post",
-                success: function (backdata) {
-                    if (backdata == 1) {
-                        //$("#myModal").modal("hide");
-                        toastr.success('添加成功!')
-                    } else if (backdata == 0) {
-                        alert("插入失败");
-                    } else {
-                        alert("防止数据不断增长，会影响速度，请先删掉一些数据再做测试");
+                            });
+                        }
                     }
-                }, error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
+            )
+        });
     })
-
-
 </script>
 {% endblock%}
