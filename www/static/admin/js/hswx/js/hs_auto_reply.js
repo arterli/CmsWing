@@ -190,7 +190,7 @@ $(function(){
 	$(document).on('click', '#hs_js_keywords_rule_add', function(){
 		var ruleList = $("#Js_ruleList");
 		var n = ruleList.children('li').length;
-        var rul = '规则名称';
+        var rul = '未命名规则';
         $.get('/admin/mpbase2/createkrule',{'rule_name':rul}, function(data) {
             if(data.errno == 0){
                 ruleList.append(_hs_html_keywords_rule_li(++n, rul, data.data.ruleid));
@@ -221,6 +221,45 @@ $(function(){
             }
         }
     });
+    
+    /** 
+     * 编辑规则名称 
+     */
+    $(document).on('click', '.js-edit-rule', function(){
+        var currname = $(this).closest('.info').find('.keywords_rule_name').html();
+        var ruleid = this.getAttribute('data-id');
+        var d = new HS_Dialog();
+        var h = d.hs_create('规则名称', '<div class="hs-form-control" style="margin:100px 0 120px 0;text-align:center;"><span>规则名称：</span><input type="text" name="rulename" value="'+currname+'" ></div>');
+        d.hs_show(h);
+        $('.dialog_ft [data-index=0]').click(function(){
+            var rulename = $('[name=rulename]').val();
+            if(rulename){
+                $.post('/admin/mpbase2/ruleeditname', {ruleid:ruleid, rulename:rulename},
+                    function(data){
+                        if(data.errno == 0){
+                            toastr.success(data.data.name);
+                            setTimeout(function(){
+                                location.reload();
+                            }, 1100);
+                        }else{
+                            toastr.error(data.errmsg);
+                        }
+                    }
+                );
+                d.hs_remove();
+            }else{
+                toastr.error('规则名称不能为空');
+            }
+        });
+        $('.dialog_hd .pop_closed').click(function(){
+            d.hs_remove();
+        });
+        $('.dialog_ft [data-index=1]').click(function(){
+            d.hs_remove();
+        });
+    });
+
+    
 	/**
 	 * 删除关键字
 	 * */
@@ -315,7 +354,7 @@ $(function(){
         var rulediv = $(self).closest('.keywords_rule_item');
         var ruleid = rulediv.attr('id');
         if(!ruleid){
-            toastr.error('改规则存在错误，回复添加失败');
+            toastr.error('该规则存在错误，回复添加失败');
             return false;
         }
         var d = new HS_Dialog();
@@ -398,12 +437,89 @@ $(function(){
         );
     });
     
+    /**
+     * 编辑回复 
+     */
+    $(document).on('click', '.js-edit-it', function() {
+        var self = this;
+        // var rulediv = $(self).closest('.keywords_rule_item');
+        // var ruleid = rulediv.attr('id');
+        var ruleid = self.getAttribute('data-rid');
+        var rtype = self.getAttribute('data-rtype');
+        var editorInit = { rid: ruleid, rtype: rtype };
+        
+        var d = new HS_Dialog();
+        var dh = d.hs_create('编辑回复', _hs_reply_editor(editorInit));
+        d.hs_show(dh);
+        var dialog = $(d._div);
+        $('.hs-dialog-submit[data-index=0]').click(function(){
+            var active = dialog.find('.hs-etap-one.active').attr('jstab-target');
+            var params = {};
+            params.ruleid = ruleid;
+            //根据类型取值
+            switch(active){
+                case 'textArea': 
+                    params.type = 'text';
+                    var tmp_content = dialog.find('.edit_area').html();
+                    if(tmp_content){
+                        params.content = tmp_content;
+                    }else{
+                        toastr.error('文本内容不能为空');
+                        return false;
+                    }
+                break;
+                case 'imageArea': 
+                    alert('image暂未开放'); return false;
+                break;
+                case 'audioArea': 
+                    alert('audio暂未开放'); return false;
+                break;
+                case 'videoArea': 
+                    alert('video暂未开放'); return false;
+                break;
+            }
+            $.post('/admin/mpbase2/editreply', params,
+                function (data) {
+                    if(data.errno == 0){
+                        toastr.success(data.data.name);
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                        d.hs_remove();
+                    }else{
+                        toastr.error(data.errmsg);
+                    }
+                }
+            );
+        });
+        $('.dialog_hd .pop_closed').click(function(){
+            d.hs_remove();
+        });
+        $('.dialog_ft [data-index=1]').click(function(){
+            d.hs_remove();
+        });
+    });
+    
     //弹出编辑
     function _hs_reply_editor(){
+        var obj = {
+            rtype: null,
+            rid: 0,
+            rdom: ''
+        }
+        if(arguments[0]){
+            obj.rtype = arguments[0].rtype;
+            obj.rid = arguments[0].rid;
+            switch (obj.rtype){
+                case 'text':
+                    obj.rdom = $('[data-rid='+obj.rid+']').closest('li').find('.reply-dom').text();
+                break;
+            }
+        }
         return ['<div class="hs-ui-beditor hs-js-tab hs-auto">',
         '	<div class="hs-etap-nav">',
         '		<ul>',
-        '			<li jstab-target="textArea" class="hs-etap-one hs-etap-text active">',
+        '			<li jstab-target="textArea" class="hs-etap-one hs-etap-text '+ (obj.type ? obj.type == 'text' ? 'active':'':'active') +'">',
         '				<a href="javascript:void(0);" onclick="return false;">&nbsp;<i class="hs-etap-icon"></i><span class="hs-etap-title">文字</span></a>',
         '			</li>',
         '			<li jstab-target="imageArea" class="hs-etap-one hs-etap-image">',
@@ -418,12 +534,12 @@ $(function(){
         '		</ul>',
         '	</div>',
         '	<div class="hs-etap-panel">',
-        '		<div jstab-des="textArea" class="hs-etap-content">',
+        '		<div jstab-des="textArea" class="hs-etap-content" style="'+ (obj.type ? obj.type == 'text' ? '':'display:none':'') +'">',
         '			<div class="hs-etap-textArea hs-inner">',
         '				<!--*****-->',
         '				<div class="emotion_editor">',
         '					<!--<div class="edit_area js_editorArea" style="display: none;"></div>-->',
-        '					<div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;"></div>',
+        '					<div class="edit_area js_editorArea" contenteditable="true" style="overflow-y: auto; overflow-x: hidden;">'+obj.rdom+'</div>',
         '					<div class="editor_toolbar">',
         '						<a href="javascript:void(0);" class="icon_emotion emotion_switch js_switch">表情</a>',
         '						<p class="editor_tip opr_tips">，按下Shift+Enter键换行</p>',
@@ -518,6 +634,7 @@ $(function(){
         var t = c = '';
         console.log(param);
         var rid = param.rid;
+        var rtype = param.type;
         //根据类型赋值
         switch(param.type){
             case 'text': 
@@ -535,14 +652,14 @@ $(function(){
             break;
         }
         return ['<li>',
-        '	<div class="hs-reply-content"><span class="hs-kv-rectype">'+t+'</span>'+c+'</div>',
+        '	<div class="hs-reply-content"><span class="hs-kv-rectype">'+t+'</span><span class="reply-dom">'+c+'</span></div>',
         '	<div class="hs-reply-opts">',
-        '		<a class="js-edit-it" data-rid="'+rid+'" href="javascript:;">编辑</a> - <a class="js-delete-it" data-rid="'+rid+'" href="javascript:;">删除</a>',
+        '		<a class="js-edit-it" data-rid="'+rid+'" data-rtype="'+rtype+'" href="javascript:;">编辑</a> - <a class="js-delete-it" data-rid="'+rid+'" href="javascript:;">删除</a>',
         '	</div>',
         '</li>'].join("");
     }
-
-
+    
+    
     /**
      * 关注自动回复
      */

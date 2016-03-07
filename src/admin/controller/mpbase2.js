@@ -58,8 +58,22 @@ export default class extends Base{
         let self = this;
         let params = self.post("params");
         let edit_id = self.get("edit_id");
+        let model = self.model('wx_material');
         if(edit_id){
-            self.success({"name":"编辑暂未开通", url:""});
+            let olddata = await model.where({id: edit_id}).find();
+            let wxr = function(api, data) {
+                let deferred = think.defer();
+                api.removeMaterial(data, (err, result)=>{
+                   if(err){
+                        deferred.reject(err);
+                    }else{
+                        deferred.resolve(result);
+                    } 
+                });
+                return deferred.promise;
+            }
+            let wxrres = await wxr(self.api, olddata.media_id);
+            let delrow = await model.where({id: edit_id}).delete();
         }
         try{
             var anews = JSON.parse(params);
@@ -67,16 +81,15 @@ export default class extends Base{
             let wx = function(api, data) {
                 let deferred = think.defer();
                 api.uploadNewsMaterial(data, (err, result)=>{
-                if(err){
-                    deferred.reject(err);
-                }else{
-                    deferred.resolve(result);
-                }
+                    if(err){
+                        deferred.reject(err);
+                    }else{
+                        deferred.resolve(result);
+                    }
                 });
                 return deferred.promise;
             }
             let wxres = await wx(self.api, anews);
-            let model = self.model('wx_material');
             if(wxres){
                 let wxg = function(api, data) {
                     let deferred = think.defer();
@@ -104,9 +117,9 @@ export default class extends Base{
                     self.success({"name":"上传成功！", url:""});
                 }
             }
-            self.error({"name":"上传失败！", url:""});
+            self.fail("上传失败！");
         }catch(e){
-            self.error({"name":"上传失败！", url:""});
+            self.fail("上传失败！");
         }
     }
     
@@ -118,13 +131,46 @@ export default class extends Base{
         self.meta_title = "微信素材列表";
         self.assign({"navxs": true, "bg": "bg-dark"});
         let model = self.model("wx_material");
-        let data = await model.page(this.get('page')).countSelect();
+        let data = await model.page(this.get('page')).order('add_time DESC').countSelect();
         let Pages = think.adapter("pages","page");
         let pages = new Pages();
         let page = pages.pages(data);
         self.assign('pagerData', page);
         self.assign('fodder_list', data.data);
         return this.display();
+    }
+    
+    /**
+     * 删除素材
+     */
+    async deletefodderAction(){
+        let self = this;
+        let id = self.get('id');
+        let model = self.model('wx_material');
+        let olddata = await model.where({id: id}).find();
+        let wxremove = function (api, data) {
+            let deferred = think.defer();
+            api.removeMaterial(data, (err, result)=>{
+               if(err){
+                   deferred.reject(err); 
+               }else{
+                   deferred.resolve(result);
+               } 
+            });
+            return deferred.promise;
+        }
+        if(!think.isEmpty(olddata)){
+            console.log(olddata.media_id)
+            let wxres = await wxremove(self.api, olddata.media_id);
+            console.log(wxres);
+            if(wxres.errcode == 0){
+                let res = await model.where({id: id}).delete();
+                if(res){
+                    return self.success({name: '删除成功'});
+                }
+            }
+        }
+        return self.fail('删除失败');
     }
     
     async asyncfodderlistAction(){
@@ -274,7 +320,45 @@ export default class extends Base{
     }
     
     /**
-     * 规则编辑 
+     *  编辑回复
+     */
+    async editreplyAction(){
+        let self = this;
+        let type = self.post('type');
+        let rid = self.post('ruleid');
+        let model = self.model('wx_replylist');
+        let currtime = new Date().getTime();
+        let currwebtoken = 0;
+        let result = 0;
+        switch (type) {
+            case 'text':
+                let content = self.post('content')
+                result = await model.where({id:rid}).update({
+                    'content': content,
+                    'create_time': currtime,
+                    'web_token': currwebtoken
+                });
+                break;
+            case 'image':
+            break;
+            case 'audio':
+            break;
+            case 'video':
+            break;
+            case 'news':
+            break;
+        }
+        
+        if(result){
+            return self.success({name:'编辑成功'});
+        }else{
+            return self.fail('编辑失败');
+        }
+        
+    }
+    
+    /**
+     * 规则编辑 （关键字的添加和删除）
      */
     async ruleeditAction(){
         let self = this;
@@ -352,6 +436,20 @@ export default class extends Base{
             await rulemodel.rollback();
             return self.fail('规则删除失败');
         }
+    }
+    /**
+     * 编辑规则名称 
+     */
+    async ruleeditnameAction(){
+        let self = this;
+        let ruleid = self.post('ruleid');
+        let rulename = self.post('rulename');
+        let rulemodel = self.model('wx_keywords_rule');
+        let res = await rulemodel.where({id:ruleid}).update({rule_name: rulename});
+        if(res){
+            return self.success({name:'编辑成功'});
+        }
+        return self.fail('编辑失败');
     }
     
     /**
