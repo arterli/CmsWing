@@ -64,13 +64,13 @@
                                                 <td>
                                                     {% set wx_content = item.material_content|strToJson %}
                                                     {% for val in wx_content.articles %}
-                                                    <div class="hassend-deled">
-                                                    <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">
-                                                        <img src="{{val.hs_image_src}}" class="hassend-img">
-                                                    </a>
+                                                    <div class="hassend-deled" style="float:left;margin-right:20px">
+                                                        <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">
+                                                            <img src="{{val.hs_image_src}}" class="hassend-img">
+                                                        </a>
                                                         <i class="deled-mask">已删除</i>
                                                     </div>
-                                                    <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">[图文]{{val.title}}</a>
+                                                    <div style="float:left"><a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">[图文]{{val.title}}</a></div>
                                                     {% endfor %}
                                                 </td>
                                             {% endif %}

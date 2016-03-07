@@ -1,0 +1,121 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                模型表列表
+                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info " href="/admin/model/add">
+                                           删除
+                                        </a>
+                                        <a class="btn btn-sm btn-info " href="/admin/model/setstatus/status/1"  target-form="ids">
+                                           全部订单
+                                        </a>
+                                        <a class="btn btn-sm btn-info " href="/admin/model/setstatus/status/0" target-form="ids">
+                                           未审核
+                                        </a>
+                                        <a class="btn btn-sm btn-info" href="/admin/model/generate">
+                                           执行中
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th>订单号</th>
+                                        <th>订单总额</th>
+                                        <th>会员账号</th>
+                                        <th>收货人</th>
+                                        <th>收货人电话</th>
+                            
+                                        <th>支付状态</th>
+                                        <th>配送状态</th>
+                                        <th>订单状态</th>
+                                        <th>操作</th>
+                                        <th>打印</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                                         <td>{{item.order_no}}</td>
+                                          
+                                        <td>￥{{item.order_amount|formatCurrency}}</td>
+                                        <td>{{item.user_id|get_nickname}}</td>
+                                        <td>{{item.accept_name}}</td>
+                                        <td>{{item.mobile}}</td>
+                                        <td>{%if item.pay_status == 0%}未支付{%else%}已支付{%endif%}</td>
+                                        <td>{%if item.delivery_status == 0%} 未发货{%else%}已发货{%endif%}</td>
+                                        
+                                        <td>
+                                           {%if item.status ==2 %}等待审核{%elif item.status ==3%}已审核{%elif item.status ==6%}已作废{%endif%}
+                                        </td>
+                                        <td><div class="btn-group">
+		                  <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">处理 <span class="caret"></span></button>
+		                  <ul class="dropdown-menu">
+		                    <li><a href="#">Action</a></li>
+		                    <li><a href="#">Another action</a></li>
+		                    <li><a href="#">Something else here</a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="#">Separated link</a></li>
+		                  </ul>
+		                </div></td>
+                                        <td><div class="btn-group dropleft">
+		                  <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">打印 <span class="caret"></span></button>
+		                  <ul class="dropdown-menu">
+		                    <li><a href="#">Action</a></li>
+		                    <li><a href="#">Another action</a></li>
+		                    <li><a href="#">Something else here</a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="#">Separated link</a></li>
+		                  </ul>
+		                </div></td>
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="11"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}

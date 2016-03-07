@@ -298,13 +298,15 @@ function _hs_update_item_data(params) {
     _hs_update_item_title(_data.title || "标题", _item);
     _hs_update_item_image(_data.hs_image_src, _item);
 }
+
+//查看当前数据
 function _hs_query_item_data() {
     var _item = _hs_current_item();
     var _data = _item.data("item_data");
     console.log(JSON.stringify(_data));
 }
 
-
+//保存数据
 function _hs_submit_articles() {
     var _items = $(".hs-fodder-item");
     var _hs_wx_fodder = {
@@ -332,5 +334,3 @@ function _hs_submit_articles() {
         }
     },'json');
 }
-
-
