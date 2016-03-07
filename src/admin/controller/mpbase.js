@@ -215,34 +215,6 @@ export default class extends Base {
         }
     }
 
-    ///**
-    // * 更新微信自定义菜单
-    // */
-    //async updateselfmenuAction(){
-    //
-    //}
-    /**
-     * mawt ceshi
-     */
-    //async mawtAction(){
-    //
-    //    let menu_model = this.model('wx_material');
-    //    let data = await menu_model.select();
-    //    let menu = {};
-    //    let self = this;
-    //    if(data){
-    //        menu = createSelfMenu();
-    //    }else{
-    //        menu = {
-    //                    "menu": {
-    //                        "button": []
-    //                    }
-    //                };
-    //    }
-    //    this.assign('menu',menu);
-    //    return self.display();
-    //}
-    
     /**
      * 监听微信关注或取消，进行本地用户数据更新
      */
@@ -593,11 +565,32 @@ export default class extends Base {
     async selfmenuAction() {
         this.meta_title="自定义菜单";
         let self = this;
-        let api = new API('wxe8c1b5ac7db990b6','ebcd685e93715b3470444cf6b7e763e6');
 
+        let menu_model =this.model("wx_menu");
+        let data = await menu_model.order('pid ASC, sort ASC').select();
+        console.log(JSON.stringify(data));
+
+        let d = createSelfMenu(data);
+        //console.log(d.menu.button[0]['type']);
+        let str = JSON.stringify(d);
+        this.assign('menu',str);
+        return self.display();
+    }
+
+    /**
+     * 发送菜单到微信端
+     */
+    async sendselfmenutowxAction(){
+        let menu_model = this.model('wx_menu');
+        let data = await menu_model.order('pid ASC, sort ASC').select();
+        let menu = buildselfmenu(data);
+
+        let api = new API('wx3e72261823fb62dd', '593bf2b86a00c913d8e38e9cf1d4e1ec');
+
+        console.log(menu);
         let info = function(api) {
             let deferred = think.defer();
-            api.getMenu((err,result)=>{
+            api.createMenu(menu,(err,result)=>{
                 if(!think.isEmpty(result)){
                     deferred.resolve(result);
                 }else{
@@ -607,15 +600,22 @@ export default class extends Base {
             return deferred.promise;
         }
         let res = await info(api);
-        console.log(JSON.stringify(res));
+        console.log(res);
+        if(res.errmsg == 'ok'){
+            return this.json('1');
+        }else{
+            return this.json('2');
+        }
+    }
 
-        let menu_model =this.model("wx_menu");
-        let data = await menu_model.select();
-
-        let d = createSelfMenu(data);
-        //console.log(d.menu.button[0]['type']);
-        let str = JSON.stringify(d);
-        this.assign('menu',str);
-        return self.display();
+    /**
+     * 通过素材ID获取素材链接
+     */
+    async getmaterialbyidAction(){
+        let model = this.model("wx_material");
+        let id = this.post('id');
+        let data = await model.where({id: id}).find();
+        let url = JSON.parse(data.material_wx_content).news_item.url;
+        return this.json(JSON.parse(data.material_wx_content).news_item[0].url);
     }
 }
