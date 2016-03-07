@@ -146,8 +146,10 @@ export default class extends Base{
     async deletefodderAction(){
         let self = this;
         let id = self.get('id');
+        //let ids = self.get('ids')
+        //return self.end(ids);
         let model = self.model('wx_material');
-        let olddata = await model.where({id: id}).find();
+        let olddata = await model.where({id: id}).getField('media_id', false);
         let wxremove = function (api, data) {
             let deferred = think.defer();
             api.removeMaterial(data, (err, result)=>{
@@ -160,8 +162,8 @@ export default class extends Base{
             return deferred.promise;
         }
         if(!think.isEmpty(olddata)){
-            console.log(olddata.media_id)
-            let wxres = await wxremove(self.api, olddata.media_id);
+            console.log(olddata)
+            let wxres = await wxremove(self.api, olddata[0]);
             console.log(wxres);
             if(wxres.errcode == 0){
                 let res = await model.where({id: id}).delete();
