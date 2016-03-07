@@ -39,7 +39,7 @@
 
 
 			<!-- CART -->
-             <form method="post" action="/home/cart/createorder">
+             <form class = "form-post" method="post" action="/home/cart/createorder">
 			<section>
 				<div class="container">
 
@@ -235,14 +235,14 @@
 				<td>-￥0.00</td>
 				
 			</tr>
-			<tr class="danger">
+			<tr class="success">
 				<td class="text-right">运费：</td>
-				<td >￥5.00</td>
+				<td >+￥{{real_freight|formatCurrency}}</td>
 				
 			</tr>
-			<tr class="success">
+			<tr class="danger">
 				<td class="text-right text-danger size-18">应付总额：</td>
-				<td class="text-danger size-18">￥29.90</td>
+				<td class="text-danger size-18">￥{{order_amount|formatCurrency}}</td>
 				
 			</tr>
 			
@@ -268,7 +268,7 @@
 		
 		<div class="col-md-4 col-sm-4 text-right"><!-- right btn -->
              <input type="hidden" value="{{controller.cart.data|jsonToStr}}" name="goodslist">
-			<button class="btn btn-danger btn-lg" type="submit">提交订单</button>
+			<button  target-form="form-post" class="btn btn-danger btn-lg ajax-post" type="submit">提交订单</button>
        
 		</div><!-- /right btn -->
 
