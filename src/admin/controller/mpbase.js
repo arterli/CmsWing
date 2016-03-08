@@ -400,9 +400,9 @@ export default class extends Base {
         media_id = media_id[0];
         let openids = [];
         for (var key in userinfo) {
-            if (userinfo.hasOwnProperty(key)) {
-                openids.push(userinfo[key].openid);    
-            }
+            //if (userinfo.hasOwnProperty(key)) {
+            openids.push(userinfo[key].openid);
+           // }
         }
         //self.end(aa);
         let res = '';
