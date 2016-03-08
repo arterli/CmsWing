@@ -48,9 +48,9 @@
 								<div class="box1 noradius">
 									<div class="box-icon-title">
 										<i class="fa fa-user"></i>
-										<h2>Felica Doe &ndash; Profile</h2>
+										<h2>尊敬的会员 <span class="text-danger">{{controller.user.username}}</span>  ，欢迎您！</h2>
 									</div>
-									<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>
+									<p>最后一次登录：{{controller.user.last_login_time|dateformat('Y-m-d H:i:s')}}</p>
 								</div>
 							</div>
 
@@ -65,7 +65,7 @@
 						<!-- /FLIP BOX -->
 
 
-						<div class="box-light"><!-- .box-light OR .box-dark -->
+						<div class="box-light hide"><!-- .box-light OR .box-dark -->
 
 							<div class="row">
 
@@ -78,7 +78,7 @@
 											POPULAR POSTS
 										</h3>
 										<div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-										
+
 											<div class="clearfix margin-bottom-10"><!-- post item -->
 												<img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/b-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-13 nomargin noborder nopadding"><a href="blog-single-default.html">Nullam Vitae Nibh Un Odiosters</a></h4>
@@ -171,7 +171,7 @@
 											</div><!-- /squared item -->
 
 										</div>
-									</div>									
+									</div>
 
 									<div class="box-footer">
 										<!-- INLINE SEARCH -->
@@ -205,12 +205,12 @@
 											DISCUSSIONS
 										</h3>
 										<div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-										
+
 											<div class="clearfix margin-bottom-20"><!-- discussion item -->
 												<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/3-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-15 nomargin noborder nopadding bold"><a href="#">Joana Doe</a></h4>
 												<span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													<span class="text-success size-11">12 min. ago</span>
 												</span>
 											</div><!-- /discussion item -->
@@ -219,7 +219,7 @@
 												<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-15 nomargin noborder nopadding bold"><a href="#">Melissa Doe</a></h4>
 												<span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													<span class="text-success size-11">54 min. ago</span>
 												</span>
 											</div><!-- /discussion item -->
@@ -228,7 +228,7 @@
 												<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/5-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-15 nomargin noborder nopadding bold"><a href="#">juliet Doe</a></h4>
 												<span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													<span class="text-success size-11">8 days ago</span>
 												</span>
 											</div><!-- /discussion item -->
@@ -237,7 +237,7 @@
 												<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/6-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-15 nomargin noborder nopadding bold"><a href="#">Suanna Doe</a></h4>
 												<span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													<span class="text-success size-11">12 day ago</span>
 												</span>
 											</div><!-- /discussion item -->
@@ -246,7 +246,7 @@
 												<img class="thumbnail pull-left" src="assets/images/demo/people/300x300/7-min.jpg" width="60" height="60" alt="" />
 												<h4 class="size-15 nomargin noborder nopadding bold"><a href="#">Felicia Doe</a></h4>
 												<span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 													<span class="text-success size-11">1 month ago</span>
 												</span>
 											</div><!-- /discussion item -->
@@ -281,7 +281,7 @@
 											NOTIFICATIONS
 										</h3>
 										<div class="height-250 slimscroll" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-										
+
 											<div class="clearfix margin-bottom-20"><!-- notification item -->
 												<span class="label label-success label-square pull-left">
 													<i class="fa fa-comment"></i>
@@ -358,18 +358,80 @@
 						</div>
 
 
-						<form method="post" action="#" class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
+						<div class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
 							<div class="box-inner">
-								<h4 class="uppercase">LEAVE A MESSAGE TO <strong>FELICIA DOE</strong></h4>
-								
-								<textarea required class="form-control word-count" data-maxlength="100" rows="5" placeholder="Type your message here..."></textarea>
-								<div class="text-muted text-right margin-top-3 size-12 margin-bottom-10">
-									<span>0/100</span> Words
-								</div>
+								<ul class="row clearfix testimonial-dotted list-unstyled">
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover icon-wallet"></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">账户余额： </h5>
+												￥98800.36
+											</div>
+										</div>
+									</li>
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover et-calendar"></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">订单交易总金额： </h5>
+												￥107.64
+											</div>
+										</div>
+									</li>
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover icon-diamond"></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">我的积分： </h5>
+												0
 
-								<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> SEND MESSAGE</button>
+											</div>
+										</div>
+									</li>
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover fa fa-star-half-full "></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">会员级别： </h5>
+												普通会员
+											</div>
+										</div>
+									</li>
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover fa fa-hourglass-half"></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">进行中的订单： </h5>
+												4
+											</div>
+										</div>
+									</li>
+									<li class="col-md-4">
+										<div class="testimonial">
+											<figure class="pull-left">
+												<i class="ico-light ico-rounded ico-hover fa fa-balance-scale"></i>
+											</figure>
+											<div class="testimonial-content">
+												<h5 class="margin-bottom-8">待评价的商品： </h5>
+												0
+
+											</div>
+										</div>
+									</li>
+								</ul>
 							</div>
-						</form>
+						</div>
 
 					</div>
 					

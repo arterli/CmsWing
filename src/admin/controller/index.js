@@ -15,6 +15,10 @@ import {type} from 'os';
  * http://www.cmswing.com
  */
 export default class extends Base {
+  init(http){
+    super.init(http);
+
+  }
   /**
    * index action
    * @return {Promise} []

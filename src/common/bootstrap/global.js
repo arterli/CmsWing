@@ -22,7 +22,7 @@
  * @private
  */
 /* global _ip2int(ip)*/
-global._ip2int = function (ip) {
+global._ip2int = function(ip) {
     var num = 0;
     ip = ip.split(".");
     num = Number(ip[0]) * 256 * 256 * 256 + Number(ip[1]) * 256 * 256 + Number(ip[2]) * 256 + Number(ip[3]);
@@ -36,7 +36,7 @@ global._ip2int = function (ip) {
  * @private
  */
 /*global _int2ip(num: number) */
-global._int2iP = function (num) {
+global._int2iP = function(num) {
     var str;
     var tt = new Array();
     tt[0] = (num >>> 24) >>> 0;
@@ -54,7 +54,7 @@ global._int2iP = function (num) {
  * @returns {*}
  */
 /*global encryptPassword */
-global.encryptPassword = function (password, md5encoded) {
+global.encryptPassword = function(password, md5encoded) {
     md5encoded = md5encoded || false;
     password = md5encoded ? password : think.md5(password);
     return think.md5(think.md5('vkj.ren') + password + think.md5('arterli'));
@@ -66,7 +66,7 @@ global.encryptPassword = function (password, md5encoded) {
  * @returns {Array}
  */
 /* global unique */
-global.unique = function (arr) {
+global.unique = function(arr) {
     var result = [], hash = {};
     for (var i = 0, elem; (elem = arr[i]) != null; i++) {
         if (!hash[elem]) {
@@ -83,7 +83,7 @@ global.unique = function (arr) {
  * @returns {boolean}
  */
 /* global in_array */
-global.in_array = function (stringToSearch, arrayToSearch) {
+global.in_array = function(stringToSearch, arrayToSearch) {
     for (let s = 0; s < arrayToSearch.length; s++) {
         let thisEntry = arrayToSearch[s].toString();
         if (thisEntry == stringToSearch) {
@@ -98,7 +98,7 @@ global.in_array = function (stringToSearch, arrayToSearch) {
  * @param d
  * @returns {string}
  */
-global.times = function (d, sec) {
+global.times = function(d, sec) {
     var time;
     var date = new Date(d);
     var y = date.getFullYear();
@@ -132,7 +132,7 @@ function sort_node(v, w) {
  * global get_children
  * 获取子集分类 （这里是获取所有子集）
  */
-global.get_children = function (nodes, parent) {
+global.get_children = function(nodes, parent) {
     console.log(11);
     var children = [];
     var last = [];
@@ -239,10 +239,10 @@ global.get_children = function (nodes, parent) {
  * @returns {Array}
  */
 /* global obj_values */
-global.obj_values = function (obj) {
+global.obj_values = function(obj) {
     let objkey = Object.keys(obj);
     let objarr = [];
-    objkey.forEach(key=> {
+    objkey.forEach(key => {
         objarr.push(obj[key]);
     })
     return objarr;
@@ -254,7 +254,7 @@ global.obj_values = function (obj) {
  * @returns {boolean}
  */
 /* global isObjectValueEqual */
-global.isObjectValueEqual = function (a, b) {
+global.isObjectValueEqual = function(a, b) {
     // Of course, we can do it use for in
     // Create arrays of property names
     var aProps = Object.getOwnPropertyNames(a);
@@ -286,7 +286,7 @@ global.isObjectValueEqual = function (a, b) {
  * @returns {*|void|string|XML}
  */
 /* global trim */
-global.trim = function (str) {
+global.trim = function(str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 /**
@@ -295,7 +295,7 @@ global.trim = function (str) {
  * @returns {*}
  */
 /* global parse_config_attr */
-global.parse_config_attr = function (str) {
+global.parse_config_attr = function(str) {
     let strs;
     if (str.search(/\r\n/ig) > -1) {
         strs = str.split("\r\n");
@@ -320,7 +320,7 @@ global.parse_config_attr = function (str) {
  * @returns {*|void|string|XML}
  */
 /* global ltrim */
-global.ltrim = function (str) {
+global.ltrim = function(str) {
     return str.replace(/(^\s*)/g, "");
 }
 /**
@@ -330,7 +330,7 @@ global.ltrim = function (str) {
  * @returns {*|void|string|XML}
  */
 /* global rtrim */
-global.rtrim = function (str) {
+global.rtrim = function(str) {
     return str.replace(/(\s*$)/g, "");
 }
 /**
@@ -340,7 +340,7 @@ global.rtrim = function (str) {
  * @return array
  */
 /* global arr_to_tree */
-global.arr_to_tree = function (data, pid) {
+global.arr_to_tree = function(data, pid) {
     var result = [], temp;
     for (var i in data) {
         if (data[i].pid == pid) {
@@ -354,7 +354,7 @@ global.arr_to_tree = function (data, pid) {
     return result;
 }
 /* global arr_to_tree */
-global.sub_cate = function (data, pid) {
+global.sub_cate = function(data, pid) {
     var result = [], temp;
     for (var i in data) {
         if (data[i].pid == pid) {
@@ -370,7 +370,7 @@ global.sub_cate = function (data, pid) {
 }
 // 获取属性类型信息
 /* global get_attribute_type */
-global.get_attribute_type = function (type) {
+global.get_attribute_type = function(type) {
     // TODO 可以加入系统配置
     let _type = {
         'num': ['数字', 'int(10) unsigned NOT NULL'],
@@ -399,7 +399,7 @@ global.get_attribute_type = function (type) {
  * @return  '2015-12-17 15:39:44'
  */
 /* global dateformat */
-global.dateformat = function (extra, date) {
+global.dateformat = function(extra, date) {
     let D = new Date(date);
     let time = {
         "Y": D.getFullYear(),
@@ -419,7 +419,7 @@ global.dateformat = function (extra, date) {
     return _date;
 }
 /* global array_search */
-global.array_search = function (arr, str) {
+global.array_search = function(arr, str) {
     // 如果可以的话，调用原生方法
     if (arr && arr.indexOf) {
         return arr.indexOf(str);
@@ -437,7 +437,7 @@ global.array_search = function (arr, str) {
     return false;
 }
 /* global array_diff */
-global.array_diff = function (arr1, arr2) {
+global.array_diff = function(arr1, arr2) {
     //var arr1 = ["i", "b", "c", "d", "e", "f","x",""]; //数组A
     //var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
     var temp = []; //临时数组1
@@ -462,7 +462,7 @@ global.array_diff = function (arr1, arr2) {
 //}
 /* 解析列表定义规则*/
 /* global get_list_field */
-global.get_list_field = function (data, grid, controller, module) {
+global.get_list_field = function(data, grid, controller, module) {
     module = module || "admin";
     //console.log(module);
     let data2 = {};
@@ -551,7 +551,7 @@ global.get_list_field = function (data, grid, controller, module) {
  * @author arterli <arterli@qq.com>
  */
 /* global get_action_type */
-global.get_action_type = function (type, all) {
+global.get_action_type = function(type, all) {
     all = all || false;
     let list = {
         1: '系统',
@@ -571,7 +571,7 @@ global.get_action_type = function (type, all) {
  * @param params 数组格式传入参数
  */
 /* global call_user_func */
-global.call_user_func = function (cb, params) {
+global.call_user_func = function(cb, params) {
     let func = eval(cb);
     if (!think.isArray(params)) {
         params = [params];
@@ -592,7 +592,7 @@ global.get_nickname = async (uid) => {
 }
 //时间格式
 /* global time_format */
-global.time_format = (time)=> {
+global.time_format = (time) => {
     return dateformat('Y-m-d H:i:s', time);
 }
 /* global str_replace()
@@ -604,7 +604,7 @@ global.time_format = (time)=> {
  * @returns {*}
  */
 /* global str_replace */
-global.str_replace = function (search, replace, subject, count) {
+global.str_replace = function(search, replace, subject, count) {
     var i = 0, j = 0, temp = '', repl = '', sl = 0, fl = 0,
         f = [].concat(search),
         r = [].concat(replace),
@@ -636,7 +636,7 @@ global.str_replace = function (search, replace, subject, count) {
  * @param id   文档id
  * @returns {*}
  */
-global.get_url = (name, id)=> {
+global.get_url = (name, id) => {
 
     if (!think.isEmpty(name)) {
         return `/detail/${name}`;
@@ -652,12 +652,12 @@ global.get_url = (name, id)=> {
  * @author arterli <arterli@qq.com>
  */
 /*global get_cover*/
-global.get_cover = async (cover_id, field)=> {
+global.get_cover = async (cover_id, field) => {
 
     if (think.isEmpty(cover_id)) {
         return false;
     }
-    let picture = await think.model('picture', think.config("db")).where({'status': 1}).find(cover_id);
+    let picture = await think.model('picture', think.config("db")).where({ 'status': 1 }).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
 
@@ -669,7 +669,7 @@ global.get_cover = async (cover_id, field)=> {
  * @author arterli <arterli@qq.com>
  */
 /*global get_pics_one */
-global.get_pics_one = async (arr_id, field)=> {
+global.get_pics_one = async (arr_id, field) => {
     if (think.isEmpty(arr_id)) {
         return false;
     }
@@ -678,7 +678,7 @@ global.get_pics_one = async (arr_id, field)=> {
 
 }
 //{present_price:100,discount_price:80}
-global.formatprice = function (price) {
+global.formatprice = function(price) {
     let pr = JSON.parse(price);
     var present_price;
     console.log(pr);
@@ -699,7 +699,7 @@ global.formatprice = function (price) {
 
 }
 //获取价格格式化
-global.get_price_format = function (price, type) {
+global.get_price_format = function(price, type) {
     let pr = JSON.parse(price);
 
     if (1 == type) {
@@ -726,7 +726,7 @@ global.get_price_format = function (price, type) {
     return price;
 }
 //获取价格不格式化
-global.get_price = function (price, type) {
+global.get_price = function(price, type) {
     if (price) {
         price = JSON.parse(price);
         if (1 == type) {
@@ -750,7 +750,7 @@ global.get_price = function (price, type) {
  * @type String
  */
 /*global formatCurrency */
-global.formatCurrency = function (num) {
+global.formatCurrency = function(num) {
     num = num.toString().replace(/\$|\,/g, '');
     if (isNaN(num))
         num = "0";
@@ -774,7 +774,7 @@ global.formatCurrency = function (num) {
  * @type String
  */
 /*global formatCurrencyTenThou */
-global.formatCurrencyTenThou = function (num) {
+global.formatCurrencyTenThou = function(num) {
     num = num.toString().replace(/\$|\,/g, '');
     if (isNaN(num))
         num = "0";
@@ -792,17 +792,17 @@ global.formatCurrencyTenThou = function (num) {
  */
 
 /*global getsuk */
-global.getsuk = function (suk, arr) {
+global.getsuk = function(suk, arr) {
     //console.log(suk);
     var suk_;
-    suk.forEach(function (v, k) {
+    suk.forEach(function(v, k) {
 
         if (v.name == arr[0]) {
             if (v.ch) {
-                v.ch.forEach(function (v_, k_) {
+                v.ch.forEach(function(v_, k_) {
                     if (v_.name == arr[1]) {
                         if (v_.ch) {
-                            v_.ch.forEach(function (v__, k__) {
+                            v_.ch.forEach(function(v__, k__) {
                                 if (v__.name == arr[2]) {
 
                                     suk_ = v__;
@@ -827,7 +827,7 @@ global.getsuk = function (suk, arr) {
  * @param data
  * @returns {{menu: {button: Array}}}
  */
-global.createSelfMenu = function (data) {
+global.createSelfMenu = function(data) {
     let menu = {
         "menu": {
             "button": []
@@ -872,7 +872,7 @@ global.createSelfMenu = function (data) {
  * @ return {bool}
  */
 /** global checkMobile */
-global.checkMobile = function (agent) {
+global.checkMobile = function(agent) {
     let flag = false;
     agent = agent.toLowerCase();
     let keywords = ["android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser"];
@@ -891,4 +891,3 @@ global.checkMobile = function (agent) {
     }
     return flag;
 }
- 

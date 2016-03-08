@@ -3,6 +3,10 @@
 import Base from './base.js';
 import pagination from 'think-pagination';
 export default class extends Base {
+    init(http){
+        super.init(http);
+
+    }
   /**
    * index action
    * @return {Promise} []

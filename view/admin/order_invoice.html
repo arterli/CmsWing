@@ -1,0 +1,100 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class=""><a href="/admin/order/receiving"><i class="fa fa-file-text text-muted"></i> 收款单 </a></li>
+            <li class="active"><a href="/admin/order/invoice"><i class="fa fa-file-text text-muted"></i> 发货单</a>
+            <li class=""><a href="/admin/order/refund"><i class="fa fa-file-text text-muted"></i> 退款单</a>
+            </li>
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                   
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" placeholder="Search" class="input-sm form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+
+                        <th>发货单号</th>
+                        <th>订单号</th>
+                        <th>物流单号</th>
+                        <th>物流公司</th>
+                        <th>收货人</th>
+                        <th>收货人电话</th>
+                        <th>创建时间</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>20160305131416668</td>
+                        <td> 20160229132904600317</td>
+
+                        <td>88888212414154</td>
+                        <td>中国邮政</td>
+                        <td>
+                            arterli
+                        </td>
+                        <td>
+                            18681851637
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+                    <tr>
+                        <td>20160305131416668</td>
+                        <td> 20160229132904600317</td>
+
+                        <td>88888212414154</td>
+                        <td>中国邮政</td>
+                        <td>
+                            arterli
+                        </td>
+                        <td>
+                            18681851637
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>   <tr>
+                        <td>20160305131416668</td>
+                        <td> 20160229132904600317</td>
+
+                        <td>88888212414154</td>
+                        <td>中国邮政</td>
+                        <td>
+                            arterli
+                        </td>
+                        <td>
+                            18681851637
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}
