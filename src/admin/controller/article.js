@@ -193,7 +193,11 @@ export default class extends Base {
         let Document = this.model('document');
 
         if (cate_id) {
-            map.category_id = cate_id;
+            //获取当前分类的所有子栏目
+            let subcate = await this.model('category', {}, 'admin').get_sub_category(cate_id);
+            // console.log(subcate);
+            subcate.push(cate_id);
+            map.category_id = ['IN', subcate];
         }
         // console.log(map);
         map.pid = this.param('pid') || 0;
@@ -379,7 +383,7 @@ export default class extends Base {
     async updateAction() {
         let data = this.post();
         let res = await this.model('document').updates(data);
-        console.log(res);
+
         if (res) {
             //行为记录
             if (!res.data.id) {

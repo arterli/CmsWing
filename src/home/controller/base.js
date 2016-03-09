@@ -93,7 +93,6 @@ export default class extends think.controller.base {
   async category(id, field) {
     id = id || 0;
     field = field || "";
-    console.log(id);
     if (think.isEmpty(id)) {
       this.fail('没有指定数据分类！');
     }

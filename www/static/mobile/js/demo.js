@@ -1,4 +1,5 @@
- 'use strict';
+$(function () {
+  'use strict';
 
   //下拉刷新页面
   $(document).on("pageInit", "#page-ptr", function(e, id, page) {
@@ -6,12 +7,12 @@
       // 模拟2s的加载过程
       setTimeout(function() {
         var cardHTML = '<div class="card">' +
-          '<div class="card-header">标题</div>' +
-          '<div class="card-content">' +
-          '<div class="card-content-inner">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容' +
-          '</div>' +
-          '</div>' +
-          '</div>';
+            '<div class="card-header">标题</div>' +
+            '<div class="card-content">' +
+            '<div class="card-content-inner">内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容' +
+            '</div>' +
+            '</div>' +
+            '</div>';
 
         $content.find('.card-container').prepend(cardHTML);
         // $(window).scrollTop(0);
@@ -76,10 +77,10 @@
     }
     var timer = false;
     $(page).on('infinite', function() {
-       var lastIndex = $('.list-block li').length;
-       var lastLi = $(".list-container li")[0];
-       var scroller = $('.infinite-scroll-top');
-       var scrollHeight = scroller[0].scrollHeight; // 获取当前滚动元素的高度
+      var lastIndex = $('.list-block li').length;
+      var lastLi = $(".list-container li")[0];
+      var scroller = $('.infinite-scroll-top');
+      var scrollHeight = scroller[0].scrollHeight; // 获取当前滚动元素的高度
       // 如果正在加载，则退出
       if (timer) {
         clearTimeout(timer);
@@ -341,8 +342,8 @@
 
   $(document).on("pageInit", "#page-city-picker", function(e) {
     $("#city-picker").cityPicker({
-        value: ['天津', '河东区']
-        //value: ['四川', '内江', '东兴区']
+      value: ['天津', '河东区']
+      //value: ['四川', '内江', '东兴区']
     });
   });
 

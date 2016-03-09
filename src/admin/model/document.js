@@ -30,6 +30,7 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data){
+        console.log(data);
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -52,6 +53,7 @@ export default class extends think.model.base {
          }else {//更新内容
              data.update_time=new Date().getTime();
              data.status= await this.getStatus(data.id,data.category_id);
+             data.create_time = !think.isEmpty( data.create_time)? new Date(data.create_time).valueOf():new Date().getTime();
              let status = this.update(data);
              if(!status){
                  this.error = '更新基础内容出错！';
