@@ -461,17 +461,19 @@ export default class extends Base {
                 data.msg_id = msg_id;
                 data.material_wx_content = content;
                 data.type = send_type;
-            }else if(me_id){
-                let wx_content = await media_model.where({'id':me_id}).find();
-                //self.end('aaa'+wx_content['material_content']);
-                let material_content = wx_content['material_content'];
-                let material_wx_content = wx_content['material_wx_content'];
+            }else {
+                if(me_id){
+                    let wx_content = await media_model.where({'id':me_id}).find();
+                    //self.end('aaa'+wx_content['material_content']);
+                    let material_content = wx_content['material_content'];
+                    let material_wx_content = wx_content['material_wx_content'];
 
-                data.mate_id = me_id;
-                data.msg_id = msg_id;
-                data.material_content = material_content;
-                data.material_wx_content = material_wx_content;
-                data.type = send_type;
+                    data.mate_id = me_id;
+                    data.msg_id = msg_id;
+                    data.material_content = material_content;
+                    data.material_wx_content = material_wx_content;
+                    data.type = send_type;
+                }
             }
             //self.end(data);
             let isAdd = masssend_model.thenAdd(data,{msg_id:msg_id});

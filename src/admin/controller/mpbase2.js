@@ -43,7 +43,7 @@ export default class extends Base{
         
         let img_result = await wx(this.api, data);
         if(img_result){
-            await model.where({id:thumb_id}).update({url: img_result, source_id: img_result.media_id});
+            await model.where({id:thumb_id}).update({url: img_result.url, source_id: img_result.media_id});
             img_result.hs_image_src = data.path;
             this.end(img_result);
         }else{
