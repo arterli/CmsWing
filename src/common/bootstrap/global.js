@@ -854,6 +854,7 @@ global.createSelfMenu = function(data) {
             if (data[y].pid == button[x].m_id) {
                 let sitem = {
                     "type": data[y].type,
+                    "m_id":data[y].m_id,
                     "sort": data[y].sort,
                     "name": data[y].name,
                     "url": data[y].url,
@@ -865,6 +866,48 @@ global.createSelfMenu = function(data) {
     }
     return menu;
 };
+
+/**
+ * 微信创建自定义菜单接口
+ * 数据构建
+ */
+
+global.buildselfmenu = function(data){
+    let menu = {
+                  "button": []
+                };
+    let button = [];
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].pid == '0') {
+            let item = {
+                "id": data[i].id,
+                "m_id": data[i].m_id,
+                "pid": data[i].pid,
+                "type": data[i].type,
+                "name": data[i].name,
+                "sort": data[i].sort,
+                "sub_button": []
+            };
+            menu.menu.button.push(item);
+            button.push(item);
+        }
+    }
+    for (var x = 0; x < button.length; x++) {
+        for (var y = 0; y < data.length; y++) {
+            if (data[y].pid == button[x].m_id) {
+                let sitem = {
+                    "type": data[y].type,
+                    "sort": data[y].sort,
+                    "name": data[y].name,
+                    "url": data[y].url,
+                    "media_id": data[y].media_id
+                };
+                button[x].sub_button.push(sitem);
+            }
+        }
+    }
+    return menu;
+}
 
 /**
  * 验证是否为智能手机
