@@ -1,0 +1,155 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+           <div class="row">
+               <div class="col-md-5 scrollable"><ul id="farearea" class="ztree"></ul></div>
+               <div class="col-md-7">	<ul class="info">
+                   <li class="title">
+                       <ul class="list">
+
+                           <li><p>这里还演示了 checkNode / checkAllNodes 方法触发 beforeCheck / onCheck 事件回调函数的情况，试试看：<br/>
+                               &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="autoCallbackTrigger" /> setting.check.autoCheckTrigger: <span id="autoCheckTriggerValue">false</span><br/>
+                               &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="callbackTrigger" checked /> 执行勾选方法是否触发 callback <br/>
+                               &nbsp;&nbsp;&nbsp;&nbsp;单节点--[ <a id="checkTrue" href="#" title="不想勾选我就不勾选你..." onclick="return false;">勾选</a> ]
+                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkFalse" href="#" title="不想取消勾选我就不取消你..." onclick="return false;">取消勾选</a> ]
+                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="toggle" href="#" title="你想怎样？..." onclick="return false;">勾选 切换</a> ]<br/>
+                               &nbsp;&nbsp;&nbsp;&nbsp;单节点 ( 影响父子 )--[ <a id="checkTruePS" href="#" title="不想勾选我就不勾选你..." onclick="return false;">勾选</a> ]
+                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkFalsePS" href="#" title="不想取消勾选我就不取消你..." onclick="return false;">取消勾选</a> ]
+                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="togglePS" href="#" title="你想怎样？..." onclick="return false;">勾选 切换</a> ]<br/>
+                               &nbsp;&nbsp;&nbsp;&nbsp;全部节点--[ <a id="checkAllTrue" href="#" title="不管你有多NB，统统都要听我的！！" onclick="return false;">勾选</a> ]
+                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkAllFalse" href="#" title="不管你有多NB，统统都要听我的！！" onclick="return false;">取消勾选</a> ]</p>
+                           </li>
+                           <li><p><span class="highlight_red">使用 zTreeObj.checkNode / checkAllNodes 方法，详细请参见 API 文档中的相关内容</span><br/>
+                               beforeCheck / onCheck log:<br/>
+                               <ul id="log" class="log" style="height:130px;"></ul></p>
+                           </li>
+                           <ul  class="log" style="height:110px;">
+                               <li>当前被勾选的节点共 <span id="checkCount" class="highlight_red"></span> 个</li>
+                               <li>当前未被勾选的节点共 <span id="nocheckCount" class="highlight_red"></span> 个</li>
+                               <li>勾选状态对比规则：<input type="radio" id="init" name="stateType" class="radio first" checked /><span>与 zTree 初始化时对比</span><br/>
+                                   <input type="radio" id="last" name="stateType" class="radio first" style="margin-left:108px;"/><span>与上一次勾选后对比</span></li>
+                               <li>当前被修改勾选状态的节点共 <span id="changeCount" class="highlight_red"></span> 个</li>
+                           </ul>
+                       </ul>
+                   </li>
+
+               </ul></div>
+           </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary">Save</a>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script type="text/javascript">
+    $.ajax({
+        url:"/admin/ecom/farearea",
+        type:"post",
+        success: function(data){
+            var setting = {
+
+                view: {
+
+                    selectedMulti: false
+                },
+                check: {
+                    enable: true
+                },
+                data: {
+
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+//                    beforeCheck: beforeCheck,
+                    onCheck: onCheck
+                }
+            };
+//        var data = ;
+
+            var zNodes =data;
+            var code, log, className = "dark";
+
+//            function onCheck(e, treeId, treeNode) {
+//                var zTree = $.fn.zTree.getZTreeObj("farearea"),
+//                        checkCount = zTree.getCheckedNodes(true),
+//                        nocheckCount = zTree.getCheckedNodes(false).length,
+//                        changeCount = zTree.getChangeCheckedNodes().length;
+//                 console.log(checkCount.length);
+//                var data = arr_to_tree(checkCount,0);
+//                 console.log(toarr(data));
+//
+//
+//            }
+
+            function toarr(data){
+                var res = [];
+                $.each(data,function(k,v){
+                    $.each(v.children,function(_k,_v){
+                        $.each(_v.children,function(__k,__v){
+                            res.push(v.id+"_"+_v.id+"_"+__v.id)
+                        })
+                    })
+                })
+              return res;
+            }
+
+            var arr_to_tree = function(data, pid) {
+                var result = [], temp;
+                var length=data.length;
+                for(var i=0;i<length;i++) {
+
+                    if (data[i].pid == pid) {
+                        result.push(data[i]);
+                        temp = arr_to_tree(data, data[i].id);
+                        if (temp.length > 0) {
+                            data[i].children = temp;
+                        }
+                    }
+                }
+                return result;
+            }
+
+            function onCheck(e, treeId, treeNode) {
+                count();
+
+            }
+
+            function count() {
+                var zTree = $.fn.zTree.getZTreeObj("farearea");
+                        var checkCount = ""
+                        checkCount = zTree.getCheckedNodes(true);
+                        var nocheckCount = zTree.getCheckedNodes(false).length;
+                        var changeCount = zTree.getChangeCheckedNodes().length;
+                $("#checkCount").text(checkCount.length);
+                $("#nocheckCount").text(nocheckCount);
+                $("#changeCount").text(changeCount);
+                 console.log(checkCount.length);
+                localStorage.setItem('farearea', JSON.stringify(checkCount));
+                var data = arr_to_tree(JSON.parse(localStorage.getItem("farearea")),0);
+                 console.log(toarr(data));
+                localStorage.removeItem("farearea");
+            }
+            function createTree() {
+                $.fn.zTree.init($("#farearea"), setting, zNodes);
+                count();
+            }
+
+            $(document).ready(function(){
+                createTree();
+
+            });
+
+        }
+
+
+    })
+
+
+</script>

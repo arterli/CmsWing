@@ -103,7 +103,35 @@ export default class extends Base {
       this.meta_title="运费模板";
     return this.display();
   }
-  /**快递公司管理 */
+
+    /**
+     * 添加运费模板
+     */
+
+    addfareAction(){
+
+        this.meta_title="添加运费模板";
+        return this.display();
+    }
+
+    /**
+     * 选择配送地区
+     */
+    async fareareaAction(){
+        if(this.isAjax("POST")){
+            let data = await this.model("area").field("id,name,parent_id as pid,sort").select();
+            data = arr_to_tree(data,0);
+            //for(let val of data){
+            //    val.pId =val.pid;
+            //}
+            return this.json(data);
+        }else {
+            this.meta_title="选择配送地区";
+            return this.display();
+        }
+
+    }
+    /**快递公司管理 */
   expressAction(){
       this.meta_title="快递公司管理";
     return this.display();
