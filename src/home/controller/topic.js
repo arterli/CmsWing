@@ -3,6 +3,10 @@
 import Base from './base.js';
 import pagination from 'think-pagination';
 export default class extends Base {
+    init(http){
+        super.init(http);
+
+    }
   /**
    * index action
    * @return {Promise} []
@@ -31,25 +35,30 @@ export default class extends Base {
   async listAction() {
 
       let id = this.get('category') || 0;
+      //console.log(id);
       let cate = await this.category(id);
       cate = think.extend({}, cate);
+
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
+     // console.log(subcate);
       subcate.push(cate.id);
       //获取模型列表数据个数
+     // console.log(cate);
       if(cate.model.split(",").length == 1){
          let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
          if(pagenum !=0){
          this.config("db.nums_per_page",pagenum);
          }
-         
+
       }
-      
+      //console.log(subcate);
       let map = {
         'status': ['=', 1],
         'category_id': ['IN', subcate]
       };
-      let data = await this.model('document').where(map).page(this.get('page')).order('update_time DESC').countSelect();
+      let data = await this.model('document').where(map).page(this.param('page')).order('update_time DESC').countSelect();
+      //console.log(data);
       let html = pagination(data, this.http, {
     desc: false, //show description
     pageNum: 2, 
@@ -60,7 +69,7 @@ export default class extends Base {
       prev: '上一页',
       total: 'count: ${count} , pages: ${pages}'
     }
-});
+     });
       this.assign('pagination', html);
 
       //seo
@@ -78,12 +87,16 @@ export default class extends Base {
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
       //think.log(temp);
-      if(checkMobile(this.userAgent())){
-        temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
-       return this.display(`mobile/${this.http.controller}/${temp}`) 
-      }else{
-       return this.display(temp);
-      }
+
+          if(checkMobile(this.userAgent())){
+
+              temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
+              return this.display(`mobile/${this.http.controller}/${temp}`)
+          }else{
+              return this.display(temp);
+          }
+
+
      
     }
     //详情页
@@ -130,5 +143,42 @@ export default class extends Base {
     this.assign('info', info);
     return this.display(temp);
   }
+    async ajaxlistAction(){
+        let id = this.get('category') || 0;
+        console.log(id);
+        let cate = await this.category(id);
+        cate = think.extend({}, cate);
+
+        //获取当前分类的所有子栏目
+        let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
+        // console.log(subcate);
+        subcate.push(cate.id);
+        //获取模型列表数据个数
+        // console.log(cate);
+        if(cate.model.split(",").length == 1){
+            let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
+            if(pagenum !=0){
+                this.config("db.nums_per_page",pagenum);
+            }
+
+        }
+        //console.log(subcate);
+        let map = {
+            'status': ['=', 1],
+            'category_id': ['IN', subcate]
+        };
+        let data = await this.model('document').where(map).page(this.param('page')).order('update_time DESC').countSelect();
+        for(let item of data.data){
+            if(item.cover_id != 0){
+                item.img = await get_cover(item.cover_id,'path');
+            }
+        }
+        let ajaxdata ={
+            count:data.count,
+            data:data.data
+        }
+        return this.json(ajaxdata);
+
+    }
 
 }

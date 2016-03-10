@@ -4255,3 +4255,7 @@ padding-left: 0px;
     opacity: 0.6;
     pointer-events: none;
 }
+.dropdown-menu-right{
+  left: auto;
+  right: 0;
+}

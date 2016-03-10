@@ -1,6 +1,7 @@
 
 {% extends "../inc/base.html" %}
-{% block header%}
+{% block page%}
+<div class="page page-current" id="page-infinite-scroll-bottom">
 <header class="bar bar-nav">
     <a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>
     <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
@@ -9,18 +10,17 @@
     </a>
     <h1 class="title">{{controller.meta_title}}</h1>
   </header>
-{% endblock%}
-{% block nav%}
+
   <nav class="bar bar-tab">
-              <a  class="tab-item " href="/">
+              <a   class="tab-item " href="/">
                   <span class="icon icon-home"></span>
                   <span class="tab-label">首页</span>
               </a>
-              <a  class="tab-item active" href="/column/start">
+              <a   class="tab-item active" href="/column/blog">
                   <span class="icon icon-browser"></span>
                   <span class="tab-label">新闻</span>
               </a>
-              <a data-no-cache="true" class="tab-item " href="#">
+              <a  class="tab-item " href="#">
                   <span class="icon icon-star"></span>
                   <span class="tab-label">商城</span>
               </a>
@@ -32,20 +32,53 @@
                   <span class="icon icon-me"></span>
                   <span class="tab-label">登录</span>
               </a>
-          </nav>
-{% endblock%}
-{% block content %}
- <div class="content">
- <div class="bar">
-  <div class="searchbar">
-    <a class="searchbar-cancel">取消</a>
-    <div class="search-input">
-      <label class="icon icon-search" for="search"></label>
-      <input type="search" id='search' placeholder='输入关键字...'/>
+  </nav>
+    <div class="bar bar-header-secondary">
+        <div class="searchbar">
+            <a class="searchbar-cancel">取消</a>
+            <div class="search-input">
+                <label for="search" class="icon icon-search"></label>
+                <input type="search" placeholder="输入关键字..." id="search">
+            </div>
+        </div>
     </div>
-  </div>
-</div>
- <div class="content">
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content infinite-scroll native-scroll pull-to-refresh-content" data-distance="100">
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+        </div>
+        <div class="content-block"><a class="button pb-standalone-captions">带文字描述</a></div>
+        <div class="content-block-title">文章列表测试</div>
+        <div class="list-block media-list">
+            <ul class="list-container">
+                {% for val in list %}
+                <li>
+                    <a class="item-link item-content" href="#">
+                        {% if val.cover_id>0 %}
+                        <div class="item-media"><img width="80" src="{{val.cover_id|get_cover('path')}}"></div>
+                        {% endif %}
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{val.title}}</div>
+                                <div class="item-after">$15</div>
+                            </div>
+
+                            <div class="item-text">{{val.description}}...</div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <!-- 加载提示符 -->
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
 {% block pageout%}
 <div class="panel-overlay"></div>
@@ -61,3 +94,8 @@
   </div>
 </div>
 {% endblock%}
+{% block script %}
+<script>
+HREF = '/topic/ajaxlist/category/{{http.get("category")}}'
+</script>
+{% endblock %}

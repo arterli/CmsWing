@@ -1,0 +1,102 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a href="/admin/order/receiving"><i class="fa fa-file-text text-muted"></i> 收款单 </a></li>
+            <li class=""><a href="/admin/order/invoice"><i class="fa fa-file-text text-muted"></i> 发货单</a>
+            <li class=""><a href="/admin/order/refund"><i class="fa fa-file-text text-muted"></i> 退款单</a>
+            </li>
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" placeholder="Search" class="input-sm form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+
+                        <th>类型</th>
+                        <th>支付方式</th>
+                        <th>支付状态</th>
+                        <th>金额</th>
+                        <th>用户</th>
+                        <th>订单编号</th>
+                        <th>付款时间</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>订单支付</td>
+                        <td> 预存款支付</td>
+
+                        <td>已支付</td>
+                        <td>783.00</td>
+                        <td>
+                            arterli
+                        </td>
+                        <td>
+                            20160307115721407617
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+                    <tr>
+                        <td>订单支付</td>
+                        <td> 预存款支付</td>
+
+                        <td>已支付</td>
+                        <td>783.00</td>
+                        <td>
+                            arterli
+                        </td>
+                        <td>
+                            20160307115721407617
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+                    <tr>
+                        <td>订单支付</td>
+                        <td> 预存款支付</td>
+
+                        <td>已支付</td>
+                        <td>783.00</td>
+                        <td>
+                            arterli
+                        </td>
+
+                        <td>
+                            20160307115721407617
+                        </td><td> 	2016-03-07</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}

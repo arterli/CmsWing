@@ -3,6 +3,15 @@
 import Base from './base.js';
 
 export default class extends Base {
+   async init(http){
+        super.init(http);
+        //let login = await super.islogin()
+        ////是否验证登陆
+        //if(!login){
+        //    return this.fail("你木有登录！")
+        //}
+
+    }
   /**
    * index action
    * 用户中心主页
@@ -10,11 +19,19 @@ export default class extends Base {
    */
   indexAction(){
     //auto render template file index_index.html
-    this.meta_title = "用户中心";
+      if(!this.is_login){
+          return this.fail("你木有登录！")
+      }
+
+      this.meta_title = "用户中心";
     return this.display();
   }
 //   用户设置
   setingAction(){
+      if(!this.is_login){
+          return this.fail("你木有登录！")
+      }
+
       this.meta_title = "用户设置";
       return this.display();
   }

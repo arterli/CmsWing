@@ -132,6 +132,9 @@ function _hs_wx_edit_fodder(obj){
 			_source_url_c.attr("checked", true);
 		}
 		_pic.html('');//图片
+		if(obj.hs_image_src){
+			_hs_update_item_image(obj.hs_image_src);
+		}
 		_digest.val(obj.digest);
 	}else{
 		_HS_UM.setContent('');

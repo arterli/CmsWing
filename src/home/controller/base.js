@@ -13,6 +13,7 @@ export default class extends think.controller.base {
        //用户信息
       this.user = await this.session('webuser');
       //console.log(this.user);
+
       //获取当前分类信息
       //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
@@ -92,7 +93,6 @@ export default class extends think.controller.base {
   async category(id, field) {
     id = id || 0;
     field = field || "";
-    console.log(id);
     if (think.isEmpty(id)) {
       this.fail('没有指定数据分类！');
     }

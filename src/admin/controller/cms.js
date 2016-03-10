@@ -77,6 +77,7 @@ export default class extends Base {
             map[key] = ['like',`%${this.get(key)}%`];
             delete iskey[key];
         }
+       
         //console.log(iskey)
         //条件搜索
         for(let k in iskey){
