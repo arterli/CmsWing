@@ -4259,3 +4259,16 @@ padding-left: 0px;
   left: auto;
   right: 0;
 }
+.text-dep1{
+  color: #333;
+  font-size: 14px;
+}
+
+.text-dep2{
+  color: #555;
+  font-size: 13px;
+}
+.text-dep3{
+
+  font-size: 12px;
+}

@@ -349,6 +349,7 @@ global.arr_to_tree = function(data, pid) {
             temp = arr_to_tree(data, data[i].id);
             if (temp.length > 0) {
                 data[i].children = temp;
+                data[i].chnum =data[i].children.length
             }
         }
     }

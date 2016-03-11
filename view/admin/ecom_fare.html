@@ -4,21 +4,22 @@
     <header class="header bg-light dk">
         <div class="btn-group pull-right">
 
-            <a href="/admin/ecom/addfare" type="button" class="btn btn-default btn-sm"><i class="fa fa-plus text"></i> 添加运费模板</a>
+            <a href="/admin/ecom/addfare" type="button" class="btn btn-info btn-sm"><i class="fa fa-plus text"></i> 添加运费模板</a>
 
 
         </div>
         <p>{{controller.meta_title}}</p>
     </header>
-    <section class="scrollable wrapper">   
-  <section class="panel panel-default">
+    <section class="scrollable wrapper">
+        {% for val in list%}
+  <section class="panel {%if val.is_default == 1 %} panel-info{%else%} panel-default{%endif%} ">
             <header class="panel-heading">
                 <div class=" pull-right">
-                    <a href="/admin/setup/add" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> 编辑</a>
-                    <a href="/admin/setup/add" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除</a>
+                    <a href="/admin/ecom/editfare/id/{{val.id}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> 编辑</a>
+                    <a href="/admin/ecom/delfare/id/{{val.id}}" class="btn btn-danger btn-xs confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a>
 
                 </div>
-                <span class="label bg-danger">正在使用</span> 模板名称
+                {%if val.is_default == 1 %}<span class="label bg-danger">正在使用</span>{%else%}<a href="/admin/ecom/defaulffare/id/{{val.id}}" class="btn btn-info btn-xs ajax-get"><i class="fa fa-check"></i> 使用此模板</a>{%endif%} {{val.name}}
             </header>
 
             <div class="table-responsive">
@@ -35,14 +36,17 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="success"><td>全国</td> <td class="active">1000</td> <td class="active">10.00</td> <td class="warning">1000</td> <td class="warning">5.00</td></tr>
-                    <tr><td>上海市,江苏省,浙江省,安徽省,江西省</td> <td class="active">1000</td> <td class="active">8</td> <td class="warning">1000</td> <td class="warning">5</td></tr>
-                    <tr><td>北京市,天津市,唐山市,保定市</td> <td class="active">1000</td> <td class="active">12</td> <td class="warning">1000</td> <td class="warning">6</td></tr>
+                    <tr class="success"><td>默认运费（指定城市以外的）</td> <td class="success">{{val.first_weight}}</td> <td class="success">{{val.first_price|formatCurrency}}</td> <td class="success">{{val.second_weight}}</td> <td class="success">{{val.second_price|formatCurrency}}</td></tr>
+                    {% set zoning = val.zoning|strToJson %}
+                    {%for v in zoning %}
+                    <tr><td>{{v.title|safe}}</td> <td class="active">{{v.f_weight}}</td> <td class="active">{{v.f_price|formatCurrency}}</td> <td class="warning">{{v.s_weight}}</td> <td class="warning">{{v.s_price|formatCurrency}}</td></tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
 
         </section>
+        {% endfor %}
     </section>
 </section>
 
