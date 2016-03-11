@@ -115,6 +115,16 @@ export default {
                 env.addFilter("get_list_field", function (data, grid, controller, module) {
                     return get_list_field(data, grid, controller, module);
                 })
+                //表情图标正则替换
+                env.addFilter("get_bq", function (wx_bq,emoji) {
+                    for(let key in emoji){
+                        let img = '<img src="https:\/\/res.wx.qq.com/mpres/htmledition/images/icon/emotion/'+key+'.gif" />';
+                        let reg = new RegExp('\\['+ emoji[key] + '\\]' ,'g');
+                        wx_bq = wx_bq.replace(reg, img);
+                    }
+                    return wx_bq;
+                })
+
                 /**
                  * 时间戳格式化 dateformat('Y-m-d H:i:s')
                  * @param extra 'Y-m-d H:i:s'
