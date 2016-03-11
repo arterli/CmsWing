@@ -271,7 +271,15 @@ function hsGetRightValue(){
     //取type值
     var type = $('[name=nnn]').filter('[checked]').val();
     //取act_list
-    var actList = [];
+    // var actList = [];
+    // var navPanel = $('.hs-etap-nav');
+    // var navActive = navPanel.find('li.active');
+    // var navActiveValue = navActive.attr('jstab-target');
+    // switch (navActiveValue){
+    //     case 'newsArea':
+    //     break;
+    // }
+    
     return { name: name, type:type, act_list:actList };
 }
 

@@ -128,25 +128,28 @@
                                                             <div class="hs-etap-panel">
                                                                 <div jstab-des="newsArea" class="hs-etap-content">
                                                                     <div class="hs-etap-newsArea hs-inner">
-                                                                        <!--*****-->
-                                                                        <div class="hs-con-cover">
-                                                                            <div class="hs-media-cover" onclick="hs_show_dialog('imgtext')">
-                                                                                <span class="hs-create-access">
-                                                                                    <a href="javascript:;">
-                                                                                        <i class="hs-icon36 hs-icon36-add"></i>
-                                                                                        <strong>从素材库中选择</strong>
-                                                                                    </a>
-                                                                                </span>
-                                                                            </div>
-                                                                            <div class="hs-media-cover">
-                                                                                <span class="hs-create-access">
-                                                                                    <a href="javascript:;">
-                                                                                        <i class="hs-icon36 hs-icon36-add"></i>
-                                                                                        <strong>新建素材</strong>
-                                                                                    </a>
-                                                                                </span>
+                                                                        <!--** ---图文--- ***-->
+                                                                        <div id="newsxz">
+                                                                            <div class="hs-con-cover">
+                                                                                <div class="hs-media-cover">
+                                                                                    <span class="hs-create-access">
+                                                                                        <a href="javascript:;" id="hsSelNewsBtn">
+                                                                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                            <strong>从素材库中选择</strong>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="hs-media-cover">
+                                                                                    <span class="hs-create-access">
+                                                                                        <a href="javascript:;">
+                                                                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                            <strong>新建素材</strong>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
+                                                                        <div id="newssed"></div>
                                                                         <!--*****-->
                                                                     </div>
                                                                 </div>
@@ -263,5 +266,34 @@
 <script>
     hsInitMenu(data);
 
+    $(function(){
+        /**
+         * 选择图文
+         */  
+        $(document).on('click', '#hsSelNewsBtn', function(){
+           hs_show_dialog('imgtext', {
+               submit: function(e, d, i){
+                   var media_id = i.substr(9);
+                   var dialog = $(d._div);
+                   var newsed = dialog.find('#'+i);
+                   var del = '<a id="newsdel" class="clearfix" href="#">删除</a>'
+                   if(newsed){
+                       $('#newssed').show();
+                       $('#newssed').html(newsed).append(del);
+                       $('#newsxz').hide();
+                   }
+                   hsUpdateCurrentData({ act_list:[ { type:'news', value:media_id } ] })
+               }
+           })
+        })
+        /**
+         * 点击删除选中的图文
+         */
+        $(document).on('click','#newsdel',function(){
+            $('#newsxz').show();
+            $('#newssed').hide();
+            $('#newssed').html('');
+        });
+    })
 </script>
 {% endblock%}
