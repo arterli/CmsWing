@@ -342,7 +342,8 @@ global.rtrim = function(str) {
 /* global arr_to_tree */
 global.arr_to_tree = function(data, pid) {
     var result = [], temp;
-    for (var i in data) {
+    var length=data.length;
+    for(var i=0;i<length;i++) {
         if (data[i].pid == pid) {
             result.push(data[i]);
             temp = arr_to_tree(data, data[i].id);
@@ -356,7 +357,8 @@ global.arr_to_tree = function(data, pid) {
 /* global arr_to_tree */
 global.sub_cate = function(data, pid) {
     var result = [], temp;
-    for (var i in data) {
+    var length=data.length;
+    for(var i=0;i<length;i++) {
         if (data[i].pid == pid) {
             //console.log(data[i]);
             result.push(data[i].id);

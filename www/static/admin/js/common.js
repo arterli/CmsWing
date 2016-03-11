@@ -72,6 +72,7 @@ $('.ajax-post').click(function(){
         }else if (form.get(0)==undefined){
             return false;
         }else if ( form.get(0).nodeName=='FORM' ){
+
             //表单验证
             $('[data-validate="parsley"]').parsley().validate();
             if(true !== $('[data-validate="parsley"]').parsley().isValid()){
@@ -154,3 +155,4 @@ $('.ajax-post').click(function(){
     }
     return false;
 });
+

@@ -41,7 +41,7 @@ export default class extends Base {
 
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
-     // console.log(subcate);
+      console.log(subcate);
       subcate.push(cate.id);
       //获取模型列表数据个数
      // console.log(cate);
@@ -58,7 +58,7 @@ export default class extends Base {
         'category_id': ['IN', subcate]
       };
       let data = await this.model('document').where(map).page(this.param('page')).order('update_time DESC').countSelect();
-      //console.log(data);
+      console.log(data);
       let html = pagination(data, this.http, {
     desc: false, //show description
     pageNum: 2, 
@@ -88,13 +88,13 @@ export default class extends Base {
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
       //think.log(temp);
 
-          if(checkMobile(this.userAgent())){
+      if(checkMobile(this.userAgent())){
 
-              temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
-              return this.display(`mobile/${this.http.controller}/${temp}`)
-          }else{
-              return this.display(temp);
-          }
+          temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
+          return this.display(`mobile/${this.http.controller}/${temp}`)
+      }else{
+          return this.display(temp);
+      }
 
 
      
@@ -115,7 +115,7 @@ export default class extends Base {
     /* 获取详细信息*/
     let document = this.model('document');
     let info = await document.detail(id);
-    console.log(info);
+    //console.log(info);
     //分类信息
     let cate = await this.category(info.category_id);
     cate = think.extend({}, cate);
@@ -145,7 +145,7 @@ export default class extends Base {
   }
     async ajaxlistAction(){
         let id = this.get('category') || 0;
-        console.log(id);
+        //console.log(id);
         let cate = await this.category(id);
         cate = think.extend({}, cate);
 
