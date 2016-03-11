@@ -33,7 +33,7 @@ export default class extends Base {
     let map={}
      map.status = ['>',-1];
     let list = await this.model("action_log").where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
-    console.log(list);
+    //console.log(list);
     let _pages = think.adapter("pages","page");
     let pages = new _pages();
     let page = pages.pages(list);
