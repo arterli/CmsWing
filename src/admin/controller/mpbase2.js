@@ -558,4 +558,41 @@ export default class extends Base{
 
     }
 
+
+    /**
+     * 打开自定义菜单
+     */  
+    async custommenuAction(){
+        let data = {
+            version: 20120000,
+            button:[
+                { 
+                    name:'1个福彩但',
+                    type:1,
+                    act_list:[],
+                    sub_button:[
+                        { 
+                            name:'123',
+                            type:1,
+                            act_list:[{ type: 2, value:'www.baidu.com' }],
+                            sub_button:[
+                                
+                            ]
+                        }
+                    ]
+                },
+                
+                { 
+                    name:'896',
+                    type:1,
+                    act_list:[],
+                    sub_button:[
+                        
+                    ]
+                }
+            ]
+        }
+        this.assign('data', JSON.stringify(data));
+        return this.display();
+    }
 }
