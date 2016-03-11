@@ -43,7 +43,10 @@
                                         <tr>
                                             {%if item.type == 'textArea' %}
                                                 <td>
-                                                    [文字]{{item.material_wx_content}}
+                                                    [文字]
+                                                    {% set wx_bq = item.material_wx_content %}
+                                                    {% set temp = wx_bq|get_bq(emoji) %}
+                                                    {{temp|safe}}
                                                 </td>
                                             {% else %}
                                             {%if item.del_status == 0 %}
