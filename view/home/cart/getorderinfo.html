@@ -85,7 +85,9 @@
         <section class="padding-bottom-15 padding-top-0">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>收货人信息</h5>
-					</div>
+			<a class="btn btn-danger btn-xs add-addr-btn noradius pull-right margin-top-0" data-toggle="modal" data-target=".add-addr-dialog"> <i class="fa fa-plus-square"></i>  新增收货地址</a>
+
+		</div>
                     <div class="addr-box">
          {% for val in addrlist %}
         
@@ -94,8 +96,8 @@
             <input type="radio"  name="address" value="{{val.id}}" {% if val.is_default == 1 %} checked {% endif%} >
                             <label ><ul class="text-left list-inline list-separator margin-bottom-0">
                                 {% if val.is_default == 1 %} 
-								<li>
-									<span class="label label-info">默认地址 </span>
+								<li class="label label-info">
+									默认地址
 								</li>
                                 {% endif%}
 								<li>
@@ -123,7 +125,6 @@
          {% endfor %}
             
                     </div>
-                    <a class="btn btn-danger btn-sm add-addr-btn noradius " data-toggle="modal" data-target=".add-addr-dialog"> <i class="fa fa-plus-square"></i>  新增收货地址</a>
         </section>
         <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">

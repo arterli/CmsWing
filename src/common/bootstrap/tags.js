@@ -98,7 +98,7 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+        //console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
@@ -123,7 +123,7 @@ global.column= function(){
              context.ctx[data] = !think.isEmpty(arr)?arr:false;
         }else if(tree){
             let trees = arr_to_tree(column,tree);
-            console.log(trees)
+            //console.log(trees)
             context.ctx[data] = !think.isEmpty(trees)?trees:false;
         }
        
@@ -173,7 +173,7 @@ global.topic = function(){
         return new nodes.CallExtensionAsync(this, 'run', args);
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+        //console.log(args);
         let where = {'status':1};
         let data = think.isEmpty(args.data) ? "data" : args.data;
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
@@ -182,7 +182,7 @@ global.topic = function(){
             where = think.extend({},where,cid);
         }
     
-        console.log(where);
+        //console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).select();
         //console.log(topic)
         context.ctx[data] = topic;

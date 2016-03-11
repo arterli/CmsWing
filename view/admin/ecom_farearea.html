@@ -35,6 +35,7 @@
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 <script type="text/javascript">
+    $(function(){
     $.ajax({
         url:"/admin/ecom/farearea",
         type:"post",
@@ -227,25 +228,24 @@
                 createTree();
 
             });
-
+            $('.slim-scroll').each(function(){
+                var $self = $(this), $data = $self.data(), $slimResize;
+                $self.slimScroll($data);
+                $(window).resize(function(e) {
+                    clearTimeout($slimResize);
+                    $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
+                });
+                $(document).on('updateNav', function(){
+                    $self.slimScroll($data);
+                });
+            });
         }
-
-
-    })
-
-    $('.no-touch .slim-scroll').each(function(){
-        var $self = $(this), $data = $self.data(), $slimResize;
-        $self.slimScroll($data);
-        $(window).resize(function(e) {
-            clearTimeout($slimResize);
-            $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
-        });
-        $(document).on('updateNav', function(){
-            $self.slimScroll($data);
-        });
     });
+
+
     $('.btn-save').click(function(){
         getdata();
         $('#ajaxModal').modal('hide')
+    })
     })
 </script>
