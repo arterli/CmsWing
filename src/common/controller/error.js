@@ -53,4 +53,7 @@ export default class extends think.controller.base {
   _503Action(){
     return this.displayErrorPage(503);
   }
+  _1000Action(){
+    return this.displayErrorPage(1000);
+  }
 }

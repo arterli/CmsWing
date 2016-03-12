@@ -362,7 +362,10 @@ export default class extends Base {
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
         //获取当前分类文档的类型
-        let type_list = await this.model("category").get_type_bycate(data.category_id);
+        let type_list = await this.model("category").get_type_bycate(data.category_id)
+        //获取suk tags
+        let tags = await this.model('tags').where({model_id:data.model_id}).select();
+        this.assign('tags',tags);
         //获取面包屑信息
         let nav = await this.model('category').get_parent_category(data.category_id);
         //console.log(model);

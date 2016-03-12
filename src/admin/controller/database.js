@@ -185,12 +185,7 @@ export default class extends Base {
         } else {
             return this.fail("参数错误！")
         }
-        //fs.unlinkSync(lock)
-        //think.isWritable 判断目录是否可写
-        //paths=path.basename(path)
-        //console.log(paths);
-        //let v = await this.session('backup_file');
-        //this.end(v);
+
     }
 
     importsAction() {
