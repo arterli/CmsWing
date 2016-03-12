@@ -680,6 +680,7 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
     background-color: #fff;
     color: #44b549;
 }
+.hs-menu-a.hs-current em{ color: #44B549 }
 .hs-menu-sub{
 	position: absolute;
     bottom: 50px;
