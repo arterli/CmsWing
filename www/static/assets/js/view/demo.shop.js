@@ -460,16 +460,16 @@
              var addrArr = [];
             $.each(data,function (k,val) {
             var checked = val.is_default == 1 ? 'checked' : ''; 
-            var is_default =  val.is_default == 1 ? '<li><span class="label label-info">默认地址 </span></li>':'';
+            var is_default =  val.is_default == 1 ? '<li class="label label-info">默认地址</li>':'';
             var is_d_btn =  val.is_default == 0 ? '<a href="#" class="btn btn-default btn-xs is_d" data-addr-id = "'+val.id+'"><i class="fa fa-check white"></i> 设为默认 </a>' :'';
             var html = '<div class="icheck addr-list m-b">'+
             '<div class="item">'+
             '<input type="radio"  name="address" value="'+val.id+'" '+checked+' >'+
             '<label ><ul class="text-left list-inline list-separator margin-bottom-0">'+is_default +'<li>' + val.accept_name + '</li><li>' + val.province+ '</li><li>' + val.city+ '</li><li>' + val.county+ '</li><li>' + val.addr + '</li><li>'+ val.mobile +'</li></ul></label>'+
             '</div>'+ 
-            '<div class="item">'+ is_d_btn +
-            '<a  href="/cart/editaddrmodal/id/'+val.id+'" class="btn btn-default btn-xs edit"  data-toggle="ajaxModal" ><i class="fa fa-edit white" ></i> 编辑 </a>'+
-            '<a href="#" class="btn btn-default btn-xs del swal"  data-addr-id = "'+val.id+'"><i class="fa fa-times white" ></i> 删除 </a>'+ 
+            ' <div class="item">'+ is_d_btn +
+            ' <a  href="/cart/editaddrmodal/id/'+val.id+'" class="btn btn-default btn-xs edit"  data-toggle="ajaxModal" ><i class="fa fa-edit white" ></i> 编辑 </a>'+
+            ' <a href="#" class="btn btn-default btn-xs del swal"  data-addr-id = "'+val.id+'"><i class="fa fa-times white" ></i> 删除 </a>'+
             '</div></div>'  
             addrArr.push(html);  
             })

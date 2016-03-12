@@ -27,7 +27,7 @@ export default class extends Base {
         }
 
         map.is_del = 0
-        this.config("db.nums_per_page",20)
+       // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter

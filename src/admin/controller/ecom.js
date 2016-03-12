@@ -99,21 +99,85 @@ export default class extends Base {
     return this.display(); 
   }
   /**运费模板 */
-  fareAction(){
+ async fareAction(){
       this.meta_title="运费模板";
-    return this.display();
+      let list = await this.model("fare").page(this.get('page')).order("is_default DESC").countSelect();
+      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+      let pages = new Pages(); //实例化 Adapter
+      let page = pages.pages(list);
+      //console.log(list);
+      this.assign('pagerData', list); //分页展示使用
+      this.assign('list', list.data);
+      return this.display();
   }
 
     /**
      * 添加运费模板
      */
 
-    addfareAction(){
+    async addfareAction(){
+        if(this.isAjax("POST")){
+            let data = this.post();
+            let res = await this.model('fare').add(data);
+            if(res){
+                return this.success({name:"添加运费模板成功！",url:"/admin/ecom/fare"})
+            }else {
+                return this.fail("添加运费模板失败！")
+            }
+        }else{
+            this.meta_title="添加运费模板";
+            this.active="admin/ecom/fare";
+            return this.display();
+        }
 
-        this.meta_title="添加运费模板";
-        return this.display();
     }
-
+    //编辑运费模板
+    async editfareAction(){
+        if(this.isAjax("POST")){
+            let data = this.post();
+            let res = await this.model("fare").update(data);
+            if(res){
+                return this.success({name:"编辑运费模板成功！",url:"/admin/ecom/fare"})
+            }else {
+                return this.fail("编辑运费模板失败！")
+            }
+        }else {
+            let id = this.get('id');
+            if(!think.isNumberString(id)){
+                return this.fail("哦也！")
+            }
+            let res = await this.model("fare").find(id);
+            if(res){
+                this.assign("info",res);
+            }else {
+                return this.fail("您选择的运费模板已经被删除！")
+            }
+            this.meta_title="编辑运费模板";
+            this.active = "admin/ecom/fare";
+            return this.display();
+        }
+    }
+    //设置默认使用的模板
+    async defaulffareAction(){
+           let id =this.get("id");
+           await this.model('fare').where("1=1").update({is_default: 0});
+           let update = await this.model("fare").where({id:id}).update({is_default:1});
+           if(update){
+               return this.success({name:"设置成功！"})
+           }else {
+               return this.fail("设置失败！")
+           }
+    }
+    //删除运费模板
+    async delfareAction(){
+        let id = this.get("id");
+        let res  = await this.model("fare").where({id:id}).delete();
+        if(res){
+            return this.success({name:"删除模板成功！"})
+        }else {
+            return this.fail("删除模板失败！")
+        }
+    }
     /**
      * 选择配送地区
      */
@@ -126,14 +190,22 @@ export default class extends Base {
             //}
             return this.json(data);
         }else {
+            this.assign('id',this.get("id"));
             this.meta_title="选择配送地区";
             return this.display();
         }
 
     }
     /**快递公司管理 */
-  expressAction(){
-      this.meta_title="快递公司管理";
+  async expressAction(){
+        let data = await this.model("express_company").page(this.get('page')).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(data);
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', data.data);
+        this.meta_title="快递公司管理";
+        this.active="admin/ecom/express"
     return this.display();
   }
   

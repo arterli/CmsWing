@@ -2,52 +2,81 @@
 
 <section class="vbox">
     <header class="header bg-light dk">
-        <ul class="nav nav-tabs pull-left">
-            <li class="active"><a  href="#"><i class="fa fa-comments text-muted"></i> 正在使用的支付 </a></li>
-            <li class=""><a  href="/admin/ecom/payplugin"><i class="fa fa-user text-muted"></i> 全部支付方式</a>
-            </li>
-        </ul>
+        <p>{{controller.meta_title}}</p>
     </header>
     <section class="scrollable wrapper">   
   <section class="panel panel-default">
             <header class="panel-heading">
                {{controller.meta_title}}
             </header>
-            <div class="row wrapper">
-                <div class="col-sm-5 m-b-xs">
-                    111
-                </div>
-            </div>
+      <div class="row wrapper">
+
+          <div class="col-sm-9 m-b-xs">
+              <div class="">
+                  <a class="btn btn-sm btn-info " href="/admin/action/add">
+                      新增
+                  </a>
+
+                  <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/setstatus/status/-1" target-form="ids">
+                      删除
+                  </a>
+              </div>
+          </div>
+          <div class="col-sm-3">
+              <div class="input-group pull-right">
+                  <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+              </div>
+          </div>
+      </div>
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light" id="export-form">
                     <thead>
                     <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        <th style="width: 80px">编号</th>
                         
-                        <th>支付方式</th>
-                        
-                        <th>状态</th>
+                        <th>物流公司</th>
+                        <th>别名</th>
+                        <th>快递100Code</th>
+                        <th>公司网址</th>
                         <th style="width:130px;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in list %}
                     <tr>
-                       
-                        <td>{{ item.Name }}</td>
-                        
-                        <td >未备份</td>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                        <td style="width: 80px">{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.alias}}</td>
+                        <td>{{item.code}}</td>
+                        <td><a data-id="{{item.id}}" href="{{item.url}}" class="text-info" target="_blank">{{item.url}}</a></td>
                         <td>
-                            <button class="btn  btn-default btn-xs optimize" data-tables="{{ item.Name }}">配置</button>
-                            <button class="btn  btn-default btn-xs repair" data-tables="{{ item.Name }}">删除</button>
-                        </td>
+                            <a href="/admin/ecom/editexpress/id/{{item.id}}" class="text-info">编辑</a>
+                            <a href="/admin/ecom/delexpress/id/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                     </tr>
+                    {% else %}
+                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
+
                     {% endfor %}
 
                     </tbody>
                 </table>
             </div>
             <footer class="panel-footer">
+                <div class="row">
 
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
             </footer>
         </section>
     </section>

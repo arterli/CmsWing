@@ -1,3 +1,7 @@
+<style>
+
+</style>
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -6,47 +10,32 @@
         </div>
         <div class="modal-body">
            <div class="row">
-               <div class="col-md-5 scrollable"><ul id="farearea" class="ztree"></ul></div>
-               <div class="col-md-7">	<ul class="info">
-                   <li class="title">
-                       <ul class="list">
+               <div class="col-md-5 scrollable"> <section class="panel panel-default" style="margin-bottom: 0"><section class="panel-body slim-scroll" data-height="370px" data-size="10px"><ul id="farearea" class="ztree"></ul></section></section></div>
+               <div class="col-md-7">
+                   <section class="panel panel-default " style="margin-bottom: 0">
+                       <header class="panel-heading">
+                           <span class="label bg-dark" id="checkCount">15</span> 已选择城市
+                       </header>
+                       <section class="panel-body slim-scroll" data-height="330px" data-size="10px">
+                           <p id="areatxt">
 
-                           <li><p>这里还演示了 checkNode / checkAllNodes 方法触发 beforeCheck / onCheck 事件回调函数的情况，试试看：<br/>
-                               &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="autoCallbackTrigger" /> setting.check.autoCheckTrigger: <span id="autoCheckTriggerValue">false</span><br/>
-                               &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="callbackTrigger" checked /> 执行勾选方法是否触发 callback <br/>
-                               &nbsp;&nbsp;&nbsp;&nbsp;单节点--[ <a id="checkTrue" href="#" title="不想勾选我就不勾选你..." onclick="return false;">勾选</a> ]
-                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkFalse" href="#" title="不想取消勾选我就不取消你..." onclick="return false;">取消勾选</a> ]
-                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="toggle" href="#" title="你想怎样？..." onclick="return false;">勾选 切换</a> ]<br/>
-                               &nbsp;&nbsp;&nbsp;&nbsp;单节点 ( 影响父子 )--[ <a id="checkTruePS" href="#" title="不想勾选我就不勾选你..." onclick="return false;">勾选</a> ]
-                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkFalsePS" href="#" title="不想取消勾选我就不取消你..." onclick="return false;">取消勾选</a> ]
-                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="togglePS" href="#" title="你想怎样？..." onclick="return false;">勾选 切换</a> ]<br/>
-                               &nbsp;&nbsp;&nbsp;&nbsp;全部节点--[ <a id="checkAllTrue" href="#" title="不管你有多NB，统统都要听我的！！" onclick="return false;">勾选</a> ]
-                               &nbsp;&nbsp;&nbsp;&nbsp;[ <a id="checkAllFalse" href="#" title="不管你有多NB，统统都要听我的！！" onclick="return false;">取消勾选</a> ]</p>
-                           </li>
-                           <li><p><span class="highlight_red">使用 zTreeObj.checkNode / checkAllNodes 方法，详细请参见 API 文档中的相关内容</span><br/>
-                               beforeCheck / onCheck log:<br/>
-                               <ul id="log" class="log" style="height:130px;"></ul></p>
-                           </li>
-                           <ul  class="log" style="height:110px;">
-                               <li>当前被勾选的节点共 <span id="checkCount" class="highlight_red"></span> 个</li>
-                               <li>当前未被勾选的节点共 <span id="nocheckCount" class="highlight_red"></span> 个</li>
-                               <li>勾选状态对比规则：<input type="radio" id="init" name="stateType" class="radio first" checked /><span>与 zTree 初始化时对比</span><br/>
-                                   <input type="radio" id="last" name="stateType" class="radio first" style="margin-left:108px;"/><span>与上一次勾选后对比</span></li>
-                               <li>当前被修改勾选状态的节点共 <span id="changeCount" class="highlight_red"></span> 个</li>
-                           </ul>
-                       </ul>
-                   </li>
+                           </p>
+                       </section>
+                   </section>
 
-               </ul></div>
+
+
+               </div>
            </div>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn btn-default" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-primary">Save</a>
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <a href="javascript:;" class="btn btn-primary btn-save">保存</a>
         </div>
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 <script type="text/javascript">
+    $(function(){
     $.ajax({
         url:"/admin/ecom/farearea",
         type:"post",
@@ -72,7 +61,35 @@
                 }
             };
 //        var data = ;
+            var in_array = function(stringToSearch, arrayToSearch) {
+                for (var s = 0; s < arrayToSearch.length; s++) {
+                    var thisEntry = arrayToSearch[s].toString();
+                    if (thisEntry == stringToSearch) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            var select = $("#{{id}}").find("input.selectarea").val();
+            if(select.length > 2){
+                select = JSON.parse(select);
+                $.each(data,function(k,v){
+                    if(in_array(v.id,select)){
+                        v.checked=true
+                    }
+                    $.each(v.children,function(_k,_v){
+                        if(in_array(_v.id,select)){
+                            _v.checked=true
+                        }
+                        $.each(_v.children,function(__k,__v){
+                            if(in_array(__v.id,select)){
+                                __v.checked=true
+                            }
 
+                        })
+                    })
+                })
+            };
             var zNodes =data;
             var code, log, className = "dark";
 
@@ -99,7 +116,63 @@
                 })
               return res;
             }
+            function selectarea(data){
+                var res = [];
+                $.each(data,function(k,v){
+                    res.push(v.id)
+                    $.each(v.children,function(_k,_v){
+                        res.push(_v.id)
+                        $.each(_v.children,function(__k,__v){
+                            res.push(__v.id)
+                        })
+                    })
+                })
+                return res;
+            }
+            function totxt(data){
+                var res = [];
+                $.each(data,function(k,v){
+                    res.push('<span class="text-dep1">'+v.name+'</span>');
 
+                    res.push("[")
+                    $.each(v.children,function(_k,_v){
+
+                        res.push('<span class="text-dep2">'+_v.name+'</span>')
+
+                        if(_v.children.length < _v.chnum) {
+                            res.push("(")
+                            $.each(_v.children, function (__k, __v) {
+                                res.push('<span class="text-dep3">'+__v.name+'</span>')
+                            })
+                            res.push(")")
+                        }
+                    })
+                    res.push("]")
+
+                })
+                return res;
+            }
+            function tohtml(data){
+                var res = [];
+                $.each(data,function(k,v){
+                    res.push('<span class="text-dep1">'+v.name+'</span>');
+                    if(v.children.length < v.chnum){
+                        res.push("[")
+                        $.each(v.children,function(_k,_v){
+                            res.push('<span class="text-dep2">'+_v.name+'</span>')
+                            if(_v.children.length < _v.chnum) {
+                                res.push("(")
+                                $.each(_v.children, function (__k, __v) {
+                                    res.push('<span class="text-dep3">'+__v.name+'</span>')
+                                })
+                                res.push(")")
+                            }
+                        })
+                        res.push("]")
+                    }
+                })
+                return res;
+            }
             var arr_to_tree = function(data, pid) {
                 var result = [], temp;
                 var length=data.length;
@@ -126,14 +199,24 @@
                         var checkCount = ""
                         checkCount = zTree.getCheckedNodes(true);
                         var nocheckCount = zTree.getCheckedNodes(false).length;
-                        var changeCount = zTree.getChangeCheckedNodes().length;
+
+
                 $("#checkCount").text(checkCount.length);
                 $("#nocheckCount").text(nocheckCount);
-                $("#changeCount").text(changeCount);
-                 console.log(checkCount.length);
+
                 localStorage.setItem('farearea', JSON.stringify(checkCount));
-                var data = arr_to_tree(JSON.parse(localStorage.getItem("farearea")),0);
-                 console.log(toarr(data));
+                var datas = arr_to_tree(JSON.parse(localStorage.getItem("farearea")),0);
+                 //console.log(totxt(data).join(" "));
+                var tohtmls =tohtml(datas).join(" ");
+                if(tohtmls.length>0){
+                    $("#{{id}}").find(".tohtml").html(tohtmls);
+                }else {
+                    $("#{{id}}").find(".tohtml").html('<span class="text-muted">还没有选择地区，请点击【编辑】进行添加！</span>');
+                }
+
+                $("#{{id}}").find("input.area").val(JSON.stringify(toarr(datas)));
+                $("#{{id}}").find("input.selectarea").val(JSON.stringify(selectarea(datas)));
+                $("#areatxt").html(totxt(datas).join(" "));
                 localStorage.removeItem("farearea");
             }
             function createTree() {
@@ -145,11 +228,24 @@
                 createTree();
 
             });
-
+            $('.slim-scroll').each(function(){
+                var $self = $(this), $data = $self.data(), $slimResize;
+                $self.slimScroll($data);
+                $(window).resize(function(e) {
+                    clearTimeout($slimResize);
+                    $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
+                });
+                $(document).on('updateNav', function(){
+                    $self.slimScroll($data);
+                });
+            });
         }
+    });
 
 
+    $('.btn-save').click(function(){
+        getdata();
+        $('#ajaxModal').modal('hide')
     })
-
-
+    })
 </script>

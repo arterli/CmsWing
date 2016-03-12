@@ -113,7 +113,7 @@ export default class extends think.model.base {
 
         if(!think.isEmpty(action_info.rule)){
             let rules = await this.parse_action(action,user_id);
-            console.log(rules);
+           // console.log(rules);
             let res = await this.execute_action(rules,action_info.id,user_id);
         }
     }
@@ -199,9 +199,9 @@ export default class extends think.model.base {
                 user_id:user_id
             }
             map.create_time = [">",new Date().valueOf() - rule.cycle * 3600 * 1000]
-            console.log(map);
+           // console.log(map);
            let exec_count = await this.model("action_log").where(map).count();
-            console.log(exec_count);
+            //console.log(exec_count);
             if(exec_count>rule.max){
                 continue;
             }
