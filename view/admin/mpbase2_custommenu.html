@@ -17,7 +17,96 @@
                     <header class="header bg-light b-b">
                         <p>{{controller.meta_title}}</p>
                     </header>
+                    
                     <section class="scrollable wrapper">
+                        
+                            
+                        <section class="panel panel-default" style="background-color:#f4f5f9; padding:15px">
+                            <!-- 个性化 start -->
+                            <div class="hs-personality-conditions">
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>用户分组</label>
+                                    <select name="group_id" class="form-control">
+                                        <option value="closed">不限定</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>性别</label>
+                                    <select name="sex" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option value="1">男</option>
+                                        <option value="2">女</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>手机系统</label>
+                                    <select name="client_platform_type" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option value="1">IOS</option>
+                                        <option value="2">Android</option>
+                                        <option value="3">Others（其它）</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>国家</label>
+                                    <select name="country" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option value="中国">中国</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>省份</label>
+                                    <select name="province" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>城市</label>
+                                    <select name="city" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                
+                                <div class="hs-matchrule-div">
+                                    <label>客户端语言</label>
+                                    <select name="language" class="form-control">
+                                        <option value="closed">不限定</option>
+                                        <option value="zh_CN">简体中文</option>
+                                        <option value="zh_TW">繁体中文TW</option>
+                                        <option value="zh_HK">繁体中文HK</option>
+                                        <option value="en">英文</option>
+                                        <option value="id">印尼</option>
+                                        <option value="ms">马来</option>
+                                        <option value="es">西班牙</option>
+                                        <option value="ko">韩国</option>
+                                        <option value="it">意大利</option>
+                                        <option value="ja">日本</option>
+                                        <option value="pl">波兰</option>
+                                        <option value="pt">葡萄牙</option>
+                                        <option value="ru">俄国</option>
+                                        <option value="th">泰文</option>
+                                        <option value="vi">越南</option>
+                                        <option value="ar">阿拉伯语</option>
+                                        <option value="hi">北印度</option>
+                                        <option value="he">希伯来</option>
+                                        <option value="tr">土耳其</option>
+                                        <option value="de">德语</option>
+                                        <option value="fr">法语</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- 个性化 end -->
+                        </section>
+                        
+                        
                         <div class="hs-ui">
                             <div class="hs-ph-area">
                                 <div class="hs-ph-view">
@@ -231,8 +320,9 @@
                                                             <div class="">
                                                                 <label class="hs-menuright-mlabel">页面地址</label>
                                                                 <div class="hs-menuright-mlabelr">
-                                                                    <span class="hs-menuright-ipt hs-spandisabled">
-                                                                        <input class="hs-menuright-iptval" type="text" id="hsUrlValue" name="" disabled="disabled" />
+                                                                    <span class="hs-menuright-ipt ">
+                                                                        <!--hs-spandisabled-->
+                                                                        <input class="hs-menuright-iptval" type="text" id="hsUrlValue" name=""  />
                                                                     </span>
                                                                     <div class="hs-clearfix"></div>
                                                                     <a href="javascript:void(0)" class="hs-handle-a" >从公众号图文消息中选择</a>
@@ -247,7 +337,13 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="hs-clearfix" style="padding-left: 332px;padding-top: 30px">
+                                <button class="btn btn-success " type="button" id="hsSubmitSave">保存</button>
+                                <button class="btn btn-info " type="button" id="hsSubmitSyncWx">生成微信菜单</button>                                
+                            </div>
                         </div>
+                        
                     </section>
                 </section>
             </section>
@@ -294,6 +390,36 @@
             $('#newssed').hide();
             $('#newssed').html('');
         });
+        
+        
+        //保存
+        $(document).on('click', '#hsSubmitSave', function(){
+            var newv = JSON.stringify(hsGetCurrentAllData());
+            $.post('/admin/mpbase2/savecustommenu',
+                { newv : newv },
+                function(data){
+                    if(data.errno == 0){
+                        toastr.success(data.data.name);
+                    }else{
+                        toastr.error(data.errmsg);
+                    }
+                }
+            );
+        });
+        
+        //生成微信菜单
+        $(document).on('click', '#hsSubmitSyncWx', function(){
+            $.post('/admin/mpbase2/asyncwxmenu',
+                {},
+                function(data){
+                    if(data.errno == 0){
+                        toastr.success(data.data.name);
+                    }else{
+                        toastr.error(data.errmsg);
+                    }
+                }
+            )
+        })
     })
 </script>
 {% endblock%}
