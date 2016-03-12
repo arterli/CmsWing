@@ -20,8 +20,11 @@ export default class extends Base {
      * 导航管理首页
      * @returns {*}
      */
-    indexAction(){
+   async indexAction(){
         //auto render template file index_index.html
+        let tree = await this.db.get_channel_cache();
+        //console.log(tree)
+        this.assign("list",tree);
         this.meta_title = "导航管理";
         return this.display();
     }

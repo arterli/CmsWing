@@ -16,10 +16,14 @@ export default class extends Base {
         this.db = this.model('category');
         this.tactive = "setup";
     }
-     indexAction(){
+    async indexAction(){
 
         //auto render template file index_index.html
-         this.meta_title = "分类管理"
+         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
+        //console.log(tree)
+         this.assign("list",tree)
+         this.meta_title = "分类管理";
+
         return this.display();
 
     }

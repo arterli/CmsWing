@@ -1,7 +1,4 @@
 {% extends "./inc/base.html" %}
-{% block style %}
-<link rel="stylesheet" href="/static/admin/js/tree/tree.css" type="text/css" />
-{% endblock %}
 {% block content %}
 <section class="vbox">
     <header class="header bg-light dk">
@@ -11,6 +8,74 @@
         <p>{{controller.meta_title}}</p>
     </header>
     <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+                <i title="" data-original-title="" class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+                        <a href="/admin/channel/add" class="btn btn-sm btn-info ">
+                            添加分类
+                        </a>
+                        <a href="#" onclick="jQuery('#category').treetable('expandAll'); return false;" class="btn btn-sm btn-info ">
+                            展开全部
+                        </a>
+                        <a  onclick="jQuery('#category').treetable('collapseAll'); return false;" href="#" class="btn btn-sm btn-info">
+                            合并全部
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover b-t b-light treetable" id="category">
+                    <thead>
+                    <tr>
+                        <th > 分类名称 </th>
+                        <th style="width:80px;">ID</th>
+                        <th class="">导航地址</th>
+                        <th class="">排序</th>
+
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for val in list%}
+                    <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
+                        <td><span class='folder ui-draggable'>{{val.title}}</span></td>
+                        <td>{{val.id}}</td>
+                        <td><a href="{{val.url}}" target="_blank" class="text-info">{{val.url}}</a> </td>
+                        <td>{{val.sort}}</td>
+
+
+                        <td><a class="text-info" href="/admin/channel/edit/cid/{{val.id}}">编辑</a>
+                            <a class="text-info" href="#">禁用</a>
+                            <a class="text-info" href="/admin/channel/del/id/{{val.id}}">删除</a>
+
+                    </tr>
+                    {%endfor%}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+    <section class="scrollable wrapper hide">
 
         <div class="row">
 
@@ -28,133 +93,10 @@
 {% endblock %}
 
 {% block script %}
-
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
 <script type="text/javascript">
-    /* 生成HTML ul/li 形式 */
-    function category_to_html(nodes) {
-        var html = [];
-        var size = nodes.length;
-        var left = null;
-        var right = null;
-        var text;
-        var stack = [];
-
-        html.push("<ul>");
-
-        for (var i = 0; i < size; i++) {
-            left = nodes[i];
-
-            //text = [left["id"],left["name"]].join(",");
-            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["url"]+' </code><a href="'+left["url"]+'" target="_blank"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>创建时间:' + left["create_time"] + '</code> <a href="/admin/channel/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="/admin/channel/del/id/' + left["id"] + '"  class="confirm ajax-get text-info">删除</a>';
-            if (i + 1 < size) {
-                right = nodes[i + 1];
-                /* 入深 */
-                if (left["deep"] < right["deep"]) {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-folder-open"></i>   ' + left["title"] + '</span> ')
-                    html.push(text);
-                    html.push("<ul>");
-                    stack.push(1);
-                } else {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span> ');
-                    html.push(text);
-                    html.push("</li>");
-                }
-                /* 逐层跳出 */
-                if (left["deep"] > right["deep"]) {
-                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
-                        stack.pop();
-                        html.push("</ul>");
-                        html.push("</li>");
-                    }
-                }
-            } else {
-                if (stack.length > 0) {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
-                    html.push(text);
-                    html.push("</li>");
-                    while (stack.pop()) {
-                        html.push("</ul>");
-                        html.push("</li>");
-                    }
-                } else {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
-                    html.push(text);
-                    html.push("</li>");
-                }
-            }
-        }
-        html.push("</ul>");
-        return html.join("\n");
-    }
-    $(function () {
-        $.ajax({
-            type: "POST",
-            url: "/admin/channel/getchannel",
-            success: function (msg) {
-                /* 展示生成的HTML */
-                $(".tree").html(category_to_html(msg));
-                $('.ajax-get').click(function(){
-                    var target;
-                    var that = this;
-                    if ( $(this).hasClass('confirm') ) {
-                        if(!confirm('确认要执行该操作吗?')){
-                            return false;
-                        }
-                    }
-                    if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
-                        $.get(target).success(function(data){
-                            if (data.errno==0) {
-                                if (data.data.url) {
-                                    toastr.success(data.data.name + ' 页面即将自动跳转~');
-                                }else{
-                                    toastr.success(data.data.name);
-                                }
-                                setTimeout(function(){
-                                    if (data.data.url) {
-                                        location.href=data.data.url;
-                                    }else if( $(that).hasClass('no-refresh')){
-                                        toastr.clear()
-                                    }else{
-                                        location.reload();
-                                    }
-                                },1500);
-                            }else{
-                                toastr.error(data.errmsg);
-                                setTimeout(function(){
-                                    if (data.data) {
-                                        location.href=data.data;
-                                    }else{
-                                        toastr.clear()
-                                    }
-                                },1500);
-                            }
-                        });
-
-                    }
-                    return false;
-                });
-
-                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-                $('.tree li.parent_li > span').on('click', function (e) {
-                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                    if (children.is(":visible")) {
-                        children.hide('fast');
-                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-folder-close').removeClass('glyphicon-folder-open');
-                    } else {
-                        children.show('fast');
-                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-folder-open').removeClass('glyphicon-folder-close');
-                    }
-                    e.stopPropagation();
-                });
-            }
-        })
-
-
-    });
+    $("#category").treetable({ expandable: true });
+    jQuery('#category').treetable('expandAll')
 
 </script>
 
