@@ -567,32 +567,114 @@ export default class extends Base{
             version: 20120000,
             button:[
                 { 
-                    name:'1个福彩但',
+                    name:'1个福彩蛋',
                     type:1,
                     act_list:[],
                     sub_button:[
                         { 
-                            name:'123',
+                            name:'投资赚钱吧',
                             type:1,
-                            act_list:[{ type: 2, value:'www.baidu.com' }],
+                            act_list:[{ type: 2, value:'http://www.baidu.com' }],
                             sub_button:[
                                 
                             ]
                         }
                     ]
-                },
-                
-                { 
-                    name:'896',
-                    type:1,
-                    act_list:[],
-                    sub_button:[
-                        
-                    ]
                 }
             ]
         }
         this.assign('data', JSON.stringify(data));
+        let self = this;
+        self.meta_title = "微信自定义菜单";
+        self.assign({"navxs": true, "bg": "bg-dark"});
         return this.display();
     }
+    
+    /**
+     * 保存自定义菜单 
+     */
+    async savecustommenuAction(){
+        let self = this;
+        let newv = self.post('newv');
+        let currwebtoken = 0;
+        try{
+            // return self.end(newv);
+            if(!newv){
+                return self.fail('参数错误');
+            }
+            //newv = JSON.parse(newv);
+            let currtime = new Date().getTime();
+            let model = self.model('wx_custom_menu');
+            let res = await model.add({
+                create_time: currtime,
+                custom_menu: newv,
+                web_token: currwebtoken
+            });
+            if(res){
+                return self.success({name: '菜单保存成功'});
+            }else{
+                return self.fail('菜单保存失败');
+            }
+        }catch(e){
+            return self.fail('参数错误');
+        }
+    }
+    
+    /**
+     * 生成微信菜单 
+     */ 
+    async asyncwxmenuAction(){
+        let self = this;
+        let model = self.model('wx_custom_menu');
+        let data = await model.where({}).find();
+        
+        let wxsubmit = function (api, data) {
+            let deferred = think.defer();
+            api.createMenu(data, (err, result)=>{
+                if(err){
+                    deferred.reject(err);
+                }else{
+                    deferred.resolve(result);
+                }
+            });
+            return deferred.promise;
+        }
+        
+        console.log(data);
+        let dataObj = JSON.parse(data.custom_menu);
+        let final = { button:[] };
+        for(let i = 0; i < dataObj.button.length; i++){
+            let btn = dataObj.button[i];
+            let tmpbtn = { /*name:'', type:'', key:'', sub_button:''*/ };
+            
+            tmpbtn.name = btn.name;
+            if(btn.sub_button.length > 0){
+                tmpbtn.sub_button = [];
+                for(let j = 0; j < btn.sub_button.length; j++){
+                    let sub = btn.sub_button[i];
+                    let tmpsub = { /*name:'', type:'', key:'', sub_button:''*/ };
+                    tmpsub.name = sub.name;
+                    tmpsub.type = 'view';
+                    tmpsub.url = sub.act_list[0].value;
+                    
+                    tmpbtn.sub_button.push(tmpsub);
+                }
+            }else if(!btn.hasOwnProperty('key')){
+                btn.key = (new Date().getTime())+"KEY";
+            }else{ 
+            }
+            
+            final.button.push( tmpbtn );
+        }
+        console.log(JSON.stringify(final))
+        let res = await wxsubmit(self.api, final );
+        // let res = true;
+        console.log(res);
+        if(res){
+            return self.success({name: '微信菜单生成成功'});
+        }else{
+            return self.fail('微信菜单生成失败');
+        }
+    }
+    
 }

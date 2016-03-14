@@ -138,6 +138,7 @@ export default class extends Base {
      * @returns {Promise|*}
      */
       async deleteAction(){
+
           let id = this.post("id");
           //console.log(id);
           let res = await this.db.where({id: id}).delete();

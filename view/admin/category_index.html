@@ -1,7 +1,5 @@
 {% extends "./inc/base.html" %}
-{% block style %}
-<link rel="stylesheet" href="/static/admin/js/tree/tree.css" type="text/css" />
-{% endblock %}
+
 {% block content %}
 <section class="vbox">
     <header class="header bg-light dk">
@@ -12,110 +10,86 @@
     </header>
     <section class="scrollable wrapper">
 
-        <div class="row">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+                <i title="" data-original-title="" class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
 
-            <div class="col-lg-12">
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+                        <a href="/admin/category/add" class="btn btn-sm btn-info ">
+                            添加分类
+                        </a>
+                        <a href="#" onclick="jQuery('#category').treetable('expandAll'); return false;" class="btn btn-sm btn-info ">
+                            展开全部
+                        </a>
+                        <a  onclick="jQuery('#category').treetable('collapseAll'); return false;" href="#" class="btn btn-sm btn-info">
+                            合并全部
+                        </a>
 
-                <div class="tree">
+                    </div>
                 </div>
 
             </div>
+            <div class="table-responsive">
+                <table class="table table-hover b-t b-light treetable" id="category">
+                    <thead>
+                    <tr>
+                        <th > 分类名称 </th>
+                        <th style="width:80px;">排序</th>
+                        <th class="">标识</th>
+                        <th class="">发布</th>
 
-        </div>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+      {%for val in list%}
+                    <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
+                        <td><span class='folder ui-draggable'>{{val.title}}</span></td>
+                        <td>{{val.sort}}</td>
+                        <td>{{val.name}}</td>
+                        <td><a data-toggle="class" class="active ajax-get" href="/admin/model/setstatus/ids/1/status/0">
+                            <i class="fa fa-check text-success text{%if val.allow_publish != 0 %}-active{%endif%}"></i>
+                            <i class="fa fa-times text-danger text{%if val.allow_publish == 0 %}-active{%endif%}"></i>
+                        </a></td>
+
+
+                        <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
+                            <a class="text-info" href="#">禁用</a>
+                            <a class="text-info" href="#">删除</a>
+                            <a class="confirm ajax-get text-info" href="#">移动</a>
+                        <a class="confirm ajax-get text-info" href="#">合并</a></td>
+                    </tr>
+{%endfor%}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+
+                    </div>
+                </div>
+            </footer>
+        </section>
     </section>
+
 </section>
 
 {% endblock %}
 
 {% block script %}
-
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
 <script type="text/javascript">
-    /* 生成HTML ul/li 形式 */
-    function category_to_html(nodes) {
-        var html = [];
-        var size = nodes.length;
-        var left = null;
-        var right = null;
-        var text;
-        var stack = [];
-
-        html.push("<ul>");
-
-        for (var i = 0; i < size; i++) {
-            left = nodes[i];
-
-            //text = [left["id"],left["name"]].join(",");
-            text = '<i  class="fa '+left["icon"]+'"></i><code>'+left["name"]+' </code><a href="#"><i class="glyphicon glyphicon-link"></i></a> <code>id:' + left["id"] + '</code> <code>排序:' + left["sort"] + '</code> <code>发布:' + left["allow_publish"] + '</code> <code>文章数量:333</code> <a href="/admin/category/edit/cid/' + left["id"] + '">编辑</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">禁用</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">删除</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">移动</a> <a href="Javascript: void(0)" data-id="' + left["id"] + '" class="delete">合并</a>';
-            if (i + 1 < size) {
-                right = nodes[i + 1];
-                /* 入深 */
-                if (left["deep"] < right["deep"]) {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-folder-open"></i>   ' + left["title"] + '</span> ')
-                    html.push(text);
-                    html.push("<ul>");
-                    stack.push(1);
-                } else {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span> ');
-                    html.push(text);
-                    html.push("</li>");
-                }
-                /* 逐层跳出 */
-                if (left["deep"] > right["deep"]) {
-                    for (var j = 0; j < left["deep"] - right["deep"]; j++) {
-                        stack.pop();
-                        html.push("</ul>");
-                        html.push("</li>");
-                    }
-                }
-            } else {
-                if (stack.length > 0) {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
-                    html.push(text);
-                    html.push("</li>");
-                    while (stack.pop()) {
-                        html.push("</ul>");
-                        html.push("</li>");
-                    }
-                } else {
-                    html.push("<li>");
-                    html.push('<span><i class="glyphicon glyphicon-leaf"></i>  ' + left["title"] + ' </span>');
-                    html.push(text);
-                    html.push("</li>");
-                }
-            }
-        }
-        html.push("</ul>");
-        return html.join("\n");
-    }
-    $(function () {
-        $.ajax({
-            type: "POST",
-            url: "/admin/category/gettree",
-            success: function (msg) {
-                /* 展示生成的HTML */
-              $(".tree").html(category_to_html(msg));
-                console.log(msg);
-
-                $('.tree li:has(ul)').addClass('parent_li').find(' > span').attr('title', 'Collapse this branch');
-                $('.tree li.parent_li > span').on('click', function (e) {
-                    var children = $(this).parent('li.parent_li').find(' > ul > li');
-                    if (children.is(":visible")) {
-                        children.hide('fast');
-                        $(this).attr('title', 'Expand this branch').find(' > i').addClass('glyphicon-folder-close').removeClass('glyphicon-folder-open');
-                    } else {
-                        children.show('fast');
-                        $(this).attr('title', 'Collapse this branch').find(' > i').addClass('glyphicon-folder-open').removeClass('glyphicon-folder-close');
-                    }
-                    e.stopPropagation();
-                });
-            }
-        })
-
-
-    });
+    $("#category").treetable({ expandable: true });
+    jQuery('#category').treetable('expandAll')
 
 </script>
 

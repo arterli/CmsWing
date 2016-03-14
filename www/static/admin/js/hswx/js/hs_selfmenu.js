@@ -268,11 +268,21 @@ function hsGetRightValue(){
     var level  = currEl.hasClass('hs-current-edit') ? 1 : 2;
     //取name值
     var name = $ID('hsCurrentMenuName').value || (level==1?'菜单名称':'子菜单名称');
+    //设定key值
+    var key = (new Date().getTime())+"KEY";
     //取type值
     var type = $('[name=nnn]').filter('[checked]').val();
     //取act_list
     var actList = [];
-    return { name: name, type:type, act_list:actList };
+    // var navPanel = $('.hs-etap-nav');
+    // var navActive = navPanel.find('li.active');
+    // var navActiveValue = navActive.attr('jstab-target');
+    // switch (navActiveValue){
+    //     case 'newsArea':
+    //     break;
+    // }
+    
+    return { name: name, key:key, type:type, act_list:actList };
 }
 
 /**

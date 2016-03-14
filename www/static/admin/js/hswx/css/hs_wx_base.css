@@ -659,10 +659,11 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
     background-repeat: no-repeat;
     padding-left: 43px!important;
 }
-.hs-menu-li{ line-height: 50px; position: relative; float: left; text-align: center;  }
+.hs-menu-li{ line-height: 50px; position: relative; float: left; text-align: center; border-left: 1px solid #E7E7EB; }
+.hs-menu-li:nth-child(4){ border: none }
 .hs-menu-item-add{ float: none; width: auto; overflow: hidden; }
 .hs-menu-item{  }
-.hs-menu-a , .hs-nocan{
+.hs-menu-a, .hs-nocan, .hs-sub-inner{
 	display: block;
     width: auto;
     overflow: hidden;
@@ -672,12 +673,14 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
     color: #616161;
     text-decoration: none;
 }
+.hs-sub-inner{ padding: 0 4px; }
 .hs-menu-a.hs-current{
 	border: 1px solid #44b549;
     line-height: 48px;
     background-color: #fff;
     color: #44b549;
 }
+.hs-menu-a.hs-current em{ color: #44B549 }
 .hs-menu-sub{
 	position: absolute;
     bottom: 50px;
@@ -797,4 +800,12 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
 .hs-menuright-rediect{ background-color: #FFFFFF; border: 1px solid #E7E7EB; padding: 16px 20px; }
 .hs-spandisabled{ background-color: #eee; } /* 禁编辑的span */
 .hs-spandisabled > input[disabled]{ background-color: #EEEEEE; }
+
+
+/* 自定义菜单个性筛选条件 start */
+.hs-personality-conditions{ overflow: hidden }
+.hs-matchrule-div{ float: left; margin-right: 10px }
+/* 自定义菜单个性筛选条件 end */
+
+
 /* 自定义菜单  end*/

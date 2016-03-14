@@ -25,6 +25,7 @@ export default class extends Base {
   async addcartAction(){
       let data = this.post();
       data = think.extend({},data);
+
       let arr=[];
       let cart = this.cartdata;
       if(think.isEmpty(cart)){

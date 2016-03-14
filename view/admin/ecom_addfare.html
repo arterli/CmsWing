@@ -39,7 +39,7 @@
 
                                 <div class="col-sm-10">
                                     <div class="row">
-                                        <div class="col-md-8">
+                                        <div class="col-md-10">
                                             <div class="table-responsive">
                                             <table class="table m-b-n-sm ">
                                                 <tbody>
@@ -50,7 +50,7 @@
                                                         <span class="input-group-addon">（g）内</span>
                                                     </div></td>
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" > <div class="input-group ">
-                                                        <input data-required="true" type="text" placeholder="首重运费" class="form-control" name="first_price" value="">
+                                                        <input data-required="true" type="text" placeholder="运费" class="form-control" name="first_price" value="">
                                                         <span class="input-group-addon">{{controller.setup.UNIT}}</span>
                                                     </div></td>
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" ><div class=" input-group ">
@@ -59,8 +59,8 @@
                                                         <span class="input-group-addon">（g）</span>
                                                     </div></td>
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" > <div class="input-group ">
-                                                        <span class="input-group-addon">增加运费</span>
-                                                        <input data-required="true" type="text" placeholder="增加运费" class="form-control" name="second_price" value="">
+                                                        <span class="input-group-addon">增加</span>
+                                                        <input data-required="true" type="text" placeholder="运费" class="form-control" name="second_price" value="">
                                                         <span class="input-group-addon">{{controller.setup.UNIT}}</span>
                                                     </div></td>
                                                 </tr>
@@ -86,9 +86,9 @@
                                 <label class="col-sm-2 control-label">配送区域</label>
 
                                 <div class="col-sm-10">
-                                    <input type="hidden" name="zoning" value="">
+                                    <input type="hidden" name="zoning" value="[]">
                                     <div class="row">
-                                        <div class="col-md-10 ">
+                                        <div class="col-md-12 ">
                                             <section class="panel panel-default">
 
                                                 <div class="table-responsive">
@@ -113,7 +113,7 @@
                                                     <div class="row">
 
                                                         <div class="col-sm-12 text-center">
-                                                            <div class="btn-group m-t-none m-b-none"><a class="btn btn-default btn-addfare" href="#"><i class="fa fa-plus"></i> 指定可配送区域和运费</a></div>
+                                                            <div class="btn-group m-t-none m-b-none"><a class="btn btn-default btn-addfare" href="javascript:;"><i class="fa fa-plus"></i> 指定可配送区域和运费</a></div>
                                                         </div>
                                                     </div>
                                                 </footer>
@@ -150,11 +150,15 @@
 <script src="/static/admin/js/zTree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/parsley/parsley.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/parsley/parsley.extend.js" type="text/javascript"></script>
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script>
     $(function(){
+
         //点击添加时间
         $(".btn-addfare").click(function(e){
-            addTr();
+            var num = new Date().valueOf();
+
+            addTr(num);
             getdata();
         })
         //删除
@@ -173,7 +177,7 @@
     function addTr(num){
         var html = ""
 
-        html += '<tr><td><a data-toggle="ajaxModal" href="/admin/ecom/farearea" class="text-info">添加可配送区域</a> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="1000" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="1000" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control s_price"></td></tr>'
+        html += '<tr id="tr'+num+'"><td><input type="hidden" class="area" value=""><input type="hidden" class="selectarea" value=""> <div class="tohtml" ><a data-toggle="ajaxModal" href="/admin/ecom/farearea/id/tr'+num+'" class="text-info">添加可配送区域</a></div> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea/id/tr'+num+'" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="1000" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="1000" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control s_price"></td></tr>'
 
         $("#addfare tbody").append(html);
     }
@@ -183,10 +187,14 @@
         var trArr = [];
         $.each(trs,function(e){
             var trObj={};
+            trObj.area = $(this).find("input.area").val();
+            trObj.selectarea = $(this).find("input.selectarea").val();
+            trObj.title =  $(this).find("div.tohtml").html();
             trObj.f_weight = $(this).find("input.f_weight").val();
             trObj.f_price = $(this).find("input.f_price").val();
             trObj.s_weight = $(this).find("input.s_weight").val();
             trObj.s_price = $(this).find("input.s_price").val();
+
             trArr.push(trObj);
         })
         $("input[name='zoning']").val(JSON.stringify(trArr));

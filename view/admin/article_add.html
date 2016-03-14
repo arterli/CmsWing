@@ -223,10 +223,13 @@
                     <div class="col-sm-10 hidden-xs">
                       批量设置: <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
       data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置价格' 
-      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入价格' id='price-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-price' href='###'>保存</a></div>">价格</a>
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入价格' id='price-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-price' href='javascript:;'>保存</a></div>">价格</a>
       <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
       data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置库存' 
-      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入库存' id='stock-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-stock'  href='###'>保存</a></div>">库存</a>                 
+      data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入库存' id='stock-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-stock'  href='javascript:;'>保存</a></div>">库存</a>
+                        <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true"
+                           data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>设置重量（件/g）'
+                           data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入单价商品的重量' id='weight-batch-txt' class='form-control input-sm m-l'></div><a class='btn btn-success btn-sm ' id='js-batch-weight'  href='javascript:;'>保存</a></div>">重量（件/g）</a>
                     </div>
                     
                   </div>
@@ -251,6 +254,13 @@
             chandate();
             $('.popover-hide').popover('hide');
         });
+            $(document).on('click',"#js-batch-weight",function(){
+                var weight=$("#weight-batch-txt").val();
+                $(".sku_weight").val(weight);
+                chandate();
+                $('.popover-hide').popover('hide');
+            });
+
         //记录添加规格的个数
         function cout(){
             var size = $(".{{field.name}}_body>section").size();
@@ -258,13 +268,14 @@
                     $(".{{field.name}}_heading").removeClass("hide");
                 $(".{{field.name}}_body").removeClass("hide");
                 $(".{{field.name}}_table").removeClass("hide");
+
                
             }else{
                     $(".{{field.name}}_heading").addClass("hide");
                 $(".{{field.name}}_body").addClass("hide");
                 $(".{{field.name}}_table").addClass("hide");
                  $("#present_price").attr("disabled",false);
-                 //$("input[name='total_stock']").attr("disabled",false);
+                 $("input[name='weight']").attr("disabled",false);
             }
             if(size > 2){
                 $("#{{field.name}}_addsuk").addClass("hide");
@@ -290,14 +301,14 @@
                 if($(v).find("option:selected").text().length>0)
                 narr.push($(v).find("option:selected").text());
             })
-           console.log(narr);
+           //console.log(narr);
             var thHtml = "";
             thHtml += "";
                 thHtml += "<tr>";
             for (cSort = 0; cSort <= narr.length - 1; cSort++) {
                 thHtml += '<th class="active">' + narr[cSort] + "</th>";
             }
-            thHtml += '<th class="active">价格</th><th class="active">库存</th><th class="active">编码</th><th class="active">销量</th>';
+            thHtml += '<th class="active">价格</th><th class="active">库存</th><th class="active">重量（件/g）</th><th class="active">编码</th><th class="active">销量</th>';
             thHtml += "</tr>";
             thHtml += "";
                 $(".{{field.name}}_table").removeClass("hide");
@@ -315,10 +326,11 @@
             var tbHtml2="";
              var v_sku_price="";
              var v_sku_stock="";
-             var v_sku_code="";
+             var v_sku_weight="";
+            var v_sku_code="";
             //获取上次chucun的数据；
             var predatas = $("#{{field.name}}").val();
-            
+
             if(predatas){
             var predata = $.parseJSON(predatas).data; 
             }        
@@ -355,6 +367,7 @@
                     v_sku_price= d_['sku_price']?d_['sku_price']:"";
                     v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
                     v_sku_code= d_['sku_code']?d_['sku_code']:"";
+                    v_sku_weight= d_['sku_weight']?d_['sku_weight']:"";
                 } catch(error){
                 // 在错误发生时怎么处理
                 } 
@@ -367,15 +380,17 @@
                 tbHtml += "<td rowspan="+_v.ch.length+">" + _v.name + "</td>";
                 }
                 tbHtml += "<td rowspan='1'>" + __v.name + "</td>";
-                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price" id="sku_price_'+i+'"></td>\
-                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
-                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code"  id="sku_code_'+i+'"></td>\
+                tbHtml += '<td><input type="text" placeholder="价格" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>\
+                        <td><input type="text" placeholder="库存" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
+                        <td><input type="text" placeholder="重量" value="'+v_sku_weight+'" class="form-control input-sm sku_weight" id="sku_weight_'+i+'"></td>\
+                        <td><input type="text" placeholder="编码" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>\
                         <td>0</td>';
                 tbHtml += "</tr>";
                 var sku_price="#sku_price_"+i;
                 var sku_stock="#sku_stock_"+i;
                 var sku_code="#sku_code_"+i;
-                
+                                    var sku_weight="#sku_weight_"+i;
+                                    __v.sku_weight=$(sku_weight).val();
                 __v.sku_price=$(sku_price).val();
                 __v.sku_stock=$(sku_stock).val();
                 __v.sku_code=$(sku_code).val();
@@ -401,7 +416,8 @@
                  var d_=predata[k]["ch"][_k];
                     v_sku_price= d_['sku_price']?d_['sku_price']:"";
                     v_sku_stock= d_['sku_stock']?d_['sku_stock']:"";
-                    v_sku_code= d_['sku_code']?d_['sku_code']:"";
+                    v_sku_weight= d_['sku_weight']?d_['sku_weight']:"";
+                     v_sku_code= d_['sku_code']?d_['sku_code']:"";
                 } catch(error){
                 // 在错误发生时怎么处理
                 } 
@@ -410,17 +426,19 @@
                 tbHtml += "<td rowspan="+v.ch.length+">" + v.name + "</td>";
                 }
                 tbHtml += "<td rowspan='1'>" + _v.name + "</td>";
-                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>\
-                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
-                        <td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>\
+                tbHtml += '<td><input type="text" placeholder="价格" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>\
+                        <td><input type="text" placeholder="库存" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>\
+                        <td><input type="text" placeholder="重量" value="'+v_sku_weight+'" class="form-control input-sm sku_weight" id="sku_weight_'+i+'"></td>\
+                        <td><input type="text" placeholder="编码" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>\
                         <td>0</td>';
                 tbHtml += "</tr>";
                 var sku_price="#sku_price_"+i;
                 var sku_stock="#sku_stock_"+i;
+                var sku_weight="#sku_weight_"+i;
                 var sku_code="#sku_code_"+i;
-                
                 _v.sku_price=$(sku_price).val();
                 _v.sku_stock=$(sku_stock).val();
+                _v.sku_weight=$(sku_weight).val();
                 _v.sku_code=$(sku_code).val();
                 i=i+1;
                             }
@@ -433,22 +451,26 @@
                            //console.log(predata[k]['sku_price'] != null)
                            v_sku_price= predata[k]['sku_price'] ? predata[k]['sku_price']:"";
                            v_sku_stock= predata[k]['sku_stock'] ? predata[k]['sku_stock']:"";
-                           v_sku_code= predata[k]['sku_code'] ? predata[k]['sku_code']:"";
+                           v_sku_weight= predata[k]['sku_weight'] ? predata[k]['sku_weight']:"";
+                               v_sku_code= predata[k]['sku_code'] ? predata[k]['sku_code']:"";
                            }
                        }
                         tbHtml += "<tr>";
                 tbHtml += "<td rowspan='1'>" + v.name + "</td>";
-                tbHtml += '<td><input type="text" placeholder=".input-sm" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>'+
-                          '<td><input type="text" placeholder=".input-sm" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>'+
-                          '<td><input type="text" placeholder=".input-sm" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>'+
+                tbHtml += '<td><input type="text" placeholder="价格" value="'+v_sku_price+'" class="form-control input-sm sku_price"  id="sku_price_'+i+'"></td>'+
+                          '<td><input type="text" placeholder="库存" value="'+v_sku_stock+'" class="form-control input-sm sku_stock" id="sku_stock_'+i+'"></td>'+
+                          '<td><input type="text" placeholder="重量" value="'+v_sku_weight+'" class="form-control input-sm sku_weight" id="sku_weight_'+i+'"></td>'+
+                          '<td><input type="text" placeholder="编码" value="'+v_sku_code+'" class="form-control input-sm sku_code" id="sku_code_'+i+'"></td>'+
                           '<td>0</td>';
                 tbHtml += "</tr>";
                 var sku_price="#sku_price_"+i;
                 var sku_stock="#sku_stock_"+i;
+                        var sku_weight="#sku_weight_"+i;
                 var sku_code="#sku_code_"+i;
                
                 v.sku_price=$(sku_price).val();
                 v.sku_stock=$(sku_stock).val();
+                v.sku_weight=$(sku_weight).val();
                 v.sku_code=$(sku_code).val();
                 i=i+1;
                     }
@@ -461,10 +483,15 @@
                 type:type,
                 data:narr
             }
-            $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+            if(type.length>0){
+                $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+            }else {
+                $("#{{field.name}}").val("");
+            }
+
                                                                 }
         // 储存数据
-        $(document).on('change','.sku_price,.sku_stock,.sku_code',function(){
+        $(document).on('change','.sku_price,.sku_stock,.sku_code,.sku_weight',function(){
             chandate();
         })
         
@@ -479,6 +506,7 @@
               var _obj = {};
               _obj.sku_price = $("#sku_price_"+k).val();
               _obj.sku_stock = $("#sku_stock_"+k).val();
+               _obj.sku_weight  = $("#sku_weight_"+k).val();
               _obj.sku_code  = $("#sku_code_"+k).val();
               bianli_arr.push(_obj);
            });
@@ -511,7 +539,12 @@
                 "type":type,
                 "data":result
             }
-            $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+
+            if(type.length>0){
+                $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
+            }else {
+                $("#{{field.name}}").val("");
+            }
             //关联价格
             var pricearr=[];
             $.each($(".sku_price"),function(){
@@ -609,57 +642,106 @@
             
             return narr;
         }
-                                            //添加规格
-                                            $("#{{field.name}}_addsuk").click(function(){
-                                                var size = $(".{{field.name}}_body>section").size()+1;
-                                                var {{field.name}}_select ='<section class="panel panel-default m-b-none select-'+size+'">\
-                                                                        <header class="panel-heading bg-light no-border">\
-                                                                        <div class="clearfix">\
-                                                                            <select style="width:260px" class="chosen-select" data-placeholder="请选择规格">\
-                                                                            <option value=""></option>\
-                                                                            <option value="AK">颜色</option>\
-                                                                            <option value="HI">尺码</option>\
-                                                                            <option value="111">规格</option>\
-                                                                            </select>\
-                                                                            <a  class="close {{field.name}}_close" id="select-'+size+'" >×</a>\
-                                                                        </div>\
-                                                                        </header>\
-                                                                        <div class="list-group no-radius alt">\
-                                                                        <div href="#" class="list-group-item">\
-                                                                        <input type="text" class="tags" value="" />\
-                                                                        </div>\
-                                                                        </div>\
-                                                                    </section>'
-                                                $('.{{field.name}}_body').append({{field.name}}_select);
-                                               if($(".chosen-select").length){  
-                                                $('.chosen-select').chosen({ placeholder_text: "选择规则"});
-                                                $('.tags').tagsInput({
-                                                    width:'auto',
-                                                    height:'43px',
-                                                    defaultText:'添加规格',
-                                                    onChange: function(elem, elem_tags)
-                                                        {
-                                                            
-                                                            drawThead()//绘制表头
-                                                            drawTbody()//绘制表格
-                                                            //当有规格添加时锁定价格和库存
-                                                             $("#present_price").attr("disabled",true);
-                                                             //$("input[name='total_stock']").attr("disabled",true);
-                                                        }
-                                                    });
-                                                    }
-                                                cout();
-                                                
-                                            })
-                                            //删除规格
-                                            $(document).on('click',".{{field.name}}_close",function(){
-                                                var select = $(this).attr("id");
-                                                select ="."+select;
-                                                $('section').remove(select);
-                                                    drawThead()//绘制表头
-                                                    drawTbody()//绘制表格
-                                                    cout();
-                                            })
+    //添加规格
+    $("#{{field.name}}_addsuk").click(function(){
+        $.ajax({
+            url:"/admin/tags/ajaxgettags",
+            data:{type:1,pid:0,model_id:"{{info.model_id}}"},
+            success:function(res){
+        var size = $(".{{field.name}}_body>section").size()+1;
+
+                var {{field.name}}_select = ""
+                 {{field.name}}_select +='<section class="panel panel-default m-b-none" data-id="select-'+size+'">'+
+                                            '<header class="panel-heading bg-light no-border">'+
+                                           '<div class="clearfix">'+
+                                            '<select style="width:260px" class="chosen-select" data-placeholder="请选择规格">'+
+                                            '<option value=""></option>';
+                $.each(res,function(index,item){
+                    {{field.name}}_select += '<option value="'+item.id+'">'+item.name+'</option>'
+                })
+
+                  {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格\''+
+                                            'data-content="<div class=\'form-inline\'><div class=\'form-group \'><input type=\'text\' placeholder=\'请输入规格\' class=\'form-control input-sm m-l js-tas-input\'></div><a class=\'btn btn-success btn-sm js-tags \' href=\'javascript:;\'>保存</a></div>">添加规格</a>'+
+                                            '<a class="close {{field.name}}_close" id="select-'+size+'" >×</a>'+
+                                            '</div>'+
+                                            '</header>'+
+                                            '<div class="list-group no-radius alt">'+
+                                            '<div href="#" class="list-group-item">'+
+                                            '<input type="text" class="tags" value="" />'+
+                                            '</div>'+
+                                            '</div>'+
+                                            '</section>';
+                $('.{{field.name}}_body').append({{field.name}}_select);
+
+
+
+    if($(".chosen-select").length){
+    $('.chosen-select').chosen({ placeholder_text: "选择规则"});
+    $('.tags').tagsInput({
+    width:'auto',
+    height:'43px',
+    defaultText:'添加规格',
+    onChange: function(elem, elem_tags)
+    {
+
+    drawThead()//绘制表头
+    drawTbody()//绘制表格
+    //当有规格添加时锁定价格和库存
+    $("#present_price").attr("disabled",true);
+        $("input[name='weight']").attr("disabled",true);
+
+    }
+    });
+    }
+    cout();
+
+        $("[data-toggle=popover]").popover();
+
+
+            }
+    })
+    })
+            //删除规格
+            $(document).on('click',".{{field.name}}_close",function(){
+                var select = $(this).attr("id");
+
+                $('[data-id="'+select+'"]').remove();
+                $.each($("section.suk_body>section"),function(i,v){
+                    i=i+1;
+
+                    $(v).attr("data-id","select-"+i);
+                    $(v).find(".{{field.name}}_close").attr("id","select-"+i);
+                })
+                drawThead()//绘制表头
+                drawTbody()//绘制表格
+                cout();
+            })
+            $(document).on('click','.js-tags',function(){
+                var section = $(this).parents('section').attr('data-id');
+                    section = '[data-id='+section+']';
+                var input = $(section).find("input.js-tas-input").val();
+                    if(input.length==0){
+                        toastr.error("请填写规格！");
+                        return false;
+                    }
+                $.ajax({
+                    type:"POST",
+                    url:"/admin/tags/ajaxaddtags",
+                    data:{name:input,type:1,model_id:"{{info.model_id}}"},
+                    success:function(res){
+                     if(res.errno==0){
+                         $(section).find("select.chosen-select").append("<option value="+res.id+" selected>"+res.name+"</option>");
+                         $('.chosen-select').trigger("liszt:updated");
+                         $('.popover-hide').popover('hide');
+                         toastr.success("添加规格成功！");
+                     }else {
+                         toastr.error(res.errmsg);
+                     }
+                    }
+
+                })
+            })
+
                                             //关联价格
                                          $(document).on('change','#present_price,#discount_price',function(){
                                              var discount_price;

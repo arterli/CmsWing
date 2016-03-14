@@ -117,7 +117,7 @@ export default class extends Base {
                 val.pics = await get_pics_one(val.pics,"path");
             }
         }
-        console.log(list);
+       // console.log(list);
          list = await this.parseDocumentList(list, model_id);
         //console.log(list);
         //获取面包屑信息
@@ -138,7 +138,7 @@ export default class extends Base {
             }
         }
         //console.log(this.setup.DOCUMENT_POSITION)
-        console.log(groups);
+        //console.log(groups);
         this.assign('modellist', modellist);
         this.assign('cate_id', cate_id);
         this.assign('model_id', model_id);
@@ -218,7 +218,7 @@ export default class extends Base {
                 let modelName = await this.model('model').where({id: model_id}).getField('name');
                 //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 // let sql = Document.parseSql(sql)
-                console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+               //console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
                 // return
                 //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
@@ -257,7 +257,7 @@ export default class extends Base {
             // 获取上级文档
             let article = await Document.field('id,title,type').find(map['pid']);
             this.assign('article', article);
-            console.log(article);
+           // console.log(article);
         }
 
         //检查该分类是否允许发布内容
@@ -362,7 +362,10 @@ export default class extends Base {
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
         //获取当前分类文档的类型
-        let type_list = await this.model("category").get_type_bycate(data.category_id);
+        let type_list = await this.model("category").get_type_bycate(data.category_id)
+        //获取suk tags
+        let tags = await this.model('tags').where({model_id:data.model_id}).select();
+        this.assign('tags',tags);
         //获取面包屑信息
         let nav = await this.model('category').get_parent_category(data.category_id);
         //console.log(model);

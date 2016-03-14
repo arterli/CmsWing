@@ -20,7 +20,7 @@ export default class extends Base {
   indexAction(){
     //auto render template file index_index.html
       if(!this.is_login){
-          return this.fail("你木有登录！")
+          return think.statusAction(1000, this.http);
       }
 
       this.meta_title = "用户中心";
