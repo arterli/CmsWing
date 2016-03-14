@@ -528,6 +528,7 @@ export default class extends Base{
             data.type = 'news';
         }
         data.reply_type = reply_type;
+        data.create_time = new Date().getTime();
         //this.end(data);
 
         //查询该类型下是否有保存的回复信息
