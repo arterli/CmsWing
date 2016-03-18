@@ -168,7 +168,6 @@ export default class extends Base {
                }else{
                   console.log(2)
                }
-              
            }
           real_freight = 8; 
        }
