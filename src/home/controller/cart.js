@@ -133,6 +133,9 @@ export default class extends Base {
       //联系人
       let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
       for(let val of addrlist){
+              val.province_num = val.province;
+              val.city_num = val.city;
+              val.county_num = val.county;
               val.province = await this.model("area").where({id:val.province}).getField("name",true);
               val.city = await this.model("area").where({id:val.city}).getField("name",true);
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
@@ -152,7 +155,25 @@ export default class extends Base {
         //    3、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
-       real_freight = 8;
+       let area = addrlist[0].province_num+"_"+addrlist[0].city_num+"_"+addrlist[0].county_num;
+       let fare = await this.model("fare").where({is_default:1}).find();
+       let zoning = JSON.parse(fare.zoning)
+       if(think.isEmpty(zoning)){
+           real_freight =fare.first_price
+       }else{
+           //console.log(zoning)
+           for(let val of zoning){
+               if(in_array(fare,val.area)){
+                  console.log(1);
+               }else{
+                  console.log(2)
+               }
+              
+           }
+          real_freight = 8; 
+       }
+       
+       //real_freight = 8;
        this.assign("real_freight",real_freight);
        //订单促销优惠信息
        //TODO
