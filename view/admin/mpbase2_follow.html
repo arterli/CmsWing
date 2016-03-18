@@ -100,7 +100,7 @@
                                             </div>
                                             <div jstab-des="newsArea" class="hs-etap-content"  style="{{ '' if info.type else 'display: none' }} {{ '' if info.type == 'news' else 'display: none' }}">
                                                 <div class="hs-etap-newsArea hs-inner">
-                                                    <div id="newsxz" class="hs-con-cover" style="{{ 'display: none' if info.content else '' }}">
+                                                    <div id="newsxz" class="hs-con-cover" style=" {{ 'display: none' if info.content and info.type == 'news' else '' }}">
                                                         <div class="hs-media-cover">
 										<span class="hs-create-access">
 						                <a id="news-dialog" href="javascript:;">
@@ -118,9 +118,9 @@
 						            </span>
                                                         </div>
                                                     </div>
-                                                    <div id="newssed" class="hs-etap-panel" style="{{ '' if info.content else 'display: none' }}">
+                                                    <div id="newssed" class="hs-etap-panel" style="{{ '' if info.content and info.type == 'news' else 'display: none' }}">
                                                         {% if info.type == 'news' and info.content %}
-                                                        <div class="hs-fodder-items hs-fodder-list-col active" id="material_18">
+                                                        <div class="hs-fodder-items hs-fodder-list-col active" id="">
                                                             {% set content = info.content|strToJson %}
                                                             {% for item in content %}
                                                             <div class="hs-fodder-item">
