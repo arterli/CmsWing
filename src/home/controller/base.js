@@ -22,11 +22,11 @@ export default class extends think.controller.base {
       //购物车
       let cartdata;
       if(this.is_login){
-          let loadata = this.cookie("cart_goods_item");
+          let loadata = await this.session("cart_goods_item");
          if(think.isEmpty(loadata)){
            cartdata = await this.model('cart').where({uid:this.user.uid}).select();  
          }else{
-            loadata = JSON.parse(loadata); 
+            //loadata = JSON.parse(loadata);
             for(let val of loadata){
                 val.uid = this.user.uid;
                 //验证原有的数据是否已经存在
@@ -41,14 +41,14 @@ export default class extends think.controller.base {
                 }
                 
             }
-           this.cookie("cart_goods_item",null);
+          await this.session("cart_goods_item",null);
             cartdata = await this.model('cart').where({uid:this.user.uid}).select();
          }
       }else{
-          cartdata = this.cookie("cart_goods_item"); 
-          if(cartdata){
-          cartdata = JSON.parse(cartdata);
-          }
+          cartdata =await this.session("cart_goods_item");
+          // if(cartdata){
+          // cartdata = JSON.parse(cartdata);
+          // }
       }
       this.cartdata = cartdata;
      

@@ -206,7 +206,8 @@
             })
             if(arr.length == shoptype.length){
                 var aa = getsuk(arr)
-               // console.log(aa.sku_price);
+                console.log(aa.sku_price);
+                console.log(arr);
                 $("price").text(formatCurrency(aa.sku_price));
                 $("#type").val(arr);
             } 
@@ -237,7 +238,7 @@
                       $.each(v.ch,function (k_,v_) {
                           if(v_.name == arr[1]){
                              if(v_.ch){
-                                 $.each(v.ch,function (k__,v__) {
+                                 $.each(v_.ch,function (k__,v__) {
                           if(v__.name == arr[2]){
                              
                              suk_ = v__;

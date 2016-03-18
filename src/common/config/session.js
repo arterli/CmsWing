@@ -5,7 +5,7 @@
  */
 export default {
   name: 'thinkjs',
-  type: 'file',
+  type: 'db',
   secret: 'TJDB~HRS',
   timeout: 24 * 3600,
   cookie: { // cookie options

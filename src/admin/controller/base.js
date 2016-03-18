@@ -86,10 +86,10 @@ export default class extends think.controller.base {
     /**
      * 对数据表中的单行或多行记录执行修改 GET参数id为数字或逗号分隔的数字
      *
-     * @param String model 模型名称,供M函数使用的参数
-     * @param Object  data  修改的数据
-     * @param Object  where 查询时的where()方法的参数
-     * @param Object  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供M函数使用的参数
+     * @param {Object}  data  修改的数据
+     * @param {Object}  where 查询时的where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                      url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -114,9 +114,9 @@ export default class extends think.controller.base {
 
     /**
      * 禁用条目
-     * @param String model 模型名称,供D函数使用的参数
-     * @param Object  where 查询时的 where()方法的参数
-     * @param Object  msg   执行正确和错误的消息,可以设置四个元素 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供D函数使用的参数
+     * @param {Object}  where 查询时的 where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息,可以设置四个元素 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -206,8 +206,8 @@ export default class extends think.controller.base {
 
     /**
      * 返回后台节点数据
-     * @param boolean $tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
-     * @retrun array
+     * @param {boolean} tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
+     * @retrun {array}
      *
      * 注意,返回的主菜单节点数组中有'controller'元素,以供区分子节点和主节点
      *
@@ -235,8 +235,8 @@ export default class extends think.controller.base {
 
     /**
      * 处理文档列表显示
-     * @param array list 列表数据
-     * @param integer model_id 模型id
+     * @param {array} list 列表数据
+     * @param {integer} model_id 模型id
      */
     async parseDocumentList(list, model_id) {
         model_id = model_id || 1;

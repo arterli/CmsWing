@@ -66,12 +66,14 @@ export default class extends Base {
           if(think.isEmpty(goods.suk)){
             dataobj.price=get_price(goods.price,1) * Number(val.qty);
             dataobj.unit_price =get_price(goods.price,1);
+              dataobj.weight = goods.weight;
           }else{
             let suk = JSON.parse(goods.suk);
             let arr_ = val.type.split(",");
             let getpr = getsuk(suk.data,arr_);
             dataobj.price = Number(getpr.sku_price) * Number(val.qty);
             dataobj.unit_price =Number(getpr.sku_price);
+              dataobj.weight = getpr.sku_weight;
             //console.log(dataobj.price);   
            }
           dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
@@ -91,7 +93,7 @@ export default class extends Base {
                 this.model('cart').add(val);
             }
      }else{
-       this.cookie("cart_goods_item",JSON.stringify(dataarr)); //将 cookie theme 值设置为 default  
+       await this.session("cart_goods_item",dataarr); //将 cookie theme 值设置为 default
      }
      
       let cartinfo = {
@@ -123,12 +125,13 @@ export default class extends Base {
       //购物车内的宝贝
       //let cart_goods = await this.model("cart").where({uid:this.user.uid}).select();
       let cart_goods = this.cartdata;
+     console.log(cart_goods);
       //应付金额
       let parr = [];
       for(let val of cart_goods){
           parr.push(val.price);
       }
-      console.log(parr);
+      //console.log(parr);
       real_amount = eval(parr.join('+'));
       //联系人
       let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
@@ -155,21 +158,32 @@ export default class extends Base {
         //    3、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
+     //计算商品的总重量
+     let warr = [];
+     for(let val of cart_goods){
+         warr.push(val.weight*val.qty);
+     }
+     let goods_weight = eval(warr.join('+'));
+     //console.log(goods_weight);
        let area = addrlist[0].province_num+"_"+addrlist[0].city_num+"_"+addrlist[0].county_num;
        let fare = await this.model("fare").where({is_default:1}).find();
        let zoning = JSON.parse(fare.zoning)
        if(think.isEmpty(zoning)){
-           real_freight =fare.first_price
+           real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
+
        }else{
-           //console.log(zoning)
+
            for(let val of zoning){
-               if(in_array(fare,val.area)){
-                  console.log(1);
-               }else{
-                  console.log(2)
+               //console.log(area)
+              // console.log(val.area);
+               if(in_array(area,JSON.parse(val.area))){
+                   //console.log(Number(val.f_weight)+Number(val.s_weight));
+                   real_freight =Number(val.f_price)+Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
+               }else {
+                   real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
                }
            }
-          real_freight = 8; 
+          //real_freight = 8;
        }
        
        //real_freight = 8;
@@ -180,7 +194,7 @@ export default class extends Base {
         
         //订单金融 实付金额+邮费-订单优惠金额
         //TODO
-        console.log(real_amount);
+       // console.log(real_amount);
         order_amount =Number(real_amount) + Number(real_freight)
         this.assign("order_amount",order_amount);
        //this.end(cart_goods);
@@ -323,6 +337,7 @@ async createorderAction(){
     data.order_no = nowtime;
     //添加送货地址
     let address = await this.model("address").fieldReverse("id,user_id,is_default").find(data.address);
+    console.log(address);
     data = think.extend(data,address);
 
      //应付金额
@@ -340,7 +355,33 @@ async createorderAction(){
         //    3、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
-       real_freight = 8;
+    //计算商品的总重量
+    let warr = [];
+    for(let val of isgoods){
+        warr.push(val.weight*val.qty);
+    }
+    let goods_weight = eval(warr.join('+'));
+    //console.log(goods_weight);
+    let area = address.province+"_"+address.city+"_"+address.county;
+    let fare = await this.model("fare").where({is_default:1}).find();
+    let zoning = JSON.parse(fare.zoning)
+    if(think.isEmpty(zoning)){
+        real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
+
+    }else{
+
+        for(let val of zoning){
+            //console.log(area)
+            // console.log(val.area);
+            if(in_array(area,JSON.parse(val.area))){
+                //console.log(Number(val.f_weight)+Number(val.s_weight));
+                real_freight =Number(val.f_price)+Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
+            }else {
+                real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
+            }
+        }
+        //real_freight = 8;
+    }
        data.real_freight = real_freight;
        
        
