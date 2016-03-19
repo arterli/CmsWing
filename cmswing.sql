@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-03-19 19:09:14
+Date: 2016-03-19 19:43:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -5313,7 +5313,7 @@ INSERT INTO `cmswing_session` VALUES ('1', 'YoUuj3CUtQtsprNrdGGlMqgx5UWUT8PR', '
 INSERT INTO `cmswing_session` VALUES ('3', 'o_qNDqumudkAciCieYz1pbMtJkFMJN_0', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458111147356},\"webuser\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458303801713},\"cart_goods_item\":null}', '1458398151823');
 INSERT INTO `cmswing_session` VALUES ('4', 'x62BKfQ53PDof_xq27aTT25_vhPUrJtl', null, '1458437331934');
 INSERT INTO `cmswing_session` VALUES ('5', 'FYhWrW4I_349Emxwg8V8_B96g2QfacAE', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458311254131}}', '1458440238341');
-INSERT INTO `cmswing_session` VALUES ('6', '9S85bSso2X_X1Ysp29zUt11dMO6UAXq6', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458351108852}}', '1458472100117');
+INSERT INTO `cmswing_session` VALUES ('6', '9S85bSso2X_X1Ysp29zUt11dMO6UAXq6', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458351108852}}', '1458473123448');
 
 -- ----------------------------
 -- Table structure for cmswing_setup
