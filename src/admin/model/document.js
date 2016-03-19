@@ -155,7 +155,7 @@ export default class extends think.model.base {
         id=id||null;
         let status;
         if(think.isEmpty(id)){	//新增
-            let check 	=	await this.model('Category').where({id:cid}).getField('check',true);
+            let check 	=	await this.model('category').where({id:cid}).getField('check',true);
             status = 	check ? 2 : 1;
         }else{				//更新
             status = await this.where({id:id}).getField('status',true);

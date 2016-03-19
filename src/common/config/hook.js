@@ -6,6 +6,6 @@
  */
 export default {
     //view_filter : ['append', 'debug_toolbar'],
-    payload_parse: ['prepend', 'parse_wechat']//在前面追加解析 xml
+    payload_parse: ['prepend', 'parse_wechat']
 
 }
