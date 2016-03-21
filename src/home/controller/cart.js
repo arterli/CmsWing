@@ -447,4 +447,10 @@ async createorderAction(){
         this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
         return this.display();
    }
+    //支付回掉
+    payresAction(){
+        let code = this.get("code");
+        console.log(code);
+        this.end("成功");
+    }
 }

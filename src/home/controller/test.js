@@ -27,5 +27,12 @@ export default class extends Base {
      this.display();
       
   }
+
+   async payAction(){
+        let payment = think.service("payment");
+        let pay = new payment();
+        let charges = await pay.pingxx();
+        this.json(charges);
+    }
  
 }

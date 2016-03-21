@@ -118,6 +118,7 @@
         _login();
         _swal();
         _ajax_post();
+	    _pingpp();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
@@ -3648,7 +3649,30 @@ function _ajax_post() {
 
 	}
 
+/** pingpp
+ *******************************************************************/
+function _pingpp(){
+	var _container = $(".pingpp_pay");
 
+	if(_container.length > 0){
+		loadScript(plugin_path + 'pingpp/pingpp-pc.js',function () {
+			_container.click(function (e) {
+				$.ajax({
+					type:"post",
+					url:"/test/pay",
+					data:{},
+					success:function (res) {
+						pingppPc.createPayment(res, function(result, err) {
+							console.log(result);
+							console.log(err);
+						});
+					}
+					
+				})
+			})
+		})
+	}
+}
 
 /** Dribbble Widget
  **************************************************************** **/
