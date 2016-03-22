@@ -185,6 +185,7 @@ Modernizr.addTest('ios7 ipad',function(){return!!navigator.userAgent.match(/iPad
     $(this).bjax({url: $(this).attr('href') || $(this).attr('data-url') });
     e.preventDefault();
   })
+  
 }(jQuery);
 
 Date.now = Date.now || function() { return +new Date; };
