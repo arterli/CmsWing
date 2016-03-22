@@ -2464,7 +2464,7 @@ function _ajax_post() {
 		_onclick = url to redirect (example: http://www.stepofweb.com)
  **************************************************************** **/
 	function _toastr(_message,_position,_notifyType,_onclick) {
-		var _btn 	= jQuery(".toastr-notify");
+		var _btn 	= $(".toastr-notify");
 
 		if(_btn.length > 0 || _message != false) {
 
@@ -2473,7 +2473,7 @@ function _ajax_post() {
 
 				/** BUTTON CLICK
 				 ********************* **/
-				_btn.bind("click", function(e) {
+				_btn.on("click", function(e) {
 					e.preventDefault();
 
 
@@ -2548,7 +2548,7 @@ function _ajax_post() {
 
 					setTimeout(function(){
 						toastr[_notifyType](_message);
-					}, 1500); // delay 1.5s
+					}, 0); // delay 1.5s
 				}
 			});
 		
@@ -3657,15 +3657,26 @@ function _pingpp(){
 	if(_container.length > 0){
 		loadScript(plugin_path + 'pingpp/pingpp-pc.js',function () {
 			_container.click(function (e) {
+				var order_id = $("input[name='order_id']").val()
+
+				var payment = $('input[name="payment"]:radio:checked').val()
+
 				$.ajax({
 					type:"post",
-					url:"/test/pay",
-					data:{},
+					url:"/cart/pay",
+					data:{order_id:order_id,payment:payment},
 					success:function (res) {
-						pingppPc.createPayment(res, function(result, err) {
-							console.log(result);
-							console.log(err);
-						});
+						console.log(res);
+						if(res.errno==1000){
+							_toastr(res.errmsg,"top-right","error",false);
+							return false;
+						}else {
+							pingppPc.createPayment(res.data.data, function(result, err) {
+								console.log(result);
+								console.log(err);
+							});
+						}
+
 					}
 					
 				})

@@ -144,14 +144,18 @@ export default class extends Base {
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
           }
       this.assign("addrlist",addrlist);
+     /** 现在用ping++集成直接，但接入暂时屏蔽
       //支付方式
       let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
       for(let val of paylist){
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
         }
       this.assign("paylist",paylist);
-        
-        
+        **/
+        //ping++ 支付渠道 pc网页
+
+         let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
+         this.assign("paylist",paylist);
        //运费计算
         //    1、如果店铺只使用统一运费，那么顾客下单计算时按最低运费收取。
         //    2、如果店铺只使用一种运费模板规则，那么顾客下单计算时均按此规则收取运费。
@@ -426,31 +430,96 @@ async createorderAction(){
 }
    //支付
  async  payAction(){
-       if(!this.is_login){return this.fail("你木有登录！")};
-       let order_id = this.get("order");
-       let setp = this.get("setp")||"";
-       //this.end(order_id  + "=" + setp)
-       //订单信息
-       let order = await this.model("order").where({user_id:this.user.uid}).find(order_id);
-       console.log(order);
-       this.assign("order",order);
-       
-        //支付方式
-      let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
-      for(let val of paylist){
-           val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
-        }
-        this.assign("paylist",paylist);
-        this.assign("setp",setp);
-        this.meta_title = "订单支付";//标题1
-        this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
-        this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
-        return this.display();
+     if(!this.is_login){return this.fail("你木有登录！")};
+       if(this.isAjax("post")){
+           let payment;
+           let pay;
+           let charges;
+           let post = this.post();
+           //获取订单信息
+           let order = await this.model("order").where({pay_status:0,user_id:this.user.uid}).find(post.order_id);
+           if(think.isEmpty(order)){
+              return this.fail("您没有要支付的订单");
+           }else {
+               //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
+               console.log(order.pingxx_id);
+               if(think.isEmpty(order.pingxx_id)){
+                   console.log(111111111)
+                   //获取渠道
+                   let channel = await this.model("pingxx").where({id:post.payment}).getField("channel",true);
+                   //调用ping++ 服务端
+                    payment = think.service("payment");
+                    pay = new payment(this.http);
+                   //传入 channel,order_no,order_amount,this.ip()
+                   charges = await pay.pingxx(channel,order.order_no,order.order_amount,this.ip());
+                   //把pingxx_id存到订单
+                   await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
+               }else {
+                   console.log(33333333);
+                   //调用ping++ 服务端
+                    payment = think.service("payment");
+                    pay = new payment(this.http);
+                    charges = await pay.charge(order.pingxx_id);
+               }
+
+               if(charges){
+
+                   return this.success({name:"支付订单对接成功，正在转跳！",data:charges})
+               }else {
+                   return this.fail("调用接口失败！");
+               }
+
+
+           }
+
+       }else {
+           let order_id = this.get("order");
+           let setp = this.get("setp")||"";
+           //this.end(order_id  + "=" + setp)
+           //订单信息
+           let order = await this.model("order").where({user_id:this.user.uid}).find(order_id);
+           //console.log(order);
+           this.assign("order",order);
+
+           //   //支付方式
+           // let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
+           // for(let val of paylist){
+           //      val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
+           //   }
+           //   this.assign("paylist",paylist);
+           let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
+           this.assign("paylist",paylist);
+           this.assign("setp",setp);
+           this.meta_title = "订单支付";//标题1
+           this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
+           this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
+           return this.display();
+       }
+
+
    }
+
     //支付回掉
-    payresAction(){
-        let code = this.get("code");
-        console.log(code);
-        this.end("成功");
+   async payresAction(){
+       let code = this.get();
+        if(code.result == "success"){
+            let pingxx_id = await this.model("order").where({order_no:code.out_trade_no}).getField("pingxx_id",true);
+            //调用ping++ 服务端
+            let payment = think.service("payment");
+            let pay = new payment(this.http);
+            let charges = await pay.charge(pingxx_id);
+            if(charges.paid){
+                //支付成功改变订单状态
+                await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1});
+                charges.amount = charges.amount/100;
+                charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);
+                this.assign("order",charges);
+            }
+        }
+
+       this.meta_title = "支付结果";//标题1
+       this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
+       this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
+        return this.display();
     }
 }

@@ -1,33 +1,56 @@
 'use strict';
 var pingpp = require('pingpp')('sk_test_10unXHm9WPeD54OaT8Cubz9K');
 export default class extends think.service.base {
-  /**
-   * init
-   * @return {}         []
-   */
-  init(...args){
-    super.init(...args);
-  }
-
- async pingxx(){
-    function charges(pingpp) {
-      let deferred = think.defer();
-      pingpp.charges.create({
-        subject: "Your Subject",
-        body: "Your Body",
-        amount: 100,
-        order_no: "123456789",
-        channel: "alipay_pc_direct",
-        currency: "cny",
-        client_ip: "127.0.0.1",
-        app: {id: "app_eDW9GK5uLiHSHCmj"},
-        extra:{success_url:"http://127.0.0.1:8360/cart/payres"}
-      }, function(err, charge) {
-        console.log(err);
-        deferred.resolve(charge);
-      });
-      return deferred.promise;
+    /**
+     * init
+     * @return {}         []
+     */
+    init(http) {
+        super.init(http);
+        this.http = http;
     }
-   return await charges(pingpp);
-  }
+//发起付款
+    async pingxx(channel, order_no, order_amount, ip) {
+        let config;
+        let setup = await think.cache("setup")
+        let amount = Number(order_amount)*100;
+        switch (channel) {
+            case 'alipay_pc_direct':
+                config = {
+                    subject: "网站订单支付",
+                    body: "网站订单支付",
+                    amount: amount,
+                    order_no: order_no,
+                    channel: "alipay_pc_direct",
+                    currency: "cny",
+                    client_ip: ip,
+                    app: {id: setup.PINGXX_APP_ID},
+                    extra: {success_url: `http://${this.http.host}/cart/payres`}
+                }
+                break;
+        }
+        //console.log(config);
+        function create(pingpp, config) {
+            let deferred = think.defer();
+            pingpp.charges.create(config, function (err, charge) {
+                //console.log(err);
+                deferred.resolve(charge);
+            });
+            return deferred.promise;
+        }
+
+        return await create(pingpp,config);
+    }
+    async charge(id){
+        function retrieve(pingpp,id) {
+            let deferred = think.defer();
+            pingpp.charges.retrieve(id, function(err, charge) {
+                //console.log(err);
+                deferred.resolve(charge);
+                }
+            );
+            return deferred.promise;
+        }
+        return await retrieve(pingpp,id);
+    }
 }

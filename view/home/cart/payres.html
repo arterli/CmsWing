@@ -92,39 +92,24 @@
                 <div class="panel-body ">
 
                     <div class="heading-title heading-dotted text-center margin-bottom-20">
-                        <h4><span>[支付信息]</span></h4>
+                        <h4><span><i class="fa fa-check-circle"></i> [支付成功，订购已完成！]</span></h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table">
 
                             <tbody>
-                            <tr class="info">
+                            <tr >
                                 <td class="text-right">订单编号：</td>
                                 <td>{{order.order_no}}</td>
                             </tr>
-                            <tr class="danger ">
+                            <tr >
                                 <td class="text-right">订单金额：</td>
-                                <td class="text-danger size-18">￥{{order.order_amount|formatCurrency}}</td>
+                                <td class="text-danger size-18">￥{{order.amount|formatCurrency}}</td>
                             </tr>
-                            <tr class="">
+                            <tr >
                                 <td class="text-right">支付方式：</td>
                                 <td>
-                                    <div class="pay-box">
-
-
-                                        <div class="icheck pay-list m-b">
-                                            {% for val in paylist %}
-                                            <div class="item">
-                                                <input type="radio" name="payment" value="{{val.id}}" {% if val.id==
-                                                       order.payment %} checked {% endif%}>
-                                                <label><img src="{{val.logo}}"/> {{val.title}} </label>
-                                            </div>
-                                            {% endfor %}
-
-                                        </div>
-
-
-                                    </div>
+                                   {{order.channel}}
                                 </td>
                             </tr>
 
@@ -137,14 +122,16 @@
 
             </div>
 
-            <div class="callout alert alert-danger noborder">
-              <input type="hidden" value="{{order.id}}" name="order_id">
+            <div class="callout alert alert-default noborder">
                 <div class="text-center">
-                    <a class="btn btn-3d btn-reveal btn-red pingpp_pay" href="javascript:;">
+                    <a class="btn btn-3d btn-reveal btn-green " href="/">
                         <i class="fa fa-credit-card"></i>
-                        <span>立即支付</span>
+                        <span>返回首页</span>
                     </a>
-
+                    <a class="btn btn-3d btn-reveal btn-teal " href="/user">
+                        <i class="fa fa-credit-card"></i>
+                        <span>用户中心</span>
+                    </a>
 
                 </div>
 

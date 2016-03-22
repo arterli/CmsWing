@@ -137,7 +137,7 @@
              {% for val in paylist %}
             <div class="item">
             <input type="radio"  name="payment" value="{{val.id}}" {% if val.sort == 1 %} checked {% endif%}>
-                            <label ><img src="{{val.logo}}" height="30" /> {{val.pay_name}} </label>
+                            <label ><img src="{{val.logo}}" /> {{val.title}} </label>
                             </div> 
                            {% endfor %}
                             

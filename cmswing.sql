@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-03-19 19:43:35
+Date: 2016-03-22 20:24:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=386 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=393 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -146,6 +146,13 @@ INSERT INTO `cmswing_action_log` VALUES ('382', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('383', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-18 22:27:34登录了后台', '1', '1458311254160');
 INSERT INTO `cmswing_action_log` VALUES ('384', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-19 09:31:48登录了后台', '1', '1458351108940');
 INSERT INTO `cmswing_action_log` VALUES ('385', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-19 10:17:39登录了后台', '1', '1458353859977');
+INSERT INTO `cmswing_action_log` VALUES ('386', '4', '1', '2130706433', 'document', '82', 'admin在2016-03-19 21:35:50发表了一篇文章。\r\n表document，记录编号82。fdsfsa', '1', '1458394550734');
+INSERT INTO `cmswing_action_log` VALUES ('387', '4', '1', '2130706433', 'document', '83', 'admin在2016-03-19 21:59:36发表了一篇文章。\r\n表document，记录编号83。fdsfsa', '1', '1458395976760');
+INSERT INTO `cmswing_action_log` VALUES ('388', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-21 13:58:52登录了后台', '1', '1458539932241');
+INSERT INTO `cmswing_action_log` VALUES ('389', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-21 18:28:25登录了后台', '1', '1458556105740');
+INSERT INTO `cmswing_action_log` VALUES ('390', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-22 10:02:18登录了后台', '1', '1458612138962');
+INSERT INTO `cmswing_action_log` VALUES ('391', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-22 14:48:59登录了后台', '1', '1458629339460');
+INSERT INTO `cmswing_action_log` VALUES ('392', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-22 17:43:29登录了后台', '1', '1458639809274');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4109,13 +4116,11 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_cart
 -- ----------------------------
-INSERT INTO `cmswing_cart` VALUES ('25', '1', '81', '1', 'dsdf,tt,9856', '100', '测试商品重量包邮', '100', '/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg', '/detail/81', '1000');
-INSERT INTO `cmswing_cart` VALUES ('26', '1', '81', '1', '鬼地方,mm,9856', '100', '测试商品重量包邮', '100', '/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg', '/detail/81', '1000');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4292,7 +4297,7 @@ CREATE TABLE `cmswing_document` (
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`category_id`,`status`) USING BTREE,
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='文档模型基础表';
 
 -- ----------------------------
 -- Records of cmswing_document
@@ -4359,7 +4364,9 @@ INSERT INTO `cmswing_document` VALUES ('76', '1', '', '46546546', '2', '0', '', 
 INSERT INTO `cmswing_document` VALUES ('77', '1', '', '终于来了 亚马逊招开发经理打造VR平台', '2', '0', '今年作为VR的第三个元年，与VR相关的厂商不仅在CES上抢尽风头，还在WMC上引爆关注。而作为电商巨头的亚马逊似乎也想在这个拥有巨大前景的领域中分得一杯羹。', '0', '0', '2', '2', '0', '0', '148', '1', '0', '0', '0', '0', '0', '0', '1457512950753', '1457512950753', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('78', '1', '', '混合模型商品测试', '2', '0', '混合模型商品测试混合模型商品测试混合模型商品测试混合模型商品测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1457514112429', '1457514112426', '1', '150,151', '{\"present_price\":\"100\",\"discount_price\":\"80\"}');
 INSERT INTO `cmswing_document` VALUES ('80', '1', '', '测试商品重量包邮', '55', '0', '测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1457780474141', '1457780474141', '1', '159,160,161,162,163,164', '{\"present_price\":\"100-150\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('81', '1', '', '测试商品重量包邮', '57', '0', '测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '41', '0', '0', '0', '1458281080520', '1458281080515', '1', '165,166,167,168,169,170', '{\"present_price\":\"100\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('81', '1', '', '测试商品重量包邮', '57', '0', '测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '53', '0', '0', '0', '1458281080520', '1458281080515', '1', '165,166,167,168,169,170', '{\"present_price\":\"100\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('82', '1', '', '4635464564', '44', '0', '6546546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1458394550498', '1458394550498', '1', '', '');
+INSERT INTO `cmswing_document` VALUES ('83', '1', '', 'fdsfdsf', '44', '0', 'fdsfadsafads', '0', '0', '2', '2', '0', '0', '176', '1', '0', '0', '0', '0', '0', '0', '1458395976686', '1458395976686', '1', '', '');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -4422,6 +4429,8 @@ INSERT INTO `cmswing_document_article` VALUES ('75', '0', '<p>fdsfsdffdsfs112131
 INSERT INTO `cmswing_document_article` VALUES ('76', '0', '<p class=\"f_center\"><img alt=\"美的董事长回应董明珠：怎么能说我们是骗子\" src=\"/upload/editor/image/catcher/20160309/1457512855899406264.jpg\"/><br/></p><p>文_本刊记者 黄燕 （公众号：诸葛阿瞒）</p><p>一贯“打不还手，骂不还口”的波哥终于憋不住了。3月8日，<a href=\"http://tech.163.com/company/midea/\">美的</a>集团董事长方洪波在上海现身美的经销商大会，开始还拒绝上台的波哥一上去滔滔不绝半小时，还是一贯的脱稿演讲。一篇干货满满的讲话最后“迫不得已”提到了<a href=\"http://tech.163.com/company/gree/\">格力</a>，实在是“无数次被碰瓷“，方洪波忍无可忍了。</p><p>以下是方洪波讲话原文，已经方洪波本人审阅。对格力的攻击，方洪波的原话是这么说的：</p><p>”去年年底春节前，格力员工举报我们，说我们学术造假，我们无奈被迫也举报格力、反击，我们也发了声明。不到迫不得已我们不会发声。</p><p>现在我讲了，国家科技进步二等奖这件事，在获奖之前已经被多次举报，进行了多次评测，最后还是获奖了。我们持开放态度，欢迎国家任何机构、全世界任何机构来进行论证，我们不惧怕，关于这件事这是第一。</p><p>第二点，多年来格力在各种场合对我们进行指责和攻击，我们没有发声，低调、隐忍。</p><p>我\r\n在这里讲，美的1968年创业，到今天快50年时间，在市场经济、改革开放大风大雨中自生自灭，发展壮大到今天，成为中国家电行业收入最高的企业，这么多\r\n品类、这么多产品进入千家万户，2015年美的交税108亿，盈利100多亿，向全世界200多个国家出口，2015年出口80多亿美金，我们的产品为全\r\n世界服务，怎么能说我们是骗子？我们欺骗了谁？</p><p>我们的内心并不会因此而气愤。我可以认真的讲，这样的指责只会使我们更加坚强、自信。好比一棵树，不断的受伤、皮刮掉了，长出来虽然有节疤，但是这棵树更加粗壮，更加经风历雨。</p><p>为什么自信？你不断指责我，说明我比你强大，否则你指责我干什么？你攻击我干什么？你的指责只会让我们更加自信。</p><p>看任何一个企业的发展十几年，看谁能够成为时间的朋友，时间是十年、三十年、五十年，谁到最后谁才是时间的朋友，谁就是胜利。你跟时间成为一年的朋友，那不是一个基业常青的企业。时间到了，高下立见，谁高谁低自然会分得清清楚楚。”</p><p>3月6日，方洪波发了一条意味深长的朋友圈：“奔驰公司祝贺宝马100岁生日，左下角德文的意思是：感谢100年来的竞争，没有你的那三十年其实感觉很无聊。向竞争者致敬，伟大企业应有之胸怀！”</p><p><strong>以下是方洪波这次讲话的原文</strong></p><p>“现在家电产业竞争环境不太好，为什么？牛鬼蛇神太多。</p><p>我在各种场合多次讲过，中国家电业过去30年发展的旧时代已经结束，旧模式已经失效。大规模制造、大规模分销，靠人口红利和廉价劳动力的低成本优势获得增长，大规模传播，靠广告炒概念销售。</p><p>家电业的现状是，各个品类严重过剩，工厂开工不足，渠道效益下滑，重新回到价格战，竞争加剧。大家都很焦虑，为什么？因为大家都一样，都在做相同的事情。最近有些企业对我们的指责就是典型的焦虑症，完全失去了风度、品格甚至人格。</p><p>旧\r\n的时代已经结束，新的时代是什么？不同的企业，不同的人有不同的理解。我们怎么样抓住新时代的机会？我认为整个中国家电业从厂家到供应、上游下游，面临内\r\n外部压力下，进入了重大调整窗口期，将会产生强烈的“马太效应”，就是圣经上说的，拥有者还会拥有更多，失去者连现在有的也要失去，强者更强，弱者会被淘\r\n汰。</p><p>每个人必须要改变，不改变是不行了，大势不能违背，时代变革无法阻挡。</p><p>面对这个重大转折，我们怎么办？怎么抓住重大转折期去改变？大势不能违背，你不能随波逐流，我们必须迎难而上。这种时代变革，行业变革的大势是任何人不能阻挡的，我们必须顺应这个大势去发展。</p><p>怎样抓住这个机会？我先讲一下美的这几年转型的体会。2011年我们开始讲转型，这个过程中做了很多事我不多说，仅举一个例子，2015年下半年中央经济工作会议提出去产能，去库存、去杠杆，我可以告诉大家，这“三去”我们从2011年就开始做了，美的是最早的实践者。</p><p>我们最早去产能，这几年我们关了多少工厂？全国各地，美的已经退回了6000亩土地，过去几年我们没有新增一家工厂、一条生产线，未来三年也不会新增一个基地，这就是去产能。</p><p>去库存，由于历史原因，我们分轻重缓急。现在去库存最慢的是家用空调，由于历史上形成了严重的渠道泡沫，过去几年渠道积压的泡沫太大。但是我们现在去库存的决心也很坚定，2015年第四季度我们基本上压住工厂没怎么出货，各地销售公司都没怎么出货，强制性渠道去库存。</p><p>家用空调之外其他产品去库存力度很大，比如说洗衣机，2015年收入盈利双增长，但是库存是历史最低水平，比以前卖50个亿的库存都还低。其他的产品都在去库存，我们比较早的去做。</p><p>去杠杆，以前美的集团资产负债率最高的时候也有70%、80%，现在60%，我们的有息负债非常少，就是一些商业票据。我们的现金流非常好，自有资金700多亿，资产结构非常好，总资产1400多亿，其中现金就800多亿，流动性非常好。</p><p>现在国家讲供给侧改革，同样我们也是最早的实践者。供给侧改革从经济学上是总需求和总供给平衡。过去三个增长动力，出口、投资、内需，现在失效了。过去有需求，行业有增长就能解决问题，出口也是，现在不行了。我们比较早进行了转型。</p><p>供给侧的改革从宏观经济上讲，第一个是解决劳动力供给，对工厂来讲就是要提高劳动力素质，提高劳动者的技术水平，培养更多产业工人。所以我们这几年工人人数下降。</p><p>第二个是全要素生产率，同样生产一件产品原来要100元，现在人、财、物生产力的提高，我只要80元，效率提高了，企业盈利多了，工人收入多了，企业就有钱投入到新的生产中。全要素生产率的提高，这是美的过去四年做的最核心的事情。</p><p>”\r\n三去“我们是最早的实践者。供给侧改革，我们也是实践得比较早，就是向市场提供更高附加值，更有竞争力的产品，而不是以前低附加值、搞价格战的产品。大家\r\n看前面发布的这些产品，我举了美的转型例子，过去几年给我们的教训。我们提前四年进行了改革实践，那么多事情，需要大量投入。</p><p>我们现在站在一个新的起点上，美的这些年构建了好的团队，刚才上台的六位总经理，共同的特点是年富力强，跟着美的一起成长，并且他们个人的利益和美的利益是绑在一起的，在一个战壕里。所以美的形成了一个核心团队，这个团队也是家电业最有竞争力的。</p><p>那么问题来了，包括我在内，我们核心团队站在一个新的起点上，我们必须要回答一个问题，美的2025年要成为一个什么样的企业？这是我们必须要交出的第一张答卷。</p><p>作为我个人，我真的不是在那里哗众取宠，像某些人那样虚张声势，我是发自内心，带着高度责任感带领美的团队去经营企业。我不为钱、不为名、不为利，我相信我们所有核心团队成员都是这样。</p><p>所以我们必须要交出这张答卷，这张答卷是什么？我不多讲，我们会慢慢务实、扎实、稳健、低调地去推进美的的变革。</p><p>万变不离其宗，第一句话，我们必须要解决如何做到不同？美的怎样和其他家电企业不同？不能相同，相同就会焦虑。我们必须要靠美的的独特性来驱动美的未来发展，这是我们必须要找到的。</p><p>面对新的行业变革格局，我们能做到就是勇于下注，看准了就下注。包括智慧家居系统，一年投好几个亿，现在智能家居工程师有500人，和产品没关系，就是搞智能家居。包括我们做<a href=\"http://tech.163.com/company/smartphone/\">智能机</a>器人也是。</p><p>另外就是重新想象，我们所有的商业模式、经营方法、管理体制要重新想象，把过去的都否定。对我们在座的渠道商都也是这样，必须要改变我们的经营模式。</p><p>我们要布局未来，用独特性驱动美的发展。</p><p>勇于下注，重新想象，布局未来。这是包括我在内的管理层必须要回答的答卷。这是我讲的第二点。</p><p>第三点，我想说一下渠道，这是我们美的生存发展的基石。中国市场靠你们，海外市场靠中国，你们是我们的基石。围绕这个链条我们现在能做的，我把它归纳一下：</p><p>第一个，产品领先，各个品类厚积薄发，加大对基础的投入。美的现在40个研发基地，2015年盈利100多亿，这是税后净利。我们有资源、有钱去投，我们没有投到工厂、产能，就要投到研发上，确保产品品质。</p><p>大家已经看到了美的品质的进步，我也可以给产品背书，美的空调的品质行业领先，不输给任何一个厂家。现在我们在做精品系列、高端系列，在这个基础上我们要做产品的差异化。</p><p>第\r\n二个，渠道效率，我们一定要解决渠道效率，把过去的大规模压货、大规模分销，层层压货坚决改掉。美的推动渠道变革的决心毫无动摇，坚定推动下去，我们要通\r\n过精益管理，&quot;T+3 &quot;,一致性物流，把过去多年积累的渠道泡沫慢慢消化掉。所以洗衣机的“T+3”模式，我们必须坚决的无条件的复制到所有产品上。</p><p>以\r\n前卖一台冰箱物流搬动平均6.4次，从工厂出来要搬6次，现在减少到了3次，这就是渠道效率。在座各位都要提高效率，你以前开个店几百平米，你到香港、日\r\n本去看看，人家的店多么紧凑，寸土寸金。香港一个小餐馆，点菜、开票、上菜就一个人，这就是效率。所以我们现在不要看劳动力成本上升，一定要抓人财物效率\r\n的提升。</p><p>第三，用户中心。一定要抓服务的一致性，标准性。我们现在要求多少公里范围内24小时解决用户的维修问题。</p><p><br/></p>', '', '0');
 INSERT INTO `cmswing_document_article` VALUES ('77', '0', '<p class=\"f_center\"><img alt=\"终于来了，亚马逊招开发经理打造VR平台\" src=\"/upload/editor/image/catcher/20160309/1457512925679874477.jpg\" style=\"border: medium none; max-width: 100%; height: auto;\"/></p><p>via：engadget</p><p>今年作为VR的第三个元年，与VR相关的厂商不仅在CES上抢尽风头，还在WMC上引爆关注。而作为电商巨头的<a href=\"http://tech.163.com/company/amazon/\">亚马逊</a>似乎也想在这个拥有巨大前景的领域中分得一杯羹。</p><p>根据外媒的报道，亚马逊发布招聘广告，寻找一名高级软件开发经理，负责带领团队在其视频平台<a href=\"http://tech.163.com/company/amazon/\">Amazon</a> Video内打造一个VR平台。根据招聘广告的描述，亚马逊希望“探索以及创造一个身临其境的叙事平台，包括一个VR拍摄及播放平台”。</p><p>通过描述我们可以看到，亚马逊的野心不止于一个VR视频观看平台，而是一个类似YouTube的内容分发平台。虽说，像亚马逊这样的巨头进入VR是一件早晚的事情，不过它具体要扮演怎样的角色，暂时还不好下结论。</p><p>不过，需要一提的是，亚马逊在硬件这块的跟进总是比较迅速的，无论是快递无人机、半导体、机器人，</p><p>还是AR眼镜……</p><p><br/></p>', '', '0');
 INSERT INTO `cmswing_document_article` VALUES ('79', '0', '<pre class=\"brush:css;toolbar:false\">#uploader&nbsp;.filelist::after&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;clear:&nbsp;both;\r\n&nbsp;&nbsp;&nbsp;&nbsp;content:&nbsp;&quot;&quot;;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;0;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;rgba(0,&nbsp;0,&nbsp;0,&nbsp;0)&nbsp;url(&quot;../img/bg.png&quot;)&nbsp;no-repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline;\r\n&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;left;\r\n&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;12px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;110px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;margin:&nbsp;0&nbsp;8px&nbsp;20px&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-align:&nbsp;center;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;110px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.log&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;top:&nbsp;-45px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.title&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-align:&nbsp;left;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-indent:&nbsp;5px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-overflow:&nbsp;ellipsis;\r\n&nbsp;&nbsp;&nbsp;&nbsp;top:&nbsp;5px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;white-space:&nbsp;nowrap;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.progress&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;rgba(0,&nbsp;0,&nbsp;0,&nbsp;0)&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;border-radius:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;bottom:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;8px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;margin:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;50;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.progress&nbsp;span&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;animation:&nbsp;2s&nbsp;linear&nbsp;0s&nbsp;normal&nbsp;none&nbsp;infinite&nbsp;running&nbsp;progressmove;\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#1483d8&nbsp;url(&quot;../img/progress.png&quot;)&nbsp;repeat-x&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;none;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;transition:&nbsp;width&nbsp;200ms&nbsp;linear&nbsp;0s;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;0;\r\n}\r\n@keyframes&nbsp;progressmove&nbsp;{\r\n0%&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;0&nbsp;0;\r\n}\r\n100%&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;17px&nbsp;0;\r\n}\r\n}\r\n@keyframes&nbsp;progressmove&nbsp;{\r\n0%&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;0&nbsp;0;\r\n}\r\n100%&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;17px&nbsp;0;\r\n}\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.imgWrap&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;110px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;line-height:&nbsp;110px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;transform-origin:&nbsp;50%&nbsp;50%&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;transition:&nbsp;all&nbsp;200ms&nbsp;ease-out&nbsp;0s;\r\n&nbsp;&nbsp;&nbsp;&nbsp;vertical-align:&nbsp;middle;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;110px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;2;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;img&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;p.error&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#f43838&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;bottom:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;#fff;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;28px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;line-height:&nbsp;28px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;100;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;li&nbsp;.success&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;rgba(0,&nbsp;0,&nbsp;0,&nbsp;0)&nbsp;url(&quot;../img/success.png&quot;)&nbsp;no-repeat&nbsp;scroll&nbsp;right&nbsp;bottom;\r\n&nbsp;&nbsp;&nbsp;&nbsp;bottom:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;40px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;200;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;rgba(0,&nbsp;0,&nbsp;0,&nbsp;0.5)&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;top:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;300;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;rgba(0,&nbsp;0,&nbsp;0,&nbsp;0)&nbsp;url(&quot;../img/icons.png&quot;)&nbsp;no-repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;cursor:&nbsp;pointer;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline;\r\n&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;right;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;24px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;margin:&nbsp;5px&nbsp;1px&nbsp;1px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;overflow:&nbsp;hidden;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-indent:&nbsp;-9999px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;24px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.rotateLeft&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;0&nbsp;-24px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.rotateLeft:hover&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;0&nbsp;0;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.rotateRight&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;-24px&nbsp;-24px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.rotateRight:hover&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;-24px&nbsp;0;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.cancel&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;-48px&nbsp;-24px;\r\n}\r\n#uploader&nbsp;.filelist&nbsp;div.file-panel&nbsp;span.cancel:hover&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background-position:&nbsp;-48px&nbsp;0;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;border-top:&nbsp;1px&nbsp;solid&nbsp;#dadada;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;63px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;line-height:&nbsp;63px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;padding:&nbsp;0&nbsp;20px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;vertical-align:&nbsp;middle;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.progress&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#fff&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;1px&nbsp;solid&nbsp;#1483d8;\r\n&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;#6dbfff;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline-block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;18px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;line-height:&nbsp;20px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;margin:&nbsp;0&nbsp;10px&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;text-align:&nbsp;center;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;198px;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.progress&nbsp;span.percentage&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#1483d8&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;height:&nbsp;100%;\r\n&nbsp;&nbsp;&nbsp;&nbsp;left:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;top:&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;width:&nbsp;0;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.progress&nbsp;span.text&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;relative;\r\n&nbsp;&nbsp;&nbsp;&nbsp;z-index:&nbsp;10;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.info&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;#666666;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline-block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;14px;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;line-height:&nbsp;40px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;position:&nbsp;absolute;\r\n&nbsp;&nbsp;&nbsp;&nbsp;right:&nbsp;20px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;top:&nbsp;10px;\r\n}\r\n#filePicker2&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline-block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;left;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.webuploader-pick,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn.state-uploading,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn.state-paused&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#ffffff&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;1px&nbsp;solid&nbsp;#cfcfcf;\r\n&nbsp;&nbsp;&nbsp;&nbsp;border-radius:&nbsp;3px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;#565656;\r\n&nbsp;&nbsp;&nbsp;&nbsp;cursor:&nbsp;pointer;\r\n&nbsp;&nbsp;&nbsp;&nbsp;display:&nbsp;inline-block;\r\n&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;left;\r\n&nbsp;&nbsp;&nbsp;&nbsp;font-size:&nbsp;14px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;margin-left:&nbsp;10px;\r\n&nbsp;&nbsp;&nbsp;&nbsp;padding:&nbsp;0&nbsp;18px;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.webuploader-pick-hover,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn:hover,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn.state-uploading:hover,&nbsp;#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn.state-paused:hover&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#f0f0f0&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#00b7ee&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n&nbsp;&nbsp;&nbsp;&nbsp;border-color:&nbsp;transparent;\r\n&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;#fff;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn:hover&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;background:&nbsp;#00a2d4&nbsp;none&nbsp;repeat&nbsp;scroll&nbsp;0&nbsp;0;\r\n}\r\n#uploader&nbsp;.statusBar&nbsp;.btns&nbsp;.uploadBtn.disabled&nbsp;{\r\n&nbsp;&nbsp;&nbsp;&nbsp;opacity:&nbsp;0.6;\r\n&nbsp;&nbsp;&nbsp;&nbsp;pointer-events:&nbsp;none;\r\n}\r\n.dropdown-menu-right{\r\n&nbsp;&nbsp;left:&nbsp;auto;\r\n&nbsp;&nbsp;right:&nbsp;0;\r\n}\r\n.text-dep1{\r\n&nbsp;&nbsp;color:&nbsp;#333;\r\n&nbsp;&nbsp;font-size:&nbsp;14px;\r\n}\r\n\r\n.text-dep2{\r\n&nbsp;&nbsp;color:&nbsp;#555;\r\n&nbsp;&nbsp;font-size:&nbsp;13px;\r\n}\r\n.text-dep3{\r\n\r\n&nbsp;&nbsp;font-size:&nbsp;12px;\r\n}</pre><p><br/></p>', '', '0');
+INSERT INTO `cmswing_document_article` VALUES ('82', '0', '<p>546546<br/></p>', '', '0');
+INSERT INTO `cmswing_document_article` VALUES ('83', '0', '<p>fdsfadsafdsafdsaf<br/></p>', '', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_document_download
@@ -4657,7 +4666,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '540', 'arterli@qq.com', '175', '', '1452513965683', '0', '1458353859963', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '570', 'arterli@qq.com', '180', '', '1452513965683', '0', '1458639809232', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -4710,7 +4719,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -4835,7 +4844,7 @@ INSERT INTO `cmswing_menu` VALUES ('131', '微信用户管理', '127', '0', 'adm
 INSERT INTO `cmswing_menu` VALUES ('155', '营销推广', '0', '4', 'promotion', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('133', '自动回复', '127', '0', 'admin/mpbase2/autoreply', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('134', '支付与配送', '0', '6', 'ecom', '0', '', '2', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('135', '支付方式', '134', '0', 'admin/ecom/payment', '0', '', '2', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('135', '支付方式', '134', '0', 'admin/ecom/payment', '1', '', '0', '1', '1');
 INSERT INTO `cmswing_menu` VALUES ('136', '支付插件', '134', '0', 'admin/ecom/payplugin', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('137', '运费模板', '134', '0', 'admin/ecom/fare', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('138', '快递公司', '134', '0', 'admin/ecom/express', '0', '', '2', '0', '1');
@@ -4869,6 +4878,7 @@ INSERT INTO `cmswing_menu` VALUES ('166', '会员充值', '16', '0', 'admin/user
 INSERT INTO `cmswing_menu` VALUES ('167', '财务管理', '0', '7', 'finance', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('168', '财务日志', '167', '0', 'admin/finance/log', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('169', '提现申请', '167', '0', 'admin/finance/withdraw', '0', '', '2', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('170', '支付配置', '134', '0', 'admin/ecom/pingxx', '0', '', '2', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -4957,25 +4967,36 @@ CREATE TABLE `cmswing_order` (
   `type` int(4) unsigned DEFAULT '0',
   `trading_info` varchar(255) DEFAULT NULL,
   `is_del` tinyint(1) DEFAULT '0',
+  `pingxx_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order
 -- ----------------------------
-INSERT INTO `cmswing_order` VALUES ('3', '20160229132904600317', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '94.00', '94.00', '8.00', '8.00', '20160229132913', null, '20160229132904', null, '441454545', null, '0.00', '1', '1:54545454545', '5.64', '0', null, '0.00', '0.00', null, '107.64', null, null, '0', '0', 'a:0:{}', '0', '', '0');
-INSERT INTO `cmswing_order` VALUES ('4', '20160301151336826470', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '165.00', '165.00', '8.00', '8.00', '20160301155709', null, '20160301151336', null, '65465464556', null, '0.00', '0', '', '0.00', '0', null, '0.00', '0.00', null, '173.00', null, null, '0', '0', 'a:0:{}', '0', '', '0');
-INSERT INTO `cmswing_order` VALUES ('21', '1457418999074', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '1000158.00', '0.00', '8.00', null, null, '1457418999078', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1000166.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('22', '1457428975714', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '100.00', '0.00', '8.00', null, null, '1457428975717', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('23', '1457440997809', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '167.00', '0.00', '8.00', null, null, '1457440997812', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '175.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('24', '1458309732036', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '400.00', '0.00', '8.00', null, null, '1458309732041', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '408.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('16', '1457325813256', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '8.00', null, null, '1457325813262', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('17', '1457331894714', '1', null, '5', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '8.00', null, null, '1457331894719', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('18', '1457334232440', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '167.00', '0.00', '8.00', null, null, '1457334232446', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '175.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('19', '1457334431289', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '100.00', '0.00', '8.00', null, null, '1457334431294', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('20', '1457347586722', '1', null, '5', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '1000091.00', '0.00', '8.00', null, null, '1457347586725', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1000099.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('25', '1458310625384', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458310625403', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0');
-INSERT INTO `cmswing_order` VALUES ('26', '1458310708084', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '300.00', '0.00', '11.00', null, null, '1458310708098', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '311.00', null, null, '0', '0', null, '0', null, '0');
+INSERT INTO `cmswing_order` VALUES ('3', '20160229132904600317', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '94.00', '94.00', '8.00', '8.00', '20160229132913', null, '20160229132904', null, '441454545', null, '0.00', '1', '1:54545454545', '5.64', '0', null, '0.00', '0.00', null, '107.64', null, null, '0', '0', 'a:0:{}', '0', '', '0', null);
+INSERT INTO `cmswing_order` VALUES ('4', '20160301151336826470', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '165.00', '165.00', '8.00', '8.00', '20160301155709', null, '20160301151336', null, '65465464556', null, '0.00', '0', '', '0.00', '0', null, '0.00', '0.00', null, '173.00', null, null, '0', '0', 'a:0:{}', '0', '', '0', null);
+INSERT INTO `cmswing_order` VALUES ('21', '1457418999074', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '1000158.00', '0.00', '8.00', null, null, '1457418999078', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1000166.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('22', '1457428975714', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '100.00', '0.00', '8.00', null, null, '1457428975717', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('23', '1457440997809', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '167.00', '0.00', '8.00', null, null, '1457440997812', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '175.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('24', '1458309732036', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '400.00', '0.00', '8.00', null, null, '1458309732041', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '408.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('16', '1457325813256', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '8.00', null, null, '1457325813262', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('17', '1457331894714', '1', null, '5', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '8.00', null, null, '1457331894719', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('18', '1457334232440', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '167.00', '0.00', '8.00', null, null, '1457334232446', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '175.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('19', '1457334431289', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '100.00', '0.00', '8.00', null, null, '1457334431294', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('20', '1457347586722', '1', null, '5', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '1000091.00', '0.00', '8.00', null, null, '1457347586725', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1000099.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('25', '1458310625384', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458310625403', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('26', '1458310708084', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '300.00', '0.00', '11.00', null, null, '1458310708098', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '311.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('27', '1458539992019', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '50.00', null, null, '1458539992030', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '250.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('28', '1458560809305', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458560809318', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('29', '1458629345234', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458629345244', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('30', '1458631948128', '1', null, '3', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458631948138', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('31', '1458640407305', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458640407318', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('32', '1458642571558', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458642571568', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('33', '1458646691243', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458646691255', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_LabX54m5C0iLmb54O8004u90');
+INSERT INTO `cmswing_order` VALUES ('34', '1458647208025', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '400.00', '0.00', '65.00', null, null, '1458647208040', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '465.00', null, null, '0', '0', null, '0', null, '0', 'ch_Ti1q1GXTynX1Hm90e1LiffbH');
+INSERT INTO `cmswing_order` VALUES ('35', '1458648110290', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '500.00', '0.00', '80.00', null, null, '1458648110304', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '580.00', null, null, '0', '0', null, '0', null, '0', 'ch_yfrbPS5OmnfLi9urH894aff9');
+INSERT INTO `cmswing_order` VALUES ('36', '1458648723255', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458648723265', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_CWT4KG5aHCyD1evrXP94Wb1O');
 
 -- ----------------------------
 -- Table structure for cmswing_order_goods
@@ -4994,7 +5015,7 @@ CREATE TABLE `cmswing_order_goods` (
   `prom_goods` text,
   `spec` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order_goods
@@ -5024,6 +5045,24 @@ INSERT INTO `cmswing_order_goods` VALUES ('32', '25', '81', null, '100.00', '0.0
 INSERT INTO `cmswing_order_goods` VALUES ('33', '26', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":21,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"fdsf,mm,8541\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('34', '26', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":22,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"dsdf,mm,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('35', '26', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":23,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('36', '27', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":25,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"dsdf,tt,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('37', '27', '81', null, '100.00', '0.00', '2', '0', '0', '{\"id\":26,\"uid\":1,\"product_id\":81,\"qty\":2,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('38', '28', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":27,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('39', '29', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":28,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('40', '30', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":29,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,tt,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('41', '31', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":30,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('42', '32', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":31,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,tt,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('43', '33', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":33,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"dsdf,tt,8541\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('44', '33', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":34,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('45', '34', '81', null, '100.00', '0.00', '3', '0', '0', '{\"id\":40,\"uid\":1,\"product_id\":81,\"qty\":3,\"type\":\"fdsf,mm,8541\",\"price\":300,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('46', '34', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":41,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,8541\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('47', '35', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":52,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"fdsf,mm,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('48', '35', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":53,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"dsdf,mm,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('49', '35', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":54,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('50', '35', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":55,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,8541\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('51', '35', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":56,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('52', '36', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":58,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"fdsf,tt,895\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('53', '36', '81', null, '100.00', '0.00', '1', '0', '0', '{\"id\":59,\"uid\":1,\"product_id\":81,\"qty\":1,\"type\":\"鬼地方,mm,9856\",\"price\":100,\"title\":\"测试商品重量包邮\",\"unit_price\":100,\"pic\":\"/upload/picture/2016-03-12/cOBiwtHP-hAwaeLbbQZZMcP_.jpg\",\"url\":\"/detail/81\",\"weight\":1000}', null);
 
 -- ----------------------------
 -- Table structure for cmswing_order_log
@@ -5111,7 +5150,7 @@ CREATE TABLE `cmswing_picture` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信',
   `source_id` varchar(255) DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=176 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -5291,6 +5330,42 @@ INSERT INTO `cmswing_picture` VALUES ('172', '/upload/picture/2016-03-12/LBwzPsq
 INSERT INTO `cmswing_picture` VALUES ('173', '/upload/picture/2016-03-12/GDuHmNV5PKhd7CXPSZxb7KOY.jpg', '', '', '', '1', '1457785646320', '0', '');
 INSERT INTO `cmswing_picture` VALUES ('174', '/upload/picture/2016-03-12/5nW5nJcB8UwqYVEE7cHYJsk3.jpg', '', '', '', '1', '1457785646525', '0', '');
 INSERT INTO `cmswing_picture` VALUES ('175', '/upload/picture/2016-03-18/DgJY6yOxYvjkSSttZTS5dy2R.jpg', '', '', '', '1', '1458298081009', '0', '');
+INSERT INTO `cmswing_picture` VALUES ('176', '/upload/picture/2016-03-19/XrTToceoLGg0v_K6CUVOglWr.jpg', '', '', '', '1', '1458395909405', '0', '');
+
+-- ----------------------------
+-- Table structure for cmswing_pingxx
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_pingxx`;
+CREATE TABLE `cmswing_pingxx` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `channel` varchar(100) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `type` int(2) DEFAULT NULL,
+  `info` text,
+  `sort` int(10) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT '0' COMMENT '0关闭1开启',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_pingxx
+-- ----------------------------
+INSERT INTO `cmswing_pingxx` VALUES ('1', '支付宝 PC 网页支付', 'alipay_pc_direct', '/static/admin/img/pingxx/alipay.png', '1', 'alipay_pc_direct 适用于 PC 网页支付，需要开通支付宝即时到账服务。', '1', '1');
+INSERT INTO `cmswing_pingxx` VALUES ('2', '微信扫码支付', 'wx_pub_qr', '/static/admin/img/pingxx/wx.png', '1', 'wx_pub_qr 是微信公众账号扫码支付，需要开通微信公众账号支付。', '2', '1');
+INSERT INTO `cmswing_pingxx` VALUES ('3', '支付宝扫码支付', 'alipay_qr', '/static/admin/img/pingxx/alipay.png', '1', 'alipay_qr 是支付宝扫码支付，因为二维码的特殊性，所以其可以用于 PC 的支付场景。', '3', '1');
+INSERT INTO `cmswing_pingxx` VALUES ('4', '银联网关支付', 'upacp_pc', '/static/admin/img/pingxx/upacp.png', '1', 'upacp_pc 适用于 PC 网页支付，需要开通银联网关支付服务', '4', '1');
+INSERT INTO `cmswing_pingxx` VALUES ('5', '微信支付', 'wx_pub', '/static/admin/img/pingxx/wx.png', '2', 'wx_pub 是微信公众账号支付，只能用于微信内置浏览器内，而且只有服务号才能申请该支付功能。', '5', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('6', '支付宝手机支付', 'alipay_wap', '/static/admin/img/pingxx/alipay.png', '2', 'alipay_wap 适用于手机网页支付，需开通支付宝手机网页支付服务', '6', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('7', '银联手机支付', 'upacp_wap', '/static/admin/img/pingxx/upacp.png', '2', 'upacp_wap 适用于手机网页支付，限 2015 年元旦后的银联新商户使用，需要开通银联全渠道手机网页支付。', '7', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('8', '百度钱包手机支付', 'bfb_wap', '/static/admin/img/pingxx/bfb.png', '2', 'bfb_wap 适用于手机网页支付，需要开通百度钱包手机网页支付。', '8', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('9', '易宝一键支付', 'yeepay_wap', '/static/admin/img/pingxx/yeepay.png', '2', 'yeepay_wap 适用于移动端网页支付，需要与易宝当地分公司签署「易宝一键支付」服务协议。', '9', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('10', '京东支付', 'jdpay_wap', '/static/admin/img/pingxx/jdpay.png', '2', 'jdpay_wap 适用于手机网页支付，需开通京东支付移动版的服务。', '10', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('11', '支付宝支付', 'alipay', '/static/admin/img/pingxx/alipay.png', '3', 'alipay 适用于 App 支付，需要开通支付宝手机支付服务。', '11', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('12', '微信支付', 'wx', '/static/admin/img/pingxx/wx.png', '3', 'wx 适用于 App 支付，需要开通微信 App 支付服务。', '12', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('13', '百度钱包支付', 'bfb', '/static/admin/img/pingxx/bfb.png', '3', 'bfb 适用于 App 支付，需开通百度钱包移动快捷支付服务。', '13', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('14', ' Apple Pay', 'applepay_upacp', '/static/admin/img/pingxx/applepay.png', '3', 'applepay_upacp 即 Apple Pay ，适用于 App 支付，需要开通银联手机支付。', '15', '0');
+INSERT INTO `cmswing_pingxx` VALUES ('15', '银联支付', 'upacp', '/static/admin/img/pingxx/upacp.png', '3', 'upacp 适用于 App 支付，限 2015 年元旦后的银联新商户使用。需要开通银联全渠道支付服务。', '14', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_session
@@ -5313,7 +5388,7 @@ INSERT INTO `cmswing_session` VALUES ('1', 'YoUuj3CUtQtsprNrdGGlMqgx5UWUT8PR', '
 INSERT INTO `cmswing_session` VALUES ('3', 'o_qNDqumudkAciCieYz1pbMtJkFMJN_0', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458111147356},\"webuser\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458303801713},\"cart_goods_item\":null}', '1458398151823');
 INSERT INTO `cmswing_session` VALUES ('4', 'x62BKfQ53PDof_xq27aTT25_vhPUrJtl', null, '1458437331934');
 INSERT INTO `cmswing_session` VALUES ('5', 'FYhWrW4I_349Emxwg8V8_B96g2QfacAE', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458311254131}}', '1458440238341');
-INSERT INTO `cmswing_session` VALUES ('6', '9S85bSso2X_X1Ysp29zUt11dMO6UAXq6', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458351108852}}', '1458473123448');
+INSERT INTO `cmswing_session` VALUES ('6', '9S85bSso2X_X1Ysp29zUt11dMO6UAXq6', '{\"userInfo\":{\"uid\":1,\"username\":\"admin\",\"last_login_time\":1458351108852}}', '1458483174086');
 
 -- ----------------------------
 -- Table structure for cmswing_setup
@@ -5336,7 +5411,7 @@ CREATE TABLE `cmswing_setup` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_setup
@@ -5378,6 +5453,7 @@ INSERT INTO `cmswing_setup` VALUES ('64', 'ORDER_DELAY_FLASH', '0', '抢购订�
 INSERT INTO `cmswing_setup` VALUES ('65', 'ORDER_DELAY_GROUP', '0', '团购订单作废时长', '5', '', '（分钟）默认120分钟，自下单之时起，用户在多长时间内没有支付，订单将自动作废。', '0', '1457159279852', '1', '120', '8');
 INSERT INTO `cmswing_setup` VALUES ('66', 'ORDER_DELAY_BUND', '0', '捆绑订单作废时长', '5', '', '（分钟）默认不限制（0表示不限制），自下单之时起，用户在多长时间内没有支付，订单将自动作废。', '0', '1457159346456', '1', '0', '9');
 INSERT INTO `cmswing_setup` VALUES ('67', 'ORDER_DELAY', '0', '默认订单作废时长', '5', '', '（分钟）默认不限制（0表示不限制），自下单之时起，用户在多长时间内没有支付，订单将自动作废。', '0', '1457159425148', '1', '120', '11');
+INSERT INTO `cmswing_setup` VALUES ('68', 'PINGXX_APP_ID', '1', 'Ping++ ID(APP_ID)', '0', '', '在ping++ 平台申请的app_id', '1458613275294', '1458613220792', '1', 'app_eDW9GK5uLiHSHCmj', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_tags

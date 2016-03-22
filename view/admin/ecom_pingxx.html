@@ -1,0 +1,218 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+            <div class="row wrapper" style="padding-bottom: 0">
+                <div class="col-sm-12 m-b-xs">
+                    <P>
+                        Ping++ 集成微信、支付宝、银联等主流第三方支付渠道，提供包括商户入网申请、交易处理和支付运营的一站式服务。<br>
+                        如果您还没有ping++账号请 <a href="https://www.pingxx.com/" target="_blank"
+                                           class="text-info">申请Ping++账号</a>
+                    </P>
+                    <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                        <li class="list-group-item">
+                            <a class=" pull-left m-r-sm" href="https://www.pingxx.com/" target="_blank">
+                                <img class="" src="/static/admin/img/pingxx/logo.png">
+                            </a>
+                            <P class="clear">
+                                <strong class="block m-b-xs">App_ID:
+                                    <small class="text-muted " style="font-size: 12px;font-weight: 400">用于在 Ping++
+                                        系统中标识你的应用
+                                    </small>
+                                </strong>
+                                {% if app_id %}
+                                <small><code>app_eDW9GK5uLiHSHCmj</code> <a data-toggle="ajaxModal"
+                                                                            href="/admin/ecom/addappid"
+                                                                            class="text-info">修改</a></small>
+                                {% else %}
+                                <small><a class="btn btn-info btn-xs" data-toggle="ajaxModal"
+                                          href="/admin/ecom/addappid">添加 App_ID</a></small>
+                                {%endif%}
+                            </P>
+                        </li>
+
+                    </ul>
+                    <h4 class="text-success m-b-xs">支付渠道:</h4>
+                </div>
+
+            </div>
+            <header class="panel-heading text-right bg-light">
+                <ul class="nav nav-tabs pull-left">
+                    <li class="active"><a data-toggle="tab" href="#pay1"><i class="fa fa-desktop text-muted"></i> 适用于 PC
+                        网页 </a></li>
+                    <li class=""><a data-toggle="tab" href="#pay2"><i class="fa fa-mobile text-muted"></i> 适用于手机网页 </a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#pay3"><i class="fa fa-apple text-muted"></i> 适用于 App </a>
+                    </li>
+                </ul>
+                <span class="hidden-sm">Left</span>
+            </header>
+            <div class="tab-content">
+                <div class="tab-pane active" id="pay1">
+            <div class="table-responsive">
+                <table class="table hover b-t b-light">
+                    <thead>
+                    <tr><th>支付名称</th><th>支付频道</th><th>描述</th><th>状态</th><th>操作</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for item in channel %}
+                    {% if item.type == 1%}
+                    <tr>
+
+                        <td><img src="{{item.logo}}" > {{ item.title }}
+                        </td>
+                        <td>{{item.channel}}</td>
+                        <td>{{item.info|safe}}</td>
+                        <td>
+                            <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                               class="active ajax-get" data-toggle="class">
+                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                            </a>
+                        </td>
+                        <td>
+
+                            {%if item.status == 0%}
+                            <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                               class="ajax-get text-success">启用</a>
+                            {%else%}
+                            <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                               class="ajax-get text-danger">禁用</a>
+                            {%endif%}
+
+                        </td>
+                    </tr>
+                    {%endif%}
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+                </div>
+                <div class="tab-pane " id="pay2">
+                    <div class="table-responsive">
+                        <table class="table hover b-t b-light">
+                            <thead>
+                            <tr><th>支付名称</th><th>支付频道</th><th>描述</th><th>状态</th><th>操作</th></tr>
+                            </thead>
+                            <tbody>
+                            {% for item in channel %}
+                            {% if item.type == 2%}
+                            <tr>
+
+                                <td><img src="{{item.logo}}" > {{ item.title }}
+                                </td>
+                                <td>{{item.channel}}</td>
+                                <td>{{item.info|safe}}</td>
+                                <td>
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="active ajax-get" data-toggle="class">
+                                        <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                        <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                    </a>
+                                </td>
+                                <td>
+
+                                    {%if item.status == 0%}
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="ajax-get text-success">启用</a>
+                                    {%else%}
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="ajax-get text-danger">禁用</a>
+                                    {%endif%}
+
+                                </td>
+                            </tr>
+                            {%endif%}
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane " id="pay3">
+                    <div class="table-responsive">
+                        <table class="table hover b-t b-light">
+                            <thead>
+                            <tr><th>支付名称</th><th>支付频道</th><th>描述</th><th>状态</th><th>操作</th></tr>
+                            </thead>
+                            <tbody>
+                            {% for item in channel %}
+                            {% if item.type == 3%}
+                            <tr>
+
+                                <td><img src="{{item.logo}}" > {{ item.title }}
+                                </td>
+                                <td>{{item.channel}}</td>
+                                <td>{{item.info|safe}}</td>
+                                <td>
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="active ajax-get" data-toggle="class">
+                                        <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                        <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                    </a>
+                                </td>
+                                <td>
+
+                                    {%if item.status == 0%}
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="ajax-get text-success">启用</a>
+                                    {%else%}
+                                    <a href="/admin/ecom/setstatus/ids/{{item.id}}/status/{{1-item.status}}/table/pingxx"
+                                       class="ajax-get text-danger">禁用</a>
+                                    {%endif%}
+
+                                </td>
+                            </tr>
+                            {%endif%}
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script>
+    $(function () {
+        $(document).on("click", '.addappid', function (e) {
+            var val = $("input[name='appid']").val();
+            if (val.length == 0) {
+                swal("appid不能为空");
+                return false;
+            }
+            $.ajax({
+                url: "/admin/ecom/addappid",
+                type: "POST",
+                data: {appid: val},
+                success: function (res) {
+                    if (res.errno == 0) {
+                        var html = '<code >' + val + '</code> <a class="text-info"  data-toggle="ajaxModal" href="/admin/ecom/addappid">修改</a>'
+                        $('P.clear>small').html(html);
+                        $('#ajaxModal').modal('hide');
+                        toastr.success(res.data.name);
+                    } else {
+                        toastr.error(res.errmsg);
+                    }
+                }
+            })
+        })
+    })
+</script>
+{% endblock%}

@@ -16,6 +16,37 @@ export default class extends Base {
     //auto render template file index_index.html
     return this.display();
   }
+
+    /**
+     * ping++支付
+      */
+   async pingxxAction(){
+        //获取app_id
+        let app_id = this.setup.PINGXX_APP_ID;
+        this.assign("app_id",app_id);
+        //获取支付渠道
+        let channel = await this.model('pingxx').order('sort ASC').select();
+        console.log(channel);
+        this.assign("channel",channel);
+        this.meta_title = "ping++支付设置";
+       return this.display();
+    }
+    // 添加appid
+    async addappidAction(){
+        if(this.isAjax("POST")){
+          let appid = this.post('appid');
+            let res = await this.model("setup").where({name:'PINGXX_APP_ID'}).update({value:appid});
+            if(res){
+                think.cache("setup", null);//清除设置缓存
+               return this.success({name:"设置成功！"});
+            }else {
+               return this.fail("设置失败！");
+            }
+        }else {
+            this.meta_title="添加App_ID";
+            return this.display();
+        }
+    }
   /**
    * 正在使用的支付方式
    */
