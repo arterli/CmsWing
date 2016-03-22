@@ -442,7 +442,7 @@ async createorderAction(){
               return this.fail("您没有要支付的订单");
            }else {
                //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
-               console.log(order.pingxx_id);
+               console.log(order.id);
                if(think.isEmpty(order.pingxx_id)){
                    console.log(111111111)
                    //获取渠道
@@ -453,7 +453,7 @@ async createorderAction(){
                    //传入 channel,order_no,order_amount,this.ip()
                    charges = await pay.pingxx(channel,order.order_no,order.order_amount,this.ip());
                    //把pingxx_id存到订单
-                   await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
+                   await this.model('order').where({id:order.id}).update({pingxx_id:charges.id});
                }else {
                    console.log(33333333);
                    //调用ping++ 服务端

@@ -29,7 +29,7 @@ export default class extends think.service.base {
                 }
                 break;
         }
-        //console.log(config);
+        console.log(config);
         function create(pingpp, config) {
             let deferred = think.defer();
             pingpp.charges.create(config, function (err, charge) {

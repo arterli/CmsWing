@@ -15,7 +15,7 @@ export default class extends think.controller.base {
         super.init(http);
         // http.action = http.method.toLowerCase();
         //console.log(http.method.toLowerCase())
-
+    
     }
 
     async __before() {
@@ -129,9 +129,9 @@ export default class extends think.controller.base {
 
     /**
      * 恢复条目
-     * @param String model 模型名称,供D函数使用的参数
-     * @param Object  where 查询时的where()方法的参数
-     * @param Object  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供D函数使用的参数
+     * @param {Object}  where 查询时的where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -144,9 +144,9 @@ export default class extends think.controller.base {
 
     /**
      * 还原条目
-     * @param string $model 模型名称,供D函数使用的参数
-     * @param array  $where 查询时的where()方法的参数
-     * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {string} model 模型名称,供D函数使用的参数
+     * @param {array}  where 查询时的where()方法的参数
+     * @param {array}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      * @author arterli <arterli@qq.com>
      */
@@ -159,9 +159,9 @@ export default class extends think.controller.base {
 
     /**
      * 条目假删除
-     * @param string $model 模型名称,供D函数使用的参数
-     * @param array  $where 查询时的where()方法的参数
-     * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {string} model 模型名称,供D函数使用的参数
+     * @param {array}  where 查询时的where()方法的参数
+     * @param {array} msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
