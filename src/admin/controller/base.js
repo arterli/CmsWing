@@ -57,7 +57,7 @@ export default class extends think.controller.base {
         //think.log(this.active);
         this.assign({
             "navxs": false,
-            "bg": "bg-black"
+            "bg": "bg-dark"
         })
     }
 
