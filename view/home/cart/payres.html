@@ -92,7 +92,7 @@
                 <div class="panel-body ">
 
                     <div class="heading-title heading-dotted text-center margin-bottom-20">
-                        <h4><span><i class="fa fa-check-circle"></i> [支付成功，订购已完成！]</span></h4>
+                        <h4><span>{% if order.payment == 1001%}货到付款方式，等待订单审核…… {%else%}<i class="fa fa-check-circle"></i> [支付成功，订购已完成！]</span>{%endif%}</h4>
                     </div>
                     <div class="table-responsive">
                         <table class="table">

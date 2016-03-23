@@ -20,7 +20,7 @@ export default class extends Base {
     indexAction() {
         //auto render template file index_index.html
         this.meta_title = '微信管理';
-        this.assign({"navxs": true,"bg": "bg-dark"});
+        this.assign({"navxs": true,"bg": "bg-black"});
         return this.display();
     }
     /**
@@ -41,7 +41,7 @@ export default class extends Base {
         for(let val of data.data){
             val.uid = await this.model('member').get_nickname(val.uid);
         }
-        this.assign({"navxs": true,"bg": "bg-dark"});
+        this.assign({"navxs": true});
         this.meta_title = "公共账号管理";
         return this.display();
     }
@@ -94,7 +94,7 @@ export default class extends Base {
         }
             let res =await aa(api);
         this.assign('groups', res);//用户分组
-        this.assign({"navxs": true,"bg": "bg-dark"});
+        this.assign({"navxs": true});
         return self.display();
     }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-
+import Fs from 'fs';
 export default class extends Base {
     //支付与配送控制区
      init(http){
@@ -23,10 +23,12 @@ export default class extends Base {
    async pingxxAction(){
         //获取app_id
         let app_id = this.setup.PINGXX_APP_ID;
+        let livesecretkey = this.setup.PINGXX_LIVE_SECRET_KEY;
         this.assign("app_id",app_id);
+        this.assign("livesecretkey",livesecretkey);
         //获取支付渠道
         let channel = await this.model('pingxx').order('sort ASC').select();
-        console.log(channel);
+        //console.log(channel);
         this.assign("channel",channel);
         this.meta_title = "ping++支付设置";
        return this.display();
@@ -46,6 +48,38 @@ export default class extends Base {
             this.meta_title="添加App_ID";
             return this.display();
         }
+    }
+    async addlivesecretkeyAction(){
+        if(this.isAjax("POST")){
+            let appid = this.post('livesecretkey');
+            let res = await this.model("setup").where({name:'PINGXX_LIVE_SECRET_KEY'}).update({value:appid});
+            if(res){
+                think.cache("setup", null);//清除设置缓存
+                return this.success({name:"设置成功！"});
+            }else {
+                return this.fail("设置失败！");
+            }
+        }else {
+            this.meta_title="添加Live Secret Key";
+            return this.display();
+        }
+    }
+    //配置商户私钥
+    rsaAction(){
+        let path = think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem";
+        if(this.isAjax("POST")){
+            let rsa = this.post("rsa");
+            console.log(rsa);
+            Fs.writeFileSync(path, rsa, 'utf8');
+            return this.success({name:"设置成功！"});
+        }else {
+
+            let rsa = Fs.readFileSync(path, null);
+            this.assign("rsa",rsa);
+            this.meta_title="配置商户私钥";
+            return this.display();
+        }
+
     }
   /**
    * 正在使用的支付方式

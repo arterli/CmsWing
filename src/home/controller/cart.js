@@ -438,6 +438,44 @@ async createorderAction(){
            let post = this.post();
            //获取订单信息
            let order = await this.model("order").where({pay_status:0,user_id:this.user.uid}).find(post.order_id);
+           //更新订单的支付方式
+           await this.model("order").where({id:order.id}).update({payment:post.payment});
+           //100预付款支付
+           if(post.payment == 100){
+            //先检查下用户余额
+               let balance = await this.model("customer").where({user_id:this.user.uid}).getField("balance",true);
+               if(Number(balance) < Number(order.order_amount)){
+                   return this.fail("您余额不足，请充值，或者选择其他支付方式！")
+               }else {
+                   //扣款
+                   let decrement = this.model("customer").where({user_id:this.user.uid}).decrement("balance",Number(order.order_amount));
+                   if(decrement){
+                       //扣款成功改变订单状态
+                       await this.model("order").where({order_no:order.order_no}).update({status:3,pay_status:1});
+                       //扣款成功后插入日志
+                       let log = {
+                           admin_id:0,
+                           user_id:this.user.uid,
+                           type:2,
+                           time:new Date().valueOf(),
+                           amount:(0 - Number(order.order_amount)),
+                           amount_log:await this.model("customer").where({user_id:this.user.uid}).getField("balance",true),
+                           note:`${await get_nickname(this.user.uid)} 通过余额支付方式进行商品购买,订单编号：${order.order_no}`
+                       }
+                       await this.model('balance_log').add(log);
+                       let url = `/cart/payres/c_o_id/${post.order_id}`;
+                       return this.success({name:"支付订单对接成功，正在转跳！",url:url})
+                   }else {
+                       return this.fail("您没有要支付的订单");
+                   }
+               }
+
+           }
+           if(post.payment == 1001){
+               let url = `/cart/payres/c_o_id/${post.order_id}`;
+               return this.success({name:"支付订单对接成功，正在转跳！",url:url})
+           }
+               //1001货到付款
            if(think.isEmpty(order)){
               return this.fail("您没有要支付的订单");
            }else {
@@ -453,7 +491,7 @@ async createorderAction(){
                    //传入 channel,order_no,order_amount,this.ip()
                    charges = await pay.pingxx(channel,order.order_no,order.order_amount,this.ip());
                    //把pingxx_id存到订单
-                   await this.model('order').where({id:order.id}).update({pingxx_id:charges.id});
+                   await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
                }else {
                    console.log(33333333);
                    //调用ping++ 服务端
@@ -461,7 +499,7 @@ async createorderAction(){
                     pay = new payment(this.http);
                     charges = await pay.charge(order.pingxx_id);
                }
-
+                //console.log(charges);
                if(charges){
 
                    return this.success({name:"支付订单对接成功，正在转跳！",data:charges})
@@ -501,9 +539,23 @@ async createorderAction(){
 
     //支付回掉
    async payresAction(){
-       let code = this.get();
-        if(code.result == "success"){
-            let pingxx_id = await this.model("order").where({order_no:code.out_trade_no}).getField("pingxx_id",true);
+       let code = this.param();
+       //orderId: '1458722092073', respMsg: 'success'
+        console.log(code);
+        if(code.c_o_id){
+            let order = await this.model("order").find(code.c_o_id);
+                order.amount = order.order_amount;
+                switch (order.payment){
+                    case 100:
+                        order.channel = "预付款支付";
+                        break;
+                    default:
+                        order.channel = "货到付款";
+                }
+                this.assign("order",order);
+        }else {
+
+            let pingxx_id = await this.model("order").where({order_no:code.out_trade_no||code.orderId}).getField("pingxx_id",true);
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
@@ -515,7 +567,9 @@ async createorderAction(){
                 charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);
                 this.assign("order",charges);
             }
+
         }
+
 
        this.meta_title = "支付结果";//标题1
        this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词

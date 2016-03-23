@@ -3670,14 +3670,16 @@ function _pingpp(){
 						if(res.errno==1000){
 							_toastr(res.errmsg,"top-right","error",false);
 							return false;
-						}else {
+						}else if(res.data.url){
+							window.location.href = res.data.url;
+						} else if(res.data.data){
 							_toastr(res.data.name,"top-right","success",false);
-							setTimeout(function(){
+
 								pingppPc.createPayment(res.data.data, function(result, err) {
 									console.log(result);
 									console.log(err);
 								});
-							}, 1500); // delay 1.5s
+
 
 						}
 

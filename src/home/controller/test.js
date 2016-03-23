@@ -2,7 +2,7 @@
 
 import Base from './base.js';
 import WechatAPI from 'wechat-api';
-import nunjucks from 'nunjucks';
+import NodeRSA from 'node-rsa';
 export default class extends Base {
   /**
    * index action
@@ -29,10 +29,17 @@ export default class extends Base {
   }
 
    async payAction(){
-        let payment = think.service("payment");
-        let pay = new payment();
-        let charges = await pay.pingxx();
-        this.json(charges);
+        // let payment = think.service("payment");
+        // let pay = new payment();
+        // let charges = await pay.pingxx();
+        // this.json(charges);
+       let dd = think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem"
+       console.log(dd);
     }
- 
+   rsaAction(){
+       var key = new NodeRSA({b: 512});
+       var keyData = '-----BEGIN PUBLIC KEY----- ... -----BEGIN PRIVATE KEY-----';
+       key.importKey(keyData, 'pkcs8');
+       this.end(11);
+   }
 }

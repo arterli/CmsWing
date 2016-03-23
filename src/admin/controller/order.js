@@ -35,6 +35,18 @@ export default class extends Base {
         this.assign('pagerData', page); //分页展示使用
         //console.log(data.data);
         this.active="admin/order/list"
+        for(let val of data.data){
+            switch (val.payment){
+                case 100:
+                    val.channel = "预付款支付";
+                    break;
+                case 1001:
+                    val.channel = "货到付款";
+                    break;
+                default:
+                    val.channel = await this.model("pingxx").where({id:val.payment}).getField("title",true);
+            }
+        }
         this.assign('list', data.data);
         this.meta_title = "订单管理";
         return this.display();

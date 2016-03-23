@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+                <div class="form-group m-b-none">
+                    <label>配置商户私钥，<a href="https://help.pingxx.com/article/123161" target="_blank" class="text-info">如何生成？</a>，
+                        或者 <a href="http://web.chacuo.net/netrsakeypair" target="_blank" class="text-info"> 用在线生成RSA 公私钥对</a> 公私钥对生成后，把私钥填此处，公钥填到PING++后台。 </label>
+                    <textarea class="form-control" placeholder="Live Secret Key" name="rsa" style="height: 350px">{{rsa}}</textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <a href="javascript:;" class="btn btn-primary edit_rsa">添加</a>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

@@ -49,7 +49,7 @@
                                         <th>会员账号</th>
                                         <th>收货人</th>
                                         <th>收货人电话</th>
-                            
+                                        <th>支付方式</th>
                                         <th>支付状态</th>
                                         <th>配送状态</th>
                                         <th>订单状态</th>
@@ -67,6 +67,7 @@
                                         <td>{{item.user_id|get_nickname}}</td>
                                         <td>{{item.accept_name}}</td>
                                         <td>{{item.mobile}}</td>
+                                        <td>{{item.channel}}</td>
                                         <td class="text-danger"> {%if item.pay_status == 0%}未支付{%else%}已支付{%endif%}</td>
                                         <td class="text-danger">{%if item.delivery_status == 0%} 未发货{%else%}已发货{%endif%}</td>
                                         

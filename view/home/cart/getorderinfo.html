@@ -140,7 +140,18 @@
                             <label ><img src="{{val.logo}}" /> {{val.title}} </label>
                             </div> 
                            {% endfor %}
-                            
+			{% if controller.setup.PREPAID == 0 %}
+			<div class="item">
+				<input type="radio" name="payment" value="100" {% if paylist|length == 0 %} checked {% endif%}>
+				<label><img src="/static/admin/img/pingxx/yfk.png"/> 预付款支付 </label>
+			</div>
+			{% endif %}
+			{% if controller.setup.COD == 0 %}
+			<div class="item">
+				<input type="radio" name="payment" value="1001" {% if paylist|length == 0 and controller.setup.PREPAID == 1 %} checked {% endif%}>
+				<label><img src="/static/admin/img/pingxx/hdfk.png"/> 货到付款 </label>
+			</div>
+			{% endif %}
          </div>
         
             
