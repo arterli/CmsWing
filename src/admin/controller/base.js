@@ -15,7 +15,7 @@ export default class extends think.controller.base {
         super.init(http);
         // http.action = http.method.toLowerCase();
         //console.log(http.method.toLowerCase())
-    
+
     }
 
     async __before() {
@@ -42,24 +42,24 @@ export default class extends think.controller.base {
         let is_admin = await this.is_admin();
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
-        if(!is_admin){
-        let Auth = think.adapter("auth", "rbac");
-        let auth = new Auth(this.user.uid);
-        let res = await auth.check(url);
-            if(!res){
+        if (!is_admin) {
+            let Auth = think.adapter("auth", "rbac");
+            let auth = new Auth(this.user.uid);
+            let res = await auth.check(url);
+            if (!res) {
                 return this.fail('未授权访问!');
             }
         }
-        
+
         //console.log(this.user.uid);
         this.active = this.http.url.slice(1),
-        // console.log(this.active);
-        //this.active = http.controller+'/'+http.action;
-        //think.log(this.active);
-        this.assign({
-            "navxs": false,
-            "bg": "bg-black"
-        })
+            // console.log(this.active);
+            //this.active = http.controller+'/'+http.action;
+            //think.log(this.active);
+            this.assign({
+                "navxs": false,
+                "bg": "bg-black"
+            })
     }
 
     /**
@@ -265,7 +265,7 @@ export default class extends think.controller.base {
                             data[key] = dateformat('Y-m-d', data[key]);
                         } else if ('datetime' == type) { // 时间型
                             data[key] = dateformat('Y-m-d H:i', data[key]);
-                        } else if('pics' === type){
+                        } else if ('pics' === type) {
                             data[key] = `<span class="thumb-sm"><img alt="..." src="${data[key]}" class="img-responsive img-thumbnail"></span>`;
                         }
                     }
