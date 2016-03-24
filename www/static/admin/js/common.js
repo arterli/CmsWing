@@ -9,7 +9,7 @@
  */
 
 
-$('.ajax-get').click(function(){
+$(document).on('click','.ajax-get',function(){
     var target;
     var that = this;
     if ( $(this).hasClass('confirm') ) {
@@ -58,7 +58,7 @@ $('.ajax-get').click(function(){
  * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
  * confirm,
  */
-$('.ajax-post').click(function(){
+$(document).on('click','.ajax-post',function(){
 
     var target,query,form;
     var target_form = $(this).attr('target-form');

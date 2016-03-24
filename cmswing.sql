@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-03-23 19:28:51
+Date: 2016-03-24 20:09:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=396 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=398 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -156,6 +156,8 @@ INSERT INTO `cmswing_action_log` VALUES ('392', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('393', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-23 11:01:41登录了后台', '1', '1458702101987');
 INSERT INTO `cmswing_action_log` VALUES ('394', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-23 11:56:43登录了后台', '1', '1458705403283');
 INSERT INTO `cmswing_action_log` VALUES ('395', '4', '1', '2130706433', 'document', '84', 'admin在2016-03-23 19:00:59发表了一篇文章。\r\n表document，记录编号84。fdsfsa', '1', '1458730859605');
+INSERT INTO `cmswing_action_log` VALUES ('396', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-24 11:03:01登录了后台', '1', '1458788581037');
+INSERT INTO `cmswing_action_log` VALUES ('397', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-24 11:06:19登录了后台', '1', '1458788779006');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4113,11 +4115,12 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_cart
 -- ----------------------------
+INSERT INTO `cmswing_cart` VALUES ('93', '1', '84', '1', '红,xl', '1', '在线支付测试测试', '1', '/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg', '/detail/84', '1000');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4364,7 +4367,7 @@ INSERT INTO `cmswing_document` VALUES ('80', '1', '', '测试商品重量包邮'
 INSERT INTO `cmswing_document` VALUES ('81', '1', '', '测试商品重量包邮', '57', '0', '测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '76', '0', '0', '0', '1458281080520', '1458281080515', '1', '165,166,167,168,169,170', '{\"present_price\":\"100\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('82', '1', '', '4635464564', '44', '0', '6546546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1458394550498', '1458394550498', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('83', '1', '', 'fdsfdsf', '44', '0', 'fdsfadsafads', '0', '0', '2', '2', '0', '0', '176', '1', '0', '0', '0', '0', '0', '0', '1458395976686', '1458395976686', '1', '', '');
-INSERT INTO `cmswing_document` VALUES ('84', '1', '', '在线支付测试测试', '57', '0', '在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1458730859521', '1458730859521', '1', '177,178', '{\"present_price\":\"1\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('84', '1', '', '在线支付测试测试', '57', '0', '在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '7', '0', '0', '0', '1458730859521', '1458730859521', '1', '177,178', '{\"present_price\":\"1\",\"discount_price\":\"0\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -4489,6 +4492,127 @@ INSERT INTO `cmswing_document_shop` VALUES ('74', '', '', '10', '0', '1', '0', '
 INSERT INTO `cmswing_document_shop` VALUES ('78', '', '', '10', '0', '1', '0', '0', '<p>发到我放大是放大撒放大撒放大撒放大撒放大撒<br/></p>', '{\"type\":0,\"val\":0}', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('81', '{\"type\":[\"尺寸\",\"尺码\",\"尺码\"],\"data\":[{\"name\":\"鬼地方\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]},{\"name\":\"dsdf\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]},{\"name\":\"fdsf\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]}]}', '', '1620', '0', '1', '0', '0', '<p>测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮</p>', '', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('84', '{\"type\":[\"颜色\",\"尺寸\"],\"data\":[{\"name\":\"红\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"黑\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"白\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]}', '146456456', '90', '0', '1', '0', '0', '<p>在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试</p>', '', '0');
+
+-- ----------------------------
+-- Table structure for cmswing_doc_invoice
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_invoice`;
+CREATE TABLE `cmswing_doc_invoice` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `invoice_no` varchar(50) DEFAULT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `order_no` varchar(50) NOT NULL,
+  `admin` varchar(20) DEFAULT NULL,
+  `accept_name` varchar(50) DEFAULT NULL,
+  `province` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `county` bigint(20) DEFAULT NULL,
+  `zip` varchar(6) DEFAULT NULL,
+  `addr` varchar(250) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `express_no` varchar(50) DEFAULT NULL,
+  `express_company_id` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_doc_invoice
+-- ----------------------------
+INSERT INTO `cmswing_doc_invoice` VALUES ('5', '1458820752241', '49', '1458722260981', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458820752241', '888888888888888888', '1', '888888888888888888888');
+INSERT INTO `cmswing_doc_invoice` VALUES ('4', '1458819404550', '63', '1458798049251', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458819404550', '6546546546546546456', '1', '65465465465464');
+
+-- ----------------------------
+-- Table structure for cmswing_doc_receiving
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_receiving`;
+CREATE TABLE `cmswing_doc_receiving` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT '0.00',
+  `create_time` bigint(13) DEFAULT NULL,
+  `payment_time` bigint(13) DEFAULT NULL,
+  `doc_type` tinyint(1) DEFAULT NULL,
+  `payment_id` bigint(20) DEFAULT NULL,
+  `pay_status` tinyint(1) DEFAULT NULL,
+  `note` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_doc_receiving
+-- ----------------------------
+INSERT INTO `cmswing_doc_receiving` VALUES ('3', '3', '2', null, '107.64', '20160229132913', '20160229132913', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('4', '4', '2', null, '173.00', '20160301155710', '20160301155710', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('5', '7', '2', null, '136.00', '20160305132806', '20160305132806', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('6', '11', '2', null, '783.00', '20160307123519', '20160307123519', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('7', '13', '2', null, '48.00', '20160322185416', '20160322185416', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('8', '15', '2', null, '87.00', '20160323175030', '20160323175030', '0', '1', '1', null);
+
+-- ----------------------------
+-- Table structure for cmswing_doc_refund
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_refund`;
+CREATE TABLE `cmswing_doc_refund` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_no` varchar(20) NOT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `refund_type` tinyint(3) DEFAULT '0',
+  `account_bank` varchar(100) DEFAULT NULL,
+  `account_name` varchar(30) DEFAULT NULL,
+  `refund_account` varchar(50) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `pay_status` tinyint(3) DEFAULT '0',
+  `content` text,
+  `handling_idea` text,
+  `handling_time` bigint(13) DEFAULT NULL,
+  `channel` varchar(50) DEFAULT NULL,
+  `bank_account` varchar(255) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_doc_refund
+-- ----------------------------
+INSERT INTO `cmswing_doc_refund` VALUES ('1', '7', '2', '20160305132711904858', '20160308153110', '0', '', '', '', null, '0', 'fdsfdsfdsfdsfsdf', null, null, null, null, '0.00');
+
+-- ----------------------------
+-- Table structure for cmswing_doc_returns
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_returns`;
+CREATE TABLE `cmswing_doc_returns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `order_no` varchar(50) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `province` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `county` binary(1) DEFAULT NULL,
+  `zip` varchar(6) DEFAULT NULL,
+  `addr` varchar(250) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `express_no` varchar(255) DEFAULT NULL,
+  `express` varchar(255) DEFAULT NULL,
+  `handling_idea` varchar(255) DEFAULT NULL,
+  `status` tinyint(3) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_doc_returns
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for cmswing_express
@@ -4666,7 +4790,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '580', 'arterli@qq.com', '182', '', '1452513965683', '0', '1458705403253', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '580', 'arterli@qq.com', '184', '', '1452513965683', '0', '1458788778993', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -4719,7 +4843,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=174 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -4882,6 +5006,7 @@ INSERT INTO `cmswing_menu` VALUES ('170', '支付配置', '134', '0', 'admin/eco
 INSERT INTO `cmswing_menu` VALUES ('171', '设置App_ID', '170', '0', 'admin/ecom/addappid', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('172', '设置Live Secret Key', '170', '0', 'admin/ecom/addlivesecretkey', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('173', '启用/禁用支付渠道', '170', '0', 'admin/ecom/setstatus', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('174', '审核订单', '140', '0', 'admin/order/audit', '0', '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -4972,13 +5097,11 @@ CREATE TABLE `cmswing_order` (
   `is_del` tinyint(1) DEFAULT '0',
   `pingxx_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order
 -- ----------------------------
-INSERT INTO `cmswing_order` VALUES ('3', '20160229132904600317', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '94.00', '94.00', '8.00', '8.00', '20160229132913', null, '20160229132904', null, '441454545', null, '0.00', '1', '1:54545454545', '5.64', '0', null, '0.00', '0.00', null, '107.64', null, null, '0', '0', 'a:0:{}', '0', '', '0', null);
-INSERT INTO `cmswing_order` VALUES ('4', '20160301151336826470', '2', null, '1', null, '3', '1', '0', 'hgfhfgh', '8688854', '18681851637', '310000', '310100', '310104', 'htgfhfghgfhgfhgfhfg', '822225', '165.00', '165.00', '8.00', '8.00', '20160301155709', null, '20160301151336', null, '65465464556', null, '0.00', '0', '', '0.00', '0', null, '0.00', '0.00', null, '173.00', null, null, '0', '0', 'a:0:{}', '0', '', '0', null);
 INSERT INTO `cmswing_order` VALUES ('21', '1457418999074', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '1000158.00', '0.00', '8.00', null, null, '1457418999078', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1000166.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('22', '1457428975714', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '100.00', '0.00', '8.00', null, null, '1457428975717', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '108.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('23', '1457440997809', '1', null, '1', null, '2', '0', '0', '天津帅小伙', '', '18651569374', '120000', '120100', '120107', '六大街72号', '300021', null, '167.00', '0.00', '8.00', null, null, '1457440997812', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '175.00', null, null, '0', '0', null, '0', null, '0', null);
@@ -5002,9 +5125,9 @@ INSERT INTO `cmswing_order` VALUES ('35', '1458648110290', '1', null, '1', null,
 INSERT INTO `cmswing_order` VALUES ('36', '1458648723255', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458648723265', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_CWT4KG5aHCyD1evrXP94Wb1O');
 INSERT INTO `cmswing_order` VALUES ('37', '1458650267855', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458650267864', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_9qj1S0GSqLy1XjfPuHSun9mL');
 INSERT INTO `cmswing_order` VALUES ('38', '1458705413038', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458705413048', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_jzDeT4Sen5WDSanDePOyzLW5');
-INSERT INTO `cmswing_order` VALUES ('39', '1458709512153', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458709512201', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
-INSERT INTO `cmswing_order` VALUES ('40', '1458710819350', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '300.00', '0.00', '50.00', null, null, '1458710819361', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '350.00', null, null, '0', '0', null, '0', null, '0', null);
-INSERT INTO `cmswing_order` VALUES ('41', '1458711271423', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458711271438', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('39', '1458709512153', '1', null, '1', null, '3', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458709512201', null, null, 'fsdfdsfdsf', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('40', '1458710819350', '1', null, '1', null, '3', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '300.00', '0.00', '50.00', null, null, '1458710819361', null, null, '1111111111111111111111111111', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '350.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('41', '1458711271423', '1', null, '1', null, '3', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458711271438', null, null, 'sdfdsfgsdgsfdg', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('42', '1458711501948', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458711501999', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_SaL8iLzzP8eL0mzDyPu5mLqL');
 INSERT INTO `cmswing_order` VALUES ('43', '1458719186371', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458719186385', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_OG0G04bzbb54uDiDCCu5abD0');
 INSERT INTO `cmswing_order` VALUES ('44', '1458719949142', '1', null, '2', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458719949157', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_0GefbDSez90OrjLKaHLOmDaH');
@@ -5012,7 +5135,7 @@ INSERT INTO `cmswing_order` VALUES ('45', '1458720588109', '1', null, '2', null,
 INSERT INTO `cmswing_order` VALUES ('46', '1458721355060', '1', null, '3', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458721355074', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_Cu9Kq9PG8mf9e9GCW9zvbT0K');
 INSERT INTO `cmswing_order` VALUES ('47', '1458721606032', '1', null, '4', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458721606047', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_58iXrPajjn5Oy10KWL4y9K4C');
 INSERT INTO `cmswing_order` VALUES ('48', '1458722092073', '1', null, '4', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458722092093', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_bfLKK8e9qP8Sij5aP4T8CCS0');
-INSERT INTO `cmswing_order` VALUES ('49', '1458722260981', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458722260995', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_5Guf50yTWPW5uz5q94mTePW1');
+INSERT INTO `cmswing_order` VALUES ('49', '1458722260981', '1', null, '1', null, '3', '0', '1', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458722260995', null, null, 'trtrete', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', 'ch_5Guf50yTWPW5uz5q94mTePW1');
 INSERT INTO `cmswing_order` VALUES ('50', '1458722471373', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458722471387', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_vzXTaLXnHib99GGOaDCer9G0');
 INSERT INTO `cmswing_order` VALUES ('51', '1458722540719', '1', null, '4', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458722540733', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_WzDKiPezvfnHu1yHe9GSiHGO');
 INSERT INTO `cmswing_order` VALUES ('52', '1458725553803', '1', null, '1001', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458725553817', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
@@ -5021,10 +5144,12 @@ INSERT INTO `cmswing_order` VALUES ('54', '1458727412291', '1', null, '100', nul
 INSERT INTO `cmswing_order` VALUES ('55', '1458728497615', '1', null, '100', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458728497629', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('56', '1458728609828', '1', null, '100', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458728609843', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('57', '1458730678452', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458730678465', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_bj18u5O4ibXLWbzLWPaPSuvD');
-INSERT INTO `cmswing_order` VALUES ('58', '1458730897758', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '20.00', null, null, '1458730897772', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '21.00', null, null, '0', '0', null, '0', null, '0', 'ch_90OGuHLCWjjLDa9WnP1KSOK8');
+INSERT INTO `cmswing_order` VALUES ('58', '1458730897758', '1', null, '1', null, '3', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '20.00', null, null, '1458730897772', null, null, '464545646545', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '21.00', null, null, '0', '0', null, '0', null, '0', 'ch_90OGuHLCWjjLDa9WnP1KSOK8');
 INSERT INTO `cmswing_order` VALUES ('59', '1458730995521', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458730995533', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_nnHmb9GCifHCH4KenD5azbj9');
 INSERT INTO `cmswing_order` VALUES ('60', '1458731841800', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458731841808', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_bz5uH0SOyXTOSS8u5Oq1m5mL');
 INSERT INTO `cmswing_order` VALUES ('61', '1458732177288', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458732177295', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_rLKCGKO0C4m5CKe1G04GK0iD');
+INSERT INTO `cmswing_order` VALUES ('62', '1458788592715', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458788592728', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_avH44Gu5Civ5S8i10SOy50iH');
+INSERT INTO `cmswing_order` VALUES ('63', '1458798049251', '1', null, '4', null, '3', '1', '1', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458798049268', null, '8888888888888888888', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_S04ynH8Kafv59KCK0KnjnbTG');
 
 -- ----------------------------
 -- Table structure for cmswing_order_goods
@@ -5043,7 +5168,7 @@ CREATE TABLE `cmswing_order_goods` (
   `prom_goods` text,
   `spec` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order_goods
@@ -5117,6 +5242,8 @@ INSERT INTO `cmswing_order_goods` VALUES ('76', '58', '84', null, '1.00', '0.00'
 INSERT INTO `cmswing_order_goods` VALUES ('77', '59', '84', null, '1.00', '0.00', '1', '0', '0', '{\"id\":88,\"uid\":1,\"product_id\":84,\"qty\":1,\"type\":\"红,xl\",\"price\":1,\"title\":\"在线支付测试测试\",\"unit_price\":1,\"pic\":\"/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg\",\"url\":\"/detail/84\",\"weight\":1000}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('78', '60', '84', null, '1.00', '0.00', '1', '0', '0', '{\"id\":89,\"uid\":1,\"product_id\":84,\"qty\":1,\"type\":\"红,xl\",\"price\":1,\"title\":\"在线支付测试测试\",\"unit_price\":1,\"pic\":\"/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg\",\"url\":\"/detail/84\",\"weight\":1000}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('79', '61', '84', null, '1.00', '0.00', '1', '0', '0', '{\"id\":90,\"uid\":1,\"product_id\":84,\"qty\":1,\"type\":\"红,xl\",\"price\":1,\"title\":\"在线支付测试测试\",\"unit_price\":1,\"pic\":\"/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg\",\"url\":\"/detail/84\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('80', '62', '84', null, '1.00', '0.00', '1', '0', '0', '{\"id\":91,\"uid\":1,\"product_id\":84,\"qty\":1,\"type\":\"红,xl\",\"price\":1,\"title\":\"在线支付测试测试\",\"unit_price\":1,\"pic\":\"/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg\",\"url\":\"/detail/84\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('81', '63', '84', null, '1.00', '0.00', '1', '0', '0', '{\"id\":92,\"uid\":1,\"product_id\":84,\"qty\":1,\"type\":\"红,xl\",\"price\":1,\"title\":\"在线支付测试测试\",\"unit_price\":1,\"pic\":\"/upload/picture/2016-03-23/Vz37HDM50y7iTLqe9LbQ6Ppc.jpg\",\"url\":\"/detail/84\",\"weight\":1000}', null);
 
 -- ----------------------------
 -- Table structure for cmswing_order_log
