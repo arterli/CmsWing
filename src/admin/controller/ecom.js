@@ -66,20 +66,54 @@ export default class extends Base {
     }
     //配置商户私钥
     rsaAction(){
-        let path = think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem";
+        let type = this.param("type");
+        console.log(type);
+        let path ;
+        switch (type){
+            case "private":
+                path =  think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem";
+                break;
+            default:
+                path =  think.RESOURCE_PATH + "/upload/pingpp/pingpp_rsa_public_key.pem";
+
+        }
+
         if(this.isAjax("POST")){
             let rsa = this.post("rsa");
-            console.log(rsa);
+            console.log(path);
+            //return false;
+            if(type == "private"){
+            //console.log(rsa);
             Fs.writeFileSync(path, rsa, 'utf8');
             return this.success({name:"设置成功！"});
+            }else {
+                Fs.writeFileSync(path, rsa, 'utf8');
+                return this.success({name:"设置成功！"});
+            }
         }else {
-
-            let rsa = Fs.readFileSync(path, null);
-            this.assign("rsa",rsa);
-            this.meta_title="配置商户私钥";
+            if(type == "private"){
+                let rsa = Fs.readFileSync(path, null);
+                this.assign("rsa",rsa);
+                this.meta_title="配置商户私钥";
+            }else {
+                let rsa = Fs.readFileSync(path, null);
+                this.assign("rsa",rsa);
+                this.meta_title="Ping++ 公钥";
+            }
+            this.assign("type",type);
             return this.display();
         }
 
+    }
+    //Webhooks
+    async webhokksAction (){
+
+            let config =[
+                {name:"支付成功",url:`${this.http.host}/cart/webhokks`}
+            ]
+        this.assign("list",config);
+        this.meta_title="Webhooks";
+        return this.display();
     }
   /**
    * 正在使用的支付方式

@@ -41,10 +41,10 @@ export default class extends Base {
 
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
-     // console.log(subcate);
+      // console.log(subcate);
       subcate.push(cate.id);
       //获取模型列表数据个数
-     // console.log(cate);
+      // console.log(cate);
       if(cate.model.split(",").length == 1){
          let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
          if(pagenum !=0){

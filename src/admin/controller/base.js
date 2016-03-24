@@ -50,6 +50,7 @@ export default class extends think.controller.base {
                 return this.fail('未授权访问!');
             }
         }
+        
         //console.log(this.user.uid);
         this.active = this.http.url.slice(1),
         // console.log(this.active);

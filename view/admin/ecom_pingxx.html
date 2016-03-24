@@ -45,10 +45,27 @@
                                     <span class="text-muted " style="font-size: 12px;font-weight: 400"> Server 端真实交易密钥
                                     </span>
                                 </strong>
-                                <strong class="block RSA">配置商户私钥:
+                                <strong class="block m-b-xs RSA">商户私钥:
                                     <small><code>cmswing_rsa_private_key.pem</code> <a data-toggle="ajaxModal"
-                                                                             href="/admin/ecom/rsa"
+                                                                             href="/admin/ecom/rsa/type/private"
                                                                              class="text-info">配置</a></small>
+
+                                    <span class="text-muted " style="font-size: 12px;font-weight: 400"> 生产 RSA 公私钥对，<a href="https://help.pingxx.com/article/123161" target="_blank" class="text-info">如何生成？</a>，
+                                        或者 <a href="http://web.chacuo.net/netrsakeypair" target="_blank" class="text-info"> 用在线生成RSA 公私钥对</a> 公私钥对生成后，把私钥填此处，公钥填到PING++后台。
+                                    </span>
+                                </strong>
+                                <strong class="block m-b-xs RSA">Ping++ 公钥:
+                                    <small><code>pingpp_rsa_public_key.pem</code> <a data-toggle="ajaxModal"
+                                                                                       href="/admin/ecom/rsa/type/public"
+                                                                                       class="text-info">配置</a></small>
+
+                                    <span class="text-muted " style="font-size: 12px;font-weight: 400"> 在 Ping++ 后台>账号和设置 找到 Ping++ 公钥 填到此处。
+                                    </span>
+                                </strong>
+                                <strong class="block webhokks">Webhooks:
+                                    <small> <a data-toggle="ajaxModal"
+                                                                                       href="/admin/ecom/webhokks"
+                                                                                       class="btn btn-info btn-xs">查看接收 URL</a></small>
 
                                     <span class="text-muted " style="font-size: 12px;font-weight: 400"> 生产 RSA 公私钥对，<a href="https://help.pingxx.com/article/123161" target="_blank" class="text-info">如何生成？</a>，
                                         或者 <a href="http://web.chacuo.net/netrsakeypair" target="_blank" class="text-info"> 用在线生成RSA 公私钥对</a> 公私钥对生成后，把私钥填此处，公钥填到PING++后台。
@@ -260,6 +277,8 @@
         })
         $(document).on("click", '.edit_rsa', function (e) {
             var val = $("textarea[name='rsa']").val();
+            var type = $("input[name='type']").val();
+           // alert(type);return false;
             if (val.length == 0) {
                 swal("livesecretkey不能为空");
                 return false;
@@ -267,7 +286,7 @@
             $.ajax({
                 url: "/admin/ecom/rsa",
                 type: "POST",
-                data: {rsa: val},
+                data: {rsa: val,type:type},
                 success: function (res) {
                     if (res.errno == 0) {
                        // var html = '<code >' + val + '</code> <a class="text-info"  data-toggle="ajaxModal" href="/admin/ecom/addlivesecretkey">修改</a>'

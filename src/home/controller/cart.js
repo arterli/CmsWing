@@ -1,7 +1,8 @@
 'use strict';
 
 import Base from './base.js';
-
+import crypto from "crypto";
+import fs from 'fs';
 export default class extends Base {
     init(http){
         super.init(http);
@@ -536,7 +537,50 @@ async createorderAction(){
 
 
    }
+    //Webhooks
+    async webhokksAction (){
+        let data = this.post()
 
+
+// 验证 webhooks 签名
+        var verify_signature = function(raw_data, signature, pub_key_path) {
+            var verifier = crypto.createVerify('RSA-SHA256').update(raw_data, "utf8");
+            var pub_key = fs.readFileSync(pub_key_path, "utf8");
+            return verifier.verify(pub_key, signature, 'base64');
+        }
+
+// POST 原始请求数据是待验签数据，请根据实际情况获取
+        var raw_data =JSON.stringify(data);
+// 签名在头部信息的 x-pingplusplus-signature 字段
+        var signature =this.http.headers["x-pingplusplus-signature"];
+// 请从 https://dashboard.pingxx.com 获取「Webhooks 验证 Ping++ 公钥」
+        var pub_key_path = think.RESOURCE_PATH + "/upload/pingpp/pingpp_rsa_public_key.pem";
+
+        if (!verify_signature(raw_data, signature, pub_key_path,fs,crypto)) {
+            return this.fail("服务其验证失败！")
+        }
+
+        switch (data.type) {
+            case "charge.succeeded":
+                // 开发者在此处加入对支付异步通知的处理代码
+                console.log(data.data.object.paid);
+                if(data.data.object.paid){
+                    //支付成功改变订单状态
+                    await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1});
+                    return this.success({name:"成功！"});
+                }else {
+                    return this.fail("失败！");
+                }
+
+                break;
+            case "refund.succeeded":
+                // 开发者在此处加入对退款异步通知的处理代码sfdsfs
+                break;
+            default:
+
+                break;
+        }
+    }
     //支付回掉
    async payresAction(){
        let code = this.param();
@@ -555,19 +599,18 @@ async createorderAction(){
                 this.assign("order",order);
         }else {
 
-            let pingxx_id = await this.model("order").where({order_no:code.out_trade_no||code.orderId}).getField("pingxx_id",true);
+            let order = await this.model("order").where({order_no:code.out_trade_no||code.orderId}).find();
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
-            let charges = await pay.charge(pingxx_id);
-            if(charges.paid){
+            let charges = await pay.charge(order.pingxx_id);
+            if(charges.paid && order.pay_status == 0){
                 //支付成功改变订单状态
                 await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1});
-                charges.amount = charges.amount/100;
-                charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);
-                this.assign("order",charges);
             }
-
+            charges.amount = charges.amount/100;
+            charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);
+            this.assign("order",charges);
         }
 
 
