@@ -16,7 +16,8 @@
     "tar.gz": "^1.0.2",
     "think-wechat":"*",
     "think-pagination":"*",
-    "pingpp":"*"
+    "pingpp":"*",
+    "geetest":"*"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

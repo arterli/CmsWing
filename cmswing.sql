@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-03-24 20:09:20
+Date: 2016-03-25 19:56:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,7 +66,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=398 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=400 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -158,6 +158,8 @@ INSERT INTO `cmswing_action_log` VALUES ('394', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('395', '4', '1', '2130706433', 'document', '84', 'admin在2016-03-23 19:00:59发表了一篇文章。\r\n表document，记录编号84。fdsfsa', '1', '1458730859605');
 INSERT INTO `cmswing_action_log` VALUES ('396', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-24 11:03:01登录了后台', '1', '1458788581037');
 INSERT INTO `cmswing_action_log` VALUES ('397', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-24 11:06:19登录了后台', '1', '1458788779006');
+INSERT INTO `cmswing_action_log` VALUES ('398', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-25 16:26:23登录了后台', '1', '1458894383721');
+INSERT INTO `cmswing_action_log` VALUES ('399', '1', '1', '2130706433', 'member', '1', 'admin在2016-03-25 16:28:05登录了后台', '1', '1458894485925');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -3884,7 +3886,7 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=185 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
@@ -3936,7 +3938,7 @@ INSERT INTO `cmswing_auth_rule` VALUES ('44', 'admin/promotin/flash', '限时抢
 INSERT INTO `cmswing_auth_rule` VALUES ('45', 'admin/promotion/voucher', '代金卷', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('46', 'order', '订单中心', '0', '1', '', 'admin', '2');
 INSERT INTO `cmswing_auth_rule` VALUES ('47', 'admin/order/list', '订单管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('48', 'admin/order/vieworder', '查看订单', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('48', 'admin/order/vieworder', '查看订单', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('49', 'admin/order/receiving', '收款单', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('50', 'admin/order/invoice', '发货单', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('51', 'admin/order/refund', '退款单', '0', '1', '', 'admin', '1');
@@ -3965,7 +3967,7 @@ INSERT INTO `cmswing_auth_rule` VALUES ('73', 'article/clear', '清空', '0', '1
 INSERT INTO `cmswing_auth_rule` VALUES ('74', 'admin/tags/index', 'tags', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('75', 'admin/tags/ajaxaddtags', '添加tags（ajax）', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('76', 'admin/tags/ajaxgettags', '获取tags（ajax）', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('77', 'wenz/mang', '其他', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('77', 'wenz/mang', '其他', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('78', 'admin/mpbase/index', '微信', '0', '1', '', 'admin', '2');
 INSERT INTO `cmswing_auth_rule` VALUES ('79', 'admin/mpbase/seting', '公共账号管理', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('80', 'admin/mpbase/mass', '群发消息', '0', '1', '', 'admin', '1');
@@ -3984,30 +3986,30 @@ INSERT INTO `cmswing_auth_rule` VALUES ('92', 'admin/attribute/setStatus', '改�
 INSERT INTO `cmswing_auth_rule` VALUES ('93', 'admin/attribute/update', '保存数据', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('94', 'admin/setup/index', '网站设置', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('95', 'admin/model/index', '模型管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('96', 'model/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('97', 'model/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('98', 'model/setStatus', '改变状态', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('99', 'model/update', '保存数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('100', 'think/add', '新增数据', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('101', 'think/edit', '编辑数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('96', 'model/add', '新增', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('97', 'model/edit', '编辑', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('98', 'model/setStatus', '改变状态', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('99', 'model/update', '保存数据', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('100', 'think/add', '新增数据', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('101', 'think/edit', '编辑数据', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('102', 'Model/generate', '生成', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('103', 'think/lists', '数据列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('103', 'think/lists', '数据列表', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('104', 'admin/setup/group', '配置管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('105', 'Config/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('106', 'Config/del', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('107', 'Config/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('108', 'Config/save', '保存', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('109', 'Config/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('105', 'Config/edit', '编辑', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('106', 'Config/del', '删除', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('107', 'Config/add', '新增', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('108', 'Config/save', '保存', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('109', 'Config/sort', '排序', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('110', 'admin/menu/index', '菜单管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('111', 'Menu/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('112', 'Menu/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('113', 'Menu/import', '导入', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('114', 'Menu/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('111', 'Menu/add', '新增', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('112', 'Menu/edit', '编辑', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('113', 'Menu/import', '导入', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('114', 'Menu/sort', '排序', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('115', 'admin/channel/index', '导航管理', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('116', 'Channel/add', '新增', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('117', 'Channel/edit', '编辑', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('118', 'Channel/del', '删除', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('119', 'Channel/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('116', 'Channel/add', '新增', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('117', 'Channel/edit', '编辑', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('118', 'Channel/del', '删除', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('119', 'Channel/sort', '排序', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('120', 'admin/database/index', '备份数据库', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('121', 'Database/export', '备份', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('122', 'Database/optimize', '优化表', '0', '1', '', 'admin', '1');
@@ -4046,6 +4048,33 @@ INSERT INTO `cmswing_auth_rule` VALUES ('154', 'admin/ecom/pingxx', '支付配�
 INSERT INTO `cmswing_auth_rule` VALUES ('155', 'admin/ecom/addappid', '设置App_ID', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('156', 'admin/ecom/addlivesecretkey', '设置Live Secret Key', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('157', 'admin/ecom/setstatus', '启用/禁用支付渠道', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('158', 'admin/order/see', '查看订单', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('159', 'admin/order/audit', '审核订单', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('160', 'admin/order/edit', '编辑订单', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('161', 'admin/order/ship', '发货', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('162', 'admin/setup/save', '保存', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('163', 'admin/model/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('164', 'admin/model/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('165', 'admin/model/setstatus', '改变状态', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('166', 'admin/model/update', '保存数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('167', 'admin/cms/add', '新增数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('168', 'admin/cms/edit', '编辑数据', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('169', 'admin/cms/list', '数据列表', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('170', 'admin/setup/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('171', 'admin/setup/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('172', 'admin/setup/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('173', 'admin/setup/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('174', 'admin/menu/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('175', 'admin/menu/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('176', 'admin/menu/import', '导入', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('177', 'admin/menu/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('178', 'admin/menu/getmenu', '上级菜单', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('179', 'admin/channel/add', '新增', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('180', 'admin/channel/edit', '编辑', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('181', 'admin/channel/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('182', 'admin/channel/sort', '排序', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('183', 'admin/ecom/rsa', '设置商户私钥', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('184', 'admin/ecom/webhokks', 'Webhooks配置', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -4790,7 +4819,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '580', 'arterli@qq.com', '184', '', '1452513965683', '0', '1458788778993', '2130706433', '0', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', 'e051070da90d8f227ee2eb0805abce79', '590', 'arterli@qq.com', '186', '', '1452513965683', '0', '1458894485876', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_member_public
@@ -4843,7 +4872,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=175 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -4906,10 +4935,10 @@ INSERT INTO `cmswing_menu` VALUES ('55', '插件后台列表', '44', '0', 'Addon
 INSERT INTO `cmswing_menu` VALUES ('56', 'URL方式访问插件', '44', '0', 'Addons/execute', '0', '控制是否有权限通过url访问插件控制器方法', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('57', '钩子管理', '43', '2', 'Addons/hooks', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('58', '模型管理', '68', '3', 'admin/model/index', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('59', '新增', '58', '0', 'model/add', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('60', '编辑', '58', '0', 'model/edit', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('61', '改变状态', '58', '0', 'model/setStatus', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('62', '保存数据', '58', '0', 'model/update', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('59', '新增', '58', '0', 'admin/model/add', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('60', '编辑', '58', '0', 'admin/model/edit', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('61', '改变状态', '58', '0', 'admin/model/setstatus', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('62', '保存数据', '58', '0', 'admin/model/update', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('63', '属性管理', '68', '0', 'admin/attribute/index', '1', '网站属性配置。', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('64', '新增', '63', '0', 'admin/attribute/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('65', '编辑', '63', '0', 'admin/attribute/edit', '0', '', '0', '0', '1');
@@ -4918,15 +4947,15 @@ INSERT INTO `cmswing_menu` VALUES ('67', '保存数据', '63', '0', 'admin/attri
 INSERT INTO `cmswing_menu` VALUES ('68', '系统设置', '0', '8', 'setup', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('69', '网站设置', '68', '1', 'admin/setup/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('70', '配置管理', '68', '4', 'admin/setup/group', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('71', '编辑', '70', '0', 'Config/edit', '0', '新增编辑和保存配置', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('72', '删除', '70', '0', 'Config/del', '0', '删除配置', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('73', '新增', '70', '0', 'Config/add', '0', '新增配置', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('74', '保存', '70', '0', 'Config/save', '0', '保存配置', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('71', '编辑', '70', '0', 'admin/setup/edit', '0', '新增编辑和保存配置', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('72', '删除', '70', '0', 'admin/setup/del', '0', '删除配置', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('73', '新增', '70', '0', 'admin/setup/add', '0', '新增配置', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('74', '保存', '70', '0', 'admin/setup/save', '0', '保存配置', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('75', '菜单管理', '68', '5', 'admin/menu/index', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('76', '导航管理', '68', '6', 'admin/channel/index', '0', '', '3', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('77', '新增', '76', '0', 'Channel/add', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('78', '编辑', '76', '0', 'Channel/edit', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('79', '删除', '76', '0', 'Channel/del', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('77', '新增', '76', '0', 'admin/channel/add', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('78', '编辑', '76', '0', 'admin/channel/edit', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('79', '删除', '76', '0', 'admin/channel/del', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('80', '分类管理', '2', '1', 'admin/category/index', '0', '', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('81', '编辑', '80', '0', 'Category/edit', '0', '编辑和保存栏目分类', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('82', '新增', '80', '0', 'Category/add', '0', '新增栏目分类', '0', '0', '1');
@@ -4941,25 +4970,24 @@ INSERT INTO `cmswing_menu` VALUES ('90', '还原数据库', '68', '8', 'admin/da
 INSERT INTO `cmswing_menu` VALUES ('91', '恢复', '90', '0', 'Database/import', '0', '数据库恢复', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('92', '删除', '90', '0', 'Database/del', '0', '删除备份文件', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('93', '其他', '0', '100', 'other', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('96', '新增', '75', '0', 'Menu/add', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('98', '编辑', '75', '0', 'Menu/edit', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('96', '新增', '75', '0', 'admin/menu/add', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('98', '编辑', '75', '0', 'admin/menu/edit', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('106', '行为日志', '16', '4', 'admin/action/log', '0', '', '3', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('108', '修改密码', '16', '0', 'User/updatePassword', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('109', '修改昵称', '16', '0', 'User/updateNickname', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('110', '查看行为日志', '106', '0', 'action/edit', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('112', '新增数据', '58', '0', 'think/add', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('113', '编辑数据', '58', '0', 'think/edit', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('114', '导入', '75', '0', 'Menu/import', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('112', '新增数据', '58', '0', 'admin/cms/add', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('113', '编辑数据', '58', '0', 'admin/cms/edit', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('114', '导入', '75', '0', 'admin/menu/import', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('115', '生成', '58', '0', 'Model/generate', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('116', '新增钩子', '57', '0', 'Addons/addHook', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('117', '编辑钩子', '57', '0', 'Addons/edithook', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('118', '文档排序', '3', '0', 'Article/sort', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('119', '排序', '70', '0', 'Config/sort', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('120', '排序', '75', '0', 'Menu/sort', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('121', '排序', '76', '0', 'Channel/sort', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('122', '数据列表', '58', '0', 'think/lists', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('119', '排序', '70', '0', 'admin/setup/sort', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('120', '排序', '75', '0', 'admin/menu/sort', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('121', '排序', '76', '0', 'admin/channel/sort', '1', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('122', '数据列表', '58', '0', 'admin/cms/list', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('123', '审核列表', '3', '0', 'Article/examine', '1', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('126', '其他', '2', '4', 'wenz/mang', '0', '12152', '1', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('127', '微信', '0', '7', 'admin/mpbase/index', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('128', '公共账号管理', '127', '0', 'admin/mpbase/seting', '0', '', '99', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('129', '群发消息', '127', '0', 'admin/mpbase/mass', '0', '', '99', '0', '1');
@@ -4974,7 +5002,7 @@ INSERT INTO `cmswing_menu` VALUES ('137', '运费模板', '134', '0', 'admin/eco
 INSERT INTO `cmswing_menu` VALUES ('138', '快递公司', '134', '0', 'admin/ecom/express', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('139', '订单中心', '0', '5', 'order', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('140', '订单管理', '139', '0', 'admin/order/list', '0', '', '2', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('141', '查看订单', '140', '0', 'admin/order/vieworder', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('141', '查看订单', '140', '0', 'admin/order/see', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('142', '单据管理', '139', '1', 'admin/order/receiving', '0', '', '2', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('143', '收款单', '142', '0', 'admin/order/receiving', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('144', '发货单', '142', '0', 'admin/order/invoice', '0', '', '0', '0', '1');
@@ -5007,6 +5035,12 @@ INSERT INTO `cmswing_menu` VALUES ('171', '设置App_ID', '170', '0', 'admin/eco
 INSERT INTO `cmswing_menu` VALUES ('172', '设置Live Secret Key', '170', '0', 'admin/ecom/addlivesecretkey', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('173', '启用/禁用支付渠道', '170', '0', 'admin/ecom/setstatus', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('174', '审核订单', '140', '0', 'admin/order/audit', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('175', '编辑订单', '140', '0', 'admin/order/edit', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('176', '发货', '140', '0', 'admin/order/ship', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('177', '设置商户私钥', '170', '0', 'admin/ecom/rsa', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('178', 'Webhooks配置', '170', '0', 'admin/ecom/webhokks', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('179', '修改网站设置', '69', '0', 'admin/setup/save', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('180', '上级菜单', '75', '0', 'admin/menu/getmenu', '0', '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -5143,7 +5177,7 @@ INSERT INTO `cmswing_order` VALUES ('53', '1458726487158', '1', null, '1', null,
 INSERT INTO `cmswing_order` VALUES ('54', '1458727412291', '1', null, '100', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458727412305', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('55', '1458728497615', '1', null, '100', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458728497629', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('56', '1458728609828', '1', null, '100', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '200.00', '0.00', '35.00', null, null, '1458728609843', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '235.00', null, null, '0', '0', null, '0', null, '0', null);
-INSERT INTO `cmswing_order` VALUES ('57', '1458730678452', '1', null, '1', null, '2', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458730678465', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '120.00', null, null, '0', '0', null, '0', null, '0', 'ch_bj18u5O4ibXLWbzLWPaPSuvD');
+INSERT INTO `cmswing_order` VALUES ('57', '1458730678452', '1', null, '1', null, '2', '0', '0', '隔壁老王', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '100.00', '0.00', '20.00', null, null, '1458730678465', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '-10.00', '再调整回来吧', '110.00', null, null, '0', '0', null, '0', null, '0', 'ch_bj18u5O4ibXLWbzLWPaPSuvD');
 INSERT INTO `cmswing_order` VALUES ('58', '1458730897758', '1', null, '1', null, '3', '0', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '20.00', null, null, '1458730897772', null, null, '464545646545', '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '21.00', null, null, '0', '0', null, '0', null, '0', 'ch_90OGuHLCWjjLDa9WnP1KSOK8');
 INSERT INTO `cmswing_order` VALUES ('59', '1458730995521', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458730995533', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_nnHmb9GCifHCH4KenD5azbj9');
 INSERT INTO `cmswing_order` VALUES ('60', '1458731841800', '1', null, '1', null, '3', '1', '0', '晓飞 宁', '13589100475', '13589100333', '370000', '370100', '370102', '山东省ddddddd', '250000', null, '1.00', '0.00', '0.00', null, null, '1458731841808', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '0', null, '0', 'ch_bz5uH0SOyXTOSS8u5Oq1m5mL');

@@ -75,6 +75,148 @@ export default class extends Base {
     }
 
     /**
+     * 查看订单
+     * @returns {*}
+     */
+   async seeAction(){
+       let id = this.get("id");
+       console.log(id);
+       this.meta_title = "查看订单";
+       //获取订单信息
+       let order = await this.model("order").find(id);
+       //购物清单
+       let goods = await this.model("order_goods").where({order_id:id}).select();
+       let sum = [];
+       for(let val of goods){
+           val.title = JSON.parse(val.prom_goods).title;
+           val.pic = JSON.parse(val.prom_goods).pic;
+           val.type = JSON.parse(val.prom_goods).type;
+           val.sum = JSON.parse(val.prom_goods).price;
+           sum.push(val.goods_nums);
+       }
+       sum = eval(sum.join('+'));
+       this.assign("sum",sum);
+       this.assign("goods",goods);
+       //获取购买人信息
+       //购买人信息
+       let user = await this.model("member").join({
+           customer: {
+               on: ["id", "user_id"]
+           }
+       }).find(order.user_id);
+       this.assign("user",user);
+       //订单信息
+       switch (order.payment){
+           case 100:
+               order.payment = "预付款支付";
+               break;
+           case 1001:
+               order.payment = "货到付款";
+               break;
+           default:
+               order.payment = await this.model("pingxx").where({id:order.payment}).getField("title",true);
+       }
+       this.assign("order",order);
+       //获取 快递公司
+       let express_company = this.model("express_company").order("sort ASC").select();
+       this.assign("express_company",express_company);
+       //获取省份
+       /**
+        * 订单原价 = 商品真实价格 + 真实运费
+        */
+       let olde_order_amount = order.real_amount + order.real_freight
+       this.assign("olde_order_amount",olde_order_amount);
+       let province = await this.model('area').where({parent_id:0}).select();
+       let city = await this.model('area').where({parent_id:order.province}).select();
+       let county = await this.model('area').where({parent_id:order.city}).select();
+       this.assign("province",province);
+       this.assign("city",city);
+       this.assign("county",county);
+       return this.display();
+   }
+    /**
+     * 编辑订单
+     */
+    async editAction(){
+        if(this.isPost()){
+          let data = this.post()
+
+            let order = await this.model("order").find(data.id);
+            /**
+             * 订单原价 = 商品真实价格 + 真实运费
+             */
+            let olde_order_amount = order.real_amount + order.real_freight;
+            data.order_amount =  Number(olde_order_amount)+Number(data.adjust_amount);
+            //更新订单信息
+            let res = await this.model("order").update(data);
+            if(res){
+                return this.success({name:"编辑成功！"});
+            }else {
+                return this.fail("编辑失败！");
+            }
+        }else {
+            let id = this.get("id");
+            console.log(id);
+            this.meta_title = "编辑订单";
+            //获取订单信息
+            let order = await this.model("order").find(id);
+            //在订单同时没有付款，没有审核，没有完成的情况下才能编辑
+            if(order.pay_status == 1 && item.status == 3 && item.delivery_status == 1){
+                return this.fail("订单已经付款，无法编辑！");
+            }
+
+            //购物清单
+            let goods = await this.model("order_goods").where({order_id:id}).select();
+            let sum = [];
+            for(let val of goods){
+                val.title = JSON.parse(val.prom_goods).title;
+                val.pic = JSON.parse(val.prom_goods).pic;
+                val.type = JSON.parse(val.prom_goods).type;
+                val.sum = JSON.parse(val.prom_goods).price;
+                sum.push(val.goods_nums);
+            }
+            sum = eval(sum.join('+'));
+            this.assign("sum",sum);
+            this.assign("goods",goods);
+            //获取购买人信息
+            //购买人信息
+            let user = await this.model("member").join({
+                customer: {
+                    on: ["id", "user_id"]
+                }
+            }).find(order.user_id);
+            this.assign("user",user);
+            //订单信息
+            switch (order.payment){
+                case 100:
+                    order.payment = "预付款支付";
+                    break;
+                case 1001:
+                    order.payment = "货到付款";
+                    break;
+                default:
+                    order.payment = await this.model("pingxx").where({id:order.payment}).getField("title",true);
+            }
+            this.assign("order",order);
+            //获取 快递公司
+            let express_company = this.model("express_company").order("sort ASC").select();
+            this.assign("express_company",express_company);
+            //获取省份
+            /**
+             * 订单原价 = 商品真实价格 + 真实运费
+             */
+            let olde_order_amount = order.real_amount + order.real_freight
+            this.assign("olde_order_amount",olde_order_amount);
+            let province = await this.model('area').where({parent_id:0}).select();
+            let city = await this.model('area').where({parent_id:order.province}).select();
+            let county = await this.model('area').where({parent_id:order.city}).select();
+            this.assign("province",province);
+            this.assign("city",city);
+            this.assign("county",county);
+            return this.display();
+        }
+    }
+    /**
      * 发货设置
      */
     async shipAction(){
@@ -183,6 +325,8 @@ export default class extends Base {
      */
 
     refundAction(){
+
+
         this.active="admin/order/receiving"
         this.meta_title = "退款单";
         return this.display();

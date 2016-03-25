@@ -115,7 +115,7 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
-        _login();
+	    _login();
         _swal();
         _ajax_post();
 	    _pingpp();
@@ -974,21 +974,21 @@ function _ajax_post() {
           
          
          
-          function formatCurrency (num) {  
-        num = num.toString().replace(/\$|\,/g,'');  
-        if(isNaN(num))  
-            num = "0";  
-        var sign = (num == (num = Math.abs(num)));  
-        num = Math.floor(num*100+0.50000000001);  
-        var cents = num%100;  
-        num = Math.floor(num/100).toString();  
-        if(cents<10)  
-        cents = "0" + cents;  
-        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
-        num = num.substring(0,num.length-(4*i+3))+','+  
-        num.substring(num.length-(4*i+3));  
-        return (((sign)?'':'-') + num + '.' + cents);  
-    }  
+          function formatCurrency (num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        var sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        var cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+        cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
      }
 
 /** 02. Animate
@@ -1060,7 +1060,7 @@ function _ajax_post() {
  *********************************************************************/
    function _icheck(){
        var _container = $("div.icheck");
-       console.log(_container.length)
+
        if(_container.length > 0){
            
            loadScript(plugin_path + 'icheck/icheck.min.js', function(){

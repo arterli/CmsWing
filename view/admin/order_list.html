@@ -77,8 +77,8 @@
                                         <td><div class="btn-group">
 		                  <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><i class="fa fa-cog"></i> 处理 <span class="caret"></span></button>
 		                  <ul class="dropdown-menu dropdown-menu-right">
-		                    <li><a href="/admin/order/vieworder/ids/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-eye"></i> 查看</a></li>
-		                    <li><a href="#"><i class="fa fa-edit"></i> 编辑</a></li>
+		                    <li><a href="/admin/order/see/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-eye"></i> 查看</a></li>
+		                   {%if item.pay_status !=1 and item.status != 3 and item.delivery_status != 1 %} <li><a href="/admin/order/edit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-edit"></i> 编辑</a></li>{%endif%}
                               {%if item.status ==2 %} <li><a href="/admin/order/audit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-check-square-o"></i> 审核</a></li>
                               {%elif item.status ==3 and item.delivery_status == 0%} <li><a href="/admin/order/ship/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-truck"></i> 发货</a></li>
                               {%endif%}
