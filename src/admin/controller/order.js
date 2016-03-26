@@ -59,7 +59,7 @@ export default class extends Base {
         if(this.isPost()){
             let id = this.post("id");
             let admin_remark = this.post("admin_remark");
-            let audit = this.model("order").where({id:id}).update({status:3,admin_remark:admin_remark});
+            let audit =await this.model("order").where({id:id}).update({status:3,admin_remark:admin_remark});
             if(audit){
                 return this.success({name:"审核成功！",url:this.http.header["referer"]})
             }else {
@@ -74,6 +74,83 @@ export default class extends Base {
         }
     }
 
+    /**
+     * 删除订单
+     */
+    async delAction(){
+        let id = this.get("id");
+        //作废的订单才能删除
+        let res =await this.model("order").where({id:id,status:6}).delete();
+        if(res){
+            return this.success({name:"删除成功！"});
+        }else {
+            return this.fail("删除失败！");
+        }
+    }
+    /**
+     * 作废订单
+     */
+    async voidAction(){
+        if(this.isPost()){
+            let id = this.post("id");
+            let admin_remark = this.post("admin_remark");
+            let voids =await this.model("order").where({id:id}).update({status:6,admin_remark:admin_remark});
+            if(voids){
+                return this.success({name:"操作成功！",url:this.http.header["referer"]})
+            }else {
+                return this.fail("操作失败！")
+            }
+
+        }else {
+            let id = this.get("id");
+            this.assign("id",id);
+            this.meta_title = "审核订单";
+            return this.display();
+        }
+    }
+    /**
+     * 完成订单
+     */
+    async finishAction(){
+        if(this.isPost()){
+            let id = this.post("id");
+            let admin_remark = this.post("admin_remark");
+            let finish =await this.model("order").where({id:id}).update({status:4,admin_remark:admin_remark});
+            if(finish){
+                return this.success({name:"操作成功！",url:this.http.header["referer"]})
+            }else {
+                return this.fail("操作失败！")
+            }
+
+        }else {
+            let id = this.get("id");
+            this.assign("id",id);
+            this.meta_title = "完成订单";
+            return this.display();
+        }
+    }
+
+    /**
+     * 备注订单
+     */
+    async remarkAction(){
+        if(this.isPost()){
+            let id = this.post("id");
+            let admin_remark = this.post("admin_remark");
+            let remark =await this.model("order").where({id:id}).update({admin_remark:admin_remark});
+            if(remark){
+                return this.success({name:"操作成功！",url:this.http.header["referer"]})
+            }else {
+                return this.fail("操作失败！")
+            }
+
+        }else {
+            let id = this.get("id");
+            this.assign("id",id);
+            this.meta_title = "备注订单";
+            return this.display();
+        }
+    }
     /**
      * 查看订单
      * @returns {*}
@@ -306,6 +383,7 @@ export default class extends Base {
      * 发货单
      */
     async invoiceAction(){
+    
         let data = await this.model("doc_invoice").page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter

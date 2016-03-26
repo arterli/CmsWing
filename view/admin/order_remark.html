@@ -1,0 +1,23 @@
+<div class="modal-dialog modal-md">
+    <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/order/remark" data-validate="parsley">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="form-group m-b-none">
+                    <label>备注信息： </label>
+                    <textarea class="form-control" placeholder="请填写备注信息，必填项。" name="admin_remark" style="height: 200px" data-required="true">{{rsa}}</textarea>
+                    <input type="hidden" value="{{id}}" name="id">
+                </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <a href="javascript:;" class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</a>
+        </div>
+    </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->

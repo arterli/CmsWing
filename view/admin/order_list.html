@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped b-t b-light">
+                                <table class="table table-hover b-t b-light">
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
@@ -59,7 +59,7 @@
                                     </thead>
                                     <tbody>
                                     {% for item in list %}
-                                    <tr>
+                                    <tr {%if item.status == 4%}class = "success"{%endif%} {% if item.status == 6%} class="warning" {%endif%}>
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                                          <td>{{item.order_no}}</td>
                                           
@@ -68,28 +68,30 @@
                                         <td>{{item.accept_name}}</td>
                                         <td>{{item.mobile}}</td>
                                         <td>{{item.channel}}</td>
-                                        <td class="text-danger"> {%if item.pay_status == 0%}未支付{%else%}已支付{%endif%}</td>
-                                        <td class="text-danger">{%if item.delivery_status == 0%} 未发货{%else%}已发货{%endif%}</td>
+                                        <td > {%if item.pay_status == 0%}<span class="text-muted">未支付</span>{%else%}<span class="text-success">已支付</span>{%endif%}</td>
+                                        <td >{%if item.delivery_status == 0%}<span class="text-muted">未发货</span> {%else%}<span class="text-success">已发货</span> {%endif%}</td>
                                         
                                         <td class="text-danger">
-                                           {%if item.status ==2 %}等待审核{%elif item.status ==3%}已审核{%elif item.status ==6%}已作废{%endif%}
+                                           {%if item.status ==2 %}<span class="text-muted">等待审核 </span>{%elif item.status ==3%}<span class="text-success">已审核</span>{%elif item.status ==6%}<del>已作废</del>{%elif item.status == 4%}<span class="text-primary">已完成</span>{%endif%}
                                         </td>
                                         <td><div class="btn-group">
 		                  <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><i class="fa fa-cog"></i> 处理 <span class="caret"></span></button>
 		                  <ul class="dropdown-menu dropdown-menu-right">
 		                    <li><a href="/admin/order/see/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-eye"></i> 查看</a></li>
-		                   {%if item.pay_status !=1 and item.status != 3 and item.delivery_status != 1 %} <li><a href="/admin/order/edit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-edit"></i> 编辑</a></li>{%endif%}
+		                   {%if item.pay_status !=1 and item.status != 3 and item.delivery_status != 1 and item.status != 4%} <li><a href="/admin/order/edit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-edit"></i> 编辑</a></li>{%endif%}
                               {%if item.status ==2 %} <li><a href="/admin/order/audit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-check-square-o"></i> 审核</a></li>
                               {%elif item.status ==3 and item.delivery_status == 0%} <li><a href="/admin/order/ship/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-truck"></i> 发货</a></li>
                               {%endif%}
                               {%if item.status != 6 and item.delivery_status != 2 and item.status ==3%}
-                              <li><a href="#"><i class="fa fa-smile-o"></i> 完成</a></li>
+                              <li><a href="/admin/order/finish/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-smile-o"></i> 完成</a></li>
                               {%endif%}
                               {%if item.status != 6%}
-		                    <li><a href="#"><i class="fa fa-trash-o"></i> 作废</a></li>
+		                    <li><a href="/admin/order/void/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-trash-o"></i> 作废</a></li>
                               {%endif%}
-
-                              <li><a href="#"><i class="fa fa-paperclip"></i> 备注</a></li>
+                              {%if item.status == 6%}
+                              <li><a href="/admin/order/del/id/{{item.id}}" class="confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a></li>
+                              {%endif%}
+                              <li><a href="/admin/order/remark/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-paperclip"></i> 备注</a></li>
 		                  </ul>
 		                </div></td>
                                         <td><div class="btn-group dropleft">
