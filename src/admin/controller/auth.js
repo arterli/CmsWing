@@ -116,7 +116,7 @@ export default class extends Base {
             "tactive": "/admin/user",
             "selfjs": "auth"
         })
-
+        this.meta_title = "权限管理";
         return this.display();
     }
 

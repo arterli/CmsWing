@@ -53,10 +53,10 @@ export default class extends think.controller.base {
         }
 
         //console.log(this.user.uid);
-        this.active = this.http.url.slice(1),
+        //this.active = this.http.url.slice(1),
             // console.log(this.active);
-            //this.active = http.controller+'/'+http.action;
-            //think.log(this.active);
+            this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
+            think.log(this.active);
             this.assign({
                 "navxs": false,
                 "bg": "bg-black"

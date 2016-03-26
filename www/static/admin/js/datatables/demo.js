@@ -53,6 +53,14 @@ function initTable() {
                 'bSortable': false,
                 "aTargets": [0]
             },
+            {
+                "mRender": function (data, type, row) {
+
+                    return '<span class="text-success">'+data+'</span>';
+                },
+                'bSortable': false,
+                "aTargets": [9]
+            }
         ],
         "aoColumns": [
             {"mData": ""},
@@ -197,7 +205,6 @@ function _addFun() {
     // console.log(jsonData);return false;
     if(jsonData.is_admin ==1 && jsonData.role_id == null){
         swal("请选择用户组!");
-        return false;
     }
     $.ajax({
         url: "/admin/user/adduser",
