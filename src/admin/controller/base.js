@@ -24,6 +24,7 @@ export default class extends think.controller.base {
         if (!is_login) {
             this.redirect('/admin/public/signin');
         }
+        this.http;
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
