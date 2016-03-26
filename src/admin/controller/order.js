@@ -227,6 +227,15 @@ export default class extends Base {
             //更新订单信息
             let res = await this.model("order").update(data);
             if(res){
+                //记录日志
+                let log;
+                if(data.adjust_amount==0){
+                    log = `修改了订单，订单编号：${order.order_no}`
+                }else {
+                    log = `修改了订单，订单编号：${order.order_no}，并调整订单金额 ${data.adjust_amount} 元，原订单金额：${olde_order_amount} 元，调整后订单金额：${data.order_amount} 元`
+                }
+
+                await this.model("action").log("order","order",log,this.user.uid,this.ip(),this.http.url);
                 return this.success({name:"编辑成功！"});
             }else {
                 return this.fail("编辑失败！");
