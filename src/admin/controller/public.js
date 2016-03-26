@@ -16,7 +16,7 @@ export default class extends think.controller.base {
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
-            let res = await this.model("member").signin(username,password,this.ip(),1);
+            let res = await this.model("member").signin(username,password,this.ip(),1,1);
             if(0<res.uid){
                 //记录用户登录行为
                 await this.model("action").log("user_login","member",res.uid,res.uid,this.ip(),this.http.url);
@@ -29,7 +29,8 @@ export default class extends think.controller.base {
                 switch(res) {
                     case -1: fail = '用户不存在或被禁用'; break; //系统级别禁用
                     case -2: fail = '密码错误'; break;
-                    default: fail = '未知错误'; break; // 0-接口参数错误（调试阶段使用）
+                    case -3: fail = '您无权登陆后台！'; break;
+                    default: fail = '未知错误';  // 0-接口参数错误（调试阶段使用）
                 }
                 this.fail(res, fail);
             }

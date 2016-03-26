@@ -3,6 +3,16 @@ var oTable;
 $(function () {
 
     oTable = initTable();
+
+    //用户组选择
+    $("input[name='is_admin']").on("change",function () {
+        var val = $("input[name='is_admin']:checked").val();
+        if(val == 1){
+            $(".is_admin_group").removeClass('hide');
+        }else {
+            $(".is_admin_group").addClass('hide');
+        }
+    })
 });
 
 
@@ -125,6 +135,14 @@ $('#growthrate').length && $.ajax('js/datatables/growthrate.csv').done(function 
     });
 });
 
+/**
+ * 重置表单
+ */
+function resetFrom() {
+    $('form').each(function (index) {
+        $('form')[index].reset();
+    });
+}
 
 $('#register #btn').on('click', function () {
     $('#register').parsley().validate();
@@ -172,8 +190,15 @@ function _addFun() {
         'username': $("input[name='username']").val(),
         'password': $("input[name='password']").val(),
         'email': $("input[name='email']").val(),
+        'is_admin':$("input[name='is_admin']:checked").val(),
+        'role_id':$("input[name='role_id']:checked").val(),
         'status': 1
     };
+    // console.log(jsonData);return false;
+    if(jsonData.is_admin ==1 && jsonData.role_id == null){
+        swal("请选择用户组!");
+        return false;
+    }
     $.ajax({
         url: "/admin/user/adduser",
         data: jsonData,

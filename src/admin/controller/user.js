@@ -23,7 +23,10 @@ export default class extends Base {
      */
   
     indexAction(){
-        this.meta_title="用户列表"
+        this.meta_title="用户列表";
+        //获取管理组
+        let role = this.model("auth_role").where({status:1}).select();
+        this.assign("role",role);
         return this.display();
     }
 
@@ -100,7 +103,15 @@ export default class extends Base {
              data.password = encryptPassword(data.password);
              data.reg_time = new Date().valueOf();
          let res = await this.db.add(data);
+
          if(res){
+             //用户副表
+             await this.model("customer").add({user_id:res});
+
+             //添加角色
+             if(data.is_admin == 1){
+                 await this.model("auth_user_role").add({user_id:res,role_id:data.role_id});
+             }
             return this.json(1);
          }else{
             return this.json(0)
