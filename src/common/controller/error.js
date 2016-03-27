@@ -53,7 +53,12 @@ export default class extends think.controller.base {
   _503Action(){
     return this.displayErrorPage(503);
   }
+  //未登录
   _1000Action(){
     return this.displayErrorPage(1000);
+  }
+  // 默认正确/错误跳转对应的模板文件
+  _1001Action(){
+    return this.displayErrorPage(1001);
   }
 }

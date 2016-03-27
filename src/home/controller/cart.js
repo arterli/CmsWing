@@ -110,7 +110,7 @@ export default class extends Base {
       //判断是否登陆
       //!this.is_login || this.fail('您木有登陆'); 
       if(!this.is_login){
-          return this.fail("你木有登录！")
+          return think.statusAction(1000, this.http);
       }
       if(think.isEmpty(this.cart.data)){ return this.fail("木有宝贝提交啥订单呢？") }
       
@@ -195,7 +195,7 @@ export default class extends Base {
   //添加或者更新联系人地址
  async addaddrAction(){
      if(!this.is_login){
-          return this.fail("你木有登录！")
+         return think.statusAction(1000, this.http);
       }
       
       let data = this.post();
@@ -232,7 +232,7 @@ export default class extends Base {
  //联系人设置为默认
 async addrisdefaultAction(){
      if(!this.is_login){
-          return this.fail("你木有登录！")
+         return think.statusAction(1000, this.http);
       }
       let id = this.get("id");
       let find = await this.model("address").where({user_id:this.user.uid}).order("is_default ASC").select();
@@ -253,7 +253,7 @@ async addrisdefaultAction(){
     //获取当前选择的地址
     async getaddrAction(){
         if(!this.is_login){
-            return this.fail("你木有登录！")
+            return think.statusAction(1000, this.http);
         }
         let id = this.get("id");
         let addr = await this.model("address").where({user_id:this.user.uid}).find(id);
@@ -287,7 +287,7 @@ async addrisdefaultAction(){
 
 //删除地址
 async deladdrAction(){
-     if(!this.is_login){return this.fail("你木有登录！")};
+     if(!this.is_login){return think.statusAction(1000, this.http);};
      let id = this.get("id");
      let res = await this.model("address").where({user_id:this.user.uid,id:id}).delete();
       if(res){
@@ -305,7 +305,7 @@ async deladdrAction(){
 }
 //编辑地址
 async editaddrmodalAction(){
-    if(!this.is_login){return this.fail("你木有登录！")};
+    if(!this.is_login){return think.statusAction(1000, this.http);};
     let id = this.get("id");
     //获取地址信息
     let address = await this.model("address").where({user_id:this.user.uid}).find(id);
@@ -321,7 +321,7 @@ async editaddrmodalAction(){
 }
 //创建订单
 async createorderAction(){
-    if(!this.is_login){return this.fail("你木有登录！")};
+    if(!this.is_login){return think.statusAction(1000, this.http)};
     let data = this.post();
     console.log(data);
     let order_amount;//订单金额
@@ -418,7 +418,7 @@ async createorderAction(){
 }
    //支付
  async  payAction(){
-     if(!this.is_login){return this.fail("你木有登录！")};
+     if(!this.is_login){return think.statusAction(1000, this.http);};
        if(this.isAjax("post")){
            let payment;
            let pay;

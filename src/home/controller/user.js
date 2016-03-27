@@ -22,7 +22,10 @@ export default class extends Base {
       if(!this.is_login){
           return think.statusAction(1000, this.http);
       }
+      //console.log(this.http)
+      return think.statusAction(1001, this.http,"dsfsfs");
 
+      this.end();
       this.meta_title = "用户中心";
     return this.display();
   }
@@ -83,9 +86,9 @@ export default class extends Base {
             
            await this.session('webuser', null);
             
-            this.redirect(this.http.headers.referer);
+            this.redirect("/index");
         }else{
-            this.redirect(this.http.headers.referer);
+            this.redirect("/index");
         }
     }
 }

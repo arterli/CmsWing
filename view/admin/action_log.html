@@ -37,19 +37,19 @@
                     <thead>
                     <tr>
                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                        <th style="width:80px;">编号</th>
-                        <th class="">行为名称</th>
-                        <th class="">执行者</th>
-                        <th class="">执行时间</th>
+
+                        <th style="width:120px;">行为名称</th>
+                        <th style="width:120px;">执行者</th>
+                        <th style="width:150px;">执行时间</th>
                         <th class="">详细信息</th>
-                        <th class="">操作</th>
+                        <th style="width:70px;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in list %}
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                        <td>{{item.id}}</td>
+
                         <td>{{item.action_id}}</td>
                         <td>{{item.user_id}}</td>
                         <td>{{item.create_time|dateformat("Y-m-d H:i:s")}}</td>
