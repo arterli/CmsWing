@@ -31,7 +31,7 @@ $(document).on('click','.ajax-get',function(){
                     }else if( $(that).hasClass('no-refresh')){
                         toastr.clear()
                     }else{
-                        location.reload(true);
+                        location.reload();
                     }
                 },1500);
             }else{
@@ -129,7 +129,7 @@ $(document).on('click','.ajax-post',function(){
                     }else if( $(that).hasClass('no-refresh')){
                         toastr.clear()
                     }else{
-                        location.reload(true);
+                        location.reload();
                     }
                 },1500);
             }else{

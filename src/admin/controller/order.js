@@ -310,7 +310,9 @@ export default class extends Base {
             let data = this.post();
             data.admin = await get_nickname(this.user.uid);
             //生成快递单编号
-            data.invoice_no = new Date().getTime();
+            let kid = ['k',new Date().getTime()]
+            data.invoice_no = kid.join("");
+            
             data.create_time = new Date().getTime();
             let res = await this.model("doc_invoice").add(data);
             if(res){
@@ -382,8 +384,29 @@ export default class extends Base {
      * 收款单
      */
 
-    receivingAction(){
-        this.active="admin/order/receiving"
+    async receivingAction(){
+        let data = await this.model("doc_receiving").page(this.get('page')).order("create_time DESC").countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(data);
+        this.assign('pagerData', page); //分页展示使用
+        //console.log(data.data);
+        this.active="admin/order/list"
+        for(let val of data.data){
+            switch (val.payment_id){
+                case 100:
+                    val.channel = "预付款支付";
+                    break;
+                case 1001:
+                    val.channel = "货到付款";
+                    break;
+                default:
+                    val.channel = await this.model("pingxx").where({id:val.payment_id}).getField("title",true);
+            }
+            val.order_id=await this.model("order").where({id:val.order_id}).getField("order_no",true);
+        }
+        this.assign('list', data.data);
+        // this.active="admin/order/receiving"
         this.meta_title = "收款单";
         return this.display();
     }

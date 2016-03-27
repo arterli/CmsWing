@@ -6,7 +6,6 @@ import fs from 'fs';
 export default class extends Base {
     init(http){
         super.init(http);
-
     }
   /**
    * index action
@@ -26,7 +25,7 @@ export default class extends Base {
   async addcartAction(){
       let data = this.post();
       data = think.extend({},data);
-
+    
       let arr=[];
       let cart = this.cartdata;
       if(think.isEmpty(cart)){
@@ -125,8 +124,8 @@ export default class extends Base {
       //购物车Post过来的商品id;暂时去购物车内所有的商品
       //购物车内的宝贝
       //let cart_goods = await this.model("cart").where({uid:this.user.uid}).select();
-      let cart_goods = this.cartdata;
-     console.log(cart_goods);
+      let cart_goods = this.cart.data;
+       //console.log(cart_goods);
       //应付金额
       let parr = [];
       for(let val of cart_goods){
@@ -136,6 +135,7 @@ export default class extends Base {
       real_amount = eval(parr.join('+'));
       //联系人
       let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+     if(!think.isEmpty(addrlist)){
       for(let val of addrlist){
               val.province_num = val.province;
               val.city_num = val.city;
@@ -144,6 +144,7 @@ export default class extends Base {
               val.city = await this.model("area").where({id:val.city}).getField("name",true);
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
           }
+     }
       this.assign("addrlist",addrlist);
      /** 现在用ping++集成直接，但接入暂时屏蔽
       //支付方式
@@ -157,41 +158,15 @@ export default class extends Base {
 
          let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
          this.assign("paylist",paylist);
+
        //运费计算
         //    1、如果店铺只使用统一运费，那么顾客下单计算时按最低运费收取。
         //    2、如果店铺只使用一种运费模板规则，那么顾客下单计算时均按此规则收取运费。
         //    3、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
-     //计算商品的总重量
-     let warr = [];
-     for(let val of cart_goods){
-         warr.push(val.weight*val.qty);
-     }
-     let goods_weight = eval(warr.join('+'));
-     //console.log(goods_weight);
-       let area = addrlist[0].province_num+"_"+addrlist[0].city_num+"_"+addrlist[0].county_num;
-       let fare = await this.model("fare").where({is_default:1}).find();
-       let zoning = JSON.parse(fare.zoning)
-       if(think.isEmpty(zoning)){
-           real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
-
-       }else{
-
-           for(let val of zoning){
-               //console.log(area)
-              // console.log(val.area);
-               if(in_array(area,JSON.parse(val.area))){
-                   //console.log(Number(val.f_weight)+Number(val.s_weight));
-                   real_freight =Number(val.f_price)+Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
-               }else {
-                   real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
-               }
-           }
-          //real_freight = 8;
-       }
-       
-       //real_freight = 8;
+       //计算商品的总重量
+       real_freight = await this.model("fare").getfare(cart_goods,null,this.user.uid);
        this.assign("real_freight",real_freight);
        //订单促销优惠信息
        //TODO
@@ -260,7 +235,7 @@ async addrisdefaultAction(){
           return this.fail("你木有登录！")
       }
       let id = this.get("id");
-      let find = await this.model("address").where({user_id:this.user.uid}).select();
+      let find = await this.model("address").where({user_id:this.user.uid}).order("is_default ASC").select();
           for(let val of find){
               if(val.id == id){
                 val.is_default = 1;  
@@ -275,6 +250,41 @@ async addrisdefaultAction(){
       return this.success({name:'设置成功！',data:find});
           
 }
+    //获取当前选择的地址
+    async getaddrAction(){
+        if(!this.is_login){
+            return this.fail("你木有登录！")
+        }
+        let id = this.get("id");
+        let addr = await this.model("address").where({user_id:this.user.uid}).find(id);
+        addr.province = await this.model("area").where({id:addr.province}).getField("name",true);
+        addr.city = await this.model("area").where({id:addr.city}).getField("name",true);
+        addr.county = await this.model("area").where({id:addr.county}).getField("name",true);
+        return this.success({name:"选择地址！",data:addr});
+    }
+    //计算运费
+    async getfareAction(){
+        if(!this.is_login){
+            return this.fail("你木有登录！")
+        }
+        let cart_goods = this.cart.data;
+        //应付金额
+        let parr = [];
+        for(let val of cart_goods){
+            parr.push(val.price);
+        }
+        //console.log(parr);
+        let real_amount = eval(parr.join('+'));
+        let real_freight =  await this.model("fare").getfare(cart_goods,this.get("id"),this.user.uid);
+        let order_amount =Number(real_amount) + Number(real_freight);
+        let res = {
+            real_freight:real_freight,
+            order_amount:order_amount
+        }
+        return this.json(res);
+    }
+    //订单总额
+
 //删除地址
 async deladdrAction(){
      if(!this.is_login){return this.fail("你木有登录！")};
@@ -313,6 +323,7 @@ async editaddrmodalAction(){
 async createorderAction(){
     if(!this.is_login){return this.fail("你木有登录！")};
     let data = this.post();
+    console.log(data);
     let order_amount;//订单金额
     let payable_amount;//应付金额，商品的原价
     let real_amount;//商品参与获得的价格
@@ -339,7 +350,8 @@ async createorderAction(){
     data.user_id=this.user.uid;
     //生成订单编号//todo
     let nowtime = new Date().valueOf();
-    data.order_no = nowtime;
+    let oid =["d",this.user.uid,nowtime]
+    data.order_no = oid.join("");
     //添加送货地址
     let address = await this.model("address").fieldReverse("id,user_id,is_default").find(data.address);
     console.log(address);
@@ -361,33 +373,8 @@ async createorderAction(){
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
     //计算商品的总重量
-    let warr = [];
-    for(let val of isgoods){
-        warr.push(val.weight*val.qty);
-    }
-    let goods_weight = eval(warr.join('+'));
-    //console.log(goods_weight);
-    let area = address.province+"_"+address.city+"_"+address.county;
-    let fare = await this.model("fare").where({is_default:1}).find();
-    let zoning = JSON.parse(fare.zoning)
-    if(think.isEmpty(zoning)){
-        real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
 
-    }else{
-
-        for(let val of zoning){
-            //console.log(area)
-            // console.log(val.area);
-            if(in_array(area,JSON.parse(val.area))){
-                //console.log(Number(val.f_weight)+Number(val.s_weight));
-                real_freight =Number(val.f_price)+Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
-            }else {
-                real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
-            }
-        }
-        //real_freight = 8;
-    }
-       data.real_freight = real_freight;
+       data.real_freight = await this.model("fare").getfare(isgoods,data.address,this.user.uid);;
        
        
         
@@ -402,8 +389,8 @@ async createorderAction(){
         
         //订单金融 实付金额+邮费-订单优惠金额
         //TODO
-        console.log(real_amount);
-        order_amount =Number(real_amount) + Number(real_freight)
+        //console.log(real_amount);
+        order_amount =Number(data.real_amount) + Number(data.real_freight)
         data.order_amount = order_amount;
         //生成订单
        let order_id = await this.model("order").add(data);
@@ -439,9 +426,25 @@ async createorderAction(){
            let post = this.post();
            //获取订单信息
            let order = await this.model("order").where({pay_status:0,user_id:this.user.uid}).find(post.order_id);
+           if(think.isEmpty(order)){
+               return this.fail("订单不存在！");
+           }
            //更新订单的支付方式
            await this.model("order").where({id:order.id}).update({payment:post.payment});
+           //支付日志
+           let receiving = {
+               order_id:post.order_id,
+               user_id:this.user.uid,
+               amount:order.order_amount,
+               create_time:new Date().getTime(),
+               payment_time:new Date().getTime(),
+               doc_type:0,
+               payment_id:post.payment,
+               pay_status:0
+           }
+
            //100预付款支付
+
            if(post.payment == 100){
             //先检查下用户余额
                let balance = await this.model("customer").where({user_id:this.user.uid}).getField("balance",true);
@@ -464,6 +467,8 @@ async createorderAction(){
                            note:`${await get_nickname(this.user.uid)} 通过余额支付方式进行商品购买,订单编号：${order.order_no}`
                        }
                        await this.model('balance_log').add(log);
+                       receiving.pay_status=1;
+                       await this.model("doc_receiving").add(receiving);
                        let url = `/cart/payres/c_o_id/${post.order_id}`;
                        return this.success({name:"支付订单对接成功，正在转跳！",url:url})
                    }else {
@@ -502,7 +507,7 @@ async createorderAction(){
                }
                 //console.log(charges);
                if(charges){
-
+                   await this.model("doc_receiving").add(receiving);
                    return this.success({name:"支付订单对接成功，正在转跳！",data:charges})
                }else {
                    return this.fail("调用接口失败！");
@@ -563,10 +568,13 @@ async createorderAction(){
         switch (data.type) {
             case "charge.succeeded":
                 // 开发者在此处加入对支付异步通知的处理代码
-                console.log(data.data.object.paid);
+                //console.log(data.data.object.paid);
                 if(data.data.object.paid){
                     //支付成功改变订单状态
-                    await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1});
+                    await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1,pay_time:(data.data.object.time_paid*1000)});
+                    let oid = await this.model("order").where({order_no:data.data.object.order_no}).getField("id",true);
+                    //记录支付日志
+                    await this.model("doc_receiving").where({order_id:oid}).update({pay_status:1,payment_time:(data.data.object.time_paid*1000)});
                     return this.success({name:"成功！"});
                 }else {
                     return this.fail("失败！");
@@ -577,8 +585,6 @@ async createorderAction(){
                 // 开发者在此处加入对退款异步通知的处理代码sfdsfs
                 break;
             default:
-
-                break;
         }
     }
     //支付回掉
@@ -595,6 +601,7 @@ async createorderAction(){
                         break;
                     default:
                         order.channel = "货到付款";
+                        break;
                 }
                 this.assign("order",order);
         }else {
@@ -606,7 +613,9 @@ async createorderAction(){
             let charges = await pay.charge(order.pingxx_id);
             if(charges.paid && order.pay_status == 0){
                 //支付成功改变订单状态
-                await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1});
+                await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1,pay_time:(charges.time_paid*1000)});
+                //记录支付日志
+                await this.model("doc_receiving").where({order_id:order.id}).update({pay_status:1,payment_time:(charges.time_paid*1000)});
             }
             charges.amount = charges.amount/100;
             charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);

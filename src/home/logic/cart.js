@@ -12,4 +12,9 @@ export default class extends think.logic.base {
   indexAction(){
    
   }
+  createorderAction(){
+    this.rules={
+      address:"required"
+    }
+  }
 }

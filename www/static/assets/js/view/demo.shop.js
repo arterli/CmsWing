@@ -365,6 +365,7 @@
                 }
             })
         })
+
          //编辑
 
              $(document).on( "change","#province1",function (e) {
@@ -456,7 +457,53 @@
             });
             
         })
-        
+        //地址
+        function _addrs(boll) {
+            if(boll){
+                var val = $('.addr-list input:checked').val();
+                ajaxaddr(val);
+                real_freight(val)
+            }
+
+
+            $('.addr-list input').on('ifChecked', function(event){
+                var addr_id=$(this).val();
+                //console.log(addr_id)
+                ajaxaddr(addr_id);
+                real_freight(addr_id)
+            });
+            //获取地址
+            function ajaxaddr(addr_id) {
+                $.ajax({
+                    url:"/cart/getaddr/id/"+addr_id,
+                    success:function (res) {
+                        //console.log(res);
+                        if(res.errno==0){
+                            var val = res.data.data;
+                            var html ='<p><strong>寄送至：</strong>'+ val.province +" "+ val.city+" "+val.county+" "+ val.addr+'</p> <h4><strong>收货人：</strong>'+val.accept_name+" "+val.mobile+'</h4>'
+                            $(".showaddr").html(html);
+                        }
+                    }
+                })
+            }
+            //获取运费
+            function real_freight(addr_id) {
+                $.ajax({
+                    url:"/cart/getfare/id/"+addr_id,
+                    success:function (res) {
+                        //console.log(res);
+                        //return false;
+                        var freight ='<span class="text-success">+</span> ￥<span class="text-danger">'+formatCurrency(res.real_freight)+'</span>'
+                        //console.log(html)
+                        $("#real_freight").html(freight);
+                        var order_amount = '￥'+res.order_amount;
+                        $("#order_amount").html(order_amount);
+
+                    }
+                })
+            }
+        }
+       _addrs(false);
       function addr_add_html(data){
              var addrArr = [];
             $.each(data,function (k,val) {
@@ -487,8 +534,10 @@
                   insert: label_text
               });
           });
+          _addrs(true);
       }
-        
+
+
 		/** CHECKOUT
 		 ** *********************** **/
 		// New Account show|hide

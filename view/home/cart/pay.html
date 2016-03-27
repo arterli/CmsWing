@@ -23,10 +23,10 @@
 <section class="page-header page-header-xs">
     <div class="container">
 
-        <h1>{{controller.meta_title}}</h1>
+        <!--<h1>{{controller.meta_title}}</h1>-->
 
         <!-- breadcrumbs -->
-        <ol class="breadcrumb">
+        <ol class="breadcrumb breadcrumb-inverse">
             <li><a href="/">首页</a></li>
             <li class="active">{{controller.meta_title}}</li>
         </ol><!-- /breadcrumbs -->
@@ -37,7 +37,6 @@
 
 
 <!-- CART -->
-<form class="form-post" method="post" action="/home/cart/createorder">
     <section>
         <div class="container">
             {% if setp == 3%}
@@ -80,7 +79,6 @@
                 </div>
 
             </div>
-            <hr/>
 
             <div class="alert alert-mini alert-success margin-bottom-20"><!-- SUCCESS -->
                 <button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span
@@ -98,7 +96,7 @@
                         <table class="table">
 
                             <tbody>
-                            <tr class="info">
+                            <tr >
                                 <td class="text-right">订单编号：</td>
                                 <td>{{order.order_no}}</td>
                             </tr>
@@ -150,10 +148,10 @@
 
             </div>
 
-            <div class="callout alert alert-danger noborder">
+            <div class="callout alert alert-default  noborder">
               <input type="hidden" value="{{order.id}}" name="order_id">
                 <div class="text-center">
-                    <a class="btn btn-3d btn-reveal btn-red pingpp_pay" href="javascript:;">
+                    <a class="btn btn-3d btn-reveal btn-green pingpp_pay" href="javascript:;">
                         <i class="fa fa-credit-card"></i>
                         <span>立即支付</span>
                     </a>
@@ -162,8 +160,9 @@
                 </div>
 
             </div>
+            </div>
     </section>
-</form>
+
 <!-- /CART -->
 
 

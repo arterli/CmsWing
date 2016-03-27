@@ -23,10 +23,10 @@
 			<section class="page-header page-header-xs">
 				<div class="container">
 
-					<h1>{{controller.meta_title}}</h1>
+					<!--<h1>{{controller.meta_title}}</h1>-->
 
 					<!-- breadcrumbs -->
-					<ol class="breadcrumb">
+					<ol class="breadcrumb breadcrumb-inverse">
 						<li><a href="/">首页</a></li>
 						<li class="active">{{controller.meta_title}}</li>
 					</ol><!-- /breadcrumbs -->
@@ -74,15 +74,15 @@
 	</div>
 
 </div>
-<hr/>
 
-<div class="heading-title heading-dotted text-center">
-						<h4>填写并核对 <span>[订单信息]</span></h4>
-					</div>	
+
                     
                     <div class="panel panel-default margin-bottom-0">
 	<div class="panel-body ">
-        <section class="padding-bottom-15 padding-top-0">
+		<div class="heading-title heading-dotted text-center margin-bottom-15">
+			<h4>填写并核对 <span>[订单信息]</span></h4>
+		</div>
+		<section class="padding-bottom-15 padding-top-0">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>收货人信息</h5>
 			<a class="btn btn-danger btn-xs add-addr-btn noradius pull-right margin-top-0" data-toggle="modal" data-target=".add-addr-dialog"> <i class="fa fa-plus-square"></i>  新增收货地址</a>
@@ -109,6 +109,7 @@
                                 <li>
 									{{val.city}} 
 								</li>
+								<li>{{val.county}}</li>
                                 <li>
 									{{val.addr}}
 								</li>
@@ -122,6 +123,14 @@
 						  </div>   
                             
          </div>
+						{%else%}
+						<div class="alert alert-mini alert-warning margin-bottom-0"><!-- WARNING -->
+							<button type="button" class="close" data-dismiss="alert">
+								<span aria-hidden="true">×</span>
+								<span class="sr-only">Close</span>
+							</button>
+							<strong>提示!</strong> 您还没有收货地址，请先添加.
+						</div>
          {% endfor %}
             
                     </div>
@@ -157,13 +166,13 @@
             
                     </div>
         </section>
-          <section class="padding-bottom-15 padding-top-15">
+          <section class="padding-bottom-0 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>送货清单</h5>
-                       <a href="/cart" class="pull-right"><h5><span>返回修改购物车</span></h5></a>
+                       <a href="/cart" class="btn btn-info btn-xs add-addr-btn noradius pull-right margin-top-0"> <i class="fa fa-opencart"></i> 返回修改购物车</a>
 					</div>
 		<div class="table-responsive">
-	<table class="table table-hover">
+	<table class="table table-hover margin-bottom-0">
 		<thead>
 			<tr>
 				<th>商品</th>
@@ -178,7 +187,7 @@
 		<tbody>
             {% for val in controller.cart.data%}
 			<tr>
-				<td><img src="{{val.pic}}" alt="" width="80" class="img-responsive img-thumbnail" /></td>
+				<td><img src="{{val.pic}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
 				<td>{{val.title}}</td>
 				<td>{% if val.type%}{{val.type}}{%endif%}</td>
                 <td>￥{{val.unit_price|formatCurrency}}</td>
@@ -191,6 +200,7 @@
 	</table>
 </div>
         </section>
+		{%if controller.setup.IS_INVOICE == 1%}
          <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>发票信息</h5>
@@ -209,6 +219,7 @@
 	</table>
 </div>
         </section>
+
               <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
 						<h5>订单促销活动</h5>
@@ -227,6 +238,7 @@
 	</table>
 </div>
         </section>
+		{%endif%}
 	</div>
     
 </div>
@@ -234,27 +246,27 @@
     <div class="col-md-8 hidden-xs"></div>
     <div class="col-md-4 col-xs-12">
         <div class="table-responsive margin-top-20">
-	<table class="table">
+	<table class="table margin-bottom-0">
 		
 		<tbody>
-			<tr class="info">
+			<tr >
 				<td class="text-right"><span class="text-danger">{{controller.cart.num}}</span> 件商品，总商品金额：</td>
-				<td>￥{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</td>
+				<td>￥<span class="text-danger">{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</span></td>
 				
 			</tr>
-			<tr class="warning">
+			<tr >
 				<td class="text-right">优惠：</td>
-				<td>-￥0.00</td>
+				<td><span class="text-success">- </span> ￥<span class="text-success">0.00</span></td>
 				
 			</tr>
-			<tr class="success">
+			<tr >
 				<td class="text-right">运费：</td>
-				<td >+￥{{real_freight|formatCurrency}}</td>
+				<td id="real_freight"><span class="text-danger">+</span>￥<span class="text-danger">{%if real_freight%}{{real_freight|formatCurrency}}{%else%}0.00{%endif%}</span></td>
 				
 			</tr>
 			<tr class="danger">
 				<td class="text-right text-danger size-18">应付总额：</td>
-				<td class="text-danger size-18">￥{{order_amount|formatCurrency}}</td>
+				<td class="text-danger size-18" id="order_amount">￥{{order_amount|formatCurrency}}</td>
 				
 			</tr>
 			
@@ -266,14 +278,17 @@
 
 
 				</div>
-      <div class="callout alert alert-danger  margin-bottom-60">
+      <div class="callout alert alert-default  margin-bottom-60">
 
 	<div class="row">
 
-		<div class="col-md-8 col-sm-8"><!-- left text -->
-			<p><strong>寄送至：</strong>山东省 济南市 山东省ddddddd 13589100333 </p>
-				<h4><strong>收货人：</strong>fdsf 150****7797</h4>
-			
+		<div class="col-md-8 col-sm-8 showaddr"><!-- left text -->
+			{% for val in addrlist %}
+			{% if val.is_default == 1 %}
+			<p><strong>寄送至：</strong>{{val.province}} {{val.city}} {{val.county}} {{val.addr}}  </p>
+				<h4><strong>收货人：</strong>{{val.accept_name}} {{val.mobile}}</h4>
+			{%endif%}
+			{%endfor%}
 			
 		</div><!-- /left text -->
 
@@ -287,6 +302,7 @@
 	</div>
 
 </div>
+					</div>
 			</section>
       </form>
 			<!-- /CART -->

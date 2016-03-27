@@ -120,4 +120,7 @@ export default class extends Base {
             console.log(`Got error: ${e.message}`);
         });
     }
+    oidAction(){
+        
+    }
 }
