@@ -29,7 +29,7 @@ $(function () {
 
 
         var $content = $(page).find(".content").on('refresh', function(e) {
-            location.reload(true);
+            location.reload();
         });
         /*=== 有标题 ===*/
         var myPhotoBrowserCaptions = $.photoBrowser({
@@ -112,6 +112,13 @@ $(function () {
                         $.refreshScroller();
                     }
                 })
+        });
+    });
+    //用户中心
+    $(document).on("pageInit", "#user_index", function(e, id, page) {
+        //下拉刷新
+        var $content = $(page).find(".content").on('refresh', function(e) {
+            location.reload();
         });
     });
 

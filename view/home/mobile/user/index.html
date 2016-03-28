@@ -1,0 +1,93 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_index">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <nav class="bar bar-tab">
+        <a   class="tab-item " href="/">
+            <span class="icon icon-home"></span>
+            <span class="tab-label">首页</span>
+        </a>
+        <a   class="tab-item " href="/column/blog">
+            <span class="icon icon-browser"></span>
+            <span class="tab-label">新闻</span>
+        </a>
+        <a  class="tab-item " href="#">
+            <span class="icon icon-star"></span>
+            <span class="tab-label">商城</span>
+        </a>
+        <a class="tab-item " href="#">
+            <span class="icon icon-cart"></span>
+            <span class="tab-label">购物车</span>
+        </a>
+        {% if controller.is_login %}
+        <a  class="tab-item active" href="/user/index">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+        {%else%}
+        <a  class="tab-item active" href="/user/login">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">登录</span>
+        </a>
+        {%endif%}
+    </nav>
+
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content infinite-scroll native-scroll pull-to-refresh-content" data-distance="100">
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+        </div>
+        <div class="m-user-header">
+        <div class="list-block media-list m-all-none">
+            <ul class="user">
+                <li>
+                    <a class="item-link item-content" href="#">
+                        <div class="item-media avatar"><img width="50" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg"></div>
+                        <div class="item-inner userinfo">
+                            <div class="item-subtitle"><strong>{{controller.user.username}}</strong></div>
+                            <div class="item-text">18651851438</div>
+                        </div>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="row no-gutter">
+            <div class="col-33">20%</div>
+            <div class="col-33">80%</div>
+            <div class="col-33">80%</div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+{% endblock%}
+{% block script %}
+
+{% endblock %}

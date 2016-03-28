@@ -43,7 +43,12 @@ export default class extends Base {
       this.assign("onOrder",onOrder);
       //带评价的商品 TODO
       this.meta_title = "用户中心";
-    return this.display();
+      //判断浏览客户端
+      if(checkMobile(this.userAgent())){
+          return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+      }else{
+          return this.display();
+      }
   }
 //   用户设置
   setingAction(){
@@ -64,7 +69,7 @@ export default class extends Base {
   }
 //   登陆页面
   async loginAction(){
-      this.meta_title = "用户登录";
+
       if(this.isAjax("post")){
           let data = this.post();
           //console.log(data); 
@@ -89,16 +94,25 @@ export default class extends Base {
                 this.fail(res, fail);
             } 
       }else{
-          
-          return this.display();
+          //如果已经登陆直接跳转到用户中心
+          if(this.is_login){
+              this.redirect("/user/index")
+          }
+          this.meta_title = "用户登录";
+          //判断浏览客户端
+          if(checkMobile(this.userAgent())){
+              return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+          }else{
+              return this.display();
+          }
       }
       
   }
   //退出登录
   async logoutAction(){
         //退出登录
-        let is_login = await this.islogin();
-        if(is_login){
+
+        if(this.is_login){
             
            await this.session('webuser', null);
             
