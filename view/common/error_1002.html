@@ -2,7 +2,7 @@
 <html lang="en" class="app">
 <head>
     <meta charset="utf-8" />
-    <title>未登录 | CmsWing</title>
+    <title>跳转提示 | CmsWing</title>
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="/static/admin/css/bootstrap.css" type="text/css" />
@@ -18,28 +18,26 @@
     <![endif]-->
 </head>
 <body class="bg-light dk">
-<section id="content" >
+<section id="content">
     <div class="row m-n">
         <div class="col-sm-4 col-sm-offset-4">
             <div class="text-center m-b-lg">
-                <h1 class="h text-white animated fadeInDownBig" >:(</h1>
+                <h1 class="h text-white animated fadeInDownBig"  >:(</h1>
             </div>
-            <div class="alert alert-danger text-md ">
-                <i class="fa fa-exclamation-circle "></i>   系统检测您尚未登录，请先登录！
+            <div class="alert alert-danger text-md">
+
+                <i class="fa fa-exclamation-circle "></i> <%if(http.error){%><%=http.error.message%><%}%>
             </div>
             <div class="list-group auto m-b-sm m-b-lg">
-                <a href="/user/login" data-toggle="ajaxModal" class="list-group-item">
-                    <i class="fa fa-chevron-right icon-muted"></i>
-                    <i class="fa fa-fw icon-login icon-muted"></i> 立即登录
-                </a>
-                <a href="user/register" class="list-group-item">
-                    <i class="fa fa-chevron-right icon-muted"></i>
-                    <i class="fa fa-fw fa-user icon-muted"></i> 还没账号，立即注册！
-                </a>
-                <a href="<%if (http.referrer()){%><%= http.referrer()%><%}%>" class="list-group-item" id="href">
-                    <i class="fa fa-chevron-right icon-muted"></i>
-                    <i class="fa fa-fw fa-mail-reply icon-muted"></i> 返回上一页
-                </a>
+                <div  class="list-group-item">
+
+                    <i class="fa fa-fw fa-history icon-muted"></i> 页面自动
+                    <a id="href" href="<%if (http.referrer()){%><%= http.referrer()%><%}%>" class="text-info">跳转</a> 等待时间： <b id="wait" class="text-danger">6</b>
+                </div>
+                <!--<a href="user/register" class="list-group-item">-->
+                    <!--<i class="fa fa-chevron-right icon-muted"></i>-->
+                    <!--<i class="fa fa-fw fa-user icon-muted"></i> 还没账号，立即注册！-->
+                <!--</a>-->
                 <a href="index" class="list-group-item">
                     <i class="fa fa-chevron-right icon-muted"></i>
                     <!--<span class="badge bg-info lt">021-215-584</span>-->
@@ -66,11 +64,20 @@
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
 <script>
-    $(function () {
-        var href = document.getElementById('href').href,url = document.URL;
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href,url = document.URL;
         if(href == url){
-            $("#href").addClass("hide");
+            href = '/index';
         }
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+    $(function () {
         _login();
     })
     function _login (){

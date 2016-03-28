@@ -27,7 +27,7 @@ export default class extends Base {
       data = think.extend({},data);
     
       let arr=[];
-      let cart = this.cartdata;
+      let cart = this.cart.date;
       if(think.isEmpty(cart)){
          arr.push(data);
       }else{

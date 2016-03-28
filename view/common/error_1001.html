@@ -25,13 +25,14 @@
                 <h1 class="h text-white animated fadeInDownBig"  >:) <!--:(--></h1>
             </div>
             <div class="alert alert-success text-md">
-                <i class="fa fa-exclamation-circle "></i> 成功信息提示!.
+
+                <i class="fa fa-exclamation-circle "></i> <%if(http.error){%><%=http.error.message%><%}%>
             </div>
             <div class="list-group auto m-b-sm m-b-lg">
                 <div  class="list-group-item">
 
                     <i class="fa fa-fw fa-history icon-muted"></i> 页面自动
-                    <a id="href" href="<%= http.referrer()%>" class="text-info">跳转</a> 等待时间： <b id="wait" class="text-danger">100</b>
+                    <a id="href" href="<%if (http.referrer()){%><%= http.referrer()%><%}%>" class="text-info">跳转</a> 等待时间： <b id="wait" class="text-danger">6</b>
                 </div>
                 <!--<a href="user/register" class="list-group-item">-->
                     <!--<i class="fa fa-chevron-right icon-muted"></i>-->
@@ -50,7 +51,7 @@
 <footer id="footer">
     <div class="text-center padder clearfix">
         <p>
-            <small> <a href="http://www.cmswing.com" target="_blank" class="badge ">CmsWing内容管理框架 www.cmswing.com</a> <br>&copy;2005 - <script>document.write(new Date().getFullYear())</script></small>
+            <small> <a href="http://www.cmswing.com" target="_blank" class="badge ">CmsWing内容管理框架 [cmswing.com]</a> <br>&copy;2005 - <script>document.write(new Date().getFullYear())</script></small>
         </p>
     </div>
 </footer>
@@ -64,7 +65,10 @@
 <script src="/static/admin/js/app.plugin.js"></script>
 <script>
     (function(){
-        var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href,url = document.URL;
+        if(href == url){
+            href = '/index';
+        }
         var interval = setInterval(function(){
             var time = --wait.innerHTML;
             if(time <= 0) {

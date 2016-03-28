@@ -22,8 +22,11 @@ export default class extends Base {
       if(!this.is_login){
           return think.statusAction(1000, this.http);
       }
-      //console.log(this.http)
-      return think.statusAction(1001, this.http,"dsfsfs");
+
+      // this.http.error = new Error('成功信息！');
+      // return think.statusAction(1001, this.http);
+      this.http.error = new Error('错误信息！');
+      return think.statusAction(1002, this.http);
 
       this.end();
       this.meta_title = "用户中心";
