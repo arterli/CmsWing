@@ -48,7 +48,9 @@ export default class extends think.controller.base {
             let auth = new Auth(this.user.uid);
             let res = await auth.check(url);
             if (!res) {
-                return this.fail('未授权访问!');
+                //return this.fail('未授权访问!');
+                this.http.error = new Error('未授权访问!');
+                return think.statusAction(1002, this.http);
             }
         }
 

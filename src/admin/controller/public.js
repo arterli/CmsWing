@@ -32,7 +32,8 @@ export default class extends think.controller.base {
                     case -3: fail = '您无权登陆后台！'; break;
                     default: fail = '未知错误';  // 0-接口参数错误（调试阶段使用）
                 }
-                this.fail(res, fail);
+                this.http.error = new Error(fail);
+                return think.statusAction(1002, this.http);
             }
 
         }else{

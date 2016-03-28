@@ -17,7 +17,7 @@ export default class extends Base {
    * 用户中心主页
    * @return {Promise} []
    */
-  indexAction(){
+ async indexAction(){
     //auto render template file index_index.html
       if(!this.is_login){
           return think.statusAction(1000, this.http);
@@ -25,10 +25,23 @@ export default class extends Base {
 
       // this.http.error = new Error('成功信息！');
       // return think.statusAction(1001, this.http);
-      this.http.error = new Error('错误信息！');
-      return think.statusAction(1002, this.http);
-
-      this.end();
+      // this.http.error = new Error('错误信息！');
+      // return think.statusAction(1002, this.http);
+      //获取用户信息
+      let userInfo = await this.model("member").join({
+          table:"customer",
+          jion:"left",
+          on:["id","user_id"]
+      }).find(this.user.uid);
+      this.assign("userInfo",userInfo);
+       //订单交易总金额
+      let order = await this.model("order").where({user_id:this.user.uid,pay_status:1}).getField('order_amount');
+      let orderTotal = eval(order.join("+"));
+      this.assign("orderTotal",orderTotal);
+      //进行中的订单
+      let onOrder = await this.model("order").where({status:4}).count("id");
+      this.assign("onOrder",onOrder);
+      //带评价的商品 TODO
       this.meta_title = "用户中心";
     return this.display();
   }
