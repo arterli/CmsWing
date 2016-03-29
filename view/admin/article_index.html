@@ -195,13 +195,16 @@
         },
         callback: {
             onAsyncSuccess: zTreeOnAsyncSuccess
+
         }
         };
+
     function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
        // console.log(treeNode)
         var treeObj = $.fn.zTree.getZTreeObj(treeId);
         treeObj.expandAll(true);
         var id= $("#"+treeId).attr("data-cate");
+        console.log(id);
         curMenu = treeObj.getNodeByParam("id", id, null);
         console.log(treeId)
         treeObj.selectNode(curMenu);

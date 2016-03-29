@@ -77,30 +77,7 @@
             };
         }, 1000);
     })();
-    $(function () {
-        _login();
-    })
-    function _login (){
-        $(document).on('submit','#login',function(e){
-            var data=$(this).serialize()
-            $.ajax({
-                type: "POST",
-                url: "/user/login",
-                data: data,
-                success: function(msg){
-                    if(msg.errno < 0){
-                        _toastr(msg.errmsg,"top-right","error",false);
-                    }else{
-                        //$('#ajaxModal').remove();
-                        location.reload(true);
-                    }
-                }
-            });
 
-
-            return false;
-        })
-    }
 </script>
 
 </body>

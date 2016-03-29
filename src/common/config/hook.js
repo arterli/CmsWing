@@ -6,6 +6,6 @@
  */
 export default {
     //view_filter : ['append', 'debug_toolbar'],
-    payload_parse: ['prepend', 'parse_wechat']
-
+    payload_parse: ['prepend', 'parse_wechat'],
+    // logic_before: ["prepend", "csrf"]
 }
