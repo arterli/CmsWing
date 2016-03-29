@@ -117,6 +117,7 @@ export default class extends think.controller.base {
             // cartdata = JSON.parse(cartdata);
             // }
         }
+       //console.log(cartdata);
         return cartdata;
     }
 }

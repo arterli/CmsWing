@@ -92,6 +92,7 @@
                     <div class="heading-title heading-dotted text-center margin-bottom-20">
                         <h4><span>[支付信息]</span></h4>
                     </div>
+
                     <div class="table-responsive">
                         <table class="table">
 
@@ -147,7 +148,12 @@
                 </div>
 
             </div>
+            <div class="alert alert-mini alert-warning "><!-- WARNING -->
+                <button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                <i class="fa fa-hourglass-half"></i> 请您在提交订单后 <span class="countdown countdown-inline" data-from="{{order.end_time}}" data-labels="年,月,周,日,时,分,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></span>
+                内完成支付，否则订单会自动作废。
 
+            </div>
             <div class="callout alert alert-default  noborder">
               <input type="hidden" value="{{order.id}}" name="order_id">
                 <div class="text-center">

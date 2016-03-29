@@ -27,7 +27,8 @@ export default class extends Base {
       data = think.extend({},data);
     
       let arr=[];
-      let cart = this.cart.date;
+      let cart = this.cart.data;
+
       if(think.isEmpty(cart)){
          arr.push(data);
       }else{
@@ -521,7 +522,12 @@ async createorderAction(){
            let setp = this.get("setp")||"";
            //this.end(order_id  + "=" + setp)
            //订单信息
-           let order = await this.model("order").where({user_id:this.user.uid}).find(order_id);
+           let order = await this.model("order").where({pay_status:0,user_id:this.user.uid}).find(order_id);
+           if(think.isEmpty(order)){
+               this.http.error = new Error('订单不存在或者已经支付！');
+               return think.statusAction(1002, this.http);
+           }
+           order.end_time = date_from(order.create_time+(Number(this.setup.ORDER_DELAY)*60000))
            //console.log(order);
            this.assign("order",order);
 

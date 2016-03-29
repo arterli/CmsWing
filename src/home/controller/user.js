@@ -59,7 +59,7 @@ export default class extends Base {
         }
 
         map.is_del = 0;
-        // map.user_id = this.user.uid;
+        map.user_id = this.user.uid;
         // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -86,7 +86,25 @@ export default class extends Base {
                 default:
                     val.channel = await this.model("pingxx").where({id:val.payment}).getField("title",true);
             }
+            val.province = await this.model("area").where({id:val.province}).getField("name",true);
+            val.city = await this.model("area").where({id:val.city}).getField("name",true);
+            val.county = await this.model("area").where({id:val.county}).getField("name",true);
+            //未付款订单倒计时
+            if(val.pay_status ==0 ){
+                val.end_time = date_from(val.create_time+(Number(this.setup.ORDER_DELAY)*60000))
+            }
+            console.log(this.setup.ORDER_DELAY_BUND)
+            //查出订单里面的商品列表
+            val.goods = await this.model("order_goods").where({order_id:val.id}).select();
+
+            for(let v of val.goods){
+                v.prom_goods = JSON.parse(v.prom_goods);
+                v = think.extend(v,v.prom_goods);
+                delete v.prom_goods;
+            }
+            //console.log(val.goods)
         }
+       // console.log(data.data);
         this.assign('list', data.data);
         this.meta_title = "我的订单";
         return this.display();

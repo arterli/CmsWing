@@ -14144,17 +14144,17 @@ body.stop-scrolling {
     border-radius: 3px;
     cursor: pointer;
     text-align: center;
-    border: 2px solid #CCCCCC;
+    border: 1px solid #CCCCCC;
     
 }
 .icheckbox_sm-blue:hover, .radio_sm-blue:hover{
-    border: #d43f3a solid 2px;
+    border: #d43f3a solid 1px;
     color: #333;
 }
 .icheckbox_sm-blue.checked, .radio_sm-blue.checked {
     background: #fff;
     background: url(../images/icon-right.png) no-repeat right bottom;
-    border: 2px solid #d43f3a;
+    border: 1px solid #d43f3a;
     color: #333;
 }
 .icheckbox_sm-blue.disabled, .radio_sm-blue.disabled {
@@ -14194,7 +14194,9 @@ body.stop-scrolling {
 }
 /*订单类别*/
 .order-tb {
-	border: none;
+	border-top: none;
+	border-left: none;
+	border-right: none;
 }
   .order-tb .goods-item {
 	  margin-right: 20px;
@@ -14204,7 +14206,7 @@ body.stop-scrolling {
 .order-tb .goods-item .p-img {
 	border: 1px solid #efefef;
 	float: left;
-	height: 60px;
+	height: auto;
 	margin: 0 7px;
 	width: 60px;
 }
@@ -14249,5 +14251,5 @@ body.stop-scrolling {
 
 
 .order-tb .sep-row td {
-	border: 0 none;
+	border:none ;
 }

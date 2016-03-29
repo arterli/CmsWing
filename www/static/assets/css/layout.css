@@ -540,7 +540,7 @@ label {
 	position:relative;
 }
 .btn-default {
-	border-width:2px;
+	border-width:1px;
 }
 
 .btn>.label-absolute {
