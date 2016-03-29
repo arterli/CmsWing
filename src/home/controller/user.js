@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-
+import pagination from 'think-pagination';
 export default class extends Base {
    async init(http){
         super.init(http);
@@ -10,7 +10,6 @@ export default class extends Base {
         //if(!login){
         //    return this.fail("你木有登录！")
         //}
-
     }
   /**
    * index action
@@ -19,9 +18,7 @@ export default class extends Base {
    */
  async indexAction(){
     //auto render template file index_index.html
-      if(!this.is_login){
-          return think.statusAction(1000, this.http);
-      }
+      if(!this.is_login){return think.statusAction(1000, this.http);}
 
       // this.http.error = new Error('成功信息！');
       // return think.statusAction(1001, this.http);
@@ -50,6 +47,50 @@ export default class extends Base {
           return this.display();
       }
   }
+
+    //我的订单
+    async orderAction(){
+        if(!this.is_login){return think.statusAction(1000, this.http);}
+        let status = this.get("status");
+        let map={};
+        if(!think.isEmpty(status)){
+            map.status = status;
+            this.assign('status',status);
+        }
+
+        map.is_del = 0;
+        // map.user_id = this.user.uid;
+        // this.config("db.nums_per_page",20)
+        let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let html = pagination(data, this.http, {
+            desc: false, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: 'count: ${count} , pages: ${pages}'
+            }
+        });
+        this.assign('pagination', html);
+        for(let val of data.data){
+            switch (val.payment){
+                case 100:
+                    val.channel = "预付款支付";
+                    break;
+                case 1001:
+                    val.channel = "货到付款";
+                    break;
+                default:
+                    val.channel = await this.model("pingxx").where({id:val.payment}).getField("title",true);
+            }
+        }
+        this.assign('list', data.data);
+        this.meta_title = "我的订单";
+        return this.display();
+    }
 //   用户设置
   setingAction(){
       if(!this.is_login){

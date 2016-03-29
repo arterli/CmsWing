@@ -1,0 +1,197 @@
+{% extends "../inc/base.html" %} {% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户</a></li>
+            <li class="active">{{controller.meta_title}}</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+
+
+<!-- -->
+			<section>
+				<div class="container">
+					
+					<!-- LEFT -->
+					{% include "../inc/user_left.html" %}
+					<!-- RIGHT -->
+					<div class="col-lg-10 col-md-10 col-sm-8">
+
+						<h4 class="page-header margin-top-0"><i class="fa fa-reorder fa-lg text-default"></i> {{controller.meta_title}}</h4>
+
+						<ul class="nav nav-tabs nav-top-border">
+							<li class="active"><a href="/order/usr">全部订单</a></li>
+							<li><a  href="#profile_3">待付款</a></li>
+							<li><a  href="#profile_3">待收货</a></li>
+							<li><a  href="#profile_3">待评价</a></li>
+							<li class="dropdown">
+								<a data-toggle="dropdown" class="dropdown-toggle"  href="#">近三个月 <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a data-toggle="tab" tabindex="-1" href="#dropdown1">@fat</a></li>
+									<li><a data-toggle="tab" tabindex="-1" href="#dropdown2">@mdo</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="table-responsive">
+							<table class="table table-bordered  order-tb">
+								<thead>
+								<tr>
+									<th >订单详情</th>
+									<th>收货人</th>
+									<th>金额</th>
+									<th>状态</th>
+									<th>操作</th>
+
+								</tr>
+								</thead>
+								{% for item in list %}
+								<tbody>
+								<tr class="sep-row">
+									<td class="height-10" colspan="5"></td>
+
+								</tr>
+								<tr class="active">
+									<td colspan="5">
+										<a class="btn btn-danger btn-xs pull-right nomargin"><i class="fa fa-trash-o"></i>删除订单</a>
+										<h5 class="margin-bottom-0"><small>{{item.create_time|dateformat('Y-m-d H:i:s')}} </small> <span class="margin-left-20">订单号：<a href="#" target="_blank"  >{{item.order_no}}</a></span></h5>
+	                                </span>
+
+
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="goods-item">
+											<div class="p-img">
+												<a href="http://item.jd.com/2311317.html" clstag="click|keycount|orderinfo|order_product" target="_blank">
+													<img class="" src="//img10.360buyimg.com/N6/s60x60_jfs/t2368/143/1861338688/334040/b48a51a6/568f5c04N99476be5.jpg" title="百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海" data-lazy-img="done" height="60" width="60">
+
+												</a>
+											</div>
+											<div class="p-msg">
+												<div class="p-name"><a href="http://item.jd.com/2311317.html" class="a-link" clstag="click|keycount|orderinfo|order_product" target="_blank" title="百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海">百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海</a></div>
+											</div>
+										</div>
+										<div class="goods-number">
+											x1
+										</div>
+
+
+										<div class="goods-repair">
+											<a href="http://myjd.jd.com/repair/ordersearchlist.action?searchString=13540723740" target="_blank" clstag="click|keycount|orderinfo|order_repair">返修/退换货</a>
+											</div>
+
+									</td>
+									<td style="border-bottom: none"><a href="javascript:;" type="button"  data-container="body" data-toggle="popover" data-placement="left" data-content=" 李桂录 186****1637<br>
+
+陕西西安市雁塔区高新路望庭国际1号楼二单元 24楼
+
+
+" data-original-title="" title=""> <span aria-hidden="true" class="et-profile-male"></span> 李桂录</a></td>
+									<td style="border-bottom: none"><div class="amount">
+										<span>总额 ¥149.00</span> <br>
+										<span class="ftx-13">货到付款</span>
+									</div></td>
+									<td style="border-bottom: none">
+										<div class="status">
+                    <span class="order-status ftx-03">
+
+            	已完成
+
+                    </span>
+											<br>
+
+											<a target="_blank" clstag="click|keycount|orderlist|dingdanxiangqing" href="//order.jd.com/normal/item.action?orderid=13540723740&amp;PassKey=148FDF7E98AF696F8DA6EE86847460F2">订单详情</a>
+										</div>
+									</td>
+									<td style="vertical-align: middle;border-bottom: none">
+										<a class="btn btn-default btn-xs" href="#"><i class="fa fa-edit white"></i> Edit </a>
+									</td>
+
+								</tr>
+								<tr>
+									<td>
+										<div class="goods-item">
+											<div class="p-img">
+												<a href="http://item.jd.com/2311317.html" clstag="click|keycount|orderinfo|order_product" target="_blank">
+													<img class="" src="//img10.360buyimg.com/N6/s60x60_jfs/t2368/143/1861338688/334040/b48a51a6/568f5c04N99476be5.jpg" title="百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海" data-lazy-img="done" height="60" width="60">
+
+												</a>
+											</div>
+											<div class="p-msg">
+												<div class="p-name"><a href="http://item.jd.com/2311317.html" class="a-link" clstag="click|keycount|orderinfo|order_product" target="_blank" title="百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海">百富帝（byford)床品家纺全棉斜纹印花四件套床上用品纯棉套件加大双人1.5/1.8米床 听海</a></div>
+											</div>
+										</div>
+										<div class="goods-number">
+											x1
+										</div>
+
+
+										<div class="goods-repair">
+											<a href="http://myjd.jd.com/repair/ordersearchlist.action?searchString=13540723740" target="_blank" clstag="click|keycount|orderinfo|order_repair">返修/退换货</a>
+										</div>
+
+									</td>
+									<td  style="border-top: none"></td>
+									<td style="border-top: none"></td>
+									<td  style="border-top: none"></td>
+									<td  style="border-top: none"></td>
+
+
+								</tr>
+								</tbody>
+								{% else %}
+								<tbody>
+								<tr class="sep-row">
+									<td class="height-10" colspan="5"></td>
+
+								</tr>
+								<tr><td colspan="5"><div class="alert alert-warning alert-block">
+									<button data-dismiss="alert" class="close" type="button">×</button>
+									<p>This would display if the 'item' collection were empty</p>
+								</div></td></tr>
+								</tbody>
+								{% endfor %}
+							</table>
+						</div>
+						<!-- PAGINATION -->
+						<div class="text-right">
+							<!-- Pagination Default -->
+							{{pagination | safe}}
+							<!-- /Pagination Default -->
+						</div>
+						<!-- /PAGINATION -->
+					</div>
+					
+				</div>
+			</section>
+			<!-- / -->
+{% endblock %}
+{% block script %}
+
+        {% endblock %}
