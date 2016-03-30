@@ -195,10 +195,15 @@
         /**选择商品类型 */
         
         $('.ichecks input').on('ifChecked', function(event){
+            var pic = $(this).next('img').attr('src');
+            if(pic){
+                $("figure").find('img').attr('src',pic);
+            }
             var shoptype = $(".icheck");
             var arr =[]
+            //console.log()
            $.each(shoptype,function(k,v) {
-            //console.log(this)
+
                var item = $(this).find('input:radio:checked').val()
                if(item){
                    arr.push(item); 

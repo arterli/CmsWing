@@ -934,6 +934,8 @@ function _ajax_post() {
 			},
 			onEnd: function(){
 				var str = $(".ichecks").serialize();
+				console.log(str);
+				//return false;
             $.ajax({
             type: "POST",
             url: "/cart/addcart",

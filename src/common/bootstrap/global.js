@@ -808,11 +808,11 @@ global.getsuk = function(suk, arr) {
                             v_.ch.forEach(function(v__, k__) {
                                 if (v__.name == arr[2]) {
 
-                                    suk_ = v__;
+                                    suk_ =think.extend( v__,v_,v);
                                 }
                             })
                         } else {
-                            suk_ = v_;
+                            suk_ = think.extend( v_,v);
                         }
 
                     }

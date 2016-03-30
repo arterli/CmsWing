@@ -68,16 +68,23 @@ export default class extends Base {
             dataobj.price=get_price(goods.price,1) * Number(val.qty);
             dataobj.unit_price =get_price(goods.price,1);
               dataobj.weight = goods.weight;
+              dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
           }else{
             let suk = JSON.parse(goods.suk);
             let arr_ = val.type.split(",");
             let getpr = getsuk(suk.data,arr_);
+              //console.log(getpr);
+              if(suk.is_pic==1){
+                  dataobj.pic = await get_cover(getpr.pic,'path');
+              }else {
+                  dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
+              }
             dataobj.price = Number(getpr.sku_price) * Number(val.qty);
             dataobj.unit_price =Number(getpr.sku_price);
               dataobj.weight = getpr.sku_weight;
             //console.log(dataobj.price);   
            }
-          dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
+
           dataobj.url = get_url(goods.name,goods.id);
           dataobj.product_id = val.product_id;
           dataobj.type = val.type;

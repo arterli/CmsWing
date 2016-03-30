@@ -293,7 +293,7 @@
             //console.log(tex);
         })
             //绘制第一个规格下面每个标签的图片
-           function drawPicBox(name) {
+           function drawPicBox() {
                var section = $('section.suk_body>section').eq(0);
                var tags = section.find(".tagsinput>span.tag")
               var size =  tags.size();
@@ -462,6 +462,20 @@
                     $( '#'+file.id ).find('.progress').remove();
                 });
             }
+            //是否添加图片
+            $(document).on("click","#js-addImg-function",function () {
+
+                if($(this).attr("checked")){
+                    $(this).attr("checked",false)
+                    $("#upload-img-wrap").html("");
+                    chandate();
+                }else {
+                    $(this).attr("checked",true)
+                    drawPicBox();
+                    chandate();
+                }
+            })
+
         //绘制表头
         function drawThead(){
             var arr = $('.chosen-select');
@@ -650,8 +664,9 @@
             $(".{{field.name}}_table table tbody").html(tbHtml);
             //拼装储存数据
             var {{field.name}}_info={
-                type:type,
-                data:narr
+                "type":type,
+                "data":narr,
+                "is_pic":$("#js-addImg-function:checked").val()?$("#js-addImg-function:checked").val():0
             }
             if(type.length>0){
                 $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
@@ -707,7 +722,8 @@
            //拼装储存数据
             var {{field.name}}_info={
                 "type":type,
-                "data":result
+                "data":result,
+                "is_pic":$("#js-addImg-function:checked").val()?$("#js-addImg-function:checked").val():0
             }
 
             if(type.length>0){
@@ -824,7 +840,7 @@
                 var ispic = "";
                 var ispicwrap = '';
                 if(size ==1){
-                    ispic = '<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label><input type="checkbox" id="js-addImg-function" value=""><i></i>添加规格图片</label></div> ';
+                    ispic = '<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label><input type="checkbox" id="js-addImg-function" value="1"><i></i>添加规格图片</label></div> ';
                     ispicwrap = '<div id="upload-img-wrap"></div>';
                 }
 
@@ -865,8 +881,8 @@
     {
     //console.log(JSON.stringify(elem));
         //console.log(elem_tags);
-        if(size == 1){
-            drawPicBox(elem_tags);
+        if(size == 1 && $("#js-addImg-function").attr("checked") ){
+            drawPicBox();
         }
 
     drawThead()//绘制表头
