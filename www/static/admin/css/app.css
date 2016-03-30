@@ -4454,3 +4454,43 @@ table.treetable tr.expanded.accept td span.indenter a {
 .btn-yahoo:active,.btn-yahoo.active,.open>.dropdown-toggle.btn-yahoo{background-image:none}
 .btn-yahoo.disabled,.btn-yahoo[disabled],fieldset[disabled] .btn-yahoo,.btn-yahoo.disabled:hover,.btn-yahoo[disabled]:hover,fieldset[disabled] .btn-yahoo:hover,.btn-yahoo.disabled:focus,.btn-yahoo[disabled]:focus,fieldset[disabled] .btn-yahoo:focus,.btn-yahoo.disabled:active,.btn-yahoo[disabled]:active,fieldset[disabled] .btn-yahoo:active,.btn-yahoo.disabled.active,.btn-yahoo[disabled].active,fieldset[disabled] .btn-yahoo.active{background-color:#720e9e;border-color:rgba(0,0,0,0.2)}
 .btn-yahoo .badge{color:#720e9e;background-color:#fff}
+/*多按钮上传组建*/
+#upload-img-wrap {padding: 15px;}
+#upload-img-wrap .uplodbox{display: inline-block;position: relative}
+#upload-img-wrap .webuploader-pick{
+  width: 105px;
+  height: 105px;
+  margin: 0 20px 20px 0;
+
+}
+#upload-img-wrap .uploader-list{
+  overflow: inherit;
+}
+.close-modal.small {
+  border-radius: 9px;
+  font-size: 14px;
+  height: 18px;
+  line-height: 16px;
+  right: -8px;
+  top: -8px;
+  width: 18px;
+}
+.close-modal {
+  background: rgba(153, 153, 153, 0.6) none repeat scroll 0 0;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  height: 20px;
+  line-height: 18px;
+  position: absolute;
+  right: -9px;
+  text-align: center;
+  top: -9px;
+  width: 20px;
+  z-index: 2;
+}
+.close-modal:hover {
+  background: #000000 none repeat scroll 0 0;
+  color: #fff;
+}
