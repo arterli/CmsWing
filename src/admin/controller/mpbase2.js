@@ -584,8 +584,11 @@ export default class extends Base{
                 }
             ]
         }
-        this.assign('data', JSON.stringify(data));
         let self = this;
+        let model = self.model('wx_custom_menu');
+        let ddata = await model.where({personality: null}).find();
+        self.assign('data',ddata.custom_menu);
+        self.assign('menuid',ddata.id);
         self.meta_title = "微信自定义菜单";
         self.assign({"navxs": true, "bg": "bg-dark"});
         return this.display();
@@ -597,6 +600,7 @@ export default class extends Base{
     async savecustommenuAction(){
         let self = this;
         let newv = self.post('newv');
+        let menuid = self.post('menuid');//菜单ID
         let currwebtoken = 0;
         try{
             // return self.end(newv);
