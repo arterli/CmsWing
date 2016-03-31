@@ -194,7 +194,7 @@ function hsInitMenu(menuData){
             $('.hs-menu-item-add').before(fli);
         }
     }catch(e){
-        console.error('function hsInitMenu has error');
+        console.log('function hsInitMenu has error');
     }
 }
 

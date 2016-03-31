@@ -184,32 +184,37 @@ export default class extends Base {
 
         let m_id = this.post('m_id');
         let pid = this.post('pid');
+        console.log(m_id);
+        console.log(pid);
         let menu_model =this.model("wx_menu");
         let res = await menu_model.where({m_id: ["=", m_id]}).delete();
         if(res){
-            if(pid){
-                let cmenus = await menu_model.where({pid:["=",pid]}).select();
+            if(m_id) {
+                let cmenus = await menu_model.where({pid: ["=", m_id]}).select();
                 let ure = "";
-                for(var x=0;x<cmenus.length;x++){
-                    ure = await menu_model.where({id:["=",cmenus[x].id]}).update({"sort":(x+1)});
+                for (var x = 0; x < cmenus.length; x++) {
+                    ure = await menu_model.where({id: ["=", cmenus[x].id]}).update({"sort": (x + 1)});
                 }
-                if(res && ure){
+
+                if (res) {
                     return this.json("1");
-                }else{
-                    return this.json("2");
-                }
-            }else{
-                let fmenus = await menu_model.where({pid:["=",0]}).select();
-                let ures = "";
-                for(var x=0;x<fmenus.length;x++){
-                    ures =  await menu_model.where({id:["=",fmenus[x].id]}).update({"sort":(x+1)});
-                }
-                if(res && ures){
-                    return this.json("1");
-                }else{
+                } else {
+                    console.log("mawt");
                     return this.json("2");
                 }
             }
+            //}else{
+            //    let fmenus = await menu_model.where({pid:["=",0]}).select();
+            //    let ures = "";
+            //    for(var x=0;x<fmenus.length;x++){
+            //        ures =  await menu_model.where({id:["=",fmenus[x].id]}).update({"sort":(x+1)});
+            //    }
+            //    if(res && ures){
+            //        return this.json("1");
+            //    }else{
+            //        return this.json("2");
+            //    }
+            //}
         }else{
             return this.json("2");
         }
@@ -610,6 +615,45 @@ export default class extends Base {
             return this.json('1');
         }else{
             return this.json('2');
+        }
+    }
+
+/*
+        "m_id": time,
+        "pid": "0",
+        "type": "",
+        "name": "菜单名称",
+        "sort": (length+1),
+        "sub_button": []
+*/
+
+    async ajaxaddmenuAction(){
+
+        let m_id = this.post("id");
+        let name = this.post("name");
+        let sort = this.post('sort');
+        let pid = this.post('pid');
+        let type = this.post('type');
+        let url = this.post('url');
+        let web_token = '';
+        let media_id = this.post('media_id');
+        let menu_model =this.model("wx_menu");
+
+        let data = {
+            "m_id":m_id,
+            "name":name,
+            "sort":sort,
+            "pid":pid,
+            "type":type,
+            "web_token":web_token,
+            "media_id":media_id,
+            "url":url
+        };
+        let res = await menu_model.add(data);
+        if(res){
+            return this.json("1");
+        }else{
+            return this.json("2");
         }
     }
 

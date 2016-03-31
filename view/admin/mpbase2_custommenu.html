@@ -21,7 +21,7 @@
                     <section class="scrollable wrapper">
                         
                             
-                        <section class="panel panel-default" style="background-color:#f4f5f9; padding:15px">
+                        <section id="conditionals" class="panel panel-default" style="background-color:#f4f5f9; padding:15px;display:none;">
                             <!-- 个性化 start -->
                             <div class="hs-personality-conditions">
                                 
@@ -402,8 +402,10 @@
         
     })
 
-    var data = {{data|safe}};
-    
+//    var data = null;
+    var data = {{ data | safe }};
+    var menuid = {{ menuid | safe }};
+
 </script>
 <script src="/static/admin/js/hswx/js/hs_selfmenu.js"></script>
 <script>
@@ -416,6 +418,7 @@
         $(document).on('click', '#hsSelNewsBtn', function(){
            hs_show_dialog('imgtext', {
                submit: function(e, d, i){
+
                    var media_id = i.substr(9);
                    var dialog = $(d._div);
                    var newsed = dialog.find('#'+i);
@@ -437,13 +440,17 @@
             $('#newssed').hide();
             $('#newssed').html('');
         });
-        
-        
+
         //保存
         $(document).on('click', '#hsSubmitSave', function(){
             var newv = JSON.stringify(hsGetCurrentAllData());
+            console.log(JSON.stringify(newv));return;
+
             $.post('/admin/mpbase2/savecustommenu',
-                { newv : newv },
+                {
+                    newv : newv,
+                    menuid : menuid
+                },
                 function(data){
                     if(data.errno == 0){
                         toastr.success(data.data.name);
