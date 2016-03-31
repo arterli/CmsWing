@@ -57,7 +57,7 @@
 
 						<!-- RIGHT -->
 						<div class="col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
-                           <h1 class="blog-post-title">{{info.title}}</h1>
+                           <h1 class="blog-post-title size-18">{{info.title}}</h1>
                            <hr>
 							<div class="row">
 							
@@ -160,18 +160,22 @@
                             {% set suk = info.suk|strToJson%}
                             {% set i = 0 %}
                             {% for item in suk.type%}
-                            <div class="icheck m-b" >
-                            <div class="item">
+                            <div class="icheck m-b clearfix shop-sku" >
+                            <div class="item dt pull-left text-justify text-right">
                             {{item}}:
                             </div>
+								<div class="itemnbox">
                             {% if i == 0 %}
                             {% for _item in suk.data %}
                             <!--{{suk.data[0].name}}-->
+
                             <div class="item">
                             <input type="radio"  name="size1" value="{{_item.name}}" >
                             <label >{%if suk.is_pic == 1%}<img class="m-r-xs" height="30" alt="" src="{{_item.pic|get_cover('path')}}">{%endif%}{{_item.name}}</label>
                             </div>
+
                             {% endfor %}
+
                             {% elif i==1 %}
                             {% for _item in suk.data[0].ch %}
                             <!--{{suk.data[0].name}}-->
@@ -188,7 +192,8 @@
                             <label >{{_item.name}}</label>
                             </div>
                             {% endfor %}
-                            {% endif %} 
+                            {% endif %}
+								</div>
                           </div>
                           {% set i = i+1%}
                           {% endfor %}
@@ -282,7 +287,7 @@
 
 
 
-							<ul id="myTab" class="nav nav-tabs nav-top-border margin-top-80" role="tablist">
+							<ul id="myTab" class="nav nav-tabs nav-top-border margin-top-40" role="tablist">
 								<li role="presentation" class="active"><a href="#description" role="tab" data-toggle="tab">商品介绍</a></li>
 								<li role="presentation"><a href="#specs" role="tab" data-toggle="tab">规格参数</a></li>
 								<li role="presentation"><a href="#reviews" role="tab" data-toggle="tab">商品评价 (2)</a></li>

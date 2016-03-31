@@ -9,15 +9,16 @@
     "watch": "npm run watch-compile"
   },
   "dependencies": {
-    "thinkjs": "2.2.x",
     "babel-runtime": "6.x.x",
+    "geetest": "*",
+    "node-crontab": "*",
+    "pingpp": "*",
     "source-map-support": "^0.4.0",
+    "tar.gz": "^1.0.2",
     "think-pagination": "*",
     "think-wechat": "*",
-    "pingpp": "*",
-    "wechat-api": "^1.20.0",
-    "tar.gz": "^1.0.2",
-    "geetest": "*"
+    "thinkjs": "2.2.x",
+    "wechat-api": "^1.20.0"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

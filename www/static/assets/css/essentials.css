@@ -14130,6 +14130,7 @@ body.stop-scrolling {
 
 
 /*icheck*/
+
 .icheckbox_sm-blue, .radio_sm-blue {
     position: relative;
     display: block;
@@ -14167,8 +14168,20 @@ body.stop-scrolling {
 .icheckbox_sm-blue.checked:hover, .radio_sm-blue.checked:hover{
     border-color: #d43f3a;
 }
+.shop-sku{padding-left: 70px}
+.icheck .dt{
+	margin-left: -70px;
+	width: 65px;
+	text-align: justify;
+}
+.icheck .dt > span
+{
+	　　display: inline-block /* Opera */;
+	　　padding-left: 100%;
+}
 .icheck .item{
     display: inline-block;
+	margin-bottom: 5px;
 }
 
 .addr-detail{
@@ -14192,6 +14205,7 @@ body.stop-scrolling {
     background: #fcf8e3;
     color: #333;
 }
+.itemnbox{}
 /*订单类别*/
 .order-tb {
 	border-top: none;
