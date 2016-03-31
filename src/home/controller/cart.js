@@ -402,7 +402,7 @@ async createorderAction(){
         data.order_amount = order_amount;
         //生成订单
        let order_id = await this.model("order").add(data);
-    
+
     //储存宝贝
     //let order_id = 22;
     console.log(isgoods);
@@ -420,7 +420,8 @@ async createorderAction(){
     console.log(ngoods);
     await this.model("order_goods").addMany(ngoods);
     console.log(data);
-    
+    //减少订单中商品的库存
+    await this.model("order").stock(order_id,true);
     return this.success({name:'订单创建成功，正在跳转支付页面！',url:`/home/cart/pay/order/${order_id}/setp/3`});
     
 }

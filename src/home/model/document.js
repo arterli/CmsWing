@@ -25,5 +25,7 @@ export default class extends think.model.base {
         info = think.extend({},info,details);
         return info;
     }
+    
+    
 
 }

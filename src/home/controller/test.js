@@ -120,9 +120,9 @@ export default class extends Base {
             console.log(`Got error: ${e.message}`);
         });
     }
-    oidAction(){
+    async oidAction(){
+      
 
-        let d2 = date_from(1459269259689+86400000)
-        console.log(d2);
+       this.end();
     }
 }

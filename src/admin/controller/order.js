@@ -96,6 +96,8 @@ export default class extends Base {
             let admin_remark = this.post("admin_remark");
             let voids =await this.model("order").where({id:id}).update({status:6,admin_remark:admin_remark});
             if(voids){
+                //释放库存
+                await this.model("order").stock(id,false);
                 return this.success({name:"操作成功！",url:this.http.header["referer"]})
             }else {
                 return this.fail("操作失败！")

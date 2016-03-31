@@ -39,9 +39,11 @@ export default class extends think.controller.base {
     if(!think.isEmpty(order)){
       for(let v of order){
        await this.model("order").where({id:v.id}).update({status:6,admin_remark:"规定时间未付款系统自动作废"})
+        //释放库存
+        await this.model("order").stock(v.id,false);
       }
     }
-    //释放库存
+
     //think.log(new Date(),"订单作废任务执行时间")
     this.end();
   }
