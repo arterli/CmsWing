@@ -36,11 +36,11 @@
 <!-- -->
 			<section>
 				<div class="container">
-					
+					<div class="row">
 					<!-- LEFT -->
 					{% include "../inc/user_left.html" %}
 					<!-- RIGHT -->
-					<div class="col-lg-9 col-md-9 col-sm-8">
+					<div class="col-lg-10 col-md-10 col-sm-8">
 
 						<!-- FLIP BOX -->
 						<div class="box-flip box-icon box-icon-center box-icon-round box-icon-large text-center nomargin">
@@ -64,7 +64,7 @@
 						</div>
 						<!-- /FLIP BOX -->
 
-
+{#
 						<div class="box-light hide"><!-- .box-light OR .box-dark -->
 
 							<div class="row">
@@ -356,7 +356,7 @@
 
 
 						</div>
-
+                       #}
 
 						<div class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
 							<div class="box-inner">
@@ -368,7 +368,7 @@
 											</figure>
 											<div class="testimonial-content">
 												<h5 class="margin-bottom-8">账户余额： </h5>
-												￥98800.36
+												￥<span class="text-danger">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</span>
 											</div>
 										</div>
 									</li>
@@ -379,7 +379,7 @@
 											</figure>
 											<div class="testimonial-content">
 												<h5 class="margin-bottom-8">订单交易总金额： </h5>
-												￥107.64
+												￥<span class="text-danger">{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</span>
 											</div>
 										</div>
 									</li>
@@ -390,7 +390,7 @@
 											</figure>
 											<div class="testimonial-content">
 												<h5 class="margin-bottom-8">我的积分： </h5>
-												0
+												<span class="text-danger">{%if userInfo.score %}{{userInfo.score}}{%else%}0{%endif%}</span>
 
 											</div>
 										</div>
@@ -402,7 +402,7 @@
 											</figure>
 											<div class="testimonial-content">
 												<h5 class="margin-bottom-8">会员级别： </h5>
-												普通会员
+												<span class="text-danger">{{userInfo.group_id}}</span>
 											</div>
 										</div>
 									</li>
@@ -413,7 +413,7 @@
 											</figure>
 											<div class="testimonial-content">
 												<h5 class="margin-bottom-8">进行中的订单： </h5>
-												4
+												<span class="text-danger">{{onOrder}}</span> 笔
 											</div>
 										</div>
 									</li>
@@ -434,7 +434,7 @@
 						</div>
 
 					</div>
-					
+					</div>
 				</div>
 			</section>
 			<!-- / -->

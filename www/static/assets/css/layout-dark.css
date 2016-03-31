@@ -127,7 +127,7 @@ section .display-table p {
 		body.grain-grey #header.fixed,
 		body.grain-green #header.fixed,
 		body.grain-orange #header.fixed,
-		body.grain-yellow #header..fixed{
+		body.grain-yellow #header.fixed{
 			background-color:#333;
 		}
 

@@ -21,7 +21,8 @@
                .shadow-before-3 	= shadow 3 header top
                .shadow-after-3 	= shadow 3 header bottom
        -->
-<section class="page-header dark page-header-xs ">
+<section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/thematics/lawyer/slider_bg_4-min.jpg')">
+	<div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
     <div class="container">
 
         <h1>{{category.title}}</h1>
@@ -97,10 +98,12 @@
                                     {% if pic|length >1%}
 									<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" 
                                     data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false,"itemsMobile":[479,5]}'>
+										{%set i = 0%}
 										{% for val in pic%}
-                                        <a class="thumbnail active" href="{{val|get_cover('path')}}">
+                                        <a class="thumbnail {%if i == 0%}active{%endif%}" href="{{val|get_cover('path')}}">
 											<img src="{{val|get_cover('path')}}" height="100" alt="" />
 										</a>
+										{%set i=i+1%}
                                         {% endfor %}
 										
 									</div>
@@ -166,7 +169,7 @@
                             <!--{{suk.data[0].name}}-->
                             <div class="item">
                             <input type="radio"  name="size1" value="{{_item.name}}" >
-                            <label for="sex-man"><img class="m-r-xs" height="30" alt="" src="/upload/picture/2016-02-26/PCQbaNF7m06EHWmXnMu7cYXE.jpg">{{_item.name}}</label>
+                            <label >{%if suk.is_pic == 1%}<img class="m-r-xs" height="30" alt="" src="{{_item.pic|get_cover('path')}}">{%endif%}{{_item.name}}</label>
                             </div>
                             {% endfor %}
                             {% elif i==1 %}
@@ -174,7 +177,7 @@
                             <!--{{suk.data[0].name}}-->
                             <div class="item">
                             <input type="radio"  name="size2" value="{{_item.name}}" >
-                            <label for="sex-man">{{_item.name}}</label>
+                            <label >{{_item.name}}</label>
                             </div>
                             {% endfor %}
                             {% else %}
@@ -182,7 +185,7 @@
                             <!--{{suk.data[0].name}}-->
                             <div class="item">
                             <input type="radio"  name="size3" value="{{_item.name}}" >
-                            <label for="sex-man">{{_item.name}}</label>
+                            <label >{{_item.name}}</label>
                             </div>
                             {% endfor %}
                             {% endif %} 

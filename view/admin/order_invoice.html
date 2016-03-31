@@ -31,6 +31,7 @@
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light" id="export-form">
                     <thead>
+
                     <tr>
 
                         <th>发货单号</th>
@@ -44,54 +45,36 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    {% for v in list %}
                     <tr>
-                        <td>20160305131416668</td>
-                        <td> 20160229132904600317</td>
+                        <td>{{v.invoice_no}}</td>
+                        <td> {{v.order_no}}</td>
 
-                        <td>88888212414154</td>
-                        <td>中国邮政</td>
+                        <td>{{v.express_no}}</td>
+                        <td>{{v.express_company_id}}</td>
                         <td>
-                            arterli
+                            {{v.accept_name}}
                         </td>
                         <td>
-                            18681851637
-                        </td><td> 	2016-03-07</td>
+                            {{v.mobile}}
+                        </td>
+                        <td> {{v.create_time|dateformat('Y-m-d H:i:s')}}</td>
                         <td><a href="#" class="text-info"> 查看</a></td>
                     </tr>
-                    <tr>
-                        <td>20160305131416668</td>
-                        <td> 20160229132904600317</td>
+                    {% endfor%}
 
-                        <td>88888212414154</td>
-                        <td>中国邮政</td>
-                        <td>
-                            arterli
-                        </td>
-                        <td>
-                            18681851637
-                        </td><td> 	2016-03-07</td>
-                        <td><a href="#" class="text-info"> 查看</a></td>
-                    </tr>   <tr>
-                        <td>20160305131416668</td>
-                        <td> 20160229132904600317</td>
-
-                        <td>88888212414154</td>
-                        <td>中国邮政</td>
-                        <td>
-                            arterli
-                        </td>
-                        <td>
-                            18681851637
-                        </td><td> 	2016-03-07</td>
-                        <td><a href="#" class="text-info"> 查看</a></td>
-                    </tr>
 
                     </tbody>
                 </table>
             </div>
             <footer class="panel-footer">
+                <div class="row">
 
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
             </footer>
         </section>
     </section>

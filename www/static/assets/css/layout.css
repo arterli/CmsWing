@@ -540,7 +540,7 @@ label {
 	position:relative;
 }
 .btn-default {
-	border-width:2px;
+	border-width:1px;
 }
 
 .btn>.label-absolute {
@@ -1142,33 +1142,6 @@ section.page-header {
 		 -o-transition: all 0s;
 			transition: all 0s;
 }
-/* Pattern overlay
-------------------------- */
-section.page-header .container {
-  position: relative;
-  z-index: 2;
-}
-section.page-header:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: url(../images/bs-docs-masthead-pattern.png) repeat center center;
-  opacity: .4;
-}
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (   min--moz-device-pixel-ratio: 2),
-only screen and (     -o-min-device-pixel-ratio: 2/1) {
-
-  section.page-header:after {
-    background-size: 150px 150px;
-  }
-
-}
 
 	/* shadows */
 	section.page-header.shadow-after-1:before {
@@ -1200,20 +1173,10 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 	}
 
 
-	section.dark.page-header {
-		color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
-    background: #666;
-    background: -moz-linear-gradient(45deg, #1F221F 0%, #666 100%);
-    background: -webkit-linear-gradient(45deg, #1F221F 0%,#666 100%);
-    background: -o-linear-gradient(45deg, #1F221F 0%,#666 100%);
-    background: -ms-linear-gradient(45deg, #1F221F 0%,#666 100%);
-    background: linear-gradient(45deg, #1F221F 0%,#666 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1F221F', endColorstr='#666',GradientType=1 );
-    -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-    -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-    box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
-	}
+section.dark.page-header {
+	color:#fff;
+	background-color:#151515;
+}
 	section.light.page-header {
 		color:#151515;
 		background-color:transparent;
@@ -1246,7 +1209,7 @@ only screen and (     -o-min-device-pixel-ratio: 2/1) {
 		display:block;
 		text-align:left;
 		margin-bottom:-21px;
-		margin-top:40px;
+		margin-top:20px;
 	}
 	.page-header.page-header-md ul.page-header-tabs {
 		display:block;

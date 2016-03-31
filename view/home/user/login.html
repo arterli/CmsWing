@@ -6,7 +6,7 @@
 								</div>
         <div class="modal-body wrapper-lg">
             <div class="row">
-                <div class="col-sm-6 b-r">
+                <div class="col-sm-7 b-r">
                     <!--<h3 class="m-t-none m-b">已有账号</h3>
                     <p>Sign in to meet your friends.</p>-->
                     <form role="form" class="sky-form" id="login" method="post">
@@ -25,6 +25,9 @@
                                 <a href="#" class="pull-right">忘记密码?</a>
                             </div>
                         </div>
+                        <div class="form-group hide"> <div id="captcha"></div>
+                            <p id="wait" class="show">正在加载验证码......</p>
+                            <p id="notice" class="hide">请先拖动验证码到相应位置</p></div>
 
                         <div class="row">
 
@@ -46,7 +49,7 @@
 
                     </form>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <h4>还没有账号?</h4>
                     <p>你可以在<a href="/user/register" class="text-info">这里</a>创建一个帐户 </p>
                     <p>或者</p>
@@ -66,3 +69,91 @@
     <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
+<!-- 引入封装了failback的接口--initGeetest -->
+<!--
+<script src="/static/admin/js/gt.js"></script>
+<script>
+
+    var handler = function (captchaObj) {
+
+        var success = false;
+
+        window.captchaObj = captchaObj;
+
+
+        $("#login1").on('submit',function (e) {
+            e.preventDefault();
+            var validate = captchaObj.getValidate();
+
+            if (!validate) {
+
+                $("#notice")[0].className = "show";
+
+                setTimeout(function () {
+
+                    $("#notice")[0].className = "hide";
+
+                }, 2000);
+
+                return;
+            }
+            var data=$("#login").serialize();
+
+            $.ajax({
+                url: "/test/geetest",
+                type: "post",
+                dataType: "json",
+                data:data,
+                success: function (data) {
+
+                    if (data && (data.status === "success")) {
+
+                        alert("登录成功");
+
+                    } else {
+
+                        alert("登录失败，请完成验证");
+
+                        captchaObj.refresh();
+                    }
+
+                },
+                error: function () {
+                    alert("网络错误");
+                }
+            });
+          return false;
+        });
+
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#captcha");
+        if($("#captcha").html().length > 0){$("#wait")[0].className = "hide"};
+        captchaObj.onReady(function () {
+
+            $("#wait")[0].className = "hide";
+
+        });
+    };
+
+    $.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "/test/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json", // 使用jsonp格式
+        success: function (data) {
+
+            // 使用initGeetest接口
+            // 参数1：配置参数，与创建Geetest实例时接受的参数一致
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                product: "float", // 产品形式
+                width:"100%",
+                offline: !data.success
+            }, handler);
+        }
+    });
+
+</script>
+-->

@@ -8,10 +8,11 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+    <link rel="stylesheet" href="/static/mobile/css/icons.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
     <link rel="stylesheet" href="/static/mobile/css/app.css">
+
     {% block style %}{% endblock %}
 </head>
   </head>
@@ -28,12 +29,13 @@
     </div>
 
     <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-    <!--<script>$.config = {router: false}</script>-->
+    <script>$.config = {router: false}</script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
 
      {% block script %}{% endblock %}
-    <script type='text/javascript' src='/static/mobile/js/app999999781.js' charset='utf-8'></script>
+    <script>document.write("<script type='text/javascript' src='/static/mobile/js/app.js?time="+new Date().getTime()+"' charset='utf-8'><\/script>")</script>
+
      <!-- 默认必须要执行$.init(),实际业务里一般不会在HTML文档里执行，通常是在业务页面代码的最后执行 -->
 
   </body>

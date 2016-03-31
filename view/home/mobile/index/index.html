@@ -11,30 +11,9 @@
         </a>
         <h1 class="title">{{controller.setup.WEB_SITE_TITLE}}</h1>
     </header>
-
-    <nav class="bar bar-tab">
-        <a  class="tab-item active" href="/">
-            <span class="icon icon-home"></span>
-            <span class="tab-label">首页</span>
-        </a>
-        <a  class="tab-item" href="/column/blog">
-            <span class="icon icon-browser"></span>
-            <span class="tab-label">新闻</span>
-        </a>
-        <a data-no-cache="true" class="tab-item " href="#">
-            <span class="icon icon-star"></span>
-            <span class="tab-label">商城</span>
-        </a>
-        <a data-no-cache="true" class="tab-item " href="#">
-            <span class="icon icon-cart"></span>
-            <span class="tab-label">购物车</span>
-        </a>
-        <a data-no-cache="true" class="tab-item " href="#">
-            <span class="icon icon-me"></span>
-            <span class="tab-label">登录</span>
-        </a>
-    </nav>
-
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
 
 <div class="content pull-to-refresh-content" data-ptr-distance="55">
 

@@ -23,6 +23,10 @@ export default class extends Base {
      */
   
     indexAction(){
+        this.meta_title="用户列表";
+        //获取管理组
+        let role = this.model("auth_role").where({status:1}).select();
+        this.assign("role",role);
         return this.display();
     }
 
@@ -33,7 +37,12 @@ export default class extends Base {
         let length = parseInt(gets.length);
         let draw = gets.draw;
         let key = gets['search[value]'];
-        let userList =await this.db.limit(start, length).where({username: ["like", "%"+key+"%"]}).field("id,username,score,login,last_login_ip,last_login_time,status").order("id DESC").countSelect()
+        let userList =await this.db.join({
+            table:"customer",
+            join:"left",
+            as:"u",
+            on:['id','user_id']
+        }).field("id,username,score,login,last_login_ip,last_login_time,status,u.real_name,u.group_id,u.balance").limit(start, length).where({username: ["like", "%"+key+"%"]}).order("id DESC").countSelect()
         userList.data.forEach(v=>{
             v.last_login_time=times(v.last_login_time)
             v.last_login_ip=_int2iP(v.last_login_ip)
@@ -49,6 +58,42 @@ export default class extends Base {
     }
 
     /**
+     * 会员充值
+     */
+    async rechargeAction(){
+        if(this.isAjax("POST")){
+            let data = this.post();
+           let res =  await this.model("customer").where({user_id:data.id}).increment("balance",data.balance);
+            console.log(res);
+            if(res){
+                let amount_log = await this.model("customer").where({user_id:data.id}).getField("balance",true);
+                console.log(amount_log);
+                //充值成功后插入日志
+                let log = {
+                    admin_id:this.user.uid,
+                    user_id:data.id,
+                    type:2,
+                    time:new Date().valueOf(),
+                    amount:data.balance,
+                    amount_log:amount_log,
+                    note:`管理员（${await get_nickname(this.user.uid)}）为您充值，充值的金额为：${data.balance} 元`
+                }
+                await this.model('balance_log').add(log);
+                return this.success({name:"充值成功！"});
+            }else {
+                return this.fail("充值失败！");
+            }
+        }else {
+            let id = this.get("ids");
+            let name = get_nickname(id);
+            this.assign("name",name);
+            this.assign("id",id);
+            this.meta_title = "会员充值";
+            return this.display();
+        }
+
+    }
+    /**
      * adduser
      * 添加用户
      * @returns {Promise|*}
@@ -57,12 +102,20 @@ export default class extends Base {
          let data=this.post();
              data.password = encryptPassword(data.password);
              data.reg_time = new Date().valueOf();
-        let res = await this.db.add(data);
-        if(res){
+         let res = await this.db.add(data);
+
+         if(res){
+             //用户副表
+             await this.model("customer").add({user_id:res});
+
+             //添加角色
+             if(data.is_admin == 1){
+                 await this.model("auth_user_role").add({user_id:res,role_id:data.role_id});
+             }
             return this.json(1);
-        }else{
+         }else{
             return this.json(0)
-        }
+         }
 
     }
 

@@ -115,9 +115,10 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
-        _login();
+	    _login();
         _swal();
         _ajax_post();
+	    _pingpp();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
@@ -933,6 +934,8 @@ function _ajax_post() {
 			},
 			onEnd: function(){
 				var str = $(".ichecks").serialize();
+				console.log(str);
+				//return false;
             $.ajax({
             type: "POST",
             url: "/cart/addcart",
@@ -973,21 +976,21 @@ function _ajax_post() {
           
          
          
-          function formatCurrency (num) {  
-        num = num.toString().replace(/\$|\,/g,'');  
-        if(isNaN(num))  
-            num = "0";  
-        var sign = (num == (num = Math.abs(num)));  
-        num = Math.floor(num*100+0.50000000001);  
-        var cents = num%100;  
-        num = Math.floor(num/100).toString();  
-        if(cents<10)  
-        cents = "0" + cents;  
-        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)  
-        num = num.substring(0,num.length-(4*i+3))+','+  
-        num.substring(num.length-(4*i+3));  
-        return (((sign)?'':'-') + num + '.' + cents);  
-    }  
+          function formatCurrency (num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        var sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        var cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+        cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
      }
 
 /** 02. Animate
@@ -1059,7 +1062,7 @@ function _ajax_post() {
  *********************************************************************/
    function _icheck(){
        var _container = $("div.icheck");
-       console.log(_container.length)
+
        if(_container.length > 0){
            
            loadScript(plugin_path + 'icheck/icheck.min.js', function(){
@@ -2463,7 +2466,7 @@ function _ajax_post() {
 		_onclick = url to redirect (example: http://www.stepofweb.com)
  **************************************************************** **/
 	function _toastr(_message,_position,_notifyType,_onclick) {
-		var _btn 	= jQuery(".toastr-notify");
+		var _btn 	= $(".toastr-notify");
 
 		if(_btn.length > 0 || _message != false) {
 
@@ -2472,7 +2475,7 @@ function _ajax_post() {
 
 				/** BUTTON CLICK
 				 ********************* **/
-				_btn.bind("click", function(e) {
+				_btn.on("click", function(e) {
 					e.preventDefault();
 
 
@@ -2547,7 +2550,7 @@ function _ajax_post() {
 
 					setTimeout(function(){
 						toastr[_notifyType](_message);
-					}, 1500); // delay 1.5s
+					}, 0); // delay 1.5s
 				}
 			});
 		
@@ -3648,7 +3651,47 @@ function _ajax_post() {
 
 	}
 
+/** pingpp
+ *******************************************************************/
+function _pingpp(){
+	var _container = $(".pingpp_pay");
 
+	if(_container.length > 0){
+		loadScript(plugin_path + 'pingpp/pingpp-pc.js',function () {
+			_container.click(function (e) {
+				var order_id = $("input[name='order_id']").val()
+
+				var payment = $('input[name="payment"]:radio:checked').val()
+
+				$.ajax({
+					type:"post",
+					url:"/cart/pay",
+					data:{order_id:order_id,payment:payment},
+					success:function (res) {
+						console.log(res);
+						if(res.errno==1000){
+							_toastr(res.errmsg,"top-right","error",false);
+							return false;
+						}else if(res.data.url){
+							window.location.href = res.data.url;
+						} else if(res.data.data){
+							_toastr(res.data.name,"top-right","success",false);
+
+								pingppPc.createPayment(res.data.data, function(result, err) {
+									console.log(result);
+									console.log(err);
+								});
+
+
+						}
+
+					}
+					
+				})
+			})
+		})
+	}
+}
 
 /** Dribbble Widget
  **************************************************************** **/

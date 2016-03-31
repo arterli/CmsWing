@@ -2,7 +2,7 @@
 <html lang="en" class="app">
 <head>
     <meta charset="utf-8" />
-    <title>error | CmsWing</title>
+    <title>未登录 | CmsWing</title>
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="/static/admin/css/bootstrap.css" type="text/css" />
@@ -18,25 +18,32 @@
     <![endif]-->
 </head>
 <body class="bg-light dk">
-<section id="content">
+<section id="content" >
     <div class="row m-n">
         <div class="col-sm-4 col-sm-offset-4">
             <div class="text-center m-b-lg">
-                <h1 class="h text-white animated fadeInDownBig">404</h1>
+                <h1 class="h text-white animated fadeInDownBig" >:(</h1>
+            </div>
+            <div class="alert alert-danger text-md ">
+                <i class="fa fa-exclamation-circle "></i>   系统检测您尚未登录，请先登录！
             </div>
             <div class="list-group auto m-b-sm m-b-lg">
-                <a href="index.html" class="list-group-item">
+                <a href="/user/login" data-toggle="ajaxModal" class="list-group-item">
                     <i class="fa fa-chevron-right icon-muted"></i>
-                    <i class="fa fa-fw fa-home icon-muted"></i> Goto homepage
+                    <i class="fa fa-fw icon-login icon-muted"></i> 立即登录
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="user/register" class="list-group-item">
                     <i class="fa fa-chevron-right icon-muted"></i>
-                    <i class="fa fa-fw fa-question icon-muted"></i> Send us a tip
+                    <i class="fa fa-fw fa-user icon-muted"></i> 还没账号，立即注册！
                 </a>
-                <a href="#" class="list-group-item">
+                <a href="<%if (http.referrer()){%><%= http.referrer()%><%}%>" class="list-group-item" id="href">
                     <i class="fa fa-chevron-right icon-muted"></i>
-                    <span class="badge bg-info lt">021-215-584</span>
-                    <i class="fa fa-fw fa-phone icon-muted"></i> Call us
+                    <i class="fa fa-fw fa-mail-reply icon-muted"></i> 返回上一页
+                </a>
+                <a href="index" class="list-group-item">
+                    <i class="fa fa-chevron-right icon-muted"></i>
+                    <!--<span class="badge bg-info lt">021-215-584</span>-->
+                    <i class="fa fa-fw fa-home icon-muted"></i> 返回首页
                 </a>
             </div>
         </div>
@@ -46,7 +53,7 @@
 <footer id="footer">
     <div class="text-center padder clearfix">
         <p>
-            <small>Web app framework base on Bootstrap<br>&copy; 2014</small>
+            <small> <a href="http://www.cmswing.com" target="_blank" class="badge ">CmsWing内容管理框架 [cmswing.com]</a> <br>&copy;2005 - <script>document.write(new Date().getFullYear())</script></small>
         </p>
     </div>
 </footer>
@@ -58,7 +65,36 @@
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
+<script>
+    $(function () {
+        var href = document.getElementById('href').href,url = document.URL;
+        if(href == url){
+            $("#href").addClass("hide");
+        }
+        _login();
+    })
+    function _login (){
+        $(document).on('submit','#login',function(e){
+            var data=$(this).serialize()
+            $.ajax({
+                type: "POST",
+                url: "/user/login",
+                data: data,
+                success: function(msg){
+                    if(msg.errno < 0){
+                        _toastr(msg.errmsg,"top-right","error",false);
+                    }else{
+                        //$('#ajaxModal').remove();
+                        location.reload(true);
+                    }
+                }
+            });
 
+
+            return false;
+        })
+    }
+</script>
 
 </body>
 </html>

@@ -26,18 +26,23 @@
                         <input type="text" name="email" class="form-control" data-type="email" data-required="true"  data-Remote="/admin/user/parsley">
                     </div>
                     <div class="form-group" >
-                        <label>用户组</label>
+                        <label>用户类型 <i class="fa fa-info-sign text-xs text-muted">选择前台用户不能登陆后台管理。</i></label>
                         <div>
-                            <div class="btn-group">
+                            <label class="radio-inline i-checks">
+                                <input type="radio" value="0" name="is_admin" checked><i></i> 前台
+                            </label><label class="radio-inline i-checks">
+                            <input type="radio" value="1" name="is_admin"><i></i> 后台
+                        </label>
+                            <div class="btn-group hide is_admin_group">
                                 <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
                                     <span class="dropdown-label">选择用户组</span>
                                     <span class="caret"></span>
                                 </button>
+
                                 <ul class="dropdown-menu dropdown-select">
-                                    <li><input type="radio" name="d-s-r"><a href="#">默认</a></li>
-                                    <li class=""><input type="radio" name="d-s-r"><a href="#">商家</a></li>
-                                    <li class=""><input type="radio" name="d-s-r"><a href="#">编辑</a></li>
-                                    <li class=""><input type="radio" name="d-s-r"><a href="#">管理员</a></li>
+                                    {%for val in role %}
+                                    <li class=""><input type="radio" name="role_id" value="{{val.id}}"><a href="#">{{val.desc}}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -71,18 +76,22 @@
 
                 </header>
                 <div class="table-responsive">
-                    <table class="table table-striped m-b-none" data-ride="datatables">
-                        <thead>
-                        <tr>
-                            <th style="width:5%"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                            <th  style="width:7%">UID</th>
-                            <th  style="width:15%">用户名</th>
-                            <th  style="width:10%">积分</th>
-                            <th  style="width:10%">登陆次数</th>
-                            <th  style="width:15%">最后登陆时间</th>
-                            <th  style="width:15%">最后登陆IP</th>
-                            <th  style="width:8%">状态</th>
-                            <th  style="width:15%">操作</th>
+                    <table class="table  table-hover m-b-none" data-ride="datatables">
+                        <thead >
+                        <tr class="active">
+                            <th ><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                            <th  >UID</th>
+                            <th  >用户名</th>
+                            <th  >真实姓名</th>
+                            <th  >积分</th>
+                            <th  >登陆次数</th>
+                            <th  >最后登陆时间</th>
+                            <th  >最后登陆IP</th>
+
+                            <th  >会员等级</th>
+                            <th  >账户余额</th>
+                            <th  >状态</th>
+                            <th  >操作</th>
                         </tr>
                         </thead>
                         <tbody>

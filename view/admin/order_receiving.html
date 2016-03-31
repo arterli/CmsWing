@@ -44,56 +44,29 @@
                     </tr>
                     </thead>
                     <tbody>
-
+{%for val in list%}
                     <tr>
-                        <td>订单支付</td>
-                        <td> 预存款支付</td>
+                        <td>{%if val.doc_type == 0%}订单支付{%endif%}</td>
+                        <td> {{val.channel}}</td>
 
-                        <td>已支付</td>
-                        <td>783.00</td>
+                        <td>{%if val.pay_status == 0%} <span class="text-muted">未支付</span>{%else%}<span class="text-success">已支付</span>{%endif%} </td>
+                        <td>{{val.amount|formatCurrency}}</td>
                         <td>
-                            arterli
+                            {{val.user_id|get_nickname}}
                         </td>
                         <td>
-                            20160307115721407617
-                        </td><td> 	2016-03-07</td>
+                            {{val.order_id}}
+                        </td><td>{{val.payment_time|dateformat('Y-m-d H:i:s')}}</td>
                         <td><a href="#" class="text-info"> 查看</a></td>
                     </tr>
-                    <tr>
-                        <td>订单支付</td>
-                        <td> 预存款支付</td>
+{%endfor%}
 
-                        <td>已支付</td>
-                        <td>783.00</td>
-                        <td>
-                            arterli
-                        </td>
-                        <td>
-                            20160307115721407617
-                        </td><td> 	2016-03-07</td>
-                        <td><a href="#" class="text-info"> 查看</a></td>
-                    </tr>
-                    <tr>
-                        <td>订单支付</td>
-                        <td> 预存款支付</td>
-
-                        <td>已支付</td>
-                        <td>783.00</td>
-                        <td>
-                            arterli
-                        </td>
-
-                        <td>
-                            20160307115721407617
-                        </td><td> 	2016-03-07</td>
-                        <td><a href="#" class="text-info"> 查看</a></td>
-                    </tr>
 
                     </tbody>
                 </table>
             </div>
             <footer class="panel-footer">
-
+                {{pagerData | safe}}
             </footer>
         </section>
     </section>

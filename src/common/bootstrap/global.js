@@ -808,11 +808,11 @@ global.getsuk = function(suk, arr) {
                             v_.ch.forEach(function(v__, k__) {
                                 if (v__.name == arr[2]) {
 
-                                    suk_ = v__;
+                                    suk_ =think.extend( v__,v_,v);
                                 }
                             })
                         } else {
-                            suk_ = v_;
+                            suk_ = think.extend( v_,v);
                         }
 
                     }
@@ -936,4 +936,22 @@ global.checkMobile = function(agent) {
         }
     }
     return flag;
+}
+/**
+ *
+ * @param time
+ * @returns {string}'January 31, 2018 15:03:26'
+ */
+global.date_from=(time)=>{
+    // January 31, 2018 15:03:26
+    let months = ["January","February","March","April","May","June","July","August", "September","October","November","December"]
+    let d = new Date(time)
+    let month = months[d.getMonth()];
+    let day = d.getDate();
+    let year = d.getFullYear();
+    let hour = d.getHours()<10?`0${d.getHours()}`:d.getHours();
+    let min =d.getMinutes()<10?`0${d.getMinutes()}`:d.getMinutes();
+    let sec =d.getSeconds()<10?`0${d.getSeconds()}`:d.getSeconds();
+    let res = `${month} ${day}, ${year} ${hour}:${min}:${sec}`;
+    return res;
 }

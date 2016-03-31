@@ -2,7 +2,6 @@
 
 import Base from './base.js';
 import WechatAPI from 'wechat-api';
-import nunjucks from 'nunjucks';
 export default class extends Base {
   /**
    * index action
@@ -27,5 +26,103 @@ export default class extends Base {
      this.display();
       
   }
- 
+
+   async payAction(){
+        // let payment = think.service("payment");
+        // let pay = new payment();
+        // let charges = await pay.pingxx();
+        // this.json(charges);
+       let dd = think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem"
+       console.log(dd);
+    }
+   rsaAction(){
+       // var key = new NodeRSA({b: 512});
+       // var keyData = '-----BEGIN PUBLIC KEY----- ... -----BEGIN PRIVATE KEY-----';
+       // key.importKey(keyData, 'pkcs8');
+       this.end(11);
+   }
+
+    async geetestAction(){
+        var privateKey = 'ae68a05dc013d21cad068a7f4271eca1 ';//key
+        var publicKey = '4dad8be53801fa4e2e50c1be078e2187 ';//id
+        var geetest = require('geetest')(privateKey, publicKey);
+        //初始
+        let register=(geetest) =>{
+            var publicKey = '4dad8be53801fa4e2e50c1be078e2187 ';//id
+            let deferred = think.defer();
+            geetest.register(function(err, challenge) {
+                if (err) {
+                    //network error
+                    deferred.resolve({
+                        gt: publicKey,
+                        success: false
+                    });
+                    return;
+                }
+                if(challenge) {
+                    //deal with it
+                    //res.json({challenge: challenge})
+                    //console.log(challenge);
+                    deferred.resolve({
+                        challenge: challenge,
+                        gt:publicKey,
+                        success: true
+                    });
+                }
+            })
+            return deferred.promise;
+        }
+
+        //验证
+        let validate = (geetest,data)=>{
+            let deferred = think.defer();
+            geetest.validate({
+
+                challenge: data.geetest_challenge,
+                validate: data.geetest_validate,
+                seccode: data.geetest_seccode
+
+            }, function (err, result) {
+                console.log(result);
+                var data = {status: "success"};
+
+                if (err || !result) {
+                     console.log(err);
+                    data.status = "fail";
+                }
+
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        }
+        if(this.isPost()){
+         let post =this.post();
+            console.log(post);
+            let res = await validate(geetest,post);
+            console.log(res);
+            return this.json(res);
+        }else {
+            let res = await register(geetest);
+            console.log(res);
+            return this.json(res);
+        }
+
+
+    }
+    httpAction(){
+        let http = require('http');
+
+        http.get('http://127.0.0.1:8360', (res) => {
+            console.log(res);
+            // consume response body
+            res.resume();
+        }).on('error', (e) => {
+            console.log(`Got error: ${e.message}`);
+        });
+    }
+    oidAction(){
+
+        let d2 = date_from(1459269259689+86400000)
+        console.log(d2);
+    }
 }

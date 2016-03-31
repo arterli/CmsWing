@@ -195,10 +195,15 @@
         /**选择商品类型 */
         
         $('.ichecks input').on('ifChecked', function(event){
+            var pic = $(this).next('img').attr('src');
+            if(pic){
+                $("figure").find('img').attr('src',pic);
+            }
             var shoptype = $(".icheck");
             var arr =[]
+            //console.log()
            $.each(shoptype,function(k,v) {
-            //console.log(this)
+
                var item = $(this).find('input:radio:checked').val()
                if(item){
                    arr.push(item); 
@@ -206,7 +211,8 @@
             })
             if(arr.length == shoptype.length){
                 var aa = getsuk(arr)
-               // console.log(aa.sku_price);
+                console.log(aa.sku_price);
+                console.log(arr);
                 $("price").text(formatCurrency(aa.sku_price));
                 $("#type").val(arr);
             } 
@@ -237,7 +243,7 @@
                       $.each(v.ch,function (k_,v_) {
                           if(v_.name == arr[1]){
                              if(v_.ch){
-                                 $.each(v.ch,function (k__,v__) {
+                                 $.each(v_.ch,function (k__,v__) {
                           if(v__.name == arr[2]){
                              
                              suk_ = v__;
@@ -364,6 +370,7 @@
                 }
             })
         })
+
          //编辑
 
              $(document).on( "change","#province1",function (e) {
@@ -455,7 +462,53 @@
             });
             
         })
-        
+        //地址
+        function _addrs(boll) {
+            if(boll){
+                var val = $('.addr-list input:checked').val();
+                ajaxaddr(val);
+                real_freight(val)
+            }
+
+
+            $('.addr-list input').on('ifChecked', function(event){
+                var addr_id=$(this).val();
+                //console.log(addr_id)
+                ajaxaddr(addr_id);
+                real_freight(addr_id)
+            });
+            //获取地址
+            function ajaxaddr(addr_id) {
+                $.ajax({
+                    url:"/cart/getaddr/id/"+addr_id,
+                    success:function (res) {
+                        //console.log(res);
+                        if(res.errno==0){
+                            var val = res.data.data;
+                            var html ='<p><strong>寄送至：</strong>'+ val.province +" "+ val.city+" "+val.county+" "+ val.addr+'</p> <h4><strong>收货人：</strong>'+val.accept_name+" "+val.mobile+'</h4>'
+                            $(".showaddr").html(html);
+                        }
+                    }
+                })
+            }
+            //获取运费
+            function real_freight(addr_id) {
+                $.ajax({
+                    url:"/cart/getfare/id/"+addr_id,
+                    success:function (res) {
+                        //console.log(res);
+                        //return false;
+                        var freight ='<span class="text-success">+</span> ￥<span class="text-danger">'+formatCurrency(res.real_freight)+'</span>'
+                        //console.log(html)
+                        $("#real_freight").html(freight);
+                        var order_amount = '￥'+res.order_amount;
+                        $("#order_amount").html(order_amount);
+
+                    }
+                })
+            }
+        }
+       _addrs(false);
       function addr_add_html(data){
              var addrArr = [];
             $.each(data,function (k,val) {
@@ -486,8 +539,10 @@
                   insert: label_text
               });
           });
+          _addrs(true);
       }
-        
+
+
 		/** CHECKOUT
 		 ** *********************** **/
 		// New Account show|hide

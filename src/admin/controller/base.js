@@ -24,6 +24,7 @@ export default class extends think.controller.base {
         if (!is_login) {
             this.redirect('/admin/public/signin');
         }
+
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
@@ -42,23 +43,26 @@ export default class extends think.controller.base {
         let is_admin = await this.is_admin();
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
-        if(!is_admin){
-        let Auth = think.adapter("auth", "rbac");
-        let auth = new Auth(this.user.uid);
-        let res = await auth.check(url);
-            if(!res){
-                return this.fail('未授权访问!');
+        if (!is_admin) {
+            let Auth = think.adapter("auth", "rbac");
+            let auth = new Auth(this.user.uid);
+            let res = await auth.check(url);
+            if (!res) {
+                //return this.fail('未授权访问!');
+                this.http.error = new Error('未授权访问!');
+                return think.statusAction(1002, this.http);
             }
         }
+
         //console.log(this.user.uid);
-        this.active = this.http.url.slice(1),
-        // console.log(this.active);
-        //this.active = http.controller+'/'+http.action;
-        //think.log(this.active);
-        this.assign({
-            "navxs": false,
-            "bg": "bg-black"
-        })
+        //this.active = this.http.url.slice(1),
+            // console.log(this.active);
+            this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
+            think.log(this.active);
+            this.assign({
+                "navxs": false,
+                "bg": "bg-black"
+            })
     }
 
     /**
@@ -86,10 +90,10 @@ export default class extends think.controller.base {
     /**
      * 对数据表中的单行或多行记录执行修改 GET参数id为数字或逗号分隔的数字
      *
-     * @param String model 模型名称,供M函数使用的参数
-     * @param Object  data  修改的数据
-     * @param Object  where 查询时的where()方法的参数
-     * @param Object  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供M函数使用的参数
+     * @param {Object}  data  修改的数据
+     * @param {Object}  where 查询时的where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                      url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -114,9 +118,9 @@ export default class extends think.controller.base {
 
     /**
      * 禁用条目
-     * @param String model 模型名称,供D函数使用的参数
-     * @param Object  where 查询时的 where()方法的参数
-     * @param Object  msg   执行正确和错误的消息,可以设置四个元素 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供D函数使用的参数
+     * @param {Object}  where 查询时的 where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息,可以设置四个元素 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -129,9 +133,9 @@ export default class extends think.controller.base {
 
     /**
      * 恢复条目
-     * @param String model 模型名称,供D函数使用的参数
-     * @param Object  where 查询时的where()方法的参数
-     * @param Object  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {String} model 模型名称,供D函数使用的参数
+     * @param {Object}  where 查询时的where()方法的参数
+     * @param {Object}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -144,9 +148,9 @@ export default class extends think.controller.base {
 
     /**
      * 还原条目
-     * @param string $model 模型名称,供D函数使用的参数
-     * @param array  $where 查询时的where()方法的参数
-     * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {string} model 模型名称,供D函数使用的参数
+     * @param {array}  where 查询时的where()方法的参数
+     * @param {array}  msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      * @author arterli <arterli@qq.com>
      */
@@ -159,9 +163,9 @@ export default class extends think.controller.base {
 
     /**
      * 条目假删除
-     * @param string $model 模型名称,供D函数使用的参数
-     * @param array  $where 查询时的where()方法的参数
-     * @param array  $msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
+     * @param {string} model 模型名称,供D函数使用的参数
+     * @param {array}  where 查询时的where()方法的参数
+     * @param {array} msg   执行正确和错误的消息 {'success':'','error':'', 'url':'','ajax':false}
      *                     url为跳转页面,ajax是否ajax方式(数字则为倒数计时秒数)
      *
      * @author arterli <arterli@qq.com>
@@ -206,8 +210,8 @@ export default class extends think.controller.base {
 
     /**
      * 返回后台节点数据
-     * @param boolean $tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
-     * @retrun array
+     * @param {boolean} tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
+     * @retrun {array}
      *
      * 注意,返回的主菜单节点数组中有'controller'元素,以供区分子节点和主节点
      *
@@ -235,8 +239,8 @@ export default class extends think.controller.base {
 
     /**
      * 处理文档列表显示
-     * @param array list 列表数据
-     * @param integer model_id 模型id
+     * @param {array} list 列表数据
+     * @param {integer} model_id 模型id
      */
     async parseDocumentList(list, model_id) {
         model_id = model_id || 1;
@@ -264,7 +268,7 @@ export default class extends think.controller.base {
                             data[key] = dateformat('Y-m-d', data[key]);
                         } else if ('datetime' == type) { // 时间型
                             data[key] = dateformat('Y-m-d H:i', data[key]);
-                        } else if('pics' === type){
+                        } else if ('pics' === type) {
                             data[key] = `<span class="thumb-sm"><img alt="..." src="${data[key]}" class="img-responsive img-thumbnail"></span>`;
                         }
                     }

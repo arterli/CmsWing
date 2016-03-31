@@ -210,6 +210,7 @@ table tr td{
                                             </select>
                                             <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title='<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格'
                                                 data-content="<div class='form-inline'><div class='form-group '><input type='text' placeholder='请输入规格' class='form-control input-sm m-l js-tas-input'></div><a class='btn btn-success btn-sm js-tags ' href='javascript:;'>保存</a></div>">添加规格</a>
+                                            {%if n == 1%}<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label><input type="checkbox" name="is_pic" id="js-addImg-function" value="1" {%if pp.is_pic == 1%}checked{%endif%} ><i></i>添加规格图片</label></div>{%endif%}
                                             <a  class="close {{field.name}}_close" id="select-{{n}}" >×</a>
                                         </div>
                                         </header>
@@ -218,6 +219,19 @@ table tr td{
                                         <input type="text" class="tags" value="" />
                                         </div>
                                         </div>
+                              {%if n == 1%}<div id="upload-img-wrap">
+                              {%set size = 0%}
+                              {%for pic in pp.data%}
+
+                              <div id="box_{{size}}" class="uplodbox"><input type="hidden" id="cover_id_{{size}}" value="{{pic.pic}}">
+                                  <div class="uploader-list" id="fileList_{{size}}"><div class="file-item thumbnail upload-state-done" id="WU_FILE_{{size}}">
+                                      <img src="{{pic.pic|get_cover('path')}}" style="height:100px;width: 100px">
+                                      <div class="info">{{pic.name}}</div><div class="atom-close close-modal small js-remove-sku-atom">×</div></div></div>
+                                  <div data-id="{{size}}" id="filePicker_{{size}}" class="webuploader-container hide">
+                                      <i style="font-size: 36px;margin-top: 15px" class="fa fa-file-image-o"></i><br>{{pic.name}}</div> </div>
+                              {%set size=size+1%}
+                              {%endfor%}
+                          </div>{%endif%}
                                     </section>
                                     {%endfor%}
                     </section>
@@ -266,9 +280,11 @@ table tr td{
          if(stock_val){
              stock_val = JSON.parse(stock_val);
              //console.log(stock_val);
+
              var arr1=[];
              var nn=0
              $.each(stock_val.data,function(k,v){
+                 uploadpic(k,v.name);
                 arr1.push(v.name);
                 var arr2=[];
                 if(v.ch){
@@ -293,15 +309,22 @@ table tr td{
                 }
              }) 
              $(".tags").eq(0).val(arr1.join(","));
+
              }
-        //初始化
+        localStorage.setItem("tagstj",1)
+        //初始化规格
          $('.tags').tagsInput({
             width:'auto',
             height:'43px',
             defaultText:'添加规格',
             onChange: function(elem, elem_tags)
                 {
-                    
+                   var dd = $(elem).parent().parent().parent();
+
+                    if($(dd).attr("data-id") == "select-1" && $("#js-addImg-function").attr("checked") && localStorage.getItem("tagstj") !=1){
+                        drawPicBox();
+                    }
+
                     drawThead()//绘制表头
                     drawTbody()//绘制表格
                     //当有规格添加时锁定价格和库存
@@ -309,6 +332,11 @@ table tr td{
                     $("input[name='weight']").attr("disabled",true);
                 }
             });
+            localStorage.removeItem("tagstj")
+            //初始化图片
+//            if($("#js-addImg-function").attr("checked") ){
+//                drawPicBox();
+//            }
             cout()
         //批量设置价格
         $(document).on('click',"#js-batch-price",function(){
@@ -356,10 +384,193 @@ table tr td{
         $(document).on('change','.chosen-select',function(){
             var val = $('.chosen-select').val();//获取选中的值
             var tex = $('.chosen-select option:selected').text();//选择选择的文字
-            drawThead()//绘制表头
+            drawThead();//绘制表头
             //console.log(val);
             //console.log(tex);
-        })
+        });
+            //绘制第一个规格下面每个标签的图片
+            function drawPicBox() {
+                var section = $('section.suk_body>section').eq(0);
+                var tags = section.find(".tagsinput>span.tag")
+                var size =  tags.size();
+                var odlediv = $("#upload-img-wrap>div")
+                //获取上次的结构
+                var arr=[]
+                $.each(odlediv,function (k, v) {
+                    var obj = {};
+                    // var html = '<div class="uplodbox" id="box_'+k+'">'+$(v).html()+'</div>'
+                    //console.log(html);
+                    var val=$(v).find("input").val();
+                    var calss = $(v).find(".webuploader-container").attr("class");
+                    var html = $(v).find(".uploader-list").html()
+                    obj.val = val;
+                    obj.class = calss;
+                    obj.html = html;
+                    arr.push(obj);
+                })
+                console.log(arr)
+                $.each(tags,function (k, v) {
+                    var tagsname = $(v).find("span").text()
+                    var pic_upload;
+
+                    if(arr[k]){
+                        pic_upload = '<div class="uplodbox" id="box_'+k+'"><input type="hidden" id="cover_id_'+k+'" value="'+arr[k]['val']+'"/>\
+                                 <div id="fileList_'+k+'" class="uploader-list">'+arr[k]['html']+'</div>\
+                                 <div id="filePicker_'+k+'" data-id="'+k+'" class="'+arr[k]['class']+'"> <i class="fa fa-file-image-o" style="font-size: 36px;margin-top: 15px"></i></br>'+tagsname+'</div></div>'
+                        console.log(pic_upload);
+                    }else {
+                        pic_upload = '<div class="uplodbox" id="box_'+k+'"><input type="hidden" id="cover_id_'+k+'"/>\
+                                 <div id="fileList_'+k+'" class="uploader-list"></div>\
+                                 <div id="filePicker_'+k+'" data-id="'+k+'"> <i class="fa fa-file-image-o" style="font-size: 36px;margin-top: 15px"></i></br>'+tagsname+'</div></div>'
+                    }
+
+
+
+                    var imgwrap = section.find("#upload-img-wrap")
+                    if(k==0){
+                        imgwrap.html(pic_upload);
+                    }else {
+                        imgwrap.append(pic_upload);
+                    }
+
+                    uploadpic(k,tagsname);
+
+                })
+
+
+            }
+            //删除图片
+            $(document).on('click',".js-remove-sku-atom",function () {
+                //找到父节点清除
+                var par = $(this).parents(".uploader-list");
+                par.html("");
+                //图片从服务器上删除 todo
+
+                //显示上传按钮
+                par.next("div.webuploader-container").removeClass("hide");
+                //清空图片
+                par.prev("input").val("")
+                //删除图片后改变数据机构
+                chandate();
+
+            })
+            //上传图片
+            function uploadpic(size,name) {
+                $list = $('#fileList_'+size),
+                        //console.log($list);
+                        // 优化retina, 在retina下这个值是2
+                        ratio = window.devicePixelRatio || 1,
+
+                        // 缩略图大小
+                        thumbnailWidth = 100 * ratio,
+                        thumbnailHeight = 100 * ratio,
+
+                        // Web Uploader实例
+                        uploader;
+
+                // 初始化Web Uploader
+                // 初始化Web Uploader
+                var uploader = WebUploader.create({
+                    // 选完文件后，是否自动上传。
+                    auto: true,
+                    // swf文件路径
+                    swf: '/static/admin/js/webuploader/Uploader.swf',
+                    // 文件接收服务端。
+                    server: '/admin/file/uploadpic',
+                    // 选择文件的按钮。可选。
+                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    pick: {
+                        id:'#filePicker_'+size,
+                        multiple: false
+                    },
+                    // 只允许选择图片文件。
+                    accept: {
+                        title: 'Images',
+                        extensions: 'gif,jpg,jpeg,bmp,png',
+                        mimeTypes: 'image/*'
+                    }
+                });
+                // 当有文件添加进来的时候
+                uploader.on( 'fileQueued', function( file ) {
+                    var $li = $(
+                                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                    '<img>' +
+                                    '<div class="info">' + name + '</div>' +
+                                    '<div class="atom-close close-modal small js-remove-sku-atom">×</div>'+
+                                    '</div>'
+                            ),
+                            $img = $li.find('img');
+
+                    $('#fileList_'+size).html( $li );
+                    $('#filePicker_'+size).addClass("hide");
+
+                    //记录dome
+                    // 创建缩略图
+                    uploader.makeThumb( file, function( error, src ) {
+                        if ( error ) {
+                            $img.replaceWith('<span>不能预览</span>');
+                            return;
+                        }
+
+                        $img.attr( 'src', src );
+                    }, thumbnailWidth, thumbnailHeight);
+                });
+
+                // 文件上传过程中创建进度条实时显示。
+                uploader.on( 'uploadProgress', function( file, percentage ) {
+
+                    var $li = $( '#'+file.id ),
+                            $percent = $li.find('.progress span');
+
+                    // 避免重复创建
+                    if ( !$percent.length ) {
+                        $percent = $('<p class="progress"><span></span></p>')
+                                .appendTo( $li )
+                                .find('span');
+                    }
+
+                    $percent.css( 'width', percentage * 100 + '%' );
+                });
+
+                // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                uploader.on( 'uploadSuccess', function( file,res ) {
+                    $( '#'+file.id ).addClass('upload-state-done');
+                    $("#cover_id_"+size).val(res);
+                    //图片上传成功后改变数据
+                    chandate();
+                });
+
+                // 文件上传失败，现实上传出错。
+                uploader.on( 'uploadError', function( file ) {
+                    var $li = $( '#'+file.id ),
+                            $error = $li.find('div.error');
+
+                    // 避免重复创建
+                    if ( !$error.length ) {
+                        $error = $('<div class="error"></div>').appendTo( $li );
+                    }
+
+                    $error.text('上传失败');
+                });
+
+                // 完成上传完了，成功或者失败，先删除进度条。
+                uploader.on( 'uploadComplete', function( file ) {
+                    $( '#'+file.id ).find('.progress').remove();
+                });
+            }
+            //是否添加图片
+            $(document).on("click","#js-addImg-function",function () {
+
+                if($(this).attr("checked")){
+                    $(this).attr("checked",false)
+                    $("#upload-img-wrap").html("");
+                    chandate();
+                }else {
+                    $(this).attr("checked",true)
+                    drawPicBox();
+                    chandate();
+                }
+            })
 
         //绘制表头
             function drawThead(){
@@ -368,7 +579,7 @@ table tr td{
                 $.each(arr,function(k,v){
                     if($(v).find("option:selected").text().length>0)
                         narr.push($(v).find("option:selected").text());
-                })
+                });
                 //console.log(narr);
                 var thHtml = "";
                 thHtml += "";
@@ -549,8 +760,9 @@ table tr td{
             $(".{{field.name}}_table table tbody").html(tbHtml);
             //拼装储存数据
             var {{field.name}}_info={
-                type:type,
-                data:narr
+                "type":type,
+                "data":narr,
+                "is_pic":$("#js-addImg-function:checked").val()?$("#js-addImg-function:checked").val():0
             }
             if(type.length>0){
                 $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
@@ -605,7 +817,8 @@ table tr td{
                 //拼装储存数据
                 var {{field.name}}_info={
                     "type":type,
-                    "data":result
+                    "data":result,
+                    "is_pic":$("#js-addImg-function:checked").val()?$("#js-addImg-function:checked").val():0
                 }
                 if(type.length>0){
                     $("#{{field.name}}").val(JSON.stringify({{field.name}}_info));
@@ -669,6 +882,7 @@ table tr td{
                     obj.name = m;
                     obj.type = type[k]
                     // console.log(obj);
+                    obj.pic = $("#cover_id_"+n).val();
                     narr.push(obj);
                 })
                     
@@ -717,6 +931,13 @@ table tr td{
                     data:{type:1,pid:0,model_id:{{data.model_id}} },
                 success:function(res){
                     var size = $(".{{field.name}}_body>section").size()+1;
+//第一个规格添加图片
+                    var ispic = "";
+                    var ispicwrap = '';
+                    if(size ==1){
+                        ispic = '<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label><input type="checkbox" id="js-addImg-function" value="1"><i></i>添加规格图片</label></div> ';
+                        ispicwrap = '<div id="upload-img-wrap"></div>';
+                    }
 
                     var {{field.name}}_select = ""
                     {{field.name}}_select +='<section class="panel panel-default m-b-none" data-id="select-'+size+'">'+
@@ -730,6 +951,7 @@ table tr td{
 
                     {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格\''+
                             'data-content="<div class=\'form-inline\'><div class=\'form-group \'><input type=\'text\' placeholder=\'请输入规格\' class=\'form-control input-sm m-l js-tas-input\'></div><a class=\'btn btn-success btn-sm js-tags \' href=\'javascript:;\'>保存</a></div>">添加规格</a>'+
+                            ispic +
                             '<a class="close {{field.name}}_close" id="select-'+size+'" >×</a>'+
                             '</div>'+
                             '</header>'+
@@ -738,6 +960,7 @@ table tr td{
                             '<input type="text" class="tags" value="" />'+
                             '</div>'+
                             '</div>'+
+                            ispicwrap+
                             '</section>';
                     $('.{{field.name}}_body').append({{field.name}}_select);
 
@@ -751,7 +974,9 @@ table tr td{
                             defaultText:'添加规格',
                             onChange: function(elem, elem_tags)
                             {
-
+                                if(size == 1 && $("#js-addImg-function").attr("checked") ){
+                                    drawPicBox();
+                                }
                                 drawThead()//绘制表头
                                 drawTbody()//绘制表格
                                 //当有规格添加时锁定价格和库存

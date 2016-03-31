@@ -1,0 +1,84 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}} 列表
+                <i data-title="财务日志不能进行删除，永久保留！" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="hide">
+                        <a class="btn btn-sm btn-info ajax-get confirm" href="/admin/action/clear">
+                            清空
+                        </a>
+
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/remove" target-form="ids">
+                            删除
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+
+                        <th style="width:80px;">编号</th>
+                        <th class="">时间</th>
+                        <th class="">金额</th>
+                        <th class="">账户资金</th>
+                        <th class="">用户</th>
+                        <th class="">详细信息</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td>{{item.id}}</td>
+                        <td>{{item.time|dateformat("Y-m-d H:i:s")}}</td>
+                        <td>{{item.amount|formatCurrency}}</td>
+                        <td>{{item.amount_log|formatCurrency}}</td>
+                        <td >{{item.user_id}}</td>
+                        <td class="text-sm">
+                            {{item.note}}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}

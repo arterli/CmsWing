@@ -137,6 +137,8 @@
             var selected = null
             if(pid ==0){
                 html.push('<option value="0" selected="selected">一级菜单</option>');
+            }else {
+                html.push('<option value="0" >一级菜单</option>');
             }
             for (var i = 0; i < size; i++) {
                 left = nodes[i];

@@ -1,0 +1,230 @@
+{% extends "../inc/base.html" %} {% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户</a></li>
+            <li class="active">{{controller.meta_title}}</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+<!-- -->
+<section>
+    <div class="container">
+<div class="row">
+        <!-- LEFT -->
+        {% include "../inc/user_left.html" %}
+        <!-- RIGHT -->
+        <div class="col-lg-10 col-md-10 col-sm-8">
+
+            <h4 class="page-header margin-top-0"><i class="fa fa-reorder fa-lg text-default"></i>
+                {{controller.meta_title}}</h4>
+
+            <ul class="nav nav-tabs nav-top-border">
+                <li class="active"><a href="/order/usr">全部订单</a></li>
+                <li><a href="#profile_3 " ><span class="badge badge-red btn-xs badge-corner">8</span>待付款</a></li>
+                <li><a href="#profile_3"><span class="badge badge-red btn-xs badge-corner">8</span>待收货</a></li>
+                <li><a href="#profile_3"><span class="badge badge-red btn-xs badge-corner">8</span>待评价</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">近三个月 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a data-toggle="tab" tabindex="-1" href="#dropdown1">@fat</a></li>
+                        <li><a data-toggle="tab" tabindex="-1" href="#dropdown2">@mdo</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="table-responsive">
+                <table class="table table-bordered  order-tb">
+                    <thead>
+                    <tr>
+                        <th>订单详情</th>
+                        <th>收货人</th>
+                        <th>金额</th>
+                        <th>状态</th>
+                        <th>操作</th>
+
+                    </tr>
+                    </thead>
+                    {% for item in list %}
+                    <tbody>
+                    <tr class="sep-row">
+                        <td class="height-10" colspan="5"></td>
+
+                    </tr>
+                    <tr class="active">
+                        <td colspan="5">
+                            {%if item.status == 3%}
+                            <a href="#{{item.id}}" class="btn btn-default btn-xs pull-right nomargin"><i class="fa fa-trash-o nopadding"></i></a>
+                            {%endif%}
+                            {%if item.pay_status ==0%}
+                            <div class=" pull-right">
+                                <i class="fa fa-hourglass-half"></i> 剩余 <span class="countdown countdown-inline" data-from="{{item.end_time}}" data-labels="年,月,周,天,小时,分,秒"></span>
+                            </div>
+                            {%endif%}
+                            <h5 class="margin-bottom-0">
+                                <small>{{item.create_time|dateformat('Y-m-d H:i:s')}}</small>
+                                <span class="margin-left-20">订单号：<a href="#"
+                                                                    target="_blank">{{item.order_no}}</a></span></h5>
+                            </span>
+
+
+                        </td>
+                    </tr>
+                    {%set i=0%}
+                    {% for v in item.goods%}
+                    {% if i==0 %}
+                    <tr>
+                        <td>
+                            <div class="goods-item">
+                                <div class="p-img">
+                                    <a href="{{v.url}}" target="_blank">
+                                        <img class="" src="{{v.pic}}" title="{{v.title}}" data-lazy-img="done" height="100%" width="60">
+                                    </a>
+                                </div>
+                                <div class="p-msg">
+                                    <div class="p-name">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%}<a href="{{v.url}}" class="a-link" target="_blank" title="{{v.title}}">{{v.title}}</a></div>
+                                </div>
+                            </div>
+
+                            <div class="goods-number">
+                                x{{v.goods_nums}}
+                            </div>
+
+
+                            <div class="goods-repair">
+                                <a href="#{{item.id}}" target="_blank" >返修/退换货</a>
+                            </div>
+
+                        </td>
+                        <td style="border-bottom: none"><a href="javascript:;" type="button"
+                                                           data-container="body"
+                                                           data-toggle="popover"
+                                                           data-placement="left"
+                                                           data-content=" {{item.accept_name}} {{item.mobile}}<br>{{item.province}}{{item.city}}{{item.county}}{{item.addr}}"
+                                                           data-original-title="" title="">
+                            <span aria-hidden="true" class="et-profile-male"></span> {{item.accept_name}}</a></td>
+                        <td style="border-bottom: none">
+                            <div class="amount">
+                                <span class="text-danger">总额 ¥{{item.order_amount|formatCurrency}}</span> <br>
+                                <span class="ftx-13">{{item.channel}}</span>
+                            </div>
+                        </td>
+                        <td style="border-bottom: none">
+                            <div class="status">
+
+                                {%if item.pay_status == 0%}
+                                <span class="text-warning">等待付款</span>
+                                {%elif item.pay_status == 1 and item.status != 4%}
+                                <span class="text-success">等待收货</span>
+                                {%elif item.status == 4%}
+                                <span class="text-default">已完成</span>
+                                {%endif%}
+
+                            <br>
+                            <a target="_blank" href="#{{item.id}}">订单详情</a>
+                            </div>
+                        </td>
+                        <td style="vertical-align: middle;border-bottom: none">
+                            {%if item.pay_status == 0%}
+                            <a class="btn btn-danger btn-xs" href="/cart/pay/order/{{item.id}}" target="_blank"><i class="fa fa-credit-card white"></i>立即付款 </a>
+                            {%elif item.pay_status == 1 and item.status != 4%}
+                            <a class="btn btn-success btn-xs" href="#"><i class="fa fa-cart-plus white"></i>确认收货 </a>
+                            {%elif item.status == 4%}
+                            <a class="btn btn-default btn-xs" href="#"><i class="fa fa-cart-plus white"></i>再次购买 </a>
+                            {%endif%}
+
+                        </td>
+
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>
+                            <div class="goods-item">
+                                <div class="p-img">
+                                    <a href="{{v.url}}" target="_blank">
+                                        <img class="" src="{{v.pic}}" title="{{v.title}}" data-lazy-img="done" height="100%" width="60">
+                                    </a>
+                                </div>
+                                <div class="p-msg">
+                                    <div class="p-name">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%} <a href="{{v.url}}" class="a-link" target="_blank" title="{{v.title}}">{{v.title}}</a></div>
+                                </div>
+                            </div>
+
+                            <div class="goods-number">
+                                x{{v.goods_nums}}
+                            </div>
+
+
+                            <div class="goods-repair">
+                                <a href="#{{item.id}}" target="_blank" >返修/退换货</a>
+                            </div>
+
+                        </td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+                        <td style="border-top: none;border-bottom: none"></td>
+
+
+                    </tr>
+                    {% endif %}
+                    {%set i=i+1%}
+                    {%endfor%}
+                    </tbody>
+                    {% else %}
+                    <tbody>
+                    <tr class="sep-row">
+                        <td class="height-10" colspan="5"></td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <div class="alert alert-warning alert-block">
+                                <button data-dismiss="alert" class="close" type="button">×</button>
+                                <p>This would display if the 'item' collection were empty</p>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- PAGINATION -->
+            <div class="text-right">
+                <!-- Pagination Default -->
+                {{pagination | safe}}
+                <!-- /Pagination Default -->
+            </div>
+            <!-- /PAGINATION -->
+        </div>
+</div>
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+
+{% endblock %}

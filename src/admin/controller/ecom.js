@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-
+import Fs from 'fs';
 export default class extends Base {
     //支付与配送控制区
      init(http){
@@ -16,6 +16,105 @@ export default class extends Base {
     //auto render template file index_index.html
     return this.display();
   }
+
+    /**
+     * ping++支付
+      */
+   async pingxxAction(){
+        //获取app_id
+        let app_id = this.setup.PINGXX_APP_ID;
+        let livesecretkey = this.setup.PINGXX_LIVE_SECRET_KEY;
+        this.assign("app_id",app_id);
+        this.assign("livesecretkey",livesecretkey);
+        //获取支付渠道
+        let channel = await this.model('pingxx').order('sort ASC').select();
+        //console.log(channel);
+        this.assign("channel",channel);
+        this.meta_title = "ping++支付设置";
+       return this.display();
+    }
+    // 添加appid
+    async addappidAction(){
+        if(this.isAjax("POST")){
+          let appid = this.post('appid');
+            let res = await this.model("setup").where({name:'PINGXX_APP_ID'}).update({value:appid});
+            if(res){
+                think.cache("setup", null);//清除设置缓存
+               return this.success({name:"设置成功！"});
+            }else {
+               return this.fail("设置失败！");
+            }
+        }else {
+            this.meta_title="添加App_ID";
+            return this.display();
+        }
+    }
+    async addlivesecretkeyAction(){
+        if(this.isAjax("POST")){
+            let appid = this.post('livesecretkey');
+            let res = await this.model("setup").where({name:'PINGXX_LIVE_SECRET_KEY'}).update({value:appid});
+            if(res){
+                think.cache("setup", null);//清除设置缓存
+                return this.success({name:"设置成功！"});
+            }else {
+                return this.fail("设置失败！");
+            }
+        }else {
+            this.meta_title="添加Live Secret Key";
+            return this.display();
+        }
+    }
+    //配置商户私钥
+    rsaAction(){
+        let type = this.param("type");
+        console.log(type);
+        let path ;
+        switch (type){
+            case "private":
+                path =  think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem";
+                break;
+            default:
+                path =  think.RESOURCE_PATH + "/upload/pingpp/pingpp_rsa_public_key.pem";
+
+        }
+
+        if(this.isAjax("POST")){
+            let rsa = this.post("rsa");
+            console.log(path);
+            //return false;
+            if(type == "private"){
+            //console.log(rsa);
+            Fs.writeFileSync(path, rsa, 'utf8');
+            return this.success({name:"设置成功！"});
+            }else {
+                Fs.writeFileSync(path, rsa, 'utf8');
+                return this.success({name:"设置成功！"});
+            }
+        }else {
+            if(type == "private"){
+                let rsa = Fs.readFileSync(path, null);
+                this.assign("rsa",rsa);
+                this.meta_title="配置商户私钥";
+            }else {
+                let rsa = Fs.readFileSync(path, null);
+                this.assign("rsa",rsa);
+                this.meta_title="Ping++ 公钥";
+            }
+            this.assign("type",type);
+            return this.display();
+        }
+
+    }
+    //Webhooks
+    async webhokksAction (){
+
+            let config =[
+                {name:"支付成功",url:`${this.http.host}/cart/webhokks`}
+            ]
+        this.assign("list",config);
+        this.meta_title="Webhooks";
+        return this.display();
+    }
   /**
    * 正在使用的支付方式
    */

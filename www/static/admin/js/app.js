@@ -180,11 +180,12 @@ Modernizr.addTest('ios7 ipad',function(){return!!navigator.userAgent.match(/iPad
     e.preventDefault();
   });
 
-  $(document).on('click.app.bjax.data-api', '[data-bjax], .nav-primary a', function (e) {
+  $(document).on('click.app.bjax.data-api', '[data-bjax], .nav-primary1 a', function (e) {
     if(!Bjax.prototype.enable(e)) return;    
     $(this).bjax({url: $(this).attr('href') || $(this).attr('data-url') });
     e.preventDefault();
   })
+  
 }(jQuery);
 
 Date.now = Date.now || function() { return +new Date; };

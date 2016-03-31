@@ -32,7 +32,7 @@
 
 	<!-- PAGE LEVEL SCRIPTS -->
 	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
-	<link href="/static/assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> {% block style %}{% endblock %}
+	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" /> {% block style %}{% endblock %}
 </head>
 
 <!--
@@ -210,7 +210,7 @@
 						<li>&bull;</li>
 						<li><a href="#">隐私</a></li>
 					</ul>
-					&copy; 2015 - <span id="year">dfd</span> cmswing.com  版权所有 <!--{{controller.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{controller.setup.WEB_SITE_ICP}}</a>
+					&copy; 2015 - <script>document.write(new Date().getFullYear())</script> cmswing.com  版权所有 <!--{{controller.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{controller.setup.WEB_SITE_ICP}}</a>
 				</div>
 			</div>
 		</footer>
@@ -332,10 +332,6 @@
 	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
 	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
 	<script type="text/javascript" src="/static/assets/js/view/demo.revolution_slider.js"></script>
-    <script type="text/javascript">
-    var year=new Date().getFullYear()
-    $("#year").html(year);
-    </script>
 	{% block script %}{% endblock %}
     <!--[if lte IE 9]>
 <script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>

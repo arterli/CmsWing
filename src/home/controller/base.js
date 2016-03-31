@@ -20,41 +20,12 @@ export default class extends think.controller.base {
       //设置主题
       //this.http.theme("default);
       //购物车
-      let cartdata;
-      if(this.is_login){
-          let loadata = this.cookie("cart_goods_item");
-         if(think.isEmpty(loadata)){
-           cartdata = await this.model('cart').where({uid:this.user.uid}).select();  
-         }else{
-            loadata = JSON.parse(loadata); 
-            for(let val of loadata){
-                val.uid = this.user.uid;
-                //验证原有的数据是否已经存在
-                let res = await this.model('cart').where({product_id: val.product_id, type:val.type,uid:this.user.uid}).select();
-                console.log(res);
-                if(!think.isEmpty(res)){
-                    val.qty =Number(val.qty)+Number(res[0].qty);
-                    val.id = res[0].id;
-                    await this.model('cart').update(val);
-                }else{
-                    await this.model('cart').add(val); 
-                }
-                
-            }
-           this.cookie("cart_goods_item",null);
-            cartdata = await this.model('cart').where({uid:this.user.uid}).select();
-         }
-      }else{
-          cartdata = this.cookie("cart_goods_item"); 
-          if(cartdata){
-          cartdata = JSON.parse(cartdata);
-          }
-      }
-      this.cartdata = cartdata;
-     
-      let cartinfo;
-      if(think.isEmpty(cartdata)){
-           cartinfo = {
+
+
+      let cartList = await this.shopCart();
+      let cartInfo;
+      if(think.isEmpty(cartList)){
+           cartInfo = {
           total:0,
           num:0,
           data:null
@@ -64,17 +35,17 @@ export default class extends think.controller.base {
           
           let total = [];
           let num = [];
-          for(let val of cartdata){
+          for(let val of cartList){
               total.push(val.price);
               num.push(val.qty); 
           }
-         cartinfo = {
+         cartInfo = {
           total:eval(total.join('+')),
           num:eval(num.join('+')),
-          data:cartdata
+          data:cartList
          }
       }
-      this.cart = cartinfo;
+      this.cart = cartInfo;
       
     }
     /**
@@ -114,4 +85,39 @@ export default class extends think.controller.base {
       this.fail("分类不存在或者被禁用！");
     }
   }
+    //购物车
+    async shopCart(){
+        let cartdata =null;
+        if(this.is_login){
+            let loadata = await this.session("cart_goods_item");
+            if(think.isEmpty(loadata)){
+                cartdata = await this.model('cart').where({uid:this.user.uid}).select();
+            }else{
+                //loadata = JSON.parse(loadata);
+                for(let val of loadata){
+                    val.uid = this.user.uid;
+                    //验证原有的数据是否已经存在
+                    let res = await this.model('cart').where({product_id: val.product_id, type:val.type,uid:this.user.uid}).select();
+                    console.log(res);
+                    if(!think.isEmpty(res)){
+                        val.qty =Number(val.qty)+Number(res[0].qty);
+                        val.id = res[0].id;
+                        await this.model('cart').update(val);
+                    }else{
+                        await this.model('cart').add(val);
+                    }
+
+                }
+                await this.session("cart_goods_item",null);
+                cartdata = await this.model('cart').where({uid:this.user.uid}).select();
+            }
+        }else{
+            cartdata =await this.session("cart_goods_item");
+            // if(cartdata){
+            // cartdata = JSON.parse(cartdata);
+            // }
+        }
+       //console.log(cartdata);
+        return cartdata;
+    }
 }

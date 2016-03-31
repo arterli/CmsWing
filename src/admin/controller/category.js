@@ -14,7 +14,7 @@ export default class extends Base {
     init(http){
         super.init(http);
         this.db = this.model('category');
-        this.tactive = "setup";
+        this.tactive = "article";
     }
     async indexAction(){
 
@@ -23,7 +23,7 @@ export default class extends Base {
         //console.log(tree)
          this.assign("list",tree)
          this.meta_title = "分类管理";
-
+        
         return this.display();
 
     }

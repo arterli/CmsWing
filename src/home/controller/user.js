@@ -1,7 +1,7 @@
 'use strict';
 
 import Base from './base.js';
-
+import pagination from 'think-pagination';
 export default class extends Base {
    async init(http){
         super.init(http);
@@ -10,22 +10,105 @@ export default class extends Base {
         //if(!login){
         //    return this.fail("你木有登录！")
         //}
-
     }
   /**
    * index action
    * 用户中心主页
    * @return {Promise} []
    */
-  indexAction(){
+ async indexAction(){
     //auto render template file index_index.html
-      if(!this.is_login){
-          return think.statusAction(1000, this.http);
-      }
+      if(!this.is_login){return think.statusAction(1000, this.http);}
 
+      // this.http.error = new Error('成功信息！');
+      // return think.statusAction(1001, this.http);
+      // this.http.error = new Error('错误信息！');
+      // return think.statusAction(1002, this.http);
+      //获取用户信息
+      let userInfo = await this.model("member").join({
+          table:"customer",
+          jion:"left",
+          on:["id","user_id"]
+      }).find(this.user.uid);
+      this.assign("userInfo",userInfo);
+       //订单交易总金额
+      let order = await this.model("order").where({user_id:this.user.uid,pay_status:1}).getField('order_amount');
+      let orderTotal = eval(order.join("+"));
+      this.assign("orderTotal",orderTotal);
+      //进行中的订单
+      let onOrder = await this.model("order").where({status:4}).count("id");
+      this.assign("onOrder",onOrder);
+      //带评价的商品 TODO
       this.meta_title = "用户中心";
-    return this.display();
+      //判断浏览客户端
+      if(checkMobile(this.userAgent())){
+          return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+      }else{
+          return this.display();
+      }
   }
+
+    //我的订单
+    async orderAction(){
+        if(!this.is_login){return think.statusAction(1000, this.http);}
+        let status = this.get("status");
+        let map={};
+        if(!think.isEmpty(status)){
+            map.status = status;
+            this.assign('status',status);
+        }
+
+        map.is_del = 0;
+        map.user_id = this.user.uid;
+        // this.config("db.nums_per_page",20)
+        let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let html = pagination(data, this.http, {
+            desc: false, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: 'count: ${count} , pages: ${pages}'
+            }
+        });
+        this.assign('pagination', html);
+        for(let val of data.data){
+            switch (val.payment){
+                case 100:
+                    val.channel = "预付款支付";
+                    break;
+                case 1001:
+                    val.channel = "货到付款";
+                    break;
+                default:
+                    val.channel = await this.model("pingxx").where({id:val.payment}).getField("title",true);
+            }
+            val.province = await this.model("area").where({id:val.province}).getField("name",true);
+            val.city = await this.model("area").where({id:val.city}).getField("name",true);
+            val.county = await this.model("area").where({id:val.county}).getField("name",true);
+            //未付款订单倒计时
+            if(val.pay_status ==0 ){
+                val.end_time = date_from(val.create_time+(Number(this.setup.ORDER_DELAY)*60000))
+            }
+            console.log(this.setup.ORDER_DELAY_BUND)
+            //查出订单里面的商品列表
+            val.goods = await this.model("order_goods").where({order_id:val.id}).select();
+
+            for(let v of val.goods){
+                v.prom_goods = JSON.parse(v.prom_goods);
+                v = think.extend(v,v.prom_goods);
+                delete v.prom_goods;
+            }
+            //console.log(val.goods)
+        }
+       // console.log(data.data);
+        this.assign('list', data.data);
+        this.meta_title = "我的订单";
+        return this.display();
+    }
 //   用户设置
   setingAction(){
       if(!this.is_login){
@@ -45,7 +128,7 @@ export default class extends Base {
   }
 //   登陆页面
   async loginAction(){
-      this.meta_title = "用户登录";
+
       if(this.isAjax("post")){
           let data = this.post();
           //console.log(data); 
@@ -70,22 +153,31 @@ export default class extends Base {
                 this.fail(res, fail);
             } 
       }else{
-          
-          return this.display();
+          //如果已经登陆直接跳转到用户中心
+          if(this.is_login){
+              this.redirect("/user/index")
+          }
+          this.meta_title = "用户登录";
+          //判断浏览客户端
+          if(checkMobile(this.userAgent())){
+              return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+          }else{
+              return this.display();
+          }
       }
       
   }
   //退出登录
   async logoutAction(){
         //退出登录
-        let is_login = await this.islogin();
-        if(is_login){
+
+        if(this.is_login){
             
            await this.session('webuser', null);
             
-            this.redirect(this.http.headers.referer);
+            this.redirect("/index");
         }else{
-            this.redirect(this.http.headers.referer);
+            this.redirect("/index");
         }
     }
 }

@@ -191,7 +191,9 @@ export default {
      * @type String 
      */  
           env.addFilter("formatCurrency",function (num) {
-              return formatCurrency(num);
+              if(!think.isEmpty(num)) {
+                  return formatCurrency(num);
+              }
           })
         /**
          * 获取商品价格不格式

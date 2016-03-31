@@ -1,8 +1,8 @@
-<div class="col-lg-3 col-md-3 col-sm-4">
+<div class="col-lg-2 col-md-2 col-sm-4">
 					
 						<div class="thumbnail text-center">
-							<img src="/static/assets/images/demo/people/460x700/8-min.jpg" alt="" />
-							<h2 class="size-18 margin-top-10 margin-bottom-0">阿特</h2>
+							<img src="/static/assets/images/avatar2.jpg"  alt="" />
+							<h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
 							<h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
 						</div>
 
@@ -17,8 +17,8 @@
 
 						<!-- SIDE NAV -->
 						<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-							<li class="list-group-item active"><a href="/user/index"><i class="fa fa-eye"></i> 用户主页</a></li>
-							<li class="list-group-item"><a href="page-profile-projects.html"><i class="fa fa-tasks"></i> PROJECTS</a></li>
+							<li class="list-group-item {% if http.action == 'index' %}active{%endif%}"><a href="/user/index"><i class="fa fa-eye"></i> 用户主页</a></li>
+							<li class="list-group-item {% if http.action == 'order' %}active{%endif%}"><a href="/user/order"><i class="fa fa-reorder"></i> 我的订单</a></li>
 							<li class="list-group-item"><a href="page-profile-comments.html"><i class="fa fa-comments-o"></i> COMMENTS</a></li>
 							<li class="list-group-item"><a href="page-profile-history.html"><i class="fa fa-history"></i> HISTORY</a></li>
 							<li class="list-group-item"><a href="/user/seting"><i class="fa fa-gears"></i> 用户设置</a></li>
@@ -38,7 +38,7 @@
 						</ul>
 						<!-- /SIDE NAV -->
 
-
+                         {#
 						<!-- info -->
 						<div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
 							<div class="row margin-bottom-20">
@@ -71,5 +71,5 @@
 							</div>
 						
 						</div>
-
+                         #}
 					</div>
