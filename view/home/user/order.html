@@ -44,10 +44,10 @@
                 {{controller.meta_title}}</h4>
 
             <ul class="nav nav-tabs nav-top-border">
-                <li class="active"><a href="/order/usr">全部订单</a></li>
-                <li><a href="#profile_3 " ><span class="badge badge-red btn-xs badge-corner">8</span>待付款</a></li>
-                <li><a href="#profile_3"><span class="badge badge-red btn-xs badge-corner">8</span>待收货</a></li>
-                <li><a href="#profile_3"><span class="badge badge-red btn-xs badge-corner">8</span>待评价</a></li>
+                <li {%if status == null%}class="active"{%endif%}><a href="/user/order">全部订单</a></li>
+                <li {% if status == 0%}class="active"{%endif%}><a href="/user/order/status/0" ><span class="badge badge-red btn-xs badge-corner">{{nopaid}}</span>待付款</a></li>
+                <li {% if status == 1%}class="active"{%endif%}><a href="/user/order/status/1"><span class="badge badge-red btn-xs badge-corner">{{receipt}}</span>待收货</a></li>
+                <!--<li><a href="#profile_3"><span class="badge badge-red btn-xs badge-corner">8</span>待评价</a></li>-->
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">近三个月 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -76,10 +76,10 @@
                     </tr>
                     <tr class="active">
                         <td colspan="5">
-                            {%if item.status == 3%}
-                            <a href="#{{item.id}}" class="btn btn-default btn-xs pull-right nomargin"><i class="fa fa-trash-o nopadding"></i></a>
+                            {%if item.status == 4 or item.status== 6%}
+                            <a href="/user/delorder/id/{{item.id}}" class="btn btn-default btn-xs pull-right nomargin confirm ajax-get"><i class="fa fa-trash-o nopadding"></i></a>
                             {%endif%}
-                            {%if item.pay_status ==0%}
+                            {%if item.pay_status ==0 and item.status != 6%}
                             <div class=" pull-right">
                                 <i class="fa fa-hourglass-half"></i> 剩余 <span class="countdown countdown-inline" data-from="{{item.end_time}}" data-labels="年,月,周,天,小时,分,秒"></span>
                             </div>
@@ -135,10 +135,14 @@
                         <td style="border-bottom: none">
                             <div class="status">
 
-                                {%if item.pay_status == 0%}
+                                {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                                 <span class="text-warning">等待付款</span>
-                                {%elif item.pay_status == 1 and item.status != 4%}
+                                {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                                <span class="text-warning">等待发货</span>
+                                {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
                                 <span class="text-success">等待收货</span>
+                                {%elif item.status == 6%}
+                                <span class="text-danger">已作废</span>
                                 {%elif item.status == 4%}
                                 <span class="text-default">已完成</span>
                                 {%endif%}
@@ -148,11 +152,13 @@
                             </div>
                         </td>
                         <td style="vertical-align: middle;border-bottom: none">
-                            {%if item.pay_status == 0%}
+                            {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                             <a class="btn btn-danger btn-xs" href="/cart/pay/order/{{item.id}}" target="_blank"><i class="fa fa-credit-card white"></i>立即付款 </a>
-                            {%elif item.pay_status == 1 and item.status != 4%}
-                            <a class="btn btn-success btn-xs" href="#"><i class="fa fa-cart-plus white"></i>确认收货 </a>
-                            {%elif item.status == 4%}
+                            {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                            <a class="btn btn-warning btn-xs" href="#"><i class="fa fa-cart-plus white"></i>提醒发货 </a>
+                            {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                            <a class="btn btn-success btn-xs confirm ajax-get" href="/user/confirmreceipt/id/{{item.id}}"><i class="fa fa-cart-plus white"></i>确认收货 </a>
+                            {%elif item.status == 4 or item.status == 6%}
                             <a class="btn btn-default btn-xs" href="#"><i class="fa fa-cart-plus white"></i>再次购买 </a>
                             {%endif%}
 

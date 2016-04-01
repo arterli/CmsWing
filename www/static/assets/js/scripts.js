@@ -118,6 +118,7 @@
 	    _login();
         _swal();
         _ajax_post();
+	    _ajax_get();
 	    _pingpp();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
@@ -138,7 +139,57 @@
       }
     ); 
   }
- 
+
+//ajax get请求
+/**
+ * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
+ *
+ */
+
+function _ajax_get() {
+	$(document).on('click','.ajax-get',function(){
+		var target;
+		var that = this;
+		if ( $(this).hasClass('confirm') ) {
+			if(!confirm('确认要执行该操作吗?')){
+				return false;
+			}
+		}
+		if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
+			$.get(target).success(function(data){
+				if (data.errno==0) {
+					if (data.data.url) {
+						_toastr(data.data.name + ' 页面即将自动跳转~',"top-right","success",false);
+					}else{
+						_toastr(data.data.name,"top-right","success",false);
+					}
+					setTimeout(function(){
+						if (data.data.url) {
+							location.href=data.data.url;
+						}else if( $(that).hasClass('no-refresh')){
+							toastr.clear()
+						}else{
+							location.reload();
+						}
+					},1500);
+				}else{
+					_toastr(data.errmsg,"top-right","error",false);
+					setTimeout(function(){
+						if (data.data) {
+							location.href=data.data;
+						}else{
+							toastr.clear()
+						}
+					},1500);
+				}
+			});
+
+		}
+		return false;
+	});
+}
+
+
     /**
  * ajax post submit请求
  * <form class = "form-horizontal">
