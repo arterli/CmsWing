@@ -200,6 +200,7 @@
                 $("figure").find('img').attr('src',pic);
             }
             var shoptype = $(".icheck");
+            var goods_id = $("input[name='product_id']").val();
             var arr =[]
             //console.log()
            $.each(shoptype,function(k,v) {
@@ -211,8 +212,31 @@
             })
             if(arr.length == shoptype.length){
                 var aa = getsuk(arr)
-                console.log(aa.sku_price);
+                //console.log(aa.sku_price);
                 console.log(arr);
+                //查询实时库存
+                console.log(goods_id);
+                $.ajax({
+                    url:"/cart/getstock",
+                    data:{id:goods_id,type:arr.join(",")},
+                    success:function (res) {
+                        var html =""
+                        var html2 =""
+                        if(res <= 0){
+                            html = '<span class="pull-right text-danger"><i class="glyphicon glyphicon-remove"></i> 无货</span>'
+                            $("#stock").html(html);
+                            $("#out-of-stock").removeClass("hide");
+                            $("#in-of-stock").addClass("hide")
+
+                        }else {
+                        html = '<span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="badge badge-aqua btn-xs ">'+res+'</span></span>'
+                            $("#stock").html(html);
+                            $("#out-of-stock").addClass("hide");
+                            $("#in-of-stock").removeClass("hide")
+
+                        }
+                    }
+                })
                 $("price").text(formatCurrency(aa.sku_price));
                 $("#type").val(arr);
             } 

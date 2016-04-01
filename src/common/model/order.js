@@ -81,4 +81,56 @@ export default class extends think.model.base {
 
 
     }
+
+    /**
+     *
+     * @param goods_id 商品id
+     * @param type 商品sku类型
+     * @param sku  新建模型的 sku 字段名
+     * @param stock 新建模型的 总库存字段名
+     * @returns {*} 库存数量
+     */
+    async getstock(goods_id,type,sku="suk",stock ="total_stock"){
+        let ressku;
+        let model_id = await this.model("document").where({id:goods_id}).getField("model_id",true);
+        //获取模型数据
+        let table =await this.model("model",{},"admin").get_table_name(model_id);
+        let model =this.model(table);
+        if(think.isEmpty(type)){
+            ressku = await model.where({id:goods_id}).getField(stock,true);
+        }else {
+            let data = await model.where({id:goods_id}).getField(sku,true);
+            data = JSON.parse(data);
+            type = type.split(",");
+            let skuarr = [];
+            for(let v of data.data){
+                if(v.ch && v.name==type[0]){
+                    for (let _v of v.ch){
+                        if(_v.ch && _v.name == type[1]){
+
+                            for(let __v of _v.ch){
+                                if(__v.name == type[2]){
+
+                                        skuarr.push(Number(__v.sku_stock));
+
+                                }
+                            }
+                        }else {
+                            if(_v.name == type[1]){
+                                skuarr.push(Number(_v.sku_stock));
+
+                            }
+                        }
+                    }
+                }else {
+                    if(v.name == type[0]){
+                        skuarr.push(Number(v.sku_stock));
+                    }
+                }
+
+            }
+            ressku = skuarr[0]
+        }
+        return ressku;
+    }
 }

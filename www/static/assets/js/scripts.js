@@ -944,20 +944,23 @@ function _ajax_post() {
                 
                 if(msg){
                     _toastr("添加购物车成功!","top-right","success",false);
-                }
-                $("total").html("￥"+formatCurrency(msg.total));
-                $("#badge-corner").html(msg.num);
-                var html = '';
-                var htmlarr = [];
-                $.each(msg.data,function (k,v) {
-                html='<a href="'+v.url+'">'+				
-                    '<img src="'+v.pic+'" width="45" height="45" alt="" />'+
-                    '<h6><span>'+v.qty+'x</span> '+v.title+'</h6>'+
-                    '<small>￥'+formatCurrency(v.price)+' <span class="size-11 text-muted">['+v.type+']</span></small>'+
-                    '</a>';
-                htmlarr.push(html);
-                })
-            $(".quick-cart-wrapper").html(htmlarr.join(""));
+					$("total").html("￥"+formatCurrency(msg.total));
+					$("#badge-corner").html(msg.num);
+					var html = '';
+					var htmlarr = [];
+					$.each(msg.data,function (k,v) {
+						html='<a href="'+v.url+'">'+
+							'<img src="'+v.pic+'" width="45" height="45" alt="" />'+
+							'<h6><span>'+v.qty+'x</span> '+v.title+'</h6>'+
+							'<small>￥'+formatCurrency(v.price)+' <span class="size-11 text-muted">['+v.type+']</span></small>'+
+							'</a>';
+						htmlarr.push(html);
+					})
+					$(".quick-cart-wrapper").html(htmlarr.join(""));
+                }else {
+					_toastr("该商品已经售罄，请选择其他商品！","top-right","error",false);
+				}
+
 							
             //console.log(msg);
             });

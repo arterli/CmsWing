@@ -25,7 +25,14 @@ export default class extends Base {
   async addcartAction(){
       let data = this.post();
       data = think.extend({},data);
-    
+      // 添加购物车前判断是否有库存
+      let stock = await this.model("order").getstock(data.product_id,data.type);
+      //think.log(stock);
+      if(data.qty > stock){
+          return this.json(false);
+      }
+    //console.log(data);
+     //return false;
       let arr=[];
       let cart = this.cart.data;
 
@@ -342,6 +349,12 @@ async createorderAction(){
     let goodslist =JSON.parse(data.goodslist);
     let goodsarr=[];
     for (let goods of goodslist){
+        //检查购物车内的宝贝是否有库存
+        let stock = await this.model("order").getstock(goods.product_id,goods.type);
+        //think.log(stock);
+        if(goods.qty > stock){
+            return this.fail("购物车内有已经售罄的商品，请返回购物车重新编辑！");
+        }
         goodsarr.push(goods.id);
     }
     let isgoods = await this.model("cart").where({id:['IN',goodsarr]}).select();
@@ -425,6 +438,12 @@ async createorderAction(){
     return this.success({name:'订单创建成功，正在跳转支付页面！',url:`/home/cart/pay/order/${order_id}/setp/3`});
     
 }
+    //实时查询商品库存
+    async getstockAction(){
+        let data = this.get();
+        let stock = await this.model("order").getstock(data.id,data.type);
+        return this.json(stock);
+    }
    //支付
  async  payAction(){
      if(!this.is_login){return think.statusAction(1000, this.http);};

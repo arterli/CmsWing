@@ -133,13 +133,15 @@
 
 									<hr />
 
-									<div class="clearfix margin-bottom-30">
+									<div class="clearfix margin-bottom-30" >
+										<div class="pull-right" id="stock">
                                         {% if info.total_stock != 0%}
-										<span class="pull-right text-success"><i class="fa fa-check"></i> 有货</span>
+
+										<span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="badge badge-aqua btn-xs ">{{info.total_stock}}</span></span>
 										{% else%}
 										<span class="pull-right text-danger"><i class="glyphicon glyphicon-remove"></i> 无货</span>
 										{% endif %}
-
+                                        </div>
 										<strong>商家编码:</strong> {{info.goods_no}}
 									</div>
 
@@ -206,14 +208,16 @@
 										<input type="hidden" id="qty" name="qty" value="1" />
 										
 										<!-- see assets/js/view/demo.shop.js -->
-                                    {% if info.total_stock == 0%}
+										<div  id="out-of-stock" class="{% if info.total_stock != 0%}hide{% endif %}">
+
                                      <!-- buttons -->
-											<div class="shop-item-buttons text-center">
+											<div class="shop-item-buttons text-center ">
 												<span class="out-of-stock">已售罄</span><!-- add .clean to remove css characteres -->
 											</div>
 											<!-- /buttons -->
-                                            {% else %}
-										<div class="btn-group pull-left product-opt-qty">
+										</div>
+										<div id="in-of-stock" class="{% if info.total_stock == 0%}hide{% endif %}">
+										<div class="btn-group pull-left product-opt-qty {% if info.total_stock == 0%}hide{% endif %}">
 											<button type="button" class="btn btn-default dropdown-toggle product-qty-dd noradius" data-toggle="dropdown">
 												<span class="caret"></span>
 												数量 <small id="product-selected-qty">(<span>1</span>)</small>
@@ -234,7 +238,8 @@
 										</div><!-- /btn-group -->
 
 										<button class="btn btn-danger pull-left product-add-cart noradius "> <i class="fa fa-cart-plus "></i> 添加到购物车</button>
-									{% endif %}
+										</div>
+
 									</form>
 									<!-- /FORM -->
 

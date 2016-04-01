@@ -220,6 +220,7 @@ table tr td{
                                         </div>
                                         </div>
                               {%if n == 1%}<div id="upload-img-wrap">
+                              {% if pp.is_pic ==1%}
                               {%set size = 0%}
                               {%for pic in pp.data%}
 
@@ -231,6 +232,7 @@ table tr td{
                                       <i style="font-size: 36px;margin-top: 15px" class="fa fa-file-image-o"></i><br>{{pic.name}}</div> </div>
                               {%set size=size+1%}
                               {%endfor%}
+                              {%endif%}
                           </div>{%endif%}
                                     </section>
                                     {%endfor%}
