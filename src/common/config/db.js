@@ -7,7 +7,7 @@ export default {
   type: 'mysql',
   log_sql: true,
   log_connect: true,
-
+  nums_per_page: 10,
   adapter: {
     mysql: {
       host: '127.0.0.1',
