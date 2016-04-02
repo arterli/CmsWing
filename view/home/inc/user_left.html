@@ -1,94 +1,99 @@
 <div class="col-lg-2 col-md-2 col-sm-4">
 					
-						<div class="thumbnail text-center hide">
-							<img src="/static/assets/images/avatar2.jpg"  alt="" />
-							<h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
-							<h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
-						</div>
+		<div class="thumbnail text-center ">
+			<img src="/static/assets/images/avatar2.jpg"  alt="" />
+			<h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
+			<h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
+		</div>
 
-						<!-- completed -->
-						<div class="margin-bottom-30 hide">
-							<label>88% completed profile</label>
-							<div class="progress progress-xxs">
-								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
-							</div>
-						</div>
-						<!-- /completed -->
+		<!-- completed -->
+		<div class="margin-bottom-30 hide">
+			<label>88% completed profile</label>
+			<div class="progress progress-xxs">
+				<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
+			</div>
+		</div>
+		<!-- /completed -->
 
-						<!-- SIDE NAV -->
-						<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-							<li class="list-group-item {% if http.action == 'index' %}active{%endif%}"><a href="/user/index"><i class="fa fa-home"></i> 用户主页</a></li>
-							<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
-								<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
-								<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
-									<li><a href="/user/order" class="{% if http.action == 'order' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
-									<li>
+		<!-- SIDE NAV -->
+		<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
+			<li class="list-group-item {% if http.action == 'index' %}active{%endif%}"><a href="/user/index"><i class="fa fa-home"></i> 用户主页</a></li>
+			<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
+				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
+					<li><a href="/user/order" class="{% if http.action == 'order' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
+					<li>
 
-										<a href="#"><i class="fa fa-angle-right"></i> 退款申请</a>
-									</li>
-									<li><a href="#"><i class="fa fa-angle-right"></i> 我的关注</a></li>
-								</ul>
-							</li>
-							<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
-								<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" ><i class="fa fa-server"></i> 客户服务</a>
-								<ul id="collapse-2" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
-									<li class="{% if http.action == 'order' %}active{%endif%}"><a href="/user/order"><i class="fa fa-angle-right"></i> 商品咨询</a></li>
-									<li>
-										<a href="#" ><i class="fa fa-angle-right"></i> 商品评价</a>
-									</li>
-									<li class="active"><a href="#"><i class="fa fa-angle-right"></i> 我的消息</a></li>
+						<a href="#"><i class="fa fa-angle-right"></i> 退款申请</a>
+					</li>
+					<li><a href="#"><i class="fa fa-angle-right"></i> 我的关注</a></li>
+				</ul>
+			</li>
+			<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" ><i class="fa fa-server"></i> 客户服务</a>
+				<ul id="collapse-2" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
+					<li class="{% if http.action == 'order' %}active{%endif%}"><a href="/user/order"><i class="fa fa-angle-right"></i> 商品咨询</a></li>
+					<li>
+						<a href="#" ><i class="fa fa-angle-right"></i> 商品评价</a>
+					</li>
+					<li class="active"><a href="#"><i class="fa fa-angle-right"></i> 我的消息</a></li>
 
-								</ul>
-							</li>
-							<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
-								<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3" ><i class="fa fa-user"></i> 账户管理</a>
-								<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
-									<li class="{% if http.action == 'order' or http.action == 'address' %}
-									active{%endif%}"><a href="/user/order"><i class="fa fa-angle-right"></i> 个人资料</a></li>
-									<li>
-										<a href="/user/address" class="{% if http.action == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
-									</li>
-									<li class="active"><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
-									<li><a href="#"><i class="fa fa-angle-right"></i> 账户金额</a></li>
-									<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>
-								</ul>
-							</li>
-							<li class="list-group-item"><a href="/user/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
-						</ul>
-						<!-- /SIDE NAV -->
+				</ul>
+			</li>
+			<li class="list-group-item list-toggle
+			 {% if http.action == 'order'
+			    or http.action == 'address'
+			    or http.action == 'account'
+			 %}active{%endif%}" >   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3">
+					<i class="fa fa-user"></i> 账户管理</a>
+				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
+					<li>
+						<a href="/user/order"><i class="fa fa-angle-right"></i> 个人资料</a></li>
+					<li>
+						<a href="/user/address" class="{% if http.action == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
+					</li>
+					<li><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
+					<li><a href="/user/account" class="{% if http.action == 'account' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
+					<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>
+				</ul>
+			</li>
+			<li class="list-group-item"><a href="/user/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+		</ul>
+		<!-- /SIDE NAV -->
 
-                         {#
-						<!-- info -->
-						<div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
-							<div class="row margin-bottom-20">
-								<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-									<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">12</h2>
-									<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">PROJECTS</h3>
-								</div>
+		 {#
+		<!-- info -->
+		<div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
+			<div class="row margin-bottom-20">
+				<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+					<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">12</h2>
+					<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">PROJECTS</h3>
+				</div>
 
-								<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-									<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">34</h2>
-									<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">TASKS</h3>
-								</div>
+				<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+					<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">34</h2>
+					<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">TASKS</h3>
+				</div>
 
-								<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
-									<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
-									<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">UPLOADS</h3>
-								</div>
-							</div>
-							<!-- /info -->
+				<div class="col-md-4 col-sm-4 col-xs-4 text-center bold">
+					<h2 class="size-30 margin-top-10 margin-bottom-0 font-raleway">32</h2>
+					<h3 class="size-11 margin-top-0 margin-bottom-10 text-info">UPLOADS</h3>
+				</div>
+			</div>
+			<!-- /info -->
 
-							<div class="text-muted">
-								<h2 class="size-18 text-muted margin-bottom-6"><b>About</b> Felicia Doe</h2>
-								<p>Lorem ipsum dolor sit amet diam nonummy nibh dolore.</p>
-								
-								<ul class="list-unstyled nomargin">
-									<li class="margin-bottom-10"><i class="fa fa-globe width-20 hidden-xs hidden-sm"></i> <a href="http://www.stepofweb.com">www.stepofweb.com</a></li>
-									<li class="margin-bottom-10"><i class="fa fa-facebook width-20 hidden-xs hidden-sm"></i> <a href="http://www.facebook.com/stepofweb">stepofweb</a></li>
-									<li class="margin-bottom-10"><i class="fa fa-twitter width-20 hidden-xs hidden-sm"></i> <a href="http://www.twitter.com/stepofweb">@stepofweb</a></li>
-								</ul>
-							</div>
-						
-						</div>
-                         #}
-					</div>
+			<div class="text-muted">
+				<h2 class="size-18 text-muted margin-bottom-6"><b>About</b> Felicia Doe</h2>
+				<p>Lorem ipsum dolor sit amet diam nonummy nibh dolore.</p>
+
+				<ul class="list-unstyled nomargin">
+					<li class="margin-bottom-10"><i class="fa fa-globe width-20 hidden-xs hidden-sm"></i> <a href="http://www.stepofweb.com">www.stepofweb.com</a></li>
+					<li class="margin-bottom-10"><i class="fa fa-facebook width-20 hidden-xs hidden-sm"></i> <a href="http://www.facebook.com/stepofweb">stepofweb</a></li>
+					<li class="margin-bottom-10"><i class="fa fa-twitter width-20 hidden-xs hidden-sm"></i> <a href="http://www.twitter.com/stepofweb">@stepofweb</a></li>
+				</ul>
+			</div>
+
+		</div>
+		 #}
+	</div>
