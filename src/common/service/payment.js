@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 'use strict';
 
 export default class extends think.service.base {
@@ -21,7 +28,7 @@ export default class extends think.service.base {
         pingpp.setPrivateKeyPath(think.RESOURCE_PATH + "/upload/pingpp/cmswing_rsa_private_key.pem");
         switch (channel) {
             case 'alipay_pc_direct':
-                 //支付宝网页支付
+                //支付宝网页支付
                 extra = {
                     success_url: `http://${this.http.host}/cart/payres`
                 }
@@ -35,10 +42,10 @@ export default class extends think.service.base {
 
                 break;
             case 'alipay_qr':
-               //支付宝PC网页扫码支付
+                //支付宝PC网页扫码支付
                 break;
             case 'upacp_pc':
-               //网银pc网页支付
+                //网银pc网页支付
                 extra = {
                     result_url: `http://${this.http.host}/cart/payres`
                 }
@@ -68,8 +75,8 @@ export default class extends think.service.base {
 
         return await create(pingpp, config);
     }
-    
-   
+
+
     async charge(id) {
         let setup = await think.cache("setup")
         let pingpp = require('pingpp')(setup.PINGXX_LIVE_SECRET_KEY);
