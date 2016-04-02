@@ -364,7 +364,14 @@
                            if(msg.errno == 0){
                             _toastr(msg.data.name,"top-right","success",false);
                             $('.add-addr-dialog').modal('hide')
-                            addr_add_html(msg.data.data);
+                               if(msg.data.type==1){
+                                   setTimeout(function(){
+                                       location.reload();
+                                   },2000);
+                               }else {
+                                   addr_add_html(msg.data.data);
+                               }
+
                             
                            }else{
                                _toastr(msg.errmsg,"top-right","error",false); 
@@ -428,7 +435,7 @@
                  } });
              })
               /**
-         * 添加收货人地址
+         * 编辑收货人地址
          */
              
              $(document).on("submit","form.edit-addr",function(e){
@@ -441,8 +448,15 @@
                            if(msg.errno == 0){
                             _toastr("编辑收货人地址成功","top-right","success",false);
                             $('#ajaxModal').modal('hide');
-                            addr_add_html(msg.data.data);
-                            
+                               if(msg.data.type==1){
+                                   setTimeout(function(){
+                                       location.reload();
+                                   },2000);
+                               }else {
+                                   addr_add_html(msg.data.data);
+                               }
+
+
                            }else{
                                _toastr("编辑失败！","top-right","error",false); 
                            }

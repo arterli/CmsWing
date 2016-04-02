@@ -1,13 +1,13 @@
 <div class="col-lg-2 col-md-2 col-sm-4">
 					
-						<div class="thumbnail text-center">
+						<div class="thumbnail text-center hide">
 							<img src="/static/assets/images/avatar2.jpg"  alt="" />
 							<h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
 							<h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
 						</div>
 
 						<!-- completed -->
-						<div class="margin-bottom-30">
+						<div class="margin-bottom-30 hide">
 							<label>88% completed profile</label>
 							<div class="progress progress-xxs">
 								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
@@ -43,9 +43,10 @@
 							<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
 								<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3" ><i class="fa fa-user"></i> 账户管理</a>
 								<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
-									<li class="{% if http.action == 'order' %}active{%endif%}"><a href="/user/order"><i class="fa fa-angle-right"></i> 个人资料</a></li>
+									<li class="{% if http.action == 'order' or http.action == 'address' %}
+									active{%endif%}"><a href="/user/order"><i class="fa fa-angle-right"></i> 个人资料</a></li>
 									<li>
-										<a href="#" ><i class="fa fa-angle-right"></i> 收货地址</a>
+										<a href="/user/address" class="{% if http.action == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
 									</li>
 									<li class="active"><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
 									<li><a href="#"><i class="fa fa-angle-right"></i> 账户金额</a></li>
