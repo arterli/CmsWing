@@ -25,4 +25,19 @@ export default class extends think.logic.base {
      // order_amount: "float|post|currency|required"
     }
   }
+  //修改用户信息表单验证
+  updateinfoAction(){
+    this.rules={
+      email:"email",
+      addr:"byteLength:5,120"
+    }
+  }
+//修改密码数据验证
+  updatepasswordAction(){
+    this.rules = {
+      oldpassword:"required",
+      password:"byteLength:6,20|required",
+      repassword:"equals:password"
+    }
+  }
 }

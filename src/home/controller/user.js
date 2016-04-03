@@ -369,7 +369,7 @@ export default class extends Base {
             }else {
                 return this.fail("调用接口失败！");
             }
-            think.log(data);
+           // think.log(data);
         }else {
             //ping++ 支付渠道 pc网页
             let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
@@ -380,15 +380,65 @@ export default class extends Base {
 
     }
 //   用户设置
-    setingAction() {
-        if (!this.is_login) {
-            return this.fail("你木有登录！")
-        }
-
+   async setingAction() {
+        if(!this.is_login){return think.statusAction(1000,this.http);}
+       //获取用户信息
+       let userInfo = await this.model("member").join({
+           table: "customer",
+           jion: "left",
+           on: ["id", "user_id"]
+       }).find(this.user.uid);
+       //console.log(userInfo);
+       this.assign("userInfo", userInfo);
+       //获取省份
+       let province = await this.model('area').where({parent_id:0}).select();
+       let city = await this.model('area').where({parent_id:userInfo.province}).select();
+       let county = await this.model('area').where({parent_id:userInfo.city}).select();
+       this.assign("province",province);
+       this.assign("city",city);
+       this.assign("county",county);
         this.meta_title = "用户设置";
         return this.display();
     }
+    //更新用户信息
+   async updateinfoAction(){
+       if(!this.is_login){return think.statusAction(1000,this.http);}
+       let data = this.post();
+       let member = {
+           email:data.email,
+           mobile:data.mobile
+       }
+       let customer ={
+           real_name:data.real_name,
+           sex:data.sex,
+           birthday:new Date(data.birthday).getTime(),
+           phone:data.phone,
+           province:data.province,
+           city:data.city,
+           county:data.county,
+           addr:data.addr
+       }
+       let update1=await this.model("member").where({id:this.user.uid}).update(member);
+       let update2=await this.model("customer").where({user_id:this.user.uid}).update(customer);
+       if(update1 && update2){
+          return this.success({name:"更新用户资料成功！"})
+       }else {
+          return this.fail("更新失败！")
+       }
 
+    }
+    //修改密码
+    async updatepasswordAction(){
+        let data = this.post();
+        let password = await this.model("member").where({id:this.user.uid}).getField("password",true);
+        if(password === encryptPassword(data.oldpassword)){
+           await this.model("member").where({id:this.user.uid}).update({password:encryptPassword(data.password)})
+            return this.success({name:"密码修改成功，请用新密码重新登陆！"});
+        }else {
+            return this.fail("旧密码不正确，请重新输入。")
+        }
+
+    }
     /**
      * 注册页面
      */

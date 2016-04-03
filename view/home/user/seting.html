@@ -41,51 +41,112 @@
 					<!-- LEFT -->
 					{% include "../inc/user_left.html" %}
 					<!-- RIGHT -->
-					<div class="col-lg-9 col-md-9 col-sm-8">
+					<div class="col-lg-10 col-md-10 col-sm-8">
 
 						<ul class="nav nav-tabs nav-top-border">
-							<li class="active"><a href="#info" data-toggle="tab">Personal Info</a></li>
-							<li><a href="#avatar" data-toggle="tab">Avatar</a></li>
-							<li><a href="#password" data-toggle="tab">Password</a></li>
-							<li><a href="#privacy" data-toggle="tab">Privacy</a></li>
+							<li class="active"><a href="#info" data-toggle="tab">个人资料</a></li>
+							<li><a href="#avatar" data-toggle="tab">头像</a></li>
+							<li><a href="#password" data-toggle="tab">修改密码</a></li>
+							<li><a href="#privacy" data-toggle="tab">隐私</a></li>
 						</ul>
 
-						<div class="tab-content margin-top-20">
+						<div class="tab-content ">
 
 							<!-- PERSONAL INFO TAB -->
 							<div class="tab-pane fade in active" id="info">
-								<form role="form" action="#" method="post">
+								<form role="form" action="/user/updateinfo" method="post" class="form-horizontal form-info">
 									<div class="form-group">
-										<label class="control-label">First Name</label>
-										<input type="text" placeholder="Felicia" class="form-control">
+										<label class="col-md-2 control-label">会员账号</label>
+										<div class="col-md-10">
+											<p class="form-control-static">{{userInfo.username}}</p>
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Last Name</label>
-										<input type="text" placeholder="Doe" class="form-control">
+										<label class="col-md-2 control-label">会员级别</label>
+										<div class="col-md-10">
+											<p class="form-control-static">{{userInfo.group_id}}</p>
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Mobile Number</label>
-										<input type="text" placeholder="+1800-1234-657" class="form-control">
+										<label class="col-md-2 control-label">邮箱</label>
+										<div class="col-md-4">
+										<input type="text" placeholder="email" class="form-control" name="email" value="{{userInfo.email}}">
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Interests</label>
-										<input type="text" placeholder="Development, C++, etc." class="form-control">
+										<label class="col-md-2 control-label">真实姓名</label>
+										<div class="col-md-4">
+										<input type="text" placeholder="真实姓名" class="form-control" name="real_name" value="{{userInfo.real_name}}">
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Occupation</label>
-										<input type="text" placeholder="Webdeveloper" class="form-control">
+										<label class="col-md-2 control-label">性别</label>
+										<div class="col-md-10">
+
+											<label class="radio" style="margin-top: 3px;padding-top: 3px">
+												<input type="radio" {%if userInfo.sex == 1 %} checked="checked"{%endif%} value="1" name="sex">
+												<i></i> 男
+											</label>
+											<label class="radio" style="margin-top: 3px;padding-top: 3px">
+											<input type="radio" {%if userInfo.sex == 2 %} checked="checked"{%endif%} value="2" name="sex">
+											<i></i> 女
+										</label>
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">About</label>
-										<textarea class="form-control" rows="3" placeholder="About Me..."></textarea>
+										<label class="col-md-2 control-label">生日</label>
+										<div class="col-md-4">
+											<input type="text" name="birthday" value="{{userInfo.birthday|dateformat('Y-m-d')}}" class="form-control masked" data-format="9999-99-99" data-placeholder="_" placeholder="年-月-日">
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Website Url</label>
-										<input type="text" placeholder="http://www.yourwebsite.com" class="form-control">
+										<label class="col-md-2 control-label">手机号码</label>
+										<div class="col-md-4">
+											<input type="text" name="mobile" value="{{userInfo.mobile}}" class="form-control masked" data-format="99999999999" data-placeholder="X" placeholder="手机号码">
+										</div></div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">电话号码</label>
+										<div class="col-md-4">
+										<input type="text" name="phone" value="{{userInfo.phone}}" placeholder="电话号码" class="form-control">
+											</div>
 									</div>
-									<div class="margiv-top10">
-										<a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes </a>
-										<a href="#" class="btn btn-default">Cancel </a>
+									<div class="form-group">
+										<label class="col-md-2 control-label">所在地区</label>
+										<div class="col-md-10">
+											<select class="form-control pointer  " id="province1" name="province" style="width: 150px;display: inline-block">
+												<option value="">--- 省份/直辖市 ---</option>
+												{% for val in province %}
+												<option value="{{val.id}}" {% if info.province == val.id %} selected {% endif%}>{{val.name}}</option>
+												{% endfor %}
+											</select>
+											<select class="form-control pointer  " id="city1" name="city" style="width: 150px;display: inline-block">
+												{% for val in city %}
+												<option value="{{val.id}}" {% if info.city == val.id %} selected {% endif%}>{{val.name}}</option>
+												{% else %}
+												<option value="">--- 市 ---</option>
+												{% endfor %}
+											</select>
+											<select class="form-control pointer " id="county1" name="county" style="width: 150px;display: inline-block">
+												{% for val in county %}
+												<option value="{{val.id}}" {% if info.county == val.id %} selected {% endif%}>{{val.name}}</option>
+												{% else %}
+												<option value="">--- 县/区 ---</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-md-2 control-label">街道地址</label>
+										<div class="col-md-10">
+										<textarea class="form-control" name="addr"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符"></textarea>
+										</div>
+									</div>
+
+									<div class="form-group margin-top-30">
+										<div class="col-md-4 col-md-offset-2">
+											<button class="btn btn-primary ajax-post" target-form="form-info" type="submit" ><i class="fa fa-check"></i> 保存更改 </button>
+											</div>
+
 									</div>
 								</form>
 							</div>
@@ -146,26 +207,33 @@
 							<!-- PASSWORD TAB -->
 							<div class="tab-pane fade" id="password">
 
-								<form action="#" method="post">
+								<form class="form-password form-horizontal" action="/user/updatepassword" method="post">
 
 									<div class="form-group">
-										<label class="control-label">Current Password</label>
-										<input type="password" class="form-control">
+										<label class="control-label col-md-2">旧密码</label>
+										<div class="col-md-4">
+										<input type="password" class="form-control" name="oldpassword" placeholder="输入旧密码">
+										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">New Password</label>
-										<input type="password" class="form-control">
+										<label class="control-label col-md-2">新密码</label>
+										<div class="col-md-4">
+										<input type="password" class="form-control" name="password" placeholder="密码长度6-20个字符">
+											</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label">Re-type New Password</label>
-										<input type="password" class="form-control">
+										<label class="control-label col-md-2">确认密码</label>
+										<div class="col-md-4">
+										<input type="password" class="form-control" name="repassword" placeholder="密码长度6-20个字符">
+											</div>
 									</div>
 
-									<div class="margiv-top10">
-										<a href="#" class="btn btn-primary"><i class="fa fa-check"></i> Change Password</a>
-										<a href="#" class="btn btn-default">Cancel </a>
-									</div>
+									<div class="form-group margin-top-30">
+										<div class="col-md-4 col-md-offset-2">
+											<button class="btn btn-primary ajax-post" target-form="form-password" type="submit" ><i class="fa fa-check"></i> 确认修改 </button>
+										</div>
 
+									</div>
 								</form>
 
 							</div>
@@ -243,5 +311,5 @@
 			<!-- / -->
 {% endblock %}
 {% block script %}
-
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
         {% endblock %}

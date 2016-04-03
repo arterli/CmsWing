@@ -291,11 +291,11 @@ function _deleteFun(id) {
                 data: {"id": id},
                 type: "post",
                 success: function (backdata) {
-                    if (backdata) {
+                    if (backdata==1) {
                         oTable.fnReloadAjax(oTable.fnSettings());
                         swal("删除成功!", "该用户已经被删除.", "success");
                     } else {
-                        alert("删除失败");
+                        swal("删除失败!", "管理员不能被删除.", "error");
                     }
                 }, error: function (error) {
                     console.log(error);

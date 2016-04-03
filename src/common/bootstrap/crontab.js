@@ -15,7 +15,7 @@ let fn = () => {
 }
 
 //1 分钟执行一次
-let jobId = crontab.scheduleJob("*/1 * * * *", fn);
+// let jobId = crontab.scheduleJob("*/1 * * * *", fn);
 // 开发环境下立即执行一次看效果
 // if(think.env === "development"){
 //     fn();

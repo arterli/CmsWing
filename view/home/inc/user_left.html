@@ -44,12 +44,13 @@
 			 {% if http.action == 'order'
 			    or http.action == 'address'
 			    or http.action == 'account'
+			    or http.action == 'seting'
 			 %}active{%endif%}" >   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3">
 					<i class="fa fa-user"></i> 账户管理</a>
 				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
 					<li>
-						<a href="/user/order"><i class="fa fa-angle-right"></i> 个人资料</a></li>
+						<a href="/user/seting" class="{% if http.action == 'seting' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
 					<li>
 						<a href="/user/address" class="{% if http.action == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
 					</li>

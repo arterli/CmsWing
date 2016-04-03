@@ -46,7 +46,7 @@ export default class extends Base {
             join:"left",
             as:"u",
             on:['id','user_id']
-        }).field("id,username,score,login,last_login_ip,last_login_time,status,u.real_name,u.group_id,u.balance").limit(start, length).where({username: ["like", "%"+key+"%"]}).order("id DESC").countSelect()
+        }).field("id,username,score,login,last_login_ip,last_login_time,status,u.real_name,u.group_id,u.balance").limit(start, length).where({username: ["like", "%"+key+"%"],status:[">",-1]}).order("id DESC").countSelect()
         userList.data.forEach(v=>{
             v.last_login_time=times(v.last_login_time)
             v.last_login_ip=_int2iP(v.last_login_ip)
@@ -131,7 +131,17 @@ export default class extends Base {
     async userdelAction() {
         let id = this.post("id");
         //console.log(id);
-        let res = await this.db.where({id: id}).delete();
+        let res;
+        let isadmin = await this.is_admin(id);
+        // 判断是否是管理员，如果是不能删除;
+        if(isadmin){
+           res=1000;
+        }else{
+             //res = await this.db.where({id: id}).delete();
+            //逻辑删除
+            res = await this.db.where({id: id}).update({status:-1});
+        }
+
         return this.json(res);
     }
     /**
