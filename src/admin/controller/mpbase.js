@@ -38,7 +38,6 @@ export default class extends Base {
         if (!this.is_admin()) {//管理员可以管理全部公共账号
             map.uid = this.user.uid;
         }
-        
         let data = await this.model('member_public').where(map).page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
@@ -52,7 +51,74 @@ export default class extends Base {
         this.meta_title = "公共账号管理";
         return this.display();
     }
-    
+
+    /**
+     *新增公众账号
+     */
+    async addsetingAction(){
+        if(this.isPost()){
+            let data = this.post();
+            let res = await this.model('member_public').add(data);
+            if(res){
+                return this.success({name: "添加成功", url: "/admin/mpbase/seting"});
+            }else{
+                return this.fail("添加失败");
+            }
+        }else{
+
+            this.assign({"navxs": true});
+            this.meta_title = "新增公众账号";
+            return this.display();
+        }
+    }
+
+    /**
+     *编辑公众账号
+     */
+    async editsetingAction(){
+        if(this.isPost()){
+            let data = {};
+            let id = this.post("id");
+            data.uid = this.post('uid');
+            data.public_id = this.post('public_id');
+            data.wechat = this.post('wechat');
+            data.type = this.post('type');
+            data.appid = this.post('appid');
+            data.secret = this.post('secret');
+            data.encodingaeskey = this.post('encodingaeskey');
+            data.mchid = this.post('mchid');
+            data.mchkey = this.post('mchkey');
+            data.notify_url = this.post('notify_url');
+            let res = await this.model("member_public").where({'id':id}).update(data);
+            if(res){
+                return this.success({name: "编辑成功", url: "/admin/mpbase/seting"});
+            }else{
+                return this.fail("编辑失败");
+            }
+        }else{
+            let id = this.get("id");
+            if (think.isEmpty(id)) {
+                this.fail('参数不能为空！');
+            }
+            let data = await this.model('member_public').where({'id':id}).find();
+            this.assign('info',data);
+            this.assign({"navxs": true});
+            this.meta_title = "编辑公众账号";
+            return this.display();
+        }
+    }
+    /**
+     *删除公众账号
+     */
+    async delsetingAction(){
+        let id = this.get("ids");
+        let res = await this.model('member_public').where({'id':id}).delete();
+        if(res){
+            return this.success({name: "删除成功", url: "/admin/mpbase/seting"});
+        }else{
+            return this.fail("删除失败");
+        }
+    }
     
      async huifuAction(){
         if(this.isPost()){
