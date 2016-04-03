@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 'use strict';
 
 import Base from './base.js';
@@ -149,7 +156,7 @@ export default class extends Base {
       //console.log(parr);
       real_amount = eval(parr.join('+'));
       //联系人
-      let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+      let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
      if(!think.isEmpty(addrlist)){
       for(let val of addrlist){
               val.province_num = val.province;
@@ -230,13 +237,13 @@ export default class extends Base {
       }
       
       if(res){
-          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();
+          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
           for(let val of addrlist){
               val.province = await this.model("area").where({id:val.province}).getField("name",true);
               val.city = await this.model("area").where({id:val.city}).getField("name",true);
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
           }
-          return this.success({name:'添加收货人地址成功',data:addrlist});
+          return this.success({name:'添加收货人地址成功',data:addrlist,type:data.type});
       }else{
           return this.fail( '添加失败！'); 
           
@@ -332,6 +339,7 @@ async editaddrmodalAction(){
     this.assign("city",city);
     this.assign("county",county);
     this.assign("info",address);
+    this.assign("type",this.get("type"));
     return this.display();
 }
 //创建订单

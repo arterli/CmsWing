@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 'use strict';
 
 import Base from './base.js';
@@ -104,7 +111,6 @@ export default class extends Base {
         console.log(map);
         // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let html = pagination(data, this.http, {
             desc: false, //show description
             pageNum: 2,
@@ -203,6 +209,81 @@ export default class extends Base {
             return this.fail("操作失败!");
         }
     }
+
+    /**
+     * 收货地址管理
+     * @returns {PreventPromise}
+     */
+   async addressAction(){
+        if(!this.is_login){return think.statusAction(1000,this.http);}
+       let data =await this.model("address").where({user_id:this.user.uid}).page(this.get('page')).order("is_default DESC,id DESC").countSelect();
+       let html = pagination(data, this.http, {
+           desc: false, //show description
+           pageNum: 2,
+           url: '', //page url, when not set, it will auto generated
+           class: 'nomargin', //pagenation extra class
+           text: {
+               next: '下一页',
+               prev: '上一页',
+               total: 'count: ${count} , pages: ${pages}'
+           }
+       });
+       //think.log(data);
+       this.assign('pagination', html);
+       if(!think.isEmpty(data.data)){
+           for(let val of data.data){
+               val.province_num = val.province;
+               val.city_num = val.city;
+               val.county_num = val.county;
+               val.province = await this.model("area").where({id:val.province}).getField("name",true);
+               val.city = await this.model("area").where({id:val.city}).getField("name",true);
+               val.county = await this.model("area").where({id:val.county}).getField("name",true);
+           }
+       }
+       this.assign("list",data.data);
+        this.meta_title = "收货地址";
+        this.display();
+    }
+
+    /**
+     * 账户金额管理
+     * @returns {PreventPromise}
+     */
+   async accountAction(){
+        if(!this.is_login){return think.statusAction(1000,this.http);}
+        let type = this.get("type")||null;
+       let data;
+       if(think.isEmpty(type)){
+        data =await this.model("balance_log").where({user_id:this.user.uid}).page(this.get('page')).order("time DESC").countSelect();
+       }else {
+         data = await this.model("balance_log").where({user_id:10000}).page(this.get('page')).order("time DESC").countSelect();
+       }
+
+        let html = pagination(data, this.http, {
+            desc: false, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: 'count: ${count} , pages: ${pages}'
+            }
+        });
+        //think.log(data);
+        this.assign('pagination', html);
+        this.assign("list",data.data);
+       this.assign("type",type);
+       //获取用户信息
+       let userInfo = await this.model("member").join({
+           table: "customer",
+           jion: "left",
+           on: ["id", "user_id"]
+       }).find(this.user.uid);
+       this.assign("userInfo", userInfo);
+        this.meta_title = "账户金额管理";
+        this.display();
+    }
 //   用户设置
     setingAction() {
         if (!this.is_login) {
@@ -220,6 +301,7 @@ export default class extends Base {
         this.meta_title = "用户注册";
         return this.display();
     }
+
 
 //   登陆页面
     async loginAction() {

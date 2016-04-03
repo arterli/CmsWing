@@ -12,6 +12,7 @@
     "babel-runtime": "6.x.x",
     "geetest": "*",
     "node-crontab": "*",
+    "nunjucks": "^2.2.0",
     "pingpp": "*",
     "source-map-support": "^0.4.0",
     "tar.gz": "^1.0.2",

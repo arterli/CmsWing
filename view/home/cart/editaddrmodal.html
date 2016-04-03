@@ -46,7 +46,7 @@
 											<div class="form-group">
 												<div class="col-md-12 col-sm-12">
 													<label>街道地址 *</label>
-													<textarea class="form-control required" rows="4" name="addr" required>{{info.addr}}</textarea>
+													<textarea class="form-control required"  name="addr" required>{{info.addr}}</textarea>
 												</div>
 											</div>
 										</div>
@@ -98,6 +98,7 @@
 									<div class="row">
 										<div class="col-md-12">
                                            <input type="hidden" name="id" value="{{info.id}}">
+											<input type="hidden" name="type" value="{{type}}">
 											<button class="btn btn-3d btn-teal btn-lg btn-block margin-top-30" type="submit">
 												编辑收货人地址
 											</button>
