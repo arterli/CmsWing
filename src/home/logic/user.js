@@ -19,4 +19,10 @@ export default class extends think.logic.base {
   indexAction(){
    
   }
+
+  rechargeAction(){
+    this.rules = {
+     // order_amount: "float|post|currency|required"
+    }
+  }
 }

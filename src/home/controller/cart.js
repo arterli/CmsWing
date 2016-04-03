@@ -611,11 +611,26 @@ async createorderAction(){
                 // 开发者在此处加入对支付异步通知的处理代码
                 //console.log(data.data.object.paid);
                 if(data.data.object.paid){
-                    //支付成功改变订单状态
-                    await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1,pay_time:(data.data.object.time_paid*1000)});
-                    let oid = await this.model("order").where({order_no:data.data.object.order_no}).getField("id",true);
+                    let order = await this.model("order").where({order_no:data.data.object.order_no}).field("id,tpye,user_id,order_amount,payment").find();
+                        //支付成功改变订单状态
+                       let update = await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1,pay_time:(data.data.object.time_paid*1000)});
+                       if(order.type == 1 && update) {
+                            await this.model("customer").where({user_id:order.user_id}).increment("balance",order.order_amount);
+                            //充值成功后插入日志
+                            let log = {
+                                admin_id:0,
+                                user_id:order.user_id,
+                                type:2,
+                                time:new Date().valueOf(),
+                                amount:Number(order.order_amount),
+                                amount_log:await this.model("customer").where({user_id:order.user_id}).getField("balance",true),
+                                note:`${await get_nickname(order.user_id)} 通过[${await this.model("pingxx").where({id: order.payment}).getField("title", true)}]支付方式进行充值,订单编号：${data.data.object.order_no}`
+                            }
+                            await this.model('balance_log').add(log);
+
+                    }
                     //记录支付日志
-                    await this.model("doc_receiving").where({order_id:oid}).update({pay_status:1,payment_time:(data.data.object.time_paid*1000)});
+                    await this.model("doc_receiving").where({order_id:order.id}).update({pay_status:1,payment_time:(data.data.object.time_paid*1000)});
                     return this.success({name:"成功！"});
                 }else {
                     return this.fail("失败！");
@@ -654,9 +669,29 @@ async createorderAction(){
             let charges = await pay.charge(order.pingxx_id);
             if(charges.paid && order.pay_status == 0){
                 //支付成功改变订单状态
-                await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1,pay_time:(charges.time_paid*1000)});
-                //记录支付日志
+                let update = await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1,pay_time:(charges.time_paid*1000)});
+
+                if(order.type == 1 && update){
+                         await this.model("customer").where({user_id:order.user_id}).increment("balance",order.order_amount);
+
+                    //充值成功后插入日志
+                    let log = {
+                        admin_id:0,
+                        user_id:order.user_id,
+                        type:2,
+                        time:new Date().valueOf(),
+                        amount:Number(order.order_amount),
+                        amount_log:await this.model("customer").where({user_id:order.user_id}).getField("balance",true),
+                        note:`${await get_nickname(order.user_id)} 通过[${await this.model("pingxx").where({id: order.payment}).getField("title", true)}]支付方式进行充值,订单编号：${order.order_no}`
+                    }
+                    await this.model('balance_log').add(log);
+
+                }
+                    //记录支付日志
                 await this.model("doc_receiving").where({order_id:order.id}).update({pay_status:1,payment_time:(charges.time_paid*1000)});
+            }
+            if(charges.paid && order.pay_status == 0 && order.type==1){
+                await this.model("order").where({order_no:order.order_no}).delete();
             }
             charges.amount = charges.amount/100;
             charges.channel = await this.model("pingxx").where({channel:charges.channel}).getField("title",true);

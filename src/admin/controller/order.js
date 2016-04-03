@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Author: arterli <arterli@qq.com>
+// | Author: Arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
 
@@ -33,6 +33,7 @@ export default class extends Base {
         }
 
         map.is_del = 0
+        map.type = 0;
        // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter

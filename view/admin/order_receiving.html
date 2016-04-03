@@ -46,7 +46,7 @@
                     <tbody>
 {%for val in list%}
                     <tr>
-                        <td>{%if val.doc_type == 0%}订单支付{%endif%}</td>
+                        <td>{%if val.doc_type == 0%}购买商品{%elif val.doc_type==1%}在线充值{%endif%}</td>
                         <td> {{val.channel}}</td>
 
                         <td>{%if val.pay_status == 0%} <span class="text-muted">未支付</span>{%else%}<span class="text-success">已支付</span>{%endif%} </td>

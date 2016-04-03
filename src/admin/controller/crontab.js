@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | Copyright (c) 2015 http://www.cmswing.com All rights reserved.
 // +----------------------------------------------------------------------
-// | Author: arterli <arterli@qq.com>
+// | Author: Arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
 
@@ -37,7 +37,7 @@ export default class extends think.controller.base {
       pay_status:0,
       status:2,
       create_time:["<",(new Date().getTime()-(Number(setup.ORDER_DELAY)*60000))],
-      _logic: "and"
+      type: 0
     }
     let order = await this.model("order").where(map).field("id").select();
     if(!think.isEmpty(order)){
