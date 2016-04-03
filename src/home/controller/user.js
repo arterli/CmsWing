@@ -157,6 +157,7 @@ export default class extends Base {
         }
         //未付款统计
         let nopaid = await this.model("order").where({
+            type:0,
             pay_status: 0,
             delivery_status: ["!=", 1],
             status: ["NOTIN", [4, 6]],
@@ -166,6 +167,7 @@ export default class extends Base {
         this.assign("nopaid",nopaid);
         //未付款统计
         let receipt = await this.model("order").where({
+            type:0,
             status: ["NOTIN", [4, 6]],
             delivery_status: 1,
             is_del: 0,

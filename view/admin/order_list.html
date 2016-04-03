@@ -59,7 +59,7 @@
                                     </thead>
                                     <tbody>
                                     {% for item in list %}
-                                    <tr {%if item.status == 4%}class = "success"{%endif%} {% if item.status == 6%} class="warning" {%endif%}>
+                                    <tr >
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                                          <td>{{item.order_no}}</td>
                                           
