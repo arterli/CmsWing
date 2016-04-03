@@ -22,7 +22,7 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info " href="/admin/mpbase/add">
+                                        <a class="btn btn-sm btn-info " href="/admin/mpbase/addseting">
                                             新增
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/mpbase/setstatus/status/1"  target-form="ids">
@@ -78,10 +78,10 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="/admin/mpbase/edit/id/{{item.id}}" class="text-info">编辑</a>
+                                            <a href="/admin/mpbase/editseting/id/{{item.id}}" class="text-info">编辑</a>
                                             <a href="/admin/mpbase/change/id/{{item.id}}" class="text-info">切换为当前公众号</a>
                                             <a href="#" class="text-info">接口配置</a>
-                                            <a href="/admin/mpbase/del/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                            <a href="/admin/mpbase/delseting/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
