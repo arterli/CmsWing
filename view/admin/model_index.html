@@ -54,7 +54,7 @@
                                     <tbody>
                                     {% for item in list %}
                                     <tr>
-                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
                                         <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
@@ -69,7 +69,9 @@
                                         <td><a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>
                                             <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
                                             <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
+                                            {%if item.id !=1%}
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                            {%endif%}
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

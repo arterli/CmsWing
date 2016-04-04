@@ -19,7 +19,8 @@
     "think-pagination": "*",
     "think-wechat": "*",
     "thinkjs": "2.2.x",
-    "wechat-api": "^1.20.0"
+    "wechat-api": "^1.20.0",
+    "Jimp":"*"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

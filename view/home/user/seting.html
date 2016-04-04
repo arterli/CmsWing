@@ -116,19 +116,19 @@
 											<select class="form-control pointer  " id="province1" name="province" style="width: 150px;display: inline-block">
 												<option value="">--- 省份/直辖市 ---</option>
 												{% for val in province %}
-												<option value="{{val.id}}" {% if info.province == val.id %} selected {% endif%}>{{val.name}}</option>
+												<option value="{{val.id}}" {% if userInfo.province == val.id %} selected {% endif%}>{{val.name}}</option>
 												{% endfor %}
 											</select>
 											<select class="form-control pointer  " id="city1" name="city" style="width: 150px;display: inline-block">
 												{% for val in city %}
-												<option value="{{val.id}}" {% if info.city == val.id %} selected {% endif%}>{{val.name}}</option>
+												<option value="{{val.id}}" {% if userInfo.city == val.id %} selected {% endif%}>{{val.name}}</option>
 												{% else %}
 												<option value="">--- 市 ---</option>
 												{% endfor %}
 											</select>
 											<select class="form-control pointer " id="county1" name="county" style="width: 150px;display: inline-block">
 												{% for val in county %}
-												<option value="{{val.id}}" {% if info.county == val.id %} selected {% endif%}>{{val.name}}</option>
+												<option value="{{val.id}}" {% if userInfo.county == val.id %} selected {% endif%}>{{val.name}}</option>
 												{% else %}
 												<option value="">--- 县/区 ---</option>
 												{% endfor %}
@@ -155,52 +155,57 @@
 							<!-- AVATAR TAB -->
 							<div class="tab-pane fade" id="avatar">
 
-								<form class="clearfix" action="#" method="post" enctype="multipart/form-data">
-									<div class="form-group">
+								<div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
+									<div class="">
+										<div class="">
+											<form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
 
-										<div class="row">
+												<div class="modal-body">
+													<div class="avatar-body">
+														<div class="avatar-upload">
+															<input class="avatar-src" name="avatar_src" type="hidden">
+															<input class="avatar-data" name="avatar_data" type="hidden">
 
-											<div class="col-md-3 col-sm-4">
+															</div>
+														<div class="fancy-file-upload fancy-file-primary">
+															<i class="fa fa-upload"></i>
+															<input type="file" class="form-control avatar-input" id="avatarInput" name="avatar_file" onchange="jQuery(this).next('input').val(this.value);" />
+															<input type="text" class="form-control" placeholder="请选择头像图片" readonly="" />
+															<span class="button">选择图片</span>
+														</div>
+														<div class="row">
 
-												<div class="thumbnail">
-													<img class="img-responsive" src="assets/images/demo/people/460x700/8-min.jpg" alt="" />
+															<div class="col-md-3">
+																<div class="avatar-preview preview-lg"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+																<div class="avatar-preview preview-md"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+																<div class="avatar-preview preview-sm"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+															</div>
+															<div class="col-md-9">
+																<div class="avatar-wrapper"></div>
+															</div>
+														</div>
+														<div class="row avatar-btns">
+															<div class="col-md-3">
+																<button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
+															</div>
+															<div class="col-md-9">
+																<div class="btn-group">
+																	<button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
+																</div>
+																<div class="btn-group">
+																	<button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
+																</div>
+															</div>
+
+														</div>
+													</div>
 												</div>
-
-											</div>
-
-											<div class="col-md-9 col-sm-8">
-
-												<div class="sky-form nomargin">
-													<label class="label">Select File</label>
-													<label for="file" class="input input-file">
-														<div class="button">
-															<input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse
-														</div><input type="text" readonly>
-													</label>
-												</div>
-
-												<a href="#" class="btn btn-danger btn-xs noradius"><i class="fa fa-times"></i> Remove Avatar</a>
-
-												<div class="clearfix margin-top-20">
-													<span class="label label-warning">NOTE! </span>
-													<p>
-														Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt laoreet!
-													</p>
-												</div>
-
-											</div>
-
+											</form>
 										</div>
-
 									</div>
+								</div>
 
-									<div class="margiv-top10">
-										<a href="#" class="btn btn-primary">Save Changes </a>
-										<a href="#" class="btn btn-default">Cancel </a>
-									</div>
-
-								</form>
-
+								<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
 							</div>
 							<!-- /AVATAR TAB -->
 
@@ -310,6 +315,12 @@
 			</section>
 			<!-- / -->
 {% endblock %}
+{%block style%}
+<link href="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.css" rel="stylesheet">
+<link href="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.css" rel="stylesheet">
+{%endblock%}
 {% block script %}
 <script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
-        {% endblock %}
+<script src="/static/assets/plugins/jquery-html5-upload/cropper/cropper.min.js"></script>
+<script src="/static/assets/plugins/jquery-html5-upload/sitelogo/sitelogo.js"></script>
+{% endblock %}

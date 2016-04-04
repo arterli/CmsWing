@@ -609,4 +609,6 @@
 		jQuery("#payment_card").bind("click", function() {
 			jQuery("#ccPayment").slideDown(200);
 		});
+        
+        
 	}

@@ -552,7 +552,7 @@ label {
 
 
 .input-group-addon {
-	border:#ddd 2px solid;
+	border:#ddd 1px solid;
 	border-right:0;
 }
 	section.dark .input-group-addon {
@@ -561,7 +561,7 @@ label {
 		color:#eaeaea;
 	}
 .form-control {
-	border:#ddd 2px solid;
+	border:#ddd 1px solid;
 	box-shadow:none;
 
 	-webkit-border-radius: 3px;
@@ -570,7 +570,7 @@ label {
 }
 section .input-group-btn .btn.btn-default,
 section .input-group-btn button.btn-default {
-	border-width:2px;
+	border-width:1px;
 	border-color:#ddd;
 }
 .form-control:focus {
