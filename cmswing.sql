@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-04-04 03:44:30
+Date: 2016-04-05 10:34:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=443 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=448 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -204,6 +204,11 @@ INSERT INTO `cmswing_action_log` VALUES ('439', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('440', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-03 00:59:40登录了后台', '1', '1459616380661');
 INSERT INTO `cmswing_action_log` VALUES ('441', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-04 02:12:19登录了后台', '1', '1459707139208');
 INSERT INTO `cmswing_action_log` VALUES ('442', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 03:34:18登录了后台', '1', '1459712058463');
+INSERT INTO `cmswing_action_log` VALUES ('443', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 04:27:27登录了后台', '1', '1459715247541');
+INSERT INTO `cmswing_action_log` VALUES ('444', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 15:41:07登录了后台', '1', '1459755667274');
+INSERT INTO `cmswing_action_log` VALUES ('445', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 15:51:24登录了后台', '1', '1459756284073');
+INSERT INTO `cmswing_action_log` VALUES ('446', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 19:46:29登录了后台', '1', '1459770389026');
+INSERT INTO `cmswing_action_log` VALUES ('447', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-04 22:02:41登录了后台', '1', '1459778561055');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4221,11 +4226,12 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_cart
 -- ----------------------------
+INSERT INTO `cmswing_cart` VALUES ('3', '2', '87', '1', '[推荐]18-140&35 1.8G（人像）', '7199', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '7199', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/detail/87', '500');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4366,7 +4372,7 @@ CREATE TABLE `cmswing_customer` (
 -- Records of cmswing_customer
 -- ----------------------------
 INSERT INTO `cmswing_customer` VALUES ('1', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '98402.73', null, null);
-INSERT INTO `cmswing_customer` VALUES ('2', '柯南', '029888888', '0', '110000', '610101', '', null, '1', '455587200000', '0', '0', null, null, '1259.00', null, null);
+INSERT INTO `cmswing_customer` VALUES ('2', '柯南', '029888888', '110000', '110100', '110101', '', null, '1', '455587200000', '0', '0', null, null, '1259.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('3', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('4', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('5', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
@@ -4482,8 +4488,8 @@ INSERT INTO `cmswing_document` VALUES ('83', '1', '', 'fdsfdsf', '44', '0', 'fds
 INSERT INTO `cmswing_document` VALUES ('84', '1', '', '在线支付测试测试', '57', '0', '在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '24', '0', '0', '0', '1458730859521', '1458730859521', '1', '177,178', '{\"present_price\":\"1\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('85', '1', '', '测试商品规格图片1', '57', '0', '测试商品规格图片测试商品规格图片测试商品规格图片', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '42', '0', '0', '0', '1459365534365', '1459365534363', '1', '183,184,185', '{\"present_price\":\"107-109\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('86', '1', '', '单sku商品测试', '57', '0', '单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1459370757681', '1459370757678', '1', '192', '{\"present_price\":\"80\",\"discount_price\":\"40\"}');
-INSERT INTO `cmswing_document` VALUES ('87', '1', '', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '51', '0', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '32', '0', '0', '0', '1459400517632', '1459400517632', '1', '193,194,195,196,197', '{\"present_price\":\"4399-7199\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('88', '1', '', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '52', '0', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1459405078511', '1459405078508', '1', '211,212,213,214,215', '{\"present_price\":\"4888-5688\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('87', '1', '', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '51', '0', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '33', '0', '0', '0', '1459400517632', '1459400517632', '1', '193,194,195,196,197', '{\"present_price\":\"4399-7199\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('88', '1', '', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '52', '0', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '5', '0', '0', '0', '1459405078511', '1459405078508', '1', '211,212,213,214,215', '{\"present_price\":\"4888-5688\",\"discount_price\":\"0\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -4941,7 +4947,7 @@ CREATE TABLE `cmswing_member` (
 -- Records of cmswing_member
 -- ----------------------------
 INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '660', 'arterli@qq.com', '201', '', '1452513965683', '0', '1459707139095', '2130706433', '0', '1', '1');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '35f712de71b7b0923e396790305533b4', '50', 'cmswing@cmswing.com', '14', '13571883577', '1458989485616', '0', '1459712058430', '2130706433', '0', '1', '0');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '35f712de71b7b0923e396790305533b4', '50', 'cmswing@cmswing.com', '19', '13571883577', '1458989485616', '0', '1459778561012', '2130706433', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test@cmswing.com', '0', '', '1458990106486', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0');
