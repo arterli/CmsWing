@@ -128,13 +128,14 @@ $(function () {
             var uploader = WebUploader.create({
 
                 // 自动上传。
-                auto: false,
+                auto: true,
                 // swf文件路径
                 swf: 'Uploader.swf',
                 // 选择文件的按钮。可选。
                 // 内部根据当前运行是创建，可能是input元素，也可能是flash.
                 pick: '#filePicker',
                 // 只允许选择文件，可选。
+                server: '/user/updateavatar',
                 accept: {
                     title: 'Images',
                     extensions: 'gif,jpg,jpeg,bmp,png',
@@ -144,11 +145,26 @@ $(function () {
 
             // 当有文件添加进来的时候
             uploader.on( 'fileQueued', function( file ) {
-                var files = $("input[name='file']").prop('files');
-                $.popup('.popup-avatar');
+               // var files = $("input[name='file']").prop('files');
+                //$.popup('.popup-avatar');
             });
 
+        uploader.on( 'uploadSuccess', function( file ) {
+            uploader.makeThumb( file, function( error, src ) {
+                if ( error ) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
 
+                $(".avatar").find("img").attr( 'src', src );
+            }, 50, 50 );
+            $.toast("上传成功");
+        });
+
+        uploader.on( 'uploadError', function( file ) {
+
+            $.toast("上传出错");
+        });
 
 
     })

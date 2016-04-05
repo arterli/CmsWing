@@ -18,18 +18,18 @@
     <div class="content ">
 
         <div class="">
-        <div class="list-block  margin-top-0">
+        <div class="list-block ">
             <ul class="">
                 <li>
-                   <div id="upload_avatar">
-                    <a class="item-link item-content " href="#" id="filePicker">
+
+                    <div class=" item-content " id="filePicker">
                         <div class="item-inner userinfo">
                             <div class="item-subtitle">头像</div>
                             <div class="item-media avatar avatar-view"><img  style="width: 50px" src="/user/avatar"></div>
                         </div>
 
-                    </a>
-                   </div>
+                    </div>
+
                 </li>
                 <li>
                 <a class="item-link item-content">
@@ -108,16 +108,14 @@
     </div>
 </div>
 <!-- About Popup -->
-<div class="popup popup-avatar" >
+<div class="popup popup-avatar" id="avatar-modal">
+    <form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
     <header class="bar bar-nav">
         <a class="icon icon-left pull-left close-popup"></a>
-        <a href="#" class="button button-fill pull-right ">使用</a>
+        <button type="submit" class="button button-fill pull-right avatar-save">使用</button>
         <h1 class="title">上传头像</h1>
     </header>
     <div class="content">
-        <div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
-
-            <form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
 
                 <div class="modal-body">
                     <div class="avatar-body">
@@ -126,12 +124,8 @@
                             <input class="avatar-data" name="avatar_data" type="hidden">
 
                         </div>
-                        <div class="fancy-file-upload fancy-file-primary">
-                            <i class="fa fa-upload"></i>
-                            <input type="file" class="form-control avatar-input" id="avatarInput" name="file" onchange="jQuery(this).next('input').val(this.value);" />
-                            <input type="text" class="form-control" placeholder="请选择头像图片" readonly="" />
-                            <span class="button">选择图片</span>
-                        </div>
+
+
                         <div class="">
 
                             <div class="">
@@ -143,28 +137,19 @@
                                 <div class="avatar-wrapper"></div>
                             </div>
                         </div>
-                        <div class="row avatar-btns">
-                            <div class="col-md-3">
-                                <button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
-                            </div>
-                            <div class="col-md-9">
-                                <div class="btn-group">
-                                    <button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
-                                </div>
-                                <div class="btn-group">
-                                    <button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
                 </div>
-            </form>
 
-        </div>
 
-        <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+
     </div>
+        <div class="bar bar-footer">
+            <input type="file" class="form-control avatar-input " id="avatarInput" name="file" style="display: none" accept="image/*"   />
+
+            <label class="button" for="avatarInput" ><i class="fa fa-upload"></i> 选择图片</label>
+        </div>
+    </form>
 </div>
 {% endblock%}
 {% block style %}

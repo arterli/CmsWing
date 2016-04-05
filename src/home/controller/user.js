@@ -453,44 +453,53 @@ export default class extends Base {
         if(!this.is_login){return think.statusAction(1000,this.http);}
         let file = think.extend({}, this.file('file'));
         console.log(file);
-        let post = this.post();
-        let avatar_data= JSON.parse(post.avatar_data);
         //think.log(avatar_data);
         var filepath = file.path;
-
         //文件上传后，需要将文件移动到项目其他地方，否则会在请求结束时删除掉该文件
         var uploadPath = think.RESOURCE_PATH + '/upload/avatar/'+this.user.uid;
         think.mkdir(uploadPath);
-       //  let cropimg = function () {
-       //
-       //      var deferred = getDefer();
-       //      images(cropw, croph).fill(0xff, 0x00, 0x00, 0.5)
-       //          .draw(images(images(filepath), avatar_data.x, avatar_data.y, avatar_data.width, avatar_data.height), 0, 0)
-       //          .save(uploadPath+"/avatar.jpg", {     //保存到output.jpg,图片质量为50
-       //              quality: 50
-       //          });
-       //      deferred.resolve(uploadPath+"/avatar.jpg");
-       //      return deferred.promise;
-       //  }
-       //
-       // let pic = await cropimg();
-        let jimp = () => {
-            let deferred = think.defer();
-            let self=this;
-            Jimp.read(filepath, function (err, lenna) {
-                //console.log(lenna)
+        let res;
+        if (checkMobile(this.userAgent())) {
+            let jimp2 = ()=>{
+                console.log(111)
+                let deferred = think.defer();
+                let self=this;
+                Jimp.read(filepath, function (err, lenna) {
+                    if (err) throw err;
+                    lenna.resize(200, 200)            // resize
+                        .quality(60)                 // set JPEG quality
+                        .write(uploadPath+"/avatar.png",function (e, r) {
+                            deferred.resolve('/upload/avatar/'+self.user.uid+"/avatar.png");
+                        }); // save
+                });
+                return deferred.promise;
+            }
+            res = await jimp2();
+        } else {
+            let post = this.post();
+            let avatar_data= JSON.parse(post.avatar_data);
+            let jimp = () => {
+                let deferred = think.defer();
+                let self=this;
+                Jimp.read(filepath, function (err, lenna) {
+                    //console.log(lenna)
 
-                if (err) throw err;
-                lenna.crop( avatar_data.x, avatar_data.y, avatar_data.width, avatar_data.height )            // resize
-                    .quality(60)
-                    .write(uploadPath+"/avatar.png",function (e, r) {
-                        deferred.resolve('/upload/avatar/'+self.user.uid+"/avatar.png");
-                    }); // save
+                    if (err) throw err;
+                    lenna.crop( avatar_data.x, avatar_data.y, avatar_data.width, avatar_data.height )            // resize
+                        .quality(60)
+                        .write(uploadPath+"/avatar.png",function (e, r) {
+                            deferred.resolve('/upload/avatar/'+self.user.uid+"/avatar.png");
+                        }); // save
 
-            });
-            return deferred.promise;
+                });
+                return deferred.promise;
+            }
+            res = await jimp();
         }
-        let res = await jimp();
+
+
+
+
 
         //think.log(res);
         let data={
