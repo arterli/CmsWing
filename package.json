@@ -20,7 +20,7 @@
     "think-wechat": "*",
     "thinkjs": "2.2.x",
     "wechat-api": "^1.20.0",
-    "Jimp":"*"
+    "jimp":"*"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
@@ -28,7 +28,5 @@
     "babel-preset-stage-1": "6.x.x",
     "babel-plugin-transform-runtime": "6.x.x",
     "babel-core": "6.x.x"
-  },
-  "repository": "",
-  "license": "MIT"
+  }
 }
