@@ -121,6 +121,36 @@ $(function () {
             location.reload();
         });
     });
+    $(document).on("pageInit","#user_seting",function (e, id, page) {
 
+
+            // 初始化Web Uploader
+            var uploader = WebUploader.create({
+
+                // 自动上传。
+                auto: false,
+                // swf文件路径
+                swf: 'Uploader.swf',
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#filePicker',
+                // 只允许选择文件，可选。
+                accept: {
+                    title: 'Images',
+                    extensions: 'gif,jpg,jpeg,bmp,png',
+                    mimeTypes: 'image/*'
+                }
+            });
+
+            // 当有文件添加进来的时候
+            uploader.on( 'fileQueued', function( file ) {
+                var files = $("input[name='file']").prop('files');
+                $.popup('.popup-avatar');
+            });
+
+
+
+
+    })
     $.init();
 });

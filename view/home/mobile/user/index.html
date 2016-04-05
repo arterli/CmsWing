@@ -24,8 +24,8 @@
         <div class="m-user-header">
         <div class="list-block media-list m-all-none">
             <ul class="user">
-                <li>
-                    <a class="item-link item-content" href="#">
+                <li >
+                    <a class="item-link item-content" href="/user/seting">
                         <div class="item-media avatar"><img width="50" src="/user/avatar"></div>
                         <div class="item-inner userinfo">
                             <div class="item-subtitle"><strong>{{controller.user.username}}</strong></div>
@@ -51,6 +51,7 @@
         </div>
         <div class="list-block m-t-n">
             <ul>
+                <li>
                     <a class="item-link item-content" href="#">
                     <div class="item-media text-primary"><i class="et-wallet fa-lg"></i></i>
                     </div>
@@ -59,11 +60,12 @@
                         <div class="item-after">￥<spna class="text-danger">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</spna></div>
                     </div>
                     </a>
-
+                </li>
             </ul>
         </div>
         <div class="list-block">
             <ul>
+                <li>
                 <a class="item-link item-content" href="#">
                     <div class="item-media text-muted width-20"><i class="et-clipboard fa-lg"></i></i>
                     </div>
@@ -72,6 +74,8 @@
                         <div class="item-after"><span class="badge">5</span></div>
                     </div>
                 </a>
+                </li>
+                <li>
                 <a class="item-link item-content" href="#">
                     <div class="item-media text-muted width-20"><i class="et-recycle fa-lg"></i></i>
                     </div>
@@ -80,11 +84,13 @@
 
                     </div>
                 </a>
+                </li>
             </ul>
         </div>
 
         <div class="list-block">
             <ul>
+                <li>
                 <a class="item-link item-content" href="#">
                     <div class="item-media text-muted width-20"><i class="et-happy fa-lg"></i></i>
                     </div>
@@ -93,6 +99,8 @@
                         <div class="item-after"><span class="badge">5</span></div>
                     </div>
                 </a>
+                </li>
+                <li>
                 <a class="item-link item-content" href="#">
                     <div class="item-media text-muted width-20"><i class="et-map-pin fa-lg"></i></i>
                     </div>
@@ -101,11 +109,12 @@
 
                     </div>
                 </a>
+                </li>
             </ul>
         </div>
         <div class="list-block">
             <ul>
-
+<li>
                 <a class="item-link item-content" href="/user/logout">
                     <div class="item-media text-primary width-20"><i class="fa fa-sign-out fa-lg"></i></i>
                     </div>
@@ -114,6 +123,7 @@
 
                     </div>
                 </a>
+</li>
             </ul>
         </div>
     </div>

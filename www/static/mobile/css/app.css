@@ -427,6 +427,8 @@ background: #52ACE5;
 }
 .m-user-header .user{
     background: #4693C5;
+    border-top: 0px solid #e7e7e7;
+    border-bottom: 0px solid #e7e7e7;
 }
 .m-user-header .item-subtitle{
     color: #fff;
@@ -449,6 +451,7 @@ background: #52ACE5;
 }
 #user_index header.bar{
     background-color:#52ACE5;
+    border-bottom: 0px solid #e7e7e7;
 }
 #user_index header.bar .button-link,#user_index header.bar .title{
     color: #fff;

@@ -401,7 +401,12 @@ export default class extends Base {
        this.assign("city",city);
        this.assign("county",county);
         this.meta_title = "用户设置";
-        return this.display();
+       //判断浏览客户端
+       if (checkMobile(this.userAgent())) {
+           return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+       } else {
+           return this.display();
+       }
     }
     //更新用户信息
    async updateinfoAction(){
@@ -446,7 +451,7 @@ export default class extends Base {
     //上传头像
     async updateavatarAction(){
         if(!this.is_login){return think.statusAction(1000,this.http);}
-        let file = think.extend({}, this.file('avatar_file'));
+        let file = think.extend({}, this.file('file'));
         console.log(file);
         let post = this.post();
         let avatar_data= JSON.parse(post.avatar_data);

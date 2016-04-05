@@ -10,7 +10,6 @@
 })(function ($) {
 
   'use strict';
-
   var console = window.console || { log: function () {} };
 
   function CropAvatar($element) {
@@ -18,7 +17,7 @@
 
     this.$avatarView =$('.avatar-view');
     this.$avatar = this.$avatarView.find('img');
-    this.$avatarModal = $("body").find('#avatar-modal');
+    this.$avatarModal = $('#avatar-modal');
     this.$loading = $("#page-wrapper").find('.loading');
 
     this.$avatarForm = this.$avatarModal.find('.avatar-form');
@@ -31,7 +30,6 @@
 
     this.$avatarWrapper = this.$avatarModal.find('.avatar-wrapper');
     this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
-
     this.init();
   }
 
@@ -132,19 +130,18 @@
       var files,
           file;
 
-      if (this.support.datauri) {
+      if (!!window.URL && URL.createObjectURL) {
         files = this.$avatarInput.prop('files');
-        console.log(files);
+
         if (files.length > 0) {
           file = files[0];
-          console.log(file);
+
           if (this.isImageFile(file)) {
             if (this.url) {
               URL.revokeObjectURL(this.url); // Revoke the old one
             }
 
             this.url = URL.createObjectURL(file);
-            console.log(this.url)
             this.startCropper();
           }
         }
@@ -190,12 +187,15 @@
 
     startCropper: function () {
       var _this = this;
-       console.log(this.url);
       if (this.active) {
         this.$img.cropper('replace', this.url);
+        console.log(this.$img);
       } else {
         this.$img = $('<img src="' + this.url + '">');
+        console.log(this.$img);
+        console.log(1);
         this.$avatarWrapper.empty().html(this.$img);
+
         this.$img.cropper({
           aspectRatio: 1,
           preview: this.$avatarPreview.selector,

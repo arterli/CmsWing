@@ -1,0 +1,180 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_seting">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content ">
+
+        <div class="">
+        <div class="list-block  margin-top-0">
+            <ul class="">
+                <li>
+                   <div id="upload_avatar">
+                    <a class="item-link item-content " href="#" id="filePicker">
+                        <div class="item-inner userinfo">
+                            <div class="item-subtitle">头像</div>
+                            <div class="item-media avatar avatar-view"><img  style="width: 50px" src="/user/avatar"></div>
+                        </div>
+
+                    </a>
+                   </div>
+                </li>
+                <li>
+                <a class="item-link item-content">
+                    <div class="item-inner">
+                        <div class="item-title">个人资料</div>
+                        <div class="item-after">标签</div>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content">
+                    <div class="item-inner">
+                        <div class="item-title">修改密码</div>
+                        <div class="item-after">标签</div>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content">
+                    <div class="item-inner">
+                        <div class="item-title">隐私设置</div>
+                        <div class="item-after">标签</div>
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+        </div>
+
+
+
+        <div class="list-block">
+            <ul>
+                <li>
+                <a class="item-link item-content" href="#">
+                    <div class="item-media text-muted width-20"><i class="et-map-pin fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">收货地址</div>
+
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+             <li>
+                <a class="item-link item-content" href="/user/logout">
+                    <div class="item-media text-primary width-20"><i class="fa fa-sign-out fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">退出登录</div>
+
+                    </div>
+                </a>
+             </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+<!-- About Popup -->
+<div class="popup popup-avatar" >
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup"></a>
+        <a href="#" class="button button-fill pull-right ">使用</a>
+        <h1 class="title">上传头像</h1>
+    </header>
+    <div class="content">
+        <div class="" id="avatar-modal" aria-labelledby="avatar-modal-label" >
+
+            <form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
+
+                <div class="modal-body">
+                    <div class="avatar-body">
+                        <div class="avatar-upload">
+                            <input class="avatar-src" name="avatar_src" type="hidden">
+                            <input class="avatar-data" name="avatar_data" type="hidden">
+
+                        </div>
+                        <div class="fancy-file-upload fancy-file-primary">
+                            <i class="fa fa-upload"></i>
+                            <input type="file" class="form-control avatar-input" id="avatarInput" name="file" onchange="jQuery(this).next('input').val(this.value);" />
+                            <input type="text" class="form-control" placeholder="请选择头像图片" readonly="" />
+                            <span class="button">选择图片</span>
+                        </div>
+                        <div class="">
+
+                            <div class="">
+                                <div class="avatar-preview preview-lg"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-md"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-sm"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                            </div>
+                            <div class="">
+                                <div class="avatar-wrapper"></div>
+                            </div>
+                        </div>
+                        <div class="row avatar-btns">
+                            <div class="col-md-3">
+                                <button class="btn btn-primary btn-block avatar-save" type="submit"><i class="fa fa-save"></i> 保存修改</button>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="btn-group">
+                                    <button class="btn" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees"><i class="fa fa-undo"></i> 向左旋转</button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees"><i class="fa fa-repeat"></i> 向右旋转</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+    </div>
+</div>
+{% endblock%}
+{% block style %}
+<link rel="stylesheet" href="/static/mobile/plugins/webuploader/webuploader.css">
+<link rel="stylesheet" href="/static/mobile/plugins/cropper/cropper.min.css">
+<link rel="stylesheet" href="/static/mobile/plugins/uploadavatar/uploadavatar.css">
+{% endblock %}
+{% block script %}
+<script src="/static/mobile/plugins/webuploader/webuploader.min.js"></script>
+<script src="/static/mobile/plugins/cropper/cropper.js"></script>
+<script src="/static/mobile/plugins/uploadavatar/uploadavatar.js"></script>
+
+{% endblock %}
