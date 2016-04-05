@@ -1,15 +1,16 @@
 
-.list-block{
-    margin: 1.15rem 0;
+.list-block,.content-block{
+    margin: 1.05rem 0;
 }
+
 .icon-alipay-oauth {
-    background-position: 0 -120px;
+    background-position: 0 -120px !important;
 }
 .icon-qq-oauth {
-    background-position: 0 -40px;
+    background-position: 0 -40px !important;
 }
 .icon-weibo-oauth {
-    background-position: 0 -80px;
+    background-position: 0 -80px !important;
 }
 /** 04. Commons
  **************************************************************** **/

@@ -17,7 +17,7 @@
         <div class="content">
             <div class="conten-block c_logo"><img src="/static/mobile/img/logo_dark.png"></div>
             <form role="form" class="sky-form" id="m_login" method="post">
-            <div class="list-block">
+            <div class="list-block inset">
                 <ul>
                     <!-- Text inputs -->
                     <li>
@@ -34,7 +34,7 @@
 
                     <li>
 
-                        <div class="item-content">
+                        <div class="item-content ">
                             <div class="item-media"><i class="icon icon-form-password"></i></div>
                             <div class="item-inner">
                                 <div class="item-title label">密码</div>
@@ -65,7 +65,7 @@
                 </ul>
             </div>
             <div class="content-block">
-                <p><a href="javascript:;" class="button button-big button-fill button-success btn_login">登录 </a></p>
+                <p><a href="javascript:;" class="button button-big button-fill  btn_login">登录 </a></p>
             </div>
             </form>
             <div class="content-block login-oauth">
@@ -112,7 +112,7 @@
                         $.toast(msg.data.name);
                         setTimeout(function(){
                             location.href="{{http.referrer()}}";
-                        },2000);
+                        },1500);
                     }
                 }
             });
