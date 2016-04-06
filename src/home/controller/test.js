@@ -132,4 +132,24 @@ export default class extends Base {
 
        this.end();
     }
+   async areaAction(){
+        let area = await this.model("area").select();
+       think.log(area);
+       function totree (data, pid) {
+           var result = [], temp;
+           var length=data.length;
+           for(var i=0;i<length;i++) {
+               if (data[i].parent_id == pid) {
+                   result.push(data[i]);
+                   temp = totree(data, data[i].id);
+                   if (temp.length > 0) {
+                       data[i].sub = temp;
+                       data[i].type =0
+                   }
+               }
+           }
+           return result;
+       }
+        this.end(totree(area,0));
+    }
 }

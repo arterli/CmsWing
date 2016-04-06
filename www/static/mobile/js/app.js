@@ -1,9 +1,165 @@
 
 $(function () {
     'use strict';
+    /**
+     * ajax post submit请求
+     * <form class = "form-horizontal">
+     * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
+     * confirm,
+     *****************************************************************************************************************************/
+    function _ajax_post() {
+        $('.ajax-post').click(function(){
 
+            var target,query,form;
+            var target_form = $(this).attr('target-form');
+            var that = this;
+            var nead_confirm=false;
+            if(($(this).attr('type')=='submit') || (target = $(this).attr('href')) || (target = $(this).attr('url')) ){
+                form = $('.'+target_form);
+                if ($(this).attr('hide-data') === 'true'){//无数据时也可以使用的功能
+                    form = $('.hide-data');
+                    query = form.serialize();
+                }else if (form.get(0)==undefined){
+                    return false;
+                }else if ( form.get(0).nodeName=='FORM' ){
+                    //表单验证
+                    // $('[data-validate="parsley"]').parsley().validate();
+                    // if(true !== $('[data-validate="parsley"]').parsley().isValid()){
+                    //     return false;
+                    // }
+                    if ( $(this).hasClass('confirm') ) {
+                        if(!confirm('确认要执行该操作吗?')){
+                            return false;
+                        }
+                    }
+                    if($(this).attr('url') !== undefined){
+                        target = $(this).attr('url');
+                    }else{
+                        target = form.get(0).action;
+                    }
+                    query = form.serialize();
+                }else if( form.get(0).nodeName=='INPUT' || form.get(0).nodeName=='SELECT' || form.get(0).nodeName=='TEXTAREA') {
 
+                    form.each(function(k,v){
+                        if(v.type=='checkbox' && v.checked==true){
 
+                            nead_confirm = true;
+                        }
+                    })
+                    if ( nead_confirm && $(this).hasClass('confirm') ) {
+                        if(!confirm('确认要执行该操作吗?')){
+                            return false;
+                        }
+                    }
+                    query = form.serialize();
+                }else{
+                    if ( $(this).hasClass('confirm') ) {
+                        if(!confirm('确认要执行该操作吗?')){
+                            return false;
+                        }
+                    }
+                    query = form.find('input,select,textarea').serialize();
+                }
+                $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                $.post(target,query).success(function(data){
+                    //console.log(data)
+                    //return false;
+                    if (data.errno==0) {
+                        if (data.data.url) {
+                            $.toast(data.data.name + ' 即将跳转~');
+                            // _toastr(data.data.name + ' 页面即将自动跳转~',"top-right","success",false);
+                            // toastr.success(data.data.name + ' 页面即将自动跳转~');
+                        }else{
+                            $.toast(data.data.name);
+                            // _toastr(data.data.name,"top-right","success",false);
+                            //toastr.success(data.data.name);
+                        }
+                        setTimeout(function(){
+                            $(that).removeClass('disabled').prop('disabled',false);
+                            if (data.data.url) {
+                                location.href=data.data.url;
+                            }else if( $(that).hasClass('no-refresh')){
+                                //toastr.clear()
+                            }else{
+                                location.reload();
+                            }
+                        },1500);
+                    }else{
+                        if(data.errno==1001){
+                            $.each(data.errmsg,function(i,n){
+                                $.toast(n);
+                                // _toastr(n,"top-right","error",false);
+                                //toastr.error(n);
+                            })
+                        }else {
+                            $.toast(data.errmsg);
+                            // _toastr(data.errmsg,"top-right","error",false);
+                            //toastr.error(data.errmsg);
+                        }
+                        console.log(data);
+
+                        setTimeout(function(){
+                            $(that).removeClass('disabled').prop('disabled',false);
+                            if (data.data) {
+                                location.href=data.data;
+                            }else{
+                                //toastr.clear()
+                            }
+                        },1500);
+                    }
+                });
+            }
+            return false;
+        });
+    }
+    //ajax get请求
+    /**
+     * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
+     *
+     */
+
+    function _ajax_get() {
+        $(document).on('click','.ajax-get',function(){
+            var target;
+            var that = this;
+            if ( $(this).hasClass('confirm') ) {
+                if(!confirm('确认要执行该操作吗?')){
+                    return false;
+                }
+            }
+            if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
+                $.get(target).success(function(data){
+                    if (data.errno==0) {
+                        if (data.data.url) {
+                            _toastr(data.data.name + ' 页面即将自动跳转~',"top-right","success",false);
+                        }else{
+                            _toastr(data.data.name,"top-right","success",false);
+                        }
+                        setTimeout(function(){
+                            if (data.data.url) {
+                                location.href=data.data.url;
+                            }else if( $(that).hasClass('no-refresh')){
+                                toastr.clear()
+                            }else{
+                                location.reload();
+                            }
+                        },1500);
+                    }else{
+                        _toastr(data.errmsg,"top-right","error",false);
+                        setTimeout(function(){
+                            if (data.data) {
+                                location.href=data.data;
+                            }else{
+                                toastr.clear()
+                            }
+                        },1500);
+                    }
+                });
+
+            }
+            return false;
+        });
+    }
     //下拉刷新页面
     $(document).on("pageInit", "#page-ptr", function(e, id, page) {
         var $content = $(page).find(".content").on('refresh', function(e) {
@@ -165,8 +321,21 @@ $(function () {
 
             $.toast("上传出错");
         });
-
-
+    // 日历
+        $("#birthday").calendar({
+            dateFormat: "yyyy-mm-dd",
+            onChange: function(p, v, d) {
+                $("input[name='birthday']").val(d);
+                $.popup('.popup-info');
+            }
+        });
+        $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav">\
+    <button class="button button-link pull-right close-picker open-popup open-info" data-popup=".popup-info">确认</button>\
+    <h1 class="title">选择地区</h1>\
+    </header>'
+        });
+        _ajax_post();
     })
     $.init();
 });

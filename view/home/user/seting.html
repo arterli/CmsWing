@@ -70,7 +70,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">邮箱</label>
 										<div class="col-md-4">
-										<input type="text" placeholder="email" class="form-control" name="email" value="{{userInfo.email}}">
+										<input type="email" placeholder="email" class="form-control" name="email" value="{{userInfo.email}}">
 										</div>
 									</div>
 									<div class="form-group">
@@ -138,7 +138,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">街道地址</label>
 										<div class="col-md-10">
-										<textarea class="form-control" name="addr"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符"></textarea>
+										<textarea class="form-control" name="addr"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">{{userInfo.addr}}</textarea>
 										</div>
 									</div>
 

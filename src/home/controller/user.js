@@ -393,10 +393,18 @@ export default class extends Base {
        }).find(this.user.uid);
        //console.log(userInfo);
        this.assign("userInfo", userInfo);
+       let province,city,county;
        //获取省份
-       let province = await this.model('area').where({parent_id:0}).select();
-       let city = await this.model('area').where({parent_id:userInfo.province}).select();
-       let county = await this.model('area').where({parent_id:userInfo.city}).select();
+       if(checkMobile(this.userAgent())){
+           province = await this.model('area').where({id:userInfo.province}).getField("name",true);
+           city = await this.model('area').where({id:userInfo.city}).getField("name",true);
+           county = await this.model('area').where({id:userInfo.county}).getField("name",true);
+       }else {
+           province = await this.model('area').where({parent_id:0}).select();
+           city = await this.model('area').where({parent_id:userInfo.province}).select();
+           county = await this.model('area').where({parent_id:userInfo.city}).select();
+       }
+
        this.assign("province",province);
        this.assign("city",city);
        this.assign("county",county);
@@ -412,6 +420,7 @@ export default class extends Base {
    async updateinfoAction(){
        if(!this.is_login){return think.statusAction(1000,this.http);}
        let data = this.post();
+       // think.log(data);
        let member = {
            email:data.email,
            mobile:data.mobile
@@ -426,8 +435,21 @@ export default class extends Base {
            county:data.county,
            addr:data.addr
        }
+
+       //判断浏览客户端
+       if (checkMobile(this.userAgent())) {
+           if(!think.isEmpty(data.city_picke)){
+               let city_picke = data.city_picke.split(" ");
+               customer.province = await this.model("area").where({name:["like", `%${city_picke[0]}%`],parent_id:0}).getField("id",true);
+               customer.city = await this.model("area").where({name:["like", `%${city_picke[1]}%`],parent_id:customer.province}).getField("id",true);
+               customer.county = await this.model("area").where({name:["like", `%${city_picke[2]}%`],parent_id:customer.city}).getField("id",true);
+           }
+       }
+
        let update1=await this.model("member").where({id:this.user.uid}).update(member);
        let update2=await this.model("customer").where({user_id:this.user.uid}).update(customer);
+
+       // think.log(customer);
        if(update1 && update2){
           return this.success({name:"更新用户资料成功！"})
        }else {

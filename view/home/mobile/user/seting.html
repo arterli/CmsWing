@@ -32,15 +32,15 @@
 
                 </li>
                 <li>
-                <a class="item-link item-content">
+                <a class="item-link item-content open-popup open-info" data-popup=".popup-info">
                     <div class="item-inner">
                         <div class="item-title">个人资料</div>
-                        <div class="item-after">标签</div>
+                        <div class="item-after">{{userInfo.username}}</div>
                     </div>
                 </a>
                 </li>
                 <li>
-                <a class="item-link item-content">
+                <a class="item-link item-content open-popup open-password" data-popup=".popup-password">
                     <div class="item-inner">
                         <div class="item-title">修改密码</div>
                         <div class="item-after">标签</div>
@@ -107,7 +107,145 @@
         <!-- .... -->
     </div>
 </div>
-<!-- About Popup -->
+<!--info Popup-->
+<div class="popup popup-info popup-bg">
+    <form class="form-info" action="/user/updateinfo" enctype="multipart/form-data" method="post">
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup"></a>
+        <button type="submit" class="button button-fill pull-right ajax-post" target-form="form-info" >保存</button>
+        <h1 class="title">修改个人信息</h1>
+    </header>
+        <div class="content">
+
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">会员账号</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Your name" value="{{userInfo.username}}" name="username" disabled="disabled" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">会员级别</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Your name" value="{{userInfo.group_id}}" name="group_id" disabled="disabled" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">邮箱</div>
+                                <div class="item-input">
+                                    <input type="email" placeholder="E-mail" name="email" value="{{userInfo.email}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">真实姓名</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Password" name="real_name" value="{{userInfo.real_name}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-gender"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">性别</div>
+                                <div class="item-input">
+                                    <select name="sex">
+                                        <option value="1" {%if userInfo.sex == 1 %} selected {%endif%} >男</option>
+                                        <option value="2" {%if userInfo.sex == 2 %} selected {%endif%}>女</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Date -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-calendar"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">生日</div>
+                                <div class="item-input">
+                                    <input type="hidden" value="{{userInfo.birthday|dateformat('Y-m-d')}}" name="birthday">
+                                    <input id="birthday" value="{{userInfo.birthday|dateformat('Y-m-d')}}" type="text" placeholder="Birth day"  >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">手机号码</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="手机号码" name="mobile" value="{{userInfo.mobile}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">电话号码</div>
+                                <div class="item-input">
+                                    <input type="text"  name="phone" value="{{userInfo.phone}}" placeholder="电话号码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Date -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-calendar"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">所在地区</div>
+                                <div class="item-input">
+
+                                    <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="align-top">
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">街道地址</div>
+                                <div class="item-input">
+                                    <textarea name="addr"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">{{userInfo.addr}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!-- avatar Popup 手机版头像裁剪后续完善-->
 <div class="popup popup-avatar" id="avatar-modal">
     <form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
     <header class="bar bar-nav">
@@ -126,8 +264,6 @@
                         </div>
 
 
-                        <div class="">
-
                             <div class="">
                                 <div class="avatar-preview preview-lg"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
                                 <div class="avatar-preview preview-md"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
@@ -138,7 +274,7 @@
                             </div>
                         </div>
 
-                    </div>
+
                 </div>
 
 
@@ -158,6 +294,7 @@
 <link rel="stylesheet" href="/static/mobile/plugins/uploadavatar/uploadavatar.css">
 {% endblock %}
 {% block script %}
+<script src="/static/mobile/js/light7-city-picker.js"></script>
 <script src="/static/mobile/plugins/webuploader/webuploader.min.js"></script>
 <script src="/static/mobile/plugins/cropper/cropper.js"></script>
 <script src="/static/mobile/plugins/uploadavatar/uploadavatar.js"></script>

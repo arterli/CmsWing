@@ -486,3 +486,6 @@ background: #52ACE5;
     font-weight: 400;
     line-height: 1.2;
 }
+.popup-bg{
+    background: #eee none repeat scroll 0 0;
+}
