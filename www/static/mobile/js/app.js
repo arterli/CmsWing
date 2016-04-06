@@ -131,26 +131,27 @@ $(function () {
                 $.get(target).success(function(data){
                     if (data.errno==0) {
                         if (data.data.url) {
-                            _toastr(data.data.name + ' 页面即将自动跳转~',"top-right","success",false);
+                            $.toast(data.data.name + ' 页面即将自动跳转~');
                         }else{
-                            _toastr(data.data.name,"top-right","success",false);
+                            $.toast(data.data.name);
                         }
                         setTimeout(function(){
                             if (data.data.url) {
                                 location.href=data.data.url;
                             }else if( $(that).hasClass('no-refresh')){
-                                toastr.clear()
+                                //toastr.clear()
                             }else{
                                 location.reload();
                             }
                         },1500);
                     }else{
-                        _toastr(data.errmsg,"top-right","error",false);
+
+                        $.toast(data.errmsg);
                         setTimeout(function(){
                             if (data.data) {
                                 location.href=data.data;
                             }else{
-                                toastr.clear()
+                                //toastr.clear()
                             }
                         },1500);
                     }
@@ -336,6 +337,19 @@ $(function () {
     </header>'
         });
         _ajax_post();
-    })
+    });
+
+    //编辑地址
+    $(document).on("pageInit","#cart_editaddrmodal",function (e, id, page) {
+        $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav">\
+    <button class="button button-link pull-right close-picker open-popup open-info" data-popup=".popup-info">确认</button>\
+    <h1 class="title">选择地区</h1>\
+    </header>'
+        });
+        _ajax_post();
+        _ajax_get();
+
+    });
     $.init();
 });

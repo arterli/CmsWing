@@ -83,10 +83,15 @@
                 data: data,
                 success: function(msg){
                     if(msg.errno < 0){
-                        _toastr(msg.errmsg,"top-right","error",false);
+//                        _toastr(msg.errmsg,"top-right","error",false);
+                        var html = '<div role="alert" class="alert alert-danger alert-dismissible fade in">\
+                            <button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span></button>\
+                            '+msg.errmsg+'</div>';
+                        $("#alert").html(html);
+
                     }else{
                         //$('#ajaxModal').remove();
-                        location.reload(true);
+                        location.reload();
                     }
                 }
             });

@@ -216,9 +216,7 @@ export default class extends Base {
   
   //添加或者更新联系人地址
  async addaddrAction(){
-     if(!this.is_login){
-         return think.statusAction(1000, this.http);
-      }
+    await this.weblogin();
       
       let data = this.post();
       data.user_id = this.user.uid;
@@ -229,6 +227,24 @@ export default class extends Base {
               await this.model("address").update(val);
           }
       }
+     //判断浏览客户端
+     if (checkMobile(this.userAgent())) {
+         if (!think.isEmpty(data.city_picke)) {
+             let city_picke = data.city_picke.split(" ");
+             data.province = await this.model("area").where({
+                 name: ["like", `%${city_picke[0]}%`],
+                 parent_id: 0
+             }).getField("id", true);
+             data.city = await this.model("area").where({
+                 name: ["like", `%${city_picke[1]}%`],
+                 parent_id: data.province
+             }).getField("id", true);
+             data.county = await this.model("area").where({
+                 name: ["like", `%${city_picke[2]}%`],
+                 parent_id: data.city
+             }).getField("id", true);
+         }
+     }
       let res
       if(think.isEmpty(data.id)){
         res =await this.model("address").add(data);  
@@ -237,15 +253,22 @@ export default class extends Base {
       }
       
       if(res){
-          let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
-          for(let val of addrlist){
-              val.province = await this.model("area").where({id:val.province}).getField("name",true);
-              val.city = await this.model("area").where({id:val.city}).getField("name",true);
-              val.county = await this.model("area").where({id:val.county}).getField("name",true);
+
+          //判断浏览客户端
+          if (checkMobile(this.userAgent())) {
+              return this.success({name:'操作成功',url:"/user/address"});
+          } else {
+              let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
+              for(let val of addrlist){
+                  val.province = await this.model("area").where({id:val.province}).getField("name",true);
+                  val.city = await this.model("area").where({id:val.city}).getField("name",true);
+                  val.county = await this.model("area").where({id:val.county}).getField("name",true);
+              }
+              return this.success({name:'操作成功',data:addrlist,type:data.type});
           }
-          return this.success({name:'添加收货人地址成功',data:addrlist,type:data.type});
+
       }else{
-          return this.fail( '添加失败！'); 
+          return this.fail( '操作失败！');
           
       }
      
@@ -319,7 +342,13 @@ async deladdrAction(){
               val.city = await this.model("area").where({id:val.city}).getField("name",true);
               val.county = await this.model("area").where({id:val.county}).getField("name",true);
           }
-          return this.success({name:'删除成功！',data:addrlist});
+          //判断浏览客户端
+          if (checkMobile(this.userAgent())) {
+              return this.success({name:'删除成功',url:"/user/address"});
+          } else {
+              return this.success({name:'删除成功！',data:addrlist});
+          }
+
       }else{
           return this.fail( '删除失败！'); 
           
@@ -329,18 +358,34 @@ async deladdrAction(){
 async editaddrmodalAction(){
     if(!this.is_login){return think.statusAction(1000, this.http);};
     let id = this.get("id");
+    if(!think.isEmpty(id)){
+
     //获取地址信息
     let address = await this.model("address").where({user_id:this.user.uid}).find(id);
+
+    let province, city, county;
     //获取省份
-    let province = await this.model('area').where({parent_id:0}).select();
-    let city = await this.model('area').where({parent_id:address.province}).select();
-    let county = await this.model('area').where({parent_id:address.city}).select();
+    if (checkMobile(this.userAgent())) {
+        province = await this.model('area').where({id: address.province}).getField("name", true);
+        city = await this.model('area').where({id: address.city}).getField("name", true);
+        county = await this.model('area').where({id: address.county}).getField("name", true);
+    } else {
+        province = await this.model('area').where({parent_id: 0}).select();
+        city = await this.model('area').where({parent_id: address.province}).select();
+        county = await this.model('area').where({parent_id: address.city}).select();
+    }
     this.assign("province",province);
     this.assign("city",city);
     this.assign("county",county);
     this.assign("info",address);
     this.assign("type",this.get("type"));
-    return this.display();
+    }
+    this.meta_title="编辑地址"
+    if (checkMobile(this.userAgent())) {
+        return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+    } else {
+        return this.display();
+    }
 }
 //创建订单
 async createorderAction(){

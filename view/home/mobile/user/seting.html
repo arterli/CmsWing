@@ -43,16 +43,16 @@
                 <a class="item-link item-content open-popup open-password" data-popup=".popup-password">
                     <div class="item-inner">
                         <div class="item-title">修改密码</div>
-                        <div class="item-after">标签</div>
+                        <!--<div class="item-after">标签</div>-->
                     </div>
                 </a>
                 </li>
                 <li>
                 <a class="item-link item-content">
-                    <div class="item-inner">
+                    <v class="item-inner">
                         <div class="item-title">隐私设置</div>
-                        <div class="item-after">标签</div>
-                    </div>
+                        <!--<div class="item-after">标签</div>-->
+                    </v>
                 </a>
                 </li>
             </ul>
@@ -64,7 +64,7 @@
         <div class="list-block">
             <ul>
                 <li>
-                <a class="item-link item-content" href="#">
+                <a class="item-link item-content" href="/user/address">
                     <div class="item-media text-muted width-20"><i class="et-map-pin fa-lg"></i></i>
                     </div>
                     <div class="item-inner">
@@ -239,6 +239,59 @@
                             </div>
                         </div>
                     </li>
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--password Popup-->
+<div class="popup popup-password popup-bg">
+    <form class="form-password" action="/user/updatepassword" enctype="multipart/form-data" method="post">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left close-popup"></a>
+            <button type="submit" class="button button-fill pull-right ajax-post" target-form="form-password" >保存</button>
+            <h1 class="title">修改密码</h1>
+        </header>
+        <div class="content">
+
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">旧密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="oldpassword" placeholder="输入旧密码" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">新密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="password" placeholder="密码长度6-20个字符" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">确认密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="repassword" placeholder="确认密码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
 
