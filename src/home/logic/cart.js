@@ -23,4 +23,11 @@ export default class extends think.logic.base {
       address:"required"
     }
   }
+  addaddrAction(){
+    this.rules={
+      "mobile":"required",
+      addr:"required",
+      accept_name:"required"
+    }
+  }
 }

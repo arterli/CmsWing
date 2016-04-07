@@ -1,13 +1,14 @@
 
 $(function () {
     'use strict';
-    /**
-     * ajax post submit请求
-     * <form class = "form-horizontal">
-     * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
-     * confirm,
-     *****************************************************************************************************************************/
-    function _ajax_post() {
+    $(document).on("pageInit", function(e, pageId, $page) {
+        /**
+         * ajax post submit请求
+         * <form class = "form-horizontal">
+         * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
+         * confirm,
+         *****************************************************************************************************************************/
+
         $('.ajax-post').click(function(){
 
             var target,query,form;
@@ -111,14 +112,14 @@ $(function () {
             }
             return false;
         });
-    }
-    //ajax get请求
-    /**
-     * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
-     *
-     */
 
-    function _ajax_get() {
+        //ajax get请求
+        /**
+         * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
+         *
+         */
+
+
         $(document).on('click','.ajax-get',function(){
             var target;
             var that = this;
@@ -160,7 +161,9 @@ $(function () {
             }
             return false;
         });
-    }
+
+    });
+
     //下拉刷新页面
     $(document).on("pageInit", "#page-ptr", function(e, id, page) {
         var $content = $(page).find(".content").on('refresh', function(e) {
@@ -336,7 +339,7 @@ $(function () {
     <h1 class="title">选择地区</h1>\
     </header>'
         });
-        _ajax_post();
+
     });
     //网站登录
     $(document).on("pageInit","#user_login",function (e, id, page) {
@@ -364,7 +367,7 @@ $(function () {
                         //$('#ajaxModal').remove();
                         $.toast(msg.data.name);
                         setTimeout(function(){
-                            location.href="{{http.referrer()}}";
+                            location.href=$("a.back").attr("href");
                         },1500);
                     }
                 }
@@ -379,9 +382,51 @@ $(function () {
     <h1 class="title">选择地区</h1>\
     </header>'
         });
-        _ajax_post();
-        _ajax_get();
+
 
     });
+    //钱包
+    $(document).on("pageInit","#user_account",function (e, id, page) {
+        //无限加载
+        var loading = false;
+        var maxItems = 100;
+
+        var itemsPerLoad = 20;
+
+        function addItems(number, lastIndex) {
+            var html = '';
+            for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
+                html += '<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
+            }
+            $('.list-container').append(html);
+
+        }
+        addItems(itemsPerLoad, 0);
+
+
+        var lastIndex = 20;
+
+        $(document).on('infinite', '.infinite-scroll',function() {
+
+            // 如果正在加载，则退出
+            if (loading) return;
+
+            // 设置flag
+            loading = true;
+
+            setTimeout(function() {
+                loading = false;
+
+                if (lastIndex >= maxItems) {
+                    $.detachInfiniteScroll($('.infinite-scroll'));
+                    $('.infinite-scroll-preloader').remove();
+                    return;
+                }
+
+                addItems(itemsPerLoad, lastIndex);
+                lastIndex = $('.list-container li').length;
+            }, 1000);
+        });
+    })
     $.init();
 });

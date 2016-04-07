@@ -324,7 +324,12 @@ export default class extends Base {
         }).count("id");
         this.assign("unpaid", unpaid);
         this.meta_title = "账户金额管理";
-        this.display();
+        //判断浏览客户端
+        if (checkMobile(this.userAgent())) {
+            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        } else {
+            return this.display();
+        }
     }
 
     /**

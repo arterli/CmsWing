@@ -28,8 +28,7 @@ export default class extends think.logic.base {
   //修改用户信息表单验证
   updateinfoAction(){
     this.rules={
-      email:"email",
-      addr:"byteLength:5,120"
+     
     }
   }
 //修改密码数据验证

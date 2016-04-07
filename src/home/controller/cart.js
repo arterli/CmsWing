@@ -332,8 +332,8 @@ async addrisdefaultAction(){
 
 //删除地址
 async deladdrAction(){
-     if(!this.is_login){return think.statusAction(1000, this.http);};
-     let id = this.get("id");
+     await this.weblogin();
+    let id = this.param("id");
      let res = await this.model("address").where({user_id:this.user.uid,id:id}).delete();
       if(res){
           let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC").select();

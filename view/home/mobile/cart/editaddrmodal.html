@@ -101,8 +101,8 @@
                 </div>
                 <div class="col-100">
                     {% if info.id %}
-                    <input type="hidden" value="{{info.id}}" name="id">
-                    <a href="/cart/deladdr/id/{{info.id}}" class="button button-big button-fill button-danger confirm ajax-get">删除地址</a>
+                    <input type="hidden" value="{{info.id}}" name="id" class="id">
+                    <a href="/cart/deladdr" class="button button-big button-fill button-danger confirm ajax-post" target-form="id">删除地址</a>
                     {%endif%}
                 </div>
             </div>

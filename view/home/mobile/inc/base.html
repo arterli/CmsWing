@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="/static/mobile/css/icons.css">
+    <link rel="stylesheet" href="/static/mobile/plugins/webuploader/webuploader.css">
     <link rel="stylesheet" href="/static/mobile/css/light7.min.css">
     <link rel="stylesheet" href="/static/mobile/css/light7-swiper.min.css">
     <link rel="stylesheet" href="/static/mobile/css/app.css">
@@ -28,11 +29,12 @@
     </div>
 
     <script type='text/javascript' src='/static/mobile/plugins/jquery/jquery-2.1.4.min.js' charset='utf-8'></script>
-    <script>$.config = {router: false}</script>
+    <!--<script>$.config = {router: false}</script>-->
     <script type='text/javascript' src='/static/mobile/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='/static/mobile/js/light7-swiper.min.js' charset='utf-8'></script>
     <script type="text/javascript" src="/static/mobile/js/i18n/cn.min.js"></script>
-
+    <script src="/static/mobile/js/light7-city-picker.js"></script>
+    <script src="/static/mobile/plugins/webuploader/webuploader.min.js"></script>
      {% block script %}{% endblock %}
     <script>document.write("<script type='text/javascript' src='/static/mobile/js/app.js?time="+new Date().getTime()+"' charset='utf-8'><\/script>")</script>
 
