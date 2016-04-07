@@ -572,12 +572,16 @@ export default class extends Base {
         await this.weblogin();
         var uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + this.user.uid;
         let path = think.isFile(uploadPath + "/" + "/avatar.png");
-        //this.type("Content-type: image/png")
+        this.type("image/png");
+        let pic;
         if (path) {
-            this.download(uploadPath + "/" + "/avatar.png");
+            // this.download(uploadPath + "/" + "/avatar.png");
+            pic = fs.readFileSync(uploadPath + "/" + "/avatar.png")
         } else {
-            this.download(think.RESOURCE_PATH + '/upload/avatar/avatar.jpg')
+            //this.download(think.RESOURCE_PATH + '/upload/avatar/avatar.jpg')
+            pic = fs.readFileSync(think.RESOURCE_PATH + '/upload/avatar/avatar.jpg')
         }
+        this.end(pic)
     }
 
     /**

@@ -2,7 +2,7 @@
 {% extends "../inc/base.html" %}
 {% block page%}
 
-    <div class="page page-current" id='login'>
+    <div class="page page-current" id='user_login'>
         <header class="bar bar-nav">
             <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
                 <span class="icon icon-left"></span>
@@ -85,38 +85,5 @@
 
 {% endblock%}
 {% block script %}
-<script>
-    $(function () {
-        //登陆
-        $("#m_login .btn_login").click(function () {
-            //登录验证
-            var username = $("input[name='username']").val();
-            var password = $("input[name='password']").val();
-            if(username.length == 0){
-                $.toast("用户名称不能为空！")
-                return false;
-            }else if(password.length == 0){
-                $.toast("密码不能为空！")
-                return false;
-            }
 
-            $.ajax({
-                type: "POST",
-                url: "/user/login",
-                data: $("#m_login").serialize(),
-                success: function(msg){
-                    if(msg.errno < 0){
-                        $.toast(msg.errmsg);
-                    }else{
-                        //$('#ajaxModal').remove();
-                        $.toast(msg.data.name);
-                        setTimeout(function(){
-                            location.href="{{http.referrer()}}";
-                        },1500);
-                    }
-                }
-            });
-        })
-    })
-</script>
 {% endblock %}

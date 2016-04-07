@@ -338,7 +338,39 @@ $(function () {
         });
         _ajax_post();
     });
+    //网站登录
+    $(document).on("pageInit","#user_login",function (e, id, page) {
+        //登陆
+        $("#m_login .btn_login").click(function () {
+            //登录验证
+            var username = $("input[name='username']").val();
+            var password = $("input[name='password']").val();
+            if(username.length == 0){
+                $.toast("用户名称不能为空！")
+                return false;
+            }else if(password.length == 0){
+                $.toast("密码不能为空！")
+                return false;
+            }
 
+            $.ajax({
+                type: "POST",
+                url: "/user/login",
+                data: $("#m_login").serialize(),
+                success: function(msg){
+                    if(msg.errno < 0){
+                        $.toast(msg.errmsg);
+                    }else{
+                        //$('#ajaxModal').remove();
+                        $.toast(msg.data.name);
+                        setTimeout(function(){
+                            location.href="{{http.referrer()}}";
+                        },1500);
+                    }
+                }
+            });
+        })
+    })
     //编辑地址
     $(document).on("pageInit","#cart_editaddrmodal",function (e, id, page) {
         $("#city-picker").cityPicker({
