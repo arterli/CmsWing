@@ -24,7 +24,7 @@
         </div>
     </div>
     <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
-    <div class="content infinite-scroll native-scroll pull-to-refresh-content" data-distance="100">
+    <div class="content infinite-scroll native-scroll pull-to-refresh-content" data-distance="100" data-url="/topic/ajaxlist/category/{{http.get('category')}}">
         <!-- 默认的下拉刷新层 -->
         <div class="pull-to-refresh-layer">
             <div class="preloader"></div>
@@ -76,7 +76,4 @@
 </div>
 {% endblock%}
 {% block script %}
-<script>
-HREF = '/topic/ajaxlist/category/{{http.get("category")}}'
-</script>
 {% endblock %}

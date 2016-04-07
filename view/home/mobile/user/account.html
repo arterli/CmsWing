@@ -44,8 +44,8 @@
             </ul>
         </div>
         <div class="buttons-tab">
-            <a href="/user/account" class=" button {%if type == null%}active{%endif%}">交易记录</a>
-            <a href="/user/account/type/1" class=" button {% if type == 1%}active{%endif%}">提现记录</a>
+            <a href="/user/account" class=" button {%if type == null%}active{%endif%}" data-type="0">交易记录</a>
+            <a href="/user/account/type/1" class=" button {% if type == 1%}active{%endif%}"  data-type="1">提现记录</a>
         </div>
         <div class="list-block media-list margin-top-0">
             <ul class="list-container">

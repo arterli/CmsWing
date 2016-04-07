@@ -278,9 +278,9 @@ export default class extends Base {
         let type = this.get("type") || null;
         let data;
         if (think.isEmpty(type)) {
-            data = await this.model("balance_log").where({user_id: this.user.uid}).page(this.get('page')).order("time DESC").countSelect();
+            data = await this.model("balance_log").where({user_id: this.user.uid}).page(this.param('page')).order("time DESC").countSelect();
         } else if (type == 1) {
-            data = await this.model("balance_log").where({user_id: 10000}).page(this.get('page')).order("time DESC").countSelect();
+            data = await this.model("balance_log").where({user_id: 10000}).page(this.param('page')).order("time DESC").countSelect();
         } else {
             data = await this.model("order").where({
                 user_id: this.user.uid,
@@ -326,6 +326,9 @@ export default class extends Base {
         this.meta_title = "账户金额管理";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
+            if(this.isAjax("POST")){
+                return this.json(data);
+            }
             return this.display(`mobile/${this.http.controller}/${this.http.action}`)
         } else {
             return this.display();

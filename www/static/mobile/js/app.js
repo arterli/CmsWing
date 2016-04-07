@@ -1,6 +1,57 @@
 
 $(function () {
     'use strict';
+    /**
+     * 时间戳格式化 dateformat()
+     * @param extra 'Y-m-d H:i:s'
+     * @param date  时间戳
+     * @return  '2015-12-17 15:39:44'
+     */
+    /* global dateformat */
+    var dateformat = function(extra, date) {
+        var D = new Date(date);
+        var time = {
+            "Y": D.getFullYear(),
+            'm': D.getMonth() + 1,
+            'd': D.getDate(),
+            'H': D.getHours(),
+            'i': D.getMinutes(),
+            's': D.getSeconds()
+        }
+        var key = extra.split(/\W/);
+        var _date;
+        $.each(key,function (k,v) {
+
+            time[v] = time[v] < 10 ? "0" + time[v] : time[v]
+            _date = extra.replace(v, time[v])
+            extra = _date;
+        })
+        return _date;
+    }
+    /**
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式
+     *
+     * @param num 数值(Number或者String)
+     * @return 金额格式的字符串,如'1,234,567.45'
+     * @type String
+     */
+    /*global formatCurrency */
+    var formatCurrency = function(num) {
+        num = num.toString().replace(/\$|\,/g, '');
+        if (isNaN(num))
+            num = "0";
+        var sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num * 100 + 0.50000000001);
+        var cents = num % 100;
+        num = Math.floor(num / 100).toString();
+        if (cents < 10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+            num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+                num.substring(num.length - (4 * i + 3));
+        return (((sign) ? '' : '-') + num + '.' + cents);
+    }
+
     $(document).on("pageInit", function(e, pageId, $page) {
         /**
          * ajax post submit请求
@@ -218,7 +269,7 @@ $(function () {
         var itemsPerLoad = 10;
         // 最多可加载的条目
         var maxItems = 100;
-        var lastIndex = $('.list-container li').length;
+        var lastIndex = $('#page-infinite-scroll-bottom .list-container li').length;
         function addItems(data, lastIndex) {
             // 生成新条目的HTML
             var html = '';
@@ -237,10 +288,10 @@ $(function () {
 
                     })
             // 添加新条目
-            $('.infinite-scroll .list-container').append(html);
+            $('#page-infinite-scroll-bottom .infinite-scroll .list-container').append(html);
         }
         //console.log(lastIndex)
-        $(page).on('infinite', function() {
+        $(page).find(".infinite-scroll").on('infinite', function() {
            // $.alert(1)
             // 如果正在加载，则退出
             if (loading) return;
@@ -251,7 +302,7 @@ $(function () {
                 //请求数据
                 $.ajax({
                     type:'GET',
-                    url:HREF,
+                    url:$(this).attr("data-url"),
                     data: { page: (page+1) },
                     success:function(data){
                         console.log(data);
@@ -259,17 +310,17 @@ $(function () {
                         loading = false;
                         if (lastIndex >= data.count) {
                             // 加载完毕，则注销无限加载事件，以防不必要的加载
-                            $.detachInfiniteScroll($('.infinite-scroll'));
+                            $.detachInfiniteScroll($('#page-infinite-scroll-bottom .infinite-scroll'));
                             // 删除加载提示符
-                            $('.infinite-scroll-preloader').remove();
+                            $('#page-infinite-scroll-bottom .infinite-scroll-preloader').remove();
                             return;
                         }
                         // 添加新条目
                         addItems(data.data, lastIndex);
                         // 更新最后加载的序号
-                        lastIndex = $('.list-container li').length;
+                        lastIndex = $('#page-infinite-scroll-bottom .list-container li').length;
                         //容器发生改变,如果是js滚动，需要刷新滚动
-                        $.refreshScroller();
+                        // $.refreshScroller();
                     }
                 })
         });
@@ -389,43 +440,63 @@ $(function () {
     $(document).on("pageInit","#user_account",function (e, id, page) {
         //无限加载
         var loading = false;
-        var maxItems = 100;
-
-        var itemsPerLoad = 20;
-
-        function addItems(number, lastIndex) {
+        var itemsPerLoad = 10;
+        var lastIndex = $("#user_account .list-container li").length;
+        function addItems(data) {
             var html = '';
-            for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
-                html += '<li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li>';
-            }
-            $('.list-container').append(html);
+            $.each(data, function(index,item){
+                var img = "";
+                html += '<li class=" item-content"><div class="item-inner"> <div class="item-title-row">\
+                         <div class="item-title">'+formatCurrency(item.amount)+'</div>\
+                         <div class="item-after">'+dateformat("Y-m-d H:i:s",item.time)+'</div></div>\
+                         <div class="item-subtitle">余额:'+formatCurrency(item.amount_log)+'</div>\
+                         <div class="item-text">'+item.note+'</div>\
+                         </div></li>';
+            })
+            console.log(html)
+            $('#user_account .list-container').append(html);
 
         }
-        addItems(itemsPerLoad, 0);
 
 
-        var lastIndex = 20;
 
-        $(document).on('infinite', '.infinite-scroll',function() {
+        $("#user_account .infinite-scroll").on('infinite',function() {
 
             // 如果正在加载，则退出
             if (loading) return;
-
+            console.log($(this).find(".buttons-tab > a").attr("data-type"));
             // 设置flag
             loading = true;
+            var page = Math.ceil(lastIndex/itemsPerLoad);
+            $.ajax({
+                type:'post',
+                url:$(this).find(".buttons-tab > a").attr("href"),
+                data:{page:(page+1)},
+                success:function (data) {
+                    console.log(data)
+                    loading = false;
+                    if(lastIndex >=data.count){
+                        $.detachInfiniteScroll($('.infinite-scroll'));
+                        $(".infinite-scroll-preloader").remove();
+                        return;
+                    }
+                    addItems(data.data);
+                    lastIndex = $("#user_account .list-container li").length;
 
-            setTimeout(function() {
-                loading = false;
-
-                if (lastIndex >= maxItems) {
-                    $.detachInfiniteScroll($('.infinite-scroll'));
-                    $('.infinite-scroll-preloader').remove();
-                    return;
                 }
-
-                addItems(itemsPerLoad, lastIndex);
-                lastIndex = $('.list-container li').length;
-            }, 1000);
+            })
+            // setTimeout(function() {
+            //     loading = false;
+            //
+            //     if (lastIndex >= maxItems) {
+            //         $.detachInfiniteScroll($('.infinite-scroll'));
+            //         $('.infinite-scroll-preloader').remove();
+            //         return;
+            //     }
+            //
+            //     addItems(itemsPerLoad, lastIndex);
+            //     lastIndex = $('.list-container li').length;
+            // }, 1000);
         });
     })
     $.init();
