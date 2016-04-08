@@ -181,7 +181,12 @@ export default class extends Base {
         // console.log(data.data);
         this.assign('list', data.data);
         this.meta_title = "我的订单";
-        return this.display();
+        //判断浏览客户端
+        if (checkMobile(this.userAgent())) {
+            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        } else {
+            return this.display();
+        }
     }
 
     //删除订单
