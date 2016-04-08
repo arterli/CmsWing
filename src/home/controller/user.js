@@ -150,13 +150,15 @@ export default class extends Base {
             //console.log(this.setup.ORDER_DELAY_BUND)
             //查出订单里面的商品列表
             val.goods = await this.model("order_goods").where({order_id: val.id}).select();
-
+             let numarr=[];
             for (let v of val.goods) {
                 v.prom_goods = JSON.parse(v.prom_goods);
+                numarr.push(v.goods_nums);
                 v = think.extend(v, v.prom_goods);
                 delete v.prom_goods;
             }
             //console.log(val.goods)
+            val.nums = eval(numarr.join("+"));
         }
         //未付款统计
         let nopaid = await this.model("order").where({
