@@ -691,6 +691,7 @@ async createorderAction(){
     //支付回掉
    async payresAction(){
        let code = this.param();
+
        //orderId: '1458722092073', respMsg: 'success'
         console.log(code);
         if(code.c_o_id){
@@ -707,7 +708,7 @@ async createorderAction(){
                 this.assign("order",order);
         }else {
 
-            let order = await this.model("order").where({order_no:code.out_trade_no||code.orderId}).find();
+            let order = await this.model("order").where({order_no:code.out_trade_no||code.orderId||code.order_no}).find();
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
@@ -747,6 +748,11 @@ async createorderAction(){
        this.meta_title = "支付结果";//标题1
        this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
        this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
-        return this.display();
+       //判断浏览客户端
+       if (checkMobile(this.userAgent())) {
+           return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+       } else {
+           return this.display();
+       }
     }
 }

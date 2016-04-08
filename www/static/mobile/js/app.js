@@ -499,5 +499,38 @@ $(function () {
             // }, 1000);
         });
     })
+    //充值
+    $(document).on("pageInit","#user_recharge",function (e, id, page) {
+        $(page).find(".recharge").on("click",function (e) {
+            var data=$(page).find(".form-recharge").serialize();
+            console.log(data);
+            $.ajax({
+                type: "POST",
+                url: "/user/recharge",
+                data: data,
+                success:function (res) {
+                    console.log(res);
+                    if(res.errno==1000){
+                        $.toast(res.errmsg);
+                        return false;
+                    }else if(res.data.url){
+                        window.location.href = res.data.url;
+                    } else if(res.data.data){
+                        $.toast(res.data.name);
+
+                        pingpp.createPayment(res.data.data, function(result, err) {
+                            console.log(result);
+                            console.log(err);
+                        });
+
+
+                    }
+
+                }
+
+            })
+        })
+
+    });
     $.init();
 });

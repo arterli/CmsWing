@@ -49,6 +49,26 @@ export default class extends think.service.base {
                 extra = {
                     result_url: `http://${this.http.host}/cart/payres`
                 }
+                break;
+            case 'upacp_wap':
+                //网银pc网页支付
+                extra = {
+                    result_url: `http://${this.http.host}/cart/payres`
+                }
+                break;
+            case 'alipay_wap':
+                //支付宝网页支付
+                extra = {
+                    success_url: `http://${this.http.host}/cart/payres`
+                }
+
+                break;
+            case 'bfb_wap':
+                //支付宝网页支付
+                extra = {
+                    result_url: `http://${this.http.host}/cart/payres`,
+                    bfb_login:false
+                }
 
                 break;
         }

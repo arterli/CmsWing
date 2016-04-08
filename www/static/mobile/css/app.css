@@ -249,6 +249,7 @@
 .absolute			{ position:absolute !important; top:0; left:0; right:0; bottom:0;	}
 .text-left 			{ text-align:left !important; }
 .text-right 			{ text-align:right !important; }
+.text-center        {text-align: center !important;}
 .noshadow			{ box-shadow:none; text-shadow:none; }
 .nofloat			{ float:none !important; 		}
 .display-table		{ display:table; width:100%; height:100%; position:relative; z-index:99;	}

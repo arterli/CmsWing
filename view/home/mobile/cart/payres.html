@@ -1,0 +1,40 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="cart_payres">
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <div class="content ">
+        <div class="content-block text-center" >
+            <i class="ico-light ico-rounded icon icon-check size-60 bg-primary" style="width:100px;height: 100px;padding: 20px" ></i>
+        </div>
+        <div class="content-block" >
+            <h2 class=" text-center">{% if order.payment == 1001%}货到付款方式，等待订单审核…… {%else%}支付成功{%endif%}</h2>
+            <ul>
+                <li class="">订单编号：{{order.order_no}}</li>
+                <li class="">订单金额：￥<span class="text-danger size-18">{{order.amount|formatCurrency}}</span></li>
+                <li class="">支付方式：{{order.channel}}	</li>
+            </ul>
+        </div>
+        <div class="content-block">
+            <p><a href="/user/index" class="button button-fill button-big">用户中心</a></p>
+            <p><a href="/index" class="button button-fill button-light button-big">返回首页</a></p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+<script src="/static/mobile/js/light7-city-picker.js"></script>
+
+
+{% endblock %}

@@ -373,7 +373,7 @@ body.bg-grey #wrapper {
 section {
 	display: block;
 	position: relative;
-	padding: 40px 0;
+	padding: 30px 0;
 	border-bottom:rgba(0,0,0,0.1) 1px solid;
 
 	-webkit-transition: all .400s;
@@ -4666,7 +4666,7 @@ section.dark .tab-post a {
 		display:block;
 		text-decoration:none;
 		color:#333;
-		font-size:13px;
+		font-size:14px;
 		letter-spacing: 1px;
 	}
 	ul.side-nav a i.fa {
@@ -4674,7 +4674,7 @@ section.dark .tab-post a {
 	}
 	ul.side-nav ul li a {
 		padding:3px;
-		font-size:12px;
+		font-size:14px;
 	}
 	ul.side-nav>li {
 		padding:0;

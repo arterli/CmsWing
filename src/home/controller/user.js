@@ -371,6 +371,9 @@ export default class extends Base {
             // console.log(111111111)
             //获取渠道
             let channel = await this.model("pingxx").where({id: data.payment}).getField("channel", true);
+            if(channel == "wx_pub"){
+                return this.fail("接口已接通，需要微信授权，后面做！");
+            }
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
@@ -402,11 +405,21 @@ export default class extends Base {
             }
             // think.log(data);
         } else {
-            //ping++ 支付渠道 pc网页
-            let paylist = await this.model("pingxx").where({type: 1, status: 1}).order("sort ASC").select();
-            this.assign("paylist", paylist);
-            this.meta_title = "充值";
-            this.display();
+            let paylist;
+            if (checkMobile(this.userAgent())) {
+                //ping++ 支付渠道 pc网页
+                 paylist = await this.model("pingxx").where({type: 2, status: 1}).order("sort ASC").select();
+                this.assign("paylist", paylist);
+                this.meta_title = "充值";
+                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            } else {
+                //ping++ 支付渠道 pc网页
+                 paylist = await this.model("pingxx").where({type: 1, status: 1}).order("sort ASC").select();
+                this.assign("paylist", paylist);
+                this.meta_title = "充值";
+                this.display();
+            }
+
         }
 
     }
@@ -599,7 +612,10 @@ export default class extends Base {
         this.meta_title = "用户注册";
         return this.display();
     }
-
+//alipay_in_weixin 在微信客户端中使用支付宝手机网页支付（alipay_wap）
+    alipayinweixinAction(){
+        return this.display();
+    }
 
 //   登陆页面
     async loginAction() {
