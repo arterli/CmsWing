@@ -52,19 +52,22 @@ export default class extends Base {
       subcate.push(cate.id);
       //获取模型列表数据个数
       // console.log(cate);
+      let num;
       if(cate.model.split(",").length == 1){
          let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
-         if(pagenum !=0){
-         this.config("db.nums_per_page",pagenum);
-         }
 
+         if(pagenum !=0){
+             num = pagenum;
+         }
+      }else {
+          num =this.config("db.nums_per_page");
       }
       //console.log(subcate);
       let map = {
         'status': ['=', 1],
         'category_id': ['IN', subcate]
       };
-      let data = await this.model('document').where(map).page(this.param('page')).order('update_time DESC').countSelect();
+      let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
      // console.log(data);
       let html = pagination(data, this.http, {
       desc: false, //show description
