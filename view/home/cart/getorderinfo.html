@@ -190,10 +190,10 @@
 				<td><img src="{{val.pic}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
 				<td>{{val.title}}</td>
 				<td>{% if val.type%}{{val.type}}{%endif%}</td>
-                <td>￥{{val.unit_price|formatCurrency}}</td>
+                <td>¥{{val.unit_price|formatCurrency}}</td>
                 <td>{{val.qty}}</td>
                 <td>无</td>
-                <td>￥{{val.price|formatCurrency}}</td>
+                <td>¥{{val.price|formatCurrency}}</td>
 			</tr>
             {% endfor %}
 		</tbody>
@@ -250,23 +250,23 @@
 		
 		<tbody>
 			<tr >
-				<td class="text-right"><span class="text-danger">{{controller.cart.num}}</span> 件商品，总商品金额：</td>
-				<td>￥<span class="text-danger">{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</span></td>
+				<td class="text-right"><span class="text-danger">{{nums}}</span> 件商品，总商品金额：</td>
+				<td>¥ <span class="text-danger">{% if real_amount %}{{real_amount|formatCurrency}}{%else%}0.00{%endif%}</span></td>
 				
 			</tr>
 			<tr >
 				<td class="text-right">优惠：</td>
-				<td><span class="text-success">- </span> ￥<span class="text-success">0.00</span></td>
+				<td><span class="text-success">- </span> ¥<span class="text-success">0.00</span></td>
 				
 			</tr>
 			<tr >
 				<td class="text-right">运费：</td>
-				<td id="real_freight"><span class="text-danger">+</span>￥<span class="text-danger">{%if real_freight%}{{real_freight|formatCurrency}}{%else%}0.00{%endif%}</span></td>
+				<td id="real_freight">¥ <span class="text-danger">{%if real_freight%}{{real_freight|formatCurrency}}{%else%}0.00{%endif%}</span></td>
 				
 			</tr>
 			<tr class="danger">
 				<td class="text-right text-danger size-18">应付总额：</td>
-				<td class="text-danger size-18" id="order_amount">￥{{order_amount|formatCurrency}}</td>
+				<td class="text-danger size-18" id="order_amount">¥{{order_amount|formatCurrency}}</td>
 				
 			</tr>
 			
@@ -285,8 +285,8 @@
 		<div class="col-md-8 col-sm-8 showaddr"><!-- left text -->
 			{% for val in addrlist %}
 			{% if val.is_default == 1 %}
-			<p><strong>寄送至：</strong>{{val.province}} {{val.city}} {{val.county}} {{val.addr}}  </p>
-				<h4><strong>收货人：</strong>{{val.accept_name}} {{val.mobile}}</h4>
+			<p class="size-14 margin-bottom-6"><strong>寄送至：</strong>{{val.province}} {{val.city}} {{val.county}} {{val.addr}}  </p>
+				<p class="size-14"><strong>收货人：</strong>{{val.accept_name}} {{val.mobile}}</p>
 			{%endif%}
 			{%endfor%}
 			

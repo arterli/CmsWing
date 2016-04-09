@@ -178,14 +178,19 @@ export default class extends Base {
      }
      this.assign("check_goods",check_goods);
      //   console.log(cart_goods);
-     // console.log(check_goods);
+      console.log(check_goods);
       //应付金额
       let parr = [];
+      let nums = [];
       for(let val of check_goods){
           parr.push(val.price);
+          nums.push(val.qty)
       }
       //console.log(parr);
       real_amount = eval(parr.join('+'));
+     this.assign("real_amount",real_amount);
+     //商品总数量
+     this.assign("nums",eval(nums.join('+')));
       //联系人
       let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
      if(!think.isEmpty(addrlist)){
@@ -199,6 +204,7 @@ export default class extends Base {
           }
      }
       this.assign("addrlist",addrlist);
+
      /** 现在用ping++集成直接，但接入暂时屏蔽
       //支付方式
       let paylist = await this.model("payment").where({status:1}).order("sort ASC").select();
@@ -219,7 +225,7 @@ export default class extends Base {
         //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
        //TODO
        //计算商品的总重量
-       real_freight = await this.model("fare").getfare(cart_goods,null,this.user.uid);
+       real_freight = await this.model("fare").getfare(check_goods,null,this.user.uid);
        this.assign("real_freight",real_freight);
        //订单促销优惠信息
        //TODO
@@ -230,6 +236,7 @@ export default class extends Base {
        // console.log(real_amount);
         order_amount =Number(real_amount) + Number(real_freight)
         this.assign("order_amount",order_amount);
+
        //this.end(cart_goods);
         this.meta_title = "确认订单信息";//标题1
         this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词

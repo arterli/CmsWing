@@ -523,7 +523,7 @@
                         //console.log(res);
                         if(res.errno==0){
                             var val = res.data.data;
-                            var html ='<p><strong>寄送至：</strong>'+ val.province +" "+ val.city+" "+val.county+" "+ val.addr+'</p> <h4><strong>收货人：</strong>'+val.accept_name+" "+val.mobile+'</h4>'
+                            var html ='<p class="size-14 margin-bottom-6"><strong>寄送至：</strong>'+ val.province +" "+ val.city+" "+val.county+" "+ val.addr+'</p> <p class="size-14"><strong>收货人：</strong>'+val.accept_name+" "+val.mobile+'</p>'
                             $(".showaddr").html(html);
                         }
                     }
