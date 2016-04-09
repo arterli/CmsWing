@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
            var c =  $(v).prop("checked");
             if(c){
                i=i+1;
-                total =total + Number($(v).parents("tr").find("td").eq(4).attr("data-price"));
+                total =total + Number($(v).parents("tr").find("td").eq(5).attr("data-price"));
             }
         })
        

@@ -84,7 +84,8 @@
 									<thead>
 									<tr class="active">
 										<th class="table-checkbox"><input type="checkbox"  value="1" id="checkAll"></th>
-										<th>商品</th>
+										<th style="width:400px">商品</th>
+										<th>规格</th>
 										<th>单价(元)</th>
 										<th style="width: 120px">数量</th>
 										<th>小计(元)</th>
@@ -96,7 +97,7 @@
 									<tr>
 										<td><input type="checkbox" name="ids" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}"></td>
 										<td>
-											<div class="goods-item pull-left margin-right-15">
+											<div class="goods-item ">
 											<div class="p-img">
 												<a target="_blank" href="{{val.url}}"><img src="{{val.pic}}" alt="{{val.title}}" style="width: 80px;height: 80px;"></a>
 											</div>
@@ -114,11 +115,8 @@
 												</div>
 											</div>
 										</div>
-											<div class="p-props  pull-left">
-												<div title="{{val.type}}" class="props-txt">{% if val.type%}<small>{{val.type}}</small>{%endif%}</div>
-
-											</div>
 										</td>
+										<td>{% if val.type%}<small>{{val.type}}</small>{%endif%}</td>
 										<td>{{val.unit_price|formatCurrency}}</td>
 										<td><input type="text" value="{{val.qty}}" min="1" max="1000" class="form-control stepper"></td>
 										<td data-price ="{{val.price}}"><strong>{{val.price|formatCurrency}}</strong></td>
