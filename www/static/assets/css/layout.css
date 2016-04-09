@@ -7877,3 +7877,39 @@ ul.search-history {
 		font-size: 12px;
 	}
 }
+
+/*购物车*/
+.cart-tbody  .goods-item  {
+	width: 300px;
+}
+.cart-tbody  .goods-item .p-img {
+	background: #fff none repeat scroll 0 0;
+	border: 1px solid #eee;
+	float: left;
+	height: 80px;
+	margin-right: 10px;
+	overflow: hidden;
+	padding: 0;
+	text-align: center;
+	width: 80px;
+}
+.cart-tbody .goods-item .p-name {
+	height: 40px;
+	line-height: 20px;
+	overflow: hidden;
+}
+.cart-tbody  .goods-item .p-extend {
+	margin-top: 2px;
+}
+.cart-tbody  .goods-item .p-extend .promise {
+	display: block;
+	line-height: 18px;
+	margin: 0 10px 2px 0;
+	min-height: 18px;
+}
+.cart-tbody .p-props {
+	height: 80px;
+	line-height: 20px;
+	overflow: hidden;
+	width: 150px;
+}
