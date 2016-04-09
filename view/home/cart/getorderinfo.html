@@ -174,9 +174,9 @@
 		<div class="table-responsive">
 	<table class="table table-hover margin-bottom-0">
 		<thead>
-			<tr>
-				<th>商品</th>
-				<th>名称</th>
+			<tr class="active">
+				<th style="width: 60px">商品</th>
+				<th style="width: 350px">名称</th>
 				<th>规格</th>
                 <th>单价</th>
                 <th>数量</th>
@@ -185,7 +185,7 @@
 			</tr>
 		</thead>
 		<tbody>
-            {% for val in controller.cart.data%}
+            {% for val in check_goods%}
 			<tr>
 				<td><img src="{{val.pic}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
 				<td>{{val.title}}</td>
@@ -294,7 +294,7 @@
 
 		
 		<div class="col-md-4 col-sm-4 text-right"><!-- right btn -->
-             <input type="hidden" value="{{controller.cart.data|jsonToStr}}" name="goodslist">
+             <input type="hidden" value="{{check_goods|jsonToStr}}" name="goodslist">
 			<button  target-form="form-post" class="btn btn-danger btn-lg ajax-post" type="submit">提交订单</button>
        
 		</div><!-- /right btn -->

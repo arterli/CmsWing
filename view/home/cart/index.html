@@ -73,20 +73,17 @@
 	</div>
 
 </div>
-<hr/>
 					<!-- CART -->
-					<div class="row">
 
-						<div class="col-lg-12 col-md-12">
-							<form >
+							<form action="/cart/getorderinfo" method="post" class="form-cart" >
 								<div class="panel panel-default">
 									<!-- Default panel contents -->
-									<div class="panel-heading">Panel heading</div>
+									<div class="panel-heading panel-heading-transparent">全部商品 <strong class="text-danger">1</strong></div>
 							<div class="table-responsive">
-								<table class="table table-condensed cart-tbody">
+								<table class="table cart-tbody">
 									<thead>
-									<tr>
-										<th class="table-checkbox"><input type="checkbox"  value="1"></th>
+									<tr class="active">
+										<th class="table-checkbox"><input type="checkbox"  value="1" id="checkAll"></th>
 										<th>商品</th>
 										<th>单价(元)</th>
 										<th style="width: 120px">数量</th>
@@ -95,15 +92,17 @@
 									</tr>
 									</thead>
 									<tbody>
+									{% for val in controller.cart.data%}
 									<tr>
-										<td><input type="checkbox"  value="1"></td>
-										<td><div class="goods-item pull-left">
+										<td><input type="checkbox" name="ids" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}"></td>
+										<td>
+											<div class="goods-item pull-left margin-right-15">
 											<div class="p-img">
-												<a target="_blank" href="http://item.jd.com/2567362.html"><img src="//img10.360buyimg.com/cms/s80x80_jfs/t1837/79/2903651920/171274/5de57f6d/56fcbff4N243b6097.jpg" clstag="clickcart|keycount|xincart|cart_sku_pic" alt="绿联（UGREEN）20848 Mini Displayport转HDMI转换线 迷你DP 4K高清线 苹果MacBook雷电接口接电视 1.5米 黑"></a>
+												<a target="_blank" href="{{val.url}}"><img src="{{val.pic}}" alt="{{val.title}}" style="width: 80px;height: 80px;"></a>
 											</div>
 											<div class="item-msg">
 												<div class="p-name">
-													<a target="_blank" href="http://item.jd.com/2567362.html" clstag="clickcart|keycount|xincart|cart_sku_name">绿联（UGREEN）20848 Mini Displayport转HDMI转换线 迷你DP 4K高清线 苹果MacBook雷电接口接电视 1.5米 黑</a>
+													<a target="_blank" href="{{val.url}}" >{{val.title}}</a>
 												</div>
 												<div class="p-extend">
 							<span class="promise">
@@ -116,168 +115,50 @@
 											</div>
 										</div>
 											<div class="p-props  pull-left">
-												<div title="4K版 黑色" class="props-txt">颜色：4K版 黑色</div>
-												<div title="1.5米" class="props-txt">尺码：1.5米</div>
+												<div title="{{val.type}}" class="props-txt">{% if val.type%}<small>{{val.type}}</small>{%endif%}</div>
+
 											</div>
 										</td>
-										<td>55.00</td>
-										<td><input type="text" value="2" min="1" max="1000" class="form-control stepper"></td>
-										<td><strong>55.00</strong></td>
+										<td>{{val.unit_price|formatCurrency}}</td>
+										<td><input type="text" value="{{val.qty}}" min="1" max="1000" class="form-control stepper"></td>
+										<td><strong>{{val.price|formatCurrency}}</strong></td>
 										<td>
-											<a href="#" class="btn btn-default btn-xs margin-bottom-6"><i class="fa fa-edit white"></i> 删除 </a><br>
-											<a href="#" class="btn btn-default btn-xs"><i class="fa fa-times white"></i> 移到我的关注 </a>
+											<a href="#" class="btn btn-default btn-xs margin-bottom-6"> 删除 </a><br>
+											<a href="#" class="btn btn-default btn-xs"> 移到我的关注 </a>
 										</td>
 									</tr>
-
+									{% endfor %}
 									</tbody>
 								</table>
 							</div>
 								</div>
-							</form>
-						</div>
-						<!-- LEFT -->
-						<div class="col-lg-9 col-sm-8">
 
-							<!-- CART -->
-							<form class="cartContent clearfix" method="post" action="#">
 
-								<!-- cart content -->
-								<div id="cartContent">
-									<!-- cart header -->
-									<div class="item head clearfix">
-										<span class="cart_img"></span>
-										<span class="product_name size-13 bold">商品名称</span>
-										<span class="remove_item size-13 bold"></span>
-										<span class="total_price size-13 bold">小计</span>
-										<span class="qty size-13 bold">数量</span>
-									</div>
-									<!-- /cart header -->
-                                     
-                                    {% for val in controller.cart.data%}
-									<!-- cart item -->
-									<div class="item">
-										<div class="cart_img pull-left width-100 padding-10 text-left"><img src="{{val.pic}}" alt="" width="80" /></div>
-										<a href="{{val.url}}" class="product_name">
-											<span>{{val.title}}</span>
-											{% if val.type%}<small>{{val.type}}</small>{%endif%}
-										</a>
-										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
-										<div class="total_price">￥<span>{{val.price|formatCurrency}}</span></div>
-										<div class="qty"><input type="number" value="{{val.qty}}" name="qty" maxlength="3" max="999" min="1" /> &times; ￥{{val.unit_price|formatCurrency}}</div>
-										<div class="clearfix"></div>
-									</div>
-									<!-- /cart item -->
-                                  {% endfor %}
-                                     
-									
+						<div class="callout alert alert-border margin-top-0 margin-bottom-60 padding-top-10 padding-bottom-10">
 
-									<!-- update cart -->
-									<button class="btn btn-success margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-ok"></i> 更新购物车</button>
-									<button class="btn btn-danger margin-top-20 margin-right-10 pull-right"><i class="glyphicon glyphicon-remove"></i> 清空购物车</button>
-									<!-- /update cart -->
+							<div class="row">
 
-									<div class="clearfix"></div>
+								<div class="col-md-6 col-sm-6"><!-- left text -->
+									<a class="btn btn-default ">删除选中的商品</a> <a class="btn btn-default " type="button">移到我的关注</a>
+								</div><!-- /left text -->
+
+                                <div class="col-md-4 col-sm-4 text-right">
+									<p class="font-lato size-14 "><span class="text-default">总价（不含运费）：</span><strong class="text-danger size-16">¥{{controller.cart.total|formatCurrency}}</strong></p>
+									<p class="font-lato size-14 margin-top-6"><span class="text-default">优惠：</span><span class="">¥0.00</span></p>
 								</div>
-								<!-- /cart content -->
+								<div class="col-md-2 col-sm-2 text-right"><!-- right btn -->
+									{% if controller.is_login %}
+									<button  class="btn btn-danger btn-lg btn-block size-15" type="submit"><i class="fa fa-mail-forward"></i> 立即结算</button>
+									{%else%}
+									<a  class="btn btn-primary btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
+									{% endif %}
+								</div><!-- /right btn -->
 
-							</form>
-							<!-- /CART -->
-
-						</div>
-
-
-						<!-- RIGHT -->
-						<div class="col-lg-3 col-sm-4">
-
-							<!-- TOGGLE -->
-							<div class="toggle-transparent toggle-bordered-full clearfix">
-
-								<div class="toggle nomargin-top">
-									<label>优惠券</label>
-
-									<div class="toggle-content">
-										<p>Enter your discount coupon code.</p>
-
-										<form action="#" method="post" class="nomargin">
-											<input type="text" id="cart-code" name="cart-code" class="form-control text-center margin-bottom-10" placeholder="Voucher Code" required="required">
-											<button class="btn btn-primary btn-block" type="submit">SUBMIT</button>
-										</form>
-									</div>
-								</div>
-
-								<div class="toggle">
-									<label>配送至：</label>
-
-									<div class="toggle-content">
-										<p>To get a shipping estimate, please enter your destination.</p>
-
-										<form action="#" method="post" class="nomargin">
-											<label>Country*</label>
-											<select id="cart-tax-country" name="cart-tax-country" class="form-control pointer margin-bottom-20">
-												<option value="1">United States</option>
-												<option value="2">United Kingdom</option>
-												<option value="2">...........</option>
-												<!-- add all here -->
-											</select>
-
-											<label>State/Province</label>
-											<select id="cart-tax-state" name="cart-tax-state" class="form-control pointer margin-bottom-20">
-												<option value="1">Alabama</option>
-												<option value="2">Alaska</option>
-												<option value="2">...........</option>
-												<!-- add all here -->
-											</select>
-
-											<label>Zip/Postal Code</label>
-											<input type="text" id="cart-tax-postal" name="cart-tax-postal" class="form-control margin-bottom-20">
-
-											<button class="btn btn-primary btn-block" type="submit">SUBMIT</button>
-										</form>
-									</div>
-								</div>
-
-							</div>
-							<!-- /TOGGLE -->
-							
-							<div class="toggle-transparent toggle-bordered-full clearfix">
-								<div class="toggle active">
-									<div class="toggle-content">
-										
-										<span class="clearfix">
-											<span class="pull-right">￥120.75</span>
-											<strong class="pull-left">小计:</strong>
-										</span>
-										<span class="clearfix">
-											<span class="pull-right">￥0.00</span>
-											<span class="pull-left">优惠:</span>
-										</span>
-										<span class="clearfix">
-											<span class="pull-right">￥0.00</span>
-											<span class="pull-left">运费:</span>
-										</span>
-
-										<hr />
-
-										<span class="clearfix">
-											<span class="pull-right size-20">￥{{controller.cart.total|formatCurrency}}</span>
-											<strong class="pull-left">合计:</strong>
-										</span>
-
-										<hr />
-                                       
-                            {% if controller.is_login %}
-							<a  class="btn btn-primary btn-lg btn-block size-15" href="/cart/getorderinfo"><i class="fa fa-mail-forward"></i> 立即结算</a>
-                            {%else%}
-                            <a  class="btn btn-danger btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
-                            {% endif %}
-										
-									</div>
-								</div>
 							</div>
 
 						</div>
+							</form>
 
-					</div>
 					<!-- /CART -->
 					 {%else%}
 										<!-- EMPTY CART -->
@@ -301,4 +182,5 @@
 {% block script%}
 <!-- PAGE LEVEL SCRIPTS -->
 		<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+         <script type="text/javascript" src="/static/assets/js/view/cart.js"></script>
 {% endblock %}

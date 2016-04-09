@@ -38,7 +38,7 @@ export default class extends Base {
       if(data.qty > stock){
           return this.json(false);
       }
-    //console.log(data);
+    console.log(data);
      //return false;
       let arr=[];
       let cart = this.cart.data;
@@ -131,26 +131,57 @@ export default class extends Base {
  async getorderinfoAction(){
       //判断是否登陆
       //!this.is_login || this.fail('您木有登陆'); 
-      if(!this.is_login){
-          return think.statusAction(1000, this.http);
+      await this.weblogin();
+      let post = this.post("ids");
+      if(think.isEmpty(post)){
+          this.http.error = new Error('木有选项要结算的宝贝');
+          return think.statusAction(1002, this.http);
       }
-      if(think.isEmpty(this.cart.data)){ return this.fail("木有宝贝提交啥订单呢？") }
-      
+      if(think.isEmpty(this.cart.data)){
+          this.http.error = new Error('木有宝贝提交啥订单呢？');
+          return think.statusAction(1002, this.http);
+      }
+     //构造购物车要结算的宝贝
+      let ids=[];
+      if(think.isArray(post)){
+          for(let v of post){
+              ids.push( v.split("||"));
+          }
+      }else {
+          ids.push(post.split("||"));
+      }
       let order_amount;//订单金额
       let payable_amount;//应付金额，商品的原价
       let real_amount;//商品参与获得的价格
       let payable_freight;//应付运费
       let real_freight//实际运费
-      
+
       //TODO购物清单 todo
       //购物车Post过来的商品id;暂时去购物车内所有的商品
       //购物车内的宝贝
       //let cart_goods = await this.model("cart").where({uid:this.user.uid}).select();
       let cart_goods = this.cart.data;
-       //console.log(cart_goods);
+     //筛选要结算的商品
+     let check_goods =[];
+     for(let val of cart_goods){
+         for (let v of ids){
+            if(think.isEmpty(v[1]) && think.isEmpty(val.type)){
+                if(v[0]==val.product_id){
+                    check_goods.push(val);
+                }
+            }else {
+                if(v[0]==val.product_id && v[1]==val.type){
+                    check_goods.push(val);
+                }
+            }
+         }
+     }
+     this.assign("check_goods",check_goods);
+     //   console.log(cart_goods);
+     // console.log(check_goods);
       //应付金额
       let parr = [];
-      for(let val of cart_goods){
+      for(let val of check_goods){
           parr.push(val.price);
       }
       //console.log(parr);
@@ -391,7 +422,8 @@ async editaddrmodalAction(){
 async createorderAction(){
     if(!this.is_login){return think.statusAction(1000, this.http)};
     let data = this.post();
-    console.log(data);
+    // console.log(data);
+    // return false;
     let order_amount;//订单金额
     let payable_amount;//应付金额，商品的原价
     let real_amount;//商品参与获得的价格
@@ -488,6 +520,7 @@ async createorderAction(){
     console.log(data);
     //减少订单中商品的库存
     await this.model("order").stock(order_id,true);
+    
     return this.success({name:'订单创建成功，正在跳转支付页面！',url:`/home/cart/pay/order/${order_id}/setp/3`});
     
 }
