@@ -66,7 +66,8 @@ export default class extends Base {
     async orderAction() {
         //判断是否登陆
         await this.weblogin();
-        let status = this.get("status") || null;
+        let status = this.param("status") || null;
+        //console.log(status);
         let map;
 
         //当前位置
@@ -116,7 +117,7 @@ export default class extends Base {
 
         //console.log(map);
         // this.config("db.nums_per_page",20)
-        let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
+        let data = await this.model("order").where(map).page(this.param('page')).order("create_time DESC").countSelect();
         let html = pagination(data, this.http, {
             desc: false, //show description
             pageNum: 2,
@@ -185,7 +186,11 @@ export default class extends Base {
         this.meta_title = "我的订单";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
-            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            if(this.isAjax("POST")){
+                return this.json(data);
+            }else {
+                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            }
         } else {
             return this.display();
         }
@@ -335,8 +340,10 @@ export default class extends Base {
         if (checkMobile(this.userAgent())) {
             if(this.isAjax("POST")){
                 return this.json(data);
+            }else {
+                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             }
-            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+
         } else {
             return this.display();
         }

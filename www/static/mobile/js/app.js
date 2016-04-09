@@ -51,8 +51,7 @@ $(function () {
                 num.substring(num.length - (4 * i + 3));
         return (((sign) ? '' : '-') + num + '.' + cents);
     }
-
-    $(document).on("pageInit", function(e, pageId, $page) {
+function _ajx_post() {
         /**
          * ajax post submit请求
          * <form class = "form-horizontal">
@@ -65,10 +64,11 @@ $(function () {
             var target,query,form;
             var target_form = $(this).attr('target-form');
             var that = this;
-            var nead_confirm=false;
+            var nead_confirm=true;
             if(($(this).attr('type')=='submit') || (target = $(this).attr('href')) || (target = $(this).attr('url')) ){
                 form = $('.'+target_form);
                 if ($(this).attr('hide-data') === 'true'){//无数据时也可以使用的功能
+
                     form = $('.hide-data');
                     query = form.serialize();
                 }else if (form.get(0)==undefined){
@@ -164,55 +164,11 @@ $(function () {
             return false;
         });
 
+}
+    $(document).on("pageInit", function(e, pageId, $page) {
+         //post请求
+        _ajx_post();
         //ajax get请求
-        /**
-         * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
-         *
-         */
-
-
-        $(document).on('click','.ajax-get',function(){
-            var target;
-            var that = this;
-            if ( $(this).hasClass('confirm') ) {
-                if(!confirm('确认要执行该操作吗?')){
-                    return false;
-                }
-            }
-            if ( (target = $(this).attr('href')) || (target = $(this).attr('url')) ) {
-                $.get(target).success(function(data){
-                    if (data.errno==0) {
-                        if (data.data.url) {
-                            $.toast(data.data.name + ' 页面即将自动跳转~');
-                        }else{
-                            $.toast(data.data.name);
-                        }
-                        setTimeout(function(){
-                            if (data.data.url) {
-                                location.href=data.data.url;
-                            }else if( $(that).hasClass('no-refresh')){
-                                //toastr.clear()
-                            }else{
-                                location.reload();
-                            }
-                        },1500);
-                    }else{
-
-                        $.toast(data.errmsg);
-                        setTimeout(function(){
-                            if (data.data) {
-                                location.href=data.data;
-                            }else{
-                                //toastr.clear()
-                            }
-                        },1500);
-                    }
-                });
-
-            }
-            return false;
-        });
-
     });
 
     //下拉刷新页面
@@ -473,7 +429,7 @@ $(function () {
                 url:$(this).find(".buttons-tab > a").attr("href"),
                 data:{page:(page+1)},
                 success:function (data) {
-                    console.log(data)
+                    //console.log(data)
                     loading = false;
                     if(lastIndex >=data.count){
                         $.detachInfiniteScroll($('.infinite-scroll'));
@@ -532,5 +488,135 @@ $(function () {
         })
 
     });
+    //订单
+    $(document).on("pageInit","#user_order",function (e, id, page) {
+        //无限加载
+        var loading = false;
+        var itemsPerLoad = 10;
+        var lastIndex = $("#user_order .list-container div.card").length;
+        if(lastIndex < itemsPerLoad){
+            $(".infinite-scroll-preloader").remove();
+            return;
+        }
+        function addItems(data) {
+            var html = '';
+            $.each(data, function(index,item){
+                html+='<div class="card"> <input type="hidden" value="'+item.id+'" name="id'+item.id+'" class="id'+item.id+'"> <div class="card-header"><a href="#" class="link" ><i class="fa fa-eye fa-lg "> </i>&nbsp;' +item.order_no+'</a>';
+                if (item.pay_status == 0 && item.delivery_status != 1 && item.status != 6 && item.status != 4){
+                    html+='<span class="text-warning size-14">等待付款</span>';
+                }else if((item.pay_status == 1 || item.status ==3) && item.delivery_status != 1 && item.status != 6 && item.status != 4){
+                    html+='<span class="text-warning size-14">等待发货</span>';
+                }else if(item.delivery_status == 1 && item.status != 6 && item.status != 4){
+                    html+='<span class="text-success size-14">等待收货</span>';
+                }else if(item.status == 6){
+                    html+='<span class="text-danger size-14">已作废</span>';
+                }else if(item.status == 4){
+                    html+='<span class="text-default size-14">已完成</span>';
+                }
+                if(item.status == 4 || item.status== 6){
+                    html+='<a href="/user/delorder/id/'+item.id+'" class="button button-light confirm ajax-post" target-form="id'+item.id+'"><i class="fa fa-trash-o "></i></a>'
+                }
+                html+='</div> <div class="card-content"> <div class="card-content-inner"> <div class="list-block media-list list-bg"><ul>';
+                $.each(item.goods,function (k, v) {
+                    html+='<li class="item-content"> ';
+                    html+='<div class="item-media"> <img width="44" src="'+v.pic+'"> </div>';
+                    html+='<div class="item-inner"> <div class="item-title-row"> <div class="item-title">'+v.title+'</div>';
+                    html+='</div>';
+                    html+='<div class="item-subtitle">';
+                    if (v.type){
+                        html+='<span class="text-info">['+v.type+']</span>';
+                    }
+                    html+='<span class="badge">x'+v.goods_nums+'</span></div> </div>';
+                    html+='</li>';
+                })
+                html+='</ul></div></div></div>';
+                html+='<div class="card-content"><div class="card-content-inner text-right"> 共'+item.nums+'件商品 订单总额：<span class="size-18">¥'+formatCurrency(item.order_amount)+'</span></div></div>';
+                html+='<div class="card-footer">'+dateformat('Y-m-d H:i:s',item.create_time);
+                        if(item.pay_status == 0 && item.delivery_status != 1 && item.status != 6 && item.status != 4){
+                            html+=' <a class="button button-danger" href="/cart/pay/order/'+item.id+'">立即付款</a>';
+                        }else if((item.pay_status == 1 || item.status ==3) && item.delivery_status != 1 && item.status != 6 && item.status != 4){
+                html+='<a class="button button-warning" href="#">提醒发货</a>';
+            }else if(item.delivery_status == 1 && item.status != 6 && item.status != 4){
+                            html+=' <a class="button button-success confirm ajax-post" href="/user/confirmreceipt/id/'+item.id+'" target-form="id'+item.id+'">确认收货</a>';
+                        }else if(item.status == 4 || item.status == 6){
+                            html+='<a class="button button-primary" href="#">再次购买</a>';
+                        }
+                html+='</div> </div>';
+
+            })
+            //console.log(html)
+            $('#user_order .list-container').append(html);
+            $('.ajax-post').off('click');
+            _ajx_post();
+
+        }
+
+
+
+        $("#user_order .infinite-scroll").on('infinite',function() {
+
+            // 如果正在加载，则退出
+            if (loading) return;
+            //console.log($(this).find(".buttons-tab > a.active").attr("data-type"));
+            // 设置flag
+            loading = true;
+            var page = Math.ceil(lastIndex/itemsPerLoad);
+            $.ajax({
+                type:'post',
+                url:$(this).find(".buttons-tab > a.active").attr("href"),
+                data:{page:(page+1)},
+                success:function (data) {
+                    //console.log(data)
+                    loading = false;
+                    if(lastIndex >=data.count){
+                        $.detachInfiniteScroll($('.infinite-scroll'));
+                        $(".infinite-scroll-preloader").remove();
+                        return;
+                    }
+                    addItems(data.data);
+                    lastIndex = $("#user_order .list-container div.card").length;
+
+                }
+            })
+            
+        });
+    });
+
+    //订单支付
+    $(document).on("pageInit","#caty_pay",function (e, id, page) {
+     $(page).find(".caty_pay").click(function () {
+         var order_id = $(page).find("input[name='order_id']").val();
+         var payment = $(page).find("input[name='payment']:radio:checked").val();
+         if(payment===undefined){
+             $.toast("请选择一种支付方式");
+             return;
+         }
+         $.ajax({
+             type:"post",
+             url:"/cart/pay",
+             data:{order_id:order_id,payment:payment},
+             success:function (res) {
+                 //console.log(res);
+                 if(res.errno==1000){
+                     $.toast(res.errmsg);
+                     return false;
+                 }else if(res.data.url){
+                     window.location.href = res.data.url;
+                 } else if(res.data.data){
+                     $.toast(res.data.name);
+                     pingpp.createPayment(res.data.data, function(result, err) {
+                         console.log(result);
+                         console.log(err);
+                     });
+
+
+                 }
+
+             }
+
+         })
+
+     })
+    })
     $.init();
 });

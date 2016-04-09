@@ -14,15 +14,16 @@
     {% include "../inc/nav.html" %}
     <!--end_nav-->
 
-    <div class="content ">
+    <div class="content infinite-scroll" data-distance="100">
         <div class="buttons-tab">
-            <a href="/user/order" class="button button-item {%if status == null%}active{%endif%}">全部订单</a>
-            <a href="/user/order/status/0" class="button button-item {% if status == 0%}active{%endif%}">待付款  <span class="badge">{{nopaid}}</span></a>
-            <a href="/user/order/status/1" class="button button-item {% if status == 1%}active{%endif%}">待收货  <span class="badge">{{receipt}}</span></a>
+            <a href="/user/order" class="button button-item {%if status == null%}active{%endif%}" data-type="/user/order">全部订单</a>
+            <a href="/user/order/status/0" class="button button-item {% if status == 0%}active{%endif%}" data-type="/user/order/status/0">待付款  <span class="badge">{{nopaid}}</span></a>
+            <a href="/user/order/status/1" class="button button-item {% if status == 1%}active{%endif%}" data-type="/user/order/status/1">待收货  <span class="badge">{{receipt}}</span></a>
         </div>
-
+              <div class="list-container">
                 {%for item in list %}
                 <div class="card">
+                    <input type="hidden" value="{{item.id}}" name="id{{item.id}}" class="id{{item.id}}">
                     <div class="card-header"><a href="#" class="link" ><i class="fa fa-eye fa-lg "> </i>&nbsp; {{item.order_no}}</a>
                         {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                         <span class="text-warning size-14">等待付款</span>
@@ -36,7 +37,7 @@
                         <span class="text-default size-14">已完成</span>
                         {%endif%}
                         {%if item.status == 4 or item.status== 6%}
-                        <a href="/user/delorder/id/{{item.id}}" class="button button-light confirm ajax-get"><i class="fa fa-trash-o "></i></a>
+                        <a href="/user/delorder/id/{{item.id}}" class="button button-light confirm ajax-post" target-form="id{{item.id}}"><i class="fa fa-trash-o "></i></a>
                         {%endif%}</div>
                     <div class="card-content">
                         <div class="card-content-inner">
@@ -67,20 +68,24 @@
                         </div>
                     <div class="card-footer">{{item.create_time|dateformat('Y-m-d H:i:s')}}
                         {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
-                        <a class="button button-danger" href="/cart/pay/order/{{item.id}}" target="_blank">立即付款</a>
+                        <a class="button button-danger" href="/cart/pay/order/{{item.id}}">立即付款</a>
                         {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                         <a class="button button-warning" href="#">提醒发货</a>
                         {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
-                        <a class="button button-success confirm ajax-get" href="/user/confirmreceipt/id/{{item.id}}">确认收货</a>
+                        <a class="button button-success confirm ajax-post" href="/user/confirmreceipt/id/{{item.id}}" target-form="id{{item.id}}">确认收货</a>
                         {%elif item.status == 4 or item.status == 6%}
                         <a class="button button-primary" href="#">再次购买</a>
                         {%endif%}
                     </div>
                 </div>
                 {%endfor%}
-
-
+              </div>
+        <!-- preloader -->
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
     </div>
+
 </div>
 
 {% endblock %}

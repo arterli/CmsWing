@@ -499,7 +499,8 @@ async createorderAction(){
     }
    //支付
  async  payAction(){
-     if(!this.is_login){return think.statusAction(1000, this.http);};
+     //判断是否登录
+     await this.weblogin();
        if(this.isAjax("post")){
            let payment;
            let pay;
@@ -617,13 +618,25 @@ async createorderAction(){
            //      val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
            //   }
            //   this.assign("paylist",paylist);
-           let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
+           //根据不同的客户端调用不同的支付方式
+           let type;
+           if (checkMobile(this.userAgent())) {
+               type = 2;
+           }else {
+               type = 1;
+           }
+           let paylist = await this.model("pingxx").where({type:type,status:1}).order("sort ASC").select();
            this.assign("paylist",paylist);
            this.assign("setp",setp);
            this.meta_title = "订单支付";//标题1
            this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
            this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
-           return this.display();
+           //判断浏览客户端
+           if (checkMobile(this.userAgent())) {
+               return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+           } else {
+               return this.display();
+           }
        }
 
 
