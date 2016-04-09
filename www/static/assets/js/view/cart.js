@@ -24,6 +24,7 @@ jQuery(document).ready(function() {
         if(this.checked){
             $(this).parents("tr").addClass("warning")
         }else {
+            
             $(this).parents("tr").removeClass("warning")
         }
     });
