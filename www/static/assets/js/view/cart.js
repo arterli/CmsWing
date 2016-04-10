@@ -30,19 +30,73 @@ jQuery(document).ready(function() {
             $(this).parents("tr").removeClass("warning")
         }
     });
+    function steperhtml(step,ids,self) {
+        if(step==0){
+            return;
+        }
+        // console.log(step);
+        // console.log(ids);
+        $.ajax({
+            url:"/cart/stepper",
+            type:"POST",
+            data:{qty:step,ids:ids},
+            success:function (res) {
+                if(res.errno == 0){
+                    $(self).parents("tr").find("td").eq(5).attr("data-price",res.data.data.price)
+                    $(self).parents("tr").find(".stepper-wrap").next().html('<span class="text-default">有货</span>')
+                    $(self).parents("tr").find(".inform").html('');
+                    $(self).parents("tr").find(".price").html(formatCurrency(res.data.data.price));
+                    tj ();
+                }else {
+                    if(res.errmsg == "请先登录"){
+                        $('[data-toggle="ajaxModal"]').eq(0).trigger("click");
+                    }else {
+                        $(self).parents("tr").find(".inform").html('<a class="btn btn-default btn-xs margin-bottom-6" href="#"> 到货通知 </a>');
+                        $(self).parents("tr").find(".stepper-wrap").next().html('<span class="text-danger">无货</span>')
+                    }
+                    _toastr(res.errmsg,"top-right","error",false);
+                }
+
+            }
+        })
+    }
+    //编辑数量
+    $("input.stepper").change(function () {
+        var step = $(this).val();
+        var ids = $(this).parents("tr").find("input[name='ids']").val();
+        steperhtml(step,ids,this)
+    })
+    $(document).on("click",".stepper-btn-wrap > a",function () {
+        var step = $(this).parent().prev().val();
+        var ids = $(this).parents("tr").find("input[name='ids']").val();
+        steperhtml(step,ids,this)
+    })
+
     //通缉选中个数
     function tj () {
         var checkd = $('input[name="ids"]');
         var i=0;
         var total=0;
+        var url=[];
         $.each(checkd,function (k, v) {
            var c =  $(v).prop("checked");
             if(c){
                i=i+1;
                 total =total + Number($(v).parents("tr").find("td").eq(5).attr("data-price"));
+                url.push($(v).parents("tr").find('input[name="ids"]').val())
             }
         })
-       
+         url = url.join("<>");
+        var href;
+        if(url.length>0){
+             href = "/cart/delcart/ids/"+url;
+            $("a.delall").attr("href",href);
+        }else {
+             href = "/cart/delcart";
+            $("a.delall").attr("href",href);
+        }
+        
+        
         $("#num").html(i);
         $("#total").html(formatCurrency(total))
     }

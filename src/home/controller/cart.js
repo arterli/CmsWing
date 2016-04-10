@@ -28,6 +28,54 @@ export default class extends Base {
     //编辑购物车// todou
     return this.display();
   }
+    //编辑购物车数量
+   async stepperAction(){
+       if(!this.is_login){
+           return this.fail("请先登录");
+       }
+        let data = this.post();
+        console.log(data);
+        let ids = data.ids.split("||");
+        //检查库存
+        let stock = await this.model("order").getstock(ids[0],ids[1]);
+        //think.log(stock);
+        if(data.qty > stock){
+            return this.fail("无货");
+        }else {
+            let goods = await this.model("cart").where({product_id:ids[0],type:ids[1]||"",uid:this.user.uid}).find();
+            let datas = {
+                id:goods.id,
+                qty:data.qty,
+                price:Number(data.qty) * goods.unit_price
+            }
+            await this.model("cart").update(datas);
+            let res = await this.model("cart").find(goods.id);
+            return this.success({name:"有货",data:res});
+        }
+    }
+    //删除购物车
+   async delcartAction(){
+       if(!this.is_login){
+           return this.fail("请先登录");
+       }
+       if(this.isAjax("post")){
+           let ids = this.post("ids");
+           for(let val of ids.split("<>")){
+
+               let id = await this.model("cart").where({product_id:val.split("||")[0],type:val.split("||")[1]||"",uid:this.user.uid}).delete();
+           }
+           return this.success({name:"删除成功！"})
+       }else {
+           let ids = this.get("ids");
+           if(think.isEmpty(ids)){
+               return this.fail("选择要删除的商品")
+           }
+
+           this.assign("ids",ids);
+           return this.display();
+       }
+
+    }
   //添加购物车
   async addcartAction(){
       let data = this.post();
@@ -38,7 +86,7 @@ export default class extends Base {
       if(data.qty > stock){
           return this.json(false);
       }
-    console.log(data);
+    //console.log(data);
      //return false;
       let arr=[];
       let cart = this.cart.data;
@@ -62,7 +110,7 @@ export default class extends Base {
               arr.splice(0, 0,data);
           };
       }
-      console.log(arr);
+      //console.log(arr);
       
       //获取商品详细信息
       //{total:222,data:[{title:"dfd",price:34,pic:2,}]}

@@ -118,11 +118,20 @@
 										</td>
 										<td>{% if val.type%}<small>{{val.type}}</small>{%endif%}</td>
 										<td>{{val.unit_price|formatCurrency}}</td>
-										<td><input type="text" value="{{val.qty}}" min="1" max="1000" class="form-control stepper"></td>
-										<td data-price ="{{val.price}}"><strong>{{val.price|formatCurrency}}</strong></td>
 										<td>
-											<a href="#" class="btn btn-default btn-xs margin-bottom-6"> 删除 </a><br>
-											<a href="#" class="btn btn-default btn-xs"> 移到我的关注 </a>
+											<input  type="text" value="{{val.qty}}" {%if val.stock > 0%}min="1"{%else%}min="0" disabled {%endif%} max="{{val.stock}}" class="form-control stepper" >
+										    {%if val.stock > 0%}<span class="text-default">有货</span>{%else%}<span class="text-danger">无货</span>{%endif%}
+										</td>
+										<td data-price ="{{val.price}}"><strong class="price">{{val.price|formatCurrency}}</strong></td>
+										<td>{% if controller.is_login %}
+											<div class="del"><a class="btn btn-default btn-xs margin-bottom-6 lightbox" href="/cart/delcart/ids/{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'> 删除 </a></div>
+											<div class="inform"> {%if val.stock == 0%}<a href="#" class="btn btn-default btn-xs margin-bottom-6"> 到货通知 </a>{%endif%}</div>
+											<div class="follow"> <a href="#" class="btn btn-default btn-xs"> 移到我的关注 </a></div>
+											{%else%}
+											<div class="del"><a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs margin-bottom-6"> 删除 </a></div>
+											<div class="inform"> {%if val.stock == 0%}<a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs margin-bottom-6"> 到货通知 </a>{%endif%}</div>
+											<div class="follow"> <a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs"> 移到我的关注 </a></div>
+											{% endif %}
 										</td>
 									</tr>
 									{% endfor %}
@@ -137,7 +146,11 @@
 							<div class="row">
 
 								<div class="col-md-6 col-sm-6"><!-- left text -->
-									<a class="btn btn-default ">删除选中的商品</a> <a class="btn btn-default " type="button">移到我的关注</a>
+									{% if controller.is_login %}
+									<a class="btn btn-default lightbox delall" href="/cart/delcart" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>删除选中的商品</a> <a class="btn btn-default " type="button">移到我的关注</a>
+									{%else%}
+									<a class="btn btn-default" href="/user/login" data-toggle="ajaxModal">删除选中的商品</a> <a href="/user/login" class="btn btn-default" data-toggle="ajaxModal">移到我的关注</a>
+									{% endif %}
 								</div><!-- /left text -->
 
                                 <div class="col-md-4 col-sm-4 text-right">

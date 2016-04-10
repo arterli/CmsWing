@@ -200,7 +200,7 @@ function _ajax_get() {
  * confirm,
  *****************************************************************************************************************************/
 function _ajax_post() {
-    $('.ajax-post').click(function(){
+    $(document).on('click','.ajax-post',function(){
 
     var target,query,form;
     var target_form = $(this).attr('target-form');
