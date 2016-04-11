@@ -78,7 +78,7 @@
 							<form action="/cart/getorderinfo" method="post" class="form-cart" >
 								<div class="panel panel-default">
 									<!-- Default panel contents -->
-									<div class="panel-heading panel-heading-transparent">全部商品 <strong class="text-danger" id="num">1</strong></div>
+									<div class="panel-heading panel-heading-transparent">全部商品 <strong class="text-danger nums" >0</strong></div>
 							<div class="table-responsive">
 								<table class="table cart-tbody">
 									<thead>
@@ -99,7 +99,7 @@
 										<td>
 											<div class="goods-item ">
 											<div class="p-img">
-												<a target="_blank" href="{{val.url}}"><img src="{{val.pic}}" alt="{{val.title}}" style="width: 80px;height: 80px;"></a>
+												<a target="_blank" href="{{val.url}}"><img src="{{val.pic}}" alt="{{val.title}}" style="width: 80px;"></a>
 											</div>
 											<div class="item-msg">
 												<div class="p-name">
@@ -159,7 +159,7 @@
 								</div>
 								<div class="col-md-2 col-sm-2 text-right"><!-- right btn -->
 									{% if controller.is_login %}
-									<button  class="btn btn-danger btn-lg btn-block size-15" type="submit"><i class="fa fa-mail-forward"></i> 立即结算</button>
+									<button  class="btn btn-danger btn-lg btn-block size-15" type="submit">去结算（<small><span class="nums">0</span>件</small>）</button>
 									{%else%}
 									<a  class="btn btn-primary btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
 									{% endif %}

@@ -24,9 +24,15 @@ export default class extends Base {
     this.meta_title = "购物车";//标题1
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
     this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
+      this.active = this.http.controller+"/"+this.http.action;
     //console.log(checkMobile(this.userAgent()));
     //编辑购物车// todou
-    return this.display();
+      //判断浏览客户端
+      if (checkMobile(this.userAgent())) {
+          return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+      } else {
+          return this.display();
+      }
   }
     //编辑购物车数量
    async stepperAction(){
@@ -64,7 +70,12 @@ export default class extends Base {
 
                let id = await this.model("cart").where({product_id:val.split("||")[0],type:val.split("||")[1]||"",uid:this.user.uid}).delete();
            }
-           return this.success({name:"删除成功！"})
+           if (checkMobile(this.userAgent())) {
+               return this.success({name:"删除成功！",url:"/cart/index"})
+           } else {
+               return this.success({name:"删除成功！"})
+           }
+
        }else {
            let ids = this.get("ids");
            if(think.isEmpty(ids)){
@@ -72,7 +83,14 @@ export default class extends Base {
            }
 
            this.assign("ids",ids);
-           return this.display();
+           this.meta_title="删除";
+           this.active = "cart/index";
+           //判断浏览客户端
+           if (checkMobile(this.userAgent())) {
+               return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+           } else {
+               return this.display();
+           }
        }
 
     }
@@ -468,6 +486,7 @@ async editaddrmodalAction(){
     }
     this.meta_title="编辑地址"
     if (checkMobile(this.userAgent())) {
+        this.active = "user/index";
         return this.display(`mobile/${this.http.controller}/${this.http.action}`)
     } else {
         return this.display();

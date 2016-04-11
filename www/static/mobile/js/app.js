@@ -1,6 +1,91 @@
 
 $(function () {
     'use strict';
+    var plugin_path = '/static/mobile/plugins/';
+    /** Load Script
+
+     USAGE
+     var pageInit = function() {}
+     loadScript(plugin_path + "script.js", function);
+
+     Load multiple scripts and call a final function
+     loadScript(plugin_path + "script1.js", function(){
+		loadScript(plugin_path + "script2.js", function(){
+			loadScript(plugin_path + "script3.js", function(){
+				loadScript(plugin_path + "script4.js", function);
+			});
+		});
+	});
+     **************************************************************** **/
+    var _arr 	= {};
+    function loadScript(scriptName, callback) {
+
+        if (!_arr[scriptName]) {
+            _arr[scriptName] = true;
+
+            var body 		= document.getElementsByTagName('body')[0];
+            var script 		= document.createElement('script');
+            script.type 	= 'text/javascript';
+            script.src 		= scriptName;
+
+            // then bind the event to the callback function
+            // there are several events for cross browser compatibility
+            // script.onreadystatechange = callback;
+            script.onload = callback;
+
+            // fire the loading
+            body.appendChild(script);
+
+        } else if (callback) {
+
+            callback();
+
+        }
+
+    };
+    /** Form Stepper
+     **************************************************************** **/
+    function _stepper() {
+        var _container = jQuery('input.stepper');
+
+        if(_container.length > 0) {
+
+            loadScript(plugin_path + 'form.stepper/jquery.stepper.min.js', function() {
+
+                if(jQuery().stepper) {
+                    jQuery(_container).each(function() {
+                        var _t 		= jQuery(this),
+                            _min 	= _t.attr('min') || null,
+                            _max 	= _t.attr('max') || null;
+                        console.log(_max);
+                        _t.stepper({
+                            limit:						[_min,_max],
+                            floatPrecission:			_t.attr('data-floatPrecission') || 2,
+                            wheel_step: 				_t.attr('data-wheelstep') 		|| 0.1,
+                            arrow_step:	 				_t.attr('data-arrowstep') 		|| 0.2,
+                            allowWheel: 				_t.attr('data-mousescrool') 	== "false" ? false : true,
+                            UI: 						_t.attr('data-UI') 				== "false" ? false : true,
+                            // --
+                            type: 						_t.attr('data-type') 			|| "float",
+                            preventWheelAcceleration:	_t.attr('data-preventWheelAcceleration') == "false" ? false : true,
+                            incrementButton:			_t.attr('data-incrementButton') || "&blacktriangle;",
+                            decrementButton:			_t.attr('data-decrementButton') || "&blacktriangledown;",
+                            onStep:						null,
+                            onWheel:					null,
+                            onArrow:					null,
+                            onButton:					null,
+                            onKeyUp:					null
+                        });
+
+                    });
+
+                }
+
+            });
+
+        }
+
+    }
     /**
      * 时间戳格式化 dateformat()
      * @param extra 'Y-m-d H:i:s'
@@ -168,7 +253,8 @@ function _ajx_post() {
     $(document).on("pageInit", function(e, pageId, $page) {
          //post请求
         _ajx_post();
-        //ajax get请求
+        //_stepper
+        //_stepper();
     });
 
     //下拉刷新页面
@@ -617,6 +703,124 @@ function _ajx_post() {
          })
 
      })
+    })
+    //购物车
+    $(document).on("pageInit","#cart_index",function (e, id, page) {
+       $("button.sendfrom").click(function () {
+           if($('form.form-cart').serializeArray().length ==0){
+               $.toast("至少选择一个商品!");
+               return false;
+           }
+           $('form.form-cart').submit();
+       })
+        $("a.delall").click(function () {
+            if($('form.form-cart').serializeArray().length ==0){
+                $.toast("至少选择一个商品!");
+                return false;
+            }
+            
+        })
+        //通缉选中个数
+        function tj () {
+            var checkd = $('input[name="ids"]');
+            var total=0;
+            var badgecorner=[];
+            var url=[];
+            var nums = [];
+            $.each(checkd,function (k, v) {
+                var c =  $(v).prop("checked");
+                if(c){
+                    nums.push($(v).parents("li.item-content").find("input.number").val());
+                    total =total + Number($(v).parents("li.item-content").find("div.price").attr("data-price"));
+                    url.push($(v).parents("li.item-content").find('input[name="ids"]').val())
+                }
+                badgecorner.push($(v).parents("li.item-content").find("input.number").val());
+            })
+            url = url.join("<>");
+            var href;
+            if(url.length>0){
+                href = "/cart/delcart/ids/"+url;
+                $("a.delall").attr("href",href);
+            }else {
+                href = "/cart/delcart";
+                $("a.delall").attr("href",href);
+            }
+            if(nums.length > 0){
+                $(".nums").html(eval(nums.join("+")));
+            }else {
+                $(".nums").html(0);
+            }
+
+            $("#total").html(formatCurrency(total))
+            $("#badge-corner").html(eval(badgecorner.join("+")))
+        }
+        //全选
+        $("#checkAll").click(function() {
+            $('input[name="ids"]').prop("checked",this.checked);
+            tj ()
+
+        });
+        var $subBox = $("input[name='ids']");
+        $subBox.click(function(){
+            $("#checkAll").prop("checked",$subBox.length == $("input[name='ids']:checked").length ? true : false);
+            tj ()
+
+        });
+        //编辑
+        $(page).find('button.btn-edit').click(function () {
+            var hide = $(this).attr("data-hide");
+            if(hide == 1){
+                $("div.subinfo,div.submit").addClass("softhide");
+                $("div.edit").removeClass("softhide");
+                $(this).attr("data-hide",0);
+                $(this).text("完成")
+            }else {
+                $("div.subinfo,div.submit").removeClass("softhide");
+                $("div.edit").addClass("softhide");
+                $(this).attr("data-hide",1);
+                $(this).text("编辑")
+            }
+            $('input[name="ids"],#checkAll').prop("checked",false);
+            tj();
+        })
+
+        function steperhtml(step,ids,self) {
+            if(step==0){
+                $.toast("数量最少为1");
+                return;
+            }
+            // console.log(step);
+            // console.log(ids);
+            $.ajax({
+                url:"/cart/stepper",
+                type:"POST",
+                data:{qty:step,ids:ids},
+                success:function (res) {
+                    if(res.errno == 0){
+                        $(self).parents("li.item-content").find("div.price").attr("data-price",res.data.data.price)
+                        $(self).parents("li.item-content").find("span.stock").html('<span class="text-default">有货</span>')
+                        $(self).parents("li.item-content").find("span.inform").html('');
+                        $(self).parents("li.item-content").find("div.price>strong").html(formatCurrency(res.data.data.price));
+                        tj ();
+                    }else {
+                        if(res.errmsg == "请先登录"){
+                            location.href="/user/login";
+                        }else {
+                            $(self).parents("li.item-content").find("span.inform").html('<a href="#"> 到货通知 </a>');
+                            $(self).parents("li.item-content").find("span.stock").html('<span class="text-danger">无货</span>')
+                        }
+                        $.toast(res.errmsg);
+                    }
+
+                }
+            })
+        }
+        //编辑数量
+        $("input.number").change(function () {
+            var step = $(this).val();
+            var ids = $(this).parents("li.item-content").find("input[name='ids']").val();
+            steperhtml(step,ids,this)
+        })
     })
     $.init();
 });

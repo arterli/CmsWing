@@ -75,13 +75,13 @@ jQuery(document).ready(function() {
     //通缉选中个数
     function tj () {
         var checkd = $('input[name="ids"]');
-        var i=0;
         var total=0;
         var url=[];
+        var nums = [];
         $.each(checkd,function (k, v) {
            var c =  $(v).prop("checked");
             if(c){
-               i=i+1;
+                nums.push($(v).parents("tr").find("input.stepper").val());
                 total =total + Number($(v).parents("tr").find("td").eq(5).attr("data-price"));
                 url.push($(v).parents("tr").find('input[name="ids"]').val())
             }
@@ -95,9 +95,12 @@ jQuery(document).ready(function() {
              href = "/cart/delcart";
             $("a.delall").attr("href",href);
         }
-        
-        
-        $("#num").html(i);
+        if(nums.length > 0){
+            $(".nums").html(eval(nums.join("+")));
+        }else {
+            $(".nums").html(0);
+        }
+
         $("#total").html(formatCurrency(total))
     }
 });

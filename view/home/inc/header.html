@@ -59,7 +59,7 @@
 				<!-- QUICK SHOP CART -->
 				<li class="quick-cart">
 					<a href="#">
-						<span class="badge badge-aqua btn-xs badge-corner" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span>
+						{% if controller.cart.num %}<span class="badge badge-aqua btn-xs badge-corner" id="badge-corner">{{controller.cart.num}}</span>{%endif%}
 						<i class="fa fa-shopping-cart"></i>
 					</a>
 					<div class="quick-cart-box">

@@ -1,0 +1,47 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="cart_payres">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+        </a>
+        <a class="button pull-right back" href="{{http.referrer()}}">
+            取消
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <div class="content ">
+        <div class="content-block text-center" >
+            <i class="ico-light ico-rounded fa fa-exclamation-triangle size-60 bg-warning" style="width:100px;height: 100px;padding: 20px" ></i>
+        </div>
+        <div class="content-block" >
+            <h2 class=" text-center">删除商品？</h2>
+            <p class=" text-center">
+                您可以选择移到关注，或删除商品。
+            </p>
+        </div>
+        <div class="content-block">
+            <input type="hidden" value="{{ids}}" name="ids" class="ids">
+            <p><a class="button button-fill button-big button-dark ajax-post" target-form="ids" href="/cart/delcart"  >删除</a></p>
+            <p><a href="#" class="button button-fill button-light button-big">移到我的关注</a></p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+<script src="/static/mobile/js/light7-city-picker.js"></script>
+
+
+{% endblock %}

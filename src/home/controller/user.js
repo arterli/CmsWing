@@ -56,6 +56,7 @@ export default class extends Base {
         this.meta_title = "用户中心";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
+            this.active = this.http.controller+"/"+this.http.action;
             return this.display(`mobile/${this.http.controller}/${this.http.action}`)
         } else {
             return this.display();
@@ -189,6 +190,7 @@ export default class extends Base {
             if(this.isAjax("POST")){
                 return this.json(data);
             }else {
+                this.active = "user/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             }
         } else {
@@ -274,6 +276,7 @@ export default class extends Base {
         this.meta_title = "收货地址";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
+            this.active = "user/index";
             return this.display(`mobile/${this.http.controller}/${this.http.action}`)
         } else {
             return this.display();
@@ -341,6 +344,7 @@ export default class extends Base {
             if(this.isAjax("POST")){
                 return this.json(data);
             }else {
+                this.active = "user/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             }
 
@@ -425,6 +429,7 @@ export default class extends Base {
                  paylist = await this.model("pingxx").where({type: 2, status: 1}).order("sort ASC").select();
                 this.assign("paylist", paylist);
                 this.meta_title = "充值";
+                this.active = "user/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             } else {
                 //ping++ 支付渠道 pc网页
@@ -468,6 +473,7 @@ export default class extends Base {
         this.meta_title = "用户设置";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
+            this.active = "user/index";
             return this.display(`mobile/${this.http.controller}/${this.http.action}`)
         } else {
             return this.display();
@@ -671,6 +677,7 @@ export default class extends Base {
             this.meta_title = "用户登录";
             //判断浏览客户端
             if (checkMobile(this.userAgent())) {
+                this.active = "user/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             } else {
                 return this.display();
