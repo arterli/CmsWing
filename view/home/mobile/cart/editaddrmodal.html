@@ -16,98 +16,98 @@
 
     <div class="content ">
         <form action="/cart/addaddr" method="post" class="form-addaddr">
-        <div class="list-block">
-            <ul>
-                <!-- Text inputs -->
-                <li>
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">所在地区</div>
-                            <div class="item-input">
-                                <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">所在地区</div>
+                                <div class="item-input">
+                                    <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="align-top">
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">街道地址</div>
-                            <div class="item-input">
-                                <textarea name="addr" placeholder="填写详细地址，例如街道名称，楼层和门牌号等">{{info.addr}}</textarea>
+                    </li>
+                    <li class="align-top">
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">街道地址</div>
+                                <div class="item-input">
+                                    <textarea name="addr" placeholder="填写详细地址，例如街道名称，楼层和门牌号等">{{info.addr}}</textarea>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">收货人姓名</div>
-                            <div class="item-input">
-                                <input type="text" placeholder="收货人姓名" name="accept_name" value="{{info.accept_name}}">
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">收货人姓名</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="收货人姓名" name="accept_name" value="{{info.accept_name}}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">手机号码</div>
-                            <div class="item-input">
-                                <input type="text" placeholder="手机号码" value="{{info.mobile}}" name="mobile" >
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">手机号码</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="手机号码" value="{{info.mobile}}" name="mobile" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">邮政编码</div>
-                            <div class="item-input">
-                                <input type="text" placeholder="邮政编码(选填)" value="{{info.zip}}" name="zip" >
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">邮政编码</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="邮政编码(选填)" value="{{info.zip}}" name="zip" >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
 
-                <!-- Switch (Checkbox) -->
-                <li>
-                    <div class="item-content">
-                        <!--<div class="item-media"><i class="icon icon-form-toggle"></i></div>-->
-                        <div class="item-inner">
-                            <div class="item-title label">设为默认地址</div>
-                            <div class="item-input">
-                                <label class="label-switch">
-                                    <input type="checkbox" value="1" name="is_default" {% if info.is_default == 1%}checked{%endif%}>
-                                    <div class="checkbox"></div>
-                                </label>
+                    <!-- Switch (Checkbox) -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-toggle"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">设为默认地址</div>
+                                <div class="item-input">
+                                    <label class="label-switch">
+                                        <input type="checkbox" value="1" name="is_default" {% if info.is_default == 1%}checked{%endif%}>
+                                        <div class="checkbox"></div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-100">
+                        <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+                        <a class="button button-big button-fill  margin-bottom-20 ajax-post" target-form="form-addaddr" type="submit">保存</a>
                     </div>
-                </li>
+                    <div class="col-100">
+                        {% if info.id %}
+                        <input type="hidden" value="{{info.id}}" name="id" class="id">
 
-            </ul>
-        </div>
-        <div class="content-block">
-            <div class="row">
-                <div class="col-100">
-                    <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
-                    <a class="button button-big button-fill  margin-bottom-20 ajax-post" target-form="form-addaddr" type="submit">保存</a>
-                </div>
-                <div class="col-100">
-                    {% if info.id %}
-                    <input type="hidden" value="{{info.id}}" name="id" class="id">
-
-                    <a href="/cart/deladdr" class="button button-big button-fill button-danger confirm ajax-post" target-form="id">删除地址</a>
-                    {%endif%}
+                        <a href="/cart/deladdr" class="button button-big button-fill button-danger confirm ajax-post" target-form="id">删除地址</a>
+                        {%endif%}
+                    </div>
                 </div>
             </div>
-        </div>
         </form>
     </div>
 </div>
@@ -119,6 +119,5 @@
 {% block style %}
 {% endblock %}
 {% block script %}
-<script src="/static/mobile/js/light7-city-picker.js"></script>
 
 {% endblock %}

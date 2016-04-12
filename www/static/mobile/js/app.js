@@ -214,7 +214,8 @@ function _ajx_post() {
                         setTimeout(function(){
                             $(that).removeClass('disabled').prop('disabled',false);
                             if (data.data.url) {
-                                location.href=data.data.url;
+                                //location.href=data.data.url;
+                                $.router.loadPage(data.data.url);
                             }else if( $(that).hasClass('no-refresh')){
                                 //toastr.clear()
                             }else{
