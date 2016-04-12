@@ -11860,8 +11860,8 @@ section.dark select>optgroup {
 	padding:6px 10px;
 	border-top:rgba(0,0,0,0.1) 1px solid;
 	background-color:rgba(0,0,0,0.05);
-	margin-top:-2px;
-	border:#ddd 2px solid;
+	margin-top:-1px;
+	border:#ddd 1px solid;
 	border-top-width:1px;
 	display:block;
 	z-index:10;

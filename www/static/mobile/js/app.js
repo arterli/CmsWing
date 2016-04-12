@@ -730,11 +730,11 @@ function _ajx_post() {
             $.each(checkd,function (k, v) {
                 var c =  $(v).prop("checked");
                 if(c){
-                    nums.push($(v).parents("li.item-content").find("input.number").val());
-                    total =total + Number($(v).parents("li.item-content").find("div.price").attr("data-price"));
-                    url.push($(v).parents("li.item-content").find('input[name="ids"]').val())
+                    nums.push($(v).parents("li").find("input.number").val());
+                    total =total + Number($(v).parents("li").find("div.price").attr("data-price"));
+                    url.push($(v).parents("li").find('input[name="ids"]').val())
                 }
-                badgecorner.push($(v).parents("li.item-content").find("input.number").val());
+                badgecorner.push($(v).parents("li").find("input.number").val());
             })
             url = url.join("<>");
             var href;
@@ -797,17 +797,16 @@ function _ajx_post() {
                 data:{qty:step,ids:ids},
                 success:function (res) {
                     if(res.errno == 0){
-                        $(self).parents("li.item-content").find("div.price").attr("data-price",res.data.data.price)
-                        $(self).parents("li.item-content").find("span.stock").html('<span class="text-default">有货</span>')
-                        $(self).parents("li.item-content").find("span.inform").html('');
-                        $(self).parents("li.item-content").find("div.price>strong").html(formatCurrency(res.data.data.price));
+                        $(self).parents("li").find("div.price").attr("data-price",res.data.data.price)
+                        $(self).parents("li").find("span.stock").html('<span class="text-default">有货</span>')
+                        $(self).parents("li").find("span.inform").html('');
+                        $(self).parents("li").find("div.price>strong").html(formatCurrency(res.data.data.price));
                         tj ();
                     }else {
                         if(res.errmsg == "请先登录"){
                             location.href="/user/login";
                         }else {
-                            $(self).parents("li.item-content").find("span.inform").html('<a href="#"> 到货通知 </a>');
-                            $(self).parents("li.item-content").find("span.stock").html('<span class="text-danger">无货</span>')
+                            $(self).parents("li").find("span.stock").html('<span class="text-danger">无货</span>')
                         }
                         $.toast(res.errmsg);
                     }
@@ -818,9 +817,19 @@ function _ajx_post() {
         //编辑数量
         $("input.number").change(function () {
             var step = $(this).val();
-            var ids = $(this).parents("li.item-content").find("input[name='ids']").val();
+            var ids = $(this).parents("li").find("input[name='ids']").val();
             steperhtml(step,ids,this)
         })
     })
+    //选择收货地址
+    $(document).on("pageInit","#user_selectaddr",function (e, id, page) {
+         var load = true;
+        $(page).find("label.label-checkbox").click(function (e) {
+            if(load){
+                $.router.loadPage($(this).attr("data-href"));
+            }
+            load = false;
+        })
+    });
     $.init();
 });

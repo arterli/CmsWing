@@ -200,6 +200,7 @@
 	</table>
 </div>
         </section>
+
 		{%if controller.setup.IS_INVOICE == 1%}
          <section class="padding-bottom-15 padding-top-15">
         <div class="heading-title heading-line-single margin-bottom-20">
@@ -239,6 +240,24 @@
 </div>
         </section>
 		{%endif%}
+		<section class="padding-bottom-15 padding-top-15">
+			<div class="heading-title heading-line-single margin-bottom-20">
+				<h5>订单备注</h5>
+			</div>
+			<div class="fancy-form">
+				<textarea class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="订单备注" name="user_remark"></textarea>
+
+				<i class="fa fa-comments"><!-- icon --></i>
+
+	<span class="fancy-hint size-11 text-muted">
+		<strong>限:</strong> 200字以内!
+		<span class="pull-right">
+			<span id="textarea-words-info">0/200</span> 字
+		</span>
+	</span>
+
+			</div>
+		</section>
 	</div>
     
 </div>

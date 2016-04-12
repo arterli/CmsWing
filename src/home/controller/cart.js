@@ -198,7 +198,8 @@ export default class extends Base {
       //判断是否登陆
       //!this.is_login || this.fail('您木有登陆'); 
       await this.weblogin();
-      let post = this.post("ids");
+      let post = this.param("ids");
+     let addrid = this.get("addrid");
       if(think.isEmpty(post)){
           this.http.error = new Error('木有选项要结算的宝贝');
           return think.statusAction(1002, this.http);
@@ -207,6 +208,12 @@ export default class extends Base {
           this.http.error = new Error('木有宝贝提交啥订单呢？');
           return think.statusAction(1002, this.http);
       }
+
+      //手机端接收
+     if (!think.isEmpty(addrid) && checkMobile(this.userAgent())) {
+         post = JSON.parse(post);
+     }
+     this.assign("goodsget",post);
      //构造购物车要结算的宝贝
       let ids=[];
       if(think.isArray(post)){
@@ -257,8 +264,19 @@ export default class extends Base {
      this.assign("real_amount",real_amount);
      //商品总数量
      this.assign("nums",eval(nums.join('+')));
+     //手机端接收
+     let map;
+     if ( checkMobile(this.userAgent())) {
+         if(think.isEmpty(addrid)){
+             map={user_id:this.user.uid,is_default:1}
+         }else {
+             map={user_id:this.user.uid,id:addrid}
+         }
+     }else {
+         map={user_id:this.user.uid};
+     }
       //联系人
-      let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
+      let addrlist = await this.model("address").where(map).order("is_default DESC,id DESC").select();
      if(!think.isEmpty(addrlist)){
       for(let val of addrlist){
               val.province_num = val.province;
@@ -280,8 +298,14 @@ export default class extends Base {
       this.assign("paylist",paylist);
         **/
         //ping++ 支付渠道 pc网页
-
-         let paylist = await this.model("pingxx").where({type:1,status:1}).order("sort ASC").select();
+     //根据不同的客户端调用不同的支付方式
+     let type;
+     if (checkMobile(this.userAgent())) {
+         type = 2;
+     }else {
+         type = 1;
+     }
+         let paylist = await this.model("pingxx").where({type:type,status:1}).order("sort ASC").select();
          this.assign("paylist",paylist);
 
        //运费计算
@@ -307,8 +331,11 @@ export default class extends Base {
         this.meta_title = "确认订单信息";//标题1
         this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
         this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
-        return this.display();
-      
+     if (checkMobile(this.userAgent())) {
+         return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+     } else {
+         return this.display();
+     }
   }
   //获取省市三级联动
   async getareaAction(){
@@ -317,7 +344,31 @@ export default class extends Base {
       let area = await this.model('area').where({parent_id:pid}).select()
       return this.json(area);
   }
-  
+  //选择收货地址（仅手机端用）
+    async selectaddrAction(){
+        await this.weblogin();
+        let get = this.get();
+        let data = await this.model("address").where({user_id: this.user.uid}).order("is_default DESC,id DESC").select();
+        if (!think.isEmpty(data)) {
+            for (let val of data) {
+                val.province_num = val.province;
+                val.city_num = val.city;
+                val.county_num = val.county;
+                val.province = await this.model("area").where({id: val.province}).getField("name", true);
+                val.city = await this.model("area").where({id: val.city}).getField("name", true);
+                val.county = await this.model("area").where({id: val.county}).getField("name", true);
+            }
+        }
+        this.assign("list", data);
+        this.assign("goodsget",get.goodslist);
+        this.assign("id",get.id);
+        this.meta_title = "选择收货地址";
+        if (checkMobile(this.userAgent())) {
+            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        } else {
+            return this.display();
+        }
+    }
   //添加或者更新联系人地址
  async addaddrAction(){
     await this.weblogin();
@@ -360,7 +411,8 @@ export default class extends Base {
 
           //判断浏览客户端
           if (checkMobile(this.userAgent())) {
-              return this.success({name:'操作成功',url:"/user/address"});
+
+              return this.success({name:'操作成功',url:data.resurl});
           } else {
               let addrlist = await this.model("address").where({user_id:this.user.uid}).order("is_default DESC,id DESC").select();
               for(let val of addrlist){
@@ -448,7 +500,7 @@ async deladdrAction(){
           }
           //判断浏览客户端
           if (checkMobile(this.userAgent())) {
-              return this.success({name:'删除成功',url:"/user/address"});
+              return this.success({name:'删除成功',url:this.post("resurl")});
           } else {
               return this.success({name:'删除成功！',data:addrlist});
           }
@@ -566,8 +618,7 @@ async createorderAction(){
         data.delivery_status = 0;
         //订单创建时间 create_time
         data.create_time = new Date().valueOf();
-        
-        //订单金融 实付金额+邮费-订单优惠金额
+        //客户订单备注
         //TODO
         //console.log(real_amount);
         order_amount =Number(data.real_amount) + Number(data.real_freight)

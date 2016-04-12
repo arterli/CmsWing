@@ -96,12 +96,13 @@
         <div class="content-block">
             <div class="row">
                 <div class="col-100">
-
+                    <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
                     <a class="button button-big button-fill  margin-bottom-20 ajax-post" target-form="form-addaddr" type="submit">保存</a>
                 </div>
                 <div class="col-100">
                     {% if info.id %}
                     <input type="hidden" value="{{info.id}}" name="id" class="id">
+
                     <a href="/cart/deladdr" class="button button-big button-fill button-danger confirm ajax-post" target-form="id">删除地址</a>
                     {%endif%}
                 </div>

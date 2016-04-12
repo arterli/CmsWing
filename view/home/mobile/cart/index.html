@@ -22,7 +22,10 @@
             <div class="list-block media-list ">
                 <ul>
                     {% for val in controller.cart.data%}
-                    <li class="item-content" style="padding-left: 0.55rem">
+                    <li class="swipeout">
+                        <div class="swipeout-content">
+                        <div class="item-content" style="padding-left: 0.55rem">
+
                         <label class="label-checkbox item-media">
                             <input type="checkbox" name="ids" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}">
                             <div class="item-media margin-right-8 "><i class="icon icon-form-checkbox"></i></div>
@@ -52,6 +55,17 @@
                                     <div class="col-50 size-12 item-after margin-top-8 price" data-price ="{{val.price}}">小计 ¥<strong class="color-danger">{{val.price|formatCurrency}}</strong></div>
                                 </div>
                             </div>
+                            </div>
+                        </div>
+                            <!-- Swipeout actions right -->
+                            <div class="swipeout-actions-right">
+                                <!-- Swipeout actions links/buttons -->
+                                <a href="#" class="bg-danger">删除</a>
+                                {%if val.stock <= 0%}
+                                <a href="#" class="bg-primary">到货通知</a>
+                                {%endif%}
+                                <a class="swipeout-close" href="#">关注</a>
+                            </div>
 
                     </li>
                     {% endfor %}
@@ -79,7 +93,7 @@
                 {% if controller.is_login %}
                 <button class="button button-danger button-fill button-block sendfrom" >去结算</button>
                 {%else%}
-                <a  class="button button-primary button-fill button-block" href="/user/login" ><i class="fa fa-user-plus"></i> 登录结算 </a></li>
+                <a  class="button button-primary button-fill button-block" href="/user/login" >登录</a></li>
                 {% endif %}
             </div>
             <div class="col-75 edit softhide">
