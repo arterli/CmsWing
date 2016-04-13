@@ -485,9 +485,7 @@ function _ajax_post() {
 		// Mobile Submenu
 		var addActiveClass 	= false;
 		jQuery("#topMain a.dropdown-toggle").bind("click", function(e) {
-			e.preventDefault();
-
-
+			//e.preventDefault();
 			addActiveClass = jQuery(this).parent().hasClass("resp-active");
 			jQuery("#topMain").find(".resp-active").removeClass("resp-active");
 

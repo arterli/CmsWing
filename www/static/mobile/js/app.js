@@ -832,5 +832,9 @@ function _ajx_post() {
             load = false;
         })
     });
+    //商城列表页
+    $(document).on("pageInit","#list_shop",function (e,id,page) {
+        
+    })
     $.init();
 });

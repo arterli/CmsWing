@@ -55,12 +55,14 @@ export default class extends Base {
       let num;
       if(cate.model.split(",").length == 1){
          let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
-
          if(pagenum !=0){
              num = pagenum;
          }
       }else {
           num =this.config("db.nums_per_page");
+      }
+      if(checkMobile(this.userAgent())){
+          num=10;
       }
       //console.log(subcate);
       let map = {
