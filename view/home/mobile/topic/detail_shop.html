@@ -1,0 +1,178 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="detail_shop">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+            <span class="icon icon-menu"></span>
+            导航
+        </a>
+        <h1 class='title'>商品详情</h1>
+    </header>
+
+    <!--nav-->
+    <nav class="bar bar-tab">
+        <div class="row no-gutter
+        ">
+            <div class="col-40">
+                <a class="tab-item " href="#">
+                    <span class="icon icon-star color-warning"></span>
+                    <span class="tab-label color-warning">收藏</span>
+                </a>
+                <a class="tab-item" href="/column/shop">
+                <span class="icon icon-app"></span>
+                <span class="tab-label">商城</span>
+            </a>
+                <a class="tab-item {% if 'cart/index' == controller.active %}active{%endif%}" href="/cart/index"  >
+                    <span class="icon icon-cart"></span>
+                    <span class="tab-label">购物车</span>
+                    {% if controller.cart.num %}<span class="badge" id="badge-corner">{{controller.cart.num}}</span>{%endif%}
+                </a></div>
+            <div class="col-60">
+                <a class="tab-item bg-warning " href="#">
+
+                    <span class="tab-label bg-warning">加入购物车</span>
+
+                </a>
+                <a class="tab-item bg-danger" href="#">
+
+                    <span class="tab-label bg-danger">立即购买</span>
+
+                </a>
+                </div>
+        </div>
+
+
+    </nav>
+    <!--end_nav-->
+
+    <div class="content ">
+        <div class="shop-detail">
+        <div class="swiper-container swiper-container-horizontal" data-space-between="10">
+            {% set pic = info.pics|strToArray%}
+            <div class="swiper-wrapper">
+                {% for val in pic%}
+                <div class="swiper-slide">
+                    <img class='card-cover' src="{{val|get_cover('path')}}" alt="" style="width: 100%">
+                </div>
+                {%endfor%}
+
+            </div>
+            <div class="swiper-pagination"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+        </div>
+            <div class="list-block media-list margin-top-0">
+                <ul>
+                    <li class="item-content">
+
+                            <div class="item-inner">
+                                <div class="item-text margin-bottom-6">{{info.title}}</div>
+                                <div class="item-title-row">
+                                    <div class="item-title color-danger "><strong class="bg-danger padding-3 size-14">¥<span class="">{{info.price|get_price_format('1')}}</span></strong><span class='bg-warning size-14 padding-3'>会员折扣</span></div>
+                                    <div class="item-after"><a href="#" class="button button-round button-danger"><i class="fa fa-heart-o"></i>喜欢</a></div>
+                                </div>
+                                <div class="line-through size-12 color-gray">{% if info.price|get_price_format('2') %}原价:<span >¥{{info.price|get_price_format('2')}}</span>{%endif%}</div>
+
+
+                            </div>
+
+                    </li>
+
+                </ul>
+            </div>
+            <div class="list-block media-list">
+                <ul>
+                    {% if info.suk %}
+                    {% set suk = info.suk|strToJson%}
+                    {% set i = 0 %}
+                    <li class="item-content item-link select-sku">
+
+                        <div class="item-inner">
+                            <div class="sku-group select-sku">
+                                {% for item in suk.type%}
+                                <dl class="sku-item js-select-sku">
+                                    <dt>{{item}}：</dt>
+
+                                    {%set m = 0%}
+                                    <dd>
+                                        {% if i == 0 %}
+                                        {% for _item in suk.data %}
+                                        {%if m !=0%}、{%endif%}{{_item.name}}
+                                        {% set m = m+1%}
+                                        {% endfor %}
+                                        {% elif i==1 %}
+                                        {% for _item in suk.data[0].ch %}
+                                        {%if m !=0%}、{%endif%}{{_item.name}}
+                                        {% set m = m+1%}
+                                        {% endfor %}
+                                        {% else %}
+                                        {% for _item in suk.data[0].ch[0].ch %}
+                                        {%if m !=0%}、{%endif%}{{_item.name}}
+                                        {% set m = m+1%}
+                                        {% endfor %}
+                                        {% endif %}
+                                    </dd>
+                                </dl>
+                                {% set i = i+1%}
+                                {% endfor %}
+
+                            </div>
+
+
+                        </div>
+
+                    </li>
+                    {% endif %}
+                    <li class="item-content ">
+
+                        <div class="item-inner">
+                            <div class="sku-group select-sku">
+                                <dl >
+                                    <dt>运费：</dt>
+                                    <dd>¥ 0.00~25.00</dd>
+                                </dl>
+                                <dl >
+                                    <dt>销量：</dt>
+                                    <dd>1 </dd>
+                                </dl>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="buttons-tab">
+                <a href="#shop_detail" class="tab-link active button">商品详情</a>
+                <a href="#tab2" class="tab-link button">销量评价</a>
+            </div>
+            <div class="content-padded">
+                <div class="tabs">
+                    <div id="shop_detail" class="tab active">
+                        {{info.goods_detail|safe}}
+                    </div>
+                    <div id="tab2" class="tab">
+                        <div class="content-padded">
+                            <p>This is tab 2 content</p>
+                        </div>
+                    </div>
+
+                </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+{% endblock %}

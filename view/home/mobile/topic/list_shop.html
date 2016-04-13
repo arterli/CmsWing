@@ -32,16 +32,16 @@
             </div>
             <div class="swiper-pagination"></div>
         </div>
-       <div class="row no-gutter">
+       <div class="row no-gutter list-container">
            {% for item in list%}
-           <div class="col-50"><div class="card demo-card-header-pic margin-5">
+           <a href="{{item.name|get_url(item.id)}}" class="col-50"><div  class="card demo-card-header-pic margin-5">
                <div class="card-header color-white no-border no-padding" valign="bottom">
                    {% set pic = item.pics|strToArray%}
                    <img alt="" src="{{pic[0]|get_cover('path')}}" class="card-cover">
                </div>
-               <div class="card-content">
+               <div class="card-content tex-black">
                    <div class="card-content-inner padding-6">
-                       <p class="color-danger margin-bottom-0">{% if item.price|get_price_format('2') %}<span class="">¥{{item.price|get_price_format('2')}}</span>{%endif%}
+                       <p class="color-danger margin-bottom-0">{% if item.price|get_price_format('2') %}<span class="color-gray line-through">¥{{item.price|get_price_format('2')}}</span>{%endif%}
                            ¥{{item.price|get_price_format('1')}}</p>
                        <p class="margin-bottom-0 margin-top-0" style="overflow: hidden; height: 40px">{{item.title}}</p>
                    </div>
@@ -50,7 +50,7 @@
                    <span>有货</span>
                    <span>5 评论</span>
                </div>
-           </div></div>
+           </div></a>
            {% endfor %}
        </div>
         {#

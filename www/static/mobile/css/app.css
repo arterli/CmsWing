@@ -556,3 +556,28 @@ background: #52ACE5;
     height: 33px;
     overflow: hidden;
  }
+
+.shop-detail .swiper-container {
+    height: 18rem;
+}
+.sku-group dt {
+    float: left;
+    color: #999;
+}
+.sku-group dd {
+    margin-left: 50px;
+    word-wrap: break-word;
+    display:-webkit-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;
+
+
+}
+.sku-group dl {
+   font-size: 14px;
+    margin: 6px 0;
+     zoom: 1;
+}
+.sku-group dl:after {
+    content: '';
+    display: table;
+    clear: both;
+}

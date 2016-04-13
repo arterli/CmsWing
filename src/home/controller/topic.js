@@ -101,7 +101,25 @@ export default class extends Base {
       //think.log(temp);
 
       if(checkMobile(this.userAgent())){
+         if(this.isAjax("POST")){
+             for(let v of data.data){
+                 if(!think.isEmpty(v.pics)){
+                     v.pics = await get_cover(v.pics.split(",")[0],'path') ;
+                 }
+                 if(!think.isEmpty(v.cover_id)){
+                     v.cover_id = await get_cover(v.cover_id,"path");
+                 }
+                 if(!think.isEmpty(v.price)){
+                     if(!think.isEmpty(get_price_format(v.price,2))){
+                         v.price2 = get_price_format(v.price,2);
+                     }
+                         v.price = get_price_format(v.price,1);
 
+                 }
+                 v.url = get_url(v.name,v.id)
+             }
+             return this.json(data);
+         }
           temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
@@ -153,7 +171,12 @@ export default class extends Base {
     }
     this.assign('category', cate);
     this.assign('info', info);
-    return this.display(temp);
+      //判断浏览客户端
+      if(checkMobile(this.userAgent())){
+          return this.display(`mobile/${this.http.controller}/${temp}`)
+      }else{
+          return this.display(temp);
+      }
   }
     async ajaxlistAction(){
         let id = this.get('category') || 0;
