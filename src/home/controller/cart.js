@@ -581,9 +581,10 @@ async createorderAction(){
     //用户
     data.user_id=this.user.uid;
     //生成订单编号//todo
-    let nowtime = new Date().valueOf();
-    let oid =["d",this.user.uid,nowtime]
-    data.order_no = oid.join("");
+    // let nowtime = new Date().valueOf();
+    // let oid =["d",this.user.uid,nowtime]
+    // data.order_no = oid.join("");
+    data.order_no = await this.model("order").orderid();
     //添加送货地址
     let address = await this.model("address").fieldReverse("id,user_id,is_default").find(data.address);
     console.log(address);

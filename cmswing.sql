@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-04-09 16:28:13
+Date: 2016-04-14 17:54:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=490 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=512 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -251,6 +251,28 @@ INSERT INTO `cmswing_action_log` VALUES ('486', '1', '2', '3232235892', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('487', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-09 11:55:07登录了后台', '1', '1460174107263');
 INSERT INTO `cmswing_action_log` VALUES ('488', '1', '1', '3232235892', 'member', '1', 'admin在2016-04-09 13:07:27登录了后台', '1', '1460178447706');
 INSERT INTO `cmswing_action_log` VALUES ('489', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-09 16:07:44登录了后台', '1', '1460189264948');
+INSERT INTO `cmswing_action_log` VALUES ('490', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 10:43:03登录了后台', '1', '1460342583580');
+INSERT INTO `cmswing_action_log` VALUES ('491', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 11:01:34登录了后台', '1', '1460343694355');
+INSERT INTO `cmswing_action_log` VALUES ('492', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 11:33:59登录了后台', '1', '1460345639370');
+INSERT INTO `cmswing_action_log` VALUES ('493', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 11:34:20登录了后台', '1', '1460345660499');
+INSERT INTO `cmswing_action_log` VALUES ('494', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 13:34:57登录了后台', '1', '1460352897119');
+INSERT INTO `cmswing_action_log` VALUES ('495', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 18:46:36登录了后台', '1', '1460371596606');
+INSERT INTO `cmswing_action_log` VALUES ('496', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 18:47:47登录了后台', '1', '1460371667158');
+INSERT INTO `cmswing_action_log` VALUES ('497', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 18:54:00登录了后台', '1', '1460372040628');
+INSERT INTO `cmswing_action_log` VALUES ('498', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-11 18:55:39登录了后台', '1', '1460372139713');
+INSERT INTO `cmswing_action_log` VALUES ('499', '1', '2', '3232235892', 'member', '2', 'cmswing在2016-04-12 10:08:39登录了后台', '1', '1460426919280');
+INSERT INTO `cmswing_action_log` VALUES ('500', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-12 10:49:26登录了后台', '1', '1460429366493');
+INSERT INTO `cmswing_action_log` VALUES ('501', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-12 11:33:53登录了后台', '1', '1460432033590');
+INSERT INTO `cmswing_action_log` VALUES ('502', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-12 11:43:11登录了后台', '1', '1460432591443');
+INSERT INTO `cmswing_action_log` VALUES ('503', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-12 12:03:22登录了后台', '1', '1460433802244');
+INSERT INTO `cmswing_action_log` VALUES ('504', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-12 16:54:35登录了后台', '1', '1460451275934');
+INSERT INTO `cmswing_action_log` VALUES ('505', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-12 18:10:14登录了后台', '1', '1460455814167');
+INSERT INTO `cmswing_action_log` VALUES ('506', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-13 10:21:11登录了后台', '1', '1460514071566');
+INSERT INTO `cmswing_action_log` VALUES ('507', '1', '1', '3232235876', 'member', '1', 'admin在2016-04-13 12:52:23登录了后台', '1', '1460523143833');
+INSERT INTO `cmswing_action_log` VALUES ('508', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-13 15:26:34登录了后台', '1', '1460532394563');
+INSERT INTO `cmswing_action_log` VALUES ('509', '1', '2', '3232235876', 'member', '2', 'cmswing在2016-04-13 19:07:09登录了后台', '1', '1460545629007');
+INSERT INTO `cmswing_action_log` VALUES ('510', '1', '2', '2130706433', 'member', '2', 'cmswing在2016-04-14 17:48:58登录了后台', '1', '1460627338968');
+INSERT INTO `cmswing_action_log` VALUES ('511', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-14 17:52:43登录了后台', '1', '1460627563802');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -269,7 +291,7 @@ CREATE TABLE `cmswing_address` (
   `addr` varchar(250) DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_address
@@ -278,8 +300,10 @@ INSERT INTO `cmswing_address` VALUES ('1', '1', '晓飞 宁', '13589100333', '13
 INSERT INTO `cmswing_address` VALUES ('2', '3', 'hgfhfgh', '18681851637', '8688854', '310000', '310100', '310104', '822225', 'htgfhfghgfhgfhgfhfg', '1');
 INSERT INTO `cmswing_address` VALUES ('3', '1', '天津帅小伙', '18651569374', '', '120000', '120100', '120107', '300021', '六大街72号', '0');
 INSERT INTO `cmswing_address` VALUES ('4', '1', '路人丁', '18681851637', '', '110000', '110100', '110101', '710065', '东花市北里20号楼6单元501室 ', '0');
-INSERT INTO `cmswing_address` VALUES ('37', '2', '12313', '3213', null, '120000', '120100', '120101', '3213', '232132131', '0');
 INSERT INTO `cmswing_address` VALUES ('32', '2', '郭德纲', '18688888888', null, '110000', '110100', '110102', '10001', '北京德云社吗一路金子一号', '1');
+INSERT INTO `cmswing_address` VALUES ('43', '2', '吼吼吼', '18612345678', null, '140000', '140100', '140101', '123456', '1467949724846', '0');
+INSERT INTO `cmswing_address` VALUES ('40', '2', 'fsfsf', '1321', null, '110000', '110200', '110229', '3213', 'erewr', '0');
+INSERT INTO `cmswing_address` VALUES ('41', '2', '1212', '1212', null, '120000', '120100', '120101', '1212', 'fsfdsfs', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_area
@@ -4269,12 +4293,14 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_cart
 -- ----------------------------
-INSERT INTO `cmswing_cart` VALUES ('16', '2', '87', '1', '[推荐]18-140&35 1.8G（人像）', '7199', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '7199', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/detail/87', '500');
+INSERT INTO `cmswing_cart` VALUES ('81', '2', '88', '1', '铂光金,S7移动定制4G', '4888', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '4888', '/upload/picture/2016-03-31/QcTrSKlA8EiaxeQvI144kYwa.jpg', '/detail/88', '100');
+INSERT INTO `cmswing_cart` VALUES ('83', '2', '87', '1', '机身', '4399', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '4399', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/detail/87', '500');
+INSERT INTO `cmswing_cart` VALUES ('84', '2', '87', '2', '[推荐]18-140&35 1.8G（人像）', '14398', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '7199', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/detail/87', '500');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4468,7 +4494,7 @@ INSERT INTO `cmswing_document` VALUES ('3', '1', '', '6546456', '39', '0', '4654
 INSERT INTO `cmswing_document` VALUES ('2', '1', '', '46456456', '2', '0', '456546546', '0', '0', '2', '2', '0', '0', '152', '1', '1970', '0', '0', '0', '0', '0', '1450980000', '1457519910793', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('4', '1', '', 'gfdgd', '2', '0', '', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452670981', '1452670981', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('55', '1', '', '简介', '47', '0', 'CmsWing是一个开源的内容管理框架，基于最新的ThinkJs开发，提供更方便、更安全的WEB应用开发体验，采用了全新的架构设计和命名空间机制，融合了模块化、驱动化和插件化的设计理念于一体，开启了国内nodejs WEB应用傻瓜式开发的新潮流。', '0', '0', '2', '1', '0', '0', '0', '1', '0', '0', '3', '0', '0', '0', '1453711202518', '1453711202518', '1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '17', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
+INSERT INTO `cmswing_document` VALUES ('56', '1', 'install', '安装', '47', '0', 'ThinkJS 是一款 Node.js 的 MVC 框架，所以安装 ThinkJS 之前，需要先安装 Node.js 环境，可以去 官方 下载最新的安装包进行安装，也可以通过其他一些渠道安装。\r\n\r\n安装完成后，在命令行执行 node -v，如果能看到对应的版本号输出，则表示安装', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '18', '0', '0', '0', '1453777763757', '1453777763757', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('57', '1', '', '法大师傅大师傅山风都是', '47', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '5', '0', '0', '0', '2016', '1453789112170', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('10', '1', '', '2222222222222222', '2', '0', '2222222222222222222222222222222222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
 INSERT INTO `cmswing_document` VALUES ('11', '1', '', '111111111111111111', '2', '0', '2222222222222222', '0', '4', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '', '0');
@@ -4502,9 +4528,9 @@ INSERT INTO `cmswing_document` VALUES ('38', '1', '', '房贷', '39', '0', '', '
 INSERT INTO `cmswing_document` VALUES ('39', '1', '', '法大师傅士大夫的萨芬', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1452766860000', '1457701077200', '1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('40', '1', '', '上范德萨范德萨范德萨啊法大师傅士大夫大师傅顺丰速递放大撒放大撒放大撒山风放大撒分身都是分身富士达富士达放大撒', '39', '0', '', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1452767005593', '1452767005593', '-1', '', '0');
 INSERT INTO `cmswing_document` VALUES ('41', '1', 'asda', '的撒旦撒旦撒打算hfghggfhgfhgfhgf', '39', '0', 'hgfhfgh', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1970', '1452772003048', '-1', '', '0');
-INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '18', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
-INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '79', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
-INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '357', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('68', '1', '', '测试商品多个商品图', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '23', '0', '0', '0', '1456467172623', '1456467172623', '1', '109,110,111,112,113,114,115,116,117,118,119,120,121,122', '{\"present_price\":\"100\",\"discount_price\":\"150\"}');
+INSERT INTO `cmswing_document` VALUES ('69', '1', '', '测试商品多个规格相同价格', '57', '0', '111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '152', '0', '0', '0', '1456467332547', '1456467402367', '1', '123,124', '{\"present_price\":\"167\",\"discount_price\":\"180\"}');
+INSERT INTO `cmswing_document` VALUES ('70', '1', '', '测试商品多规格多价格', '57', '0', '111111111111111111111', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '358', '0', '0', '0', '1456468367173', '1456569698580', '1', '125,126', '{\"present_price\":\"50-200\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('67', '1', '', '测试商品没有库存', '57', '0', '放大是放大撒放大撒放大撒放大撒', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '35', '0', '0', '0', '1456460661557', '1456460661557', '1', '107,108', '{\"present_price\":\"999\",\"discount_price\":\"1500\"}');
 INSERT INTO `cmswing_document` VALUES ('54', '1', 'fdsf', 'sdfds', '42', '0', 'fdsf', '0', '0', '2', '2', '0', '0', '34', '1', '1970', '0', '0', '0', '0', '0', '2016', '1453703628809', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('58', '1', '', 'gfdgfdgfdgdfgdfg', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1455708692570', '1456305969296', '1', '72,73,74', '{\"present_price\":8,\"discount_price\":\"0\"}');
@@ -4513,8 +4539,8 @@ INSERT INTO `cmswing_document` VALUES ('60', '1', '', 'fdsfsdf5555', '45', '0', 
 INSERT INTO `cmswing_document` VALUES ('61', '1', '', 'gfdgdf', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456215551669', '1456304825972', '1', '82', '{\"present_price\":\"10-101\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('62', '1', '', '测试唱片', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456236857429', '1456305874738', '1', '75,76', '{\"present_price\":100,\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('63', '1', '', '犯得上发生', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456388778234', '1456388778234', '1', '81', '{\"present_price\":\"12-23\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('64', '1', '', '2222', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1456390496719', '1456390496719', '1', '87', '{\"present_price\":\"10-20\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '68', '0', '0', '0', '1457777821723', '1457777821674', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('64', '1', '', '2222', '45', '0', '', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1456390496719', '1456390496719', '1', '87', '{\"present_price\":\"10-20\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('65', '1', '', '测试商品的价格长度', '57', '0', '这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介这里是简介', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '70', '0', '0', '0', '1457777821723', '1457777821674', '1', '88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105', '{\"present_price\":\"99999-999991\",\"discount_price\":\"0\"}');
 INSERT INTO `cmswing_document` VALUES ('66', '1', '', '测试商品的长度测试商品的长度测试商品的长度测试商品的长度测试商品的长度', '57', '0', '法大师傅大师傅放的说法都是放到富士达电风扇放到', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '43', '0', '0', '0', '1456459666532', '1456459682701', '1', '106', '{\"present_price\":\"100\",\"discount_price\":\"120\"}');
 INSERT INTO `cmswing_document` VALUES ('79', '1', 'css', 'css文档测试', '2', '0', 'css文档测试', '0', '0', '2', '2', '0', '0', '158', '1', '0', '0', '1', '0', '0', '0', '1457699194187', '1457699194187', '1', '', '');
 INSERT INTO `cmswing_document` VALUES ('72', '1', '', '654645', '44', '0', '65464', '0', '0', '2', '2', '0', '0', '153', '1', '1970', '0', '0', '0', '0', '0', '1457511120000', '1457519920848', '1', '', '');
@@ -4529,10 +4555,10 @@ INSERT INTO `cmswing_document` VALUES ('81', '1', '', '测试商品重量包邮'
 INSERT INTO `cmswing_document` VALUES ('82', '1', '', '4635464564', '44', '0', '6546546', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1458394550498', '1458394550498', '-1', '', '');
 INSERT INTO `cmswing_document` VALUES ('83', '1', '', 'fdsfdsf', '44', '0', 'fdsfadsafads', '0', '0', '2', '2', '0', '0', '176', '1', '0', '0', '0', '0', '0', '0', '1458395976686', '1458395976686', '-1', '', '');
 INSERT INTO `cmswing_document` VALUES ('84', '1', '', '在线支付测试测试', '57', '0', '在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '24', '0', '0', '0', '1458730859521', '1458730859521', '1', '177,178', '{\"present_price\":\"1\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('85', '1', '', '测试商品规格图片1', '57', '0', '测试商品规格图片测试商品规格图片测试商品规格图片', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '43', '0', '0', '0', '1459365534365', '1459365534363', '1', '183,184,185', '{\"present_price\":\"107-109\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('86', '1', '', '单sku商品测试', '57', '0', '单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '11', '0', '0', '0', '1459370757681', '1459370757678', '1', '192', '{\"present_price\":\"80\",\"discount_price\":\"40\"}');
-INSERT INTO `cmswing_document` VALUES ('87', '1', '', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '51', '0', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '37', '0', '0', '0', '1459400517632', '1459400517632', '1', '193,194,195,196,197', '{\"present_price\":\"4399-7199\",\"discount_price\":\"0\"}');
-INSERT INTO `cmswing_document` VALUES ('88', '1', '', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '52', '0', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '7', '0', '0', '0', '1459405078511', '1459405078508', '1', '211,212,213,214,215', '{\"present_price\":\"4888-5688\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('85', '1', '', '测试商品规格图片1', '57', '0', '测试商品规格图片测试商品规格图片测试商品规格图片', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '85', '0', '0', '0', '1459365534365', '1459365534363', '1', '183,184,185', '{\"present_price\":\"107-109\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('86', '1', '', '单sku商品测试', '57', '0', '单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '16', '0', '0', '0', '1459370757681', '1459370757678', '1', '192', '{\"present_price\":\"80\",\"discount_price\":\"40\"}');
+INSERT INTO `cmswing_document` VALUES ('87', '1', '', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '51', '0', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '173', '0', '0', '0', '1460547507362', '1460547507294', '1', '193,194,195,196,197', '{\"present_price\":\"4399-7199\",\"discount_price\":\"0\"}');
+INSERT INTO `cmswing_document` VALUES ('88', '1', '', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '52', '0', '三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '71', '0', '0', '0', '1459405078511', '1459405078508', '1', '211,212,213,214,215', '{\"present_price\":\"4888-5688\",\"discount_price\":\"0\"}');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -4657,10 +4683,10 @@ INSERT INTO `cmswing_document_shop` VALUES ('74', '', '', '10', '0', '1', '0', '
 INSERT INTO `cmswing_document_shop` VALUES ('78', '', '', '10', '0', '1', '0', '0', '<p>发到我放大是放大撒放大撒放大撒放大撒放大撒<br/></p>', '{\"type\":0,\"val\":0}', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('81', '{\"type\":[\"尺寸\",\"尺码\",\"尺码\"],\"data\":[{\"name\":\"鬼地方\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":79,\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":66,\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":79,\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]},{\"name\":\"dsdf\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]},{\"name\":\"fdsf\",\"type\":\"尺寸\",\"ch\":[{\"name\":\"mm\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"tt\",\"type\":\"尺码\",\"ch\":[{\"name\":\"895\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"9856\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"8541\",\"type\":\"尺码\",\"sku_price\":\"100\",\"sku_stock\":\"90\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]}]}', '', '992', '0', '1', '0', '0', '<p>测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮测试商品重量包邮</p>', '', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('84', '{\"type\":[\"颜色\",\"尺寸\"],\"data\":[{\"name\":\"红\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"黑\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]},{\"name\":\"白\",\"type\":\"颜色\",\"ch\":[{\"name\":\"x\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"1\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}]}]}', '146456456', '90', '0', '1', '0', '0', '<p>在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试在线支付测试测试</p>', '', '0');
-INSERT INTO `cmswing_document_shop` VALUES ('85', '{\"type\":[\"颜色\",\"尺寸\"],\"data\":[{\"name\":\"红色\",\"type\":\"颜色\",\"pic\":\"186\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":12,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"黄色\",\"type\":\"颜色\",\"pic\":\"187\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"绿色\",\"type\":\"颜色\",\"pic\":\"188\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"fdsf\",\"type\":\"颜色\",\"pic\":\"191\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":9,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]}],\"is_pic\":\"1\"}', 'wewewqeq', '129', '0', '1', '0', '0', '<p>测试商品规格图片测试商品规格图片测试商品规格图片</p>', '', '0');
-INSERT INTO `cmswing_document_shop` VALUES ('86', '', '', '14', '0', '1', '0', '0', '<p>单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试</p>', '', '500');
-INSERT INTO `cmswing_document_shop` VALUES ('87', '{\"type\":[\"选择版本\"],\"data\":[{\"name\":\"[推荐]18-140&35 1.8G（人像）\",\"type\":\"选择版本\",\"sku_price\":\"7199\",\"sku_stock\":6,\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"机身\",\"type\":\"选择版本\",\"sku_price\":\"4399\",\"sku_stock\":\"10\",\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"18-105\",\"type\":\"选择版本\",\"sku_price\":\"5899\",\"sku_stock\":\"10\",\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"50 1.8D\",\"type\":\"选择版本\",\"sku_price\":\"5128\",\"sku_stock\":9,\"sku_weight\":\"500\",\"sku_code\":\"\"}],\"is_pic\":0}', 'a123456', '36', '0', '1', '0', '0', '<p><span style=\"color: rgb(255, 0, 0);\"><strong>系统测试，不要真实付款哦！</strong></span></p><p><img alt=\"56e8fd3bNf826625a.jpg\" src=\"/upload/editor/image/20160331/1459400259784027210.jpg\" title=\"1459400259784027210.jpg\"/></p>', '', '0');
-INSERT INTO `cmswing_document_shop` VALUES ('88', '{\"type\":[\"选择颜色\",\"选择版本\"],\"data\":[{\"name\":\"铂光金\",\"type\":\"选择颜色\",\"pic\":\"207\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"雪晶白\",\"type\":\"选择颜色\",\"pic\":\"208\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"钛泽银\",\"type\":\"选择颜色\",\"pic\":\"209\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"星钻黑\",\"type\":\"选择颜色\",\"pic\":\"210\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]}],\"is_pic\":\"1\"}', 'sj0000001', '117', '0', '1', '0', '0', '<p><img alt=\"56ef4e2aNa4ee7658_r1_c1.jpg\" src=\"/upload/editor/image/20160331/1459404417026494911.jpg\" title=\"1459404417026494911.jpg\"/><img alt=\"56ef4e2aNa4ee7658_r2_c1.jpg\" src=\"/upload/editor/image/20160331/1459404419942299056.jpg\" title=\"1459404419942299056.jpg\"/><img alt=\"56ef4e2aNa4ee7658_r3_c1.jpg\" src=\"/upload/editor/image/20160331/1459404422647858879.jpg\" title=\"1459404422647858879.jpg\"/></p>', '', '0');
+INSERT INTO `cmswing_document_shop` VALUES ('85', '{\"type\":[\"颜色\",\"尺寸\"],\"data\":[{\"name\":\"红色\",\"type\":\"颜色\",\"pic\":\"186\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":12,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"黄色\",\"type\":\"颜色\",\"pic\":\"187\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":9,\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"绿色\",\"type\":\"颜色\",\"pic\":\"188\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"107\",\"sku_stock\":8,\"sku_weight\":\"1000\",\"sku_code\":\"xczczcz\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"108\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dsadad\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]},{\"name\":\"fdsf\",\"type\":\"颜色\",\"pic\":\"191\",\"ch\":[{\"name\":\"xl\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"},{\"name\":\"m\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":9,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"},{\"name\":\"mm\",\"type\":\"尺寸\",\"sku_price\":\"109\",\"sku_stock\":11,\"sku_weight\":\"1000\",\"sku_code\":\"dasdasd\"}]}],\"is_pic\":\"1\"}', 'wewewqeq', '126', '0', '1', '0', '0', '<p>测试商品规格图片测试商品规格图片测试商品规格图片</p>', '', '0');
+INSERT INTO `cmswing_document_shop` VALUES ('86', '', '', '13', '0', '1', '0', '0', '<p>单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试单sku商品测试</p>', '', '500');
+INSERT INTO `cmswing_document_shop` VALUES ('87', '{\"type\":[\"选择版本\"],\"data\":[{\"name\":\"[推荐]18-140&35 1.8G（人像）\",\"type\":\"选择版本\",\"sku_price\":\"7199\",\"sku_stock\":\"6\",\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"机身\",\"type\":\"选择版本\",\"sku_price\":\"4399\",\"sku_stock\":\"0\",\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"18-105\",\"type\":\"选择版本\",\"sku_price\":\"5899\",\"sku_stock\":\"10\",\"sku_weight\":\"500\",\"sku_code\":\"\"},{\"name\":\"50 1.8D\",\"type\":\"选择版本\",\"sku_price\":\"5128\",\"sku_stock\":8,\"sku_weight\":\"500\",\"sku_code\":\"\"}],\"is_pic\":0}', 'a123456', '24', '0', '1', '0', '0', '<p><span style=\"color: rgb(255, 0, 0);\"><strong>系统测试，不要真实付款哦！</strong></span></p><p><img alt=\"56e8fd3bNf826625a.jpg\" src=\"/upload/editor/image/20160331/1459400259784027210.jpg\" title=\"1459400259784027210.jpg\"/></p><p><img src=\"/upload/editor/image/20151230/1451455919533248988.png\" style=\"\"/></p><p><img src=\"/upload/editor/image/20151230/1451455919501319917.png\" style=\"\"/></p><p><img src=\"/upload/editor/image/20151230/1451455919450609278.png\" style=\"\"/></p><p><br/></p>', '', '0');
+INSERT INTO `cmswing_document_shop` VALUES ('88', '{\"type\":[\"选择颜色\",\"选择版本\"],\"data\":[{\"name\":\"铂光金\",\"type\":\"选择颜色\",\"pic\":\"207\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"雪晶白\",\"type\":\"选择颜色\",\"pic\":\"208\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"钛泽银\",\"type\":\"选择颜色\",\"pic\":\"209\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":8,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]},{\"name\":\"星钻黑\",\"type\":\"选择颜色\",\"pic\":\"210\",\"ch\":[{\"name\":\"S7全网通\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7移动定制4G\",\"type\":\"选择版本\",\"sku_price\":\"4888\",\"sku_stock\":9,\"sku_weight\":\"100\",\"sku_code\":\"\"},{\"name\":\"S7edge全网通\",\"type\":\"选择版本\",\"sku_price\":\"5688\",\"sku_stock\":\"10\",\"sku_weight\":\"100\",\"sku_code\":\"\"}]}],\"is_pic\":\"1\"}', 'sj0000001', '114', '0', '1', '0', '0', '<p><img alt=\"56ef4e2aNa4ee7658_r1_c1.jpg\" src=\"/upload/editor/image/20160331/1459404417026494911.jpg\" title=\"1459404417026494911.jpg\"/><img alt=\"56ef4e2aNa4ee7658_r2_c1.jpg\" src=\"/upload/editor/image/20160331/1459404419942299056.jpg\" title=\"1459404419942299056.jpg\"/><img alt=\"56ef4e2aNa4ee7658_r3_c1.jpg\" src=\"/upload/editor/image/20160331/1459404422647858879.jpg\" title=\"1459404422647858879.jpg\"/></p>', '', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_doc_invoice
@@ -4685,7 +4711,7 @@ CREATE TABLE `cmswing_doc_invoice` (
   `express_company_id` bigint(20) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_doc_invoice
@@ -4697,6 +4723,7 @@ INSERT INTO `cmswing_doc_invoice` VALUES ('7', 'k1459271089325', '74', 'd2145926
 INSERT INTO `cmswing_doc_invoice` VALUES ('8', 'k1460179857198', '66', '1459070488150', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460179857198', '46456456456', '1', '5646');
 INSERT INTO `cmswing_doc_invoice` VALUES ('9', 'k1460180109814', '67', '1459071640873', 'admin', '郭德纲', '120000', '120100', '120102', '710065', 'fdsafasfdsfsdfdsf', '', '12345678901', '1460180109814', '4645654', '1', '54645');
 INSERT INTO `cmswing_doc_invoice` VALUES ('10', 'k1460180351375', '68', '1459074816900', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460180351375', '5646', '1', '5644');
+INSERT INTO `cmswing_doc_invoice` VALUES ('11', 'k1460438828025', '107', 'd21460438684186', 'admin', '郭德纲', '110000', '110100', '110102', '10001', '北京德云社吗一路金子一号', '', '18688888888', '1460438828025', '565464654', '1', '54545646');
 
 -- ----------------------------
 -- Table structure for cmswing_doc_receiving
@@ -4715,7 +4742,7 @@ CREATE TABLE `cmswing_doc_receiving` (
   `pay_status` tinyint(1) DEFAULT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_doc_receiving
@@ -4766,6 +4793,7 @@ INSERT INTO `cmswing_doc_receiving` VALUES ('52', '102', '2', null, '10046.00', 
 INSERT INTO `cmswing_doc_receiving` VALUES ('53', '101', '2', null, '17144.00', '1460184312028', '1460184581000', '0', '6', '1', null);
 INSERT INTO `cmswing_doc_receiving` VALUES ('54', '103', '2', null, '110.00', '1460184429755', '1460184690000', '0', '8', '1', null);
 INSERT INTO `cmswing_doc_receiving` VALUES ('55', '104', '2', null, '110.00', '1460184510098', '1460184510098', '0', '100', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('56', '107', '2', null, '110.00', '1460438716584', '1460438977000', '0', '8', '1', null);
 
 -- ----------------------------
 -- Table structure for cmswing_doc_refund
@@ -5005,8 +5033,8 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '690', 'arterli@qq.com', '206', '', '1452513965683', '0', '1460189264938', '2130706433', '0', '1', '1');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '60', 'cmswing@cmswing.com', '56', '13571883577', '1458989485616', '0', '1460174107254', '3232235892', '0', '1', '0');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '720', 'arterli@qq.com', '209', '', '1452513965683', '0', '1460627563798', '2130706433', '0', '1', '1');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '70', 'cmswing@cmswing.com', '75', '13571883577', '1458989485616', '0', '1460627338827', '2130706433', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test@cmswing.com', '0', '', '1458990106486', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0');
@@ -5329,7 +5357,7 @@ CREATE TABLE `cmswing_order` (
   `is_del` tinyint(1) DEFAULT '0',
   `pingxx_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order
@@ -5406,6 +5434,12 @@ INSERT INTO `cmswing_order` VALUES ('101', 'd21460127833818', '2', null, '6', nu
 INSERT INTO `cmswing_order` VALUES ('102', 'd21460131928917', '2', null, '6', null, '3', '1', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '10016.00', '0.00', '30.00', '1460184513000', null, '1460131928926', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '10046.00', null, null, '0', '0', null, '0', null, '0', 'ch_fvXn5K40SyXHWHKePOGKGibL');
 INSERT INTO `cmswing_order` VALUES ('103', 'd21460184406708', '2', null, '8', null, '3', '1', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '80.00', '0.00', '30.00', '1460184690000', null, '1460184406713', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '110.00', null, null, '0', '0', null, '0', null, '0', 'ch_94Gq5Ke1G8C0Ga5004XHaL0C');
 INSERT INTO `cmswing_order` VALUES ('104', 'd21460184491118', '2', null, '100', null, '3', '1', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '80.00', '0.00', '30.00', null, null, '1460184491170', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '110.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('105', 'd21460437576317', '2', null, '6', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '108.00', '0.00', '30.00', null, null, '1460437576324', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '138.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('106', 'd21460438574848', '2', null, '5', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '214.00', '0.00', '60.00', null, null, '1460438574859', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '274.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('107', 'd21460438684186', '2', null, '8', null, '3', '1', '1', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '80.00', '0.00', '30.00', '1460438977000', null, '1460438684197', null, '敏锐哦定义', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '110.00', null, null, '0', '0', null, '0', null, '0', 'ch_O48e1Ce9i1i90uT804f9Smj5');
+INSERT INTO `cmswing_order` VALUES ('108', 'd21460449400152', '2', null, '5', null, '2', '0', '0', '1212', null, '1212', '120000', '120100', '120101', 'fsfdsfs', '1212', null, '9776.00', '0.00', '5.00', null, null, '1460449400159', null, '56456465456456', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '9781.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('109', 'd21460451116840', '2', null, '1', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '5688.00', '0.00', '30.00', null, null, '1460451116846', null, '', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '5718.00', null, null, '0', '0', null, '0', null, '0', null);
+INSERT INTO `cmswing_order` VALUES ('110', '201604140007739', '2', null, '1', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '5128.00', '0.00', '30.00', null, null, '1460627367484', null, '', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '5158.00', null, null, '0', '0', null, '0', null, '0', null);
 
 -- ----------------------------
 -- Table structure for cmswing_order_goods
@@ -5424,7 +5458,7 @@ CREATE TABLE `cmswing_order_goods` (
   `prom_goods` text,
   `spec` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order_goods
@@ -5543,6 +5577,12 @@ INSERT INTO `cmswing_order_goods` VALUES ('121', '102', '87', null, '5128.00', '
 INSERT INTO `cmswing_order_goods` VALUES ('122', '102', '88', null, '4888.00', '0.00', '1', '0', '0', '{\"id\":13,\"uid\":2,\"product_id\":88,\"qty\":1,\"type\":\"雪晶白,S7移动定制4G\",\"price\":4888,\"title\":\"三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机\",\"unit_price\":4888,\"pic\":\"/upload/picture/2016-03-31/BsjXxab1pS1KPtNVOSIPFzef.jpg\",\"url\":\"/detail/88\",\"weight\":100}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('123', '103', '86', null, '80.00', '0.00', '1', '0', '0', '{\"id\":14,\"uid\":2,\"product_id\":86,\"qty\":1,\"type\":\"\",\"price\":80,\"title\":\"单sku商品测试\",\"unit_price\":80,\"pic\":\"/upload/picture/2016-03-31/ErEe3cnsbIfuJPkrz1Gjmkto.jpg\",\"url\":\"/detail/86\",\"weight\":500}', null);
 INSERT INTO `cmswing_order_goods` VALUES ('124', '104', '86', null, '80.00', '0.00', '1', '0', '0', '{\"id\":15,\"uid\":2,\"product_id\":86,\"qty\":1,\"type\":\"\",\"price\":80,\"title\":\"单sku商品测试\",\"unit_price\":80,\"pic\":\"/upload/picture/2016-03-31/ErEe3cnsbIfuJPkrz1Gjmkto.jpg\",\"url\":\"/detail/86\",\"weight\":500}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('125', '105', '85', null, '108.00', '0.00', '1', '0', '0', '{\"id\":50,\"uid\":2,\"product_id\":85,\"qty\":1,\"type\":\"黄色,m\",\"price\":108,\"title\":\"测试商品规格图片1\",\"unit_price\":108,\"pic\":\"/upload/picture/2016-03-31/G38y0D3wRA6J83bVMZ30eway.jpg\",\"url\":\"/detail/85\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('126', '106', '85', null, '107.00', '0.00', '2', '0', '0', '{\"id\":48,\"uid\":2,\"product_id\":85,\"qty\":2,\"type\":\"绿色,xl\",\"price\":214,\"title\":\"测试商品规格图片1\",\"unit_price\":107,\"pic\":\"/upload/picture/2016-03-31/BirA5X6nNaDjzXeFKQEs8V5w.jpg\",\"url\":\"/detail/85\",\"weight\":1000}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('127', '107', '86', null, '80.00', '0.00', '1', '0', '0', '{\"id\":51,\"uid\":2,\"product_id\":86,\"qty\":1,\"type\":\"\",\"price\":80,\"title\":\"单sku商品测试\",\"unit_price\":80,\"pic\":\"/upload/picture/2016-03-31/ErEe3cnsbIfuJPkrz1Gjmkto.jpg\",\"url\":\"/detail/86\",\"weight\":500}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('128', '108', '88', null, '4888.00', '0.00', '2', '0', '0', '{\"id\":75,\"uid\":2,\"product_id\":88,\"qty\":2,\"type\":\"钛泽银,S7全网通\",\"price\":9776,\"title\":\"三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机\",\"unit_price\":4888,\"pic\":\"/upload/picture/2016-03-31/giTz07otM2zz4oGYoaPWP0VW.jpg\",\"url\":\"/detail/88\",\"weight\":100}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('129', '109', '88', null, '5688.00', '0.00', '1', '0', '0', '{\"id\":76,\"uid\":2,\"product_id\":88,\"qty\":1,\"type\":\"雪晶白,S7edge全网通\",\"price\":5688,\"title\":\"三星 Galaxy S7（G9300）32G版  移动联通电信4G手机 双卡双待 骁龙820手机\",\"unit_price\":5688,\"pic\":\"/upload/picture/2016-03-31/BsjXxab1pS1KPtNVOSIPFzef.jpg\",\"url\":\"/detail/88\",\"weight\":100}', null);
+INSERT INTO `cmswing_order_goods` VALUES ('130', '110', '87', null, '5128.00', '0.00', '1', '0', '0', '{\"id\":82,\"uid\":2,\"product_id\":87,\"qty\":1,\"type\":\"50 1.8D\",\"price\":5128,\"title\":\"系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色\",\"unit_price\":5128,\"pic\":\"/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg\",\"url\":\"/detail/87\",\"weight\":500}', null);
 
 -- ----------------------------
 -- Table structure for cmswing_order_log
@@ -5562,6 +5602,21 @@ CREATE TABLE `cmswing_order_log` (
 -- ----------------------------
 -- Records of cmswing_order_log
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_order_seq
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_order_seq`;
+CREATE TABLE `cmswing_order_seq` (
+  `timestr` int(8) NOT NULL,
+  `order_sn` int(7) NOT NULL,
+  PRIMARY KEY (`timestr`,`order_sn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of cmswing_order_seq
+-- ----------------------------
+INSERT INTO `cmswing_order_seq` VALUES ('20160414', '7809');
 
 -- ----------------------------
 -- Table structure for cmswing_payment
@@ -6443,3 +6498,27 @@ INSERT INTO `cmswing_zoning` VALUES ('16', '东北', '210000,220000,230000');
 INSERT INTO `cmswing_zoning` VALUES ('17', '西北', '610000,620000,630000,640000,650000');
 INSERT INTO `cmswing_zoning` VALUES ('18', '西南', '500000,510000,520000,530000,540000');
 INSERT INTO `cmswing_zoning` VALUES ('20', '港澳台', '710000,810000,820000');
+
+-- ----------------------------
+-- Procedure structure for seq_no
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `seq_no`;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `seq_no`(IN `seq_no` varchar(255))
+BEGIN
+	#Routine body goes here...
+DECLARE v_cnt INT;
+DECLARE v_timestr INT;
+DECLARE rowcount BIGINT;
+SET v_timestr=DATE_FORMAT(NOW(),'%Y%m%d');
+SELECT ROUND(RAND()*100,0)+1 INTO v_cnt;
+START TRANSACTION;
+UPDATE cmswing_order_seq SET order_sn=order_sn+v_cnt WHERE timestr = v_timestr;
+IF ROW_COUNT()=0 THEN
+INSERT INTO cmswing_order_seq(timestr,order_sn) VALUES(v_timestr,v_cnt);
+END IF;
+SELECT CONCAT(v_timestr,LPAD(order_sn,7,0)) AS order_sn FROM cmswing_order_seq WHERE timestr=v_timestr;
+COMMIT;
+END
+;;
+DELIMITER ;

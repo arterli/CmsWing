@@ -170,4 +170,8 @@ export default class extends Base {
        }
         this.end(totree(area,0,0));
     }
+   async sqlAction(){
+       let order_sn = await this.model("test").test();
+        this.end(order_sn);
+    }
 }
