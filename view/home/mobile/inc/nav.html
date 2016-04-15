@@ -15,7 +15,7 @@
     <a class="tab-item {% if 'cart/index' == controller.active %}active{%endif%}" href="/cart/index"  >
         <span class="icon icon-cart"></span>
         <span class="tab-label">购物车</span>
-        {% if controller.cart.num %}<span class="badge" id="badge-corner">{{controller.cart.num}}</span>{%endif%}
+        <span class="badge" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span>
     </a>
     {% if controller.is_login %}
     <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/index">

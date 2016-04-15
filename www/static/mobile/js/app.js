@@ -896,7 +896,190 @@ function _ajx_post() {
                 }
             })
         });
+        //添加购物车
+        $(page).find("#addcart").off('click');
+        $(page).find("#addcart").click(function () {
+            var suk = $(".popup-sku").attr("data-icheck-info");
 
+                $.popup(".popup-sku");
+        })
+        $(page).find("#directcart").click(function () {
+            var str={
+                product_id:$("input[name='product_id']").val(),
+                qty:$("#qty").val(),
+                type:$("#type").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/cart/addcart",
+                data: str
+            }).done(function( msg ) {
+
+                if(msg){
+                    $.toast("添加购物车成功!");
+                    var n = $("#badge-corner").text();
+                    $("#badge-corner").html(Number(str.qty)+Number(n));
+                }else {
+                    $.toast("该商品已经售罄，请选择其他商品！");
+                }
+
+
+                //console.log(msg);
+            });
+        })
+
+        function getsuk(arr) {
+            var suk = $(".popup-sku").attr("data-icheck-info");
+            suk = JSON.parse(suk);
+            //wallsuk(suk.data,arr);
+            var suk_;
+            $.each(suk.data,function (k,v) {
+                if(v.name==arr[0]){
+                    if(v.ch){
+                        $.each(v.ch,function (k_,v_) {
+                            if(v_.name == arr[1]){
+                                if(v_.ch){
+                                    $.each(v_.ch,function (k__,v__) {
+                                        if(v__.name == arr[2]){
+
+                                            suk_ = v__;
+                                        }
+                                    })
+                                }else{
+                                    suk_ = v_;
+                                }
+
+                            }
+                        })
+                    }else{
+                        suk_ = v;
+                    }
+                }
+            })
+            return suk_;
+        }
+        function wallsuk(arr,arr2) {
+            console.log(arr2);
+            var i = 0
+            $.each(arr,function (k,v) {
+
+                if(v.ch && v.name == arr2[i]){
+                    wallsuk(v.ch,arr2);
+                    i=i+1;
+                }else {
+                    console.log(v);
+                }
+
+            })
+        }
+        //加入购物车
+        $('.sku-content input').each(function(){
+            var self = $(this),
+                label = self.next(),
+                label_text = label.text();
+
+            label.remove();
+            self.iCheck({
+                checkboxClass: 'icheckbox_sm-blue',
+                radioClass: 'radio_sm-blue',
+                insert: label_text
+            });
+        });
+
+        $('.sku-content input').on("ifChecked",function (e) {
+            var pic = $(this).attr('data-pic');
+            if(pic){
+                $(".popup-sku .goods-pic > img").attr("src",pic)
+            }
+
+            var shoptype = $(".icheck");
+            var goods_id = $("input[name='product_id']").val();
+            var arr =[]
+            //console.log()
+            $.each(shoptype,function(k,v) {
+
+                var item = $(this).find('input:radio:checked').val()
+                if(item){
+                    arr.push(item);
+                }
+            })
+            if(arr.length == shoptype.length){
+                var aa = getsuk(arr)
+                //console.log(aa.sku_price);
+                console.log(arr);
+                //查询实时库存
+                console.log(goods_id);
+                $.ajax({
+                    url:"/cart/getstock",
+                    data:{id:goods_id,type:arr.join(",")},
+                    success:function (res) {
+                        var html =""
+                        var html2 =""
+                        if(res <= 0){
+                            html = '<span class=" text-danger"><i class="glyphicon glyphicon-remove"></i> 无货</span>'
+                            $("#stock").html(html);
+                            $("#out-of-stock").removeClass("hide");
+                            $("#in-of-stock").addClass("hide")
+
+                        }else {
+                            html = '<span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="badge badge-aqua btn-xs ">'+res+'</span></span>'
+                            $("#stock").html(html);
+                            $("#out-of-stock").addClass("hide");
+                            $("#in-of-stock").removeClass("hide")
+
+                        }
+                    }
+                })
+                $(".sku_price").text(formatCurrency(aa.sku_price));
+                $("#type").val(arr);
+            }
+        })
+        var flg = false;
+        //添加购物车
+        $("#real_cart").click(function () {
+            if(flg){
+                $.toast("正在提交！");
+                return false;
+            }
+            flg = true;
+            var shoptype = $(".icheck");
+            var arr =[]
+            $.each(shoptype,function(k,v) {
+                //console.log(this)
+                var item = $(this).find('input:radio:checked').val()
+                if(item){
+                    arr.push(item);
+                }
+            })
+            if(arr.length != shoptype.length){
+                $.toast("请选择商品规格!");
+                return false;
+            }
+            var str={
+                product_id:$("input[name='product_id']").val(),
+                qty:$("#qty").val(),
+                type:$("#type").val()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/cart/addcart",
+                data: str
+            }).done(function( msg ) {
+
+                if(msg){
+                    $.toast("添加购物车成功!");
+                    var n = $("#badge-corner").text();
+                    $("#badge-corner").html(Number(str.qty)+Number(n));
+                    flg = false;
+                }else {
+                    $.toast("该商品已经售罄，请选择其他商品！");
+                    flg = false;
+                }
+
+
+                //console.log(msg);
+            });
+        })
     })
     $.init();
 });
