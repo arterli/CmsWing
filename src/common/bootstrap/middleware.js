@@ -34,7 +34,7 @@ import wechatMiddleware from 'think-wechat';
 think.middleware('parse_wechat', wechatMiddleware({
     wechat: {
         token: 'cmswing',
-        appid: 'wxadce60f0c68b9b58',
+        appid: 'wxe8c1b5ac7db990b6',
         encodingAESKey: ''
     }
 }));

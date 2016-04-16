@@ -886,6 +886,7 @@ function _ajx_post() {
         })
     })
     $(document).on("pageInit","#detail_shop",function (e, id, page) {
+        
         var width = $("#shop_detail").width();
        var img = $("#shop_detail").find('img');
         img.load(function(){

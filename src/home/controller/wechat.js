@@ -6,10 +6,20 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-
-import Base from './base.js';
 import API from 'wechat-api';
-export default class extends Base {
+const api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+import pingpp from 'pingpp';
+import http from 'http';
+import fs from 'fs';
+export default class extends think.controller.base {
+    init(http) {
+        super.init(http);
+
+    }
+    async __before() {
+        //网站配置
+        this.setup = await this.model("setup").getset();
+    }
     /**
      * 微信服务器验证
      * index action
@@ -21,6 +31,130 @@ export default class extends Base {
     }
     reply(message){
         this.http.res.reply(message);
+    }
+   async oauthAction(){
+        //判断是否是微信浏览器
+        //微信公众账号内自动登陆
+       let openid = await this.session("wx_openid");
+       // let openid = null;
+        if(is_weixin(this.userAgent()) && think.isEmpty(openid)){
+            this.cookie("cmswing_wx_url",this.http.url);
+            var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode('wxe8c1b5ac7db990b6', 'http://www.cmswing.com/wechat/getopenid?showwxpaytitle=1');
+            console.log(oauthUrl)
+            this.redirect(oauthUrl);
+        }
+
+    }
+    //用微信客户端获取getopenid
+    async getopenidAction(){
+        //获取用户openid
+       let code =  this.get("code");
+        //获取openid
+        let getopenid = ()=>{
+            let deferred = think.defer();
+            pingpp.wxPubOauth.getOpenid('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6', code, function(err, openid){
+                //console.log(openid);
+                deferred.resolve(openid);
+                // ...
+                // pass openid to extra['open_id'] and create a charge
+                // ...
+            });
+            return deferred.promise;
+        };
+        let openid = await getopenid();
+        think.log(think.isEmpty(openid));
+        let userinfo = await getUser(api,openid);
+        console.log(userinfo);
+        //如果没有关注先跳到关注页面
+        if(userinfo.subscribe==0){
+            console.log(1111111111111)
+            this.redirect('/wechat/follow');
+            return false;
+        };
+        userinfo.subscribe_time = userinfo.subscribe_time * 1000;
+
+        let wx_user=await this.model("wx_user").where({openid:openid}).find();
+        
+        //存储Openid
+        await this.session('wx_openid',openid);
+        if(think.isEmpty(wx_user)){
+            await this.model("wx_user").add(userinfo);
+            this.redirect("/wechat/signin");
+        }else {
+            await this.model("wx_user").where({openid:openid}).update(userinfo);
+
+            //检查微信号是否跟网站会员绑定
+            if(think.isEmpty(wx_user.uid)){
+                //没绑定跳转绑定页面
+                this.redirect("/wechat/signin");
+
+            }else {
+                //更新微信头像
+                let filePath=think.RESOURCE_PATH + '/upload/avatar/' + wx_user.uid+'/avatar.png';
+                await this.spiderImage(userinfo.headimgurl,filePath)
+                //绑定直接登陆
+                let last_login_time = await this.model("member").where({id:wx_user.uid}).getField("last_login_time",true);
+
+                let wx_userInfo = {
+                    'uid': wx_user.uid,
+                    'username': userinfo.nickname,
+                    'last_login_time': last_login_time,
+
+                };
+                await this.session('webuser', wx_userInfo);
+                this.redirect(this.cookie("cmswing_wx_url"));
+            }
+        }
+
+
+    }
+
+    /**
+     * 更新微信头像
+     */
+    spiderImage(imgUrl,filePath) {
+        let deferred = think.defer();
+        http.get(imgUrl, function (res) {
+            var imgData = "";
+            res.setEncoding("binary");
+            res.on("data", function (chunk) {
+                imgData += chunk;
+            });
+
+            res.on("end", function () {
+                fs.writeFileSync(filePath, imgData, "binary");
+                deferred.resolve(filePath);
+            });
+        });
+        return deferred.promise;
+    }
+    /**
+     * 没有关注提示关注
+     */
+   async followAction(){
+        //console.log(this.setup)
+        //创建关注二维码
+        //todo
+        //let titck =await createLimitQRCode(api,1);
+        let qrcod = api.showQRCodeURL("gQFF7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL0xFemdKSlBsaWNid1pvVnhzbUFiAAIEZfoRVwMEAAAAAA==");
+        this.assign("qrurl",qrcod);
+        //think.log(qrcod);
+        // this.end(qrcod);
+        this.meta_title = `扫码关注`;
+        //判断浏览客户端
+        if(checkMobile(this.userAgent())){
+            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        }else{
+            return this.display();
+        }
+    }
+
+    /**
+     * 微信账号与网站会员绑定
+     */
+    signinAction(){
+        //todo
+        this.end("网站会员绑定页面")
     }
     /**
      * 本地数据测试

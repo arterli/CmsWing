@@ -183,6 +183,13 @@ export default {
                 env.addFilter("get_price_format", function (price,type) {
                     return get_price_format(price,type);
                 })
+                /**
+                 * is_weixin
+                 * 判断是否是微信访问
+                 */
+                env.addFilter("is_weixin",(agent)=>{
+                    return is_weixin(agent);
+                })
                 /** 
      * 将数值四舍五入(保留1位小数)后格式化成金额形式 
      * 

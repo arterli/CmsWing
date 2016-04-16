@@ -693,6 +693,7 @@ export default class extends Base {
         if (this.is_login) {
 
             await this.session('webuser', null);
+            //await this.session("wx_openid",null);
 
             this.redirect("/index");
         } else {
