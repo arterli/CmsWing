@@ -7,7 +7,6 @@
 // +----------------------------------------------------------------------
 'use strict';
 import API from 'wechat-api';
-const api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
 import pingpp from 'pingpp';
 import http from 'http';
 import fs from 'fs';
@@ -19,6 +18,7 @@ export default class extends think.controller.base {
     async __before() {
         //网站配置
         this.setup = await this.model("setup").getset();
+        this.api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
     }
     /**
      * 微信服务器验证
@@ -39,7 +39,7 @@ export default class extends think.controller.base {
        //let openid = null;
         if(is_weixin(this.userAgent()) && think.isEmpty(openid)){
             this.cookie("cmswing_wx_url",this.http.url);
-            var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode('wxe8c1b5ac7db990b6', 'http://www.cmswing.com/wechat/getopenid?showwxpaytitle=1');
+            var oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.setup.wx_AppID, `http://${this.http.host}/wechat/getopenid?showwxpaytitle=1`);
             console.log(oauthUrl)
             this.redirect(oauthUrl);
         }
@@ -52,7 +52,7 @@ export default class extends think.controller.base {
         //获取openid
         let getopenid = ()=>{
             let deferred = think.defer();
-            pingpp.wxPubOauth.getOpenid('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6', code, function(err, openid){
+            pingpp.wxPubOauth.getOpenid(this.setup.wx_AppID, this.setup.wx_AppSecret, code, function(err, openid){
                 //console.log(openid);
                 deferred.resolve(openid);
                 // ...
@@ -63,7 +63,7 @@ export default class extends think.controller.base {
         };
         let openid = await getopenid();
         think.log(think.isEmpty(openid));
-        let userinfo = await getUser(api,openid);
+        let userinfo = await getUser(this.api,openid);
         console.log(userinfo);
         //如果没有关注先跳到关注页面
         if(userinfo.subscribe==0){
@@ -136,7 +136,7 @@ export default class extends think.controller.base {
         //创建关注二维码
         //TODO
         //let titck =await createLimitQRCode(api,1);
-        let qrcod = api.showQRCodeURL("gQFF7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL0xFemdKSlBsaWNid1pvVnhzbUFiAAIEZfoRVwMEAAAAAA==");
+        let qrcod = this.api.showQRCodeURL("gQFF7zoAAAAAAAAAASxodHRwOi8vd2VpeGluLnFxLmNvbS9xL0xFemdKSlBsaWNid1pvVnhzbUFiAAIEZfoRVwMEAAAAAA==");
         this.assign("qrurl",qrcod);
         //think.log(qrcod);
         // this.end(qrcod);

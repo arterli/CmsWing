@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-04-16 19:37:08
+Date: 2016-04-18 03:21:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=517 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=518 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -278,6 +278,7 @@ INSERT INTO `cmswing_action_log` VALUES ('513', '1', '2', '3232235878', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('514', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-15 10:31:59登录了后台', '1', '1460687519693');
 INSERT INTO `cmswing_action_log` VALUES ('515', '1', '2', '3232235878', 'member', '2', 'cmswing在2016-04-15 17:27:43登录了后台', '1', '1460712463760');
 INSERT INTO `cmswing_action_log` VALUES ('516', '1', '2', '3232235878', 'member', '2', 'cmswing在2016-04-15 22:21:27登录了后台', '1', '1460730087043');
+INSERT INTO `cmswing_action_log` VALUES ('517', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-18 02:18:43登录了后台', '1', '1460917123407');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4246,7 +4247,7 @@ CREATE TABLE `cmswing_balance_log` (
   `amount_log` float(10,2) NOT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_balance_log
@@ -4280,6 +4281,8 @@ INSERT INTO `cmswing_balance_log` VALUES ('35', '0', '2', '2', '1459667105970', 
 INSERT INTO `cmswing_balance_log` VALUES ('36', '0', '2', '2', '1459940265338', '1.00', '1260.00', 'cmswing 通过[支付宝 PC 网页支付]支付方式进行充值,订单编号：c21459940262279');
 INSERT INTO `cmswing_balance_log` VALUES ('37', '0', '2', '2', '1459940304213', '1.00', '1261.00', 'cmswing 通过[支付宝 PC 网页支付]支付方式进行充值,订单编号：c21459940290629');
 INSERT INTO `cmswing_balance_log` VALUES ('38', '0', '2', '2', '1460184510108', '-110.00', '1151.00', 'cmswing 通过余额支付方式进行商品购买,订单编号：d21460184491118');
+INSERT INTO `cmswing_balance_log` VALUES ('39', '0', '2', '2', '1460912912918', '1.00', '1152.00', 'cmswing 通过[支付宝手机支付]支付方式进行充值,订单编号：c21460912901967');
+INSERT INTO `cmswing_balance_log` VALUES ('40', '0', '2', '2', '1460912944452', '1.00', '1153.00', 'cmswing 通过[百度钱包手机支付]支付方式进行充值,订单编号：c21460912941920');
 
 -- ----------------------------
 -- Table structure for cmswing_cart
@@ -4452,7 +4455,7 @@ CREATE TABLE `cmswing_customer` (
 -- Records of cmswing_customer
 -- ----------------------------
 INSERT INTO `cmswing_customer` VALUES ('1', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '98402.73', null, null);
-INSERT INTO `cmswing_customer` VALUES ('2', '柯南1', '029888888', '150000', '150300', '150304', '打撒打撒', null, '1', '513475200000', '0', '0', null, null, '1151.00', null, null);
+INSERT INTO `cmswing_customer` VALUES ('2', '柯南1', '029888888', '150000', '150300', '150304', '打撒打撒', null, '1', '513475200000', '0', '0', null, null, '1153.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('3', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('4', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
 INSERT INTO `cmswing_customer` VALUES ('5', null, null, null, null, null, null, null, '1', null, '0', '0', null, null, '0.00', null, null);
@@ -4753,7 +4756,7 @@ CREATE TABLE `cmswing_doc_receiving` (
   `pay_status` tinyint(1) DEFAULT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_doc_receiving
@@ -4806,6 +4809,11 @@ INSERT INTO `cmswing_doc_receiving` VALUES ('54', '103', '2', null, '110.00', '1
 INSERT INTO `cmswing_doc_receiving` VALUES ('55', '104', '2', null, '110.00', '1460184510098', '1460184510098', '0', '100', '1', null);
 INSERT INTO `cmswing_doc_receiving` VALUES ('56', '107', '2', null, '110.00', '1460438716584', '1460438977000', '0', '8', '1', null);
 INSERT INTO `cmswing_doc_receiving` VALUES ('57', '112', '2', null, '110.00', '1460730104613', '1460730099000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('58', '113', '2', null, '1.00', '1460912902954', '1460912901000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('59', '114', '2', null, '1.00', '1460912931269', '1460912931269', '1', '8', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('60', '115', '2', null, '1.00', '1460912942221', '1460912933000', '1', '8', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('61', '116', '2', null, '1.00', '1460914188448', '1460914188448', '1', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('62', '117', '2', null, '1.00', '1460916318237', '1460916318237', '1', '6', '0', null);
 
 -- ----------------------------
 -- Table structure for cmswing_doc_refund
@@ -5040,13 +5048,13 @@ CREATE TABLE `cmswing_member` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '720', 'arterli@qq.com', '210', '', '1452513965683', '0', '1460687519683', '2130706433', '0', '1', '1');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '70', 'cmswing@cmswing.com', '79', '13571883577', '1458989485616', '0', '1460730087034', '3232235878', '0', '1', '0');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '730', 'arterli@qq.com', '211', '', '1452513965683', '0', '1460917123352', '2130706433', '0', '1', '1');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '70', 'cmswing@cmswing.com', '86', '13571883577', '1458989485616', '0', '1460909922750', '2130706433', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test@cmswing.com', '0', '', '1458990106486', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0');
@@ -5369,7 +5377,7 @@ CREATE TABLE `cmswing_order` (
   `is_del` tinyint(1) DEFAULT '0',
   `pingxx_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_order
@@ -5454,6 +5462,9 @@ INSERT INTO `cmswing_order` VALUES ('109', 'd21460451116840', '2', null, '1', nu
 INSERT INTO `cmswing_order` VALUES ('110', '201604140007739', '2', null, '1', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '5128.00', '0.00', '30.00', null, null, '1460627367484', null, '', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '5158.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('111', '201604140007884', '2', null, '1', null, '2', '0', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '4888.00', '0.00', '30.00', null, null, '1460647924591', null, '', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '4918.00', null, null, '0', '0', null, '0', null, '0', null);
 INSERT INTO `cmswing_order` VALUES ('112', '201604150000081', '2', null, '6', null, '3', '1', '0', '郭德纲', null, '18688888888', '110000', '110100', '110102', '北京德云社吗一路金子一号', '10001', null, '80.00', '0.00', '30.00', '1460730099000', null, '1460730099240', null, '', null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '110.00', null, null, '0', '0', null, '0', null, '0', 'ch_884yjPW5m5S8D0Gez59GKm5O');
+INSERT INTO `cmswing_order` VALUES ('114', 'c21460912930869', '2', null, '8', null, '2', '0', '0', null, null, null, null, null, null, null, null, null, '0.00', '0.00', '0.00', null, null, '1460912930869', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '1', null, '0', 'ch_nf9Ke5yfnHaLbL8OK8S4W5C0');
+INSERT INTO `cmswing_order` VALUES ('116', 'c21460914187980', '2', null, '6', null, '2', '0', '0', null, null, null, null, null, null, null, null, null, '0.00', '0.00', '0.00', null, null, '1460914187980', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '1', null, '0', 'ch_50G8yH98C4yHDajbDSqjz1i5');
+INSERT INTO `cmswing_order` VALUES ('117', 'c21460916317766', '2', null, '6', null, '2', '0', '0', null, null, null, null, null, null, null, null, null, '0.00', '0.00', '0.00', null, null, '1460916317766', null, null, null, '0.00', '0', null, '0.00', '0', null, '0.00', '0.00', null, '1.00', null, null, '0', '0', null, '1', null, '0', 'ch_KiDKOKjb1eHS4WjXHSG8WLmH');
 
 -- ----------------------------
 -- Table structure for cmswing_order_goods
@@ -6002,13 +6013,13 @@ CREATE TABLE `cmswing_setup` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_setup
 -- ----------------------------
 INSERT INTO `cmswing_setup` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '4294967295', '1379235274', '1', 'CmsWing内容管理框架', '0');
-INSERT INTO `cmswing_setup` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'CmsWing内容管理框架', '1');
+INSERT INTO `cmswing_setup` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', '一款基于ThinkJS(Node.js MVC)和MySQL的功能强大的（PC端,手机端和微信公众平台）电子商务平台及CMS建站系统', '1');
 INSERT INTO `cmswing_setup` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'nodej,comswing,内容管理框架,thinkjs22', '8');
 INSERT INTO `cmswing_setup` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1');
 INSERT INTO `cmswing_setup` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2');
@@ -6016,7 +6027,7 @@ INSERT INTO `cmswing_setup` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号'
 INSERT INTO `cmswing_setup` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表推荐\r\n2:频道推荐\r\n4:首页推荐', '3');
 INSERT INTO `cmswing_setup` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '4');
 INSERT INTO `cmswing_setup` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10');
-INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:商城', '4');
+INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:商城\r\n6:微信', '4');
 INSERT INTO `cmswing_setup` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1379313407', '1', '1:视图\r\n2:控制器', '6');
 INSERT INTO `cmswing_setup` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1379409564', '1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8');
 INSERT INTO `cmswing_setup` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1379484591', '1', '1', '1');
@@ -6048,6 +6059,9 @@ INSERT INTO `cmswing_setup` VALUES ('68', 'PINGXX_APP_ID', '1', 'Ping++ ID(APP_I
 INSERT INTO `cmswing_setup` VALUES ('69', 'PINGXX_LIVE_SECRET_KEY', '1', 'Live Secret Key', '0', '', '', '0', '1458704598345', '1', 'sk_test_10unXHm9WPeD54OaT8Cubz9K', '0');
 INSERT INTO `cmswing_setup` VALUES ('70', 'COD', '4', '货到付款', '5', '0:支持货到付款\r\n1:不支持货到付款', '货到付款只针对实物商品', '0', '1458706395582', '1', '0', '0');
 INSERT INTO `cmswing_setup` VALUES ('71', 'PREPAID', '4', '预付款消费', '5', '0:支持预付款消费\r\n1:不支持预付款消费', '网站是否支持预付款消费，默认支持。', '1458707195813', '1458706636445', '1', '0', '0');
+INSERT INTO `cmswing_setup` VALUES ('72', 'wx_AppID', '1', 'AppID(应用ID)', '6', '', 'AppID(应用ID)', '0', '1460919119581', '1', 'wxe8c1b5ac7db990b6', '1');
+INSERT INTO `cmswing_setup` VALUES ('73', 'wx_AppSecret', '1', 'AppSecret(应用密钥)', '6', '', 'AppSecret(应用密钥)', '0', '1460919187704', '1', 'ebcd685e93715b3470444cf6b7e763e6', '2');
+INSERT INTO `cmswing_setup` VALUES ('74', 'wx_Token', '1', 'Token(令牌)', '6', '', 'Token(令牌)', '1460919389925', '1460919336290', '1', 'cmswing', '3');
 
 -- ----------------------------
 -- Table structure for cmswing_tags
@@ -6303,7 +6317,7 @@ CREATE TABLE `cmswing_wx_user` (
 -- ----------------------------
 -- Records of cmswing_wx_user
 -- ----------------------------
-INSERT INTO `cmswing_wx_user` VALUES ('1554', '1', 'o33lBt0Pz3rEXUARWtUUO5GxuUG0', ' 阿 特 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr6pFXjQd4NEO1dWC8Atlib6Y5pLdxQHNiaWqpxcZmA5mnxzicYejNoU7uTSuw29sQG04mjwIEO4rBUw/0', '1445592951000', null, '', '0', null);
+INSERT INTO `cmswing_wx_user` VALUES ('1554', '1', 'o33lBt0Pz3rEXUARWtUUO5GxuUG0', ' 阿 特 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Xp4GibCIbZHr6pFXjQd4NEO1dWC8Atlib6Y5pLdxQHNiaWqpxcZmA5mnxzicYejNoU7uTSuw29sQG04mjwIEO4rBUw/0', '1445592951000', null, '', '0', '2');
 INSERT INTO `cmswing_wx_user` VALUES ('1555', '1', 'o33lBt-rbaJuS11dbRUjNeR12wn4', ' 地 球 屋 零 食 驿 站 ', '1', '淮北', '中国', '安徽', 'zh_CN', 'http://wx.qlogo.cn/mmopen/PiajxSqBRaELaEUaXdAGrwVV5ykBGM1poDywic7dNuesdhUqH31ic3fdf70GXhS9zQkRZ7wNdfMvYKZQZkxyKwdsw/0', '1440583938000', null, '', '0', null);
 INSERT INTO `cmswing_wx_user` VALUES ('1556', '1', 'o33lBt0nWQQQD3Yq3pdysE24ambA', ' 峰 『 沃 』 梅 ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/tqRiaNianNl1nyQZ4D4KRialkCj0d4SM4WmDOziclbafaQQXuXUKriawyPsNRbWvpIpsibicuqDkYl5ic3hbkJkxLa6V0A/0', '1445592972000', null, '', '100', null);
 INSERT INTO `cmswing_wx_user` VALUES ('1557', '1', 'o33lBt5x6w-nsEam58BUdGMfkeDA', ' V I P ', '1', '西安', '中国', '陕西', 'zh_CN', 'http://wx.qlogo.cn/mmopen/Q3auHgzwzM5Mvs7yibR3AXdrU71WnNw8ArZ2q76bznibXicFGVwibkd5Nv5J6nQVKMhZqjIlH15aRpcJpPibPibeW4Gw/0', '1438741015000', null, '', '0', null);
