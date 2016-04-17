@@ -33,6 +33,18 @@
                         </div>
                     </a>
                 </li>
+                {% else %}
+               
+                <li>
+                <a class="item-content item-link" href="/cart/selectaddr/id/0/goodslist/{{goodsget|jsonToStr}}">
+                    <div class="item-media"><i class="fa fa-plus fa-lg"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">添加新地址</div>
+
+                    </div>
+                </a>
+                </li>
+           
                 {%endfor%}
             </ul>
         </div>
