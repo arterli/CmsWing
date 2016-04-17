@@ -646,10 +646,10 @@ export default class extends Base {
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
-            let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 1);
+            let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 5,0);
             if (0 < res.uid) {
                 //记录用户登录行为
-                await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
+                // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
                 //console.log(11111111111111);
                 await this.session('webuser', res);
                 //TODO 用户密钥

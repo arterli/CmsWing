@@ -6,7 +6,6 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-
 import Base from './base.js';
 import crypto from "crypto";
 import fs from 'fs';
@@ -848,11 +847,10 @@ async createorderAction(){
                     }
                     //记录支付日志
                     await this.model("doc_receiving").where({order_id:order.id}).update({pay_status:1,payment_time:(data.data.object.time_paid*1000)});
-                    return this.success({name:"成功！"});
+                     this.success({name:"成功！"});
                 }else {
-                    return this.fail("失败！");
+                     this.fail("失败！");
                 }
-
                 break;
             case "refund.succeeded":
                 // 开发者在此处加入对退款异步通知的处理代码sfdsfs

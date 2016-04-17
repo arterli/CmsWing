@@ -28,6 +28,14 @@ export default class extends think.model.base {
             case 4:
                 map.id = username;
                 break;
+                case 5:
+                map={
+                    username:username,
+                    email:username,
+                    mobile:username,
+                    _logic: "OR"
+                }
+                break;
             default:
                 return 0; //参数错误
         }

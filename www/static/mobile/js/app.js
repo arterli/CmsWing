@@ -143,9 +143,12 @@ function _ajx_post() {
          * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
          * confirm,
          *****************************************************************************************************************************/
-
+        var falg = false;
         $('.ajax-post').click(function(){
-
+           if(falg){
+               return false;
+           }
+           
             var target,query,form;
             var target_form = $(this).attr('target-form');
             var that = this;
@@ -198,6 +201,7 @@ function _ajx_post() {
                     query = form.find('input,select,textarea').serialize();
                 }
                 $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                falg = true;
                 $.post(target,query).success(function(data){
                     //console.log(data)
                     //return false;
@@ -213,6 +217,7 @@ function _ajx_post() {
                         }
                         setTimeout(function(){
                             $(that).removeClass('disabled').prop('disabled',false);
+                            falg=false;
                             if (data.data.url) {
                                 //location.href=data.data.url;
                                 $.router.loadPage(data.data.url);
@@ -238,6 +243,7 @@ function _ajx_post() {
 
                         setTimeout(function(){
                             $(that).removeClass('disabled').prop('disabled',false);
+                            falg=false;
                             if (data.data) {
                                 location.href=data.data;
                             }else{
