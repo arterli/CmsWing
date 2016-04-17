@@ -245,7 +245,7 @@ function _ajx_post() {
                             $(that).removeClass('disabled').prop('disabled',false);
                             falg=false;
                             if (data.data) {
-                                location.href=data.data;
+                                $.router.loadPage(data.data);
                             }else{
                                 //toastr.clear()
                             }
@@ -467,7 +467,7 @@ function _ajx_post() {
                         //$('#ajaxModal').remove();
                         $.toast(msg.data.name);
                         setTimeout(function(){
-                            location.href=$("a.back").attr("href");
+                            $.router.loadPage($("a.back").attr("href"));
                         },1500);
                     }
                 }
@@ -563,7 +563,7 @@ function _ajx_post() {
                         $.toast(res.errmsg);
                         return false;
                     }else if(res.data.url){
-                        window.location.href = res.data.url;
+                        $.router.loadPage(res.data.url);
                     } else if(res.data.data){
                         $.toast(res.data.name);
 
@@ -694,7 +694,7 @@ function _ajx_post() {
                      $.toast(res.errmsg);
                      return false;
                  }else if(res.data.url){
-                     window.location.href = res.data.url;
+                    $.router.loadPage(res.data.url);
                  } else if(res.data.data){
                      $.toast(res.data.name);
                      pingpp.createPayment(res.data.data, function(result, err) {
@@ -811,7 +811,8 @@ function _ajx_post() {
                         tj ();
                     }else {
                         if(res.errmsg == "请先登录"){
-                            location.href="/user/login";
+                            //location.href="/user/login";
+                            $.router.loadPage("/user/login")
                         }else {
                             $(self).parents("li").find("span.stock").html('<span class="text-danger">无货</span>')
                         }
