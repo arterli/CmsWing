@@ -726,11 +726,15 @@ async createorderAction(){
               return this.fail("您没有要支付的订单");
            }else {
                //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
-               console.log(order.id);
+              // console.log(order.id);
                if(think.isEmpty(order.pingxx_id)){
-                   console.log(111111111)
+                  // console.log(111111111)
                    //获取渠道
                    let channel = await this.model("pingxx").where({id:post.payment}).getField("channel",true);
+                   let open_id;
+                    if(channel == "wx_pub"){
+                        open_id=await this.session("wx_openid")
+                    }
                    //调用ping++ 服务端
                     payment = think.service("payment");
                     pay = new payment(this.http);
@@ -739,7 +743,7 @@ async createorderAction(){
                    //把pingxx_id存到订单
                    await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
                }else {
-                   console.log(33333333);
+                  // console.log(33333333);
                    //调用ping++ 服务端
                     payment = think.service("payment");
                     pay = new payment(this.http);
@@ -777,13 +781,24 @@ async createorderAction(){
            //   }
            //   this.assign("paylist",paylist);
            //根据不同的客户端调用不同的支付方式
-           let type;
+           let map;
            if (checkMobile(this.userAgent())) {
-               type = 2;
+               map={
+                   type:2,
+                   status:1
+               }
+               if(!is_weixin(this.userAgent())){
+                  map.channel =["!=","wx_pub"]
+               }
+              
            }else {
-               type = 1;
+               map={
+                    type:1,
+                    status:1
+               }
+              
            }
-           let paylist = await this.model("pingxx").where({type:type,status:1}).order("sort ASC").select();
+           let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
            this.assign("paylist",paylist);
            this.assign("setp",setp);
            this.meta_title = "订单支付";//标题1

@@ -389,14 +389,15 @@ export default class extends Base {
             // console.log(111111111)
             //获取渠道
             let channel = await this.model("pingxx").where({id: data.payment}).getField("channel", true);
+            let open_id;
             if(channel == "wx_pub"){
-                return this.fail("接口已接通，需要微信授权，后面做！");
+                open_id=await this.session("wx_openid")
             }
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
             //传入 channel,order_no,order_amount,this.ip()
-            let charges = await pay.pingxx(channel, data.order_no, data.order_amount, this.ip());
+            let charges = await pay.pingxx(channel, data.order_no, data.order_amount, this.ip(),open_id);
 
 
             //console.log(charges);
@@ -423,19 +424,33 @@ export default class extends Base {
             }
             // think.log(data);
         } else {
-            let paylist;
-            if (checkMobile(this.userAgent())) {
-                //ping++ 支付渠道 pc网页
-                 paylist = await this.model("pingxx").where({type: 2, status: 1}).order("sort ASC").select();
+            //ping++ 支付渠道 pc网页
+             //根据不同的客户端调用不同的支付方式
+           let map;
+           if (checkMobile(this.userAgent())) {
+               map={
+                   type:2,
+                   status:1
+               }
+               if(!is_weixin(this.userAgent())){
+                  map.channel =["!=","wx_pub"]
+               }
+              
+           }else {
+               map={
+                    type:1,
+                    status:1
+               }
+              
+           }
+                let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
                 this.assign("paylist", paylist);
                 this.meta_title = "充值";
+            if (checkMobile(this.userAgent())) {
                 this.active = "user/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             } else {
-                //ping++ 支付渠道 pc网页
-                 paylist = await this.model("pingxx").where({type: 1, status: 1}).order("sort ASC").select();
-                this.assign("paylist", paylist);
-                this.meta_title = "充值";
+               
                 this.display();
             }
 
