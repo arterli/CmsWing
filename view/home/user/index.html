@@ -44,17 +44,17 @@
 
 						<!-- FLIP BOX -->
 						<div class="box-flip box-icon box-icon-center box-icon-round box-icon-large text-center nomargin">
-							<div class="front">
+							<div class="front1">
 								<div class="box1 noradius">
-									<div class="box-icon-title">
-										<i class="fa fa-user"></i>
+									<div class="box-icon-title text-center">
+										<img src="/user/avatar"  class=" rounded" alt="{{controller.user.username}}" style="width: 65px" />
 										<h2>尊敬的会员 <span class="text-danger">{{controller.user.username}}</span>  ，欢迎您！</h2>
 									</div>
 									<p>最后一次登录：{{controller.user.last_login_time|dateformat('Y-m-d H:i:s')}}</p>
 								</div>
 							</div>
 
-							<div class="back">
+							<div class="back hide">
 								<div class="box2 noradius">
 									<h4>WHO AM I?</h4>
 									<hr />

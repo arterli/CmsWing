@@ -894,16 +894,16 @@ function _ajx_post() {
     })
     $(document).on("pageInit","#detail_shop",function (e, id, page) {
         
-        var width = $("#shop_detail").width();
-       var img = $("#shop_detail").find('img');
-        img.load(function(){
-            // 加载完成
-            $.each(img,function (k,v) {
-                if(v.width > width){
-                    $(v).css({width: "100%"})
-                }
-            })
-        });
+       //  var width = $("#shop_detail").width();
+       // var img = $("#shop_detail").find('img');
+       //  img.load(function(){
+       //      // 加载完成
+       //      $.each(img,function (k,v) {
+       //          if(v.width > width){
+       //              $(v).css({width: "100%"})
+       //          }
+       //      })
+       //  });
         //添加购物车
         $(page).find("#addcart").off('click');
         $(page).find("#addcart").click(function () {

@@ -622,3 +622,11 @@ background: #52ACE5;
 .icheckbox_sm-blue.checked:hover, .radio_sm-blue.checked:hover{
     border-color: #0095ff;
 }
+#shop_detail img{
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+#shop_detail p {
+    margin: 0;
+}
