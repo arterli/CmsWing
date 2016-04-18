@@ -18,7 +18,7 @@ export default class extends think.service.base {
     }
 
 //发起付款
-    async pingxx(channel, order_no, order_amount, ip) {
+    async pingxx(channel, order_no, order_amount, ip,open_id) {
 
         let config;
         let extra = {};
@@ -70,6 +70,12 @@ export default class extends think.service.base {
                     bfb_login:false
                 }
 
+                break;
+                case 'wx_pub':
+                // 微信公共账号支付
+                extra ={
+                    open_id:open_id
+                }
                 break;
         }
         config = {

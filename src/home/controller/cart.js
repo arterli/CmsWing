@@ -6,7 +6,6 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-
 import Base from './base.js';
 import crypto from "crypto";
 import fs from 'fs';
@@ -727,11 +726,15 @@ async createorderAction(){
               return this.fail("您没有要支付的订单");
            }else {
                //判断是否已经绑定pingxx_id,如果已绑定查询pingxx订单直接支付。防止订单重复生成。
-               console.log(order.id);
+              // console.log(order.id);
                if(think.isEmpty(order.pingxx_id)){
-                   console.log(111111111)
+                  // console.log(111111111)
                    //获取渠道
                    let channel = await this.model("pingxx").where({id:post.payment}).getField("channel",true);
+                   let open_id;
+                    if(channel == "wx_pub"){
+                        open_id=await this.session("wx_openid")
+                    }
                    //调用ping++ 服务端
                     payment = think.service("payment");
                     pay = new payment(this.http);
@@ -740,7 +743,7 @@ async createorderAction(){
                    //把pingxx_id存到订单
                    await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
                }else {
-                   console.log(33333333);
+                  // console.log(33333333);
                    //调用ping++ 服务端
                     payment = think.service("payment");
                     pay = new payment(this.http);
@@ -778,13 +781,24 @@ async createorderAction(){
            //   }
            //   this.assign("paylist",paylist);
            //根据不同的客户端调用不同的支付方式
-           let type;
+           let map;
            if (checkMobile(this.userAgent())) {
-               type = 2;
+               map={
+                   type:2,
+                   status:1
+               }
+               if(!is_weixin(this.userAgent())){
+                  map.channel =["!=","wx_pub"]
+               }
+              
            }else {
-               type = 1;
+               map={
+                    type:1,
+                    status:1
+               }
+              
            }
-           let paylist = await this.model("pingxx").where({type:type,status:1}).order("sort ASC").select();
+           let paylist = await this.model("pingxx").where(map).order("sort ASC").select();
            this.assign("paylist",paylist);
            this.assign("setp",setp);
            this.meta_title = "订单支付";//标题1
@@ -848,11 +862,10 @@ async createorderAction(){
                     }
                     //记录支付日志
                     await this.model("doc_receiving").where({order_id:order.id}).update({pay_status:1,payment_time:(data.data.object.time_paid*1000)});
-                    return this.success({name:"成功！"});
+                     this.success({name:"成功！"});
                 }else {
-                    return this.fail("失败！");
+                     this.fail("失败！");
                 }
-
                 break;
             case "refund.succeeded":
                 // 开发者在此处加入对退款异步通知的处理代码sfdsfs

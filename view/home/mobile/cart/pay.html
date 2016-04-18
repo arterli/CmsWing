@@ -27,6 +27,7 @@
         <div class="list-block media-list">
             <ul>
                 {% for val in paylist %}
+               
                 <li>
                     <label class="label-checkbox item-content">
                         <input type="radio" name="payment" value="{{val.id}}"  {% if val.id== order.payment %} checked {% endif%}>

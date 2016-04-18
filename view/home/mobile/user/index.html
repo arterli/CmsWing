@@ -112,6 +112,7 @@
                 </li>
             </ul>
         </div>
+        {% if http.userAgent()|is_weixin != true %}
         <div class="list-block">
             <ul>
 <li>
@@ -126,6 +127,7 @@
 </li>
             </ul>
         </div>
+        {%endif%}
     </div>
 </div>
 {% endblock %}

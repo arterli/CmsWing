@@ -945,6 +945,29 @@ global.checkMobile = function(agent) {
     return flag;
 }
 /**
+ * 验证时否是微信
+ *
+ */
+global.is_weixin=(agent)=>{
+    let flag = false;
+    agent = agent.toLowerCase();
+    let key = ["mqqbrowser","micromessenger"];
+    //排除 Windows 桌面系统
+    if (!(agent.indexOf("windows nt") > -1) || (agent.indexOf("windows nt") > -1 && agent.indexOf("compatible; msie 9.0;") > -1)) {
+        //排除苹果桌面系统
+        if (!(agent.indexOf("windows nt") > -1) && !agent.indexOf("macintosh") > -1) {
+            for (let item of key) {
+                if (agent.indexOf(item) > -1) {
+                    flag = true;
+                    break;
+                }
+            }
+        }
+    }
+    return flag;
+
+}
+/**
  *
  * @param time
  * @returns {string}'January 31, 2018 15:03:26'

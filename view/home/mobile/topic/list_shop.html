@@ -34,7 +34,7 @@
         </div>
        <div class="row no-gutter list-container">
            {% for item in list%}
-           <a href="{{item.name|get_url(item.id)}}" class="col-50"><div  class="card demo-card-header-pic margin-5">
+           <a href="{{item.name|get_url(item.id)}}" class="col-50 external"><div  class="card demo-card-header-pic margin-5">
                <div class="card-header color-white no-border no-padding" valign="bottom">
                    {% set pic = item.pics|strToArray%}
                    <img alt="" src="{{pic[0]|get_cover('path')}}" class="card-cover">
