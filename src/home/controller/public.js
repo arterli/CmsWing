@@ -34,6 +34,10 @@ export default class extends Base {
   }
   /**qq登陆回掉地址 */
   qccallbackAction(){
+    if(this.setup.IS_QQ_LOGIN == 0){
+      this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
+      return think.statusAction(1002, this.http);
+    }
     if(this.is_login){
       this.redirect('/user/index')
     }
@@ -42,6 +46,10 @@ export default class extends Base {
   }
   /**获取qq登陆信息 */
   async loginresultAction(){
+    if(this.setup.IS_QQ_LOGIN == 0){
+      this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
+      return think.statusAction(1002, this.http);
+    }
     if(this.is_login){
       this.redirect('/user/index')
     }
@@ -85,6 +93,10 @@ export default class extends Base {
   }
   //qq用户绑定页面
   async qqloginAction(){
+    if(this.setup.IS_QQ_LOGIN == 0){
+      this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
+      return think.statusAction(1002, this.http);
+    }
     if(this.is_login){
       this.redirect('/user/index')
     }
@@ -92,7 +104,11 @@ export default class extends Base {
     let qq_user=await this.model("qq_user").where({openid:openid}).find();
     this.assign("qq_user",qq_user);
     this.meta_title="账号绑定"
-    return this.display();
+    if(checkMobile(this.userAgent())){
+      return this.display(`mobile/${this.http.controller}/${this.http.action}`);
+    }else{
+      return this.display();
+    }
   }
   /**完善资料绑定 */
   async organizingAction(){

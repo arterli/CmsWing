@@ -1,4 +1,3 @@
-
 {% extends "../inc/base.html" %}
 {% block page%}
 <div class="page page-current" id="wechat_follow">
@@ -17,9 +16,9 @@
         <ul>
           <li>
             <a href="#" class="item-link item-content">
-              <div class="item-media"><img src="{{wx_info.headimgurl}}" style="width:1.45rem"></div>
+              <div class="item-media"><img src="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" style="width:1.45rem"></div>
               <div class="item-inner">
-                <div class="item-title">{{wx_info.nickname}}</div>
+                <div class="item-title">{{qq_user.nickname}}</div>
               </div>
             </a>
           </li>
@@ -28,16 +27,16 @@
     </div>
   </div>
        <div class="buttons-tab">
-    <a href="/wechat/signin" class="{%if http.get('tab')==''%}active{%endif%} button">完善个人资料</a>
-    <a href="/wechat/signin/tab/1" class="{%if http.get('tab')==1%}active{%endif%} button">绑定到已有账号</a>
+    <a href="/public/qqlogin/id/{{http.get('id')}}" class="{%if http.get('tab')==''%}active{%endif%} button">完善个人资料</a>
+    <a href="/public/qqlogin/id/{{http.get('id')}}/tab/1" class="{%if http.get('tab')==1%}active{%endif%} button">绑定到已有账号</a>
   </div>
   {%if http.get("tab")==""%}
    <div class="content-block nopadding nomargin">
       <div class="content-padded size-14">
           <p>已有PC端账号，点击[绑定到已有账号]登录绑定。</p>
-           <p >这是您登录PC端网站的凭证，请认真填写!
+           <p>这是您登录PC端网站的凭证，请认真填写!
       </p></div>
-      <form method="post" action="/wechat/organizing" class="form-organizing">
+      <form method="post" action="/public/organizing" class="form-organizing">
     <div class="list-block margin-top-0">
     <ul>
       <!-- Text inputs -->
@@ -47,7 +46,7 @@
           <div class="item-inner">
             <div class="item-title label">用户昵称</div>
             <div class="item-input">
-              <input type="text" placeholder="Your name" name="username" value="{{wx_info.nickname}}" required="required">
+              <input type="text" placeholder="Your name" name="username" value="{{qq_user.nickname}}" required="required">
             </div>
           </div>
         </div>
@@ -98,14 +97,14 @@
     </ul>
   </div>
   <div class="content-block">
-      <input type="hidden" name="openid" value="{{openid}}">
-      <input type="hidden" name="headimgurl" value="{{headimgurl}}">
+      <input type="hidden" name="openid" value="{{qq_user.openid}}">
+      <input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
     <a href="javascript:;"  class="button button-big button-fill ajax-post" target-form="form-organizing">确定</a>
   </div>
           </form>
   </div>
   {%elif http.get("tab")==1%}
-  <form role="form" class="form-logonbinding" action="/wechat/logonbinding" method="post">
+  <form role="form" class="form-logonbinding" action="/public/logonbinding" method="post">
             <div class="list-block inset">
                 <ul>
                     <!-- Text inputs -->
@@ -138,8 +137,8 @@
                 </ul>
             </div>
             <div class="content-block">
-                 <input type="hidden" name="openid" value="{{openid}}">
-                 <input type="hidden" name="headimgurl" value="{{headimgurl}}">
+                <input type="hidden" name="openid" value="{{qq_user.openid}}">
+                <input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
                 <p><a href="javascript:;" class="button button-big button-fill  ajax-post" target-form="form-logonbinding">确定 </a></p>
             </div>
             </form>

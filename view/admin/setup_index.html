@@ -21,26 +21,36 @@
                     <div class="form-group">
                       <label class="col-sm-2 control-label">{{ item.title }}</label>
                       <div class="col-sm-10">
+                          <div class="row">
                         {% if item.type == 0 %}
+                              <div class="col-md-3">
                           <input type="text" class="form-control" name="{{item.name}}" value="{{ item.value }}">
-                        <span class="help-block m-b-none">{{item.remark}}</span>
+                              </div>
                         {% elif item.type == 1 %}
+                              <div class="col-md-10">
                          <input type="text" class="form-control" name="{{item.name}}" value="{{ item.value }}">
-                        <span class="help-block m-b-none">{{item.remark}}</span>
+                                  </div>
                         {% elif item.type == 2 %}
+                              <div class="col-md-10">
                          <textarea class="form-control" name="{{item.name}}"  style="height: 100px">{{ item.value }}</textarea>
-                         <span class="help-block m-b-none">{{item.remark}}</span>
+                         </div>
                          {% elif item.type == 3 %}
+                              <div class="col-md-5">
                           <textarea class="form-control" name="{{item.name}}"  style="height: 100px">{{ item.value }}</textarea>
-                         <span class="help-block m-b-none">{{item.remark}}</span>
+                              </div>
                          {% elif item.type == 4 %}
-                         <select class="form-control m-b" name="{{item.name}}">
+                              <div class="col-md-3">
+                         <select class="form-control " name="{{item.name}}">
                              {% for index, items in item.extra|parse_config_attr %}
                           <option value="{{index}}" {% if item.value == index %} selected {% endif %}>{{items}}</option>
                              {% endfor%}
                          </select>
+                                  </div>
                         {% endif %}
-                       
+                              <div class="col-md-12">
+                                  <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{item.remark|safe}}</span>
+                              </div>
+                          </div>
                       </div>
                     </div>
                     <div class="line line-dashed b-b line-lg pull-in"></div>

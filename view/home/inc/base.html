@@ -11,9 +11,12 @@
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
 	<meta name="Author" content="Arterli [www.cmswing.com]" />
-	<meta property="qc:admins" content="1271366777635371676375" />
+	{%if controller.setup.QQ_VALIDATION%}
+	<!--qq互联网站验证-->
+	{{controller.setup.QQ_VALIDATION|safe}}
+	<!--qq互联网站验证结束-->
+	{%endif%}
 	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
-
 	<!-- mobile settings -->
 	<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->

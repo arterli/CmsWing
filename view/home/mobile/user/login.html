@@ -73,9 +73,11 @@
                 <span>使用社交账号登陆</span>
             </h4>
                 <div class="row">
-                    <div class="col-33"><a href="/auth/alipay" class="item"><i class="icon icon-alipay-oauth"></i>支付宝</a></div>
-                    <div class="col-33"><a href="/auth/qq" class="item" ><i class="icon icon-qq-oauth"></i>QQ登录</a></div>
-                    <div class="col-33"><a href="/auth/weibo" class="item" ><i class="icon icon-weibo-oauth"></i>微博登录</a></div>
+                    {%if controller.setup.IS_QQ_LOGIN == 1%}
+                    <div class="col-33"><a href="/public/qccallback" class="item external" ><i class="icon icon-qq-oauth"></i>QQ登录</a></div>
+                    {%endif%}
+                    <div class="col-33"><a href="/auth/alipay" class="item external"><i class="icon icon-alipay-oauth"></i>支付宝</a></div>
+                    <div class="col-33"><a href="/auth/weibo" class="item external" ><i class="icon icon-weibo-oauth"></i>微博登录</a></div>
                 </div>
             </div>
         </div>
