@@ -491,6 +491,10 @@ function _ajx_post() {
         var loading = false;
         var itemsPerLoad = 10;
         var lastIndex = $("#user_account .list-container li").length;
+        if(lastIndex < itemsPerLoad){
+            $(".infinite-scroll-preloader").remove();
+            return;
+        }
         function addItems(data) {
             var html = '';
             $.each(data, function(index,item){

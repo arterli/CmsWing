@@ -50,7 +50,7 @@ export default class extends Base {
         let orderTotal = eval(order.join("+"));
         this.assign("orderTotal", orderTotal);
         //进行中的订单
-        let onOrder = await this.model("order").where({status: 4}).count("id");
+        let onOrder = await this.model("order").where({status: 4,user_id: this.user.uid}).count("id");
         this.assign("onOrder", onOrder);
         //带评价的商品 TODO
         this.meta_title = "用户中心";

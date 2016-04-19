@@ -842,7 +842,7 @@ async createorderAction(){
                 // 开发者在此处加入对支付异步通知的处理代码
                 //console.log(data.data.object.paid);
                 if(data.data.object.paid){
-                    let order = await this.model("order").where({order_no:data.data.object.order_no}).field("id,tpye,user_id,order_amount,payment").find();
+                    let order = await this.model("order").where({order_no:data.data.object.order_no}).find();
                         //支付成功改变订单状态
                        let update = await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1,pay_time:(data.data.object.time_paid*1000)});
                        if(order.type == 1 && update) {
@@ -879,6 +879,7 @@ async createorderAction(){
 
        //orderId: '1458722092073', respMsg: 'success'
         console.log(code);
+       //站内支付回掉
         if(code.c_o_id){
             let order = await this.model("order").find(code.c_o_id);
                 order.amount = order.order_amount;
@@ -892,12 +893,13 @@ async createorderAction(){
                 }
                 this.assign("order",order);
         }else {
-
+            //支付接口回掉
             let order = await this.model("order").where({order_no:code.out_trade_no||code.orderId||code.order_no}).find();
             //调用ping++ 服务端
             let payment = think.service("payment");
             let pay = new payment(this.http);
             let charges = await pay.charge(order.pingxx_id);
+
             if(charges.paid && order.pay_status == 0){
                 //支付成功改变订单状态
                 let update = await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1,pay_time:(charges.time_paid*1000)});
