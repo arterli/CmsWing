@@ -182,7 +182,6 @@ export default class extends Base {
       res.username = qq_info.nickname;
       await this.session('webuser', res);
       //TODO 用户密钥
-      
       return this.success({name:"绑定成功",url:"/user/index"});
     } else { //登录失败
       let fail;
