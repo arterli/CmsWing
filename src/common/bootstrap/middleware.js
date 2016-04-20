@@ -30,11 +30,10 @@
 //
 //think.middleware('debug_toolbar', debugToolbar(conf));
 import wechatMiddleware from 'think-wechat';
-
 think.middleware('parse_wechat', wechatMiddleware({
     wechat: {
-        token: 'cmswing',
-        appid: 'wxe8c1b5ac7db990b6',
+        token: think.config("setup.wx_Token"),
+        appid: think.config("setup.wx_AppID"),
         encodingAESKey: ''
     }
 }));

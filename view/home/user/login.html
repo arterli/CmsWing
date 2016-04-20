@@ -53,14 +53,15 @@
                     <h4>还没有账号?</h4>
                     <p>你可以在<a href="/user/register" class="text-info">这里</a>创建一个帐户 </p>
                     <p>或者</p>
+                    {%if controller.setup.IS_QQ_LOGIN == 1%}
+                    <a href="/public/qccallback" class="btn btn-block btn-social btn-twitter margin-bottom-10">
+                        <i class="fa fa-qq"></i> 使用QQ账号登录
+                    </a>
+                    {%endif%}
                     <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
                                     <i class="fa fa-weixin"></i> 使用微信账号登录
                                 </a>
-                    {%if controller.setup.IS_QQ_LOGIN == 1%}
-                                <a href="/public/qccallback" class="btn btn-block btn-social btn-twitter margin-bottom-10">
-                                    <i class="fa fa-qq"></i> 使用QQ账号登录
-                                </a>
-                    {%endif%}
+
                                 <a class="btn btn-block btn-social btn-google margin-bottom-10">
                                     <i class="fa fa-weibo"></i> 使用新浪微博账号登录
                                 </a>

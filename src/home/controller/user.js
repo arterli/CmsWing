@@ -10,8 +10,7 @@
 import Base from './base.js';
 import pagination from 'think-pagination';
 import fs from 'fs';
-import path from  'path';
-var Jimp = require("jimp");
+import Jimp from "jimp";
 export default class extends Base {
     async init(http) {
         super.init(http);

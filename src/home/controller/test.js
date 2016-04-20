@@ -174,4 +174,69 @@ export default class extends Base {
        let order_sn = await this.model("test").test();
         this.end(order_sn);
     }
+    qiniuAction(){
+        if(this.isPost()){
+            let file = this.file("file1");
+            file = think.extend({},file);
+            console.log(file);
+            var qiniu = require("qiniu");
+            //需要填写你的 Access Key 和 Secret Key
+            qiniu.conf.ACCESS_KEY = 'OJD9JCXudNtPwz_bKrtdnP2uTd5BVGvEJxaiUB24';
+            qiniu.conf.SECRET_KEY = '_Dmewmycq994GcYxG4N3WvOX0ED-5eUeeXvoOYcE';
+
+            //要上传的空间
+            let bucket = 'cmswing';
+            //上传到七牛后保存的文件名
+            let key = 'my-nodejs-logo.png';
+            //构建上传策略函数
+            //noinspection JSAnnotator
+            function uptoken(bucket, key) {
+                var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
+                return putPolicy.token();
+            }
+            //生成上传 Token
+           let  token = uptoken(bucket, key);
+            console.log(token);
+            //要上传文件的本地路径
+           let  filePath = file.path;
+
+            //构造上传函数
+            //noinspection JSAnnotator
+            function uploadFile(uptoken, key, localFile) {
+                var extra = new qiniu.io.PutExtra();
+                qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
+                    if(!err) {
+                        // 上传成功， 处理返回值
+                        console.log(ret.hash, ret.key, ret.persistentId);
+                    } else {
+                        // 上传失败， 处理返回代码
+                        console.log(err);
+                    }
+                });
+            }
+
+           //调用uploadFile上传
+            uploadFile(token, key, filePath);
+        }else {
+            this.display()
+        }
+
+    }
+    configAction(){
+        const fs = require('fs');
+        let steup = this.setup;
+        let path1 = think.getPath("common", "config");
+        console.log(path1);
+        if(think.isDir(think.ROOT_PATH+'/src')){
+            let data = "export default"+JSON.stringify(steup);
+            fs.writeFileSync(think.ROOT_PATH+'/src/common/config/steup.js', data);
+        }
+        let data1 = "exports.__esModule = true;exports.default ="+JSON.stringify(steup);
+        fs.writeFileSync(path1+'/steup.js', data1);
+       // console.log(steup);
+    }
+    getconfigAction(){
+        let get = this.config("setup.IS_QQ_LOGIN");
+        this.end(get);
+    }
 }

@@ -18,8 +18,21 @@ export default class extends Base {
         this.db = this.model('setup');
         this.tactive = "setup"
     }
-
+    //加载配置
+    async loadsetup(){
+        const fs = require('fs');
+        let setup = await this.model("setup").lists();
+        let path1 = think.getPath("common", "config");
+        if(think.isDir(think.ROOT_PATH+'/src')){
+            let data = "export default"+JSON.stringify(setup);
+            fs.writeFileSync(think.ROOT_PATH+'/src/common/config/setup.js', data);
+        }
+        let data1 = "exports.__esModule = true;exports.default ="+JSON.stringify(setup);
+        fs.writeFileSync(path1+'/setup.js', data1);
+    }
     async indexAction(){
+        //加载配置
+        await this.loadsetup();
         //auto render template file index_index.html
         let id = this.get('id')||1;
         let type = this.setup.CONFIG_GROUP_LIST;
@@ -85,6 +98,7 @@ export default class extends Base {
             let addres =await this.db.add(data);
             if(addres){
                 think.cache("setup", null);
+                await this.loadsetup();
                 return this.json(1)
             }else {
                 return this.json(0)
@@ -107,6 +121,7 @@ export default class extends Base {
             let upres =await this.db.update(data);
             if(upres){
                 think.cache("setup", null);
+                await this.loadsetup();
                 return this.json(1)
             }else {
                 return this.json(0)
@@ -132,6 +147,7 @@ export default class extends Base {
             this.db.where({name: v}).update({value: post[v]});
         }
         think.cache("setup", null);
+        await this.loadsetup();
         this.json(1)
     }
 
@@ -141,6 +157,7 @@ export default class extends Base {
         let res = await this.db.where({id:id}).delete();
         if(res){
             think.cache("setup", null);
+            await this.loadsetup();
             return this.json(1)
         }else {
             return this.json(0)
