@@ -174,49 +174,58 @@ export default class extends Base {
        let order_sn = await this.model("test").test();
         this.end(order_sn);
     }
-    qiniuAction(){
+   async qiniuAction(){
         if(this.isPost()){
+            var path = require('path');
             let file = this.file("file1");
             file = think.extend({},file);
             console.log(file);
-            var qiniu = require("qiniu");
-            //需要填写你的 Access Key 和 Secret Key
-            qiniu.conf.ACCESS_KEY = 'OJD9JCXudNtPwz_bKrtdnP2uTd5BVGvEJxaiUB24';
-            qiniu.conf.SECRET_KEY = '_Dmewmycq994GcYxG4N3WvOX0ED-5eUeeXvoOYcE';
-
-            //要上传的空间
-            let bucket = 'cmswing';
-            //上传到七牛后保存的文件名
-            let key = 'my-nodejs-logo.png';
-            //构建上传策略函数
-            //noinspection JSAnnotator
-            function uptoken(bucket, key) {
-                var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
-                return putPolicy.token();
-            }
-            //生成上传 Token
-           let  token = uptoken(bucket, key);
-            console.log(token);
-            //要上传文件的本地路径
-           let  filePath = file.path;
-
-            //构造上传函数
-            //noinspection JSAnnotator
-            function uploadFile(uptoken, key, localFile) {
-                var extra = new qiniu.io.PutExtra();
-                qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
-                    if(!err) {
-                        // 上传成功， 处理返回值
-                        console.log(ret.hash, ret.key, ret.persistentId);
-                    } else {
-                        // 上传失败， 处理返回代码
-                        console.log(err);
-                    }
-                });
-            }
-
-           //调用uploadFile上传
-            uploadFile(token, key, filePath);
+            let  filePath = file.path;
+            var basename = path.basename(filePath);
+            console.log(basename);
+            //  console.log(file);
+           //  var qiniu = require("qiniu");
+           //  //需要填写你的 Access Key 和 Secret Key
+           //  qiniu.conf.ACCESS_KEY = 'OJD9JCXudNtPwz_bKrtdnP2uTd5BVGvEJxaiUB24';
+           //  qiniu.conf.SECRET_KEY = '_Dmewmycq994GcYxG4N3WvOX0ED-5eUeeXvoOYcE';
+           //
+           //  //要上传的空间
+           //  let bucket = 'cmswing';
+           //  //上传到七牛后保存的文件名
+           //  let key = 'my-nodejs-logo.png';
+           //  //构建上传策略函数
+           //  //noinspection JSAnnotator
+           //  function uptoken(bucket, key) {
+           //      var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
+           //      return putPolicy.token();
+           //  }
+           //  //生成上传 Token
+           // let  token = uptoken(bucket, key);
+           //  console.log(token);
+           //  //要上传文件的本地路径
+           // let  filePath = file.path;
+           //
+           //  //构造上传函数
+           //  //noinspection JSAnnotator
+           //  function uploadFile(uptoken, key, localFile) {
+           //      var extra = new qiniu.io.PutExtra();
+           //      qiniu.io.putFile(uptoken, key, localFile, extra, function(err, ret) {
+           //          if(!err) {
+           //              // 上传成功， 处理返回值
+           //              console.log(ret.hash, ret.key, ret.persistentId);
+           //          } else {
+           //              // 上传失败， 处理返回代码
+           //              console.log(err);
+           //          }
+           //      });
+           //  }
+           //
+           // //调用uploadFile上传
+           //  uploadFile(token, key, filePath);
+            let qiniu = think.service("qiniu");
+            let instance = new qiniu();
+            let res = await instance.uploadpic(filePath,basename);
+           this.end(res);
         }else {
             this.display()
         }
@@ -238,5 +247,13 @@ export default class extends Base {
     getconfigAction(){
         let get = this.config("setup.IS_QQ_LOGIN");
         this.end(get);
+    }
+    async getpicAction(){
+        let id = this.get("id")
+        let m= this.get("m")||null
+        let w = this.get("w")||null
+        let h = this.get("h")||null
+       let pic = await get_pic(id,m,w,h)
+        this.end(`<img src='${pic}'>`);
     }
 }

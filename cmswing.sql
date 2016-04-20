@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-04-19 23:25:37
+Date: 2016-04-21 03:27:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=520 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=521 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -281,6 +281,7 @@ INSERT INTO `cmswing_action_log` VALUES ('516', '1', '2', '3232235878', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('517', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-18 02:18:43登录了后台', '1', '1460917123407');
 INSERT INTO `cmswing_action_log` VALUES ('518', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-19 09:10:54登录了后台', '1', '1461028254435');
 INSERT INTO `cmswing_action_log` VALUES ('519', '1', '1', '3232235878', 'member', '1', 'admin在2016-04-19 19:36:12登录了后台', '1', '1461065772154');
+INSERT INTO `cmswing_action_log` VALUES ('520', '1', '1', '2130706433', 'member', '1', 'admin在2016-04-21 01:06:38登录了后台', '1', '1461171998056');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -5057,7 +5058,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '740', 'arterli@qq.com', '213', '', '1452513965683', '0', '1461065772111', '3232235878', '0', '1', '1');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '750', 'arterli@qq.com', '214', '', '1452513965683', '0', '1461171997995', '2130706433', '0', '1', '1');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '70', 'cmswing@cmswing.com', '87', '13571883577', '1458989485616', '0', '1461059919653', '3232235878', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test@cmswing.com', '0', '', '1458990106486', '0', '0', '0', '0', '1', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0');
@@ -5718,7 +5719,7 @@ CREATE TABLE `cmswing_picture` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信',
   `source_id` varchar(255) DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=216 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=219 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -5938,6 +5939,9 @@ INSERT INTO `cmswing_picture` VALUES ('212', '/upload/picture/2016-03-31/RK7AsIA
 INSERT INTO `cmswing_picture` VALUES ('213', '/upload/picture/2016-03-31/Esp8lWcbDJYEsGvcWNEQ4Nyh.jpg', '', '', '', '1', '1459405071608', '0', '');
 INSERT INTO `cmswing_picture` VALUES ('214', '/upload/picture/2016-03-31/EP-yItW0U2hCfkqgufvZ69Xz.jpg', '', '', '', '1', '1459405071742', '0', '');
 INSERT INTO `cmswing_picture` VALUES ('215', '/upload/picture/2016-03-31/5XvyecN_j5zgWv-JqRDj3gaY.jpg', '', '', '', '1', '1459405071826', '0', '');
+INSERT INTO `cmswing_picture` VALUES ('216', '/upload/picture/2016-04-21/WrTRz98TZe11CK3EipmCkEXB.jpg', '', '', '', '1', '1461174868812', '0', '');
+INSERT INTO `cmswing_picture` VALUES ('217', '', '', '', 'FlElvzCU-HlkAzqqe6yy9_a_6yPP', '1', '1461175338488', '2', 'T0ti10p_z1-mTKuKg8XmtjwF.jpg');
+INSERT INTO `cmswing_picture` VALUES ('218', '', '', '', 'FgKMJUhmy3RUrduqeMJdYOHzU77A', '1', '1461178795925', '2', 'n385iB41GcuVJedqPm9PBuPp.jpg');
 
 -- ----------------------------
 -- Table structure for cmswing_pingxx
@@ -6048,7 +6052,7 @@ CREATE TABLE `cmswing_setup` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmswing_setup
@@ -6062,7 +6066,7 @@ INSERT INTO `cmswing_setup` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号'
 INSERT INTO `cmswing_setup` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表推荐\r\n2:频道推荐\r\n4:首页推荐', '3');
 INSERT INTO `cmswing_setup` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '4');
 INSERT INTO `cmswing_setup` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10');
-INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:商城\r\n6:微信\r\n7:第三方登录', '4');
+INSERT INTO `cmswing_setup` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:商城\r\n6:微信\r\n7:第三方登录\r\n8:七牛云存储', '4');
 INSERT INTO `cmswing_setup` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1379313407', '1', '1:视图\r\n2:控制器', '6');
 INSERT INTO `cmswing_setup` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1379409564', '1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8');
 INSERT INTO `cmswing_setup` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1379484591', '1', '1', '1');
@@ -6101,6 +6105,11 @@ INSERT INTO `cmswing_setup` VALUES ('75', 'IS_QQ_LOGIN', '4', '是否开启QQ登
 INSERT INTO `cmswing_setup` VALUES ('76', 'QQ_APPID', '1', 'QQ  APP ID', '7', '', '在QQ互联申请到的 APP ID ,填写到此处。', '1461072196964', '1461067916788', '1', '101309492', '2');
 INSERT INTO `cmswing_setup` VALUES ('77', 'QQ_APPKEY', '1', 'QQ APP KEY', '7', '', '在QQ互联申请到的 APP KEY ,填写到此处。', '1461072212437', '1461068049281', '1', '98c05261f58f2fe30478bb168d143113', '2');
 INSERT INTO `cmswing_setup` VALUES ('78', 'QQ_VALIDATION', '1', 'QQ验证码', '7', '', '申请QQ登录应用的时候，会提供给你一段代码进行网站验证,请填写到此处。', '1461078426145', '1461078345202', '1', '<meta property=\"qc:admins\" content=\"1271366777635371676375\" />', '4');
+INSERT INTO `cmswing_setup` VALUES ('79', 'IS_QINIU', '4', '开启七牛云储存', '8', '0:关闭\r\n1:开启', '开启前先填写七牛的AccessKey/SecretKey，<a href=\"http://www.qiniu.com/\" target=\"_blank\" class=\"text-info\">申请地址</a>', '1461171840594', '1461171178703', '1', '1', '0');
+INSERT INTO `cmswing_setup` VALUES ('80', 'QINIU_AK', '1', '七牛 AK', '8', '', '七牛云储存 AccessKey', '0', '1461171314237', '1', 'OJD9JCXudNtPwz_bKrtdnP2uTd5BVGvEJxaiUB24', '1');
+INSERT INTO `cmswing_setup` VALUES ('81', 'QINIU_SK', '1', '七牛 SK', '8', '', '七牛云储存 SK', '0', '1461171443001', '1', '_Dmewmycq994GcYxG4N3WvOX0ED-5eUeeXvoOYcE', '2');
+INSERT INTO `cmswing_setup` VALUES ('82', 'QINIU_BUCKET', '1', '空间名', '8', '', '在七牛后台创建的对象储存名称', '0', '1461171792507', '1', 'cmswing', '4');
+INSERT INTO `cmswing_setup` VALUES ('83', 'QINIU_DOMAIN_NAME', '1', '七牛空间域名', '8', '', '七牛空间域名如：	7xt6v5.com1.z0.glb.clouddn.com 不带http://', '0', '1461175719237', '1', '7xt6v5.com1.z0.glb.clouddn.com', '5');
 
 -- ----------------------------
 -- Table structure for cmswing_tags

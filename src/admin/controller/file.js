@@ -52,28 +52,46 @@ export default class extends Base {
   async uploadpicAction(){
     let file = think.extend({}, this.file('file'));
     let filepath = file.path;
-    console.log(file);
-    let ret = {'status':1,'info':'上传成功','data':""}
-    let uploadPath = think.RESOURCE_PATH + '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
-    think.mkdir(uploadPath);
     let basename = path.basename(filepath);
-    if(think.isFile(filepath)){
-    fs.renameSync(filepath, uploadPath + '/' + basename);
-    }else {
-      console.log("文件不存在！")
-    }
-    file.path = uploadPath + '/' + basename;
-    if(think.isFile(file.path)){
-      let data ={
-        path:'/upload/picture/'+dateformat("Y-m-d",new Date().getTime())+ '/' + basename,
-      create_time:new Date().getTime(),
-        status:1,
+    let ret = {'status':1,'info':'上传成功','data':""}
+      let res;
+    if(this.setup.IS_QINIU==1){
+        let qiniu = think.service("qiniu");
+        let instance = new qiniu();
+         let uppic = await instance.uploadpic(filepath,basename);
+        if(!think.isEmpty(uppic)){
+            let data ={
+                create_time:new Date().getTime(),
+                status:1,
+                type:2,
+                sha1:uppic.hash,
+                source_id:uppic.key
 
-      }
-     var res = await this.model("picture").data(data).add();
-    }else{
-      console.log('not exist')
+            };
+           res = await this.model("picture").data(data).add();
+        }
+    } else {
+        let uploadPath = think.RESOURCE_PATH + '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
+        think.mkdir(uploadPath);
+        if(think.isFile(filepath)){
+            fs.renameSync(filepath, uploadPath + '/' + basename);
+        }else {
+            console.log("文件不存在！")
+        }
+        file.path = uploadPath + '/' + basename;
+        if(think.isFile(file.path)){
+            let data ={
+                path:'/upload/picture/'+dateformat("Y-m-d",new Date().getTime())+ '/' + basename,
+                create_time:new Date().getTime(),
+                status:1,
+
+            }
+             res = await this.model("picture").data(data).add();
+        }else{
+            console.log('not exist')
+        }
     }
+
     this.json(res);
   }
   //上传多图
