@@ -149,9 +149,9 @@
 										<div class="thumbnail">
 											<!-- product image(s) -->
 											<a class="shop-item-image" href="{{item.name|get_url(item.id)}}" title="{{item.title}}" target="_blank">
-												<img class="img-responsive" src="{{pic[0]|get_cover('path')}}" alt="shop first image" />
+												<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=260,h=260')}}" alt="shop first image" />
                                                 {% if pic|length >1%}
-												<img class="img-responsive" src="{{pic[1]|get_cover('path')}}" alt="shop hover image" />
+												<img class="img-responsive" src="{{pic[1]|get_pic('m=1,w=260,h=260')}}" alt="shop hover image" />
                                                 {% endif %}
 											</a>
 											<!-- /product image(s) -->

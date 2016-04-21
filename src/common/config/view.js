@@ -178,7 +178,23 @@ export default {
                     callback(null,data);
 
         }, true)
-        
+                /**
+                 * {{id|get_pic("m=1,w=200,h=200")}}
+                 */
+                env.addFilter('get_pic', async(id,type,callback)=>{
+                    let m,w,h;
+                    console.log(type);
+                    let obj ={};
+                    for(let v of type.split(",")){
+                       v = v.split("=");
+                        obj[v[0]]=v[1];
+                    }
+                    m=obj.m;
+                    w=obj.w;
+                    h=obj.h;
+                  let data = await get_pic(id,m,w,h);
+                    callback(null,data);
+                },true)
          //价格格式化
                 env.addFilter("get_price_format", function (price,type) {
                     return get_price_format(price,type);

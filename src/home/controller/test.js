@@ -256,4 +256,10 @@ export default class extends Base {
        let pic = await get_pic(id,m,w,h)
         this.end(`<img src='${pic}'>`);
     }
+    async ssAction(){
+        let uuid = think.uuid()
+        this.session("uuid",{uuid:uuid});
+        let uuids =await this.session("uuid");
+        console.log(uuids);
+    }
 }
