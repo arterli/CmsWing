@@ -30,29 +30,29 @@ export default class extends Base {
 
         break;
 
-      /* 上传图片 */
+        /* 上传图片 */
       case 'uploadimage':
-      /* 上传涂鸦 */
+        /* 上传涂鸦 */
       case 'uploadscrawl':
-      /* 上传视频 */
+        /* 上传视频 */
       case 'uploadvideo':
-      /* 上传文件 */
+        /* 上传文件 */
       case 'uploadfile':
 
-        result = this.uploads();
+        result =await this.uploads();
         //console.log(result);
         break;
 
-      /* 列出图片 */
+        /* 列出图片 */
       case 'listimage':
         result = this.uploadlist();
         break;
-      /* 列出文件 */
+        /* 列出文件 */
       case 'listfile':
         result = this.uploadlist();
         break;
 
-      /* 抓取远程文件 */
+        /* 抓取远程文件 */
       case 'catchimage':
         result = await this.crawler();
         break;
@@ -69,7 +69,7 @@ export default class extends Base {
 
   }
 
-  uploads(){
+  async uploads(){
     /**
      * 得到上传文件所对应的各个参数,数组结构
      * obj={
@@ -81,53 +81,73 @@ export default class extends Base {
      *     "size" : "",           //文件大小
      * }
      */
-      let action = this.get("action");
-      let base64 = "upload";
-      let config = {};
-      let fieldName;
-
-      switch (action) {
-        case 'uploadimage':
-          config = {
-            pathFormat: this.config['imagePathFormat'],
-            maxSize: this.config['imageMaxSize'],
-            allowFiles: this.config['imageAllowFiles']
-          };
-          fieldName = this.config['imageFieldName'];
-          break;
-        case 'uploadscrawl':
-          config = {
-            "pathFormat": this.config['scrawlPathFormat'],
-            "maxSize": this.config['scrawlMaxSize'],
-            "allowFiles": this.config['scrawlAllowFiles'],
-            "oriName": "scrawl.png"
-          };
-          fieldName = this.config['scrawlFieldName'];
-          base64 = "base64";
-          break;
-        case 'uploadvideo':
-          config = {
-            "pathFormat": this.config['videoPathFormat'],
-            "maxSize": this.config['videoMaxSize'],
-            "allowFiles": this.config['videoAllowFiles']
-          };
-          fieldName = this.config['videoFieldName'];
-          break;
-        case 'uploadfile':
-        default:
-          config = {
-            "pathFormat": this.config['filePathFormat'],
-            "maxSize": this.config['fileMaxSize'],
-            "allowFiles": this.config['fileAllowFiles']
-          };
-          fieldName = this.config['fileFieldName'];
-          break;
-      }
-      //return self.uploader(fieldName, config, oriName, size, path, base64);
-    let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
-    let upload = new up(fieldName, config, base64,this.http); //实例化 Adapter
-
-    return upload.getFileInfo();
+    let action = this.get("action");
+    let base64 = "upload";
+    let config = {};
+    let fieldName;
+    //console.log(setup);
+    switch (action) {
+      case 'uploadimage':
+        config = {
+          pathFormat: this.config['imagePathFormat'],
+          maxSize: this.config['imageMaxSize'],
+          allowFiles: this.config['imageAllowFiles'],
+        };
+        fieldName = this.config['imageFieldName'];
+        break;
+      case 'uploadscrawl':
+        config = {
+          "pathFormat": this.config['scrawlPathFormat'],
+          "maxSize": this.config['scrawlMaxSize'],
+          "allowFiles": this.config['scrawlAllowFiles'],
+          "oriName": "scrawl.png"
+        };
+        fieldName = this.config['scrawlFieldName'];
+        base64 = "base64";
+        break;
+      case 'uploadvideo':
+        config = {
+          "pathFormat": this.config['videoPathFormat'],
+          "maxSize": this.config['videoMaxSize'],
+          "allowFiles": this.config['videoAllowFiles']
+        };
+        fieldName = this.config['videoFieldName'];
+        break;
+      case 'uploadfile':
+      default:
+        config = {
+          "pathFormat": this.config['filePathFormat'],
+          "maxSize": this.config['fileMaxSize'],
+          "allowFiles": this.config['fileAllowFiles']
+        };
+        fieldName = this.config['fileFieldName'];
+        break;
+    }
+     //加入七牛接口
+     if(this.setup.IS_QINIU==1){
+       let file = think.extend({}, this.file(fieldName));
+       console.log(file);
+       let filepath = file.path;
+       let basename = path.basename(filepath);
+       let qiniu = think.service("qiniu");
+       let instance = new qiniu();
+       let uppic = await instance.uploadpic(filepath,basename);
+       if(!think.isEmpty(uppic)){
+         return {
+           "state" : "SUCCESS",
+           "url" : `http://${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+           "title" : uppic.hash,
+           "original" : file.originalFilename,
+           "type" : ".jpg",
+           "size" : 0
+         };
+       }
+     } else {
+       //return self.uploader(fieldName, config, oriName, size, path, base64);
+       let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
+       let upload = new up(fieldName, config, base64, this.http); //实例化 Adapter
+       return upload.getFileInfo();
+     }
   }
 
   //抓取远程图片
@@ -154,7 +174,7 @@ export default class extends Base {
       //console.log(info);
       list.push({"state":"SUCCESS","url":info.url,"size":431521,"title":info.title,"original":info.original,"source":imgUrl});
     }
-   //console.log(think.isEmpty(list));
+    //console.log(think.isEmpty(list));
     return {
       state:!think.isEmpty(list) ? 'SUCCESS':'ERROR',
       list:list
@@ -168,13 +188,13 @@ export default class extends Base {
     var allowFiles, listSize, path;
     //判断类型
     switch (this.get("action")) {
-      //列出文件
+        //列出文件
       case 'listfile':
         allowFiles = this.config['fileManagerAllowFiles'];
         listSize = this.config['fileManagerListSize'];
         path = this.config['fileManagerListPath'];
         break;
-      //列出图片
+        //列出图片
       case 'listimage':
       default:
         allowFiles = this.config['imageManagerAllowFiles'];

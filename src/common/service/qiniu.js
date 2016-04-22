@@ -40,6 +40,7 @@ export default class extends think.service.base {
                } else {
                    // 上传失败， 处理返回代码
                    console.log(err);
+                   deferred.resolve(false);
                }
            });
            return deferred.promise;

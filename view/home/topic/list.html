@@ -276,7 +276,7 @@
 								<!-- IMAGE -->
                          {% if val.cover_id>0 %}
 								<figure class="margin-bottom-20">
-									<img class="img-responsive" src="{{val.cover_id|get_cover('path')}}" alt="">
+									<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=848,h=235')}}" alt="">
 								</figure>
                          {% endif %}
 								<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>

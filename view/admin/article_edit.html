@@ -1,4 +1,4 @@
-{% extends "./inc/base.html" %}
+c{% extends "./inc/base.html" %}
 {% block style %}
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
 <link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
@@ -226,7 +226,7 @@ table tr td{
 
                               <div id="box_{{size}}" class="uplodbox"><input type="hidden" id="cover_id_{{size}}" value="{{pic.pic}}">
                                   <div class="uploader-list" id="fileList_{{size}}"><div class="file-item thumbnail upload-state-done" id="WU_FILE_{{size}}">
-                                      <img src="{{pic.pic|get_cover('path')}}" style="height:100px;width: 100px">
+                                      <img src="{{pic.pic|get_pic('m=1,w=110,h=110')}}" style="height:100px;width: 100px">
                                       <div class="info">{{pic.name}}</div><div class="atom-close close-modal small js-remove-sku-atom">×</div></div></div>
                                   <div data-id="{{size}}" id="filePicker_{{size}}" class="webuploader-container hide">
                                       <i style="font-size: 36px;margin-top: 15px" class="fa fa-file-image-o"></i><br>{{pic.name}}</div> </div>
@@ -1193,7 +1193,7 @@ table tr td{
     if("{{data[field.name]}}".length >0){
     {% for val in data[field.name]|strToArray%}
     var picobj = {}
-    var picurl = "{{val|get_cover("path")}}";
+    var picurl = "{{val|get_pic('m=1,w=110,h=110')}}";
     picobj.src = picurl;
     picobj.id = {{val}};
     picobj.name = {{val}};
@@ -1654,7 +1654,7 @@ table tr td{
     //当有图片时加载图片
     var cover_id="{{data[field.name]}}";
     if(cover_id != 0){
-        var picurl = "{{data[field.name]|get_cover('path')}}"
+        var picurl = "{{data[field.name]|get_pic('m=1,w=110,h=110')}}"
         var $li = $(
                         '<div id="' + cover_id + '" class="file-item thumbnail thumb-lg">' +
                         '<img src="'+picurl+'">' +

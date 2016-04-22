@@ -55,6 +55,7 @@ export default class extends Base {
     let basename = path.basename(filepath);
     let ret = {'status':1,'info':'上传成功','data':""}
       let res;
+      //加入七牛接口
     if(this.setup.IS_QINIU==1){
         let qiniu = think.service("qiniu");
         let instance = new qiniu();
