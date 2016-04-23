@@ -1,58 +1,13 @@
 <!-- .aside -->
 <aside class="{{bg}} dk aside hidden-print {%if navxs %} nav-xs {% endif %}" id="nav">
     <section class="vbox">
-        <section class="scrollable">
+        <section class="w-f-md scrollable">
             <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
                  data-size="10px" data-railOpacity="0.2">
 
                 <!-- nav -->
                 <nav class="nav-primary hidden-xs">
-                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
-                        <div class="bg hidden-xs ">
-                            <div class="dropdown  wrapper-sm clearfix">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <span class="thumb-sm avatar pull-left m-l-xs">
-                        <img src="/static/admin/img/a3.png" class="dker" alt="...">
-                        <i class="on b-black"></i>
-                      </span>
-                      <span class="hidden-nav-xs clear">
-                        <span class="block m-l">
-                          <strong class="font-bold text-lt">微信公共账号</strong>
-                          <b class="caret"></b>
-                        </span>
-                        <span class="text-muted text-xs block m-l">账号类型</span>
-                      </span>
-                                </a>
-                            
-                                <ul class="dropdown-menu animated fadeInRight aside text-left">
-                                    <li>
-                                        <span class="arrow top hidden-nav-xs"></span>
-                                        <a href="/admin/mpbase/index">公共账号设置</a>
-                                    </li>
-                                    <li>
-                                        <a href="profile.html">群发功能</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="badge bg-danger pull-right">3</span>
-                                            消息管理
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="docs.html">自动回复</a>
-                                    </li>
-                                    <li>
-                                        <a href="docs.html">自定义菜单</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="/admin/mpbase/index" >公众平台管理</a>
-                                        <!--data-toggle="ajaxModal"-->
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </footer>
+
                     <!--<ul class="nav bg clearfix">-->
                     <!--<li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">-->
                     <!--微信-->
@@ -117,7 +72,52 @@
             </div>
         </section>
 
+        <footer class="footer hidden-xs no-padder text-center-nav-xs">
+            <div class="bg hidden-xs ">
+                <div class="dropdown dropup  wrapper-sm clearfix">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <span class="thumb-sm avatar pull-left m-l-xs">
+                        <img src="/static/admin/img/weixin.png" class="dker" alt="...">
+                        <i class="on b-black"></i>
+                      </span>
+                      <span class="hidden-nav-xs clear">
+                        <span class="block m-l">
+                          <strong class="font-bold text-lt">微信公共账号</strong>
+                          <b class="caret"></b>
+                        </span>
+                        <span class="text-muted text-xs block m-l">账号类型</span>
+                      </span>
+                    </a>
 
+                    <ul class="dropdown-menu animated fadeInRight aside text-left">
+                        <li>
+                            <span class="arrow bottom hidden-nav-xs"></span>
+                            <a href="/admin/mpbase/index">公共账号设置</a>
+                        </li>
+                        <li>
+                            <a href="profile.html">群发功能</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="badge bg-danger pull-right">3</span>
+                                消息管理
+                            </a>
+                        </li>
+                        <li>
+                            <a href="docs.html">自动回复</a>
+                        </li>
+                        <li>
+                            <a href="docs.html">自定义菜单</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/admin/mpbase/index" >公众平台管理</a>
+                            <!--data-toggle="ajaxModal"-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </section>
 </aside>
 <!-- /.aside -->

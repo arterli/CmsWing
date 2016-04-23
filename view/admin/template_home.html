@@ -1,0 +1,132 @@
+{% extends "./inc/base.html" %} {% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/template_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i> PC端模板 </a></li>
+                            <li class=""><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 移动端模板</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
+
+                                {% if breadcrumb|length == 0%} [ {% if position %} <a href="/admin/article/index" class="text-info">全部</a>{%else%}<strong>全部</strong>{%endif%}
+                                {%for key ,val in controller.setup.DOCUMENT_POSITION %} {%if position != key %}<a href="/admin/article/index/position/{{key}}"
+                                                                                                                  class="text-info">{{val}}</a>{%else%}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor
+                                %}] {%endif%} {%if model|length > 1 %}[ 模型：{%if model_id ==null %}<strong>全部</strong>{%else%}
+                                <a
+                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}" class="text-info"> 全部 </a>{%endif%}&nbsp; {% for val in modellist%} {% if model_id != val.id %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}"
+                                                                                                                                                                                                      class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
+                                {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==null %}<strong>全部</strong>{%else%}
+                                <a
+                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <div class="btn-group">
+                                            <button {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add
+                                                dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
+                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
+                                                >添加内容 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
+                                            {%if model|length > 1 %}
+                                            <ul class="dropdown-menu">
+
+                                                {% for val in modellist%}
+                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"
+                                                        class="text-info">添加{{val.title}}</a></li>
+                                                {% endfor %}
+
+                                                <!--<li class="divider"></li>-->
+                                                <!--<li><a href="#">添加内容</a></li>-->
+                                            </ul>
+                                            {% endif %}
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/article/setstatus/status/1" target-form="ids">
+                                                启用
+                                            </a>
+                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/article/setstatus/status/0" target-form="ids">
+                                                禁用
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                                移动
+                                            </a>
+                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                                复制
+                                            </a>
+                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                                粘贴
+                                            </a>
+                                        </div>
+
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            删除
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            排序
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{http.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                             <textarea style="width: 100%; height: 400px">{{tempcon}}</textarea>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                                微信图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                                高级图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                                推送
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+{% endblock %}}
