@@ -1,5 +1,5 @@
 {% extends "./inc/base.html" %} {% block style %}
-<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+<link rel="stylesheet" href="/static/admin/editormd/editormd.min.css" type="text/css">
 {% endblock%} {% block content %}
 <section class="vbox">
     <section id="bjax-target">
@@ -38,30 +38,13 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <div class="btn-group">
-                                            <button {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add
-                                                dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
-                                                >添加内容 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
-                                            {%if model|length > 1 %}
-                                            <ul class="dropdown-menu">
 
-                                                {% for val in modellist%}
-                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"
-                                                        class="text-info">添加{{val.title}}</a></li>
-                                                {% endfor %}
-
-                                                <!--<li class="divider"></li>-->
-                                                <!--<li><a href="#">添加内容</a></li>-->
-                                            </ul>
-                                            {% endif %}
-                                        </div>
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/article/setstatus/status/1" target-form="ids">
-                                                启用
+                                            <a class="btn btn-sm btn-info " id="get-code-btn">
+                                                获取
                                             </a>
-                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/article/setstatus/status/0" target-form="ids">
-                                                禁用
+                                            <a class="btn btn-sm btn-info " id="fullscreen-btn">
+                                                全屏
                                             </a>
                                         </div>
                                         <div class="btn-group">
@@ -94,8 +77,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                             <textarea style="width: 100%; height: 400px">{{tempcon}}</textarea>
+                            <div id="layout">
+                                <header class="hide">
+                                    <h1>Chnage mode</h1>
+                                    <p>Become to the code editor</p>
+                                    <p>Modes : <select id="modes">
+                                        <option value="">select modes</option>
+                                    </select>&nbsp;&nbsp;Themes :
+                                        <select id="themes">
+                                            <option selected="selected" value="">select themes</option>
+                                        </select>
+                                    </p>
+                                </header>
+
+                                <div id="codes" class="hide">
+            <textarea id="html-code">{{tempcon}}</textarea>
+</div>
+                                <div id="test-editormd" style="margin: 0">
+                                    <textarea style="display:none;"></textarea>
+                                </div>
                             </div>
                             <footer class="panel-footer">
                                 <div class="row">
@@ -129,4 +129,89 @@
 
 
 {% endblock %} {% block script %}
+<script src="/static/admin/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    function getCodeValue() {
+        return (localStorage.modeName) ? $("#"+localStorage.modeName.replace("text/", "").replace("c/c++", "cpp")+"-code").val() : $("#html-code").val();
+    }
+
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width            : "100%",
+            height           : 640,
+            watch            : false,
+            toolbar          : false,
+            codeFold         : true,
+            searchReplace    : true,
+            placeholder      : "Enjoy coding!",
+            value            : getCodeValue(),
+            theme            : (localStorage.theme) ? localStorage.theme : "default",
+            mode             : (localStorage.mode) ? localStorage.mode : "text/html",
+            path             : '/static/admin/editormd/lib/'
+        });
+
+        $("#get-code-btn").bind("click", function() {
+            alert(testEditor.getValue());
+        });
+
+        $("#fullscreen-btn").bind("click", function() {
+            testEditor.fullscreen();
+        });
+
+        var select = $("#themes");
+
+        for (var i = 0, len = editormd.themes.length; i < len; i ++)
+        {
+            var theme    = editormd.themes[i];
+            var selected = (localStorage.theme == theme) ? " selected=\"selected\"" : "";
+            select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
+        }
+
+        select.change(function(){
+            var theme = $(this).val();
+
+            if (theme == "")
+            {
+                alert("theme == \"\"");
+                return false;
+            }
+
+            localStorage.theme = theme;
+            testEditor.setTheme(theme);
+        });
+
+        var modesSelect = $("#modes");
+        var modeNames = ["text/html", "javascript", "php", "text/xml", "text/json", "java", "actionscript", "perl", "go", "python", "c/c++", "css", "ruby"];
+        var modes     = ["text/html", "javascript", "php", "text/xml", "text/json", "clike", "javascript", "perl", "go", "python", "clike", "css", "ruby"];
+
+        for (var i = 0, len = modes.length; i < len; i ++)
+        {
+            var mode    = modes[i];
+            var selected = (localStorage.modeName == modeNames[i]) ? " selected=\"selected\"" : "";
+            modesSelect.append("<option value=\"" + mode + "\"" + selected + " name=\"" + modeNames[i] + "\"" + selected + ">" + modeNames[i] + "</option>");
+        }
+
+        modesSelect.change(function(){
+            var mode = $(this).val();
+            var modeName = $(this).find("option:selected").attr("name");
+
+            if (mode == "")
+            {
+                alert("mode == \"\"");
+                return false;
+            }
+
+            localStorage.mode     = mode;
+            localStorage.modeName = modeName;
+
+            var code = getCodeValue();
+
+            testEditor.setCodeMirrorOption("mode", mode);
+            //testEditor.setCodeMirrorOption("value", code);
+            testEditor.setValue(code);
+        });
+    });
+</script>
 {% endblock %}}

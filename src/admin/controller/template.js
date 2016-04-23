@@ -35,7 +35,7 @@ export default class extends Base {
     console.log(tempcon);
     this.assign({
       "navxs":true,
-      "tempcon":tempcon
+      "tempcon":tempcon,
     });
     return this.display();
   }
