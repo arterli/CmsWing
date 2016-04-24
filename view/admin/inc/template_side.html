@@ -5,13 +5,9 @@
             <div class="panel panel-success m-b-none">
                 <header class="panel-heading">
                     <select class="form-control " name="type">
-
-                        <option value="1" selected="">默认模板</option>
-
-                        <option value="2" >自定义模板</option>
-
-                        <option value="3">自定义模板2</option>
-
+                      {%for v in temp_group%}
+                        <option value="{{v.gid}}" {%if v.isdefault==1%}selected=""{%endif%}>{{v.gname}}</option>
+                        {%endfor%}
                     </select>
                 </header>
             </div>
@@ -32,12 +28,12 @@
                      {%if c.id == 186%}
                     <a href="/{{c.url}}" class="list-group-item {% if controller.active == c.url %} active {% endif %}">
 
-                        {{c.title}}{{c.id}}
+                        {{c.title}}
                     </a>
                     {% for d in c.children %}
                     <a href="/{{d.url}}" class="list-group-item {% if controller.active == d.url %} active {% endif %}">
 
-                        {{d.title}}{{d.id}}
+                        {{d.title}}
                     </a>
                     {%endfor%}
                     {%endif%}

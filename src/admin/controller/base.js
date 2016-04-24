@@ -30,7 +30,7 @@ export default class extends think.controller.base {
         this.assign("userinfo", this.user);
         //网站配置
         this.setup = await this.model("setup").getset();
-        console.log(this.setup);
+        // console.log(this.setup);
         //后台菜单
         this.adminmenu = await this.model('menu').adminmenu();
         this.assign("setup", this.setup);

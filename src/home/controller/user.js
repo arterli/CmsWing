@@ -623,8 +623,6 @@ export default class extends Base {
 
     //获取头像
     async avatarAction() {
-        //判断是否登陆
-        await this.weblogin();
         var uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + this.user.uid;
         let path = think.isFile(uploadPath + "/" + "/avatar.png");
         this.type("image/png");

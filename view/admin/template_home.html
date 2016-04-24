@@ -11,8 +11,10 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i> PC端模板 </a></li>
-                            <li class=""><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 移动端模板</a>
+                            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i>
+                                PC端模板 </a></li>
+                            <li class=""><a data-toggle="tab" href="/admin/database/imports"><i
+                                    class="fa fa-user text-muted"></i> 移动端模板</a>
                             </li>
                         </ul>
                     </header>
@@ -20,19 +22,11 @@
 
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
-
-                                {% if breadcrumb|length == 0%} [ {% if position %} <a href="/admin/article/index" class="text-info">全部</a>{%else%}<strong>全部</strong>{%endif%}
-                                {%for key ,val in controller.setup.DOCUMENT_POSITION %} {%if position != key %}<a href="/admin/article/index/position/{{key}}"
-                                                                                                                  class="text-info">{{val}}</a>{%else%}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor
-                                %}] {%endif%} {%if model|length > 1 %}[ 模型：{%if model_id ==null %}<strong>全部</strong>{%else%}
-                                <a
-                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}" class="text-info"> 全部 </a>{%endif%}&nbsp; {% for val in modellist%} {% if model_id != val.id %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}"
-                                                                                                                                                                                                      class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
-                                {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==null %}<strong>全部</strong>{%else%}
-                                <a
-                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
-                                else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
+                                修改首页模板
+                                <i data-title="帮助信息" data-placement="bottom" data-toggle="tooltip"
+                                   class="fa fa-info-sign text-muted">
+                                    <i class="fa fa-question-circle"></i>
+                                </i>
                             </header>
                             <div class="row wrapper">
 
@@ -40,39 +34,37 @@
                                     <div class="">
 
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-info " id="get-code-btn">
-                                                获取
-                                            </a>
-                                            <a class="btn btn-sm btn-info " id="fullscreen-btn">
+                                            <a class="btn btn-sm btn-default " id="fullscreen-btn">
                                                 全屏
+
                                             </a>
                                         </div>
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                移动
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                模板变量
                                             </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                复制
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                模板标签
                                             </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                粘贴
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                公共模板
                                             </a>
                                         </div>
 
-                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                            删除
+                                        <a class="btn btn-sm btn-info" href="#">
+                                            首页方案
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                            排序
-                                        </a>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="input-group pull-right search-form">
-                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                        <input type="text" class="input-sm form-control"
+                                               name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
                                                value="{{http.get('title')}}">
                                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search"
+                                url="/admin/cms/list/model/{{model.name}}">搜索</button>
                       </span>
                                     </div>
                                 </div>
@@ -91,30 +83,18 @@
                                 </header>
 
                                 <div id="codes" class="hide">
-            <textarea id="html-code">{{tempcon}}</textarea>
-</div>
+                                    <textarea id="html-code">{{temp.html}}</textarea>
+                                </div>
                                 <div id="test-editormd" style="margin: 0">
                                     <textarea style="display:none;"></textarea>
                                 </div>
                             </div>
                             <footer class="panel-footer">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                微信图文
-                                            </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                高级图文
-                                            </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                推送
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 text-right text-center-xs">
-                                        {{pagerData | safe}}
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-primary btn-s-md ajax_post_temp">修改</button>
+                                        <button class="btn btn-default">重置</button>
+                                        <a class="btn btn-default" href="/admin/template/tempbak/module/{{temp.module}}/controller/{{temp.controller}}/action/{{temp.action}}/type/{{temp.type}}/pid/{{temp.id}}" data-toggle="ajaxModal">修改记录</a>
                                     </div>
                                 </div>
                             </footer>
@@ -134,46 +114,68 @@
     var testEditor;
 
     function getCodeValue() {
-        return (localStorage.modeName) ? $("#"+localStorage.modeName.replace("text/", "").replace("c/c++", "cpp")+"-code").val() : $("#html-code").val();
+        return (localStorage.modeName) ? $("#" + localStorage.modeName.replace("text/", "").replace("c/c++", "cpp") + "-code").val() : $("#html-code").val();
     }
 
-    $(function() {
+    $(function () {
         testEditor = editormd("test-editormd", {
-            width            : "100%",
-            height           : 640,
-            watch            : false,
-            toolbar          : false,
-            codeFold         : true,
-            searchReplace    : true,
-            placeholder      : "Enjoy coding!",
-            value            : getCodeValue(),
-            theme            : (localStorage.theme) ? localStorage.theme : "default",
-            mode             : (localStorage.mode) ? localStorage.mode : "text/html",
-            path             : '/static/admin/editormd/lib/'
+            width: "100%",
+            height: 640,
+            watch: false,
+            toolbar: false,
+            codeFold: true,
+            searchReplace: true,
+            placeholder: "Enjoy coding!",
+            value: getCodeValue(),
+            theme: (localStorage.theme) ? localStorage.theme : "default",
+            mode: (localStorage.mode) ? localStorage.mode : "text/html",
+            path: '/static/admin/editormd/lib/'
         });
 
-        $("#get-code-btn").bind("click", function() {
+        $("#get-code-btn").bind("click", function () {
             alert(testEditor.getValue());
         });
-
-        $("#fullscreen-btn").bind("click", function() {
+        //提交表单
+        $(".ajax_post_temp").click(function (e) {
+            $.ajax({
+                url: "/admin/template/home",
+                data: {
+                    html: testEditor.getValue(),
+                },
+                type: "post",
+                success: function (res) {
+                    if (res.errno == 0) {
+                        swal({
+                            title: res.data.name,
+                            text: "模板已自动备份!",
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK",
+                        }, function () {
+                            location.reload();
+                        });
+                    }else {
+                        swal(res.errmsg,"",'warning')
+                    }
+                }
+            })
+        })
+        $("#fullscreen-btn").bind("click", function () {
             testEditor.fullscreen();
         });
 
         var select = $("#themes");
 
-        for (var i = 0, len = editormd.themes.length; i < len; i ++)
-        {
-            var theme    = editormd.themes[i];
+        for (var i = 0, len = editormd.themes.length; i < len; i++) {
+            var theme = editormd.themes[i];
             var selected = (localStorage.theme == theme) ? " selected=\"selected\"" : "";
             select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
         }
 
-        select.change(function(){
+        select.change(function () {
             var theme = $(this).val();
 
-            if (theme == "")
-            {
+            if (theme == "") {
                 alert("theme == \"\"");
                 return false;
             }
@@ -184,26 +186,24 @@
 
         var modesSelect = $("#modes");
         var modeNames = ["text/html", "javascript", "php", "text/xml", "text/json", "java", "actionscript", "perl", "go", "python", "c/c++", "css", "ruby"];
-        var modes     = ["text/html", "javascript", "php", "text/xml", "text/json", "clike", "javascript", "perl", "go", "python", "clike", "css", "ruby"];
+        var modes = ["text/html", "javascript", "php", "text/xml", "text/json", "clike", "javascript", "perl", "go", "python", "clike", "css", "ruby"];
 
-        for (var i = 0, len = modes.length; i < len; i ++)
-        {
-            var mode    = modes[i];
+        for (var i = 0, len = modes.length; i < len; i++) {
+            var mode = modes[i];
             var selected = (localStorage.modeName == modeNames[i]) ? " selected=\"selected\"" : "";
             modesSelect.append("<option value=\"" + mode + "\"" + selected + " name=\"" + modeNames[i] + "\"" + selected + ">" + modeNames[i] + "</option>");
         }
 
-        modesSelect.change(function(){
+        modesSelect.change(function () {
             var mode = $(this).val();
             var modeName = $(this).find("option:selected").attr("name");
 
-            if (mode == "")
-            {
+            if (mode == "") {
                 alert("mode == \"\"");
                 return false;
             }
 
-            localStorage.mode     = mode;
+            localStorage.mode = mode;
             localStorage.modeName = modeName;
 
             var code = getCodeValue();
@@ -212,6 +212,8 @@
             //testEditor.setCodeMirrorOption("value", code);
             testEditor.setValue(code);
         });
+
+
     });
 </script>
 {% endblock %}}

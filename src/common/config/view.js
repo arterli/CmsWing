@@ -57,10 +57,18 @@ export default {
                 env.addFilter("show_status_op", function (status) {
                     // 获取数据的状态操作
                     switch (status) {
-                        case 0: return '启用'; break;
-                        case 1: return '禁用'; break;
-                        case 2: return '审核'; break;
-                        default: return false; break;
+                        case 0:
+                            return '启用';
+                            break;
+                        case 1:
+                            return '禁用';
+                            break;
+                        case 2:
+                            return '审核';
+                            break;
+                        default:
+                            return false;
+                            break;
 
                     }
                 })
@@ -72,21 +80,29 @@ export default {
                         return false;
                     }
                     switch (type) {
-                        case 1: return '目录'; break;
-                        case 2: return '主题'; break;
-                        case 3: return '段落'; break;
-                        default: return false; break;
+                        case 1:
+                            return '目录';
+                            break;
+                        case 2:
+                            return '主题';
+                            break;
+                        case 3:
+                            return '段落';
+                            break;
+                        default:
+                            return false;
+                            break;
                     }
                 })
                 env.addFilter("strToJson", function (str) {
-                   if(!think.isEmpty(str)){
+                    if (!think.isEmpty(str)) {
                         return JSON.parse(str);
-                   }      
+                    }
                 })
-                 env.addFilter("jsonToStr", function (json) {
-                   if(!think.isEmpty(json)){
-                        return JSON.stringify(json);   
-                   }      
+                env.addFilter("jsonToStr", function (json) {
+                    if (!think.isEmpty(json)) {
+                        return JSON.stringify(json);
+                    }
                 })
                 env.addFilter("strToArray", function (str) {
                     if (!think.isEmpty(str)) {
@@ -106,7 +122,7 @@ export default {
                 env.addFilter("isempty", function (any) {
                     return think.isEmpty(any);
                 })
-               
+
                 //获取字段类型信息
                 env.addFilter("get_attribute_type", function (str) {
                     return get_attribute_type(str);
@@ -116,10 +132,10 @@ export default {
                     return get_list_field(data, grid, controller, module);
                 })
                 //表情图标正则替换
-                env.addFilter("get_bq", function (wx_bq,emoji) {
-                    for(let key in emoji){
-                        let img = '<img src="https:\/\/res.wx.qq.com/mpres/htmledition/images/icon/emotion/'+key+'.gif" />';
-                        let reg = new RegExp('\\['+ emoji[key] + '\\]' ,'g');
+                env.addFilter("get_bq", function (wx_bq, emoji) {
+                    for (let key in emoji) {
+                        let img = '<img src="https:\/\/res.wx.qq.com/mpres/htmledition/images/icon/emotion/' + key + '.gif" />';
+                        let reg = new RegExp('\\[' + emoji[key] + '\\]', 'g');
                         wx_bq = wx_bq.replace(reg, img);
                     }
                     return wx_bq;
@@ -134,7 +150,7 @@ export default {
                 env.addFilter("dateformat", function (extra, date) {
                     return dateformat(date, extra);
                 })
-                
+
                 /**
                  * 获取行为类型
                  * @param intger type 类型
@@ -145,99 +161,99 @@ export default {
                     return get_action_type(type, all);
                 })
                 /**
-                 * 获取模型字段信息 
+                 * 获取模型字段信息
                  * @param model_id 模型id 或 模型名称
                  * @param id 数据id
                  * @param field 字段
                  * @param return 整条数据或字段数据
                  * @author arterli <arterli@qq.com>
                  */
-                env.addFilter("getmodelfield", async(id,model_id,field, callback) => {
-                    let data = await getmodelfield(model_id,id,field);
-                    callback(null,data);
-                 }, true)
+                env.addFilter("getmodelfield", async(id, model_id, field, callback) => {
+                    let data = await getmodelfield(model_id, id, field);
+                    callback(null, data);
+                }, true)
                 /**
                  * 获取用户名称
                  */
                 env.addFilter("get_nickname", async(uid, callback) => {
                     let data = await get_nickname(uid);
-                    callback(null,data);
-                 }, true)
-            /**
-             * 获取文档url
-             */
-            env.addFilter('get_url', (name, id) => {
-                return get_url(name, id)
-            })
+                    callback(null, data);
+                }, true)
+                /**
+                 * 获取文档url
+                 */
+                env.addFilter('get_url', (name, id) => {
+                    return get_url(name, id)
+                })
                 /**
                  * 获取文档封面图
                  */
                 env.addFilter('get_cover', async(cover_id, field, callback) => {
 
-                let data = await get_cover(cover_id, field);
-                    callback(null,data);
+                    let data = await get_cover(cover_id, field);
+                    callback(null, data);
 
-        }, true)
+                }, true)
                 /**
                  * {{id|get_pic("m=1,w=200,h=200")}}
                  */
-                env.addFilter('get_pic', async(id,type,callback)=>{
-                    let m,w,h;
+                env.addFilter('get_pic', async(id, type, callback)=> {
+                    let m, w, h;
                     console.log(type);
-                    let obj ={};
-                    for(let v of type.split(",")){
-                       v = v.split("=");
-                        obj[v[0]]=v[1];
+                    let obj = {};
+                    for (let v of type.split(",")) {
+                        v = v.split("=");
+                        obj[v[0]] = v[1];
                     }
-                    m=obj.m;
-                    w=obj.w;
-                    h=obj.h;
-                  let data = await get_pic(id,m,w,h);
-                    callback(null,data);
-                },true)
-         //价格格式化
-                env.addFilter("get_price_format", function (price,type) {
-                    return get_price_format(price,type);
+                    m = obj.m;
+                    w = obj.w;
+                    h = obj.h;
+                    let data = await get_pic(id, m, w, h);
+                    callback(null, data);
+                }, true)
+                //价格格式化
+                env.addFilter("get_price_format", function (price, type) {
+                    return get_price_format(price, type);
                 })
                 /**
                  * is_weixin
                  * 判断是否是微信访问
                  */
-                env.addFilter("is_weixin",(agent)=>{
+                env.addFilter("is_weixin", (agent)=> {
                     return is_weixin(agent);
                 })
-                /** 
-     * 将数值四舍五入(保留1位小数)后格式化成金额形式 
-     * 
-     * @param num 数值(Number或者String) 
-     * @return 金额格式的字符串,如'1,234,567.4' 
-     * @type String 
-     */  
-          env.addFilter("formatCurrency",function (num) {
-              if(!think.isEmpty(num)) {
-                  return formatCurrency(num);
-              }
-          })
-        /**
-         * 获取商品价格不格式
-         */
-        env.addFilter('get_price',function (price,type){
-            return get_price(price,type);
-        })
-        env.addExtension('tagtest', new mytags(), true);
-        /**
-         * 获取分类标签
-         */
-        env.addExtension('column', new column(), true);
-        /**
-         * 获取导航标签
-         */
-        env.addExtension('channel', new channel(), true);
-        /**
-         * 获取数据标签
-         */
-        env.addExtension('topic', new topic(), true);
-    }
-}
+                /**
+                 * 将数值四舍五入(保留1位小数)后格式化成金额形式
+                 *
+                 * @param num 数值(Number或者String)
+                 * @return 金额格式的字符串,如'1,234,567.4'
+                 * @type String
+                 */
+                env.addFilter("formatCurrency", function (num) {
+                    if (!think.isEmpty(num)) {
+                        return formatCurrency(num);
+                    }
+                })
+                /**
+                 * 获取商品价格不格式
+                 */
+                env.addFilter('get_price', function (price, type) {
+                    return get_price(price, type);
+                })
+                env.addExtension('tagtest', new mytags(), true);
+                /**
+                 * 获取分类标签
+                 */
+                env.addExtension('column', new column(), true);
+                /**
+                 * 获取导航标签
+                 */
+                env.addExtension('channel', new channel(), true);
+                /**
+                 * 获取数据标签
+                 */
+                env.addExtension('topic', new topic(), true);
+            }
+        }
     }
 };
