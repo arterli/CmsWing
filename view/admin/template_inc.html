@@ -11,9 +11,9 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/column"><i class="icon-screen-desktop text-muted"></i>
+                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/inc"><i class="icon-screen-desktop text-muted"></i>
                             PC端模板 </a></li>
-                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/column/type/2"><i
+                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/inc/type/2"><i
                                 class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
                             </li>
                         </ul>
@@ -29,8 +29,8 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
 
-                                        <a class="btn btn-sm btn-info" href="/admin/template/add/temptype/column/type/{%if http.get('type')==2%}2{%else%}1{%endif%}">
-                                            添加{%if http.get('type')==2%}移动端{%else%}PC端{%endif%}列表模板
+                                        <a class="btn btn-sm btn-info" href="/admin/template/add/temptype/inc/type/{%if http.get('type')==2%}2{%else%}1{%endif%}">
+                                            添加{%if http.get('type')==2%}移动端{%else%}PC端{%endif%}公共模板
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
                                             管理分类

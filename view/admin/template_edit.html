@@ -9,20 +9,12 @@
             <!-- / side content -->
             <section>
                 <section class="vbox">
-                    <header class="header bg-light dk">
-                        <ul class="nav nav-tabs pull-left">
-                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/home"><i class="icon-screen-desktop text-muted"></i>
-                                PC端模板 </a></li>
-                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/home/type/2"><i
-                                    class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
-                            </li>
-                        </ul>
-                    </header>
+
                     <section class="scrollable wrapper">
 
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                修改首页模板
+                                {%if temp.type ==1%}<i class="icon-screen-desktop text-danger"></i>{%else%}<i class="icon-screen-smartphone text-danger"></i>{%endif%} 修改{{temp.name}}
                                 <i data-title="帮助信息" data-placement="bottom" data-toggle="tooltip"
                                    class="fa fa-info-sign text-muted">
                                     <i class="fa fa-question-circle"></i>
@@ -50,11 +42,6 @@
                                                 公共模板
                                             </a>
                                         </div>
-
-                                        <a class="btn btn-sm btn-info" href="#">
-                                            首页方案
-                                        </a>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -138,10 +125,10 @@
         //提交表单
         $(".ajax_post_temp").click(function (e) {
             $.ajax({
-                url: "/admin/template/home",
+                url: "/admin/template/edit",
                 data: {
                     html: testEditor.getValue(),
-                    type:'{{temp.type}}'
+                    id:'{{temp.id}}'
                 },
                 type: "post",
                 success: function (res) {

@@ -1,4 +1,3 @@
-
 {% extends "../inc/base.html" %}
 {% block page%}
 <div class="page page-current" id="page-infinite-scroll-bottom">
@@ -38,7 +37,7 @@
                 <li>
                     <a class="item-link item-content" href="#">
                         {% if val.cover_id>0 %}
-                        <div class="item-media"><img width="80" src="{{val.cover_id|get_cover('path')}}"></div>
+                        <div class="item-media"><img width="80" src="{{val.cover_id|get_pic('m=2,w=80,h=80')}}"></div>
                         {% endif %}
                         <div class="item-inner">
                             <div class="item-title-row">

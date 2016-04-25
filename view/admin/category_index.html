@@ -51,10 +51,9 @@
                         <td><span class='folder ui-draggable'>{{val.title}}</span></td>
                         <td>{{val.sort}}</td>
                         <td>{{val.name}}</td>
-                        <td><a data-toggle="class" class="active ajax-get" href="/admin/model/setstatus/ids/1/status/0">
-                            <i class="fa fa-check text-success text{%if val.allow_publish != 0 %}-active{%endif%}"></i>
-                            <i class="fa fa-times text-danger text{%if val.allow_publish == 0 %}-active{%endif%}"></i>
-                        </a></td>
+                        <td>
+                          {%if val.allow_publish == 0 %}不允许{% elif val.allow_publish==1%}允许后台发布{%elif val.allow_publish==2%}允许前后台发布{%endif%}
+                        </td>
 
 
                         <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>

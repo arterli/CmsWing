@@ -9,65 +9,51 @@
             <!-- / side content -->
             <section>
                 <section class="vbox">
-                    <header class="header bg-light dk">
-                        <ul class="nav nav-tabs pull-left">
-                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/home"><i class="icon-screen-desktop text-muted"></i>
-                                PC端模板 </a></li>
-                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/home/type/2"><i
-                                    class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
-                            </li>
-                        </ul>
-                    </header>
+
                     <section class="scrollable wrapper">
 
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                修改首页模板
+                                {%if type ==1%}<i class="icon-screen-desktop text-danger"></i>{%else%}<i class="icon-screen-smartphone text-danger"></i>{%endif%} 添加{{title}}
                                 <i data-title="帮助信息" data-placement="bottom" data-toggle="tooltip"
                                    class="fa fa-info-sign text-muted">
                                     <i class="fa fa-question-circle"></i>
                                 </i>
                             </header>
                             <div class="row wrapper">
+                                <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">模板中文名称</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
 
-                                <div class="col-sm-9 m-b-xs">
-                                    <div class="">
+                                            <div class="col-md-10">
+                                                <input type="text" class="form-control" name="name" value="" placeholder="模板名称">
+                                            </div>
 
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-default " id="fullscreen-btn">
-                                                全屏
-
-                                            </a>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 必填项</span>
+                                            </div>
                                         </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-default" href="#">
-                                                模板变量
-                                            </a>
-                                            <a class="btn btn-sm btn-default" href="#">
-                                                模板标签
-                                            </a>
-                                            <a class="btn btn-sm btn-default" href="#">
-                                                公共模板
-                                            </a>
-                                        </div>
-
-                                        <a class="btn btn-sm btn-info" href="#">
-                                            首页方案
-                                        </a>
-
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="input-group pull-right search-form">
-                                        <input type="text" class="input-sm form-control"
-                                               name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
-                                        <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search"
-                                url="/admin/cms/list/model/{{model.name}}">搜索</button>
-                      </span>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模板英文名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="action" value="" placeholder="index">
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 必填项,纯英文字母,不包含特殊符号,唯一不能重复</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div id="layout">
                                 <header class="hide">
@@ -92,9 +78,8 @@
                             <footer class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-4 col-sm-offset-2">
-                                        <button class="btn btn-primary btn-s-md ajax_post_temp">修改</button>
+                                        <button class="btn btn-primary btn-s-md ajax_post_temp">添加</button>
                                         <button class="btn btn-default">重置</button>
-                                        <a class="btn btn-default" href="/admin/template/tempbak/module/{{temp.module}}/controller/{{temp.controller}}/action/{{temp.action}}/type/{{temp.type}}/pid/{{temp.id}}" data-toggle="ajaxModal">修改记录</a>
                                     </div>
                                 </div>
                             </footer>
@@ -125,7 +110,7 @@
             toolbar: false,
             codeFold: true,
             searchReplace: true,
-            placeholder: "Enjoy coding!",
+            placeholder: "把模板代码复制到这里...",
             value: getCodeValue(),
             theme: (localStorage.theme) ? localStorage.theme : "default",
             mode: (localStorage.mode) ? localStorage.mode : "text/html",
@@ -137,18 +122,29 @@
         });
         //提交表单
         $(".ajax_post_temp").click(function (e) {
+            var name=$("[name='name']").val();
+            var action=$("[name='action']").val();
+            console.log(name);
+            if(name=="" || action==""){
+                swal("名称不能为空","",'warning');
+                return false;
+            }
             $.ajax({
-                url: "/admin/template/home",
+                url: "/admin/template/add",
                 data: {
                     html: testEditor.getValue(),
-                    type:'{{temp.type}}'
+                    type:"{{type}}",
+                    temptype:"{{temptype}}",
+                    name:name,
+                    action:action
+
                 },
                 type: "post",
                 success: function (res) {
                     if (res.errno == 0) {
                         swal({
                             title: res.data.name,
-                            text: "模板已自动备份!",
+                            text: "",
                             type: "success",
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "OK",

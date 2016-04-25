@@ -1,342 +1,342 @@
 {% extends "../inc/base.html" %}
 {% block content %}
-     <!--
-				PAGE HEADER
+<!--
+PAGE HEADER
 
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
 
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-             <section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/panorama/2-min.jpg')">
-				 <div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
-				 <div class="container">
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/panorama/2-min.jpg')">
+<div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
+<div class="container">
 
-					<h1>{{category.title}}</h1>
+<h1>{{category.title}}</h1>
 
-					<!-- breadcrumbs -->
-					<ol class="breadcrumb f-14">
-                        <li><a href="/">首页</a></li>
-                        {%for val in breadcrumb %}
-                        {% if val.id == category.id %}
-						<li class="active">{{val.title}}</li>
-                        {% else %}
-                        <li><a href="{{val.url}}">{{val.title}}</a></li>
-						
-                        {% endif %}
-                        {% endfor %}
-					</ol><!-- /breadcrumbs -->
-					<!-- page tabs -->
-					{%column data="cate",pid=category.pid%}
-					{%if cate%}
-					<ul class="page-header-tabs list-inline">
+<!-- breadcrumbs -->
+<ol class="breadcrumb f-14">
+<li><a href="/">首页</a></li>
+{%for val in breadcrumb %}
+{% if val.id == category.id %}
+<li class="active">{{val.title}}</li>
+{% else %}
+<li><a href="{{val.url}}">{{val.title}}</a></li>
 
-						<!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
-						{%for val in cate%}
-						<li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
-						{%endfor%}
-					</ul>
-					{%endif%}
-					<!-- /page tabs -->
-				</div>
-			</section>
-			<!-- /PAGE HEADER -->
-            <!-- -->
-			<section>
-				<div class="container">
+{% endif %}
+{% endfor %}
+</ol><!-- /breadcrumbs -->
+<!-- page tabs -->
+{%column data="cate",pid=category.pid%}
+{%if cate%}
+<ul class="page-header-tabs list-inline">
 
-					<div class="row">
+<!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+{%for val in cate%}
+<li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+{%endfor%}
+</ul>
+{%endif%}
+<!-- /page tabs -->
+</div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+<div class="container">
 
-						<!-- LEFT -->
-						<div class="col-md-3 col-sm-3">
+<div class="row">
 
-							<!-- INLINE SEARCH -->
-							<div class="inline-search clearfix margin-bottom-30">
-								<form action="" method="get" class="widget_search">
-									<input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
-									<button type="submit">
-										<i class="fa fa-search"></i>
-									</button>
-								</form>
-							</div>
-							<!-- /INLINE SEARCH -->
+<!-- LEFT -->
+<div class="col-md-3 col-sm-3">
 
-							<hr />
+<!-- INLINE SEARCH -->
+<div class="inline-search clearfix margin-bottom-30">
+<form action="" method="get" class="widget_search">
+<input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+<button type="submit">
+<i class="fa fa-search"></i>
+</button>
+</form>
+</div>
+<!-- /INLINE SEARCH -->
 
-							<!-- side navigation -->
-							{%column data="cate",cid=category.id%}
-							{%if cate%}
-							<div class="side-nav margin-bottom-60 margin-top-30">
-								<div class="side-nav-head">
-									<button class="fa fa-bars"></button>
-									<h4>{{category.title}} 子分类</h4>
-								</div>
-								<ul class="list-group list-group-bordered list-group-noicon uppercase">
-									{%for val in cate%}
-									<li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
-									{%endfor%}
-								</ul>
-								<!-- /side navigation -->
-							</div>
-							{%endif%}
+<hr />
 
-
-							<!-- JUSTIFIED TAB -->
-							<div class="tabs nomargin-top hidden-xs margin-bottom-60">
-
-								<!-- tabs -->
-								<ul class="nav nav-tabs nav-bottom-border nav-justified">
-									<li class="active">
-										<a href="#tab_1" data-toggle="tab">
-											Popular
-										</a>
-									</li>
-									<li>
-										<a href="#tab_2" data-toggle="tab">
-											Recent
-										</a>
-									</li>
-								</ul>
-
-								<!-- tabs content -->
-								<div class="tab-content margin-bottom-60 margin-top-30">
-
-									<!-- POPULAR -->
-									<div id="tab_1" class="tab-pane active">
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/1-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/2-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Nam et lacus neque. Ut enim massa, sodales</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-
-									</div>
-									<!-- /POPULAR -->
+<!-- side navigation -->
+{%column data="cate",cid=category.id%}
+{%if cate%}
+<div class="side-nav margin-bottom-60 margin-top-30">
+<div class="side-nav-head">
+<button class="fa fa-bars"></button>
+<h4>{{category.title}} 子分类</h4>
+</div>
+<ul class="list-group list-group-bordered list-group-noicon uppercase">
+{%for val in cate%}
+<li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
+{%endfor%}
+</ul>
+<!-- /side navigation -->
+</div>
+{%endif%}
 
 
-									<!-- RECENT -->
-									<div id="tab_2" class="tab-pane">
+<!-- JUSTIFIED TAB -->
+<div class="tabs nomargin-top hidden-xs margin-bottom-60">
 
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="/static/blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
+<!-- tabs -->
+<ul class="nav nav-tabs nav-bottom-border nav-justified">
+<li class="active">
+<a href="#tab_1" data-toggle="tab">
+Popular
+</a>
+</li>
+<li>
+<a href="#tab_2" data-toggle="tab">
+Recent
+</a>
+</li>
+</ul>
 
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/5-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
+<!-- tabs content -->
+<div class="tab-content margin-bottom-60 margin-top-30">
 
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/6-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Quisque ut nulla at nunc</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-									</div>
-									<!-- /RECENT -->
+<!-- POPULAR -->
+<div id="tab_1" class="tab-pane active">
 
-								</div>
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/1-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
 
-							</div>
-							<!-- JUSTIFIED TAB -->
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/2-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
 
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="blog-sidebar-left.html" class="tab-post-link">Nam et lacus neque. Ut enim massa, sodales</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
 
-							<!-- TAGS -->
-							<h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
-							<div class="hidden-xs margin-bottom-60">
-
-								<a class="tag" href="#">
-									<span class="txt">RESPONSIVE</span>
-									<span class="num">12</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">CSS</span>
-									<span class="num">3</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">HTML</span>
-									<span class="num">1</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">JAVASCRIPT</span>
-									<span class="num">28</span>
-								</a>
-								<a class="tag" href="#">
-									<span class="txt">DESIGN</span>
-									<span class="num">6</span>
-								</a>
-
-								<a class="tag" href="#">
-									<span class="txt">DEVELOPMENT</span>
-									<span class="num">3</span>
-								</a>
-							</div>
+</div>
+<!-- /POPULAR -->
 
 
+<!-- RECENT -->
+<div id="tab_2" class="tab-pane">
 
-							<hr />
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="/static/blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
 
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/5-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
 
-							<!-- SOCIAL ICONS -->
-							<div class="hidden-xs margin-top-30 margin-bottom-60">
-								<a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-									<i class="icon-facebook"></i>
-									<i class="icon-facebook"></i>
-								</a>
+<div class="row tab-post"><!-- post -->
+<div class="col-md-3 col-sm-3 col-xs-3">
+<a href="blog-sidebar-left.html">
+<img src="/static/assets/images/demo/people/300x300/6-min.jpg" width="50" alt="" />
+</a>
+</div>
+<div class="col-md-9 col-sm-9 col-xs-9">
+<a href="blog-sidebar-left.html" class="tab-post-link">Quisque ut nulla at nunc</a>
+<small>June 29 2014</small>
+</div>
+</div><!-- /post -->
+</div>
+<!-- /RECENT -->
 
-								<a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-									<i class="icon-twitter"></i>
-									<i class="icon-twitter"></i>
-								</a>
+</div>
 
-								<a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-									<i class="icon-gplus"></i>
-									<i class="icon-gplus"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-									<i class="icon-linkedin"></i>
-									<i class="icon-linkedin"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-									<i class="icon-rss"></i>
-									<i class="icon-rss"></i>
-								</a>
-							</div>
-
-						</div>
-
-						<!-- RIGHT -->
-						<div class="col-md-9 col-sm-9">
-
-                    {% for val in list %}
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<!-- IMAGE -->
-                         {% if val.cover_id>0 %}
-								<figure class="margin-bottom-20">
-									<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=848,h=235')}}" alt="">
-								</figure>
-                         {% endif %}
-								<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">{{val.view}} Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">{{val.category_id}}</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">{{val.uid|get_nickname}}</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>{{val.description}}</p>
-
-								<a href="{{val.name|get_url(val.id)}}" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-                        {%endfor%}
+</div>
+<!-- JUSTIFIED TAB -->
 
 
-							<!-- PAGINATION -->
-							<div class="text-left">
-								<!-- Pagination Default -->
-								{{pagination | safe}}
-								<!-- /Pagination Default -->
-							</div>
-							<!-- /PAGINATION -->
+<!-- TAGS -->
+<h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
+<div class="hidden-xs margin-bottom-60">
 
-						</div>
+<a class="tag" href="#">
+<span class="txt">RESPONSIVE</span>
+<span class="num">12</span>
+</a>
+<a class="tag" href="#">
+<span class="txt">CSS</span>
+<span class="num">3</span>
+</a>
+<a class="tag" href="#">
+<span class="txt">HTML</span>
+<span class="num">1</span>
+</a>
+<a class="tag" href="#">
+<span class="txt">JAVASCRIPT</span>
+<span class="num">28</span>
+</a>
+<a class="tag" href="#">
+<span class="txt">DESIGN</span>
+<span class="num">6</span>
+</a>
 
-					</div>
+<a class="tag" href="#">
+<span class="txt">DEVELOPMENT</span>
+<span class="num">3</span>
+</a>
+</div>
 
-				</div>
-			</section>
-			<!-- / -->
+
+
+<hr />
+
+
+<!-- SOCIAL ICONS -->
+<div class="hidden-xs margin-top-30 margin-bottom-60">
+<a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+<i class="icon-facebook"></i>
+<i class="icon-facebook"></i>
+</a>
+
+<a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+<i class="icon-twitter"></i>
+<i class="icon-twitter"></i>
+</a>
+
+<a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+<i class="icon-gplus"></i>
+<i class="icon-gplus"></i>
+</a>
+
+<a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+<i class="icon-linkedin"></i>
+<i class="icon-linkedin"></i>
+</a>
+
+<a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+<i class="icon-rss"></i>
+<i class="icon-rss"></i>
+</a>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="col-md-9 col-sm-9">
+
+{% for val in list %}
+<!-- POST ITEM -->
+<div class="blog-post-item">
+
+<!-- IMAGE -->
+{% if val.cover_id>0 %}
+<figure class="margin-bottom-20">
+<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=848,h=235')}}" alt="">
+</figure>
+{% endif %}
+<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
+
+<ul class="blog-post-info list-inline">
+<li>
+<a href="#">
+<i class="fa fa-clock-o"></i>
+<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+</a>
+</li>
+<li>
+<a href="#">
+<i class="fa fa-comment-o"></i>
+<span class="font-lato">{{val.view}} Comments</span>
+</a>
+</li>
+<li>
+<i class="fa fa-folder-open-o"></i>
+
+<a class="category" href="#">
+<span class="font-lato">{{val.category_id}}</span>
+</a>
+<a class="category" href="#">
+<span class="font-lato">Photography</span>
+</a>
+</li>
+<li>
+<a href="#">
+<i class="fa fa-user"></i>
+<span class="font-lato">{{val.uid|get_nickname}}</span>
+</a>
+</li>
+</ul>
+
+<p>{{val.description}}</p>
+
+<a href="{{val.name|get_url(val.id)}}" class="btn btn-reveal btn-default">
+<i class="fa fa-plus"></i>
+<span>Read More</span>
+</a>
+
+</div>
+<!-- /POST ITEM -->
+{%endfor%}
+
+
+<!-- PAGINATION -->
+<div class="text-left">
+<!-- Pagination Default -->
+{{pagination | safe}}
+<!-- /Pagination Default -->
+</div>
+<!-- /PAGINATION -->
+
+</div>
+
+</div>
+
+</div>
+</section>
+<!-- / -->
 {% endblock %}

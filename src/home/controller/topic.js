@@ -36,11 +36,17 @@ export default class extends Base {
       this.assign('category', cate);
       let temp = cate.template_index ? `index_${cate.template_index}` : "";
 
-      return this.display(temp);
+      //判断浏览客户端
+      if(checkMobile(this.userAgent())){
+          return this.display(`mobile/${this.http.controller}/${temp}`)
+      }else{
+          return this.display(temp);
+      }
     }
     //列表页
   async listAction() {
-
+      console.log(111);
+      //return false;
       let id = this.get('category') || 0;
       //console.log(id);
       let cate = await this.category(id);
@@ -98,7 +104,7 @@ export default class extends Base {
       this.assign('list', data.data);
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
-      //think.log(temp);
+
 
       if(checkMobile(this.userAgent())){
          if(this.isAjax("POST")){
@@ -121,6 +127,7 @@ export default class extends Base {
              return this.json(data);
          }
           temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
+          think.log(temp);
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
           return this.display(temp);

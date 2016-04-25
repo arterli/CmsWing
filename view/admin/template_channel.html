@@ -11,8 +11,10 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i> PC端模板 </a></li>
-                            <li class=""><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 移动端模板</a>
+                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/channel"><i class="icon-screen-desktop text-muted"></i>
+                            PC端模板 </a></li>
+                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/channel/type/2"><i
+                                class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
                             </li>
                         </ul>
                     </header>
@@ -20,67 +22,18 @@
 
                         <section class="panel panel-default">
                             <header class="panel-heading">
-                                <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
-
-                                {% if breadcrumb|length == 0%} [ {% if position %} <a href="/admin/article/index" class="text-info">全部</a>{%else%}<strong>全部</strong>{%endif%}
-                                {%for key ,val in controller.setup.DOCUMENT_POSITION %} {%if position != key %}<a href="/admin/article/index/position/{{key}}"
-                                                                                                                  class="text-info">{{val}}</a>{%else%}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor
-                                %}] {%endif%} {%if model|length > 1 %}[ 模型：{%if model_id ==null %}<strong>全部</strong>{%else%}
-                                <a
-                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}" class="text-info"> 全部 </a>{%endif%}&nbsp; {% for val in modellist%} {% if model_id != val.id %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}"
-                                                                                                                                                                                                      class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
-                                {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==null %}<strong>全部</strong>{%else%}
-                                <a
-                                        href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
-                                else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
+                              {{controller.meta_title}}管理
                             </header>
                             <div class="row wrapper">
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <div class="btn-group">
-                                            <button {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add
-                                                dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
-                                                >添加内容 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
-                                            {%if model|length > 1 %}
-                                            <ul class="dropdown-menu">
 
-                                                {% for val in modellist%}
-                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"
-                                                        class="text-info">添加{{val.title}}</a></li>
-                                                {% endfor %}
-
-                                                <!--<li class="divider"></li>-->
-                                                <!--<li><a href="#">添加内容</a></li>-->
-                                            </ul>
-                                            {% endif %}
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/article/setstatus/status/1" target-form="ids">
-                                                启用
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post" href="/admin/article/setstatus/status/0" target-form="ids">
-                                                禁用
-                                            </a>
-                                        </div>
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                移动
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                复制
-                                            </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                                粘贴
-                                            </a>
-                                        </div>
-
-                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                            删除
+                                        <a class="btn btn-sm btn-info" href="/admin/template/add/temptype/channel/type/{%if http.get('type')==2%}2{%else%}1{%endif%}">
+                                            添加{%if http.get('type')==2%}移动端{%else%}PC端{%endif%}封面模板
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
-                                            排序
+                                            管理分类
                                         </a>
                                     </div>
                                 </div>
@@ -98,35 +51,33 @@
                                 <table class="table table-striped b-t b-light">
                                     <thead>
                                     <tr>
-                                        <th style="width:20px;">
-                                            <label class="checkbox m-n i-checks">
-                                                <input type="checkbox"><i></i></label>
-                                        </th>
-                                        {% for field in list_grids %}
-                                        <th>{{field.title}}</th>
-                                        {% endfor %}
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th style="width:80px;">编号</th>
+                                        <th class="">模板名称</th>
+                                        <th class="">模板路径</th>
+                                        <th >操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for data in list %}
+                                    {% for item in list %}
                                     <tr>
-                                        <td>
-                                            <label class="checkbox m-n i-checks">
-                                                <input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label>
-                                        </td>
-                                        {% for grid in list_grids %}
-                                        <td>{{data|get_list_field(grid,http.controller)| safe}}</td>
-                                        {% endfor %}
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>view/{{item.module}}/{%if http.get("type")==2%}mobile/{%endif%}{{item.controller}}/{{item.action}}{{think.config('view.file_ext')}}</td>
+
+
+                                        <td><a href="/admin/template/edit/id/{{item.id}}" class="text-info">修改</a>
+                                            <a href="#" class="text-info">复制</a>
+                                            {%if item.action != "index"%}
+                                            <a href="#" class="confirm ajax-get text-info">删除</a></td>
+                                        {%endif%}
                                     </tr>
                                     {% else %}
-                                    <tr>
-                                        <td colspan="{{list_grids|length + 1}}">
-                                            <div class="alert alert-warning alert-block">
-                                                <button data-dismiss="alert" class="close" type="button">×</button>
-                                                <p>This would display if the 'item' collection were empty</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
 
                                     {% endfor %}
 
@@ -136,21 +87,9 @@
                             </div>
                             <footer class="panel-footer">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="btn-group">
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                微信图文
-                                            </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                高级图文
-                                            </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
-                                                推送
-                                            </a>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-6 text-right text-center-xs">
+
+                                    <div class="col-sm-12 text-right text-center-xs">
                                         {{pagerData | safe}}
                                     </div>
                                 </div>
