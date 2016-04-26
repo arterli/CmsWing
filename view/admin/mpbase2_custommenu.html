@@ -107,7 +107,7 @@
                         </section>
                         
                         
-                        <div class="hs-ui">
+                        <div class="hs-ui clearfix">
                             <div class="hs-ph-area">
                                 <div class="hs-ph-view">
                                     <div class="hs-ph-hd"></div>
@@ -338,12 +338,12 @@
                                 </div>
                             </div>
                             
-                            <div class="hs-clearfix" style="padding-left: 332px;padding-top: 30px">
-                                <button class="btn btn-success " type="button" id="hsSubmitSave">保存</button>
-                                <button class="btn btn-info " type="button" id="hsSubmitSyncWx">生成微信菜单</button>                                
-                            </div>
+
                         </div>
-                        
+                        <div class="hs-clearfix" style="padding-left: 332px;padding-top: 30px">
+                            <button class="btn btn-success " type="button" id="hsSubmitSave">保存</button>
+                            <button class="btn btn-info " type="button" id="hsSubmitSyncWx">生成微信菜单</button>
+                        </div>
                     </section>
                 </section>
             </section>
@@ -402,9 +402,9 @@
         
     })
 
-//    var data = null;
-    var data = {{ data | safe }};
-    var menuid = {{ menuid | safe }};
+    //var data = null;
+    var data = '{{ data | safe }}';
+    var menuid = '{{ menuid | safe }}';
 
 </script>
 <script src="/static/admin/js/hswx/js/hs_selfmenu.js"></script>
@@ -463,6 +463,7 @@
         
         //生成微信菜单
         $(document).on('click', '#hsSubmitSyncWx', function(){
+
             $.post('/admin/mpbase2/asyncwxmenu',
                 {},
                 function(data){

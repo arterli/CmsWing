@@ -16,7 +16,7 @@ export default {
       user: 'root',
       password: '',
       prefix: 'cmswing_',
-      encoding: 'utf8'
+      encoding: 'utf8mb4'
     },
     mongo: {
 
