@@ -602,6 +602,8 @@ export default class extends Base{
         let newv = self.post('newv');
         let menuid = self.post('menuid');//菜单ID
         let currwebtoken = 0;
+        //console.log(newv);
+        //return false;
         try{
             // return self.end(newv);
             if(!newv){
@@ -610,11 +612,22 @@ export default class extends Base{
             //newv = JSON.parse(newv);
             let currtime = new Date().getTime();
             let model = self.model('wx_custom_menu');
-            let res = await model.add({
-                create_time: currtime,
-                custom_menu: newv,
-                web_token: currwebtoken
-            });
+            let res;
+            if(think.isEmpty(menuid)){
+                res = await model.add({
+                    create_time: currtime,
+                    custom_menu: newv,
+                    web_token: currwebtoken
+                });
+            }else {
+                res = await model.update({
+                    id:menuid,
+                    create_time: currtime,
+                        custom_menu: newv,
+                        web_token: currwebtoken
+                });
+            }
+
             if(res){
                 return self.success({name: '菜单保存成功'});
             }else{
@@ -646,32 +659,66 @@ export default class extends Base{
         }
         
         console.log(data);
+
         let dataObj = JSON.parse(data.custom_menu);
         let final = { button:[] };
-        for(let i = 0; i < dataObj.button.length; i++){
-            let btn = dataObj.button[i];
-            let tmpbtn = { /*name:'', type:'', key:'', sub_button:''*/ };
-            
-            tmpbtn.name = btn.name;
-            if(btn.sub_button.length > 0){
+        // for(let i = 0; i < dataObj.button.length; i++){
+        //     let btn = dataObj.button[i];
+        //     let tmpbtn = { /*name:'', type:'', key:'', sub_button:''*/ };
+        //
+        //     tmpbtn.name = btn.name;
+        //     if(btn.sub_button.length > 0){
+        //         tmpbtn.sub_button = [];
+        //         for(let j = 0; j < btn.sub_button.length; j++){
+        //             let sub = btn.sub_button[i];
+        //             let tmpsub = { /*name:'', type:'', key:'', sub_button:''*/ };
+        //             tmpsub.name = sub.name;
+        //             tmpsub.type = 'view';
+        //             tmpsub.url = sub.act_list[i].value;
+        //
+        //             tmpbtn.sub_button.push(tmpsub);
+        //         }
+        //     }else if(!btn.hasOwnProperty('key')){
+        //         btn.key = (new Date().getTime())+"KEY";
+        //     }else{
+        //     }
+        //
+        //     final.button.push( tmpbtn );
+        // }
+        for(let a of dataObj.button){
+            let tmpbtn ={};
+            tmpbtn.name = a.name;
+            if(think.isEmpty(a.sub_button)){
+                switch (Number(a.type)){
+                    case 1:
+                        //todo
+                        break;
+                    case 2:
+                        tmpbtn.type="view";
+                        tmpbtn.url=a.act_list[0].value;
+                        break;
+                }
+            }else {
                 tmpbtn.sub_button = [];
-                for(let j = 0; j < btn.sub_button.length; j++){
-                    let sub = btn.sub_button[i];
-                    let tmpsub = { /*name:'', type:'', key:'', sub_button:''*/ };
-                    tmpsub.name = sub.name;
-                    tmpsub.type = 'view';
-                    tmpsub.url = sub.act_list[0].value;
-                    
+                for(let b of a.sub_button){
+                    let tmpsub = {};
+                    tmpsub.name = b.name;
+                    switch (Number(b.type)){
+                        case 1:
+                            //todo
+                          break;
+                        case 2:
+                            tmpsub.type="view";
+                            tmpsub.url=b.act_list[0].value;
+                            break;
+                    }
                     tmpbtn.sub_button.push(tmpsub);
                 }
-            }else if(!btn.hasOwnProperty('key')){
-                btn.key = (new Date().getTime())+"KEY";
-            }else{ 
             }
-            
             final.button.push( tmpbtn );
         }
-        console.log(JSON.stringify(final))
+        think.log(final)
+        //return false;
         let res = await wxsubmit(self.api, final );
         // let res = true;
         console.log(res);

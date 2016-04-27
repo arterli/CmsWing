@@ -444,7 +444,7 @@
         //保存
         $(document).on('click', '#hsSubmitSave', function(){
             var newv = JSON.stringify(hsGetCurrentAllData());
-            console.log(JSON.stringify(newv));return;
+            console.log(JSON.stringify(newv));
 
             $.post('/admin/mpbase2/savecustommenu',
                 {

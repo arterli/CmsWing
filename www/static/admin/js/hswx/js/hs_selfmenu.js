@@ -106,7 +106,7 @@ $(function () {
         $(this).addClass('hs-current');
         /* 数据操作 start */
         var pFirstEl = $(this).closest('.hs-menu-sub').siblings('.hs-menu-a');
-        console.log(pFirstEl);
+        //console.log(pFirstEl);
         var thisIndex = $(this).parent('li').index();
         var parentData = pFirstEl.data('currData');
         var currData = parentData.sub_button[thisIndex];
@@ -131,7 +131,7 @@ $(function () {
 
     //- 丰富效果 start ------------------------------- 
     //菜单名称 blur
-    $(document).on('blur', '#hsCurrentMenuName', function () {
+    $(document).on('blur', '#hsCurrentMenuName,#hsUrlValue', function () {
         hsUpdateCurrentData();
 
     })
@@ -174,8 +174,10 @@ $(function () {
  */
 function hsInitMenu(menuData) {
     try {
-        if (!menuData.button) {
+        if (!menuData) {
             $(".hs-ph-edit").addClass("hide")
+        }else {
+            menuData = JSON.parse(menuData);
         }
         var btnlist = menuData.button
         var nlist = btnlist.length;//一级菜单个数
@@ -255,14 +257,16 @@ function hsInitMenuRight(onebtn) {
         //     act_list:[],
         //     sub_button:[]
         // };
-
+        //初始化编辑值
         var currentMenuNameEle = $ID('hsCurrentMenuName');
         currentMenuNameEle.value = onebtn.name; //菜单名称赋值
-
+        //console.log(onebtn.act_list.length);
+        $ID('hsUrlValue').value = "";
         //如果有值
         if (onebtn.act_list.length > 0) {
             var tmp = onebtn.act_list[0];
-            switch (onebtn.type) {
+            console.log(tmp);
+            switch (Number(onebtn.type)) {
                 case 1:
                     break;
                 case 2:
@@ -297,6 +301,7 @@ function $ID(str) {
  */
 function hsGetRightValue() {
     //判断当前是2级菜单还是 1级菜单
+    var value;
     var currEl = $('.hs-current');
     var level = currEl.hasClass('hs-current-edit') ? 1 : 2;
     //取name值
@@ -307,14 +312,21 @@ function hsGetRightValue() {
     var type = $('[name=nnn]').filter('[checked]').val();
     //取act_list
     var actList = [];
-    // var navPanel = $('.hs-etap-nav');
-    // var navActive = navPanel.find('li.active');
-    // var navActiveValue = navActive.attr('jstab-target');
-    // switch (navActiveValue){
-    //     case 'newsArea':
-    //     break;
-    // }
 
+
+    if(type==2){
+        value = { type: 2, value:$("#hsUrlValue").val() }
+    }else {
+        var navPanel = $('.hs-etap-nav');
+        var navActive = navPanel.find('li.active');
+        var navActiveValue = navActive.attr('jstab-target');
+        switch (navActiveValue){
+            case 'newsArea':
+
+                break;
+        }
+    }
+    actList.push(value);
     return {name: name, key: key, type: type, act_list: actList};
 }
 
@@ -354,5 +366,12 @@ function hsGetCurrentAllData() {
         currAllData.button.push(tmp);
     });
     console.log(currAllData);
+    //检查子菜单,如果有,删除父菜单的配置
+    $.each(currAllData.button,function (i, v) {
+        console.log(v.sub_button.length);
+        if(v.sub_button.length>0){
+             v.act_list=[]
+        }
+    })
     return currAllData;
 }
