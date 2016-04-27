@@ -22,6 +22,7 @@
     "wechat-api":"*",
     "jimp":"*",
     "qiniu":"*"
+
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
