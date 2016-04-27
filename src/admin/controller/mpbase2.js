@@ -584,6 +584,7 @@ export default class extends Base{
                 }
             ]
         }
+
         let self = this;
         let model = self.model('wx_custom_menu');
         let ddata = await model.where({personality: null}).find();
@@ -650,7 +651,7 @@ export default class extends Base{
             let deferred = think.defer();
             api.createMenu(data, (err, result)=>{
                 if(err){
-                    deferred.reject(err);
+                    deferred.reject(false);
                 }else{
                     deferred.resolve(result);
                 }
@@ -719,7 +720,8 @@ export default class extends Base{
         }
         think.log(final)
         //return false;
-        let res = await wxsubmit(self.api, final );
+        let api = new API(this.setup.wx_AppID,this.setup.wx_AppSecret);
+        let res = await wxsubmit(api, final );
         // let res = true;
         console.log(res);
         if(res){
