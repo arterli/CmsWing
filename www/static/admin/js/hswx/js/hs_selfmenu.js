@@ -247,6 +247,7 @@ function hsInitMenu(menuData) {
  */
 function hsInitMenuRight(onebtn) {
     try {
+
         if (!onebtn) {
             console.error('param onebtn can not null');
             return false;
@@ -260,12 +261,13 @@ function hsInitMenuRight(onebtn) {
         //初始化编辑值
         var currentMenuNameEle = $ID('hsCurrentMenuName');
         currentMenuNameEle.value = onebtn.name; //菜单名称赋值
+        $(".hs-menutitle").text(onebtn.name)
         //console.log(onebtn.act_list.length);
         $ID('hsUrlValue').value = "";
         //如果有值
         if (onebtn.act_list.length > 0) {
             var tmp = onebtn.act_list[0];
-            console.log(tmp);
+            //console.log(tmp);
             switch (Number(onebtn.type)) {
                 case 1:
                     break;
@@ -274,6 +276,13 @@ function hsInitMenuRight(onebtn) {
                     break;
             }
         }
+        //检查是否子菜单如果有隐藏编辑
+        if($(".hs-current").next().find("ul>.hs-menu-sub-li").length>1){
+            $(".hs-menuright-mval").addClass("hide");
+        }else {
+            $(".hs-menuright-mval").removeClass("hide");
+        };
+        //判断是1级菜单还是2级菜单
 
         hsMRPShowOrHide(onebtn.type); //显示编辑块儿
     } catch (e) {

@@ -354,9 +354,37 @@ export default class extends think.controller.base {
     // this.reply('测试成功:'+msg);
     // }
     }
-  eventAction(){
-    var message = this.post();
-    this.reply(JSON.stringify(message));
+    //事件关注
+ async eventAction(){
+    let message = this.post();
+      switch (message.Event){
+
+          case "subscribe":  //首次关注
+              let data = await this.model("wx_replylist").where({reply_type:1}).find();
+              let content;
+              switch (data.type){
+                  case "text":
+                      content = data.content;
+                      break;
+                  case "news":
+                      content = JSON.parse(data.content);
+                      break;
+              }
+              this.reply(content);
+              break;
+          case "unsubscribe"://取消关注
+              //todo
+              break;
+          case "CLICK"://click事件坚挺
+              //todo
+              break;
+          case "SCAN"://扫码事件监听
+              //todo
+              break;
+          default:
+              break;
+      }
+    // this.reply(JSON.stringify(message));
   }
   __call(){
     this.reply(DEFULT_AUTO_REPLY);
