@@ -689,7 +689,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
     }
     let picture = await think.model('picture', think.config("db")).where({ 'status': 1 }).find(id);
     let q=""
-    if(picture.type == 2){
+    if(picture.type > 0){
        if(m !=null){
            m="/"+m
        }else {
@@ -709,7 +709,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
              q = `?imageView2${m}${w}${h}`
         }
         let name = await think.cache("setup");
-        return `http://${name.QINIU_DOMAIN_NAME}/${picture.source_id}${q}`;
+        return `http://${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
     }else {
         return picture.path
     }

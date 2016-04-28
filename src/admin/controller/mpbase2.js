@@ -2,7 +2,8 @@
 
 import Base from './base.js';
 import API from 'wechat-api';
-
+import http from 'http';
+import fs from 'fs';
 export default class extends Base{
     
     init(http){
@@ -18,7 +19,23 @@ export default class extends Base{
         this.assign({"navxs": true,"bg": "bg-dark"});
         return this.display();
     }
-    
+    //远程拿图片
+    spiderImage(imgUrl,filePath) {
+        let deferred = think.defer();
+        http.get(imgUrl, function (res) {
+            var imgData = "";
+            res.setEncoding("binary");
+            res.on("data", function (chunk) {
+                imgData += chunk;
+            });
+
+            res.on("end", function () {
+                fs.writeFileSync(filePath, imgData, "binary");
+                deferred.resolve(filePath);
+            });
+        });
+        return deferred.promise;
+    }
     /**
      * 给微信上传临时素材 /图片 更新本地库
      */
@@ -27,11 +44,25 @@ export default class extends Base{
         // this.end("暂不开发");
         let thumb_id = this.get('thumb_id');
         let model = this.model('picture');
-        let data = await model.where({id:thumb_id}).find();
- 
+        // let data = await model.where({id:thumb_id}).find();
+        //获取图片
+        let pic = await get_pic(thumb_id,1,900,500);
+        //判断是本地还是外地,如果是外地就抓回来
+        let paths;
+        let filePath=think.RESOURCE_PATH + '/upload/long/';
+        if(pic.indexOf("http://")==0){
+            think.mkdir(filePath)
+            let name = await get_cover(thumb_id,"path");
+            let longpic = await this.spiderImage(pic,filePath+name);
+            paths = longpic;
+        }else {
+            paths=think.ROOT_PATH+'/www/'+pic;
+        }
+        //console.log(pic);
+        //return false;
         let wx = function(api, data){
             let deferred = think.defer();
-            api.uploadMaterial(think.ROOT_PATH+'/www/'+data.path, 'thumb', (err,result)=>{
+            api.uploadMaterial(data, 'thumb', (err,result)=>{
                 if(!think.isEmpty(result)){
                     deferred.resolve(result);
                 }else{
@@ -39,15 +70,18 @@ export default class extends Base{
                 }
             });
             return deferred.promise;
-        } 
+        }
         
-        let img_result = await wx(this.api, data);
+        let api = new API(this.setup.wx_AppID,this.setup.wx_AppSecret);
+        let img_result = await wx(api, paths);
         if(img_result){
+            //删除远程文件
+            fs.unlinkSync(paths);
             await model.where({id:thumb_id}).update({url: img_result.url, source_id: img_result.media_id});
-            img_result.hs_image_src = data.path;
-            this.end(img_result);
+            img_result.hs_image_src = pic;
+            return this.json(img_result);
         }else{
-            this.end("");
+            return this.json("");
         }
     }
     
@@ -59,6 +93,7 @@ export default class extends Base{
         let params = self.post("params");
         let edit_id = self.get("edit_id");
         let model = self.model('wx_material');
+        let api = new API(this.setup.wx_AppID,this.setup.wx_AppSecret);
         if(edit_id){
             let olddata = await model.where({id: edit_id}).find();
             let wxr = function(api, data) {
@@ -72,7 +107,7 @@ export default class extends Base{
                 });
                 return deferred.promise;
             }
-            let wxrres = await wxr(self.api, olddata.media_id);
+            let wxrres = await wxr(api, olddata.media_id);
             let delrow = await model.where({id: edit_id}).delete();
         }
         try{
@@ -89,7 +124,7 @@ export default class extends Base{
                 });
                 return deferred.promise;
             }
-            let wxres = await wx(self.api, anews);
+            let wxres = await wx(api, anews);
             if(wxres){
                 let wxg = function(api, data) {
                     let deferred = think.defer();
@@ -102,7 +137,7 @@ export default class extends Base{
                     });
                     return deferred.promise;
                 }
-                let wx_news = await wxg(self.api, wxres.media_id);
+                let wx_news = await wxg(api, wxres.media_id);
                 // let wx_news_str = JSON.stringify(wx_news);
                 let time = new Date().getTime();
                 let data = {
@@ -187,8 +222,8 @@ export default class extends Base{
     async asyncfodderlistAction(){
         let self = this;
         let model = self.model("wx_material");
-        let data = await model.page(this.get('page')).countSelect();
-        self.end(data);
+        let data = await model.page(this.get('page'),20).order("add_time DESC").countSelect();
+        return this.json(data);
     }
     
     /**
@@ -467,12 +502,22 @@ export default class extends Base{
      * 关注自动回复
      */
     async followAction(){
-        let self = this;
         let model = this.model('wx_replylist');
-        let info =  await model.where({reply_type:1}).find();
-        this.assign('info',info);
+        //首次访问检查数据库有没有数据,如果没有就添加
+        // 'news','music','video','voice','image','text'
+        let data = [{type:"text",reply_type:1},{type:"news",reply_type:1},{type:"image",reply_type:1},{type:"music",reply_type:1},{type:"video",reply_type:1},{type:"voice",reply_type:1}]
+         for(let v of data){
+            await model.where(v).thenAdd(v)
+         }
+        let info =  await model.where({reply_type:1}).order("create_time DESC").select();
+        this.assign('list',info);
+        //初始化
+        let initinfo = info[0];
+        this.assign({"initinfo":initinfo});
         this.assign({"navxs": true,"bg": "bg-dark"});
-        return self.display();
+        this.meta_title="关注自动回复"
+        this.active="admin/mpbase2/autoreply"
+        return this.display();
     }
     /**
      * 消息自动回复
@@ -495,7 +540,7 @@ export default class extends Base{
         let reply_type = this.post('reply_type');
         let send_type = this.post('send_type');
         let editor_content = this.post('editor_content');
-        let me_id = this.post('me_id');
+        let me_id = this.post('me_id')==""?null:this.post('me_id');
         //this.end(reply_type+send_type+editor_content);
         let data = {};
         //消息回复
@@ -510,48 +555,50 @@ export default class extends Base{
             data.type = 'text';
             data.content = editor_content;
         }else if(send_type == 'newsArea'){
-            let wx_content = await media_model.where({'id':me_id}).find();
-            //this.end('aaa'+wx_content['material_content']);
-            let material_content = wx_content['material_content'];
-            material_content = JSON.parse(material_content);
-            let targetArr = [];
-            let articles = material_content.articles;
-            for (let key in articles) {
-                let tmpobj = {};
-                tmpobj.title = articles[key]['title'];
-                tmpobj.description = articles[key]['digest'];
-                tmpobj.pic_url =  articles[key]['hs_image_src'];
-                tmpobj.url = articles[key]['content_source_url'];
-                targetArr.push(tmpobj);
+            console.log(!think.isEmpty(me_id));
+            if(!think.isEmpty(me_id)){
+                let wx_content = await media_model.where({'id':me_id}).find();
+                //this.end('aaa'+wx_content['material_content']);
+                let material_content = wx_content['material_content'];
+                material_content = JSON.parse(material_content);
+                let targetArr = [];
+                let articles = material_content.articles;
+                let host = `http://${this.http.host}`
+                for (let key in articles) {
+                    let tmpobj = {};
+                    tmpobj.title = articles[key]['title'];
+                    tmpobj.description = articles[key]['digest'];
+                    if(articles[key]['hs_image_src'].indexOf("http://") == 0){
+                        tmpobj.pic_url =  articles[key]['hs_image_src'];
+                    }else {
+                        tmpobj.pic_url =  host + articles[key]['hs_image_src'];
+                    }
+
+                    tmpobj.url = articles[key]['content_source_url'];
+                    targetArr.push(tmpobj);
+                }
+                data.content = JSON.stringify(targetArr);
+            }else {
+                data.content = null;
             }
-            data.content = JSON.stringify(targetArr);
             data.type = 'news';
+            data.media_id =me_id;
         }
         data.reply_type = reply_type;
         data.create_time = new Date().getTime();
+        data.id=this.post("id");
         //this.end(data);
-
+        console.log(data);
+        // return false;
         //查询该类型下是否有保存的回复信息
         let isAdd = '';
-        let count = await model.where({reply_type:reply_type}).count();
-        if(count > 0){
-            let isDel = await model.where({reply_type:reply_type}).delete();
-            //this.end('del'+isDel);
-            if(isDel){
-                isAdd = await model.thenAdd(data,{reply_type:reply_type});
-            }
-        }else{
-            isAdd = await model.thenAdd(data,{reply_type:reply_type});
-        }
-
+            isAdd = await model.update(data);
         if(isAdd){
             if(reply_type == 2){
-                this.assign({"navxs": true,"bg": "bg-dark"});
-                return this.redirect("/admin/mpbase2/message");
+                return this.success({name:"修改成功!",url:"/admin/mpbase2/message"})
             }else if(reply_type == 1){
+                return this.success({name:"修改成功!",url:"/admin/mpbase2/follow"})
 
-                this.assign({"navxs": true,"bg": "bg-dark"});
-                return this.redirect("/admin/mpbase2/follow");
             }
         }
 

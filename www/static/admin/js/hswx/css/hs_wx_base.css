@@ -106,9 +106,11 @@ body{ font-size: 14px; font-family: "微软雅黑"; }
    	border-top: 1px solid #E7E7EB;
    	border-left: 1px solid #E7E7EB;
    	border-right: 1px solid #E7E7EB;
+    padding:0 15px;
 }
 .hs-etap-one{
 	display: inline-block;
+    padding-right:15px;
 }
 .hs-etap-one.active .hs-etap-title{ color: #222; }
 .hs-etap-one .hs-etap-title{ color: #8d8d8d; }

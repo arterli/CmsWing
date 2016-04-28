@@ -360,7 +360,8 @@ export default class extends think.controller.base {
       switch (message.Event){
 
           case "subscribe":  //首次关注
-              let data = await this.model("wx_replylist").where({reply_type:1}).find();
+              let datas = await model.where({reply_type:1}).order("create_time DESC").select();
+              let data = datas[0];
               let content;
               switch (data.type){
                   case "text":

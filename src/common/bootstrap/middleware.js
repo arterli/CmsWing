@@ -30,6 +30,7 @@
 //
 //think.middleware('debug_toolbar', debugToolbar(conf));
 import wechatMiddleware from 'think-wechat';
+
 think.middleware('parse_wechat', wechatMiddleware({
     wechat: {
         token: think.config("setup.wx_Token"),

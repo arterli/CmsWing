@@ -66,7 +66,7 @@ export default class extends Base {
                 status:1,
                 type:2,
                 sha1:uppic.hash,
-                source_id:uppic.key
+                path:uppic.key
 
             };
            res = await this.model("picture").data(data).add();

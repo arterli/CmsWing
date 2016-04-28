@@ -672,6 +672,7 @@ $(function(){
                 console.log(i);
                 var media_id = i.substr(9);
                 $("#me_id").val(media_id);
+                $('[jstab-des="newsArea"]').attr("data-me_id",media_id)
                 var dialog = $(d._div);
                 var newsed = dialog.find('#'+i);
                 var del = '<a id="newsdel" class="clearfix" href="#">删除</a>'
@@ -694,6 +695,7 @@ $(function(){
         $('#newsxz').show();
         $('#newssed').hide();
         $('#newssed').html('');
+        $('[jstab-des="newsArea"]').attr("data-me_id",null)
     });
 
     //图文选择DIV隐藏
@@ -708,6 +710,9 @@ $(function(){
     $(document).on('click', '#hs-area>li', function(){
         var pr = $(this).attr('jstab-target');
         $("#send_type").val(pr);
+        $("#id").val($(this).attr("data-id"));
+        var panel = ".hs-etap-panel>[jstab-des="+pr+"]";
+        $("#me_id").val($(panel).attr("data-me_id"));
     });
     /**
      * 获取编辑器内容
