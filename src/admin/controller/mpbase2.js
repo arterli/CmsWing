@@ -427,7 +427,7 @@ export default class extends Base {
             if (kid) {
                 let r = await kmodel.where({id: kid}).delete();
                 if (r) {
-                    let tmp = [];
+                    let tmp = []
                     let ks = ruledata.keywords_id.split(',');
                     for (let v in ks) {
                         if (ks[v] != kid) {
@@ -597,9 +597,9 @@ export default class extends Base {
                     tmpobj.title = articles[key]['title'];
                     tmpobj.description = articles[key]['digest'];
                     if (articles[key]['hs_image_src'].indexOf("http://") == 0) {
-                        tmpobj.pic_url = articles[key]['hs_image_src'];
+                        tmpobj.picurl = articles[key]['hs_image_src'];
                     } else {
-                        tmpobj.pic_url = host + articles[key]['hs_image_src'];
+                        tmpobj.picurl = host + articles[key]['hs_image_src'];
                     }
 
                     tmpobj.url = articles[key]['content_source_url'];
