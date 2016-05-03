@@ -356,6 +356,7 @@ export default class extends think.controller.base {
               break;
           case "SCAN"://扫码事件监听
               //todo
+              console.log(message);
               break;
           default:
               break;
