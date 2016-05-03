@@ -7,7 +7,7 @@ export default class extends Base {
     super.init(http);
     this.tactive = "template";
     // 当前使用的模版组
-    this.gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+
      //获取模板组
      await this.get_temp_group();
   }
@@ -29,12 +29,13 @@ export default class extends Base {
    * @returns {*}
      */
   async homeAction(){
+      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
     let map ={
       module:"home",
       controller:"index",
       action:"index",
       type:this.param("type")||1,
-      gid:this.gid
+      gid:gid
     }
     let temp = await this.model("temp").where(map).find();
       let temppath;
@@ -92,8 +93,9 @@ export default class extends Base {
   }
 //模板修改记录
  async tempbakAction(){
+     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
     let map = this.get();
-    map.gid = this.gid;
+    map.gid = gid;
     let list = await this.model("temp_bak").where(map).limit(20).order("baktime DESC").select();
    this.assign("list",list);
    this.assign("title","修改记录");
@@ -119,12 +121,13 @@ export default class extends Base {
   }
     //封面模板
  async channelAction(){
+     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
          module:"home",
          controller:"topic",
          action:["like", "index%"],
          type:this.param("type")||1,
-         gid:this.gid
+         gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -140,12 +143,13 @@ export default class extends Base {
     return this.display();
   }
  async columnAction(){
+     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
          module:"home",
          controller:"topic",
          action:["like", "list%"],
          type:this.param("type")||1,
-         gid:this.gid
+         gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -160,12 +164,13 @@ export default class extends Base {
     return this.display();
   }
  async detailAction(){
+     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
       let map ={
           module:"home",
           controller:"topic",
           action:["like", "detail%"],
           type:this.param("type")||1,
-          gid:this.gid
+          gid:gid
       }
       let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
       let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -180,11 +185,12 @@ export default class extends Base {
     return this.display();
   }
  async incAction(){
+     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
          module:"home",
          controller:"inc",
          type:this.param("type")||1,
-         gid:this.gid
+         gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
@@ -251,30 +257,31 @@ export default class extends Base {
     }
     //添加模板
     async addAction(){
+        let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
         if(this.isPost()){
             let data = this.post();
             if(data.temptype=="channel"){
                 data.module= 'home';
                 data.controller= 'topic';
                 data.action= 'index_'+data.action;
-                data.gid= this.gid;
+                data.gid= gid;
             }
             if(data.temptype=="column"){
                 data.module= 'home';
                 data.controller= 'topic';
                 data.action= 'list_'+data.action;
-                data.gid= this.gid;
+                data.gid= gid;
             }
             if(data.temptype=="detail"){
                 data.module= 'home';
                 data.controller= 'topic';
                 data.action= 'detail_'+data.action;
-                data.gid= this.gid;
+                data.gid= gid;
             }
             if(data.temptype=="inc"){
                 data.module= 'home';
                 data.controller= 'inc';
-                data.gid= this.gid;
+                data.gid= gid;
             }
             console.log(data);
             let temppath;
