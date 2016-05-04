@@ -124,9 +124,9 @@ export default class extends Base {
         break;
     }
      //加入七牛接口
-     if(this.setup.IS_QINIU==1){
+     if(this.setup.IS_QINIU==1 && base64=="upload"){
        let file = think.extend({}, this.file(fieldName));
-       console.log(file);
+       // console.log(file);
        let filepath = file.path;
        let basename = path.basename(filepath);
        let qiniu = think.service("qiniu");
