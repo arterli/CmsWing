@@ -675,8 +675,8 @@ export default class extends Base {
         let newv = self.post('newv');
         let menuid = self.post('menuid');//菜单ID
         let currwebtoken = 0;
-        //console.log(newv);
-        //return false;
+        console.log(newv);
+        return false;false
         try {
             // return self.end(newv);
             if (!newv) {
@@ -761,12 +761,15 @@ export default class extends Base {
         for (let a of dataObj.button) {
             let tmpbtn = {};
             tmpbtn.name = a.name;
+            //console.log(a);
             if (think.isEmpty(a.sub_button)) {
-                switch (Number(a.type)) {
-                    case 1:
-                        //todo
+                //console.log(a.type);
+                switch (a.type) {
+                    case '1':
+                        tmpbtn.type="click";
+                        tmpbtn.key=a.act_list[0].value;
                         break;
-                    case 2:
+                    case '2':
                         tmpbtn.type = "view";
                         tmpbtn.url = a.act_list[0].value;
                         break;
@@ -776,11 +779,13 @@ export default class extends Base {
                 for (let b of a.sub_button) {
                     let tmpsub = {};
                     tmpsub.name = b.name;
-                    switch (Number(b.type)) {
-                        case 1:
-                            //todo
+                    //console.log(b.type);
+                    switch (b.type) {
+                        case '1':
+                            tmpsub.type="click";
+                            tmpsub.key=b.act_list[0].value;
                             break;
-                        case 2:
+                        case '2':
                             tmpsub.type = "view";
                             tmpsub.url = b.act_list[0].value;
                             break;
@@ -789,6 +794,7 @@ export default class extends Base {
                 }
             }
             final.button.push(tmpbtn);
+            console.log(tmpbtn);
         }
         think.log(final)
         //return false;

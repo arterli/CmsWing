@@ -270,6 +270,19 @@ function hsInitMenuRight(onebtn) {
             //console.log(tmp);
             switch (Number(onebtn.type)) {
                 case 1:
+                    //todo
+                    //hsUpdateCurrentData({ act_list:[ { type:'news', value:36 } ] })
+                    console.log(tmp);
+                    switch (tmp.type){
+                        case "news":
+                            $.ajax({
+                                url:"/admin/mpbase/getmaterial/id/"+tmp.value,
+                                success:function (res) {
+                                    //todo
+                                }
+                            })
+                            break;
+                    }
                     break;
                 case 2:
                     $ID('hsUrlValue').value = tmp.value;
@@ -336,6 +349,7 @@ function hsGetRightValue() {
         }
     }
     actList.push(value);
+    console.log(type);
     return {name: name, key: key, type: type, act_list: actList};
 }
 

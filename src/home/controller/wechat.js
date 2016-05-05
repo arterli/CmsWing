@@ -335,7 +335,7 @@ export default class extends think.controller.base {
       switch (message.Event){
 
           case "subscribe":  //首次关注
-              let datas = await this.model("wx_relylist").where({reply_type:1}).order("create_time DESC").select();
+              let datas = await this.model("wx_replylist").where({reply_type:1}).order("create_time DESC").select();
               let data = datas[0];
               let content;
               switch (data.type){
@@ -352,6 +352,13 @@ export default class extends think.controller.base {
               //todo
               break;
           case "CLICK"://click事件坚挺
+              let res = await this.model("wx_material").find(message.EventKey);
+              let news_item = JSON.parse(res.material_wx_content);
+              let list = news_item.news_item;
+              for(let v of list){
+                  v.picurl = v.thumb_url;
+              }
+              this.reply(list);
               //todo
               break;
           case "SCAN"://扫码事件监听
