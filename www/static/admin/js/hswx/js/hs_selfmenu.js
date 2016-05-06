@@ -155,9 +155,9 @@ $(function () {
             var currData = $(".hs-current-edit").data('currData');
             currData.sub_button.splice(index, 1);
             $(".hs-current").parent().remove();
-            if($(".hs-menu-li").length>1){
+            if ($(".hs-menu-li").length > 1) {
                 $(".hs-ph-edit").removeClass("hide")
-            }else {
+            } else {
                 $(".hs-ph-edit").addClass("hide")
             }
             swal("操作成功!", "你选择的菜单已经被删除", "success");
@@ -176,7 +176,7 @@ function hsInitMenu(menuData) {
     try {
         if (!menuData) {
             $(".hs-ph-edit").addClass("hide")
-        }else {
+        } else {
             menuData = JSON.parse(menuData);
         }
         var btnlist = menuData.button
@@ -264,21 +264,44 @@ function hsInitMenuRight(onebtn) {
         $(".hs-menutitle").text(onebtn.name)
         //console.log(onebtn.act_list.length);
         $ID('hsUrlValue').value = "";
+        $('#newsxz').show();
+        $('#newssed').hide();
+        $('#newssed').html('');
         //如果有值
         if (onebtn.act_list.length > 0) {
             var tmp = onebtn.act_list[0];
-            //console.log(tmp);
+            console.log(tmp);
             switch (Number(onebtn.type)) {
                 case 1:
                     //todo
                     //hsUpdateCurrentData({ act_list:[ { type:'news', value:36 } ] })
-                    console.log(tmp);
-                    switch (tmp.type){
+                    //console.log(tmp);
+                    switch (tmp.type) {
                         case "news":
                             $.ajax({
-                                url:"/admin/mpbase/getmaterial/id/"+tmp.value,
-                                success:function (res) {
-                                    //todo
+                                url: "/admin/mpbase/getmaterial/id/" + tmp.value,
+                                success: function (res) {
+                                    if (res) {
+                                        var html = "";
+                                        html += '<div id="material_'+res.id+'" class="hs-fodder-items hs-fodder-list-col active">';
+                                        var htmlarr = []
+                                        var list = JSON.parse(res.material_content).articles
+                                        $.each(list, function (i, v) {
+                                           html +='<div class = "hs-fodder-item" >';
+                                           html+='<div class = "hs-fodder-item-first" > '
+                                            html+='<div style = "background-image:url('+v.hs_image_src+')" class = "hs-fodder-item-container hs-item-cover" >'
+                                             html+='<i class = "hs-default-wxpic" > </i> <div class = "hs-item-title-h4"> '+v.title+' </div> </div ></div>'
+                                              html+='<div class = "hs-fodder-item-second" >'
+                                                html+='<div class = "hs-fodder-item-container">'
+                                                html+='<div style = "background-image:url('+v.hs_image_src+')" class = "hs-fodder-item-rpic hs-item-cover" >'
+                                                html+='<i class = "hs-default-wxpic-2" > </i> </div> <div class = "hs-item-title-h4-2" > '+v.title+' </div> </div >  </div > </div >'
+                                        });
+                                        html += '</div>';
+                                        var del = '<a id="newsdel" class="clearfix" href="#">删除</a>'
+                                        $('#newssed').show();
+                                        $('#newssed').html(html).append(del);
+                                        $('#newsxz').hide();
+                                    }
                                 }
                             })
                             break;
@@ -290,11 +313,12 @@ function hsInitMenuRight(onebtn) {
             }
         }
         //检查是否子菜单如果有隐藏编辑
-        if($(".hs-current").next().find("ul>.hs-menu-sub-li").length>1){
+        if ($(".hs-current").next().find("ul>.hs-menu-sub-li").length > 1) {
             $(".hs-menuright-mval").addClass("hide");
-        }else {
+        } else {
             $(".hs-menuright-mval").removeClass("hide");
-        };
+        }
+        ;
         //判断是1级菜单还是2级菜单
 
         hsMRPShowOrHide(onebtn.type); //显示编辑块儿
@@ -336,20 +360,21 @@ function hsGetRightValue() {
     var actList = [];
 
 
-    if(type==2){
-        value = { type: 2, value:$("#hsUrlValue").val() }
-    }else {
+    if (type == 2) {
+        value = {type: 2, value: $("#hsUrlValue").val()}
+    } else {
         var navPanel = $('.hs-etap-nav');
         var navActive = navPanel.find('li.active');
         var navActiveValue = navActive.attr('jstab-target');
-        switch (navActiveValue){
+        switch (navActiveValue) {
             case 'newsArea':
 
                 break;
         }
     }
+    console.log(value);
     actList.push(value);
-    console.log(type);
+    //console.log(type);
     return {name: name, key: key, type: type, act_list: actList};
 }
 
@@ -385,15 +410,18 @@ function hsGetCurrentAllData() {
     var currAllData = {version: new Date().getTime(), button: []};
     $('.hs-menu-item > .hs-menu-a').each(function (i, o) {
         var tmp = $(o).data('currData');
-        console.log(tmp);
+        // console.log(tmp);
         currAllData.button.push(tmp);
     });
-    console.log(currAllData);
+    //console.log(currAllData);
     //检查子菜单,如果有,删除父菜单的配置
-    $.each(currAllData.button,function (i, v) {
-        console.log(v.sub_button.length);
-        if(v.sub_button.length>0){
-             v.act_list=[]
+    $.each(currAllData.button, function (i, v) {
+        //console.log(v.sub_button.length);
+        if (v.sub_button.length > 0) {
+            v.act_list = []
+            $.each(v.sub_button, function (m, n) {
+                console.log(n);
+            })
         }
     })
     return currAllData;

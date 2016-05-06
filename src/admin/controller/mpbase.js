@@ -9,7 +9,8 @@
 
 import Base from './base.js';
 import API from 'wechat-api';
-
+import http from 'http';
+import fs from 'fs';
 export default class extends Base {
     /**
     * index action
@@ -17,7 +18,6 @@ export default class extends Base {
     */
     init(http) {
         super.init(http);
-
     }
     /**
      * index action
@@ -739,5 +739,250 @@ export default class extends Base {
         let data = await model.where({id: id}).find();
         let url = JSON.parse(data.material_wx_content).news_item.url;
         return this.json(JSON.parse(data.material_wx_content).news_item[0].url);
+    }
+
+    /**
+     * 通过ID获取素材信息
+     */
+    async getmaterialAction(){
+        let model = this.model("wx_material");
+        let id = this.get("id");
+        let data = await model.find(id);
+        return this.json(data);
+    }
+    //远程拿图片
+    spiderImage(imgUrl, filePath) {
+        let deferred = think.defer();
+        http.get(imgUrl, function (res) {
+            var imgData = "";
+            res.setEncoding("binary");
+            res.on("data", function (chunk) {
+                imgData += chunk;
+            });
+
+            res.on("end", function () {
+                fs.writeFileSync(filePath, imgData, "binary");
+                deferred.resolve(filePath);
+            });
+        });
+        return deferred.promise;
+    }
+    /**
+     * 微信素材列表
+     */
+    async fodderlistAction() {
+        let self = this;
+        self.meta_title = "微信素材列表";
+        self.assign({"navxs": true, "bg": "bg-dark"});
+        let model = self.model("wx_material");
+        let data = await model.page(this.get('page')).order('add_time DESC').countSelect();
+        let Pages = think.adapter("pages", "page");
+        let pages = new Pages();
+        let page = pages.pages(data);
+        self.assign('pagerData', page);
+        self.assign('fodder_list', data.data);
+        return this.display();
+    }
+    /**
+     * 新建素材
+     */
+    fodderAction() {
+        this.assign({"navxs": true, "bg": "bg-dark"});
+        this.active="admin/mpbase/fodderlist";
+        this.meta_title="新建微信素材";
+        return this.display();
+    }
+    /**
+     * 删除素材
+     */
+    async deletefodderAction() {
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let self = this;
+        let id = self.get('id');
+        //let ids = self.get('ids')
+        //return self.end(ids);
+        let model = self.model('wx_material');
+        let olddata = await model.where({id: ['IN', id]}).getField('media_id', false);
+        // return self.end(olddata);
+        let wxremove = function (api, data) {
+            let deferred = think.defer();
+            api.removeMaterial(data, (err, result)=> {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(result);
+                }
+            });
+            return deferred.promise;
+        }
+        if (!think.isEmpty(olddata)) {
+            let wxres = await wxremove(api, olddata[0]);
+            // let wxres = { errcode: 0 };
+            // try{
+            //     for(let midi in olddata){
+            //         await wxremove(self.api, olddata[midi]);
+            //     }
+            // }catch(e){
+            //     return self.fail('删除失败');
+            // }
+            //console.log(wxres);
+            if (wxres.errcode == 0) {
+                let res = await model.where({id: ['IN', id]}).delete();
+                // let res = true;
+                if (res) {
+                    return self.success({name: '删除成功'});
+                }
+            }
+        }
+        return self.fail('删除失败');
+    }
+
+    /**
+     * 模态窗信息列表
+     * @returns {*}
+     */
+    async asyncfodderlistAction() {
+        let self = this;
+        let model = self.model("wx_material");
+        let data = await model.page(this.get('page'), 20).order("add_time DESC").countSelect();
+        return this.json(data);
+    }
+
+    /**
+     * 编辑
+     */
+    async foddereditAction() {
+        let id = this.get('id');
+        this.assign({"navxs": true, "bg": "bg-dark"});
+        this.active="admin/mpbase/fodderlist";
+        this.meta_title="编辑微信素材";
+        let model = this.model("wx_material");
+        let data = await model.where({'id': id}).find();
+        this.assign('data', JSON.stringify(data));
+
+        //this.end(data);
+        return this.display('fodder');
+    }
+    /**
+     * 给微信上传临时素材 /图片 更新本地库
+     */
+    async wxuploadtmpAction() {
+        //上传图片
+        // this.end("暂不开发");
+        let thumb_id = this.get('thumb_id');
+        let model = this.model('picture');
+        // let data = await model.where({id:thumb_id}).find();
+        //获取图片
+        let pic = await get_pic(thumb_id, 1, 900, 500);
+        //判断是本地还是外地,如果是外地就抓回来
+        let paths;
+        let filePath = think.RESOURCE_PATH + '/upload/long/';
+        if (pic.indexOf("http://") == 0) {
+            think.mkdir(filePath)
+            let name = await get_cover(thumb_id, "path");
+            let longpic = await this.spiderImage(pic, filePath + name);
+            paths = longpic;
+        } else {
+            paths = think.ROOT_PATH + '/www/' + pic;
+        }
+        //console.log(pic);
+        //return false;
+        let wx = function (api, data) {
+            let deferred = think.defer();
+            api.uploadMaterial(data, 'thumb', (err, result)=> {
+                if (!think.isEmpty(result)) {
+                    deferred.resolve(result);
+                } else {
+                    console.error(err);
+                }
+            });
+            return deferred.promise;
+        }
+
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let img_result = await wx(api, paths);
+        if (img_result) {
+            //删除远程文件
+            fs.unlinkSync(paths);
+            await model.where({id: thumb_id}).update({url: img_result.url, source_id: img_result.media_id});
+            img_result.hs_image_src = pic;
+            return this.json(img_result);
+        } else {
+            return this.json("");
+        }
+    }
+
+    /**
+     * 上传保存永久素材
+     */
+    async savefodderAction() {
+        let self = this;
+        let params = self.post("params");
+        let edit_id = self.get("edit_id");
+        let model = self.model('wx_material');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        if (edit_id) {
+            let olddata = await model.where({id: edit_id}).find();
+            let wxr = function (api, data) {
+                let deferred = think.defer();
+                api.removeMaterial(data, (err, result)=> {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(result);
+                    }
+                });
+                return deferred.promise;
+            }
+            let wxrres = await wxr(api, olddata.media_id);
+            let delrow = await model.where({id: edit_id}).delete();
+        }
+        try {
+            var anews = JSON.parse(params);
+
+            let wx = function (api, data) {
+                let deferred = think.defer();
+                api.uploadNewsMaterial(data, (err, result)=> {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        deferred.resolve(result);
+                    }
+                });
+                return deferred.promise;
+            }
+
+            let wxres = await wx(api, anews);
+            if (wxres) {
+                let wxg = function (api, data) {
+                    let deferred = think.defer();
+                    api.getMaterial(data, (err, result)=> {
+                        if (err) {
+                            deferred.reject(err);
+                        } else {
+                            deferred.resolve(result);
+                        }
+                    });
+                    return deferred.promise;
+                }
+                let wx_news = await wxg(api, wxres.media_id);
+                // let wx_news_str = JSON.stringify(wx_news);
+                let time = new Date().getTime();
+                let data = {
+                    "media_id": wxres.media_id,
+                    "material_content": params,
+                    "material_wx_content": wx_news + '',
+                    "web_token": 0,
+                    "add_time": time
+                }
+                let effect = await model.add(data);
+                if (effect) {
+                    self.success({"name": "上传成功！", url: ""});
+                }
+            }
+            self.fail("上传失败！");
+        } catch (e) {
+            self.fail("上传失败！");
+        }
     }
 }

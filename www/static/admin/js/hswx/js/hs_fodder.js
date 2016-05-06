@@ -18,7 +18,7 @@ var _hs_uploader = WebUploader.create({
     }
 });
 _hs_uploader.on('uploadSuccess', function(file, id) {
-    $.getJSON('/admin/mpbase2/wxuploadtmp',{"thumb_id":id}, function(res){
+    $.getJSON('/admin/mpbase/wxuploadtmp',{"thumb_id":id}, function(res){
         console.log(res);
         _hs_update_item_data({"hs_image_id": id, "hs_image_src":res.hs_image_src, "thumb_media_id":res.media_id, "hs_image_wx_src":res.url});
     });
@@ -327,12 +327,12 @@ function _hs_submit_articles() {
         }
     });        
     var params = JSON.stringify(_hs_wx_fodder);
-    $.post('/admin/mpbase2/savefodder'+(init_is_edit?"?edit_id="+init_is_edit:""), {"params":params}, function(data) {
+    $.post('/admin/mpbase/savefodder'+(init_is_edit?"?edit_id="+init_is_edit:""), {"params":params}, function(data) {
         console.log('结果：')
         if(!data.errno){
             toastr.success(data.data.name);
             setTimeout(function(){
-                location.href = '/admin/mpbase2/fodderlist';
+                location.href = '/admin/mpbase/fodderlist';
             }, 1100);
         }
     },'json');

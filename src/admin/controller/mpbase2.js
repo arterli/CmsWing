@@ -676,7 +676,7 @@ export default class extends Base {
         let menuid = self.post('menuid');//菜单ID
         let currwebtoken = 0;
         console.log(newv);
-        return false;false
+        //return false;
         try {
             // return self.end(newv);
             if (!newv) {
