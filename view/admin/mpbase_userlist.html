@@ -23,7 +23,7 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
                                         <a class="btn btn-sm btn-info ajax-get" href="/admin/mpbase/getusers">
-                                            同步
+                                            同步微信用户
                                         </a>
                                     </div>
                                 </div>
@@ -44,6 +44,7 @@
                                         <th class="">昵称</th>
                                         <th class="">地区</th>
                                         <th class="">关注时间</th>
+                                        <th class="">是否绑定网站账户</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -53,6 +54,7 @@
                                         <td><img src="{{item.headimgurl}}" style="width:48px;height:48px"> {{item.nickname}}</td>
                                         <td>{{item.country}} {{item.province}} {{item.city}}</td>
                                         <td>{{item.subscribe_time | dateformat('Y-m-d H:i:s')}}</td>
+                                        <td>{%if item.uid%}已绑定{%else%}未绑定{%endif%}</td>
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

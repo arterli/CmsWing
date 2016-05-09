@@ -365,9 +365,7 @@ export default class extends Base {
     async getusersAction(){
         this.meta_title="获取粉丝信息";
         let user_model = this.model('wx_user');
-        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-        //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
-        //let finduser = await this.model('user').countSelect();
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         let self = this;
         //获取关注者列表
         let users = function(api) {
@@ -385,7 +383,7 @@ export default class extends Base {
         let useropenid = res['data']['openid'];
         let count = res['count'];
         //self.end(useropenid);
-        
+        //think.log(res);
         //批量获取用户基本信息
         let isadd = false;
         let tmp_openids = [];
@@ -406,6 +404,8 @@ export default class extends Base {
                 }
                 let resusers = await userinfo(api);
                 let resinfo = resusers['user_info_list'];
+                //console.log(resusers);
+                //return false;
                //self.end(resinfo);
                 console.log("开始：")
                for (let key in resinfo) {
@@ -414,25 +414,24 @@ export default class extends Base {
                        console.log('-------------'+element.openid);
                        //let addres = await user_model.add(element);
                        //let nickname = element.nickname.replace(/(\\x[a-fA-F0-9]{2})*/g, ' ');
-                       let nickname = element.nickname.replace(/[\x80-\xfe]*/g, ' ');
+                       //let nickname = element.nickname.replace(/[\x80-\xfe]*/g, ' ');
                        //let nickname = removeFourChar(element.nickname);
-                       let subscribe_time = element.subscribe_time+'000';
-                       element.nickname = nickname;
+                       let subscribe_time = element.subscribe_time*1000;
+                       //element.nickname = nickname;
                        element.subscribe_time =subscribe_time;
                        
                        let addres = await user_model.thenAdd(element,{openid:element.openid});
-                       //console.log('+++++++++'+addres);
-                       if(addres){
+                       console.log(addres);
+                       if(addres.type=='exist'){
+                           await user_model.where({openid:element.openid}).update(element);
                            isadd = true;
-                       }else{
-                           isadd = false;
-                       }        
+                       }
                }
                tmp_openids = [];
             }
         }
         if(isadd){
-            this.success({name:"操作成功！",url:"/admin/mpbase/menu"}); 
+            this.success({name:"操作成功！",url:"/admin/mpbase/userlist"});
         }else{
             this.fail("error");
         }
@@ -630,8 +629,8 @@ export default class extends Base {
     /**
      * 查看用户列表
      */
-    async menuAction(){
-        let data = await this.model('wx_user').page(this.get('page')).countSelect();
+    async userlistAction(){
+        let data = await this.model('wx_user').page(this.get('page'),20).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
         let page = pages.pages(data);
