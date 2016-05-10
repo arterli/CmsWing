@@ -144,7 +144,7 @@ $(function(){
                return false;
            }
            d.hs_remove();
-           $.post('/admin/mpbase2/ruleedit',{'name':val, type: typ, 'ruleid': ruleid, 'edittype': 1 },
+           $.post('/admin/mpbase/ruleedit',{'name':val, type: typ, 'ruleid': ruleid, 'edittype': 1 },
                function(data){
                    if(data > 0){
                        toastr.success('添加成功');
@@ -191,7 +191,7 @@ $(function(){
 		var ruleList = $("#Js_ruleList");
 		var n = ruleList.children('li').length;
         var rul = '未命名规则';
-        $.get('/admin/mpbase2/createkrule',{'rule_name':rul}, function(data) {
+        $.get('/admin/mpbase/createkrule',{'rule_name':rul}, function(data) {
             if(data.errno == 0){
                 ruleList.append(_hs_html_keywords_rule_li(++n, rul, data.data.ruleid));
             }else{
@@ -208,7 +208,7 @@ $(function(){
             var self = this;
             var ruleid = self.getAttribute('data-id');
             if(ruleid){
-                $.post('/admin/mpbase2/ruledelete',{ruleid:ruleid},
+                $.post('/admin/mpbase/ruledelete',{ruleid:ruleid},
                     function(data) {
                         if(data.errno == 0){
                             toastr.success(data.data.name);
@@ -234,7 +234,7 @@ $(function(){
         $('.dialog_ft [data-index=0]').click(function(){
             var rulename = $('[name=rulename]').val();
             if(rulename){
-                $.post('/admin/mpbase2/ruleeditname', {ruleid:ruleid, rulename:rulename},
+                $.post('/admin/mpbase/ruleeditname', {ruleid:ruleid, rulename:rulename},
                     function(data){
                         if(data.errno == 0){
                             toastr.success(data.data.name);
@@ -273,7 +273,7 @@ $(function(){
         var ruleid = $(this).closest('.keywords_rule_item').attr('id');
         var thisitem = $(this.parentNode);
         if(kid){
-            $.post('/admin/mpbase2/ruleedit', { edittype:1, kid:kid, ruleid:ruleid },
+            $.post('/admin/mpbase/ruleedit', { edittype:1, kid:kid, ruleid:ruleid },
                 function(data){
                     if(data > 0){
                         toastr.success('关键字删除成功');
@@ -387,7 +387,7 @@ $(function(){
                     alert('video暂未开放'); return false;
                 break;
             }
-            $.post('/admin/mpbase2/creater', params,
+            $.post('/admin/mpbase/creater', params,
                 function (data) {
                     if(data.errno == 0){
                         params.rid = data.data.rid;
@@ -421,7 +421,7 @@ $(function(){
         var rulediv = $(self).closest('.keywords_rule_item');
         var ruleid = rulediv.attr('id');
         var rid = self.getAttribute('data-rid');
-        $.post('/admin/mpbase2/deleter', { ruleid:ruleid, rid:rid },
+        $.post('/admin/mpbase/deleter', { ruleid:ruleid, rid:rid },
             function (data) {
                 if(data.errno == 0){
                     toastr.success(data.data.name);
@@ -478,7 +478,7 @@ $(function(){
                     alert('video暂未开放'); return false;
                 break;
             }
-            $.post('/admin/mpbase2/editreply', params,
+            $.post('/admin/mpbase/editreply', params,
                 function (data) {
                     if(data.errno == 0){
                         toastr.success(data.data.name);

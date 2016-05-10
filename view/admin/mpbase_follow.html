@@ -1,0 +1,261 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/hswx/css/hs_wx_base.css"/>
+<style>
+    .dialog_bd .editor_toolbar{ display: none }
+    .dialog_bd .emotion_editor{ margin: 20px 0; }
+    .dialog_bd .hs-ui-beditor{ margin: 20px 0; }
+    .dialog_bd .hs-ui-beditor .emotion_editor{ margin: 0 }
+</style>
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <!--陈金龙 start-->
+                        <section class="panel panel-default">
+                            <form method="post" action="/admin/mpbase/saveinfo" class="form-horizontal" id="ajaxForm" data-validate="parsley">
+                                <input type="hidden" id="reply_type" name="reply_type" value="1">
+                                <input id="send_type" name="send_type" type="hidden" value="{{initinfo.type}}Area">
+                                <input id="editor_content" name="editor_content" type="hidden" value="{{initinfo.content}}">
+                                <input id="me_id" name="me_id" type="hidden" value="{{initinfo.media_id}}">
+                                <input id="id" name="id" type="hidden" value="{{initinfo.id}}">
+                                <header class="panel-heading">
+                                    <ul class="nav nav-tabs ">
+                                        <li class=""><a href="/admin/mpbase/autoreply">关键词回复</a></li>
+                                        <li class=""><a href="/admin/mpbase/message">消息自动回复</a></li>
+                                        <li class="active"><a href="">关注自动回复</a></li>
+                                    </ul>
+                                </header>
+                                <div class="panel-body hs-ui">
+                                    <div class="hs-ui-beditor hs-js-tab hs-auto">
+                                        <div class="hs-etap-nav">
+                                            <ul id="hs-area">
+                                                {%set i = 1%}
+                                                {% for info in list %}
+                                                {%if info.type == "text"%}
+                                                <li jstab-target="textArea" data-id="{{info.id}}" class="hs-etap-one hs-etap-text {%if i ==1 %}active{%endif%}">
+                                                    <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                            class="hs-etap-icon"></i><span
+                                                            class="hs-etap-title">文字</span></a>
+                                                </li>
+                                                {%elif info.type == "news" %}
+                                                <li jstab-target="newsArea" data-id="{{info.id}}" class="hs-etap-one hs-etap-news {%if i ==1 %}active{%endif%}">
+                                                    <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                            class="hs-etap-icon"></i><span
+                                                            class="hs-etap-title">图文</span></a>
+                                                </li>
+                                                {%elif info.type == "image" %}
+                                                <li jstab-target="imageArea" data-id="{{info.id}}" class="hs-etap-one hs-etap-image {%if i ==1 %}active{%endif%}">
+                                                    <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                            class="hs-etap-icon"></i><span
+                                                            class="hs-etap-title">图片</span></a>
+                                                </li>
+                                                {%elif info.type == "voice" %}
+                                                <li jstab-target="voiceArea" data-id="{{info.id}}" class="hs-etap-one hs-etap-audio {%if i ==1 %}active{%endif%}">
+                                                    <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                            class="hs-etap-icon"></i><span
+                                                            class="hs-etap-title">语音</span></a>
+                                                </li>
+                                                {%elif info.type == "video" %}
+                                                <li jstab-target="videoArea" data-id="{{info.id}}" class="hs-etap-one hs-etap-video {%if i ==1 %}active{%endif%}">
+                                                    <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                            class="hs-etap-icon"></i><span
+                                                            class="hs-etap-title">视频</span></a>
+                                                </li>
+                                                {%endif%}
+                                                {%set i = i + 1%}
+                                                {%endfor%}
+                                            </ul>
+                                        </div>
+                                        <div class="hs-etap-panel">
+                                            {%set n = 1%}
+                                           {%for info in list %}
+                                            {%if info.type == "text"%}
+                                            <div jstab-des="textArea" data-id="{{info.id}}" class="hs-etap-content"  style="{%if n==1%}display: block{%else%}display: none{%endif%}">
+                                                <div class="hs-etap-textArea hs-inner">
+                                                    <!--*****-->
+                                                    <div class="emotion_editor">
+                                                        <!--<div class="edit_area js_editorArea" style="display: none;"></div>-->
+                                                        <div id="edit_content" class="edit_area js_editorArea"
+                                                             contenteditable="true"
+                                                             style="overflow-y: auto; overflow-x: hidden;">{{ info.content if info.type == 'text' else ''}}</div>
+                                                        <div class="editor_toolbar">
+                                                            <a href="javascript:void(0);"
+                                                               class="icon_emotion emotion_switch js_switch">表情</a>
+
+                                                            <p class="editor_tip opr_tips">，按下Shift+Enter键换行</p>
+
+                                                            <p class="editor_tip js_editorTip">还可以输入<em>600</em>字
+                                                            </p>
+
+                                                            <div class="emotion_wrp js_emotionArea">
+											<span class="hook">
+											<span class="hook_dec hook_top"></span>
+											<span class="hook_dec hook_btm"></span>
+											</span>
+                                                                <ul class="emotions"
+                                                                    onselectstart="return false;"></ul>
+                                                                <span class="emotions_preview js_emotionPreviewArea"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--*****-->
+                                                </div>
+                                            </div>
+                                            {%elif info.type == "news" %}
+                                            <div jstab-des="newsArea" data-id="{{info.id}}" data-me_id="{{info.media_id}}" class="hs-etap-content"  style="{%if n==1%}display: block{%else%}display: none{%endif%}">
+                                                <div class="hs-etap-newsArea hs-inner">
+                                                    <div id="newsxz" class="hs-con-cover" style=" {{ 'display: none' if info.content and info.type == 'news' else '' }}">
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a id="news-dialog" href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="/admin/mpbase2/fodder">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建图文</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div id="newssed" class="hs-etap-panel" style="{{ '' if info.content and info.type == 'news' else 'display: none' }}">
+                                                        {% if info.type == 'news' and info.content %}
+                                                        <div class="hs-fodder-items hs-fodder-list-col active" id="">
+                                                            {% set content = info.content|strToJson %}
+                                                            {% for item in content %}
+                                                            <div class="hs-fodder-item">
+                                                                <div class="hs-fodder-item-first">
+                                                                    <div class="hs-fodder-item-container hs-item-cover" style="background-image:url({{item.picurl}})"> <i class="hs-default-wxpic"></i>
+                                                                        <div class="hs-item-title-h4">{{item.title}}</div>
+                                                                    </div>
+                                                                    <div class="hs-fodder-item-mask"> <a class="hs-igup" href="javascript:;" alt="上移">向上</a> <a class="hs-igdp" href="javascript:;" alt="下移">向下</a> <a class="hs-igdl" href="javascript:;" alt="删除">删除</a> </div>
+                                                                </div>
+                                                                <div class="hs-fodder-item-second">
+                                                                    <div class="hs-fodder-item-container">
+                                                                        <div class="hs-fodder-item-rpic hs-item-cover" style="background-image:url({{item.picurl}})"> <i class="hs-default-wxpic-2"></i> </div>
+                                                                        <div class="hs-item-title-h4-2">{{item.title}}</div>
+                                                                    </div>
+                                                                    <div class="hs-fodder-item-mask"> <a class="hs-igup" href="javascript:;" alt="上移">向上</a> <a class="hs-igdp" href="javascript:;" alt="下移">向下</a> <a class="hs-igdl" href="javascript:;" alt="删除">删除</a> </div>
+                                                                </div>
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <a id="newsdel" class="clearfix" href="#">删除</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%elif info.type == "image" %}
+                                            <div jstab-des="imageArea" data-id="{{info.id}}" class="hs-etap-content" style="{%if n==1%}display: block{%else%}display: none{%endif%}">
+                                                <div class="hs-etap-imageArea hs-inner">
+                                                    <div class="hs-con-cover">
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>上传图片</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%elif info.type == "voice" %}
+                                            <div jstab-des="voiceArea" data-id="{{info.id}}" class="hs-etap-content" style="{%if n==1%}display: block{%else%}display: none{%endif%}">
+                                                <div class="hs-etap-audioArea hs-inner">
+                                                    <div class="hs-con-cover">
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建语音</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%elif info.type == "video" %}
+                                            <div jstab-des="videoArea" data-id="{{info.id}}" class="hs-etap-content" style="{%if n==1%}display: block{%else%}display: none{%endif%}">
+                                                <div class="hs-etap-videoArea hs-inner">
+                                                    <div class="hs-con-cover">
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                        <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建视频</strong>
+                                        </a>
+						            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%endif%}
+                                            {%set n = n+1%}
+                                            {%endfor%}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m m-t-none">
+                                    <div class="hs_qf">
+                                        <button class="btn btn-info btn-sm ajax-post" type="submit" target-form="form-horizontal" type="submit">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                        <!--陈金龙 end-->
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/hswx/js/hs_js_common.js"></script>
+<script src="/static/admin/js/hswx/js/hs_auto_reply.js"></script>
+{% endblock %}

@@ -197,8 +197,9 @@ export default class extends Base {
                 }
             })
         //console.log(node_list);
+        this.active="admin/auth/index";
+        this.meta_title="权限管理"
         this.assign({
-            "active": "/admin/auth/index",
             "tactive": "/admin/user",
             "selfjs": "auth",
             "thisid":this.get("id"),

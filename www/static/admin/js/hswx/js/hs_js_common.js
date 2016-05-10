@@ -246,7 +246,7 @@ function hs_show_dialog(type){
 	var in_imgtext = function(){
 		$.ajax({
             type:'GET',
-            url:'/admin/mpbase2/asyncfodderlist',
+            url:'/admin/mpbase/asyncfodderlist',
             async:false,
             data:'',
             dataType:'json',
