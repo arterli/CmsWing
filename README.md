@@ -19,6 +19,11 @@ use pm2 to deploy app on production envrioment.
 ```
 pm2 startOrGracefulReload pm2.json
 ```
+## 后台账号密码
+```
+账号:admin
+密码:123456
+```
 ##后台截图11
 **内容管理**
 ![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
