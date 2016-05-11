@@ -45,8 +45,8 @@ export default class extends Base {
     }
     //列表页
   async listAction() {
-      console.log(111);
-      //return false;
+      //console.log(111);
+
       let id = this.get('category') || 0;
       //console.log(id);
       let cate = await this.category(id);
@@ -70,13 +70,16 @@ export default class extends Base {
       if(checkMobile(this.userAgent())){
           num=10;
       }
-      //console.log(subcate);
+
+      console.log(subcate);
       let map = {
-        'status': ['=', 1],
+        'status': 1,
         'category_id': ['IN', subcate]
       };
+
       let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
-     // console.log(data);
+
+
       let html = pagination(data, this.http, {
       desc: false, //show description
       pageNum: 2, 
@@ -127,9 +130,10 @@ export default class extends Base {
              return this.json(data);
          }
           temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
-          think.log(temp);
+          //think.log(temp);
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
+          //console.log(temp);
           return this.display(temp);
       }
 
@@ -152,6 +156,20 @@ export default class extends Base {
     /* 获取详细信息*/
     let document = this.model('document');
     let info = await document.detail(id);
+      //不同的设备,压缩不同的图片尺寸
+      let str = info.content;
+      if(!think.isEmpty(str)){
+          let img;
+      if(checkMobile(this.userAgent())){
+          //手机端
+          img = image_view(str,640);
+      }else {
+          //pc端
+
+          img = image_view(str,847);
+      }
+          info.content=img
+      }
     //console.log(info);
     //分类信息
     let cate = await this.category(info.category_id);

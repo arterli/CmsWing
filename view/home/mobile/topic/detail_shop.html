@@ -53,7 +53,7 @@
 <div class="swiper-wrapper">
 {% for val in pic%}
 <div class="swiper-slide">
-<img class='card-cover' src="{{val|get_cover('path')}}" alt="" style="width: 100%">
+<img class='card-cover' src="{{val|get_pic('m=1,w=640,h=640')}}" alt="" style="width: 100%">
 </div>
 {%endfor%}
 
@@ -157,7 +157,7 @@ m = m+1%} {% endfor %} {% else %} {% for _item in suk.data[0].ch[0].ch %} {%if m
 <div class="content-padded">
 <div class="tabs">
 <div id="shop_detail" class="tab active">
-{{info.goods_detail|safe}}
+{{info.content|safe}}
 </div>
 <div id="tab2" class="tab">
 <div class="content-padded">
@@ -186,7 +186,7 @@ m = m+1%} {% endfor %} {% else %} {% for _item in suk.data[0].ch[0].ch %} {%if m
 <ul>
 <li>
 <div class=" item-content">
-<div class="item-media goods-pic"><img style="width: 4rem;" src="{{pic[0]|get_cover('path')}}"></div>
+<div class="item-media goods-pic"><img style="width: 4rem;" src="{{pic[0]|get_pic('m=1,w=100,h=100')}}"></div>
 <div class="item-inner">
 <div class="item-title-row">
 <div class="item-title"><strong class="color-danger">¥<span class="sku_price">{{info.price|get_price_format('1')}}</span></strong></div>
@@ -222,7 +222,7 @@ m = m+1%} {% endfor %} {% else %} {% for _item in suk.data[0].ch[0].ch %} {%if m
 {%if i ==0%}
 {%for _item in sku.data%}
 <div class="sku-item">
-<input type="radio"  name="size1" value="{{_item.name}}" {%if suk.is_pic == 1%} data-pic="{{_item.pic|get_cover('path')}}" {%endif%}>
+<input type="radio"  name="size1" value="{{_item.name}}" {%if suk.is_pic == 1%} data-pic="{{_item.pic|get_pic('m=1,w=100,h=100')}}" {%endif%}>
 <label  >{{_item.name}}</label>
 </div>
 {%endfor%}

@@ -195,7 +195,7 @@
         /**选择商品类型 */
         
         $('.ichecks input').on('ifChecked', function(event){
-            var pic = $(this).next('img').attr('src');
+            var pic = $(this).next('img').attr('data-src');
             if(pic){
                 $("figure").find('img').attr('src',pic);
             }

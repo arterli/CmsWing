@@ -7904,3 +7904,6 @@ ul.search-history {
 	margin: 0 10px 2px 0;
 	min-height: 18px;
 }
+#description img{
+	max-width: 100%;
+	height: auto;}

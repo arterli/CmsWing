@@ -82,14 +82,14 @@ positions available:
 .top-right
 .top-left
 -->
-<a class="lightbox bottom-right" href="{{pic[0]|get_cover('path')}}" data-plugin-options='{"type":"image"}'><i class="glyphicon glyphicon-search"></i></a>
+<a class="lightbox bottom-right" href="{{pic[0]|get_pic('m=0')}}" data-plugin-options='{"type":"image"}'><i class="glyphicon glyphicon-search"></i></a>
 
 <!-- 
 image 
 
 Extra: add .image-bw class to force black and white!
 -->
-<img class="img-responsive" src="{{pic[0]|get_cover('path')}}" width="1200" height="1500" alt="This is the product title" />
+<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=800,h=800')}}"  alt="This is the product title" />
 </figure>
 
 </div>
@@ -100,8 +100,8 @@ Extra: add .image-bw class to force black and white!
 data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false,"itemsMobile":[479,5]}'>
 {%set i = 0%}
 {% for val in pic%}
-<a class="thumbnail {%if i == 0%}active{%endif%}" href="{{val|get_cover('path')}}">
-<img src="{{val|get_cover('path')}}" height="100" alt="" />
+<a class="thumbnail {%if i == 0%}active{%endif%}" href="{{val|get_pic('m=1,w=800,h=800')}}">
+<img src="{{val|get_pic('m=2,w=100,h=100')}}" height="100" alt="" />
 </a>
 {%set i=i+1%}
 {% endfor %}
@@ -144,7 +144,7 @@ data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true
 </div>
 <strong>商家编码:</strong> {{info.goods_no}}
 </div>
-
+{#
 <hr />
 <!-- countdown -->
 <div class="text-center">
@@ -152,7 +152,7 @@ data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true
 <div class="countdown" data-from="January 31, 2018 15:03:26" data-labels="年,月,周,天,时,分,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
 </div>
 <!-- /countdown -->
-
+#}
 <hr/>
 
 <!-- FORM -->
@@ -173,7 +173,7 @@ data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true
 
 <div class="item">
 <input type="radio"  name="size1" value="{{_item.name}}" >
-<label >{%if suk.is_pic == 1%}<img class="m-r-xs" height="30" alt="" src="{{_item.pic|get_cover('path')}}">{%endif%}{{_item.name}}</label>
+<label >{%if suk.is_pic == 1%}<img class="m-r-xs" height="30" alt="" data-src="{{_item.pic|get_pic('m=1,w=800,h=800')}}" src="{{_item.pic|get_pic('m=2,w=30,h=30')}}">{%endif%}{{_item.name}}</label>
 </div>
 
 {% endfor %}
@@ -301,7 +301,7 @@ data-plugin-options='{"singleItem": false, "autoPlay": false, "navigation": true
 <div class="tab-content padding-top-20">
 <!-- DESCRIPTION -->
 <div role="tabpanel" class="tab-pane fade in active" id="description">
-{{info.goods_detail|safe}}
+{{info.content|safe}}
 </div>
 
 <!-- SPECIFICATIONS -->

@@ -1028,3 +1028,22 @@ global.date_from=(time)=>{
     let res = `${month} ${day}, ${year} ${hour}:${min}:${sec}`;
     return res;
 }
+
+global.image_view=(str,w)=>{
+    //console.log(info);
+    let imgReg = /<img.*?(?:>|\/>)/gi;
+    let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    let arr = str.match(imgReg);
+    if(!think.isEmpty(arr)){
+        let narr=[];
+        for(let img of arr){
+            let _img = img.match(srcReg)
+            console.log(_img);
+            let nimg = _img[1]+'?imageView2/2/w/'+w;
+            console.log(nimg)
+            let inputimg = _img['input'].replace(_img[1],nimg)
+            narr.push(inputimg);
+        }
+        return str_replace(arr, narr, str);
+    }
+}
