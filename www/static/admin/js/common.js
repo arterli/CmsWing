@@ -74,9 +74,11 @@ $(document).on('click','.ajax-post',function(){
         }else if ( form.get(0).nodeName=='FORM' ){
 
             //表单验证
+            if($('[data-validate="parsley"]')){
             $('[data-validate="parsley"]').parsley().validate();
             if(true !== $('[data-validate="parsley"]').parsley().isValid()){
                 return false;
+            }
             }
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){

@@ -44,6 +44,12 @@ export default class extends Base {
             let data = this.post();
             data.status = 1;
             console.log(data);
+            if(!think.isEmpty(data.name)){
+                let check = await this.model("category").where({name:data.name,pid:data.pid}).find();
+                if(!think.isEmpty(check)){
+                    return this.fail("同节点下,分类标示不能重复");
+                }
+            }
             let res = await this.model("category").updates(data);
             if(res){
                 this.success({name:"新增成功！",url:"/admin/category/index"});
@@ -58,7 +64,52 @@ export default class extends Base {
             this.assign("models",obj_values(model));
             //获取运行的文档类型
             this.active="admin/category/index";
-            this.action = "/admin/category/add"
+            this.action = "/admin/category/add";
+            //获取模版列表
+            let temp = await this.model("temp").where({type:1}).select();
+            //封面模版
+            let template_index =[]
+            for(let v of temp){
+                let obj = {}
+                let action = v.action.split("_")
+                //console.log(action[1]);
+                if(action[0]=='index' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_index.push(obj);
+                }
+
+            }
+            //列表模版
+            let template_lists =[]
+            for(let v of temp){
+              let obj = {}
+                let action = v.action.split("_");
+                //console.log(action[1]);
+                if(action[0]=='list' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_lists.push(obj);
+                }
+
+            }
+            //详情页模版
+            let template_detail =[];
+            for(let v of temp){
+                let obj ={};
+                let action = v.action.split("_");
+                if(action[0]=='detail' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_detail.push(obj);
+                }
+            }
+            this.assign({
+                template_lists:template_lists,
+                template_detail:template_detail,
+                template_index:template_index
+            })
+            //template_lists
             this.meta_title = "添加分类"
             return this.display();
         }
@@ -74,7 +125,13 @@ export default class extends Base {
             let data = this.post();
             data.status = 1;
             console.log(data);
-
+            //检查同节点下分类标示是否重复
+            if(!think.isEmpty(data.name)){
+             let check = await this.model("category").where({id:["!=",data.id],name:data.name,pid:data.pid}).find();
+                if(!think.isEmpty(check)){
+                    return this.fail("同节点下,分类标示不能重复");
+                }
+            }
             let res = await this.model("category").updates(data);
             if(res){
                 this.success({name:"更新成功！",url:"/admin/category/index"});
@@ -95,6 +152,50 @@ export default class extends Base {
             this.active="admin/category/index";
                 this.action = "/admin/category/edit";
                 this.meta_title = "编辑分类";
+            //获取模版列表
+            let temp = await this.model("temp").where({type:1}).select();
+            //封面模版
+            let template_index =[]
+            for(let v of temp){
+                let obj = {}
+                let action = v.action.split("_")
+                //console.log(action[1]);
+                if(action[0]=='index' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_index.push(obj);
+                }
+
+            }
+            //列表模版
+            let template_lists =[]
+            for(let v of temp){
+                let obj = {}
+                let action = v.action.split("_")
+                //console.log(action[1]);
+                if(action[0]=='list' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_lists.push(obj);
+                }
+
+            }
+            //详情页模版
+            let template_detail =[];
+            for(let v of temp){
+                let obj ={};
+                let action = v.action.split("_");
+                if(action[0]=='detail' && action[1] != undefined && v.controller=='topic'){
+                    obj.name=v.name;
+                    obj.action=action[1]+this.config("view.file_ext");
+                    template_detail.push(obj);
+                }
+            }
+            this.assign({
+                template_lists:template_lists,
+                template_detail:template_detail,
+                template_index:template_index
+            })
            return this.display();
         }
     }

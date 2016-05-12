@@ -68,5 +68,16 @@ export default class extends think.controller.base {
     verAction(){
        this.end("df11df")
     }
+   //验证菜单标示是否重复
+    async categorynameAction(){
+        let name = this.get('name');
+        let pid = this.get('pid');
+        let res = await this.model("category").where({name:name,pid:pid}).find();
+        if(!think.isEmpty(res)){
+            return this.json({ "message": "your custom message" });
+        }else {
+            return this.json(1);
+        }
 
+    }
 }
