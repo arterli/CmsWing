@@ -1,0 +1,111 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 scrollable">
+                    <section class="panel panel-default" style="margin-bottom: 0">
+                        <section class="panel-body slim-scroll" data-height="370px" data-size="10px">
+                            <ul id="ztree" class="ztree"></ul>
+                        </section>
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <section class="panel panel-default " style="margin-bottom: 0">
+                        <header class="panel-heading">
+                            <span class="label bg-dark" id="checkCount">0</span> <span id="tit">已选分类</span>
+                        </header>
+                        <section class="panel-body slim-scroll" data-height="330px" data-size="10px">
+                            <p id="areatxt">
+
+                            </p>
+                        </section>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <!--<a href="#" class="btn btn-primary">确定</a>-->
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+<script type="text/javascript">
+    <!--
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/public/getmenu",
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess,
+            beforeCheck: beforeCheck,
+//            onCheck: onCheck
+        },
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "level"
+        },
+    };
+
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        // console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id = $("#" + treeId).attr("data-cate");
+        //console.log(id);
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        //console.log(treeId)
+        treeObj.selectNode(curMenu);
+    }
+    function beforeCheck(treeId, treeNode) {
+        console.log(treeNode);
+        $("#selectcate").val(treeNode.url);
+        $("#tit").text(treeNode.name);
+        $("#areatxt").text(treeNode.url);
+//        className = (className === "dark" ? "":"dark");
+//        showLog("[ "+getTime()+" beforeCheck ]&nbsp;&nbsp;&nbsp;&nbsp;" + treeNode.name );
+        return (treeNode.doCheck !== false);
+    }
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+                type = e.data.type,
+                nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+    $('.slim-scroll').each(function(){
+        var $self = $(this), $data = $self.data(), $slimResize;
+        $self.slimScroll($data);
+        $(window).resize(function(e) {
+            clearTimeout($slimResize);
+            $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
+        });
+        $(document).on('updateNav', function(){
+            $self.slimScroll($data);
+        });
+    });
+
+    //-->
+    $(function () {
+        var t = $("#ztree");
+        setting.check.radioType = "all";
+        t = $.fn.zTree.init(t, setting).expandAll(true);
+        $("#expandAllBtn").bind("click", {type: "expandAll"}, expandNode);
+        $("#collapseAllBtn").bind("click", {type: "collapseAll"}, expandNode);
+
+    })
+</script>

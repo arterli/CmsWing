@@ -80,4 +80,27 @@ export default class extends think.controller.base {
         }
 
     }
+    //选择分离
+    async selectcateAction(){
+        this.meta_title="选择分类"
+        return this.display();
+    }
+    //获取分类
+    async getmenuAction() {
+        let cate = await this.model("category").get_all_category();
+        console.log(cate);
+        //生成菜单
+
+        for (let val of cate) {
+            let id = think.isEmpty(val.title)?val.id:val.title;
+            if(val.allow_publish > 0){
+                val.url = `/column/${id}`;
+            }else {
+                val.url =`/channel/${id}`;
+            }
+
+        }
+        //think.log(cate);
+        return this.json(arr_to_tree(cate, 0))
+    }
 }
