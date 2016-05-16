@@ -314,11 +314,13 @@ Recent
 <!-- /OWL SLIDER -->
 
 <!-- IMAGE -->
+    {#
 {% if info.cover_id>0 %}
 <figure class="margin-bottom-20">
-<img class="img-responsive" src="{{info.cover_id|get_cover('path')}}" alt="{{info.title}}">
+<img class="img-responsive" src="{{info.cover_id|get_pic('m=2,w=847')}}" alt="{{info.title}}">
 </figure>
 {% endif %}
+    #}
 <!-- /IMAGE -->
 
 <!-- VIDEO -->

@@ -684,10 +684,14 @@ global.get_cover = async (cover_id, field) => {
  * @param h 高
  */
 global.get_pic = async(id,m=null,w=null,h=null)=>{
-    if(think.isEmpty(id)){
-        return false;
+    let map={};
+    map.status=1;
+    if(think.isNumberString(id)){
+       map.id=id;
+    }else {
+        map.path = id;
     }
-    let picture = await think.model('picture', think.config("db")).where({ 'status': 1 }).find(id);
+    let picture = await think.model('picture', think.config("db")).where(map).find();
     let q=""
     if(picture.type > 0){
        if(m !=null){
@@ -1045,5 +1049,7 @@ global.image_view=(str,w)=>{
             narr.push(inputimg);
         }
         return str_replace(arr, narr, str);
+    }else {
+        return str;
     }
 }

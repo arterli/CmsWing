@@ -46,7 +46,7 @@ export default class extends Base {
     //列表页
   async listAction() {
       //console.log(111);
-
+      console.log(1111 / 100);
       let id = this.get('category') || 0;
       //console.log(id);
       let cate = await this.category(id);
@@ -196,6 +196,7 @@ export default class extends Base {
     }
     this.assign('category', cate);
     this.assign('info', info);
+      console.log(info);
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
           return this.display(`mobile/${this.http.controller}/${temp}`)

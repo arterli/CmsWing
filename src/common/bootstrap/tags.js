@@ -170,6 +170,8 @@ global.column= function(){
  * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
  * cid: 栏目id ,单个栏目 cid="1",多个栏目 cid = "1,2,3,4" , 不写调取全部栏目
  * {{name|get_url(id)}}文章链接
+ * type: 标签类型,hot-安装浏览量从高到底,默认安装更新时间排序
+ * //{% topic data = "data",limit= "5",cid=category.id,type="hot"%}
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -188,9 +190,14 @@ global.topic = function(){
         if(cid){
             where = think.extend({},where,cid);
         }
-    
+        let type='update_time DESC';
+        if(!think.isEmpty(args.type)){
+            if(args.type=="hot"){
+              type="view DESC"
+            }
+        }
         //console.log(where);
-        let topic = await think.model('document', think.config("db")).where(where).limit(limit).select();
+        let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //console.log(topic)
         context.ctx[data] = topic;
         return callback(null, '');

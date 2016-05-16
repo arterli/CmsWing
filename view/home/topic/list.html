@@ -57,283 +57,242 @@ CLASSES:
 <div class="row">
 
 <!-- LEFT -->
-<div class="col-md-3 col-sm-3">
+    <div class="col-md-9 col-sm-9">
 
-<!-- INLINE SEARCH -->
-<div class="inline-search clearfix margin-bottom-30">
-<form action="" method="get" class="widget_search">
-<input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
-<button type="submit">
-<i class="fa fa-search"></i>
-</button>
-</form>
-</div>
-<!-- /INLINE SEARCH -->
+        {% for val in list %}
+        <!-- POST ITEM -->
+        <div class="blog-post-item padding-bottom-20 margin-bottom-20">
 
-<hr />
+            <!-- IMAGE -->
+            {% if val.cover_id>0 %}
+            <figure class="blog-item-small-image margin-bottom-20">
+                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+            </figure>
+            {% endif %}
+            <div class="blog-item-small-content">
+                <h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
 
-<!-- side navigation -->
-{%column data="cate",cid=category.id%}
-{%if cate%}
-<div class="side-nav margin-bottom-60 margin-top-30">
-<div class="side-nav-head">
-<button class="fa fa-bars"></button>
-<h4>{{category.title}} 子分类</h4>
-</div>
-<ul class="list-group list-group-bordered list-group-noicon uppercase">
-{%for val in cate%}
-<li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
-{%endfor%}
-</ul>
-<!-- /side navigation -->
-</div>
-{%endif%}
+                <ul class="blog-post-info list-inline padding-bottom-10">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-clock-o"></i>
+                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-comment-o"></i>
+                            <span class="font-lato">{{val.view}} Comments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fa fa-folder-open-o"></i>
 
+                        <a class="category" href="#">
+                            <span class="font-lato">{{val.category_id}}</span>
+                        </a>
+                        <a class="category" href="#">
+                            <span class="font-lato">Photography</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="font-lato">{{val.uid|get_nickname}}</span>
+                        </a>
+                    </li>
+                </ul>
 
-<!-- JUSTIFIED TAB -->
-<div class="tabs nomargin-top hidden-xs margin-bottom-60">
+                <p>{{val.description}}</p>
+            </div>
 
-<!-- tabs -->
-<ul class="nav nav-tabs nav-bottom-border nav-justified">
-<li class="active">
-<a href="#tab_1" data-toggle="tab">
-Popular
-</a>
-</li>
-<li>
-<a href="#tab_2" data-toggle="tab">
-Recent
-</a>
-</li>
-</ul>
-
-<!-- tabs content -->
-<div class="tab-content margin-bottom-60 margin-top-30">
-
-<!-- POPULAR -->
-<div id="tab_1" class="tab-pane active">
-
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/1-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/2-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="blog-sidebar-left.html" class="tab-post-link">Nam et lacus neque. Ut enim massa, sodales</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-
-</div>
-<!-- /POPULAR -->
+        </div>
+        <!-- /POST ITEM -->
+        {%endfor%}
 
 
-<!-- RECENT -->
-<div id="tab_2" class="tab-pane">
+        <!-- PAGINATION -->
+        <div class="text-left">
+            <!-- Pagination Default -->
+            {{pagination | safe}}
+            <!-- /Pagination Default -->
+        </div>
+        <!-- /PAGINATION -->
 
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="/static/blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/5-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-
-<div class="row tab-post"><!-- post -->
-<div class="col-md-3 col-sm-3 col-xs-3">
-<a href="blog-sidebar-left.html">
-<img src="/static/assets/images/demo/people/300x300/6-min.jpg" width="50" alt="" />
-</a>
-</div>
-<div class="col-md-9 col-sm-9 col-xs-9">
-<a href="blog-sidebar-left.html" class="tab-post-link">Quisque ut nulla at nunc</a>
-<small>June 29 2014</small>
-</div>
-</div><!-- /post -->
-</div>
-<!-- /RECENT -->
-
-</div>
-
-</div>
-<!-- JUSTIFIED TAB -->
-
-
-<!-- TAGS -->
-<h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
-<div class="hidden-xs margin-bottom-60">
-
-<a class="tag" href="#">
-<span class="txt">RESPONSIVE</span>
-<span class="num">12</span>
-</a>
-<a class="tag" href="#">
-<span class="txt">CSS</span>
-<span class="num">3</span>
-</a>
-<a class="tag" href="#">
-<span class="txt">HTML</span>
-<span class="num">1</span>
-</a>
-<a class="tag" href="#">
-<span class="txt">JAVASCRIPT</span>
-<span class="num">28</span>
-</a>
-<a class="tag" href="#">
-<span class="txt">DESIGN</span>
-<span class="num">6</span>
-</a>
-
-<a class="tag" href="#">
-<span class="txt">DEVELOPMENT</span>
-<span class="num">3</span>
-</a>
-</div>
-
-
-
-<hr />
-
-
-<!-- SOCIAL ICONS -->
-<div class="hidden-xs margin-top-30 margin-bottom-60">
-<a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-<i class="icon-facebook"></i>
-<i class="icon-facebook"></i>
-</a>
-
-<a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-<i class="icon-twitter"></i>
-<i class="icon-twitter"></i>
-</a>
-
-<a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-<i class="icon-gplus"></i>
-<i class="icon-gplus"></i>
-</a>
-
-<a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-<i class="icon-linkedin"></i>
-<i class="icon-linkedin"></i>
-</a>
-
-<a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-<i class="icon-rss"></i>
-<i class="icon-rss"></i>
-</a>
-</div>
-
-</div>
+    </div>
 
 <!-- RIGHT -->
-<div class="col-md-9 col-sm-9">
 
-{% for val in list %}
-<!-- POST ITEM -->
-<div class="blog-post-item">
+    <div class="col-md-3 col-sm-3">
 
-<!-- IMAGE -->
-{% if val.cover_id>0 %}
-<figure class="margin-bottom-20">
-<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=848,h=235')}}" alt="">
-</figure>
-{% endif %}
-<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
+        <!-- INLINE SEARCH -->
+        <div class="inline-search clearfix margin-bottom-30">
+            <form action="" method="get" class="widget_search">
+                <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <!-- /INLINE SEARCH -->
 
-<ul class="blog-post-info list-inline">
-<li>
-<a href="#">
-<i class="fa fa-clock-o"></i>
-<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-</a>
-</li>
-<li>
-<a href="#">
-<i class="fa fa-comment-o"></i>
-<span class="font-lato">{{val.view}} Comments</span>
-</a>
-</li>
-<li>
-<i class="fa fa-folder-open-o"></i>
+        <hr />
 
-<a class="category" href="#">
-<span class="font-lato">{{val.category_id}}</span>
-</a>
-<a class="category" href="#">
-<span class="font-lato">Photography</span>
-</a>
-</li>
-<li>
-<a href="#">
-<i class="fa fa-user"></i>
-<span class="font-lato">{{val.uid|get_nickname}}</span>
-</a>
-</li>
-</ul>
-
-<p>{{val.description}}</p>
-
-<a href="{{val.name|get_url(val.id)}}" class="btn btn-reveal btn-default">
-<i class="fa fa-plus"></i>
-<span>Read More</span>
-</a>
-
-</div>
-<!-- /POST ITEM -->
-{%endfor%}
+        <!-- side navigation -->
+        {%column data="cate",cid=category.id%}
+        {%if cate%}
+        <div class="side-nav margin-bottom-60 margin-top-30">
+            <div class="side-nav-head">
+                <button class="fa fa-bars"></button>
+                <h4>{{category.title}} 子分类</h4>
+            </div>
+            <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                {%for val in cate%}
+                <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
+                {%endfor%}
+            </ul>
+            <!-- /side navigation -->
+        </div>
+        {%endif%}
 
 
-<!-- PAGINATION -->
-<div class="text-left">
-<!-- Pagination Default -->
-{{pagination | safe}}
-<!-- /Pagination Default -->
-</div>
-<!-- /PAGINATION -->
+        <!-- JUSTIFIED TAB -->
+        <div class="tabs nomargin-top hidden-xs margin-bottom-30">
 
-</div>
+            <!-- tabs -->
+            <ul class="nav nav-tabs nav-bottom-border nav-justified">
+                <li class="active">
+                    <a href="#tab_1" data-toggle="tab">
+                        最热
+                    </a>
+                </li>
+                <li>
+                    <a href="#tab_2" data-toggle="tab">
+                        最新
+                    </a>
+                </li>
+            </ul>
 
+            <!-- tabs content -->
+            <div class="tab-content margin-bottom-0 margin-top-10">
+
+                <!-- POPULAR -->
+                <div id="tab_1" class="tab-pane active">
+                    <!-- /post -->
+                    {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                    {%for v in hotlist%}
+                    <div class="row tab-post"><!-- post -->
+                        {%if v.cover_id%}
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <a href="{{v.name|get_url(v.id)}}">
+                                <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                            </a>
+                        </div>
+                        {%endif%}
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                            <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                        </div>
+                    </div><!-- /post -->
+                    {%endfor%}
+
+                </div>
+                <!-- /POPULAR -->
+
+
+                <!-- RECENT -->
+                <div id="tab_2" class="tab-pane">
+                    {% topic data = "newlist",limit= "5",cid=category.id%}
+                    {%for v in newlist%}
+                    <div class="row tab-post"><!-- post -->
+                        {%if v.cover_id%}
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <a href="{{v.name|get_url(v.id)}}">
+                                <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                            </a>
+                        </div>
+                        {%endif%}
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                            <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                        </div>
+                    </div><!-- /post -->
+                    {%endfor%}
+                    <!-- /post -->
+                </div>
+                <!-- /RECENT -->
+
+            </div>
+
+        </div>
+        <!-- JUSTIFIED TAB -->
+
+
+        <!-- TAGS -->
+        <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
+        <div class="hidden-xs margin-bottom-20">
+
+            <a class="tag" href="#">
+                <span class="txt">RESPONSIVE</span>
+                <span class="num">12</span>
+            </a>
+            <a class="tag" href="#">
+                <span class="txt">CSS</span>
+                <span class="num">3</span>
+            </a>
+            <a class="tag" href="#">
+                <span class="txt">HTML</span>
+                <span class="num">1</span>
+            </a>
+            <a class="tag" href="#">
+                <span class="txt">JAVASCRIPT</span>
+                <span class="num">28</span>
+            </a>
+            <a class="tag" href="#">
+                <span class="txt">DESIGN</span>
+                <span class="num">6</span>
+            </a>
+
+            <a class="tag" href="#">
+                <span class="txt">DEVELOPMENT</span>
+                <span class="num">3</span>
+            </a>
+        </div>
+
+
+
+        <hr />
+
+
+        <!-- SOCIAL ICONS -->
+        <div class="hidden-xs margin-top-30 margin-bottom-60">
+            <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                <i class="icon-facebook"></i>
+                <i class="icon-facebook"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                <i class="icon-twitter"></i>
+                <i class="icon-twitter"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                <i class="icon-gplus"></i>
+                <i class="icon-gplus"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                <i class="icon-linkedin"></i>
+                <i class="icon-linkedin"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                <i class="icon-rss"></i>
+                <i class="icon-rss"></i>
+            </a>
+        </div>
+
+    </div>
 </div>
 
 </div>

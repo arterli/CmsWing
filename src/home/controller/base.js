@@ -60,8 +60,8 @@ export default class extends think.controller.base {
          }
       }
       this.cart = cartInfo;
-      
-    }
+      console.log(this.cart);
+  }
     /**
      * 判断是否登录
      * @returns {boolean}

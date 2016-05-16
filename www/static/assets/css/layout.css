@@ -6420,19 +6420,19 @@ h1.blog-post-title {
 	/** Blog Small Image
 	 ****************** **/
 	.blog-post-item .blog-item-small-image {
-		width:300px;
+		width:200px;
 		float:left;
 	}
 	.blog-post-item .blog-item-small-image + .blog-item-small-content {
-		padding-left:330px;
+		padding-left:220px;
 	}
 		.blog-post-item.blog-post-item-inverse .blog-item-small-image {
-			width:300px;
+			width:200px;
 			float:right;
 		}
 		.blog-post-item.blog-post-item-inverse .blog-item-small-image + .blog-item-small-content {
 			padding-left:0;
-			padding-right:330px;
+			padding-right:220px;
 		}
 
 	.blog-both-sidebar .blog-post-item .blog-item-small-image {
