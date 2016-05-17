@@ -69,7 +69,7 @@
                           {% if controller.cart.data|length > 0 %}
                           {% for val in controller.cart.data%}
                           <a href="{{val.url}}">				
-                    <img src="{{val.pic}}" width="45" height="45" alt="" />
+                    <img src="{{val.pic|get_pic('m=1,w=45,h=45')}}" width="45" height="45" alt="" />
                     <h6><span>{{val.qty}}x</span> {{val.title}}</h6>
                     <small>￥{{val.price|formatCurrency}} {% if val.type%}<span class="size-11 text-muted">[{{val.type}}]</span>{%endif%}</small>
                     </a>
