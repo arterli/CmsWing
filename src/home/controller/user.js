@@ -685,6 +685,7 @@ export default class extends Base {
             //如果已经登陆直接跳转到用户中心
             if (this.is_login) {
                 this.redirect("/user/index")
+
             }
             this.meta_title = "用户登录";
             //判断浏览客户端
@@ -706,8 +707,9 @@ export default class extends Base {
 
             await this.session('webuser', null);
             //await this.session("wx_openid",null);
+            // cysoIp9AH
+           return this.display()
 
-            this.redirect("/index");
         } else {
             this.redirect("/index");
         }
