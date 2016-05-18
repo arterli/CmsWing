@@ -52,13 +52,13 @@
                 <!-- /ALERT -->
 
                 <!-- register form -->
-                <form class="nomargin sky-form boxed form-organizing" action="/public/organizing" method="post">
+                <form class="nomargin sky-form boxed form-organizing" action="/changyan/organizing" method="post">
                     <header>
 						<i class="fa fa-users"></i> 完善个人资料
 						<div class="clearfix margin-top-10"><!-- post item -->
-							<img width="60" height="60" alt="" src="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" class="thumbnail pull-left">
-							<h4 class="size-14 nomargin noborder padding-top-10">{{qq_user.nickname}}</h4>
-							<span class="size-12 text-muted">{{qq_user.gender}}</span>
+							<img width="60" height="60" alt="" src="{{data.img_url}}" class="thumbnail pull-left">
+							<h4 class="size-14 nomargin noborder padding-top-10">{{data.nickname}}</h4>
+							<span class="size-12 text-muted">{{data.cy_user_id}}</span>
 						</div>
 
                     </header>
@@ -66,7 +66,7 @@
                     <fieldset class="nomargin">
                         <label class="input margin-bottom-10">
                             <i class="ico-append fa fa fa-user"></i>
-                            <input type="text" placeholder="用户名" name="username" value="{{qq_user.nickname}}">
+                            <input type="text" placeholder="用户名" name="username" value="{{data.nickname}}">
                             <b class="tooltip tooltip-bottom-right">字母，数字,汉字等，用户名唯一</b>
                         </label>
                         <label class="input margin-bottom-10">
@@ -95,9 +95,10 @@
 
                     <div class="row margin-bottom-20">
                         <div class="col-md-12">
-                            <input type="hidden" name="openid" value="{{qq_user.openid}}">
-							<input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
-                            <button type="submit" class="btn btn-primary ajax-post" target-form="form-organizing"><i class="fa fa-check"></i> 进入个人中心</button>
+                            <input type="hidden" name="openid" value="{{data.sign}}">
+							<input type="hidden" name="headimgurl" value="{{data.img_url}}" >
+                            <input type="hidden" name="cy_user_id" value="{{data.cy_user_id}}" >
+                            <button type="submit" class="btn btn-primary ajax-post" target-form="form-organizing"><i class="fa fa-check"></i> 绑定</button>
                         </div>
                     </div>
 
@@ -109,7 +110,7 @@
 
             <!-- SOCIAL LOGIN -->
             <div class="col-md-5 col-sm-5">
-                <form action="/public/logonbinding" method="post" class="sky-form boxed form-logonbinding">
+                <form action="/changyan/logonbinding" method="post" class="sky-form boxed form-logonbinding">
 
                     <header class="size-18 margin-bottom-20">
 						绑定到已有账号
@@ -144,8 +145,9 @@
 							</div>
 
 							<div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                <input type="hidden" name="openid" value="{{qq_user.openid}}">
-                                <input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
+                                <input type="hidden" name="openid" value="{{data.sign}}">
+                                <input type="hidden" name="headimgurl" value="{{data.img_url}}" >
+                                <input type="hidden" name="cy_user_id" value="{{data.cy_user_id}}" >
 								<button class="btn btn-primary ajax-post" type="submit" target-form="form-logonbinding">登录</button>
 
 							</div>

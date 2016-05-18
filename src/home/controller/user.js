@@ -706,6 +706,7 @@ export default class extends Base {
         if (this.is_login) {
 
             await this.session('webuser', null);
+            //清楚cy_id
             //await this.session("wx_openid",null);
             // cysoIp9AH
            return this.display()
