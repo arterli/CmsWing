@@ -36,7 +36,7 @@ export default class extends Base {
   qccallbackAction(){
     if(this.setup.IS_QQ_LOGIN == 0){
       this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
-      return think.statusAction(1002, this.http);
+      return think.statusAction(702, this.http);
     }
     if(this.is_login){
       this.redirect('/user/index')
@@ -48,7 +48,7 @@ export default class extends Base {
   async loginresultAction(){
     if(this.setup.IS_QQ_LOGIN == 0){
       this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
-      return think.statusAction(1002, this.http);
+      return think.statusAction(702, this.http);
     }
     if(this.is_login){
       this.redirect('/user/index')
@@ -95,7 +95,7 @@ export default class extends Base {
   async qqloginAction(){
     if(this.setup.IS_QQ_LOGIN == 0){
       this.http.error = new Error('没有开启QQ登陆，请到后台开启！');
-      return think.statusAction(1002, this.http);
+      return think.statusAction(702, this.http);
     }
     if(this.is_login){
       this.redirect('/user/index')

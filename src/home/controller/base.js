@@ -82,7 +82,7 @@ export default class extends think.controller.base {
                 this.redirect('/user/login')
             } else {
                 //pc端跳转到错误页面
-                return think.statusAction(1000,this.http);
+                return think.statusAction(700,this.http);
             }
 
         }
@@ -93,7 +93,9 @@ export default class extends think.controller.base {
     id = id || 0;
     field = field || "";
     if (think.isEmpty(id)) {
-      this.fail('没有指定数据分类！');
+      //this.fail('没有指定数据分类！');
+        this.http.error = new Error('没有指定数据分类！');
+        return think.statusAction(702, this.http);
     }
     let cate = await this.model("category").info(id, field);
 
@@ -101,7 +103,9 @@ export default class extends think.controller.base {
 
       switch (cate.display) {
         case 0:
-          this.fail('该分类禁止显示')
+          //this.fail('该分类禁止显示')
+            this.http.error = new Error('该分类禁止显示！');
+            return think.statusAction(702, this.http);
           break;
           //TODO:更多分类显示状态判断
         default:
@@ -110,7 +114,9 @@ export default class extends think.controller.base {
       }
 
     } else {
-      this.fail("分类不存在或者被禁用！");
+      //this.fail("分类不存在或者被禁用！");
+        this.http.error = new Error('分类不存在或者被禁用！');
+        return think.statusAction(702, this.http);
     }
   }
     //购物车

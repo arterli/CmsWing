@@ -51,7 +51,7 @@ export default class extends think.controller.base {
             if (!res) {
                 //return this.fail('未授权访问!');
                 this.http.error = new Error('未授权访问!');
-                return think.statusAction(1002, this.http);
+                return think.statusAction(702, this.http);
             }
         }
 

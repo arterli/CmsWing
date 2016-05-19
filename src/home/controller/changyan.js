@@ -12,12 +12,13 @@ export default class extends Base {
   indexAction(){
     //auto render template file index_index.html
     return this.display();
+
   }
     //获取用户信息接口
   getuserinfoAction(){
     //
 
-    let cy_appkey = "e2066f1e6fc3b33e5f7f31ba1365bf63";
+    let cy_appkey = this.setup.CY_APPKEY;
     let ret;
     if(this.is_login){
       ret={
@@ -25,7 +26,7 @@ export default class extends Base {
           "user":{
           "user_id":this.user.uid,
           "nickname":this.user.username,
-          "img_url":"http://"+this.http.host+"/user/avatar",
+          "img_url":"http://"+this.http.host+"/user/avatar/uid/"+this.user.uid,
           "profile_url":"",
           "sign":this.cysign(cy_appkey,"","",this.user.username,"",this.user.uid)}
       }
@@ -39,7 +40,7 @@ export default class extends Base {
   }
     //用户登录接口
    async loginAction(){
-        let cy_appkey = "e2066f1e6fc3b33e5f7f31ba1365bf63";
+        let cy_appkey = this.setup.CY_APPKEY;
         let get = this.get();
         get.img_url=decodeURIComponent(get.img_url);
         get.sign = decodeURIComponent(get.sign);

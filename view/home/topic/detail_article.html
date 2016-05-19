@@ -130,8 +130,12 @@ CLASSES:
             {{info.content|safe}}
         </div>
         <!-- /article content -->
-
-
+        <!--打赏-->
+        <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
+        <!--打赏-->
+        <!--评论表情-->
+        <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
+        <!--评论表情-->
         <div class="divider divider-dotted"><!-- divider --></div>
 
 
@@ -225,8 +229,8 @@ Share Post:
             <script type="text/javascript">
                 window._config = { showScore: true };
                 window.changyan.api.config({
-                    appid: 'cysoIp9AH',
-                    conf: 'prod_a57cfd16892dd7465e5314ec3e3aa74c'
+                    appid: '{{controller.setup.CY_APPID}}',
+                    conf: '{{controller.setup.CY_APPKEY}}'
                 });
             </script>
         </div>
@@ -412,6 +416,7 @@ Share Post:
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
 uParse('#content', {
 rootPath: '/static/admin/js/udeitor/'

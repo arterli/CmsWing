@@ -55,15 +55,15 @@ export default class extends think.controller.base {
     return this.displayErrorPage(503);
   }
   //未登录
-  _1000Action(){
-    return this.displayErrorPage(1000);
+  _700Action(){
+    return this.displayErrorPage(700);
   }
   // 正确跳转对应的模板文件
-  _1001Action(){
-    return this.displayErrorPage(1001);
+  _701Action(){
+    return this.displayErrorPage(701);
   }
   // 错误跳转对应的模板文件
-  _1002Action(){
-    return this.displayErrorPage(1002);
+  _702Action(){
+    return this.displayErrorPage(702);
   }
 }

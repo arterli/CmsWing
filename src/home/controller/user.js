@@ -29,14 +29,14 @@ export default class extends Base {
     async indexAction() {
         //auto render template file index_index.html
         // if (!this.is_login) {
-        //     return think.statusAction(1000, this.http);
+        //     return think.statusAction(700, this.http);
         // }
         //判断是否登陆
         await this.weblogin();
         // this.http.error = new Error('成功信息！');
-        // return think.statusAction(1001, this.http);
+        // return think.statusAction(701, this.http);
         // this.http.error = new Error('错误信息！');
-        // return think.statusAction(1002, this.http);
+        // return think.statusAction(702, this.http);
         //获取用户信息
         let userInfo = await this.model("member").join({
             table: "customer",
@@ -623,7 +623,8 @@ export default class extends Base {
 
     //获取头像
     async avatarAction() {
-        var uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + this.user.uid;
+        let uid = this.get("uid")||this.user.uid
+        var uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + uid;
         let path = think.isFile(uploadPath + "/" + "/avatar.png");
         this.type("image/png");
         let pic;

@@ -20,11 +20,11 @@ export default class extends think.model.base {
         }
        //console.log(map);
         let info = await this.where(map).find();
-
-        if(!info){
-           return this.fail('数据不存在！');
+       //console.log(info);
+        if(think.isEmpty(info)){
+           return {errno: 702, errmsg: "数据不存在"};
         }else if(!(think.isObject(info) || 1 != info.status)){
-            return this.fail('文档被禁用或已删除！')
+            return {errno: 702, errmsg: "文档被禁用或已删除"};
         }
         //获取模型数据
         let table =await this.model("model",{},"admin").get_table_name(info.model_id);

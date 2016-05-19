@@ -28,7 +28,7 @@ export default class extends think.controller.base {
     // 禁止 URL 访问该 Action
     if(!this.isCli()){
       this.http.error = new Error('only invoked in cli mode！');
-      return think.statusAction(1002, this.http);
+      return think.statusAction(702, this.http);
     }
 
     //查询未付款，未作废的订单的订单

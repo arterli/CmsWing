@@ -154,9 +154,9 @@ export default class extends Base {
             let getpr = getsuk(suk.data,arr_);
               //console.log(getpr);
               if(suk.is_pic==1){
-                  dataobj.pic = await get_cover(getpr.pic,'path');
+                  dataobj.pic = await get_pic(getpr.pic,1,100,100);
               }else {
-                  dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
+                  dataobj.pic = await get_pic(goods.pics.split(",")[0],1,100,100);
               }
             dataobj.price = Number(getpr.sku_price) * Number(val.qty);
             dataobj.unit_price =Number(getpr.sku_price);
@@ -201,17 +201,18 @@ export default class extends Base {
      let addrid = this.get("addrid");
       if(think.isEmpty(post)){
           this.http.error = new Error('木有选项要结算的宝贝');
-          return think.statusAction(1002, this.http);
+          return think.statusAction(702, this.http);
       }
       if(think.isEmpty(this.cart.data)){
           this.http.error = new Error('木有宝贝提交啥订单呢？');
-          return think.statusAction(1002, this.http);
+          return think.statusAction(702, this.http);
       }
 
       //手机端接收
      if (!think.isEmpty(addrid) && checkMobile(this.userAgent())) {
          post = JSON.parse(post);
      }
+     this.assign("goodsget",post);
      this.assign("goodsget",post);
      //构造购物车要结算的宝贝
       let ids=[];
@@ -431,9 +432,7 @@ export default class extends Base {
   
  //联系人设置为默认
 async addrisdefaultAction(){
-     if(!this.is_login){
-         return think.statusAction(1000, this.http);
-      }
+    await this.weblogin();
       let id = this.get("id");
       let find = await this.model("address").where({user_id:this.user.uid}).order("is_default ASC").select();
           for(let val of find){
@@ -452,9 +451,7 @@ async addrisdefaultAction(){
 }
     //获取当前选择的地址
     async getaddrAction(){
-        if(!this.is_login){
-            return think.statusAction(1000, this.http);
-        }
+        await this.weblogin();
         let id = this.get("id");
         let addr = await this.model("address").where({user_id:this.user.uid}).find(id);
         addr.province = await this.model("area").where({id:addr.province}).getField("name",true);
@@ -511,7 +508,7 @@ async deladdrAction(){
 }
 //编辑地址
 async editaddrmodalAction(){
-    if(!this.is_login){return think.statusAction(1000, this.http);};
+    await this.weblogin();
     let id = this.get("id");
     if(!think.isEmpty(id)){
 
@@ -545,7 +542,7 @@ async editaddrmodalAction(){
 }
 //创建订单
 async createorderAction(){
-    if(!this.is_login){return think.statusAction(1000, this.http)};
+    await this.weblogin();
     let data = this.post();
     // console.log(data);
     // return false;
@@ -768,7 +765,7 @@ async createorderAction(){
            let order = await this.model("order").where({pay_status:0,user_id:this.user.uid}).find(order_id);
            if(think.isEmpty(order)){
                this.http.error = new Error('订单不存在或者已经支付！');
-               return think.statusAction(1002, this.http);
+               return think.statusAction(702, this.http);
            }
            order.end_time = date_from(order.create_time+(Number(this.setup.ORDER_DELAY)*60000))
            //console.log(order);

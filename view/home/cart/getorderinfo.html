@@ -187,7 +187,7 @@
 		<tbody>
             {% for val in check_goods%}
 			<tr>
-				<td><img src="{{val.pic|get_pic('m=1,w=45,h=45')}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
+				<td><img src="{{val.pic}}" alt="" width="45" class="img-responsive img-thumbnail" /></td>
 				<td>{{val.title}}</td>
 				<td>{% if val.type%}{{val.type}}{%endif%}</td>
                 <td>¥{{val.unit_price|formatCurrency}}</td>

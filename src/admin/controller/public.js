@@ -37,7 +37,7 @@ export default class extends think.controller.base {
                     default: fail = '未知错误';  // 0-接口参数错误（调试阶段使用）
                 }
                 this.http.error = new Error(fail);
-                return think.statusAction(1002, this.http);
+                return think.statusAction(702, this.http);
             }
 
         }else{

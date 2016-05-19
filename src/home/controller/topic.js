@@ -46,7 +46,7 @@ export default class extends Base {
     //列表页
   async listAction() {
       //console.log(111);
-      console.log(1111 / 100);
+      //console.log(1111 / 100);
       let id = this.get('category') || 0;
       //console.log(id);
       let cate = await this.category(id);
@@ -156,6 +156,10 @@ export default class extends Base {
     /* 获取详细信息*/
     let document = this.model('document');
     let info = await document.detail(id);
+      if(info.errno==702){
+          this.http.error = new Error(info.errmsg);
+          return think.statusAction(702, this.http);
+      }
       //不同的设备,压缩不同的图片尺寸
       let str = info.content;
       if(!think.isEmpty(str)){
