@@ -46,6 +46,203 @@
 					<div class="row">
 
 						<!-- LEFT -->
+
+						<div class="col-md-9 col-sm-9">
+
+							<!-- REVOLUTION SLIDER -->
+							<div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
+								<!--
+                                    Navigation Styles:
+
+                                        data-navigationStyle="" theme default navigation
+
+                                        data-navigationStyle="preview1"
+                                        data-navigationStyle="preview2"
+                                        data-navigationStyle="preview3"
+                                        data-navigationStyle="preview4"
+
+                                    Bottom Shadows
+                                        data-shadow="1"
+                                        data-shadow="2"
+                                        data-shadow="3"
+
+                                    Slider Height (do not use on fullscreen mode)
+                                        data-height="300"
+                                        data-height="350"
+                                        data-height="400"
+                                        data-height="450"
+                                        data-height="500"
+                                        data-height="550"
+                                        data-height="600"
+                                        data-height="650"
+                                        data-height="700"
+                                        data-height="750"
+                                        data-height="800"
+                                -->
+								<div class="fullwidthbanner" data-height="500" data-shadow="3" data-navigationStyle="">
+									<ul class="hide">
+										{% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+										{% for v in slider%}
+										<!-- SLIDE  -->
+										<li data-transition="fade" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
+											<img src="/static/assets/images/1x1.png" data-lazyload="{{v.cover_id|get_pic('m=1,w=848,h=500')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
+
+											<div class="tp-caption lft start"
+												 data-x="0"
+												 data-y="0"
+												 data-speed="750"
+												 data-start="750"
+												 data-easing="easeOutExpo"
+												 data-elementdelay="0.1"
+												 data-endelementdelay="0.1"
+												 data-endspeed="300">
+												<img src="/static/assets/images/1x1.png" alt="" data-lazyload="/static/assets/images/caption_bg.png">
+											</div>
+
+											<div class="tp-caption medium_light_white lfb start"
+												 data-x="left" data-hoffset="40"
+												 data-y="96"
+												 data-speed="300"
+												 data-start="1200"
+												 data-easing="easeOutExpo"
+												 data-splitin="none"
+												 data-splitout="none"
+												 data-elementdelay="0.1"
+												 data-endelementdelay="0.1"
+												 data-endspeed="300">
+												{{v.title|insert_flg("<br>",12)|safe}}
+											</div>
+
+											<div class="tp-caption block_black lfl start"
+												 data-x="left" data-hoffset="180"
+												 data-y="195"
+												 data-speed="300"
+												 data-start="1500"
+												 data-easing="easeOutExpo"
+												 data-splitin="none"
+												 data-splitout="none"
+												 data-elementdelay="0.1"
+												 data-endelementdelay="0.1"
+												 data-endspeed="300" >
+												<a href="{{v.name|get_url(v.id)}}">查看详情</a>
+											</div>
+
+											<div class="tp-caption small_light_white lfl start"
+												 data-x="left" data-hoffset="40"
+												 data-y="250"
+												 data-speed="1000"
+												 data-start="1800"
+												 data-easing="easeOutExpo"
+												 data-splitin="none"
+												 data-splitout="none"
+												 data-elementdelay="0.1"
+												 data-endelementdelay="0.1"
+												 data-endspeed="300" >
+												{{v.description|insert_flg("<br>",20)|safe}}
+											</div>
+										</li>
+										{%endfor%}
+
+
+									</ul>
+
+									<div class="tp-bannertimer"><!-- progress bar --></div>
+								</div>
+							</div>
+							<!-- /REVOLUTION SLIDER -->
+							<ul class="nav nav-tabs nav-button-tabs">
+								<!-- side navigation -->
+								{%column data="cates",cid=category.id%}
+								{%set i = 1%}
+								{%for val in cates%}
+								<li {% if i ==1 %}class="active"{%endif%}><a href="#tab{{val.id}}" data-toggle="tab">{{val.name}}</a></li>
+								{% set i = i +1%}
+								{%endfor%}
+								{#
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li><a href="#dropdown1" tabindex="-1" data-toggle="tab">@fat</a></li>
+										<li><a href="#dropdown2" tabindex="-1" data-toggle="tab">@mdo</a></li>
+									</ul>
+								</li>
+								#}
+							</ul>
+
+							<div class="tab-content">
+								{%set n = 1%}
+								{%for v in cates%}
+								<div class="tab-pane fade {% if n ==1 %}in active{%endif%} " id="tab{{v.id}}">
+									<p>
+										{% topic data = "list",limit= "10",cid=v.id%}
+										{% for val in list %}
+										<!-- POST ITEM -->
+										<div class="blog-post-item padding-bottom-20 margin-bottom-20">
+
+											<!-- IMAGE -->
+											{% if val.cover_id>0 %}
+											<figure class="blog-item-small-image margin-bottom-20">
+												<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+											</figure>
+											{% endif %}
+											<div class="blog-item-small-content">
+												<h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
+
+												<ul class="blog-post-info list-inline padding-bottom-10">
+													<li>
+														<a href="#">
+															<i class="fa fa-clock-o"></i>
+															<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+														</a>
+													</li>
+													<li>
+														<a href="#">
+															<i class="fa fa-comment-o"></i>
+															<span class="font-lato">{{val.view}} Comments</span>
+														</a>
+													</li>
+													<li>
+														<i class="fa fa-folder-open-o"></i>
+
+														<a class="category" href="#">
+															<span class="font-lato">{{val.category_id}}</span>
+														</a>
+														<a class="category" href="#">
+															<span class="font-lato">Photography</span>
+														</a>
+													</li>
+													<li>
+														<a href="#">
+															<i class="fa fa-user"></i>
+															<span class="font-lato">{{val.uid|get_nickname}}</span>
+														</a>
+													</li>
+												</ul>
+
+									<p>{{val.description}}</p>
+								</div>
+
+							</div>
+							<!-- /POST ITEM -->
+							{%endfor%}
+							<!-- PAGINATION -->
+							<div class="text-center">
+								<a href="{{v.url}}" class="btn btn-reveal btn-default">
+									<i class="fa fa-plus"></i>
+									<span>查看全部内容</span>
+								</a>
+							</div>
+							<!-- /PAGINATION -->
+									</p>
+								</div>
+								{% set n = n +1%}
+								{%endfor%}
+
+							</div>
+
+						</div>
+						<!-- RIGHT -->
+
 						<div class="col-md-3 col-sm-3">
 
 							<!-- INLINE SEARCH -->
@@ -81,8 +278,8 @@
 
 
 							<!-- JUSTIFIED TAB -->
-							<div class="tabs nomargin-top hidden-xs margin-bottom-60">
-                                
+							<div class="tabs nomargin-top hidden-xs margin-bottom-30">
+
 								<!-- tabs -->
 								<ul class="nav nav-tabs nav-bottom-border nav-justified">
 									<li class="active">
@@ -96,51 +293,30 @@
 										</a>
 									</li>
 								</ul>
-                                  
+
 								<!-- tabs content -->
-								<div class="tab-content margin-bottom-60 margin-top-30">
+								<div class="tab-content margin-bottom-0 margin-top-30">
 
 									<!-- POPULAR -->
 									<div id="tab_1" class="tab-pane active">
-                                        <!--topic tags test-->
-                                      {% topic data = "data", limit = "3", cid = "2" %}
-                                      <!--返回数据赋值给变量data,遍历data-->
-                                      {% for val in data %}       
+										<!--topic tags test-->
+										{% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+										<!--返回数据赋值给变量data,遍历data-->
+										{%for v in hotlist%}
 										<div class="row tab-post"><!-- post -->
+											{%if v.cover_id%}
 											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/1-min.jpg" width="50" alt="" />
+												<a href="{{v.name|get_url(v.id)}}">
+													<img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
 												</a>
 											</div>
+											{%endif%}
 											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="{{val.name|get_url(val.id)}}" class="tab-post-link">{{val.title}}</a>
-												<small>{{val.update_time|dateformat('Y-m-d H:i:s')}}</small>
+												<a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+												<small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
 											</div>
 										</div><!-- /post -->
-                                      {% endfor %}
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/2-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Nam et lacus neque. Ut enim massa, sodales</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
+										{%endfor%}
 
 									</div>
 									<!-- /POPULAR -->
@@ -149,41 +325,23 @@
 									<!-- RECENT -->
 									<div id="tab_2" class="tab-pane">
 
+										{% topic data = "newlist",limit= "5",cid=category.id%}
+										{%for v in newlist%}
 										<div class="row tab-post"><!-- post -->
+											{%if v.cover_id%}
 											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" alt="" />
+												<a href="{{v.name|get_url(v.id)}}">
+													<img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
 												</a>
 											</div>
+											{%endif%}
 											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="/static/blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget diam</a>
-												<small>June 29 2014</small>
+												<a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+												<small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
 											</div>
 										</div><!-- /post -->
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/5-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
-
-										<div class="row tab-post"><!-- post -->
-											<div class="col-md-3 col-sm-3 col-xs-3">
-												<a href="blog-sidebar-left.html">
-													<img src="/static/assets/images/demo/people/300x300/6-min.jpg" width="50" alt="" />
-												</a>
-											</div>
-											<div class="col-md-9 col-sm-9 col-xs-9">
-												<a href="blog-sidebar-left.html" class="tab-post-link">Quisque ut nulla at nunc</a>
-												<small>June 29 2014</small>
-											</div>
-										</div><!-- /post -->
+										{%endfor%}
+										<!-- /post -->
 									</div>
 									<!-- /RECENT -->
 
@@ -223,7 +381,7 @@
 								</a>
 							</div>
 
-
+                            {#
 							<!-- TWIITER WIDGET -->
 							<h3 class="hidden-xs size-16 margin-bottom-10">TWITTER FEED</h3>
 							<ul class="hidden-xs widget-twitter margin-bottom-60" data-php="php/twitter/tweet.php" data-username="stepofweb" data-limit="3">
@@ -243,7 +401,7 @@
 
 							<!-- FACEBOOK -->
 							<iframe class="hidden-xs" src="http://player.youku.com/embed/XOTA3NzI0NDI4" style="border:none; overflow:hidden; width:263px; height:258px;"></iframe>
-
+#}
 
 							<hr />
 
@@ -277,294 +435,6 @@
 							</div>
 
 						</div>
-
-						<!-- RIGHT -->
-						<div class="col-md-9 col-sm-9">
-
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<!-- OWL SLIDER -->
-								<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 3000, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
-									<div>
-										<img class="img-responsive" src="/static/assets/images/demo/content_slider/23-min.jpg" alt="">
-									</div>
-									<div>
-										<img class="img-responsive" src="/static/assets/images/demo/content_slider/21-min.jpg" alt="">
-									</div>
-									<div>
-										<img class="img-responsive" src="/static/assets/images/demo/content_slider/3-min.jpg" alt="">
-									</div>
-								</div>
-								<!-- /OWL SLIDER -->
-
-								<h2><a href="blog-single-default.html">BLOG CAROUSEL POST</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">June 29, 2015</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">28 Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">Design</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">John Doe</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-
-
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<!-- IMAGE -->
-								<figure class="margin-bottom-20">
-									<img class="img-responsive" src="/static/assets/images/demo/content_slider/10-min.jpg" alt="">
-								</figure>
-
-								<h2><a href="blog-single-default.html">BLOG IMAGE POST</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">June 29, 2015</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">28 Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">Design</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">John Doe</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-
-
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<!-- VIDEO -->
-								<div class="margin-bottom-20">
-									<div class="embed-responsive embed-responsive-16by9">
-										<iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
-									</div>
-								</div>
-
-								<h2><a href="blog-single-default.html">BLOG VIDEO POST</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">June 29, 2015</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">28 Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">Design</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">John Doe</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-
-
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<!-- VIDEO -->
-								<div class="margin-bottom-20">
-									<iframe width="100%" height="366" scrolling="no" frameborder="no" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA=="></iframe>
-								</div>
-
-								<h2><a href="blog-single-default.html">BLOG SOUND CLOUD POST</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">June 29, 2015</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">28 Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">Design</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">John Doe</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-
-
-							<!-- POST ITEM -->
-							<div class="blog-post-item">
-
-								<h2><a href="blog-single-default.html">BLOG SIMPLE POST</a></h2>
-
-								<ul class="blog-post-info list-inline">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">June 29, 2015</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">28 Comments</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="#">
-											<span class="font-lato">Design</span>
-										</a>
-										<a class="category" href="#">
-											<span class="font-lato">Photography</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">John Doe</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
-
-								<a href="blog-single-default.html" class="btn btn-reveal btn-default">
-									<i class="fa fa-plus"></i>
-									<span>Read More</span>
-								</a>
-
-							</div>
-							<!-- /POST ITEM -->
-
-
-							<!-- PAGINATION -->
-							<div class="text-left">
-								<!-- Pagination Default -->
-								<ul class="pagination nomargin">
-									<li><a href="#">&laquo;</a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">&raquo;</a></li>
-								</ul>
-								<!-- /Pagination Default -->
-							</div>
-							<!-- /PAGINATION -->
-
-						</div>
-
 					</div>
 
 

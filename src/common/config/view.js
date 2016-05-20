@@ -240,6 +240,19 @@ export default {
                 env.addFilter('get_price', function (price, type) {
                     return get_price(price, type);
                 })
+                /**
+                 * 字符串在指定位置插入内容
+                 * str表示原字符串变量，flg表示要插入的字符串，sn表示要插入的位置
+                 */
+                env.addFilter('insert_flg',(str,flg,sn)=>{
+                    var newstr="";
+                    for(var i=0;i<str.length;i+=sn){
+                        var tmp=str.substring(i, i+sn);
+                        newstr+=tmp+flg;
+                    }
+                    return newstr;
+                })
+
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签

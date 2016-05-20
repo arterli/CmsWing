@@ -35,7 +35,7 @@ export default class extends Base {
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       let temp = cate.template_index ? `index_${cate.template_index}` : "";
-
+      
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
           return this.display(`mobile/${this.http.controller}/${temp}`)

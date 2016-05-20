@@ -172,6 +172,10 @@ global.column= function(){
  * {{name|get_url(id)}}文章链接
  * type: 标签类型,hot-安装浏览量从高到底,默认安装更新时间排序
  * //{% topic data = "data",limit= "5",cid=category.id,type="hot"%}
+ * position:1:列表推荐,2:频道推荐,4:首页推荐
+ * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
+ * issub:1:包含自栏目,2:不包含自栏目,默认包含自栏目
+ *
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -182,10 +186,26 @@ global.topic = function(){
         return new nodes.CallExtensionAsync(this, 'run', args);
     };
     this.run = async function (context, args, callback) {
-        //console.log(args);
+        console.log(args);
         let where = {'status':1};
         let data = think.isEmpty(args.data) ? "data" : args.data;
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
+        //获取当前分类的所有子栏目
+        if(args.issub!=2){
+        if(!think.isEmpty(args.cid)){
+            let cids = `${args.cid}`;
+            let cidarr = []
+            for (let v of cids.split(",")){
+                let subcate = await think.model('category',think.config("db"), 'admin').get_sub_category(v);
+                cidarr = cidarr.concat(subcate)
+                cidarr.push(Number(v))
+            }
+
+            args.cid=unique(cidarr).sort();
+        }
+        }
+
+        //subcate.push(cate.id);
         let cid = think.isEmpty(args.cid) ? false :{'category_id':['IN',args.cid]};
         if(cid){
             where = think.extend({},where,cid);
@@ -196,7 +216,19 @@ global.topic = function(){
               type="view DESC"
             }
         }
-        //console.log(where);
+        //推荐
+        if(!think.isEmpty(args.position)){
+            where = think.extend(where,{position:args.position})
+        }
+        //是否缩略图
+        if(!think.isEmpty(args.ispic)){
+            if(args.ispic ==1){
+                where = think.extend(where,{cover_id:['>',0]});
+            }else if(args.ispic == 2){
+                where = think.extend(where,{cover_id:0});
+            }
+        }
+        console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //console.log(topic)
         context.ctx[data] = topic;

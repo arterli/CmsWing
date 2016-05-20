@@ -124,7 +124,7 @@ export default class extends think.model.base {
     async get_sub_category(id){
         let cat = await this.select();
         let data = sub_cate(cat,id);
-        console.log(data);
+        //console.log(data);
         let arr=[];
         for (let v of data){
             if(think.isString(v)){
