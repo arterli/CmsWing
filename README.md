@@ -24,11 +24,12 @@ pm2 startOrGracefulReload pm2.json
 账号:admin
 密码:123456
 ```
+## 演示网站
+CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
+
 ##后台部分截图
 
 ![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
-![内容编辑](http://7xt6v5.com2.z0.glb.clouddn.com/6.png)
-
 ![1](http://7xt6v5.com2.z0.glb.clouddn.com/3.png)
 ![2](http://7xt6v5.com2.z0.glb.clouddn.com/4.png)
 ![3](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%AF%E4%BB%98%E7%AE%A1%E7%90%86.png)
