@@ -44,7 +44,7 @@ pm2 startOrGracefulReload pm2.json
 ![yongh](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
 
 ![数据库备份](http://7xt6v5.com2.z0.glb.clouddn.com/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
-
+![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png)
 ##前台文章模块[封面/列表/详情]模版截图
 ![封面](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png)
 ![列表](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-31-12.770Z.png)
