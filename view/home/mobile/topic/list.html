@@ -2,7 +2,10 @@
 {% block page%}
 <div class="page page-current" id="page-infinite-scroll-bottom">
 <header class="bar bar-nav">
-    <a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>
+    <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+        <span class="icon icon-left"></span>
+    </a>
+    <!--<a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>-->
     <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
       <span class="icon icon-menu"></span>
       导航
@@ -29,15 +32,14 @@
             <div class="preloader"></div>
             <div class="pull-to-refresh-arrow"></div>
         </div>
-        <div class="content-block"><a class="button pb-standalone-captions">带文字描述</a></div>
-        <div class="content-block-title">文章列表测试</div>
+        <div class="content-block-title" style="margin-top: .75rem">文章列表测试</div>
         <div class="list-block media-list">
             <ul class="list-container">
                 {% for val in list %}
                 <li>
-                    <a class="item-link item-content" href="#">
+                    <a class="item-link item-content external" href="{{val.name|get_url(val.id)}}">
                         {% if val.cover_id>0 %}
-                        <div class="item-media"><img width="80" src="{{val.cover_id|get_pic('m=2,w=80,h=80')}}"></div>
+                        <div class="item-media"><img width="80" src="{{val.cover_id|get_pic('m=1,w=80,h=80')}}"></div>
                         {% endif %}
                         <div class="item-inner">
                             <div class="item-title-row">
