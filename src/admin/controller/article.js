@@ -116,6 +116,8 @@ export default class extends Base {
             if(val.pics){
                 //val.pics = await get_pics_one(val.pics,"path");
                 val.pics = await get_pic(val.pics.split(",")[0],1,100)
+            }else {
+                val.pics = '/static/noimg.jpg';
             }
         }
        // console.log(list);

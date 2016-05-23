@@ -684,6 +684,9 @@ global.get_cover = async (cover_id, field) => {
  * @param h 高
  */
 global.get_pic = async(id,m=null,w=null,h=null)=>{
+    if(think.isEmpty(id)){
+        return "/static/noimg.jpg";
+    }
     let map={};
     map.status=1;
     if(think.isNumberString(id)){
@@ -692,7 +695,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
         map.path = id;
     }
     let picture = await think.model('picture', think.config("db")).where(map).find();
-    let q=""
+    let q="";
     if(picture.type > 0){
        if(m !=null){
            m="/"+m
