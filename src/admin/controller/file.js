@@ -25,26 +25,54 @@ export default class extends Base {
     let file = think.extend({}, this.file('file'));
     console.log(file);
     let filepath = file.path;
-    let uploadPath = think.RESOURCE_PATH + '/upload/download/'+dateformat("Y-m-d",new Date().getTime());
-    think.mkdir(uploadPath);
     let basename = path.basename(filepath);
-    fs.renameSync(filepath, uploadPath + '/' + basename);
-    file.path = uploadPath + '/' + basename;
-    if(think.isFile(file.path)){
-      let data ={
-        savepath:'/upload/download/'+dateformat("Y-m-d",new Date().getTime())+ '/',
-        create_time:new Date().getTime(),
-        name:file.originalFilename,
-        savename:basename,
-        mime:file.headers["content-type"],
-        size:file.size,
-        md5:think.md5(basename)
+      let data;
+      //强势插入七牛
+      if(this.setup.IS_QINIU == 1){
+          let qiniu = think.service("qiniu");
+          let instance = new qiniu();
+          let uppic = await instance.uploadpic(filepath,basename);
+          console.log(uppic);
+          // { fieldName: 'file',
+          //     originalFilename: '2015-07-06_BaiduPlayerNetSetup_100.exe',
+          //     path: '/Users/Arterli/Projects/CmsWing/runtime/upload/EPKRrpZvCsSV73J-7kuDiiEY.exe',
+          //     headers:
+          //     { 'content-disposition': 'form-data; name="file"; filename="2015-07-06_BaiduPlayerNetSetup_100.exe"',
+          //         'content-type': 'application/x-msdownload' },
+          //     size: 1292280 }
+          if(!think.isEmpty(uppic)){
+               data ={
+                  create_time:new Date().getTime(),
+                  name:file.originalFilename,
+                  savename:basename,
+                  mime:file.headers["content-type"],
+                  size:file.size,
+                  location:1,
+                  sha1:uppic.hash,
+                  md5:think.md5(basename)
+              }
+          }
+          //return false;
+      }else {
+          let uploadPath = think.RESOURCE_PATH + '/upload/download/'+dateformat("Y-m-d",new Date().getTime());
+          think.mkdir(uploadPath);
+          fs.renameSync(filepath, uploadPath + '/' + basename);
+          file.path = uploadPath + '/' + basename;
+          if(think.isFile(file.path)){
+              data ={
+                  savepath:'/upload/download/'+dateformat("Y-m-d",new Date().getTime())+ '/',
+                  create_time:new Date().getTime(),
+                  name:file.originalFilename,
+                  savename:basename,
+                  mime:file.headers["content-type"],
+                  size:file.size,
+                  md5:think.md5(basename)
+              }
       }
+
+    }
       console.log(data);
       var res = await this.model("file").data(data).add();
-    }else{
-      console.log('not exist')
-    }
     this.json({id:res,size:file.size});
   }
 

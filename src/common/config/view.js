@@ -252,7 +252,16 @@ export default {
                     }
                     return newstr;
                 })
-
+                /**
+                 * 获取文件信息
+                 * @param file_id 文件id
+                 * @param field 字段名,如果为空则返回整个记录集
+                 * @returns {*}
+                 */
+                env.addFilter('get_file',async (file_id,field,callback)=>{
+                    let data = await get_file(file_id,field);
+                    callback(null,data);
+                },true)
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签

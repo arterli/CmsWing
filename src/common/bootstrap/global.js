@@ -1053,3 +1053,18 @@ global.image_view=(str,w,m)=>{
         return str;
     }
 }
+
+/**
+ * 获取文件信息
+ * @param file_id 文件id
+ * @param field 字段名,如果为空则返回整个记录集
+ * @returns {*}
+ */
+global.get_file=async (file_id,field)=>{
+
+    if (think.isEmpty(file_id)) {
+        return false;
+    }
+    let file = await think.model('file', think.config("db")).find(file_id);
+    return think.isEmpty(field) ? file : file[field];
+}

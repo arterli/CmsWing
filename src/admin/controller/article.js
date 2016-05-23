@@ -298,7 +298,12 @@ export default class extends Base {
         let group_id = this.get("group_id") || '';
         think.isEmpty(cate_id) && this.fail("参数不能为空");
         think.isEmpty(model_id) && this.fail("该分类未绑定模型");
-
+        // 获取分组定义
+        let groups = await this.model("category").get_category(cate_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        console.log(groups);
         //检查该分类是否允许发布
         let allow_publish = await this.model("category").check_category(cate_id);
         console.log(allow_publish);
@@ -327,6 +332,7 @@ export default class extends Base {
         //获取面包屑信息
         let nav = await this.model('category').get_parent_category(cate_id);
         //console.log(model);
+        this.assign('groups',groups);
         this.assign('breadcrumb', nav);
         this.assign('info', info);
         this.assign('fields', fields);
@@ -359,6 +365,13 @@ export default class extends Base {
         this.assign('data', data);
         this.assign('model_id', data.model_id);
         this.assign('model', model);
+        // 获取分组定义
+        let groups = await this.model("category").get_category(data.category_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        this.assign('groups',groups);
+        this.assign('')
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
