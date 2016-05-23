@@ -1033,7 +1033,7 @@ global.date_from=(time)=>{
     return res;
 }
 
-global.image_view=(str,w)=>{
+global.image_view=(str,w,m)=>{
     //console.log(info);
     let imgReg = /<img.*?(?:>|\/>)/gi;
     let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
@@ -1043,7 +1043,7 @@ global.image_view=(str,w)=>{
         for(let img of arr){
             let _img = img.match(srcReg)
             console.log(_img);
-            let nimg = _img[1]+'?imageView2/2/w/'+w;
+            let nimg = _img[1]+'?imageView2/'+m+'/w/'+w;
             console.log(nimg)
             let inputimg = _img['input'].replace(_img[1],nimg)
             narr.push(inputimg);

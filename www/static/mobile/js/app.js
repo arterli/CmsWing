@@ -284,6 +284,19 @@ function _ajx_post() {
             }, 2000);
         });
     });
+    //文章封面页
+    $(document).on("pageInit","#index",function (e,id,page) {
+        var $content = $(page).find(".content").on('refresh',function (e) {
+            location.reload();
+        })
+        
+
+    })
+    //wangzhangxiangqingye
+    $(document).on("pageInit","#detail_article",function (e,id,page) {
+       // $.config = {router: false}
+
+    })
         //无限滚动
     $(document).on("pageInit", "#page-infinite-scroll-bottom", function(e, id, page) {
 

@@ -34,7 +34,7 @@ export default class extends Base {
       this.assign('breadcrumb', breadcrumb);
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
-      let temp = cate.template_index ? `index_${cate.template_index}` : "";
+      let temp = cate.template_index ? `index_${cate.template_index}` : `${this.http.action}`;
       
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
@@ -166,11 +166,11 @@ export default class extends Base {
           let img;
       if(checkMobile(this.userAgent())){
           //手机端
-          img = image_view(str,640);
+          img = image_view(str,640,4);
       }else {
           //pc端
 
-          img = image_view(str,847);
+          img = image_view(str,847,0);
       }
           info.content=img
       }
