@@ -184,4 +184,45 @@ export default class extends Base {
       let pic = await get_cover(id);
     this.end(pic);
   }
+    //获取七牛token
+   async getqiniuuptokenAction (){
+        let qiniu = think.service("qiniu");
+        let instance = new qiniu();
+       let key = think.uuid();
+       let uptoken = await instance.uploadpic(null,key,true);
+       this.json({
+           "uptoken": uptoken
+       })
+    }
+    //添加
+    async qiniuaddAction(){
+        let post = this.post();
+        let data ={
+            create_time:new Date().getTime(),
+            name:post.key,
+            savename:post.key,
+            mime:post.mime,
+            size:post.size,
+            location:1,
+            sha1:post.hash,
+            md5:think.md5(post.id)
+        }
+        //console.log(data);
+        let res = await this.model("file").data(data).add();
+        return this.json(res);
+    }
+    //删除七牛资源
+    async delqiniufileAction(){
+        let id = this.get("id");
+        let file = await this.model("file").find(id);
+        let qiniu = think.service("qiniu");
+        let instance = new qiniu();
+        let res = await instance.remove(file.savename);
+        if(res) {
+            this.model("file").where({id:id}).delete();
+            return this.success({name: "删除文件成功!"})
+        }else {
+            return this.fail( "删除文件失败!")
+        }
+    }
 }

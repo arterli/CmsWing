@@ -16,17 +16,22 @@ export default class extends think.service.base {
      * @param key 上传到七牛后保存的文件名
      * @returns {*}
      */
-  async uploadpic(filePath,key){
+  async uploadpic(filePath,key,istoken=false){
     let setup = await think.cache("setup");
     qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
     qiniu.conf.SECRET_KEY = setup.QINIU_SK;
       let bucket = setup.QINIU_BUCKET;
+        if(istoken && filePath==null){
+            var putPolicy = new qiniu.rs.PutPolicy(bucket);
+            return putPolicy.token();
+        }
       function uptoken(bucket, key) {
                var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
                return putPolicy.token();
            }
       let  token = uptoken(bucket, key);
        console.log(token);
+
        //构造上传函数
        //noinspection JSAnnotator
        function uploadFile(uptoken, key, localFile) {
@@ -47,4 +52,30 @@ export default class extends think.service.base {
        }
      return await uploadFile(token, key, filePath);
   }
+    async remove(key){
+
+        let setup = await think.cache("setup");
+        qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
+        qiniu.conf.SECRET_KEY = setup.QINIU_SK;
+        let bucket = setup.QINIU_BUCKET;
+        function delfile() {
+            let deferred = think.defer();
+            //构建bucketmanager对象
+            let client = new qiniu.rs.Client();
+//删除资源
+            client.remove(bucket, key, function(err, ret) {
+                if (!err) {
+                    // ok
+                    deferred.resolve(true);
+                } else {
+                    console.log(err);
+                    deferred.resolve(false);
+                }
+            });
+            return deferred.promise;
+        }
+
+    return await delfile();
+
+    }
 }
