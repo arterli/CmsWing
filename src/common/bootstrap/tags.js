@@ -175,7 +175,7 @@ global.column= function(){
  * position:1:列表推荐,2:频道推荐,4:首页推荐
  * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
  * issub:1:包含自栏目,2:不包含自栏目,默认包含自栏目
- *
+ * isstu:1:获取副表内容,2:只从主表拿数据,默认包含主表
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -186,7 +186,7 @@ global.topic = function(){
         return new nodes.CallExtensionAsync(this, 'run', args);
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+       // console.log(args);
         let where = {'status':1};
         let data = think.isEmpty(args.data) ? "data" : args.data;
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
@@ -230,7 +230,17 @@ global.topic = function(){
         }
         console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
-        //console.log(topic)
+        //副表数据
+        if(args.isstu == 1){
+            let topicarr = []
+            for(let v of topic){
+            let table =await think.model("model",think.config("db"),"admin").get_table_name(v.model_id);
+            let details = await think.model(table,think.config("db")).find(v.id);
+           topicarr.push(think.extend({},v,details));
+            }
+          topic = topicarr;
+        }
+        console.log(topic)
         context.ctx[data] = topic;
         return callback(null, '');
     }
