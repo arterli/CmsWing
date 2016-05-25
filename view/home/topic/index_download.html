@@ -435,7 +435,7 @@
                                     {%for val in cates%}
                                     <ul class="col-md-2">
                                         <p>{{val.name}}</p>
-                                        {% topic data = "list",limit= "10",cid=val.id%}
+                                        {% topic data = "list",limit= "3",cid=val.id,type="level"%}
                                         {% for v in list %}
                                         <li class="mix"><a href="http://soft.hao123.com/soft/appid/3.html"
                                                            target="_blank" class="rank-img"> <img

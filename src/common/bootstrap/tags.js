@@ -170,7 +170,7 @@ global.column= function(){
  * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
  * cid: 栏目id ,单个栏目 cid="1",多个栏目 cid = "1,2,3,4" , 不写调取全部栏目
  * {{name|get_url(id)}}文章链接
- * type: 标签类型,hot-安装浏览量从高到底,默认安装更新时间排序
+ * type: 标签类型,hot-安装浏览量从高到底,level-安装优先级从高到低排序,默认安装更新时间排序
  * //{% topic data = "data",limit= "5",cid=category.id,type="hot"%}
  * position:1:列表推荐,2:频道推荐,4:首页推荐
  * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
@@ -214,6 +214,8 @@ global.topic = function(){
         if(!think.isEmpty(args.type)){
             if(args.type=="hot"){
               type="view DESC"
+            }else if(args.type == "level"){
+                type="level DESC"
             }
         }
         //推荐
@@ -240,7 +242,7 @@ global.topic = function(){
             }
           topic = topicarr;
         }
-        console.log(topic)
+        //console.log(topic)
         context.ctx[data] = topic;
         return callback(null, '');
     }
