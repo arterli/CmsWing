@@ -1071,3 +1071,17 @@ global.get_file=async (file_id,field)=>{
     let file = await think.model('file', think.config("db")).find(file_id);
     return think.isEmpty(field) ? file : file[field];
 }
+/**
+ *
+ * 根据栏目ID获取栏目信息
+ * @param cid
+ * @returns {*}
+ */
+global.get_cate=async(cid)=>{
+    let column = await think.model('category', think.config("db"),'admin').get_all_category();
+    for(let v of column){
+        if(v.id==cid){
+           return v;
+        }
+    }
+}

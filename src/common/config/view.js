@@ -211,6 +211,14 @@ export default {
                     let data = await get_pic(id, m, w, h);
                     callback(null, data);
                 }, true)
+                /**
+                 * 根据栏目id获取栏目信息
+                 *
+                 */
+                env.addFilter('get_cate', async(id,callback)=> {
+                    let data = await get_cate(id);
+                    callback(null, data);
+                }, true)
                 //价格格式化
                 env.addFilter("get_price_format", function (price, type) {
                     return get_price_format(price, type);
@@ -253,6 +261,19 @@ export default {
                     return newstr;
                 })
                 /**
+                 * 字符串在指定位截断
+                 * str表示原字符串变量，flg表示要插入的字符串，sn表示要截断位置
+                 */
+                env.addFilter('block',(str,sn,flg)=>{
+                    var newstr="";
+                    var tmp=str.substring(0,sn);
+                    if(think.isEmpty(flg)){
+                        flg="...";
+                    }
+                    newstr=tmp+flg;
+                    return newstr;
+                })
+                /**
                  * 获取文件信息
                  * @param file_id 文件id
                  * @param field 字段名,如果为空则返回整个记录集
@@ -275,6 +296,10 @@ export default {
                  * 获取数据标签
                  */
                 env.addExtension('topic', new topic(), true);
+                /**
+                 * 获取分类分组
+                 */
+                env.addExtension('groups', new groups(), true);
             }
         }
     }

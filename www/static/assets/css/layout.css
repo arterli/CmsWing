@@ -7984,3 +7984,21 @@ ul.search-history {
 	_line-height: 18px;
 	text-align: center;
 }
+/*下载*/
+.blog-post-item .download-item-image{
+
+	width: 60px;
+	height: 60px;
+	float: left;
+
+}
+.blog-post-item .download-item-content{
+	padding-left: 70px;
+	padding-right: 140px;
+	position: relative;
+}
+.blog-post-item .donwload-btn{
+	position: absolute;
+	right: 0px;
+	top:30px;
+}

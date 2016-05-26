@@ -52,6 +52,7 @@ export default class extends think.service.base {
        }
      return await uploadFile(token, key, filePath);
   }
+    //删除资源
     async remove(key){
 
         let setup = await think.cache("setup");

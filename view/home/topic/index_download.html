@@ -62,7 +62,7 @@
                 <hr/>
 
                 <!-- side navigation -->
-                {%column data="cate",cid=category.id%}
+                {%column data="cate",cid=category.id,isnum="1"%}
                 {%if cate%}
                 <div class="side-nav margin-bottom-20 margin-top-20">
                     <div class="side-nav-head">
@@ -71,7 +71,7 @@
                     </div>
                     <ul class="list-group list-group-bordered list-group-noicon uppercase">
                         {%for val in cate%}
-                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span>
+                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span>
                             {{val.name}}</a></li>
                         {%endfor%}
                     </ul>

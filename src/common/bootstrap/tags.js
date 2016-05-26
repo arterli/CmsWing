@@ -94,6 +94,7 @@ global.mytags= function(){
  * @param cid: 获取里栏目
  * {% colum data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
+ * @parpm isnum = "1" ,1-获取栏目条数,默认不获取
  */
 global.column= function(){
 
@@ -105,12 +106,18 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        //console.log(args);
+        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
         let tree = !think.isEmpty(args.tree) ?args.tree:false;
         let column = await think.model('category', think.config("db"),'admin').get_all_category();
+        if(args.isnum==1){
+            for(let v of column){
+                v.doc_num = await think.model('document',think.config("db")).where({category_id:v.id,status:[">",0]}).count("id");
+            }
+        }
+        //console.log(column);
         let arr=[];
         //获取同级栏目
         
@@ -160,7 +167,47 @@ global.column= function(){
      return callback(null,'');
    }
  }
+/**
+ *获取分类分组标签
+ *  {% groups data="groups",cid="1"%}
+ */
 
+global.groups = function(){
+    this.tags = ['groups'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+
+        let groups = await think.model('category', think.config("db")).where({id:args.cid}).getField("groups",true);
+        if(!think.isEmpty(groups)){
+            let cate = await get_cate(args.cid);
+            if(groups.search(/\r\n/ig)>-1){
+            groups=groups.split("\r\n");
+           let arr = []
+            groups.forEach(n =>{
+                let obj ={}
+                n=n.split(":");
+               obj.url = cate.url+"/"+n[0]
+                obj.name=n[1];
+                obj.id = n[0];
+                arr.push(obj);
+            })
+
+            groups = arr;
+        }
+        }
+        console.log(groups)
+        // console.log(channel);
+        context.ctx[data] = groups;
+        return callback(null,'');
+    }
+}
 
 /**
  * 获取数据标签
@@ -247,3 +294,4 @@ global.topic = function(){
         return callback(null, '');
     }
 }
+

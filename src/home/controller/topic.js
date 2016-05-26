@@ -45,10 +45,13 @@ export default class extends Base {
     }
     //列表页
   async listAction() {
-      //console.log(111);
-      //console.log(1111 / 100);
-      let id = this.get('category') || 0;
-      //console.log(id);
+
+      let get = this.get('category') || 0;
+      let id;
+      if(get != 0){
+          id = get.split("/")[0];
+      }
+
       let cate = await this.category(id);
       cate = think.extend({}, cate);
 
@@ -71,12 +74,18 @@ export default class extends Base {
           num=10;
       }
 
-      console.log(subcate);
+      //console.log(subcate);
       let map = {
         'status': 1,
         'category_id': ['IN', subcate]
       };
-
+      let group_id = 0
+      if(!think.isEmpty(get.split("/")[1])){
+       map.group_id=get.split("/")[1];
+          group_id = map.group_id;
+      }
+      this.assign("group_id",group_id)
+      console.log(map);
       let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
 
 
