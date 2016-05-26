@@ -64,7 +64,7 @@
                 <!-- side navigation -->
                 {%column data="cate",cid=category.id%}
                 {%if cate%}
-                <div class="side-nav margin-bottom-60 margin-top-30">
+                <div class="side-nav margin-bottom-20 margin-top-20">
                     <div class="side-nav-head">
                         <button class="fa fa-bars"></button>
                         <h4>{{category.title}} 子分类</h4>
@@ -81,7 +81,7 @@
 
 
                 <!-- JUSTIFIED TAB -->
-                <div class="tabs nomargin-top hidden-xs margin-bottom-30">
+                <div class="tabs nomargin-top hidden-xs margin-bottom-20">
 
                     <!-- tabs -->
                     <ul class="nav nav-tabs nav-bottom-border nav-justified">
@@ -98,7 +98,7 @@
                     </ul>
 
                     <!-- tabs content -->
-                    <div class="tab-content margin-bottom-0 margin-top-30">
+                    <div class="tab-content margin-bottom-0 margin-top-10">
 
                         <!-- POPULAR -->
                         <div id="tab_1" class="tab-pane active">
@@ -116,7 +116,11 @@
                                 {%endif%}
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                    <small><a href="{{v.name|get_url(v.id)}}"
+                                              class="btn btn-3d btn-xs btn-reveal btn-white">
+                                        <i class="fa fa-download"></i>
+                                        <span>立即下载</span>
+                                    </a></small>
                                 </div>
                             </div><!-- /post -->
                             {%endfor%}
@@ -140,7 +144,11 @@
                                 {%endif%}
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                    <small><a href="{{val.name|get_url(val.id)}}"
+                                              class="btn btn-3d btn-xs btn-reveal btn-white">
+                                        <i class="fa fa-download"></i>
+                                        <span>立即下载</span>
+                                    </a></small>
                                 </div>
                             </div><!-- /post -->
                             {%endfor%}
@@ -381,7 +389,7 @@
                                              width="60" height="60" alt=""/>
                                         <h4 class="size-13 nomargin noborder nopadding" style="height: 40px"><a
                                                 href="blog-single-default.html">{{val.title}}</a></h4>
-                                <span class="size-11 text-muted"><a href="#"
+                                <span class="size-11 text-muted"><a href="{{val.name|get_url(val.id)}}"
                                                                     class="btn btn-3d btn-xs btn-reveal btn-white">
 									<i class="fa fa-download"></i>
 									<span>立即下载</span>
@@ -404,22 +412,40 @@
                     <div class="col-md-3 col-sm-3 hiddex-xs">
 
                         <!-- FEATURED VIDEO -->
-                        <h3 class="size-16 margin-bottom-10">FEATURED VIDEO</h3>
-                        <div class="embed-responsive embed-responsive-16by9 margin-bottom-60">
-                            1111
+                        <h3 class="size-16 margin-bottom-10">精选推荐</h3>
+                        <div class=" margin-bottom-6">
+                           <a href="#"><img class="img-responsive" src="http://data.cmswing.com/2016022317481056cc2ada3247a.jpg" style="height: 100px"></a>
+                        </div>
+                        <div class=" margin-bottom-20">
+                            <a href="#"><img class="img-responsive" src="http://data.cmswing.com/20150325144205551258bd5416c.jpg" style="height: 100px"></a>
                         </div>
 
                         <!-- TWIITER WIDGET -->
-                        <h3 class="size-16 margin-bottom-10">TWITTER FEED</h3>
-                        <ul class="widget-twitter margin-bottom-60">
-                            <li></li>
-                        </ul>
-
-                        <!-- FLICKR WIDGET -->
-                        <h3 class="size-16 margin-bottom-10">FLICKR PHOTO</h3>
-                        <div data-plugin-options="{&quot;delegate&quot;: &quot;a&quot;, &quot;gallery&quot;: {&quot;enabled&quot;: true}}"
-                             data-limit="16" data-id="37304598@N02"
-                             class="widget-flickr clearfix lightbox margin-bottom-60"></div>
+                        <h3 class="size-16 margin-bottom-10">软件推荐</h3>
+                        <div class=" margin-bottom-20" style="padding-left: -10px">
+                            <!--topic tags test-->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",position='1'%}
+                            <!--返回数据赋值给变量data,遍历data-->
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3 padding-0">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt=""/>
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9" >
+                                    <a href="{{v.name|get_url(v.id)}}" style="overflow: hidden; height: 16px ; display: block" class="tab-post-link margin-bottom-10">{{v.title}}</a>
+                                    <small><a href="{{v.name|get_url(v.id)}}"
+                                              class="btn btn-3d btn-xs btn-reveal btn-white">
+                                        <i class="fa fa-download"></i>
+                                        <span>立即下载</span>
+                                    </a></small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                        </div>
 
                     </div>
                     <!--右边-->
