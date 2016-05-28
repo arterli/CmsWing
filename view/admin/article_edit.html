@@ -1778,10 +1778,10 @@ table tr td{
                 <tbody id="fsUploadProgress">
                 {%if data[field['name']]%}
                 <tr  class="progressContainer" style="opacity: 1;">
-                    <td class="progressName">{{data[field['name']]|get_file('name')}}<div class="Wrapper default"><div class="imgWrapper col-md-3"><img src="/static/admin/js/qiniu/default.png"></div></div></td>
-                    <td class="progressFileSize">{{data[field['name']]|get_file('size')}} kb</td>
-                    <td><div class="info"><div class=""><div><strong>Link:</strong><a target="_blank" href="http://{{controller.setup.QINIU_DOMAIN_NAME}}/{{data[field['name']]|get_file('savename')}}"> http://{{controller.setup.QINIU_DOMAIN_NAME}}/{{data[field['name']]|get_file('savename')}}</a></div>
-                        <div class="hash"><strong>Hash:</strong>{{data[field['name']]|get_file('sha1')}}</div></div>
+                    <td class="progressName">{{data[field['name']]|get_file('name',false)}}<div class="Wrapper default"><div class="imgWrapper col-md-3"><img src="/static/admin/js/qiniu/default.png"></div></div></td>
+                    <td class="progressFileSize">{{data[field['name']]|get_file('size',false)}} kb</td>
+                    <td><div class="info"><div class=""><div><strong>Link:</strong><a target="_blank" href="{{data[field['name']]|get_file('savename',true)}}"> {{data[field['name']]|get_file('savename',true)}}</a></div>
+                        <div class="hash"><strong>Hash:</strong>{{data[field['name']]|get_file('sha1',false)}}</div></div>
                        </div></td></tr>
                 {%endif%}
                 </tbody>
@@ -1795,7 +1795,7 @@ table tr td{
             <div id="thelist_file_id" class="uploader-list">
                 <div id="WU_FILE_0" class="alert alert-info">
                     <button data-dismiss="alert" class="close remove-this" type="button">×</button>
-                    <h4 class="info">{{data[field['name']]|get_file('name')}}</h4><p class="state">文件大小:{{data[field['name']]|get_file('size')}} kb</p></div>
+                    <h4 class="info">{{data[field['name']]|get_file('name',false)}}</h4><p class="state">文件大小:{{data[field['name']]|get_file('size',false)}} kb</p></div>
             </div>
             {%endif%}
         </div>
