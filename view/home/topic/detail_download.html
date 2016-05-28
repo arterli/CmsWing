@@ -1,0 +1,463 @@
+{% extends "../inc/base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/thematics/lawyer/slider_bg_4-min.jpg')">
+    <div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb f-14">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        {#
+        <!-- page tabs -->
+        {%column data="cate",pid=category.pid%}
+        {%if cate%}
+        <ul class="page-header-tabs list-inline">
+
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in cate%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}<!-- /page tabs -->
+        #}
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-30">
+                    <form action="" method="get" class="widget_search">
+                        <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+
+                <hr />
+
+                <!-- side navigation -->
+                {% column data="cate",cid=category.pid,isnum="1"%}
+                {% if cate %}
+                <div class="side-nav margin-bottom-20 margin-top-20">
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>分类</h4>
+                    </div>
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                        {%for val in cate%}
+                        <li class="list-group-item {%if val.id == category.id %}active{%endif%}"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <!-- /side navigation -->
+                </div>
+                {%endif%}
+
+                <!-- JUSTIFIED TAB -->
+                <div class="tabs nomargin-top hidden-xs margin-bottom-10">
+
+                    <!-- tabs -->
+                    <ul class="nav nav-tabs nav-bottom-border nav-justified">
+                        <li class="active">
+                            <a href="#tab_1" data-toggle="tab">
+                                最热
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_2" data-toggle="tab">
+                                最新
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- tabs content -->
+                    <div class="tab-content margin-bottom-0 margin-top-10">
+
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!-- /post -->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+
+                    </div>
+                </div>
+                <!-- JUSTIFIED TAB -->
+
+
+                <!-- TAGS -->
+                <h3 class="hidden-xs size-16 margin-bottom-10">TAGS</h3>
+                <div class="hidden-xs margin-bottom-20">
+
+                    <a class="tag" href="#">
+                        <span class="txt">RESPONSIVE</span>
+                        <span class="num">12</span>
+                    </a>
+                    <a class="tag" href="#">
+                        <span class="txt">CSS</span>
+                        <span class="num">3</span>
+                    </a>
+                    <a class="tag" href="#">
+                        <span class="txt">HTML</span>
+                        <span class="num">1</span>
+                    </a>
+                    <a class="tag" href="#">
+                        <span class="txt">JAVASCRIPT</span>
+                        <span class="num">28</span>
+                    </a>
+                    <a class="tag" href="#">
+                        <span class="txt">DESIGN</span>
+                        <span class="num">6</span>
+                    </a>
+                    <a class="tag" href="#">
+                        <span class="txt">DEVELOPMENT</span>
+                        <span class="num">3</span>
+                    </a>
+                </div>
+
+
+
+                <hr />
+
+
+                <!-- SOCIAL ICONS -->
+                <div class="hidden-xs margin-top-20 margin-bottom-20">
+                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                        <i class="icon-rss"></i>
+                        <i class="icon-rss"></i>
+                    </a>
+                </div>
+
+            </div>
+            <!-- RIGHT -->
+            <div class="col-md-9 col-sm-9">
+<div class="row">
+    <!--img-->
+    <div class="col-lg-5 col-sm-5">
+        <!-- OWL SLIDER -->
+        {%set pics = info.fileimgs|strToArray%}
+        <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 3000, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
+            {%for v in pics%}
+            <div>
+                <img class="img-responsive" src=" {{v|get_pic('m=1,w=336,h=336')}}" alt="">
+            </div>
+            {%endfor%}
+
+        </div>
+        <!-- /OWL SLIDER -->
+    </div>
+    <div class="col-log-7 col-sm-7">
+        <!-- buttons -->
+        <div class="pull-right">
+            <!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+            <a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+            <a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+        </div>
+        <!-- /buttons -->
+
+        <!-- price -->
+        <div class="shop-item-price text-danger">
+            <h1 class="blog-post-title">{{info.title}}</h1>
+        </div>
+        <!-- /price -->
+
+        <hr />
+        <div class="row">
+            <div class="clearfix margin-bottom-10 col-md-6" >
+
+                <strong>大小:</strong> {{info.size|format_bytes()}}
+            </div>
+            <div class="clearfix margin-bottom-10 col-md-6" >
+
+                <strong>更新:</strong> {{info.update_time|dateformat('Y-m-d H:i:s')}}
+            </div>
+            <div class="clearfix margin-bottom-10 col-md-6" >
+
+                <strong>下载:</strong> {{info.download}}
+            </div>
+            <div class="clearfix margin-bottom-10 col-md-6" >
+
+                <strong>评论:</strong> <a href="#SOHUCS" id="changyan_count_unit"></a>
+            </div>
+        </div>
+        <hr />
+        {% if info.description %}
+        <!-- short description -->
+        <small class="text-muted">{{info.description}}</small>
+        <hr />
+        <!-- /short description -->
+        {% endif %}
+        <a href="{{info.file_id|get_file('savename',true)}}" class="btn btn-3d btn-reveal btn-teal">
+            <i class="fa fa-download"></i>
+            <span>极速下载</span>
+        </a>
+    </div>
+</div>
+
+                <!-- OWL SLIDER -->
+                <!--
+                <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
+                <a class="lightbox" href="assets/images/demo/1200x800/10-min.jpg" data-plugin-options='{"type":"image"}'>
+                <img class="img-responsive" src="assets/images/demo/content_slider/10-min.jpg" alt="" />
+                </a>
+                <a class="lightbox" href="assets/images/demo/1200x800/3-min.jpg" data-plugin-options='{"type":"image"}'>
+                <img class="img-responsive" src="assets/images/demo/content_slider/3-min.jpg" alt="" />
+                </a>
+                <a class="lightbox" href="assets/images/demo/1200x800/21-min.jpg" data-plugin-options='{"type":"image"}'>
+                <img class="img-responsive" src="assets/images/demo/content_slider/21-min.jpg" alt="" />
+                </a>
+                </div>
+                -->
+                <!-- /OWL SLIDER -->
+
+                <!-- IMAGE -->
+                {#
+                {% if info.cover_id>0 %}
+                <figure class="margin-bottom-20">
+                    <img class="img-responsive" src="{{info.cover_id|get_pic('m=2,w=847')}}" alt="{{info.title}}">
+                </figure>
+                {% endif %}
+                #}
+                <!-- /IMAGE -->
+
+                <!-- VIDEO -->
+                <!--
+                <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
+                </div>
+                -->
+                <!-- /VIDEO -->
+                        <div class="heading-title heading-dotted text-center margin-bottom-10">
+                            <h4><span>[详细信息]</span></h4>
+                        </div>
+                        <!-- article content -->
+                        <div id="content">
+                            {{info.content|safe}}
+                        </div>
+                        <!-- /article content -->
+
+
+                {#
+                <!--打赏-->
+                <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
+                <!--打赏-->
+                <!--评论表情-->
+                <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
+                <!--评论表情-->
+                #}
+                <div class="divider divider-dotted"><!-- divider --></div>
+
+
+                <!-- TAGS -->
+                <a class="tag" href="#">
+                    <span class="txt">RESPONSIVE</span>
+                    <span class="num">12</span>
+                </a>
+                <a class="tag" href="#">
+                    <span class="txt">CSS</span>
+                    <span class="num">3</span>
+                </a>
+                <a class="tag" href="#">
+                    <span class="txt">HTML</span>
+                    <span class="num">1</span>
+                </a>
+                <a class="tag" href="#">
+                    <span class="txt">JAVASCRIPT</span>
+                    <span class="num">28</span>
+                </a>
+                <a class="tag" href="#">
+                    <span class="txt">DESIGN</span>
+                    <span class="num">6</span>
+                </a>
+                <a class="tag" href="#">
+                    <span class="txt">DEVELOPMENT</span>
+                    <span class="num">3</span>
+                </a>
+                <!-- /TAGS -->
+
+
+
+                <!-- SHARE POST -->
+                <div class="clearfix margin-top-20">
+
+<span class="pull-left margin-top-6 bold hidden-xs">
+分享到:
+</span>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-right" data-toggle="tooltip" data-placement="top" title="Facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter pull-right" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-right" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-pinterest pull-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
+                        <i class="icon-pinterest"></i>
+                        <i class="icon-pinterest"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-call pull-right" data-toggle="tooltip" data-placement="top" title="Email">
+                        <i class="icon-email3"></i>
+                        <i class="icon-email3"></i>
+                    </a>
+
+                </div>
+                <!-- /SHARE POST -->
+
+
+                <div class="divider margin-top-10 margin-bottom-10"><!-- divider --></div>
+
+
+                <ul class="pager margin-top-10 margin-bottom-10">
+                    <li class="previous"><a class="noborder" href="#">&larr; 上一个</a></li>
+                    <li class="next"><a class="noborder" href="#">下一个 &rarr;</a></li>
+                </ul>
+
+
+                <div class="divider margin-top-10 margin-bottom-10"><!-- divider --></div>
+
+
+                <!-- COMMENTS -->
+                <div id="comments" class="comments margin-top-20">
+                    <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                    <div id="SOHUCS" sid="{{info.id}}"></div>
+                    <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+                    <script type="text/javascript">
+                        window._config = { showScore: true };
+                        window.changyan.api.config({
+                            appid: '{{controller.setup.CY_APPID}}',
+                            conf: '{{controller.setup.CY_APPKEY}}'
+                        });
+                    </script>
+                </div>
+                <!-- /COMMENTS -->
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script>
+    uParse('#content', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

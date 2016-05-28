@@ -1063,12 +1063,16 @@ global.image_view=(str,w,m)=>{
  * @param field 字段名,如果为空则返回整个记录集
  * @returns {*}
  */
-global.get_file=async (file_id,field)=>{
+global.get_file=async (file_id,field,key=false)=>{
 
     if (think.isEmpty(file_id)) {
         return false;
     }
     let file = await think.model('file', think.config("db")).find(file_id);
+    if(file.location==1 && key){
+        let name = await think.cache("setup");
+        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?attname=`
+    }
     return think.isEmpty(field) ? file : file[field];
 }
 /**

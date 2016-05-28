@@ -79,4 +79,30 @@ export default class extends think.service.base {
     return await delfile();
 
     }
+    //获取文件信息
+    async stat(key){
+        let setup = await think.cache("setup");
+        qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
+        qiniu.conf.SECRET_KEY = setup.QINIU_SK;
+        let bucket = setup.QINIU_BUCKET;
+
+
+        function stat() {
+            let deferred = think.defer();
+            //构建bucketmanager对象
+            var client = new qiniu.rs.Client();
+            //获取文件信息
+            client.stat(bucket, key, function(err, ret) {
+                if (!err) {
+                    console.log(ret.hash, ret.fsize, ret.putTime, ret.mimeType);
+                    deferred.resolve(ret);
+                } else {
+                    console.log(err);
+                    deferred.resolve(err);
+                }
+            });
+return deferred.promise;
+        }
+        return await stat();
+    }
 }

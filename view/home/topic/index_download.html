@@ -161,7 +161,7 @@
                 </div>
                 <!-- JUSTIFIED TAB -->
 
-
+{#
                 <!-- TAGS -->
                 <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
                 <div class="hidden-xs margin-bottom-60">
@@ -191,7 +191,7 @@
                         <span class="num">3</span>
                     </a>
                 </div>
-
+#}
                 {#
                 <!-- TWIITER WIDGET -->
                 <h3 class="hidden-xs size-16 margin-bottom-10">TWITTER FEED</h3>
@@ -217,7 +217,7 @@
                 <iframe class="hidden-xs" src="http://player.youku.com/embed/XOTA3NzI0NDI4"
                         style="border:none; overflow:hidden; width:263px; height:258px;"></iframe>
                 #}
-
+                 {#
                 <hr/>
 
 
@@ -253,7 +253,7 @@
                         <i class="icon-rss"></i>
                     </a>
                 </div>
-
+#}
             </div>
             <!-- 左边 -->
             <!--中间-->
@@ -388,7 +388,7 @@
                                         <img class="thumbnail pull-left" src="{{val.cover_id|get_pic('m=1,w=60,h=60')}}"
                                              width="60" height="60" alt=""/>
                                         <h4 class="size-13 nomargin noborder nopadding" style="height: 40px"><a
-                                                href="blog-single-default.html">{{val.title}}</a></h4>
+                                                href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h4>
                                 <span class="size-11 text-muted"><a href="{{val.name|get_url(val.id)}}"
                                                                     class="btn btn-3d btn-xs btn-reveal btn-white">
 									<i class="fa fa-download"></i>

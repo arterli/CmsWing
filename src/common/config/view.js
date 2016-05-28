@@ -115,7 +115,7 @@ export default {
                     if (!think.isArray(arr)) {
                         arr = arr.split(",");
                     }
-                    console.log(arr);
+                    //console.log(arr);
                     return in_array(str, arr);
                 })
 
@@ -279,8 +279,8 @@ export default {
                  * @param field 字段名,如果为空则返回整个记录集
                  * @returns {*}
                  */
-                env.addFilter('get_file',async (file_id,field,callback)=>{
-                    let data = await get_file(file_id,field);
+                env.addFilter('get_file',async (file_id,field,key,callback)=>{
+                    let data = await get_file(file_id,field,key);
                     callback(null,data);
                 },true)
                 env.addExtension('tagtest', new mytags(), true);

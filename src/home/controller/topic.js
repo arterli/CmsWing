@@ -21,7 +21,11 @@ export default class extends Base {
   //频道页
   async indexAction() {
       //auto render template file index_index.html
-      let id = this.get('category') || 0;
+      let get = this.get('category') || 0;
+      let id=0;
+      if(get != 0){
+          id = get.split("/")[0];
+      }
       let cate = await this.category(id);
       cate = think.extend({}, cate);
       this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
@@ -47,7 +51,7 @@ export default class extends Base {
   async listAction() {
 
       let get = this.get('category') || 0;
-      let id;
+      let id=0;
       if(get != 0){
           id = get.split("/")[0];
       }
@@ -217,6 +221,27 @@ export default class extends Base {
           return this.display(temp);
       }
   }
+
+    /**
+     * 下载
+     */
+    async downloadAction(){
+        let id = this.get("id");
+        let location = await this.model('file').where({id:id}).getField("location",true);
+        console.log(location);
+        let key = await get_file(id,"savename");
+        console.log(key);
+        let type;
+        if(this.setup.IS_QINIU==1 && location==1){
+            let qiniu = think.service("qiniu");
+            let instance = new qiniu();
+            let info = await instance.stat(key);
+            type = info.mimeType;
+        }
+        let down = await get_file(id,"savename",true);
+        //this.type(type);
+        return this.redirect(down+"?attname=");
+    }
     async ajaxlistAction(){
         let id = this.get('category') || 0;
         //console.log(id);
