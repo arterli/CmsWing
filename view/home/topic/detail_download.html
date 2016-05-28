@@ -230,6 +230,7 @@ CLASSES:
     <!--img-->
     <div class="col-lg-5 col-sm-5">
         <!-- OWL SLIDER -->
+        {% if info.fileimgs %}
         {%set pics = info.fileimgs|strToArray%}
         <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 3000, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
             {%for v in pics%}
@@ -239,6 +240,11 @@ CLASSES:
             {%endfor%}
 
         </div>
+        {%else%}
+        <div>
+            <img class="img-responsive" src=" {{null|get_pic('m=1,w=336,h=336')}}" alt="">
+        </div>
+        {%endif%}
         <!-- /OWL SLIDER -->
     </div>
     <div class="col-log-7 col-sm-7">
