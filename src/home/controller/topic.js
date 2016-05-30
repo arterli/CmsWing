@@ -211,9 +211,15 @@ export default class extends Base {
     } else {
       temp = 'detail_' + model;
     }
+      //内容分页
+      if(!think.isEmpty(info.content)){
+          info.content=info.content.split("_ueditor_page_break_tag_");
+      }
+
     this.assign('category', cate);
     this.assign('info', info);
-      //console.log(info);
+      console.log(info);
+      
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
           return this.display(`mobile/${this.http.controller}/${temp}`)
