@@ -22,7 +22,7 @@ export default class extends think.controller.base {
         //登陆验证
         let is_login = await this.islogin();
         if (!is_login) {
-            this.redirect('/admin/public/signin');
+           return this.redirect('/admin/public/signin');
         }
 
         //用户信息
