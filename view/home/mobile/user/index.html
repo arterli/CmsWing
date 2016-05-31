@@ -113,7 +113,7 @@
             </ul>
         </div>
         {% if http.userAgent()|is_weixin != true %}
-        <div class="list-block">
+        <div class="list-block" style="overflow: hidden">
             <ul>
 <li>
                 <a class="item-link item-content external" href="/user/logout">
@@ -146,5 +146,4 @@
 </div>
 {% endblock%}
 {% block script %}
-
 {% endblock %}

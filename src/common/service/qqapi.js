@@ -10,7 +10,7 @@ export default class extends think.service.base {
     this.baseUrl = "https://graph.qq.com";
     this.access_token=access_token;
     this.openid =openid;
-    
+
   }
   async get_user_info(access_token,openid){
     let setup = await think.cache("setup");
@@ -21,6 +21,7 @@ export default class extends think.service.base {
       https.get(URL_GET_USERINFO, (res) => {
         //console.log('statusCode: ', res.statusCode);
        // console.log('headers: ', res.headers);
+        
         var body = [];
         res.on('data', (d) => {
           //process.stdout.write(d);
