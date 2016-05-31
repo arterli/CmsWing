@@ -19,7 +19,7 @@ use pm2 to deploy app on production envrioment.
 ```
 pm2 startOrGracefulReload pm2.json
 ```
-## 后台账号密码
+## 后台账号密码1
 ```
 账号:admin
 密码:123456
