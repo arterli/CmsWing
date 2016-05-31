@@ -1,4 +1,6 @@
-
+## git
+github地址：[https://github.com/arterli/CmsWing](https://github.com/arterli/CmsWing)
+码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
 
 ## install dependencies
 
