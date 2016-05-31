@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="/static/mobile/css/light7-swiper.min.css">
     <link rel="stylesheet" href="/static/mobile/css/light7-swipeout.css">
     <link rel="stylesheet" href="/static/mobile/css/app.css">
+    {%if controller.setup.WEB_TONGJI%}
+    <!--统计代码-->
+    {{controller.setup.WEB_TONGJI|safe}}
+    <!--统计-->
+    {%endif%}
     {% block style %}{% endblock %}
 </head>
   </head>

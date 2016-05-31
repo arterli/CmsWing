@@ -29,10 +29,10 @@ export default class extends think.model.base {
     async lists (){
         let map = {}
         map.status = 1;
-        let list = await this.where(map).order("sort ASC").field(["name","value"]).select();
+        let list = await this.where(map).order("sort ASC").field(["name","value","type"]).select();
         let obj = {}
         list.forEach(v =>{
-            if(v.value.search(/\r\n/ig)>-1){
+            if(v.value.search(/\r\n/ig)>-1 && v.type !=2){
                 v.value=v.value.split("\r\n");
                 let obj ={}
                 v.value.forEach(n =>{

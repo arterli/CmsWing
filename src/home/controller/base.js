@@ -16,11 +16,12 @@ export default class extends think.controller.base {
       await this.action("wechat", "oauth");
       //网站配置
       this.setup = await this.model("setup").getset();
+      // console.log(this.setup);
       //当前登录状态
       this.is_login = await this.islogin();
        //用户信息
       this.user = await this.session('webuser');
-      console.log(this.user);
+      //console.log(this.user);
 
       //获取当前分类信息
       //console.log(action);
