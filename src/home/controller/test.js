@@ -231,6 +231,7 @@ export default class extends Base {
         }
 
     }
+    
     configAction(){
         const fs = require('fs');
         let steup = this.setup;
@@ -264,9 +265,8 @@ export default class extends Base {
     }
 
     alidayuAction(){
-        let Template = think.adapter("alidayu", "client"); //加载名为 dot 的 Template Adapter
-        let instance = new Template(); //实例化 Adapter
+        let dayu = think.adapter("alidayu", "client");
+        let instance = new dayu();
         instance.send();
-
     }
 }
