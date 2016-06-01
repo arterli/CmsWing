@@ -262,4 +262,11 @@ export default class extends Base {
         let uuids =await this.session("uuid");
         console.log(uuids);
     }
+
+    alidayuAction(){
+        let Template = think.adapter("alidayu", "client"); //加载名为 dot 的 Template Adapter
+        let instance = new Template(); //实例化 Adapter
+        instance.send();
+
+    }
 }
