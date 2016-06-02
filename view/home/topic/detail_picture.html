@@ -1,5 +1,6 @@
 {% extends "../inc/base.html" %}
 {% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/jquery-zsylbt/css/pgwslideshow.min.css">
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 {% endblock %}
 {% block content %}
@@ -20,8 +21,7 @@ CLASSES:
 .shadow-before-3 	= shadow 3 header top
 .shadow-after-3 	= shadow 3 header bottom
 -->
-<section class="page-header dark page-header-xs parallax parallax-2" style="background-image:url('/static/assets/images/demo/thematics/lawyer/slider_bg_4-min.jpg')">
-    <div class="overlay dark-2"><!-- dark overlay [1 to 9 opacity] --></div>
+<section class="page-header dark page-header-xs " >
     <div class="container">
 
         <h1>{{category.title}}</h1>
@@ -49,30 +49,21 @@ CLASSES:
 </section>
 <!-- /PAGE HEADER -->
 <!-- -->
-<section class="padding-bottom-0">
-    <div class="container">
-
+<section class="padding-0 ">
         <!-- OWL SLIDER -->
-        <div class="container">
 
-            <div class="owl-carousel buttons-autohide controlls-over nomargin" data-plugin-options='{"items": 1, "autoPlay": 3500, "autoHeight": false, "navigation": true, "pagination": false, "transitionStyle":"fade", "progressBar":"false"}'>
+            <ul class="pgwSlideshow">
                 {%set picurls = info.pictureurls|strToArray%}
                 {%set i =0%}
-               {%for v in picurls%}
-                <div>
-                    <img class="img-responsive" src="{{v|get_pic('m=0,w=1140,h=540')}}" alt="">
-                    <div class="flex-caption" style="width: 100%;min-width: 90%;">{{info.content[i]|safe}}</div>
-                </div>
+                {%for v in picurls%}
+                <li><img src="{{v|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v|get_pic('')}}" alt="" data-description="{{info.content[i]}}"></li>
                 {%set i=i+1%}
                 {%endfor%}
+            </ul>
 
-            </div>
 
-        </div>
         <!-- /OWL SLIDER -->
 
-
-    </div>
 </section>
 <!-- / -->
 <!--
@@ -116,6 +107,7 @@ CLASSES:
             <div class="col-md-9 col-sm-9">
 {#
                 <h1 class="blog-post-title">{{info.title}}</h1>
+
                 <ul class="blog-post-info list-inline">
                     <li>
                         <a href="#">
@@ -147,6 +139,7 @@ CLASSES:
                     </li>
                 </ul>
 #}
+
                 <!-- OWL SLIDER -->
                 <!--
                 <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
@@ -519,8 +512,12 @@ Share Post:
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="/static/assets/plugins/jquery-zsylbt/js/pgwslideshow.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
+    $(document).ready(function() {
+        $('.pgwSlideshow').pgwSlideshow();
+    });
     uParse('#content', {
         rootPath: '/static/admin/js/udeitor/'
     })

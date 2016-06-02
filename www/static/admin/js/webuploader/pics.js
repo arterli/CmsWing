@@ -94,7 +94,7 @@ jQuery(function () {
         label: '继续添加'
     });
     uploader.on('uploadSuccess', function (file, res) {
-        var id = $("#pics").val();
+        var id = $("#"+pics_ids).val();
         var ids;
         if(id){
            ids = id+','+res 
@@ -103,7 +103,7 @@ jQuery(function () {
         }
         
         console.log(ids);
-       $("#pics").val(ids);
+       $("#"+pics_ids).val(ids);
     });
     // 当有文件添加进来时执行，负责view的创建
     function addFile(file) {

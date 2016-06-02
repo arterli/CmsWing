@@ -1083,8 +1083,10 @@ global.get_file=async (file_id,field,key=false)=>{
  */
 global.get_cate=async(cid)=>{
     let column = await think.model('category', think.config("db"),'admin').get_all_category();
+
     for(let v of column){
         if(v.id==cid){
+            console.log(v)
            return v;
         }
     }

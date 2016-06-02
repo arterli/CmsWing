@@ -366,6 +366,7 @@ export default class extends think.controller.base {
               console.log(message);
               break;
           default:
+              console.log(message);
               break;
       }
     // this.reply(JSON.stringify(message));
