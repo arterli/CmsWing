@@ -17,7 +17,6 @@ export default class extends think.adapter.base {
       'appsecret': '92c5495dab01640530d3da88f4537d5e',
       'REST_URL': 'http://gw.api.taobao.com/router/rest'
     });
-
     client.execute('alibaba.aliqin.fc.sms.num.send', {
       'extend':'123456',
       'sms_type':'normal',
