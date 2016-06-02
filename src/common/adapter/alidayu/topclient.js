@@ -1,5 +1,5 @@
 var urllib = require('urllib');
-var util = require('./toputil1');
+var util = require('./toputil');
 
 /**
  * TOP API Client.
