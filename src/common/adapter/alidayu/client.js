@@ -2,7 +2,7 @@
 /**
  * base adapter
  */
-let TopClient = require('./topclient').TopClient;
+let TopClient = require('./topclient1').TopClient;
 export default class extends think.adapter.base {
   /**
    * init

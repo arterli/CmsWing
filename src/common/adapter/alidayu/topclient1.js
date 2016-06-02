@@ -1,5 +1,5 @@
 var urllib = require('urllib');
-var util = require('./toputil');
+var util = require('./toputil1');
 
 /**
  * TOP API Client.
@@ -7,7 +7,6 @@ var util = require('./toputil');
  * @param {Object} options, must set `appkey` and `appsecret`.
  * @constructor
  */
-
 function TopClient(options) {
     if (!(this instanceof TopClient)) {
         return new TopClient(options);

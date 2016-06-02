@@ -18,7 +18,6 @@ exports.hash = function hash(method, s, format) {
     sum.update(s, isBuffer ? 'binary' : 'utf8');
     return sum.digest(format || 'hex');
 };
-
 /**
  * md5 hash
  *
