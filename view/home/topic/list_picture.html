@@ -53,10 +53,10 @@ CLASSES:
 <!-- -->
 {% groups data="groups",cid=category.id%}
 {%set cate = category.id|get_cate()%}
-<section {%if gropus|length > 0 %}class="padding-top-20"{%endif%}>
+<section {%if groups|length > 0 %}class="padding-top-20"{%endif%}>
 <div class="container">
     {{cate.groups}}
-    {%if gropus|length >0 %}
+    {%if groups|length >0 %}
 
     <div class="text-center">
         <ul class="nav nav-pills mix-filter">
@@ -73,57 +73,55 @@ CLASSES:
 
 <!-- LEFT -->
     <div class="col-md-9 col-sm-9">
+        <div id="portfolio" class="portfolio-gutter portfolio-title-over">
+<div class="row">
+    {% for val in list %}
+    <div class="col-md-4 col-sm-4 mix "><!-- item -->
 
-        {% for val in list %}
-        <!-- POST ITEM -->
-        <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+        <div class="item-box">
+            <figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
 
-            <!-- IMAGE -->
-            {% if val.cover_id>0 %}
-            <figure class="blog-item-small-image margin-bottom-0">
-                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
-            </figure>
-            {% endif %}
-            <div class="blog-item-small-content">
-                <h2 class="size-20"><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="{{val.cover_id|get_pic('')}}" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
 
-                <ul class="blog-post-info list-inline padding-bottom-10">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-clock-o"></i>
-                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-comment-o"></i>
-                            <span class="font-lato">{{val.view}} Comments</span>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="fa fa-folder-open-o"></i>
+                                                <!-- details -->
+												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
 
-                        <a class="category" href="#">
-                            <span class="font-lato">{{val.category_id}}</span>
-                        </a>
-                        <a class="category" href="#">
-                            <span class="font-lato">Photography</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
+											</span>
+										</span>
+
+                <!-- overlay title -->
+                <div class="item-box-overlay-title">
+                    <h3 class="size-14">{{val.title|block(16)}}</h3>
+                    <ul class="list-inline categories nomargin">
+                        <li><a href="#"><i class="fa fa-clock-o"></i>
+                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span></a></li>
+                        <li><a href="#"><i class="fa fa-eye"></i>
+                            <span class="font-lato">{{val.view}}</span></a></li>
+                        <li><a href="#">
                             <i class="fa fa-user"></i>
                             <span class="font-lato">{{val.uid|get_nickname}}</span>
-                        </a>
-                    </li>
-                </ul>
+                        </a></li>
+                    </ul>
+                </div><!-- /overlay title -->
 
-                <p>{{val.description|block(90)}}</p>
+                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=600,h=399')}}" width="600" height="399" alt="">
+            </figure>
+        </div>
+
+    </div><!-- /item -->
+    {%endfor%}
+</div>
             </div>
 
-        </div>
-        <!-- /POST ITEM -->
-        {%endfor%}
+
 
 
         <!-- PAGINATION -->
@@ -154,15 +152,15 @@ CLASSES:
         <hr />
 
         <!-- side navigation -->
-        {%column data="cate",cid=category.id,isnum="1"%}
-        {%if cate%}
+        {%column data="cates",cid=category.id,isnum="1"%}
+        {%if cates%}
         <div class="side-nav margin-bottom-20 margin-top-20">
             <div class="side-nav-head">
                 <button class="fa fa-bars"></button>
                 <h4>{{category.title}} 子分类</h4>
             </div>
             <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                {%for val in cate%}
+                {%for val in cates%}
                 <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
                 {%endfor%}
             </ul>

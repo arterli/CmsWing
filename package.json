@@ -21,7 +21,8 @@
     "thinkjs": "2.2.x",
     "wechat-api":"*",
     "jimp":"*",
-    "qiniu":"*"
+    "qiniu":"*",
+    "urllib": ">=0.5.2"
 
   },
   "devDependencies": {

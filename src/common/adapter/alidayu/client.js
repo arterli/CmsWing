@@ -20,10 +20,10 @@ export default class extends think.adapter.base {
     client.execute('alibaba.aliqin.fc.sms.num.send', {
       'extend':'123456',
       'sms_type':'normal',
-      'sms_free_sign_name':'阿里大鱼',
-      'sms_param':'{\"customer\":\"1234\"}',
+      'sms_free_sign_name':'酷翼cms',
+      'sms_param':'{\"code\":\"1234\",\"product\":\"cmswing\"}',
       'rec_num':'18681851637',
-      'sms_template_code':'SMS_10240891'
+      'sms_template_code':'SMS_10281005'
     }, function(error, response) {
       if (!error) console.log(response);
       else console.log(error);

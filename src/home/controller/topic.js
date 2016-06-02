@@ -66,7 +66,9 @@ export default class extends Base {
       //获取模型列表数据个数
       // console.log(cate);
       let num;
-      if(cate.model.split(",").length == 1){
+      if(cate.list_row>0){
+         num = cate.list_row;
+      } else if(cate.model.split(",").length == 1){
          let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
          if(pagenum !=0){
              num = pagenum;

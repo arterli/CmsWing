@@ -55,6 +55,7 @@ CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
 ##PC端前台模版截图
 ![新闻](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png)
 ![下载](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-26T04-53-55.185Z.png)
+![图片](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-06-02T11-41-36.639Z.png)
 ##手机端(微信)前台模版截图
 ![新闻](http://data.cmswing.com/Screenshot_2016-05-26-13-17-28.png?imageView2/0/w/500)
 ![新闻列表](http://data.cmswing.com/Screenshot_2016-05-26-13-17-36.png?imageView2/0/w/500)
