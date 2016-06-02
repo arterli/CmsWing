@@ -35,27 +35,27 @@ CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
 
 ##后台部分截图
 
-![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
-![1](http://7xt6v5.com2.z0.glb.clouddn.com/3.png)
-![2](http://7xt6v5.com2.z0.glb.clouddn.com/4.png)
-![3](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%AF%E4%BB%98%E7%AE%A1%E7%90%86.png)
+![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973<Width>)
+![1](http://7xt6v5.com2.z0.glb.clouddn.com/3.png?imageView2/2/w/973)
+![2](http://7xt6v5.com2.z0.glb.clouddn.com/4.png?imageView2/2/w/973)
+![3](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%AF%E4%BB%98%E7%AE%A1%E7%90%86.png?imageView2/2/w/973)
 
-![4](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-54-05.757Z.png)
+![4](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-54-05.757Z.png?imageView2/2/w/973)
 
-![单据管理](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%B6%E6%AC%BE%E5%8D%95%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
+![单据管理](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%B6%E6%AC%BE%E5%8D%95%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 
-![运费模板](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%BF%90%E8%B4%B9%E6%A8%A1%E6%9D%BF%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
+![运费模板](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%BF%90%E8%B4%B9%E6%A8%A1%E6%9D%BF%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 
-![财务日志](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
+![财务日志](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 
-![yongh](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
+![yongh](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 
-![数据库备份](http://7xt6v5.com2.z0.glb.clouddn.com/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png)
-![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png)
+![数据库备份](http://7xt6v5.com2.z0.glb.clouddn.com/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
+![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
 ##PC端前台模版截图
-![新闻](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png)
-![下载](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-26T04-53-55.185Z.png)
-![图片](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-06-02T11-41-36.639Z.png)
+![新闻](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png?imageView2/2/w/973)
+![下载](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-26T04-53-55.185Z.png?imageView2/2/w/973)
+![图片](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-06-02T11-41-36.639Z.png?imageView2/2/w/973)
 ##手机端(微信)前台模版截图
 ![新闻](http://data.cmswing.com/Screenshot_2016-05-26-13-17-28.png?imageView2/0/w/500)
 ![新闻列表](http://data.cmswing.com/Screenshot_2016-05-26-13-17-36.png?imageView2/0/w/500)
