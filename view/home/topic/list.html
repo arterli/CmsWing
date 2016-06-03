@@ -58,7 +58,21 @@ CLASSES:
 
 <!-- LEFT -->
     <div class="col-md-9 col-sm-9">
-
+        <ul class="nav nav-tabs margin-bottom-20">
+            {% groups data="groups",cid=category.id%}
+            {%set cate = category.id|get_cate()%}
+            <li {%if group_id==0%} class="active"{%endif%}><a href="{{cate.url}}" >全部</a></li>
+            {%for v in groups%}
+            <li {%if group_id==v.id%} class="active"{%endif%}><a href="{{v.url}}" >{{v.name}}</a></li>
+            {%endfor%}
+            {# <li class="dropdown">
+            <a href="goups" class="dropdown-toggle" >Dropdown <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#dropdown1" tabindex="-1" data-toggle="tab">@fat</a></li>
+                <li><a href="#dropdown2" tabindex="-1" data-toggle="tab">@mdo</a></li>
+            </ul>
+        </li> #}
+        </ul>
         {% for val in list %}
         <!-- POST ITEM -->
         <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
@@ -139,15 +153,15 @@ CLASSES:
         <hr />
 
         <!-- side navigation -->
-        {%column data="cate",cid=category.id,isnum="1"%}
-        {%if cate%}
+        {%column data="cates",cid=category.id,isnum="1"%}
+        {%if cates%}
         <div class="side-nav margin-bottom-20 margin-top-20">
             <div class="side-nav-head">
                 <button class="fa fa-bars"></button>
                 <h4>{{category.title}} 子分类</h4>
             </div>
             <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                {%for val in cate%}
+                {%for val in cates%}
                 <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
                 {%endfor%}
             </ul>
