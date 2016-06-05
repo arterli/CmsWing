@@ -1,0 +1,155 @@
+<div id="header" class="sticky clearfix header-md ">
+	<!--
+				AVAILABLE HEADER CLASSES
+
+				Default nav height: 96px
+				.header-md 		= 70px nav height
+				.header-sm 		= 60px nav height
+
+				.noborder 		= remove bottom border (only with transparent use)
+				.transparent	= transparent header
+				.translucent	= translucent header
+				.sticky			= sticky header
+				.static			= static header
+				.dark			= dark header
+				.bottom			= header on bottom
+
+				shadow-before-1 = shadow 1 header top
+				shadow-after-1 	= shadow 1 header bottom
+				shadow-before-2 = shadow 2 header top
+				shadow-after-2 	= shadow 2 header bottom
+				shadow-before-3 = shadow 3 header top
+				shadow-after-3 	= shadow 3 header bottom
+
+				.clearfix		= required for mobile menu, do not remove!
+
+				Example Usage:  class="clearfix sticky header-sm transparent noborder"
+			-->
+	<!-- TOP NAV -->
+	
+	<header id="topNav">
+		<div class="container">
+
+			<!-- Mobile Menu Button -->
+			<button class="btn btn-mobile" id="sidepanel_btn" >
+				<i class="fa fa-bars"></i>
+			</button>
+
+			<!-- BUTTONS -->
+			<ul class="pull-right nav nav-pills nav-second-main">
+
+				<!-- SEARCH -->
+				<li class="search">
+					<a href="javascript:;">
+						<i class="fa fa-search"></i>
+					</a>
+					<div class="search-box">
+						<form action="page-search-result-1.html" method="get">
+							<div class="input-group">
+								<input type="text" name="src" placeholder="Search" class="form-control" />
+								<span class="input-group-btn">
+												<button class="btn btn-primary" type="submit">Search</button>
+											</span>
+							</div>
+						</form>
+					</div>
+				</li>
+				<!-- /SEARCH -->
+
+				<!-- QUICK SHOP CART -->
+				<li class="quick-cart">
+					<a href="#">
+						<span class="badge badge-aqua btn-xs badge-corner" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%endif%}</span>
+						<i class="fa fa-shopping-cart"></i>
+					</a>
+					<div class="quick-cart-box">
+						<h4>购物车</h4>
+
+						<div class="quick-cart-wrapper">
+                          {% if controller.cart.data|length > 0 %}
+                          {% for val in controller.cart.data%}
+                          <a href="{{val.url}}">				
+                    <img src="{{val.pic}}" width="45" height="45" alt="" />
+                    <h6><span>{{val.qty}}x</span> {{val.title}}</h6>
+                    <small>￥{{val.price|formatCurrency}} {% if val.type%}<span class="size-11 text-muted">[{{val.type}}]</span>{%endif%}</small>
+                    </a>
+                          {% endfor %}
+                          {%else%}
+										<a class="text-center" href="#">
+											<h6>0 ITEMS ON YOUR CART</h6>
+										</a>
+                                        {%endif%}
+										
+
+						</div>
+
+						<!-- quick cart footer -->
+						<div class="quick-cart-footer clearfix">
+							<a href="/cart" class="btn btn-primary btn-xs pull-right">去购物车结算</a>
+							<span class="pull-left"><strong>合计:</strong> <total>￥{% if controller.cart.total %}{{controller.cart.total|formatCurrency}}{%else%}0{%endif%}</total></span>
+						</div>
+						<!-- /quick cart footer -->
+
+					</div>
+				</li>
+				<!-- /QUICK SHOP CART -->
+
+			</ul>
+			<!-- /BUTTONS -->
+
+
+			<!-- Logo -->
+			<a class="logo pull-left" href="/">
+				<img src="/static/assets/images/logo_dark.png" alt="" />
+			</a>
+
+			<!--
+							Top Nav
+
+							AVAILABLE CLASSES:
+							submenu-dark = dark sub menu
+						-->
+			<div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
+				<nav class="nav-main">
+
+					<!--
+									NOTE
+
+									For a regular link, remove "dropdown" class from LI tag and "dropdown-toggle" class from the href.
+									Direct Link Example:
+
+									<li>
+										<a href="#">HOME</a>
+									</li>
+								-->
+					<ul id="topMain" class="nav nav-pills nav-main">
+						{% channel data='channel', num='4'%} {% for val in channel%}
+						<li class="{% if val.children %}dropdown{% endif %} {% if http.url == val.url %}active{% endif %}">
+
+							<a {% if val.children%}class="dropdown-toggle" {% endif %} href="{{val.url}}">{{val.title}}</a> {% if val.children%}
+							<ul class="dropdown-menu">
+								{% for _val in val.children%}
+								<li class="{% if _val.children%}dropdown{% endif %}">
+									<a {% if _val.children%}class="dropdown-toggle" {% endif %} href="{{_val.url}}">{{_val.title}}</a> {% if _val.children%}
+									<ul class="dropdown-menu">
+										{% for __val in _val.children%}
+										<li><a href="{{__val.url}}">{{__val.title}}</a></li>
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</li>
+						{% endfor%}
+                       
+					</ul>
+				</nav>
+			</div>
+
+		</div>
+	</header>
+	<!-- /Top Nav -->
+
+</div>

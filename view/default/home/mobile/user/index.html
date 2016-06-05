@@ -1,0 +1,149 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_index">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content infinite-scroll native-scroll pull-to-refresh-content" data-distance="100">
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+        </div>
+        <div class="m-user-header">
+        <div class="list-block media-list m-all-none">
+            <ul class="user">
+                <li >
+                    <a class="item-link item-content external" href="/user/seting">
+                        <div class="item-media avatar"><img width="50" src="/user/avatar"></div>
+                        <div class="item-inner userinfo">
+                            <div class="item-subtitle"><strong>{{controller.user.username}}</strong></div>
+                            <div class="item-text">18651851438</div>
+                        </div>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="row no-gutter m-user-pro">
+            <div class="col-33"><a href="javascript:;" class="item">
+                <strong>{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</strong>订单交易总金额
+            </a></div>
+            <div class="col-33"><a href="javascript:;" class="item">
+
+                <strong>{{onOrder}}</strong>进行中的订单
+            </a></div>
+            <div class="col-33"><a href="javascript:;" class="item b-r-n">
+                <strong>{%if userInfo.score %}{{userInfo.score}}{%else%}0{%endif%}</strong>我的积分
+            </a></div>
+        </div>
+        </div>
+        <div class="list-block m-t-n">
+            <ul>
+                <li>
+                    <a class="item-link item-content" href="/user/account">
+                    <div class="item-media text-primary"><i class="et-wallet fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title"><strong>我的钱包</strong></div>
+                        <div class="item-after">￥<spna class="text-danger">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</spna></div>
+                    </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li>
+                <a class="item-link item-content" href="/user/order">
+                    <div class="item-media text-muted width-20"><i class="et-clipboard fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">我的订单</div>
+                        <div class="item-after"><span class="badge">5</span></div>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content" href="#">
+                    <div class="item-media text-muted width-20"><i class="et-recycle fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">退款申请</div>
+
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="list-block">
+            <ul>
+                <li>
+                <a class="item-link item-content" href="#">
+                    <div class="item-media text-muted width-20"><i class="et-happy fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">我的优惠券</div>
+                        <div class="item-after"><span class="badge">5</span></div>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content" href="/user/address">
+                    <div class="item-media text-muted width-20"><i class="et-map-pin fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">收货地址</div>
+
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+        {% if http.userAgent()|is_weixin != true %}
+        <div class="list-block" style="overflow: hidden">
+            <ul>
+<li>
+                <a class="item-link item-content external" href="/user/logout">
+                    <div class="item-media text-primary width-20"><i class="fa fa-sign-out fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">退出登录</div>
+
+                    </div>
+                </a>
+</li>
+            </ul>
+        </div>
+        {%endif%}
+    </div>
+</div>
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+{% endblock%}
+{% block script %}
+{% endblock %}

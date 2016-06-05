@@ -1,0 +1,70 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_selectaddr">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <div class="content ">
+        <div class="list-block media-list">
+            <ul>
+                {%for item in list %}
+
+                <li class="swipeout">
+                    <div class="swipeout-content">
+                    <label data-href="/cart/getorderinfo/addrid/{{item.id}}/ids/{{goodsget}}" class="label-checkbox item-content">
+                        <input type="radio" name="addrid" value="{{item.id}}" {%if id == item.id%}checked{%endif%}>
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{item.accept_name}} ({{item.mobile}})</div>
+                                <div class="item-after">{%if item.is_default == 1%}<span  \class="button button-round">默认</span>{%endif%}</div>
+                            </div>
+                            <div class="item-subtitle">{{item.province}},{{item.city}},{{item.county}}</div>
+                            <div class="item-text">{{item.addr}}</div>
+                        </div>
+                    </label>
+                    </div>
+                    <!-- Swipeout actions right -->
+                    <div class="swipeout-actions-right">
+                        <!-- Swipeout actions links/buttons -->
+                        <a href="/cart/editaddrmodal/id/{{item.id}}/type/1" class="bg-primary">编辑</a>
+                        <a class="swipeout-close" href="#">关闭</a>
+                    </div>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li>
+                <a class="item-content item-link" href="/cart/editaddrmodal">
+                    <div class="item-media"><i class="fa fa-plus fa-lg"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">添加新地址</div>
+
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+{% endblock %}

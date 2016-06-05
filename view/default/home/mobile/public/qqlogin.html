@@ -1,0 +1,156 @@
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="wechat_follow">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+    
+    <div class="content ">
+           <div class="card">
+    <div class="card-content">
+      <div class="list-block">
+        <ul>
+          <li>
+            <a href="#" class="item-link item-content">
+              <div class="item-media"><img src="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" style="width:1.45rem"></div>
+              <div class="item-inner">
+                <div class="item-title">{{qq_user.nickname}}</div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+       <div class="buttons-tab">
+    <a href="/public/qqlogin/id/{{http.get('id')}}" class="{%if http.get('tab')==''%}active{%endif%} button">完善个人资料</a>
+    <a href="/public/qqlogin/id/{{http.get('id')}}/tab/1" class="{%if http.get('tab')==1%}active{%endif%} button">绑定到已有账号</a>
+  </div>
+  {%if http.get("tab")==""%}
+   <div class="content-block nopadding nomargin">
+      <div class="content-padded size-14">
+          <p>已有PC端账号，点击[绑定到已有账号]登录绑定。</p>
+           <p>这是您登录PC端网站的凭证，请认真填写!
+      </p></div>
+      <form method="post" action="/public/organizing" class="form-organizing">
+    <div class="list-block margin-top-0">
+    <ul>
+      <!-- Text inputs -->
+      <li>
+        <div class="item-content">
+         
+          <div class="item-inner">
+            <div class="item-title label">用户昵称</div>
+            <div class="item-input">
+              <input type="text" placeholder="Your name" name="username" value="{{qq_user.nickname}}" required="required">
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="item-content">
+         
+          <div class="item-inner">
+            <div class="item-title label">电子邮件</div>
+            <div class="item-input">
+              <input type="email" placeholder="E-mail" name="email" required="required">
+            </div>
+          </div>
+        </div>
+      </li>
+       <li>
+        <div class="item-content">
+          
+          <div class="item-inner">
+            <div class="item-title label">手机号码</div>
+            <div class="item-input">
+              <input type="number" name="mobile" placeholder="输入手机号码"  min="10000000000" max="99999999999" required="required"/>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="item-content">
+          
+          <div class="item-inner">
+            <div class="item-title label">登录密码</div>
+            <div class="item-input">
+              <input type="password" placeholder="输入密码" name="password" class="" required="required">
+            </div>
+          </div>
+        </div>
+      </li>
+       <li>
+        <div class="item-content">
+          <div class="item-inner">
+            <div class="item-title label">确认密码</div>
+            <div class="item-input">
+              <input type="password" placeholder="确认密码" class=""name="password2" required="required">
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="content-block">
+      <input type="hidden" name="openid" value="{{qq_user.openid}}">
+      <input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
+    <a href="javascript:;"  class="button button-big button-fill ajax-post" target-form="form-organizing">确定</a>
+  </div>
+          </form>
+  </div>
+  {%elif http.get("tab")==1%}
+  <form role="form" class="form-logonbinding" action="/public/logonbinding" method="post">
+            <div class="list-block inset">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">账号</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="邮箱/手机号/昵称" name="username">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+
+                        <div class="item-content ">
+                            <div class="item-media"><i class="icon icon-form-password"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">密码</div>
+                                <div class="item-input">
+                                    <input type="password" class="" placeholder="输入你的登录密码" name="password">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    
+                </ul>
+            </div>
+            <div class="content-block">
+                <input type="hidden" name="openid" value="{{qq_user.openid}}">
+                <input type="hidden" name="headimgurl" value="{%if qq_user.figureurl_qq_2%}{{qq_user.figureurl_qq_2}}{%else%}{{qq_user.figureurl_qq_1}}{%endif%}" >
+                <p><a href="javascript:;" class="button button-big button-fill  ajax-post" target-form="form-logonbinding">确定 </a></p>
+            </div>
+            </form>
+  {%endif%}
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+{% endblock %}
