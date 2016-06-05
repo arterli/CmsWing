@@ -29,7 +29,9 @@ export default class extends Base {
    * @returns {*}
      */
   async homeAction(){
-      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+    let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+    let gid = temp_group.gid || 1;
+    let gname = temp_group.gname;
     let map ={
       module:"home",
       controller:"index",
@@ -38,14 +40,16 @@ export default class extends Base {
       gid:gid
     }
     let temp = await this.model("temp").where(map).find();
-      let temppath;
-      if(temp.type==2){
-           temppath = `${think.ROOT_PATH}/view/${temp.module}/mobile/`;
-      }else {
-          temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
-      }
+    let temppath;
+    if(temp.type==2){
+         temppath = `${think.ROOT_PATH}/view/${gname}/${temp.module}/mobile/`;
+    }else {
+        temppath = `${think.ROOT_PATH}/view/${gname}/${temp.module}/`;
+    }
     let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"home")}${temp.action}${this.config("view.file_ext")}`;
-     if(this.isPost()){
+    
+    //修改模版
+    if(this.isPost()){
        let data = this.post();
        data.id= temp.id;
        data.module = map.module;
@@ -86,6 +90,7 @@ export default class extends Base {
        this.assign({
          "navxs":true,
          "temp":temp,
+         "gname": gname
        });
        return this.display();
      }
@@ -93,26 +98,28 @@ export default class extends Base {
   }
 //模板修改记录
  async tempbakAction(){
-     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+    let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
     let map = this.get();
     map.gid = gid;
     let list = await this.model("temp_bak").where(map).limit(20).order("baktime DESC").select();
-   this.assign("list",list);
-   this.assign("title","修改记录");
+    this.assign("list",list);
+    this.assign("title","修改记录");
     return this.display();
   }
   //还原模板
   async tempreplyAction(){
     let id = this.get("id");
     let bak =await this.model("temp_bak").where({pid:id}).find();
+    let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+    let gname = temp_group.gname;
     if(!think.isEmpty(bak)){
       delete bak.id;
       await this.model("temp").where({id:id}).update(bak);
         let temppath;
         if(bak.type==2){
-            temppath = `${think.ROOT_PATH}/view/${bak.module}/mobile/`;
+            temppath = `${think.ROOT_PATH}/view/${gname}/${bak.module}/mobile/`;
         }else {
-            temppath = `${think.ROOT_PATH}/view/${bak.module}/`;
+            temppath = `${think.ROOT_PATH}/view/${gname}/${bak.module}/`;
         }
       let templateFile = `${temppath}${bak.controller}${think.config("view.file_depr",undefined,"home")}${bak.action}${this.config("view.file_ext")}`;
       fs.writeFileSync(templateFile, bak.html);
@@ -121,50 +128,58 @@ export default class extends Base {
   }
     //封面模板
  async channelAction(){
-     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
-     let map ={
+    let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+    let gid = temp_group.gid || 1;
+    let gname = temp_group.gname;
+    let map ={
          module:"home",
          controller:"topic",
          action:["like", "index%"],
          type:this.param("type")||1,
          gid:gid
-     }
-     let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-     let pages = new Pages(); //实例化 Adapter
-     let page = pages.pages(temp);
-     this.assign('pagerData', page); //分页展示使用
-     this.assign('list', temp.data);
+    }
+    let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
+    let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+    let pages = new Pages(); //实例化 Adapter
+    let page = pages.pages(temp);
+    this.assign('pagerData', page); //分页展示使用
+    this.assign('list', temp.data);
      
     this.meta_title= '封面模板';
     this.assign({
       "navxs":true,
+      "gname": gname
     });
     return this.display();
   }
- async columnAction(){
-     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
-     let map ={
-         module:"home",
-         controller:"topic",
-         action:["like", "list%"],
-         type:this.param("type")||1,
-         gid:gid
-     }
-     let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-     let pages = new Pages(); //实例化 Adapter
-     let page = pages.pages(temp);
-     this.assign('pagerData', page); //分页展示使用
-     this.assign('list', temp.data);
+  async columnAction(){
+    let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+    let gid = temp_group.gid || 1;
+    let gname = temp_group.gname;
+    let map ={
+      module:"home",
+      controller:"topic",
+      action:["like", "list%"],
+      type:this.param("type")||1,
+      gid:gid
+    }
+    let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
+    let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+    let pages = new Pages(); //实例化 Adapter
+    let page = pages.pages(temp);
+    this.assign('pagerData', page); //分页展示使用 
+    this.assign('list', temp.data);
     this.meta_title= '列表模板';
     this.assign({
       "navxs":true,
+      "gname": gname
     });
     return this.display();
   }
- async detailAction(){
-     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+  async detailAction(){
+      let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+      let gid = temp_group.gid || 1;
+      let gname = temp_group.gname;
       let map ={
           module:"home",
           controller:"topic",
@@ -178,47 +193,53 @@ export default class extends Base {
       let page = pages.pages(temp);
       this.assign('pagerData', page); //分页展示使用
       this.assign('list', temp.data);
-    this.meta_title='内容模板'
+      this.meta_title='内容模板'
+      this.assign({
+        "navxs":true,
+        "gname": gname
+      });
+      return this.display();
+  }
+  async incAction(){
+    let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+    let gid = temp_group.gid || 1;
+    let gname = temp_group.gname;
+    let map ={
+      module:"home",
+      controller:"inc",
+      type:this.param("type")||1,
+      gid:gid
+    }
+    let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
+    let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+    let pages = new Pages(); //实例化 Adapter
+    let page = pages.pages(temp);
+    this.assign('pagerData', page); //分页展示使用
+    this.assign('list', temp.data);
+    this.meta_title='公共模板'
     this.assign({
       "navxs":true,
+      "gname": gname
     });
     return this.display();
-  }
- async incAction(){
-     let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
-     let map ={
-         module:"home",
-         controller:"inc",
-         type:this.param("type")||1,
-         gid:gid
-     }
-     let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-     let pages = new Pages(); //实例化 Adapter
-     let page = pages.pages(temp);
-     this.assign('pagerData', page); //分页展示使用
-     this.assign('list', temp.data);
-    this.meta_title='公共模板'
-     this.assign({
-         "navxs":true,
-     });
-      return this.display();
   }
     //编辑模板
   async editAction(){
       let id = this.param("id");
       let temp = await this.model("temp").find(id);
+      let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+      let gname = temp_group.gname;
       if(this.isPost()){
           temp.pid = temp.id;
           delete temp.id;
           temp.baktime = new Date().getTime();
           temp.lastuser = this.user.uid;
-       let data = this.post();
+          let data = this.post();
           let temppath;
           if(temp.type==2){
-              temppath = `${think.ROOT_PATH}/view/${temp.module}/mobile/`;
+              temppath = `${think.ROOT_PATH}/view/${gname}/${temp.module}/mobile/`;
           }else {
-              temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
+              temppath = `${think.ROOT_PATH}/view/${gname}/${temp.module}/`;
           }
           let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"home")}${temp.action}${this.config("view.file_ext")}`;
           console.log(data);
@@ -257,7 +278,9 @@ export default class extends Base {
     }
     //添加模板
     async addAction(){
-        let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+        let temp_group = await this.model("temp_group").field("gid, gname").where({isdefault:1}).find();
+        let gname = temp_group.gname;
+        let gid = temp_group.gid;
         if(this.isPost()){
             let data = this.post();
             if(data.temptype=="channel"){
@@ -286,9 +309,9 @@ export default class extends Base {
             console.log(data);
             let temppath;
             if(data.type==2){
-                temppath = `${think.ROOT_PATH}/view/${data.module}/mobile/`;
+                temppath = `${think.ROOT_PATH}/view/${gname}/${data.module}/mobile/`;
             }else {
-                temppath = `${think.ROOT_PATH}/view/${data.module}/`;
+                temppath = `${think.ROOT_PATH}/view/${gname}/${data.module}/`;
             }
             let templateFile = `${temppath}${data.controller}${think.config("view.file_depr",undefined,"home")}${data.action}${this.config("view.file_ext")}`;
             console.log(templateFile);
@@ -328,4 +351,16 @@ export default class extends Base {
     let group = this.model("temp_group").select();
     this.assign("temp_group",group);
   }
+
+  //设置默认模版组
+  async useTemplateAction(){
+    if (this.isPost()) {
+      let data = this.post();
+      let rows = await this.model("temp_group").where("gid != " + data.gid).update({isdefault: 0});
+      rows = await this.model("temp_group").where({gid: data.gid}).update({isdefault: 1});
+      console.log(data);
+      return this.success({name:"设置成功!"})
+    }
+  }
+
 }

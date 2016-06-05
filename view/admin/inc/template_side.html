@@ -4,9 +4,9 @@
         <section class="scrollable hover">
             <div class="panel panel-success m-b-none">
                 <header class="panel-heading">
-                    <select class="form-control " name="type">
+                    <select class="form-control " name="type" disabled>
                       {%for v in temp_group%}
-                        <option value="{{v.gid}}" {%if v.isdefault==1%}selected=""{%endif%}>{{v.gname}}</option>
+                        <option value="{{v.gid}}" {%if v.isdefault==1%}selected=""{%endif%}>当前主题{{v.gname}}</option>
                         {%endfor%}
                     </select>
                 </header>

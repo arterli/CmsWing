@@ -64,7 +64,7 @@
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
-                                        <td>view/{{item.module}}/{%if http.get("type")==2%}mobile/{%endif%}{{item.controller}}/{{item.action}}{{think.config('view.file_ext')}}</td>
+                                        <td>view/{{gname}}/{{item.module}}/{%if http.get("type")==2%}mobile/{%endif%}{{item.controller}}/{{item.action}}{{think.config('view.file_ext')}}</td>
 
 
                                         <td><a href="/admin/template/edit/id/{{item.id}}" class="text-info">修改</a>

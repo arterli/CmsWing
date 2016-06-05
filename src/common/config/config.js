@@ -4,7 +4,8 @@
  */
 export default {
   //key: value
-    //port:8888
+    port:8888,
+    host:'0.0.0.0',
     route_on: true,
     resource_on: true,
     resource_reg: /^(upload\/|backup\/|static\/|[^\/]+\.(?!js|html)\w+$)/,
