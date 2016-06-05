@@ -31,7 +31,12 @@ pm2 startOrGracefulReload pm2.json
 CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
 #####手机端,用手机浏览器或者微信客户端扫下面二维码:
 ![二维码](http://data.cmswing.com/1C30EFE7-A0DD-474B-88B5-4AD2270C422E.png)
-
+## 内置模型 - 同时支持PC端与手机端【微信公众平台】
+##### 新闻系统模型 
+##### 下载系统模型 
+##### 视频系统模型
+##### 图库系统模型
+##### 商城系统模型
 
 ##后台部分截图
 
