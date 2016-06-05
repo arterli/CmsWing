@@ -1,0 +1,349 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_seting">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content ">
+
+        <div class="">
+        <div class="list-block ">
+            <ul class="">
+                <li>
+
+                    <div class=" item-content " id="filePicker">
+                        <div class="item-inner userinfo">
+                            <div class="item-subtitle">头像</div>
+                            <div class="item-media avatar avatar-view"><img  style="width: 50px" src="/user/avatar"></div>
+                        </div>
+
+                    </div>
+
+                </li>
+                <li>
+                <a class="item-link item-content open-popup open-info" data-popup=".popup-info">
+                    <div class="item-inner">
+                        <div class="item-title">个人资料</div>
+                        <div class="item-after">{{userInfo.username}}</div>
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content open-popup open-password" data-popup=".popup-password">
+                    <div class="item-inner">
+                        <div class="item-title">修改密码</div>
+                        <!--<div class="item-after">标签</div>-->
+                    </div>
+                </a>
+                </li>
+                <li>
+                <a class="item-link item-content">
+                    <v class="item-inner">
+                        <div class="item-title">隐私设置</div>
+                        <!--<div class="item-after">标签</div>-->
+                    </v>
+                </a>
+                </li>
+            </ul>
+        </div>
+        </div>
+
+
+
+        <div class="list-block">
+            <ul>
+                <li>
+                <a class="item-link item-content" href="/user/address">
+                    <div class="item-media text-muted width-20"><i class="et-map-pin fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">收货地址</div>
+
+                    </div>
+                </a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+             <li>
+                <a class="item-link item-content" href="/user/logout">
+                    <div class="item-media text-primary width-20"><i class="fa fa-sign-out fa-lg"></i></i>
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title">退出登录</div>
+
+                    </div>
+                </a>
+             </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+<!--info Popup-->
+<div class="popup popup-info popup-bg">
+    <form class="form-info" action="/user/updateinfo" enctype="multipart/form-data" method="post">
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup"></a>
+        <button type="submit" class="button button-fill pull-right ajax-post" target-form="form-info" >保存</button>
+        <h1 class="title">修改个人信息</h1>
+    </header>
+        <div class="content">
+
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">会员账号</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Your name" value="{{userInfo.username}}" name="username" disabled="disabled" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">会员级别</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Your name" value="{{userInfo.group_id}}" name="group_id" disabled="disabled" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">邮箱</div>
+                                <div class="item-input">
+                                    <input type="email" placeholder="E-mail" name="email" value="{{userInfo.email}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">真实姓名</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="Password" name="real_name" value="{{userInfo.real_name}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-gender"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">性别</div>
+                                <div class="item-input">
+                                    <select name="sex">
+                                        <option value="1" {%if userInfo.sex == 1 %} selected {%endif%} >男</option>
+                                        <option value="2" {%if userInfo.sex == 2 %} selected {%endif%}>女</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Date -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-calendar"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">生日</div>
+                                <div class="item-input">
+                                    <input type="hidden" value="{{userInfo.birthday|dateformat('Y-m-d')}}" name="birthday">
+                                    <input id="birthday" value="{{userInfo.birthday|dateformat('Y-m-d')}}" type="text" placeholder="Birth day"  >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">手机号码</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="手机号码" name="mobile" value="{{userInfo.mobile}}">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-password"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">电话号码</div>
+                                <div class="item-input">
+                                    <input type="text"  name="phone" value="{{userInfo.phone}}" placeholder="电话号码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Date -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-calendar"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">所在地区</div>
+                                <div class="item-input">
+
+                                    <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="align-top">
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-comment"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">街道地址</div>
+                                <div class="item-input">
+                                    <textarea name="addr"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">{{userInfo.addr}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--password Popup-->
+<div class="popup popup-password popup-bg">
+    <form class="form-password" action="/user/updatepassword" enctype="multipart/form-data" method="post">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left close-popup"></a>
+            <button type="submit" class="button button-fill pull-right ajax-post" target-form="form-password" >保存</button>
+            <h1 class="title">修改密码</h1>
+        </header>
+        <div class="content">
+
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">旧密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="oldpassword" placeholder="输入旧密码" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-name"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">新密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="password" placeholder="密码长度6-20个字符" >
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <!--<div class="item-media"><i class="icon icon-form-email"></i></div>-->
+                            <div class="item-inner">
+                                <div class="item-title label">确认密码</div>
+                                <div class="item-input">
+                                    <input type="password" name="repassword" placeholder="确认密码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!-- avatar Popup 手机版头像裁剪后续完善-->
+<div class="popup popup-avatar" id="avatar-modal">
+    <form class="avatar-form" action="/user/updateavatar" enctype="multipart/form-data" method="post">
+    <header class="bar bar-nav">
+        <a class="icon icon-left pull-left close-popup"></a>
+        <button type="submit" class="button button-fill pull-right avatar-save">使用</button>
+        <h1 class="title">上传头像</h1>
+    </header>
+    <div class="content">
+
+                <div class="modal-body">
+                    <div class="avatar-body">
+                        <div class="avatar-upload">
+                            <input class="avatar-src" name="avatar_src" type="hidden">
+                            <input class="avatar-data" name="avatar_data" type="hidden">
+
+                        </div>
+
+
+                            <div class="">
+                                <div class="avatar-preview preview-lg"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-md"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                                <div class="avatar-preview preview-sm"><img src="/user/avatar"  alt="{{controller.user.username}}" /></div>
+                            </div>
+                            <div class="">
+                                <div class="avatar-wrapper"></div>
+                            </div>
+                        </div>
+
+
+                </div>
+
+
+
+    </div>
+        <div class="bar bar-footer">
+            <input type="file" class="form-control avatar-input " id="avatarInput" name="file" style="display: none" accept="image/*"   />
+
+            <label class="button" for="avatarInput" ><i class="fa fa-upload"></i> 选择图片</label>
+        </div>
+    </form>
+</div>
+{% endblock%}
+{% block style %}
+
+{% endblock %}
+{% block script %}
+
+{% endblock %}

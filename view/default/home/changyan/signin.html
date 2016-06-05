@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8" />
+    <title>用户登录 | {{controller.setup.WEB_SITE_TITLE}}</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/static/admin/js/jPlayer/jplayer.flat.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/app.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script src="/static/admin/js/ie/html5shiv.js"></script>
+    <script src="/static/admin/js/ie/respond.min.js"></script>
+    <script src="/static/admin/js/ie/excanvas.js"></script>
+    <![endif]-->
+    <style>
+        html{
+            background-color: #2ea0b6;
+        }
+        .aside-xl {
+            width: 360px;
+        }
+    </style>
+</head>
+<body class="bg-info dker ">
+<section id="content" class="m-t-lg wrapper-md animated fadeInUp ">
+    <div class="container aside-xl">
+        <a class="navbar-brand block" href="#"><span class="h1 font-bold">用户登录</span></a>
+        <section class="m-b-lg">
+            <header class="wrapper text-center">
+                <strong>{{controller.setup.WEB_SITE_TITLE}}</strong>
+            </header>
+            <form action="#" method="post" >
+                <div class="form-group">
+                    <input type="username" name="username" placeholder="邮箱/手机号/昵称" class="form-control rounded input-lg text-center no-border">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
+                </div>
+                <button type="button" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" onclick="javascript:checkfrom();"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">登录</span></button>
+                <div class="text-center m-t m-b"><a href="#"><small>忘记密码?</small></a></div>
+                <div class="line line-dashed"></div>
+                <p class="text-muted text-center"><small>您还没有帐号?</small></p>
+                <a href="#" class="btn btn-lg btn-info btn-block rounded">立即注册</a>
+            </form>
+        </section>
+    </div>
+</section>
+<!-- footer -->
+
+<!-- / footer -->
+<script src="/static/admin/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/admin/js/bootstrap.js"></script>
+<!-- App -->
+<script src="/static/admin/js/app.js"></script>
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/admin/js/app.plugin.js"></script>
+<script type="text/javascript">
+    function checkfrom() {
+        var username = $('[name="username"]').val();
+        var password = $('[name="password"]').val();
+        if(username==""){
+            alert("请填写用户名称");
+            $('[name="username"]').focus();
+            return false;
+        }else if(password==""){
+            alert("请填写密码");
+            $('[name="password"]').focus();
+            return false;
+        }else {
+            $.ajax({
+                type:"post",
+                url:"/changyan/signin",
+                data:{username:username,password:password},
+                success:function (data) {
+                    if(data.errno==1000){
+                        alert(data.errmsg)
+                    }else {
+                        window.close();
+                    }
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

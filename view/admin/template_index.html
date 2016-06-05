@@ -51,7 +51,7 @@
                                     </thead>
                                     <tbody>
                                     {% for item in temp_group %}
-                                    <tr>
+                                    <tr data-gid="{{item.gid}}">
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
                                         <td>{{item.gid}}</td>
                                         <td>{{item.gname}}</td>
@@ -64,9 +64,12 @@
 
                                         <td><a href="#" class="text-info">修改</a>
                                             <a href="#" class="text-info">导出</a>
-                                            {%if item.pid !=1%}
-                                            <a href="#" class="confirm ajax-get text-info">删除</a></td>
-                                        {%endif%}
+                                            {% if item.gid !=1 %}
+                                            <a href="#" class="confirm ajax-get text-info">删除</a>
+                                            {% endif %} 
+                                            {% if item.isdefault !=1 %}
+                                            <a href="#" class="confirm ajax-post-usetemp text-info">使用</a>
+                                            {% endif %}</td>
                                     </tr>
                                     {% else %}
                                     <tr>
@@ -96,4 +99,34 @@
 
 
 {% endblock %} {% block script %}
+<script>
+    //使用模板
+    $(".ajax-post-usetemp").click(function (e) {
+        $.ajax({
+            url: "/admin/template/use_template",
+            data: {
+                gid: $(this).parents('tr').data('gid'),
+                action: ''
+            },
+            type: "post",
+            success: function (res) {
+                if (res.errno == 0) {
+                    swal({
+                        title: res.data.name,
+                        text: "",
+                        type: "success",
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "OK",
+                    }, function () {
+                        location.reload();
+                    });
+                }else {
+                    swal(res.errmsg,"",'warning')
+                }
+            }
+        })
+    })
+</script>
+
+
 {% endblock %}}

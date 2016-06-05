@@ -1,0 +1,185 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="cart_getorderinfo">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <div class="content ">
+        <form class = "form-post" method="post" action="/home/cart/createorder">
+        <div class="content-block-title margin-top-10">收货人信息</div>
+        <div class="list-block media-list">
+            <ul>
+                {%for item in addrlist %}
+                <li>
+                    <input type="hidden"  name="address" value="{{item.id}}" >
+                    <a href="/cart/selectaddr/id/{{item.id}}/goodslist/{{goodsget|jsonToStr}}" class="item-link item-content">
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{item.accept_name}} ({{item.mobile}})</div>
+                                <div class="item-after">{%if item.is_default == 1%}<span  class="button button-round">默认</span>{%endif%}</div>
+                            </div>
+                            <div class="item-subtitle">{{item.province}},{{item.city}},{{item.county}}</div>
+                            <div class="item-text">{{item.addr}}</div>
+                        </div>
+                    </a>
+                </li>
+                {% else %}
+               
+                <li>
+                <a class="item-content item-link" href="/cart/selectaddr/id/0/goodslist/{{goodsget|jsonToStr}}">
+                    <div class="item-media"><i class="fa fa-plus fa-lg"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">添加新地址</div>
+
+                    </div>
+                </a>
+                </li>
+           
+                {%endfor%}
+            </ul>
+        </div>
+            <div class="content-block-title margin-top-10">送货清单</div>
+            <div class="list-block media-list ">
+                <ul class="cart-tbody">
+                    {% for val in check_goods%}
+                    <li class="item-content">
+                            <div class="item-media p-img"><img style="width: 4rem;" src="{{val.pic}}"></div>
+
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title size-14" ><span >¥{{val.unit_price|formatCurrency}}</span>
+                                </div>
+                                <div class="item-after size-12 "><span class="stock">{%if val.stock > 0%}<span class="color-gray">有货</span> {%else%}<span class="text-danger">无货</span>{%endif%}</span>
+                                    <span class="inform"> </span>
+                                </div>
+                            </div>
+                            <div class="item-subtitle">{{val.title}}</div>
+                            <div class="item-text" style="height: auto">{% if val.type%}
+                                <small>{{val.type}}</small>
+                                {%endif%}
+                            </div>
+                            <div class="row color-gray">
+                                <div class="col-50">
+                                    <div class="item-title label  size-14">数量 {{val.qty}}</div>
+                                </div>
+                                <div class="col-50 size-12 item-after margin-top-8 price" data-price ="{{val.price}}">小计 ¥<strong class="color-danger">{{val.price|formatCurrency}}</strong></div>
+                            </div>
+                        </div>
+
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <div class="content-block-title margin-top-10 softhide">支付方式</div>
+        <div class="list-block media-list softhide">
+            <ul>
+                {%set i = 1%}
+                {% for val in paylist %}
+                <li>
+                    <label class="label-checkbox item-content">
+                        <input type="radio" name="payment" value="{{val.id}}"  {% if i== 1 %} checked {% endif%}>
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                            <div class="item-subtitle"><i class="icon"> <img src="{{val.logo}}" style="width: 1.45rem;height: 1.45rem;display: block"></i>  {{val.title}}</div>
+
+                        </div>
+                    </label>
+                </li>
+                {%set i=i+1%}
+                {% endfor %}
+                {% if controller.setup.PREPAID == 0 %}
+                <li>
+                    <label class="label-checkbox item-content">
+                        <input type="radio" name="payment" value="100" {% if paylist|length == 0  or 100== order.payment %} checked {% endif%}>
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                            <div class="item-subtitle"><i class="icon"> <img src="/static/admin/img/pingxx/yfk.png" style="width: 1.45rem;height: 1.45rem;display: block"></i>  预付款支付</div>
+
+                        </div>
+                    </label>
+                </li>
+                {% endif %}
+                {% if controller.setup.COD == 0 %}
+                <li>
+                    <label class="label-checkbox item-content">
+                        <input type="radio" name="payment" value="1001" {% if (paylist|length == 0 and controller.setup.PREPAID == 1) or 1001== order.payment %} checked {% endif%}>
+                        <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                        <div class="item-inner">
+                            <div class="item-subtitle"><i class="icon"> <img src="/static/admin/img/pingxx/hdfk.png" style="width: 1.45rem;height: 1.45rem;display: block"></i>  货到付款</div>
+
+                        </div>
+                    </label>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+            <div class="list-block">
+                <ul>
+                <li class="align-top">
+                    <div class="item-content">
+                        <div class="item-media"><i class="icon icon-form-comment"></i></div>
+                        <div class="item-inner">
+                            <div class="item-input">
+                                <textarea placeholder="订单备注（限200字，请勿填写发票，配送方面的信息）" name="user_remark"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+            </div>
+            <div class="list-block">
+                <ul>
+
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title"><span class="text-danger">{{nums}}</span> 件商品，总商品金额</div>
+                            <div class="item-after">¥ <span class="text-danger">{% if real_amount %}{{real_amount|formatCurrency}}{%else%}0.00{%endif%}</div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">优惠</div>
+                            <div class="item-after"><span class="text-success">- </span> ¥<span class="text-success">0.00</span></div>
+                        </div>
+                    </li>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title">运费</div>
+                            <div class="item-after">¥ <span class="text-danger">{%if real_freight%}{{real_freight|formatCurrency}}{%else%}0.00{%endif%}</span></div>
+                        </div>
+                    </li>
+                    <li class="item-content bg-danger">
+                        <div class="item-inner">
+                            <div class="item-title">应付总额</div>
+                            <div class="item-after tex-white">¥{{order_amount|formatCurrency}}</div>
+                        </div>
+                    </li>
+                </ul>
+                </div>
+            <div class="content-block">
+                <input type="hidden" value="{{check_goods|jsonToStr}}" name="goodslist">
+                <p><a href="javascript:;" target-form="form-post" class="button button-big button-fill ajax-post">提交订单</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+{% endblock %}

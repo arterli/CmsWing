@@ -1,0 +1,197 @@
+{% extends "../inc/base.html" %}
+{% block style%}
+<link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+    	<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+			<section class="page-header page-header-xs">
+				<div class="container">
+
+					<!--<h1>{{controller.meta_title}}</h1>-->
+
+					<!-- breadcrumbs -->
+					<ol class="breadcrumb breadcrumb-inverse">
+						<li><a href="/">首页</a></li>
+						<li class="active">{{controller.meta_title}}</li>
+					</ol><!-- /breadcrumbs -->
+
+				</div>
+			</section>
+			<!-- /PAGE HEADER -->
+
+
+
+
+			<!-- CART -->
+			<section>
+				<div class="container">
+{% if controller.cart.data %}
+<div class="row process-wizard process-wizard-primary">
+
+	<div class="col-xs-3 process-wizard-step active">
+		<div class="text-center process-wizard-stepnum">第一步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">购物车</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step disabled"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第二步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">确认订单信息</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step disabled"><!-- complete -->
+		<div class="text-center process-wizard-stepnum">第三步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">选择支付</div>
+	</div>
+
+	<div class="col-xs-3 process-wizard-step disabled"><!-- active -->
+		<div class="text-center process-wizard-stepnum">第四步</div>
+		<div class="progress"><div class="progress-bar"></div></div>
+		<a href="#" class="process-wizard-dot"></a>
+		<div class="process-wizard-info text-center">订购完成</div>
+	</div>
+
+</div>
+					<!-- CART -->
+
+							<form action="/cart/getorderinfo" method="post" class="form-cart" >
+								<div class="panel panel-default">
+									<!-- Default panel contents -->
+									<div class="panel-heading panel-heading-transparent">全部商品 <strong class="text-danger nums" >0</strong></div>
+							<div class="table-responsive">
+								<table class="table cart-tbody">
+									<thead>
+									<tr class="active">
+										<th class="table-checkbox"><input type="checkbox"  value="1" id="checkAll"></th>
+										<th style="width:400px">商品</th>
+										<th>规格</th>
+										<th>单价(元)</th>
+										<th style="width: 120px">数量</th>
+										<th>小计(元)</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									{% for val in controller.cart.data%}
+									<tr>
+										<td><input type="checkbox" name="ids" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}"></td>
+										<td>
+											<div class="goods-item ">
+											<div class="p-img">
+												<a target="_blank" href="{{val.url}}"><img src="{{val.pic}}" alt="{{val.title}}" style="width: 80px;"></a>
+											</div>
+											<div class="item-msg">
+												<div class="p-name">
+													<a target="_blank" href="{{val.url}}" >{{val.title}}</a>
+												</div>
+												<div class="p-extend">
+							<span class="promise">
+								11111111111
+							</span>
+														<span class="promise">
+								2222222222222
+							</span>
+												</div>
+											</div>
+										</div>
+										</td>
+										<td>{% if val.type%}<small>{{val.type}}</small>{%endif%}</td>
+										<td>{{val.unit_price|formatCurrency}}</td>
+										<td>
+											<input  type="text" value="{{val.qty}}" {%if val.stock > 0%}min="1"{%else%}min="0" disabled {%endif%} max="{{val.stock}}" class="form-control stepper" >
+										    {%if val.stock > 0%}<span class="text-default">有货</span>{%else%}<span class="text-danger">无货</span>{%endif%}
+										</td>
+										<td data-price ="{{val.price}}"><strong class="price">{{val.price|formatCurrency}}</strong></td>
+										<td>{% if controller.is_login %}
+											<div class="del"><a class="btn btn-default btn-xs margin-bottom-6 lightbox" href="/cart/delcart/ids/{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'> 删除 </a></div>
+											<div class="inform"> {%if val.stock == 0%}<a href="#" class="btn btn-default btn-xs margin-bottom-6"> 到货通知 </a>{%endif%}</div>
+											<div class="follow"> <a href="#" class="btn btn-default btn-xs"> 移到我的关注 </a></div>
+											{%else%}
+											<div class="del"><a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs margin-bottom-6"> 删除 </a></div>
+											<div class="inform"> {%if val.stock == 0%}<a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs margin-bottom-6"> 到货通知 </a>{%endif%}</div>
+											<div class="follow"> <a href="/user/login" data-toggle="ajaxModal" class="btn btn-default btn-xs"> 移到我的关注 </a></div>
+											{% endif %}
+										</td>
+									</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+								</div>
+
+
+						<div class="callout alert alert-border margin-top-0 margin-bottom-60 padding-top-10 padding-bottom-10">
+
+							<div class="row">
+
+								<div class="col-md-6 col-sm-6"><!-- left text -->
+									{% if controller.is_login %}
+									<a class="btn btn-default lightbox delall" href="/cart/delcart" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>删除选中的商品</a> <a class="btn btn-default " type="button">移到我的关注</a>
+									{%else%}
+									<a class="btn btn-default" href="/user/login" data-toggle="ajaxModal">删除选中的商品</a> <a href="/user/login" class="btn btn-default" data-toggle="ajaxModal">移到我的关注</a>
+									{% endif %}
+								</div><!-- /left text -->
+
+                                <div class="col-md-4 col-sm-4 text-right">
+									<p class="font-lato size-14 "><span class="text-default">总价（不含运费）：</span><strong class="text-danger size-16">¥<span id="total" data-total="{{controller.cart.total|formatCurrency}}">0.00</span></strong></p>
+									<p class="font-lato size-14 margin-top-6"><span class="text-default">优惠：</span><span class="">¥0.00</span></p>
+								</div>
+								<div class="col-md-2 col-sm-2 text-right"><!-- right btn -->
+									{% if controller.is_login %}
+									<button  class="btn btn-danger btn-lg btn-block size-15" type="submit">去结算（<small><span class="nums">0</span>件</small>）</button>
+									{%else%}
+									<a  class="btn btn-primary btn-lg btn-block size-15" href="/user/login" data-toggle="ajaxModal"><i class="fa fa-user-plus"></i> 登录结算 </a></li>
+									{% endif %}
+								</div><!-- /right btn -->
+
+							</div>
+
+						</div>
+							</form>
+
+					<!-- /CART -->
+					 {%else%}
+										<!-- EMPTY CART -->
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<strong>购物车内暂时没有商品!</strong><br />
+							去 <a href="/">首页</a> 挑选喜欢的商品。<br />
+							
+							<span class="label label-warning">{{controller.setup.WEB_SITE_TITLE}}</span>
+						</div>
+					</div>
+					<!-- /EMPTY CART -->
+                                        {%endif%}
+				</div>
+			</section>
+			<!-- /CART -->
+
+
+{% endblock %}
+
+{% block script%}
+<!-- PAGE LEVEL SCRIPTS -->
+		<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+         <script type="text/javascript" src="/static/assets/js/view/cart.js"></script>
+{% endblock %}

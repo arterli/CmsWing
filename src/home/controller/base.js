@@ -27,7 +27,8 @@ export default class extends think.controller.base {
       //console.log(action);
       // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
       //设置主题
-      //this.http.theme("default);
+      let theme = await this.model("temp_group").field("gname").where({isdefault:1}).find();
+      this.http.theme(theme.gname);
       //购物车
       let cartList = await this.shopCart();
       let cartInfo;

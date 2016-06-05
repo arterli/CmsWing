@@ -1,0 +1,98 @@
+
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="user_order">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+
+        </a>
+        <h1 class='title'>{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+
+    <div class="content infinite-scroll" data-distance="100">
+        <div class="buttons-tab">
+            <a href="/user/order" class="button button-item {%if status == null%}active{%endif%}" data-type="/user/order">全部订单</a>
+            <a href="/user/order/status/0" class="button button-item {% if status == 0%}active{%endif%}" data-type="/user/order/status/0">待付款  <span class="badge">{{nopaid}}</span></a>
+            <a href="/user/order/status/1" class="button button-item {% if status == 1%}active{%endif%}" data-type="/user/order/status/1">待收货  <span class="badge">{{receipt}}</span></a>
+        </div>
+              <div class="list-container">
+                {%for item in list %}
+                <div class="card">
+                    <input type="hidden" value="{{item.id}}" name="id{{item.id}}" class="id{{item.id}}">
+                    <div class="card-header"><a href="#" class="link" ><i class="fa fa-eye fa-lg "> </i>&nbsp; {{item.order_no}}</a>
+                        {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                        <span class="text-warning size-14">等待付款</span>
+                        {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                        <span class="text-warning size-14">等待发货</span>
+                        {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                        <span class="text-success size-14">等待收货</span>
+                        {%elif item.status == 6%}
+                        <span class="text-danger size-14">已作废</span>
+                        {%elif item.status == 4%}
+                        <span class="text-default size-14">已完成</span>
+                        {%endif%}
+                        {%if item.status == 4 or item.status== 6%}
+                        <a href="/user/delorder/id/{{item.id}}" class="button button-light confirm ajax-post" target-form="id{{item.id}}"><i class="fa fa-trash-o "></i></a>
+                        {%endif%}</div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            <div class="list-block media-list list-bg">
+                                <ul>
+                                    {% for v in item.goods%}
+                                    <li class="item-content">
+                                        <div class="item-media">
+                                            <img width="44" src="{{v.pic|get_pic('m=1,w=44,h=44')}}">
+                                        </div>
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">{{v.title}}</div>
+                                            </div>
+                                            <div class="item-subtitle">{%if v.type%}<span class="text-info">[{{v.type}}]</span> {%endif%}
+                                                <span class="badge">x{{v.goods_nums}}</span></div>
+                                        </div>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-content-inner text-right">
+                        共{{item.nums}}件商品 订单总额：<span class="size-18">¥{{item.order_amount|formatCurrency}}</span>
+                            </div>
+                        </div>
+                    <div class="card-footer">{{item.create_time|dateformat('Y-m-d H:i:s')}}
+                        {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                        <a class="button button-danger" href="/cart/pay/order/{{item.id}}">立即付款</a>
+                        {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
+                        <a class="button button-warning" href="#">提醒发货</a>
+                        {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
+                        <a class="button button-success confirm ajax-post" href="/user/confirmreceipt/id/{{item.id}}" target-form="id{{item.id}}">确认收货</a>
+                        {%elif item.status == 4 or item.status == 6%}
+                        <a class="button button-primary" href="#">再次购买</a>
+                        {%endif%}
+                    </div>
+                </div>
+                {%endfor%}
+              </div>
+        <!-- preloader -->
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block pageout%}
+
+{% endblock%}
+{% block style %}
+{% endblock %}
+{% block script %}
+{% endblock %}
