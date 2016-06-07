@@ -8002,3 +8002,143 @@ ul.search-history {
 	right: 0px;
 	top:30px;
 }
+
+.listbox {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 5;
+	width: 280px;
+	height: 524px;
+	background-color: #303030;
+}
+.tvinfo .tvintro a {
+	display: block;
+	position: absolute;
+	line-height: 14px;
+	right: 8px;
+	top: 3px;
+	font-size: 12px;
+	color: #bbb;
+}
+.video_bg{
+	background: black;
+	position: relative;
+}
+.tvinfo {
+	margin: 0 15px;
+	padding-left: 0;
+	height: auto;
+	z-index: 5;
+}
+.tvinfo h3 {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	color: #dddddd;
+	max-width: 210px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	height: 20px;
+	margin-bottom: 10px;
+	font-weight: normal;
+}
+.tvinfo .tvintro {
+	font-size: 12px;
+	color: #bbb;
+	position: relative;
+}
+.listbox li.active >a{
+	background-color: #303030;
+}
+.listbox .tab-content{
+	background-color: #303030;
+}
+.tvinfo .tvintro_panel {
+	margin: 12px 0 15px;
+	color: #909090;
+	font-size: 12px;
+	padding-right: 5px;
+	word-break: break-all;
+	text-align: justify;
+	text-justify: inter-ideograph;
+}
+.subscribe {
+	position: relative;
+	padding-left: 60px;
+	height: 50px;
+	margin: 15px;
+}
+.subscribe .m_img {
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
+}
+.subscribe .m_title {
+	position: relative;
+	top: -3px;
+	font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+}
+.subscribe .m_title, .subscribe .m_action {
+	display: block;
+	overflow: hidden;
+	font-size: 14px;
+}
+.subscribe .m_title a {
+	color: #fff;
+	margin-right: 5px;
+}
+.subscribe .sub_action {
+	float: left;
+}
+.subscribe .sub_state {
+	position: relative;
+	float: left;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 6px;
+	margin-left: 10px;
+	border: 1px solid #565656;
+	background: #454545;
+}
+.subscribe .sub_state .num {
+	color: #909090;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+}
+.subscribe .sub_state .arrow {
+	cursor: default;
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	left: -6px;
+	top: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.subscribe .sub_state .arrow_bg {
+	position: absolute;
+	top: 0;
+	left: -1px;
+	display: block;
+	width: 12px;
+	height: 12px;
+	font-family: SimSun;
+	font-style: normal;
+	color: #565656;
+}
+.subscribe .sub_state .arrow_co {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 12px;
+	height: 12px;
+	font-family: SimSun;
+	font-style: normal;
+	color: #454545;
+}

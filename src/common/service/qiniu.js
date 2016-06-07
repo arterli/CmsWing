@@ -105,4 +105,40 @@ return deferred.promise;
         }
         return await stat();
     }
+    //音视频转码
+   async pfop(){
+       let setup = await think.cache("setup");
+       qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
+       qiniu.conf.SECRET_KEY = setup.QINIU_SK;
+
+
+//要转码的文件所在的空间和文件名
+       let bucket = setup.QINIU_BUCKET;
+       let  key = 'thinkjs-create-project.mp4';
+
+//转码所使用的队列名称。
+       let pipeline = 'abc';
+
+//要进行转码的转码操作。
+       let fops = "avthumb/mp4/s/640x360/vb/1.25m"
+
+//可以对转码后的文件进行使用saveas参数自定义命名，当然也可以不指定文件会默认命名并保存在当前空间
+        let saveas_key = qiniu.util.urlsafeBase64Encode(saved_bucket+':'+saved_key);
+        fops = fops+'|saveas/'+saveas_key;
+      // console.log(saveas_key);
+       let opts = {
+            pipeline: pipleline
+        };
+
+        var PFOP = qiniu.fop.pfop(bucket, key, fops, opts, function(err, ret) {
+            if(!err) {
+                console.log(ret);
+                // 上传成功， 处理返回值
+                console.log('curl '+'http://api.qiniu.com/status/get/prefop?id='+ret.persistentId);
+            } else {
+                // 上传失败， 处理返回代码
+                console.log(err);
+            }
+        });
+    }
 }

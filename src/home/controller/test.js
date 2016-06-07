@@ -269,4 +269,10 @@ export default class extends Base {
         let instance = new dayu();
         instance.send();
     }
+    qiniusAction(){
+        let qiniu = think.service("qiniu");
+        let instance = new qiniu();
+        instance.pfop();
+        this.end();
+    }
 }
