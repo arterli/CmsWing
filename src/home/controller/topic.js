@@ -155,7 +155,7 @@ export default class extends Base {
 
      
     }
-    //详情页
+    //详情页[核心]
   async detailAction() {
     /* 标识正确性检测*/
     let id = this.get('id') || 0;
@@ -175,6 +175,7 @@ export default class extends Base {
           this.http.error = new Error(info.errmsg);
           return think.statusAction(702, this.http);
       }
+
       //不同的设备,压缩不同的图片尺寸
       let str = info.content;
       if(!think.isEmpty(str)){
@@ -221,7 +222,32 @@ export default class extends Base {
     this.assign('category', cate);
     this.assign('info', info);
       console.log(info);
-      
+      //目录/文章/段落
+      let pid;
+      let pinfo;
+      if(info.pid !=0){
+          let i = info.id;
+          //
+          while (i!=0)
+          {
+              let nav = await this.model('document').where({id:i}).find();
+              if(nav.pid==0) {
+                  pinfo = nav;
+                  pid= nav.id;
+              }
+              i = nav.pid;
+
+          }
+
+      }else {
+          pinfo = info;
+          pid= info.id;
+      }
+      console.log(pid);
+      let plist = await this.model('document').where({pid:pid}).order("level DESC").select();
+      this.assign("pinfo",pinfo);
+      this.assign("plist",plist);
+      console.log(plist);
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
           return this.display(`mobile/${this.http.controller}/${temp}`)

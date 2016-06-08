@@ -62,35 +62,55 @@ CLASSES:
             <li><a href="#profile" data-toggle="tab">会员</a></li>
         </ul>
 
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="home">
-                <div class="tvinfo">
-                    <h3>极限挑战 第二季</h3>
+        <div class="tab-content slim-scroll" data-height="480px" data-size="10px">
+            <div class="tab-pane fade in active " id="home">
+
+                <div class="tvinfo ">
+                    <h3>{{pinfo.title}}</h3>
                     <a class="iku_share" id="iku_share" style="display:none"><i></i>放到桌面</a>
                     <p class="tvintro">
-                        更新至<em>20160605</em>集  <em></em>
+                        更新至<em>3</em>集  <em></em>
                         <a href="javascript:" class="showinfo_btn" id="dropdown">
                             节目信息	<span class="caret"></span>
                         </a>
                     </p>
                     <p class="tvintro_panel" id="tvintro_panel" style="display: none;">
-                        《极限挑战》是东方卫视推出的一档围绕社会热点和时代背景的大型原创励志真人秀节目。第二季节目六位固定成员全员回归——黄渤、孙红雷、黄磊、王迅、罗志祥、张艺兴，并每...<a target="_blank" href="http://www.youku.com/show_page/id_z234cc978f0e411e583e8.html">详情</a>
+                        {{pinfo.description}}...<a target="_blank" href="#">详情</a>
                     </p>
                 </div>
                 <div class="subscribe">
-                    <span class="m_img"><a href="http://i.youku.com/u/UMzA5ODU3MTE5Ng==" target="_blank" charset="hz-4009164-1000705"><img src="http://g2.ykimg.com/0130391F4555B075C9C1F82E2C1C6F1E2A90BE-A36E-56DD-C0D7-BE5D879F9833" alt="单身公主相亲记"></a></span>
-                    <span class="m_title" id="subnamelistarea"><a href="http://i.youku.com/u/UMzA5ODU3MTE5Ng==" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">极限挑战官方</a><a href="http://zipindao.youku.com/zpd/strategy" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
+                    <span class="m_img"><a href="#" target="_blank" charset="hz-4009164-1000705"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" alt="{{pinfo.title}}"></a></span>
+                    <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">奇舞团视频小组</a><a href="http://zipindao.youku.com/zpd/strategy" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
 		    <span class="m_action" id="officiallistfollow">
 				<div class="sub_action " id="user_follow_info_official"><div class="btn btn-info btn-sm" id="subscribe_official" subname="" subimg="" data-stat-role="ck"><span class="form_btn_text">订&nbsp;&nbsp;阅</span></div></div>
 		    	<div class="sub_state" style="display: block;"><span class="num" id="user_fans_num_official">186.2万</span><b class="arrow"><em class="arrow_bg">◆</em><em class="arrow_co">◆</em></b></div>
 		    </span>
                 </div>
+                <div class="showlists">
+             {%for val in plist%}
+                    <div class="item item-close" >
+                        <div class="inner1">
+                            <div class="program" title="{{val.title}}" >
+                                <a href="{{val.name|get_url(val.id)}}" class="A" >
+                                    <div class="serial"><label>{{val.level}}</label><span class="playing"></span></div>
+                                    <div class="headline">{{val.title}}</div>
+                                    <div class="time"><label>嘉宾:</label><span>孙红雷</span> <span>黄渤</span> <span>黄磊</span> </div>
+                                    <div class="statplay"><i class="ico-statplay" title="播放"></i>125,725,863</div>
+                                </a>
+                            </div>
+                            <div class="" ></div>
+                            <div class="handle" ><a href="javascript:;" class="A"><i class="fa fa-map-signs"></i></a></div>
+                        </div>
+                    </div>
+{%endfor%}
+
+                </div>
             </div>
             <div class="tab-pane fade" id="profile">
                 <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
             </div>
+            </div>
 
-        </div>
     </div>
 </div>
     <!-- /OWL SLIDER -->
@@ -543,6 +563,7 @@ Share Post:
 {% endblock %}
 
 {% block script %}
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
 <script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
@@ -574,6 +595,19 @@ Share Post:
         rootPath: '/static/admin/js/udeitor/'
     })
     $(function () {
+
+        $('.slim-scroll').each(function(){
+            var $self = $(this), $data = $self.data(), $slimResize;
+            $self.slimScroll($data);
+            $(window).resize(function(e) {
+                clearTimeout($slimResize);
+                $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
+            });
+            $(document).on('updateNav', function(){
+                $self.slimScroll($data);
+            });
+        });
+
         $('#dropdown').click(function () {
             $("#tvintro_panel").toggle();
         })

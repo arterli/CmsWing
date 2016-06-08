@@ -8049,12 +8049,37 @@ ul.search-history {
 	color: #bbb;
 	position: relative;
 }
-.listbox li.active >a{
-	background-color: #303030;
-}
 .listbox .tab-content{
 	background-color: #303030;
 }
+.listbox .nav-tabs.nav-justified>li>a{
+	border-bottom-color: #000 !important;
+	border-left-color: #000 !important;
+	border-right-color:#000;
+	border-top-color:#000;
+	color: #bbb;
+}
+.listbox .nav-tabs.nav-justified>li.active >a{
+	background-color: #303030;
+	border-bottom-color: #303030 !important;
+	border-left-color: #303030 !important;
+	border-right-color:#303030;
+	border-top-color:#303030;
+}
+.listbox .nav-tabs>li a:hover{
+	background-color: #000;
+}
+.listbox .nav-tabs>li a:visited{
+	background-color: #000;
+}
+.listbox .nav-tabs>li.active>a{
+
+	color: #bbb !important;
+}
+.listbox .nav-tabs.nav-justified{
+	background-color: #000;
+}
+
 .tvinfo .tvintro_panel {
 	margin: 12px 0 15px;
 	color: #909090;
@@ -8141,4 +8166,69 @@ ul.search-history {
 	font-family: SimSun;
 	font-style: normal;
 	color: #454545;
+}
+.showlists{position: relative}
+.showlists .item {
+	background: #444;
+	border-bottom: 3px solid #303030;
+}
+.showlists .program .A {
+	zoom: 1;
+	position: relative;
+	padding: 5px 20px 5px 40px;
+}
+.showlists .A {
+	display: block;
+}
+.showlists .program .serial {
+	position: absolute;
+	left: 0;
+	top: 6px;
+	width: 24px;
+	padding: 0 4px;
+	text-align: center;
+	font-size: 12px;
+	color: #909090;
+}
+.showlists .program .headline {
+	overflow: hidden;
+	height: 40px;
+	color: #bbb;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+}
+.showlists .program .time {
+	overflow: hidden;
+	height: 20px;
+	margin-right: 70px;
+}
+.showlists .program .time label, .showlists .program .time span {
+	display: inline-block;
+	margin-right: 5px;
+}
+.showlists .program .statplay {
+	overflow: hidden;
+	height: 20px;
+	margin-top: -20px;
+	text-align: right;
+}
+.showlists .handle {
+	position: absolute;
+	top: 5px;
+	right: 0;
+	width: 26px;
+	height: 45px;
+}
+.showlists .headline, .showlists .time, .showlists .statplay {
+	color: #909090;
+	font-family: "Microsoft YaHei", "微软雅黑", helvetica, arial, verdana, tahoma, sans-serif;
+}
+.showlists .handle .A {
+	zoom: 1;
+	height: 100%;
+	padding-right: 16px;
+	display: block;
+}
+.showlists .inner1{
+	position: relative;
 }
