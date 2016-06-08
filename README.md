@@ -58,6 +58,7 @@ CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
 ![数据库备份](http://7xt6v5.com2.z0.glb.clouddn.com/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 ![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
 ##PC端前台模版截图
+![视频播放](http://data.cmswing.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-06-08%20%E4%B8%8B%E5%8D%887.22.26%E5%89%AF%E6%9C%AC.png?imageView2/2/w/973)
 ![新闻](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png?imageView2/2/w/973)
 ![下载](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-26T04-53-55.185Z.png?imageView2/2/w/973)
 ![图片](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-06-02T11-41-36.639Z.png?imageView2/2/w/973)
