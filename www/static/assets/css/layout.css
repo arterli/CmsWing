@@ -8232,3 +8232,17 @@ ul.search-history {
 .showlists .inner1{
 	position: relative;
 }
+.showlists .item .current {
+	cursor: default;
+	background: #194e6f;
+}
+.showlists .item .current .serial label {
+	display: none;
+}
+.showlists .item .serial .playing {
+	display: none;
+	vertical-align: middle;
+}
+.showlists .item .current .serial .playing {
+	display: inline-block;
+}

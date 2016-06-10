@@ -82,6 +82,7 @@ export default class extends Base {
 
       //console.log(subcate);
       let map = {
+          'pid':0,
         'status': 1,
         'category_id': ['IN', subcate]
       };
@@ -207,7 +208,7 @@ export default class extends Base {
     //获取模板
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
-    if (!think.isEmpty(info.template)) {
+    if (!think.isEmpty(info.template) && info.template !=0) {
       temp = 'detail_' + model + '_' + info.template; //已设置详情模板
     } else if (!think.isEmpty(cate.template_detail)) {
       temp = 'detail_' + model + '_' + cate.template_detail; //分类已经设置模板
@@ -220,7 +221,7 @@ export default class extends Base {
       }
 
     this.assign('category', cate);
-    this.assign('info', info);
+
       console.log(info);
       //目录/文章/段落
       let pid;
@@ -247,7 +248,23 @@ export default class extends Base {
       let plist = await this.model('document').where({pid:pid}).order("level DESC").select();
       this.assign("pinfo",pinfo);
       this.assign("plist",plist);
-      console.log(plist);
+      //console.log(plist);
+      let lastlevel = plist[0].level;
+      console.log(lastlevel);
+      this.assign("lastlevel",lastlevel);
+      //如果是目录，目录id，显示最后更新的主题
+      if(info.type == 1){
+          if(plist[0]){
+             let model_id =  plist[0].model_id;
+              let p_id = plist[0].id;
+              let table = await this.model("model",{},"admin").get_table_name(model_id);
+              let p_info = await this.model(table).find(p_id);
+              info = think.extend(info,p_info);
+
+          }
+      }
+      console.log(info);
+      this.assign('info', info);
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
           return this.display(`mobile/${this.http.controller}/${temp}`)

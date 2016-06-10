@@ -234,7 +234,7 @@ global.topic = function(){
     };
     this.run = async function (context, args, callback) {
        // console.log(args);
-        let where = {'status':1};
+        let where = {'status':1,'pid':0};
         let data = think.isEmpty(args.data) ? "data" : args.data;
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
         //获取当前分类的所有子栏目
