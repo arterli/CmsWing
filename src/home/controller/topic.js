@@ -249,9 +249,11 @@ export default class extends Base {
       this.assign("pinfo",pinfo);
       this.assign("plist",plist);
       //console.log(plist);
+      if(plist[0].level){
       let lastlevel = plist[0].level;
       console.log(lastlevel);
       this.assign("lastlevel",lastlevel);
+      }
       //如果是目录，目录id，显示最后更新的主题
       if(info.type == 1){
           if(plist[0]){
