@@ -249,7 +249,7 @@ export default class extends Base {
       this.assign("pinfo",pinfo);
       this.assign("plist",plist);
       //console.log(plist);
-      if(plist[0].level){
+      if(plist[0]){
       let lastlevel = plist[0].level;
       console.log(lastlevel);
       this.assign("lastlevel",lastlevel);
