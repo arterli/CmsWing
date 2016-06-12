@@ -20,6 +20,7 @@ export default class extends Base {
    */
   //频道页
   async indexAction() {
+
       //auto render template file index_index.html
       let get = this.get('category') || 0;
       let id=0;
@@ -94,8 +95,7 @@ export default class extends Base {
       this.assign("group_id",group_id)
       console.log(map);
       let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
-
-
+      
       let html = pagination(data, this.http, {
       desc: false, //show description
       pageNum: 2, 
