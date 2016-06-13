@@ -118,6 +118,8 @@ export default class extends Base {
       let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
       this.assign('breadcrumb', breadcrumb);
       //console.log(breadcrumb)
+
+
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       this.assign('list', data.data);
@@ -201,11 +203,20 @@ export default class extends Base {
     this.description = cate.description ? cate.description : ""; //seo描述
     
     //访问统计
-    await this.model('document').where({id:info.id}).increment('view');
-    //获取面包屑信息
+    await document.where({id:info.id}).increment('view');
+
+      //获取面包屑信息
       let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
       this.assign('breadcrumb', breadcrumb);
-    //获取模板
+
+      // 上一篇
+      let previous = await document.where({id:['>',info.id],category_id:info.category_id,'pid':0, 'status': 1}).order('id DESC').find();
+      this.assign('previous',previous)
+      // 下一篇
+      let next = await document.where({id:['<',info.id],category_id:info.category_id,'pid':0, 'status': 1}).order('id DESC').find();
+      this.assign('next',next)
+
+      //获取模板
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
     if (!think.isEmpty(info.template) && info.template !=0) {
@@ -222,7 +233,7 @@ export default class extends Base {
 
     this.assign('category', cate);
 
-      console.log(info);
+      //console.log(info);
       //目录/文章/段落
       let pid;
       let pinfo;
@@ -231,7 +242,7 @@ export default class extends Base {
           //
           while (i!=0)
           {
-              let nav = await this.model('document').where({id:i}).find();
+              let nav = await document.where({id:i}).find();
               if(nav.pid==0) {
                   pinfo = nav;
                   pid= nav.id;
@@ -245,7 +256,7 @@ export default class extends Base {
           pid= info.id;
       }
       console.log(pid);
-      let plist = await this.model('document').where({pid:pid}).order("level DESC").select();
+      let plist = await document.where({pid:pid}).order("level DESC").select();
       this.assign("pinfo",pinfo);
       this.assign("plist",plist);
       //console.log(plist);
