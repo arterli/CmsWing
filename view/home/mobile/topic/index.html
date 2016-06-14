@@ -44,7 +44,7 @@
         <div class="buttons-tab"style="overflow-x: auto">
             <a href="#tab1" class="tab-link active button">最新</a>
             <a href="#tab2" class="tab-link button">最热</a>
-            <a href="#tab3" class=" button open-popover" data-popover=".popover-cate">分类</a>
+            <a href="#tab3" class=" button open-popover" data-popover=".popover-cate-{{category.id}}">分类</a>
         </div>
         <div class="tabs">
             <div id="tab1" class="tab active">
@@ -105,7 +105,7 @@
 {% endblock %}
 {% block pageout%}
 
-<div class="popover popover-cate" >
+<div class="popover popover-cate-{{category.id}}" >
     <!-- Popover's angle arrow -->
     <div class="popover-angle"></div>
 
