@@ -1,0 +1,159 @@
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="index_video">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>
+        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+            <span class="icon icon-menu"></span>
+            导航
+        </a>
+        <h1 class="title">{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+    <div class="bar bar-header-secondary">
+        <div class="searchbar">
+            <a class="searchbar-cancel">取消</a>
+            <div class="search-input">
+                <label for="search" class="icon icon-search"></label>
+                <input type="search" placeholder="输入关键字..." id="search">
+            </div>
+        </div>
+    </div>
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content pull-to-refresh-content" data-distance="100">
+        <!-- 默认的下拉刷新层 -->
+        <div class="pull-to-refresh-layer">
+            <div class="preloader"></div>
+            <div class="pull-to-refresh-arrow"></div>
+        </div>
+
+        <div class="swiper-container swiper-container-horizontal" data-space-between="10">
+            <div class="swiper-wrapper">
+                {% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+                {% for v in slider%}
+
+                <div class="swiper-slide">
+                    <img class="card-cover" src=" {{v.cover_id|get_pic('m=3,w=640,h=250')}}" alt="">
+                </div>
+                {%endfor%}
+            </div>
+            <div class="swiper-pagination"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+        </div>
+        <div class="buttons-tab"style="overflow-x: auto">
+            <a href="#tab1" class="tab-link active button">最新</a>
+            <a href="#tab2" class="tab-link button">最热</a>
+            <a href="#tab3" class=" button open-popover" data-popover=".popover-cate">分类</a>
+        </div>
+        <div class="tabs">
+            <div id="tab1" class="tab active">
+                {%column data="cates",cid=category.id%}
+                {%for v in cates%}
+                <div class="row no-gutter list-container">
+                    <div class="content-block-title margin-top-20">{{v.name}}</div>
+                    {% topic data = "list",limit= "5",cid=v.id%}
+                    {%set ii = 1%}
+                    {% for item in list%}
+                    <a href="{{item.name|get_url(item.id)}}" class="{%if ii == 1%}col-100{%else%}col-50{%endif%} external"><div  class="card demo-card-header-pic margin-5">
+                        <div class="card-header color-white no-border no-padding" valign="bottom">
+
+                            <img alt="" src="{%if ii == 1%}{{item.cover_id|get_pic('m=1,w=640,h=360')}}{%else%}{{item.cover_id|get_pic('m=1,w=300,h=169')}}{%endif%}" class="card-cover">
+                        </div>
+                        <div class="card-content tex-black">
+                            <div class="card-content-inner padding-6">
+                                <p class="margin-bottom-0 margin-top-0" style="overflow: hidden; height: 20px">{{item.title}}</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span>有货</span>
+                            <span>5 评论</span>
+                        </div>
+                    </div></a>
+                    {%set ii = ii +1%}
+                    {% endfor %}
+                    <div class="col-100">
+                    <div class="card margin-5">
+                        <div class="card-content">
+                            <div class="list-block">
+                                <ul>
+                                    <li>
+                                        <a href="{{v.url}}" class="item-link item-content">
+                                            <div class="item-media"><i class="icon icon-f7"></i></div>
+                                            <div class="item-inner">
+                                                <div class="item-title">更多 {{v.name}}</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>{%endfor%}
+
+            </div>
+            <div id="tab2" class="tab">
+                <div class="row no-gutter list-container margin-top-20">
+
+                        {% topic data = "newlist",limit="20",cid=category.id,type="hot"%}
+                        {% for item in newlist %}
+                        <a href="{{item.name|get_url(item.id)}}" class="col-50 external"><div  class="card demo-card-header-pic margin-5">
+                            <div class="card-header color-white no-border no-padding" valign="bottom">
+
+                                <img alt="" src="{{item.cover_id|get_pic('m=1,w=300,h=169')}}" class="card-cover">
+                            </div>
+                            <div class="card-content tex-black">
+                                <div class="card-content-inner padding-6">
+                                    <p class="margin-bottom-0 margin-top-0" style="overflow: hidden; height: 20px">{{item.title}}</p>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span>有货</span>
+                                <span>5 评论</span>
+                            </div>
+                        </div></a>
+                        {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block pageout%}
+
+<div class="popover popover-cate" >
+    <!-- Popover's angle arrow -->
+    <div class="popover-angle"></div>
+
+    <!-- Popover content -->
+    <div class="popover-inner">
+        <div class="list-block">
+            <ul>
+                {%column data="cates",cid=category.id%}
+                {%for val in cates%}
+                <li><a href="{{val.url}}" class="list-button item-link close-popover">{{val.name}}</a></li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+{% endblock%}
+{% block script %}
+{% endblock %}

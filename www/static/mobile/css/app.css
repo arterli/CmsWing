@@ -633,7 +633,7 @@ background: #52ACE5;
 #shop_detail p {
     margin: 0;
 }
-#index .swiper-container {
+#index .swiper-container,#index_video .swiper-container {
     height: 7rem;
 }
 #detail_article header h1 {
