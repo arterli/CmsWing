@@ -74,6 +74,7 @@ CLASSES:
         </li> #}
         </ul>
         {% for val in list %}
+        {% set categoryname = val.category_id|get_cate %}
         <!-- POST ITEM -->
         <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
 
@@ -96,17 +97,14 @@ CLASSES:
                     <li>
                         <a href="#">
                             <i class="fa fa-comment-o"></i>
-                            <span class="font-lato">{{val.view}} Comments</span>
+                            <span class="font-lato">{{val.view}}</span>
                         </a>
                     </li>
                     <li>
                         <i class="fa fa-folder-open-o"></i>
 
-                        <a class="category" href="#">
-                            <span class="font-lato">{{val.category_id}}</span>
-                        </a>
-                        <a class="category" href="#">
-                            <span class="font-lato">Photography</span>
+                        <a class="category" href="{{categoryname.url}}">
+                            <span class="font-lato">{{categoryname.name}}</span>
                         </a>
                     </li>
                     <li>

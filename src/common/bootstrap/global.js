@@ -1001,7 +1001,8 @@ global.checkMobile = function(agent) {
 global.is_weixin=(agent)=>{
     let flag = false;
     agent = agent.toLowerCase();
-    let key = ["mqqbrowser","micromessenger"];
+    //let key = ["mqqbrowser","micromessenger"];
+    let key = ["micromessenger"];
     //排除 Windows 桌面系统
     if (!(agent.indexOf("windows nt") > -1) || (agent.indexOf("windows nt") > -1 && agent.indexOf("compatible; msie 9.0;") > -1)) {
         //排除苹果桌面系统
