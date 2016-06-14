@@ -49,7 +49,7 @@ CLASSES:
 </section>
 <!-- /PAGE HEADER -->
 <!-- -->
-<section class="container">
+<section class="container padding-top-15 padding-bottom-15">
     <!-- OWL SLIDER -->
 <div class="video_bg">
    <div id="video-box" style="width: 860px; height: 484px">
@@ -134,16 +134,20 @@ CLASSES:
 					.shadow-before-3 	= shadow 3 header top
 					.shadow-after-3 	= shadow 3 header bottom
 			-->
-<section class="page-header page-header-xs">
+<section class="page-header page-header-xs shadow-after-3">
     <div class="container">
 
-        <h1 class="blog-post-title">{{info.title}}</h1>
+        <h1 class="blog-post-title size-18">{{info.title}}</h1>
         <ul class="page-options list-inline">
-            <li><a href="#" class="glyphicon glyphicon-menu-left"></a></li>
-            <li><a href="#" class="glyphicon glyphicon-th-large"></a></li>
-            <li><a href="#" class="glyphicon glyphicon-menu-right"></a></li>
+            {%if previous.id%}
+            <li><a href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}" class="glyphicon glyphicon-menu-left"></a></li>
+            {%endif%}
+            {%set backcate = info.category_id|get_cate%}
+            <li><a href="{{backcate.url}}" class="glyphicon glyphicon-th-large"></a></li>
+            {%if next.id%}
+            <li><a href="{{next.name|get_url(next.id)}}" title="{{next.title}}" class="glyphicon glyphicon-menu-right"></a></li>
+            {%endif%}
         </ul>
-
     </div>
 </section>
 <!-- /PAGE HEADER -->
@@ -156,81 +160,7 @@ CLASSES:
             <!-- LEFT -->
 
             <div class="col-md-9 col-sm-9">
-                {#
-                <h1 class="blog-post-title">{{info.title}}</h1>
-
-                <ul class="blog-post-info list-inline">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-clock-o"></i>
-                            <span class="font-lato">{{ info.update_time|dateformat('Y-m-d H:i') }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-comment-o"></i>
-                            <span class="font-lato">28 Comments</span>
-                        </a>
-                    </li>
-                    <li>
-                        <i class="fa fa-folder-open-o"></i>
-
-                        <a class="category" href="#">
-                            <span class="font-lato">{{info.category_id}}</span>
-                        </a>
-                        <a class="category" href="#">
-                            <span class="font-lato">Photography</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-user"></i>
-                            <span class="font-lato">{{info.uid|get_nickname}}</span>
-                        </a>
-                    </li>
-                </ul>
-                #}
-
-                <!-- OWL SLIDER -->
-                <!--
-                <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
-                <a class="lightbox" href="assets/images/demo/1200x800/10-min.jpg" data-plugin-options='{"type":"image"}'>
-                <img class="img-responsive" src="assets/images/demo/content_slider/10-min.jpg" alt="" />
-                </a>
-                <a class="lightbox" href="assets/images/demo/1200x800/3-min.jpg" data-plugin-options='{"type":"image"}'>
-                <img class="img-responsive" src="assets/images/demo/content_slider/3-min.jpg" alt="" />
-                </a>
-                <a class="lightbox" href="assets/images/demo/1200x800/21-min.jpg" data-plugin-options='{"type":"image"}'>
-                <img class="img-responsive" src="assets/images/demo/content_slider/21-min.jpg" alt="" />
-                </a>
-                </div>
-                -->
-                <!-- /OWL SLIDER -->
-
-                <!-- IMAGE -->
-                {#
-                {% if info.cover_id>0 %}
-                <figure class="margin-bottom-20">
-                    <img class="img-responsive" src="{{info.cover_id|get_pic('m=2,w=847')}}" alt="{{info.title}}">
-                </figure>
-                {% endif %}
-                #}
-                <!-- /IMAGE -->
-
-                <!-- VIDEO -->
-                <!--
-                <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
-                </div>
-                -->
-                <!-- /VIDEO -->
-
-                {#
-                <!-- article content -->
-                <div id="content">
-                    {{info.content|safe}}
-                </div>
-                #}
+{#
                 <!-- /article content -->
                 <!--打赏-->
                 <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
@@ -241,7 +171,7 @@ CLASSES:
                 <!--评论表情-->
                 <div class="divider divider-dotted"><!-- divider --></div>
 
-                {#
+#}
                 <!-- TAGS -->
                 <a class="tag" href="#">
                     <span class="txt">RESPONSIVE</span>
@@ -269,56 +199,6 @@ CLASSES:
                 </a>
                 <!-- /TAGS -->
 
-                <!-- SHARE POST -->
-                <div class="clearfix margin-top-30">
-
-<span class="pull-left margin-top-6 bold hidden-xs">
-Share Post:
-</span>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-right" data-toggle="tooltip" data-placement="top" title="Facebook">
-                        <i class="icon-facebook"></i>
-                        <i class="icon-facebook"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter pull-right" data-toggle="tooltip" data-placement="top" title="Twitter">
-                        <i class="icon-twitter"></i>
-                        <i class="icon-twitter"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-right" data-toggle="tooltip" data-placement="top" title="Google plus">
-                        <i class="icon-gplus"></i>
-                        <i class="icon-gplus"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                        <i class="icon-linkedin"></i>
-                        <i class="icon-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-pinterest pull-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
-                        <i class="icon-pinterest"></i>
-                        <i class="icon-pinterest"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-call pull-right" data-toggle="tooltip" data-placement="top" title="Email">
-                        <i class="icon-email3"></i>
-                        <i class="icon-email3"></i>
-                    </a>
-
-                </div>
-                <!-- /SHARE POST -->
-
-
-                <div class="divider"><!-- divider --></div>
-
-
-                <ul class="pager">
-                    <li class="previous"><a class="noborder" href="#">&larr; Previous Post</a></li>
-                    <li class="next"><a class="noborder" href="#">Next Post &rarr;</a></li>
-                </ul>
-
-                #}
                 <div class="divider"><!-- divider --></div>
 
 
@@ -360,43 +240,17 @@ Share Post:
                         <p class="font-lato size-18">{{info.description}}</p>
 
                         <ul class="portfolio-detail-list list-unstyled nomargin">
-                            <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> Smarty Inc.</li>
-                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{ info.update_time|dateformat('Y-m-d H:i') }}</li>
-                            <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span> HTML / CSS</li>
-                            <li><span style="width: 60px"><i class="fa fa-link"></i>来源:</span> <a href="#">www.stepofweb.com</a></li>
+                            <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> {{info.uid|get_nickname}}</li>
+                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span> {{ info.update_time|dateformat('Y-m-d H:i') }}</li>
+                            <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span> {%set nn = 1%} {%for val in breadcrumb %}{%if nn != 1%} /{%endif%} <a href="{{val.url}}">{{val.title}}</a>{%set nn = nn+1%}{% endfor %}</li>
+                            <li><span style="width: 60px"><i class="fa fa-link"></i>来源:</span> <a href="#">www.cmswing.com</a></li>
                         </ul>
 
                     </div>
 
                     <div class="panel-footer">
-
-                        <!-- Social Icons -->
-                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
-
-                            <i class="icon-facebook"></i>
-                            <i class="icon-facebook"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter">
-                            <i class="icon-twitter"></i>
-                            <i class="icon-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus" data-toggle="tooltip" data-placement="top" title="" data-original-title="Google plus">
-                            <i class="icon-gplus"></i>
-                            <i class="icon-gplus"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin" data-toggle="tooltip" data-placement="top" title="" data-original-title="Linkedin">
-                            <i class="icon-linkedin"></i>
-                            <i class="icon-linkedin"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-sm social-icon-transparent social-pinterest" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest">
-                            <i class="icon-pinterest"></i>
-                            <i class="icon-pinterest"></i>
-                        </a>
-                        <!-- /Social Icons -->
+                        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
                     </div>
 

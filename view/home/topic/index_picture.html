@@ -153,10 +153,9 @@
                 <ul class="nav nav-tabs nav-button-tabs">
                     <!-- side navigation -->
                     {%column data="cates",cid=category.id%}
-                    {%set i = 1%}
+                    <li class="active"><a href="#taball" data-toggle="tab">全部</a></li>
                     {%for val in cates%}
-                    <li {% if i ==1 %}class="active"{%endif%}><a href="#tab{{val.id}}" data-toggle="tab">{{val.name}}</a></li>
-                    {% set i = i +1%}
+                    <li><a href="#tab{{val.id}}" data-toggle="tab">{{val.name}}</a></li>
                     {%endfor%}
                     {#
                     <li class="dropdown">
@@ -170,11 +169,62 @@
                 </ul>
 
                 <div class="tab-content portfolio-gutter portfolio-title-over" id="portfolio">
-                    {%set n = 1%}
-                    {%for v in cates%}
-                    <div class="tab-pane fade {% if n ==1 %}in active{%endif%} " id="tab{{v.id}}">
+                    <div class="tab-pane fade in active" id="taball">
 
-                        <p>
+                        <!-- POST ITEM -->
+                        <div class="row">
+                            {% topic data = "list",limit= "12",cid=category.id,issub=1%}
+                            {% for val in list %}
+                            <div class="col-md-4 col-sm-4 mix "><!-- item -->
+
+                                <div class="item-box">
+                                    <figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="{{val.cover_id|get_pic('')}}" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+                                                <!-- details -->
+												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+                                        <!-- overlay title -->
+                                        <div class="item-box-overlay-title">
+                                            <h3 class="size-14">{{val.title|block(16)}}</h3>
+                                            <ul class="list-inline categories nomargin">
+                                                <li><a href="#"><i class="fa fa-clock-o"></i>
+                                                    <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span></a></li>
+                                                <li><a href="#"><i class="fa fa-eye"></i>
+                                                    <span class="font-lato">{{val.view}}</span></a></li>
+                                                <li><a href="#">
+                                                    <i class="fa fa-user"></i>
+                                                    <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                                </a></li>
+                                            </ul>
+                                        </div><!-- /overlay title -->
+
+                                        <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=600,h=399')}}" width="600" height="399" alt="">
+                                    </figure>
+                                </div>
+
+                            </div><!-- /item -->
+
+                            <!-- /POST ITEM -->
+                            {%endfor%}
+                        </div>
+
+
+                    </div>
+                    {%for v in cates%}
+                    <div class="tab-pane fade" id="tab{{v.id}}">
                             <div class="row">
                             {% topic data = "list",limit= "12",cid=v.id%}
                             {% for val in list %}
@@ -219,55 +269,7 @@
                             </div>
 
                         </div><!-- /item -->
-                                {#
-                            <!-- POST ITEM -->
-                            <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
 
-                                <!-- IMAGE -->
-                                {% if val.cover_id>0 %}
-                                <figure class="blog-item-small-image margin-bottom-0">
-                                    <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
-                                </figure>
-                                {% endif %}
-                                <div class="blog-item-small-content">
-                                    <h2 class="size-20"><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
-
-                                    <ul class="blog-post-info list-inline padding-bottom-10">
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-clock-o"></i>
-                                                <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-comment-o"></i>
-                                                <span class="font-lato">{{val.view}} Comments</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-folder-open-o"></i>
-
-                                            <a class="category" href="#">
-                                                <span class="font-lato">{{val.category_id}}</span>
-                                            </a>
-                                            <a class="category" href="#">
-                                                <span class="font-lato">Photography</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-user"></i>
-                                                <span class="font-lato">{{val.uid|get_nickname}}</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                        <p>{{val.description|block(90)}}</p>
-                    </div>
-
-                </div>
-                #}
                 <!-- /POST ITEM -->
                 {%endfor%}
                         </div>
@@ -279,9 +281,8 @@
                     </a>
                 </div>
                 <!-- /PAGINATION -->
-                </p>
+
             </div>
-            {% set n = n +1%}
             {%endfor%}
 
         </div>
