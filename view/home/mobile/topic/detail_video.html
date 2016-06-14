@@ -1,6 +1,7 @@
 {% extends "../inc/base.html" %}
 {% block page%}
 <div class="page page-current" id="detail_article" >
+    {#
     <header class="bar bar-nav" >
         <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
             <span class="icon icon-left"></span>
@@ -10,7 +11,7 @@
         </a>
         <h1 class='title'><img src="/static/mobile/img/logo.png" /></h1>
     </header>
-
+#}
     <nav class="bar bar-tab">
         <a class="tab-item active back" href="{{http.referrer()}}">
             <span class="icon icon-left"></span>
@@ -48,7 +49,7 @@
         </a>
     </nav>
     <div class="content bg-white" >
-        <div id="video-box" style="width:100%; height: 232px">
+        <div id="video-box" style="width:100%; height: 50%">
 
         </div>
         <div class="content-block "  id="top_article">
@@ -108,7 +109,7 @@
                 videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
                 videoEndPrefixSeconds: 0,//选填，跳过片尾，默认为0
                 /* 以下参数可以在“控制台->项目看板->应用管理->播放器设置”进行全局设置，前端设置可以覆盖全局设置 */
-                skinSelect: 2,//选填，播放器皮肤，可选0、1、2，默认为0，
+                skinSelect: 0,//选填，播放器皮肤，可选0、1、2，默认为0，
                 autoplay: true,//选填，是否自动播放，默认为false
                 rightHand: true,//选填，是否开启右键菜单，默认为false
                 autoFormat: false,//选填，是否自动选择最高清晰度，默认为false
