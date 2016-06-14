@@ -131,10 +131,10 @@ export default class extends Base {
          if(this.isAjax("POST")){
              for(let v of data.data){
                  if(!think.isEmpty(v.pics)){
-                     v.pics = await get_cover(v.pics.split(",")[0],'path') ;
+                     v.pics = await get_pic(v.pics.split(",")[0],1,300,169) ;
                  }
                  if(!think.isEmpty(v.cover_id)){
-                     v.cover_id = await get_cover(v.cover_id,"path");
+                     v.cover_id = await get_pic(v.cover_id,1,300,169);
                  }
                  if(!think.isEmpty(v.price)){
                      if(!think.isEmpty(get_price_format(v.price,2))){

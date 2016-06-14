@@ -917,6 +917,54 @@ function _ajx_post() {
             })
         })
     })
+    //商城列表页
+    $(document).on("pageInit","#list_video",function (e,id,page) {
+        //无限加载
+        var loading = false;
+        var itemsPerLoad = 10;
+        var lastIndex = $("#list_video .list-container a.col-50").length;
+        if(lastIndex < itemsPerLoad){
+            $(".infinite-scroll-preloader").remove();
+            return;
+        }
+        function addItems(data) {
+            var html="";
+            $.each(data,function (index, item) {
+                html+='<a href="'+item.url+'" class="col-50"><div class="card demo-card-header-pic margin-5">'
+                html+='<div class="card-header color-white no-border no-padding" valign="bottom">'
+                html+=' <img alt="" src="'+item.cover_id+'" class="card-cover">'
+                html+='</div>'
+                html+='<div class="card-content tex-black">'
+                html+='<div class="card-content-inner padding-6">'
+                html+='<p class="margin-bottom-0 margin-top-0" style="overflow: hidden; height: 20px">'+item.title+'</p>'
+                html+='</div> </div> <div class="card-footer"> <span>有货</span> <span>5 评论</span> </div> </div></a>'
+            })
+            $('#list_video .list-container').append(html);
+        }
+        $("#list_video .infinite-scroll").on('infinite',function () {
+            //如果正在加载，退出
+            if(loading) return;
+            //设置flag
+            loading = true;
+            var page = Math.ceil(lastIndex/itemsPerLoad);
+            $.ajax({
+                type:'post',
+                url:$(this).attr("data-url"),
+                data:{page:(page+1)},
+                success:function (data) {
+                    loading = false;
+                    if(lastIndex >= data.count){
+                        $.detachInfiniteScroll($('.infinite-scroll'));
+                        $('.infinite-scroll-preloader').remove();
+                        return;
+                    }
+                    addItems(data.data);
+                    console.log(data.data);
+                    lastIndex = $("#list_video .list-container a.col-50").length;
+                }
+            })
+        })
+    })
     $(document).on("pageInit","#detail_shop",function (e, id, page) {
         
        //  var width = $("#shop_detail").width();

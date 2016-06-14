@@ -1,1 +1,97 @@
-video
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="list_video">
+    <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+        </a>
+        <!--<a class="button button-link button-nav pull-left" href="/" ><img src="/static/mobile/img/logo.png" /></a>-->
+        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+            <span class="icon icon-menu"></span>
+            导航
+        </a>
+        <h1 class="title">{{controller.meta_title}}</h1>
+    </header>
+
+    <!--nav-->
+    {% include "../inc/nav.html" %}
+    <!--end_nav-->
+    <div class="bar bar-header-secondary" >
+        <div class="searchbar">
+            <a class="searchbar-cancel">取消</a>
+            <div class="search-input">
+                <label for="search" class="icon icon-search"></label>
+                <input type="search" placeholder="输入关键字..." id="search">
+            </div>
+        </div>
+    </div>
+    <!-- 添加 class infinite-scroll 和 data-distance  向下无限滚动可不加infinite-scroll-bottom类，这里加上是为了和下面的向上无限滚动区分-->
+    <div class="content infinite-scroll native-scroll" data-distance="100" data-url="/column/{{http.get('category')}}">
+        <div class="content-block-title" style="margin-top: .75rem">{{controller.meta_title}}</div>
+        <div class="row no-gutter list-container">
+            {% for item in list%}
+            <a href="{{item.name|get_url(item.id)}}" class="col-50 external"><div  class="card demo-card-header-pic margin-5">
+                <div class="card-header color-white no-border no-padding" valign="bottom">
+                    {% set pic = item.pics|strToArray%}
+                    <img alt="" src="{{item.cover_id|get_pic('m=1,w=300,h=169')}}" class="card-cover">
+                </div>
+                <div class="card-content tex-black">
+                    <div class="card-content-inner padding-6">
+                        <p class="margin-bottom-0 margin-top-0" style="overflow: hidden; height: 20px">{{item.title}}</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span>有货</span>
+                    <span>5 评论</span>
+                </div>
+            </div></a>
+            {% endfor %}
+        </div>
+        {#
+        <div class="content-block-title">列表式后面完善</div>
+        <div class="list-block media-list">
+            <ul class="list-container">
+                {% for item in list%}
+                <li>
+                    <a class="item-link item-content" href="#">
+                        {% set pic = item.pics|strToArray%}
+                        <div class="item-media"><img width="80" src="{{pic[0]|get_pic('m=1,w=80')}}"></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title color-danger">{% if item.price|get_price_format('2') %}<span class="">¥{{item.price|get_price_format('2')}}</span>{%endif%}
+                                    ¥{{item.price|get_price_format('1')}}</div>
+                                <div class="item-after"></div>
+                            </div>
+
+                            <div class="item-text">{{item.title}}</div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        #}
+        <!-- 加载提示符 -->
+        <div class="infinite-scroll-preloader">
+            <div class="preloader"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block pageout%}
+<div class="panel-overlay"></div>
+<!-- Left Panel with Reveal effect -->
+<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
+    <div class="content-block">
+        <p>这是一个侧栏</p>
+        <p>你可以在这里放用户设置页面</p>
+        <p><a href="#" class="close-panel">关闭</a></p>
+    </div>
+    <div class="list-block">
+        <!-- .... -->
+    </div>
+</div>
+{% endblock%}
+{% block script %}
+{% endblock %}
