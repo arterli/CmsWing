@@ -64,9 +64,16 @@ CLASSES:
 
         <div class="tab-content slim-scroll" data-height="440px" data-size="10px">
             <div class="tab-pane fade in active " id="home">
-
+                <div class="subscribe">
+                    <span class="m_img"><a href="#" target="_blank" charset="hz-4009164-1000705"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" alt="{{pinfo.title}}"></a></span>
+                    <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">{{pinfo.title}}</a><a href="http://zipindao.youku.com/zpd/strategy" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
+		    <span class="m_action" id="officiallistfollow">
+				<div class="sub_action " id="user_follow_info_official"><div class="btn btn-info btn-sm" id="subscribe_official" subname="" subimg="" data-stat-role="ck"><span class="form_btn_text">订&nbsp;&nbsp;阅</span></div></div>
+		    	<div class="sub_state" style="display: block;"><span class="num" id="user_fans_num_official">186.2万</span><b class="arrow"><em class="arrow_bg">◆</em><em class="arrow_co">◆</em></b></div>
+		    </span>
+                </div>
                 <div class="tvinfo ">
-                    <h3>{{pinfo.title}}</h3>
+
                     <a class="iku_share" id="iku_share" style="display:none"><i></i>放到桌面</a>
                     <p class="tvintro">
                         更新至<em>{{lastlevel}}</em>集  <em></em>
@@ -78,14 +85,7 @@ CLASSES:
                         {{pinfo.description}}...<a target="_blank" href="#">详情</a>
                     </p>
                 </div>
-                <div class="subscribe">
-                    <span class="m_img"><a href="#" target="_blank" charset="hz-4009164-1000705"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" alt="{{pinfo.title}}"></a></span>
-                    <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">奇舞团视频小组</a><a href="http://zipindao.youku.com/zpd/strategy" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
-		    <span class="m_action" id="officiallistfollow">
-				<div class="sub_action " id="user_follow_info_official"><div class="btn btn-info btn-sm" id="subscribe_official" subname="" subimg="" data-stat-role="ck"><span class="form_btn_text">订&nbsp;&nbsp;阅</span></div></div>
-		    	<div class="sub_state" style="display: block;"><span class="num" id="user_fans_num_official">186.2万</span><b class="arrow"><em class="arrow_bg">◆</em><em class="arrow_co">◆</em></b></div>
-		    </span>
-                </div>
+
                 <div class="showlists">
              {%for val in plist%}
                     <div class="item item-close" >

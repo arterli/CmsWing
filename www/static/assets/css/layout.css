@@ -8026,7 +8026,7 @@ ul.search-history {
 	position: relative;
 }
 .tvinfo {
-	margin: 0 15px;
+	margin: 15px;
 	padding-left: 0;
 	height: auto;
 	z-index: 5;
@@ -8093,7 +8093,7 @@ ul.search-history {
 	position: relative;
 	padding-left: 60px;
 	height: 50px;
-	margin: 15px;
+	margin: 0 15px;
 }
 .subscribe .m_img {
 	overflow: hidden;

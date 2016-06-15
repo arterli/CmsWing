@@ -1,6 +1,6 @@
 {% extends "../inc/base.html" %}
 {% block page%}
-<div class="page page-current" id="detail_article" >
+<div class="page page-current" id="detail_video" >
     {#
     <header class="bar bar-nav" >
         <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
@@ -48,24 +48,38 @@
             <span class="tab-label">TOP</span>
         </a>
     </nav>
-    <div class="content bg-white" >
+    <div class="content" >
         <div id="video-box" style="width:100%; height: 50%">
 
         </div>
-        <div class="content-block "  id="top_article">
-            <header class="article-header">
-                <!-- 文章标题 -->
-                <h1>{{info.title}}</h1>
-                <div class="subtitle">
-                    <!-- 文章来源 -->
-                    <a id="source">{{controller.setup.WEB_SITE_TITLE}}</a>
-                    <!-- 时间格式需为：MM-DD HH:MM -->
-                    <time>{{ info.update_time|dateformat('Y-m-d H:i') }}</time>
-                    <div class="comment_totoal_cnt" style="display: none;"></div></div>
-            </header>
-            <article class="article-content">
-                {{info.content|safe}}
-            </article>
+        <div class="list-block media-list margin-top-0">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" style='width: 2.2rem;'></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{pinfo.title}}</div>
+                            </div>
+                            <div class="item-subtitle">更新至<em>{{lastlevel}}</em>集 </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link open-popup" data-popup=".popup-playlist">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">播放列表</div>
+                        <div class="item-after">正在播放:{%if info.level== 0%} {{lastlevel}} {%else%} {{info.level}}{%endif%}</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="content-block bg-white"  id="top_article">
             {#
             <!--打赏-->
             <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
@@ -84,6 +98,28 @@
 
 {% endblock %}
 {% block pageout%}
+<div class="popup popup-playlist popup-bg">
+    <header class="bar bar-nav">
+        <!--<a class="icon icon-left pull-left close-popup"></a>-->
+        <a class="icon icon-down pull-right close-popup"></a>
+        <h1 class="title">播放列表</h1>
+    </header>
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                {%for val in plist%}
+                <a class="item-content item-link" href="{{val.name|get_url(val.id)}}">
+                    <div class="item-media"><i class="fa {%if info.id == val.id%}fa-play-circle{%else%}fa-play-circle-o{%endif%} fa-2x"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">{{val.title}}</div>
+                        <div class="item-after">{{val.level}}</div>
+                    </div>
+                </a>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock%}
 {% block style %}
 
