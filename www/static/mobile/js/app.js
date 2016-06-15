@@ -300,6 +300,14 @@ function _ajx_post() {
 
 
     })
+    //图片封面页
+    $(document).on("pageInit","#index_picture",function (e,id,page) {
+        var $content = $(page).find(".content").on('refresh',function (e) {
+            location.reload();
+        })
+
+
+    })
     //wangzhangxiangqingye
     $(document).on("pageInit","#detail_article",function (e,id,page) {
        // $.config = {router: false}
