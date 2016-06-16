@@ -274,6 +274,17 @@ export default {
                     return newstr;
                 })
                 /**
+                 * 过滤html标签
+                 *
+                 */
+                env.addFilter('delhtmltags',(str)=>{
+                    if(!think.isEmpty(str)) {
+                        return str.replace(/<[^>]+>/g, "");//去掉所有的html标记
+                    }else {
+                        return '';
+                    }
+                })
+                /**
                  * 获取文件信息
                  * @param file_id 文件id
                  * @param field 字段名,如果为空则返回整个记录集
