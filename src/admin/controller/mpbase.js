@@ -150,7 +150,7 @@ export default class extends Base {
      */
      async massAction(){
         this.meta_title="群发功能";
-        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let self = this;
         //调用用户分组API
@@ -300,7 +300,7 @@ export default class extends Base {
         let FromUserName = 'openid';//发送方帐号（一个OpenID）
         let Event = 'subscribe';//subscribe(订阅)、unsubscribe(取消订阅)
         let user_model = this.model('wx_user');
-        let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         if(Event == 'subscribe' && !thik.isEmpty(FromUserName)){
             //通过openid获取用户基本信息
              let userinfo = function(api) {
@@ -332,7 +332,7 @@ export default class extends Base {
         let materid = this.post('id');
         let materialinfo = await material_model.where({id: materid}).find();
         //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
-        let api = new API('wxe8c1b5ac7db990b6','ebcd685e93715b3470444cf6b7e763e6');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         let self = this;
 
         let info = function(api) {
@@ -443,7 +443,8 @@ export default class extends Base {
      * 通过分组groupid进行群发，认证后的订阅号和服务号都可以使用
      */
     async masssendAction(){
-        let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
         //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let model = this.model('wx_user');
         let media_model = this.model('wx_material');
@@ -666,8 +667,8 @@ export default class extends Base {
         let menu_model = this.model('wx_menu');
         let data = await menu_model.order('pid ASC, sort ASC').select();
         let menu = buildselfmenu(data);
-
-        let api = new API('wx3e72261823fb62dd', '593bf2b86a00c913d8e38e9cf1d4e1ec');
+        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        //let api = new API('wx3e72261823fb62dd', '593bf2b86a00c913d8e38e9cf1d4e1ec');
 
         console.log(menu);
         let info = function(api) {
