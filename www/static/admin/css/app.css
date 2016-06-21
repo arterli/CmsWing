@@ -4527,3 +4527,8 @@ textarea.parsley-error {
 .parsley-errors-list.filled {
   opacity: 1;
 }
+.form-control-text{
+  padding-top: 1px ;
+  padding-bottom: 1px ;
+  height: auto;
+}
