@@ -147,7 +147,7 @@ export default class extends Base {
             dataobj.price=get_price(goods.price,1) * Number(val.qty);
             dataobj.unit_price =get_price(goods.price,1);
               dataobj.weight = goods.weight;
-              dataobj.pic = await get_cover(goods.pics.split(",")[0],'path');
+              dataobj.pic = await get_pic(goods.pics.split(",")[0],1,100,100);
           }else{
             let suk = JSON.parse(goods.suk);
             let arr_ = val.type.split(",");
@@ -654,6 +654,7 @@ async createorderAction(){
     }
    //支付
  async  payAction(){
+     console.log(this.post());
      //判断是否登录
      await this.weblogin();
        if(this.isAjax("post")){
@@ -736,7 +737,7 @@ async createorderAction(){
                     payment = think.service("payment");
                     pay = new payment(this.http);
                    //传入 channel,order_no,order_amount,this.ip()
-                   charges = await pay.pingxx(channel,order.order_no,order.order_amount,this.ip());
+                   charges = await pay.pingxx(channel,order.order_no,order.order_amount,this.ip(),open_id);
                    //把pingxx_id存到订单
                    await this.model('order').where({id:post.order_id}).update({pingxx_id:charges.id});
                }else {

@@ -158,7 +158,7 @@ export default class extends Base {
                 v = think.extend(v, v.prom_goods);
                 delete v.prom_goods;
             }
-            //console.log(val.goods)
+            console.log(val.goods)
             val.nums = eval(numarr.join("+"));
         }
         //未付款统计
@@ -181,7 +181,7 @@ export default class extends Base {
         }).count("id");
         this.assign("nopaid", nopaid);
         this.assign("receipt", receipt);
-        // console.log(data.data);
+         console.log(data.data);
         this.assign('list', data.data);
         this.meta_title = "我的订单";
         //判断浏览客户端
