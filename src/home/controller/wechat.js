@@ -49,6 +49,7 @@ export default class extends think.controller.base {
     async getopenidAction(){
         //获取用户openid
        let code =  this.get("code");
+        console.log(code);
         //获取openid
         let getopenid = ()=>{
             let deferred = think.defer();
