@@ -62,7 +62,7 @@
                                 <option value="url" {%if val.type == 'url'%}selected=""{%endif%}>超级链接(url)</option>
                                 <option value="range" {%if val.type == 'range'%}selected=""{%endif%}>范围(range)</option></select>
                             </td>
-                        <td><a href="/admin/type/typeview/typeid/{{val.typeid}}" class="text-info"> 详情</a></td>
+                        <td><a href="/admin/type/edittype/optionid/{{val.optionid}}" class="text-info"> 详情</a></td>
                     </tr>
                     {%endfor%}
 
@@ -72,7 +72,7 @@
             <div class="row wrapper">
 
                 <div class="col-sm-9 m-b-xs">
-                    <a href="###" class="btn btn-default btn-sm addtr"><i class="icon-plus"></i> 添加分类信息字段</a>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm addtr"><i class="icon-plus"></i> 添加分类信息字段</a>
                 </div>
                 <div class="col-sm-3">
 

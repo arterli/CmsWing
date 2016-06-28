@@ -112,6 +112,20 @@ if(!think.isEmpty(add)){
         }
         return this.success({name:"操作成功"})
  }
+    //编辑字段
+    async edittypeAction(){
+        let id = this.get("optionid");
+        let info = await this.model("typeoption").find({where:{optionid:id}});
+        let clas = await this.model('typeoption').find({where:{optionid:info.classid}});
+        console.log(info);
+        this.assign({
+            info:info,
+            clas:clas
+        })
+        this.active="admin/type/index";
+        this.meta_title="编辑"+info.title;
+        return this.display();
+    }
   /**
    * 更新/修改数据
    */

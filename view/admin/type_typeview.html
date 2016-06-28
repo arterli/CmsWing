@@ -114,7 +114,7 @@
                             <td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_font" value="2" {%if val.search ==2 or val.search==3%}checked{%endif%}><i></i></label></td>
                             <td><label class="checkbox m-n i-checks"><input type="checkbox" name="subjectshow" value="1" {%if val.subjectshow ==1%}checked{%endif%}><i></i></label></td>
 
-                            <td><a href="/admin/type/typeview/typeid/{{val.typeid}}" class="text-info"> 编辑</a></td>
+                            <td><a href="/admin/type/edittype/optionid/{{val.optionid}}" class="text-info"> 编辑</a></td>
                         </tr>
                         {%endfor%}
 
@@ -168,7 +168,7 @@
                 '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_form" value="1"><i></i></label></td>'+
                 '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_font" value="2" ><i></i></label></td>'+
                 '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="subjectshow" value="1" ><i></i></label></td>'+
-                '<td><a href="/admin/type/typeview/typeid/{{val.typeid}}" class="text-info"> 编辑</a></td></tr>';
+                '<td></td></tr>';
                 $('#type-list>tbody').append(tr);
             }
         })
