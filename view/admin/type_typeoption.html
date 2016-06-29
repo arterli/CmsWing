@@ -49,7 +49,7 @@
                         <td><input type="hidden" name="identifier" value="{{val.identifier}}">{{val.identifier}}</td>
 
                         <td>
-                            <select name="type" class="form-control form-control-text">
+                            <select name="type" class="form-control form-control-text " disabled>
                                 <option value="number" {%if val.type == 'number'%}selected=""{%endif%}>数字(number)</option>
                                 <option value="text" {%if val.type == 'text'%}selected=""{%endif%}>字串(text)</option>
                                 <option value="textarea" {%if val.type == 'textarea'%}selected=""{%endif%}>文本(textarea)</option>

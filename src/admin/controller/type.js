@@ -63,10 +63,8 @@ export default class extends Base {
             where: {sortid: data.id}
         });
 
-
-           let add= await this.model('typevar').addMany (data.datarr);
-
-if(!think.isEmpty(add)){
+        let add= await this.model('typevar').addMany(data.datarr);
+        if(!think.isEmpty(add)){
     return this.success({name:"操作成功"})
 }
     }
@@ -114,17 +112,29 @@ if(!think.isEmpty(add)){
  }
     //编辑字段
     async edittypeAction(){
-        let id = this.get("optionid");
-        let info = await this.model("typeoption").find({where:{optionid:id}});
-        let clas = await this.model('typeoption').find({where:{optionid:info.classid}});
-        console.log(info);
-        this.assign({
-            info:info,
-            clas:clas
-        })
-        this.active="admin/type/index";
-        this.meta_title="编辑"+info.title;
-        return this.display();
+        if(this.isPost()){
+            let data = this.post();
+            console.log(data);
+            let update = this.model('typeoption').where({optionid:data.optionid}).update(data);
+            if(update){
+                return this.success({name:"操作成功"});
+            }else {
+                return this.fail("操作失败");
+            }
+        }else {
+            let id = this.get("optionid");
+            let info = await this.model("typeoption").find({where:{optionid:id}});
+            let clas = await this.model('typeoption').find({where:{optionid:info.classid}});
+            console.log(info);
+            this.assign({
+                info:info,
+                clas:clas
+            })
+            this.active="admin/type/index";
+            this.meta_title="编辑"+info.title;
+            return this.display();
+        }
+
     }
   /**
    * 更新/修改数据

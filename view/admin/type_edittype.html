@@ -126,11 +126,14 @@
                         数字(number)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "number"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">数值最大值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[number][maxnum]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[number][maxnum]" type="text" class="form-control parsley-validated" value="{%if info.type == 'number'%}{{rules.maxnum}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -142,7 +145,7 @@
                             <label class="col-sm-2 control-label">数值最小值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[number][minnum]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[number][minnum]" type="text" class="form-control parsley-validated" value="{%if info.type == 'number'%}{{rules.minnum}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -154,7 +157,7 @@
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[number][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[number][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'number'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -166,7 +169,7 @@
                             <label class="col-sm-2 control-label">默认值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[number][defaultvalue]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[number][defaultvalue]" type="text" class="form-control parsley-validated" value="{%if info.type == 'number'%}{{rules.defaultvalue}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -181,11 +184,14 @@
                         字串(text)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "text"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">内容最大长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[text][maxlength]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[text][maxlength]" type="text" class="form-control parsley-validated" value="{%if info.type == 'text'%}{{rules.maxlength}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -197,7 +203,7 @@
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[text][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[text][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'text'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -209,7 +215,28 @@
                             <label class="col-sm-2 control-label">关联用户栏目初始值</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><select id="rules[text][profile]" name="rules[text][profile]" class="form-control" ><option value=""></option><option value="constellation">星座</option><option value="zodiac">生肖</option><option value="telephone">固定电话</option><option value="mobile">手机</option><option value="idcard">证件号</option><option value="address">邮寄地址</option><option value="zipcode">邮编</option><option value="graduateschool">毕业学校</option><option value="company">公司</option><option value="occupation">职业</option><option value="position">职位</option><option value="revenue">年收入</option><option value="affectivestatus">情感状态</option><option value="lookingfor">交友目的</option><option value="alipay">支付宝</option><option value="qq">QQ</option><option value="msn">MSN</option><option value="taobao">阿里旺旺</option><option value="site">个人主页</option></select></div>
+                                    <div class="col-md-4"><select id="rules[text][profile]" name="rules[text][profile]" class="form-control" >
+                                        <option value=""></option>
+                                        <option value="constellation" {%if info.type == 'text' and rules.profile == 'constellation'%}selected{%endif%}>星座</option>
+                                        <option value="zodiac" {%if info.type == 'text' and rules.profile == 'zodiac'%}selected{%endif%}>生肖</option>
+                                        <option value="telephone" {%if info.type == 'text' and rules.profile == 'telephone'%}selected{%endif%}>固定电话</option>
+                                        <option value="mobile" {%if info.type == 'text' and rules.profile == 'mobile'%}selected{%endif%}>手机</option>
+                                        <option value="idcard" {%if info.type == 'text' and rules.profile == 'idcard'%}selected{%endif%}>证件号</option>
+                                        <option value="address" {%if info.type == 'text' and rules.profile == 'address'%}selected{%endif%}>邮寄地址</option>
+                                        <option value="zipcode" {%if info.type == 'text' and rules.profile == 'zipcode'%}selected{%endif%}>邮编</option>
+                                        <option value="graduateschool" {%if info.type == 'text' and rules.profile == 'graduateschool'%}selected{%endif%}>毕业学校</option>
+                                        <option value="company" {%if info.type == 'text' and rules.profile == 'company'%}selected{%endif%}>公司</option>
+                                        <option value="occupation" {%if info.type == 'text' and rules.profile == 'occupation'%}selected{%endif%}>职业</option>
+                                        <option value="position" {%if info.type == 'text' and rules.profile == 'position'%}selected{%endif%}>职位</option>
+                                        <option value="revenue" {%if info.type == 'text' and rules.profile == 'revenue'%}selected{%endif%}>年收入</option>
+                                        <option value="affectivestatus" {%if info.type == 'text' and rules.profile == 'affectivestatus'%}selected{%endif%}>情感状态</option>
+                                        <option value="lookingfor" {%if info.type == 'text' and rules.profile == 'lookingfor'%}selected{%endif%}>交友目的</option>
+                                        <option value="alipay" {%if info.type == 'text' and rules.profile == 'alipay'%}selected{%endif%}>支付宝</option>
+                                        <option value="qq" {%if info.type == 'text' and rules.profile == 'qq'%}selected{%endif%}>QQ</option>
+                                        <option value="msn" {%if info.type == 'text' and rules.profile == 'msn'%}selected{%endif%}>MSN</option>
+                                        <option value="taobao" {%if info.type == 'text' and rules.profile == 'taobao'%}selected{%endif%}>阿里旺旺</option>
+                                        <option value="site" {%if info.type == 'text' and rules.profile == 'site'%}selected{%endif%}>个人主页</option>
+                                    </select></div>
                                     <div class="col-md-12 ">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 可以指定某个用户栏目作为初始值，方便用户在发帖时填写。
 此项优先于默认值.</span>
@@ -222,7 +249,7 @@
                             <label class="col-sm-2 control-label">默认值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[text][defaultvalue]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[text][defaultvalue]" type="text" class="form-control parsley-validated" value="{%if info.type == 'text'%}{{rules.defaultvalue}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -237,11 +264,14 @@
                         单选(radio)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "radio"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">字段内容</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><textarea name="rules[radio][choices]" class="form-control">{{info.rules}}</textarea></div>
+                                    <div class="col-md-4"><textarea name="rules[radio][choices]" class="form-control">{%if info.type == 'radio'%}{{rules.choices}}{%endif%}</textarea></div>
                                     <div class="col-md-12 ">
                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
                                         只在项目为可选时有效，每行一个字段，等号前面为字段索引(建议用数字)，后面为内容，例如: <br>
@@ -261,11 +291,14 @@
                     多选(checkbox)
                 </header>
                 <div class="wrapper">
+                    {%if info.type == "checkbox"%}
+                    {%set rules = info.rules|strToJson%}
+                    {%endif%}
                     <div class="form-group">
                         <label class="col-sm-2 control-label">字段内容</label>
                         <div class="col-sm-10">
                             <div class="row">
-                                <div class="col-md-4"><textarea name="rules[checkbox][choices]" class="form-control">{{info.rules}}</textarea></div>
+                                <div class="col-md-4"><textarea name="rules[checkbox][choices]" class="form-control">{%if info.type == 'checkbox'%}{{rules.choices}}{%endif%}</textarea></div>
                                 <div class="col-md-12 ">
                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
                                         只在项目为可选时有效，每行一个字段，等号前面为字段索引(建议用数字)，后面为内容，例如: <br>
@@ -286,11 +319,14 @@
                         文本(textarea)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "textarea"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">内容最大长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[textarea][maxlength]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[textarea][maxlength]" type="text" class="form-control parsley-validated" value="{%if info.type == 'textarea'%}{{rules.maxlength}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -302,7 +338,7 @@
                             <label class="col-sm-2 control-label">输入框宽度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[textarea][colsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[textarea][colsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'textarea'%}{{rules.colsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 ">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 此宽度设置仅在自定义"分类信息发布内容显示模板"时生效.</span>
                                     </div>
@@ -314,7 +350,7 @@
                             <label class="col-sm-2 control-label">输入框行数(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[textarea][rowsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[textarea][rowsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'textarea'%}{{rules.rowsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -326,7 +362,7 @@
                             <label class="col-sm-2 control-label">默认值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[textarea][defaultvalue]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[textarea][defaultvalue]" type="text" class="form-control parsley-validated" value="{%if info.type == 'textarea'%}{{rules.defaultvalue}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -341,11 +377,14 @@
                         选择(select)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "select"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">字段内容</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><textarea name="rules[select][choices]" class="form-control">{{info.rules}}</textarea></div>
+                                    <div class="col-md-4"><textarea name="rules[select][choices]" class="form-control">{%if info.type == 'select'%}{{rules.choices}}{%endif%}</textarea></div>
                                     <div class="col-md-12 ">
                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
                                         只在项目为可选时有效，每行一个字段，等号前面为字段索引(建议用数字)，后面为内容，例如:
@@ -369,7 +408,7 @@
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[select][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[select][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'select'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -385,11 +424,14 @@
                         日历(calendar)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "calendar"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[calendar][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[calendar][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'calendar'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -404,11 +446,14 @@
                         上传图片(image)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "image"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">图片最大宽度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[image][maxwidth]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[image][maxwidth]" type="text" class="form-control parsley-validated" value="{%if info.type == 'image'%}{{rules.maxwidth}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -420,7 +465,7 @@
                             <label class="col-sm-2 control-label">图片最大高度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[image][maxheight]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[image][maxheight]" type="text" class="form-control parsley-validated" value="{%if info.type == 'image'%}{{rules.maxheight}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 此宽度设置仅在自定义"分类信息发布内容显示模板"时生效.</span>
                                     </div>
@@ -432,7 +477,7 @@
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[image][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[image][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'image'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -448,11 +493,14 @@
                         范围(range)
                     </header>
                     <div class="wrapper">
+                        {%if info.type == "range"%}
+                        {%set rules = info.rules|strToJson%}
+                        {%endif%}
                         <div class="form-group">
                             <label class="col-sm-2 control-label">数值最大值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[range][maxnum]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[range][maxnum]" type="text" class="form-control parsley-validated" value="{%if info.type == 'range'%}{{rules.maxnum}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -464,7 +512,7 @@
                             <label class="col-sm-2 control-label">数值最小值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[range][minnum]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[range][minnum]" type="text" class="form-control parsley-validated" value="{%if info.type == 'range'%}{{rules.minnum}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 此宽度设置仅在自定义"分类信息发布内容显示模板"时生效.</span>
                                     </div>
@@ -476,7 +524,7 @@
                             <label class="col-sm-2 control-label">表单显示长度(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[range][inputsize]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[range][inputsize]" type="text" class="form-control parsley-validated" value="{%if info.type == 'range'%}{{rules.inputsize}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 hidden">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                     </div>
@@ -488,7 +536,7 @@
                             <label class="col-sm-2 control-label">搜索范围预置值(可选)</label>
                             <div class="col-sm-10">
                                 <div class="row">
-                                    <div class="col-md-4"><input name="rules[range][searchtxt]" type="text" class="form-control parsley-validated" value="" data-required="true"></div>
+                                    <div class="col-md-4"><input name="rules[range][searchtxt]" type="text" class="form-control parsley-validated" value="{%if info.type == 'range'%}{{rules.searchtxt}}{%endif%}" data-required="true"></div>
                                     <div class="col-md-12 ">
                                         <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 设置项目的快速搜索预置数值，逗号分隔，例如：“0,50,10”，将显示 0 - 50、50 - 100 的搜索快捷链接.</span>
                                     </div>
@@ -549,27 +597,62 @@
         })
 //提交数据
         $(".posttype").click(function () {
-            var tr = $("#type-list>tbody>tr");
-            var dataarr = []
-            $.each(tr,function (k,v) {
-                var obj = {};
-                //obj.isdel = $(v).find("input[name='isdel']:checked").val()||0;
-                obj.sortid=$("input[name='sortid']").val();
-                obj.optionid = $(v).find("input[name='optionid']").val();
-                obj.available=$(v).find("input[name='available']:checked").val()||0;
-                obj.required=$(v).find("input[name='required']:checked").val()||0;
-                obj.unchangeable=$(v).find("input[name='unchangeable']:checked").val()||0;
-                obj.search = Number($(v).find("input[name='search_form']:checked").val()||0) + Number($(v).find("input[name='search_font']:checked").val()||0)
-                obj.displayorder=$(v).find("input[name='displayorder']").val()||0;
-                obj.subjectshow=$(v).find("input[name='subjectshow']:checked").val()||0;
-                //console.log(obj);
-                dataarr.push(obj);
-            })
-            var datas = {id:$("input[name='sortid']").val(),datarr:dataarr}
-            console.log(datas);
+            var rules = {};
+            var data = {};
+            data.optionid = '{{info.optionid}}';
+           data.title = $('input[name="title"]').val()||'';
+            data.identifier = $('input[name="identifier"]').val()||'';
+            data.type = $('select[name="type"]').val();
+            data.description = $('input[name="description"]').val()||'';
+            data.unit = $('input[name="unit"]').val()||'';
+            if(data.type=="number"){
+                rules.maxnum = $('input[name="rules[number][maxnum]"]').val()||'';
+                rules.minnum = $('input[name="rules[number][minnum]"]').val()||'';
+                rules.inputsize = $('input[name="rules[number][inputsize]"]').val()||'';
+                rules.defaultvalue = $('input[name = "rules[number][defaultvalue]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "text"){
+                rules.maxlength = $('input[name="rules[text][maxlength]"]').val()||'';
+                rules.inputsize = $('input[name="rules[text][inputsize]"]').val()||'';
+                rules.profile = $('select[name="rules[text][profile]"]').val()||'';
+                rules.defaultvalue = $('input[name="rules[text][defaultvalue]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "radio"){
+                rules.choices = $("textarea[name='rules[radio][choices]']").val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "checkbox"){
+                rules.choices =$("textarea[name='rules[checkbox][choices]']").val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "textarea"){
+                rules.maxlength = $('input[name="rules[textarea][maxlength]"]').val()||'';
+                rules.colsize = $('input[name="rules[textarea][colsize]"]').val()||'';
+                rules.rowsize = $('input[name="rules[textarea][rowsize]"]').val()||'';
+                rules.defaultvalue = $('input[name="rules[textarea][defaultvalue]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "select"){
+                rules.choices =$("textarea[name='rules[select][choices]']").val()||'';
+                rules.inputsize = $('input[name="rules[select][inputsize]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "calendar"){
+                rules.inputsize = $('input[name="rules[calendar][inputsize]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type == "range"){
+                rules.maxnum = $('input[name="rules[range][maxnum]').val()||'';
+                rules.minnum = $('input[name="rules[range][minnum]"]').val()||'';
+                rules.inputsize = $('input[name="rules[range][inputsize]"]').val()||'';
+                rules.searchtxt = $('input[name="rules[range][searchtxt]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }else if(data.type =="image"){
+                rules.maxwidth = $('input[name="rules[image][maxwidth]').val()||'';
+                rules.maxheight = $('input[name="rules[image][maxheight]"]').val()||'';
+                rules.inputsize = $('input[name="rules[image][inputsize]"]').val()||'';
+                data.rules = JSON.stringify(rules);
+            }
+
+            console.log(data);
             $.ajax({
-                url:"/admin/type/updatetypevar",
-                data:{data:JSON.stringify(datas)},
+                url:"/admin/type/edittype",
+                data:data,
                 type:"post",
                 success:function (res) {
                     if (res.errno==0) {
