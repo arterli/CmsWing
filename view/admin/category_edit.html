@@ -21,7 +21,8 @@
                     <header class="panel-heading text-right bg-light  clearfix">
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab2">高级设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab2">分类信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab3">高级设置</a></li>
                         </ul>
                         <span class="hidden-sm">Left</span>
                     </header>
@@ -295,6 +296,125 @@
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
                             <div id="tab2" class="tab-pane fade ">
+                                <input type="hidden" name="documentsorts" value="{{info.documentsorts}}">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">启用分类信息</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[status]" {%if info.documentsorts !=""%}checked=""{%endif%}><i></i> 是
+                                                </label>
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"   value="0" name="documentsorts[status]" {%if info.documentsorts ==""%}checked=""{%endif%}><i></i> 否
+                                                </label>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 以下设置没有继承性，即仅对当前栏目有效，不会对下级子栏目产生影响。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                {%set types = info.documentsorts|strToJson%}
+                                <div id="documentsortscon" {%if info.documentsorts ==""%}style="display:none;"{%else%}style="display:block;"{%endif%}>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">发布必须归类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[required]" {%if types.required == 1%}checked=""{%endif%}><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[required]" {%if types.required == 0%}checked=""{%endif%}><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否强制用户发表新内容时必须选择分类</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">类别前缀</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[prefix]" {%if types.prefix == 1%}checked=""{%endif%}><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[prefix]" {%if types.prefix == 0%}checked=""{%endif%}><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否在主题前面显示分类的名称</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">启用默认显示分类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[default]" {%if types.default == 1%}checked=""{%endif%}><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[default]" {%if types.default == 0%}checked=""{%endif%}><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否启用默认显示分类，如果启用请在下面的分类信息里面选择</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">选择分类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <table class="table table-striped m-b-none" id="typelist">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width: 70px;">启用</th>
+                                                            <th>分类名称</th>
+                                                            <th>分类说明</th>
+                                                            <th style="width: 150px;">发布菜单中显示</th>
+                                                            <th style="width: 150px;">默认显示分类</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {%for val in typelist%}
+                                                        <tr>
+                                                            <td>
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][enable]" value="{{val.typeid}}" class="enable" {%if typeobj[val.typeid].enable %} checked {%endif%}><i></i></label>
+                                                            </td>
+                                                            <td>{{val.name}}</td>
+                                                            <td>{{val.description}}</td>
+                                                            <td class="text-success">
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][show]" value="1" class="show"  {%if typeobj[val.typeid].show %} checked {%endif%}><i></i></label>
+                                                            </td>
+                                                            <td class="text-success">
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="radio" name="documentsorts[defaultshow]" value="{{val.typeid}}" class="defaultshow" {%if types.defaultshow == val.typeid %} checked {%endif%}><i></i></label>
+                                                            </td>
+
+                                                        </tr>
+                                                        {%endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                </div>
+                            </div>
+                            <div id="tab3" class="tab-pane fade ">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">可见性</label>
                                     <div class="col-sm-10">
@@ -511,7 +631,48 @@
 
             }
         })
+        //添加
+        function addtype() {
+            var required = $('input[name="documentsorts[required]"]:checked').val()||0;
+            var prefix = $('input[name="documentsorts[prefix]"]:checked').val()||0;
+            var defaults = $('input[name="documentsorts[default]"]:checked').val()||0;
+            var defaultshow = $('input[name="documentsorts[defaultshow]"]:checked').val()||0;
+            var types = []
+            $("#typelist>tbody>tr").each(function (k,v) {
+                var obj = {}
+                obj.enable=$(v).find("input[name='documentsorts[options][enable]']:checked").val()||0;
+                obj.name = $(v).find("td").eq(1).text();
+                obj.description = $(v).find("td").eq(2).text();
+                obj.show = $(v).find("input[name='documentsorts[options][show]']:checked").val()||0;
+                if(obj.enable!=0){
+                    types.push(obj);
+                }
+            });
+            var documentsorts = {
+                required:required,
+                prefix:prefix,
+                default:defaults,
+                defaultshow:defaultshow,
+                types:types
+            }
+            $('input[name="documentsorts"]').val("");
+            $('input[name="documentsorts"]').val(JSON.stringify(documentsorts));
+        }
 
+        $('.enable,.show,.defaultshow,[name="documentsorts[required]"],[name="documentsorts[prefix]"],[name="documentsorts[default]"]').on('change',function () {
+            addtype()
+        })
+
+        $('input[name="documentsorts[status]"]').click(function () {
+            var val = $(this).val();
+            if(val==1){
+                $("#documentsortscon").show();
+                addtype();
+            }else {
+                $("#documentsortscon").hide();
+                $('input[name="documentsorts"]').val("");
+            }
+        })
         /* 生成HTML ul/li 形式 */
         function category_to_html(nodes) {
             var html = [];

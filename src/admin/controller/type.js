@@ -26,7 +26,31 @@ export default class extends Base {
     let type = this.model("type");
     let list = await type.order('displayorder ASC,typeid DESC').select();
     //console.log(list);
-    this.assign("list",list);
+      let cate = await this.model("category").where({documentsorts:['!=',""]}).select();
+      for(let val of cate){
+          let types = JSON.parse(val.documentsorts);
+          let sortarr = []
+          for(let v of types.types){
+              sortarr.push(v.enable)
+          }
+          val.sortid=sortarr;
+      }
+      //console.log(cate);
+      if(!think.isEmpty(cate)){
+      for(let val of list){
+          val.cate=[]
+       for(let v of cate){
+             if(in_array(val.typeid,v.sortid)){
+                 let obj = {}
+                 obj.id = v.id;
+                 obj.title=v.title;
+                 val.cate.push(obj)
+             }
+          }
+      }
+      }
+      //console.log(list);
+      this.assign("list",list);
     this.meta_title="分类管理"
     return this.display();
   }

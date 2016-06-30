@@ -55,8 +55,16 @@ export default class extends Base {
         this.meta_title = "用户中心";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
-            this.active = this.http.controller+"/"+this.http.action;
-            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            let mtype = this.get('mtype')
+            if(mtype == 'vue'){
+            //vue
+                let vuedata = {orderTotal:orderTotal,onOrder:onOrder}
+                return this.json(vuedata)
+            }else {//普通模板
+                this.active = this.http.controller+"/"+this.http.action;
+                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            }
+            
         } else {
             return this.display();
         }

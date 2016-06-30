@@ -57,7 +57,16 @@ export default class extends Base {
                 this.fail("更新失败！");
             }
         }else{
+            let sortid = await this.model("typevar").getField("sortid");
+            let type;
+            if(!think.isEmpty(sortid)){
+                sortid = unique(sortid);
+                console.log(sortid);
+                //获取分类信息
+                type= await this.model("type").where({typeid:['IN',sortid]}).order('displayorder ASC').select();
+            }
 
+            this.assign("typelist",type);
             //获取模型信息；
             let model = await this.model("model").get_document_model();
             //console.log(obj_values(model));
@@ -144,7 +153,26 @@ export default class extends Base {
             //获取分类信息
             let info = await category.find(id);
             this.assign("info",info);
-            //console.log(info);
+            console.log(info);
+            if(!think.isEmpty(info.documentsorts)){
+                let types = JSON.parse(info.documentsorts);
+                let typeobj = {};
+                for(let val of types.types){
+                    typeobj[val.enable]=val
+                }
+                this.assign("typeobj",typeobj)
+            }
+
+            let sortid = await this.model("typevar").getField("sortid");
+            let type;
+            if(!think.isEmpty(sortid)){
+                sortid = unique(sortid);
+                console.log(sortid);
+                //获取分类信息
+                type= await this.model("type").where({typeid:['IN',sortid]}).order('displayorder ASC').select();
+            }
+
+            this.assign("typelist",type);
             //获取模型信息；
             let model = await this.model("model").get_document_model();
             //console.log(obj_values(model));

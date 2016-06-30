@@ -305,7 +305,13 @@ export default class extends Base {
         if (groups) {
             groups = parse_config_attr(groups);
         }
-        console.log(groups);
+        // 获取分类信息
+        let sort = await this.model("category").get_category(cate_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+        }
+        console.log(sort);
+        this.assign("sort",sort);
         //检查该分类是否允许发布
         let allow_publish = await this.model("category").check_category(cate_id);
         console.log(allow_publish);
