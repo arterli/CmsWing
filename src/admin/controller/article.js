@@ -24,13 +24,38 @@ export default class extends Base {
         let cate_id = this.get('cate_id') || null;
         let model_id = this.get('model_id') || null;
         let position = this.get('position') || null;
-        let group_id = this.get('group_id') || null;
+        let group_id = this.get('group_id') || 0;
+        let sortid = this.get('sortid')||0;
         let models;
         let groups;
         let model;
         let _model;
         //console.log(2222);
         if (!think.isEmpty(cate_id)) {
+            // 获取分类信息
+            let sort = await this.model("category").get_category(cate_id, 'documentsorts');
+            if (sort) {
+                sort = JSON.parse(sort);
+                if(sortid==0){
+                    sortid=sort.defaultshow;
+                }
+                let typevar = await this.model("typevar").where({sortid:sortid}).select();
+                for (let val of typevar){
+
+                    val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                    if(val.option.type == 'select'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        }
+
+                    }
+                }
+                console.log(typevar);
+                this.assign("typevar",typevar);
+            }
+            console.log(sort);
+            this.assign("sort",sort);
             let pid = this.get("pid") || 0;
             // 获取列表绑定的模型
             if (pid == 0) {
@@ -146,6 +171,7 @@ export default class extends Base {
         this.assign('cate_id', cate_id);
         this.assign('model_id', model_id);
         this.assign('group_id', group_id);
+        this.assign('sortid',sortid);
         this.assign('position', position);
         this.assign('groups', groups);
         this.assign('list', list);

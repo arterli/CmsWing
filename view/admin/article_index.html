@@ -29,7 +29,42 @@
                             <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                         </ul>
                         <!-- / .breadcrumb -->
+                        {%if sort%}
+                        <section class="panel panel-default m-b-xs">
+                            <header class="panel-heading text-right bg-light">
+                                <ul class="nav nav-tabs pull-left">
+                                    {%for val in sort.types%}
+                                    <li class="{%if http.get('sortid')|length > 0%}{%if http.get('sortid')==val.enable%}active{%endif%}{%else%}{%if sort.defaultshow == val.enable%}active{%endif%}{%endif%}">
+                                        <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{val.enable}}" > {{val.name}}</a>
+                                    </li>
+                                   {%endfor%}
+                                </ul>
+                                <span class="hidden-sm">Left</span>
+                            </header>
+                            <div class="panel-body" style="padding: 0">
+                                <div class="tab-content">
+                                    <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
+                                        <tbody>
+                                        {%for val in typevar%}
+                                        <tr>
+                                            <td style="width: 120px" class="text-right">
+                                               {{val.option.title}}:
+                                            </td>
+                                            <td>
+                                                {%for k,v in val.option.rules.choices %}
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{val.option.identifier}}/{{k}}" class="text-info"> {{v}}</a>
+                                            {%endfor%}
+                                            </td>
 
+                                        </tr>
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                        {%endif%}
                         <section class="panel panel-default">
                             <header class="panel-heading">
                                 <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
@@ -41,9 +76,9 @@
                                 <a
                                 href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}" class="text-info"> 全部 </a>{%endif%}&nbsp; {% for val in modellist%} {% if model_id != val.id %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}"
                                     class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
-                                    {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==null %}<strong>全部</strong>{%else%}
+                                    {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==0 %}<strong>全部</strong>{%else%}
                                     <a
-                                    href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                    href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}/sortid/{{sortid}}"  class="text-info">{{val}}</a>{%
                                         else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
                             </header>
                             <div class="row wrapper">
@@ -59,7 +94,7 @@
                                             <ul class="dropdown-menu">
 
                                                 {% for val in modellist%}
-                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"
+                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}"
                                                     class="text-info">添加{{val.title}}</a></li>
                                                 {% endfor %}
 

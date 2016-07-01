@@ -308,7 +308,9 @@ global.parse_config_attr = function(str) {
         strs = str.split("\r\n");
     } else if (str.search(/,/ig) > -1) {
         strs = str.split(",");
-    } else {
+    } else if(str.search(/\n/ig) > -1){
+        strs = str.split("\n");
+    }else {
         strs = [str];
     }
     if (think.isArray(strs)) {
