@@ -324,6 +324,7 @@ export default class extends Base {
         let cate_id = this.get("cate_id") || 0;
         let model_id = this.get("model_id") || 0;
         let group_id = this.get("group_id") || '';
+        let sortid = this.get('sortid')||0;
         think.isEmpty(cate_id) && this.fail("参数不能为空");
         think.isEmpty(model_id) && this.fail("该分类未绑定模型");
         // 获取分组定义
@@ -335,6 +336,23 @@ export default class extends Base {
         let sort = await this.model("category").get_category(cate_id, 'documentsorts');
         if (sort) {
             sort = JSON.parse(sort);
+            if(sortid==0){
+                sortid=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:sortid}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+
+                }
+            }
+            console.log(typevar);
+            this.assign("typevar",typevar);
         }
         console.log(sort);
         this.assign("sort",sort);

@@ -87,9 +87,9 @@
                     <div class="col-sm-10">
                     <div class="row">
                         <div class="col-md-10">
-                            <div class="btn-group" data-toggle="buttons">
+                            <div class="btn-group" >
                                 {%for val in sort.types%}
-                                <a href="#" class="btn btn-sm btn-default {%if sort.defaultshow == val.enable%}active{%endif%}">
+                                <a href="/admin/article/add/model_id/{{http.get('model_id')}}/pid/{{http.get('pid')}}/cate_id/{{http.get('cate_id')}}/group_id/{{http.get('group_id')}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if http.get('sortid') == val.enable%}active{%endif%}">
                                      {{val.name}}
                                 </a>
                                 {%endfor%}
@@ -99,6 +99,25 @@
                     </div>
                         </div>
                 </div>
+                {%for val in typevar%}
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label">
+                        {{val.option.title}}
+                    </label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <select class="form-control " name="group_id">
+                                    <option value="0"  >请选择</option>
+                                    {% for k ,v in val.option.rules.choices %}
+                                    <option value="{{k}}">{{v}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 {%endif%}
                 {% if groups and key==1 %}
@@ -110,7 +129,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <select class="form-control " name="group_id">
-                                <option value="0"  >不分组</option>
+                                <option value="0">不分组</option>
                                 {% for k ,v in groups %}
                                 <option value="{{k}}" {%if http.get('group_id')==k%} selected{%endif%}>{{v}}</option>
                                 {% endfor %}

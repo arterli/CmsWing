@@ -51,8 +51,17 @@
                                                {{val.option.title}}:
                                             </td>
                                             <td>
+                                               {%if 0 == http.get(val.option.identifier)%}
+                                                <span style="margin-right: 10px">全部</span>
+                                                {%else%}
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}{{0|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                                {%endif%}
                                                 {%for k,v in val.option.rules.choices %}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{val.option.identifier}}/{{k}}" class="text-info"> {{v}}</a>
+                                                {%if k == http.get(val.option.identifier)%}
+                                                <span style="margin-right: 10px">{{v}}</span>
+                                                {%else%}
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}{{k|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                                                {%endif%}
                                             {%endfor%}
                                             </td>
 
@@ -88,7 +97,7 @@
                                         <div class="btn-group">
                                             <button {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add
                                                 dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
+                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
                                                 >添加内容 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
                                             {%if model|length > 1 %}
                                             <ul class="dropdown-menu">

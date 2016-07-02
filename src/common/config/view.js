@@ -140,7 +140,12 @@ export default {
                     }
                     return wx_bq;
                 })
+                //解析分类信息url
+                env.addFilter("sort_url", function (id,val,arr,http) {
+                    
+                        return sort_url(id,val,arr,http);
 
+                })
                 /**
                  * 时间戳格式化 dateformat('Y-m-d H:i:s')
                  * @param extra 'Y-m-d H:i:s'

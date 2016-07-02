@@ -1094,3 +1094,20 @@ global.get_cate=async(cid)=>{
         }
     }
 }
+/**
+ * 获取分类信息url
+ * @param id
+ * @param val
+ * @param arr
+ */
+global.sort_url = (id,val,arr,http)=>{
+    //console.log(http.get(val))
+let url=`/${val}/${id}`;
+for(let v of arr){
+    if(v.option.identifier != val){
+        url += `/${v.option.identifier}/${http.get(v.option.identifier)||0}`
+    }
+}
+    //console.log(url);
+    return url;
+}
