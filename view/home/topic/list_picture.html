@@ -69,7 +69,7 @@ CLASSES:
     </div>
     <div class="divider divider-dotted margin-top-6"><!-- divider --></div>
     {%endif%}
-
+    {%if sort%}
     <ul class="nav nav-tabs nav-top-border">
         {%for val in sort.types%}
         <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
@@ -106,6 +106,7 @@ CLASSES:
             </tbody>
         </table>
     </div>
+    {%endif%}
 <div class="row">
 
 <!-- LEFT -->
