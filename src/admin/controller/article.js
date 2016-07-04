@@ -401,6 +401,7 @@ export default class extends Base {
     //编辑文档
     async editAction() {
         let id = this.get('id') || "";
+        let sortid = this.get('sortid')||0;
         if (think.isEmpty(id)) {
             this.fail("参数不能为空");
         }
@@ -414,16 +415,40 @@ export default class extends Base {
             this.assign('article', article);
         }
         let model = await this.model("model").get_document_model(data.model_id);
-        this.assign('data', data);
-        this.assign('model_id', data.model_id);
-        this.assign('model', model);
+
         // 获取分组定义
         let groups = await this.model("category").get_category(data.category_id, 'groups');
         if (groups) {
             groups = parse_config_attr(groups);
         }
         this.assign('groups',groups);
-        this.assign('')
+        // 获取分类信息
+        let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid !=0){
+                data.sortid=sortid;
+            }else if(data.sortid==0){
+                data.sortid=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:data.sortid}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sortid,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true);
+                    }
+
+                }
+            }
+            console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
@@ -443,6 +468,10 @@ export default class extends Base {
         this.assign({
             "navxs": true,
         });
+        console.log(data);
+        this.assign('data', data);
+        this.assign('model_id', data.model_id);
+        this.assign('model', model);
         this.display();
     }
 

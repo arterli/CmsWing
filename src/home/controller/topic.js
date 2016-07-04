@@ -87,7 +87,45 @@ export default class extends Base {
         'status': 1,
         'category_id': ['IN', subcate]
       };
-      let group_id = 0
+      // 获取分类信息
+      let sortid = get.split("/")[2]||0;
+      let sortarr = get.split("/")[3]||null;
+      let nsobj = {};
+      let sort = await this.model("category", {}, 'admin').get_category(cate.id, 'documentsorts');
+      if (sort) {
+          sort = JSON.parse(sort);
+          if(sortid==0){
+              sortid=sort.defaultshow;
+          }
+          let typevar = await this.model("typevar").where({sortid:sortid}).select();
+          for (let val of typevar){
+
+              val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+              if(val.option.type == 'select'){
+                  if(!think.isEmpty(val.option.rules)){
+                      val.option.rules = JSON.parse(val.option.rules);
+                      val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                  }
+
+              }
+          }
+          console.log(typevar);
+          this.assign("typevar",typevar);
+      }
+      if(!think.isEmpty(sortarr)) {
+          sortarr = sortarr.split("|");
+           nsobj = {}
+          for (let v of sortarr) {
+              let qarr = v.split("_");
+              nsobj[qarr[0]] = qarr[1];
+          }
+      }
+      console.log(sort);
+      this.assign("sort",sort);
+          this.assign("nsobj",nsobj);
+
+      this.assign("sortid",sortid);
+      let group_id = 0;
       if(!think.isEmpty(get.split("/")[1])){
        map.group_id=get.split("/")[1];
           group_id = map.group_id;

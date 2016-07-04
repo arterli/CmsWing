@@ -31,6 +31,8 @@ export default class extends think.model.base {
      */
     async updates(data){
         console.log(data);
+
+        //return false;
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -49,6 +51,25 @@ export default class extends think.model.base {
              if(!id){
                  this.error = '新增基础内容出错！';
                  return false
+             }else {
+                 if(data.sortid !=0){
+                     let sortarr = [];
+                     for(let k in data){
+                         let arr = k.split("_");
+                         if(arr[0]=="sortid" && !think.isEmpty(arr[1])){
+                             let obj ={}
+                             obj.value = data[k];
+                             obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
+                             obj.sortid = data.sortid;
+                             obj.fid = data.category_id;
+                             obj.tid = id;
+                             sortarr.push(obj);
+                         }
+                     }
+                     console.log(sortarr);
+                     //添加分类
+                     this.model("typeoptionvar").addMany(sortarr);
+                 }
              }
          }else {//更新内容
              data.update_time=new Date().getTime();
@@ -58,6 +79,26 @@ export default class extends think.model.base {
              if(!status){
                  this.error = '更新基础内容出错！';
                  return false;
+             }else {
+                 if(data.sortid !=0){
+                     let sortarr = [];
+                     for(let k in data){
+                         let arr = k.split("_");
+                         if(arr[0]=="sortid" && !think.isEmpty(arr[1])){
+                             let obj ={}
+                             obj.value = data[k];
+                             obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
+                             obj.sortid = data.sortid;
+                             obj.fid = data.category_id;
+                             obj.tid = data.id;
+                             sortarr.push(obj);
+                         }
+                     }
+                     console.log(sortarr);
+                     await this.model("typeoptionvar").where({tid:data.id}).delete();
+                     //添加分类
+                     this.model("typeoptionvar").addMany(sortarr);
+                 }
              }
 
          }

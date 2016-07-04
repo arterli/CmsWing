@@ -78,6 +78,48 @@ table tr td{
 
                                         {% for key ,group in model.field_group | parse_config_attr %}
                                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
+                                            {%if sort and key ==1%}
+                                            <input type="hidden" name="sortid" value="{{http.get('sortid')}}">
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label">
+                                                    分类
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <div class="btn-group" >
+                                                                {%for val in sort.types%}
+                                                                <a href="/admin/article/edit/id/{{data.id}}/model/{{data.model_id}}/cate_id/{{data.category_id}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if data.sortid == val.enable%}active{%endif%}">
+                                                                    {{val.name}}
+                                                                </a>
+                                                                {%endfor%}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%for val in typevar%}
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label">
+                                                    {{val.option.title}}
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <select class="form-control " name="sortid_{{val.option.identifier}}">
+                                                                <option value="0"  >请选择</option>
+                                                                {% for k ,v in val.option.rules.choices %}
+                                                                <option value="{{k}}" {% if val.option.value == k %}selected{%endif%}>{{v}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%endfor%}
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            {%endif%}
                                             {% if groups and key==1 %}
                                             <div class="form-group">
                                                 <label  class="col-sm-2 control-label">

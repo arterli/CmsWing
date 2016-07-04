@@ -80,6 +80,7 @@
             {% for key ,group in model.field_group | parse_config_attr %}
             <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                 {%if sort and key ==1%}
+                <input type="hidden" name="sortid" value="{{http.get('sortid')}}">
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">
                        分类
@@ -107,7 +108,7 @@
                     <div class="col-sm-10">
                         <div class="row">
                             <div class="col-md-3">
-                                <select class="form-control " name="group_id">
+                                <select class="form-control " name="sortid_{{val.option.identifier}}">
                                     <option value="0"  >请选择</option>
                                     {% for k ,v in val.option.rules.choices %}
                                     <option value="{{k}}">{{v}}</option>

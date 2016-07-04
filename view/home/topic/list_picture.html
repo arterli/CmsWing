@@ -51,8 +51,8 @@ CLASSES:
 </section>
 <!-- /PAGE HEADER -->
 <!-- -->
-{% groups data="groups",cid=category.id%}
 {%set cate = category.id|get_cate()%}
+{% groups data="groups",cid=category.id%}
 <section {%if groups|length > 0 %}class="padding-top-20"{%endif%}>
 <div class="container">
     {{cate.groups}}
@@ -69,6 +69,43 @@ CLASSES:
     </div>
     <div class="divider divider-dotted margin-top-6"><!-- divider --></div>
     {%endif%}
+
+    <ul class="nav nav-tabs nav-top-border">
+        {%for val in sort.types%}
+        <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
+        {%endfor%}
+
+    </ul>
+
+    <div class="tab-content" style="padding-top: 0">
+        <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
+            <tbody>
+            {%for val in typevar%}
+            <tr>
+                <td style="width: 80px" class="text-right">
+                    {{val.option.title}}:
+                </td>
+                <td>
+                    {%if 0 == nsobj[val.option.identifier]%}
+                    <span style="margin-right: 10px">全部</span>
+                    {%else%}
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
+                    {%endif%}
+                    {%for k,v in val.option.rules.choices %}
+                    {%if k == nsobj[val.option.identifier]%}
+                    <span style="margin-right: 10px">{{v}}</span>
+                    {%else%}
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{k|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                    {%endif%}
+                    {%endfor%}
+                </td>
+
+            </tr>
+            {%endfor%}
+
+            </tbody>
+        </table>
+    </div>
 <div class="row">
 
 <!-- LEFT -->

@@ -54,13 +54,13 @@
                                                {%if 0 == http.get(val.option.identifier)%}
                                                 <span style="margin-right: 10px">全部</span>
                                                 {%else%}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}{{0|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">全部</a>
                                                 {%endif%}
                                                 {%for k,v in val.option.rules.choices %}
                                                 {%if k == http.get(val.option.identifier)%}
                                                 <span style="margin-right: 10px">{{v}}</span>
                                                 {%else%}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}{{k|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{k|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
                                                 {%endif%}
                                             {%endfor%}
                                             </td>

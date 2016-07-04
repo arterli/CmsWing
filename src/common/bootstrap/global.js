@@ -1100,14 +1100,25 @@ global.get_cate=async(cid)=>{
  * @param val
  * @param arr
  */
-global.sort_url = (id,val,arr,http)=>{
+global.sort_url = (id,val,arr,http,type = 0)=>{
     //console.log(http.get(val))
-let url=`/${val}/${id}`;
-for(let v of arr){
-    if(v.option.identifier != val){
-        url += `/${v.option.identifier}/${http.get(v.option.identifier)||0}`
+    let url;
+    if(type ==1){
+        url=`${val}/${id}`;
+        for(let v of arr){
+            if(v.option.identifier != val){
+                url += `/${v.option.identifier}/${http.get(v.option.identifier)||0}`
+            }
+        }
+    }else {
+        url=`${val}_${id}`;
+        for(let v of arr){
+            if(v.option.identifier != val){
+                url += `|${v.option.identifier}_${http[v.option.identifier]||0}`
+            }
+        }
     }
-}
+
     //console.log(url);
     return url;
 }
