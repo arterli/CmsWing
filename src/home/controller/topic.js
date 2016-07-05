@@ -112,7 +112,7 @@ export default class extends Base {
 
               }
           }
-          //console.log(typevar);
+          console.log(typevar);
           this.assign("typevar",typevar);
       }
       if(!think.isEmpty(sortarr)) {
@@ -124,18 +124,17 @@ export default class extends Base {
           for (let v of sortarr) {
               let qarr = v.split("_");
               nsobj[qarr[0]] = qarr[1];
-              optionidarr.push(qarr[0]);
-              valuearr.push(qarr[1]);
+              where[qarr[0]] = qarr[1];
           }
           where.sortid = sortid;
           where.fid = cate.id;
-          where.optionid = ["IN",optionidarr];
-          where['value'] = ["IN",valuearr];
-         let type= await this.model("typeoptionvar").where(where).select();
-          console.log(type);
-
+          // where.optionid = ["IN",optionidarr];
+          // where['value'] = ["IN",valuearr];
+         // let type= await this.model("typeoptionvar").where(where).select();
+         //  console.log(type);
+          console.log(where);
       }
-      //console.log(sort);
+      console.log(sort);
       this.assign("sort",sort);
           this.assign("nsobj",nsobj);
 

@@ -86,16 +86,16 @@ CLASSES:
                     {{val.option.title}}:
                 </td>
                 <td>
-                    {%if 0 == nsobj[val.option.optionid]%}
+                    {%if 0 == nsobj[val.option.identifier]%}
                     <span style="margin-right: 10px">全部</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.optionid,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
                     {%endif%}
                     {%for k,v in val.option.rules.choices %}
-                    {%if k == nsobj[val.option.optionid]%}
+                    {%if k == nsobj[val.option.identifier]%}
                     <span style="margin-right: 10px">{{v}}</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{k|sort_url(val.option.optionid,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{k|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
                     {%endif%}
                     {%endfor%}
                 </td>
@@ -188,10 +188,10 @@ CLASSES:
         <!-- /INLINE SEARCH -->
 
         <hr />
-
+{#
         <!-- side navigation -->
         {%column data="cates",cid=category.id,isnum="1"%}
-        {%if cates%}
+        {%if ccates%}
         <div class="side-nav margin-bottom-20 margin-top-20">
             <div class="side-nav-head">
                 <button class="fa fa-bars"></button>
@@ -206,7 +206,7 @@ CLASSES:
         </div>
         {%endif%}
 
-
+#}
         <!-- JUSTIFIED TAB -->
         <div class="tabs nomargin-top hidden-xs margin-bottom-10">
 
