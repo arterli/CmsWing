@@ -427,11 +427,11 @@ export default class extends Base {
         if (sort) {
             sort = JSON.parse(sort);
             if(sortid !=0){
-                data.sortid=sortid;
-            }else if(data.sortid==0){
-                data.sortid=sort.defaultshow;
+                data.sort_id=sortid;
+            }else if(data.sort_id==0){
+                data.sort_id=sort.defaultshow;
             }
-            let typevar = await this.model("typevar").where({sortid:data.sortid}).select();
+            let typevar = await this.model("typevar").where({sortid:data.sort_id}).select();
             for (let val of typevar){
 
                 val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
@@ -439,7 +439,7 @@ export default class extends Base {
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
-                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sortid,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true);
                     }
 
                 }

@@ -48,7 +48,7 @@ export default class extends Base {
           return this.display(temp);
       }
     }
-    //列表页
+    //列表页[核心]
   async listAction() {
 
       let get = this.get('category') || 0;

@@ -89,7 +89,7 @@ table tr td{
                                                         <div class="col-md-10">
                                                             <div class="btn-group" >
                                                                 {%for val in sort.types%}
-                                                                <a href="/admin/article/edit/id/{{data.id}}/model/{{data.model_id}}/cate_id/{{data.category_id}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if data.sortid == val.enable%}active{%endif%}">
+                                                                <a href="/admin/article/edit/id/{{data.id}}/model/{{data.model_id}}/cate_id/{{data.category_id}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if data.sort_id == val.enable%}active{%endif%}">
                                                                     {{val.name}}
                                                                 </a>
                                                                 {%endfor%}

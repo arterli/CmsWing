@@ -32,7 +32,7 @@ export default class extends think.model.base {
     async updates(data){
         console.log(data);
 
-        //return false;
+       // return false;
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -52,7 +52,7 @@ export default class extends think.model.base {
                  this.error = '新增基础内容出错！';
                  return false
              }else {
-                 if(data.sortid !=0){
+                 if(data.sort_id !=0){
                      let sortarr = [];
                      for(let k in data){
                          let arr = k.split("_");
@@ -60,7 +60,7 @@ export default class extends think.model.base {
                              let obj ={}
                              obj.value = data[k];
                              obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
-                             obj.sortid = data.sortid;
+                             obj.sortid = data.sort_id;
                              obj.fid = data.category_id;
                              obj.tid = id;
                              sortarr.push(obj);
@@ -80,7 +80,7 @@ export default class extends think.model.base {
                  this.error = '更新基础内容出错！';
                  return false;
              }else {
-                 if(data.sortid !=0){
+                 if(data.sort_id !=0){
                      let sortarr = [];
                      for(let k in data){
                          let arr = k.split("_");
@@ -88,7 +88,7 @@ export default class extends think.model.base {
                              let obj ={}
                              obj.value = data[k];
                              obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
-                             obj.sortid = data.sortid;
+                             obj.sortid = data.sort_id;
                              obj.fid = data.category_id;
                              obj.tid = data.id;
                              sortarr.push(obj);
