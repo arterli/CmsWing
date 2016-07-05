@@ -1113,8 +1113,8 @@ global.sort_url = (id,val,arr,http,type = 0)=>{
     }else {
         url=`${val}_${id}`;
         for(let v of arr){
-            if(v.option.identifier != val){
-                url += `|${v.option.identifier}_${http[v.option.identifier]||0}`
+            if(v.option.optionid != val){
+                url += `|${v.option.optionid}_${http[v.option.optionid]||0}`
             }
         }
     }

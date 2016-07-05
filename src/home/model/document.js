@@ -10,6 +10,7 @@
  * model
  */
 export default class extends think.model.base {
+
    async detail(id){
         //获取基础数据
         let map;

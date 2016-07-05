@@ -89,6 +89,9 @@ export default class extends Base {
       };
       // 获取分类信息
       let sortid = get.split("/")[2]||0;
+      if(!think.isEmpty(sortid)){
+          map.sort_id = sortid;
+      }
       let sortarr = get.split("/")[3]||null;
       let nsobj = {};
       let sort = await this.model("category", {}, 'admin').get_category(cate.id, 'documentsorts');
@@ -109,31 +112,49 @@ export default class extends Base {
 
               }
           }
-          console.log(typevar);
+          //console.log(typevar);
           this.assign("typevar",typevar);
       }
       if(!think.isEmpty(sortarr)) {
           sortarr = sortarr.split("|");
            nsobj = {}
+          let where = {}
+          let optionidarr = [];
+          let valuearr = [];
           for (let v of sortarr) {
               let qarr = v.split("_");
               nsobj[qarr[0]] = qarr[1];
+              optionidarr.push(qarr[0]);
+              valuearr.push(qarr[1]);
           }
+          where.sortid = sortid;
+          where.fid = cate.id;
+          where.optionid = ["IN",optionidarr];
+          where['value'] = ["IN",valuearr];
+         let type= await this.model("typeoptionvar").where(where).select();
+          console.log(type);
+
       }
-      console.log(sort);
+      //console.log(sort);
       this.assign("sort",sort);
           this.assign("nsobj",nsobj);
 
       this.assign("sortid",sortid);
       let group_id = 0;
-      if(!think.isEmpty(get.split("/")[1])){
+      if(!think.isEmpty(get.split("/")[1]) && get.split("/")[1] !=0){
        map.group_id=get.split("/")[1];
           group_id = map.group_id;
       }
       this.assign("group_id",group_id)
-      console.log(map);
+      //console.log(map);
       let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
-      
+      // let data = await this.model('document').join({
+      //     typeoptionvar: {
+      //         join: "left", // 有 left,right,inner 3 个值
+      //         as: "c",
+      //         on: ["sort_id", "sortid"]
+      //     }
+      // }).where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
       let html = pagination(data, this.http, {
       desc: false, //show description
       pageNum: 2, 
@@ -163,8 +184,6 @@ export default class extends Base {
       this.assign('list', data.data);
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
-
-
       if(checkMobile(this.userAgent())){
          if(this.isAjax("POST")){
              for(let v of data.data){

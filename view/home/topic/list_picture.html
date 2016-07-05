@@ -86,16 +86,16 @@ CLASSES:
                     {{val.option.title}}:
                 </td>
                 <td>
-                    {%if 0 == nsobj[val.option.identifier]%}
+                    {%if 0 == nsobj[val.option.optionid]%}
                     <span style="margin-right: 10px">全部</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.optionid,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
                     {%endif%}
                     {%for k,v in val.option.rules.choices %}
-                    {%if k == nsobj[val.option.identifier]%}
+                    {%if k == nsobj[val.option.optionid]%}
                     <span style="margin-right: 10px">{{v}}</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{k|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{k|sort_url(val.option.optionid,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
                     {%endif%}
                     {%endfor%}
                 </td>
