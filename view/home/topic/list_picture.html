@@ -87,7 +87,7 @@ CLASSES:
                     {{val.option.title}}:
                 </td>
                 <td>
-                    {%if 0 == nsobj[val.option.identifier]%}
+                    {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
                     <span style="margin-right: 10px">全部</span>
                     {%else%}
                     <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
