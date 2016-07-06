@@ -81,6 +81,7 @@ CLASSES:
         <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
             <tbody>
             {%for val in typevar%}
+            {%if val.search > 1%}
             <tr>
                 <td style="width: 80px" class="text-right">
                     {{val.option.title}}:
@@ -101,6 +102,7 @@ CLASSES:
                 </td>
 
             </tr>
+            {%endif%}
             {%endfor%}
 
             </tbody>

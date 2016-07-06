@@ -80,15 +80,20 @@ export default class extends Base {
      this.meta_title=`${info.name}-分类设置`
   return this.display();
  }
+    //添加字段
     async updatetypevarAction(){
         let data = this.post('data');
         data = JSON.parse(data);
+        console.log(data);
        let del= await this.model('typevar').delete({
             where: {sortid: data.id}
         });
 
         let add= await this.model('typevar').addMany(data.datarr);
         if(!think.isEmpty(add)){
+            //添加字段
+            this.model("type").addField(data);
+           
     return this.success({name:"操作成功"})
 }
     }

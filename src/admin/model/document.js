@@ -32,7 +32,7 @@ export default class extends think.model.base {
     async updates(data){
         console.log(data);
 
-       // return false;
+       //return false;
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -48,12 +48,14 @@ export default class extends think.model.base {
              data.update_time=new Date().getTime();
              data.status= await this.getStatus(data.id,data.category_id);
              var id = await this.add(data);//添加基础数据
+             //let id = 100;
              if(!id){
                  this.error = '新增基础内容出错！';
                  return false
              }else {
                  if(data.sort_id !=0){
                      let sortarr = [];
+                     let sortdata = {};
                      for(let k in data){
                          let arr = k.split("_");
                          if(arr[0]=="sortid" && !think.isEmpty(arr[1])){
@@ -64,11 +66,17 @@ export default class extends think.model.base {
                              obj.fid = data.category_id;
                              obj.tid = id;
                              sortarr.push(obj);
+                             sortdata[arr[1]] = data[k];
+                             sortdata.tid = id;
+                             sortdata.fid = data.category_id;
                          }
                      }
                      console.log(sortarr);
+                     console.log(sortdata);
+                     //return false;
                      //添加分类
                      this.model("typeoptionvar").addMany(sortarr);
+                     this.model("type_optionvalue"+data.sort_id).add(sortdata);
                  }
              }
          }else {//更新内容
@@ -81,6 +89,7 @@ export default class extends think.model.base {
                  return false;
              }else {
                  if(data.sort_id !=0){
+                     let sortdata = {};
                      let sortarr = [];
                      for(let k in data){
                          let arr = k.split("_");
@@ -92,10 +101,15 @@ export default class extends think.model.base {
                              obj.fid = data.category_id;
                              obj.tid = data.id;
                              sortarr.push(obj);
+                             sortdata[arr[1]] = data[k];
+                             sortdata.tid = data.id;
+                             sortdata.fid = data.category_id;
                          }
                      }
                      console.log(sortarr);
-                     await this.model("typeoptionvar").where({tid:data.id}).delete();
+                     console.log(sortdata);
+                    this.model("typeoptionvar").where({tid:data.id}).delete();
+                     await this.model("type_optionvalue"+data.sort_id).where({tid:data.id}).update(sortdata);
                      //添加分类
                      this.model("typeoptionvar").addMany(sortarr);
                  }

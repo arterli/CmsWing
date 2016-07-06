@@ -9,7 +9,7 @@
 import Base from './base.js';
 import url from 'url';
 /**
- * 模型管理控制器
+ * 模型管理模型
  * @author arterli <arterli@qq.com>
  */
 export default class extends Base {

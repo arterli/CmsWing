@@ -112,27 +112,27 @@ export default class extends Base {
 
               }
           }
-          console.log(typevar);
+          //console.log(typevar);
           this.assign("typevar",typevar);
       }
       if(!think.isEmpty(sortarr)) {
           sortarr = sortarr.split("|");
            nsobj = {}
-          let where = {}
           let optionidarr = [];
           let valuearr = [];
           for (let v of sortarr) {
               let qarr = v.split("_");
               nsobj[qarr[0]] = qarr[1];
-              where[qarr[0]] = qarr[1];
+              if(qarr[1] !=0){
+              map["t."+qarr[0]] = qarr[1];
+              }
           }
-          where.sortid = sortid;
-          where.fid = cate.id;
+          map.fid = cate.id;
           // where.optionid = ["IN",optionidarr];
           // where['value'] = ["IN",valuearr];
          // let type= await this.model("typeoptionvar").where(where).select();
          //  console.log(type);
-          console.log(where);
+          console.log(map);
       }
       console.log(sort);
       this.assign("sort",sort);
@@ -141,12 +141,24 @@ export default class extends Base {
       this.assign("sortid",sortid);
       let group_id = 0;
       if(!think.isEmpty(get.split("/")[1]) && get.split("/")[1] !=0){
-       map.group_id=get.split("/")[1];
+          map.group_id=get.split("/")[1];
           group_id = map.group_id;
       }
       this.assign("group_id",group_id)
       //console.log(map);
-      let data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+      let data;
+      if(!think.isEmpty(sortarr)){
+          data = await this.model('document').join({
+                      table: "type_optionvalue"+sortid,
+                      join: "left", // 有 left,right,inner 3 个值
+                      as: "t",
+                      on: ["id", "tid"]
+
+              }).where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+      }else {
+          data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+      }
+  
       // let data = await this.model('document').join({
       //     typeoptionvar: {
       //         join: "left", // 有 left,right,inner 3 个值
