@@ -271,10 +271,10 @@ export default class extends Base {
     }
     
     qiniusAction(){
-        let qiniu = think.service("qiniu");
-        let instance = new qiniu();
-        instance.pfop();
-        
+        // let qiniu = think.service("qiniu");
+        // let instance = new qiniu();
+        // instance.pfop();
+        console.log(testanjiao(["1", "2", "3"], 1));
         this.end();
     }
 }

@@ -146,6 +146,15 @@ export default {
                         return sort_url(id,val,arr,http,type);
 
                 })
+                //解析分类信息当前状态
+                env.addFilter("sort_act",function (id,getid) {
+                    //console.log(in_array(id, sanjiao(getid.split("."))));
+                    if(!think.isEmpty(getid)){
+                        return in_array(id,sanjiao(getid.split(".")));
+                    }
+
+
+                })
                 /**
                  * 时间戳格式化 dateformat('Y-m-d H:i:s')
                  * @param extra 'Y-m-d H:i:s'

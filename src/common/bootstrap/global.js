@@ -323,6 +323,40 @@ global.parse_config_attr = function(str) {
     }
 
 }
+global.parse_type_attr = function (str) {
+    let strs;
+    if (str.search(/\r\n/ig) > -1) {
+        strs = str.split("\r\n");
+    } else if (str.search(/,/ig) > -1) {
+        strs = str.split(",");
+    } else if(str.search(/\n/ig) > -1){
+        strs = str.split("\n");
+    }else {
+        strs = [str];
+    }
+    if(think.isArray(strs)){
+            let arr = [];
+            for (let v of strs){
+                let obj = {};
+                v = v.split(":");
+                if(!think.isEmpty(v[0])&&!think.isEmpty(v[1])){
+                obj.id = v[0];
+                obj.name = v[1];
+                if(obj.id.split(".").length ==1){
+                    obj.pid = 0
+                }else {
+                    obj.pid = obj.id.split(".").splice(0,obj.id.split(".").length-1).join(".");
+                }
+                arr.push(obj);
+                }
+            }
+        //console.log(arr);
+        let tree = arr_to_tree(arr,0)
+       //think.log(tree);
+        return tree;
+    }
+
+}
 /**
  * ltrim()
  * @param str [删除左边的空格]
@@ -361,6 +395,14 @@ global.arr_to_tree = function(data, pid) {
                 data[i].chnum =data[i].children.length
             }
         }
+    }
+    return result;
+}
+
+global.sanjiao = (arr)=>{
+    var result = [];
+    for(var i = 0,len = arr.length;i<len;i++){
+        result.push(result[i - 1]!==undefined?result[i - 1]+'.'+arr[i]:arr[i]);
     }
     return result;
 }

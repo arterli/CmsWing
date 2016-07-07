@@ -107,12 +107,14 @@ export default class extends Base {
               if(val.option.type == 'select'){
                   if(!think.isEmpty(val.option.rules)){
                       val.option.rules = JSON.parse(val.option.rules);
+                      val.rules=parse_type_attr(val.option.rules.choices);
                       val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+
                   }
 
               }
           }
-          //console.log(typevar);
+          console.log(typevar);
           this.assign("typevar",typevar);
       }
       if(!think.isEmpty(sortarr)) {
