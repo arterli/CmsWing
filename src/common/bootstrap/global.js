@@ -398,7 +398,7 @@ global.arr_to_tree = function(data, pid) {
     }
     return result;
 }
-
+//计算分类信息当前状态
 global.sanjiao = (arr)=>{
     var result = [];
     for(var i = 0,len = arr.length;i<len;i++){
