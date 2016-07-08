@@ -101,23 +101,55 @@
                         </div>
                 </div>
                 {%for val in typevar%}
+                {%if val.available==1%}
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">
                         {{val.option.title}}
                     </label>
                     <div class="col-sm-10">
                         <div class="row">
+                            {%if val.option.type == 'select' %}
                             <div class="col-md-3">
-                                <select class="form-control " name="sortid_{{val.option.identifier}}">
-                                    <option value="0"  >请选择</option>
+                                <select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                    <option value=" "  >请选择</option>
                                     {% for k ,v in val.option.rules.choices %}
-                                    <option value="{{k}}">{{v}}</option>
+                                    <option value="{{k}}">[{{k}}] {{v}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
+                            {% elif val.option.type == 'number' %}
+                            <div class="col-md-2">
+                                <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                            </div>
+                            {% elif val.option.type == 'textarea' %}
+                            <div class="col-md-8">
+                                <textarea class="form-control" name="sortid_{{val.option.identifier}}"  {% if val.required == 1 %}data-required="true"{%endif%}  {% if val.option.rules.rowsize %} rows="{{val.option.rules.rowsize}}" {% endif %}>{{val.option.rules.defaultvalue}}</textarea>
+                            </div>
+                            {% elif val.option.type == 'radio' %}
+                            <div class="col-md-8">
+                                {% for k ,v in val.option.rules.choices %}
+                                <label class="radio-inline i-checks">
+                                    <input type="radio" value="{{k}}" name="sortid_{{val.option.identifier}}" ><i></i> {{v}}
+                                </label>
+                                {% endfor %}
+                            </div>
+                            {% elif val.option.type == 'checkbox' %}
+                            <div class="col-md-8">
+                                {% for k ,v in val.option.rules.choices %}
+                                <label class="checkbox-inline i-checks">
+                                    <input type="checkbox" value="{{k}}" name="sortid_{{val.option.identifier}}" ><i></i> {{v}}
+                                </label>
+                                {% endfor %}
+                            </div>
+                            {%else%}
+                            <div class="col-md-8">
+                                <input type="text" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                            </div>
+                            {%endif%}
                         </div>
                     </div>
                 </div>
+                {%endif%}
                 {%endfor%}
                 <div class="line line-dashed b-b line-lg pull-in"></div>
                 {%endif%}

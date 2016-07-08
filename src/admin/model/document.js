@@ -60,13 +60,13 @@ export default class extends think.model.base {
                          let arr = k.split("_");
                          if(arr[0]=="sortid" && !think.isEmpty(arr[1])){
                              let obj ={}
-                             obj.value = data[k];
+                             obj.value = think.isArray(data[k])?JSON.stringify(data[k]):data[k];
                              obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
                              obj.sortid = data.sort_id;
                              obj.fid = data.category_id;
                              obj.tid = id;
                              sortarr.push(obj);
-                             sortdata[arr[1]] = data[k];
+                             sortdata[arr[1]] = think.isArray(data[k])?JSON.stringify(data[k]):data[k];
                              sortdata.tid = id;
                              sortdata.fid = data.category_id;
                          }
@@ -95,13 +95,13 @@ export default class extends think.model.base {
                          let arr = k.split("_");
                          if(arr[0]=="sortid" && !think.isEmpty(arr[1])){
                              let obj ={}
-                             obj.value = data[k];
+                             obj.value = think.isArray(data[k])?JSON.stringify(data[k]):data[k];
                              obj.optionid = await this.model("typeoption").where({identifier:arr[1]}).getField("optionid",true);
                              obj.sortid = data.sort_id;
                              obj.fid = data.category_id;
                              obj.tid = data.id;
                              sortarr.push(obj);
-                             sortdata[arr[1]] = data[k];
+                             sortdata[arr[1]] = think.isArray(data[k])?JSON.stringify(data[k]):data[k];
                              sortdata.tid = data.id;
                              sortdata.fid = data.category_id;
                          }

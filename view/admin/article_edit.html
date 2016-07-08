@@ -79,7 +79,7 @@ table tr td{
                                         {% for key ,group in model.field_group | parse_config_attr %}
                                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                                             {%if sort and key ==1%}
-                                            <input type="hidden" name="sort_id" value="{{http.get('sortid')}}">
+                                            <input type="hidden" name="sort_id" value="{{data.sort_id}}">
                                             <div class="form-group">
                                                 <label  class="col-sm-2 control-label">
                                                     分类
@@ -100,23 +100,56 @@ table tr td{
                                                 </div>
                                             </div>
                                             {%for val in typevar%}
+                                            {%if val.available==1%}
                                             <div class="form-group">
                                                 <label  class="col-sm-2 control-label">
                                                     {{val.option.title}}
                                                 </label>
                                                 <div class="col-sm-10">
                                                     <div class="row">
+
+                                                            {%if val.option.type == 'select'%}
                                                         <div class="col-md-3">
-                                                            <select class="form-control " name="sortid_{{val.option.identifier}}">
-                                                                <option value="0"  >请选择</option>
+                                                            <select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                                <option value=" "  >请选择</option>
                                                                 {% for k ,v in val.option.rules.choices %}
-                                                                <option value="{{k}}" {% if val.option.value == k %}selected{%endif%}>{{v}}</option>
+                                                                <option value="{{k}}" {% if val.option.value == k %}selected{%endif%}>[{{k}}] {{v}}</option>
                                                                 {% endfor %}
                                                             </select>
+                                                            </div>
+                                                        {% elif val.option.type == 'number' %}
+                                                        <div class="col-md-2">
+                                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                        </div>
+                                                        {% elif val.option.type == 'textarea' %}
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="sortid_{{val.option.identifier}}"  {% if val.required == 1 %}data-required="true"{%endif%}  {% if val.option.rules.rowsize %} rows="{{val.option.rules.rowsize}}" {% endif %}>{{val.option.value}}</textarea>
+                                                        </div>
+                                                        {% elif val.option.type == 'radio' %}
+                                                        <div class="col-md-8">
+                                                            {% for k ,v in val.option.rules.choices %}
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if val.option.value == k %}checked{%endif%} ><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% elif val.option.type == 'checkbox' %}
+                                                        <div class="col-md-8">
+                                                            {% for k ,v in val.option.rules.choices %}
+                                                            <label class="checkbox-inline i-checks">
+                                                                <input type="checkbox" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if k|in_Array(val.option.value|strToJson)  %}checked{%endif%}><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {%else%}
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                        </div>
+                                                            {%endif%}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            {%endif%}
                                             {%endfor%}
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             {%endif%}

@@ -95,7 +95,7 @@ export default {
                     }
                 })
                 env.addFilter("strToJson", function (str) {
-                    if (!think.isEmpty(str)) {
+                    if (!think.isEmpty(str) && str !=0) {
                         return JSON.parse(str);
                     }
                 })
@@ -113,6 +113,10 @@ export default {
 
                 env.addFilter("in_Array", function (str, arr) {
                     if (!think.isArray(arr)) {
+                        if(!think.isNumber(arr)){
+                            arr = "'"+arr+"'";
+                        }
+
                         arr = arr.split(",");
                     }
                     //console.log(arr);

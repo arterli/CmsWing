@@ -46,7 +46,7 @@
                                     <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
                                         <tbody>
                                         {%for val in typevar%}
-                                        {%if val.search > 1%}
+                                        {%if val.search > 1 and val.available==1%}
                                         <tr>
                                             <td style="width: 120px" class="text-right">
                                                {{val.option.title}}:
@@ -57,13 +57,58 @@
                                                 {%else%}
                                                 <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">全部</a>
                                                 {%endif%}
-                                                {%for k,v in val.option.rules.choices %}
-                                                {%if k == http.get(val.option.identifier)%}
-                                                <span style="margin-right: 10px">{{v}}</span>
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
+                                                <span style="margin-right: 10px">{{v.name}}</span>
                                                 {%else%}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{k|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v}}</a>
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v.name}}</a>
                                                 {%endif%}
                                             {%endfor%}
+
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
+                                                {% if v.children%}
+                                                <div class="subtsm">
+
+                                                    {% for v_ in v.children %}
+                                                    {%if v_.id|sort_act(http.get(val.option.identifier))%}
+                                                    <span style="margin-right: 10px">{{v_.name}}</span>
+                                                    {%else%}
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v_.name}}</a>
+                                                    {%endif%}
+                                                    {% endfor %}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
+                                                {% if v.children%}
+
+                                                {% for v_ in v.children %}
+                                                {%if v_.id|sort_act(http.get(val.option.identifier))%}
+                                                {% if v_.children%}
+                                                <div class="subtsm">
+                                                    {% for v__ in v_.children %}
+
+                                                    {%if v__.id|sort_act(http.get(val.option.identifier))%}
+
+                                                    <span style="margin-right: 10px">{{v__.name}}</span>
+                                                    {%else%}
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v__.name}}</a>
+
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {% endfor %}
+
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
                                             </td>
 
                                         </tr>

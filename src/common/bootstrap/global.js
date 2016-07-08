@@ -1148,7 +1148,7 @@ global.sort_url = (id,val,arr,http,type = 0)=>{
     if(type ==1){
         url=`${val}/${id}`;
         for(let v of arr){
-            if(v.option.identifier != val){
+            if(v.option.identifier != val && v.search > 1){
                 url += `/${v.option.identifier}/${http.get(v.option.identifier)||0}`
             }
         }

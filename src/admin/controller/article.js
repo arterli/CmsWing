@@ -43,9 +43,10 @@ export default class extends Base {
                 for (let val of typevar){
 
                     val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
-                    if(val.option.type == 'select'){
+                    if(val.option.type == 'select'||val.option.type == 'radio'||val.option.type == 'checkbox'){
                         if(!think.isEmpty(val.option.rules)){
                             val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
                             val.option.rules.choices = parse_config_attr(val.option.rules.choices);
                         }
 
@@ -346,9 +347,19 @@ export default class extends Base {
                 if(val.option.type == 'select'){
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
+                        val.rules=parse_type_attr(val.option.rules.choices);
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
                     }
 
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+                }else {
+                  if(!think.isEmpty(val.option.rules)){
+                      val.option.rules = JSON.parse(val.option.rules);
+                  }
                 }
             }
             console.log(typevar);
@@ -439,9 +450,20 @@ export default class extends Base {
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
-                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
                     }
 
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
+                    }
+                }else {
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
+                    }
                 }
             }
             console.log(typevar);

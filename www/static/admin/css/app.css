@@ -4532,3 +4532,8 @@ textarea.parsley-error {
   padding-bottom: 1px ;
   height: auto;
 }
+.subtsm {
+  margin-top: 3px;
+  padding: 3px;
+  border: 1px dotted #C2D5E3;
+}

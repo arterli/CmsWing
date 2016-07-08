@@ -104,7 +104,7 @@ export default class extends Base {
           for (let val of typevar){
 
               val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
-              if(val.option.type == 'select'){
+              if(val.option.type == 'select' ||val.option.type == 'radio'||val.option.type == 'checkbox'){
                   if(!think.isEmpty(val.option.rules)){
                       val.option.rules = JSON.parse(val.option.rules);
                       val.rules=parse_type_attr(val.option.rules.choices);

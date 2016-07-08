@@ -85,11 +85,19 @@ export default class extends Base {
         let data = this.post('data');
         data = JSON.parse(data);
         console.log(data);
+        //return false;
        let del= await this.model('typevar').delete({
             where: {sortid: data.id}
         });
-
-        let add= await this.model('typevar').addMany(data.datarr);
+        let datas = [];
+        for(let v of data.datarr){
+            if(v.isdel !=1){
+                datas.push(v);
+            }
+        }
+        // console.log(datas);
+        // return false;
+        let add= await this.model('typevar').addMany(datas);
         if(!think.isEmpty(add)){
             //添加字段
             this.model("type").addField(data);
