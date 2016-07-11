@@ -4,7 +4,7 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <div class="btn-group pull-right">
-            <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加分类</a>
+            <a href="/admin/category/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加栏目</a>
         </div>
         <p>{{controller.meta_title}}</p>
     </header>
@@ -20,7 +20,7 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
                         <a href="/admin/category/add" class="btn btn-sm btn-info ">
-                            添加分类
+                            添加栏目
                         </a>
                         <a href="#" onclick="jQuery('#category').treetable('expandAll'); return false;" class="btn btn-sm btn-info ">
                             展开全部
@@ -58,9 +58,9 @@
 
                         <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
                             <a class="text-info" href="#">禁用</a>
-                            <a class="text-info" href="#">删除</a>
-                            <a class="confirm ajax-get text-info" href="#">移动</a>
-                        <a class="confirm ajax-get text-info" href="#">合并</a></td>
+                            <a class="text-info" href="/admin/category/del/cid/{{val.id}}">删除</a>
+                            <a class="text-info" href="/admin/category/move/from/{{val.id}}">移动</a>
+                        <a class="text-info" href="/admin/category/merge/from/{{val.id}}">合并</a></td>
                     </tr>
 {%endfor%}
 

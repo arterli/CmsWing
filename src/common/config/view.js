@@ -112,11 +112,11 @@ export default {
                 })
 
                 env.addFilter("in_Array", function (str, arr) {
+                    arr= arr||0;
                     if (!think.isArray(arr)) {
-                        if(!think.isNumber(arr)){
+                        if(think.isNumber(arr)){
                             arr = "'"+arr+"'";
                         }
-
                         arr = arr.split(",");
                     }
                     //console.log(arr);

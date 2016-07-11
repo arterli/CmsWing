@@ -1164,3 +1164,35 @@ global.sort_url = (id,val,arr,http,type = 0)=>{
     //console.log(url);
     return url;
 }
+/*
+ *比较数组是否完全相同
+ */
+global.a2a = function (a1,a2){
+    if(!(think.isArray(a1) && think.isArray(a2))){
+        return false;
+    }
+    if(a1.length != a2.length){
+        return false;
+    }
+
+    a1.sort();
+    a2.sort();
+    for(var i=0;i<a1.length;i++){
+        if(typeof a1[i] != typeof a2[i]){
+            return false;
+        }
+        if(think.isObject(a1[i]) && think.isObject(a2[i])){
+            var retVal = o2o(a1[i],a2[i]);
+            if(!retVal){
+                return false;
+            }
+        }else if(think.isArray(a1[i]) && think.isArray(a2[i]) ){//recursion
+            if(!a2a(a1[i],a2[i])){
+                return false;
+            }
+        }else if(a1[i] !== a2[i]){
+            return false;
+        }
+    }
+    return true;
+}

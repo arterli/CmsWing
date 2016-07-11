@@ -1,0 +1,129 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+{% endblock%}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+
+    </header>
+    <section class="scrollable wrapper">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="/admin/category/move" class="form-horizontal" method="post"  data-validate="parsley">
+                            <div class="tab-content">
+
+                                <div id="tab1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">源栏目</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <select class="form-control" name="source" id="source">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted">
+                                                        <i class="fa fa-info-circle text-info"></i>
+                                                        源栏目的内容全部转入目标栏目，同时保留源版块<br>
+                                                        如果源栏目跟目标栏目存在不同的模型会先合并模型<br>
+                                                        如果源栏目存在分组和分类信息会提示相关操作。
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">目标栏目</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <select class="form-control" name="target" id="target">
+                                                    </select>
+                                                </div>
+                                                <!--<div class="col-md-12">-->
+                                                    <!--<span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>-->
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
+                                    <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<!-- slider -->
+<!--<script src="/static/js/slider/bootstrap-slider.js"></script>-->
+<!-- file input -->
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/zTree/jquery.ztree.all-3.5.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+
+        //获取上级菜单
+        $.ajax({
+            url: "/admin/category/gettree",
+            success: function (msg) {
+                /* 展示生成的HTML */
+                $("#source").html(category_to_html(msg,"source"));
+                $("#target").html(category_to_html(msg));
+            }
+        })
+
+        /* 生成HTML ul/li 形式 */
+        function category_to_html(nodes,type) {
+            var html = [];
+            var size = nodes.length;
+            var left = null;
+            var pid=0;
+            if(type == "source"){
+                 pid ="{{from}}";
+            }
+
+            var check = "";
+            if(pid==0){
+                html.push('<option value="0" selected="selected">>请选择</option>');
+            }else {
+                html.push('<option value="0" >>请选择</option>');
+            }
+            for (var i = 0; i < size; i++) {
+                left = nodes[i];
+                if(pid == left.id){
+                    html.push('<option value="' + left['id'] +  '" selected="selected">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }else {
+                    html.push('<option value="' + left['id'] + '">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }
+                console.log(left.id);
+
+            }
+            return html.join("\n");
+        }
+    })
+</script>
+{% endblock %}
