@@ -41,7 +41,7 @@
                         <th style="width:80px;">排序</th>
                         <th class="">标识</th>
                         <th class="">发布</th>
-
+                        <th style="width:80px;">状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -54,13 +54,15 @@
                         <td>
                           {%if val.allow_publish == 0 %}不允许{% elif val.allow_publish==1%}允许后台发布{%elif val.allow_publish==2%}允许前后台发布{%endif%}
                         </td>
-
+ <td> <a href="/admin/category/setstatus/ids/{{val.id}}/status/{{1-val.status}}" class="active ajax-get" data-toggle="class">
+     <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>
+     <i class="fa fa-times text-danger {%if val.status %}text{%else%}text-active{%endif%}"></i>
+ </a></td>
 
                         <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
-                            <a class="text-info" href="#">禁用</a>
-                            <a class="text-info" href="/admin/category/del/cid/{{val.id}}">删除</a>
+                            <a class="text-info delcate" href="javascript:void(0)" data-id="{{val.id}}">删除</a>
                             <a class="text-info" href="/admin/category/move/from/{{val.id}}">移动</a>
-                        <a class="text-info" href="/admin/category/merge/from/{{val.id}}">合并</a></td>
+                        <a class="text-info" href="/admin/category/move/merge/1/from/{{val.id}}">合并</a></td>
                     </tr>
 {%endfor%}
 
@@ -89,7 +91,85 @@
 <script type="text/javascript">
     $("#category").treetable({ expandable: true });
     jQuery('#category').treetable('expandAll')
+  $(function () {
+      $(".delcate").click(function () {
+          var id = $(this).attr("data-id");
+          swal({
+              title: "确定删除?",
+              text: "删除后不可恢复，请谨慎操作!",
+              type: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "确定!",
+              cancelButtonText:"算了",
+              closeOnConfirm: false }, function(){
+              $.ajax({
+                  url: "/admin/category/del/confirm/1/id/" + id,
+                  success: function (data) {
+                      if(data.ok == 0){
+                          swal({title:data.info, text:"", type:"success"},function () {
+                              location.reload();
+                          });
 
+                      } else if(data.ok==1){
+                          swal({
+                              title: "确定删除?",
+                              text: data.info+"删除后不可恢复，请谨慎操作!</br><code>您可以将该栏目内容移动到其它栏目，然后再删除</code></br><code>如果该栏目内容不需要保留，点击确定连同该栏目的内容一起删除！</code>",
+                              html:true,
+                              type: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#DD6B55",
+                              confirmButtonText: "确定!",
+                              cancelButtonText:"算了",
+                              closeOnConfirm: false }, function(){
+                              $.ajax({
+                                  url: "/admin/category/del/type/one/id/" + id,
+                                  success: function (data) {
+                                      if(data.ok == 0){
+                                          swal({title:data.info, text:"", type:"success"},function () {
+                                              location.reload();
+                                          });
+
+                                      } else{
+
+                                      }
+                                  }
+                              });
+                          })
+                  }else if(data.ok==2) {
+                          swal({
+                              title: "确定删除?",
+                              text: data.info+"删除后不可恢复，请谨慎操作!</br><code>您可以将该栏目的子栏目以及内容移动到其它栏目，然后再删除</code></br><code>如果该栏目(子栏目)下所有内容不需要保留，点击确定将一起删除！</code>",
+                              html:true,
+                              type: "warning",
+                              showCancelButton: true,
+                              confirmButtonColor: "#DD6B55",
+                              confirmButtonText: "确定!",
+                              cancelButtonText:"算了",
+                              closeOnConfirm: false }, function(){
+                              $.ajax({
+                                  url: "/admin/category/del/type/all/id/" + id,
+                                  success: function (data) {
+                                      if(data.ok == 0){
+                                          swal({title:data.info, text:"", type:"success"},function () {
+                                              location.reload();
+                                          });
+
+                                      } else{
+
+                                      }
+                                  }
+                              });
+                          })
+                      }
+              }
+                  });
+              })
+
+
+
+      })
+  })
 </script>
 
 {% endblock %}
