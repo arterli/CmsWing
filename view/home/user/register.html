@@ -52,7 +52,7 @@
                 <!-- /ALERT -->
 
                 <!-- register form -->
-                <form class="nomargin sky-form boxed" action="#" method="post">
+                <form class="nomargin sky-form boxed registerpost" action="/user/register" method="post">
                     <header>
                         <i class="fa fa-users"></i> {{controller.meta_title}}
                     </header>
@@ -60,37 +60,41 @@
                     <fieldset class="nomargin">
                         <label class="input margin-bottom-10">
                             <i class="ico-append fa fa fa-user"></i>
-                            <input type="text" placeholder="用户名">
+                            <input type="text" placeholder="用户名" name="username">
                             <b class="tooltip tooltip-bottom-right">字母，数字等，用户名唯一</b>
                         </label>
                         <label class="input margin-bottom-10">
                             <i class="ico-append fa fa-envelope"></i>
-                            <input type="text" placeholder="Email address">
+                            <input type="email" placeholder="电子邮箱" name="email">
                             <b class="tooltip tooltip-bottom-right">user@cmswing.com</b>
                         </label>
-
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-mobile"></i>
+							<input type="text" placeholder="手机号码" name="mobile">
+							<b class="tooltip tooltip-bottom-right">18688888888</b>
+						</label>
                         <label class="input margin-bottom-10">
                             <i class="ico-append fa fa-lock"></i>
-                            <input type="password" placeholder="密码">
+                            <input type="password" placeholder="密码" name="password">
                             <b class="tooltip tooltip-bottom-right">不少于6位</b>
                         </label>
 
                         <label class="input margin-bottom-10">
                             <i class="ico-append fa fa-lock"></i>
-                            <input type="password" placeholder="确认密码">
+                            <input type="password" placeholder="确认密码" name="password2">
                             <b class="tooltip tooltip-bottom-right">确认密码</b>
                         </label>
                         <div class="margin-top-30">
                             <label class="checkbox nomargin">
-                                <input class="checked-agree" type="checkbox" name="checkbox"><i></i>我同意 <a href="#" data-toggle="modal" data-target="#termsModal">网站服务条款</a></label>
+                                <input class="checked-agree" type="checkbox" name="clause" checked><i></i>我同意 <a href="#" data-toggle="modal" data-target="#termsModal">网站服务条款</a></label>
                             <label class="checkbox nomargin">
-                                <input type="checkbox" name="checkbox"><i></i>我想接收新闻和特别优惠信息！</label>
+                                <input type="checkbox" name="info"><i></i>我想接收新闻和特别优惠信息！</label>
                         </div>
                     </fieldset>
 
                     <div class="row margin-bottom-20">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> 立即注册</button>
+                            <button type="submit" class="btn btn-primary ajax-post" target-form="registerpost" ><i class="fa fa-check"></i> 立即注册</button>
                         </div>
                     </div>
 

@@ -649,9 +649,66 @@ export default class extends Base {
     /**
      * 注册页面
      */
-    registerAction() {
-        this.meta_title = "用户注册";
-        return this.display();
+    async registerAction() {
+        if(this.isPost()){
+            let data = this.post();
+            console.log(data);
+            //验证
+            let res;
+            if(think.isEmpty(data.username)){
+                return this.fail("用户昵称不能为空！");
+            }else{
+                res = await this.model("member").where({username:ltrim(data.username)}).find();
+                if(!think.isEmpty(res)){
+                    return this.fail("用户昵称已存在，请重新填写！")
+                }
+            }
+            if(think.isEmpty(data.mobile)){
+                return this.fail("手机号码不能为空！")
+            }else{
+                res = await this.model("member").where({mobile:data.mobile}).find();
+                if(!think.isEmpty(res)){
+                    return this.fail("手机号码已存在，请重新填写！")
+                }
+            }
+            if(think.isEmpty(data.email)){
+                return this.fail("电子邮箱不能为空！")
+            }else{
+                res = await this.model("member").where({email:data.email}).find();
+                if(!think.isEmpty(res)){
+                    return this.fail("电子邮箱已存在，请重新填写！")
+                }
+            }
+            if(think.isEmpty(data.password) && think.isEmpty(data.password2)){
+                return this.fail("密码不能为空！")
+            }else{
+
+                if(data.password != data.password2){
+                    return this.fail("两次输入的密码不一致，请重新填写！")
+                }
+            }
+            if(data.clause != "on"){
+                return this.fail("必须要同意,网站服务条款")
+            }
+
+            data.status = 1;
+            data.reg_time = new Date().valueOf();
+            data.reg_ip = _ip2int(this.ip());
+            data.password = encryptPassword(data.password);
+            let reg = await this.model("member").add(data);
+            await this.model("member",{},"admin").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+            let userInfo = {
+                'uid':reg,
+                'username': data.username,
+                'last_login_time': data.reg_time,
+            };
+            await this.session('webuser', userInfo);
+            return this.success({name:"注册成功,登录中!",url:"/user/index"});
+        }else {
+            this.meta_title = "用户注册";
+            return this.display();
+        }
+
     }
 //alipay_in_weixin 在微信客户端中使用支付宝手机网页支付（alipay_wap）
     alipayinweixinAction(){

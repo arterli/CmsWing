@@ -235,7 +235,7 @@ export default class extends Base {
         if(confirm==1){
             //查询该栏目是否包含子栏目
           let pid= await this.model("category").get_sub_category(id);
-            console.log(pid);
+            //console.log(pid);
             let l = pid.length;
             if(l>0){
                 return this.json({ok:2,info:`该栏目含有${l}子栏目`})
@@ -301,6 +301,13 @@ export default class extends Base {
         let data = this.post();
            console.log(data);
             //return false;
+            //检查要移动的栏目是否包含子栏目
+            let pid= await this.model("category").get_sub_category(data.source);
+            //console.log(pid);
+            let l = pid.length;
+            if(l>0){
+                return this.fail(`源栏目含有${l}个子栏目，前先删除或者移走子栏目，再进行操作！`)
+            }
             //检查源栏目是否 跟目标栏目重复
             if(data.source == data.target){
                 return this.fail("源栏目不能与目标栏目重复！")
@@ -357,31 +364,7 @@ export default class extends Base {
             }
 
             //检查源栏目是否有分类信息和分组，如果有跳转到处理页面
-            // if(think.isEmpty(target.groups) && think.isEmpty(target.documentsorts)) {//判断目标栏目是否有设置分组
-            //     if (!think.isEmpty(source.groups)) {
-            //         ntarget.groups = source.groups
-            //     }
-            //     if (!think.isEmpty(source.documentsorts)) {
-            //         ntarget.documentsorts = source.documentsorts
-            //     }
-            //     //console.log(ntarget);
-            //     this.model("category").update(ntarget);//复制栏目信息
-            //     //更新栏目缓存
-            //     think.cache("sys_category_list",null);
-            //     think.cache("all_category",null);
-            //     this.model("document").where({category_id: source.id}).update({category_id: ntarget.id});//移动文章
-            //     //如果存在分类信息移动分类信息内容
-            //     if(!think.isEmpty(source.documentsorts)){
-            //         let documentsorts = JSON.parse(source.documentsorts);
-            //         if(!think.isEmpty(documentsorts.types)){
-            //             for(let v of documentsorts.types){
-            //                 this.model("type_optionvalue"+v.enable).where({fid: source.id}).update({fid: ntarget.id});
-            //                 this.model("typeoptionvar").where({fid: source.id,sortid:v.enable}).update({fid: ntarget.id});
-            //             }
-            //         }
-            //     }
-            //     return this.success({name: "成功！"})
-            // }else {
+
                 if(!think.isEmpty(source.groups) && source.groups != target.groups && !think.isEmpty(target.groups)){
                     //如果源栏目和目标栏目都有分类信息和分组，并且不相等，跳转配置页面
                     //记录栏目信息
@@ -414,8 +397,7 @@ export default class extends Base {
                     think.cache("all_category",null);
                     return this.success({name: "成功！",url:"/admin/category/index"})
                 }
-            // }
-            //console.log(ntarget);
+
         }else {
             let from = this.get("from");
             this.assign("from",from);
