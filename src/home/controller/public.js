@@ -217,4 +217,24 @@ export default class extends Base {
       this.fail(fail);
     }
   }
+
+ async verifycodesendAction(){
+   let data = this.get();
+   let code = this.cookie("verifycode"); //获取名为 theme 的 cookie
+
+   console.log(code);
+   if(think.isEmpty(code)){
+     code = MathRand();
+     this.cookie("verifycode", code, {
+       timeout: 3600 //设置 cookie 有效期为 7 天
+     }); //将 cookie theme 值设置为 default
+     console.log(222);
+   }else {
+     console.log(111);
+   }
+   let result =  { err_code: '0',
+     model: '102195973534^1102842222469',
+     success: true }
+  return this.json(result)
+ }
 }

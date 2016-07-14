@@ -413,6 +413,7 @@ CLASSES:
 
     </div>
 </section>
+
 <!-- / -->
 {% endblock %}
 
@@ -424,24 +425,24 @@ CLASSES:
     var ivaInstance = new Iva(
             'video-box',//父容器id或者父容器DOM对象，给父容器设置宽高640px*480px以上可以获得最佳的浏览体验；
             {
-                appkey: 'VJa72yR7W',//必填，请在控制台查看应用标识
+                appkey: '{{controller.setup.VIDEOJJ_appkey}}',//必填，请在控制台查看应用标识
                 live: false,//选填，是否是直播流，默认为false
                 video: '{%if info.video_id != 0%}http://{{controller.setup.QINIU_DOMAIN_NAME}}/{{info.video_id|get_file("savename",false)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（http://www.tudou.com/programs/view/tM_vZCQy2uM/）或者资源地址（http://7xi4ig.com2.z0.glb.qiniucdn.com/shapuolang_ts.mp4）
                 title: '{{info.title}}',//选填，视频标题
                 cover: '{{info.cover_id|get_pic("")}}',//选填，视频封面url
-                videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
-                videoEndPrefixSeconds: 0,//选填，跳过片尾，默认为0
+                videoStartPrefixSeconds: {{controller.setup.VIDEOJJ_videoStart}},//选填，跳过片头，默认为0
+                videoEndPrefixSeconds: {{controller.setup.VIDEOJJ_videoEnd}},//选填，跳过片尾，默认为0
                 /* 以下参数可以在“控制台->项目看板->应用管理->播放器设置”进行全局设置，前端设置可以覆盖全局设置 */
-                skinSelect: 2,//选填，播放器皮肤，可选0、1、2，默认为0，
-                autoplay: true,//选填，是否自动播放，默认为false
-                rightHand: true,//选填，是否开启右键菜单，默认为false
-                autoFormat: false,//选填，是否自动选择最高清晰度，默认为false
-                bubble: true,//选填，是否开启云泡功能，默认为true
-                jumpStep: 10,//选填，左右方向键快退快进的时间
-                tagTrack: false,//选填，云链是否跟踪，默认为false
-                tagShow: false,//选填，云链是否显示，默认为false
-                tagDuration: 5,//选填，云链显示时间，默认为5秒
-                tagFontSize: 16//选填，云链文字大小，默认为16像素
+                skinSelect: {{controller.setup.VIDEOJJ_skinSelect}},//选填，播放器皮肤，可选0、1、2，默认为0，
+                autoplay: {{controller.setup.VIDEOJJ_autoplay}},//选填，是否自动播放，默认为false
+                rightHand: {{controller.setup.VIDEOJJ_rightHand}},//选填，是否开启右键菜单，默认为false
+                autoFormat: {{controller.setup.VIDEOJJ_autoFormat}},//选填，是否自动选择最高清晰度，默认为false
+                bubble: {{controller.setup.VIDEOJJ_bubble}},//选填，是否开启云泡功能，默认为true
+                jumpStep: {{controller.setup.VIDEOJJ_jumpStep}},//选填，左右方向键快退快进的时间
+                tagTrack: {{controller.setup.VIDEOJJ_tagTrack}},//选填，云链是否跟踪，默认为false
+                tagShow: {{controller.setup.VIDEOJJ_tagShow}},//选填，云链是否显示，默认为false
+                tagDuration: {{controller.setup.VIDEOJJ_tagDuration}},//选填，云链显示时间，默认为5秒
+                tagFontSize: {{controller.setup.VIDEOJJ_tagFontSize}}//选填，云链文字大小，默认为16像素
             }
     );
 
