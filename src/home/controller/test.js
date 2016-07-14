@@ -50,19 +50,20 @@ export default class extends Base {
    }
 
     async geetestAction(){
-        var privateKey = 'ae68a05dc013d21cad068a7f4271eca1 ';//key
-        var publicKey = '4dad8be53801fa4e2e50c1be078e2187 ';//id
-        var geetest = require('geetest')(privateKey, publicKey);
+        let privateKey = 'ae68a05dc013d21cad068a7f4271eca1';//key
+        let publicKey = '4dad8be53801fa4e2e50c1be078e2187';//id
+        let Geetest = require('geetest');
+        let geetest = new Geetest(privateKey, publicKey)
         //初始
         let register=(geetest) =>{
-            var publicKey = '4dad8be53801fa4e2e50c1be078e2187 ';//id
+            let publicKey = '4dad8be53801fa4e2e50c1be078e2187';//id
             let deferred = think.defer();
             geetest.register(function(err, challenge) {
                 if (err) {
                     //network error
                     deferred.resolve({
                         gt: publicKey,
-                        success: false
+                        success: 0
                     });
                     return;
                 }
@@ -73,7 +74,7 @@ export default class extends Base {
                     deferred.resolve({
                         challenge: challenge,
                         gt:publicKey,
-                        success: true
+                        success: 1
                     });
                 }
             })

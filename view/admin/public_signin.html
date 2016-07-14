@@ -34,11 +34,21 @@
                 <div class="form-group">
                     <input type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
                 </div>
-                <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">登录</span></button>
-                <div class="text-center m-t m-b"><a href="#"><small>Forgot password?</small></a></div>
-                <div class="line line-dashed"></div>
-                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a href="signup.html" class="btn btn-lg btn-info btn-block rounded">Create an account</a>
+                {%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+                <div class="form-group">
+                    <div class="form-control rounded input-lg text-center no-border">
+                    <div id="captcha"></div>
+                    <p id="wait" class="show">正在加载验证码......</p>
+                    <p id="notice" class="hide">请先拖动验证码到相应位置</p>
+                    </div>
+                </div>
+                {%endif%}
+                <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" id="validate-submit">
+                    <i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">登录</span></button>
+                <div class="text-center m-t m-b"><a href="#"><small>忘记密码?</small></a></div>
+                <!--<div class="line line-dashed"></div>-->
+                <!--<p class="text-muted text-center"><small>Do not have an account?</small></p>-->
+                <!--<a href="signup.html" class="btn btn-lg btn-info btn-block rounded">Create an account</a>-->
             </form>
         </section>
     </div>
@@ -59,8 +69,82 @@
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
-<script type="text/javascript" src="/static/admin/js/jPlayer/jquery.jplayer.min.js"></script>
-<script type="text/javascript" src="/static/admin/js/jPlayer/add-on/jplayer.playlist.min.js"></script>
-<script type="text/javascript" src="/static/admin/js/jPlayer/demo.js"></script>
+{%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+<!-- 引入封装了failback的接口--initGeetest -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+
+<!-- 若是https，使用以下接口 -->
+<!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+<script>
+    $(function () {
+        var handlerEmbed = function (captchaObj) {
+            var success = false;
+
+            $("#validate-submit").click(function () {
+                var validate = captchaObj.getValidate();
+                if (!validate) {
+                    alert('请先完成验证！');
+                    return false;
+                }
+                $.ajax({
+                    url: "/admin/public/geetest", // 进行二次验证
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        // 二次验证所需的三个值
+                        geetest_challenge: validate.geetest_challenge,
+                        geetest_validate: validate.geetest_validate,
+                        geetest_seccode: validate.geetest_seccode
+                    },
+                    success: function (data) {
+
+                        if (data && (data.status === "success")) {
+
+
+                        } else {
+                            alert("登录失败，请完成验证");
+                            captchaObj.refresh();
+                            return false;
+                        }
+                    }
+                });
+
+            });
+
+            // 将验证码加到id为captcha的元素里
+            captchaObj.appendTo("#captcha");
+
+            captchaObj.onReady(function () {
+                $("#wait")[0].className = "hide";
+            });
+
+            // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+        };
+
+                $.ajax({
+                    // 获取id，challenge，success（是否启用failback）
+                    url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+                    type: "get",
+                    dataType: "json",
+                    success: function (data) {
+
+                        // 使用initGeetest接口
+                        // 参数1：配置参数
+                        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+                        initGeetest({
+                            gt: data.gt,
+                            challenge: data.challenge,
+                            product: "float", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
+                            offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                        }, handlerEmbed);
+                    }
+                });
+
+
+
+
+    })
+</script>
+{%endif%}
 </body>
 </html>

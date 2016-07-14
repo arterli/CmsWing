@@ -8,7 +8,9 @@
 'use strict';
 
 export default class extends think.controller.base {
-
+    async  __before(){
+        this.setup = await this.model("setup").getset();
+    }
     /**
      * public action
      * @return {Promise} []
@@ -102,5 +104,75 @@ export default class extends think.controller.base {
         }
         //think.log(cate);
         return this.json(arr_to_tree(cate, 0))
+    }
+
+//验证码
+    async geetestAction(){
+        let privateKey = this.setup.GEETEST_KEY;//key
+        let publicKey = this.setup.GEETEST_ID;//id
+        let Geetest = require('geetest');
+        let geetest = new Geetest(privateKey, publicKey)
+        //初始
+        let register=(geetest) =>{
+            let publicKey = this.setup.GEETEST_ID;//id
+            let deferred = think.defer();
+            geetest.register(function(err, challenge) {
+                if (err) {
+                    //network error
+                    deferred.resolve({
+                        gt: publicKey,
+                        success: 0
+                    });
+                    return;
+                }
+                if(challenge) {
+                    //deal with it
+                    //res.json({challenge: challenge})
+                    //console.log(challenge);
+                    deferred.resolve({
+                        challenge: challenge,
+                        gt:publicKey,
+                        success: 1
+                    });
+                }
+            })
+            return deferred.promise;
+        }
+
+        //验证
+        let validate = (geetest,data)=>{
+            let deferred = think.defer();
+            geetest.validate({
+
+                challenge: data.geetest_challenge,
+                validate: data.geetest_validate,
+                seccode: data.geetest_seccode
+
+            }, function (err, result) {
+                console.log(result);
+                var data = {status: "success"};
+
+                if (err || !result) {
+                    console.log(err);
+                    data.status = "fail";
+                }
+
+                deferred.resolve(data);
+            });
+            return deferred.promise;
+        }
+        if(this.isPost()){
+            let post =this.post();
+            console.log(post);
+            let res = await validate(geetest,post);
+            console.log(res);
+            return this.json(res);
+        }else {
+            let res = await register(geetest);
+            console.log(res);
+            return this.json(res);
+        }
+
+
     }
 }
