@@ -364,6 +364,7 @@
 {% block script %}
 <!-- PAGE LEVEL SCRIPTS -->
 		<script type="text/javascript">
+			{% if controller.setup.USER_ALLOW_SMSREGISTER == 1 %}
        $("#verifycodesend").click(function () {
 		   var that = this;
 		   var mobile = $("input[name='mobile']").val();
@@ -403,7 +404,7 @@
 			   }
 		   })
 	   })
-
+			{% endif %}
 			/**
 				Checkbox on "I agree" modal Clicked!
 			**/

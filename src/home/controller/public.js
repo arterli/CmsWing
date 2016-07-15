@@ -245,13 +245,18 @@ export default class extends Base {
 
    let dayu = think.adapter("alidayu", "client");
    let instance = new dayu();
+   let qianming = this.setup.SMS_qianming;
+   let temp_code;
+   if(data.type ==1){
+     temp_code = this.setup.SMS_zhuce
+   }
    let info = {
      'extend':data.mobile,
      'sms_type':'normal',
-     'sms_free_sign_name':'酷翼cms',
-     'sms_param':`{"code":"${code}","product":"cmswing"}`,
+     'sms_free_sign_name':qianming,
+     'sms_param':`{"code":"${code}","product":"${this.setup.SMS_product}"}`,
      'rec_num':data.mobile,
-     'sms_template_code':'SMS_10281005'
+     'sms_template_code':temp_code
    }
    let result = await instance.send(info);
    // let result ={ err_code: '0',

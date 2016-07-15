@@ -13,9 +13,20 @@ export default class extends think.adapter.base {
   }
   async send(info){
     let setup = await think.model("setup",think.config("db"),"admin").getset();
+    let key;
+    if(!think.isEmpty(setup.SMS_Key)){
+      key = setup.SMS_Key.split("|");
+      console.log(key);
+      if(think.isEmpty(key[0])||think.isEmpty(key[1])){
+        return {result: { errno: '1000', errmsg: '请在后台配合正确的凭着'}}
+      };
+
+    }else {
+      return {result: { errno: '1000', errmsg: '请在后台配合正确的凭着'}}
+    }
     let client = new TopClient({
-      'appkey': setup.SMS_AppKey,
-      'appsecret': setup.SMS_AppSecret,
+      'appkey': key[0],
+      'appsecret': key[1],
       'REST_URL': 'http://gw.api.taobao.com/router/rest'
     });
     let execute =()=> {
