@@ -247,7 +247,7 @@ export default class extends Base {
      'sms_type':'normal',
      'sms_free_sign_name':'酷翼cms',
      'sms_param':`{"code":"${code}","product":"cmswing"}`,
-     'rec_num':'18681851637',
+     'rec_num':data.mobile,
      'sms_template_code':'SMS_10281005'
    }
    let result = await instance.send(info);
