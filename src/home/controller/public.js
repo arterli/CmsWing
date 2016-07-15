@@ -219,7 +219,10 @@ export default class extends Base {
   }
 //获取短信验证码
  async verifycodesendAction(){
-   let data = this.get();
+   if(!this.isPost()){
+     return this.fail("请求错误！")
+   }
+   let data = this.post();
    let code = MathRand();
    if(data.check ==1){
      let res = await this.model("member").where({mobile:data.mobile}).find();
@@ -284,7 +287,7 @@ export default class extends Base {
     if(!patrn.test(data.password)){
       return this.fail("密码：只能输入6-20个字母、数字、下划线")
     }
-
+    data.email = 0;
     data.username = data.mobile;
     data.status = 1;
     data.reg_time = new Date().valueOf();

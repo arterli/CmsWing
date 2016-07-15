@@ -374,18 +374,11 @@
 			   _toastr('请输入有效的手机号码!',"top-right","error",false);
 			   return false;
 		   }
-//		   $.ajax({
-//			   url:"/public/verifymember/f/mobile/v/"+mobile,
-//			   success:function (data) {
-//				   if(data.errno==1000){
-//					   _toastr("手机号码已存在!","top-right","error",false);
-//					   return false;
-//				   }
-//			   }
-//		   });
 		   $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 		   $.ajax({
-			   url:"/public/verifycodesend/mobile/"+mobile+"/type/"+type+"/check/1",
+			   type:"post",
+			   url:"/public/verifycodesend",
+			   data:{mobile:mobile,type:type,check:1},
 			   success:function (data) {
 				   if(data.err_code==0){
 					   $(".qian").hide();
