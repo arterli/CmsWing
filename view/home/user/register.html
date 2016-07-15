@@ -53,7 +53,7 @@
 {%if controller.setup.USER_ALLOW_REGISTER ==1%}
 				{%if controller.setup.USER_ALLOW_SMSREGISTER == 1%}
                 <!-- register form 短信注册-->
-                <form class="nomargin sky-form boxed registerpost" action="/user/registersms" method="post">
+                <form class="nomargin sky-form boxed registerpost" action="/public/smsreg" method="post">
                     <header>
                         <i class="fa fa-users"></i> {{controller.meta_title}}
                     </header>
@@ -77,7 +77,7 @@
 							<b class="tooltip tooltip-bottom-right">点击右侧按钮获取验证码</b>
 									</label>
 								</div>
-								<div class="col-md-6"><a href="#" class="btn btn-3d btn-sm btn-reveal btn-white" style="margin-left: -15px" id="verifycodesend">
+								<div class="col-md-6"><a href="#" class="btn btn-3d btn-sm btn-reveal btn-white" style="margin-left: -15px" id="verifycodesend" data-type="1">
 									<i class="fa fa-send-o"></i>
 									<span class="qian">获取短信验证码</span>
 									<span class="hou" style="display: none"><m id="wait" class="">60</m>秒后重新获取激活码</span>
@@ -86,6 +86,7 @@
 
                         <div class="margin-top-30">
                             <label class="checkbox nomargin">
+								<input type="hidden" name="sms_type" value="1">
                                 <input class="checked-agree" type="checkbox" name="clause" checked><i></i>我同意 <a href="#" data-toggle="modal" data-target="#termsModal">网站服务条款</a></label>
                             <label class="checkbox nomargin">
                                 <input type="checkbox" name="info"><i></i>我想接收新闻和特别优惠信息！</label>
@@ -365,9 +366,26 @@
 		<script type="text/javascript">
        $("#verifycodesend").click(function () {
 		   var that = this;
+		   var mobile = $("input[name='mobile']").val();
+		   var type = $(this).attr("data-type");
+		   var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+		   if(!myreg.test(mobile))
+		   {
+			   _toastr('请输入有效的手机号码!',"top-right","error",false);
+			   return false;
+		   }
+//		   $.ajax({
+//			   url:"/public/verifymember/f/mobile/v/"+mobile,
+//			   success:function (data) {
+//				   if(data.errno==1000){
+//					   _toastr("手机号码已存在!","top-right","error",false);
+//					   return false;
+//				   }
+//			   }
+//		   });
 		   $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 		   $.ajax({
-			   url:"/public/verifycodesend",
+			   url:"/public/verifycodesend/mobile/"+mobile+"/type/"+type+"/check/1",
 			   success:function (data) {
 				   if(data.err_code==0){
 					   $(".qian").hide();
@@ -384,7 +402,10 @@
 						   };
 					   }, 1000);
 				   }else {
-
+                    if(1000 == data.errno){
+						$(that).removeClass('disabled').prop('disabled',false);
+						_toastr(data.errmsg,"top-right","error",false);
+					}
 				   }
 			   }
 		   })
