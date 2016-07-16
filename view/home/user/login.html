@@ -109,7 +109,7 @@
                     success: function (data) {
 
                         if (data && (data.status === "success")) {
-                            var data=$(this).serialize()
+                            var data=$('#login').serialize()
                             $.ajax({
                                 type: "POST",
                                 url: "/user/login",
