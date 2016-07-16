@@ -39,8 +39,11 @@
                     <div class="form-control rounded input-lg text-center no-border">
                     <div id="captcha"></div>
                     <p id="wait" class="show">正在加载验证码......</p>
-                    <p id="notice" class="hide">请先拖动验证码到相应位置</p>
                     </div>
+                </div>
+                <div class="alert alert-danger hide" id="notice">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <i class="fa fa-ban-circle"></i>请先拖动验证码到相应位置.
                 </div>
                 {%endif%}
                 <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" id="validate-submit">
@@ -78,36 +81,16 @@
 <script>
     $(function () {
         var handlerEmbed = function (captchaObj) {
-            var success = false;
 
-            $("#validate-submit").click(function () {
+            $("#validate-submit").click(function (e) {
                 var validate = captchaObj.getValidate();
                 if (!validate) {
-                    alert('请先完成验证！');
-                    return false;
+                    $("#notice").addClass("show").removeClass("hide");
+                    setTimeout(function () {
+                        $("#notice").addClass("hide").removeClass("show");
+                    }, 2000);
+                    e.preventDefault();
                 }
-                $.ajax({
-                    url: "/admin/public/geetest", // 进行二次验证
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        // 二次验证所需的三个值
-                        geetest_challenge: validate.geetest_challenge,
-                        geetest_validate: validate.geetest_validate,
-                        geetest_seccode: validate.geetest_seccode
-                    },
-                    success: function (data) {
-
-                        if (data && (data.status === "success")) {
-
-
-                        } else {
-                            alert("登录失败，请完成验证");
-                            captchaObj.refresh();
-                            return false;
-                        }
-                    }
-                });
 
             });
 

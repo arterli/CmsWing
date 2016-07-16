@@ -115,7 +115,7 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
-	    _login();
+	    //_login();
         _swal();
         _ajax_post();
 	    _ajax_get();

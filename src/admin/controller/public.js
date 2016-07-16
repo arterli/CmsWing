@@ -19,6 +19,18 @@ export default class extends think.controller.base {
         //用户登录
         let is_login = await this.islogin();
         if(this.isPost()){
+            //验证码
+            if(1==this.setup.GEETEST_IS_ADMLOGIN){
+                let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
+                let geetest = new Geetest();
+                let res = await geetest.validate(this.post());
+                if("success" != res.status){
+                    this.http.error = new Error("验证码不正确");
+                    return think.statusAction(702, this.http);
+                }
+            }
+
+
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
@@ -108,71 +120,41 @@ export default class extends think.controller.base {
 
 //验证码
     async geetestAction(){
-        let privateKey = this.setup.GEETEST_KEY;//key
-        let publicKey = this.setup.GEETEST_ID;//id
-        let Geetest = require('geetest');
-        let geetest = new Geetest(privateKey, publicKey)
-        //初始
-        let register=(geetest) =>{
-            let publicKey = this.setup.GEETEST_ID;//id
-            let deferred = think.defer();
-            geetest.register(function(err, challenge) {
-                if (err) {
-                    //network error
-                    deferred.resolve({
-                        gt: publicKey,
-                        success: 0
-                    });
-                    return;
-                }
-                if(challenge) {
-                    //deal with it
-                    //res.json({challenge: challenge})
-                    //console.log(challenge);
-                    deferred.resolve({
-                        challenge: challenge,
-                        gt:publicKey,
-                        success: 1
-                    });
-                }
-            })
-            return deferred.promise;
-        }
-
-        //验证
-        let validate = (geetest,data)=>{
-            let deferred = think.defer();
-            geetest.validate({
-
-                challenge: data.geetest_challenge,
-                validate: data.geetest_validate,
-                seccode: data.geetest_seccode
-
-            }, function (err, result) {
-                console.log(result);
-                var data = {status: "success"};
-
-                if (err || !result) {
-                    console.log(err);
-                    data.status = "fail";
-                }
-
-                deferred.resolve(data);
-            });
-            return deferred.promise;
-        }
+        let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
+        let geetest = new Geetest();
         if(this.isPost()){
             let post =this.post();
             console.log(post);
-            let res = await validate(geetest,post);
+            let res = await geetest.validate(post);
             console.log(res);
             return this.json(res);
         }else {
-            let res = await register(geetest);
+            let res = await geetest.register();
             console.log(res);
             return this.json(res);
         }
 
 
+    }
+    async validate(data){
+        let deferred = think.defer();
+        geetest.validate({
+
+            challenge: data.geetest_challenge,
+            validate: data.geetest_validate,
+            seccode: data.geetest_seccode
+
+        }, function (err, result) {
+            console.log(result);
+            var data = {status: "success"};
+
+            if (err || !result) {
+                console.log(err);
+                data.status = "fail";
+            }
+
+            deferred.resolve(data);
+        });
+        return deferred.promise;
     }
 }

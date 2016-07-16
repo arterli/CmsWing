@@ -90,7 +90,6 @@
     $(function () {
         var handlerEmbed = function (captchaObj) {
             var success = false;
-
             $("#validate-submit").click(function () {
                 var validate = captchaObj.getValidate();
                 if (!validate) {
@@ -110,16 +109,27 @@
                     success: function (data) {
 
                         if (data && (data.status === "success")) {
-
-
+                            var data=$(this).serialize()
+                            $.ajax({
+                                type: "POST",
+                                url: "/user/login",
+                                data: data,
+                                success: function(msg){
+                                    if(msg.errno < 0){
+                                        _toastr(msg.errmsg,"top-right","error",false);
+                                    }else{
+                                        //$('#ajaxModal').remove();
+                                        location.reload(true);
+                                    }
+                                }
+                            });
                         } else {
                             _toastr("登录失败.请先完成验证!","top-right","error",false);
                             captchaObj.refresh();
-                            return false;
                         }
                     }
                 });
-
+  return false;
             });
 
             // 将验证码加到id为captcha的元素里
@@ -154,7 +164,6 @@
 
             },1000);
         });
-
     })
 
 
@@ -239,5 +248,9 @@
 //        }
 //    });
 
+</script>
+{%else%}
+<script>
+    _login();
 </script>
 {%endif%}
