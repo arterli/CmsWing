@@ -13,30 +13,41 @@ export default class extends think.service.base {
     let setup = await think.cache("setup");
     let privateKey = setup.GEETEST_KEY;//key
     let publicKey = setup.GEETEST_ID;//id
-    let geetest = new Geetest(privateKey, publicKey)
+     let geetest = new Geetest({
+         privateKey: privateKey,
+         publicKey: publicKey
+     });
     //初始
     let register=() =>{
       let deferred = think.defer();
-      geetest.register(function(err, challenge) {
-        if (err) {
-          //network error
-          deferred.resolve({
-            gt: publicKey,
-            success: 0
-          });
-          return;
-        }
-        if(challenge) {
-          //deal with it
-          //res.json({challenge: challenge})
-          //console.log(challenge);
-          deferred.resolve({
-            challenge: challenge,
-            gt:publicKey,
-            success: 1
-          });
-        }
-      })
+        // 向极验申请一次验证所需的challenge
+        geetest.register(function (data) {
+            deferred.resolve({
+                gt: geetest.publicKey,
+                challenge: data.challenge,
+                success: data.success
+            });
+        });
+      // geetest.register(function(err, challenge) {
+      //   if (err) {
+      //     //network error
+      //     deferred.resolve({
+      //       gt: publicKey,
+      //       success: 0
+      //     });
+      //     return;
+      //   }
+      //   if(challenge) {
+      //     //deal with it
+      //     //res.json({challenge: challenge})
+      //     //console.log(challenge);
+      //     deferred.resolve({
+      //       challenge: challenge,
+      //       gt:publicKey,
+      //       success: 1
+      //     });
+      //   }
+      // })
       return deferred.promise;
     }
   return await register();
@@ -46,7 +57,10 @@ export default class extends think.service.base {
     let setup = await think.cache("setup");
     let privateKey = setup.GEETEST_KEY;//key
     let publicKey = setup.GEETEST_ID;//id
-    let geetest = new Geetest(privateKey, publicKey)
+      let geetest = new Geetest({
+          privateKey: privateKey,
+          publicKey: publicKey
+      });
     //验证
     let validate = (data)=>{
       let deferred = think.defer();

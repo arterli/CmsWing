@@ -117,6 +117,7 @@
                                 success: function(msg){
                                     if(msg.errno < 0){
                                         _toastr(msg.errmsg,"top-right","error",false);
+                                        captchaObj.refresh();
                                     }else{
                                         //$('#ajaxModal').remove();
                                         location.reload(true);
