@@ -140,7 +140,7 @@ function sort_node(v, w) {
  * 获取子集分类 （这里是获取所有子集）
  */
 global.get_children = function(nodes, parent) {
-    console.log(11);
+   // console.log(11);
     var children = [];
     var last = [];
     /* 未访问的节点 */
@@ -785,7 +785,7 @@ global.get_pics_one = async (arr_id, field) => {
 global.formatprice = function(price) {
     let pr = JSON.parse(price);
     var present_price;
-    console.log(pr);
+    //console.log(pr);
     if (think.isNumber(pr.present_price)) {
         pr.present_price = pr.present_price.toString();
     }
@@ -1090,9 +1090,9 @@ global.image_view=(str,w,m)=>{
         let narr=[];
         for(let img of arr){
             let _img = img.match(srcReg)
-            console.log(_img);
+            //console.log(_img);
             let nimg = _img[1]+'?imageView2/'+m+'/w/'+w;
-            console.log(nimg)
+            //console.log(nimg)
             let inputimg = _img['input'].replace(_img[1],nimg)
             narr.push(inputimg);
         }
@@ -1131,7 +1131,7 @@ global.get_cate=async(cid)=>{
 
     for(let v of column){
         if(v.id==cid){
-            console.log(v)
+           // console.log(v)
            return v;
         }
     }

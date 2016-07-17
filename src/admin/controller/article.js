@@ -50,6 +50,40 @@ export default class extends Base {
                             val.option.rules.choices = parse_config_attr(val.option.rules.choices);
                         }
 
+                    }else if(val.option.type == 'range'){
+                        if(!think.isEmpty(val.option.rules)){
+                            let searchtxt = JSON.parse(val.option.rules).searchtxt;
+                            let searcharr = []
+                            if(!think.isEmpty(searchtxt)){
+                                let arr = searchtxt.split(",");
+                                let len = arr.length;
+                                for (var i=0;i<len;i++)
+                                {
+                                    let obj = {}
+                                    if (!think.isEmpty(arr[i-1])){
+                                        if(i==1){
+                                            obj.id = 'd>'+arr[i];
+                                            obj.name = '低于'+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj);
+                                        }else {
+                                            obj.id = arr[i-1]+'>'+arr[i];
+                                            obj.name = arr[i-1]+"-"+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj)
+                                        }
+
+                                    }
+
+                                }
+                                searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1]+val.option.unit,pid:0})
+                            }
+                            //console.log(searcharr);
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=searcharr;
+                            // val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+
+                        }
                     }
                 }
                 console.log(typevar);
@@ -450,19 +484,19 @@ export default class extends Base {
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
-                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
                     }
 
                 }else if (val.option.type =="radio" || val.option.type =="checkbox"){
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
-                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
                     }
                 }else {
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
-                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||0;
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
                     }
                 }
             }

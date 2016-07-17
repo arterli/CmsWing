@@ -217,7 +217,7 @@ export default {
                  */
                 env.addFilter('get_pic', async(id, type, callback)=> {
                     let m, w, h;
-                    console.log(type);
+                    //console.log(type);
                     let obj = {};
                     for (let v of type.split(",")) {
                         v = v.split("=");

@@ -109,12 +109,46 @@ export default class extends Base {
                       val.option.rules = JSON.parse(val.option.rules);
                       val.rules=parse_type_attr(val.option.rules.choices);
                       val.option.rules.choices = parse_config_attr(val.option.rules.choices);
-
+                      //console.log(val.rules);
                   }
 
+              }else if(val.option.type == 'range'){
+                  if(!think.isEmpty(val.option.rules)){
+                      let searchtxt = JSON.parse(val.option.rules).searchtxt;
+                      let searcharr = []
+                      if(!think.isEmpty(searchtxt)){
+                          let arr = searchtxt.split(",");
+                            let len = arr.length;
+                          for (var i=0;i<len;i++)
+                          {
+                              let obj = {}
+                              if (!think.isEmpty(arr[i-1])){
+                                  if(i==1){
+                                      obj.id = 'd>'+arr[i];
+                                      obj.name = '低于'+arr[i]+val.option.unit;
+                                      obj.pid=0
+                                      searcharr.push(obj);
+                                  }else {
+                                      obj.id = arr[i-1]+'>'+arr[i];
+                                      obj.name = arr[i-1]+"-"+arr[i]+val.option.unit;
+                                      obj.pid=0
+                                      searcharr.push(obj)
+                                  }
+
+                              }
+
+                          }
+                          searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1]+val.option.unit,pid:0})
+                      }
+                      //console.log(searcharr);
+                       val.option.rules = JSON.parse(val.option.rules);
+                        val.rules=searcharr;
+                      // val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+
+                  }
               }
           }
-          console.log(typevar);
+         // console.log(typevar);
           this.assign("typevar",typevar);
       }
       if(!think.isEmpty(sortarr)) {
@@ -126,7 +160,18 @@ export default class extends Base {
               let qarr = v.split("_");
               nsobj[qarr[0]] = qarr[1];
               if(qarr[1] !=0){
-              map["t."+qarr[0]] = qarr[1];
+                  let vv = qarr[1].split(">");
+                  //console.log(vv);
+                  if(vv[0]=="d" && !think.isEmpty(vv[1])){
+                      map["t."+qarr[0]] = ["<",vv[1]];
+                  }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
+                      map["t."+qarr[0]] = [">",vv[1]];
+                  }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
+                      map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
+                  }else {
+                      map["t."+qarr[0]] = qarr[1];
+                  }
+
               }
           }
           map.fid = cate.id;
@@ -134,9 +179,10 @@ export default class extends Base {
           // where['value'] = ["IN",valuearr];
          // let type= await this.model("typeoptionvar").where(where).select();
          //  console.log(type);
-          console.log(map);
+         // console.log(map);
       }
-      console.log(sort);
+      console.log(map);
+      //console.log(sort);
       this.assign("sort",sort);
           this.assign("nsobj",nsobj);
 
