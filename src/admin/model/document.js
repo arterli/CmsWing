@@ -30,7 +30,7 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data){
-        console.log(data);
+        //console.log(data.sort_id);
 
        //return false;
         data=data||null;
@@ -53,7 +53,7 @@ export default class extends think.model.base {
                  this.error = '新增基础内容出错！';
                  return false
              }else {
-                 if(data.sort_id !=0){
+                 if(data.sort_id !=0 && !think.isEmpty(data.sort_id)){
                      let sortarr = [];
                      let sortdata = {};
                      for(let k in data){
@@ -71,8 +71,8 @@ export default class extends think.model.base {
                              sortdata.fid = data.category_id;
                          }
                      }
-                     console.log(sortarr);
-                     console.log(sortdata);
+                     //console.log(sortarr);
+                     //console.log(sortdata);
                      //return false;
                      //添加分类
                      this.model("typeoptionvar").addMany(sortarr);
@@ -88,7 +88,7 @@ export default class extends think.model.base {
                  this.error = '更新基础内容出错！';
                  return false;
              }else {
-                 if(data.sort_id !=0){
+                 if(data.sort_id !=0 && !think.isEmpty(data.sort_id)){
                      let sortdata = {};
                      let sortarr = [];
                      for(let k in data){
@@ -106,8 +106,8 @@ export default class extends think.model.base {
                              sortdata.fid = data.category_id;
                          }
                      }
-                     console.log(sortarr);
-                     console.log(sortdata);
+                     //console.log(sortarr);
+                     //console.log(sortdata);
                     this.model("typeoptionvar").where({tid:data.id}).delete();
                      await this.model("type_optionvalue"+data.sort_id).where({tid:data.id}).update(sortdata);
                      //添加分类
@@ -178,7 +178,7 @@ export default class extends think.model.base {
         }
        //查询父文档的类型
        let ptype = think.isNumberString(pid) ? await this.where({id:pid}).getField('type',true):await this.where({name:pid}).getField('type',true);
-        console.log(ptype);
+       // console.log(ptype);
        //父文档为目录时
        switch(ptype){
            case 1: // 目录

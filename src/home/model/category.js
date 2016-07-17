@@ -25,7 +25,7 @@ export default class extends think.model.base {
        }else{
            map.name = id;
        }
-       return await this.field(field).where(map).find();
+       return await this.cache(1000).field(field).where(map).find();
    }
    
 }

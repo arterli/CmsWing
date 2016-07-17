@@ -86,10 +86,10 @@ export default class extends Base {
                         }
                     }
                 }
-                console.log(typevar);
+                //console.log(typevar);
                 this.assign("typevar",typevar);
             }
-            console.log(sort);
+            //console.log(sort);
             this.assign("sort",sort);
             let pid = this.get("pid") || 0;
             // 获取列表绑定的模型
@@ -396,14 +396,14 @@ export default class extends Base {
                   }
                 }
             }
-            console.log(typevar);
+            //console.log(typevar);
             this.assign("typevar",typevar);
         }
-        console.log(sort);
+        //console.log(sort);
         this.assign("sort",sort);
         //检查该分类是否允许发布
         let allow_publish = await this.model("category").check_category(cate_id);
-        console.log(allow_publish);
+        //console.log(allow_publish);
         !allow_publish && this.fail("该分类不允许发布内容");
 
         //获取当先的模型信息
@@ -500,7 +500,7 @@ export default class extends Base {
                     }
                 }
             }
-            console.log(typevar);
+           // console.log(typevar);
             this.assign("typevar",typevar);
         }
         //console.log(sort);
@@ -524,7 +524,7 @@ export default class extends Base {
         this.assign({
             "navxs": true,
         });
-        console.log(data);
+        //console.log(data);
         this.assign('data', data);
         this.assign('model_id', data.model_id);
         this.assign('model', model);

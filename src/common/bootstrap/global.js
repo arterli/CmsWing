@@ -641,7 +641,10 @@ global.call_user_func = function(cb, params) {
 /* global get_nickname */
 global.get_nickname = async (uid) => {
     //console.log(uid);
-    let data = await think.model('member', think.config("db"), 'admin').get_nickname(uid)
+    let data = await think.model('member', think.config("db"), 'admin').cache({
+        timeout: 36000,
+        type: "file" //使用文件方式缓存
+    }).get_nickname(uid)
     return data;
 }
 //时间格式

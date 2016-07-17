@@ -25,7 +25,8 @@
             //隐式获取url响应内容(JSONP)  
             function openImplict(url){  
                 var script = document.createElement('script');  
-                script.src = url;  
+                script.src = url;
+                //alert(JSON.stringify(script))
                 document.body.appendChild(script);          
             }  
               

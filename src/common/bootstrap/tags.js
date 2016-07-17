@@ -106,7 +106,7 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        //console.log(args);
+        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
@@ -181,7 +181,7 @@ global.groups = function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        //console.log(args);
+        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
 
         let groups = await think.model('category', think.config("db")).where({id:args.cid}).getField("groups",true);
@@ -203,7 +203,7 @@ global.groups = function(){
         }
         }
         //console.log(groups)
-
+        // console.log(channel);
         context.ctx[data] = groups;
         return callback(null,'');
     }
@@ -277,7 +277,7 @@ global.topic = function(){
                 where = think.extend(where,{cover_id:0});
             }
         }
-        //console.log(where);
+        console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //副表数据
         if(args.isstu == 1){
