@@ -1208,3 +1208,4 @@ global.MathRand = function ()
     }
     return Num;
 }
+

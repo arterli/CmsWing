@@ -312,6 +312,7 @@ export default {
                     let data = await get_file(file_id,field,key);
                     callback(null,data);
                 },true)
+
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签

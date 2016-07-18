@@ -162,7 +162,7 @@ global.column= function(){
      let data = think.isEmpty(args.data) ?"data":args.data;
      let channel = await think.model('channel', think.config("db"),'admin').get_channel_cache();
      channel = arr_to_tree(channel,0);
-    // console.log(channel);
+     console.log(channel);
      context.ctx[data] = channel;
      return callback(null,'');
    }
