@@ -64,9 +64,9 @@ CLASSES:
 <div class="row">
 
 <!-- RIGHT -->
-<div class="col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
+<div class="col-lg-10 col-md-10 col-sm-10 col-lg-push-2 col-md-push-2 col-sm-push-2">
 
-
+{#
 <!-- CAROUSEL -->
 <div class="owl-carousel buttons-autohide controlls-over margin-bottom-30 radius-4" data-plugin-options='{"singleItem": true, "autoPlay": 6000, "navigation": true, "pagination": true, "transitionStyle":"fade"}'>
 <!-- item -->
@@ -112,8 +112,93 @@ CLASSES:
 
 </div>
 <!-- /CAROUSEL -->
+#}
+    {%set cate = category.id|get_cate()%}
+    <!--分类信息-->
+    {%if sort%}
+    <ul class="nav nav-tabs nav-top-border">
+        {%for val in sort.types%}
+        <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
+        {%endfor%}
 
+    </ul>
+    <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+        <table class="table table-hover  m-b-none" style="margin-top: -1px">
+            <tbody>
+            {%for val in typevar%}
+            {%if val.search > 1%}
+            <tr>
+                <td style="width: 100px" class="text-right">
+                    {{val.option.title}}:
+                </td>
+                <td>
+                    {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                    <span style="margin-right: 10px">全部</span>
+                    {%else%}
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
+                    {%endif%}
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    <span style="margin-right: 10px">{{v.name}}</span>
+                    {%else%}
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
+                    {%endif%}
+                    {%endfor%}
+                    <!--子栏目-->
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v.children%}
+                    <div class="subtsm">
 
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        <span style="margin-right: 10px">{{v_.name}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {% endfor %}
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                    <!--子栏目-->
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v.children%}
+
+                    {% for v_ in v.children %}
+                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v_.children%}
+                    <div class="subtsm">
+                        {% for v__ in v_.children %}
+
+                        {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                        <span style="margin-right: 10px">{{v__.name}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v__.name}}</a>
+
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {% endfor %}
+
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </td>
+
+            </tr>
+            {%endif%}
+            {%endfor%}
+
+            </tbody>
+        </table>
+    </div>
+    {%endif%}
+<!--/分类信息-->
 <!-- LIST OPTIONS -->
 <div class="clearfix shop-list-options margin-bottom-20">
 <div class="nomargin pull-right">
@@ -142,7 +227,7 @@ CLASSES:
 <ul class="shop-item-list1 row list-inline nomargin">
 {% for item in list%}
 <!-- ITEM -->
-<li class="col-xs-6 col-lg-4 col-md-4 col-sm-4 ">
+<li class="col-xs-6 col-lg-3 col-md-3 col-sm-3 ">
 
 <div class="shop-item">
 {% set pic = item.pics|strToArray%}
@@ -226,7 +311,7 @@ CLASSES:
 
 
 <!-- LEFT -->
-<div class="col-lg-3 col-md-3 col-sm-3 col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
+<div class="col-lg-2 col-md-2 col-sm-2 col-lg-pull-10 col-md-pull-10 col-sm-pull-10">
 
 <!-- CATEGORIES -->
 <div class="side-nav margin-bottom-40">
@@ -239,11 +324,12 @@ CLASSES:
 
 <ul class="list-group list-group-bordered list-group-noicon uppercase">
 <!--{{breadcrumb[1].id}}-->
+
 {% column data="list",tree=breadcrumb[0].id %}
 {% for val in list %}
 <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
-<li class="list-group-item active ">
-<a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.title}}">{{val.name}}</a>
+<li class="list-group-item {%if breadcrumb[1].id == val.id%}active {%endif%} ">
+<a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.url}}">{{val.name}}</a>
 {% if val.children %}
 <ul >
 {% for _val in val.children %}
@@ -293,7 +379,7 @@ CLASSES:
 </div>
 <!-- /BANNER ROTATOR -->
 
-
+{#
 <!-- FEATURED -->
 <div class="margin-bottom-40 hidden-xs">
 
@@ -389,7 +475,6 @@ CLASSES:
 </div>
 <!-- /FEATURED -->
 
-
 <!-- HTML BLOCK -->
 <div class="margin-bottom-40 hidden-xs">
 <h4>HTML BLOCK</h4>
@@ -407,7 +492,7 @@ CLASSES:
 
 </div>
 <!-- /HTML BLOCK -->
-
+#}
 </div>
 
 </div>

@@ -108,8 +108,13 @@ export default class extends think.model.base {
                      }
                      //console.log(sortarr);
                      //console.log(sortdata);
+                     let cou = await this.model("type_optionvalue"+data.sort_id).where({tid:data.id}).count("tid");
+                     if(cou > 0){
+                         await this.model("type_optionvalue"+data.sort_id).where({tid:data.id}).update(sortdata);
+                     }else {
+                         await this.model("type_optionvalue"+data.sort_id).add(sortdata);
+                     }
                     this.model("typeoptionvar").where({tid:data.id}).delete();
-                     await this.model("type_optionvalue"+data.sort_id).where({tid:data.id}).update(sortdata);
                      //添加分类
                      this.model("typeoptionvar").addMany(sortarr);
                  }

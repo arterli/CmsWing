@@ -235,7 +235,8 @@ export default class extends Base {
         if(confirm==1){
             //查询该栏目是否包含子栏目
           let pid= await this.model("category").get_sub_category(id);
-            //console.log(pid);
+            console.log(pid);
+
             let l = pid.length;
             if(l>0){
                 return this.json({ok:2,info:`该栏目含有${l}子栏目`})
@@ -255,6 +256,8 @@ export default class extends Base {
             return this.json({ok:0,info:"删除成功!"});
         }else if(type == "all"){
             let pid= await this.model("category").get_sub_category(id);
+            console.log(pid);
+
             for(let v of pid){
                 await this.delcate(v);
             }
@@ -269,15 +272,16 @@ export default class extends Base {
     async delcate(id){
         //查处要删除的该栏目内容的id
         let ids = await this.model("document").where({category_id:id}).getField("id");
-        //查出该栏目的管理的模型
-        let model_id = await this.model("category").get_category(id,"model");
-        for (let v of model_id.split(",")){
-            //获取该模型的表明
-            let table = await this.model("model").get_table_name(v);
-            //删除模型内容
-            await this.model(table).where({id:["IN",ids]}).delete();
-        }
-
+       if(!think.isEmpty(ids)){
+           //查出该栏目的管理的模型
+           let model_id = await this.model("category").get_category(id,"model");
+           for (let v of model_id.split(",")){
+               //获取该模型的表明
+               let table = await this.model("model").get_table_name(v);
+               //删除模型内容
+               await this.model(table).where({id:["IN",ids]}).delete();
+           }
+       }
         //删除分类信息
         let sort = await this.model("category").get_category(id,"documentsorts");
         if(!think.isEmpty(sort)){

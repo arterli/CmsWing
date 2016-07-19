@@ -48,7 +48,7 @@
                     <tbody>
       {%for val in list%}
                     <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
-                        <td><span class='folder ui-draggable'>{{val.title}}</span></td>
+                        <td><span class='folder ui-draggable'>{{val.title}}</span> <a href="/admin/category/add/pid/{{val.id}}" class="text-info"> <i class="glyphicon glyphicon-plus"></i></a> </td>
                         <td>{{val.sort}}</td>
                         <td>{{val.name}}</td>
                         <td>

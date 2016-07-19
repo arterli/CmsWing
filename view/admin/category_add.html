@@ -677,10 +677,15 @@ $('input[name="documentsorts[status]"]').click(function () {
             var html = [];
             var size = nodes.length;
             var left = null;
+            var pid ="{{http.get('pid')}}";
             html.push('<option value="0" selected="selected">一级菜单</option>');
             for (var i = 0; i < size; i++) {
                 left = nodes[i];
-                html.push('<option value="' + left['id'] +  '">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                if(pid == left.id){
+                    html.push('<option value="' + left['id'] +  '" selected="selected">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }else {
+                    html.push('<option value="' + left['id'] + '">'+new Array(left["deep"]+1).join("= ") + left['title'] +  '</option>');
+                }
             }
             return html.join("\n");
         }

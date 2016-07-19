@@ -90,7 +90,7 @@ global.mytags= function(){
  * @param data:接受返回数据的变量名称，例: data = "list"
  *  {% colum data="list",pid=1 %}
  * @param pid: 获取同级栏目
- * {% colum data="list",pid=1 %}
+ * {% colum data="list",cid=1 %}
  * @param cid: 获取里栏目
  * {% colum data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
@@ -127,6 +127,7 @@ global.column= function(){
                    arr.push(val);
                }
             }
+            //console.log(arr);
              context.ctx[data] = !think.isEmpty(arr)?arr:false;
         }else if(cid){
             for (let val of column){
@@ -134,7 +135,8 @@ global.column= function(){
                     arr.push(val);
                 }
             }
-             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+            //console.log(arr);
+            context.ctx[data] = !think.isEmpty(arr)?arr:false;
         }else if(tree){
             let trees = arr_to_tree(column,tree);
             //console.log(trees)
@@ -162,7 +164,7 @@ global.column= function(){
      let data = think.isEmpty(args.data) ?"data":args.data;
      let channel = await think.model('channel', think.config("db"),'admin').get_channel_cache();
      channel = arr_to_tree(channel,0);
-     console.log(channel);
+     //console.log(channel);
      context.ctx[data] = channel;
      return callback(null,'');
    }

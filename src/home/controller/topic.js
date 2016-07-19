@@ -125,12 +125,12 @@ export default class extends Base {
                               if (!think.isEmpty(arr[i-1])){
                                   if(i==1){
                                       obj.id = 'd>'+arr[i];
-                                      obj.name = '低于'+arr[i]+val.option.unit;
+                                      obj.name = '低于'+arr[i];
                                       obj.pid=0
                                       searcharr.push(obj);
                                   }else {
                                       obj.id = arr[i-1]+'>'+arr[i];
-                                      obj.name = arr[i-1]+"-"+arr[i]+val.option.unit;
+                                      obj.name = arr[i-1]+"-"+arr[i];
                                       obj.pid=0
                                       searcharr.push(obj)
                                   }
@@ -138,7 +138,7 @@ export default class extends Base {
                               }
 
                           }
-                          searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1]+val.option.unit,pid:0})
+                          searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1],pid:0})
                       }
                       //console.log(searcharr);
                        val.option.rules = JSON.parse(val.option.rules);

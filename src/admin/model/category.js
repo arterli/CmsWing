@@ -119,7 +119,7 @@ export default class extends think.model.base {
             id = nav.pid;
 
         }
-       return breadcrumb.reverse()
+        return breadcrumb.reverse()
     }
     async get_sub_category(id){
         let cat = await this.select();
@@ -238,6 +238,7 @@ export default class extends think.model.base {
                 }
             }
         }
+        // console.log(lists);
         return lists;
     }
 }

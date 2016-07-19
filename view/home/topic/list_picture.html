@@ -96,7 +96,7 @@ CLASSES:
                     {%if v.id|sort_act(nsobj[val.option.identifier])%}
                     <span style="margin-right: 10px">{{v.name}}</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v.name}}</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
                     {%endif%}
                     {%endfor%}
                      <!--子栏目-->
@@ -109,7 +109,7 @@ CLASSES:
                         {%if v_.id|sort_act(nsobj[val.option.identifier])%}
                         <span style="margin-right: 10px">{{v_.name}}</span>
                         {%else%}
-                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v_.name}}</a>
+                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
                         {%endif%}
                         {% endfor %}
                     </div>
