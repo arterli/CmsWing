@@ -116,7 +116,7 @@ CLASSES:
     {%set cate = category.id|get_cate()%}
     <!--分类信息-->
     {%if sort%}
-    <ul class="nav nav-tabs nav-top-border">
+    <ul class="nav nav-tabs ">
         {%for val in sort.types%}
         <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
         {%endfor%}
@@ -133,15 +133,15 @@ CLASSES:
                 </td>
                 <td>
                     {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
-                    <span style="margin-right: 10px">全部</span>
+                    <span class="btn btn-danger btn-xs relative">全部</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">全部</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="btn btn-clean btn-xs relative" >全部</a>
                     {%endif%}
                     {%for v in val.rules %}
                     {%if v.id|sort_act(nsobj[val.option.identifier])%}
-                    <span style="margin-right: 10px">{{v.name}}</span>
+                    <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
                     {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
+                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
                     {%endif%}
                     {%endfor%}
                     <!--子栏目-->
@@ -152,9 +152,9 @@ CLASSES:
 
                         {% for v_ in v.children %}
                         {%if v_.id|sort_act(nsobj[val.option.identifier])%}
-                        <span style="margin-right: 10px">{{v_.name}}</span>
+                        <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
                         {%else%}
-                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
+                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
                         {%endif%}
                         {% endfor %}
                     </div>
@@ -174,9 +174,9 @@ CLASSES:
 
                         {%if v__.id|sort_act(nsobj[val.option.identifier])%}
 
-                        <span style="margin-right: 10px">{{v__.name}}</span>
+                        <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
                         {%else%}
-                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="text-info" style="margin-right: 10px">{{v__.name}}</a>
+                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,nsobj,2)}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
 
                         {%endif%}
                         {%endfor%}
