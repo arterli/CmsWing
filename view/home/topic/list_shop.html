@@ -116,7 +116,7 @@ CLASSES:
     {%set cate = category.id|get_cate()%}
     <!--分类信息-->
     {%if sort%}
-    <ul class="nav nav-tabs ">
+    <ul class="nav nav-tabs">
         {%for val in sort.types%}
         <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
         {%endfor%}
@@ -125,10 +125,11 @@ CLASSES:
     <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
         <table class="table table-hover  m-b-none" style="margin-top: -1px">
             <tbody>
+            {% set typenum = 1%}
             {%for val in typevar%}
             {%if val.search > 1%}
-            <tr>
-                <td style="width: 100px" class="text-right">
+            <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                <td style="width: 120px" class="text-right">
                     {{val.option.title}}:
                 </td>
                 <td>
@@ -191,14 +192,20 @@ CLASSES:
                 </td>
 
             </tr>
+            {% set typenum = typenum+1%}
             {%endif%}
             {%endfor%}
 
             </tbody>
         </table>
+        {% if typenum > 4%}
+        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+   {%endif%}
     </div>
+
     {%endif%}
-<!--/分类信息-->
+    <!--/分类信息-->
 <!-- LIST OPTIONS -->
 <div class="clearfix shop-list-options margin-bottom-20">
 <div class="nomargin pull-right">
@@ -506,4 +513,5 @@ CLASSES:
 {% block script%}
 <!-- PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+
 {% endblock %}

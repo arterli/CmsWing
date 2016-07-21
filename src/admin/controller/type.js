@@ -64,11 +64,17 @@ export default class extends Base {
          let sortid = await this.model('typevar').where({optionid:val.optionid}).getField('sortid');
          val.sortid = sortid;
      }
-     let typevar = await this.model('typevar').join({
-         typeoption:{
-             on:['optionid','optionid']
+     let typevar = await this.model('typevar').alias("a").join(
+         {
+             table: "typeoption",
+             join: "left", //join 方式，有 left, right, inner 3 种方式
+             as: "c", // 表别名
+             on: ["optionid", "optionid"] //ON 条件
          }
-     }).where({sortid:id}).select();
+     ).where({'a.sortid':id})
+         .field("a.sortid,a.optionid,a.available,a.required,a.unchangeable,a.search,a.displayorder,a.subjectshow,c.title,c.type")
+         .order("a.displayorder ASC")
+         .select();
      this.active="admin/type/index"
      console.log(typevar);
      this.assign({

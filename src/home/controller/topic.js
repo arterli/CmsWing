@@ -100,7 +100,7 @@ export default class extends Base {
           if(sortid==0){
               sortid=sort.defaultshow;
           }
-          let typevar = await this.model("typevar").where({sortid:sortid}).select();
+          let typevar = await this.model("typevar").where({sortid:sortid}).order('displayorder ASC').select();
           for (let val of typevar){
 
               val.option= await this.model("typeoption").where({optionid:val.optionid}).find();

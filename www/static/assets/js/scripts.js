@@ -121,6 +121,7 @@
 	    _ajax_get();
 	    _pingpp();
 	    _recharge();
+	    _type_tr_b();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
@@ -142,7 +143,28 @@
     );
 
   }
-
+//typeb
+function _type_tr_b() {
+	if($('.type_tr_b1').length > 0){
+       if(localStorage.getItem("cmswing_type_tr_b")==1){
+		   $("tr.type_tr_m").show();
+		   $(".type_tr_b1").hide();
+		   $(".type_tr_b2").show();
+	   }
+		$(".type_tr_b1").click(function () {
+			$("tr.type_tr_m").show();
+			$(this).hide();
+			$(".type_tr_b2").show();
+			localStorage.setItem("cmswing_type_tr_b",1)
+		})
+		$(".type_tr_b2").click(function () {
+			$("tr.type_tr_m").hide();
+			$(this).hide();
+			$(".type_tr_b1").show();
+			localStorage.removeItem("cmswing_type_tr_b")
+		})
+	}
+}
 //ajax get请求
 /**
  * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
