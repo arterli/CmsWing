@@ -145,9 +145,9 @@ export default {
                     return wx_bq;
                 })
                 //解析分类信息url
-                env.addFilter("sort_url", function (id,val,arr,http,type=1) {
+                env.addFilter("sort_url", function (id,val,arr,http) {
                     
-                        return sort_url(id,val,arr,http,type);
+                        return sort_url(id,val,arr,http);
 
                 })
                 //解析分类信息当前状态

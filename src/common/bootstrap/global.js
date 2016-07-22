@@ -1145,25 +1145,15 @@ global.get_cate=async(cid)=>{
  * @param val
  * @param arr
  */
-global.sort_url = (id,val,arr,http,type = 0)=>{
+global.sort_url = (id,val,arr,http)=>{
     //console.log(http.get(val))
     let url;
-    if(type ==1){
-        url=`${val}/${id}`;
-        for(let v of arr){
-            if(v.option.identifier != val && v.search > 1){
-                url += `/${v.option.identifier}/${http.get(v.option.identifier)||0}`
-            }
-        }
-    }else {
         url=`${val}_${id}`;
         for(let v of arr){
             if(v.option.identifier != val){
                 url += `|${v.option.identifier}_${http[v.option.identifier]||0}`
             }
         }
-    }
-
     //console.log(url);
     return url;
 }
@@ -1199,6 +1189,7 @@ global.a2a = function (a1,a2){
     }
     return true;
 }
+//生成6位的随机数
 global.MathRand = function ()
 {
     var Num="";

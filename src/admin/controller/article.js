@@ -26,6 +26,7 @@ export default class extends Base {
         let position = this.get('position') || null;
         let group_id = this.get('group_id') || 0;
         let sortid = this.get('sortid')||0;
+        let sortval = this.get('sortval')||null;
         let models;
         let groups;
         let model;
@@ -171,7 +172,7 @@ export default class extends Base {
         fields = unique(fields);
         //console.log(fields);
        // console.log(model_id);
-        let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id);
+        let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id,sortval,sortid);
         for(let val of list){
             if(val.pics){
                 //val.pics = await get_pics_one(val.pics,"path");
@@ -227,7 +228,7 @@ export default class extends Base {
      * @param mixed $field 字段列表
      * @param integer $group_id 分组id
      */
-    async getDocumentList(cate_id, model_id, position, field, group_id) {
+    async getDocumentList(cate_id, model_id, position, field, group_id,sortval,sortid) {
         //console.log(2222222);
         /* 查询条件初始化 */
         cate_id = cate_id||0,field=field||true;
@@ -309,8 +310,53 @@ export default class extends Base {
         if (!think.isEmpty(group_id)) {
             map['group_id'] = group_id;
         }
+        if(!think.isEmpty(sortid)){
+            map.sort_id = sortid;
+        }
+        let nsobj = {};
+        if(!think.isEmpty(sortval)) {
+            sortval = sortval.split("|");
+            nsobj = {}
+            let optionidarr = [];
+            let valuearr = [];
+            for (let v of sortval) {
+                let qarr = v.split("_");
+                nsobj[qarr[0]] = qarr[1];
+                if(qarr[1] !=0){
+                    let vv = qarr[1].split(">");
+                    //console.log(vv);
+                    if(vv[0]=="d" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["<",vv[1]];
+                    }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = [">",vv[1]];
+                    }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
+                    }else {
+                        map["t."+qarr[0]] = qarr[1];
+                    }
 
-        let list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+                }
+            }
+            map.fid = cate_id;
+            // where.optionid = ["IN",optionidarr];
+            // where['value'] = ["IN",valuearr];
+            // let type= await this.model("typeoptionvar").where(where).select();
+            //  console.log(type);
+            // console.log(map);
+        }
+        console.log(map);
+        let list;
+        if(!think.isEmpty(sortval)){
+            list = await Document.alias('DOCUMENT').join({
+                table: "type_optionvalue"+sortid,
+                join: "left", // 有 left,right,inner 3 个值
+                as: "t",
+                on: ["id", "tid"]
+
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+        }else {
+             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+        }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(); //实例化 Adapter
@@ -326,7 +372,7 @@ export default class extends Base {
 
         //检查该分类是否允许发布内容
         let allow_publish = await this.model("category").get_category(cate_id, 'allow_publish');
-
+        this.assign("nsobj",nsobj);
         this.assign('_total', list.count);//该分类下的文档总数
         this.assign('pagerData', page); //分页展示使用
         this.assign('status', status);

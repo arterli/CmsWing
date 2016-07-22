@@ -30,8 +30,8 @@
                         </ul>
                         <!-- / .breadcrumb -->
                         {%if sort%}
-                        <section class="panel panel-default m-b-xs">
-                            <header class="panel-heading text-right bg-light">
+                        <section class="panel panel-default m-b-xs clearfix">
+                            <header class="panel-heading text-right bg-light clearfix">
                                 <ul class="nav nav-tabs pull-left">
                                     {%for val in sort.types%}
                                     <li class="{%if http.get('sortid')|length > 0%}{%if http.get('sortid')==val.enable%}active{%endif%}{%else%}{%if sort.defaultshow == val.enable%}active{%endif%}{%endif%}">
@@ -39,43 +39,47 @@
                                     </li>
                                    {%endfor%}
                                 </ul>
-                                <span class="hidden-sm">Left</span>
+                                <ul class="nav nav-pills pull-right">
+                                    <li>
+                                        <a href="#" class="panel-toggle text-muted" id="sorttoggle"><i class="fa fa-caret-down text"></i><i class="fa fa-caret-up text-active"></i></a>
+                                    </li>
+                                </ul>
                             </header>
-                            <div class="panel-body" style="padding: 0">
+                            <div class="panel-body collapse" id="sortbody" style="padding: 0">
                                 <div class="tab-content">
                                     <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
                                         <tbody>
                                         {%for val in typevar%}
                                         {%if val.search > 1 and val.available==1%}
                                         <tr>
-                                            <td style="width: 120px" class="text-right">
+                                            <td style="width: 140px" class="text-right">
                                                {{val.option.title}}:
                                             </td>
                                             <td>
-                                               {%if 0 == http.get(val.option.identifier)%}
+                                                {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
                                                 <span style="margin-right: 10px">全部</span>
                                                 {%else%}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">全部</a>
                                                 {%endif%}
                                                 {%for v in val.rules %}
-                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
-                                                <span style="margin-right: 10px">{{v.name}}</span>
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                <span style="margin-right: 10px">{{v.name}}{{val.option.unit}}</span>
                                                 {%else%}
-                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v.name}}</a>
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
                                                 {%endif%}
                                             {%endfor%}
 
                                                 <!--子栏目-->
                                                 {%for v in val.rules %}
-                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
                                                 {% if v.children%}
                                                 <div class="subtsm">
 
                                                     {% for v_ in v.children %}
-                                                    {%if v_.id|sort_act(http.get(val.option.identifier))%}
-                                                    <span style="margin-right: 10px">{{v_.name}}</span>
+                                                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                    <span style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</span>
                                                     {%else%}
-                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v_.name}}</a>
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
                                                     {%endif%}
                                                     {% endfor %}
                                                 </div>
@@ -84,20 +88,20 @@
                                                 {%endfor%}
                                                 <!--子栏目-->
                                                 {%for v in val.rules %}
-                                                {%if v.id|sort_act(http.get(val.option.identifier))%}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
                                                 {% if v.children%}
 
                                                 {% for v_ in v.children %}
-                                                {%if v_.id|sort_act(http.get(val.option.identifier))%}
+                                                {%if v_.id|sort_act(nsobj[val.option.identifier])%}
                                                 {% if v_.children%}
                                                 <div class="subtsm">
                                                     {% for v__ in v_.children %}
 
-                                                    {%if v__.id|sort_act(http.get(val.option.identifier))%}
+                                                    {%if v__.id|sort_act(nsobj[val.option.identifier])%}
 
-                                                    <span style="margin-right: 10px">{{v__.name}}</span>
+                                                    <span style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</span>
                                                     {%else%}
-                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,http)}}" class="text-info" style="margin-right: 10px">{{v__.name}}</a>
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</a>
 
                                                     {%endif%}
                                                     {%endfor%}
@@ -346,6 +350,18 @@
                 window.location.href = url;
             }
         });
+        if(localStorage.getItem("sortoggle")==1){
+            $("#sorttoggle").addClass("active");
+            $("#sortbody").removeClass("collapse");
+        }
+        //分类菜单
+        $("#sorttoggle").click(function () {
+            if(!$(this).is(".active")){
+                localStorage.setItem("sortoggle",1)
+            }else {
+                localStorage.removeItem("sortoggle");
+            }
+        })
     })
 
 </script>
