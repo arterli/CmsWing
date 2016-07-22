@@ -353,9 +353,9 @@ export default class extends Base {
                 as: "t",
                 on: ["id", "tid"]
 
-            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }else {
-             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
