@@ -44,13 +44,24 @@ export default class extends Base {
                 for (let val of typevar){
 
                     val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
-                    if(val.option.type == 'select'||val.option.type == 'radio'||val.option.type == 'checkbox'){
+                    if(val.option.type == 'select'||val.option.type == 'radio'){
                         if(!think.isEmpty(val.option.rules)){
                             val.option.rules = JSON.parse(val.option.rules);
                             val.rules=parse_type_attr(val.option.rules.choices);
                             val.option.rules.choices = parse_config_attr(val.option.rules.choices);
                         }
 
+                    }else if(val.option.type == 'checkbox'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
+                            console.log(val.rules);
+                            for(let v of val.rules){
+                                v.id = "l>"+v.id
+                            }
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                            //console.log(val.rules);
+                        }
                     }else if(val.option.type == 'range'){
                         if(!think.isEmpty(val.option.rules)){
                             let searchtxt = JSON.parse(val.option.rules).searchtxt;
@@ -329,6 +340,8 @@ export default class extends Base {
                         map["t."+qarr[0]] = ["<",vv[1]];
                     }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
                         map["t."+qarr[0]] = [">",vv[1]];
+                    }else if(vv[0]=="l" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["like",`%"${vv[1]}"%`];
                     }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
                         map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
                     }else {

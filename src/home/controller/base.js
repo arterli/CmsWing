@@ -99,8 +99,8 @@ export default class extends think.controller.base {
         return think.statusAction(702, this.http);
     }
     let cate = await this.model("category").info(id, field);
-
-    if (cate && 1 == cate.status) {
+      //console.log(cate);
+      if (cate && 1 == cate.status) {
 
       switch (cate.display) {
         case 0:
