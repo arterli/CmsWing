@@ -220,7 +220,7 @@ export default class extends Base {
       }else {
           data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
       }
-
+      console.log(data);
       // let data = await this.model('document').join({
       //     typeoptionvar: {
       //         join: "left", // 有 left,right,inner 3 个值
@@ -255,6 +255,7 @@ export default class extends Base {
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       this.assign('list', data.data);
+      this.assign('count',data.count);
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
       //console.log(cate);
@@ -352,9 +353,9 @@ export default class extends Base {
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
     if (!think.isEmpty(info.template) && info.template !=0) {
-      temp = 'detail_' + model + '_' + info.template; //已设置详情模板
+      temp = 'detail_' + info.template; //已设置详情模板
     } else if (!think.isEmpty(cate.template_detail)) {
-      temp = 'detail_' + model + '_' + cate.template_detail; //分类已经设置模板
+      temp = 'detail_' + cate.template_detail; //分类已经设置模板
     } else {
       temp = 'detail_' + model;
     }
