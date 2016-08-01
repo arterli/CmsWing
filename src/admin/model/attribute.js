@@ -132,7 +132,7 @@ export default class extends think.model.base {
         }
         let res = await think.model('mysql', think.config("db")).execute(sql);
 
-        return !think.isEmpty(res);
+        return res >= 0;
 
     }
 
