@@ -29,6 +29,7 @@ export default class extends think.controller.base {
       //设置主题
       //this.http.theme("default);
       //购物车
+
       let cartList = await this.shopCart();
       let cartInfo;
       if(think.isEmpty(cartList)){
@@ -115,6 +116,7 @@ export default class extends think.controller.base {
       }
 
     } else {
+        think.cache()
       //this.fail("分类不存在或者被禁用！");
         this.http.error = new Error('分类不存在或者被禁用！');
         return think.statusAction(702, this.http);

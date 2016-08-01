@@ -3,6 +3,7 @@
 <link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
+{%set cate = category.id|get_cate()%}
 <!-- 
 PAGE HEADER 
 
@@ -39,13 +40,13 @@ CLASSES:
 {% endfor %}
 </ol><!-- /breadcrumbs -->
 <!-- page tabs -->
-{%column data="cate",pid=category.pid%}
-{%if cate%}
+{%column data="column",pid=category.pid%}
+{%if column%}
 <ul class="page-header-tabs list-inline">
 
 <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
-{%for val in cate%}
-<li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+{%for val in column%}
+<li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
 {%endfor%}
 </ul>
 {%endif%}
@@ -60,7 +61,100 @@ CLASSES:
 <!-- -->
 <section>
 <div class="container">
+    <!--分类信息-->
+    {%if sort%}
+    {%if sort.types|length >1%}
+    <ul class="nav nav-tabs">
+        {%for val in sort.types%}
+        <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{group_id}}-{{val.enable}}{{http.config('view.file_ext')}}" >{{val.name}}</a></li>
+        {%endfor%}
 
+    </ul>
+    {%endif%}
+    <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+        <table class="table table-hover  m-b-none" style="margin-top: -1px">
+            <tbody>
+            {% set typenum = 1%}
+            {%for val in typevar%}
+            {%if val.search > 1%}
+            <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                <td style="width: 120px" class="text-right">
+                    {{val.option.title}}:
+                </td>
+                <td>
+                    {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                    <span class="btn btn-danger btn-xs relative">全部</span>
+                    {%else%}
+                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >全部</a>
+                    {%endif%}
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
+                    {%else%}
+                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                    {%endif%}
+                    {%endfor%}
+                    <!--子栏目-->
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v.children%}
+                    <div class="subtsm">
+
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {% endfor %}
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                    <!--子栏目-->
+                    {%for v in val.rules %}
+                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v.children%}
+
+                    {% for v_ in v.children %}
+                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                    {% if v_.children%}
+                    <div class="subtsm">
+                        {% for v__ in v_.children %}
+
+                        {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                        <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                    {%endif%}
+                    {%endif%}
+                    {% endfor %}
+
+                    {%endif%}
+                    {%endif%}
+                    {%endfor%}
+                </td>
+
+            </tr>
+            {% set typenum = typenum+1%}
+            {%endif%}
+            {%endfor%}
+
+            </tbody>
+        </table>
+        {% if typenum > 4%}
+        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+        {%endif%}
+    </div>
+
+    {%endif%}
+    <!--/分类信息-->
 <div class="row">
 
 <!-- RIGHT -->
@@ -113,99 +207,8 @@ CLASSES:
 </div>
 <!-- /CAROUSEL -->
 #}
-    {%set cate = category.id|get_cate()%}
-    <!--分类信息-->
-    {%if sort%}
-    <ul class="nav nav-tabs">
-        {%for val in sort.types%}
-        <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}/{{group_id}}/{{val.enable}}" >{{val.name}}</a></li>
-        {%endfor%}
 
-    </ul>
-    <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
-        <table class="table table-hover  m-b-none" style="margin-top: -1px">
-            <tbody>
-            {% set typenum = 1%}
-            {%for val in typevar%}
-            {%if val.search > 1%}
-            <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
-                <td style="width: 120px" class="text-right">
-                    {{val.option.title}}:
-                </td>
-                <td>
-                    {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
-                    <span class="btn btn-danger btn-xs relative">全部</span>
-                    {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >全部</a>
-                    {%endif%}
-                    {%for v in val.rules %}
-                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
-                    <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
-                    {%else%}
-                    <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
-                    {%endif%}
-                    {%endfor%}
-                    <!--子栏目-->
-                    {%for v in val.rules %}
-                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
-                    {% if v.children%}
-                    <div class="subtsm">
 
-                        {% for v_ in v.children %}
-                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
-                        <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
-                        {%else%}
-                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
-                        {%endif%}
-                        {% endfor %}
-                    </div>
-                    {%endif%}
-                    {%endif%}
-                    {%endfor%}
-                    <!--子栏目-->
-                    {%for v in val.rules %}
-                    {%if v.id|sort_act(nsobj[val.option.identifier])%}
-                    {% if v.children%}
-
-                    {% for v_ in v.children %}
-                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
-                    {% if v_.children%}
-                    <div class="subtsm">
-                        {% for v__ in v_.children %}
-
-                        {%if v__.id|sort_act(nsobj[val.option.identifier])%}
-
-                        <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
-                        {%else%}
-                        <a href="{{cate.url}}/{{group_id}}/{{sortid}}/{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
-
-                        {%endif%}
-                        {%endfor%}
-                    </div>
-                    {%endif%}
-                    {%endif%}
-                    {% endfor %}
-
-                    {%endif%}
-                    {%endif%}
-                    {%endfor%}
-                </td>
-
-            </tr>
-            {% set typenum = typenum+1%}
-            {%endif%}
-            {%endfor%}
-
-            </tbody>
-        </table>
-        {% if typenum > 4%}
-        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
-        <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
-   {%endif%}
-    </div>
-
-    {%endif%}
-    <!--/分类信息-->
 <!-- LIST OPTIONS -->
 <div class="clearfix shop-list-options margin-bottom-20">
 <div class="nomargin pull-right">

@@ -42,7 +42,7 @@ CLASSES:
 
             <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
             {%for val in cate%}
-            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
             {%endfor%}
         </ul>
         {%endif%}
@@ -53,26 +53,124 @@ CLASSES:
 <!-- -->
 {% groups data="groups",cid=category.id%}
 {%set cate = category.id|get_cate()%}
-<section {%if groups|length > 0 %}class="padding-top-20"{%endif%}>
+<section >
     <div class="container">
-        {{cate.groups}}
-        {%if groups|length >0 %}
+        <!--分类信息-->
+        {%if sort%}
+        {%if sort.types|length >1%}
+        <ul class="nav nav-tabs">
+            {%for val in sort.types%}
+            <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{group_id}}-{{val.enable}}{{http.config('view.file_ext')}}" >{{val.name}}</a></li>
+            {%endfor%}
 
-        <div class="text-center">
-            <ul class="nav nav-pills mix-filter">
-
-                <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}">全部</a></li>
-                {%for v in groups%}
-                <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{v.url}}">{{v.name}}</a></li>
-                {%endfor%}
-            </ul>
-        </div>
-        <div class="divider divider-dotted margin-top-6"><!-- divider --></div>
+        </ul>
         {%endif%}
+        <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+            <table class="table table-hover  m-b-none" style="margin-top: -1px">
+                <tbody>
+                {% set typenum = 1%}
+                {%for val in typevar%}
+                {%if val.search > 1%}
+                <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                    <td style="width: 120px" class="text-right">
+                        {{val.option.title}}:
+                    </td>
+                    <td>
+                        {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                        <span class="btn btn-danger btn-xs relative">全部</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >全部</a>
+                        {%endif%}
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+                        <div class="subtsm">
+
+                            {% for v_ in v.children %}
+                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                            <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v_.children%}
+                        <div class="subtsm">
+                            {% for v__ in v_.children %}
+
+                            {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                            <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {% endfor %}
+
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                </tr>
+                {% set typenum = typenum+1%}
+                {%endif%}
+                {%endfor%}
+
+                </tbody>
+            </table>
+            {% if typenum > 4%}
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+            {%endif%}
+        </div>
+
+        {%endif%}
+        <!--/分类信息-->
         <div class="row">
 
             <!-- LEFT -->
             <div class="col-md-9 col-sm-9">
+                <div class="text-left">
+                    <ul class="nav nav-pills mix-filter">
+
+                        <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}">全部</a></li>
+                        {% groups data="groups",cid=category.id%}
+                        {%for v in groups%}
+                        <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}">{{v.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <div class="btn-group btn-group-sm pull-right">
+                        <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
+                        <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
+                    </div>
+                    <div class="divider divider-circle divider-center margin-top-0"><!-- divider -->
+                        <a href="#"><i class="fa fa-rss"></i></a>
+                    </div>
+                </div>
+
                 <div id="portfolio" class="portfolio-gutter portfolio-title-over">
                     <div class="row">
                         {% for val in list %}
@@ -90,7 +188,7 @@ CLASSES:
 												</a>
 #}
                                                 <!-- details -->
-												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}" target="_blank">
+												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}{{http.config('view.file_ext')}}" target="_blank">
 													<span class="fa fa-play-circle fa-3x"></span>
 												</a>
 
