@@ -322,7 +322,7 @@ export default class extends Base {
             map['group_id'] = group_id;
         }
         if(!think.isEmpty(sortid)){
-            map.sort_id = sortid;
+            map.sort_id = ["IN",[sortid,0]];
         }
         let nsobj = {};
         if(!think.isEmpty(sortval)) {

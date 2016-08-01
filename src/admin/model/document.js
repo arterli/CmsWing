@@ -30,9 +30,9 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data){
-        //console.log(data.sort_id);
+       //  console.log(data);
 
-       //return false;
+       // return false;
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;

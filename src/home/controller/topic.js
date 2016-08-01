@@ -25,7 +25,7 @@ export default class extends Base {
       let get = this.get('category') || 0;
       let id=0;
       if(get != 0){
-          id = get.split("/")[0];
+          id = get.split("-")[0];
       }
       let cate = await this.category(id);
       cate = think.extend({}, cate);
@@ -53,8 +53,9 @@ export default class extends Base {
 
       let get = this.get('category') || 0;
       let id=0;
+      let query = get.split("-");
       if(get != 0){
-          id = get.split("/")[0];
+          id = query[0];
       }
 
       let cate = await this.category(id);
@@ -87,15 +88,34 @@ export default class extends Base {
         'status': 1,
         'category_id': ['IN', subcate]
       };
+      //排序
+      let o = {};
+      let order = query[1]||0;
+      order = Number(order);
+      switch (order){
+          case 1:
+              o.update_time = 'ASC';
+              break;
+          case 2:
+              o.view = 'DESC';
+              break;
+          case 3:
+              o.view = 'ASC';
+              break;
+          default:
+              o.update_time = 'DESC';
+      }
+      this.assign('order',order);
       // 获取分类信息
-      let sortid = get.split("/")[2]||0;
+      let sortid = query[3]||0;
       if(!think.isEmpty(sortid)){
           map.sort_id = sortid;
       }
-      let sortarr = get.split("/")[3]||null;
+      let sortarr = query[4]||null;
       let nsobj = {};
       let sort = await this.model("category", {}, 'admin').get_category(cate.id, 'documentsorts');
       if (sort) {
+          this.assign("sorturl",get.split("-")[4])
           sort = JSON.parse(sort);
           if(sortid==0){
               sortid=sort.defaultshow;
@@ -193,6 +213,7 @@ export default class extends Base {
          // let type= await this.model("typeoptionvar").where(where).select();
          //  console.log(type);
          // console.log(map);
+
       }
       console.log(map);
       //return false;
@@ -202,8 +223,8 @@ export default class extends Base {
 
       this.assign("sortid",sortid);
       let group_id = 0;
-      if(!think.isEmpty(get.split("/")[1]) && get.split("/")[1] !=0){
-          map.group_id=get.split("/")[1];
+      if(!think.isEmpty(query[2]) && query[2] !=0){
+          map.group_id=query[2];
           group_id = map.group_id;
       }
       this.assign("group_id",group_id)
@@ -216,9 +237,9 @@ export default class extends Base {
                       as: "t",
                       on: ["id", "tid"]
 
-              }).where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+              }).where(map).page(this.param('page'),num).order(o).countSelect();
       }else {
-          data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+          data = await this.model('document').where(map).page(this.param('page'),num).order(o).countSelect();
       }
       console.log(data);
       // let data = await this.model('document').join({

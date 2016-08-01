@@ -26,6 +26,8 @@ export default class extends think.model.base {
             if (create) {
                 //新增表字段
                 let res = await this.addField(data);
+                console.log(res);
+                //return false;
                 if (!res) {
                     this.delete(id)
                     return false;
@@ -129,8 +131,7 @@ export default class extends think.model.base {
             }
         }
         let res = await think.model('mysql', think.config("db")).execute(sql);
-
-        return res == 0;
+        return res;
 
     }
 
@@ -142,7 +143,7 @@ export default class extends think.model.base {
      */
     async updateField(_field) {
         //检查表是否存在
-        let table_exist = await this.checkTableExist(_field.model_id);
+         await this.checkTableExist(_field.model_id);
 
         //获取原字段名
         let last_field = await this.where({id: _field.id}).getField('name');
@@ -165,7 +166,7 @@ export default class extends think.model.base {
      */
     async  deleteField(_field) {
         //检查表是否存在
-        let table_exist = await this.checkTableExist(_field.model_id);
+         await this.checkTableExist(_field.model_id);
 
         let sql = `ALTER TABLE \`${this.table_name}\` DROP COLUMN \`${_field.name}\`;`
 
