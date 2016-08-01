@@ -25,7 +25,7 @@ export default class extends Base {
       let get = this.get('category') || 0;
       let id=0;
       if(get != 0){
-          id = get.split("/")[0];
+          id = get.split("-")[0];
       }
       let cate = await this.category(id);
       cate = think.extend({}, cate);
@@ -53,13 +53,14 @@ export default class extends Base {
 
       let get = this.get('category') || 0;
       let id=0;
+      let query = get.split("-");
       if(get != 0){
-          id = get.split("/")[0];
+          id = query[0];
       }
 
       let cate = await this.category(id);
       cate = think.extend({}, cate);
-
+      //console.log(cate);
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
       // console.log(subcate);
@@ -87,15 +88,34 @@ export default class extends Base {
         'status': 1,
         'category_id': ['IN', subcate]
       };
+      //排序
+      let o = {};
+      let order = query[1]||0;
+      order = Number(order);
+      switch (order){
+          case 1:
+              o.update_time = 'ASC';
+              break;
+          case 2:
+              o.view = 'DESC';
+              break;
+          case 3:
+              o.view = 'ASC';
+              break;
+          default:
+              o.update_time = 'DESC';
+      }
+      this.assign('order',order);
       // 获取分类信息
-      let sortid = get.split("/")[2]||0;
+      let sortid = query[3]||0;
       if(!think.isEmpty(sortid)){
           map.sort_id = sortid;
       }
-      let sortarr = get.split("/")[3]||null;
+      let sortarr = query[4]||null;
       let nsobj = {};
       let sort = await this.model("category", {}, 'admin').get_category(cate.id, 'documentsorts');
       if (sort) {
+          this.assign("sorturl",get.split("-")[4])
           sort = JSON.parse(sort);
           if(sortid==0){
               sortid=sort.defaultshow;
@@ -104,7 +124,7 @@ export default class extends Base {
           for (let val of typevar){
 
               val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
-              if(val.option.type == 'select' ||val.option.type == 'radio'||val.option.type == 'checkbox'){
+              if(val.option.type == 'select' ||val.option.type == 'radio'){
                   if(!think.isEmpty(val.option.rules)){
                       val.option.rules = JSON.parse(val.option.rules);
                       val.rules=parse_type_attr(val.option.rules.choices);
@@ -112,6 +132,17 @@ export default class extends Base {
                       //console.log(val.rules);
                   }
 
+              }else if(val.option.type == 'checkbox'){
+                  if(!think.isEmpty(val.option.rules)){
+                      val.option.rules = JSON.parse(val.option.rules);
+                      val.rules=parse_type_attr(val.option.rules.choices);
+                      console.log(val.rules);
+                      for(let v of val.rules){
+                          v.id = "l>"+v.id
+                      }
+                      val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                      //console.log(val.rules);
+                  }
               }else if(val.option.type == 'range'){
                   if(!think.isEmpty(val.option.rules)){
                       let searchtxt = JSON.parse(val.option.rules).searchtxt;
@@ -166,6 +197,8 @@ export default class extends Base {
                       map["t."+qarr[0]] = ["<",vv[1]];
                   }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
                       map["t."+qarr[0]] = [">",vv[1]];
+                  }else if(vv[0]=="l" && !think.isEmpty(vv[1])){
+                      map["t."+qarr[0]] = ["like",`%"${vv[1]}"%`];
                   }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
                       map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
                   }else {
@@ -180,16 +213,18 @@ export default class extends Base {
          // let type= await this.model("typeoptionvar").where(where).select();
          //  console.log(type);
          // console.log(map);
+
       }
       console.log(map);
+      //return false;
       //console.log(sort);
       this.assign("sort",sort);
           this.assign("nsobj",nsobj);
 
       this.assign("sortid",sortid);
       let group_id = 0;
-      if(!think.isEmpty(get.split("/")[1]) && get.split("/")[1] !=0){
-          map.group_id=get.split("/")[1];
+      if(!think.isEmpty(query[2]) && query[2] !=0){
+          map.group_id=query[2];
           group_id = map.group_id;
       }
       this.assign("group_id",group_id)
@@ -202,11 +237,11 @@ export default class extends Base {
                       as: "t",
                       on: ["id", "tid"]
 
-              }).where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+              }).where(map).page(this.param('page'),num).order(o).countSelect();
       }else {
-          data = await this.model('document').where(map).page(this.param('page'),num).order('update_time DESC').countSelect();
+          data = await this.model('document').where(map).page(this.param('page'),num).order(o).countSelect();
       }
-  
+      console.log(data);
       // let data = await this.model('document').join({
       //     typeoptionvar: {
       //         join: "left", // 有 left,right,inner 3 个值
@@ -241,8 +276,11 @@ export default class extends Base {
       /* 模板赋值并渲染模板 */
       this.assign('category', cate);
       this.assign('list', data.data);
+      this.assign('count',data.count);
       //console.log(cate)
       let temp = cate.template_lists ? `list_${cate.template_lists}` : "";
+      //console.log(cate);
+      //console.log(111)
       if(checkMobile(this.userAgent())){
          if(this.isAjax("POST")){
              for(let v of data.data){
@@ -336,9 +374,9 @@ export default class extends Base {
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
     if (!think.isEmpty(info.template) && info.template !=0) {
-      temp = 'detail_' + model + '_' + info.template; //已设置详情模板
+      temp = 'detail_' + info.template; //已设置详情模板
     } else if (!think.isEmpty(cate.template_detail)) {
-      temp = 'detail_' + model + '_' + cate.template_detail; //分类已经设置模板
+      temp = 'detail_' + cate.template_detail; //分类已经设置模板
     } else {
       temp = 'detail_' + model;
     }
