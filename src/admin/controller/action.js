@@ -16,6 +16,7 @@ export default class extends Base {
    * index action
    * @return {Promise} []
    */
+
   async indexAction(){
     //auto render template file index_index.html
     let action = await this.model('action').where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
