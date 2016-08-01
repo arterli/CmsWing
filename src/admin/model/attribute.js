@@ -131,7 +131,8 @@ export default class extends think.model.base {
             }
         }
         let res = await think.model('mysql', think.config("db")).execute(sql);
-        return res;
+
+        return !think.isEmpty(res);
 
     }
 
@@ -155,6 +156,7 @@ export default class extends think.model.base {
         sql = this.parseSql(sql);
         console.log(sql);
         let res = await think.model('mysql', think.config("db")).execute(sql);
+        console.log(res);
         return res == 0;
     }
 
