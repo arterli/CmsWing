@@ -714,6 +714,301 @@ export default class extends Base {
         }
 
     }
+    async publishAction(){
+        await this.weblogin();
+        let cate_id = this.get('cate_id') || null;
+        let model_id = this.get('model_id') || null;
+        let position = this.get('position') || null;
+        let group_id = this.get('group_id') || 0;
+        let sortid = this.get('sortid')||0;
+        let sortval = this.get('sortval')||null;
+        let models;
+        let groups;
+        let model;
+        let _model;
+        if (!think.isEmpty(cate_id)) {
+        let pid = this.get("pid") || 0;
+        // 获取列表绑定的模型
+        if (pid == 0) {
+            models = await this.model("category",{},'admin').get_category(cate_id, 'model');
+            // 获取分组定义
+            groups = await this.model("category",{},'admin').get_category(cate_id, 'groups');
+            if (groups) {
+                groups = parse_config_attr(groups);
+            }
+        } else { // 子文档列表
+            models = await this.model("category",{},'admin').get_category(cate_id, 'model_sub');
+        }
+        //获取面包屑信息
+        let nav = await this.model('category',{},'admin').get_parent_category(cate_id||0);
+        this.assign('breadcrumb', nav);
+        if (think.isEmpty(model_id) && !think.isNumberString(models)) {
+
+            // 绑定多个模型 取基础模型的列表定义
+            model = await this.model('model').where({name: 'document'}).find();
+            //console.log(model);
+        } else {
+
+            model_id = model_id ? model_id : models;
+            //获取模型信息
+            model = await this.model('model').where({id: ['IN', [model_id]]}).find();
+            ;
+
+            if (think.isEmpty(model['list_grid'])) {
+                let data = await this.model('model').field('list_grid').where({name: 'document'}).find();
+                model.list_grid = data.list_grid;
+                //console.log(33);
+            }
+        }
+        this.assign('model', models.split(","))
+        _model = models.split(",")
+    } else { // 子文档列表
+    //获取模型信息
+    model = await this.model("model").where({name: "document"}).find();
+    model_id = null;
+    cate_id = 0;
+    this.assign('model', null);
+    _model = null;
+}
+//解析列表规则
+let fields = [];
+let ngrids = [];
+//console.log(model);
+let grids = model.list_grid.split("\r\n");
+for (let value of grids) {
+    //字段:标题:链接
+    let val = value.split(":");
+    //支持多个字段显示
+    let field = val[0].split(",");
+    value = {field: field, title: val[1]}
+
+    if (!think.isEmpty(val[2])) {
+        value.href = val[2];
+    }
+    // console.log(222);
+    if (val[1]) {
+        if (val[1].indexOf('|') > -1) {
+            // 显示格式定义
+            [values.title, values.format] = val[1].split('|');
+        }
+    }
+    //console.log(field);
+    for (let val  of field) {
+        let array = val.split('|');
+        fields.push(array[0]);
+    }
+    ngrids.push(value);
+}
+// 文档模型列表始终要获取的数据字段 用于其他用途
+fields.push('category_id');
+fields.push('model_id');
+fields.push('pid');
+//过滤重复字段
+fields = unique(fields);
+//console.log(fields);
+// console.log(model_id);
+let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id,sortval,sortid);
+for(let val of list){
+    if(val.pics){
+        //val.pics = await get_pics_one(val.pics,"path");
+        val.pics = await get_pic(val.pics.split(",")[0],1,100)
+    }else {
+        val.pics = '/static/noimg.jpg';
+    }
+}
+// console.log(list);
+list = await this.parseDocumentList(list, model_id);
+        //获取模型信息
+        let modellist = [];
+        //console.log(111111111)
+        if (think.isEmpty(_model)) {
+            modellist = null;
+        } else {
+            for (let val of _model) {
+                let modelobj = {}
+                modelobj.id = val;
+                modelobj.title = await this.model("model",{},'admin').get_document_model(val, "title");
+                modellist.push(modelobj);
+            }
+        }
+        this.meta_title="在线投稿";
+        this.assign('modellist', modellist);
+        this.assign('cate_id', cate_id);
+        this.assign('model_id', model_id);
+        this.assign('group_id', group_id);
+        this.assign('sortid',sortid);
+        this.assign('position', position);
+        this.assign('groups', groups);
+        this.assign('list', list);
+        this.assign('list_grids', ngrids);
+        this.assign('model_list', model);
+        return this.display();
+
+    }
+    /**
+     * 默认文档列表方法
+     * @param integer $cate_id 分类id
+     * @param integer $model_id 模型id
+     * @param integer $position 推荐标志
+     * @param mixed $field 字段列表
+     * @param integer $group_id 分组id
+     */
+    async getDocumentList(cate_id, model_id, position, field, group_id,sortval,sortid) {
+        //console.log(2222222);
+        /* 查询条件初始化 */
+        cate_id = cate_id||0,field=field||true;
+        let map = {};
+        let status;
+        if (!think.isEmpty(this.get('title'))) {
+            map.title = ['like', '%' + this.param('title') + '%'];
+        }
+        if (!think.isEmpty(this.get('status'))) {
+            map.status = this.param('status');
+            status = map.status;
+        } else {
+            status = null;
+            map.status = ['IN', '0,1,2'];
+        }
+        if (!think.isEmpty(this.get('time-start'))) {
+            map.update_time = {'>=': new Date(this.param('time-start').valueOf())};
+        }
+        if (!think.isEmpty(this.get('time-end'))) {
+            map.update_time = {'<=': 24 * 60 * 60 + new Date(this.param('time-end').valueOf())};
+        }
+        if (!think.isEmpty(this.get('nickname'))) {
+            map.uid = await this.model('member').where({'nickname': this.param('nickname')}).getField('uid');
+        }
+
+        // 构建列表数据
+        let Document = this.model('document');
+
+        if (cate_id) {
+            //获取当前分类的所有子栏目
+            let subcate = await this.model('category', {}, 'admin').get_sub_category(cate_id);
+            // console.log(subcate);
+            subcate.push(cate_id);
+            map.category_id = ['IN', subcate];
+        }
+        // console.log(map);
+        map.pid = this.param('pid') || 0;
+        //console.log(map.pid);
+        if (map.pid != 0) { // 子文档列表忽略分类
+            delete map.category_id;
+        }
+
+        //console.log(array_diff(tablefields,field));
+        if (!think.isEmpty(model_id)) {
+            map.model_id = model_id;
+            await Document.select();
+            let tablefields = Object.keys(await Document.getSchema());
+            //console.log(array_diff(tablefields,field));
+            // console.log(field);
+            //return
+            if (think.isArray(field) && array_diff(tablefields, field)) {
+                let modelName = await this.model('model').where({id: model_id}).getField('name');
+                //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
+                // let sql = Document.parseSql(sql)
+                //console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+                // return
+                //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
+                //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+                //console.log(3333333333);
+                Document.alias('DOCUMENT').join({
+                    table: `document_${modelName[0]}`,
+                    join: "inner",
+                    as: modelName[0],
+                    on: ["id", "id"]
+                })
+                let key = array_search(field, 'id');
+                //console.log(key)
+                if (false !== key) {
+                    delete field[key];
+                    field[key] = 'DOCUMENT.id';
+                }
+            }
+        }
+        //console.log(field);
+        //console.log(1111111);
+        if (!think.isEmpty(position)) {
+            map[1] = "position & {$position} = {$position}";
+        }
+        if (!think.isEmpty(group_id)) {
+            map['group_id'] = group_id;
+        }
+        if(!think.isEmpty(sortid)){
+            map.sort_id = ["IN",[sortid,0]];
+        }
+        let nsobj = {};
+        if(!think.isEmpty(sortval)) {
+            sortval = sortval.split("|");
+            nsobj = {}
+            let optionidarr = [];
+            let valuearr = [];
+            for (let v of sortval) {
+                let qarr = v.split("_");
+                nsobj[qarr[0]] = qarr[1];
+                if(qarr[1] !=0){
+                    let vv = qarr[1].split(">");
+                    //console.log(vv);
+                    if(vv[0]=="d" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["<",vv[1]];
+                    }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = [">",vv[1]];
+                    }else if(vv[0]=="l" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["like",`%"${vv[1]}"%`];
+                    }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
+                    }else {
+                        map["t."+qarr[0]] = qarr[1];
+                    }
+
+                }
+            }
+            map.fid = cate_id;
+            // where.optionid = ["IN",optionidarr];
+            // where['value'] = ["IN",valuearr];
+            // let type= await this.model("typeoptionvar").where(where).select();
+            //  console.log(type);
+            // console.log(map);
+        }
+        console.log(map);
+        let list;
+        if(!think.isEmpty(sortval)){
+            list = await Document.alias('DOCUMENT').join({
+                table: "type_optionvalue"+sortid,
+                join: "left", // 有 left,right,inner 3 个值
+                as: "t",
+                on: ["id", "tid"]
+
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+        }else {
+            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+        }
+        //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(); //实例化 Adapter
+        let page = pages.pages(list);
+
+
+        if (map['pid'] != 0) {
+            // 获取上级文档
+            let article = await Document.field('id,title,type').find(map['pid']);
+            this.assign('article', article);
+            // console.log(article);
+        }
+
+        //检查该分类是否允许发布内容
+        let allow_publish = await this.model("category",{},'admin').get_category(cate_id, 'allow_publish');
+        this.assign("nsobj",nsobj);
+        this.assign('_total', list.count);//该分类下的文档总数
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('status', status);
+        this.assign('allow', allow_publish);
+        this.assign('pid', map.pid);
+        //console.log(list.data);
+        this.meta_title = '文档列表';
+        return list.data;
+    }
 //alipay_in_weixin 在微信客户端中使用支付宝手机网页支付（alipay_wap）
     alipayinweixinAction(){
         return this.display();

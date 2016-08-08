@@ -18,6 +18,13 @@
 		<!-- SIDE NAV -->
 		<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
 			<li class="list-group-item {% if http.action == 'index' %}active{%endif%}"><a href="/user/index"><i class="fa fa-home"></i> 用户主页</a></li>
+			<li class="list-group-item list-toggle {% if http.action == 'publish' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-0"><i class="fa fa-newspaper-o"></i> 内容管理</a>
+				<ul id="collapse-0" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
+					<li><a href="/user/publish" class="{% if http.action == 'publish' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 在线投稿</a></li>
+					<li><a href="#"><i class="fa fa-angle-right"></i> 已发布稿件</a></li>
+				</ul>
+			</li>
 			<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
 				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->

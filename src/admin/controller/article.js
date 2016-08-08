@@ -403,9 +403,20 @@ export default class extends Base {
 
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
-        for (let val of cate) {
-            val.url = `/admin/article/index/cate_id/${val.id}`;
-            val.target = '_self';
+        if(this.get('type')==1){
+            //前台投稿分类
+            //TODO 权限控制
+            for (let val of cate) {
+                val.url = `/user/publish/cate_id/${val.id}`;
+                val.target = '_self';
+            }
+        }else {
+            //后台分类
+            //TODO 权限控制
+            for (let val of cate) {
+                val.url = `/admin/article/index/cate_id/${val.id}`;
+                val.target = '_self';
+            }
         }
         //think.log(cate);
         return this.json(arr_to_tree(cate, 0))
