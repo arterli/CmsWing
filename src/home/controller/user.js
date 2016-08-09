@@ -12,7 +12,7 @@ import pagination from 'think-pagination';
 import fs from 'fs';
 import Jimp from "jimp";
 export default class extends Base {
-    async init(http) {
+     init(http) {
         super.init(http);
         //let login = await super.islogin()
         ////是否验证登陆
@@ -1008,6 +1008,94 @@ list = await this.parseDocumentList(list, model_id);
         //console.log(list.data);
         this.meta_title = '文档列表';
         return list.data;
+    }
+
+    /**
+     * 新增投稿
+     */
+    async addAction() {
+        let cate_id = this.get("cate_id") || 0;
+        let model_id = this.get("model_id") || 0;
+        let group_id = this.get("group_id") || '';
+        let sortid = this.get('sortid')||0;
+        think.isEmpty(cate_id) && this.fail("参数不能为空");
+        think.isEmpty(model_id) && this.fail("该分类未绑定模型");
+        // 获取分组定义
+        let groups = await this.model("category",{},'admin').get_category(cate_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        // 获取分类信息
+        let sort = await this.model("category",{},'admin').get_category(cate_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid==0){
+                sortid=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar",{},'admin').where({sortid:sortid}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption",{},'admin').where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.rules=parse_type_attr(val.option.rules.choices);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+                }else {
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                    }
+                }
+            }
+            //console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
+        //检查该分类是否允许发布
+        let allow_publish = await this.model("category",{},'admin').check_category(cate_id);
+        //console.log(allow_publish);
+        !allow_publish && this.fail("该分类不允许发布内容");
+
+        //获取当先的模型信息
+        let model = await this.model("model",{},'admin').get_document_model(model_id);
+
+        //处理结果
+        let info = {};
+        info.pid = this.get("pid") ? this.get("pid") : 0;
+        info.model_id = model_id;
+        info.category_id = cate_id;
+        info.group_id = group_id;
+
+        if (info.pid) {
+            let article = await this.model("document",{},'admin').field('id,title,type').find(info.pid);
+            this.assign("article", article);
+        }
+        //获取表单字段排序
+        let fields = await this.model("attribute",{},'admin').get_model_attribute(model.id,true);
+        //think.log(fields);
+        //获取当前分类文档的类型
+        let type_list = await this.model("category",{},'admin').get_type_bycate(cate_id);
+        //console.log(type_list);
+        //获取面包屑信息
+        let nav = await this.model('category',{},'admin').get_parent_category(cate_id);
+        //console.log(model);
+        this.assign('groups',groups);
+        this.assign('breadcrumb', nav);
+        this.assign('info', info);
+        this.assign('fields', fields);
+        this.assign('type_list', type_list);
+        this.assign('model', model);
+        this.meta_title = '新增' + model.title;
+        this.active = "admin/article/index";
+        return this.display();
     }
 //alipay_in_weixin 在微信客户端中使用支付宝手机网页支付（alipay_wap）
     alipayinweixinAction(){
