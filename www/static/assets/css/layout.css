@@ -8251,3 +8251,7 @@ ul.search-history {
 	padding: 5px;
 	border: 1px dotted #C2D5E3;
 }
+.thumb-sm {
+	display: inline-block;
+	width: 40px;
+}

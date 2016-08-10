@@ -76,7 +76,104 @@
                     </section>
 
                 </div></div>
-                <div class="col-lg-10 col-md-10 col-sm-8">  <section class="panel panel-default padding-0">
+                <div class="col-lg-10 col-md-10 col-sm-8">
+                    {%if sort%}
+
+                            <ul class="nav nav-tabs ">
+                                {%for val in sort.types%}
+                                <li class="{%if http.get('sortid')|length > 0%}{%if http.get('sortid')==val.enable%}active{%endif%}{%else%}{%if sort.defaultshow == val.enable%}active{%endif%}{%endif%}">
+                                    <a href="/user/publish/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{val.enable}}" > {{val.name}}</a>
+                                </li>
+                                {%endfor%}
+                            </ul>
+
+
+                            <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+                                <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
+                                    <tbody>
+                                    {% set typenum = 1%}
+                                    {%for val in typevar%}
+                                    {%if val.search > 1 and val.available==1%}
+                                    <tr  {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                                        <td style="width: 120px" class="text-right">
+                                            {{val.option.title}}:
+                                        </td>
+                                        <td>
+                                            {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                                            <span style="margin-right: 10px">全部</span>
+                                            {%else%}
+                                            <a href="/user/publish/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                            {%endif%}
+                                            {%for v in val.rules %}
+                                            {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                            <span style="margin-right: 10px">{{v.name}}{{val.option.unit}}</span>
+                                            {%else%}
+                                            <a href="/user/publish/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
+                                            {%endif%}
+                                            {%endfor%}
+
+                                            <!--子栏目-->
+                                            {%for v in val.rules %}
+                                            {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                            {% if v.children%}
+                                            <div class="subtsm">
+
+                                                {% for v_ in v.children %}
+                                                {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                <span style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</span>
+                                                {%else%}
+                                                <a href="/user/publish/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
+                                                {%endif%}
+                                                {% endfor %}
+                                            </div>
+                                            {%endif%}
+                                            {%endif%}
+                                            {%endfor%}
+                                            <!--子栏目-->
+                                            {%for v in val.rules %}
+                                            {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                            {% if v.children%}
+
+                                            {% for v_ in v.children %}
+                                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                            {% if v_.children%}
+                                            <div class="subtsm">
+                                                {% for v__ in v_.children %}
+
+                                                {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                                                <span style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</span>
+                                                {%else%}
+                                                <a href="/user/publish/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</a>
+
+                                                {%endif%}
+                                                {%endfor%}
+                                            </div>
+                                            {%endif%}
+                                            {%endif%}
+                                            {% endfor %}
+
+                                            {%endif%}
+                                            {%endif%}
+                                            {%endfor%}
+                                        </td>
+
+                                    </tr>
+                                    {% set typenum = typenum+1%}
+                                    {%endif%}
+                                    {%endfor%}
+
+                                    </tbody>
+                                </table>
+                                {% if typenum > 4%}
+                                <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+                                <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+                                {%endif%}
+                            </div>
+
+
+                    {%endif%}
+                    <section class="panel panel-default padding-0">
                     <header class="panel-heading">
                         <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
 
@@ -291,18 +388,6 @@
                 window.location.href = url;
             }
         });
-        if(localStorage.getItem("sortoggle")==1){
-            $("#sorttoggle").addClass("active");
-            $("#sortbody").removeClass("collapse");
-        }
-        //分类菜单
-        $("#sorttoggle").click(function () {
-            if(!$(this).is(".active")){
-                localStorage.setItem("sortoggle",1)
-            }else {
-                localStorage.removeItem("sortoggle");
-            }
-        })
     })
 
 </script>

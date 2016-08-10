@@ -70,7 +70,7 @@ CLASSES:
             <tbody>
             {% set typenum = 1%}
             {%for val in typevar%}
-            {%if val.search > 1%}
+            {%if val.search > 1 and val.available==1%}
             <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
                 <td style="width: 120px" class="text-right">
                     {{val.option.title}}:
