@@ -1171,6 +1171,93 @@ list = await this.parseDocumentList(list, model_id);
         return this.display();
     }
 
+    //编辑文档
+    async editAction() {
+        let id = this.get('id') || "";
+        let sortid = this.get('sortid')||0;
+        if (think.isEmpty(id)) {
+            this.fail("参数不能为空");
+        }
+        //获取详细数据；
+        let document = this.model("document")
+        let data = await document.details(id);
+        //let model =  this.model("model").getmodel(2);
+        if (data.pid != 0) {
+            //获取上级文档
+            let article = document.field("id,title,type").find(data.pid);
+            this.assign('article', article);
+        }
+        let model = await this.model("model").get_document_model(data.model_id);
+
+        // 获取分组定义
+        let groups = await this.model("category").get_category(data.category_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        this.assign('groups',groups);
+        // 获取分类信息
+        let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid !=0){
+                data.sort_id=sortid;
+            }else if(data.sort_id==0){
+                data.sort_id=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:data.sort_id}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }else {
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }
+            }
+            // console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
+        //获取表单字段排序
+        let fields = await this.model("attribute").get_model_attribute(model.id,true);
+        this.assign('fields', fields);
+        //获取当前分类文档的类型
+        let type_list = await this.model("category").get_type_bycate(data.category_id)
+        //获取suk tags
+        let tags = await this.model('tags').where({model_id:data.model_id}).select();
+        this.assign('tags',tags);
+        //获取面包屑信息
+        let nav = await this.model('category').get_parent_category(data.category_id);
+        //console.log(model);
+        this.assign('breadcrumb', nav);
+        //console.log(model);
+        this.assign('type_list', type_list);
+        this.meta_title = '编辑' + model.title;
+        this.active = "admin/article/index";
+        this.assign({
+            "navxs": true,
+        });
+        //console.log(data);
+        this.assign('data', data);
+        this.assign('model_id', data.model_id);
+        this.assign('model', model);
+        this.display();
+    }
     /**
      * 更新或者添加数据
      */
@@ -1178,21 +1265,50 @@ list = await this.parseDocumentList(list, model_id);
         let data = this.post();
         //绑定发布者id
         data.uid=this.user.uid;
-        console.log(data);
-        return false;
+        //安全验证
+        if(data.is_ajax != 'true'){
+            return this.fail("非法提交！");
+        }
+        //console.log(data);
+        //return false;
         let res = await this.model('document',{},'admin').updates(data);
-
+        // let res ={ data:
+        // { name: '',
+        //     title: '1111',
+        //     description: '',
+        //     type: '2',
+        //     cover_id: '',
+        //     file: '',
+        //     link_id: '0',
+        //     display: '1',
+        //     deadline: '',
+        //     view: '0',
+        //     comment: '0',
+        //     level: '0',
+        //     create_time: 1470888723186,
+        //     template: '',
+        //     bookmark: '0',
+        //     id: null,
+        //     pid: '0',
+        //     model_id: '2',
+        //     category_id: '39',
+        //     uid: 2,
+        //     is_ajax: 'true',
+        //     update_time: 1470888723186,
+        //     status: 1 },
+        //     id: 248 }
+        //console.log(res);
         if (res) {
             //行为记录
             if (!res.data.id) {
                 //await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);//添加行为日志
-                this.success({name: "添加成功", url: "/user/publish/cate_id/" + res.data.category_id});
+               return this.success({name: "添加成功", url: "/user/publish/cate_id/" + res.data.category_id});
             } else {
-                this.success({name: "更新成功", url: "/user/publish/cate_id/" + res.data.category_id});
+               return this.success({name: "更新成功", url: "/user/publish/cate_id/" + res.data.category_id});
             }
 
         } else {
-            this.fail("操作失败！");
+           return this.fail("操作失败！");
         }
 
 

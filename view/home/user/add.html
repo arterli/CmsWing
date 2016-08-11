@@ -102,7 +102,7 @@
             <section class="panel panel-default padding-0" style="margin-top: 0px;border-top-width: 0; border-top-left-radius: 0;border-top-right-radius: 0">
 
             <div class="panel-body">
-                <form action="/user/update" method="post" class="form-horizontal validate" >
+                <form action="/user/update" method="post" enctype="multipart/form-data" class="form-horizontal validate" data-toastr-position="top-full-width" >
                     <div class="tab-content">
                         {% for key ,group in model.field_group | parse_config_attr %}
                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">

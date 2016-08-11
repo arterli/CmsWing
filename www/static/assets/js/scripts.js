@@ -2741,12 +2741,12 @@ function _ajax_post() {
 
 							_t.validate({
 								submitHandler: function(form) {
-
+                                    $(form).find('button').addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 									// Show spin icon
 									jQuery(form).find('.input-group-addon').find('.fa-envelope').removeClass('fa-envelope').addClass('fa-refresh fa-spin');
 
 									jQuery(form).ajaxSubmit({
-
+                                        dataType:'json',
 										target: 	jQuery(form).find('.validate-result').length > 0 ? jQuery(form).find('.validate-result') : '',
 
 										error: 		function(data) { 
@@ -2754,32 +2754,72 @@ function _ajax_post() {
 										},
 
 										success: 	function(data) {
-											var data = data.trim();
+											//var data = data.trim();
 
 											// SMTP ERROR
 											if(data == '_failed_') {
 												_toastr("SMTP ERROR! Please, check your config file!",_Tposition,"error",false);
 											}
 
-											// CAPTCHA ERROR
-											else if(data == '_captcha_') {
-												_toastr("Invalid Captcha!",_Tposition,"error",false);
+                                            if (data.errno==0) {
+                                                if (data.data.url) {
+                                                    _toastr(data.data.name + ' 页面即将自动跳转~',_Tposition,"success",false);
+                                                    // toastr.success(data.data.name + ' 页面即将自动跳转~');
+                                                }else{
+                                                    _toastr(data.data.name,_Tposition,"success",false);
+                                                    //toastr.success(data.data.name);
+                                                }
+                                                setTimeout(function(){
+                                                    $(form).find('button').removeClass('disabled').prop('disabled',false);
+                                                    if (data.data.url) {
+                                                        location.href=data.data.url;
+                                                    }else if( $(that).hasClass('no-refresh')){
+                                                        //toastr.clear()
+                                                    }else{
+                                                        location.reload();
+                                                    }
+                                                },1500);
+                                            }else{
+                                                if(data.errno==1001){
+                                                    $.each(data.errmsg,function(i,n){
+                                                        _toastr(n,_Tposition,"error",false);
+                                                        //toastr.error(n);
+                                                    })
+                                                }else {
+                                                    _toastr(data.errmsg,_Tposition,"error",false);
+                                                    //toastr.error(data.errmsg);
+                                                }
+                                                //console.log(data);
 
+                                                setTimeout(function(){
+                                                    $(form).find('button').removeClass('disabled').prop('disabled',false);
+                                                    if (data.data) {
+                                                        location.href=data.data;
+                                                    }else{
+                                                        //toastr.clear()
+                                                    }
+                                                },1500);
+                                            }
+											// // CAPTCHA ERROR
+											// else if(data == 1000) {
+											// 	_toastr("Invalid Captcha!",_Tposition,"error",false);
+                                            //
+                                            //
+											// // SUCCESS
+											// } else {
+                                            //
+											// 	// Remove spin icon
+											// 	jQuery(form).find('.input-group-addon').find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-envelope');
+                                            //
+											// 	// Clear the form
+											// 	//jQuery(form).find('input.form-control').val('');
+                                            //
+											// 	// Toastr Message
+											// 	_toastr(_Smessage,_Tposition,_Ttype,_Turl);
+											//
+											// }
+										},
 
-											// SUCCESS
-											} else {
-
-												// Remove spin icon
-												jQuery(form).find('.input-group-addon').find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-envelope');
-
-												// Clear the form
-												jQuery(form).find('input.form-control').val('');
-
-												// Toastr Message
-												_toastr(_Smessage,_Tposition,_Ttype,_Turl);
-											
-											}
-										}
 									});
 
 								}
