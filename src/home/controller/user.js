@@ -714,6 +714,7 @@ export default class extends Base {
         }
 
     }
+    //在线投稿
     async publishAction(){
         await this.weblogin();
         let cate_id = this.get('cate_id') || null;
@@ -727,6 +728,76 @@ export default class extends Base {
         let model;
         let _model;
         if (!think.isEmpty(cate_id)) {
+            // 获取分类信息
+            let sort = await this.model("category",{},'admin').get_category(cate_id, 'documentsorts');
+            if (sort) {
+                sort = JSON.parse(sort);
+                if(sortid==0){
+                    sortid=sort.defaultshow;
+                }
+                let typevar = await this.model("typevar",{},'admin').where({sortid:sortid}).select();
+                for (let val of typevar){
+
+                    val.option= await this.model("typeoption",{},'admin').where({optionid:val.optionid}).find();
+                    if(val.option.type == 'select'||val.option.type == 'radio'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        }
+
+                    }else if(val.option.type == 'checkbox'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
+                            console.log(val.rules);
+                            for(let v of val.rules){
+                                v.id = "l>"+v.id
+                            }
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                            //console.log(val.rules);
+                        }
+                    }else if(val.option.type == 'range'){
+                        if(!think.isEmpty(val.option.rules)){
+                            let searchtxt = JSON.parse(val.option.rules).searchtxt;
+                            let searcharr = []
+                            if(!think.isEmpty(searchtxt)){
+                                let arr = searchtxt.split(",");
+                                let len = arr.length;
+                                for (var i=0;i<len;i++)
+                                {
+                                    let obj = {}
+                                    if (!think.isEmpty(arr[i-1])){
+                                        if(i==1){
+                                            obj.id = 'd>'+arr[i];
+                                            obj.name = '低于'+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj);
+                                        }else {
+                                            obj.id = arr[i-1]+'>'+arr[i];
+                                            obj.name = arr[i-1]+"-"+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj)
+                                        }
+
+                                    }
+
+                                }
+                                searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1]+val.option.unit,pid:0})
+                            }
+                            //console.log(searcharr);
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=searcharr;
+                            // val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+
+                        }
+                    }
+                }
+                //console.log(typevar);
+                this.assign("typevar",typevar);
+            }
+            //console.log(sort);
+            this.assign("sort",sort);
         let pid = this.get("pid") || 0;
         // 获取列表绑定的模型
         if (pid == 0) {
@@ -858,6 +929,8 @@ list = await this.parseDocumentList(list, model_id);
         /* 查询条件初始化 */
         cate_id = cate_id||0,field=field||true;
         let map = {};
+        //获取当前用户的信息
+        map.uid = this.user.uid;
         let status;
         if (!think.isEmpty(this.get('title'))) {
             map.title = ['like', '%' + this.param('title') + '%'];
@@ -971,7 +1044,7 @@ list = await this.parseDocumentList(list, model_id);
             //  console.log(type);
             // console.log(map);
         }
-        console.log(map);
+        //console.log(map);
         let list;
         if(!think.isEmpty(sortval)){
             list = await Document.alias('DOCUMENT').join({
@@ -1080,7 +1153,7 @@ list = await this.parseDocumentList(list, model_id);
         }
         //获取表单字段排序
         let fields = await this.model("attribute",{},'admin').get_model_attribute(model.id,true);
-        //think.log(fields);
+        think.log(fields);
         //获取当前分类文档的类型
         let type_list = await this.model("category",{},'admin').get_type_bycate(cate_id);
         //console.log(type_list);
@@ -1097,6 +1170,150 @@ list = await this.parseDocumentList(list, model_id);
         this.active = "admin/article/index";
         return this.display();
     }
+
+    //编辑文档
+    async editAction() {
+        let id = this.get('id') || "";
+        let sortid = this.get('sortid')||0;
+        if (think.isEmpty(id)) {
+            this.fail("参数不能为空");
+        }
+        //获取详细数据；
+        let document = this.model("document")
+        let data = await document.details(id);
+        //let model =  this.model("model").getmodel(2);
+        if (data.pid != 0) {
+            //获取上级文档
+            let article = document.field("id,title,type").find(data.pid);
+            this.assign('article', article);
+        }
+        let model = await this.model("model").get_document_model(data.model_id);
+
+        // 获取分组定义
+        let groups = await this.model("category").get_category(data.category_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        this.assign('groups',groups);
+        // 获取分类信息
+        let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid !=0){
+                data.sort_id=sortid;
+            }else if(data.sort_id==0){
+                data.sort_id=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:data.sort_id}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }else {
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }
+            }
+            // console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
+        //获取表单字段排序
+        let fields = await this.model("attribute").get_model_attribute(model.id,true);
+        this.assign('fields', fields);
+        //获取当前分类文档的类型
+        let type_list = await this.model("category").get_type_bycate(data.category_id)
+        //获取suk tags
+        let tags = await this.model('tags').where({model_id:data.model_id}).select();
+        this.assign('tags',tags);
+        //获取面包屑信息
+        let nav = await this.model('category').get_parent_category(data.category_id);
+        //console.log(model);
+        this.assign('breadcrumb', nav);
+        //console.log(model);
+        this.assign('type_list', type_list);
+        this.meta_title = '编辑' + model.title;
+        this.active = "admin/article/index";
+        this.assign({
+            "navxs": true,
+        });
+        //console.log(data);
+        this.assign('data', data);
+        this.assign('model_id', data.model_id);
+        this.assign('model', model);
+        this.display();
+    }
+    /**
+     * 更新或者添加数据
+     */
+    async updateAction() {
+        let data = this.post();
+        //绑定发布者id
+        data.uid=this.user.uid;
+        //安全验证
+        if(data.is_ajax != 'true'){
+            return this.fail("非法提交！");
+        }
+        //console.log(data);
+        //return false;
+        let res = await this.model('document',{},'admin').updates(data);
+        // let res ={ data:
+        // { name: '',
+        //     title: '1111',
+        //     description: '',
+        //     type: '2',
+        //     cover_id: '',
+        //     file: '',
+        //     link_id: '0',
+        //     display: '1',
+        //     deadline: '',
+        //     view: '0',
+        //     comment: '0',
+        //     level: '0',
+        //     create_time: 1470888723186,
+        //     template: '',
+        //     bookmark: '0',
+        //     id: null,
+        //     pid: '0',
+        //     model_id: '2',
+        //     category_id: '39',
+        //     uid: 2,
+        //     is_ajax: 'true',
+        //     update_time: 1470888723186,
+        //     status: 1 },
+        //     id: 248 }
+        //console.log(res);
+        if (res) {
+            //行为记录
+            if (!res.data.id) {
+                //await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);//添加行为日志
+               return this.success({name: "添加成功", url: "/user/publish/cate_id/" + res.data.category_id});
+            } else {
+               return this.success({name: "更新成功", url: "/user/publish/cate_id/" + res.data.category_id});
+            }
+
+        } else {
+           return this.fail("操作失败！");
+        }
+
+
+    }
+
 //alipay_in_weixin 在微信客户端中使用支付宝手机网页支付（alipay_wap）
     alipayinweixinAction(){
         return this.display();
