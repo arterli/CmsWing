@@ -122,9 +122,21 @@
 	    _pingpp();
 	    _recharge();
 	    _type_tr_b();
+	    _panel_toggle();
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
+// panel toggle
+function _panel_toggle() {
+	$(document).on('click', '.panel-toggle', function(e){
+		e && e.preventDefault();
+		var $this = $(e.target), $class = 'collapse' , $target;
+		if (!$this.is('a')) $this = $this.closest('a');
+		$target = $this.closest('.panel');
+		$target.find('.panel-body').toggleClass($class);
+		$this.toggleClass('active');
+	});
+}
 
   // ajax modal
   function _ajaxmodal() {

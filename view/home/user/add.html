@@ -38,6 +38,9 @@
         vertical-align: middle !important;
     }
 </style>
+<script>
+    module = '{{http.module}}';
+</script>
 {% endblock%}
 {% block content %}
 <!--
@@ -320,7 +323,7 @@
                             {% if field.is_show == 1 or field.is_show == 2 %}
                             <div class="form-group">
 
-                                <label class="col-sm-2 control-label">{{field.title}}{{field.is_must}}</label>
+                                <label class="col-sm-2 control-label">{%if field.is_must==1%}<i class="fa fa-asterisk text-danger"></i> {%endif%} {{field.title}}</label>
 
                                 <div class="col-sm-10">
 
@@ -427,22 +430,22 @@
                                             </script>
                                         </div>
                                         {% elif field.type == "suk" %}
-                                        <div class="col-md-10">
+                                        <div class="col-md-12">
                                             <input type="hidden" name="{{field.name}}" class="form-control" value="" id="{{field.name}}" />
-                                            <section class="panel panel-default">
+                                            <section class="panel panel-default padding-0">
                                                 <header class="panel-heading {{field.name}}_heading hide"><ul class="nav nav-pills pull-right">
                                                     <li>
                                                         <a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
                                                     </li>
                                                 </ul>商品规格</header>
-                                                <section class="chat-list panel-body {{field.name}}_body hide">
+                                                <section class="chat-list panel-body {{field.name}}_body padding-0 hide">
                                                 </section>
                                                 <footer class="panel-footer btn btn-block" id="{{field.name}}_addsuk">
                                                     <!-- chat form -->
                                                     <i class="fa fa-plus text"></i> 添加规格项目
                                                 </footer>
                                             </section>
-                                            <section class="panel panel-default {{field.name}}_table hide">
+                                            <section class="panel panel-default {{field.name}}_table padding-0 hide">
                                                 <header class="panel-heading">
                                                     <ul class="nav nav-pills pull-right">
                                                         <li>
@@ -452,7 +455,7 @@
                                                     商品库存
                                                 </header>
 
-                                                <div class="table-responsive panel-body p-none">
+                                                <div class=" panel-body padding-0 p-none">
                                                     <table class="table table-bordered b-t b-light">
                                                         <thead> </thead>
                                                         <tbody></tbody>
@@ -1072,7 +1075,7 @@
                                                     //添加规格
                                                     $("#{{field.name}}_addsuk").click(function(){
                                                         $.ajax({
-                                                            url:"/admin/tags/ajaxgettags",
+                                                            url:"/tags/ajaxgettags",
                                                             data:{type:1,pid:0,model_id:"{{info.model_id}}"},
                                                             success:function(res){
                                                                 var size = $(".{{field.name}}_body>section").size()+1;
@@ -1086,7 +1089,7 @@
 
 
                                                                 var {{field.name}}_select = ""
-                                                                {{field.name}}_select +='<section class="panel panel-default m-b-none" data-id="select-'+size+'">'+
+                                                                {{field.name}}_select +='<section class="panel panel-default padding-0 m-b-none" data-id="select-'+size+'">'+
                                                                         '<header class="panel-heading bg-light no-border">'+
                                                                         '<div class="clearfix">'+
                                                                         '<select style="width:260px" class="chosen-select" data-placeholder="请选择规格">'+
@@ -1095,7 +1098,7 @@
                                                                     {{field.name}}_select += '<option value="'+item.id+'">'+item.name+'</option>'
                                                                 })
 
-                                                                {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格\''+
+                                                                {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide line-height-20 height-30" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格\''+
                                                                         'data-content="<div class=\'form-inline\'><div class=\'form-group \'><input type=\'text\' placeholder=\'请输入规格\' class=\'form-control input-sm m-l js-tas-input\'></div><a class=\'btn btn-success btn-sm js-tags \' href=\'javascript:;\'>保存</a></div>">添加规格</a>'+
                                                                         ispic +
                                                                         '<a class="close {{field.name}}_close" id="select-'+size+'" >×</a>'+
@@ -1415,6 +1418,14 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+
+                                            <!--七牛-->
+                                            <script type="text/javascript" src="/static/admin/js/qiniu/plupload.full.min.js"></script>
+                                            <script type="text/javascript" src="/static/admin/js/qiniu/zh_CN.js"></script>
+                                            <script type="text/javascript" src="/static/admin/js/qiniu/qiniu.min.js"></script>
+                                            <script type="text/javascript" src="/static/admin/js/qiniu/ui.js"></script>
+                                            <script type="text/javascript" src="/static/admin/js/qiniu/main.js"></script>
+                                            <!--七牛-->
                                             {%else%}
                                             <div id="thelist_{{field.name}}" class="uploader-list"></div>
                                             <div class="btns">
@@ -1577,13 +1588,7 @@
 <script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 {%if controller.setup.IS_QINIU == 1%}
-<!--七牛-->
-<script type="text/javascript" src="/static/admin/js/qiniu/plupload.full.min.js"></script>
-<script type="text/javascript" src="/static/admin/js/qiniu/zh_CN.js"></script>
-<script type="text/javascript" src="/static/admin/js/qiniu/qiniu.min.js"></script>
-<script type="text/javascript" src="/static/admin/js/qiniu/ui.js"></script>
-<script type="text/javascript" src="/static/admin/js/qiniu/main.js"></script>
-<!--七牛-->
+
 {%endif%}
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>

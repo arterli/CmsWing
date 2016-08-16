@@ -370,6 +370,18 @@ body.bg-grey #wrapper {
 .text-intercept{
     display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
+.panel-heading .nav {
+	margin: -10px -15px;
+}
+.text-active, .active > .text, .active > .auto .text {
+	display: none !important;
+}
+.active > .text-active, .active > .auto .text-active {
+	display: inline-block !important;
+}
+.btn-lh{
+	line-height: normal !important;;
+}
 section {
 	display: block;
 	position: relative;
