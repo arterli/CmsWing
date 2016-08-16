@@ -120,7 +120,7 @@
                                         <div class="col-md-10">
                                             <div class="btn-group" >
                                                 {%for val in sort.types%}
-                                                <a href="/add/model_id/{{http.get('model_id')}}/pid/{{http.get('pid')}}/cate_id/{{http.get('cate_id')}}/group_id/{{http.get('group_id')}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if http.get('sortid') == val.enable%}active{%endif%}">
+                                                <a href="/user/add/model_id/{{http.get('model_id')}}/pid/{{http.get('pid')}}/cate_id/{{http.get('cate_id')}}/group_id/{{http.get('group_id')}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if http.get('sortid') == val.enable%}active{%endif%}">
                                                     {{val.name}}
                                                 </a>
                                                 {%endfor%}
@@ -438,7 +438,7 @@
                                                         <a href="#" class="panel-toggle text-muted"><i class="fa fa-caret-down text-active"></i><i class="fa fa-caret-up text"></i></a>
                                                     </li>
                                                 </ul>商品规格</header>
-                                                <section class="chat-list panel-body {{field.name}}_body padding-0 hide">
+                                                <section class="chat-list panel-body {{field.name}}_body  hide">
                                                 </section>
                                                 <footer class="panel-footer btn btn-block" id="{{field.name}}_addsuk">
                                                     <!-- chat form -->
@@ -455,8 +455,8 @@
                                                     商品库存
                                                 </header>
 
-                                                <div class=" panel-body padding-0 p-none">
-                                                    <table class="table table-bordered b-t b-light">
+                                                <div class=" panel-body padding-0">
+                                                    <table class="table table-bordered b-t b-light margin-bottom-0">
                                                         <thead> </thead>
                                                         <tbody></tbody>
                                                     </table>
@@ -1083,7 +1083,7 @@
                                                                 var ispic = "";
                                                                 var ispicwrap = '';
                                                                 if(size ==1){
-                                                                    ispic = '<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label><input type="checkbox" id="js-addImg-function" value="1"><i></i>添加规格图片</label></div> ';
+                                                                    ispic = '<div class="checkbox i-checks checkbox-inline" style="margin-left: 15px"><label class="checkbox padding-top-0"><input type="checkbox" id="js-addImg-function" value="1"><i></i>添加规格图片</label></div> ';
                                                                     ispicwrap = '<div id="upload-img-wrap"></div>';
                                                                 }
 
@@ -1098,7 +1098,7 @@
                                                                     {{field.name}}_select += '<option value="'+item.id+'">'+item.name+'</option>'
                                                                 })
 
-                                                                {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide line-height-20 height-30" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover">&times;</button>添加规格\''+
+                                                                {{field.name}}_select+=  '</select> <a class="btn btn-sm btn-default popover-hide line-height-20 height-30" title=""  data-html="true" data-toggle="popover" data-placement="bottom" data-original-title=\'<button type="button" class="close pull-right" data-dismiss="popover1">&times;</button>添加规格\''+
                                                                         'data-content="<div class=\'form-inline\'><div class=\'form-group \'><input type=\'text\' placeholder=\'请输入规格\' class=\'form-control input-sm m-l js-tas-input\'></div><a class=\'btn btn-success btn-sm js-tags \' href=\'javascript:;\'>保存</a></div>">添加规格</a>'+
                                                                         ispic +
                                                                         '<a class="close {{field.name}}_close" id="select-'+size+'" >×</a>'+
@@ -1170,7 +1170,7 @@
                                                         }
                                                         $.ajax({
                                                             type:"POST",
-                                                            url:"/admin/tags/ajaxaddtags",
+                                                            url:"/tags/ajaxaddtags",
                                                             data:{name:input,type:1,model_id:"{{info.model_id}}"},
                                                             success:function(res){
                                                                 if(res.errno==0){

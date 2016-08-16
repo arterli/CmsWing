@@ -123,9 +123,11 @@
 	    _recharge();
 	    _type_tr_b();
 	    _panel_toggle();
+
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
+
 // panel toggle
 function _panel_toggle() {
 	$(document).on('click', '.panel-toggle', function(e){
@@ -1395,64 +1397,69 @@ function _ajax_post() {
 /** 04. Popover
  **************************************************************** **/
 	function _popover() {
+	$("[data-toggle=popover]").popover();
+	$(document).on('click', '.popover-title .close', function(e){
+		var $target = $(e.target), $popover = $target.closest('.popover').prev();
+		$popover && $popover.popover('hide');
+	});
 
-			jQuery("a[data-toggle=popover]").bind("click", function(e) {
-				jQuery('.popover-title .close').remove();
-				e.preventDefault();
-			});
-
-			var isVisible 	= false,
-				clickedAway = false;
-
-
-			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
-
-					html: true,
-					trigger: 'manual'
-
-				}).click(function(e) {
-
-					jQuery(this).popover('show');
-					
-					clickedAway = false;
-					isVisible = true;
-					e.preventDefault();
-
-				});
-
-				jQuery(document).click(function(e) {
-					if(isVisible & clickedAway) {
-
-						jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
-						isVisible = clickedAway = false;
-
-					} else {
-
-
-						clickedAway = true;
-
-					}
-
-				});
-
-			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
-
-				html: true,
-				trigger: 'manual'
-
-			}).click(function(e) {
-
-				$(this).popover('show');
-				$('.popover-title').append('<button type="button" class="close">&times;</button>');
-				$('.close').click(function(e){
-
-					jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
-
-				});
-
-				e.preventDefault();
-			});
-
+			// jQuery("a[data-toggle=popover]").on("click", function(e) {
+			// 	jQuery('.popover-title .close').remove();
+			// 	e.preventDefault();
+			// });
+            //
+			// var isVisible 	= false,
+			// 	clickedAway = false;
+            //
+            //
+			// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
+            //
+			// 		html: true,
+			// 		trigger: 'manual'
+            //
+			// 	}).click(function(e) {
+            //
+			// 		jQuery(this).popover('show');
+			//
+			// 		clickedAway = false;
+			// 		isVisible = true;
+			// 		e.preventDefault();
+            //
+			// 	});
+            //
+			// 	jQuery(document).click(function(e) {
+			// 		if(isVisible & clickedAway) {
+            //
+			// 			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
+			// 			isVisible = clickedAway = false;
+            //
+			// 		} else {
+            //
+            //
+			// 			clickedAway = true;
+            //
+			// 		}
+            //
+			// 	});
+            //
+			// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
+            //
+			// 	html: true,
+			// 	trigger: 'manual'
+            //
+			// }).click(function(e) {
+            //
+			// 	$(this).popover('show');
+			// 	$('.popover-title').append('<button type="button" class="close">&times;</button>');
+			// 	$('.close').click(function(e){
+            //
+			// 		jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
+            //
+			// 	});
+            //
+			// 	e.preventDefault();
+			// });
+            //
 
 		// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover();
 	}
