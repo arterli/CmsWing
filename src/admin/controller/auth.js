@@ -106,20 +106,39 @@ export default class extends Base {
 
 
     /**
-     * index权限管理首页
+     * 用户分组管理首页
      * @returns {*}
      */
-    indexAction() {
+   async indexAction() {
+        let list = await this.model("member_group").order("sort ASC").select();
+        for(let v of list){
+            v.count=await this.model('member').where({groupid:v.groupid,status:1}).count('id');
+        }
+        this.assign("list",list);
+        this.meta_title = "会员组管理";
+        return this.display();
+    }
+    /**
+     * 排序
+     */
+    async usortAction() {
+
+        await super.sortAction(this,'member_group','groupid');
+    }
+    /**
+     * 管理角色管理首页
+     * @returns {*}
+     */
+    adminAction() {
         this.assign({
             "datatables": true,
-            "active": "/admin/auth/index",
             "tactive": "/admin/user",
             "selfjs": "auth"
         })
+        this.active = "admin/auth/index";
         this.meta_title = "权限管理";
         return this.display();
     }
-
     /**
      * role
      * 权限管理首页ajax角色列表

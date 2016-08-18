@@ -104,7 +104,19 @@ $(document).on('click','.ajax-post',function(){
                     return false;
                 }
             }
-            query = form.serialize();
+           if($(form).hasClass('sort')){
+               var arr =[]
+               form.each(function (k, v) {
+                   var obj = {};
+                   obj.id=$(v).attr('data-id');
+                   obj.sort=$(v).val();
+                   arr.push(obj);
+               })
+              query = {sort:JSON.stringify(arr)};
+           }else {
+               query = form.serialize();
+           }
+
         }else{
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){

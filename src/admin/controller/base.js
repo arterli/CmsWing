@@ -208,7 +208,27 @@ export default class extends think.controller.base {
 
     }
 
-
+    /**
+     * 排序
+     */
+async sortAction(self,model,id='id'){
+    model = model||this.http.controller;
+    let param = this.param();
+        let sort = JSON.parse(param.sort);
+       let data =[]
+       for(let v of sort){
+           let map={}
+           map[id]=v.id;
+           map.sort =v.sort;
+           data.push(map)
+       }
+        let res = await this.model(model).updateMany(data);
+        if (res>0) {
+           return this.success({ name: "更新排序成功！"});
+        } else {
+           return this.fail("排序失败！");
+        }
+    }
     /**
      * 返回后台节点数据
      * @param {boolean} tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
