@@ -27,6 +27,7 @@ export default class extends Base {
 
        return this.display(`mobile/${this.http.controller}/${this.http.action}`) 
     }else{
+      //debugger;
        return this.display();  
     }
    
