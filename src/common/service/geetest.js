@@ -14,8 +14,8 @@ export default class extends think.service.base {
     let privateKey = setup.GEETEST_KEY;//key
     let publicKey = setup.GEETEST_ID;//id
      let geetest = new Geetest({
-         privateKey: privateKey,
-         publicKey: publicKey
+         geetest_key: privateKey,
+         geetest_id: publicKey
      });
     //初始
     let register=() =>{
@@ -23,7 +23,7 @@ export default class extends think.service.base {
         // 向极验申请一次验证所需的challenge
         geetest.register(function (data) {
             deferred.resolve({
-                gt: geetest.publicKey,
+                gt: geetest.geetest_id,
                 challenge: data.challenge,
                 success: data.success
             });
@@ -58,8 +58,8 @@ export default class extends think.service.base {
     let privateKey = setup.GEETEST_KEY;//key
     let publicKey = setup.GEETEST_ID;//id
       let geetest = new Geetest({
-          privateKey: privateKey,
-          publicKey: publicKey
+          geetest_key: privateKey,
+          geetest_id: publicKey
       });
     //验证
     let validate = (data)=>{
