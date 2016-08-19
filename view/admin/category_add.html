@@ -21,8 +21,12 @@
                     <header class="panel-heading text-right bg-light  clearfix">
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab2">分类信息</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab3">高级设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab6">权限设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
 
                         </ul>
                         <span class="hidden-sm">Left</span>
@@ -33,14 +37,32 @@
 
                             <div id="tab1" class="tab-pane fade active in">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">上级分类</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 绑定模型</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                {% for list in models %}
+                                                <label class="checkbox-inline i-checks">
+                                                    <input type="checkbox" value="{{list.id}}" name="model"><i></i> {{list.title}}
+                                                </label>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 注意，如没有特殊需求，建议每个栏目只绑定一个模型。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 上级栏目</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3">
                                         <select class="form-control" name="pid" id="pid">
                                         </select>
                                         </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 上级分类.</span>
                                             </div>
                                         </div>
@@ -48,11 +70,11 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类名称</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 栏目名称</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3"><input name="title" type="text" class="form-control" data-required="true"></div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
                                         </div>
                                         </div>
@@ -60,26 +82,14 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类标识</label>
+                                    <label class="col-sm-2 control-label">栏目标识</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3"><input name="name" type="text" class="form-control"></div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母.</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 非必填，填写后，此名称会替换url中的栏目id,英文字母.不能重复。</span>
                                         </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">分组定义</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-5"><textarea name="groups"  class="form-control"></textarea></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 分组定义</span>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -117,7 +127,7 @@
                                             <input type="radio"  value="1" name="check"><i></i> 需要
                                         </label>
                                     </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 hide">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  是否允许发布内容</span>
                                     </div>
                                     </div>
@@ -125,7 +135,7 @@
                             </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">允许文档类型</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 允许文档类型</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-10">
@@ -136,25 +146,7 @@
                                             {% endfor%}
                                         </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否允许发布内容</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">列表绑定文档模型</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-10">
-                                            {% for list in models %}
-                                            <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" value="{{list.id}}" name="model"><i></i> {{list.title}}
-                                            </label>
-                                           {% endfor %}
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 列表支持发布的文档模型</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 至少选择勾选一项。</span>
                                         </div>
                                         </div>
                                     </div>
@@ -172,7 +164,7 @@
                                             {% endfor %}
 
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 hide">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 子文档支持发布的文档模型</span>
                                         </div>
                                         </div>
@@ -180,7 +172,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类图标</label>
+                                    <label class="col-sm-2 control-label">栏目图标</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-10">
@@ -286,7 +278,7 @@
                                                 });
                                             </script>
                                         </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 图片上传</span>
                                             </div>
                                         </div>
@@ -295,126 +287,6 @@
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                            </div>
-                            <div id="tab2" class="tab-pane fade ">
-                                <input type="hidden" name="documentsorts" value="">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">启用分类信息</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-10">
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio"  value="1" name="documentsorts[status]"><i></i> 是
-                                            </label>
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio"   value="0" name="documentsorts[status]" checked=""><i></i> 否
-                                            </label>
-
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 以下设置没有继承性，即仅对当前栏目有效，不会对下级子栏目产生影响。</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div id="documentsortscon" style="display:none;">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">发布必须归类</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-10">  <label class="radio-inline i-checks">
-                                            <input type="radio"  value="1" name="documentsorts[required]"><i></i> 是
-                                        </label>
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio"   value="0" name="documentsorts[required]" checked=""><i></i> 否
-                                            </label></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否强制用户发表新内容时必须选择分类</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">类别前缀</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-10">  <label class="radio-inline i-checks">
-                                                <input type="radio"  value="1" name="documentsorts[prefix]"><i></i> 是
-                                            </label>
-                                                <label class="radio-inline i-checks">
-                                                    <input type="radio"   value="0" name="documentsorts[prefix]" checked=""><i></i> 否
-                                                </label></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否在主题前面显示分类的名称</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">启用默认显示分类</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-10">  <label class="radio-inline i-checks">
-                                                <input type="radio"  value="1" name="documentsorts[default]"><i></i> 是
-                                            </label>
-                                                <label class="radio-inline i-checks">
-                                                    <input type="radio"   value="0" name="documentsorts[default]" checked=""><i></i> 否
-                                                </label></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否启用默认显示分类，如果启用请在下面的分类信息里面选择</span>
-                                        </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">选择分类</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-10">
-                                            <table class="table table-striped m-b-none" id="typelist">
-                                                <thead>
-                                                <tr>
-                                                    <th style="width: 70px;">启用</th>
-                                                    <th>分类名称</th>
-                                                    <th>分类说明</th>
-                                                    <th style="width: 150px;">发布菜单中显示</th>
-                                                    <th style="width: 150px;">默认显示分类</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%for val in typelist%}
-                                                <tr>
-                                                    <td>
-                                                        <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][enable]" value="{{val.typeid}}" class="enable" ><i></i></label>
-                                                    </td>
-                                                    <td>{{val.name}}</td>
-                                                    <td>{{val.description}}</td>
-                                                    <td class="text-success">
-                                                        <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][show]" value="1" class="show"><i></i></label>
-                                                    </td>
-                                                    <td class="text-success">
-                                                        <label class="checkbox i-checks" style="padding-top: 0;"><input type="radio" name="documentsorts[defaultshow]" value="{{val.typeid}}" class="defaultshow"><i></i></label>
-                                                    </td>
-
-                                                </tr>
-{%endfor%}
-                                                </tbody>
-                                            </table>
-                                            </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
-                                        </div>
-                                        </div>
-                                </div>
-                                    </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                </div>
-                            </div>
-                            <div id="tab3" class="tab-pane fade ">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">可见性</label>
                                     <div class="col-sm-10">
@@ -449,56 +321,9 @@
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">列表行数</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-2"><input name="list_row"  type="text" value="10" class="form-control"></div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 列表行数</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">网页标题</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 网页标题</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">关键字</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <textarea class="form-control" name="keywords"></textarea></div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">描述</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <textarea name="description" class="form-control"></textarea></div>
-                                            <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 描述</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            </div>
+                            <div id="tab2" class="tab-pane fade ">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">频道模板</label>
                                     <div class="col-sm-10">
@@ -520,7 +345,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的首页模板</span>
                                             </div>
                                         </div>
                                     </div>
@@ -548,7 +373,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的列表页模板</span>
                                             </div></div>
                                     </div>
                                 </div>
@@ -574,7 +399,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的内容页模板</span>
                                             </div></div>
                                     </div>
                                 </div>
@@ -585,14 +410,213 @@
                                         <div class="row">
                                             <div class="col-md-5"><input name="template_edit"  type="text" class="form-control"></div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 编辑页面模板</span>
                                             </div></div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">列表行数</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-2"><input name="list_row"  type="text" value="10" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 前台列表每页显示的条数</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+                            <div id="tab3" class="tab-pane fade ">
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Title（栏目标题）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Keywords（栏目关键词）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <textarea class="form-control" name="keywords"></textarea></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字中间用半角逗号隔开</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Description（栏目描述）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <textarea name="description" class="form-control" ></textarea></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的网页描述</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            </div>
+                            <div id="tab4" class="tab-pane fade ">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">分组定义</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5"><textarea name="groups"  class="form-control" placeholder="索引:分组名称" style="height: 300px"></textarea></div>
+                                            <div class="col-md-12">
+                                               <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
+只在填写分组时有效，每行一个分组，<code>:</code>前面为字段<code>索引</code>(建议用数字)，后面为<code>分组名称</code>，例如: <br>
+<pre>1:分组一
+2:分组二
+3:分组三</pre>
+<code>注意: 分组确定后请勿修改索引和分组名称的对应关系，但仍可以新增字段。如需调换显示顺序，可以通过移动整行的上下位置来实现</code>
+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
+                            <div id="tab5" class="tab-pane fade ">
+                                <input type="hidden" name="documentsorts" value="">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">启用分类信息</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[status]"><i></i> 是
+                                                </label>
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"   value="0" name="documentsorts[status]" checked=""><i></i> 否
+                                                </label>
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 以下设置没有继承性，即仅对当前栏目有效，不会对下级子栏目产生影响。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div id="documentsortscon" style="display:none;">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">发布必须归类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[required]"><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[required]" checked=""><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否强制用户发表新内容时必须选择分类</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">类别前缀</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[prefix]"><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[prefix]" checked=""><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否在主题前面显示分类的名称</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">启用默认显示分类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">  <label class="radio-inline i-checks">
+                                                    <input type="radio"  value="1" name="documentsorts[default]"><i></i> 是
+                                                </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"   value="0" name="documentsorts[default]" checked=""><i></i> 否
+                                                    </label></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否启用默认显示分类，如果启用请在下面的分类信息里面选择</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">选择分类</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <table class="table table-striped m-b-none" id="typelist">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width: 70px;">启用</th>
+                                                            <th>分类名称</th>
+                                                            <th>分类说明</th>
+                                                            <th style="width: 150px;">发布菜单中显示</th>
+                                                            <th style="width: 150px;">默认显示分类</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {%for val in typelist%}
+                                                        <tr>
+                                                            <td>
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][enable]" value="{{val.typeid}}" class="enable" ><i></i></label>
+                                                            </td>
+                                                            <td>{{val.name}}</td>
+                                                            <td>{{val.description}}</td>
+                                                            <td class="text-success">
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="checkbox" name="documentsorts[options][show]" value="1" class="show"><i></i></label>
+                                                            </td>
+                                                            <td class="text-success">
+                                                                <label class="checkbox i-checks" style="padding-top: 0;"><input type="radio" name="documentsorts[defaultshow]" value="{{val.typeid}}" class="defaultshow"><i></i></label>
+                                                            </td>
+
+                                                        </tr>
+                                                        {%endfor%}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                </div>
+                                </div>
+                            <div id="tab6" class="tab-pane fade ">
+                               5
+                            </div>
+                            <div id="tab7" class="tab-pane fade ">
+                               6
+                            </div>
+
                         </div>
-                            <div class="form-group">
+                            <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>

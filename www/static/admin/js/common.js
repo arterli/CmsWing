@@ -104,6 +104,7 @@ $(document).on('click','.ajax-post',function(){
                     return false;
                 }
             }
+
            if($(form).hasClass('sort')){
                var arr =[]
                form.each(function (k, v) {
@@ -114,7 +115,9 @@ $(document).on('click','.ajax-post',function(){
                })
               query = {sort:JSON.stringify(arr)};
            }else {
+               alert(1)
                query = form.serialize();
+               alert(query)
            }
 
         }else{
@@ -127,6 +130,7 @@ $(document).on('click','.ajax-post',function(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
+            //alert(JSON.stringify(data))
             //console.log(data)
             //return false;
             if (data.errno==0) {

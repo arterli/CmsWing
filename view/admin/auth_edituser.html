@@ -1,0 +1,223 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}【{{info.name}}】</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                      <div class="row"><div class="col-lg-12">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <form id="ajaxForm" method="post" class="form-horizontal" action="{{http.url}}" data-validate="parsley">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>用户组名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                            <input type="text" class="form-control" name="name" value="{{info.name if info.name else null}}"  data-required="true" data-rangelength="[2,8]" >
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入用户组名,用户组名应该为2-8位之间</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>积分小于</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                            <input type="text" class="form-control" name="point" value="{{info.point if info.point else null}}" data-required="true" data-type="number" data-rangelength="[1,8]">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入积分点数,积分点数应该为1-8位的数字</span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>星星数</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                            <input type="text" class="form-control" name="starnum" value="{{info.starnum}}" data-required="true" data-type="number" data-rangelength="[1,8]">
+
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 星星数应该为1-8位的数字</span>
+                                                </div>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">用户权限</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowpost" {% if info.allowpost > 0 %} checked {%endif%}><i></i>允许投稿
+                                                    </label>
+
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowpostverify" {% if info.allowpostverify > 0 %} checked {%endif%}><i></i>投稿不需审核
+                                                    </label>
+
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowupgrade" {% if info.allowupgrade > 0 %} checked {%endif%}><i></i> 允许自助升级
+                                                    </label>
+
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowsendmessage" {% if info.allowsendmessage > 0 %} checked {%endif%}><i></i> 允许发短消息
+                                                    </label>
+
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowattachment" {% if info.allowattachment > 0 %} checked {%endif%}><i></i> 允许上传附件
+                                                    </label>
+                                                    <label class="checkbox-inline i-checks">
+                                                        <input type="checkbox" value="1" name="allowsearch" {% if info.allowsearch > 0 %} checked {%endif%}><i></i> 搜索权限
+                                                    </label>
+
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">升级价格</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="input-group ">
+                                                                <span class="input-group-addon">包日</span>
+                                                                <input type="text" class="form-control" name="price_d" value="{{info.price_d}}" placeholder="包日价格">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="input-group ">
+                                                                <span class="input-group-addon">包月</span>
+                                                                <input type="text" class="form-control" name="price_m" value="{{info.price_m}}" placeholder="包月价格">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="input-group ">
+                                                                <span class="input-group-addon">包年</span>
+                                                                <input type="text" class="form-control" name="price_y" value="{{info.price_y}}" placeholder="包年价格">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="col-md-12 hide">
+                                                        <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">最大短消息数</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" name="allowmessage" value="{{info.allowmessage}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 许允发短消息数量 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i>日最大投稿数</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" name="allowpostnum" value="{{info.allowpostnum}}" data-required="true" data-type="number" data-rangelength="[1,8]">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 0为不限制 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">用户名颜色</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" name="usernamecolor" value="{{info.usernamecolor}}">
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> . </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">用户组图标</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <input type="text" class="form-control" name="icon" value="images/group/vip.jpg">
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> . </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">描述</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                            <textarea class="form-control" name="description">{{ info.description }}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 配置详细说明 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-submit">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <input type="hidden" name="groupid" value="{{info.groupid}}">
+                                            <button class="btn btn-primary ajax-post" target-form="form-horizontal" type="submit" >确定</button>
+                                            <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                      </div></div>
+                    </section>
+                </section>
+
+{% endblock %}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+
+
+    })
+</script>
+{% endblock %}

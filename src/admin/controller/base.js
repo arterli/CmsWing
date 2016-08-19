@@ -211,7 +211,7 @@ export default class extends think.controller.base {
     /**
      * 排序
      */
-async sortAction(self,model,id='id'){
+   async sortAction(self,model,id='id'){
     model = model||this.http.controller;
     let param = this.param();
         let sort = JSON.parse(param.sort);
