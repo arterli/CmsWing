@@ -47,7 +47,7 @@ export default class extends Base {
             if(!think.isEmpty(data.name)){
                 let check = await this.model("category").where({name:data.name,pid:data.pid}).find();
                 if(!think.isEmpty(check)){
-                    return this.fail("同节点下,分类标示不能重复");
+                    return this.fail("同节点下,栏目标示不能重复");
                 }
             }
             let res = await this.model("category").updates(data);
@@ -119,7 +119,7 @@ export default class extends Base {
                 template_index:template_index
             })
             //template_lists
-            this.meta_title = "添加分类"
+            this.meta_title = "添加栏目"
             return this.display();
         }
 
@@ -138,7 +138,7 @@ export default class extends Base {
             if(!think.isEmpty(data.name)){
              let check = await this.model("category").where({id:["!=",data.id],name:data.name,pid:data.pid}).find();
                 if(!think.isEmpty(check)){
-                    return this.fail("同节点下,分类标示不能重复");
+                    return this.fail("同节点下,栏目标示不能重复");
                 }
             }
             let res = await this.model("category").updates(data);
