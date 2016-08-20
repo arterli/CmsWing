@@ -32,7 +32,7 @@ export default class extends think.model.base {
         //获取所有分类
 
         let map = {"status":{">":-1}}
-        let list = await this.where(map).order('sort').select();
+        let list = await this.where(map).order('sort ASC').select();
         //console.log(list);
         //list = get_children(list,id);
         for (let v of list){

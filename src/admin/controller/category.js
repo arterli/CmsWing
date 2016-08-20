@@ -23,9 +23,10 @@ export default class extends Base {
     async indexAction(){
 
         //auto render template file index_index.html
-         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status");
+         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model");
         //console.log(tree)
-         this.assign("list",tree)
+
+         this.assign("list",tree);
          this.meta_title = "栏目管理";
         
         return this.display();
@@ -42,10 +43,20 @@ export default class extends Base {
     async addAction(){
         if(this.isPost()){
             let data = this.post();
+            //表单验证
+            if(think.isEmpty(data.model)){
+                return this.fail("至少要绑定一个模型！")
+            }
+            if(think.isEmpty(data.type)){
+                return this.fail("允许文档类型，至少要选项一个！")
+            }
+            //console.log(data);
+
+            //return false;
             data.status = 1;
-            console.log(data);
+            //console.log(data);
             if(!think.isEmpty(data.name)){
-                let check = await this.model("category").where({name:data.name,pid:data.pid}).find();
+                let check = await this.model("category").where({name:data.name}).find();
                 if(!think.isEmpty(check)){
                     return this.fail("同节点下,栏目标示不能重复");
                 }
@@ -61,7 +72,7 @@ export default class extends Base {
             let type;
             if(!think.isEmpty(sortid)){
                 sortid = unique(sortid);
-                console.log(sortid);
+                //console.log(sortid);
                 //获取分类信息
                 type= await this.model("type").where({typeid:['IN',sortid]}).order('displayorder ASC').select();
             }
@@ -119,6 +130,11 @@ export default class extends Base {
                 template_index:template_index
             })
             //template_lists
+            //会员组
+            let group = await this.model("member_group").order("sort ASC").select();
+            this.assign('group',group);
+            let role = await this.model("auth_role").order("sort ASC").select();
+            this.assign('role',role);
             this.meta_title = "添加栏目"
             return this.display();
         }
@@ -133,10 +149,10 @@ export default class extends Base {
         if(this.isPost()){
             let data = this.post();
             data.status = 1;
-            console.log(data);
+            //console.log(data);
             //检查同节点下分类标示是否重复
             if(!think.isEmpty(data.name)){
-             let check = await this.model("category").where({id:["!=",data.id],name:data.name,pid:data.pid}).find();
+             let check = await this.model("category").where({id:["!=",data.id],name:data.name}).find();
                 if(!think.isEmpty(check)){
                     return this.fail("同节点下,栏目标示不能重复");
                 }
@@ -153,7 +169,7 @@ export default class extends Base {
             //获取分类信息
             let info = await category.find(id);
             this.assign("info",info);
-            console.log(info);
+            //console.log(info);
             if(!think.isEmpty(info.documentsorts)){
                 let types = JSON.parse(info.documentsorts);
                 let typeobj = {};
@@ -167,7 +183,7 @@ export default class extends Base {
             let type;
             if(!think.isEmpty(sortid)){
                 sortid = unique(sortid);
-                console.log(sortid);
+                //console.log(sortid);
                 //获取分类信息
                 type= await this.model("type").where({typeid:['IN',sortid]}).order('displayorder ASC').select();
             }
@@ -219,10 +235,55 @@ export default class extends Base {
                     template_detail.push(obj);
                 }
             }
+            //会员组
+            let group = await this.model("member_group").order("sort ASC").select();
+            this.assign('group',group);
+            let role = await this.model("auth_role").order("sort ASC").select();
+            this.assign('role',role);
+            //提取权限
+            let priv = await this.model("category_priv").where({catid:id}).select();
+            //console.log(priv);
+            let priv_roleid={}
+            let priv_groupid={}
+
+            for(let v of priv){
+                if(v.is_admin==1){
+                    priv_roleid[v.roleid]=[];
+                }else {
+
+                    priv_groupid[v.roleid]=[];
+                }
+            }
+            for(let v in priv_groupid ){
+                let arr = [];
+                for(let m of priv){
+                    if(v==m.roleid && m.is_admin==0){
+                        arr.push(m.action)
+
+
+                    }
+                }
+                priv_groupid[v]=arr;
+            }
+            for(let v in priv_roleid ){
+                let arr = [];
+                for(let m of priv){
+                    if(v==m.roleid && m.is_admin==1){
+                        arr.push(m.action)
+
+
+                    }
+                }
+                priv_roleid[v]=arr;
+            }
+           // console.log(priv_groupid);
+            //console.log(priv_roleid);
             this.assign({
                 template_lists:template_lists,
                 template_detail:template_detail,
-                template_index:template_index
+                template_index:template_index,
+                priv_groupid:priv_groupid,
+                priv_roleid:priv_roleid
             })
            return this.display();
         }
@@ -235,7 +296,7 @@ export default class extends Base {
         if(confirm==1){
             //查询该栏目是否包含子栏目
           let pid= await this.model("category").get_sub_category(id);
-            console.log(pid);
+            //console.log(pid);
 
             let l = pid.length;
             if(l>0){
@@ -244,6 +305,8 @@ export default class extends Base {
             let count =  await this.model("document").where({category_id: id}).count("id");
            if(count==0){
                await this.model("category").delete({where:{id:id}});
+               //删除分类权限
+               await this.model("category_priv").delete({where:{catid:id}});
                think.cache("sys_category_list",null);
                think.cache("all_category",null);
              return this.json({ok:0,info:"删除成功!"});
@@ -256,7 +319,7 @@ export default class extends Base {
             return this.json({ok:0,info:"删除成功!"});
         }else if(type == "all"){
             let pid= await this.model("category").get_sub_category(id);
-            console.log(pid);
+            //console.log(pid);
 
             for(let v of pid){
                 await this.delcate(v);
@@ -294,6 +357,8 @@ export default class extends Base {
             }
         }
         await this.model("category").delete({where:{id:id}});
+        //删除分类权限
+        await this.model("category_priv").delete({where:{catdi:id}});
         await this.model("document").delete({where:{category_id:id}});
         think.cache("sys_category_list",null);
         think.cache("all_category",null);

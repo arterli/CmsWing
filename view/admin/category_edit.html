@@ -21,8 +21,13 @@
                     <header class="panel-heading text-right bg-light  clearfix">
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab2">分类信息</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab3">高级设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab6">权限设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
+
                         </ul>
                         <span class="hidden-sm">Left</span>
                     </header>
@@ -32,14 +37,32 @@
 
                             <div id="tab1" class="tab-pane fade active in">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">上级分类</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 绑定模型</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                {% for list in models %}
+                                                <label class="checkbox-inline i-checks">
+                                                    <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %} value="{{list.id}}" name="model"><i></i> {{list.title}}
+                                                </label>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 注意，如没有特殊需求，建议每个栏目只绑定一个模型。</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 上级栏目</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3">
                                         <select class="form-control" name="pid" id="pid" data-pid="{{info.pid}}">
                                         </select>
                                         </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 上级分类.</span>
                                             </div>
                                         </div>
@@ -47,11 +70,11 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类名称</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 分类名称</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3"><input name="title" type="text" class="form-control" value="{{info.title}}" data-required="true"></div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide" >
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info" ></i> 名称不能为空.</span>
                                         </div>
                                         </div>
@@ -59,29 +82,18 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类标识</label>
+                                    <label class="col-sm-2 control-label">栏目标识</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3"><input name="name" type="text" value="{{info.name}}" class="form-control"></div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母,唯一不能重复.</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 非必填，填写后，此名称会替换url中的栏目id,英文字母.不能重复。</span>
                                         </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">分组定义</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-5"><textarea name="groups"  class="form-control">{{info.groups}}</textarea></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 分组定义</span>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">发布内容</label>
                                     <div class="col-sm-10">
@@ -116,7 +128,7 @@
                                             <input type="radio" {% if 1 == info.check %} checked="checked" {% endif %} value="1" name="check"><i></i> 需要
                                         </label>
                                     </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 hide">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  是否允许发布内容</span>
                                     </div>
                                     </div>
@@ -124,7 +136,7 @@
                             </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">允许文档类型</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 允许文档类型</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-10">
@@ -135,30 +147,13 @@
                                             {% endfor%}
                                         </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 允许文档类型</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 至少选择勾选一项。</span>
                                         </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">列表绑定文档模型</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-10">
-                                            {% for list in models %}
-                                            <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %} value="{{list.id}}" name="model"><i></i> {{list.title}}
-                                            </label>
-                                           {% endfor %}
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 列表支持发布的文档模型</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">子文档绑定绑定模型</label>
                                     <div class="col-sm-10">
@@ -171,7 +166,7 @@
                                             {% endfor %}
 
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 hide">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 子文档支持发布的文档模型</span>
                                         </div>
                                         </div>
@@ -179,7 +174,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">分类图标</label>
+                                    <label class="col-sm-2 control-label">栏目图标</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-10">
@@ -285,7 +280,7 @@
                                                 });
                                             </script>
                                         </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 hide">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 图片上传</span>
                                             </div>
                                         </div>
@@ -294,8 +289,209 @@
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">可见性</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio" {% if 1 == info.display %} checked="checked" {% endif %} value="1" name="display"><i></i> 所有人可见
+                                                </label>
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"  {% if 0 == info.display %} checked="checked" {% endif %} value="0" name="display"><i></i> 不可见
+                                                </label>
+                                                <label class="radio-inline i-checks">
+                                                    <input type="radio"  {% if 2 == info.display %} checked="checked" {% endif %}  value="2" name="display"><i></i> 管理员可见
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否对用户可见，针对前台</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">排序</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-2"><input name="sort" value="{{info.sort}}" type="text" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 仅对当前层级分类有效</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
                             <div id="tab2" class="tab-pane fade ">
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">频道模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_index" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认频道模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in template_index%}
+                                                        <option value="{{v.action}}" {%if info.template_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/channel" class="addtemp">添加频道模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的首页模板</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">列表模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_lists" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认列表模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in template_lists%}
+                                                        <option value="{{v.action}}" {%if info.template_lists==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/column" class="addtemp">添加列表模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的列表页模板</span>
+                                            </div></div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">详情模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_detail" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认详情模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in template_detail%}
+                                                        <option value="{{v.action}}" {%if info.template_detail==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/detail" class="addtemp">添加详情模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的内容页模板</span>
+                                            </div></div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">编辑模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3"><input name="template_edit" value="{{info.template_edit}}" type="text" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 编辑页面模板</span>
+                                            </div></div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">列表行数</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-2"><input name="list_row"  type="text" value="{{info.list_row}}" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 前台列表每页显示的条数</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
+                            <div id="tab3" class="tab-pane fade">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Title（栏目标题）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5"><input name="meta_title" value="{{info.meta_title}}" type="text" class="form-control"></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Keywords（栏目关键词）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <textarea class="form-control" name="keywords">{{info.keywords}}</textarea></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字中间用半角逗号隔开</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">META Description（栏目描述）</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <textarea name="description" class="form-control">{{info.description}}</textarea></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的网页描述</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
+                            <div id="tab4" class="tab-pane fade">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">分组定义</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-5"><textarea name="groups"  class="form-control" style="height: 300px" placeholder="索引:分组名称">{{info.groups}}</textarea></div>
+                                            <div class="col-md-12">
+                                               <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
+只在填写分组时有效，每行一个分组，<code>:</code>前面为字段<code>索引</code>(建议用数字)，后面为<code>分组名称</code>，例如: <br>
+<pre>1:分组一
+2:分组二
+3:分组三</pre>
+<code>注意: 分组确定后请勿修改索引和分组名称的对应关系，但仍可以新增字段。如需调换显示顺序，可以通过移动整行的上下位置来实现</code>
+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
+                            <div id="tab5" class="tab-pane fade ">
                                 <input type="hidden" name="documentsorts" value="{{info.documentsorts}}">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">启用分类信息</label>
@@ -414,181 +610,100 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
                             </div>
-                            <div id="tab3" class="tab-pane fade ">
+                            <div id="tab6" class="tab-pane fade ">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">可见性</label>
+                                    <label class="col-sm-2 control-label">角色权限</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-10">
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio" {% if 1 == info.display %} checked="checked" {% endif %} value="1" name="display"><i></i> 所有人可见
-                                            </label>
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio"  {% if 0 == info.display %} checked="checked" {% endif %} value="0" name="display"><i></i> 不可见
-                                            </label>
-                                            <label class="radio-inline i-checks">
-                                                <input type="radio"  {% if 2 == info.display %} checked="checked" {% endif %}  value="2" name="display"><i></i> 管理员可见
-                                            </label>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否对用户可见，针对前台</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">排序</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-2"><input name="sort" value="{{info.sort}}" type="text" class="form-control"></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 仅对当前层级分类有效</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">列表行数</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-2"><input name="list_row"  type="text" value="{{info.list_row}}" class="form-control"></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 列表行数</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">网页标题</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-5"><input name="meta_title" value="{{info.meta_title}}" type="text" class="form-control"></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 网页标题</span>
-                                        </div>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">关键字</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-5">
-                                            <textarea class="form-control" name="keywords">{{info.keywords}}</textarea></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字</span>
-                                        </div>
-                                        </div>
-                                </div>
-                                    </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">描述</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-5">
-                                            <textarea name="description" class="form-control">{{info.description}}</textarea></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 描述</span>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">频道模板</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-3">
-                                            <select style="width:260px" name="template_index" class="chosen-select">
-                                                <optgroup label="默认">
-                                                    <option value="">默认频道模版</option>
-                                                </optgroup>
-                                                <optgroup label="自定义模版">
-                                                    {% for v in template_index%}
-                                                    <option value="{{v.action}}" {%if info.template_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
-                                                    {% endfor%}
-                                                </optgroup>
-                                                <optgroup label="管理">
-                                                    <option data-url="/admin/template/channel" class="addtemp">添加频道模版</option>
-                                                </optgroup>
+                                            <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                <thead>
+                                                <tr class="bg-light">
+                                                    <th>角色名称</th>
+                                                    <th>查看</th>
+                                                    <th>添加</th>
+                                                    <th>修改</th>
+                                                    <th>删除</th>
+                                                    <th>排序</th>
+                                                    <th>推送</th>
+                                                    <th>移动</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for val in role%}
+                                                <tr>
+                                                    <td>
+                                                        {{val.desc}}
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" {%if 'init'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" {%if 'add'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" {%if 'edit'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" {%if 'delete'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" {%if 'listorder'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" {%if 'push'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" {%if 'move'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
 
-                                            </select>
-                                          </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
+                                            </div>
                                         </div>
-                                            </div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">列表模板</label>
+                                    <label class="col-sm-2 control-label">会员组权限</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                        <div class="col-md-3">
-                                            <select style="width:260px" name="template_lists" class="chosen-select">
-                                                <optgroup label="默认">
-                                                    <option value="">默认列表模版</option>
-                                                </optgroup>
-                                                <optgroup label="自定义模版">
-                                                    {% for v in template_lists%}
-                                                    <option value="{{v.action}}" {%if info.template_lists==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
-                                                    {% endfor%}
-                                                </optgroup>
-                                                <optgroup label="管理">
-                                                    <option data-url="/admin/template/column" class="addtemp">添加列表模版</option>
-                                                </optgroup>
+                                            <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                <thead>
+                                                <tr class="bg-light">
+                                                    <th>会员组名称</th>
+                                                    <th>允许访问</th>
+                                                    <th>允许投稿</th>
 
-                                            </select>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for val in group%}
+                                                <tr>
+                                                    <td>
+                                                        <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="visit,{{val.groupid}}" {%if 'visit'|in_Array(priv_groupid[val.groupid])%}checked{%endif%} ><i></i></label>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="add,{{val.groupid}}" {%if 'add'|in_Array(priv_groupid[val.groupid])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
                                             </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
-                                        </div></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">详情模板</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-3">
-                                            <select style="width:260px" name="template_detail" class="chosen-select">
-                                                <optgroup label="默认">
-                                                    <option value="">默认详情模版</option>
-                                                </optgroup>
-                                                <optgroup label="自定义模版">
-                                                    {% for v in template_detail%}
-                                                    <option value="{{v.action}}" {%if info.template_detail==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
-                                                    {% endfor%}
-                                                </optgroup>
-                                                <optgroup label="管理">
-                                                    <option data-url="/admin/template/detail" class="addtemp">添加详情模版</option>
-                                                </optgroup>
-
-                                            </select>
-                                            </div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
-                                        </div></div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">编辑模板</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                        <div class="col-md-3"><input name="template_edit" value="{{info.template_edit}}" type="text" class="form-control"></div>
-                                        <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> .</span>
-                                        </div></div>
-                                    </div>
-                                </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
+                            <div id="tab7" class="tab-pane fade">
+                               7
                             </div>
 
                         </div>

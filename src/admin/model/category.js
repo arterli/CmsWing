@@ -34,7 +34,22 @@ export default class extends think.model.base {
         //获取所有分类
 
         let map = {"status":{">":-1}}
-        let list = await this.field(field).where(map).order('sort').select();
+        let list = await this.field(field).where(map).order('sort ASC').select();
+        for(let v of list) {
+            if (v.allow_publish == 0){
+                if (!think.isEmpty(v.name)) {
+                    v.url = `/channel/${v.name}`
+                } else {
+                    v.url = `/channel/${v.id}`
+                }
+            }else {
+                if (!think.isEmpty(v.name)) {
+                    v.url = `/column/${v.name}`
+                } else {
+                    v.url = `/column/${v.id}`
+                }
+            }
+        }
         //console.log(list);
         list = get_children(list,id);
         let info = list;
@@ -194,15 +209,106 @@ export default class extends think.model.base {
             data.model =think.isArray(data.model)? data.model.join(","):data.model;
             data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
             data.type = think.isArray(data.type)?data.type.join(","):data.model;
-            console.log(data);
-            res = this.add(data);
+            //console.log(data);
+            res =await this.add(data);
+            if(res){
+                //构造权限
+                let priv =[]
+                if(!think.isEmpty(data.priv_roleid)){
+                    if(think.isArray(data.priv_roleid)){
+                        //构造 角色权限
+                        for (let v of data.priv_roleid){
+                            let arr = v.split(",")
+                            let obj = {};
+                            obj.catid = res;
+                            obj.siteid=1;
+                            obj.roleid= arr[1];
+                            obj.action = arr[0];
+                            obj.is_admin = 1;
+                            priv.push(obj)
+                        }
+                    }else {
+                        let arr = (data.priv_roleid).split(",")
+                        priv.push({ catid:res, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 1 })
+                    }
 
+                }
+                if(!think.isEmpty(data.priv_groupid)){
+                    //构造 用户组权限
+                    if(think.isArray(data.priv_groupid)){
+                        for (let v of data.priv_groupid){
+                            let arr = v.split(",")
+                            let obj = {};
+                            obj.catid = res;
+                            obj.siteid=1;
+                            obj.roleid= arr[1];
+                            obj.action = arr[0];
+                            obj.is_admin = 0;
+                            priv.push(obj)
+                        }
+                    }else {
+                        let arr = (data.priv_groupid).split(",")
+                        priv.push({ catid:res, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 0 })
+                    }
+
+                }
+
+                if(!think.isEmpty(priv)){
+                    await this.model("category_priv").addMany(priv)
+                }
+            }
         }else{
             data.update_time=new Date().getTime();
             data.model =think.isArray(data.model)? data.model.join(","):data.model;
             data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
             data.type = think.isArray(data.type)?data.type.join(","):"";
-            res = this.update(data);
+            res = await this.update(data);
+        }
+        if(res){
+            //构造权限
+            let priv =[]
+            if(!think.isEmpty(data.priv_roleid)){
+                if(think.isArray(data.priv_roleid)){
+                    //构造 角色权限
+                    for (let v of data.priv_roleid){
+                        let arr = v.split(",")
+                        let obj = {};
+                        obj.catid = data.id;
+                        obj.siteid=1;
+                        obj.roleid= arr[1];
+                        obj.action = arr[0];
+                        obj.is_admin = 1;
+                        priv.push(obj)
+                    }
+                }else {
+                    let arr = (data.priv_roleid).split(",")
+                    priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 1 })
+                }
+
+            }
+            if(!think.isEmpty(data.priv_groupid)){
+                //构造 用户组权限
+                if(think.isArray(data.priv_groupid)){
+                    for (let v of data.priv_groupid){
+                        let arr = v.split(",")
+                        let obj = {};
+                        obj.catid = data.id;
+                        obj.siteid=1;
+                        obj.roleid= arr[1];
+                        obj.action = arr[0];
+                        obj.is_admin = 0;
+                        priv.push(obj)
+                    }
+                }else {
+                    let arr = (data.priv_groupid).split(",")
+                    priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 0 })
+                }
+
+            }
+             await this.model("category_priv").delete({where:{catid:data.id}});
+            if(!think.isEmpty(priv)){
+                await this.model("category_priv").addMany(priv)
+            }
         }
         think.cache("sys_category_list",null);
         think.cache("all_category",null);

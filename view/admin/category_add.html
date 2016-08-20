@@ -609,7 +609,96 @@
                                 </div>
                                 </div>
                             <div id="tab6" class="tab-pane fade ">
-                               5
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">角色权限</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                <thead>
+                                                <tr class="bg-light">
+                                                    <th>角色名称</th>
+                                                    <th>查看</th>
+                                                    <th>添加</th>
+                                                    <th>修改</th>
+                                                    <th>删除</th>
+                                                    <th>排序</th>
+                                                    <th>推送</th>
+                                                    	<th>移动</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for val in role%}
+                                                <tr>
+                                                    <td>
+                                                        {{val.desc}}
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" ><i></i></label>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" ><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" ><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" ><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" ><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" ><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" ><i></i></label>
+                                                    </td>
+
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">会员组权限</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                <thead>
+                                                <tr class="bg-light">
+                                                    <th>会员组名称</th>
+                                                    <th>允许访问</th>
+                                                    <th>允许投稿</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for val in group%}
+                                                <tr>
+                                                    <td>
+                                                        <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="visit,{{val.groupid}}" ><i></i></label>
+                                                    <td>
+                                                    <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="add,{{val.groupid}}" ><i></i></label>
+                                                    </td>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table></div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
                             <div id="tab7" class="tab-pane fade ">
                                6
