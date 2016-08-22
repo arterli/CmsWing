@@ -1400,7 +1400,7 @@ table tr td{
             ids = res;
         }
         
-        console.log(ids);
+        //console.log(ids);
        $("#{{field.name}}").val(ids);
     });
     //编辑的时候载入图片
@@ -1418,7 +1418,7 @@ table tr td{
     $placeHolder.addClass('element-invisible');
     $statusBar.show();
     $queue.parent().addClass('filled');   
-      var $li = $('<li id="' + file.id + '">' +
+      var $li = $('<li id="' + file.id + '" class="up">' +
             '<p class="title">' + file.name + '</p>' +
             '<p class="imgWrap"></p>' +
             '<p class="progress"><span></span></p>' +
@@ -1431,6 +1431,36 @@ table tr td{
             $prgress = $li.find('p.progress span'),
             $wrap = $li.find('p.imgWrap'),
             $info = $('<p class="error"></p>');
+        $li.on('mouseenter', function () {
+            $btns.stop().animate({ height: 30 });
+        });
+
+        $li.on('mouseleave', function () {
+            $btns.stop().animate({ height: 0 });
+        });
+        $btns.on('click', 'span', function () {
+            var index = $(this).index(),
+                    deg;
+            var id=$(this).parents("li.up").attr("id");
+            switch (index) {
+                case 0:
+                    removepics(id);
+                    //removepics()
+                    return;
+
+                case 1:
+                    //file.rotation += 90;
+                    break;
+
+                case 2:
+                   // file.rotation -= 90;
+                    break;
+            }
+
+
+
+
+        });
              var img = $('<img src="' + file.src + '">');
                 $wrap.empty().append(img);
             $li.appendTo($queue);  
@@ -1574,12 +1604,28 @@ table tr td{
         });
         //console.log($queue)
         $li.appendTo($queue);
+        //console.log(percentages);
     }
+// 负责view的销毁
+                function removepics(file) {
+                    var $li = $('#' + file);
+                    //delete percentages[file.id];
+                    var id = $("#{{field.name}}").val();
+                    var ids=[]
+                    id.split(",").forEach(function ( v) {
+                        if(file!=v) {
+                            ids.push(v)
+                        }
+                    });
 
+                    $("#{{field.name}}").val(ids.join(","))
+                    //console.log(ids);
+                    updateTotalProgress();
+                    $li.off().find('.file-panel').off().end().remove();
+                }
     // 负责view的销毁
     function removeFile(file) {
         var $li = $('#' + file.id);
-
         delete percentages[file.id];
         updateTotalProgress();
         $li.off().find('.file-panel').off().end().remove();
@@ -1631,6 +1677,7 @@ table tr td{
     }
 
     function setState(val) {
+        //alert(val)
         var file, stats;
 
         if (val === state) {
@@ -1706,7 +1753,7 @@ table tr td{
 
     uploader.onFileQueued = function (file) {
         fileCount++;
-        fileSize += file.size;
+        fileSize -= file.size;
 
         if (fileCount === 1) {
             $placeHolder.addClass('element-invisible');
@@ -1720,9 +1767,8 @@ table tr td{
 
     uploader.onFileDequeued = function (file) {
         fileCount--;
-        fileSize -= file.size;
-
-        if (!fileCount) {
+        fileSize += file.size;
+        if (!fileCount && !$('.filelist>li.up')) {
             setState('pedding');
         }
 

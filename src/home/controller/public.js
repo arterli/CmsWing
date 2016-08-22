@@ -331,13 +331,16 @@ export default class extends Base {
 
   async getmenuAction() {
     let cate = await this.model("category",{},'admin').get_all_category();
-
+    let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
       //前台投稿分类
       //TODO 权限控制
       for (let val of cate) {
         val.url = `/user/publish/cate_id/${val.id}`;
         val.target = '_self';
+        let priv = await this.model("category_priv").where({catid:val.id,is_admin:0,roleid:roleid}).getField('action');
+          val.priv=priv
       }
+      console.log(cate);
     //think.log(cate);
     return this.json(arr_to_tree(cate, 0))
   }
