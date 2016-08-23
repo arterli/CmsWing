@@ -90,7 +90,7 @@ export default class extends Base {
     async updatetypevarAction(){
         let data = this.post('data');
         data = JSON.parse(data);
-        console.log(data);
+        //console.log(data);
         //return false;
        let del= await this.model('typevar').delete({
             where: {sortid: data.id}
@@ -185,7 +185,7 @@ export default class extends Base {
  async updateAction(){
    let data = this.post("data");
       data = JSON.parse(data);
-      console.log(data);
+      //console.log(data);
       for(let val of data){
           //添加
           if(val.isdel==0 && val.name != 0 && val.typeid ==0){//添加

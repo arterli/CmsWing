@@ -185,10 +185,10 @@
 
             })
             var datas = {id:$("input[name='sortid']").val(),datarr:dataarr}
-            console.log(datas);
+            //console.log(datas);
 
             $.ajax({
-                url:"/admin/type/updatetypevar",
+                url:"/{{http.module}}/{{http.controller}}/updatetypevar",
                 data:{data:JSON.stringify(datas)},
                 type:"post",
                 success:function (res) {

@@ -131,6 +131,7 @@ export default class extends Base {
             })
             //template_lists
             //会员组
+
             let group = await this.model("member_group").order("sort ASC").select();
             this.assign('group',group);
             let role = await this.model("auth_role").order("sort ASC").select();

@@ -332,16 +332,39 @@ export default class extends Base {
   async getmenuAction() {
     let cate = await this.model("category",{},'admin').get_all_category();
     let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
-      //前台投稿分类
-      //TODO 权限控制
+    // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
+    // console.log(priv);
+    //前台投稿分类
+      //TODO 权限控制(管理员)
+    let parr =[];
       for (let val of cate) {
         val.url = `/user/publish/cate_id/${val.id}`;
         val.target = '_self';
-        let priv = await this.model("category_priv").where({catid:val.id,is_admin:0,roleid:roleid}).getField('action');
+          let priv = await this.model("category_priv").priv(val.id,roleid,'add');
           val.priv=priv
+        if(priv==1 && val.pid !=0){
+          parr.push(val.pid)
+        }
       }
-      console.log(cate);
+    let cates= [];
+    if(think.isEmpty(parr)){
+      cates=cate;
+    }else {
+
+      for(let val of cate){
+        if(in_array(val.id,parr)){
+          val.priv=1
+        }
+      }
+
+      for(let val of cate){
+        if(val.priv==1){
+          cates.push(val);
+        }
+      }
+    }
+      //console.log(cates);
     //think.log(cate);
-    return this.json(arr_to_tree(cate, 0))
+    return this.json(arr_to_tree(cates, 0))
   }
 }

@@ -718,6 +718,14 @@ export default class extends Base {
     async publishAction(){
         await this.weblogin();
         let cate_id = this.get('cate_id') || null;
+        //console.log(cate_id);
+        //权限控制
+        let priv = await this.priv(cate_id);
+        if(priv){
+            this.http.error = new Error('网站禁止投稿！');
+            return think.statusAction(702, this.http);
+        }
+
         let model_id = this.get('model_id') || null;
         let position = this.get('position') || null;
         let group_id = this.get('group_id') || 0;
@@ -915,6 +923,56 @@ list = await this.parseDocumentList(list, model_id);
         this.assign('model_list', model);
         return this.display();
 
+    }
+    /**
+     * 显示左边菜单，进行权限控制
+     * @author
+     */
+
+    async priv(cate_id) {
+        let cate = cate_id || await this.model("category",{},'admin').get_all_category();
+        let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
+        let cates= [];
+        if(cate_id){
+            let priv = await this.model("category_priv").priv(cate_id,roleid,'add');
+            if(priv==1){
+                cates.push(priv)
+            }
+        }else {
+            // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
+            // console.log(priv);
+            //前台投稿分类
+            //TODO 权限控制(管理员)
+            let parr =[];
+            for (let val of cate) {
+                let priv = await this.model("category_priv").priv(val.id,roleid,'add');
+                val.priv=priv
+                if(priv==1 && val.pid !=0){
+                    parr.push(val.pid)
+                }
+            }
+
+            if(think.isEmpty(parr)){
+                cates=cate;
+            }else {
+
+                for(let val of cate){
+                    if(in_array(val.id,parr)){
+                        val.priv=1
+                    }
+                }
+
+                for(let val of cate){
+                    if(val.priv==1){
+                        cates.push(val);
+                    }
+                }
+            }
+        }
+
+
+
+        return think.isEmpty(cates)
     }
     /**
      * 默认文档列表方法

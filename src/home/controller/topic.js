@@ -60,6 +60,16 @@ export default class extends Base {
 
       let cate = await this.category(id);
       cate = think.extend({}, cate);
+      let roleid=8;//游客
+      //访问控制
+      if(this.is_login){
+           roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      let priv = await this.model("category_priv").priv(cate.id,roleid,'visit');
+      if(!priv){
+          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+          return think.statusAction(702, this.http);
+      }
       //console.log(cate);
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
@@ -215,7 +225,7 @@ export default class extends Base {
          // console.log(map);
 
       }
-      console.log(map);
+      //console.log(map);
       //return false;
       //console.log(sort);
       this.assign("sort",sort);
@@ -321,17 +331,26 @@ export default class extends Base {
     //} //if(!(id && think.isString(id))){
     //    this.fail('文档ID错误！');
     //}
-
-    /* 页码检测*/
-    //TODO
-
-    /* 获取详细信息*/
-    let document = this.model('document');
-    let info = await document.detail(id);
+      /* 获取详细信息*/
+      let document = this.model('document');
+      let info = await document.detail(id);
       if(info.errno==702){
           this.http.error = new Error(info.errmsg);
           return think.statusAction(702, this.http);
       }
+    /* 页码检测*/
+    //TODO
+      let roleid=8;//游客
+      //访问控制
+      if(this.is_login){
+          roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      let priv = await this.model("category_priv").priv(info.category_id,roleid,'visit');
+      if(!priv){
+          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+          return think.statusAction(702, this.http);
+      }
+
 
       //不同的设备,压缩不同的图片尺寸
       let str = info.content;
