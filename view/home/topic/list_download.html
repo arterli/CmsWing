@@ -335,6 +335,26 @@ CLASSES:
                         <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}">{{v.name}}</a></li>
                         {%endfor%}
                     </ul>
+                    <!--投稿按钮-->
+                    <div class="btn-group btn-group-sm pull-right">
+                        <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
+                            dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
+                            == 1 %} href="/user/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
+                            ><span class="fa fa-pencil-square-o"></span> 投稿 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</a>
+                        {%if model|length > 1 %}
+                        <ul class="dropdown-menu">
+
+                            {% for val in modellist%}
+                            <li> <a href="/user/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
+                                    class="text-info">添加{{val.title}}</a></li>
+                            {% endfor %}
+
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">添加内容</a></li>-->
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <!--//投稿按钮-->
                     <div class="btn-group btn-group-sm pull-right">
                         <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
                         <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>

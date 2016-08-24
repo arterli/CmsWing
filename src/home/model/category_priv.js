@@ -8,8 +8,6 @@ export default class extends think.model.base {
         let res=0;
         let isadd = await this.where({catid:catid,is_admin:is_admin,action:action}).count('catid');
 
-       let aaa=  await this.where({catid:catid,is_admin:is_admin,action:action}).select()
-       console.log(aaa);
        if(isadd == 0){
             res =1;
         }else {

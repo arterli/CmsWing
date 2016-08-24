@@ -831,7 +831,6 @@ export default class extends Base {
             model_id = model_id ? model_id : models;
             //获取模型信息
             model = await this.model('model').where({id: ['IN', [model_id]]}).find();
-            ;
 
             if (think.isEmpty(model['list_grid'])) {
                 let data = await this.model('model').field('list_grid').where({name: 'document'}).find();
@@ -1145,7 +1144,14 @@ list = await this.parseDocumentList(list, model_id);
      * 新增投稿
      */
     async addAction() {
+        await this.weblogin();
         let cate_id = this.get("cate_id") || 0;
+        //权限控制
+        let priv = await this.priv(cate_id);
+        if(priv){
+            this.http.error = new Error('您所在的会员组,禁止在本栏目投稿！');
+            return think.statusAction(702, this.http);
+        }
         let model_id = this.get("model_id") || 0;
         let group_id = this.get("group_id") || '';
         let sortid = this.get('sortid')||0;
@@ -1231,30 +1237,36 @@ list = await this.parseDocumentList(list, model_id);
 
     //编辑文档
     async editAction() {
+        await this.weblogin();
         let id = this.get('id') || "";
         let sortid = this.get('sortid')||0;
         if (think.isEmpty(id)) {
             this.fail("参数不能为空");
         }
         //获取详细数据；
-        let document = this.model("document")
+        let document = this.model("document",{},'admin')
         let data = await document.details(id);
+        //安全验证
+        if(data.uid != this.user.uid){
+            this.http.error = new Error('只能编辑自己的稿件哦(*^_^*)!');
+            return think.statusAction(702, this.http);
+        }
         //let model =  this.model("model").getmodel(2);
         if (data.pid != 0) {
             //获取上级文档
             let article = document.field("id,title,type").find(data.pid);
             this.assign('article', article);
         }
-        let model = await this.model("model").get_document_model(data.model_id);
+        let model = await this.model("model",{},'admin').get_document_model(data.model_id);
 
         // 获取分组定义
-        let groups = await this.model("category").get_category(data.category_id, 'groups');
+        let groups = await this.model("category",{},'admin').get_category(data.category_id, 'groups');
         if (groups) {
             groups = parse_config_attr(groups);
         }
         this.assign('groups',groups);
         // 获取分类信息
-        let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
+        let sort = await this.model("category",{},'admin').get_category(data.category_id, 'documentsorts');
         if (sort) {
             sort = JSON.parse(sort);
             if(sortid !=0){
@@ -1292,15 +1304,15 @@ list = await this.parseDocumentList(list, model_id);
         //console.log(sort);
         this.assign("sort",sort);
         //获取表单字段排序
-        let fields = await this.model("attribute").get_model_attribute(model.id,true);
+        let fields = await this.model("attribute",{},'admin').get_model_attribute(model.id,true);
         this.assign('fields', fields);
         //获取当前分类文档的类型
-        let type_list = await this.model("category").get_type_bycate(data.category_id)
+        let type_list = await this.model("category",{},'admin').get_type_bycate(data.category_id)
         //获取suk tags
         let tags = await this.model('tags').where({model_id:data.model_id}).select();
         this.assign('tags',tags);
         //获取面包屑信息
-        let nav = await this.model('category').get_parent_category(data.category_id);
+        let nav = await this.model('category',{},'admin').get_parent_category(data.category_id);
         //console.log(model);
         this.assign('breadcrumb', nav);
         //console.log(model);
@@ -1320,6 +1332,7 @@ list = await this.parseDocumentList(list, model_id);
      * 更新或者添加数据
      */
     async updateAction() {
+        await this.weblogin();
         let data = this.post();
         //绑定发布者id
         data.uid=this.user.uid;

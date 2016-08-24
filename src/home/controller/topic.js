@@ -70,6 +70,23 @@ export default class extends Base {
           this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
           return think.statusAction(702, this.http);
       }
+      // 获取当前栏目的模型
+      let models = await this.model("category",{},'admin').get_category(cate.id, 'model');
+      //获取模型信息
+      let modellist = [];
+      //console.log(111111111)
+      if (think.isEmpty(models)) {
+          modellist = null;
+      } else {
+          for (let val of models.split(",")) {
+              let modelobj = {}
+              modelobj.id = val;
+              modelobj.title = await this.model("model",{},'admin').get_document_model(val, "title");
+              modellist.push(modelobj);
+          }
+      }
+      this.assign('modellist', modellist);
+      this.assign('model', models.split(","))
       //console.log(cate);
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
@@ -251,7 +268,7 @@ export default class extends Base {
       }else {
           data = await this.model('document').where(map).page(this.param('page'),num).order(o).countSelect();
       }
-      console.log(data);
+      //console.log(data);
       // let data = await this.model('document').join({
       //     typeoptionvar: {
       //         join: "left", // 有 left,right,inner 3 个值

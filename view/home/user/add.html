@@ -1593,52 +1593,52 @@
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 <script type="text/javascript">
-    <!--
-    var zTree;
-    var demoIframe;
-
-    var setting = {
-        async: {
-            enable: true,
-            url: "/public/getmenu",
-            otherParam: ["action", "add"]
-        },
-        view: {
-
-            showLine: true,
-            selectedMulti: false,
-        },
-        callback: {
-            onAsyncSuccess: zTreeOnAsyncSuccess
-        }
-    };
-    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
-        //console.log(treeNode)
-        var treeObj = $.fn.zTree.getZTreeObj(treeId);
-        treeObj.expandAll(true);
-        var id= $("#"+treeId).attr("data-cate");
-        curMenu = treeObj.getNodeByParam("id", id, null);
-        //console.log(treeId)
-        treeObj.selectNode(curMenu);
-    };
-    function expandNode(e) {
-        var zTree = $.fn.zTree.getZTreeObj("tree"),
-                type = e.data.type,
-                nodes = zTree.getSelectedNodes();
-        if (type == "expandAll") {
-            zTree.expandAll(true);
-        } else if (type == "collapseAll") {
-            zTree.expandAll(false);
-        }
-    }
-
-
-    //-->
+//    <!--
+//    var zTree;
+//    var demoIframe;
+//
+//    var setting = {
+//        async: {
+//            enable: true,
+//            url: "/public/getmenu",
+//            otherParam: ["action", "add"]
+//        },
+//        view: {
+//
+//            showLine: true,
+//            selectedMulti: false,
+//        },
+//        callback: {
+//            onAsyncSuccess: zTreeOnAsyncSuccess
+//        }
+//    };
+//    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+//        //console.log(treeNode)
+//        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+//        treeObj.expandAll(true);
+//        var id= $("#"+treeId).attr("data-cate");
+//        curMenu = treeObj.getNodeByParam("id", id, null);
+//        //console.log(treeId)
+//        treeObj.selectNode(curMenu);
+//    };
+//    function expandNode(e) {
+//        var zTree = $.fn.zTree.getZTreeObj("tree"),
+//                type = e.data.type,
+//                nodes = zTree.getSelectedNodes();
+//        if (type == "expandAll") {
+//            zTree.expandAll(true);
+//        } else if (type == "collapseAll") {
+//            zTree.expandAll(false);
+//        }
+//    }
+//
+//
+//    //-->
     $(function(){
-        var t = $("#tree");
-        t = $.fn.zTree.init(t, setting).expandAll(true);
-        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
-        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+//        var t = $("#tree");
+//        t = $.fn.zTree.init(t, setting).expandAll(true);
+//        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+//        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
         $('.date').datetimepicker({
             format: 'yyyy-mm-dd',
             language:"zh-CN",
