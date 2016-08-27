@@ -74,14 +74,15 @@ global.encryptPassword = function(password, md5encoded) {
  */
 /* global unique */
 global.unique = function(arr) {
-    var result = [], hash = {};
-    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-        if (!hash[elem]) {
-            result.push(elem);
-            hash[elem] = true;
-        }
-    }
-    return result;
+    // var result = [], hash = {};
+    // for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+    //     if (!hash[elem]) {
+    //         result.push(elem);
+    //         hash[elem] = true;
+    //     }
+    // }
+    // return result;
+    return Array.from(new Set(arr));
 }
 /**
  * in_array

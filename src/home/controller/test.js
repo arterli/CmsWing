@@ -278,4 +278,18 @@ export default class extends Base {
         console.log(testanjiao(["1", "2", "3"], 1));
         this.end();
     }
+    uniqueAction(){
+        let arr = [1,1,2,2,3,'3'];
+        console.log(unique(arr));
+    }
+    lodashAction(){
+        let _ = think._;
+        var object = { 'a': 1 };
+        var other = { 'a': 1 };
+
+        console.log(_.eq(object, object));;
+      // ➜ true
+        console.log(_.ceil(_.add(0.008,0.009),3));
+        console.log(_.min([4, 2, 8, 6]));;
+    }
 }

@@ -726,15 +726,17 @@ export default class extends Base {
             return think.statusAction(702, this.http);
         }
 
+        //let [model_id=null,position=null,group_id=null,sortid=null,sortval=null]=[this.get('model_id'),this.get('position'),this.get('group_id'),this.get('sortid'),this.get('sortval')];
+
         let model_id = this.get('model_id') || null;
         let position = this.get('position') || null;
         let group_id = this.get('group_id') || 0;
         let sortid = this.get('sortid')||0;
         let sortval = this.get('sortval')||null;
-        let models;
-        let groups;
-        let model;
-        let _model;
+        let models,groups,model,_model;
+        // let groups;
+        // let model;
+        // let _model;
         if (!think.isEmpty(cate_id)) {
             // 获取分类信息
             let sort = await this.model("category",{},'admin').get_category(cate_id, 'documentsorts');

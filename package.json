@@ -19,6 +19,7 @@
     "think-pagination": "*",
     "think-wechat": "*",
     "thinkjs": "2.2.x",
+    "lodash":"4.x.x",
     "wechat-api":"*",
     "jimp":"*",
     "qiniu":"*",
