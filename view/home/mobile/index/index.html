@@ -1,96 +1,398 @@
-{% extends "../inc/base.html" %}
-{% block page%}
-<div class="page page-current" id="page-ptr">
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="utf-8">
+    <title>Hello MUI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <header class="bar bar-nav">
-        <a class="button button-link button-nav pull-left" href="/"><img src="/static/mobile/img/logo.png"/></a>
-        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
-            <span class="icon icon-menu"></span>
-            导航
-        </a>
-        <h1 class="title">{{controller.setup.WEB_SITE_TITLE}}</h1>
-    </header>
-    <!--nav-->
-    {% include "../inc/nav.html" %}
-    <!--end_nav-->
+    <link rel="stylesheet" href="/static/webapp/css/mui.min.css">
+    <link rel="stylesheet" href="/static/webapp/css/app.css">
 
-<div class="content pull-to-refresh-content" data-ptr-distance="55">
+</head>
 
-    <!-- 默认的下拉刷新层 -->
-    <div class="pull-to-refresh-layer">
-        <div class="preloader"></div>
-        <div class="pull-to-refresh-arrow"></div>
-    </div>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">选项卡切换+下拉刷新</h1>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-active" href="#tabbar">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-chat">
+        <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+        <span class="mui-tab-label">消息</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">通讯录</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-map">
+        <span class="mui-icon mui-icon-gear"></span>
+        <span class="mui-tab-label">设置</span>
+    </a>
+</nav>
+<div class="mui-content">
 
-    <div class="card-container">
-        <div class="card">
-            <div style="background-image:url(//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg)"
-                 valign="bottom" class="card-header color-white no-border">旅途的山
-            </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p class="color-gray">发表于 2015/01/15</p>
-                    <p>此处是内容...</p>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a href="#" class="link">赞</a>
-                <a href="#" class="link">更多</a>
+    <div id="slider" class="mui-slider mui-fullscreen">
+        <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+            <div class="mui-scroll">
+                <a class="mui-control-item bar-item {%if order ==0%} mui-active{%endif%}" href="#item1mobile" data-url="/index">
+                    推荐
+                </a>
+                <a class="mui-control-item bar-item {%if order ==2%} mui-active{%endif%}" href="#item2mobile" data-url="/index/index/order/2">
+                    热点
+                </a>
+
+                <a class="mui-control-item bar-item" href="#item3mobile">
+                    北京新闻
+                </a>
+                <a class="mui-control-item bar-item" href="#item4mobile" data-url="index2.html">
+                    社会
+                </a>
+                <a class="mui-control-item bar-item" href="#item5mobile">
+                    娱乐
+                </a>
+                <a class="mui-control-item bar-item" href="#item6mobile">
+                    科技
+                </a>
             </div>
         </div>
-        <div class="card">
-            <div style="background-image:url(//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg)"
-                 valign="bottom" class="card-header color-white no-border">旅途的山
+        <div class="mui-slider-group " style="height: 0px;" >
+            <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+
             </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p class="color-gray">发表于 2015/01/15</p>
-                    <p>此处是内容...</p>
-                </div>
+            <div id="item2mobile" class="mui-slider-item mui-control-content">
+
+
             </div>
-            <div class="card-footer">
-                <a href="#" class="link">赞</a>
-                <a href="#" class="link">更多</a>
+            <div id="item3mobile" class="mui-slider-item mui-control-content">
+
+            </div>
+            <div id="item4mobile" class="mui-slider-item mui-control-content">
+
+            </div>
+            <div id="item5mobile" class="mui-slider-item mui-control-content">
+
+            </div>
+            <div id="item6mobile" class="mui-slider-item mui-control-content">
             </div>
         </div>
-        <div class="card">
-            <div style="background-image:url(//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg)"
-                 valign="bottom" class="card-header color-white no-border">旅途的山
-            </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p class="color-gray">发表于 2015/01/15</p>
-                    <p>此处是内容...</p>
+
+    </div>
+    <div class="mui-fullscreen">
+    <div class="mui-slider-group list-content">
+        <div class="mui-slider-item">
+            <div class=" mui-scroll-wrapper">
+                <div class="mui-scroll" id="y" >
+                    <ul class="mui-table-view ">
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">
+                                <div class="mui-media-body">
+                                    远眺
+                                    <p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/shuijiao.jpg">
+                                <div class="mui-media-body">
+                                    幸福
+                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/muwu.jpg">
+                                <div class="mui-media-body">
+                                    木屋
+                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">
+                                <div class="mui-media-body">
+                                    远眺
+                                    <p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/shuijiao.jpg">
+                                <div class="mui-media-body">
+                                    幸福
+                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/muwu.jpg">
+                                <div class="mui-media-body">
+                                    木屋
+                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                </div>
+                            </a>
+                        </li> <li class="mui-table-view-cell mui-media">
+                        <a href="javascript:;">
+                            <img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">
+                            <div class="mui-media-body">
+                                远眺
+                                <p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
+                            </div>
+                        </a>
+                    </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/shuijiao.jpg">
+                                <div class="mui-media-body">
+                                    幸福
+                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/muwu.jpg">
+                                <div class="mui-media-body">
+                                    木屋
+                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="javascript:;">
+                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/muwu.jpg">
+                                <div class="mui-media-body">
+                                    木屋
+                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="card-footer">
-                <a href="#" class="link">赞</a>
-                <a href="#" class="link">更多</a>
             </div>
         </div>
     </div>
-
-</div>
-</div>
-{% endblock %}
-{% block pageout%}
-<div class="panel-overlay"></div>
-<!-- Left Panel with Reveal effect -->
-<div class="panel panel-left panel-reveal theme-dark" id='panel-left-menu'>
-    <div class="content-block">
-        <p>这是一个侧栏</p>
-        <p>你可以在这里放用户设置页面</p>
-        <p><a href="#" class="close-panel">关闭</a></p>
-    </div>
-    <div class="list-block">
-        <!-- .... -->
     </div>
 </div>
-{% endblock%}
-
-{% block script %}
+<script src="/static/webapp/js/mui.min.js"></script>
+<script src="/static/webapp/js/mui.pullToRefresh.js"></script>
+<script src="/static/webapp/js/mui.pullToRefresh.material.js"></script>
 <script>
+    mui.init();
+    (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('#sliderSegmentedControl').scroll({
+            bounce: true,
+            indicators: true, //是否显示滚动条
+            deceleration:deceleration,
 
+        });
+        var top=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+        var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+
+        $('.mui-scroll-wrapper').scroll({
+            bounce: true,
+            indicators: true, //是否显示滚动条
+            deceleration:deceleration,
+            startY: top, //初始化时滚动至x
+            scrollX: false, //是否横向滚动
+        });
+
+
+        //记录位置
+        window.onscroll=function(){
+            var patt1=/\(.*?\)/;
+            var srtY=document.querySelector('#y').style.transform||document.getElementById("y").style["-webkit-transform"];
+            if(srtY){
+                var Y=parseInt(srtY.match(patt1)[0].split(",")[1])
+            }else{
+                var Y=0;
+            }
+            var S = document.querySelector('#y .mui-table-view').querySelectorAll('li').length;
+            //console.log(Y);
+            if(window.sessionStorage){
+                sessionStorage.setItem("{{http.url}}_top",Y);
+                sessionStorage.setItem("{{http.url}}_size",S);
+            }
+        }
+        $("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
+            var url = this.getAttribute("data-url");
+            //打开关于页面
+            //alert(url)
+            mui.openWindow({
+                url: url
+            });
+        })
+
+        $.ready(function() {
+//					console.log(document.querySelector('#y').style.transform)
+            //循环初始化所有下拉刷新，上拉加载。
+            $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+
+                $(pullRefreshEl).pullToRefresh({
+//                    down: {
+//                        callback: function() {
+//                            var self = this;
+//                            setTimeout(function() {
+//                                var ul = self.element.querySelector('.mui-table-view');
+//                                ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
+//                                self.endPullDownToRefresh();
+//                            }, 1000);
+//                        }
+//                    },
+                    up: {
+                        callback: function() {
+                            var self = this;
+                            setTimeout(function() {
+                                var ul = self.element.querySelector('.mui-table-view');
+                                //ul.appendChild(createFragment(ul, 10));
+                                var l = ul.querySelectorAll('li').length
+                                  var count = "{{list.count}}";
+                                console.log(count);
+                                if(parseInt(l) < parseInt(count)){
+                                    createFragment(ul, 10)
+                                    self.endPullUpToRefresh();
+                                }else {
+                                    self.endPullUpToRefresh(true);
+                                }
+
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+            var createFragment = function(ul, count, page) {
+                //无限加载
+
+                var lastIndex = ul.querySelectorAll('li').length;
+                console.log(lastIndex);
+                var pages = page || Math.ceil((lastIndex+count)/count);
+                console.log(pages);
+                mui.ajax("{{http.url}}",{
+                    data:{
+                        page:pages
+                    },
+                    dataType:'json',//服务器返回json格式数据
+                    type:'get',//HTTP请求类型
+                    success:function(data){
+                        //获得服务器响应
+                        console.log();
+                        var fragment = document.createDocumentFragment();
+                        var li;
+                        for (var i = 0; i < data.data.length; i++) {
+                            li = document.createElement('li');
+                            li.className = 'mui-table-view-cell';
+                            li.innerHTML ='<a href="javascript:;">'+
+                                    '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
+                                    '<div class="mui-media-body">'+
+                                     data.data[i].title+
+                                    '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
+                            '</div>'+
+                            '</a>';
+                            fragment.appendChild(li);
+                        }
+                        ul.appendChild(fragment);
+                    }
+                });
+
+            };
+
+            //加载
+            //第一页初始化
+            var page = Math.ceil(size/10);
+            var ul = document.querySelector('#y .mui-table-view');
+            if(page>1 ){
+                for (var i = 1; i < page; i++) {
+                    createFragment(ul, 10,(i+1))
+                }
+            }
+           // ul.appendChild(createFragment(ul, 1, 20));
+//            mui.ajax("{{http.url}}",{
+//                data:{
+//                    page:1
+//                },
+//                dataType:'json',//服务器返回json格式数据
+//                type:'get',//HTTP请求类型
+//                success:function(data){
+//                    //获得服务器响应
+//                    console.log(data);
+//                }
+//            });
+            //$.toast("dfsdf")
+        });
+
+
+//				var c=0,
+//matter=document;
+//window.onload=function(){
+//var a=b=null;
+//if(window.sessionStorage){
+//a=parseInt(sessionStorage.getItem("top"));
+//b=parseInt(sessionStorage.getItem("size"));
+////6是AJAX 每次请求多少个dd
+//num=6*b;
+//c=b?b:0;
+//// ajax渲染
+//for (var i = 0; i < num; i++){
+//var dd=document.createElement("dd")
+//dd.innerHTML="&lt;a href='./source.html'&gt;&lt;img src='images/1.jpg' alt='' /&gt;&lt;div class='sug'&gt;&lt;h2&gt;魔力魔力魔力魔力魔力魔力魔力魔...&lt;/h2&gt;&lt;p&gt;收获佣金&lt;b&gt;￥106.00&lt;/b&gt;&lt;/p&gt;&lt;p class='num'&gt;点击量&nbsp;&nbsp;125"+i+"&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;"
+//matter.querySelector("dl").appendChild(dd);
+//};
+//alert(a);
+//document.body.scrollTop=a;
+//}
+//}
+//window.onscroll=function(){
+//var tops=document.body.scrollTop,
+//height=document.documentElement.scrollHeight,
+//scrollbottom=height-_height-tops;
+//console.log("top:"+tops+"height:"+height+"scrollbottom:"+scrollbottom+"_height"+_height);
+//if(window.sessionStorage){
+//sessionStorage.setItem("top",tops);
+//sessionStorage.setItem("size",c);
+//}
+//if(scrollbottom==0||scrollbottom==-1){
+//$.ajax({
+////type: 'GET',
+////url: './',
+////data: { size: 6 },
+////dataType: 'json',
+////timeout: 300,
+//beforeSend:function(){
+//$(".panle").removeClass("pon");
+//},
+//success: function(data){
+//$(".panle").addClass("pon");
+//for (var i = 0; i < 6; i++){
+//var dd=document.createElement("dd")
+//dd.innerHTML="&lt;a href='./source.html'&gt;&lt;img src='images/1.jpg' alt='' /&gt;&lt;div class='sug'&gt;&lt;h2&gt;魔力魔力魔力魔力魔力魔力魔力魔...&lt;/h2&gt;&lt;p&gt;收获佣金&lt;b&gt;￥106.00&lt;/b&gt;&lt;/p&gt;&lt;p class='num'&gt;点击量&nbsp;&nbsp;125"+i+"&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;"
+//matter.querySelector("dl").appendChild(dd);
+//};
+////正常状态请求了多少AJAX
+//c++;
+//},
+//error: function(xhr, type){
+//alert('Ajax error!')
+//}
+//})
+//}
+//}
+    })(mui);
 </script>
-{% endblock %}
+</body>
+
+</html>

@@ -50,7 +50,14 @@ export default class extends Base {
     }
     //列表页[核心]
   async listAction() {
-
+      //跨域
+      let method = this.http.method.toLowerCase();
+      if(method === "options"){
+          this.setCorsHeader();
+          this.end();
+          return;
+      }
+      this.setCorsHeader();
       let get = this.get('category') || 0;
       let id=0;
       let query = get.split("-");
@@ -86,7 +93,7 @@ export default class extends Base {
           }
       }
       this.assign('modellist', modellist);
-      this.assign('model', models.split(","))
+      this.assign('model', models.split(","));
       //console.log(cate);
       //获取当前分类的所有子栏目
       let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
@@ -309,7 +316,7 @@ export default class extends Base {
       //console.log(cate);
       //console.log(111)
       if(checkMobile(this.userAgent())){
-         if(this.isAjax("POST")){
+         if(this.isAjax("get")){
              for(let v of data.data){
                  if(!think.isEmpty(v.pics)){
                      v.pics = await get_pic(v.pics.split(",")[0],1,300,169) ;
@@ -445,7 +452,7 @@ export default class extends Base {
           pinfo = info;
           pid= info.id;
       }
-      console.log(pid);
+      //console.log(pid);
       let plist = await document.where({pid:pid}).order("level DESC").select();
       this.assign("pinfo",pinfo);
       this.assign("plist",plist);
@@ -497,6 +504,14 @@ export default class extends Base {
         return this.redirect(down+"?attname=");
     }
     async ajaxlistAction(){
+        //跨域
+        let method = this.http.method.toLowerCase();
+        if(method === "options"){
+            this.setCorsHeader();
+            this.end();
+            return;
+        }
+        this.setCorsHeader();
         let id = this.get('category') || 0;
         //console.log(id);
         let cate = await this.category(id);
