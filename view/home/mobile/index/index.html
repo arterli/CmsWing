@@ -16,7 +16,8 @@
 <body>
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 class="mui-title">选项卡切换+下拉刷新</h1>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <a class="mui-icon mui-icon-search mui-pull-right"></a>
 </header>
 <nav class="mui-bar mui-bar-tab">
     <a class="mui-tab-item mui-active" href="#tabbar">
@@ -47,19 +48,13 @@
                 <a class="mui-control-item bar-item {%if order ==2%} mui-active{%endif%}" href="#item2mobile" data-url="/index/index/order/2">
                     热点
                 </a>
+                {% column data="bar",isapp="0" %}
+                {%for v in bar%}
+                <a class="mui-control-item bar-item" href="#item{{v.id}}"  data-url="{{v.url}}">
+                    {{v.name}}
+                </a>
+                {%endfor%}
 
-                <a class="mui-control-item bar-item" href="#item3mobile">
-                    北京新闻
-                </a>
-                <a class="mui-control-item bar-item" href="#item4mobile" data-url="index2.html">
-                    社会
-                </a>
-                <a class="mui-control-item bar-item" href="#item5mobile">
-                    娱乐
-                </a>
-                <a class="mui-control-item bar-item" href="#item6mobile">
-                    科技
-                </a>
             </div>
         </div>
         <div class="mui-slider-group " style="height: 0px;" >
@@ -67,20 +62,15 @@
 
             </div>
             <div id="item2mobile" class="mui-slider-item mui-control-content">
-
-
             </div>
-            <div id="item3mobile" class="mui-slider-item mui-control-content">
-
-            </div>
-            <div id="item4mobile" class="mui-slider-item mui-control-content">
+            {% column data="bar",isapp="0" %}
+            {%for v in bar%}
+            <div id="item{{v.id}}" class="mui-slider-item mui-control-content">
 
             </div>
-            <div id="item5mobile" class="mui-slider-item mui-control-content">
+            {%endfor%}
 
-            </div>
-            <div id="item6mobile" class="mui-slider-item mui-control-content">
-            </div>
+
         </div>
 
     </div>
@@ -91,30 +81,78 @@
                 <div class="mui-scroll" id="y" >
                     <ul class="mui-table-view ">
                         <li class="mui-table-view-cell mui-media">
-                            <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">
-                                <div class="mui-media-body">
-                                    远眺
-                                    <p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-                                </div>
+                            <a href="javascript:;" >
+<div class="mui-row">
+                                    <div class="mui-col-sm-8 mui-col-xs-8">
+
+                                        <h4 class="dotdot line2 ">两天六省区书记换人，人民日报：地方人事大调整透出何种玄机</h4>
+                                       <p class="item_info">
+
+                                        <span class="src space">娱乐天天说</span>
+                                        <span class="cmt space">评论&nbsp;2323</span>
+
+                                        <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                    </p>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="/static/webapp/img/shuijiao.jpg" >
+
+            </div>
+</div>
                             </a>
                         </li>
                         <li class="mui-table-view-cell mui-media">
                             <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/shuijiao.jpg">
-                                <div class="mui-media-body">
-                                    幸福
-                                    <p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+
+
+                                        <h4 class="dotdot line2 margin-bottom-6">两天六省区书记换人，人民日报：地方人事大调整透出何种玄机</h4>
+
+
+                <div class="mui-row">
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <img class="list_img_holder" src="/static/webapp/img/yuantiao.jpg">
+                    </div>
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <img class="list_img_holder" src="/static/webapp/img/muwu.jpg">
+                    </div>
+                                    <div class="mui-col-sm-4 mui-col-xs-4 ">
+                                        <img class="list_img_holder" src="/static/webapp/img/shuijiao.jpg" >
+
+                                    </div>
                                 </div>
+                                <p class="item_info">
+
+                                    <span class="src space">娱乐天天说</span>
+                                    <span class="cmt space">评论&nbsp;2323</span>
+
+                                    <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                </p>
+
                             </a>
                         </li>
                         <li class="mui-table-view-cell mui-media">
                             <a href="javascript:;">
-                                <img class="mui-media-object mui-pull-right" src="/static/webapp/img/muwu.jpg">
-                                <div class="mui-media-body">
-                                    木屋
-                                    <p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
+
+
+                                <h4 class="dotdot line2 margin-bottom-6">两天六省区书记换人，人民日报：地方人事大调整透出何种玄机</h4>
+
+
+                                <div class="mui-row">
+                                    <div class="mui-col-sm-12 mui-col-xs-12">
+                                        <img class="list_img_holder" src="/static/webapp/img/yuantiao.jpg">
+                                    </div>
                                 </div>
+                                <p class="item_info">
+
+                                    <span class="src space">娱乐天天说</span>
+                                    <span class="cmt space">评论&nbsp;2323</span>
+
+                                    <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                </p>
+
                             </a>
                         </li>
 

@@ -42,7 +42,7 @@ export default class extends Base {
         //排序
         let o = {};
         let order =this.get('order')||0;
-        console.log(order);
+        //console.log(order);
         order = Number(order);
         switch (order){
           case 1:

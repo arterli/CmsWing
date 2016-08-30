@@ -19,7 +19,7 @@ export default class extends think.model.base {
      * 获取分类树，指定分类则返回指定分类及其子分类，不指定则返回所有分类树
      *
      */
-    async gettree(id , field){
+    async gettree(id , field,where={}){
         id = id||0,field=field||true;
          /*获取当前分类信息*/
 
@@ -32,8 +32,8 @@ export default class extends think.model.base {
         //}
 
         //获取所有分类
-
-        let map = {"status":{">":-1}}
+        let map = think.extend({"status":{">":-1}},where)
+        console.log(map);
         let list = await this.field(field).where(map).order('sort ASC').select();
         for(let v of list) {
             if (v.allow_publish == 0){
@@ -328,7 +328,7 @@ export default class extends think.model.base {
     }
 
     async get_colunm(){
-        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish').order('pid,sort').select();
+        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp').order('pid,sort').select();
         for(let v of lists) {
             if (v.allow_publish == 0){
                 if (!think.isEmpty(v.title)) {

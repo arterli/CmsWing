@@ -21,11 +21,14 @@ export default class extends Base {
         this.tactive = "article";
     }
     async indexAction(){
-
+        let where = {};
+        if(this.get("mold")){
+            where.mold=this.get("mold");
+        }
         //auto render template file index_index.html
-         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model");
+         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold",where);
         //console.log(tree)
-
+         this.assign("active",this.get("mold")||null);
          this.assign("list",tree);
          this.meta_title = "栏目管理";
         

@@ -88,12 +88,13 @@ global.mytags= function(){
  * 获取同一级栏目标签
  *
  * @param data:接受返回数据的变量名称，例: data = "list"
- *  {% colum data="list",pid=1 %}
+ *  {% column data="list",pid=1 %}
  * @param pid: 获取同级栏目
- * {% colum data="list",cid=1 %}
+ * {% column data="list",cid=1 %}
  * @param cid: 获取里栏目
- * {% colum data="list",tree=1 %}
+ * {% column data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
+ * @param isapp: 是否在在移动端调用 iaapp="all" 调用全部栏目 isapp="1" pid为0的栏目
  * @parpm isnum = "1" ,1-获取栏目条数,默认不获取
  */
 global.column= function(){
@@ -111,13 +112,15 @@ global.column= function(){
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
         let tree = !think.isEmpty(args.tree) ?args.tree:false;
+        let isapp = !think.isEmpty(args.isapp) ?args.isapp:false;
+
         let column = await think.model('category', think.config("db"),'admin').get_all_category();
         if(args.isnum==1){
             for(let v of column){
                 v.doc_num = await think.model('document',think.config("db")).where({category_id:v.id,status:[">",0]}).count("id");
             }
         }
-        //console.log(column);
+       // console.log(column);
         let arr=[];
         //获取同级栏目
         
@@ -141,6 +144,23 @@ global.column= function(){
             let trees = arr_to_tree(column,tree);
             //console.log(trees)
             context.ctx[data] = !think.isEmpty(trees)?trees:false;
+        }else if(isapp||isapp==0){
+            for (let val of column){
+                if(isapp=="all"){
+                    if(val.isapp == 1){
+                        arr.push(val);
+                    }
+                }else {
+                    if(val.pid == isapp){
+                        if(val.isapp == 1){
+                            arr.push(val);
+                        }
+                    }
+                }
+
+            }
+            console.log(arr);
+            context.ctx[data] = !think.isEmpty(arr)?arr:false;
         }
        
         return callback(null,'');
