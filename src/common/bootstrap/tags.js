@@ -117,52 +117,32 @@ global.column= function(){
         let column = await think.model('category', think.config("db"),'admin').get_all_category();
         if(args.isnum==1){
             for(let v of column){
-                v.doc_num = await think.model('document',think.config("db")).where({category_id:v.id,status:[">",0]}).count("id");
+                v.doc_num = await think.model('document',think.config("db")).cache(1000).where({category_id:v.id,status:[">",0]}).count("id");
             }
         }
-       // console.log(column);
-        let arr=[];
+       //console.log(column);
+        let arr;
         //获取同级栏目
-        
+        let map = {};
         if(pid){
-            for (let val of column){
-               if(val.pid == pid){
-                   arr.push(val);
-               }
-            }
-            //console.log(arr);
-             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+           map.pid=think._.toInteger(pid);
+            arr = think._.filter(column, map)
         }else if(cid){
-            for (let val of column){
-                if(val.pid == cid){
-                    arr.push(val);
-                }
-            }
-            //console.log(arr);
-            context.ctx[data] = !think.isEmpty(arr)?arr:false;
+            map.pid=think._.toInteger(cid);
+            arr = think._.filter(column, map)
         }else if(tree){
             let trees = arr_to_tree(column,tree);
             //console.log(trees)
-            context.ctx[data] = !think.isEmpty(trees)?trees:false;
+            arr = !think.isEmpty(trees)?trees:false;
         }else if(isapp||isapp==0){
-            for (let val of column){
-                if(isapp=="all"){
-                    if(val.isapp == 1){
-                        arr.push(val);
-                    }
-                }else {
-                    if(val.pid == isapp){
-                        if(val.isapp == 1){
-                            arr.push(val);
-                        }
-                    }
-                }
 
+            map.isapp =1;
+            if(think.isNumberString(isapp)||think.isNumber(isapp)){
+                map.pid=think._.toInteger(isapp);
             }
-            console.log(arr);
-            context.ctx[data] = !think.isEmpty(arr)?arr:false;
+            arr = think._.filter(column, map)
         }
-       
+        context.ctx[data] = arr;
         return callback(null,'');
     };
 
@@ -224,8 +204,6 @@ global.groups = function(){
             groups = arr;
         }
         }
-        //console.log(groups)
-        // console.log(channel);
         context.ctx[data] = groups;
         return callback(null,'');
     }
@@ -299,7 +277,7 @@ global.topic = function(){
                 where = think.extend(where,{cover_id:0});
             }
         }
-        console.log(where);
+        //console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //副表数据
         if(args.isstu == 1){

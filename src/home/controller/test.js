@@ -291,5 +291,14 @@ export default class extends Base {
       // ➜ true
         console.log(_.ceil(_.add(0.008,0.009),3));
         console.log(_.min([4, 2, 8, 6]));;
+        var users = [
+            { 'user': 'barney',  'age': 36, 'active': true },
+            { 'user': 'fred',    'age': 40, 'active': false },
+            { 'user': 'pebbles', 'age': 1,  'active': true }
+        ];
+
+        console.log(_.filter(users, function (o) {
+            return (o.age < 41) && o.active;
+        }));;
     }
 }
