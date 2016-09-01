@@ -40,7 +40,11 @@ CLASSES:
 {% endfor %}
 </ol><!-- /breadcrumbs -->
 <!-- page tabs -->
+{%if category.pid ==0%}
+    {%column data="column",pid=category.id%}
+    {%else%}
 {%column data="column",pid=category.pid%}
+    {%endif%}
 {%if column%}
 <ul class="page-header-tabs list-inline">
 
