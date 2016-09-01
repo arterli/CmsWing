@@ -93,7 +93,7 @@
                             {%if v.cover_id >0%}
                             {% if v.model_id == 5%}
                             <li class="mui-table-view-cell mui-media">
-                                <a href="javascript:;">
+                                <a href="{{v.name|get_url(v.id)}}">
 
 
                                     <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
@@ -117,7 +117,7 @@
                             </li>
                             {%else%}
                             <li class="mui-table-view-cell mui-media">
-                                <a href="{{v.url}}" >
+                                <a href="{{v.name|get_url(v.id)}}" >
                                     <div class="mui-row">
                                         <div class="mui-col-sm-8 mui-col-xs-8">
 
@@ -143,7 +143,7 @@
                             {% set pics = v.pics|strToArray%}
                             {% if pics|length >2%}
                             <li class="mui-table-view-cell mui-media">
-                                <a href="{{v.url}}">
+                                <a href="{{v.name|get_url(v.id)}}">
                                     <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
                                     <div class="mui-row">
                                         <div class="mui-col-sm-4 mui-col-xs-4">
@@ -170,7 +170,7 @@
                             </li>
                             {%else%}
                             <li class="mui-table-view-cell mui-media">
-                                <a href="{{v.url}}" >
+                                <a href="{{v.name|get_url(v.id)}}" >
                                     <div class="mui-row">
                                         <div class="mui-col-sm-8 mui-col-xs-8">
 
@@ -194,7 +194,7 @@
                             {%else%}
                             <!--无图-->
                             <li class="mui-table-view-cell mui-media">
-                                <a href="{{v.url}}">
+                                <a href="{{v.name|get_url(v.id)}}">
                                     <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
 
                                     <p class="item_info">
