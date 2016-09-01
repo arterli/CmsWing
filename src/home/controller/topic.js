@@ -43,6 +43,7 @@ export default class extends Base {
       
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
+          temp = cate.template_m_index ? `index_${cate.template_m_index}` : `${this.http.action}`
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
           return this.display(temp);
@@ -335,7 +336,8 @@ export default class extends Base {
              }
              return this.json(data);
          }
-          temp = cate.template_lists ? `list_${cate.template_lists}` : `${this.http.action}`;
+         //手机端模版
+          temp = cate.template_m_lists ? `list_${cate.template_m_lists}` : `${this.http.action}`;
           //think.log(temp);
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
@@ -416,17 +418,10 @@ export default class extends Base {
       //获取模板
     let temp;
     let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
-    if (!think.isEmpty(info.template) && info.template !=0) {
-      temp = 'detail_' + info.template; //已设置详情模板
-    } else if (!think.isEmpty(cate.template_detail)) {
-      temp = 'detail_' + cate.template_detail; //分类已经设置模板
-    } else {
-      temp = 'detail_' + model;
-    }
-      //内容分页
-      if(!think.isEmpty(info.content)){
-          info.content=info.content.split("_ueditor_page_break_tag_");
-      }
+
+    //详情模版 TODO
+      //手机版模版
+
 
     this.assign('category', cate);
 
@@ -473,12 +468,35 @@ export default class extends Base {
 
           }
       }
-      console.log(info);
+      //console.log(info);
       this.assign('info', info);
       //判断浏览客户端
       if(checkMobile(this.userAgent())){
+          //手机模版
+          if (!think.isEmpty(info.template) && info.template !=0) {
+              temp = 'detail_' + info.template; //todo 已设置详情模板
+          } else if (!think.isEmpty(cate.template_detail)) {
+              temp = 'detail_' + cate.template_m_detail; //分类已经设置模板
+          } else {
+              temp = 'detail_' + model;
+          }
+          //内容分页
+          if(!think.isEmpty(info.content)){
+              info.content=info.content.split("_ueditor_page_break_tag_");
+          }
           return this.display(`mobile/${this.http.controller}/${temp}`)
       }else{
+          if (!think.isEmpty(info.template) && info.template !=0) {
+              temp = 'detail_' + info.template; //已设置详情模板
+          } else if (!think.isEmpty(cate.template_detail)) {
+              temp = 'detail_' + cate.template_detail; //分类已经设置模板
+          } else {
+              temp = 'detail_' + model;
+          }
+          //内容分页
+          if(!think.isEmpty(info.content)){
+              info.content=info.content.split("_ueditor_page_break_tag_");
+          }
           return this.display(temp);
       }
   }

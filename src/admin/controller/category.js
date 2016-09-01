@@ -88,50 +88,14 @@ export default class extends Base {
             //获取运行的文档类型
             this.active="admin/category/index";
             this.action = "/admin/category/add";
-            //获取模版列表
-            let temp = await this.model("temp").where({type:1}).select();
-            //封面模版
-            let template_index =[]
-            for(let v of temp){
-                let obj = {}
-                let action = v.action.split("_")
-                //console.log(action[1]);
-                if(action[0]=='index' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_index.push(obj);
-                }
-
-            }
-            //列表模版
-            let template_lists =[]
-            for(let v of temp){
-              let obj = {}
-                let action = v.action.split("_");
-                //console.log(action[1]);
-                if(action[0]=='list' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_lists.push(obj);
-                }
-
-            }
-            //详情页模版
-            let template_detail =[];
-            for(let v of temp){
-                let obj ={};
-                let action = v.action.split("_");
-                if(action[0]=='detail' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_detail.push(obj);
-                }
-            }
-            this.assign({
-                template_lists:template_lists,
-                template_detail:template_detail,
-                template_index:template_index
-            })
+            //获取模版列表（pc）
+            let temp_pc = await this.model("temp").gettemp(1);
+            //console.log(temp_pc);
+            this.assign("temp_pc",temp_pc);
+            //获取手机端模版
+            let temp_m = await this.model("temp").gettemp(2);
+            //console.log(temp_m);
+            this.assign("temp_m",temp_m);
             //template_lists
             //会员组
 
@@ -202,44 +166,15 @@ export default class extends Base {
                 this.action = "/admin/category/edit";
                 this.meta_title = "编辑栏目";
             //获取模版列表
-            let temp = await this.model("temp").where({type:1}).select();
-            //封面模版
-            let template_index =[]
-            for(let v of temp){
-                let obj = {}
-                let action = v.action.split("_")
-                //console.log(action[1]);
-                if(action[0]=='index' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_index.push(obj);
-                }
-
-            }
-            //列表模版
-            let template_lists =[]
-            for(let v of temp){
-                let obj = {}
-                let action = v.action.split("_")
-                //console.log(action[1]);
-                if(action[0]=='list' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_lists.push(obj);
-                }
-
-            }
-            //详情页模版
-            let template_detail =[];
-            for(let v of temp){
-                let obj ={};
-                let action = v.action.split("_");
-                if(action[0]=='detail' && action[1] != undefined && v.controller=='topic'){
-                    obj.name=v.name;
-                    obj.action=action[1]+this.config("view.file_ext");
-                    template_detail.push(obj);
-                }
-            }
+            //获取模版列表（pc）
+            let temp_pc = await this.model("temp").gettemp(1);
+            //console.log(temp_pc);
+            this.assign("temp_pc",temp_pc);
+            //获取手机端模版
+            let temp_m = await this.model("temp").gettemp(2);
+            //console.log(temp_m);
+            this.assign("temp_m",temp_m);
+            //template_lists
             //会员组
             let group = await this.model("member_group").order("sort ASC").select();
             this.assign('group',group);
@@ -283,13 +218,7 @@ export default class extends Base {
             }
            // console.log(priv_groupid);
             //console.log(priv_roleid);
-            this.assign({
-                template_lists:template_lists,
-                template_detail:template_detail,
-                template_index:template_index,
-                priv_groupid:priv_groupid,
-                priv_roleid:priv_roleid
-            })
+
            return this.display();
         }
     }

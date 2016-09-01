@@ -337,7 +337,7 @@
                                                         <option value="">默认频道模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
-                                                        {% for v in template_index%}
+                                                        {% for v in temp_pc.template_index%}
                                                         <option value="{{v.action}}" {%if info.template_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
                                                         {% endfor%}
                                                     </optgroup>
@@ -353,7 +353,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">列表模板</label>
                                     <div class="col-sm-10">
@@ -364,7 +363,7 @@
                                                         <option value="">默认列表模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
-                                                        {% for v in template_lists%}
+                                                        {% for v in temp_pc.template_lists%}
                                                         <option value="{{v.action}}" {%if info.template_lists==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
                                                         {% endfor%}
                                                     </optgroup>
@@ -379,7 +378,6 @@
                                             </div></div>
                                     </div>
                                 </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">详情模板</label>
                                     <div class="col-sm-10">
@@ -390,7 +388,7 @@
                                                         <option value="">默认详情模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
-                                                        {% for v in template_detail%}
+                                                        {% for v in temp_pc.template_detail%}
                                                         <option value="{{v.action}}" {%if info.template_detail==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
                                                         {% endfor%}
                                                     </optgroup>
@@ -402,6 +400,86 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的内容页模板</span>
+                                            </div></div>
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">手机频道模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_m_index" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认手机频道模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in temp_m.template_index%}
+                                                        <option value="{{v.action}}" {%if info.template_m_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/channel/type/2" class="addtemp">添加手机频道模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的手机首页模板</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">手机列表模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_m_lists" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认手机列表模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in temp_m.template_lists%}
+                                                        <option value="{{v.action}}" {%if info.template_m_lists==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/column/type/2" class="addtemp">添加列表模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的首页列表页模板</span>
+                                            </div></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">手机详情模板</label>
+                                    <div class="col-sm-10">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <select style="width:260px" name="template_m_detail" class="chosen-select">
+                                                    <optgroup label="默认">
+                                                        <option value="">默认手机详情模版</option>
+                                                    </optgroup>
+                                                    <optgroup label="自定义模版">
+                                                        {% for v in temp_m.template_detail%}
+                                                        <option value="{{v.action}}" {%if info.template_m_detail==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
+                                                        {% endfor%}
+                                                    </optgroup>
+                                                    <optgroup label="管理">
+                                                        <option data-url="/admin/template/detail/type/2" class="addtemp">添加手机详情模版</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的手机内容页模板</span>
                                             </div></div>
                                     </div>
                                 </div>

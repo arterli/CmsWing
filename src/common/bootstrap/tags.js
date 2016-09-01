@@ -94,7 +94,7 @@ global.mytags= function(){
  * @param cid: 获取里栏目
  * {% column data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
- * @param isapp: 是否在在移动端调用 iaapp="all" 调用全部栏目 isapp="1" pid为0的栏目
+ * @param isapp: 是否在在移动端调用 iaapp="all" 调用全部栏目 isapp="1" pid为0的栏目,isindex="1",除去封面。
  * @parpm isnum = "1" ,1-获取栏目条数,默认不获取
  */
 global.column= function(){
@@ -113,6 +113,7 @@ global.column= function(){
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
         let tree = !think.isEmpty(args.tree) ?args.tree:false;
         let isapp = !think.isEmpty(args.isapp) ?args.isapp:false;
+        let isindex = !think.isEmpty(args.isindex) ?args.isindex:false;
 
         let column = await think.model('category', think.config("db"),'admin').get_all_category();
         if(args.isnum==1){
@@ -140,7 +141,12 @@ global.column= function(){
             if(think.isNumberString(isapp)||think.isNumber(isapp)){
                 map.pid=think._.toInteger(isapp);
             }
-            arr = think._.filter(column, map)
+            arr = think._.filter(column, map);
+            if(isindex){
+                for(let v of arr){
+                    v.url=(v.url).replace(/channel/,'column');
+                }
+            }
         }
         context.ctx[data] = arr;
         return callback(null,'');

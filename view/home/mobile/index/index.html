@@ -24,13 +24,21 @@
         <span class="mui-icon mui-icon-home"></span>
         <span class="mui-tab-label">首页</span>
     </a>
-    <a class="mui-tab-item" href="#tabbar-with-chat">
-        <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-        <span class="mui-tab-label">消息</span>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">社区</span>
     </a>
     <a class="mui-tab-item" href="#tabbar-with-contact">
         <span class="mui-icon mui-icon-contact"></span>
-        <span class="mui-tab-label">通讯录</span>
+        <span class="mui-tab-label">招聘</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-contact">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">购物</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-chat">
+        <span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+        <span class="mui-tab-label">购物车</span>
     </a>
     <a class="mui-tab-item" href="#tabbar-with-map">
         <span class="mui-icon mui-icon-gear"></span>
@@ -42,13 +50,13 @@
     <div id="slider" class="mui-slider mui-fullscreen">
         <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
             <div class="mui-scroll">
-                <a class="mui-control-item bar-item {%if order ==0%} mui-active{%endif%}" href="#item1mobile" data-url="/index">
+                <a class="mui-control-item bar-item {%if order ==100%} mui-active{%endif%}" href="#item1mobile" data-url="/index">
                     推荐
                 </a>
                 <a class="mui-control-item bar-item {%if order ==2%} mui-active{%endif%}" href="#item2mobile" data-url="/index/index/order/2">
                     热点
                 </a>
-                {% column data="bar",isapp="0" %}
+                {% column data="bar",isapp="0",isindex="1"%}
                 {%for v in bar%}
                 <a class="mui-control-item bar-item" href="#item{{v.id}}"  data-url="{{v.url}}">
                     {{v.name}}
@@ -80,15 +88,43 @@
             <div class=" mui-scroll-wrapper">
                 <div class="mui-scroll" id="y" >
                     <ul class="mui-table-view ">
+                        {%for v in list.data%}
+                        <!--如果有缩略图-->
+                        {%if v.cover_id >0%}
+                        {% if v.model_id == 5%}
                         <li class="mui-table-view-cell mui-media">
-                            <a href="javascript:;" >
+                            <a href="javascript:;">
+
+
+                                <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+
+                                <div class="mui-row">
+                                    <div class="mui-col-sm-12 mui-col-xs-12">
+                                        <img class="list_img_holder" src="{{v.cover_id|get_pic('m=0,w=360')}}">
+                                    </div>
+                                </div>
+                                <p class="item_info">
+
+                                    <span class="src space">{{v.uid|get_nickname}}</span>
+                                    <span class="cmt space">评论&nbsp;2323</span>
+
+                                    <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                </p>
+
+                            </a>
+                        </li>
+                        {%else%}
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{{v.url}}" >
 <div class="mui-row">
                                     <div class="mui-col-sm-8 mui-col-xs-8">
 
-                                        <h4 class="dotdot line2 ">两天六省区书记换人，人民日报：地方人事大调整透出何种玄机</h4>
+                                        <h4 class="dotdot line2 ">{{v.title}}</h4>
                                        <p class="item_info">
 
-                                        <span class="src space">娱乐天天说</span>
+                                        <span class="src space">{{v.uid|get_nickname}}</span>
                                         <span class="cmt space">评论&nbsp;2323</span>
 
                                         <span class="time" title="2016-08-30 11:06">1小时前</span>
@@ -96,12 +132,84 @@
                                     </p>
                 </div>
                 <div class="mui-col-sm-4 mui-col-xs-4 ">
-                    <img class="list_img_holder" src="/static/webapp/img/shuijiao.jpg" >
+                    <img class="list_img_holder" src="{{v.cover_id|get_pic('m=1,w=123,h=82')}}" >
 
             </div>
 </div>
                             </a>
                         </li>
+                        {%endif%}
+                        {%elif v.pics%}
+                        {% set pics = v.pics|strToArray%}
+                        {% if pics|length >2%}
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{{v.url}}">
+                                <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                                <div class="mui-row">
+                                    <div class="mui-col-sm-4 mui-col-xs-4">
+                                        <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}">
+                                    </div>
+                                    <div class="mui-col-sm-4 mui-col-xs-4">
+                                        <img class="list_img_holder" src="{{pics[1]|get_pic('m=1,w=123,h=82')}}">
+                                    </div>
+                                    <div class="mui-col-sm-4 mui-col-xs-4 ">
+                                        <img class="list_img_holder" src="{{pics[2]|get_pic('m=1,w=123,h=82')}}" >
+
+                                    </div>
+                                </div>
+                                <p class="item_info">
+
+                                    <span class="src space">{{v.uid|get_nickname}}</span>
+                                    <span class="cmt space">评论&nbsp;2323</span>
+
+                                    <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                </p>
+
+                            </a>
+                        </li>
+                        {%else%}
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{{v.url}}" >
+                                <div class="mui-row">
+                                    <div class="mui-col-sm-8 mui-col-xs-8">
+
+                                        <h4 class="dotdot line2 ">{{v.title}}</h4>
+                                        <p class="item_info">
+                                            <span class="src space">{{v.uid|get_nickname}}</span>
+                                            <span class="cmt space">评论&nbsp;2323</span>
+
+                                            <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                        </p>
+                                    </div>
+                                    <div class="mui-col-sm-4 mui-col-xs-4 ">
+                                        <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}" >
+
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        {%endif%}
+                        {%else%}
+                        <!--无图-->
+                        <li class="mui-table-view-cell mui-media">
+                            <a href="{{v.url}}">
+                                <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+                                <p class="item_info">
+
+                                    <span class="src space">{{v.uid|get_nickname}}</span>
+                                    <span class="cmt space">评论&nbsp;0</span>
+
+                                    <span class="time" title="2016-08-30 11:06">1小时前</span>
+
+                                </p>
+
+                            </a>
+                        </li>
+                        {%endif%}
+                        {%endfor%}
                         <li class="mui-table-view-cell mui-media">
                             <a href="javascript:;">
 

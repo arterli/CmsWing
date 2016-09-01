@@ -41,7 +41,7 @@ export default class extends Base {
         };
         //排序
         let o = {};
-        let order =this.get('order')||0;
+        let order =this.get('order')||100;
         //console.log(order);
         order = Number(order);
         switch (order){
@@ -57,26 +57,29 @@ export default class extends Base {
           default:
             o.update_time = 'DESC';
         }
+
         this.assign('order',order);
-        let data = await this.model('document').where(map).page(this.param('page'),10).order(o).countSelect();
+        let data = await this.model('document').where(map).page(this.param('page'),100).order(o).countSelect();
         this.assign("list",data);
-        // for(let v of data.data){
-        //   if(!think.isEmpty(v.pics)){
-        //     v.pics = await get_pic(v.pics.split(",")[0],1,300,169) ;
-        //   }
-        //   if(!think.isEmpty(v.cover_id)){
-        //     v.cover_id = await get_pic(v.cover_id,1,300,169);
-        //   }
-        //   if(!think.isEmpty(v.price)){
-        //     if(!think.isEmpty(get_price_format(v.price,2))){
-        //       v.price2 = get_price_format(v.price,2);
-        //     }
-        //     v.price = get_price_format(v.price,1);
-        //
-        //   }
-        //   v.url = get_url(v.name,v.id)
-        // }
+        console.log(data);
+
       if(this.isAjax("get")){
+          for(let v of data.data){
+              if(!think.isEmpty(v.pics)){
+                  v.pics = await get_pic(v.pics.split(",")[0],1,300,169) ;
+              }
+              if(!think.isEmpty(v.cover_id)){
+                  v.cover_id = await get_pic(v.cover_id,1,300,169);
+              }
+              if(!think.isEmpty(v.price)){
+                  if(!think.isEmpty(get_price_format(v.price,2))){
+                      v.price2 = get_price_format(v.price,2);
+                  }
+                  v.price = get_price_format(v.price,1);
+
+              }
+              v.url = get_url(v.name,v.id)
+          }
         return this.json(data);
       }
        return this.display(`mobile/${this.http.controller}/${this.http.action}`)
