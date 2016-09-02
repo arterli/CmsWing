@@ -435,8 +435,8 @@ video.fullvideo 		{ width:100%; height:100%; }
 
 /*list*/
 .list-content{
-	position: absolute;
-	top: 40px;
+	padding-top: 0px !important;
+	margin-top: 84px;
 	bottom: 50px;
 	width: 100%;
 	height: auto;
@@ -479,6 +479,9 @@ video.fullvideo 		{ width:100%; height:100%; }
 	vertical-align: middle;
 	margin-right: 7px;
 	font-size: 12px;
+}
+.list-content .mui-pull-top-pocket{
+	top: 0px !important;
 }
 /*bar*/
 .mui-segmented-control.mui-scroll-wrapper .bar-item:first-child {
