@@ -164,6 +164,14 @@
             url: url
         });
     })
+    mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
+        var url = this.getAttribute("href");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
     var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
     var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
     //记录位置
