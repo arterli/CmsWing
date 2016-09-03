@@ -28,7 +28,7 @@
 >10.增加问答模块。
 
 ## QQ 交流群: 49757468
-
+有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
 ## install dependencies
 
 ```

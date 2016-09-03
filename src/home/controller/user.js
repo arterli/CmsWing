@@ -1397,7 +1397,7 @@ list = await this.parseDocumentList(list, model_id);
 
         if (this.isAjax("post")) {
             let data = this.post();
-            //验证码//ajax提交，服务器二次验证验证码
+            //验证码//ajax提交，服务器三次验证验证码
             if(1==this.setup.GEETEST_IS_ADMLOGIN){
                let  validate = await this.session("geetest-validate");
                 if("success" != validate.status){
