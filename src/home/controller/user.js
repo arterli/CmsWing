@@ -1397,7 +1397,16 @@ list = await this.parseDocumentList(list, model_id);
 
         if (this.isAjax("post")) {
             let data = this.post();
-            //console.log(data);
+            //验证码//ajax提交，服务器二次验证验证码
+            if(1==this.setup.GEETEST_IS_ADMLOGIN){
+               let  validate = await this.session("geetest-validate");
+                if("success" != validate.status){
+                    return this.fail(-3,"验证码不正确!")
+                }
+                //清除验证记录
+                await this.session("geetest-validate",null);
+            }
+
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
@@ -1422,7 +1431,7 @@ list = await this.parseDocumentList(list, model_id);
                         fail = '未知错误';
                         break; // 0-接口参数错误（调试阶段使用）
                 }
-                this.fail(res, fail);
+                return this.fail(res, fail);
             }
         } else {
             //如果已经登陆直接跳转到用户中心
