@@ -116,7 +116,7 @@ export default class extends think.controller.base {
       }
 
     } else {
-        think.cache()
+
       //this.fail("分类不存在或者被禁用！");
         this.http.error = new Error('分类不存在或者被禁用！');
         return think.statusAction(702, this.http);
