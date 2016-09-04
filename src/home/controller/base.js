@@ -81,7 +81,7 @@ export default class extends think.controller.base {
             //判断浏览客户端
             if (checkMobile(this.userAgent())) {
                 //手机端直接跳转到登录页面
-                this.redirect('/user/login')
+                return this.redirect('/user/login')
             } else {
                 //pc端跳转到错误页面
                 return think.statusAction(700,this.http);

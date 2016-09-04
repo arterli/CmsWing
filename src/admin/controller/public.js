@@ -126,12 +126,9 @@ export default class extends think.controller.base {
             let post =this.post();
             //console.log(post);
             let res = await geetest.validate(post);
-            //console.log(res);
-            //记录验证结果,等ajax提交的时候，取这个值进行对比验证
-            await this.session("geetest-validate",res);
             return this.json(res);
         }else {
-            let res = await geetest.register();
+            let res = await geetest.register(this.get('type'));
             //console.log(res);
             return this.json(res);
         }

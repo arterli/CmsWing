@@ -12,8 +12,7 @@ export default class extends think.model.base {
      * @param  {int} login 登陆方式 0-前台登陆 ， 1-后台登陆
      * @return integer           登录成功-用户ID，登录失败-错误编号
      */
-    async signin(username, password, ip, type,login=0) {
-        type = type || 1;
+    async signin(username, password, ip, type=1,login=0) {
         let map = {};
         switch (type) {
             case 1:

@@ -1396,25 +1396,29 @@ list = await this.parseDocumentList(list, model_id);
     async loginAction() {
 
         if (this.isAjax("post")) {
-            let data = this.post();
-            //验证码//ajax提交，服务器三次验证验证码
-            if(1==this.setup.GEETEST_IS_ADMLOGIN){
-               let  validate = await this.session("geetest-validate");
-                if("success" != validate.status){
-                    return this.fail(-3,"验证码不正确!")
+//验证码
+            if(1==this.setup.GEETEST_IS_LOGIN){
+                let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
+                let geetest = new Geetest();
+                let res = await geetest.validate(this.post(),this.get('type'));
+                console.log(res);
+                if("success" != res.status){
+                    // this.http.error = new Error("验证码不正确");
+                    // return think.statusAction(702, this.http);
+                    return this.fail(-3,"验证码不正确!");
                 }
-                //清除验证记录
-                await this.session("geetest-validate",null);
             }
-
+//用户账号密码验证
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
             let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 5,0);
+
             if (0 < res.uid) {
                 //记录用户登录行为
                 // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
-                //console.log(11111111111111);
+                // console.log(111111111111121);
+                // console.log(res);
                 await this.session('webuser', res);
                 //TODO 用户密钥
                 return this.success({name: '登录成功！'});

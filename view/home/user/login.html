@@ -97,36 +97,26 @@
                     return false;
                 }
                 $.ajax({
-                    url: "/admin/public/geetest", // 进行二次验证
+                    url: "/user/login", // 进行二次验证
                     type: "post",
                     dataType: "json",
                     data: {
                         // 二次验证所需的三个值
                         geetest_challenge: validate.geetest_challenge,
                         geetest_validate: validate.geetest_validate,
-                        geetest_seccode: validate.geetest_seccode
+                        geetest_seccode: validate.geetest_seccode,
+                        username:$("input[name='username']").val(),
+                        password:$("input[name='password']").val()
                     },
                     success: function (data) {
 
-                        if (data && (data.status === "success")) {
-                            var data=$('#login').serialize()
-                            $.ajax({
-                                type: "POST",
-                                url: "/user/login",
-                                data: data,
-                                success: function(msg){
-                                    if(msg.errno < 0){
-                                        _toastr(msg.errmsg,"top-right","error",false);
-                                        captchaObj.refresh();
-                                    }else{
-                                        //$('#ajaxModal').remove();
-                                        location.reload(true);
-                                    }
-                                }
-                            });
-                        } else {
-                            _toastr("登录失败.请先完成验证!","top-right","error",false);
+                        if (data && (data.errno < 0)) {
+
+                            _toastr(msg.errmsg,"top-right","error",false);
                             captchaObj.refresh();
+
+                        } else {
+                            location.reload();
                         }
                     }
                 });
@@ -166,88 +156,6 @@
             },1000);
         });
     })
-
-
-//    var handler = function (captchaObj) {
-//
-//        var success = false;
-//
-//        window.captchaObj = captchaObj;
-//
-//
-//        $("#login1").on('submit',function (e) {
-//            e.preventDefault();
-//            var validate = captchaObj.getValidate();
-//
-//            if (!validate) {
-//
-//                $("#notice")[0].className = "show";
-//
-//                setTimeout(function () {
-//
-//                    $("#notice")[0].className = "hide";
-//
-//                }, 2000);
-//
-//                return;
-//            }
-//            var data=$("#login").serialize();
-//
-//            $.ajax({
-//                url: "/test/geetest",
-//                type: "post",
-//                dataType: "json",
-//                data:data,
-//                success: function (data) {
-//
-//                    if (data && (data.status === "success")) {
-//
-//                        alert("登录成功");
-//
-//                    } else {
-//
-//                        alert("登录失败，请完成验证");
-//
-//                        captchaObj.refresh();
-//                    }
-//
-//                },
-//                error: function () {
-//                    alert("网络错误");
-//                }
-//            });
-//          return false;
-//        });
-//
-//        // 将验证码加到id为captcha的元素里
-//        captchaObj.appendTo("#captcha");
-//        if($("#captcha").html().length > 0){$("#wait")[0].className = "hide"};
-//        captchaObj.onReady(function () {
-//
-//            $("#wait")[0].className = "hide";
-//
-//        });
-//    };
-//
-//    $.ajax({
-//        // 获取id，challenge，success（是否启用failback）
-//        url: "/test/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
-//        type: "get",
-//        dataType: "json", // 使用jsonp格式
-//        success: function (data) {
-//
-//            // 使用initGeetest接口
-//            // 参数1：配置参数，与创建Geetest实例时接受的参数一致
-//            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-//            initGeetest({
-//                gt: data.gt,
-//                challenge: data.challenge,
-//                product: "float", // 产品形式
-//                width:"100%",
-//                offline: !data.success
-//            }, handler);
-//        }
-//    });
 
 </script>
 {%else%}
