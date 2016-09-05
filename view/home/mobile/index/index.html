@@ -2,9 +2,9 @@
 {% block content %}
 <header class="mui-bar mui-bar-nav">
     <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <span class="mui-icon iconfont icon-gouwuche"><span class="mui-badge">9</span></span>
+    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
     <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
-    <span class="mui-icon iconfont icon-sousuo mui-pull-right"></span>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
 </header>
 {% include "../inc/barnav.html" %}
 {% include "../inc/sliderbar.html" %}
@@ -302,6 +302,7 @@
 </script>
 <script type="text/javascript">
     mui.init()
+
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     for(var i = 0;i<btn.length;i++){
         btn[i].addEventListener("tap",function () {

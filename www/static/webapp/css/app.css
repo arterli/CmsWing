@@ -93,9 +93,9 @@ html,
 .size-15 			{ font-size:15px !important; line-height:19px !important; }
 .size-16 			{ font-size:16px !important; line-height:20px !important; }
 .size-17 			{ font-size:17px !important; line-height:23px !important; }
-.size-18 			{ font-size:18px !important; line-height:24px !important; }
-.size-19 			{ font-size:19px !important; line-height:25px !important; }
-.size-20 			{ font-size:20px !important; line-height:26px !important; }
+.size-18 			{ font-size:18px !important;  }
+.size-19 			{ font-size:19px !important;  }
+.size-20 			{ font-size:20px !important; }
 .size-25 			{ font-size:25px !important; line-height:30px !important; }
 .size-30 			{ font-size:30px !important; line-height:36px !important; }
 .size-40 			{ font-size:40px !important; line-height:46px !important; }
@@ -359,23 +359,24 @@ video.fullvideo 		{ width:100%; height:100%; }
 	border-bottom: 3px solid #ddd;
 }
 .text-muted {
-	color: #777;
+	color: #777 !important;
 }
 .text-primary {
-	color: #337ab7;
+	color: #337ab7 !important;
 }
 .text-success {
-	color: #3c763d;
+	color: #3c763d !important;
 }
 .text-info {
-	color: #31708f;
+	color: #31708f !important;
 }
 .text-warning {
-	color: #8a6d3b;
+	color: #8a6d3b !important;
 }
 .text-danger {
-	color: #a94442;
+	color: #a94442 !important;
 }
+
 .tex-white {
 	color:#fff !important;
 }
