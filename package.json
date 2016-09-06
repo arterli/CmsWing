@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "babel-runtime": "6.x.x",
-    "geetest": "*",
+    "geetest": "3.x.x",
     "node-crontab": "*",
     "nunjucks": "^2.2.0",
     "pingpp": "*",
