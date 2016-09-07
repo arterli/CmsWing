@@ -292,7 +292,7 @@ export default class extends Base {
         }
         await this.model("category").delete({where:{id:id}});
         //删除分类权限
-        await this.model("category_priv").delete({where:{catdi:id}});
+        await this.model("category_priv").delete({where:{catid:id}});
         await this.model("document").delete({where:{category_id:id}});
         think.cache("sys_category_list",null);
         think.cache("all_category",null);
