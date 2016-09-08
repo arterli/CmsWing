@@ -134,7 +134,7 @@ export default class extends Base {
        this.end();
     }
    async areaAction(){
-        let area = await this.model("area").select();
+        let area = await this.model("area").field("id as value,name as text, parent_id").select();
        think.log(area);
        function totree (data, pid,m) {
            var result = [], temp;
@@ -142,27 +142,27 @@ export default class extends Base {
            for(var i=0;i<length;i++) {
                if (data[i].parent_id == pid) {
                    result.push(data[i]);
-                   temp = totree(data, data[i].id,m+1);
+                   temp = totree(data, data[i].value,m+1);
                    if (temp.length > 0) {
-                       if(m==1){
-                           temp.splice(0, 0, {
-                               "name":"请选择"
-                           })
-                       }else {
-                           temp.splice(0, 0, {
-                               "name":"请选择",
-                               "sub":[
+                       // if(m==1){
+                       //     temp.splice(0, 0, {
+                       //         "name":"请选择"
+                       //     })
+                       // }else {
+                       //     temp.splice(0, 0, {
+                       //         "name":"请选择",
+                       //         "sub":[
+                       //
+                       //         ]
+                       //     })
+                       // }
 
-                               ]
-                           })
-                       }
-
-                       data[i].sub = temp;
-                       if(m==1){
-                           data[i].type =0
-                       }else {
-                           data[i].type =1
-                       }
+                       data[i].children = temp;
+                       // if(m==1){
+                       //     data[i].type =0
+                       // }else {
+                       //     data[i].type =1
+                       // }
 
                    }
                }

@@ -3,6 +3,7 @@
 {%block style%}
 <link rel="stylesheet" href="/static/webapp/libs/webuploader/webuploader.css">
 <link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
 <style>
     .mui-views,
     .mui-view,
@@ -247,27 +248,28 @@
             <span class="mui-icon mui-icon-left-nav"></span>设置
         </button>
         <h1 class="mui-center mui-title">个人资料</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="account-btn">保存</button>
     </div>
     <div class="mui-page-content">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
-                <form class="mui-input-group">
+                <form class="mui-input-group" id="accountform">
 
                     <div class="mui-input-row">
                         <label>会员账号</label>
-                        <input type="text" class="mui-input-clear" placeholder="Your name" value="{{userInfo.username}}" name="username" disabled="disabled" >
+                        <input type="text" class="mui-input-clear" placeholder="会员账号" value="{{userInfo.username}}" name="username" disabled="disabled" >
                     </div>
                     <div class="mui-input-row">
                         <label>会员级别</label>
-                        <input type="text"  class="mui-input-clear" placeholder="Your name" value="{{userInfo.group_id}}" name="group_id" disabled="disabled" >
+                        <input type="text"  class="mui-input-clear" placeholder="会员级别" value="{{userInfo.group_id}}" name="group_id" disabled="disabled" >
                     </div>
                     <div class="mui-input-row">
                         <label>邮箱</label>
-                        <input type="email"  class="mui-input-clear" placeholder="E-mail" name="email" value="{{userInfo.email}}">
+                        <input type="email"  class="mui-input-clear" placeholder="邮箱" name="email" value="{{userInfo.email}}">
                     </div>
                     <div class="mui-input-row">
                         <label>真实姓名</label>
-                        <input type="text" class="mui-input-clear" placeholder="Password" name="real_name" value="{{userInfo.real_name}}">
+                        <input type="text" class="mui-input-clear" placeholder="真实姓名" name="real_name" value="{{userInfo.real_name}}">
                     </div>
                     <div class="mui-input-row">
                         <label>性别</label>
@@ -288,6 +290,15 @@
                         <label>电话号码</label>
                         <input type="number"  class="mui-input-clear" name="phone" value="{{userInfo.phone}}" placeholder="电话号码">
                     </div>
+                    <div class="mui-input-row">
+                        <label>所在地区</label>
+                        <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+                    </div>
+                    <div class="mui-input-row" style="height: auto">
+                        <label>街道地址</label>
+                        <textarea name="addr" rows="5"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">{{userInfo.addr}}</textarea>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -299,21 +310,28 @@
             <span class="mui-icon mui-icon-left-nav"></span>设置
         </button>
         <h1 class="mui-center mui-title">修改密码</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="privacy-btn">保存</button>
     </div>
     <div class="mui-page-content">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
-                <ul class="mui-table-view mui-table-view-radio">
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">开启</a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">只在夜间开启</a>
-                    </li>
-                    <li class="mui-table-view-cell">
-                        <a class="mui-navigate-right">关闭</a>
-                    </li>
-                </ul>
+                <form class="mui-input-group" id="privacyform">
+
+                    <div class="mui-input-row">
+                        <label>旧密码</label>
+                        <input type="password" class="mui-input-clear" placeholder="输入旧密码" value="" name="oldpassword"  >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>新密码</label>
+                        <input type="password"  class="mui-input-clear" placeholder="密码长度6-20个字符" value="" name="password"  >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>确认密码</label>
+                        <input type="password"  class="mui-input-clear" placeholder="确认密码" name="repassword" value="">
+                    </div>
+
+
+                </form>
             </div>
         </div>
     </div>
@@ -388,12 +406,24 @@
 <script src='/static/webapp/libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
 <script type="text/javascript" src="/static/webapp/libs/webuploader/webuploader.min.js"></script>
 <script src="/static/webapp/js/mui.picker.min.js"></script>
+<script src="/static/webapp/js/mui.poppicker.js"></script>
+<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 <script>
     mui.init();
     //初始化单页view
     var viewApi = mui('#app').view({
         defaultPage: '#setting'
     });
+    var view = viewApi.view;
+    //处理view的后退与webview后退
+    var oldBack = mui.back;
+    mui.back = function() {
+        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+            viewApi.back();
+        } else { //执行webview后退
+            oldBack();
+        }
+    };
     //初始化单页的区域滚动
     mui('.mui-scroll-wrapper').scroll();
     //上传头像
@@ -466,6 +496,85 @@
             picker.dispose();
         });
     }, false);
+
+    //-----------------------------------------
+    //					//级联示例
+    var cityPicker3 = new mui.PopPicker({
+        layer: 3
+    });
+    cityPicker3.setData(cityData3);
+    var showCityPickerButton = document.getElementById('city-picker');
+    cityPicker3.pickers[0].setSelectedValue('{{userInfo.province}}', 200);
+    //cityPicker3.pickers[1].setSelectedIndex(6,200)
+    cityPicker3.pickers[1].setSelectedValue('{{userInfo.city}}', 200);
+    cityPicker3.pickers[2].setSelectedValue('{{userInfo.county}}', 200);
+    showCityPickerButton.addEventListener('tap', function(event) {
+        cityPicker3.show(function(items) {
+            //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+            showCityPickerButton.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+            //返回 false 可以阻止选择框的关闭
+            //return false;
+        });
+    }, false);
+    //保存个人资料
+    var accountbtn = document.getElementById("account-btn");
+    accountbtn.addEventListener('tap',function (event) {
+        var data = $("#accountform").serialize();
+        mui.ajax('/user/updateinfo',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    mui.toast(data.data.name);
+                    mui.back();
+
+                }else {
+                    mui.toast(data.errmsg);
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
+    //修改密码
+    var privacybtn = document.getElementById("privacy-btn");
+    privacybtn.addEventListener('tap',function (event) {
+        var data = $("#privacyform").serialize();
+        mui.ajax('/user/updatepassword',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            headers:{'Content-Type':'application/json'},
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    mui.toast(data.data.name);
+                    mui.back();
+
+                }else {
+                    if(data.errno==1001){
+                        $.each(data.errmsg,function(i,n){
+                            mui.toast(n);
+                        })
+                    }else {
+                        mui.toast(data.errmsg);
+
+                    }
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
   //  var shares = {};
 
 //    mui.plusReady(function() {
@@ -620,17 +729,9 @@
 //            }
 //        });
 //    });
-    var view = viewApi.view;
+
     (function($) {
-        //处理view的后退与webview后退
-        var oldBack = $.back;
-        $.back = function() {
-            if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
-                viewApi.back();
-            } else { //执行webview后退
-                oldBack();
-            }
-        };
+
         //监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
         //第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
         view.addEventListener('pageBeforeShow', function(e) {
