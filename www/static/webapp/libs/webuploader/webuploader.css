@@ -1,0 +1,131 @@
+.webuploader-container {
+	position: relative;
+}
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+	/*position: relative;*/
+	/*display: inline-block;*/
+	/*cursor: pointer;*/
+	/*background: #00b7ee;*/
+	/*padding: 10px 15px;*/
+	/*color: #fff;*/
+	/*text-align: center;*/
+	/*border-radius: 3px;*/
+	/*overflow: hidden;*/
+	width: 100%;
+	display: block;
+	cursor: pointer;
+	overflow: hidden;
+}
+.webuploader-pick-hover {
+	/*background: #00a2d4;*/
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
+.picker {
+	display: inline-block;
+	line-height: 1.42857;
+	margin: 0 12px 0 0;
+	vertical-align: middle;
+}
+.uploader-list {
+	overflow: hidden;
+	width: 100%;
+}
+.file-item {
+	float: left;
+	margin: 0 20px 20px 0;
+	padding: 4px;
+	position: relative;
+}
+.file-item .error {
+	background: red none repeat scroll 0 0;
+	color: white;
+	font-size: 14px;
+	height: 20px;
+	left: 4px;
+	line-height: 23px;
+	position: absolute;
+	right: 4px;
+	text-align: center;
+	top: 4px;
+}
+.file-item .info {
+	background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+	bottom: 4px;
+	color: white;
+	font-size: 12px;
+	height: 20px;
+	left: 4px;
+	line-height: 20px;
+	overflow: hidden;
+	position: absolute;
+	right: 4px;
+	text-indent: 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	z-index: 10;
+}
+.upload-state-done::after {
+	bottom: 0;
+	color: #4cae4c;
+	content: "";
+	font-family: FontAwesome;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	position: absolute;
+	right: 4px;
+	z-index: 99;
+}
+.file-item .progress {
+	background: transparent none repeat scroll 0 0;
+	border-radius: 0;
+	bottom: 4px;
+	height: 4px;
+	left: 4px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	right: 4px;
+	z-index: 15;
+}
+.file-item .progress span {
+	animation: 2s linear 0s normal none infinite running progressmove;
+	background: #d14 url("progress.png") repeat-x scroll 0 0;
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	transition: width 200ms linear 0s;
+	width: 0;
+}
+@keyframes progressmove {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 17px 0;
+	}
+}
+@keyframes progressmove {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 17px 0;
+	}
+}
+a.travis {
+	position: relative;
+	right: 15px;
+	top: -4px;
+}

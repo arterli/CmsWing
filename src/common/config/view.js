@@ -47,7 +47,14 @@ export default {
                     }
                     return time;
                 })
+                /**
+                 * moment
+                 */
+                env.addFilter("moment",function (time,config) {
+                    let moment = require('moment');
+                    return moment(time).fromNow();
 
+                })
                 /**
                  *分析枚举类型配置值 格式 a:名称1,b:名称2
                  */

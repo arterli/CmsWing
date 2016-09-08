@@ -10,21 +10,21 @@
   },
   "dependencies": {
     "babel-runtime": "6.x.x",
-    "geetest": "*",
-    "node-crontab": "*",
+    "geetest": "latest",
+    "node-crontab": "latest",
     "nunjucks": "^2.2.0",
-    "pingpp": "*",
+    "pingpp": "latest",
     "source-map-support": "^0.4.0",
     "tar.gz": "^1.0.2",
-    "think-pagination": "*",
-    "think-wechat": "*",
+    "think-pagination": "latest",
+    "think-wechat": "latest",
     "thinkjs": "2.2.x",
     "lodash":"4.x.x",
-    "wechat-api":"*",
-    "jimp":"*",
-    "qiniu":"*",
-    "urllib": ">=0.5.2"
-
+    "wechat-api":"latest",
+    "jimp":"latest",
+    "qiniu":"latest",
+    "urllib": ">=0.5.2",
+    "moment": "latest"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

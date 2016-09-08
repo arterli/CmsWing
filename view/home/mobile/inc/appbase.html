@@ -19,11 +19,13 @@
     {% block style %}{% endblock %}
 </head>
 
-<body>
+<body {%block bodyattr%} {%endblock%}>
 {% block content %}
 
 {% endblock%}
 <script src="/static/webapp/js/mui.min.js"></script>
+<script src="/static/webapp/libs/lodash.min.js"></script>
+<script src="/static/webapp/libs/zepto.min.js"></script>
 {% block script %}{% endblock %}
 </body>
 

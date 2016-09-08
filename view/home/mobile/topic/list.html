@@ -2,9 +2,9 @@
 {% block content %}
 <header class="mui-bar mui-bar-nav">
     <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <span class="mui-icon iconfont icon-gouwuche"><span class="mui-badge">9</span></span>
+    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
     <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
-    <span class="mui-icon iconfont icon-sousuo mui-pull-right"></span>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
 </header>
 {% include "../inc/barnav.html" %}
 {% include "../inc/sliderbar.html" %}
@@ -34,7 +34,7 @@
                         <span class="src space">{{v.uid|get_nickname}}</span>
                         <span class="cmt space">评论&nbsp;2323</span>
 
-                        <span class="time" title="2016-08-30 11:06">1小时前</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -52,7 +52,7 @@
                                 <span class="src space">{{v.uid|get_nickname}}</span>
                                 <span class="cmt space">评论&nbsp;2323</span>
 
-                                <span class="time" title="2016-08-30 11:06">1小时前</span>
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                             </p>
                         </div>
@@ -87,7 +87,7 @@
                         <span class="src space">{{v.uid|get_nickname}}</span>
                         <span class="cmt space">评论&nbsp;2323</span>
 
-                        <span class="time" title="2016-08-30 11:06">1小时前</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -104,7 +104,7 @@
                                 <span class="src space">{{v.uid|get_nickname}}</span>
                                 <span class="cmt space">评论&nbsp;2323</span>
 
-                                <span class="time" title="2016-08-30 11:06">1小时前</span>
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                             </p>
                         </div>
@@ -127,7 +127,7 @@
                         <span class="src space">{{v.uid|get_nickname}}</span>
                         <span class="cmt space">评论&nbsp;0</span>
 
-                        <span class="time" title="2016-08-30 11:06">1小时前</span>
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
 
                     </p>
 
@@ -138,12 +138,137 @@
         </ul>
     </div>
 </div>
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(v,k){ %>
+    <!--如果有缩略图-->
+    <%if (v.cover_id){%>
 
+    <% if (v.model_id == 5){%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+
+
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+
+
+            <div class="mui-row">
+                <div class="mui-col-sm-12 mui-col-xs-12">
+                    <img class="list_img_holder" src="<%=v.cover_id%>">
+                </div>
+            </div>
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;2323</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}else{%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>" >
+            <div class="mui-row">
+                <div class="mui-col-sm-8 mui-col-xs-8">
+
+                    <h4 class="dotdot line2 "><%=v.title%></h4>
+                    <p class="item_info">
+
+                        <span class="src space"><%=v.uid%></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+                    </p>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.cover_id%>" >
+
+                </div>
+            </div>
+        </a>
+    </li>
+    <%}%>
+    <%}else if(v.pics){%>
+    <% if (v.pics.length >2){%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+            <div class="mui-row">
+                <div class="mui-col-sm-4 mui-col-xs-4">
+                    <img class="list_img_holder" src="<%=v.pics[0]%>">
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4">
+                    <img class="list_img_holder" src="<%=v.pics[1]%>">
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.pics[2]%>" >
+
+                </div>
+            </div>
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;2323</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}else{%>
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>" >
+            <div class="mui-row">
+                <div class="mui-col-sm-8 mui-col-xs-8">
+
+                    <h4 class="dotdot line2 "><%=v.title%></h4>
+                    <p class="item_info">
+                        <span class="src space"><%=v.uid%></span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+                    </p>
+                </div>
+                <div class="mui-col-sm-4 mui-col-xs-4 ">
+                    <img class="list_img_holder" src="<%=v.pics[0]%>" >
+
+                </div>
+            </div>
+        </a>
+    </li>
+    <%}%>
+    <%}else{%>
+    <!--无图-->
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=v.url%>">
+            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+
+            <p class="item_info">
+
+                <span class="src space"><%=v.uid%></span>
+                <span class="cmt space">评论&nbsp;0</span>
+
+                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+    <%}%>
+    <%})%>
+    {% endraw %}
+</script>
 {% endblock%}
 
 {% block script %}
 <script>
-
+    var tplRender =  _.template(document.getElementById("tpl").innerHTML);
     mui.init({
         pullRefresh: {
             container: '#pullrefresh',
@@ -228,7 +353,7 @@
                 mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
             }
 
-        }, 1500);
+        }, 1000);
     }
     var createFragment = function(count, page) {
         //无限加载
@@ -244,46 +369,30 @@
             dataType:'json',//服务器返回json格式数据
             type:'get',//HTTP请求类型
             success:function(data){
-                //获得服务器响应
-                console.log();
-                var fragment = document.createDocumentFragment();
-                var li;
-                for (var i = 0; i < data.data.length; i++) {
-                    li = document.createElement('li');
-                    li.className = 'mui-table-view-cell';
-                    li.innerHTML ='<a href="javascript:;">'+
-                            '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
-                            '<div class="mui-media-body">'+
-                            data.data[i].title+
-                            '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
-                            '</div>'+
-                            '</a>';
-                    fragment.appendChild(li);
-                }
-                table.appendChild(fragment);
+//                //获得服务器响应
+//                console.log();
+//                var fragment = document.createDocumentFragment();
+//                var li;
+//                for (var i = 0; i < data.data.length; i++) {
+//                    li = document.createElement('li');
+//                    li.className = 'mui-table-view-cell';
+//                    li.innerHTML ='<a href="javascript:;">'+
+//                            '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
+//                            '<div class="mui-media-body">'+
+//                            data.data[i].title+
+//                            '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
+//                            '</div>'+
+//                            '</a>';
+//                    fragment.appendChild(li);
+//                }
+//                table.appendChild(fragment);
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
             }
         });
 
     };
     //alert(mui.os.plus)
 
-    if (mui.os.plus) {
-
-        mui.plusReady(function() {
-
-            setTimeout(function() {
-//                mui('#pullrefresh').pullRefresh().pullupLoading();
-                var page = Math.ceil(size/10);
-                if(page>1 ){
-                    for (var i = 1; i < (page+1); i++) {
-                        createFragment(10,(i+1))
-                    }
-                }
-                mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
-            }, 1000);
-
-        });
-    } else {
 
         mui.ready(function() {
 
@@ -297,25 +406,24 @@
             }
             mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
             //alert(1)
+            document.querySelector('header h1').addEventListener('tap',function () {
+                //内容区滚动到顶部
+                mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+            });
+            var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+            for(var i = 0;i<btn.length;i++){
+                btn[i].addEventListener("tap",function () {
+                    var href = this.getAttribute("href");
+                    if(href=="#wait"){
+                        //todo
+                        mui.toast("功能开发中。。。")
+                        return
+                    }
+                    mui.openWindow({url: href})
 
-        });
-    }
-</script>
-<script type="text/javascript">
-    mui.init()
-    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
-    for(var i = 0;i<btn.length;i++){
-        btn[i].addEventListener("tap",function () {
-            var href = this.getAttribute("href");
-            if(href=="#wait"){
-                //todo
-                mui.toast("功能开发中。。。")
-                return
+                })
             }
-            mui.openWindow({url: href})
-
-        })
-    }
-
+        });
 </script>
+
 {% endblock %}

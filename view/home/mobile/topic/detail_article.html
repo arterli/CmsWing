@@ -76,7 +76,11 @@
          </div>
 
          <article class="article-content">
-             {{info.content|safe}}
+             {%for val in info.content%}
+
+                 {{val|safe}}
+
+             {%endfor%}
          </article>
          </div>
      <div id="SOHUCS" sid="{{info.id}}"></div>

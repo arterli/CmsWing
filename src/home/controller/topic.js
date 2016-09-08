@@ -6,7 +6,8 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-
+import moment from "moment"
+moment.locale('zh-cn');
 import Base from './base.js';
 import pagination from 'think-pagination';
 export default class extends Base {
@@ -320,7 +321,11 @@ export default class extends Base {
          if(this.isAjax("get")){
              for(let v of data.data){
                  if(!think.isEmpty(v.pics)){
-                     v.pics = await get_pic(v.pics.split(",")[0],1,300,169) ;
+                     let arr = []
+                     for (let i of v.pics.split(",")){
+                         arr.push(await get_pic(i,1,300,169))
+                     }
+                     v.pics = arr;
                  }
                  if(!think.isEmpty(v.cover_id)){
                      v.cover_id = await get_pic(v.cover_id,1,300,169);
@@ -329,10 +334,12 @@ export default class extends Base {
                      if(!think.isEmpty(get_price_format(v.price,2))){
                          v.price2 = get_price_format(v.price,2);
                      }
-                         v.price = get_price_format(v.price,1);
+                     v.price = get_price_format(v.price,1);
 
                  }
-                 v.url = get_url(v.name,v.id)
+                 v.uid = await get_nickname(v.uid);
+                 v.url = get_url(v.name,v.id);
+                 v.update_time = moment(v.update_time).fromNow()
              }
              return this.json(data);
          }

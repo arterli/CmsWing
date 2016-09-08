@@ -108,3 +108,22 @@
     {%endif%}
 </div>
 {% endblock %}
+{%block script%}
+<script type="text/javascript">
+
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#wait"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }
+            mui.openWindow({url: href})
+
+        })
+    }
+
+</script>
+{%endblock%}
