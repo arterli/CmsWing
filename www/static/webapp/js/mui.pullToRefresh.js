@@ -32,6 +32,7 @@
 					auto: false,
 					offset: 100, //距离底部高度(到达该高度即触发)
 					show: true,
+					contentinit: '上拉显示更多',
 					contentdown: '上拉显示更多',
 					contentrefresh: '正在加载...',
 					contentnomore: '没有更多数据了',
@@ -58,7 +59,7 @@
 		},
 		initEvent: function() {
 			if ($.isFunction(this.options.down.callback)) {
-				this.element.addEventListener('touchstart', this);
+				this.element.addEventListener($.EVENT_START, this);
 				this.element.addEventListener('drag', this);
 				this.element.addEventListener('dragend', this);
 			}
@@ -73,7 +74,7 @@
 		},
 		handleEvent: function(e) {
 			switch (e.type) {
-				case 'touchstart':
+				case $.EVENT_START:
 					this.isInScroll && this._canPullDown() && e.target && !this._preventDefaultException(e.target, this.options.preventDefaultException) && e.preventDefault();
 					break;
 				case 'drag':
@@ -90,7 +91,9 @@
 					this._dragup(e);
 					break;
 				case 'scrollbottom':
-					this.pullUpLoading(e);
+					if (e.target === this.element) {
+						this.pullUpLoading(e);
+					}
 					break;
 			}
 		},
@@ -125,7 +128,7 @@
 						if (!self.options.up.show) {
 							element.classList.add(CLASS_HIDDEN);
 						}
-						element.innerHTML = '<div class="mui-pull-bottom-wrapper"><span class="mui-pull-loading">' + self.options.up.contentdown + '</span></div>';
+						element.innerHTML = '<div class="mui-pull-bottom-wrapper"><span class="mui-pull-loading">' + self.options.up.contentinit + '</span></div>';
 						self.element.appendChild(element);
 					}
 					self.pullUpTipsIcon = element.querySelector(SELECTOR_PULL_LOADING);
@@ -347,6 +350,9 @@
 			} else {
 				this.removing = true;
 			}
+			if (this.isInScroll) {
+				$(this.element.parentNode).scroll().refresh();
+			}
 		},
 		endPullUpToRefresh: function(finished) {
 			if (finished) {
@@ -358,6 +364,9 @@
 				this.pullUpTipsIcon.innerHTML = this.options.up.contentdown;
 			}
 			this.loading = false;
+			if (this.isInScroll) {
+				$(this.element.parentNode).scroll().refresh();
+			}
 		},
 		setStopped: function(stopped) {
 			if (stopped != this.stopped) {

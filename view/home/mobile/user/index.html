@@ -50,7 +50,7 @@
 {% block content%}
 <header class="mui-bar mui-bar-nav">
     <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
+    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></span>
     <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
     <span class="mui-icon iconfont icon-search mui-pull-right"></span>
 </header>
