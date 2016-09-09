@@ -103,7 +103,7 @@ export default class extends Base {
       if(data.qty > stock){
           return this.json(false);
       }
-    //console.log(data);
+    console.log(data);
      //return false;
       let arr=[];
       let cart = this.cart.data;
@@ -112,20 +112,29 @@ export default class extends Base {
          arr.push(data);
       }else{
           //cart = JSON.parse(cart);
-          //console.log(cart);
+          console.log(cart);
           let typearr = []
+          let idarr = []
           //已有购物车数量相加
          for(let item of cart){
-             if(item.type == data.type){
+             if((item.type == data.type)&&(item.product_id == data.product_id) ){
                 item.qty = Number(item.qty) + Number(data.qty);
              }
              arr.push(item);
+             idarr.push(item.product_id)
              typearr.push(item.type);  
          }
          //没有直接添加商品
-          if(!in_array(data.type,typearr)){
-              arr.splice(0, 0,data);
-          };
+          if(!think.isEmpty(data.type)){
+              if(!in_array(data.type,typearr)){
+                  arr.splice(0, 0,data);
+              };
+          }else {
+              if(!in_array(data.product_id,idarr)){
+                  arr.splice(0, 0,data);
+              };
+          }
+
       }
       //console.log(arr);
       
