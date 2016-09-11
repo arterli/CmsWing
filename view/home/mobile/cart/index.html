@@ -23,16 +23,27 @@
     .softhide{
         display: none!important;
     }
+    .mui-content-padded .iconfont {
+        margin: 3px;
+        display: inline-block;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 100px;
+        background-clip: padding-box;
+    }
 </style>
 {%endblock%}
 {% block content %}
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
     {% if controller.cart.data|length > 0 %}
     <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right btn-edit" data-hide="1">编辑</button>
     {%endif%}
 </header>
+
+{% if controller.cart.data|length > 0 %}
 <nav class="mui-bar mui-bar-tab">
     <div class="mui-tab-item mui-checkbox" style="width: 2px;" >
         <input type="checkbox" id="checkAll" class="mui-icon" style="top:2px;left: 10px; z-index: 999">
@@ -62,8 +73,6 @@
     </a>
 
 </nav>
-{% if controller.cart.data|length > 0 %}
-
 <div class="mui-content">
     <form class="cart-tbody form-cart" action="/cart/getorderinfo" method="post" >
         <ul class="mui-table-view ">
@@ -96,7 +105,30 @@
     </form>
 </div>
 {% else%}
-11111
+<div class="mui-content">
+    <div class="mui-content-padded text-center margin-top-40" >
+        <a class="mui-icon iconfont icon-goodsfill size-60 " style="width:100px;height: 100px;padding: 20px" ></a>
+    </div>
+
+    <div class="mui-content-padded" >
+        <h4 class=" text-center">购物车空空的哦~</h4>
+        <p class=" text-center">
+            {% if controller.is_login %}
+            去看看心仪的商品吧~
+            {%else%}
+            登录后将显示您之前加入的商品
+            {% endif%}
+
+        </p>
+    </div>
+    <div class="mui-content-padded">
+        <p><a class="mui-btn mui-btn-danger mui-btn-block " href="/index"  >去购物</a></p>
+        {% if controller.is_login %}
+        {%else%}
+        <p><a class="mui-btn mui-btn-block mui-btn-outlined "  href="/user/login"  >登录</a></p>
+        {% endif%}
+    </div>
+    </div>
 {%endif%}
 {% endblock%}
 
@@ -105,7 +137,7 @@
     //购物车
 
         $(".sendfrom").on('tap',function () {
-            alert(1)
+            //alert(1)
             if($('form.form-cart').serializeArray().length ==0){
                 mui.toast("至少选择一个商品!");
                 return false;

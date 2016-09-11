@@ -1,44 +1,61 @@
+{% extends "../inc/appbase.html" %}
+{%block style%}
+<style>
+    .mui-content-padded .iconfont {
+        margin: 3px;
+        display: inline-block;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 100px;
+        background-clip: padding-box;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">确认？</h1>
 
-{% extends "../inc/base.html" %}
-{% block page%}
-<div class="page page-current" id="cart_payres">
-    <header class="bar bar-nav">
-        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
-            <span class="icon icon-left"></span>
-        </a>
-        <a class="button pull-right back" href="{{http.referrer()}}">
-            取消
-        </a>
-        <h1 class='title'>{{controller.meta_title}}</h1>
-    </header>
-    <!--nav-->
-    {% include "../inc/nav.html" %}
-    <!--end_nav-->
+    <a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right mui-action-back" >取消</a>
 
-    <div class="content ">
-        <div class="content-block text-center" >
-            <i class="ico-light ico-rounded fa fa-exclamation-triangle size-60 bg-warning" style="width:100px;height: 100px;padding: 20px" ></i>
-        </div>
-        <div class="content-block" >
-            <h2 class=" text-center">删除商品？</h2>
-            <p class=" text-center">
-                您可以选择移到关注，或删除商品。
-            </p>
-        </div>
-        <div class="content-block">
-            <input type="hidden" value="{{ids}}" name="ids" class="ids">
-            <p><a class="button button-fill button-big button-dark ajax-post" target-form="ids" href="/cart/delcart"  >删除</a></p>
-            <p><a href="#" class="button button-fill button-light button-big">移到我的关注</a></p>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded text-center margin-top-40" >
+        <a class="mui-icon iconfont icon-warn size-60 " style="padding: 20px" ></a>
+    </div>
 
-        </div>
+    <div class="mui-content-padded" >
+        <h4 class=" text-center">删除商品？</h4>
+        <p class=" text-center">
+            您可以选择移到关注，或删除商品。
+        </p>
+    </div>
+    <div class="mui-content-padded">
+        <input type="hidden" value="{{ids}}" name="ids" class="ids">
+        <p><button class="mui-btn mui-btn-danger mui-btn-block goodsdel">删除</button></p>
+
+        <p><a class="mui-btn mui-btn-block mui-btn-outlined "  href="#"  >移到我的关注</a></p>
+
     </div>
 </div>
-
-{% endblock %}
-{% block pageout%}
-
-{% endblock%}
-{% block style %}
-{% endblock %}
+{%endblock%}
 {% block script %}
+<script>
+    mui('.mui-content-padded').on("tap",'button.goodsdel',function () {
+        mui.post('/cart/delcart',{
+                    ids:mui(".ids")[0].value
+                },function(data){
+                   if(data.errno==0){
+                           mui.toast(data.data.name + ' 即将跳转~');
+                       setTimeout(function () {
+                           mui.openWindow({url: data.data.url})
+                       },1000)
+
+                   }
+                },'json'
+        );
+    })
+</script>
+
 {% endblock %}
