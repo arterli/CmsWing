@@ -116,6 +116,8 @@ export default class extends Base {
    *
    */
   topicAction(){
+      this.http.error = new Error('功能开发中,敬请期待...');
+      return think.statusAction(701, this.http);
     return this.display();
   }
 

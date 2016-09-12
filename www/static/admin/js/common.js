@@ -50,8 +50,40 @@ $(document).on('click','.ajax-get',function(){
     return false;
 });
 
+//todo
+$(".todo").click(function () {
+    toastr.info("功能开发中，敬请期待...");
+    return;
+})
+$(".cw-cf").click(function () {
+   var href =  $(this).attr("href");
+    console.log(href);
+    swal({
+        title: "确定清空回收站?",
+        text: "清空后不可恢复，请谨慎操作!",
+        html:true,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定!",
+        cancelButtonText:"算了",
+        closeOnConfirm: false }, function(){
+        $.get(href).success(function(data){
 
+                console.log(data);
+                if(data.errno == 0){
+                    swal({title:data.data.name, text:"", type:"success"},function () {
+                        location.reload();
+                    });
 
+                } else{
+
+                }
+
+        });
+    })
+    return false;
+})
 /**
  * ajax post submit请求
  * <form class = "form-horizontal">
@@ -115,9 +147,9 @@ $(document).on('click','.ajax-post',function(){
                })
               query = {sort:JSON.stringify(arr)};
            }else {
-               alert(1)
+               //alert(1)
                query = form.serialize();
-               alert(query)
+               //alert(query)
            }
 
         }else{

@@ -656,4 +656,26 @@ export default class extends Base {
         return this.display()
 
     }
+    async clearAction(){
+        // 获取回收站的所有信息
+        let clist =await this.model("document").where({status:-1}).select();
+        if(think.isEmpty(clist)){
+            return this.success({name: "回收站没有内容！"});
+        }
+        //console.log(clist);
+        //查出模型内容并删除
+        for(let v of clist){
+            //模型表
+            let table = await this.model("model").get_table_name(v.model_id);
+            console.log(table);
+            await this.model(table).where({id:v.id}).delete();
+        }
+        //删除主表内容
+        let res = await this.model("document").delete({where:{status:-1}});
+
+        if(res){
+            return this.success({name: "清空回收站成功"});
+        }
+
+    }
 }
