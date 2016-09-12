@@ -540,8 +540,11 @@ async editaddrmodalAction(){
     this.assign("county",county);
     this.assign("info",address);
     this.assign("type",this.get("type"));
+        this.meta_title="编辑地址"
+    }else {
+        this.meta_title="添加地址"
     }
-    this.meta_title="编辑地址"
+
     if (checkMobile(this.userAgent())) {
         this.active = "user/index";
         return this.display(`mobile/${this.http.controller}/${this.http.action}`)

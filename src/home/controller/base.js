@@ -201,6 +201,7 @@ export default class extends think.controller.base {
             return list;
         }
     }
+    //跨域设置
     setCorsHeader(){
         this.header("Access-Control-Allow-Origin", this.header("origin") || "*");
         this.header("Access-Control-Allow-Headers", "x-requested-with");
