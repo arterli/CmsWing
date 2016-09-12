@@ -195,7 +195,14 @@ export default class extends Base {
           }else if(val.isdel==0 && val.name != 0 && val.typeid !=0){//更新
               this.model('type').update(val,{typeid:val.typeid});
           }else if(val.isdel == 1){
-              this.model('type').delete({
+              let table_name = think.parseConfig(true, think.config("db")).prefix + 'type_optionvalue'+val.typeid;
+              let sql =`SHOW TABLES LIKE '${table_name}'`;
+              let istable =  await this.model('mysql',this.config('db')).query(sql);
+              if(!think.isEmpty(istable)){
+                  sql = `DROP TABLE ${table_name}`;
+                 await this.model('mysql', this.config('db')).execute(sql);
+              }
+              await this.model('type').delete({
                   where: {typeid: val.typeid}
               })
           }
