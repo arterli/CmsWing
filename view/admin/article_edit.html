@@ -155,7 +155,7 @@ table tr td{
                                                         </div>
                                                         {%elif val.option.type == "image"%}
                                                         <div class="col-sm-10">
-                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}"/>
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}" value="{{val.option.value}}"/>
                                                             <div id="fileList_sortid_{{val.option.identifier}}" class="uploader-list"></div>
                                                             <div id="filePicker_sortid_{{val.option.identifier}}">选择图片</div>
                                                             <script type="text/javascript">
@@ -192,6 +192,20 @@ table tr td{
                                                                         mimeTypes: 'image/*'
                                                                     }
                                                                 });
+                                                                //当有图片时加载图片
+                                                                var cover_id="{{val.option.value}}";
+                                                                console.log(cover_id);
+                                                                if(cover_id != 0){
+                                                                    var picurl = "{{val.option.value|get_pic('m=0,h=110')}}"
+                                                                    var $li = $(
+                                                                                    '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                                    '<img src="'+picurl+'">' +
+                                                                                    '</div>'
+                                                                            ),
+                                                                            $img = $li.find('img');
+
+                                                                    $list_{{field.name}}.html( $li );
+                                                                }
                                                                 // 当有文件添加进来的时候
                                                                 uploader_sortid_{{val.option.identifier}}.on( 'fileQueued', function( file ) {
                                                                     var $li = $(

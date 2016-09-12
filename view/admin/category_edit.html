@@ -178,7 +178,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-10">
-                                            <input type="hidden" name="icon" id="cover_id_{{field.name}}"/>
+                                            <input type="hidden" name="icon" id="cover_id_{{field.name}}" value="{{info.icon}}"/>
                                             <div id="fileList_{{field.name}}" class="uploader-list"></div>
                                             <div id="filePicker_{{field.name}}">选择图片</div>
 
@@ -216,6 +216,20 @@
                                                         mimeTypes: 'image/*'
                                                     }
                                                 });
+                                                //当有图片时加载图片
+                                                var cover_id="{{info.icon}}";
+                                                console.log(cover_id);
+                                                if(cover_id != 0){
+                                                    var picurl = "{{info.icon|get_pic('m=0,h=110')}}"
+                                                    var $li = $(
+                                                                    '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                    '<img src="'+picurl+'">' +
+                                                                    '</div>'
+                                                            ),
+                                                            $img = $li.find('img');
+
+                                                    $list_{{field.name}}.html( $li );
+                                                }
                                                 // 当有文件添加进来的时候
                                                 uploader_{{field.name}}.on( 'fileQueued', function( file ) {
                                                     var $li = $(
