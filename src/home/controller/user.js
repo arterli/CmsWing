@@ -6,7 +6,8 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 'use strict';
-
+import moment from "moment"
+moment.locale('zh-cn');
 import Base from './base.js';
 import pagination from 'think-pagination';
 import fs from 'fs';
@@ -166,7 +167,7 @@ export default class extends Base {
                 v = think.extend(v, v.prom_goods);
                 delete v.prom_goods;
             }
-            console.log(val.goods)
+            //console.log(val.goods)
             val.nums = eval(numarr.join("+"));
         }
         //未付款统计
@@ -189,12 +190,16 @@ export default class extends Base {
         }).count("id");
         this.assign("nopaid", nopaid);
         this.assign("receipt", receipt);
-         console.log(data.data);
+         //console.log(data.data);
+        this.assign("count",data.count);
         this.assign('list', data.data);
         this.meta_title = "我的订单";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
-            if(this.isAjax("POST")){
+            if(this.isAjax("get")){
+                for(let v of data.data){
+                    v.create_time =moment(v.create_time).format('lll')
+                }
                 return this.json(data);
             }else {
                 this.active = "user/index";

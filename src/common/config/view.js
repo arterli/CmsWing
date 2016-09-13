@@ -49,10 +49,17 @@ export default {
                 })
                 /**
                  * moment
+                 * YYYY-MM-DD HH:mm:ss
+                 * lll
                  */
                 env.addFilter("moment",function (time,config) {
                     let moment = require('moment');
-                    return moment(time).fromNow();
+                    if(think.isEmpty(config)){
+                        return moment(time).fromNow();
+                    }else {
+                        return moment(time).format(config);
+                    }
+
 
                 })
                 /**
