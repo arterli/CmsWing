@@ -4,6 +4,8 @@
 
 > 码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
 
+>coding.net:[https://coding.net/u/arterli/p/CmsWing/git](https://coding.net/u/arterli/p/CmsWing/git)
+
 ## 功能预告
 >CmsWing后续开发计划
 
