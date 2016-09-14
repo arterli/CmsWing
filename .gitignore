@@ -45,3 +45,7 @@ runtime/
 Icon?
 ehthumbs.db
 Thumbs.db
+#coding#
+###################
+.gitignore
+db.js
