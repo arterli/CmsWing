@@ -25,7 +25,7 @@ export default class extends Base {
    //debugger;
     //判断浏览客户端
     if(checkMobile(this.userAgent())){
-//跨域
+      //跨域
       let method = this.http.method.toLowerCase();
       if(method === "options"){
         this.setCorsHeader();
