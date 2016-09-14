@@ -26,7 +26,7 @@ export default class extends Base {
           "user":{
           "user_id":this.user.uid,
           "nickname":this.user.username,
-          "img_url":"http://"+this.http.host+"/user/avatar/uid/"+this.user.uid,
+          "img_url":"//"+this.http.host+"/user/avatar/uid/"+this.user.uid,
           "profile_url":"",
           "sign":this.cysign(cy_appkey,"","",this.user.username,"",this.user.uid)}
       }
@@ -63,7 +63,7 @@ export default class extends Base {
                 ret={
                     'user_id':'0',
                     'reload_page':0,
-                    'js_src':[`http://${this.http.host}/static/assets/js/cy.js`]
+                    'js_src':[`//${this.http.host}/static/assets/js/cy.js`]
                 };
                 await this.session("changyan",get);
         //return this.redirect('/changyan/binduser');

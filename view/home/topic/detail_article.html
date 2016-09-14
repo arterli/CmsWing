@@ -258,7 +258,7 @@ CLASSES:
         <div id="comments" class="comments margin-top-20">
             <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
             <div id="SOHUCS" sid="{{info.id}}"></div>
-            <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
             <script type="text/javascript">
                 window._config = { showScore: true };
                 window.changyan.api.config({
@@ -449,7 +449,7 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
 uParse('#contentcmswing', {
 rootPath: '/static/admin/js/udeitor/'

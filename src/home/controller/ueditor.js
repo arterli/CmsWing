@@ -135,7 +135,7 @@ export default class extends Base {
        if(!think.isEmpty(uppic)){
          return {
            "state" : "SUCCESS",
-           "url" : `http://${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+           "url" : `//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
            "title" : uppic.hash,
            "original" : file.originalFilename,
            "type" : ".jpg",

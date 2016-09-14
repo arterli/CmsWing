@@ -764,7 +764,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
              q = `?imageView2${m}${w}${h}`
         }
         let name = await think.cache("setup");
-        return `http://${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
+        return `//${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
     }else {
         return picture.path
     }

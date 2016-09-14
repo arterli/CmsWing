@@ -66,7 +66,7 @@ CLASSES:
             <div class="tab-pane fade in active " id="home">
                 <div class="subscribe">
                     <span class="m_img"><a href="#" target="_blank" charset="hz-4009164-1000705"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" alt="{{pinfo.title}}"></a></span>
-                    <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">{{pinfo.title}}</a><a href="http://zipindao.youku.com/zpd/strategy" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
+                    <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">{{pinfo.title}}</a><a href="#" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
 		    <span class="m_action" id="officiallistfollow">
 				<div class="sub_action " id="user_follow_info_official"><div class="btn btn-info btn-sm" id="subscribe_official" subname="" subimg="" data-stat-role="ck"><span class="form_btn_text">订&nbsp;&nbsp;阅</span></div></div>
 		    	<div class="sub_state" style="display: block;"><span class="num" id="user_fans_num_official">186.2万</span><b class="arrow"><em class="arrow_bg">◆</em><em class="arrow_co">◆</em></b></div>
@@ -206,7 +206,7 @@ CLASSES:
                 <div id="comments" class="comments margin-top-20">
                     <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
                     <div id="SOHUCS" sid="{{info.id}}"></div>
-                    <script charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/changyan.js" ></script>
+                    <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
                     <script type="text/javascript">
                         window._config = { showScore: true };
                         window.changyan.api.config({
@@ -419,8 +419,9 @@ CLASSES:
 
 {% block script %}
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+
+<script type="text/javascript" src="//7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
+
 <script>
     var ivaInstance = new Iva(
             'video-box',//父容器id或者父容器DOM对象，给父容器设置宽高640px*480px以上可以获得最佳的浏览体验；
