@@ -18,6 +18,7 @@ export default class extends Base {
    * @return {Promise} []
    */
   async indexAction(){
+      console.log(11111)
       //auto render template file index_index.html
     this.meta_title = "首页";//标题1
     this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
@@ -33,8 +34,6 @@ export default class extends Base {
         return;
       }
       this.setCorsHeader();
-
-
         let map = {
           'pid':0,
           'status': 1,
@@ -62,7 +61,6 @@ export default class extends Base {
         let data = await this.model('document').where(map).page(this.param('page'),10).order(o).countSelect();
         this.assign("list",data);
         //console.log(data);
-
       if(this.isAjax("get")){
           for(let v of data.data){
               if(!think.isEmpty(v.pics)){
