@@ -31,7 +31,7 @@
 
 ## QQ 交流群: 49757468
 有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
-## install dependencies
+
 ## 关于CmsWing的开源协议
 CmsWing发布以来，有很多同学咨询我关于项目开源协议的事情，首先我要感谢大家对一个开源作者的尊重。
 
@@ -47,7 +47,7 @@ CmsWing遵循 MIT License 协议
 
 目前还是开发版本，如果是有开发能力的个人或者公司想拿CmsWing做二次开发，可以直接使用。基础构架已经完成，遗憾的是暂时没有二次开发文档（正式版后会补充）。
 如果想拿CmsWing作为CMS直接建站，建议等正式版本。
-
+## install dependencies
 ```
 npm install
 ```
