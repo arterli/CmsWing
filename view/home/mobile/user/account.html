@@ -266,42 +266,7 @@
             }
             mui.openWindow({url: href})
         })
-        //确认收货
-        mui(document).on('tap','a.confirmreceipt',function(){
-            var self = this;
-            var btnArray = ['否', '是'];
-            mui.confirm('是否确认收货？', '', btnArray, function(e) {
-                if (e.index == 1) {
-                    //获取id
-                    var id = self.getAttribute("href");
-                    mui.get(id,function(data){
-                                if(data.errno==0){
-                                    mui.toast(data.data.name);
-                                    location.reload();
-                                }else {
-                                    mui.toast(data.error);
-                                }
-                            },'json'
-                    );
-                }
-            })
-            return false;
-        })
-        //付款
-        mui(document).on('tap','a.pay',function(){
-            var self = this;
-            var btnArray = ['否', '是'];
-            mui.confirm('是否确认付款？', '', btnArray, function(e) {
-                if (e.index == 1) {
-                    //获取id
-                    var id = self.getAttribute("href");
-                    mui.openWindow({
-                        url: id,
-                    });
-                }
-            })
-            return false;
-        })
+
         //返回个人中心
         mui("header").on('tap','.userindex',function(){
             var id = this.getAttribute("href");
