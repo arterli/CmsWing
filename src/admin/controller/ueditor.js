@@ -22,7 +22,7 @@ export default class extends Base {
     //auto render template file index_index.html
     this.config = this.config("ueditor");
     let action = this.get("action");
-    think.log(action);
+    //think.log(action);
     let result;
     switch (action) {
       case 'config':

@@ -335,6 +335,7 @@ export default class extends Base {
         this.assign('pagination', html);
         this.assign("list", data.data);
         this.assign("type", type);
+        this.assign("count",data.count)
         //获取用户信息
         let userInfo = await this.model("member").join({
             table: "customer",
@@ -353,7 +354,13 @@ export default class extends Base {
         this.meta_title = "账户金额管理";
         //判断浏览客户端
         if (checkMobile(this.userAgent())) {
-            if(this.isAjax("POST")){
+
+            if(this.isAjax("get")){
+                for(let v of data.data){
+                    v.time =moment(v.create_time).format('YYYY-MM-DD HH:mm:ss');
+                    v.amount = formatCurrency(v.amount);
+                    v.amount_log = formatCurrency(v.amount_log);
+                }
                 return this.json(data);
             }else {
                 this.active = "user/index";
