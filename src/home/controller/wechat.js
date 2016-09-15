@@ -163,7 +163,7 @@ export default class extends think.controller.base {
         }else{
             open_id = this.cookie("wx_openid");
         }
-        
+
          //清除openid，如果中途失败，可重新激活注册流程
         await this.session('wx_openid',null);
         let wx_info = await this.model("wx_user").where({openid:open_id}).find();
