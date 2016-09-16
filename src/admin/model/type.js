@@ -41,7 +41,7 @@ export default class extends think.model.base {
                  KEY \`fid\` (\`fid\`),
                  KEY \`dateline\` (\`dateline\`)
                  )
-                 ENGINE=MyISAM DEFAULT CHARSET=utf8`
+                 ENGINE=InnoDB DEFAULT CHARSET=utf8`
                 //console.log(sql);
                 let res = await think.model('mysql', think.config("db")).execute(sql);
                 //console.log(res);
