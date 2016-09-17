@@ -414,7 +414,14 @@ export default class extends Base {
             //后台分类
             //TODO 权限控制
             for (let val of cate) {
-                val.url = `/admin/article/index/cate_id/${val.id}`;
+               switch (val.mold){
+                   case 2:
+                       val.url = `/admin/sp/index/cate_id/${val.id}`;
+                       break;
+                   default:
+                       val.url = `/admin/article/index/cate_id/${val.id}`;
+               }
+
                 val.target = '_self';
             }
         }

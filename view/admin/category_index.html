@@ -25,13 +25,24 @@
 
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
+                        <div class="btn-group">
+                            <a {%if http.get("mold")=="" %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm
+                            {%if http.get('mold')=='' %}dropdown-toggle{% endif %} " {%if http.get("mold") !='' %} href="/admin/category/add/mold/{{http.get('mold')}}"{%endif%}"
+                                > 添加栏目 {%if http.get("mold")=="" %}<span class="caret"></span>{% endif %}</a>
+                            {%if http.get("mold")=="" %}
+                            <ul class="dropdown-menu">
 
-                        <a href="/admin/category/add" class="btn btn-sm btn-info ">
-                            添加栏目
-                        </a>
-                        <a href="/admin/category/add" class="btn btn-sm btn-info ">
-                            添加单页
-                        </a>
+                                <li> <a href="/admin/category/add/mold/0"
+                                        class="text-info">添加系统栏目</a></li>
+                                <li> <a href="/admin/category/add/mold/1"
+                                        class="text-info">添加独立栏目</a></li>
+                                <li> <a href="/admin/category/add/mold/2"
+                                        class="text-info">添加单页栏目</a></li>
+                                <!--<li class="divider"></li>-->
+                                <!--<li><a href="#">添加内容</a></li>-->
+                            </ul>
+                            {% endif %}
+                        </div>
 
                         <a class="btn btn-sm btn-default ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
                             排序
@@ -88,8 +99,10 @@
 
 <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
 <a class="text-info delcate" href="javascript:void(0)" data-id="{{val.id}}">删除</a>
+    {%if val.mold!=2%}
 <a class="text-info" href="/admin/category/move/from/{{val.id}}">移动</a>
 <a class="text-info" href="/admin/category/move/merge/1/from/{{val.id}}">合并</a></td>
+    {%endif%}
 </tr>
 {%endfor%}
 

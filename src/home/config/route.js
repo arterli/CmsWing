@@ -4,5 +4,6 @@
 export default [
     [/^channel\/(.*)$/, "home/topic/index?category=:1"],
     [/^column\/(.*)$/, "home/topic/list?category=:1"],
-    [/^detail\/(.*)$/, "home/topic/detail?id=:1"]
+    [/^detail\/(.*)$/, "home/topic/detail?id=:1"],
+    [/^sp\/(.*)$/, "home/sp/index?category=:1"]
 ];

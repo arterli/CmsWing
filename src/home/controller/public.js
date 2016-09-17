@@ -330,7 +330,7 @@ export default class extends Base {
    */
 
   async getmenuAction() {
-    let cate = await this.model("category",{},'admin').get_all_category();
+    let cate = await this.model("category",{},'admin').get_all_category({mold:0});
     let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
     // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
     // console.log(priv);
@@ -342,7 +342,7 @@ export default class extends Base {
         val.target = '_self';
           let priv = await this.model("category_priv").priv(val.id,roleid,'add');
           val.priv=priv
-        if(priv==1 && val.pid !=0){
+        if(priv==1 && val.pid !=0 ){
           parr.push(val.pid)
         }
       }
@@ -363,6 +363,7 @@ export default class extends Base {
         }
       }
     }
+
       //console.log(cates);
     //think.log(cate);
     return this.json(arr_to_tree(cates, 0))

@@ -255,6 +255,7 @@ export default class extends think.controller.base {
             case 'category'://更新全站分类缓存
                 think.cache("sys_category_list",null);
                 think.cache("all_category",null);
+                think.cache("all_priv",null);//栏目权限缓存
                 res = true;
                 msg = "更新栏目缓存成功！";
                 break;

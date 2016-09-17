@@ -25,6 +25,7 @@ export default class extends Base {
         if(this.get("mold")){
             where.mold=this.get("mold");
         }
+       // console.log(where);
         //auto render template file index_index.html
          let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold",where);
         //console.log(tree)
@@ -46,18 +47,21 @@ export default class extends Base {
     async addAction(){
         if(this.isPost()){
             let data = this.post();
-            //表单验证
-            if(think.isEmpty(data.model)){
-                return this.fail("至少要绑定一个模型！")
+            if(data.mold != 2){
+                //表单验证
+                if(think.isEmpty(data.model)){
+                    return this.fail("至少要绑定一个模型！")
+                }
+                if(think.isEmpty(data.type)){
+                    return this.fail("允许文档类型，至少要选项一个！")
+                }
             }
-            if(think.isEmpty(data.type)){
-                return this.fail("允许文档类型，至少要选项一个！")
-            }
+
             //console.log(data);
 
             //return false;
             data.status = 1;
-            //console.log(data);
+            console.log(data);
             if(!think.isEmpty(data.name)){
                 let check = await this.model("category").where({name:data.name}).find();
                 if(!think.isEmpty(check)){
@@ -66,11 +70,12 @@ export default class extends Base {
             }
             let res = await this.model("category").updates(data);
             if(res){
-                this.success({name:"新增成功！",url:"/admin/category/index"});
+                this.success({name:"新增成功！",url:"/admin/category/index/mold/"+data.mold});
             }else {
                 this.fail("更新失败！");
             }
         }else{
+            let mold = this.get('mold');
             let sortid = await this.model("typevar").getField("sortid");
             let type;
             if(!think.isEmpty(sortid)){
@@ -103,7 +108,20 @@ export default class extends Base {
             this.assign('group',group);
             let role = await this.model("auth_role").order("sort ASC").select();
             this.assign('role',role);
-            this.meta_title = "添加栏目"
+            switch (Number(mold)){
+                case 0:
+                    this.meta_title = "添加栏目(系统模型)"
+                    break;
+                case 1:
+                    this.meta_title = "添加栏目(独立模型)"
+                    break;
+                case 2:
+                    this.meta_title = "添加栏目(单页面)"
+                    break;
+                default:
+                    this.meta_title = "添加栏目"
+            }
+
             return this.display();
         }
 
@@ -296,6 +314,7 @@ export default class extends Base {
         await this.model("document").delete({where:{category_id:id}});
         think.cache("sys_category_list",null);
         think.cache("all_category",null);
+        think.cache("all_priv",null);//栏目权限缓存
         //查处要删除的该栏目内容的id
     }
     //移动/合并栏目
@@ -398,6 +417,7 @@ export default class extends Base {
                     //更新栏目缓存
                     think.cache("sys_category_list",null);
                     think.cache("all_category",null);
+                    think.cache("all_priv",null);//栏目权限缓存
                     return this.success({name: "成功！",url:"/admin/category/index"})
                 }
 
@@ -458,6 +478,7 @@ export default class extends Base {
             //更新栏目缓存
             think.cache("sys_category_list",null);
             think.cache("all_category",null);
+            think.cache("all_priv",null);//栏目权限缓存
             return this.success({name: "成功！",url:"/admin/category/index"})
         }else {
             let data = this.get();

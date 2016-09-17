@@ -263,55 +263,57 @@ export default class extends think.model.base {
             data.model_sub = think.isArray(data.model_sub)?data.model_sub.join(","):data.model_sub;
             data.type = think.isArray(data.type)?data.type.join(","):"";
             res = await this.update(data);
-        }
-        if(res){
-            //构造权限
-            let priv =[]
-            if(!think.isEmpty(data.priv_roleid)){
-                if(think.isArray(data.priv_roleid)){
-                    //构造 角色权限
-                    for (let v of data.priv_roleid){
-                        let arr = v.split(",")
-                        let obj = {};
-                        obj.catid = data.id;
-                        obj.siteid=1;
-                        obj.roleid= arr[1];
-                        obj.action = arr[0];
-                        obj.is_admin = 1;
-                        priv.push(obj)
+            if(res){
+                //构造权限
+                let priv =[]
+                if(!think.isEmpty(data.priv_roleid)){
+                    if(think.isArray(data.priv_roleid)){
+                        //构造 角色权限
+                        for (let v of data.priv_roleid){
+                            let arr = v.split(",")
+                            let obj = {};
+                            obj.catid = data.id;
+                            obj.siteid=1;
+                            obj.roleid= arr[1];
+                            obj.action = arr[0];
+                            obj.is_admin = 1;
+                            priv.push(obj)
+                        }
+                    }else {
+                        let arr = (data.priv_roleid).split(",")
+                        priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 1 })
                     }
-                }else {
-                    let arr = (data.priv_roleid).split(",")
-                    priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 1 })
-                }
 
-            }
-            if(!think.isEmpty(data.priv_groupid)){
-                //构造 用户组权限
-                if(think.isArray(data.priv_groupid)){
-                    for (let v of data.priv_groupid){
-                        let arr = v.split(",")
-                        let obj = {};
-                        obj.catid = data.id;
-                        obj.siteid=1;
-                        obj.roleid= arr[1];
-                        obj.action = arr[0];
-                        obj.is_admin = 0;
-                        priv.push(obj)
+                }
+                if(!think.isEmpty(data.priv_groupid)){
+                    //构造 用户组权限
+                    if(think.isArray(data.priv_groupid)){
+                        for (let v of data.priv_groupid){
+                            let arr = v.split(",")
+                            let obj = {};
+                            obj.catid = data.id;
+                            obj.siteid=1;
+                            obj.roleid= arr[1];
+                            obj.action = arr[0];
+                            obj.is_admin = 0;
+                            priv.push(obj)
+                        }
+                    }else {
+                        let arr = (data.priv_groupid).split(",")
+                        priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 0 })
                     }
-                }else {
-                    let arr = (data.priv_groupid).split(",")
-                    priv.push({ catid:data.id, siteid: 1, roleid: arr[1], action: arr[0], is_admin: 0 })
-                }
 
-            }
-             await this.model("category_priv").delete({where:{catid:data.id}});
-            if(!think.isEmpty(priv)){
-                await this.model("category_priv").addMany(priv)
+                }
+                await this.model("category_priv").delete({where:{catid:data.id}});
+                if(!think.isEmpty(priv)){
+                    await this.model("category_priv").addMany(priv)
+                }
             }
         }
-        think.cache("sys_category_list",null);
-        think.cache("all_category",null);
+        //清除缓存
+        think.cache("sys_category_list",null); //栏目缓存
+        think.cache("all_category",null); //栏目缓存
+        think.cache("all_priv",null);//栏目权限缓存
         return res;
 
     }
@@ -319,16 +321,21 @@ export default class extends think.model.base {
     /**
      *
      */
-    async get_all_category(){
+    async get_all_category(map={}){
         //let list ="22";
         let list = await think.cache("all_category", () => {
             return this.get_colunm();
         }, {timeout: 365 * 24 * 3600});
-        return list;
+        if(think.isEmpty(map)){
+            return list;
+        }else {
+            return think._.filter(list, map);
+        }
+
     }
 
     async get_colunm(){
-        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp').order('pid,sort').select();
+        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp,mold').order('pid,sort').select();
         for(let v of lists) {
             if (v.allow_publish == 0){
                 if (!think.isEmpty(v.title)) {
