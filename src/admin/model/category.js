@@ -114,21 +114,30 @@ export default class extends think.model.base {
         let breadcrumb = []
         while (id!=0)
         {
-            let nav = await this.where({'id':id,'status':1}).field("id,title,pid,allow_publish,name").find();
+            let nav = await this.where({'id':id,'status':1}).field("id,title,pid,allow_publish,name,mold").find();
             if(url){
-             if (nav.allow_publish == 0){
-                if (!think.isEmpty(nav.name)) {
-                    nav.url = `/channel/${nav.name}`
-                } else {
-                    nav.url = `/channel/${nav.id}`
-                }
-        }else {
-                if (!think.isEmpty(nav.name)) {
-                    nav.url = `/column/${nav.name}`
-                } else {
-                    nav.url = `/column/${nav.id}`
-                }
-            }
+                    if(nav.mold == 2){
+                        if (!think.isEmpty(nav.name)) {
+                            nav.url = `/sp/${nav.name}`
+                        } else {
+                            nav.url = `/sp/${nav.id}`
+                        }
+                    }else {
+                        if (v.allow_publish == 0){
+                            if (!think.isEmpty(nav.name)) {
+                                nav.url = `/channel/${nav.name}`
+                            } else {
+                                nav.url = `/channel/${nav.id}`
+                            }
+                        }else {
+                            if (!think.isEmpty(nav.name)) {
+                                nav.url = `/column/${nav.name}`
+                            } else {
+                                nav.url = `/column/${nav.id}`
+                            }
+                        }
+                    }
+
             }
             breadcrumb.push(nav);
             id = nav.pid;
@@ -337,19 +346,28 @@ export default class extends think.model.base {
     async get_colunm(){
         let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp,mold').order('pid,sort').select();
         for(let v of lists) {
-            if (v.allow_publish == 0){
+            if(v.mold == 2){
                 if (!think.isEmpty(v.title)) {
-                    v.url = `/channel/${v.title}`
+                    v.url = `/sp/${v.title}`
                 } else {
-                    v.url = `/channel/${v.id}`
+                    v.url = `/sp/${v.id}`
                 }
             }else {
-                if (!think.isEmpty(v.title)) {
-                    v.url = `/column/${v.title}`
-                } else {
-                    v.url = `/column/${v.id}`
+                if (v.allow_publish == 0){
+                    if (!think.isEmpty(v.title)) {
+                        v.url = `/channel/${v.title}`
+                    } else {
+                        v.url = `/channel/${v.id}`
+                    }
+                }else {
+                    if (!think.isEmpty(v.title)) {
+                        v.url = `/column/${v.title}`
+                    } else {
+                        v.url = `/column/${v.id}`
+                    }
                 }
             }
+
         }
         // console.log(lists);
         return lists;

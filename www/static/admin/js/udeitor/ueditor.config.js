@@ -140,7 +140,6 @@
         //        }
         //    }
         //}()
-
         //,allHtmlEnabled:false //提交到后台的数据是否包含整个html字符串
 
         //insertorderedlist

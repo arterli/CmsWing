@@ -102,15 +102,19 @@ export default class extends think.controller.base {
     //获取分类
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
-        console.log(cate);
+        //console.log(cate);
         //生成菜单
 
         for (let val of cate) {
             let id = think.isEmpty(val.title)?val.id:val.title;
-            if(val.allow_publish > 0){
-                val.url = `/column/${id}`;
+            if(val.mold==2){
+                val.url = `/sp/${id}`;
             }else {
-                val.url =`/channel/${id}`;
+                if(val.allow_publish > 0){
+                    val.url = `/column/${id}`;
+                }else {
+                    val.url =`/channel/${id}`;
+                }
             }
 
         }

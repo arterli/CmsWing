@@ -16,17 +16,14 @@ export default class extends think.model.base {
        let list = await think.cache("all_priv", () => {
            return this.select();
        }, {timeout: 365 * 24 * 3600});
-       //console.log(list);
-       let res=0;
+        let res=0;
         let isadd = think._.filter(list, {catid:catid,is_admin:is_admin,action:action});
-        //console.log(isadd);
        if(think.isEmpty(isadd)){
             res =1;
         }else {
             let priv =  think._.filter(isadd,{roleid:roleid});
             res =priv.length;
        }
-       //console.log(res);
         return res;
     }
 
