@@ -123,7 +123,7 @@ export default class extends think.model.base {
                             nav.url = `/sp/${nav.id}`
                         }
                     }else {
-                        if (v.allow_publish == 0){
+                        if (nav.allow_publish == 0){
                             if (!think.isEmpty(nav.name)) {
                                 nav.url = `/channel/${nav.name}`
                             } else {
