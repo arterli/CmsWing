@@ -19,6 +19,14 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <header class="panel-heading text-right bg-light  clearfix">
+                        {%if info.mold==2%}
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab4">权限设置</a></li>
+                        </ul>
+                        {%else%}
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
                             <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
@@ -29,9 +37,423 @@
                             <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
 
                         </ul>
+                        {%endif%}
                         <span class="hidden-sm">Left</span>
                     </header>
                     <div class="panel-body">
+                        {%if info.mold==2%}
+                        <form action="{{controller.action}}" class="form-horizontal" method="post"  data-validate="parsley">
+                            <div class="tab-content">
+
+                                <div id="tab1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 上级栏目</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <select class="form-control" name="pid" id="pid" data-pid="{{info.pid}}">
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 上级分类.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 栏目名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3"><input name="title" type="text" value="{{info.title}}" class="form-control" data-required="true"></div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 名称不能为空.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">栏目标识</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3"><input name="name" type="text" valign="{{info.name}}" class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 非必填，填写后，此名称会替换url中的栏目id,英文字母.不能重复。</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">栏目图标</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <input type="hidden" name="icon" id="cover_id_{{field.name}}" value="{{info.icon}}"/>
+                                                    <div id="fileList_{{field.name}}" class="uploader-list"></div>
+                                                    <div id="filePicker_{{field.name}}">选择图片</div>
+
+                                                    <script type="text/javascript">
+                                                        $list_{{field.name}} = $('#fileList_{{field.name}}'),
+                                                                // 优化retina, 在retina下这个值是2
+                                                                ratio_{{field.name}} = window.devicePixelRatio || 1,
+
+                                                                // 缩略图大小
+                                                                thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
+                                                        thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
+
+                                                        // Web Uploader实例
+                                                        uploader_{{field.name}};
+
+                                                        // 初始化Web Uploader
+                                                        // 初始化Web Uploader
+                                                        var uploader_{{field.name}} = WebUploader.create({
+                                                            // 选完文件后，是否自动上传。
+                                                            auto: true,
+                                                            // swf文件路径
+                                                            swf: '/static/admin/js/webuploader/Uploader.swf',
+                                                            // 文件接收服务端。
+                                                            server: '/admin/file/uploadpic',
+                                                            // 选择文件的按钮。可选。
+                                                            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                                            pick: {
+                                                                id:'#filePicker_{{field.name}}',
+                                                                multiple: false
+                                                            },
+                                                            // 只允许选择图片文件。
+                                                            accept: {
+                                                                title: 'Images',
+                                                                extensions: 'gif,jpg,jpeg,bmp,png',
+                                                                mimeTypes: 'image/*'
+                                                            }
+                                                        });
+                                                        //当有图片时加载图片
+                                                        var cover_id="{{info.icon}}";
+                                                        console.log(cover_id);
+                                                        if(cover_id != 0){
+                                                            var picurl = "{{info.icon|get_pic('m=0,h=110')}}"
+                                                            var $li = $(
+                                                                            '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                            '<img src="'+picurl+'">' +
+                                                                            '</div>'
+                                                                    ),
+                                                                    $img = $li.find('img');
+
+                                                            $list_{{field.name}}.html( $li );
+                                                        }
+                                                        // 当有文件添加进来的时候
+                                                        uploader_{{field.name}}.on( 'fileQueued', function( file ) {
+                                                            var $li = $(
+                                                                            '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                                                            '<img>' +
+                                                                            '<div class="info">' + file.name + '</div>' +
+                                                                            '</div>'
+                                                                    ),
+                                                                    $img = $li.find('img');
+
+                                                            $list_{{field.name}}.html( $li );
+
+                                                            // 创建缩略图
+                                                            uploader_{{field.name}}.makeThumb( file, function( error, src ) {
+                                                                if ( error ) {
+                                                                    $img.replaceWith('<span>不能预览</span>');
+                                                                    return;
+                                                                }
+
+                                                                $img.attr( 'src', src );
+                                                            }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
+                                                        });
+
+                                                        // 文件上传过程中创建进度条实时显示。
+                                                        uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
+
+                                                            var $li = $( '#'+file.id ),
+                                                                    $percent = $li.find('.progress span');
+
+                                                            // 避免重复创建
+                                                            if ( !$percent.length ) {
+                                                                $percent = $('<p class="progress"><span></span></p>')
+                                                                        .appendTo( $li )
+                                                                        .find('span');
+                                                            }
+
+                                                            $percent.css( 'width', percentage * 100 + '%' );
+                                                        });
+
+                                                        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                                                        uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
+                                                            $( '#'+file.id ).addClass('upload-state-done');
+                                                            $("#cover_id_{{field.name}}").val(res);
+                                                        });
+
+                                                        // 文件上传失败，现实上传出错。
+                                                        uploader_{{field.name}}.on( 'uploadError', function( file ) {
+                                                            var $li = $( '#'+file.id ),
+                                                                    $error = $li.find('div.error');
+
+                                                            // 避免重复创建
+                                                            if ( !$error.length ) {
+                                                                $error = $('<div class="error"></div>').appendTo( $li );
+                                                            }
+
+                                                            $error.text('上传失败');
+                                                        });
+
+                                                        // 完成上传完了，成功或者失败，先删除进度条。
+                                                        uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
+                                                            $( '#'+file.id ).find('.progress').remove();
+                                                        });
+                                                    </script>
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 图片上传</span>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">可见性</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio" {% if 1 == info.display %} checked="checked" {% endif %} value="1" name="display"><i></i> 所有人可见
+                                                    </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"  {% if 0 == info.display %} checked="checked" {% endif %} value="0" name="display"><i></i> 不可见
+                                                    </label>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio"  {% if 2 == info.display %} checked="checked" {% endif %}  value="2" name="display"><i></i> 管理员可见
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否对用户可见，针对前台</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">排序</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-2"><input name="sort" value="{{info.sort}}"  type="text" class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 仅对当前层级分类有效</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                </div>
+                                <div id="tab2" class="tab-pane fade ">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">PC单页模板</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <select style="width:260px" name="template_index" class="chosen-select">
+                                                        <optgroup label="默认">
+                                                            <option value="">默认频道模版</option>
+                                                        </optgroup>
+                                                        <optgroup label="自定义模版">
+                                                            {% for v in temp_pc.template_sp%}
+                                                            {%if v.action != 'index.html'%}
+                                                            <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                            {%endif%}
+                                                            {% endfor%}
+                                                        </optgroup>
+                                                        <optgroup label="管理">
+                                                            <option data-url="/admin/template/channel" class="addtemp">添加频道模版</option>
+                                                        </optgroup>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的首页模板</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">手机单页模板</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <select style="width:260px" name="template_m_index" class="chosen-select">
+                                                        <optgroup label="默认">
+                                                            <option value="">默认手机频道模版</option>
+                                                        </optgroup>
+                                                        <optgroup label="自定义模版">
+                                                            {% for v in temp_m.template_sp%}
+                                                            {%if v.action != 'index.html'%}
+                                                            <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                            {%endif%}
+                                                            {% endfor%}
+                                                        </optgroup>
+                                                        <optgroup label="管理">
+                                                            <option data-url="/admin/template/channel/type/2" class="addtemp">添加手机频道模版</option>
+                                                        </optgroup>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 手机端栏目的首页模板</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="tab3" class="tab-pane fade ">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Title（栏目标题）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Keywords（栏目关键词）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <textarea class="form-control" name="keywords"></textarea></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字中间用半角逗号隔开</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Description（栏目描述）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <textarea name="description" class="form-control" ></textarea></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的网页描述</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                </div>
+                                <div id="tab4" class="tab-pane fade ">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">角色权限</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                    <thead>
+                                                    <tr class="bg-light">
+                                                        <th>角色名称</th>
+                                                        <th>查看</th>
+                                                        <th>添加</th>
+                                                        <th>修改</th>
+                                                        <th>删除</th>
+                                                        <th>排序</th>
+                                                        <th>推送</th>
+                                                        <th>移动</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {%for val in role%}
+                                                    <tr>
+                                                        <td>
+                                                            {{val.desc}}
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" {%if 'init'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" {%if 'add'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" {%if 'edit'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" {%if 'delete'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" {%if 'listorder'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" {%if 'push'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" {%if 'move'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+
+                                                    </tr>
+                                                    {%endfor%}
+                                                    </tbody>
+                                                </table></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">会员组权限</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-12"><table class="table table-hover m-b-none">
+                                                    <thead>
+                                                    <tr class="bg-light">
+                                                        <th>会员组名称</th>
+                                                        <th>允许访问</th>
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {%for val in group%}
+                                                    <tr>
+                                                        <td>
+                                                            <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="visit,{{val.groupid}}" {%if 'visit'|in_Array(priv_groupid[val.groupid])%}checked{%endif%} ><i></i></label>
+                                                        </td>
+
+                                                    </tr>
+                                                    {%endfor%}
+                                                    </tbody>
+                                                </table></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选中时才会生效，当全部不选时，表示全部组不进行权限控制</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                </div>
+                            </div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{{info.id|default('',true)}}">
+                                    <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
+                                    <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                        {%else%}
                         <form action="{{controller.action}}" class="form-horizontal" method="post"  data-validate="parsley">
                         <div class="tab-content">
 
@@ -70,7 +492,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 分类名称</label>
+                                    <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 栏目名称</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-3"><input name="title" type="text" class="form-control" value="{{info.title}}" data-required="true"></div>
@@ -728,6 +1150,7 @@
                                                     </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" {%if 'init'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" {%if 'add'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
                                                     </td>
@@ -779,6 +1202,7 @@
                                                     </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="visit,{{val.groupid}}" {%if 'visit'|in_Array(priv_groupid[val.groupid])%}checked{%endif%} ><i></i></label>
+                                                    </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="add,{{val.groupid}}" {%if 'add'|in_Array(priv_groupid[val.groupid])%}checked{%endif%}><i></i></label>
                                                     </td>
@@ -807,6 +1231,7 @@
                                 </div>
                             </div>
                         </form>
+                        {%endif%}
                     </div>
                 </section>
 

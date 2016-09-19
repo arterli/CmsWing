@@ -95,7 +95,7 @@ export default class extends Base {
             this.action = "/admin/category/add";
             //获取模版列表（pc）
             let temp_pc = await this.model("temp").gettemp(1);
-            //console.log(temp_pc);
+            console.log(temp_pc);
             this.assign("temp_pc",temp_pc);
             //获取手机端模版
             let temp_m = await this.model("temp").gettemp(2);
@@ -234,9 +234,10 @@ export default class extends Base {
                 }
                 priv_roleid[v]=arr;
             }
-           // console.log(priv_groupid);
+           //console.log(priv_groupid);
             //console.log(priv_roleid);
-
+            this.assign("priv_groupid",priv_groupid);
+            this.assign("priv_roleid",priv_roleid);
            return this.display();
         }
     }

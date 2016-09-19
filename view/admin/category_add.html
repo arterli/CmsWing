@@ -249,8 +249,10 @@
                                                         <option value="">默认频道模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
-                                                        {% for v in temp_pc.template_index%}
+                                                        {% for v in temp_pc.template_sp%}
+                                                        {%if v.action != 'index.html'%}
                                                         <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                        {%endif%}
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
@@ -276,8 +278,10 @@
                                                         <option value="">默认手机频道模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
-                                                        {% for v in temp_m.template_index%}
+                                                        {% for v in temp_m.template_sp%}
+                                                        {%if v.action != 'index.html'%}
                                                         <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                        {%endif%}
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">

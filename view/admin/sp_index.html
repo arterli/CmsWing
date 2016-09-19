@@ -89,7 +89,7 @@
                                         <label class="col-sm-2 control-label">选择类型</label>
                                         <div class="col-md-10">
                                             <label class="radio-inline i-checks ispct">
-                                                <input type="radio"  value="0" name="ispct" {%if info.ispct ==0%}checked{%endif%}><i></i> 系统模板
+                                                <input type="radio"  value="0" name="ispct" {%if info.ispct ==0 or info.ispct==null%}checked{%endif%}><i></i> 系统模板
                                             </label>
                                             <label class="radio-inline i-checks ispct">
                                                 <input type="radio"  value="1" name="ispct" {%if info.ispct ==1%}checked{%endif%}><i></i> 独立模板
@@ -104,7 +104,7 @@
                                     </div>
 
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group sp_html_pc" style="{%if info.ispct ==0%}display: block{%else%}display: none{%endif%}">
+                                    <div class="form-group sp_html_pc" style="{%if info.ispct ==0 or info.ispct==null%}display: block{%else%}display: none{%endif%}">
                                         <div class="col-sm-2">
                                             <div id="directionWrapper">
                                                 <div class="directionTitle">目录：</div>

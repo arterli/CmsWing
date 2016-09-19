@@ -80,7 +80,7 @@
                     <tbody>
       {%for val in list%}
 <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
-<td><span class='folder ui-draggable'>{{val.title}}</span> <a href="/admin/category/add/pid/{{val.id}}" class="text-info"> <i class="glyphicon glyphicon-plus"></i></a> </td>
+<td><span class='folder ui-draggable'>{{val.title}}</span> <a href="/admin/category/add/pid/{{val.id}}{%if val.mold ==2%}/mold/2{%endif%}" class="text-info"> <i class="glyphicon glyphicon-plus"></i></a> </td>
 <td><input class="form-control form-control-text sort" value="{{val.sort}}" name="sort" data-id="{{val.id}}"/></td>
 <td>{{val.name}}</td>
 <td> {%if val.mold == 0%}系统{%elif val.mold == 1%}独立{%elif val.mold==2%}单页{%endif%}</td>

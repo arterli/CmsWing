@@ -8,8 +8,15 @@ export default class extends Base {
     this.tactive = "template";
     // 当前使用的模版组
 
-     //获取模板组
-     await this.get_temp_group();
+  }
+  //init
+  async __before(){
+      await super.__before();
+      //获取模板组
+      await this.get_temp_group();
+      this.assign({
+          "navxs":true,
+      });
   }
   /**
    * index action
@@ -18,9 +25,6 @@ export default class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     this.meta_title= '模板管理';
-    this.assign({
-      "navxs":true,
-    });
     return this.display();
   }
 
@@ -83,10 +87,7 @@ export default class extends Base {
        //let tempcon = fs.readFileSync(templateFile,"utf8");
 
        console.log(temp);
-       this.assign({
-         "navxs":true,
-         "temp":temp,
-       });
+
        return this.display();
      }
 
@@ -137,11 +138,10 @@ export default class extends Base {
      this.assign('list', temp.data);
      
     this.meta_title= '封面模板';
-    this.assign({
-      "navxs":true,
-    });
+
     return this.display();
   }
+  //栏目模版
  async columnAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
@@ -158,11 +158,10 @@ export default class extends Base {
      this.assign('pagerData', page); //分页展示使用
      this.assign('list', temp.data);
     this.meta_title= '列表模板';
-    this.assign({
-      "navxs":true,
-    });
+
     return this.display();
   }
+  //详情模版
  async detailAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
       let map ={
@@ -179,11 +178,30 @@ export default class extends Base {
       this.assign('pagerData', page); //分页展示使用
       this.assign('list', temp.data);
     this.meta_title='内容模板'
-    this.assign({
-      "navxs":true,
-    });
+
     return this.display();
   }
+  //单页模版
+    async spAction(){
+        let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
+        let map = {
+            module:"home",
+            controller:"sp",
+            type:this.param("type")||1,
+            gid:gid
+        }
+        console.log(map);
+        let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
+        console.log(temp);
+        let Pages = think.adapter("pages","page");
+        let pages = new Pages();
+        let page = pages.pages(temp);
+        this.assign('pagerData',page);
+        this.assign('list',temp.data);
+        this.meta_title='单页模版';
+        return this.display();
+    }
+  //公共模版
  async incAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
@@ -198,10 +216,8 @@ export default class extends Base {
      let page = pages.pages(temp);
      this.assign('pagerData', page); //分页展示使用
      this.assign('list', temp.data);
-    this.meta_title='公共模板'
-     this.assign({
-         "navxs":true,
-     });
+    this.meta_title='公共模板';
+
       return this.display();
   }
     //编辑模板
@@ -237,7 +253,7 @@ export default class extends Base {
           }
       }else {
 
-          if(temp.action.indexOf("index")==0){
+          if(temp.action.indexOf("index")==0&&temp.controller=='topic'){
               this.active = "admin/template/channel"
           }
           if(temp.action.indexOf("list")==0){
@@ -245,6 +261,9 @@ export default class extends Base {
           }
           if(temp.action.indexOf("detail")==0){
               this.active = "admin/template/detail"
+          }
+          if(temp.controller=='sp'){
+              this.active = "admin/template/sp"
           }
           this.meta_title="修改模板"
           this.assign({
@@ -260,37 +279,44 @@ export default class extends Base {
         let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
         if(this.isPost()){
             let data = this.post();
-            if(data.temptype=="channel"){
-                data.module= 'home';
-                data.controller= 'topic';
-                data.action= 'index_'+data.action;
-                data.gid= gid;
+            switch (data.temptype){
+                case "channel":
+                    data.module= 'home';
+                    data.controller= 'topic';
+                    data.action= 'index_'+data.action;
+                    data.gid= gid;
+                    break;
+                case "column":
+                    data.module= 'home';
+                    data.controller= 'topic';
+                    data.action= 'list_'+data.action;
+                    data.gid= gid;
+                    break;
+                case "detail":
+                    data.module= 'home';
+                    data.controller= 'topic';
+                    data.action= 'detail_'+data.action;
+                    data.gid= gid;
+                    break;
+                case "inc":
+                    data.module= 'home';
+                    data.controller= 'inc';
+                    data.gid= gid;
+                    break;
+                case "sp":
+                    data.module = 'home';
+                    data.controller = 'sp';
+                    data.gid = gid;
+                    break;
             }
-            if(data.temptype=="column"){
-                data.module= 'home';
-                data.controller= 'topic';
-                data.action= 'list_'+data.action;
-                data.gid= gid;
-            }
-            if(data.temptype=="detail"){
-                data.module= 'home';
-                data.controller= 'topic';
-                data.action= 'detail_'+data.action;
-                data.gid= gid;
-            }
-            if(data.temptype=="inc"){
-                data.module= 'home';
-                data.controller= 'inc';
-                data.gid= gid;
-            }
-            console.log(data);
+
             let temppath;
             if(data.type==2){
                 temppath = `${think.ROOT_PATH}/view/${data.module}/mobile/`;
             }else {
                 temppath = `${think.ROOT_PATH}/view/${data.module}/`;
             }
-            let templateFile = `${temppath}${data.controller}${think.config("view.file_depr",undefined,"home")}${data.action}${this.config("view.file_ext")}`;
+            let templateFile = `${temppath}${data.controller}${think.config("view",undefined,"home").file_depr}${data.action}${this.config("view.file_ext")}`;
             console.log(templateFile);
             let res = await this.model("temp").add(data);
             if(!think.isEmpty(res)){
@@ -300,17 +326,22 @@ export default class extends Base {
         }else {
             let type = this.get("type");
             let temptype = this.get("temptype");
-            if(temptype=="channel"){
-                this.assign("title","封面模板");
-            }
-            if(temptype=="column"){
-                this.assign("title","列表模板");
-            }
-            if(temptype == "detail"){
-                this.assign("title","内容模板");
-            }
-            if(temptype == "inc"){
-                this.assign("title","公共模板");
+            switch (temptype){
+                case "channel":
+                    this.assign("title","封面模板");
+                    break;
+                case "column":
+                    this.assign("title","列表模板");
+                    break;
+                case "detail":
+                    this.assign("title","内容模板");
+                    break;
+                case "inc":
+                    this.assign("title","公共模板");
+                    break;
+                case "sp":
+                    this.assign("title","单页模版");
+                    break
             }
             this.active = "admin/template/"+temptype;
             this.meta_title = "添加模板"

@@ -48,10 +48,16 @@ export default class extends think.model.base {
                 template_detail.push(obj);
             }
         };
+        //单页模版
+        let sp = await this.where({type:type,module:"home",controller:"sp",}).field("name,action").select();
+        for (let v of sp ){
+            v.action =v.action+think.config("view.file_ext")
+        }
         return{
             template_lists:template_lists,
             template_detail:template_detail,
-            template_index:template_index
+            template_index:template_index,
+            template_sp:sp
         };
 
     }

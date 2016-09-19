@@ -38,7 +38,7 @@
                                         <label class="col-sm-2 control-label">选择类型</label>
                                         <div class="col-md-10">
                                             <label class="radio-inline i-checks ismt">
-                                                <input type="radio"  value="0" name="ismt" {%if info.ismt ==0%}checked{%endif%}><i></i> 系统模板
+                                                <input type="radio"  value="0" name="ismt" {%if info.ismt ==0 or info.ismt ==null%}checked{%endif%}><i></i> 系统模板
                                             </label>
                                             <label class="radio-inline i-checks ismt">
                                                 <input type="radio"  value="1" name="ismt" {%if info.ismt ==1%}checked{%endif%}><i></i> 独立模板
@@ -53,7 +53,7 @@
                                     </div>
 
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group sp_html_m" style="{%if info.ismt ==0%}display: block{%else%}display: none{%endif%}">
+                                    <div class="form-group sp_html_m" style="{%if info.ismt ==0 or info.ismt == null %}display: block{%else%}display: none{%endif%}">
                                         <div class="col-sm-12">
                                             <!-- 加载编辑器的容器 -->
                                             <script id="Editor_sp_html_m" name="sp_html_m" style="width: 100%; height: 500px" type="text/plain">{{info.sp_html_m|safe}}</script>
