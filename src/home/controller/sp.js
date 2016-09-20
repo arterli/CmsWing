@@ -14,7 +14,17 @@ export default class extends Base {
       let cate = await this.category(get);
       let sp = await this.model('category_sp').find({where:{cid:cate.id}});
        cate = think.extend({}, cate,sp);
-      console.log(cate);
+      //console.log(cate);
+      //访问控制
+      let roleid=8;//游客
+      if(this.is_login){
+          roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      let priv = await this.model("category_priv").priv(cate.id,roleid,'visit');
+      if(!priv){
+          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+          return think.statusAction(702, this.http);
+      }
 
       this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
     this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
@@ -27,15 +37,49 @@ export default class extends Base {
       this.assign('breadcrumb', breadcrumb);
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);
-
-    let temp = cate.template_index ? cate.template_index : this.http.action;
-
-    //判断浏览客户端
+      let temp;
+      console.log(sp);
+      //判断浏览客户端
     if(checkMobile(this.userAgent())){
-      temp = cate.template_m_index ? `index_${cate.template_m_index}` : `${this.http.action}`
-      return this.display(`mobile/${this.http.controller}/sys/${temp}`)
+        switch (cate.ismt){
+            case 0:
+                //系统模版
+                temp = cate.template_m_index ? cate.template_m_index : this.http.action;
+                temp =`mobile/${this.http.controller}/${temp}`;
+                break;
+            case 1:
+                //用户的自定义模版统一放在view/sp/目录下，可以但文件或者文件夹
+                temp = think.ROOT_PATH+'/view/sp/'+cate.sp_temp_m;
+                break;
+            case 2:
+                //转跳 http://www.xxxx.com
+                temp = cate.m_url;
+                return this.redirect(temp);
+                break;
+
+        }
+      return this.display(temp)
     }else{
-      return this.display(`${this.http.controller}/sys/${temp}`);
+
+        switch (cate.ispct){
+            case 0:
+                //系统模版
+                temp = cate.template_index ? cate.template_index : this.http.action;
+                temp =`${this.http.controller}/${temp}`
+                break;
+            case 1:
+                //用户的自定义模版统一放在view/sp/目录下，可以但文件或者文件夹
+                temp = think.ROOT_PATH+'/view/sp/'+cate.sp_temp_pc;
+                break;
+            case 2:
+                //转跳 http://www.xxxx.com
+                temp = cate.pc_url;
+                return this.redirect(temp);
+            break;
+
+        }
+
+      return this.display(temp);
     }
   }
 }

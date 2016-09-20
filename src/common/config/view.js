@@ -309,12 +309,18 @@ export default {
                  */
                 env.addFilter('block',(str,sn,flg)=>{
                     var newstr="";
-                    var tmp=str.substring(0,sn);
                     if(think.isEmpty(flg)){
                         flg="...";
                     }
-                    newstr=tmp+flg;
-                    return newstr;
+                    if(!think.isEmpty(str)){
+                        if(sn>=str.length){
+                            newstr = str;
+                        }
+                        else{
+                            newstr=str.substring(0,sn);
+                        }
+                    }
+                    return newstr+flg;
                 })
                 /**
                  * 过滤html标签

@@ -30,6 +30,16 @@ export default class extends Base {
       }
       let cate = await this.category(id);
       cate = think.extend({}, cate);
+      let roleid=8;//游客
+      //访问控制
+      if(this.is_login){
+          roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      let priv = await this.model("category_priv").priv(cate.id,roleid,'visit');
+      if(!priv){
+          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+          return think.statusAction(702, this.http);
+      }
       this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
       this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
       this.description = cate.description ? cate.description : ""; //seo描述
