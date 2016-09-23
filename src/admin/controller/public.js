@@ -107,16 +107,7 @@ export default class extends think.controller.base {
 
         for (let val of cate) {
             let id = think.isEmpty(val.title)?val.id:val.title;
-            if(val.mold==2){
-                val.url = `/sp/${id}`;
-            }else {
-                if(val.allow_publish > 0){
-                    val.url = `/column/${id}`;
-                }else {
-                    val.url =`/channel/${id}`;
-                }
-            }
-
+             val.url =`/${id}`
         }
         //think.log(cate);
         return this.json(arr_to_tree(cate, 0))

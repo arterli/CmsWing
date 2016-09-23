@@ -15,6 +15,13 @@ export default class extends Base {
         super.init(http);
 
     }
+
+    /**
+     * 解析路由，判断是频道页面还是列表页面
+     */
+    async routeAction(){
+        this.end( this.get('category'))
+    }
   /**
    * index action
    * @return {Promise} []

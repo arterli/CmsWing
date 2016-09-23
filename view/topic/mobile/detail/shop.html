@@ -1,0 +1,575 @@
+{% extends "../inc/appbase.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/webapp/libs/icheck/icheck.css">
+<style>
+    html,
+    body {
+        background-color: #efeff4;
+    }
+
+    .mui-bar .mui-pull-left .mui-icon {
+        padding-right: 5px;
+        font-size: 28px;
+    }
+
+    .mui-bar .mui-btn {
+        font-weight: normal;
+        font-size: 17px;
+    }
+
+    .mui-bar .mui-btn-link {
+        top: 1px;
+    }
+
+    .mui-content img{
+        width: 100%;
+    }
+    .hm-description{
+        margin: .5em 0 2em;
+    }
+
+    .hm-description>li {
+        font-size: 14px;
+        color: #8f8f94;
+    }
+
+    .mui-table h4,.mui-table h5,.mui-table .mui-h5,.mui-table .mui-h6,.mui-table p{
+        margin-top: 0;
+    }
+    .mui-table h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+
+    .mui-table .oa-icon{
+        position: absolute;
+        right:0;
+        bottom: 0;
+    }
+    .mui-table .oa-icon-star-filled{
+        color:#f14e41;
+    }
+    .sku-group dl {
+        font-size: 14px;
+        margin: 6px 0;
+        zoom: 1;
+    }
+    .sku-group dt {
+        float: left;
+        color: #999;
+    }
+    .goods-pic{
+        border: #c8c7cc 1px solid;
+        max-width:100px !important;
+        width: 100px !important;
+        height: 100px !important;
+        position: absolute;
+        top: -30px;
+        border-radius:5px;
+        padding: 10px;
+        background-color: #fff;
+        display: block;
+
+    }
+    .goods-body{
+        padding-left: 110px;
+        padding-top: 15px;
+    }
+</style>
+{%endblock%}
+{% block content %}
+
+<header id="header" class="mui-bar mui-bar-transparent">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">商品详情</h1>
+</header>
+
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-action-back" >
+        <span class="mui-icon iconfont icon-back"></span>
+        <span class="mui-tab-label">返回</span>
+    </a>
+
+    <a class="mui-tab-item" href="#shoucang">
+        <span class="mui-icon iconfont icon-favor"></span>
+        <span class="mui-tab-label">收藏</span>
+    </a>
+    <a class="mui-tab-item" href="#fenxiang">
+        <span class="mui-icon iconfont icon-share"></span>
+        <span class="mui-tab-label">分享</span>
+    </a>
+    <a class="mui-tab-item" href="/cart/index">
+        <span class="mui-icon iconfont icon-cart"><span class="mui-badge" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></span>
+        <span class="mui-tab-label">购物车</span>
+    </a>
+
+
+    <a class="mui-tab-item" href="{% if info.suk %}#addcart{%else%}#directcart{%endif%}" id="addcartbtn" style="width: 7px; background-color: #f23030;color: #fff">
+
+        <span class="mui-tab-label">加入购物车</span>
+    </a>
+
+</nav>
+<div class="mui-content detail">
+        <div id="slider" class="mui-slider" >
+            <div class="mui-slider-group">
+                <!-- 第一张 -->
+                {% set pic = info.pics|strToArray%}
+
+                    {% for val in pic%}
+                    <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="{{val|get_pic('m=1,w=640,h=640')}}">
+                        </a>
+                    </div>
+                    {%endfor%}
+           </div>
+
+            <div class="mui-slider-indicator">
+                {%set i = 1%}
+                {% for val in pic%}
+                <div class="mui-indicator {%if i==1%}mui-active{%endif%}"></div>
+                {%set i = i+1%}
+                {%endfor%}
+            </div>
+        </div>
+
+    <ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+        <li class="mui-table-view-cell">
+            <div class="mui-table">
+                <div class="mui-table-cell ">
+                    <h4 class="mui-ellipsis-2 mui-col-xs-12">{{info.title}}</h4>
+                    <div class="mui-row">
+                    <h5 class="mui-col-xs-9"><strong class="bg-danger padding-3 size-14" style="color: #e4393c">¥ <span style="color: #e4393c;font-size: 21px;line-height: 33px">{{info.price|get_price_format('1')}}</span></strong></h5>
+                    <p class="mui-col-xs-3"><button type="button" class="mui-btn mui-pull-right">降价通知
+                    </button></p>
+                    </div>
+                    {% if info.price|get_price_format('2') %} <h5>原价:<span>¥{{info.price|get_price_format('2')}}</span></h5>{%endif%}
+                </div>
+
+            </div>
+        </li>
+    </ul>
+    <ul class="mui-table-view margin-top-10">
+        {% if info.suk %} {% set suk = info.suk|strToJson%} {% set i = 0 %}
+        <li class="mui-table-view-cell">
+
+
+                <a class="mui-navigate-right select-sku" href="#addcart" id="addcartshow" >
+                    <div class="item-inner">
+                        <div class="sku-group select-sku">
+                            {% for item in suk.type%}
+                            <dl class=" js-select-sku">
+                                <dt>{{item}}：</dt> {%set m = 0%}
+                                <dd class="mui-ellipsis-2">
+                                    {% if i == 0 %} {% for _item in suk.data %} {%if m !=0%}、{%endif%}{{_item.name}} {% set m = m+1%} {% endfor %} {% elif i==1
+                                    %} {% for _item in suk.data[0].ch %} {%if m !=0%}、{%endif%}{{_item.name}} {% set
+                                    m = m+1%} {% endfor %} {% else %} {% for _item in suk.data[0].ch[0].ch %} {%if m
+                                    !=0%}、{%endif%}{{_item.name}} {% set m = m+1%} {% endfor %} {% endif %}
+                                </dd>
+                            </dl>
+                            {% set i = i+1%} {% endfor %}
+
+                        </div>
+
+
+                    </div>
+
+                </a>
+
+
+        </li>
+        {% endif %}
+        <li class="mui-table-view-cell sku-group">
+
+                <dl>
+                    <dt>运费：</dt>
+                    <dd>¥ 0.00~25.00</dd>
+                </dl>
+                <dl>
+                    <dt>销量：</dt>
+                    <dd>1 </dd>
+                </dl>
+
+
+        </li>
+
+    </ul>
+    <ul class="mui-table-view margin-top-10">
+    {%if info.suk =="" %}
+        <li class="mui-table-view-cell sku-group">
+    <div class="mui-input-row">
+        <label>数量</label>
+        <div class="mui-numbox">
+            <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+            <input class="mui-input-numbox" type="number" value="1" name="qty" id="qty" />
+            <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+        </div>
+    </div>
+            </li>
+    {%endif%}
+        </ul>
+
+        <div id="segmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted margin-top-10">
+            <a class="mui-control-item mui-active" href="#item1">
+                商品介绍
+            </a>
+            <a class="mui-control-item" href="#item2">
+                参数规格
+            </a>
+            <a class="mui-control-item" href="#item3">
+                售后保障
+            </a>
+    </div>
+    <div id="item1" class="mui-control-content mui-active" >
+
+        <div class="mui-table-view padding-10" >
+            <article class="article-content">
+                {%for val in info.content%}
+
+                {{val|safe}}
+
+                {%endfor%}
+            </article>
+        </div>
+
+    </div>
+    <div id="item2" class="mui-control-content">
+        <div class="mui-table-view padding-10" >
+            <article class="article-content">
+                开发中。。。
+            </article>
+        </div>
+    </div>
+    <div id="item3" class="mui-control-content">
+        <div class="mui-table-view padding-10" >
+            <article class="article-content">
+                开发中。。。
+            </article>
+        </div>
+    </div>
+</div>
+</div>
+<input type="hidden" name="product_id" value="{{info.id}}" />
+<input type="hidden" id="type" name="type" value="" />
+<div id="addcart" class="mui-modal" style="bottom: 0; height: 80%;min-height: 80%;top:inherit;overflow: inherit" data-icheck-info ="{{info.suk}}">
+
+    <ul class="mui-table-view"  >
+        <li class="mui-table-view-cell mui-media"  style="overflow: inherit">
+            <a href="javascript:;" style="overflow: inherit;height: 80px">
+                <img class="mui-media-object mui-pull-left goods-pic" src="{{pic[0]|get_pic('m=1,w=100,h=100')}}">
+
+                <div class="mui-media-body goods-body">
+                    <span class="color-danger" style="color: #e4393c">¥<span class="sku_price">{{info.price|get_price_format('1')}}</span></span>
+                    <p class='mui-ellipsis' id="stock">
+                    {% if info.total_stock != 0%}
+
+                    <span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="mui-badge mui-badge-success ">{{info.total_stock}}</span></span>
+                    {% else%}
+                    <span class="text-danger"><i class="glyphicon glyphicon-remove"></i> 无货</span>
+                    {% endif %}</p>
+                </div>
+                <a class="mui-icon mui-icon-close mui-pull-right" href="#addcart" id="closemodal" style="position: absolute;top:5px;right: 10px"></a>
+            </a>
+        </li>
+
+
+    </ul>
+        <div class="mui-scroll-wrapper" style="top:80px;bottom: 50px">
+            <div class="mui-scroll">
+
+                <ul class="mui-table-view ">
+                    {%if info.suk%}
+                    {%set sku = info.suk|strToJson%}
+                    {%set i = 0%}
+                    {%for item in sku.type%}
+                    <li class="mui-table-view-divider">{{item}}</li>
+
+                    <li class="mui-table-view-cell sku-content">{%if i ==0%}
+                        {%for _item in sku.data%}
+                        <div class="sku-item">
+                            <input type="radio"  name="size1" value="{{_item.name}}" {%if suk.is_pic == 1%} data-pic="{{_item.pic|get_pic('m=1,w=100,h=100')}}" {%endif%}>
+                            <label  >{{_item.name}}</label>
+                        </div>
+                        {%endfor%}
+                        {%elif i==1%}
+                        {%for _item in sku.data[0].ch%}
+                        <div class="sku-item">
+                            <input type="radio"  name="size2" value="{{_item.name}}" >
+                            <label >{{_item.name}}</label>
+                        </div>
+                        {%endfor%}
+                        {%else%}
+                        {%for _item in sku.data[0].ch[0].ch%}
+                        <div class="sku-item">
+                            <input type="radio"  name="size3" value="{{_item.name}}" >
+                            <label  >{{_item.name}}</label>
+                        </div>
+                        {%endfor%}
+                        {%endif%} </li>
+                    {% set i = i+1%}
+                    {% endfor %}
+                    {%endif%}
+
+
+                </ul>
+                <ul class="mui-table-view ">
+
+                    <li class="mui-table-view-cell sku-group">
+                        <div class="mui-input-row">
+                            <label>数量</label>
+                            <div class="mui-numbox">
+                                <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+                                <input class="mui-input-numbox" type="number" value="1" name="qty" id="qty" />
+                                <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    <nav class="mui-bar mui-bar-tab" style="position: absolute">
+        <a class="mui-tab-item mui-active" href="#modaladdcart" style=" background-color: #f23030;color: #fff">
+            加入购入车
+        </a>
+    </nav>
+
+</div>
+
+{% endblock%}
+
+{% block script %}
+    <script src='/static/webapp/libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
+<script src="/static/webapp/libs/icheck/icheck.min.js"></script>
+<script type="text/javascript">
+
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+    mui('.mui-scroll-wrapper').scroll();
+   $("#addcartshow").on("tap",function () {
+       $("body").append('<div class="mui-backdrop mui-active" ></div>')
+   })
+    $("#closemodal").on("tap",function () {
+        $('.mui-backdrop').remove();
+    })
+    var closemodal = function () {
+        $('.mui-backdrop').remove();
+        $("#addcart").removeClass("mui-active")
+    }
+    //加入购物车
+    $('.sku-content input').each(function(){
+        var self = $(this),label = self.next(),label_text = label.text();
+
+        label.remove();
+        $(this).iCheck({
+            checkboxClass: 'icheckbox_sm-blue',
+            radioClass: 'radio_sm-blue',
+            insert: label_text
+        });
+    });
+
+    /**
+     * 将数值四舍五入(保留2位小数)后格式化成金额形式
+     *
+     * @param num 数值(Number或者String)
+     * @return 金额格式的字符串,如'1,234,567.45'
+     * @type String
+     */
+    /*global formatCurrency */
+    var formatCurrency = function(num) {
+        num = num.toString().replace(/\$|\,/g, '');
+        if (isNaN(num))
+            num = "0";
+        var sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num * 100 + 0.50000000001);
+        var cents = num % 100;
+        num = Math.floor(num / 100).toString();
+        if (cents < 10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+            num = num.substring(0, num.length - (4 * i + 3)) + ',' +
+                    num.substring(num.length - (4 * i + 3));
+        return (((sign) ? '' : '-') + num + '.' + cents);
+    }
+    function getsuk(arr) {
+        var suk = $("#addcart").attr("data-icheck-info");
+        suk = JSON.parse(suk);
+        //wallsuk(suk.data,arr);
+        var suk_;
+        $.each(suk.data,function (k,v) {
+            if(v.name==arr[0]){
+                if(v.ch){
+                    $.each(v.ch,function (k_,v_) {
+                        if(v_.name == arr[1]){
+                            if(v_.ch){
+                                $.each(v_.ch,function (k__,v__) {
+                                    if(v__.name == arr[2]){
+
+                                        suk_ = v__;
+                                    }
+                                })
+                            }else{
+                                suk_ = v_;
+                            }
+
+                        }
+                    })
+                }else{
+                    suk_ = v;
+                }
+            }
+        })
+        return suk_;
+    }
+    function wallsuk(arr,arr2) {
+        console.log(arr2);
+        var i = 0
+        $.each(arr,function (k,v) {
+
+            if(v.ch && v.name == arr2[i]){
+                wallsuk(v.ch,arr2);
+                i=i+1;
+            }else {
+                console.log(v);
+            }
+
+        })
+    }
+    $('.sku-content input').on("ifChecked",function (e) {
+        var pic = $(this).attr('data-pic');
+        if(pic){
+            $("img.goods-pic").attr("src",pic)
+        }
+
+        var shoptype = $(".sku-content");
+        var goods_id = $("input[name='product_id']").val();
+        var arr =[]
+        //console.log()
+        $.each(shoptype,function(k,v) {
+
+            var item = $(this).find('input:radio:checked').val()
+            if(item){
+                arr.push(item);
+            }
+        })
+
+        if(arr.length == shoptype.length){
+            var aa = getsuk(arr)
+            //console.log(aa.sku_price);
+            console.log(arr);
+            //查询实时库存
+            console.log(goods_id);
+            $.ajax({
+                url:"/cart/getstock",
+                data:{id:goods_id,type:arr.join(",")},
+                success:function (res) {
+                    var html =""
+                    var html2 =""
+                    if(res <= 0){
+                        html = '<span class="text-danger"><i class="glyphicon glyphicon-remove"></i> 无货</span>'
+                        $("#stock").html(html);
+                        $("#out-of-stock").removeClass("hide");
+                        $("#in-of-stock").addClass("hide")
+
+                    }else {
+                        html = '<span class=" text-success" ><i class="fa fa-check"></i> 有货 <span class="mui-badge mui-badge-success ">'+res+'</span></span>'
+                        $("#stock").html(html);
+                        $("#out-of-stock").addClass("hide");
+                        $("#in-of-stock").removeClass("hide")
+
+                    }
+                }
+            })
+            $(".sku_price").text(formatCurrency(aa.sku_price));
+            $("#type").val(arr);
+        }
+    })
+    var flg = false;
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#modaladdcart"){
+                //添加购物车
+
+                if(flg){
+                    mui.toast("正在提交！");
+                    return false;
+                }
+                flg = true;
+                var shoptype = $(".sku-content");
+                var arr =[]
+                $.each(shoptype,function(k,v) {
+                    //console.log(this)
+                    var item = $(this).find('input:radio:checked').val()
+                    if(item){
+                        arr.push(item);
+                    }
+                })
+                if(arr.length != shoptype.length){
+                    mui.toast("请选择商品规格!");
+                    return false;
+                }
+                var str={
+                    product_id:$("input[name='product_id']").val(),
+                    qty:$("#qty").val(),
+                    type:$("#type").val()
+                }
+                mui.post('/cart/addcart',str,function(msg){
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if(msg){
+                                mui.toast("添加购物车成功!");
+                                var n = $("#badge-corner").text();
+                                $("#badge-corner").html(Number(str.qty)+Number(n));
+                                closemodal();
+
+                            }else {
+                                mui.toast("该商品已经售罄，请选择其他商品！");
+                            }
+                        flg = false;
+                        },'json'
+                );
+
+            }else if(href=="#addcart"){
+                $("body").append('<div class="mui-backdrop mui-active" ></div>')
+            }else if(href=="#directcart"){
+                var str={
+                    product_id:$("input[name='product_id']").val(),
+                    qty:$("#qty").val(),
+                    type:$("#type").val()
+                }
+                mui.post('/cart/addcart',str,function(msg){
+                            //服务器返回响应，根据响应结果，分析是否登录成功；
+                            if(msg){
+                                mui.toast("添加购物车成功!");
+                                var n = $("#badge-corner").text();
+                                $("#badge-corner").html(Number(str.qty)+Number(n));
+                            }else {
+                                mui.toast("该商品已经售罄，请选择其他商品！");
+                            }
+
+                        },'json'
+                );
+
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

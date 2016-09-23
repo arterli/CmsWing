@@ -36,18 +36,10 @@ export default class extends think.model.base {
         console.log(map);
         let list = await this.field(field).where(map).order('sort ASC').select();
         for(let v of list) {
-            if (v.allow_publish == 0){
-                if (!think.isEmpty(v.name)) {
-                    v.url = `/channel/${v.name}`
-                } else {
-                    v.url = `/channel/${v.id}`
-                }
-            }else {
-                if (!think.isEmpty(v.name)) {
-                    v.url = `/column/${v.name}`
-                } else {
-                    v.url = `/column/${v.id}`
-                }
+            if (!think.isEmpty(v.name)) {
+                v.url = `/${v.name}`
+            } else {
+                v.url = `/${v.id}`
             }
         }
         //console.log(list);
@@ -86,18 +78,10 @@ export default class extends think.model.base {
         let lists = {}
         let cate=  await this.select()
         for(let v of cate) {
-            if (v.allow_publish == 0){
-                if (!think.isEmpty(v.name)) {
-                    v.url = `/channel/${v.name}`
-                } else {
-                    v.url = `/channel/${v.id}`
-                }
-        }else {
-                if (!think.isEmpty(v.name)) {
-                    v.url = `/column/${v.name}`
-                } else {
-                    v.url = `/column/${v.id}`
-                }
+            if (!think.isEmpty(v.name)) {
+                v.url = `/${v.name}`
+            } else {
+                v.url = `/${v.id}`
             }
             lists[v.id] = v
         }
@@ -116,27 +100,11 @@ export default class extends think.model.base {
         {
             let nav = await this.where({'id':id,'status':1}).field("id,title,pid,allow_publish,name,mold").find();
             if(url){
-                    if(nav.mold == 2){
-                        if (!think.isEmpty(nav.name)) {
-                            nav.url = `/sp/${nav.name}`
-                        } else {
-                            nav.url = `/sp/${nav.id}`
-                        }
-                    }else {
-                        if (nav.allow_publish == 0){
-                            if (!think.isEmpty(nav.name)) {
-                                nav.url = `/channel/${nav.name}`
-                            } else {
-                                nav.url = `/channel/${nav.id}`
-                            }
-                        }else {
-                            if (!think.isEmpty(nav.name)) {
-                                nav.url = `/column/${nav.name}`
-                            } else {
-                                nav.url = `/column/${nav.id}`
-                            }
-                        }
-                    }
+                if (!think.isEmpty(nav.name)) {
+                    nav.url = `/${nav.name}`
+                } else {
+                    nav.url = `/${nav.id}`
+                }
 
             }
             breadcrumb.push(nav);
@@ -346,28 +314,11 @@ export default class extends think.model.base {
     async get_colunm(){
         let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp,mold').order('pid,sort').select();
         for(let v of lists) {
-            if(v.mold == 2){
-                if (!think.isEmpty(v.title)) {
-                    v.url = `/sp/${v.title}`
-                } else {
-                    v.url = `/sp/${v.id}`
-                }
-            }else {
-                if (v.allow_publish == 0){
-                    if (!think.isEmpty(v.title)) {
-                        v.url = `/channel/${v.title}`
-                    } else {
-                        v.url = `/channel/${v.id}`
-                    }
-                }else {
-                    if (!think.isEmpty(v.title)) {
-                        v.url = `/column/${v.title}`
-                    } else {
-                        v.url = `/column/${v.id}`
-                    }
-                }
+            if (!think.isEmpty(v.title)) {
+                v.url = `/${v.title}`
+            } else {
+                v.url = `/${v.id}`
             }
-
         }
         // console.log(lists);
         return lists;

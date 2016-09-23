@@ -697,9 +697,9 @@ global.str_replace = function(search, replace, subject, count) {
 global.get_url = (name, id) => {
 
     if (!think.isEmpty(name)) {
-        return `/detail/${name}`;
+        return `/p/${name}.html`;
     } else {
-        return `/detail/${id}`;
+        return `/p/${id}.html`;
     }
 }
 /**
