@@ -15,11 +15,11 @@ export default class extends think.model.base {
         let template_index =[]
         for(let v of temp){
             let obj = {}
-            let action = v.action.split("_")
+            //let action = v.action.split("_")
             //console.log(action[1]);
-            if(action[0]=='index' && action[1] != undefined && v.controller=='topic'){
+            if(v.module=='topic' &&  v.controller=='cover'){
                 obj.name=v.name;
-                obj.action=action[1]+think.config("view.file_ext");
+                obj.action=v.action+think.config("view.file_ext");
                 template_index.push(obj);
             }
 

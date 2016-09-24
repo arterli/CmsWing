@@ -37,9 +37,9 @@ export default class extends think.model.base {
         //list = get_children(list,id);
         for (let v of list){
             let name =0;
-            if(v.url.indexOf("htttp://")==-1 || v.url.indexOf("https://")){
+            if(v.url.indexOf("http://")==-1 || v.url.indexOf("https://")==-1){
                 if(!think.isEmpty(v.url)&& think.isString(v.url)){
-                    name = v.url.split("/")[2];
+                    name = v.url.split("/")[1];
                     if(!think.isNumberString(name)&& !think.isEmpty(name)){
                         name = await think.model('category',think.config("db"),'admin').where({name:name}).getField("id",true);
                     }
