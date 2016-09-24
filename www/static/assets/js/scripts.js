@@ -1026,7 +1026,7 @@ function _ajax_post() {
 				//return false;
             $.ajax({
             type: "POST",
-            url: "/cart/addcart",
+            url: "/uc/cart/addcart",
             data: str
             }).done(function( msg ) {
                 
@@ -3801,7 +3801,7 @@ function _pingpp(){
 
 				$.ajax({
 					type:"post",
-					url:"/cart/pay",
+					url:"/uc/pay/pay",
 					data:{order_id:order_id,payment:payment},
 					success:function (res) {
 						console.log(res);
@@ -4104,7 +4104,7 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
 				
 				 $.ajax({
 					 type: "POST",
-					 url: "/user/recharge",
+					 url: "/uc/account/recharge",
 					 data: data,
 					 success:function (res) {
 						 console.log(res);

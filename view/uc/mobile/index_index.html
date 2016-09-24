@@ -58,7 +58,7 @@
 <div class="mui-content">
 	<ul class="mui-table-view mui-table-view-chevron">
 		<li class="mui-table-view-cell mui-media">
-			<a class="mui-navigate-right" href="/user/seting">
+			<a class="mui-navigate-right" href="/uc/seting">
 				<img class="mui-media-object mui-pull-left head-img" id="head-img" src="/uc/index/avatar">
 				<div class="mui-media-body">
 					{{controller.user.username}}
@@ -79,12 +79,12 @@
 			</a></div>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="/user/account" class="mui-navigate-right"><span class="mui-icon iconfont icon-pay size-18 text-muted"></span> 钱包 <i class="mui-pull-right info text-danger"><span class="mui-icon iconfont icon-recharge"></span> {%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</i></a>
+			<a href="/uc/account" class="mui-navigate-right"><span class="mui-icon iconfont icon-pay size-18 text-muted"></span> 钱包 <i class="mui-pull-right info text-danger"><span class="mui-icon iconfont icon-recharge"></span> {%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</i></a>
 		</li>
 	</ul>
 	<ul class="mui-table-view mui-table-view-chevron">
 		<li class="mui-table-view-cell">
-			<a href="/user/order" class="mui-navigate-right"><span class="mui-icon iconfont icon-order size-18 text-muted"></span> 我的订单 <i class="mui-pull-right info ">5</i></a>
+			<a href="/uc/order" class="mui-navigate-right"><span class="mui-icon iconfont icon-order size-18 text-muted"></span> 我的订单 <i class="mui-pull-right info ">{{onOrder}}</i></a>
 		</li>
 		<li class="mui-table-view-cell">
 			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-refund size-18 text-muted"></span> 退款/售后 </a>
@@ -95,7 +95,7 @@
 			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-ticket size-18 text-muted"></span> 优惠券 <i class="mui-pull-right info ">5</i></a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="/user/address" class="mui-navigate-right"><span class="mui-icon iconfont icon-addressbook size-18 text-muted"></span> 收货地址 </a>
+			<a href="/uc/address" class="mui-navigate-right"><span class="mui-icon iconfont icon-addressbook size-18 text-muted"></span> 收货地址 </a>
 		</li>
 	</ul>
 	{% if http.userAgent()|is_weixin != true %}

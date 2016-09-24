@@ -79,7 +79,7 @@
 <section>
     <div class="container">
         <ul class="breadcrumb">
-            <li><a href="/user"><i class="fa fa-user"></i> 用户中心</a></li>
+            <li><a href="/uc"><i class="fa fa-user"></i> 用户中心</a></li>
             <li><a href="#"><i class="fa fa-newspaper-o"></i> 内容管理</a></li>
 
             <li><a href="/uc/publish"><i class="fa fa-pencil-square-o"></i> 在线投稿</a></li>
@@ -1075,7 +1075,7 @@
                                                     //添加规格
                                                     $("#{{field.name}}_addsuk").click(function(){
                                                         $.ajax({
-                                                            url:"/tags/ajaxgettags",
+                                                            url:"/uc/publish/ajaxgettags",
                                                             data:{type:1,pid:0,model_id:"{{info.model_id}}"},
                                                             success:function(res){
                                                                 var size = $(".{{field.name}}_body>section").size()+1;
@@ -1170,7 +1170,7 @@
                                                         }
                                                         $.ajax({
                                                             type:"POST",
-                                                            url:"/tags/ajaxaddtags",
+                                                            url:"/uc/publish/ajaxaddtags",
                                                             data:{name:input,type:1,model_id:"{{info.model_id}}"},
                                                             success:function(res){
                                                                 if(res.errno==0){

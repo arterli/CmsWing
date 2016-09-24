@@ -98,7 +98,7 @@
         <span class="mui-icon iconfont icon-share"></span>
         <span class="mui-tab-label">分享</span>
     </a>
-    <a class="mui-tab-item" href="/cart/index">
+    <a class="mui-tab-item" href="/uc/cart/index">
         <span class="mui-icon iconfont icon-cart"><span class="mui-badge" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></span>
         <span class="mui-tab-label">购物车</span>
     </a>
@@ -463,7 +463,7 @@
             //查询实时库存
             console.log(goods_id);
             $.ajax({
-                url:"/cart/getstock",
+                url:"/uc/cart/getstock",
                 data:{id:goods_id,type:arr.join(",")},
                 success:function (res) {
                     var html =""
@@ -528,7 +528,7 @@
                     qty:$("#qty").val(),
                     type:$("#type").val()
                 }
-                mui.post('/cart/addcart',str,function(msg){
+                mui.post('/uc/cart/addcart',str,function(msg){
                             //服务器返回响应，根据响应结果，分析是否登录成功；
                             if(msg){
                                 mui.toast("添加购物车成功!");
@@ -551,7 +551,7 @@
                     qty:$("#qty").val(),
                     type:$("#type").val()
                 }
-                mui.post('/cart/addcart',str,function(msg){
+                mui.post('/uc/cart/addcart',str,function(msg){
                             //服务器返回响应，根据响应结果，分析是否登录成功；
                             if(msg){
                                 mui.toast("添加购物车成功!");

@@ -1151,7 +1151,7 @@ table tr td{
             $("#{{field.name}}_addsuk").click(function(){
 
                 $.ajax({
-                    url:"/"+module+"/tags/ajaxgettags",
+                    url:"/"+module+"/publish/ajaxgettags",
                     data:{type:1,pid:0,model_id:{{data.model_id}} },
                 success:function(res){
                     var size = $(".{{field.name}}_body>section").size()+1;
@@ -1242,7 +1242,7 @@ table tr td{
                 }
                 $.ajax({
                     type:"POST",
-                    url:"/admin/tags/ajaxaddtags",
+                    url:"/uc/publish/ajaxaddtags",
                     data:{name:input,type:1,model_id:{{data.model_id}} },
                 success:function(res){
                     if(res.errno==0){

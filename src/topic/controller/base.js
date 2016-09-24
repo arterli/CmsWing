@@ -13,7 +13,7 @@ export default class extends think.controller.base {
   }
 
   async __before() {
-    await this.action("uc/wechat", "oauth");
+    await this.action("uc/weixin", "oauth");
     //网站配置
     this.setup = await this.model("setup").getset();
     // console.log(this.setup);
@@ -62,7 +62,8 @@ export default class extends think.controller.base {
       }
     }
     this.cart = cartInfo;
-    //console.log(this.cart);
+    console.log(this.cart);
+    console.log(22222222222)
   }
   /**
    * 判断是否登录

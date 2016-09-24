@@ -13,7 +13,7 @@ export default class extends think.controller.base {
   }
 
   async __before() {
-    await this.action("wechat", "oauth");
+    await this.action("weixin", "oauth");
     //网站配置
     this.setup = await this.model("setup").getset();
     // console.log(this.setup);

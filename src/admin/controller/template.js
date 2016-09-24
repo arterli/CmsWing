@@ -124,9 +124,8 @@ export default class extends Base {
  async channelAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
-         module:"home",
-         controller:"topic",
-         action:["like", "index%"],
+         module:"topic",
+         controller:"cover",
          type:this.param("type")||1,
          gid:gid
      }

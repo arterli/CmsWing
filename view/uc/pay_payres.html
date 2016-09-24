@@ -1,0 +1,150 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+
+{% endblock %}
+{% block content %}
+<!--
+        PAGE HEADER
+
+        CLASSES:
+            .page-header-xs	= 20px margins
+            .page-header-md	= 50px margins
+            .page-header-lg	= 80px margins
+            .page-header-xlg= 130px margins
+            .dark			= dark page header
+
+            .shadow-before-1 	= shadow 1 header top
+            .shadow-after-1 	= shadow 1 header bottom
+            .shadow-before-2 	= shadow 2 header top
+            .shadow-after-2 	= shadow 2 header bottom
+            .shadow-before-3 	= shadow 3 header top
+            .shadow-after-3 	= shadow 3 header bottom
+    -->
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <!--<h1>{{controller.meta_title}}</h1>-->
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页</a></li>
+            <li class="active">{{controller.meta_title}}</li>
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+<!-- CART -->
+
+    <section>
+        <div class="container">
+            {% if setp == 3%}
+            <div class="row process-wizard process-wizard-primary">
+
+                <div class="col-xs-3 process-wizard-step complete">
+                    <div class="text-center process-wizard-stepnum">第一步</div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="process-wizard-dot"></a>
+                    <div class="process-wizard-info text-center">购物车</div>
+                </div>
+
+                <div class="col-xs-3 process-wizard-step complete"><!-- complete -->
+                    <div class="text-center process-wizard-stepnum">第二步</div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="process-wizard-dot"></a>
+                    <div class="process-wizard-info text-center">确认订单信息</div>
+                </div>
+
+                <div class="col-xs-3 process-wizard-step active"><!-- complete -->
+                    <div class="text-center process-wizard-stepnum">第三步</div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="process-wizard-dot"></a>
+                    <div class="process-wizard-info text-center">选择支付</div>
+                </div>
+
+                <div class="col-xs-3 process-wizard-step disabled"><!-- active -->
+                    <div class="text-center process-wizard-stepnum">第四步</div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="process-wizard-dot"></a>
+                    <div class="process-wizard-info text-center">订购完成</div>
+                </div>
+
+            </div>
+            <hr/>
+
+            <div class="alert alert-mini alert-success margin-bottom-20"><!-- SUCCESS -->
+                <button data-dismiss="alert" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <strong> <i class="fa fa-check "></i> 尊敬的 {{controller.user.username}}，</strong> 订单已成功提交！
+            </div>
+            {%endif%}
+            <div class="panel panel-default margin-bottom-20">
+                <div class="panel-body ">
+
+                    <div class="heading-title heading-dotted text-center margin-bottom-20">
+                        <h4><span>{% if order.payment == 1001%}货到付款方式，等待订单审核…… {%else%}<i class="fa fa-check-circle"></i> [支付成功，订购已完成！]</span>{%endif%}</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <tbody>
+                            <tr >
+                                <td class="text-right">订单编号：</td>
+                                <td>{{order.order_no}}</td>
+                            </tr>
+                            <tr >
+                                <td class="text-right">订单金额：</td>
+                                <td class="text-danger size-18">￥{{order.amount|formatCurrency}}</td>
+                            </tr>
+                            <tr >
+                                <td class="text-right">支付方式：</td>
+                                <td>
+                                   {{order.channel}}
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="callout alert alert-default noborder">
+                <div class="text-center">
+                    <a class="btn btn-3d btn-reveal btn-green " href="/index">
+                        <i class="fa fa-credit-card"></i>
+                        <span>返回首页</span>
+                    </a>
+                    <a class="btn btn-3d btn-reveal btn-teal " href="/uc">
+                        <i class="fa fa-credit-card"></i>
+                        <span>用户中心</span>
+                    </a>
+
+                </div>
+
+            </div>
+            </div>
+    </section>
+
+<!-- /CART -->
+
+
+{% endblock %}
+
+{% block script%}
+<!-- PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+{% endblock %}

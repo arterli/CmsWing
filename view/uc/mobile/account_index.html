@@ -1,0 +1,281 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+    .original {
+        border: 1px solid #999;
+        font-size: 10px !important;
+        border-radius: 4px;
+        line-height: 14px;
+        width: 30px;
+        color: #505050;
+        text-align: center;
+        margin-right: 5px;
+
+        position: relative;
+        padding: 0 2px;
+    }
+    .price {
+        color: #e4393c;
+    }
+    .mui-table h4 ,.mui-media-body h4{
+        font-size: 15px;
+        margin: 0;
+        font-weight: 300;
+    }
+    .mui-bar-nav ~ .mui-content .mui-pull-top-pocket{
+        top: 0px !important;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+    <a href="/uc/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right userindex" >个人中心</a>
+</header>
+
+<div class="mui-content">
+
+
+            <ul class="mui-table-view margin-top-0" >
+                <li class="mui-table-view-cell mui-badge-primary " >
+                    账户余额
+                    <span class="mui-badge mui-badge-danger size-16">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%} 元</span>
+                </li>
+                <div class="mui-row" style="width: 100%;">
+                    <div class="mui-col-sm-6 mui-col-xs-6">
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right geturl" href="/uc/account/recharge" >
+                                余额充值
+                            </a>
+                        </li>
+                    </div>
+                    <div class="mui-col-sm-6 mui-col-xs-6 "  >
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right geturl" href="#wait">
+                                余额提现
+                            </a>
+                        </li>
+                    </div>
+                </div>
+
+    </ul>
+    <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+        <a class="mui-control-item {%if http.get('type') == ''%}mui-active{%endif%}" href="/uc/account/index">
+            交易记录
+        </a>
+        <a class="mui-control-item {% if http.get('type') == 1%}mui-active{%endif%}" href="/uc/account/index/type/1">
+            提现记录
+        </a>
+    </div>
+
+    <!--下拉刷新容器-->
+    <div id="pullrefresh" class=" mui-scroll-wrapper" style="top:171px">
+        <div class="mui-scroll">
+            <div class="mui-table">
+                <!--数据列表-->
+                {%set n = 1%}
+                {%for item in list %}
+                <ul class="mui-table-view {%if n ==1 %}margin-top-0{%else%}margin-top-6{%endif%}">
+                    <li class="mui-table-view-cell mui-media">
+                        <div class="mui-row">
+                            <div class="mui-col-sm-6 mui-col-xs-6">
+                                <div >金额:{{item.amount|formatCurrency}}
+                                </div>
+
+                            </div>
+                            <div class="mui-col-sm-6 mui-col-xs-6">
+                                <div >余额: <span class="price">¥{{item.amount_log|formatCurrency}}</span> </div>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li class="mui-table-view-cell mui-media size-14">
+                        {{item.note}}
+                    </li>
+
+                    <li class="mui-table-view-cell size-14" >
+                            <span class="mui-badge ">{{item.time|moment('YYYY-MM-DD HH:mm:ss')}}</span>
+                            时间
+
+                    </li>
+
+                </ul>
+                {%set n=n+1%}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(item,k){ %>
+    <ul class="mui-table-view margin-top-6">
+        <li class="mui-table-view-cell mui-media">
+            <div class="mui-row">
+                <div class="mui-col-sm-6 mui-col-xs-6">
+                    <div >金额:<%=item.amount%>
+                    </div>
+
+                </div>
+                <div class="mui-col-sm-6 mui-col-xs-6">
+                    <div >余额: <span class="price">¥<%=item.amount_log%></span> </div>
+                </div>
+            </div>
+
+        </li>
+
+        <li class="mui-table-view-cell mui-media size-14">
+            <%=item.note%>
+        </li>
+
+        <li class="mui-table-view-cell size-14">
+                <span class="mui-badge "><%=item.time%></span>
+                时间
+        </li>
+
+    </ul>
+    <%})%>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script>
+    //加载模板
+    var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    //记录位置
+    window.onscroll = function () {
+
+        var patt1 = /\(.*?\)/;
+        var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+        if (srtY) {
+            var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+        } else {
+            var Y = 0;
+        }
+        console.log(Y)
+        var S = document.querySelector('#pullrefresh').querySelectorAll('ul.mui-table-view').length;
+        console.log(Y);
+        if (window.sessionStorage) {
+            sessionStorage.setItem("{{http.url}}_top", Y);
+            sessionStorage.setItem("{{http.url}}_size", S);
+        }
+    }
+    //点击跳转
+    var segmentedControlbtn = document.querySelectorAll("#segmentedControl a.mui-control-item");
+    for(var i = 0;i<segmentedControlbtn.length;i++){
+        segmentedControlbtn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            mui.openWindow({url: href})
+
+        })
+    }
+
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        setTimeout(function() {
+            var table = document.body.querySelector('#pullrefresh .mui-table');
+            var cells = document.body.querySelectorAll('.mui-table-view');
+            for (var i = cells.length, len = i + 3; i < len; i++) {
+                var li = document.createElement('li');
+                li.className = 'mui-table-view-cell';
+                li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //下拉刷新，新纪录插到最前面；
+                table.insertBefore(li, table.firstChild);
+            }
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1500);
+    }
+    var count = 0;
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+        setTimeout(function() {
+
+            var table = document.body.querySelector('#pullrefresh .mui-table');
+            var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view');
+            var count = "{{count}}";
+            console.log((parseInt(count) > cells.length));
+
+            if(parseInt(cells.length) < parseInt(count)){
+                createFragment(10)
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+            }else {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+            }
+
+        }, 1000);
+    }
+
+    var createFragment = function(count, page) {
+        //无限加载
+        var table = document.body.querySelector('#pullrefresh .mui-table');
+        var lastIndex = table.querySelectorAll('ul.mui-table-view').length;
+        console.log(lastIndex);
+        var pages = page || Math.ceil((lastIndex+count)/count);
+        console.log(pages);
+        mui.ajax("{{http.url}}",{
+            data:{
+                page:pages
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'get',//HTTP请求类型
+            success:function(data){
+                //获得服务器响应
+                $('#pullrefresh .mui-table').append(tplRender(data));
+            }
+        });
+
+    };
+
+    mui.ready(function() {
+
+        var page = Math.ceil(size/10);
+        if(page>1 ){
+            for (var i = 1; i < (page+1); i++) {
+                createFragment(10,(i+1))
+            }
+        }
+        mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+        //链接
+        mui(document).on('tap','a.geturl',function(){
+            var href = this.getAttribute("href");
+            if(href=="#wait"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }
+            mui.openWindow({url: href})
+        })
+
+        //返回个人中心
+        mui("header").on('tap','.userindex',function(){
+            var id = this.getAttribute("href");
+            mui.openWindow({
+                url: id,
+            });
+            return;
+        })
+    });
+
+</script>
+{% endblock %}
