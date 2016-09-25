@@ -32,8 +32,9 @@ export default class extends think.controller.base {
 
     //关键词消息回复
     async textAction(){
+        //console.log(this.http);
         let message = this.post();
-        console.log(message);
+       // console.log(message);
         let key = message.Content.trim();
         let kmodel = this.model('wx_keywords');
         let isKey = await kmodel.field('rule_id').where({keyword_name: key}).find();
