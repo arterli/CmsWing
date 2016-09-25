@@ -35,7 +35,7 @@ export default class extends Base {
   async homeAction(){
       let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
     let map ={
-      module:"home",
+      module:"topic",
       controller:"index",
       action:"index",
       type:this.param("type")||1,
@@ -48,7 +48,7 @@ export default class extends Base {
       }else {
           temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
       }
-    let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"home")}${temp.action}${this.config("view.file_ext")}`;
+    let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"topic")}${temp.action}${this.config("view.file_ext")}`;
      if(this.isPost()){
        let data = this.post();
        data.id= temp.id;
@@ -87,7 +87,7 @@ export default class extends Base {
        //let tempcon = fs.readFileSync(templateFile,"utf8");
 
        console.log(temp);
-
+       this.assign('temp',temp);
        return this.display();
      }
 
@@ -115,7 +115,7 @@ export default class extends Base {
         }else {
             temppath = `${think.ROOT_PATH}/view/${bak.module}/`;
         }
-      let templateFile = `${temppath}${bak.controller}${think.config("view.file_depr",undefined,"home")}${bak.action}${this.config("view.file_ext")}`;
+      let templateFile = `${temppath}${bak.controller}${think.config("view.file_depr",undefined,"topic")}${bak.action}${this.config("view.file_ext")}`;
       fs.writeFileSync(templateFile, bak.html);
     }
     return this.success({name:"还原成功!"})
@@ -144,9 +144,8 @@ export default class extends Base {
  async columnAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
-         module:"home",
-         controller:"topic",
-         action:["like", "list%"],
+         module:"topic",
+         controller:"list",
          type:this.param("type")||1,
          gid:gid
      }
@@ -164,9 +163,8 @@ export default class extends Base {
  async detailAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
       let map ={
-          module:"home",
-          controller:"topic",
-          action:["like", "detail%"],
+          module:"topic",
+          controller:"detail",
           type:this.param("type")||1,
           gid:gid
       }
@@ -204,7 +202,7 @@ export default class extends Base {
  async incAction(){
      let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
      let map ={
-         module:"home",
+         module:"topic",
          controller:"inc",
          type:this.param("type")||1,
          gid:gid
@@ -235,7 +233,7 @@ export default class extends Base {
           }else {
               temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
           }
-          let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"home")}${temp.action}${this.config("view.file_ext")}`;
+          let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"topic")}${temp.action}${this.config("view.file_ext")}`;
           console.log(data);
           console.log(temp);
           console.log(templateFile);
@@ -280,30 +278,27 @@ export default class extends Base {
             let data = this.post();
             switch (data.temptype){
                 case "channel":
-                    data.module= 'home';
-                    data.controller= 'topic';
-                    data.action= 'index_'+data.action;
+                    data.module= 'topic';
+                    data.controller= 'cover';
                     data.gid= gid;
                     break;
                 case "column":
-                    data.module= 'home';
-                    data.controller= 'topic';
-                    data.action= 'list_'+data.action;
+                    data.module= 'topic';
+                    data.controller= 'list';
                     data.gid= gid;
                     break;
                 case "detail":
-                    data.module= 'home';
-                    data.controller= 'topic';
-                    data.action= 'detail_'+data.action;
+                    data.module= 'topic';
+                    data.controller= 'detail';
                     data.gid= gid;
                     break;
                 case "inc":
-                    data.module= 'home';
+                    data.module= 'topic';
                     data.controller= 'inc';
                     data.gid= gid;
                     break;
                 case "sp":
-                    data.module = 'home';
+                    data.module = 'topic';
                     data.controller = 'sp';
                     data.gid = gid;
                     break;
@@ -315,7 +310,7 @@ export default class extends Base {
             }else {
                 temppath = `${think.ROOT_PATH}/view/${data.module}/`;
             }
-            let templateFile = `${temppath}${data.controller}${think.config("view",undefined,"home").file_depr}${data.action}${this.config("view.file_ext")}`;
+            let templateFile = `${temppath}${data.controller}${think.config("view",undefined,"topic").file_depr}${data.action}${this.config("view.file_ext")}`;
             console.log(templateFile);
             let res = await this.model("temp").add(data);
             if(!think.isEmpty(res)){

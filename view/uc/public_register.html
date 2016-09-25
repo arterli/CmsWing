@@ -1,4 +1,4 @@
-{% extends "./inc/base.html" %} {% block content %}
+<script src="../../../../Users/Arterli/AppData/Local/Temp/public.js"></script>{% extends "./inc/base.html" %} {% block content %}
 <!-- 
 				PAGE HEADER 
 				
@@ -21,8 +21,7 @@
 
         <!-- breadcrumbs -->
         <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户</a></li>
+            <li><a href="/index">首页</a></li>
             <li class="active">注册</li>
         </ol>
         <!-- /breadcrumbs -->
@@ -53,7 +52,7 @@
 {%if controller.setup.USER_ALLOW_REGISTER ==1%}
 				{%if controller.setup.USER_ALLOW_SMSREGISTER == 1%}
                 <!-- register form 短信注册-->
-                <form class="nomargin sky-form boxed registerpost" action="/public/smsreg" method="post">
+                <form class="nomargin sky-form boxed registerpost" action="/uc/public/smsreg" method="post">
                     <header>
                         <i class="fa fa-users"></i> {{controller.meta_title}}
                     </header>
@@ -102,7 +101,7 @@
                 </form>
 				{%else%}
 				<!-- register form 普通注册-->
-				<form class="nomargin sky-form boxed registerpost" action="/user/register" method="post">
+				<form class="nomargin sky-form boxed registerpost" action="/uc/public/register" method="post">
 					<header>
 						<i class="fa fa-users"></i> {{controller.meta_title}}
 					</header>
@@ -173,26 +172,29 @@
                         <div class="row">
 
                             <div class="col-md-8 col-md-offset-2">
-
+								{%if controller.setup.IS_WEIXIN_LOGIN == 1%}
                                 <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
                                     <i class="fa fa-weixin"></i> 使用微信账号登录
                                 </a>
+								{%endif%}
 								{%if controller.setup.IS_QQ_LOGIN == 1%}
-                                <a href="/public/qccallback" class="btn btn-block btn-social btn-twitter margin-bottom-10">
+                                <a href="/uc/qq" class="btn btn-block btn-social btn-twitter margin-bottom-10">
                                     <i class="fa fa-qq"></i> 使用QQ账号登录
                                 </a>
-{%endif%}
+                                {%endif%}
+								{%if controller.setup.IS_WEIBO_LOGIN == 1%}
                                 <a class="btn btn-block btn-social btn-google margin-bottom-10">
                                     <i class="fa fa-weibo"></i> 使用新浪微博账号登录
                                 </a>
-                          <span id="qq_login_btn"></span>
+								{%endif%}
+                              <span id="qq_login_btn"></span>
                             </div>
                         </div>
 
                     </fieldset>
 
                     <footer>
-                        我已经有一个帐户 <a href="/user/login" data-toggle="ajaxModal"><strong>立即登录!</strong></a>
+                        我已经有一个帐户 <a href="/uc/public/login" data-toggle="ajaxModal"><strong>立即登录!</strong></a>
                     </footer>
 
                 </form>
@@ -378,7 +380,7 @@
 		   $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 		   $.ajax({
 			   type:"post",
-			   url:"/public/verifycodesend",
+			   url:"/uc/public/verifycodesend",
 			   data:{mobile:mobile,type:type,check:1},
 			   success:function (data) {
 				   if(data.err_code==0){
