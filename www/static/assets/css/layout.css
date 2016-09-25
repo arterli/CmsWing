@@ -5989,6 +5989,27 @@ section.dark #portfolio h3 {
 #portfolio .item-box-overlay-title a:hover {
 	color:#fff !important;
 }
+
+.portfolio .item-box-overlay-title {
+    display:block;
+    position:absolute;
+    left:0; right:0;
+    bottom:0;
+    padding:8px;
+    color:#fff;
+    background-color:rgba(0,0,0,0.6);
+    color:#fff;
+    z-index:100;
+}
+.portfolio .item-box-overlay-title h2,
+.portfolio .item-box-overlay-title h3,
+.portfolio .item-box-overlay-title h4,
+.portfolio .item-box-overlay-title a {
+    color:#fff;
+}
+.portfolio .item-box-overlay-title a:hover {
+    color:#fff !important;
+}
 #portfolio .controlls-over .owl-pagination {
 	bottom:auto;
 	top:10px;

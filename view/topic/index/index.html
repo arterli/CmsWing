@@ -3,7 +3,7 @@
 
 <!-- SLIDER -->
 <section id="slider" class="" style="background:url('/static/assets/images/demo/particles_bg.jpg');height: 400px">
-	<span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+	<span class="overlay dark-0"><!-- dark overlay [0 to 9 opacity] --></span>
 
 	<div class="display-table">
 		<div class="display-table-cell vertical-align-middle">
@@ -108,14 +108,14 @@ owl-carousel item paddings
 <a href="{{v.name|get_url(v.id)}}" target="_blank">
 <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=256,h=126')}}" alt="">
 </a>
-<h5 class="text-left margin-top-10 margin-bottom-2"><a href="blog-single-default.html">{{v.title|block(12)}}</a></h5>
+<h5 class="text-left margin-top-10 margin-bottom-2"><a href="{{v.name|get_url(v.id)}}" target="_blank">{{v.title|block(12)}}</a></h5>
 <p class="text-left" style="height: 42px;overflow:hidden;">{{v.description}}</p>
 <ul class="text-left size-12 list-inline list-separator">
 <li>
 <i class="fa fa-calendar"></i>{{v.update_time|moment}}
 </li>
 <li>
-<a href="blog-single-default.html#comments">
+<a href="{{v.name|get_url(v.id)}}#comments">
 <i class="fa fa-comments"></i>
 3
 </a>
@@ -130,6 +130,213 @@ owl-carousel item paddings
 </div>
 </section>
 <!-- /RECENT NEWS -->
+<!-- -->
+<section class="alternate">
+	<div class="container portfolio">
+		<header class="section-header text-center margin-bottom-20">
+			<div class="heading-title heading-line-double text-center margin-bottom-0">
+				<h4><span>DOME</span> 演示</h4>
+				<p class="size-12">CmsWing 模型演示</p>
+			</div>
+		</header>
+		<div  class=" portfolio-title-over">
+			<div class="row mix-grid">
+
+
+				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
+
+					<div class="item-box thumbnail">
+						<figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="/static/dome/wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+												<!-- details -->
+												<a class="ico-rounded" href="/wenzhangceshi" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+							<!-- overlay title -->
+							<div class="item-box-overlay-title">
+								<h4 class="nomargin">文章模型演示</h4>
+								<ul class="list-inline categories nomargin">
+									<li><a href="#">系统模型</a></li>
+									<li><a href="#">PC端</a></li>
+									<li><a href="#">移动端</a></li>
+								</ul>
+							</div><!-- /overlay title -->
+
+							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
+						</figure>
+					</div>
+
+				</div><!-- /item -->
+
+
+				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
+
+					<div class="item-box thumbnail">
+						<figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="/static/dome/wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+												<!-- details -->
+												<a class="ico-rounded" href="/shipinceshi" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+							<!-- overlay title -->
+							<div class="item-box-overlay-title">
+								<h4 class="nomargin">视频模型演示</h4>
+								<ul class="list-inline categories nomargin">
+									<li><a href="#">系统模型</a></li>
+									<li><a href="#">PC端</a></li>
+									<li><a href="#">移动端</a></li>
+								</ul>
+							</div><!-- /overlay title -->
+
+							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
+						</figure>
+					</div>
+
+				</div><!-- /item -->
+
+				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
+
+					<div class="item-box thumbnail">
+						<figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="/static/dome/wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+												<!-- details -->
+												<a class="ico-rounded" href="/tupianceshi" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+							<!-- overlay title -->
+							<div class="item-box-overlay-title">
+								<h4 class="nomargin">图片模型演示</h4>
+								<ul class="list-inline categories nomargin">
+									<li><a href="#">系统模型</a></li>
+									<li><a href="#">PC端</a></li>
+									<li><a href="#">移动端</a></li>
+								</ul>
+							</div><!-- /overlay title -->
+
+							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
+						</figure>
+					</div>
+
+				</div><!-- /item -->
+
+				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
+
+					<div class="item-box thumbnail">
+						<figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="/static/dome/wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+												<!-- details -->
+												<a class="ico-rounded" href="/shangchengceshi" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+							<!-- overlay title -->
+							<div class="item-box-overlay-title">
+								<h4 class="nomargin">商城模型演示</h4>
+								<ul class="list-inline categories nomargin">
+									<li><a href="#">系统模型</a></li>
+									<li><a href="#">PC端</a></li>
+									<li><a href="#">移动端</a></li>
+								</ul>
+							</div><!-- /overlay title -->
+
+							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
+						</figure>
+					</div>
+
+				</div><!-- /item -->
+				<div class="col-md-3 col-sm-3 mix development  margin-top-20"><!-- item -->
+
+					<div class="item-box thumbnail">
+						<figure >
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+
+												<!-- lightbox -->
+												<a class="ico-rounded lightbox" href="/static/dome/wenzhang.jpg" data-plugin-options='{"type":"image"}'>
+													<span class="fa fa-plus size-20"></span>
+												</a>
+
+												<!-- details -->
+												<a class="ico-rounded" href="/xiazaiceshi" target="_blank">
+													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
+												</a>
+
+											</span>
+										</span>
+
+							<!-- overlay title -->
+							<div class="item-box-overlay-title">
+								<h4 class="nomargin">下载模型演示</h4>
+								<ul class="list-inline categories nomargin">
+									<li><a href="#">系统模型</a></li>
+									<li><a href="#">PC端</a></li>
+									<li><a href="#">移动端</a></li>
+								</ul>
+							</div><!-- /overlay title -->
+
+							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
+						</figure>
+					</div>
+
+				</div><!-- /item -->
+
+
+
+			</div>
+
+		</div>
+
+	</div>
+</section>
+<!-- / -->
 
 
 <!--
