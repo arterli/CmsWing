@@ -87,6 +87,7 @@ export default class extends Base {
     };
     //排序
     let o = {};
+    o.level = 'DESC';
     let order = query[1]||0;
     order = Number(order);
     switch (order){

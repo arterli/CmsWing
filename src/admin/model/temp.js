@@ -30,9 +30,9 @@ export default class extends think.model.base {
             let obj = {}
             let action = v.action.split("_");
             //console.log(action[1]);
-            if(action[0]=='list' && action[1] != undefined && v.controller=='topic'){
+            if(v.module=='topic' &&  v.controller=='list'){
                 obj.name=v.name;
-                obj.action=action[1]+think.config("view.file_ext");
+                obj.action=v.action+think.config("view.file_ext");
                 template_lists.push(obj);
             }
 
@@ -42,9 +42,9 @@ export default class extends think.model.base {
         for(let v of temp){
             let obj ={};
             let action = v.action.split("_");
-            if(action[0]=='detail' && action[1] != undefined && v.controller=='topic'){
+            if(v.module=='topic' &&  v.controller=='detail'){
                 obj.name=v.name;
-                obj.action=action[1]+think.config("view.file_ext");
+                obj.action=v.action+think.config("view.file_ext");
                 template_detail.push(obj);
             }
         };
