@@ -135,12 +135,14 @@ global.times = function(d, sec) {
 function sort_node(v, w) {
     return v["sort"] - w["sort"];
 }
-
+function sort_node1(v, w) {
+    return w["sort"] - v["sort"];
+}
 /**
  * global get_children
  * 获取子集分类 （这里是获取所有子集）
  */
-global.get_children = function(nodes, parent) {
+global.get_children = function(nodes, parent , sn=0) {
    // console.log(11);
     var children = [];
     var last = [];
@@ -159,7 +161,12 @@ global.get_children = function(nodes, parent) {
             last.push(node);
         }
     }
-    children.sort(sort_node);
+    if(sn==0){
+        children.sort(sort_node);
+    }else {
+        children.sort(sort_node1);
+    }
+
 
     /* 同级排序 */
     var jumper = 0;
@@ -171,7 +178,6 @@ global.get_children = function(nodes, parent) {
         var shift_node = stack.shift();
         var list = [];
         /* 当前子节点列表 */
-
         var last_static = last.slice(0);
         last = [];
         for (var i in last_static) {
@@ -183,7 +189,12 @@ global.get_children = function(nodes, parent) {
                 last.push(node);
             }
         }
-        list.sort(sort_node);
+        if(sn==0){
+            list.sort(sort_node);
+        }else {
+            list.sort(sort_node1);
+        }
+
 
         for (var i in list) {
             node = list[i];

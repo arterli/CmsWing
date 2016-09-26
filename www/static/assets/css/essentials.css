@@ -711,7 +711,9 @@ section.dark .border-bottom-3 {
 .tex-black {
 	color:#111 !important;
 }
-
+.tex-888 {
+	color: #888 !important;
+}
 
 /* absolute/fixed position */
 .top-left {

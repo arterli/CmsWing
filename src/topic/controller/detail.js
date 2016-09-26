@@ -102,18 +102,23 @@ export default class extends Base {
       pinfo = info;
       pid= info.id;
     }
-    //console.log(pid);
+    console.log(pid);
     let plist = await document.where({pid:pid}).order("level DESC").select();
     this.assign("pinfo",pinfo);
     this.assign("plist",plist);
     //console.log(plist);
     if(plist[0]){
       let lastlevel = plist[0].level;
-      console.log(lastlevel);
+      //console.log(lastlevel);
       this.assign("lastlevel",lastlevel);
     }
-    //如果是目录，目录id，显示最后更新的主题
-    if(info.type == 1){
+    //console.log(plist);
+    //文档无限级目录
+    let ptree_ = await document.where({topid:pid}).field('id,title,pid,name,level as sort').select();
+    let ptree = get_children(ptree_,pid,1);
+    console.log(ptree);
+    //如果是目录并且模板为空时，目录id，显示最后更新的主题
+    if(info.type == 1 && think.isEmpty(info.template)){
       if(plist[0]){
         let model_id =  plist[0].model_id;
         let p_id = plist[0].id;
@@ -123,7 +128,8 @@ export default class extends Base {
 
       }
     }
-    //console.log(info);
+
+    console.log(info);
     this.assign('info', info);
     //判断浏览客户端
     if(checkMobile(this.userAgent())){
@@ -135,6 +141,7 @@ export default class extends Base {
       } else {
         temp = model;
       }
+
       //内容分页
       if(!think.isEmpty(info.content)){
         info.content=info.content.split("_ueditor_page_break_tag_");
@@ -148,6 +155,7 @@ export default class extends Base {
       } else {
         temp = model;
       }
+      //console.log(info);
       //内容分页
       if(!think.isEmpty(info.content)){
         info.content=info.content.split("_ueditor_page_break_tag_");

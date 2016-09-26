@@ -492,11 +492,25 @@ export default class extends Base {
         info.model_id = model_id;
         info.category_id = cate_id;
         info.group_id = group_id;
+        let topid=0;
+        if (info.pid != 0) {
+            let i = info.pid;
+            //
+            while (i!=0)
+            {
+                let nav = await this.model("document").where({id:i}).find();
+                if(nav.pid==0) {
+                    topid= nav.id;
+                }
+                i = nav.pid;
 
-        if (info.pid) {
+            }
             let article = await this.model("document").field('id,title,type').find(info.pid);
             this.assign("article", article);
         }
+        //console.log(topid);
+        // this.assign("topid",topid);
+        info.topid = topid;
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         //think.log(fields);
