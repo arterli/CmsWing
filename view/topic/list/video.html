@@ -166,13 +166,13 @@ CLASSES:
                     <div class="btn-group btn-group-sm pull-right">
                         <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
                             dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                            == 1 %} href="/user/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
+                            == 1 %} href="/uc/publish/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
                             ><span class="fa fa-pencil-square-o"></span> 投稿 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</a>
                         {%if model|length > 1 %}
                         <ul class="dropdown-menu">
 
                             {% for val in modellist%}
-                            <li> <a href="/user/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
+                            <li> <a href="/uc/publish/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
                                     class="text-info">添加{{val.title}}</a></li>
                             {% endfor %}
 
