@@ -1,6 +1,10 @@
 {% extends "../inc/base.html" %}
 {% block style %}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet"
+      href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+
 <style>
     .active > .text{
         display: block !important;
@@ -123,7 +127,7 @@ CLASSES:
                     <hr>
                     <!-- /FORM -->
                     <div class="clearfix">
-                        <a href="#" class="btn btn-info"><i class="fa fa-file-text"></i>阅读</a> <a href="#" class="btn btn-warning"><i class="fa fa-heart"></i>关注</a> <a href="#" class="btn btn-danger"><i class="fa fa-smile-o"></i>打赏</a>
+                        <a href="{{ptree[0].name|get_url(ptree[0].id)}}" class="btn btn-info"><i class="fa fa-file-text"></i>阅读</a> <a href="#" class="btn btn-warning"><i class="fa fa-heart"></i>关注</a> <a href="#" class="btn btn-danger"><i class="fa fa-smile-o"></i>打赏</a>
                     </div>
 
                 </div>
@@ -154,7 +158,7 @@ CLASSES:
             <!-- LEFT -->
 
             <div class="col-md-9 col-sm-9">
-                <div class="tab-content">
+                <div class="tab-content nopadding">
                     <div class="tab-pane fade in active" id="tab1">
                         <!-- article content -->
                         <div id="contentcmswing">
@@ -184,7 +188,17 @@ CLASSES:
                         <!-- /article content -->
                     </div>
                     <div class="tab-pane fade" id="tab2">
-                        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                        <table class="table table-hover treetable" id="category">
+                            <tbody>
+                            {%for val in ptree%}
+                            <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%else%}class="active1" {%endif%}>
+                                <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+                            </tr>
+                            {%endfor%}
+
+
+                            </tbody>
+                        </table>
                     </div>
                     <div class="tab-pane fade" id="tab3">
                         <!--打赏-->
@@ -240,23 +254,6 @@ CLASSES:
                 <!-- /INLINE SEARCH -->
 
                 <hr />
-
-                <!-- side navigation -->
-                {% column data="cate",cid=category.id %}
-                {% if cate %}
-                <div class="side-nav margin-bottom-20 margin-top-20">
-                    <div class="side-nav-head">
-                        <button class="fa fa-bars"></button>
-                        <h4>CATEGORIES</h4>
-                    </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                        {%for val in cate%}
-                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
-                        {%endfor%}
-                    </ul>
-                    <!-- /side navigation -->
-                </div>
-                {%endif%}
 
                 <!-- JUSTIFIED TAB -->
                 <div class="tabs nomargin-top hidden-xs margin-bottom-10">
@@ -329,69 +326,6 @@ CLASSES:
                 <!-- JUSTIFIED TAB -->
 
 
-                <!-- TAGS -->
-                <h3 class="hidden-xs size-16 margin-bottom-10">TAGS</h3>
-                <div class="hidden-xs margin-bottom-20">
-
-                    <a class="tag" href="#">
-                        <span class="txt">RESPONSIVE</span>
-                        <span class="num">12</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">CSS</span>
-                        <span class="num">3</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">HTML</span>
-                        <span class="num">1</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">JAVASCRIPT</span>
-                        <span class="num">28</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">DESIGN</span>
-                        <span class="num">6</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">DEVELOPMENT</span>
-                        <span class="num">3</span>
-                    </a>
-                </div>
-
-
-
-                <hr />
-
-
-                <!-- SOCIAL ICONS -->
-                <div class="hidden-xs margin-top-20 margin-bottom-20">
-                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                        <i class="icon-facebook"></i>
-                        <i class="icon-facebook"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                        <i class="icon-twitter"></i>
-                        <i class="icon-twitter"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                        <i class="icon-gplus"></i>
-                        <i class="icon-gplus"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                        <i class="icon-linkedin"></i>
-                        <i class="icon-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                        <i class="icon-rss"></i>
-                        <i class="icon-rss"></i>
-                    </a>
-                </div>
-
             </div>
 
         </div>
@@ -403,9 +337,15 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
 <script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 <script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
+    $(function () {
+        $("#category").treetable({ expandable: true });
+        $("#category").treetable("expandAll")
+    })
+
     uParse('#contentcmswing', {
         rootPath: '/static/admin/js/udeitor/'
     })
