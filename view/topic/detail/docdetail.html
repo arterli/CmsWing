@@ -32,7 +32,7 @@ CLASSES:
 
     <div class="container">
 
-        <h1>{{category.title}}</h1>
+        <h1>{{pinfo.title}}</h1>
 
         <!-- breadcrumbs -->
         <ol class="breadcrumb f-14">
@@ -40,6 +40,8 @@ CLASSES:
             {%for val in breadcrumb %}
             <li><a href="{{val.url}}">{{val.title}}</a></li>
             {% endfor %}
+            <li><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></li>
+            <li>{{info.title}}</li>
         </ol><!-- /breadcrumbs -->
 
 

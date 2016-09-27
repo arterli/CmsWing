@@ -119,8 +119,8 @@ export default class extends Base {
     console.log(ptree);
     this.assign('topid',pid);
     this.assign("ptree",ptree);
-    //如果是目录并且模板为空时，目录id，显示最后更新的主题
-    if(info.type == 1 && think.isEmpty(info.template)){
+    //如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
+    if(info.type == 1 && think.isEmpty(info.template)&&info.model_id==6){
       if(plist[0]){
         let model_id =  plist[0].model_id;
         let p_id = plist[0].id;
