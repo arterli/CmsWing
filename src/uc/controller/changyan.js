@@ -68,7 +68,7 @@ export default class extends Base {
                 await this.session("changyan",get);
         //return this.redirect('/changyan/binduser');
         }else {
-            //已绑定用户直接登录
+            //已绑定用户直接登录/uc
           let userinfo = await this.model("member").find(uid);
             await this.model("member",{},"admin").autoLogin({id:userinfo.id}, this.ip());//更新用户登录信息，自动登陆
             let cy_userInfo = {
