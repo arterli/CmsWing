@@ -102,7 +102,11 @@ export default class extends Base {
       pinfo = info;
       pid= info.id;
     }
-    console.log(pid);
+    //获取最后更新时间
+    let lastinfo = await document.where({topid:pid}).order("update_time DESC").find();
+    //console.log(lasttime);
+    this.assign("lastinfo",lastinfo);
+    //console.log(pid);
     let plist = await document.where({pid:pid}).order("level DESC").select();
     this.assign("pinfo",pinfo);
     this.assign("plist",plist);
@@ -116,7 +120,7 @@ export default class extends Base {
     //文档无限级目录
     let ptree_ = await document.where({topid:pid}).field('id,title,pid,name,level as sort').select();
     let ptree = get_children(ptree_,pid,1);
-    console.log(ptree);
+    //console.log(ptree);
     this.assign('topid',pid);
     this.assign("ptree",ptree);
     //如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
@@ -131,7 +135,7 @@ export default class extends Base {
       }
     }
 
-    console.log(info);
+    //console.log(info);
     this.assign('info', info);
     //判断浏览客户端
     if(checkMobile(this.userAgent())){
@@ -157,7 +161,7 @@ export default class extends Base {
       } else {
         temp = model;
       }
-        console.log(temp);
+       // console.log(temp);
         //console.log(info);
       //内容分页
       if(!think.isEmpty(info.content)){
