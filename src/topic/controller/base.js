@@ -62,8 +62,6 @@ export default class extends think.controller.base {
       }
     }
     this.cart = cartInfo;
-    console.log(this.cart);
-    console.log(22222222222)
   }
   /**
    * 判断是否登录

@@ -20,11 +20,11 @@ CLASSES:
 -->
 <section class="page-header page-header-xs " >
     <div class="container">
-
+{#
         <h1>{{category.title}}</h1>
-
+#}
         <!-- breadcrumbs -->
-        <ol class="breadcrumb f-14">
+        <ol class="breadcrumb breadcrumb-inverse">
             <li><a href="/">首页</a></li>
             {%for val in breadcrumb %}
             {% if val.id == category.id %}

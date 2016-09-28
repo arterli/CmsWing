@@ -58,7 +58,10 @@ export default class extends Base {
 
     //访问统计
     await document.where({id:info.id}).increment('view');
-
+    //外链
+    if(!think.isEmpty(info.link_id)&&info.link_id!=0){
+      return this.redirect(info.link_id);
+    }
     //获取面包屑信息
     let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
@@ -123,9 +126,11 @@ export default class extends Base {
     //console.log(ptree);
     this.assign('topid',pid);
     this.assign("ptree",ptree);
+
     //如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
-    if(info.type == 1 && think.isEmpty(info.template)&&info.model_id==6){
+    if(info.type == 1 && (think.isEmpty(info.template)||info.template==0)&&info.model_id==6){
       if(plist[0]){
+        console.log(111111);
         let model_id =  plist[0].model_id;
         let p_id = plist[0].id;
         let table = await this.model("model",{},"admin").get_table_name(model_id);
@@ -134,7 +139,6 @@ export default class extends Base {
 
       }
     }
-
     //console.log(info);
     this.assign('info', info);
     //判断浏览客户端
