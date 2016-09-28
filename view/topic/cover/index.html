@@ -48,108 +48,26 @@
 						<!-- LEFT -->
 
 						<div class="col-md-9 col-sm-9">
+							<!--
+                                                        controlls-over		= navigation buttons over the image
+                                                        buttons-autohide 	= navigation buttons visible on mouse hover only
 
-							<!-- REVOLUTION SLIDER -->
-							<div class="slider fullwidthbanner-container roundedcorners margin-bottom-30">
-								<!--
-                                    Navigation Styles:
-
-                                        data-navigationStyle="" theme default navigation
-
-                                        data-navigationStyle="preview1"
-                                        data-navigationStyle="preview2"
-                                        data-navigationStyle="preview3"
-                                        data-navigationStyle="preview4"
-
-                                    Bottom Shadows
-                                        data-shadow="1"
-                                        data-shadow="2"
-                                        data-shadow="3"
-
-                                    Slider Height (do not use on fullscreen mode)
-                                        data-height="300"
-                                        data-height="350"
-                                        data-height="400"
-                                        data-height="450"
-                                        data-height="500"
-                                        data-height="550"
-                                        data-height="600"
-                                        data-height="650"
-                                        data-height="700"
-                                        data-height="750"
-                                        data-height="800"
-                                -->
-								<div class="fullwidthbanner" data-height="500" data-shadow="3" data-navigationStyle="">
-									<ul class="hide">
-										{% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
-										{% for v in slider%}
-										<!-- SLIDE  -->
-										<li data-transition="fade" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
-											<img src="/static/assets/images/1x1.png" data-lazyload="{{v.cover_id|get_pic('m=1,w=848,h=500')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
-
-											<div class="tp-caption lft start"
-												 data-x="0"
-												 data-y="0"
-												 data-speed="750"
-												 data-start="750"
-												 data-easing="easeOutExpo"
-												 data-elementdelay="0.1"
-												 data-endelementdelay="0.1"
-												 data-endspeed="300">
-												<img src="/static/assets/images/1x1.png" alt="" data-lazyload="/static/assets/images/caption_bg.png">
-											</div>
-
-											<div class="tp-caption medium_light_white lfb start"
-												 data-x="left" data-hoffset="40"
-												 data-y="96"
-												 data-speed="300"
-												 data-start="1200"
-												 data-easing="easeOutExpo"
-												 data-splitin="none"
-												 data-splitout="none"
-												 data-elementdelay="0.1"
-												 data-endelementdelay="0.1"
-												 data-endspeed="300">
-												{{v.title|insert_flg("<br>",12)|safe}}
-											</div>
-
-											<div class="tp-caption block_black lfl start"
-												 data-x="left" data-hoffset="180"
-												 data-y="195"
-												 data-speed="300"
-												 data-start="1500"
-												 data-easing="easeOutExpo"
-												 data-splitin="none"
-												 data-splitout="none"
-												 data-elementdelay="0.1"
-												 data-endelementdelay="0.1"
-												 data-endspeed="300" >
-												<a href="{{v.name|get_url(v.id)}}">查看详情</a>
-											</div>
-
-											<div class="tp-caption small_light_white lfl start"
-												 data-x="left" data-hoffset="40"
-												 data-y="250"
-												 data-speed="1000"
-												 data-start="1800"
-												 data-easing="easeOutExpo"
-												 data-splitin="none"
-												 data-splitout="none"
-												 data-elementdelay="0.1"
-												 data-endelementdelay="0.1"
-												 data-endspeed="300" >
-												{{v.description|insert_flg("<br>",20)|safe}}
-											</div>
-										</li>
-										{%endfor%}
-
-
-									</ul>
-
-									<div class="tp-bannertimer"><!-- progress bar --></div>
-								</div>
+                                                        data-plugin-options:
+                                                            "singleItem": true
+                                                            "autoPlay": true (or ms. eg: 4000)
+                                                            "navigation": true
+                                                            "pagination": true
+                                                            "transitionStyle":"fadeUp" (fade,backSlide,goDown,fadeUp)
+                                                    -->
+							<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"singleItem": true, "autoPlay": true, "navigation": true, "pagination": true, "transitionStyle":"fade"}'>
+								{% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+								{% for v in slider%}
+								<a href="{{v.name|get_url(v.id)}}">
+									<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=848,h=300')}}" alt="{{v.title}}">
+								</a>
+								{%endfor%}
 							</div>
-							<!-- /REVOLUTION SLIDER -->
+
 							<ul class="nav nav-tabs nav-button-tabs">
 								<!-- side navigation -->
 								{%column data="cates",cid=category.id%}

@@ -37,7 +37,8 @@
 
 	<!-- PAGE LEVEL SCRIPTS -->
 	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
-	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" /> {% block style %}{% endblock %}
+	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
+	{% block style %}{% endblock %}
 	{%if controller.setup.WEB_TONGJI%}
 	<!--统计代码-->
 	{{controller.setup.WEB_TONGJI|safe}}
@@ -333,17 +334,17 @@
 	<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 
 	<script type="text/javascript" src="/static/assets/js/scripts.js"></script>
-
+{#
 	<!-- STYLESWITCHER - REMOVE -->
 	<script async type="text/javascript" src="/static/assets/plugins/styleswitcher/styleswitcher.js"></script>
-
+#}
 	<!-- REVOLUTION SLIDER -->
 	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
 	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
 	<script type="text/javascript" src="/static/assets/js/view/demo.revolution_slider.js"></script>
 	{% block script %}{% endblock %}
     <!--[if lte IE 9]>
-<script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
+    <script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
 <![endif]-->
 </body>
 

@@ -1246,9 +1246,7 @@
                                     {% elif field.type == "editor" %}
                                     <div class="col-sm-12">
                                         <!-- 加载编辑器的容器 -->
-                                        <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">
-
-                                            </script>
+                                        <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">请填写内容...</script>
                                         <!-- 实例化编辑器 -->
                                         <script type="text/javascript">
                                             UE.getEditor('Editor_{{field.name}}', {

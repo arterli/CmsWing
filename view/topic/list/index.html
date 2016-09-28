@@ -257,7 +257,7 @@ CLASSES:
     <div class="col-md-3 col-sm-3">
 
         <!-- INLINE SEARCH -->
-        <div class="inline-search clearfix margin-bottom-30">
+        <div class="inline-search clearfix margin-bottom-10">
             <form action="" method="get" class="widget_search">
                 <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
                 <button type="submit">
@@ -271,7 +271,7 @@ CLASSES:
 
         <!-- side navigation -->
         {%column data="cates",cid=category.id,isnum="1"%}
-        {%if cates%}
+        {%if cates==null%}
         <div class="side-nav margin-bottom-20 margin-top-20">
             <div class="side-nav-head">
                 <button class="fa fa-bars"></button>
