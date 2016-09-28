@@ -328,11 +328,18 @@
 #}
 
 	<!-- JAVASCRIPT FILES -->
+
+	<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
 		var plugin_path = '/static/assets/plugins/';
-	</script>
-	<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+		$(function () {
+			if($("#topMain.nav-pills>li.active>a")){
+				var w = $("#topMain.nav-pills>li.active>a").width();
+				$("#topMain.nav-pills>li.active>.aline").width(w);
+			}
 
+		})
+	</script>
 	<script type="text/javascript" src="/static/assets/js/scripts.js"></script>
 {#
 	<!-- STYLESWITCHER - REMOVE -->

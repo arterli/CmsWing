@@ -23,7 +23,7 @@ CLASSES:
         <h1>{{category.title}}</h1>
 
         <!-- breadcrumbs -->
-        <ol class="breadcrumb f-14">
+        <ol class="breadcrumb">
             <li><a href="/">首页</a></li>
             {%for val in breadcrumb %}
             {% if val.id == category.id %}
@@ -269,7 +269,7 @@ CLASSES:
                 <hr />
 
                 <!-- side navigation -->
-                {%column data="cates",cid=category.id,isnum="1"%}
+                {%column data="cates",cid=category.id,isnum="0"%}
                 {%if cates==null%}
                 <div class="side-nav margin-bottom-20 margin-top-20">
                     <div class="side-nav-head">
@@ -359,7 +359,7 @@ CLASSES:
 
 
                 <!-- TAGS -->
-                <h3 class="hidden-xs size-16 margin-bottom-20">TAGS</h3>
+                <h3 class="hidden-xs size-16 margin-bottom-10">标签</h3>
                 <div class="hidden-xs margin-bottom-20">
 
                     <a class="tag" href="#">
