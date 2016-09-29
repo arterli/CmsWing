@@ -77,7 +77,7 @@
 <div class="container">
 
 <header class="text-center margin-bottom-20">
-	<div class="heading-title heading-line-double text-center margin-bottom-0"><h4>最新动态</h4>
+	<div class="heading-title heading-line-double text-center margin-bottom-0"><h4>示例/教程</h4>
 		</div>
 
 </header>
@@ -102,7 +102,7 @@ owl-carousel item paddings
 .owl-padding-20
 -->
 <div class="owl-carousel owl-padding-10 buttons-autohide controlls-over" data-plugin-options='{"singleItem": false, "items":"4", "autoPlay": 4000, "navigation": true, "pagination": false}'>
-	{% topic data = "indexnew",limit="12",ispic="1"%}
+	{% topic data = "indexnew",cid="46",limit="12",ispic="1"%}
 	{%for v in indexnew%}
 <div class="img-hover">
 <a href="{{v.name|get_url(v.id)}}" target="_blank">
