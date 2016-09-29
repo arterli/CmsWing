@@ -9845,7 +9845,7 @@ section.dark .nav-tabs.nav-clean>li.active>a {
 }
 .nav-tabs.nav-bottom-border>li.active>a,
 .nav-tabs.nav-bottom-border>li.active>a:hover {
-	border-bottom:#888 3px solid !important;
+	border-bottom:#888 1px solid !important;
 
 	-webkit-border-radius: 0 !important;
 	   -moz-border-radius: 0 !important;
