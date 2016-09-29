@@ -243,8 +243,8 @@ h3,
 h4,
 h5,
 h6 {
-	font-family:'Raleway','Open Sans',Arial,Helvetica,sans-serif;
-	font-weight:600;
+	/*font-family:'Raleway','Open Sans',Arial,Helvetica,sans-serif;*/
+	/*font-weight:600;*/
 	color:#414141;
 
 	margin: 0 0 30px 0;
@@ -253,12 +253,12 @@ h6 {
 }
 
 h1 {
-	font-size: 36px;
+	font-size: 30px;
 	margin: 0 0 44px 0;
 }
 
 h2 {
-	font-size: 30px;
+	font-size: 24px;
 	margin: 0 0 32px 0;
 }
 
@@ -269,7 +269,7 @@ h3 {
 }
 
 h4 {
-	font-size: 18px;
+	font-size: 16px;
 	letter-spacing: normal;
 	margin: 0 0 14px 0;
 }
@@ -3991,7 +3991,7 @@ a.btn.btn-xs {
 .countTo-sm,
 .countTo-md,
 .countTo-lg {
-	font-family:'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;
+	/*font-family:'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;*/
 }
 .countTo-sm span.countTo {
 	margin-bottom:20px;
@@ -4041,7 +4041,7 @@ a.btn.btn-xs {
 /* Countdown */
 .countdown { 
 	display: block; 
-	font-family:'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;
+	/*font-family:'Raleway', 'Open Sans', Arial, Helvetica, sans-serif;*/
 }
 
 .countdown-row {
@@ -9770,7 +9770,7 @@ section.dark .select2-container--default .select2-selection--single {
 
 .nav-tabs>li>a {
 	color:#111;
-	font-weight:bold;
+	/*font-weight:bold;*/
 
 	-webkit-border-radius: 3px !important;
 	   -moz-border-radius: 3px !important;

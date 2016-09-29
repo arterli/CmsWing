@@ -203,7 +203,7 @@ CLASSES:
             </figure>
             {% endif %}
             <div class="blog-item-small-content">
-                <h2 class="size-20"><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+                <h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
 
                 <ul class="blog-post-info list-inline padding-bottom-10">
                     <li>
@@ -320,7 +320,7 @@ CLASSES:
                         </div>
                         {%endif%}
                         <div class="col-md-9 col-sm-9 col-xs-9">
-                            <a href="{{v.name|get_url(v.id)}}{{http.config('view.file_ext')}}" class="tab-post-link">{{v.title}}</a>
+                            <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
                             <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
                         </div>
                     </div><!-- /post -->
@@ -337,13 +337,13 @@ CLASSES:
                     <div class="row tab-post"><!-- post -->
                         {%if v.cover_id%}
                         <div class="col-md-3 col-sm-3 col-xs-3">
-                            <a href="{{v.name|get_url(v.id)}}{{http.config('view.file_ext')}}">
+                            <a href="{{v.name|get_url(v.id)}}">
                                 <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
                             </a>
                         </div>
                         {%endif%}
                         <div class="col-md-9 col-sm-9 col-xs-9">
-                            <a href="{{v.name|get_url(v.id)}}{{http.config('view.file_ext')}}" class="tab-post-link">{{v.title}}</a>
+                            <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
                             <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
                         </div>
                     </div><!-- /post -->

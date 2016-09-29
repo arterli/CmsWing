@@ -55,11 +55,14 @@ html, body {
 body {
 	color:#666;
 	background-color:#fff;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+	font-family:"Segoe UI", "Microsoft Yahei", arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 
 	font-size:14px; line-height:1.5;
 	margin:0; padding:0;
+}
+b, strong {
+	font-weight: 600;
 }
 /* example usage: index-onepage-youtube.html */
 body.has-image-bg section,
@@ -1279,7 +1282,7 @@ section.dark.page-header {
 		}
 		.page-header.dark ul.page-header-tabs>li.active:hover,
 		.page-header ul.page-header-tabs>li.active {
-			font-weight:bold;
+			font-weight:500;
 			background-color:#fff;
 		}
 		.page-header ul.page-header-tabs.dark>li.active>a {
@@ -1329,8 +1332,8 @@ section.dark.page-header {
 section.page-header h1 {
 	margin:0;
 	padding:0;
-	font-size:26px;
-	font-weight:300;
+	font-size:20px;
+	font-weight:400;
 }
 section.page-header span.font-lato {
 	border-top:rgba(0,0,0,0.05) 2px solid;
@@ -3969,9 +3972,9 @@ ul.list-inline.list-separator>li:first-child:before {
 form .row {
 	margin-bottom:20px;
 }
-form label {
-	font-weight:bold;
-}
+/*form label {*/
+	/*font-weight:bold;*/
+/*}*/
 table a {
 	color:#666;
 }
@@ -6409,9 +6412,8 @@ section.dark #portfolio h3 {
 h1.blog-post-title,
 .blog-post-item h2 {
 	letter-spacing:0;
-	font-family:'Open Sans',Arial,Helvetica,sans-serif;
-	font-size:22px;
-	margin-bottom:10px;
+	font-size:16px;
+	margin-bottom:5px;
 }
 ul.blog-post-info {
 	display:block;
@@ -6524,8 +6526,8 @@ h1.blog-post-title {
 		border:0;
 	}
 		#blog.blog-isotope-2.blog-post-item h2 {
-			font-size:17px;
-			line-height:17px;
+			font-size:16px;
+			line-height:16px;
 		}
 	
 	/* 3 columns */
@@ -6534,8 +6536,8 @@ h1.blog-post-title {
 		border:0;
 	}
 		#blog.blog-isotope-3 .blog-post-item h2 {
-			font-size:17px;
-			line-height:17px;
+			font-size:16px;
+			line-height:16px;
 		}
 	
 	/* 4 columns */
@@ -6545,8 +6547,8 @@ h1.blog-post-title {
 		border:0;
 	}
 		#blog.blog-isotope-4 .blog-post-item h2 {
-			font-size:17px;
-			line-height:17px;
+			font-size:16px;
+			line-height:16px;
 		}
 
 	/* 5 columns */
@@ -7186,12 +7188,12 @@ ul.search-history {
 	color: rgba(255,255,255,0.6);
 
 	background: #313131;
-	background: -moz-linear-gradient(top, #555555 0%, #313131 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1a1d2b), color-stop(100%, #313131));
-	background: -webkit-linear-gradient(top, #555555 0%, #313131 100%);
-	background: -o-linear-gradient(top, #555555 0%, #313131 100%);
-	background: -ms-linear-gradient(top, #555555 0%, #313131 100%);
-	background: linear-gradient(to bottom, #555555 0%,#313131 100%);
+	/*background: -moz-linear-gradient(top, #555555 0%, #313131 100%);*/
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1a1d2b), color-stop(100%, #313131));*/
+	/*background: -webkit-linear-gradient(top, #555555 0%, #313131 100%);*/
+	/*background: -o-linear-gradient(top, #555555 0%, #313131 100%);*/
+	/*background: -ms-linear-gradient(top, #555555 0%, #313131 100%);*/
+	/*background: linear-gradient(to bottom, #555555 0%,#313131 100%);*/
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#313131',GradientType=0 );
 }
 #footer>.container {
@@ -7247,8 +7249,8 @@ ul.search-history {
 		margin-bottom:25px;
 	}
 	#footer h4 {
-		font-size:15px;
-		margin-bottom:25px;
+		font-size:16px;
+		margin-bottom:7px;
 	}
 
 	#footer a {
@@ -7285,7 +7287,6 @@ ul.search-history {
 	#footer h5,
 	#footer h6 {
 		color: rgba(255,255,255,0.8);
-		font-weight:600;
 	}
 
 	/* footer form */
@@ -7370,7 +7371,7 @@ ul.search-history {
 
 	/* footer posts */
 	#footer ul.footer-posts>li {
-		padding: 15px 0;
+		padding: 10px 0;
 		border-bottom:rgba(255,255,255,0.07) 1px solid;
 	}
 	#footer ul.footer-posts>li:first-child {
@@ -7486,7 +7487,7 @@ ul.search-history {
  ** ************************ **/
 #footer.footer-light {
 	color:#666;
-	background-color:#ddd;
+	background-color:rgba(0,0,0,0.05);
 }
 #footer.footer-light form input,
 #footer.footer-light form textarea,
@@ -8591,7 +8592,7 @@ ul.search-history {
 	overflow: inherit;
 }
 #contentcmswing {
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	color: #555;
 }
 #contentcmswing .syntaxhighlighter{
