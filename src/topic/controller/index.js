@@ -88,6 +88,7 @@ export default class extends Base {
       return this.display(`mobile/${this.http.controller}/${this.http.action}`)
     }else{
       //debugger;
+      //console.log(think.datetime(new Date(), "YYYY-MM-DD"));
       return this.display();
     }
 

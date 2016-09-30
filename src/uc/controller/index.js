@@ -65,6 +65,7 @@ export default class extends Base {
       //this.download(think.RESOURCE_PATH + '/upload/avatar/avatar.jpg')
       pic = fs.readFileSync(think.RESOURCE_PATH + '/upload/avatar/avatar.jpg')
     }
+
     this.end(pic)
   }
 
