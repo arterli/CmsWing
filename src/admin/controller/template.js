@@ -182,7 +182,7 @@ export default class extends Base {
     async spAction(){
         let gid = await this.model("temp_group").where({isdefault:1}).getField("gid",true);
         let map = {
-            module:"home",
+            module:"topic",
             controller:"sp",
             type:this.param("type")||1,
             gid:gid

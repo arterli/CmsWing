@@ -103,6 +103,7 @@ export default class extends Base {
     if(cate.mold == 2){
       type = 'sp';
     }
+    console.log(type);
     switch (type){
       case 0:
          await this.action("cover", "index");

@@ -49,7 +49,7 @@ export default class extends think.model.base {
             }
         };
         //单页模版
-        let sp = await this.where({type:type,module:"home",controller:"sp",}).field("name,action").select();
+        let sp = await this.where({type:type,module:"topic",controller:"sp",}).field("name,action").select();
         for (let v of sp ){
             v.action =v.action+think.config("view.file_ext")
         }

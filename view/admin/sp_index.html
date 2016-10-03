@@ -78,7 +78,7 @@
                                     <li class="active"><a  href="/admin/sp/index/cate_id/{{http.get('cate_id')}}">PC单页内容</a></li>
                                     <li class=""><a  href="/admin/sp/mobile/cate_id/{{http.get('cate_id')}}">手机单页内容</a></li>
                                 </ul>
-                                <span class="hidden-sm"><a href="/admin/category/index/mold/2" class="text-info" target="_blank">栏目管理</a> | <a href="/sp/{{name}}" class="text-info" target="_blank">预览</a></span>
+                                <span class="hidden-sm"><a href="/admin/category/index/mold/2" class="text-info" target="_blank">栏目管理</a> | <a href="/{{name}}" class="text-info" target="_blank">预览</a></span>
                             </header>
                             <div class="panel-body">
                         <form action="/admin/sp/update" class="form-horizontal" method="post"  data-validate="parsley">
@@ -105,13 +105,15 @@
 
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group sp_html_pc" style="{%if info.ispct ==0 or info.ispct==null%}display: block{%else%}display: none{%endif%}">
+                                        {#
                                         <div class="col-sm-2">
                                             <div id="directionWrapper">
                                                 <div class="directionTitle">目录：</div>
                                                 <div id="directionContainer"></div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-10 ">
+                                        #}
+                                        <div class="col-sm-12 ">
                                             <!-- 加载编辑器的容器 -->
                                             <script id="Editor_sp_html_pc" name="sp_html_pc" style="width: 100%; height: 500px" type="text/plain">{{info.sp_html_pc|safe}}</script>
                                         </div>

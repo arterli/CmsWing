@@ -120,20 +120,15 @@
 					<div class="col-md-3">
 
 						<!-- Latest Blog Post -->
-						<h4 class="letter-spacing-1">最新公告</h4>
+						<h4 class="letter-spacing-1">功能更新</h4>
 						<ul class="footer-posts list-unstyled">
+							{% topic data = "data",limit= "3",cid="118"%}
+							{%for t in data%}
 							<li>
-								<a href="#">现在浏览器里面很大一部分网页还在使用HTTP1.1作为主要的网络通信协议。</a>
-								<small>2016-09-29 23:35:00</small>
+								<a href="{{t.name|get_url(t.id)}}">{{t.title}}</a>
+								<small>{{t.update_time|moment('lll')}}</small>
 							</li>
-							<li>
-								<a href="#">为什么没有 CSS4：关于 CSS 等级的解释</a>
-								<small>2016-09-29 23:35:00</small>
-							</li>
-							<li>
-								<a href="#">看看 Node.js 开发者们在异步流程控制、代码调试、持续集成和包的搜索方面的关注与选择。</a>
-								<small>2016-09-29 23:35:00</small>
-							</li>
+							{%endfor%}
 						</ul>
 						<!-- /Latest Blog Post -->
 
@@ -142,15 +137,15 @@
 					<div class="col-md-2">
 
 						<!-- Links -->
-						<h4 class="letter-spacing-1">了解 CmsWing</h4>
+						<h4 class="letter-spacing-1">认识我们</h4>
 						<ul class="footer-links list-unstyled">
-							<li><a href="#">网站首页</a></li>
-							<li><a href="#">关于我们</a></li>
-							<li><a href="#">二次开发</a></li>
+							<li><a href="/">网站首页</a></li>
+							<li><a href="/about.html">关于我们</a></li>
+							<li><a href="/documentation">二次开发</a></li>
 							<li><a href="#">模板开发</a></li>
-							<li><a href="#">帮助中心</a></li>
-							<li><a href="#">我们的服务</a></li>
-							<li><a href="#">联系我们</a></li>
+							<li><a href="/tutorial">捐助我们</a></li>
+							<li><a href="/disclaimer.html">免责声明</a></li>
+							<li><a href="/licence.html">授权协议</a></li>
 						</ul>
 						<!-- /Links -->
 

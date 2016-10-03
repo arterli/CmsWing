@@ -1,0 +1,54 @@
+{% extends "../inc/base.html" %}
+{% block content %}
+<!--
+    PAGE HEADER
+
+    CLASSES:
+        .page-header-xs	= 20px margins
+        .page-header-md	= 50px margins
+        .page-header-lg	= 80px margins
+        .page-header-xlg= 130px margins
+        .dark			= dark page header
+
+        .shadow-before-1 	= shadow 1 header top
+        .shadow-after-1 	= shadow 1 header bottom
+        .shadow-before-2 	= shadow 2 header top
+        .shadow-after-2 	= shadow 2 header bottom
+        .shadow-before-3 	= shadow 3 header top
+        .shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header dark page-header-lg parallax parallax-3" style="background-image:url('/static/assets/images/demo/1200x800/27-min.jpg')">
+    <div class="overlay dark-3"><!-- dark overlay [1 to 9 opacity] --></div>
+
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb f-14">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        {%column data="column",pid=breadcrumb[0].id%}
+        {%if column %}
+        <ul class="page-header-tabs list-inline">
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<section>
+    <div class="container">{{category.sp_html_pc|safe}}</div>
+</section>
+{% endblock %}
