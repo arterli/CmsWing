@@ -46,8 +46,6 @@ export default class extends think.model.base {
                     return -3;//不是管理用户，不能登陆后台
                 }
             }
-
-
                 /* 验证用户密码 */
                 if (password === user.password) {
                     await this.autoLogin(user, ip);//更新用户登录信息，自动登陆

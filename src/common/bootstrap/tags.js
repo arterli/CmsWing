@@ -228,7 +228,8 @@ global.groups = function(){
  * position:1:列表推荐,2:频道推荐,4:首页推荐
  * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
  * issub:1:包含自栏目,2:不包含自栏目,默认包含自栏目
- * isstu:1:获取副表内容,2:只从主表拿数据,默认包含主表
+ * isstu:1:获取副表内容,2:只从主表拿数据,默认只从主表拿
+ * group:分组id，单个分组：group="1",多个分组 :group="1,2,3,4",不写调取全部分组。
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -263,6 +264,10 @@ global.topic = function(){
         if(cid){
             where = think.extend({},where,cid);
         }
+        //分组
+        if( !think.isEmpty(args.group)){
+            where = think.extend(where,{'group_id':['IN',args.group]});
+        }
         let type='update_time DESC';
         if(!think.isEmpty(args.type)){
             if(args.type=="hot"){
@@ -283,7 +288,8 @@ global.topic = function(){
                 where = think.extend(where,{cover_id:0});
             }
         }
-        //console.log(where);
+
+        console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //副表数据
         if(args.isstu == 1){

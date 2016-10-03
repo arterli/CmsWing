@@ -179,20 +179,53 @@ export default class extends Base {
    * 下载
    */
   async downloadgetidAction(){
-    let id = this.get("id");
-    let location = await this.model('file').where({id:id}).getField("location",true);
-    console.log(location);
-    let key = await get_file(id,"savename");
-    console.log(key);
-    let type;
-    if(this.setup.IS_QINIU==1 && location==1){
-      let qiniu = think.service("qiniu");
-      let instance = new qiniu();
-      let info = await instance.stat(key);
-      type = info.mimeType;
-    }
-    let down = await get_file(id,"savename",true);
-    //this.type(type);
-    return this.redirect(down+"?attname=");
+    let id = this.get("id").split("||");
+      let db = this.model('document_download');
+      let info =await db.find(id[0]);
+      console.log(info);
+      let file_id = info.file_id;
+      console.log(file_id);
+      let dlink;
+      if(id[1]==1){
+          let location = await this.model('file').where({id:file_id}).getField("location",true);
+          console.log(location);
+          let d = await get_file(file_id);
+          if(this.setup.IS_QINIU==1 && location==1){
+            //七牛下载
+             // dlink = await get_file(file_id,"savename",true);
+            let qiniu = think.service("qiniu");
+            let instance = new qiniu();
+                dlink = await instance.download(d.savename);
+          }else {
+              // 本地下载
+              dlink = d.savepath+d.savename+"?attname="
+          }
+          console.log(dlink);
+          //访问统计
+        await db.where({id:info.id}).increment('download');
+        //return this.redirect(dlink);
+        this.assign("durl",dlink);
+        return this.display()
+      }else if(id[1]==2){
+          dlink = id[2];
+        await db.where({id:info.id}).increment('download');
+        return this.redirect(dlink);
+      }else if(id[1]==3){
+        //返回网盘提取码
+        let pan = info.panurl.split("\r\n");
+        for(let v of pan){
+          let varr=v.split("|");
+          console.log(varr[1]);
+          if(!think.isEmpty(varr[2]) && think._.trim(id[2])==think._.trim(varr[1])){
+            this.assign({
+              title:varr[0],
+              durl:varr[1],
+              sn:varr[2]
+            })
+          }
+        }
+        return this.display()
+      }
+
   }
 }

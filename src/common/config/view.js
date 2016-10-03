@@ -118,10 +118,13 @@ export default {
                         return JSON.stringify(json);
                     }
                 })
-                env.addFilter("strToArray", function (str) {
+                env.addFilter("strToArray", function (str,sn=",") {
                     if (!think.isEmpty(str)) {
-                        let ss = str.split(",");// 在每个逗号(,)处进行分解。
+                        let ss = str.split(sn);// 在每个逗号(,)处进行分解。
+                        console.log(ss);
                         return ss;
+                    }else{
+                        return str;
                     }
                 })
 

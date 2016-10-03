@@ -1131,7 +1131,7 @@ global.get_file=async (file_id,field,key=false)=>{
     let file = await think.model('file', think.config("db")).find(file_id);
     if(file.location==1 && key){
         let name = await think.cache("setup");
-        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?attname=`
+        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?download/${file.savename}`
     }
     return think.isEmpty(field) ? file : file[field];
 }
