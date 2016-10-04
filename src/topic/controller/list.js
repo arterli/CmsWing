@@ -317,4 +317,8 @@ export default class extends Base {
 
 
   }
+  //keywrods列表
+  async keywordsAction(){
+    this.end(this.get("key"))
+  }
 }

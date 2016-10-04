@@ -53,6 +53,7 @@ export default class extends think.model.base {
                  this.error = '新增基础内容出错！';
                  return false
              }else {
+                 //添加分类信息
                  if(data.sort_id !=0 && !think.isEmpty(data.sort_id)){
                      let sortarr = [];
                      let sortdata = {};
@@ -78,11 +79,50 @@ export default class extends think.model.base {
                      this.model("typeoptionvar").addMany(sortarr);
                      this.model("type_optionvalue"+data.sort_id).add(sortdata);
                  }
+                 //添加关键词
+                 if(!think.isEmpty(data.keyname)){
+                     let keywrods = data.keyname.split(",");
+                     console.log(keywrods);
+                     for (let v of keywrods){
+                         let add = await this.model("keyword").thenAdd({keyname:v}, {keyname:v});
+                         if(add.type=='exist'){
+                             await this.model("keyword").where({id:add.id}).increment("videonum", 1);
+                         }
+                         await this.model("keyword_data").add({tagid:add.id,docid:id});
+                     }
+
+                 }
              }
          }else {//更新内容
              data.update_time=new Date().getTime();
              data.status= await this.getStatus(data.id,data.category_id);
              data.create_time = !think.isEmpty( data.create_time)? new Date(data.create_time).valueOf():new Date().getTime();
+             //更新关键词
+             let oldkn= await this.where({id:data.id}).getField("keyname",true);//原关键词
+             let newkn = data.keyname;//新关键词
+             if(!think.isEmpty(oldkn)){
+                 oldkn = oldkn.split(",");
+             }else {
+                 oldkn=[]
+             }
+             if(!think.isEmpty(newkn)){
+                 newkn = newkn.split(",");
+             }else {
+                 newkn = [];
+             }
+             let upkn = think._.difference(newkn,oldkn);//排除原来的关键词
+             //upkn =  think._.xor(oldkn,upkn);
+             console.log(upkn);
+             if(!think.isEmpty(upkn)){
+                 for (let v of upkn){
+                     let add = await this.model("keyword").thenAdd({keyname:v}, {keyname:v});
+                     if(add.type=='exist'){
+                         await this.model("keyword").where({id:add.id}).increment("videonum", 1);
+                     }
+                     await this.model("keyword_data").add({tagid:add.id,docid:data.id});
+                 }
+
+             }
              let status = this.update(data);
              if(!status){
                  this.error = '更新基础内容出错！';

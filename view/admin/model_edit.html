@@ -185,10 +185,10 @@
                                                                  data-group="{{ingredient}}">
                                                                 <ol class="dd-list">
 
-                                                                    {% for key , value in allfields %}
+                                                                    {% for value in allfields %}
                                                                     {% if value.group == ingredient and value.is_show ==
                                                                     1 %}
-                                                                    <li data-id="{{key}}" class="dd-item">
+                                                                    <li data-id="{{value.id}}" class="dd-item">
                                                                         <div class="dd-handle"> {{ value.title}} <span
                                                                                 class="label bg-light">{{value.name}}</span>
                                                                         </div>

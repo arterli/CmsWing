@@ -348,34 +348,14 @@ CLASSES:
                 <!-- TAGS -->
                 <h3 class="hidden-xs size-16 margin-bottom-10">标签</h3>
                 <div class="hidden-xs margin-bottom-20">
-
-                    <a class="tag" href="#">
-                        <span class="txt">RESPONSIVE</span>
-                        <span class="num">12</span>
+                    {% keywords data ="kws",type="hot"%}
+                    {%for key in kws%}
+                    <a class="tag" href="{{key.url}}">
+                        <span class="txt">{{key.keyname}}</span>
+                        <span class="num">{{key.videonum}}</span>
                     </a>
-                    <a class="tag" href="#">
-                        <span class="txt">CSS</span>
-                        <span class="num">3</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">HTML</span>
-                        <span class="num">1</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">JAVASCRIPT</span>
-                        <span class="num">28</span>
-                    </a>
-                    <a class="tag" href="#">
-                        <span class="txt">DESIGN</span>
-                        <span class="num">6</span>
-                    </a>
-
-                    <a class="tag" href="#">
-                        <span class="txt">DEVELOPMENT</span>
-                        <span class="num">3</span>
-                    </a>
+                    {%endfor%}
                 </div>
-
 
 
                 <hr />

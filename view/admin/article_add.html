@@ -324,6 +324,19 @@
                 <div class="col-md-3">
                     <input type="text" name="{{field.name}}" class="form-control time" value="" placeholder="请选择时间" />
                 </div>
+                        {% elif field.type == "keyword" %}
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="{{field.name}}" name="{{field.name}}" value="{{field.value}}" >
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#{{field.name}}').tagsInput({
+                                    width:'auto',
+                                    height:'43px',
+                                    defaultText:'add a tag',
+                                });
+                            })
+                        </script>
                  {% elif field.type == "freight" %}
                 <div class="col-md-5">
                     <input type="hidden" name="{{field.name}}" value='{"type":0,"val":0}'' id="{{field.name}}"/>

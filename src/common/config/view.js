@@ -364,6 +364,10 @@ export default {
                  * 获取分类分组
                  */
                 env.addExtension('groups', new groups(), true);
+                /**
+                 * 获取keywrods
+                 */
+                env.addExtension('keywords', new keywords(), true);
             }
         }
     }

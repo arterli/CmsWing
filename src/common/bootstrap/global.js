@@ -454,7 +454,8 @@ global.get_attribute_type = function(type) {
         'suk': ['商品规格', 'text NOT NULL'],
         'pics': ['多图上传', 'varchar(255) NOT NULL'],
         'price': ['价格', 'varchar(255) NOT NULL'],
-        'freight': ['运费', 'varchar(255) NOT NULL']
+        'freight': ['运费', 'varchar(255) NOT NULL'],
+        'keyword': ['关键词', 'varchar(255) NOT NULL']
     }
     return type ? _type[type][0] : _type;
 }

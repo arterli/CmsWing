@@ -53,9 +53,14 @@ export default class extends Base {
     cate = think.extend({}, cate);
     //seo
     this.meta_title = info.title; //标题
-    this.keywords = info.title ? info.title : ''; //seo关键词
+    this.keywords = info.keyname ? info.keyname : ''; //seo关键词
     this.description = info.description ? info.description : ""; //seo描述
-
+    //keywords
+    let keywords;
+    if(!think.isEmpty(info.keyname)){
+      keywords = (info.keyname).split(",");
+    }
+    this.assign("keywords",keywords);
     //访问统计
     await document.where({id:info.id}).increment('view');
     //外链

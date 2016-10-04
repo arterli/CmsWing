@@ -89,7 +89,7 @@ export default class extends Base {
             } else {
                 allfields = fields;
             }
-            // console.log(allfields)
+           // console.log(allfields)
             //梳理属性的可见性
             for (let field of allfields) {
                 if (!think.isEmpty(data.attribute_list) && !in_array(field.id, data.attribute_list)) {
@@ -128,9 +128,12 @@ export default class extends Base {
 
                 }
             }
-           // console.log(field_sort);
-           // console.log(obj)
-            this.assign({'fields': fields, 'extend_fields': extend_fields, 'allfields': obj, 'info': data})
+            console.log(obj);
+            let order = think._.values(obj);
+            //console.log(order);
+            let orderbgy = think._.orderBy(order, ['group', 'sort'], ['asc', 'asc']);
+
+            this.assign({'fields': fields, 'extend_fields': extend_fields, 'allfields': orderbgy, 'info': data})
             this.active = "admin/model/index"
             this.meta_title = "编辑模型"
             this.display();

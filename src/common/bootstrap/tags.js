@@ -307,3 +307,39 @@ global.topic = function(){
     }
 }
 
+/**
+ *获取导航标签
+ * {% keywords data ="kws"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
+ * type: hot
+ */
+
+global.keywords = function(){
+    this.tags = ['keywords'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let where = {};
+        let limit = think.isEmpty(args.limit) ? "10" : args.limit;
+        let type='videonum ASC';
+        if(!think.isEmpty(args.type)){
+            if(args.type=="hot"){
+                type="videonum DESC"
+            }
+        }
+        let keywrod = await think.model('keyword', think.config("db")).where(where).limit(limit).order(type).select();
+        //console.log(channel);
+        for(let k of keywrod){
+            k.url=`/keywords/${k.keyname}`;
+        }
+        context.ctx[data] = keywrod;
+        return callback(null,'');
+    }
+}

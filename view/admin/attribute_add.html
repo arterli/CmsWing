@@ -68,6 +68,7 @@
                                                 <div class="col-md-4 ">
                                                     <select class="form-control " name="type" id="data-type">
                                                         <option value="">----请选择----</option>
+
                                                         {% for key ,value in null|get_attribute_type %}
                                                         <option value="{{key}}" rule="{{value[1]}}" {% if info.type==
                                                                 key %}selected {% endif %}>
