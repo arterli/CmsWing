@@ -319,6 +319,26 @@ export default class extends Base {
   }
   //keywrods列表
   async keywordsAction(){
-    this.end(this.get("key"))
+    let keywords = this.get("key");
+    let map = {keyname:["like",`%${keywords}%`]}
+    let data = await this.model('document').where(map).page(this.get('page')).countSelect();
+    let html = pagination(data, this.http, {
+      desc: false, //show description
+      pageNum: 2,
+      url: '', //page url, when not set, it will auto generated
+      class: 'nomargin', //pagenation extra class
+      text: {
+        next: '下一页',
+        prev: '上一页',
+        total: 'count: ${count} , pages: ${pages}'
+      }
+    });
+    this.assign('pagination', html);
+    this.assign("list",data);
+    //seo
+    this.meta_title = keywords; //标题
+    this.keywords = keywords; //seo关键词
+    this.description = keywords; //seo描述
+    return this.display();
   }
 }
