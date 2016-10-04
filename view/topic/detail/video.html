@@ -239,7 +239,7 @@ CLASSES:
                 </div>
                 <!-- side navigation -->
                 {% column data="cate",cid=category.id %}
-                {% if cate %}
+                {% if cate|length > 0 %}
                 <div class="side-nav margin-bottom-20 margin-top-20">
                     <div class="side-nav-head">
                         <button class="fa fa-bars"></button>
