@@ -173,30 +173,12 @@ CLASSES:
 
 #}
                 <!-- TAGS -->
-                <a class="tag" href="#">
-                    <span class="txt">RESPONSIVE</span>
-                    <span class="num">12</span>
+                {%for k in keywords%}
+                <a class="tag" href="/keywords/{{k|urlencode}}">
+                    <span class="txt">{{k}}</span>
+                    <!--<span class="num">12</span>-->
                 </a>
-                <a class="tag" href="#">
-                    <span class="txt">CSS</span>
-                    <span class="num">3</span>
-                </a>
-                <a class="tag" href="#">
-                    <span class="txt">HTML</span>
-                    <span class="num">1</span>
-                </a>
-                <a class="tag" href="#">
-                    <span class="txt">JAVASCRIPT</span>
-                    <span class="num">28</span>
-                </a>
-                <a class="tag" href="#">
-                    <span class="txt">DESIGN</span>
-                    <span class="num">6</span>
-                </a>
-                <a class="tag" href="#">
-                    <span class="txt">DEVELOPMENT</span>
-                    <span class="num">3</span>
-                </a>
+                {%endfor%}
                 <!-- /TAGS -->
 
                 <div class="divider"><!-- divider --></div>
