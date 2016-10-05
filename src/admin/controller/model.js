@@ -45,6 +45,7 @@ export default class extends Base {
             let res = await this.db.add(data);
             if (res) {
                 this.cache("get_document_model", null);//清除模型缓存
+                this.cache("get_model", null);//清除模型缓存
                 return this.success({name: "添加成功", url: "/admin/model/index"});
             }
         } else {
@@ -69,6 +70,7 @@ export default class extends Base {
             let res =await this.db.update(post);
             if(res){
                 this.cache("get_document_model", null);//清除模型缓存
+                this.cache("get_model", null);//清除模型缓存
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})
             }
         } else {
@@ -161,6 +163,7 @@ export default class extends Base {
             this.fail("删除失败");
         } else {
             this.cache("get_document_model", null);//清除模型缓存
+            this.cache("get_model", null);//清除模型缓存
             this.success({name: "删除成功！"});
         }
     }

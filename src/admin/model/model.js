@@ -107,7 +107,34 @@ export default class extends think.model.base {
         }
         return lists;
     }
-    getmodel(id){
-        return id;
+    //获取模型信息并缓存
+   async get_model(id=null,field=null,extend=null){
+        /* 读取缓存数据 */
+        let list = await think.cache("get_model", () => {
+            return this._get_model();
+        }, {timeout: 365 * 24 * 3600});
+       if(!think.isEmpty(id)&&think.isEmpty(field)){
+          return think._.find(list, {id: Number(id)})
+       }
+       if(!think.isEmpty(id)&&!think.isEmpty(field)){
+           let arr = think._.find(list, {id: Number(id)});
+           //console.log(arr);
+           if(!think.isEmpty(arr)){
+               return arr[field]
+           }else {
+               return "";
+           }
+
+       }
+       if(think.isEmpty(id)&&think.isEmpty(field)&&(!think.isEmpty(extend)||extend==0)){
+
+           return think._.filter(list, {extend: Number(extend)})
+       }
+   }
+    //获取模型信息
+    /* 获取模型名称 */
+    async _get_model(){
+        let map   = {'status' : 1,'id':["!=",1]};
+        return await this.where(map).select();
     }
 }

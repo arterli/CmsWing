@@ -49,6 +49,6 @@ global.getmodelfield = async(model_id,id,field)=>{
  * @returns {*}
  */
 global.get_model= async(model_id,field)=>{
-    return await think.model('model',think.config('db'),'admin').get_document_model(model_id,field);
+    return await think.model('model',think.config('db'),'admin').get_model(model_id,field);
 
 }

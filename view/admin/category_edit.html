@@ -463,9 +463,11 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-md-10">
+
                                                 {% for list in models %}
-                                                <label class="checkbox-inline i-checks">
-                                                    <input type="checkbox" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %} value="{{list.id}}" name="model"><i></i> {{list.title}}
+
+                                                <label class="{%if info.mold==1%}radio-inline{%else%}checkbox-inline{%endif%} i-checks">
+                                                    <input type="{%if info.mold==1%}radio{%else%}checkbox{%endif%}" {% if list.id | in_Array(info.model) %} checked="checked" {% endif %} value="{{list.id}}" name="model"><i></i> {{list.title}}
                                                 </label>
                                                 {% endfor %}
                                             </div>

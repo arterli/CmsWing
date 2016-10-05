@@ -28,7 +28,7 @@ export default class extends Base {
        // console.log(where);
         //auto render template file index_index.html
          let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold",where);
-        //console.log(tree)
+         //console.log(tree)
          this.assign("active",this.get("mold")||null);
          this.assign("list",tree);
          this.meta_title = "栏目管理";
@@ -61,7 +61,7 @@ export default class extends Base {
 
             //return false;
             data.status = 1;
-            console.log(data);
+            //console.log(data);
             if(!think.isEmpty(data.name)){
                 let check = await this.model("category").where({name:data.name}).find();
                 if(!think.isEmpty(check)){
@@ -87,15 +87,22 @@ export default class extends Base {
 
             this.assign("typelist",type);
             //获取模型信息；
-            let model = await this.model("model").get_document_model();
+            let model;
+            if(mold==0){
+                model = await this.model("model").get_model(null,null,1);
+            }else if(mold==1) {
+                model = await this.model("model").get_model(null,null,0);
+            }
+
             //console.log(obj_values(model));
-            this.assign("models",obj_values(model));
+            this.assign("models",model);
+
             //获取运行的文档类型
             this.active="admin/category/index";
             this.action = "/admin/category/add";
             //获取模版列表（pc）
             let temp_pc = await this.model("temp").gettemp(1);
-            console.log(temp_pc);
+            //console.log(temp_pc);
             this.assign("temp_pc",temp_pc);
             //获取手机端模版
             let temp_m = await this.model("temp").gettemp(2);
@@ -177,9 +184,15 @@ export default class extends Base {
 
             this.assign("typelist",type);
             //获取模型信息；
-            let model = await this.model("model").get_document_model();
+            let model;
+            if(info.mold==0){
+                model = await this.model("model").get_model(null,null,1);
+            }else if(info.mold==1) {
+                model = await this.model("model").get_model(null,null,0);
+            }
+
             //console.log(obj_values(model));
-            this.assign("models",obj_values(model));
+            this.assign("models",model);
             this.active="admin/category/index";
                 this.action = "/admin/category/edit";
                 this.meta_title = "编辑栏目";

@@ -449,8 +449,8 @@
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     {% for list in models %}
-                                                    <label class="checkbox-inline i-checks">
-                                                        <input type="checkbox" value="{{list.id}}" name="model"><i></i> {{list.title}}
+                                                    <label class="{%if http.get('mold')==1%}radio-inline{%else%}checkbox-inline{%endif%} i-checks">
+                                                        <input type="{%if http.get('mold')==1%}radio{%else%}checkbox{%endif%}" value="{{list.id}}" name="model"><i></i> {{list.title}}
                                                     </label>
                                                     {% endfor %}
                                                 </div>

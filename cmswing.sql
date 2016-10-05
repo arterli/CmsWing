@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-10-04 23:41:23
+Date: 2016-10-06 02:07:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=904 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=905 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -665,6 +665,7 @@ INSERT INTO `cmswing_action_log` VALUES ('900', '4', '1', '2130706433', 'documen
 INSERT INTO `cmswing_action_log` VALUES ('901', '4', '1', '2130706433', 'document', '291', 'admin在2016-10-04 21:12:39发表了一篇文章。\r\n表document，记录编号291。', '1', '1475586759113');
 INSERT INTO `cmswing_action_log` VALUES ('902', '4', '1', '2130706433', 'document', '293', 'admin在2016-10-04 21:14:17发表了一篇文章。\r\n表document，记录编号293。', '1', '1475586857422');
 INSERT INTO `cmswing_action_log` VALUES ('903', '4', '1', '2130706433', 'document', '294', 'admin在2016-10-04 21:25:01发表了一篇文章。\r\n表document，记录编号294。', '1', '1475587501565');
+INSERT INTO `cmswing_action_log` VALUES ('904', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1475681395454');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4291,7 +4292,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -4368,6 +4369,8 @@ INSERT INTO `cmswing_attribute` VALUES ('98', 'caid', 'fdsfsd', 'int(10) unsigne
 INSERT INTO `cmswing_attribute` VALUES ('99', 'bbb', 'bbbbb', 'int(10) unsigned NOT NULL', 'num', '0', '', '1', '', '7', '0', '1', '0', '1474019180657', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('100', 'panurl', '网盘链接', 'text NOT NULL', 'textarea', '', '格式：<code>下载名称|网盘链接|提取码</code>，如果没有提取码直接写<code>下载名称|网盘链接</code>，每一行为一个下载，例如：\r\n<pre>360网盘下载|https://yunpan.cn/ckaUqFYLsAY6s|4819\r\n百度网盘下载|http://pan.baidu.com/s/1dFl0sPr|62y9</pre>\r\n', '1', '', '3', '0', '1', '1475458145199', '1475424052133', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('101', 'keyname', '关键词', 'varchar(255) NOT NULL', 'keyword', '', '关键词', '1', '', '1', '0', '1', '1475586294990', '1475576676299', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('102', 'question_content', '问题内容', 'varchar(255) NOT NULL', 'string', '', '问题内容', '1', '', '8', '0', '1', '0', '1475622072896', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('103', 'category_id', '分类 ID', 'int(10) unsigned NOT NULL', 'num', '0', '分类 ID', '1', '', '8', '0', '1', '0', '1475687469877', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -4800,7 +4803,7 @@ CREATE TABLE `cmswing_category` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `uk_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
 
 -- ----------------------------
 -- Records of cmswing_category
@@ -4817,7 +4820,7 @@ INSERT INTO `cmswing_category` VALUES ('45', 'shangchengceshi', '商城测试', 
 INSERT INTO `cmswing_category` VALUES ('46', 'tutorial', '示例教程', '0', '3', '0', '', '', '', '', '', '', '', '2', '2', '', '0', '0', '1', '0', '0', '', null, '4294967295', '1475044584739', '1', '0', '1:CmsWing\r\n2:ThinkJS', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('47', 'videotutorial', '视频教程', '46', '2', '0', '', '', '', '', 'video.html', 'video.html', '', '6', '6', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1475045983634', '1', '0', '1:基础入门\r\n2:模板开发\r\n3:二次开发\r\n4:TinkJS', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('48', 'articletutorial', '文章教程', '46', '1', '0', '', '', '', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1475045394525', '1', '0', '1:基础入门\r\n2:模板开发\r\n3:二次开发\r\n4:TinkJS', '', '0', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('49', 'domecode', '示例代码', '46', '3', '0', '', '', '', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1475483358175', '1', '0', '1:CmsWing\r\n2:Thinkjs\r\n', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('49', 'domecode', '示例代码', '46', '3', '0', '', '', '', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1475596426839', '1', '0', '1:CmsWing\r\n2:Thinkjs', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('50', '', '我要服务', '45', '7', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1474140160549', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":\"1\",\"defaultshow\":\"15\",\"types\":[{\"enable\":\"15\",\"name\":\"服务搜索内容\",\"description\":\"服务搜索内容\",\"show\":0}]}', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('51', '', '笔记本', '45', '1', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1472729381488', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":0,\"defaultshow\":\"9\",\"types\":[{\"enable\":\"9\",\"name\":\"笔记本搜索内容\",\"description\":\"笔记本搜索内容\",\"show\":\"1\"}]}', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('52', '', '台式机', '45', '2', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1468995589652', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":0,\"defaultshow\":\"10\",\"types\":[{\"enable\":\"10\",\"name\":\"台式机搜索内容\",\"description\":\"台式机搜索内容\",\"show\":\"1\"}]}', '0', '1', '', '', '');
@@ -4859,7 +4862,7 @@ INSERT INTO `cmswing_category` VALUES ('103', 'danyeceshi', '单页测试', '0',
 INSERT INTO `cmswing_category` VALUES ('104', '', '单页测试二级', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474122823971', '1474369023074', '1', '0', '', '', '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('105', 'dulimaban', '测试单页独立模版', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474287892159', '0', '1', '716', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('108', '', '转跳测试', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474369463788', '0', '1', '0', '', null, '2', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('110', 'documentation', '文档', '0', '2', '10', '', '', '', '', 'documentation.html', 'docdetail.html', '', '2', '2', '', '0', '1', '1', '0', '0', '', null, '1474864710422', '1474957930237', '1', '0', '', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('110', 'documentation', '文档', '0', '2', '10', '', '', '', '', 'documentation.html', 'docdetail.html', '', '2', '2', '', '0', '1', '1', '0', '0', '', null, '1474864710422', '1474957930237', '1', '0', '', '', '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('111', 'download', '下载', '0', '1', '10', '', '', '', '', 'cwdownload.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475139989670', '1475161233138', '1', '0', '1:以往版本\r\n2:官方模型\r\n3:官方插件\r\n4:官方模板\r\n5:ThinkJS\r\n6:Node.js', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('112', 'introduce', '网站介绍', '0', '9', '10', '', '', '', 'cwsp.html', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475486503369', '1475488825769', '1', '0', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('113', 'about', '关于我们', '112', '0', '10', '', '', '', 'cwsp.html', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475487163235', '1475488838464', '1', '0', '', null, '2', '1', '', '', '');
@@ -4871,6 +4874,7 @@ INSERT INTO `cmswing_category` VALUES ('118', 'notice', '功能更新', '117', '
 INSERT INTO `cmswing_category` VALUES ('119', 'news', '活动资讯', '117', '2', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491560301', '0', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('120', 'recommend', '精彩推荐', '117', '3', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491641127', '0', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('121', 'experience', '经验技巧', '117', '4', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491713262', '1475491830246', '1', '0', '1:javascript\r\n2:Node.js\r\n3:MYSQL\r\n4:AngularJS\r\n5:mui', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('123', 'bbs', '社区', '0', '0', '10', '', '', '', '', '', '', '', '8', '8', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475627528447', '1475681113373', '1', '0', '', '', '1', '1', '', '', '');
 
 -- ----------------------------
 -- Table structure for cmswing_category_priv
@@ -4980,7 +4984,7 @@ INSERT INTO `cmswing_channel` VALUES ('1', '0', '首页', '/', '1', '1379475111'
 INSERT INTO `cmswing_channel` VALUES ('2', '0', '文档', '/documentation', '3', '1379475131', '1474865422645', '1', '0', '0');
 INSERT INTO `cmswing_channel` VALUES ('3', '0', '外部链接', 'http://www.cmswing.com', '7', '1379475154', '1461281139322', '1', '0', '0');
 INSERT INTO `cmswing_channel` VALUES ('30', '0', '示例教程', '/tutorial', '4', '1464151005557', '1474865455399', '1', '0', '0');
-INSERT INTO `cmswing_channel` VALUES ('32', '0', '社区', '#', '5', '1465285174628', '1474865749053', '1', '0', '0');
+INSERT INTO `cmswing_channel` VALUES ('32', '0', '社区', '/bbs', '5', '1465285174628', '1475681395411', '1', '0', '0');
 INSERT INTO `cmswing_channel` VALUES ('33', '0', '下载', '/download', '2', '1475141005897', '0', '1', '0', '0');
 INSERT INTO `cmswing_channel` VALUES ('34', '0', '博客', '/blog', '6', '1475491887879', '0', '1', '0', '0');
 
@@ -5182,7 +5186,8 @@ CREATE TABLE `cmswing_document` (
   `keyname` varchar(255) NOT NULL COMMENT '关键词',
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`category_id`,`status`),
-  KEY `idx_status_type_pid` (`status`,`uid`,`pid`)
+  KEY `idx_status_type_pid` (`status`,`uid`,`pid`),
+  KEY `keyname` (`keyname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文档模型基础表';
 
 -- ----------------------------
@@ -5389,11 +5394,11 @@ INSERT INTO `cmswing_document` VALUES ('247', '2', '', '下载投稿测试', '39
 INSERT INTO `cmswing_document` VALUES ('248', '2', '', 'ewrwerewrewrwr', '39', '0', '', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1471348631767', '1471348631767', '1', '706', '{\"present_price\":\"10\",\"discount_price\":\"0\"}', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('250', '1', '', 'dsdsadsadas', '51', '0', '', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '6', '0', '0', '0', '1473686323080', '1473686323080', '1', '714', '{\"present_price\":\"1\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('251', '2', '', 'fdsafdasfadsf', '39', '0', 'fdsfdsfsdafads', '0', '0', '0', '2', '2', '0', '0', '719', '1', '0', '0', '0', '0', '0', '0', '1474672459331', '1474672459331', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('252', '1', 'cmswingdoc', 'CmsWing 1.0 开发文档', '110', '0', 'CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档', '0', '0', '0', '2', '1', '0', '0', '720', '1', '1970', '0', '205', '0', '0', '10', '1474872780000', '1474970118114', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('252', '1', 'cmswingdoc', 'CmsWing 1.0 开发文档', '110', '0', 'CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档', '0', '0', '0', '2', '1', '0', '0', '720', '1', '1970', '0', '207', '0', '0', '10', '1474872780000', '1474970118114', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('253', '1', '', '简介', '110', '0', '简介', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '29', '0', '0', '100', '1474874400000', '1474959159639', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('254', '1', '', '后台使用说明', '110', '0', '后台使用说明', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '4', '0', '0', '90', '1474874460000', '1474874566472', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('255', '1', '', '构架设计', '110', '0', '构架设计', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '80', '1474874580000', '1474898305407', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('256', '1', '', '二次开发说明', '110', '0', '二次开发说明', '0', '252', '252', '2', '1', '0', '0', '0', '1', '0', '0', '7', '0', '0', '70', '1474874646465', '1474874646465', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('256', '1', '', '二次开发说明', '110', '0', '二次开发说明', '0', '252', '252', '2', '1', '0', '0', '0', '1', '0', '0', '8', '0', '0', '70', '1474874646465', '1474874646465', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('257', '1', '', 'CmsWing模板开发文档', '110', '0', 'CmsWing模板开发文档', '0', '0', '0', '2', '1', '0', '0', '721', '1', '1970', '0', '3', '0', '0', '9', '1474877820000', '1474909366536', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('258', '1', '', '安装', '110', '0', '安装', '0', '252', '253', '2', '2', '0', '0', '0', '1', '1970', '0', '17', '0', '0', '1', '1474898520000', '1474960814920', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('259', '1', '', '配置', '110', '0', '配置', '0', '252', '253', '2', '2', '0', '0', '0', '1', '0', '0', '3', '0', '0', '0', '1474902483992', '1474902483992', '1', '', '', '0', '0');
@@ -5409,7 +5414,7 @@ INSERT INTO `cmswing_document` VALUES ('268', '1', '', '项目结构介绍', '47
 INSERT INTO `cmswing_document` VALUES ('269', '1', '', '如何创建项目和项目介绍', '47', '0', '如何创建项目和项目介绍', '0', '266', '266', '6', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '2', '1475054193110', '1475054193110', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('270', '1', '', '路由介绍', '47', '0', '路由介绍', '0', '266', '266', '6', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '3', '1475054334889', '1475054334889', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('271', '1', '', '测试数据', '48', '1', '测试数据', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1475066911737', '1475066911737', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('272', '1', '', 'CmsWing 下载 1.0 本站下载测试@v1.0.0', '111', '1', '通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。', '0', '0', '0', '3', '2', '1', '0', '727', '1', '1970', '0', '45', '0', '0', '0', '1475412120000', '1475419292854', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('272', '1', '', 'CmsWing 下载 1.0 本站下载测试@v1.0.0', '111', '1', '通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。', '0', '0', '0', '3', '2', '1', '0', '727', '1', '1970', '0', '46', '0', '0', '0', '1475412120000', '1475419292854', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('273', '1', '', 'Thinkjs下载', '111', '5', 'ThinkJS 是一款使用 ES6/7 特性全新开发的 Node.js MVC 框架，使用 ES7 中 async/await，或者 ES6 中的 */yield 特性彻底解决了 Node.js 中异步嵌套的问题。同时吸收了国内外众多框架的设计理念和思想，让开发 Node.js 项目更加简单、高效。', '0', '0', '0', '3', '2', '0', 'https://thinkjs.org/zh-cn/doc/2.2/create_project.html', '726', '1', '1970', '0', '1', '0', '0', '0', '1475419200000', '1475419236161', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('274', '1', '', '网盘链接测试', '111', '6', '网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '1970', '0', '72', '0', '0', '0', '1475424420000', '1475427008827', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('275', '1', '', '下载测试七牛', '111', '0', '下载测试七牛下载测试七牛下载测试七牛下载测试七牛', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1475456090607', '1475456090607', '1', '', '', '0', '0');
@@ -5428,9 +5433,9 @@ INSERT INTO `cmswing_document` VALUES ('287', '1', '', '发达撒范德萨放大
 INSERT INTO `cmswing_document` VALUES ('288', '1', '', '发达撒范德萨放大撒发达阿发倒萨', '118', '0', '发达撒范德萨放大撒发阿三', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586085003', '1475586085003', '1', '', '', '0', '哈哈,大幅答复');
 INSERT INTO `cmswing_document` VALUES ('289', '1', '', '发达撒范德萨放大撒发达阿发倒萨', '118', '0', '发达撒范德萨放大撒发阿三', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586131619', '1475586131619', '1', '', '', '0', '哈哈,大幅答复');
 INSERT INTO `cmswing_document` VALUES ('290', '1', '', 'fdsafdsafdsafas', '118', '0', '放大撒发送发sa\'d', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586329677', '1475586329677', '1', '', '', '0', '哈哈,发达萨法');
-INSERT INTO `cmswing_document` VALUES ('291', '1', '', '发达撒范德萨', '118', '0', '发达撒范德萨发达撒范德萨发达撒范德萨', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586758999', '1475586758999', '1', '', '', '0', '哈哈,haha');
-INSERT INTO `cmswing_document` VALUES ('292', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586818542', '1475586818542', '1', '', '', '0', '放大撒,哈哈');
-INSERT INTO `cmswing_document` VALUES ('293', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '30', '0', '0', '0', '1475586840000', '1475590571640', '1', '', '', '0', '哈哈,fdsfsdf,fdsfsf');
+INSERT INTO `cmswing_document` VALUES ('291', '1', '', '发达撒范德萨', '118', '0', '发达撒范德萨发达撒范德萨发达撒范德萨', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1475586758999', '1475586758999', '1', '', '', '0', '哈哈,haha');
+INSERT INTO `cmswing_document` VALUES ('292', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1475586818542', '1475586818542', '1', '', '', '0', '放大撒,哈哈');
+INSERT INTO `cmswing_document` VALUES ('293', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '32', '0', '0', '0', '1475586840000', '1475590571640', '1', '', '', '0', '哈哈,fdsfsdf,fdsfsf');
 INSERT INTO `cmswing_document` VALUES ('294', '1', '', '范德萨发大水放大撒', '118', '0', '发达萨法放大撒啊发生发', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1475587500000', '1475590506982', '1', '', '', '0', '哈哈,放大撒,ddddd');
 
 -- ----------------------------
@@ -5623,7 +5628,7 @@ INSERT INTO `cmswing_document_download` VALUES ('164', '0', '<p><span style=\"fo
 INSERT INTO `cmswing_document_download` VALUES ('165', '0', '<p><span style=\"font-family: tahoma, Arial, 宋体, 微软雅黑; font-size: 12px; line-height: 22px; background-color: rgb(255, 255, 255);\">福星电脑闹钟是一款具有定时提醒、定时关机、定时打开程序、定时关闭程序的软件，同时还具有定时休眠、定时注销、定时锁定、定时宽带连接、定时断开宽带连接等功能于一身的软件，功能强大。定时提醒功能可选择一次提醒、每周提醒、每月提醒、每年提醒、开机提醒、周期提醒等多种提醒功能。 同时福星闹钟还可以根据设定鼠标键盘无操作时自动待机、自动锁定、关机等操作，提供了百度对时中心进行网络对时。 福星电脑闹钟占用极少的内存，软件最小化后仅占用1M多的内存，速度飞快，是同类软件中的佼佼者。福星闹钟官网：http://www.fuxingnz.com/ 更新日志： v2.2.0 Build 2013-12-25 优化程序内部一些函数逻辑； 增加了运行程序功能，和“打开程序、文件或网址”的区别是运行程序可以带参数运行； 增加了鼠标键盘无操作时全屏不执行； 托盘图标增加显示当前日期、星期、农历功能，优化了托盘双击和单击，弹出界面灵活； 修复了WIN7下宽带连接跳出窗口不能自动连接的问题； 修复WIN7和XP系统下列表框显示高度不一致的问题； 每周闹钟增加了星期选择，每周闹钟设置更灵活（老版本升级的需要重新设置每周闹钟）； 优化了关闭程序功能，关闭程序更彻底； 优化了打开程序或网址，可打开YY飞机票和QQ临时会话等； 优化了闹钟提示窗口和过期提醒。 福星电脑闹钟正式启用新域名：http://www.fuxingnz.com/</span></p>', '', '84', '0', '226939', '', '');
 INSERT INTO `cmswing_document_download` VALUES ('233', '0', '<p>fdsfsdafsa</p>', '', '0', '0', '0', '', '');
 INSERT INTO `cmswing_document_download` VALUES ('247', '0', '<p>发呆撒发生发呆阿撒发呆啊风大沙发上风</p>', '', '0', '0', '2321784', '', '');
-INSERT INTO `cmswing_document_download` VALUES ('272', '0', '<p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">模块化：</span>全新的架构和模块化的开发机制，便于灵活扩展和二次开发。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">文档模型/栏目/分类信息体系：</span>通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">用户行为：</span>支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">云服务支持：</span>支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">安全稳健：</span>提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。</p><p><br/></p>', '', '91', '25', '219863', '724', '');
+INSERT INTO `cmswing_document_download` VALUES ('272', '0', '<p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">模块化：</span>全新的架构和模块化的开发机制，便于灵活扩展和二次开发。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">文档模型/栏目/分类信息体系：</span>通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">用户行为：</span>支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">云服务支持：</span>支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">安全稳健：</span>提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。</p><p><br/></p>', '', '91', '26', '219863', '724', '');
 INSERT INTO `cmswing_document_download` VALUES ('273', '0', '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">ThinkJS 是一款使用 ES6/7 特性全新开发的 Node.js MVC 框架，使用 ES7 中</span><code style=\"box-sizing: border-box; margin: 0px; padding: 2px 4px; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 14.4px; color: rgb(199, 37, 78); border-radius: 4px; white-space: normal; background-color: rgb(249, 242, 244);\">async/await</code><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">，或者 ES6 中的&nbsp;</span><code style=\"box-sizing: border-box; margin: 0px; padding: 2px 4px; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 14.4px; color: rgb(199, 37, 78); border-radius: 4px; white-space: normal; background-color: rgb(249, 242, 244);\">*/yield</code><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">&nbsp;特性彻底解决了 Node.js 中异步嵌套的问题。同时吸收了国内外众多框架的设计理念和思想，让开发 Node.js 项目更加简单、高效。</span></p>', '', '0', '0', '0', '', '');
 INSERT INTO `cmswing_document_download` VALUES ('274', '0', '<p>网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试</p>', '', '92', '32', '3637003', '', '360网盘下载|https://yunpan.cn/ckaUqFYLsAY6s |4819\r\n百度网盘下载|http://pan.baidu.com/s/1dFl0sPr|62y9');
 INSERT INTO `cmswing_document_download` VALUES ('275', '0', '<p>请填写内容...下载测试七牛下载测试七牛下载测试七牛</p>', '', '93', '8', '12463801', '', '');
@@ -6823,18 +6828,19 @@ CREATE TABLE `cmswing_model` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `engine_type` varchar(25) CHARACTER SET utf8 NOT NULL DEFAULT 'MyISAM' COMMENT '数据库引擎',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='文档模型表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='文档模型表';
 
 -- ----------------------------
 -- Records of cmswing_model
 -- ----------------------------
-INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础模型', '0', '', '1', '{\"1\":[\"2\",\"3\",\"101\",\"5\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\"]}', '1:基础', '2,3,101,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1455680364521', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"101\",\"5\",\"9\",\"12\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"26\",\"25\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20,101', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1475581908057', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"12\",\"87\",\"28\"],\"2\":[\"30\",\"32\",\"100\"],\"3\":[\"9\",\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"29\",\"31\"]}', '1:基础,2:文件,3:扩展', '28,29,30,31,32,87,100,2,3,5,9,10,11,12,13,14,16,17,19,20', 'cover_id:软件logo', '', '', '', '', '0', '', '', '1449340764453', '1475424180421', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"5\",\"65\",\"67\",\"85\",\"71\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"73\",\"75\",\"77\",\"79\"],\"4\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:其它设置,4:高级信息', '63,69,71,73,75,77,79,81,85,2,3,5,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片\r\ndescription:商品简介', '', '', '', 'id:编号\r\npics:商品图\r\ntitle:商品名称:[EDIT]\r\nprice|formatprice:价格\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\ntotal_stock:总库存\r\nview:浏览量\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '9', '', '', '1455680338771', '1457779731207', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('5', 'picture', '图片', '1', '', '1', '{\"1\":[\"2\",\"3\",\"12\",\"5\",\"88\",\"89\"],\"2\":[\"9\",\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"90\"]}', '1:基础,2:扩展', '88,89,90,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', '', '10', '', '', '1464580586395', '1464586222983', '1', 'MyISAM');
-INSERT INTO `cmswing_model` VALUES ('6', 'video', '视频', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"19\"],\"2\":[\"91\",\"96\"],\"3\":[\"10\",\"13\",\"14\",\"16\",\"17\",\"20\",\"93\"]}', '1:基础,2:资源,3:扩展', '91,93,96,2,3,5,9,10,12,13,14,16,17,19,20', 'level:集数', '', '', '', '', '10', '', '', '1465188045066', '1465555443764', '1', 'MyISAM');
+INSERT INTO `cmswing_model` VALUES ('1', 'document', '基础模型', '0', '', '1', '{\"1\":[\"2\",\"3\",\"101\",\"5\",\"9\",\"10\",\"11\",\"12\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\"]}', '1:基础', '2,3,101,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1455680364521', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1\":[\"2\",\"3\",\"101\",\"5\",\"9\",\"12\",\"24\"],\"2\":[\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"26\",\"25\"]}', '1:基础,2:扩展', '24,25,26,2,3,5,9,10,11,12,13,14,16,17,19,20,101', '', '', '', '', 'id:编号\r\ntitle:标题:[EDIT]\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\nview:浏览\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '0', '', '', '1449340764453', '1475581908057', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"12\",\"87\",\"28\"],\"2\":[\"30\",\"32\",\"100\"],\"3\":[\"9\",\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"29\",\"31\"]}', '1:基础,2:文件,3:扩展', '28,29,30,31,32,87,100,2,3,5,9,10,11,12,13,14,16,17,19,20', 'cover_id:软件logo', '', '', '', '', '0', '', '', '1449340764453', '1475424180421', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('4', 'shop', '商品', '1', '', '1', '{\"1\":[\"3\",\"5\",\"65\",\"67\",\"85\",\"71\",\"81\"],\"2\":[\"63\",\"69\"],\"3\":[\"73\",\"75\",\"77\",\"79\"],\"4\":[\"2\",\"9\",\"10\",\"16\",\"19\"]}', '1:基本信息,2:库存/规格,3:其它设置,4:高级信息', '63,69,71,73,75,77,79,81,85,2,3,5,9,10,16,19,65,67', 'title:商品名称\r\npics:商品图片\r\ndescription:商品简介', '', '', '', 'id:编号\r\npics:商品图\r\ntitle:商品名称:[EDIT]\r\nprice|formatprice:价格\r\ntype:类型\r\nupdate_time:最后更新\r\nstatus:状态\r\ntotal_stock:总库存\r\nview:浏览量\r\nid:操作:[EDIT]|编辑,[DELETE]|删除', '9', '', '', '1455680338771', '1457779731207', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('5', 'picture', '图片', '1', '', '1', '{\"1\":[\"2\",\"3\",\"12\",\"5\",\"88\",\"89\"],\"2\":[\"9\",\"10\",\"11\",\"13\",\"14\",\"16\",\"17\",\"19\",\"20\",\"90\"]}', '1:基础,2:扩展', '88,89,90,2,3,5,9,10,11,12,13,14,16,17,19,20', '', '', '', '', '', '10', '', '', '1464580586395', '1464586222983', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('6', 'video', '视频', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"19\"],\"2\":[\"91\",\"96\"],\"3\":[\"10\",\"13\",\"14\",\"16\",\"17\",\"20\",\"93\"]}', '1:基础,2:资源,3:扩展', '91,93,96,2,3,5,9,10,12,13,14,16,17,19,20', 'level:集数', '', '', '', '', '10', '', '', '1465188045066', '1465555443764', '1', 'InnoDB');
 INSERT INTO `cmswing_model` VALUES ('7', 'test', 'test', '1', '', '1', '{\"1\":[]}', '1:基础', null, '', '', '', '', '', '10', '', '', '1474018905811', '1474019030637', '1', 'InnoDB');
+INSERT INTO `cmswing_model` VALUES ('8', 'question', '社区', '0', '', '1', '{\"1\":[]}', '1:基础', null, '', '', '', '', '', '10', '', '', '1475621679496', '1475621699980', '1', 'InnoDB');
 
 -- ----------------------------
 -- Table structure for cmswing_order
@@ -8193,6 +8199,21 @@ INSERT INTO `cmswing_qq_user` VALUES ('72', '0', '', '+C', 'http://qzapp.qlogo.c
 INSERT INTO `cmswing_qq_user` VALUES ('73', '0', '', '海上出云', 'http://qzapp.qlogo.cn/qzapp/101309492/45C5ACBDE1044135DE4313DF517AEBC2/30', 'http://qzapp.qlogo.cn/qzapp/101309492/45C5ACBDE1044135DE4313DF517AEBC2/50', 'http://qzapp.qlogo.cn/qzapp/101309492/45C5ACBDE1044135DE4313DF517AEBC2/100', 'http://q.qlogo.cn/qqapp/101309492/45C5ACBDE1044135DE4313DF517AEBC2/40', 'http://q.qlogo.cn/qqapp/101309492/45C5ACBDE1044135DE4313DF517AEBC2/100', '男', '0', '0', '0', '0', '0', '85', '45C5ACBDE1044135DE4313DF517AEBC2');
 
 -- ----------------------------
+-- Table structure for cmswing_question
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question`;
+CREATE TABLE `cmswing_question` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `question_content` varchar(255) NOT NULL COMMENT '问题内容',
+  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类 ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_question
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for cmswing_session
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_session`;
@@ -8390,7 +8411,7 @@ CREATE TABLE `cmswing_temp` (
   `type` tinyint(1) NOT NULL DEFAULT '1',
   `gid` smallint(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_temp
@@ -8434,6 +8455,7 @@ INSERT INTO `cmswing_temp` VALUES ('36', 'topic', 'list', 'cwdownload', '官方�
 INSERT INTO `cmswing_temp` VALUES ('38', 'topic', 'sp', 'cwsp', '官方单页模板', 0x666473667364, '1', '1');
 INSERT INTO `cmswing_temp` VALUES ('39', 'topic', 'list', 'cwblog', '官方博客模板', 0x6377626C6F67, '1', '1');
 INSERT INTO `cmswing_temp` VALUES ('40', 'topic', 'detail', 'cwblog', '官方博客模板', 0x6377626C6F67, '1', '1');
+INSERT INTO `cmswing_temp` VALUES ('41', 'topic', 'list', 'question', '默认社区列表模板', 0x7175657374696F6E, '1', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_temp_bak

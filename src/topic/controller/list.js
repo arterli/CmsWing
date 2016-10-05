@@ -341,4 +341,94 @@ export default class extends Base {
     this.description = keywords; //seo描述
     return this.display();
   }
+
+  /**
+   * 独立模型 questionAction
+   */
+  async questionAction(){
+    //跨域
+    let method = this.http.method.toLowerCase();
+    if(method === "options"){
+      this.setCorsHeader();
+      this.end();
+      return;
+    }
+    this.setCorsHeader();
+    let get = this.get('category') || 0;
+    let id=0;
+    let query = get.split("-");
+    if(get != 0){id = query[0];}
+    let cate = await this.category(id);
+    cate = think.extend({}, cate);
+    let roleid=8;//游客
+    //访问控制
+    if(this.is_login){
+      roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+    }
+    let priv = await this.model("category_priv").priv(cate.id,roleid,'visit');
+    if(!priv){
+      this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+      return think.statusAction(702, this.http);
+    }
+    // 获取当前栏目的模型
+    let model = await this.model("model",{},'admin').get_model(cate.model);
+    console.log(model);
+    this.assign('model', model);
+    //console.log(cate);
+    //获取当前分类的所有子栏目
+    let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
+    // console.log(subcate);
+    subcate.push(cate.id);
+    //获取模型列表数据个数
+    // console.log(cate);
+    let num;
+    if(cate.list_row>0){
+      num = cate.list_row;
+    } else if(cate.model.split(",").length == 1){
+      let pagenum=await this.model('model',{},'admin').get_model(cate.model,"list_row");
+      if(pagenum !=0){
+        num = pagenum;
+      }
+    }else {
+      num =this.config("db.nums_per_page");
+    }
+    if(checkMobile(this.userAgent())){
+      num=10;
+    }
+//seo
+    this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
+    this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
+    this.description = cate.description ? cate.description : ""; //seo描述
+
+    //获取面包屑信息
+    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+    this.assign('breadcrumb', breadcrumb);
+    //console.log(breadcrumb)
+    let map = {
+      'category_id': ['IN', subcate]
+    };
+    let data = await this.model(model.name).where(map).page(this.param('page'),num).countSelect();
+
+    /* 模板赋值并渲染模板 */
+    this.assign('category', cate);
+    this.assign('list', data.data);
+    this.assign('count',data.count);
+    //console.log(cate)
+    let temp = cate.template_lists ? `${cate.template_lists}` : "";
+    //console.log(cate);
+    //console.log(111)
+    if(checkMobile(this.userAgent())){
+      if(this.isAjax("get")){
+        return this.json(data);
+      }
+      //手机端模版
+      temp = cate.template_m_lists ? `${cate.template_m_lists}` : `${this.http.action}`;
+      //think.log(temp);
+      return this.display(`mobile/${this.http.controller}/${temp}`)
+    }else{
+      //console.log(temp);
+      return this.display(temp);
+    }
+  }
+
 }
