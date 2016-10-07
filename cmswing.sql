@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-10-06 02:07:29
+Date: 2016-10-07 11:13:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4292,7 +4292,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -4369,8 +4369,33 @@ INSERT INTO `cmswing_attribute` VALUES ('98', 'caid', 'fdsfsd', 'int(10) unsigne
 INSERT INTO `cmswing_attribute` VALUES ('99', 'bbb', 'bbbbb', 'int(10) unsigned NOT NULL', 'num', '0', '', '1', '', '7', '0', '1', '0', '1474019180657', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('100', 'panurl', '网盘链接', 'text NOT NULL', 'textarea', '', '格式：<code>下载名称|网盘链接|提取码</code>，如果没有提取码直接写<code>下载名称|网盘链接</code>，每一行为一个下载，例如：\r\n<pre>360网盘下载|https://yunpan.cn/ckaUqFYLsAY6s|4819\r\n百度网盘下载|http://pan.baidu.com/s/1dFl0sPr|62y9</pre>\r\n', '1', '', '3', '0', '1', '1475458145199', '1475424052133', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('101', 'keyname', '关键词', 'varchar(255) NOT NULL', 'keyword', '', '关键词', '1', '', '1', '0', '1', '1475586294990', '1475576676299', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('102', 'question_content', '问题内容', 'varchar(255) NOT NULL', 'string', '', '问题内容', '1', '', '8', '0', '1', '0', '1475622072896', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('102', 'title', '问题内容', 'varchar(255) NOT NULL', 'string', '', '问题内容', '1', '', '8', '0', '1', '1475697464010', '1475622072896', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('103', 'category_id', '分类 ID', 'int(10) unsigned NOT NULL', 'num', '0', '分类 ID', '1', '', '8', '0', '1', '0', '1475687469877', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('104', 'detail', '问题说明', 'text NOT NULL', 'editor', '', '问题说明', '1', '', '8', '0', '1', '0', '1475697586492', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('105', 'create_time', '添加时间', 'bigint(13) NOT NULL', 'datetime', '', '添加时间', '1', '', '8', '0', '1', '0', '1475697700403', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('106', 'update_time', '更新时间', 'bigint(13) NOT NULL', 'datetime', '', '更新时间', '1', '', '8', '0', '1', '0', '1475697755491', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('107', 'uid', '发布用户UID', 'int(10) unsigned NOT NULL', 'num', '', '发布用户UID', '1', '', '8', '0', '1', '0', '1475697812797', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('108', 'answer_count', '回答计数', 'int(10) unsigned NOT NULL', 'num', '0', '回答计数', '1', '', '8', '0', '1', '0', '1475697948951', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('109', 'answer_users', '回答者', 'int(10) unsigned NOT NULL', 'num', '0', '回答者', '1', '', '8', '0', '1', '0', '1475698028292', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('110', 'view', '浏览次数', 'int(10) unsigned NOT NULL', 'num', '0', '浏览次数', '1', '', '8', '0', '1', '0', '1475698122841', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('111', 'focus_count', '关注数', 'int(10) unsigned NOT NULL', 'num', '0', '关注数', '1', '', '8', '0', '1', '1475698228665', '1475698218663', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('112', 'comment_count', '评论数', 'int(10) unsigned NOT NULL', 'num', '0', '评论数', '1', '', '8', '0', '1', '0', '1475698270368', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('113', 'action_history_id', '动作的记录表的关连id', 'int(10) unsigned NOT NULL', 'num', '0', '动作的记录表的关连id', '1', '', '8', '0', '1', '0', '1475699172927', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('114', 'agree_count', '回复赞同数总和', 'int(10) unsigned NOT NULL', 'num', '0', '回复赞同数总和', '1', '', '8', '0', '1', '0', '1475699214967', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('115', 'against_count', '回复反对数总和', 'int(10) unsigned NOT NULL', 'num', '0', '回复反对数总和', '1', '', '8', '0', '1', '0', '1475699288430', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('116', 'best_answer', '最佳回复 ID', 'int(10) unsigned NOT NULL', 'num', '0', '最佳回复 ID', '1', '', '8', '0', '1', '0', '1475700430989', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('117', 'has_attach', '是否存在附件', 'tinyint(2) NOT NULL', 'bool', '0', '是否存在附件', '1', '', '8', '0', '1', '0', '1475700530409', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('118', 'unverified_modify', '未经证实的修改', 'text NOT NULL', 'textarea', '', '未经证实的修改', '1', '', '8', '0', '1', '0', '1475700733616', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('119', 'unverified_modify_count', '未经证实的修改数', 'int(10) unsigned NOT NULL', 'num', '0', '未经证实的修改数', '1', '', '8', '0', '1', '0', '1475700787052', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('120', 'ip', '发布者ip', 'bigint(13) NOT NULL', 'num', '', '发布者ip', '1', '', '8', '0', '1', '0', '1475700925390', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('121', 'last_answer', '最后回答 ID', 'int(10) unsigned NOT NULL', 'num', '0', '最后回答 ID', '1', '', '8', '0', '1', '0', '1475700956244', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('125', 'popular_value_update', '更新热度', 'int(10) unsigned NOT NULL', 'num', '0', '更新热度', '1', '', '8', '0', '1', '0', '1475701689039', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('126', 'lock', '是否锁定', 'tinyint(2) NOT NULL', 'bool', '0', '是否锁定', '1', '', '8', '0', '1', '0', '1475701765577', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('124', 'popular_value', '热度值', 'double NOT NULL', 'num', '0', '热度值', '1', '', '8', '0', '1', '0', '1475701398423', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('127', 'anonymous', '是否匿名', 'tinyint(2) NOT NULL', 'bool', '0', '是否匿名', '1', '', '8', '0', '1', '0', '1475701823020', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('128', 'thanks_count', '答谢数', 'int(10) unsigned NOT NULL', 'num', '0', '答谢数', '1', '', '8', '0', '1', '0', '1475701899705', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('129', 'question_content_fulltext', '问题内容全文', 'text NOT NULL', 'textarea', '', '问题内容全文', '1', '', '8', '0', '1', '0', '1475702073731', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('130', 'is_recommend', '谁否推荐', 'tinyint(2) NOT NULL', 'bool', '0', '谁否推荐', '1', '', '8', '0', '1', '0', '1475702147866', '', '3', '', 'regex', '', '3', 'function');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -4751,7 +4776,7 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_cart
@@ -4760,6 +4785,7 @@ INSERT INTO `cmswing_cart` VALUES ('1', '3', '87', '1', '[推荐]18-140&35 1.8G�
 INSERT INTO `cmswing_cart` VALUES ('6', '48', '87', '1', '[推荐]18-140&35 1.8G（人像）', '7199.00', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '7199.00', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/detail/87', '500');
 INSERT INTO `cmswing_cart` VALUES ('35', '77', '210', '1', '', '269.00', 'ACA/北美电器 AB-3CN03面包机家用全自动多功能智能酸奶蛋糕和面', '269.00', 'http://data.cmswing.com/rWsUNonWpkrjtAlCJc3Gdk1O.jpg?imageView2/1/w/100/h/100', '/detail/210', '1000');
 INSERT INTO `cmswing_cart` VALUES ('36', '38', '211', '1', '深空灰色,16G,壳膜超值套装版', '2092.90', 'Apple iPad mini 2 平板电脑 7.9英寸（16G WLAN版/A7芯片/Retina显示屏 ME279CH）', '2092.90', 'http://data.cmswing.com/kexWPoEkVhoEkIiVTarpcG7t.jpg?imageView2/1/w/100/h/100', '/detail/211', '1000');
+INSERT INTO `cmswing_cart` VALUES ('37', '2', '244', '1', 'i5 4GB 500GB机械 定制版', '6899.01', 'ThinkPad T460 20FNA01VCD', '6899.01', '//data.cmswing.com/-Gt309mzF_HwDdxtjxYCdyZ-.jpg?imageView2/1/w/100/h/100', '/p/244.html', '1000');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4862,7 +4888,7 @@ INSERT INTO `cmswing_category` VALUES ('103', 'danyeceshi', '单页测试', '0',
 INSERT INTO `cmswing_category` VALUES ('104', '', '单页测试二级', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474122823971', '1474369023074', '1', '0', '', '', '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('105', 'dulimaban', '测试单页独立模版', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474287892159', '0', '1', '716', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('108', '', '转跳测试', '103', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1474369463788', '0', '1', '0', '', null, '2', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('110', 'documentation', '文档', '0', '2', '10', '', '', '', '', 'documentation.html', 'docdetail.html', '', '2', '2', '', '0', '1', '1', '0', '0', '', null, '1474864710422', '1474957930237', '1', '0', '', '', '2', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('110', 'documentation', '文档', '0', '2', '10', '', '', '', '', 'documentation.html', 'docdetail.html', '', '2', '2', '', '0', '1', '1', '0', '0', '', null, '1474864710422', '1474957930237', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('111', 'download', '下载', '0', '1', '10', '', '', '', '', 'cwdownload.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475139989670', '1475161233138', '1', '0', '1:以往版本\r\n2:官方模型\r\n3:官方插件\r\n4:官方模板\r\n5:ThinkJS\r\n6:Node.js', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('112', 'introduce', '网站介绍', '0', '9', '10', '', '', '', 'cwsp.html', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475486503369', '1475488825769', '1', '0', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('113', 'about', '关于我们', '112', '0', '10', '', '', '', 'cwsp.html', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475487163235', '1475488838464', '1', '0', '', null, '2', '1', '', '', '');
@@ -4874,7 +4900,7 @@ INSERT INTO `cmswing_category` VALUES ('118', 'notice', '功能更新', '117', '
 INSERT INTO `cmswing_category` VALUES ('119', 'news', '活动资讯', '117', '2', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491560301', '0', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('120', 'recommend', '精彩推荐', '117', '3', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491641127', '0', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('121', 'experience', '经验技巧', '117', '4', '10', '', '', '', '', 'cwblog.html', '', '', '2,3,4,5,6', '2,3,4,5,6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475491713262', '1475491830246', '1', '0', '1:javascript\r\n2:Node.js\r\n3:MYSQL\r\n4:AngularJS\r\n5:mui', '', '0', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('123', 'bbs', '社区', '0', '0', '10', '', '', '', '', '', '', '', '8', '8', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475627528447', '1475681113373', '1', '0', '', '', '1', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('123', 'bbs', '社区', '0', '0', '10', '', '', '', '', '', '', '', '8', '8', '1,2,3', '0', '1', '1', '0', '0', '', null, '1475627528447', '1475784976328', '1', '0', '1:分组一\r\n2:分组二\r\n3:分组三', '', '1', '1', '', '', '');
 
 -- ----------------------------
 -- Table structure for cmswing_category_priv
@@ -5387,14 +5413,14 @@ INSERT INTO `cmswing_document` VALUES ('234', '1', '', '33333333333', '60', '0',
 INSERT INTO `cmswing_document` VALUES ('235', '1', '', '4444444444', '60', '0', '4444444', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1468387247262', '1468387247262', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('236', '1', '', '5555555555', '89', '1', '', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1468387478392', '1468387478392', '1', '', '', '3', '0');
 INSERT INTO `cmswing_document` VALUES ('243', '1', '', 'ThinkPad S5 20B3A03VCD', '51', '0', 'i5-4210U Windows 8.1中文版 4GB 500GB+8GB SSHD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '15', '0', '0', '0', '1469008981003', '1469008980999', '1', '698,699,700', '{\"present_price\":\"5499\",\"discount_price\":\"0\"}', '9', '0');
-INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '49', '0', '0', '0', '1471515221084', '1471515221077', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
+INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '51', '0', '0', '0', '1471515221084', '1471515221077', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('245', '2', '', '投稿测试投稿测试投稿测试2121', '39', '0', '投稿测试投稿测试投稿测试投稿测试投稿测试', '0', '0', '0', '2', '2', '0', '0', '718', '1', '1970', '0', '68', '0', '0', '0', '1471324440000', '1474659323454', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('246', '2', '', '放到沙发上发呆撒发呆撒的撒风啊风啊3333', '39', '0', '', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1471329240000', '1472017534138', '2', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('247', '2', '', '下载投稿测试', '39', '0', '', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1471330681510', '1471330681510', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('248', '2', '', 'ewrwerewrewrwr', '39', '0', '', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1471348631767', '1471348631767', '1', '706', '{\"present_price\":\"10\",\"discount_price\":\"0\"}', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('250', '1', '', 'dsdsadsadas', '51', '0', '', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '6', '0', '0', '0', '1473686323080', '1473686323080', '1', '714', '{\"present_price\":\"1\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('251', '2', '', 'fdsafdasfadsf', '39', '0', 'fdsfdsfsdafads', '0', '0', '0', '2', '2', '0', '0', '719', '1', '0', '0', '0', '0', '0', '0', '1474672459331', '1474672459331', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('252', '1', 'cmswingdoc', 'CmsWing 1.0 开发文档', '110', '0', 'CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档', '0', '0', '0', '2', '1', '0', '0', '720', '1', '1970', '0', '207', '0', '0', '10', '1474872780000', '1474970118114', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('252', '1', 'cmswingdoc', 'CmsWing 1.0 开发文档', '110', '0', 'CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档CmsWing 1.0 开发文档', '0', '0', '0', '2', '1', '0', '0', '720', '1', '1970', '0', '208', '0', '0', '10', '1474872780000', '1474970118114', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('253', '1', '', '简介', '110', '0', '简介', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '29', '0', '0', '100', '1474874400000', '1474959159639', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('254', '1', '', '后台使用说明', '110', '0', '后台使用说明', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '4', '0', '0', '90', '1474874460000', '1474874566472', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('255', '1', '', '构架设计', '110', '0', '构架设计', '0', '252', '252', '2', '1', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '80', '1474874580000', '1474898305407', '1', '', '', '0', '0');
@@ -5416,7 +5442,7 @@ INSERT INTO `cmswing_document` VALUES ('270', '1', '', '路由介绍', '47', '0'
 INSERT INTO `cmswing_document` VALUES ('271', '1', '', '测试数据', '48', '1', '测试数据', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '4', '0', '0', '0', '1475066911737', '1475066911737', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('272', '1', '', 'CmsWing 下载 1.0 本站下载测试@v1.0.0', '111', '1', '通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。', '0', '0', '0', '3', '2', '1', '0', '727', '1', '1970', '0', '46', '0', '0', '0', '1475412120000', '1475419292854', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('273', '1', '', 'Thinkjs下载', '111', '5', 'ThinkJS 是一款使用 ES6/7 特性全新开发的 Node.js MVC 框架，使用 ES7 中 async/await，或者 ES6 中的 */yield 特性彻底解决了 Node.js 中异步嵌套的问题。同时吸收了国内外众多框架的设计理念和思想，让开发 Node.js 项目更加简单、高效。', '0', '0', '0', '3', '2', '0', 'https://thinkjs.org/zh-cn/doc/2.2/create_project.html', '726', '1', '1970', '0', '1', '0', '0', '0', '1475419200000', '1475419236161', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('274', '1', '', '网盘链接测试', '111', '6', '网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '1970', '0', '72', '0', '0', '0', '1475424420000', '1475427008827', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('274', '1', '', '网盘链接测试', '111', '6', '网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '1970', '0', '74', '0', '0', '0', '1475424420000', '1475427008827', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('275', '1', '', '下载测试七牛', '111', '0', '下载测试七牛下载测试七牛下载测试七牛下载测试七牛', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '0', '1475456090607', '1475456090607', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('276', '1', '', '远离这5种失败文案：哪些看起来很牛逼的文案都失败了？', '119', '0', '记得托尔斯泰同志在他的名著中说过一句话：幸福的婚姻是相似的，而不幸的婚姻则各有各的不幸。其实，龙哥感觉在文案领域这个道理也是可以通用的，成功的文案是相似的，也是比较少的，而失败的文案则是姿态各异，出现在你面前的概率也是比较大的。', '0', '0', '0', '2', '2', '0', '0', '728', '1', '0', '0', '2', '0', '0', '0', '1475493301747', '1475493301747', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('277', '1', '', '2016年10月3日更新：新增官方博客，修复栏目，单页已知的BUG', '118', '0', '新增官方博客，修复栏目，单页已知的BUG', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '2', '0', '0', '0', '1475493480000', '1475583475311', '1', '', '', '0', 'fdsa,fdsafd,333');
@@ -5434,7 +5460,7 @@ INSERT INTO `cmswing_document` VALUES ('288', '1', '', '发达撒范德萨放大
 INSERT INTO `cmswing_document` VALUES ('289', '1', '', '发达撒范德萨放大撒发达阿发倒萨', '118', '0', '发达撒范德萨放大撒发阿三', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586131619', '1475586131619', '1', '', '', '0', '哈哈,大幅答复');
 INSERT INTO `cmswing_document` VALUES ('290', '1', '', 'fdsafdsafdsafas', '118', '0', '放大撒发送发sa\'d', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1475586329677', '1475586329677', '1', '', '', '0', '哈哈,发达萨法');
 INSERT INTO `cmswing_document` VALUES ('291', '1', '', '发达撒范德萨', '118', '0', '发达撒范德萨发达撒范德萨发达撒范德萨', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1475586758999', '1475586758999', '1', '', '', '0', '哈哈,haha');
-INSERT INTO `cmswing_document` VALUES ('292', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1475586818542', '1475586818542', '1', '', '', '0', '放大撒,哈哈');
+INSERT INTO `cmswing_document` VALUES ('292', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1475586818542', '1475586818542', '1', '', '', '0', '放大撒,哈哈');
 INSERT INTO `cmswing_document` VALUES ('293', '1', '', '大师傅撒地方放大撒', '118', '0', '放大撒放大撒', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '32', '0', '0', '0', '1475586840000', '1475590571640', '1', '', '', '0', '哈哈,fdsfsdf,fdsfsf');
 INSERT INTO `cmswing_document` VALUES ('294', '1', '', '范德萨发大水放大撒', '118', '0', '发达萨法放大撒啊发生发', '0', '0', '0', '2', '2', '0', '0', '0', '1', '1970', '0', '0', '0', '0', '0', '1475587500000', '1475590506982', '1', '', '', '0', '哈哈,放大撒,ddddd');
 
@@ -5630,7 +5656,7 @@ INSERT INTO `cmswing_document_download` VALUES ('233', '0', '<p>fdsfsdafsa</p>',
 INSERT INTO `cmswing_document_download` VALUES ('247', '0', '<p>发呆撒发生发呆阿撒发呆啊风大沙发上风</p>', '', '0', '0', '2321784', '', '');
 INSERT INTO `cmswing_document_download` VALUES ('272', '0', '<p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">模块化：</span>全新的架构和模块化的开发机制，便于灵活扩展和二次开发。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">文档模型/栏目/分类信息体系：</span>通过栏目和文档模型绑定，以及不同的文档类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">用户行为：</span>支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">云服务支持：</span>支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。</p><p class=\"margin-bottom-10\" style=\"box-sizing: border-box; margin-top: 0px; -webkit-margin-before: 0.1em; -webkit-margin-after: 0.1em; color: rgb(102, 102, 102); font-family: &quot;Segoe UI&quot;, &quot;Microsoft Yahei&quot;, arial, sans-serif; font-size: 14px; line-height: 21px; white-space: normal; margin-bottom: 10px !important; background-color: rgba(0, 0, 0, 0.0470588);\"><span class=\"text-navy\" style=\"box-sizing: border-box; color: rgb(0, 31, 63) !important;\">安全稳健：</span>提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。</p><p><br/></p>', '', '91', '26', '219863', '724', '');
 INSERT INTO `cmswing_document_download` VALUES ('273', '0', '<p><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">ThinkJS 是一款使用 ES6/7 特性全新开发的 Node.js MVC 框架，使用 ES7 中</span><code style=\"box-sizing: border-box; margin: 0px; padding: 2px 4px; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 14.4px; color: rgb(199, 37, 78); border-radius: 4px; white-space: normal; background-color: rgb(249, 242, 244);\">async/await</code><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">，或者 ES6 中的&nbsp;</span><code style=\"box-sizing: border-box; margin: 0px; padding: 2px 4px; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 14.4px; color: rgb(199, 37, 78); border-radius: 4px; white-space: normal; background-color: rgb(249, 242, 244);\">*/yield</code><span style=\"color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 25.6px; background-color: rgb(255, 255, 255);\">&nbsp;特性彻底解决了 Node.js 中异步嵌套的问题。同时吸收了国内外众多框架的设计理念和思想，让开发 Node.js 项目更加简单、高效。</span></p>', '', '0', '0', '0', '', '');
-INSERT INTO `cmswing_document_download` VALUES ('274', '0', '<p>网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试</p>', '', '92', '32', '3637003', '', '360网盘下载|https://yunpan.cn/ckaUqFYLsAY6s |4819\r\n百度网盘下载|http://pan.baidu.com/s/1dFl0sPr|62y9');
+INSERT INTO `cmswing_document_download` VALUES ('274', '0', '<p>网盘链接测试网盘链接测试网盘链接测试网盘链接测试网盘链接测试</p>', '', '92', '33', '3637003', '', '360网盘下载|https://yunpan.cn/ckaUqFYLsAY6s |4819\r\n百度网盘下载|http://pan.baidu.com/s/1dFl0sPr|62y9');
 INSERT INTO `cmswing_document_download` VALUES ('275', '0', '<p>请填写内容...下载测试七牛下载测试七牛下载测试七牛</p>', '', '93', '8', '12463801', '', '');
 
 -- ----------------------------
@@ -6371,7 +6397,7 @@ CREATE TABLE `cmswing_member` (
 -- Records of cmswing_member
 -- ----------------------------
 INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1660', 'arterli@qq.com', '1148', '', '1452513965683', '0', '1475575262060', '2130706433', '0', '1', '1', '0', '0.00', '0', '0');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '225', '13571883578', '1458989485616', '0', '1475178369289', '3232235526', '0', '1', '0', '2', '0.00', '0', '0');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '227', '13571883578', '1458989485616', '0', '1475796378294', '2130706433', '0', '1', '0', '2', '0.00', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '4', '', '1458990106486', '0', '1463734028394', '2099753746', '0', '-1', '0', '2', '0.00', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0');
@@ -8204,14 +8230,46 @@ INSERT INTO `cmswing_qq_user` VALUES ('73', '0', '', '海上出云', 'http://qza
 DROP TABLE IF EXISTS `cmswing_question`;
 CREATE TABLE `cmswing_question` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `question_content` varchar(255) NOT NULL COMMENT '问题内容',
+  `title` varchar(255) NOT NULL COMMENT '问题内容',
   `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类 ID',
+  `detail` text NOT NULL COMMENT '问题说明',
+  `create_time` bigint(13) NOT NULL COMMENT '添加时间',
+  `update_time` bigint(13) NOT NULL COMMENT '更新时间',
+  `uid` int(10) unsigned NOT NULL COMMENT '发布用户UID',
+  `answer_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '回答计数',
+  `answer_users` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '回答者',
+  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `focus_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '关注数',
+  `comment_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论数',
+  `action_history_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '动作的记录表的关连id',
+  `agree_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '回复赞同数总和',
+  `against_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '回复反对数总和',
+  `best_answer` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最佳回复 ID',
+  `has_attach` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否存在附件',
+  `unverified_modify` text NOT NULL COMMENT '未经证实的修改',
+  `unverified_modify_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '未经证实的修改数',
+  `ip` bigint(13) NOT NULL COMMENT '发布者ip',
+  `last_answer` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后回答 ID',
+  `popular_value` double NOT NULL DEFAULT '0',
+  `popular_value_update` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新热度',
+  `lock` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否锁定',
+  `anonymous` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否匿名',
+  `thanks_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '答谢数',
+  `question_content_fulltext` text NOT NULL COMMENT '问题内容全文',
+  `is_recommend` tinyint(2) NOT NULL DEFAULT '0' COMMENT '谁否推荐',
+  `weibo_msg_id` bigint(20) DEFAULT NULL,
+  `received_email_id` int(10) DEFAULT NULL,
+  `chapter_id` int(10) unsigned DEFAULT NULL,
+  `sort` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question
 -- ----------------------------
+INSERT INTO `cmswing_question` VALUES ('2', 'dsadFDSAFDSAFSAFAS', '123', 'DSAdsaDSDSADSFDSAFDSAFDSAFDSAFDSAF', '1474388992', '1474389319', '1', '1', '1', '1', '1', '1', '0', '0', '0', '0', '0', '', '0', '2130706433', '1', '1.9030899869919', '1475702006', '0', '0', '0', 'dsadfdsafdsafsafas', '0', null, null, null, '0', '0');
+INSERT INTO `cmswing_question` VALUES ('3', '发达撒范德萨 放大撒 法放大撒发的萨芬打发送', '123', '撒犯得上广泛但是功夫大师高浮雕功夫大师官方的老师；但是但是；', '1474388992', '1474389319', '1', '0', '0', '0', '1', '1', '0', '0', '0', '0', '0', '', '0', '0', '0', '1.9030899869919', '1475702006', '0', '0', '0', '', '0', null, null, null, '0', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_session
