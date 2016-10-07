@@ -9834,10 +9834,13 @@ section.dark .nav-tabs.nav-clean>li.active>a {
 	
 /* Bottom Border */
 .nav-tabs.nav-bottom-border {
-	border:0 !important;
+	/*border:0 !important;*/
 }
 .nav-tabs.nav-bottom-border>li.active {
 	margin-bottom:0 !important;
+}
+.nav-tabs.nav-bottom-border>li {
+	margin-bottom:-2px !important;
 }
 .nav-tabs.nav-bottom-border>li>a {
 	border:0 !important;

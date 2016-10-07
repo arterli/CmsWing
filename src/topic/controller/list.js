@@ -372,7 +372,7 @@ export default class extends Base {
     }
     // 获取当前栏目的模型
     let model = await this.model("model",{},'admin').get_model(cate.model);
-    console.log(model);
+    //console.log(model);
     this.assign('model', model);
     //console.log(cate);
     //获取当前分类的所有子栏目
@@ -395,7 +395,7 @@ export default class extends Base {
     if(checkMobile(this.userAgent())){
       num=10;
     }
-//seo
+    //seo
     this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
     this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
     this.description = cate.description ? cate.description : ""; //seo描述
@@ -407,7 +407,33 @@ export default class extends Base {
     let map = {
       'category_id': ['IN', subcate]
     };
-    let data = await this.model(model.name).where(map).page(this.param('page'),num).countSelect();
+    //排序
+    let o = {};
+    let order = query[1]||0;
+    order = Number(order);
+    switch (order){
+      case 1:
+        o.popular_value = 'DESC';
+        break;
+      case 2:
+        map.is_recommend = 1;
+        break;
+      case 3:
+        map.answer_count = 0;
+        break;
+      default:
+        o.create_time = 'DESC';
+    }
+    this.assign('order',order);
+    //分组
+    let group_id = 0;
+    if(!think.isEmpty(query[2]) && query[2] !=0){
+      map.group_id=query[2];
+      group_id = map.group_id;
+    }
+    console.log(map);
+    this.assign("group_id",group_id);
+    let data = await this.model(model.name).where(map).page(this.param('page'),num).order(o).countSelect();
 
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);
