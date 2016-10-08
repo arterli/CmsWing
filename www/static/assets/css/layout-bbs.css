@@ -37,4 +37,19 @@ ul.blog-post-info li>span {
 img.pull-left{
 	margin-right: 10px;
 }
+.wangEditor-menu-container .menu-item {
+	width: 26.5px !important;
+}
+.wangEditor-container {
+	border: 1px solid #ddd !important;
+}
+.wangEditor-menu-container .menu-group:last-child{
+	border: none;
+}
+.wangEditor-menu-container .menu-item a {
+	font-size: 1em !important;
+}
+div.tagsinput {
+	overflow-y: hidden !important;
+}
 /*#eaeaea 1px dotted;*/

@@ -51,11 +51,37 @@ CLASSES:
         <!-- /page tabs -->
     </div>
 </section>
+{%column data="column",pid=breadcrumb[0].id%}
+{%if column%}
 <!-- /PAGE HEADER -->
+<section class="padding-bottom-0">
+    <div class="container">
+
+        <div class="row">
+
+            {%for val in column%}
+            <div class="col-md-3">
+
+                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}{{http.config('view.file_ext')}}" style="padding-top: 35px">
+                    <div class="box-icon-title">
+                        <i class="et-chat"></i>
+                        <h4 class="nomargin">{{val.name}}</h4>
+                    </div>
+                    <p class="nomargin" style="height: 44px;overflow: hidden">{{val.description|truncate(30, true, "...")}}</p>
+                </a>
+
+            </div>
+            {%endfor%}
+
+        </div>
+
+
+    </div>
+</section>
+{%endif%}
 <!-- -->
 <section >
     <div class="container">
-
         <div class="row">
 
             <!-- LEFT -->
@@ -148,7 +174,7 @@ CLASSES:
                 {% if controller.is_login %}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     今天，你遇到了什么问题呢？
-                    <a href="#" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                    <a href="/uc/question/index/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
                 </div>
                 {%else%}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->

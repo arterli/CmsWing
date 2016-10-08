@@ -32,7 +32,9 @@
                             <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
+                            {%if info.mold !=1%}
                             <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
+                            {%endif%}
                             <li class=""><a data-toggle="tab" href="#tab6">权限设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
 
@@ -1007,6 +1009,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+                            {%if info.mold !=1%}
                             <div id="tab5" class="tab-pane fade ">
                                 <input type="hidden" name="documentsorts" value="{{info.documentsorts}}">
                                 <div class="form-group">
@@ -1126,6 +1129,7 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
                             </div>
+                            {%endif%}
                             <div id="tab6" class="tab-pane fade ">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">角色权限</label>
