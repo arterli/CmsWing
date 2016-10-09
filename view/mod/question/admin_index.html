@@ -1,0 +1,141 @@
+{% extends "../../admin/inc/base.html" %} {% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "../../admin/inc/article_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+                        <!-- .breadcrumb -->
+                        <ul class="breadcrumb">
+                            <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
+                            {% for nav in breadcrumb%} {% if cate_id == nav.id %}
+                            <li class="active">{{nav.title}}  </li>
+                            {%else%}
+                            <li><a href="/mod/admin/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            {% endif %} {% endfor %} {%if article.id >0 %}
+                            <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
+                        </ul>
+                        <!-- / .breadcrumb -->
+                        <section class="panel panel-default">
+                            <header class="panel-heading text-right bg-light  clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class="active"><a  href="#">tab1</a></li>
+                                    <li class=""><a  href="#">tab2</a></li>
+                                </ul>
+                                <span class="hidden-sm"><a href="#" class="text-info" target="_blank">管理</a></span>
+                            </header>
+                            <div class="panel-body">
+                                后台入口
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+<script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script type="text/javascript">
+    <!--
+    var zTree;
+    var demoIframe;
+
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/article/getmenu",
+        },
+        view: {
+            showLine: true,
+            selectedMulti: false,
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess
+
+        }
+    };
+
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        // console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id= $("#"+treeId).attr("data-cate");
+        console.log(id);
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        console.log(treeId)
+        treeObj.selectNode(curMenu);
+    };
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+                type = e.data.type,
+                nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+
+
+    //-->
+    $(function(){
+        //左边菜单
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting).expandAll(true);
+        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+        //搜索功能
+        $("#search").click(function(){
+            var url = $(this).attr('url');
+            var query  = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if( url.indexOf('?')>0 ){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+
+        <!-- 实例化编辑器 -->
+        $(".ispct").click(function () {
+            var t =  $(this).find("input").val();
+            switch (parseInt(t)){
+                case 0:
+                    $(".sp_html_pc").show();
+                    $(".sp_temp_pc").hide();
+                    $(".pc_url").hide();
+                    break;
+                case 1:
+                    $(".sp_html_pc").hide();
+                    $(".sp_temp_pc").show();
+                    $(".pc_url").hide();
+                    break;
+                case 2:
+                    $(".sp_html_pc").hide();
+                    $(".sp_temp_pc").hide();
+                    $(".pc_url").show();
+                    break;
+            }
+
+        })
+    })
+</script>
+
+
+
+{% endblock %}}

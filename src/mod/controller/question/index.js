@@ -1,6 +1,5 @@
 'use strict';
-import Base from '../../../topic/controller/base.js';
-
+import Base from '../index.js';
 export default class extends Base {
   /**
    * index action
@@ -28,53 +27,30 @@ export default class extends Base {
       return;
     }
     this.setCorsHeader();
-    let id=this.modget(0);
-    let cate = await this.category(id);
-    cate = think.extend({}, cate);
-    let roleid=8;//游客
-    //访问控制
-    if(this.is_login){
-      roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
-    }
-    let priv = await this.model("category_priv").priv(cate.id,roleid,'visit');
-    if(!priv){
-      this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
-      return think.statusAction(702, this.http);
-    }
-    // 获取当前栏目的模型
-    let model = await this.model("model",{},'admin').get_model(cate.model);
-    //console.log(model);
-    this.assign('model', model);
-    //console.log(cate);
-    //获取当前分类的所有子栏目
-    let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
-    // console.log(subcate);
-    subcate.push(cate.id);
-    //获取模型列表数据个数
-    // console.log(cate);
-    let num;
-    if(cate.list_row>0){
-      num = cate.list_row;
-    } else if(cate.model.split(",").length == 1){
-      let pagenum=await this.model('model',{},'admin').get_model(cate.model,"list_row");
-      if(pagenum !=0){
-        num = pagenum;
-      }
-    }else {
-      num =this.config("db.nums_per_page");
-    }
-    if(checkMobile(this.userAgent())){
-      num=10;
-    }
-    //seo
-    this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题
-    this.keywords = cate.keywords ? cate.keywords : ''; //seo关键词
-    this.description = cate.description ? cate.description : ""; //seo描述
 
-    //获取面包屑信息
-    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
-    this.assign('breadcrumb', breadcrumb);
-    //console.log(breadcrumb)
+    //获取栏目信息
+    let cate = this.m_cate;
+    cate = think.extend({}, cate);
+
+      //栏目权限验证
+    await this.c_verify("visit");
+
+    // 获取当前栏目的模型
+    let model = this.mod;
+    this.assign('model', model);
+
+    //获取当前分类的所有子栏目
+    let subcate = await this.model('category').get_sub_category(cate.id);
+        subcate.push(cate.id);
+
+    //当前栏目列表每页行数
+     let num = this.page_num();
+
+      //获取面包屑信息
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
+
+    //获取列表数据
+      //条件
     let map = {
       'category_id': ['IN', subcate]
     };
@@ -102,30 +78,27 @@ export default class extends Base {
       map.group_id=this.modget(2);
       group_id = map.group_id;
     }
-    console.log(map);
-    this.assign("group_id",group_id);
-    let data = await this.model(model.name).where(map).page(this.param('page'),num).order(o).countSelect();
+
+    let data = await this.model(this.mod.name).where(map).page(this.param('page'),num).order(o).countSelect();
 
     /* 模板赋值并渲染模板 */
-    this.assign('category', cate);
-    this.assign('list', data.data);
-    this.assign('count',data.count);
-    //console.log(cate)
-    //获取当前模型名称
-    let modname = await this.model("admin/model").get_model(cate.model,'name');
-    //console.log(cate);
-    //console.log(111)
+      this.assign("group_id",group_id);
+      this.assign('category', cate);
+      this.assign('list', data.data);
+      this.assign('count',data.count);
+      this.assign('breadcrumb', breadcrumb);
 
+    //跨屏
     if(checkMobile(this.userAgent())){
       if(this.isAjax("get")){
         return this.json(data);
       }
       //手机端模版
-      return this.modtemp(modname,"mobile");
+      return this.modtemp(this.mod.name,"mobile");
     }else{
       //console.log(temp);
      // return this.display(temp);
-      return this.modtemp(modname);
+      return this.modtemp(this.mod.name);
     }
 
   }

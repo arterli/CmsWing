@@ -103,29 +103,21 @@ export default class extends Base {
     if(cate.mold == 2){
       type = 'sp';
     }
-    let action="index";
-    if(cate.mold == 1){
-      action =  await this.model("model",{},"admin").get_model(cate.model,'name');
-    }
 
     switch (type){
       case 0:
-        if(action=="index"){
-          await this.action("cover",action);
+        if(cate.mold==1){
+          await this.action("mod/index","index");
         }else {
-          let cxt  = think.require("mod/controller/"+action+"/index");
-          let cc =new cxt(this.http)
-          await this.action(cc,"index");
+          await this.action("cover","index");
         }
             break;
       case 1:
       case 2:
-        if(action=="index"){
-          await this.action("list",action);
+        if(cate.mold==1){
+          await this.action("mod/index","list");
         }else {
-          let cxt  = think.require("mod/controller/"+action+"/index");
-          let cc =new cxt(this.http)
-          await this.action(cc,"list");
+          await this.action("list","index");
         }
             break;
       case 'sp':

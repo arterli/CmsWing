@@ -415,6 +415,9 @@ export default class extends Base {
             //TODO 权限控制
             for (let val of cate) {
                switch (val.mold){
+                   case 1:
+                       val.url =`/mod/admin/index/cate_id/${val.id}`;
+                       break
                    case 2:
                        val.url = `/admin/sp/index/cate_id/${val.id}`;
                        break;
