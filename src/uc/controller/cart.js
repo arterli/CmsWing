@@ -472,7 +472,7 @@ export default class extends Base {
     //减少订单中商品的库存
     await this.model("order").stock(order_id,true);
 
-    return this.success({name:'订单创建成功，正在跳转支付页面！',url:`/uc/pay/pay/order/${order_id}/setp/3`});
+    return this.success({name:'订单创建成功，正在跳转支付页面！',url:`/uc/pay/pay/setp/3/order/${order_id}`});
 
   }
   //实时查询商品库存
