@@ -49,6 +49,18 @@
 </section>
 <!-- /PAGE HEADER -->
 <section>
-    <div class="container">{{category.sp_html_pc|safe}}</div>
+    <div class="container" id="contentcmswing">{{category.sp_html_pc|safe}}</div>
 </section>
+{% endblock %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
 {% endblock %}
