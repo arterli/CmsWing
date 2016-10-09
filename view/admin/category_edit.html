@@ -521,22 +521,22 @@
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">发布内容</label>
+                                    <label class="col-sm-2 control-label">栏目类型</label>
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-10">
                                         <label class="radio-inline i-checks">
-                                            <input type="radio" {% if 0 == info.allow_publish %} checked="checked" {% endif %} value="0" name="allow_publish"><i></i> 不允许
+                                            <input type="radio" {% if 0 == info.allow_publish %} checked="checked" {% endif %} value="0" name="allow_publish"><i></i> 封面
                                         </label>
                                         <label class="radio-inline i-checks">
-                                            <input type="radio" {% if 1 == info.allow_publish %} checked="checked" {% endif %} value="1" name="allow_publish"><i></i> 仅允许后台
+                                            <input type="radio" {% if 1 == info.allow_publish %} checked="checked" {% endif %} value="1" name="allow_publish"><i></i> 列表
                                         </label>
-                                        <label class="radio-inline i-checks">
-                                            <input type="radio" {% if 2 == info.allow_publish %} checked="checked" {% endif %} value="2" name="allow_publish"><i></i> 允许前后台
-                                        </label>
+                                        <!--<label class="radio-inline i-checks">-->
+                                            <!--<input type="radio" {% if 2 == info.allow_publish %} checked="checked" {% endif %} value="2" name="allow_publish"><i></i> 允许前后台-->
+                                        <!--</label>-->
                                         </div>
                                         <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否允许发布内容</span>
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  封面：不能发布信息，可以作为栏目的首页。</span>
                                         </div>
                                         </div>
                                     </div>

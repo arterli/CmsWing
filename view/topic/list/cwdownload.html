@@ -143,7 +143,7 @@ CLASSES:
                             </li>
                         </ul>
 
-                        <p>{{val.description|block(90)}}</p>
+                        <p>{{val.description|truncate(90, true, "...")}}</p>
                         <a href="{{val.name|get_url(val.id)}}" class="btn btn-reveal btn-default donwload-btn">
                             <i class="glyphicon glyphicon-download-alt"></i>
                             <span>立即下载</span>

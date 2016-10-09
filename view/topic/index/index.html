@@ -79,7 +79,7 @@
 <div class="container">
 
 <header class="text-center margin-bottom-20">
-	<div class="heading-title heading-line-double text-center margin-bottom-0"><h4>示例/教程</h4>
+	<div class="heading-title heading-line-double text-center margin-bottom-0"><h3>示例/教程</h3>
 		</div>
 
 </header>
@@ -110,7 +110,7 @@ owl-carousel item paddings
 <a href="{{v.name|get_url(v.id)}}" target="_blank">
 <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=256,h=126')}}" alt="">
 </a>
-<h5 class="text-left margin-top-10 margin-bottom-2"><a href="{{v.name|get_url(v.id)}}" target="_blank">{{v.title|block(12)}}</a></h5>
+<h5 class="text-left margin-top-10 margin-bottom-2"><a href="{{v.name|get_url(v.id)}}" target="_blank">{{v.title|truncate(20, true, "...")}}</a></h5>
 <p class="text-left" style="height: 42px;overflow:hidden;">{{v.description}}</p>
 <ul class="text-left size-12 list-inline list-separator">
 <li>
@@ -137,7 +137,7 @@ owl-carousel item paddings
 	<div class="container portfolio">
 		<header class="section-header text-center margin-bottom-20">
 			<div class="heading-title heading-line-double text-center margin-bottom-0">
-				<h4><span>DOME</span> 演示</h4>
+				<h3><span>DOME</span> 演示</h3>
 				<p class="size-12">CmsWing 模型演示</p>
 			</div>
 		</header>
@@ -392,7 +392,7 @@ owl-carousel item paddings
 								<ul class="list-inline categories nomargin">
 									<li><a href="#">二次开发</a></li>
 									<li><a href="#">PC端</a></li>
-									<!--<li><a href="#">移动端</a></li>-->
+									<li><a href="#">移动端</a></li>
 								</ul>
 							</div><!-- /overlay title -->
 
@@ -426,7 +426,7 @@ owl-carousel item paddings
 							<div class="item-box-overlay-title">
 								<h4 class="nomargin">单页面模型演示</h4>
 								<ul class="list-inline categories nomargin">
-									<li><a href="#">模板制作,分类信息应用</a></li>
+									<li><a href="#">模板制作</a></li>
 									<li><a href="#">PC端</a></li>
 									<!--<li><a href="#">移动端</a></li>-->
 								</ul>
