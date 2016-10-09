@@ -152,7 +152,7 @@
                         </td>
                         <td style="vertical-align: middle;border-bottom: none">
                             {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
-                            <a class="btn btn-danger btn-xs" href="/uc/pay/pay/order/{{item.id}}" target="_blank"><i class="fa fa-credit-card white"></i>立即付款 </a>
+                            <a class="btn btn-danger btn-xs" href="/uc/pay/pay?order={{item.id}}" target="_blank"><i class="fa fa-credit-card white"></i>立即付款 </a>
                             {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                             <a class="btn btn-warning btn-xs" href="#"><i class="fa fa-cart-plus white"></i>提醒发货 </a>
                             {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}

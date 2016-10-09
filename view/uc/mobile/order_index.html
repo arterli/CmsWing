@@ -80,7 +80,7 @@
                                 <a href="/uc/order/delorder/id/{{item.id}}" class="mui-btn mui-btn-primary delorder" >删除订单</a>
                                 {%endif%}
                                 {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
-                                <a class="mui-btn mui-btn-danger pay" href="/uc/pay/pay/order/{{item.id}}">立即付款</a>
+                                <a class="mui-btn mui-btn-danger pay" href="/uc/pay/pay?order={{item.id}}">立即付款</a>
                                 {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                                 <a class="mui-btn mui-btn-primary" href="#">提醒发货</a>
                                 {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
