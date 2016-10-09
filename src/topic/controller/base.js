@@ -207,4 +207,18 @@ export default class extends think.controller.base {
     this.header("Access-Control-Request-Method", "GET,POST,PUT,DELETE");
     this.header("Access-Control-Allow-Credentials", "true");
   }
+  //独立模型display方法封装
+  modtemp(mod,moblie=false){
+    if(!moblie){
+      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+    }else {
+      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+    }
+  }
+  //独立模型get方法封装,只针对index入口action,其他的请用 this.get()方法。
+  modget(n){
+    let get = this.get('category') || 0;
+    let query = get.split("-");
+    return query[n]
+  }
 }

@@ -52,4 +52,7 @@ img.pull-left{
 div.tagsinput {
 	overflow-y: hidden !important;
 }
+.wangEditor-drop-panel select{
+	height: auto !important;
+}
 /*#eaeaea 1px dotted;*/

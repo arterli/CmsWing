@@ -59,8 +59,6 @@ export default {
                     }else {
                         return moment(time).format(config);
                     }
-
-
                 })
                 /**
                  *分析枚举类型配置值 格式 a:名称1,b:名称2

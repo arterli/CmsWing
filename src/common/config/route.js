@@ -8,6 +8,12 @@ export default {
     uc:{//前台用户中心
         reg:/^uc/
     },
+    mod:{//模型
+        reg:/^mod/
+    },
+    ext:{//扩展
+        reg:/^ext/
+    },
     //默认走topic
     topic: {//网站信息统一输出口
 
