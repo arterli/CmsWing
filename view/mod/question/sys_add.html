@@ -1,6 +1,6 @@
 {% extends "../../topic/inc/base.html" %}
 {% block style %}
-<link href="/static/assets/css/layout-bbs.css" rel="stylesheet" type="text/css" />
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css">
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
 {% endblock %}
@@ -67,32 +67,36 @@ CLASSES:
                         <label for="title">问题标题:</label>
                         <div class="input-group">
                             <div class=" input-group-btn">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{breadcrumb[0].title}} <span class="caret"></span></button>
+                                <div class="input-group-btn question_select">
+                                    <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="name">{%if category.allow_publish==0%}选择分类{%else%}{{category.title}}{%endif%}</span> <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
                                         {%column data="column",pid=breadcrumb[0].id%}
-                                        <li><a href="#">{{breadcrumb[0].title}}</a></li>
+                                        {%if breadcrumb[0].allow_publish==1%}
+                                        <li data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+                                        {%endif%}
                                         {%if column%}
                                         {%for val in column%}
-                                        <li><a href="#">{{val.name}}</a></li>
+                                        <li data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
                                         {%endfor%}
                                         {%endif%}
                                     </ul>
                                 </div><!-- /btn-group -->
                                 {% groups data="groups",cid=category.id%}
-                                {%if groups|length >0%}
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown">全部 <span class="caret"></span></button>
+
+                                <div class="input-group-btn question_select {%if groups|length == 0%}hide{%endif%}" id="group">
+                                    <input type="hidden" value="0" name="group_id">
+                                    <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown"><span class="name">选择分组</span> <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">全部</a></li>
+                                        <li data-value="0"><a href="javascript:;">不分组</a></li>
                                         {%for v in groups%}
-                                        <li><a href="#">{{v.name}}</a></li>
+                                        <li data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
                                         {%endfor%}
                                     </ul>
                                 </div><!-- /btn-group -->
-                                {%endif%}
+
                             </div>
-                            <input type="text" class="form-control" id="title">
+                            <input type="text" class="form-control noradius" id="title">
                         </div><!-- /input-group -->
                     </div>
                     <div class="form-group">
@@ -144,17 +148,7 @@ CLASSES:
 <!-- / -->
 {% endblock %}
 {% block script %}
+<script src="/static/assets/js/question.js"></script>
 <script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
-<script type="text/javascript">
-    $(function () {
-        var editor = new wangEditor('detail');
-        editor.create();
-        $('#keywords').tagsInput({
-            width:'auto',
-            height:'43px',
-            defaultText:'add a tag',
-        });
-    });
-</script>
 {%endblock%}

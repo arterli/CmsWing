@@ -55,4 +55,16 @@ div.tagsinput {
 .wangEditor-drop-panel select{
 	height: auto !important;
 }
+.box-icon.active{
+	border: #1087dd 1px dotted;
+}
+.box-icon.box-icon-transparent.active .box-icon-title>i{
+	border: #1087dd 1px dotted;
+}
+#group >button{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	margin-right: -1px;
+}
 /*#eaeaea 1px dotted;*/

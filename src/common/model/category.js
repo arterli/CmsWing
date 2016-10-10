@@ -335,4 +335,28 @@ export default class extends think.model.base {
         // console.log(lists);
         return lists;
     }
+    //获取栏目分组
+    async get_groups(cid){
+        let group;
+        let groups = await this.where({id:cid}).getField("groups",true);
+        if(!think.isEmpty(groups)){
+            let cate = await get_cate(cid);
+            if(groups.search(/\r\n/ig)>-1){
+                groups=groups.split("\r\n");
+                let arr = []
+                groups.forEach(n =>{
+                    let obj ={}
+                    n=n.split(":");
+                    obj.url = cate.url+"/"+n[0]
+                    obj.name=n[1];
+                    obj.id = n[0];
+                    arr.push(obj);
+                })
+
+                group = arr;
+            }
+        }
+    return group;
+    }
+
 }

@@ -49,7 +49,7 @@ global.mytags= function(){
                         model_id=maps.mid;
                         delete maps.mid;
                     }
-                    let model = await think.model("model", think.config("db"),'admin').get_table_name(model_id);
+                    let model = await think.model("model", think.config("db")).get_table_name(model_id);
                     console.log(model);
                     //limit
                     let offset,length;
@@ -115,7 +115,7 @@ global.column= function(){
         let isapp = !think.isEmpty(args.isapp) ?args.isapp:false;
         let isindex = !think.isEmpty(args.isindex) ?args.isindex:false;
 
-        let column = await think.model('category', think.config("db"),'admin').get_all_category();
+        let column = await think.model('category', think.config("db")).get_all_category();
         if(args.isnum==1){
             for(let v of column){
                 v.doc_num = await think.model('document',think.config("db")).cache(1000).where({category_id:v.id,status:[">",0]}).count("id");
@@ -168,7 +168,7 @@ global.column= function(){
    };
    this.run = async function (context, args, callback) {
      let data = think.isEmpty(args.data) ?"data":args.data;
-     let channel = await think.model('channel', think.config("db"),'admin').get_channel_cache();
+     let channel = await think.model('channel', think.config("db")).get_channel_cache();
      channel = arr_to_tree(channel,0);
      //console.log(channel);
      context.ctx[data] = channel;
@@ -189,28 +189,8 @@ global.groups = function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
-
-        let groups = await think.model('category', think.config("db")).where({id:args.cid}).getField("groups",true);
-        if(!think.isEmpty(groups)){
-            let cate = await get_cate(args.cid);
-            if(groups.search(/\r\n/ig)>-1){
-            groups=groups.split("\r\n");
-           let arr = []
-            groups.forEach(n =>{
-                let obj ={}
-                n=n.split(":");
-               obj.url = cate.url+"/"+n[0]
-                obj.name=n[1];
-                obj.id = n[0];
-                arr.push(obj);
-            })
-
-            groups = arr;
-        }
-        }
-        context.ctx[data] = groups;
+        context.ctx[data] = await think.model('category', think.config("db")).get_groups(args.cid);
         return callback(null,'');
     }
 }
@@ -250,7 +230,7 @@ global.topic = function(){
             let cids = `${args.cid}`;
             let cidarr = []
             for (let v of cids.split(",")){
-                let subcate = await think.model('category',think.config("db"), 'admin').get_sub_category(v);
+                let subcate = await think.model('category',think.config("db")).get_sub_category(v);
                 cidarr = cidarr.concat(subcate)
                 cidarr.push(Number(v))
             }
@@ -295,7 +275,7 @@ global.topic = function(){
         if(args.isstu == 1){
             let topicarr = []
             for(let v of topic){
-            let table =await think.model("model",think.config("db"),"admin").get_table_name(v.model_id);
+            let table =await think.model("model",think.config("db")).get_table_name(v.model_id);
             let details = await think.model(table,think.config("db")).find(v.id);
            topicarr.push(think.extend({},v,details));
             }
