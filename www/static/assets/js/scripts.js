@@ -449,7 +449,7 @@ function _ajax_post() {
           var data=$(this).serialize()
          $.ajax({ 
              type: "POST", 
-             url: "/user/login",
+             url: "/uc/public/login",
              data: data,
              success: function(msg){
                     if(msg.errno < 0){
@@ -2734,9 +2734,6 @@ function _ajax_post() {
 			});
 
 		}
-
-
-
 		/** Form Validate
 		 ************************ **/
 		if(jQuery('form.validate').length > 0) {

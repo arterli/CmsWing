@@ -4,6 +4,9 @@
 $(function () {
     //载入编辑器
     var editor = new wangEditor('detail');
+    // 上传图片
+    editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
+    editor.config.uploadImgFileName = 'file';
     editor.create();
     //tags
     $('#keywords').tagsInput({
@@ -28,6 +31,13 @@ $(function () {
                 url:"/mod/question/ajax/getgroups/cid/"+v,
                 success:function (res) {
                     if(res){
+                        var li ="";
+                            li += '<li data-value="0"><a href="javascript:;">不分组</a></li>';
+                        $.each(res,function (k,v) {
+                            li += '<li data-value="'+v.id+'"><a href="javascript:;">'+v.name+'</a></li>'
+                        })
+                        $("#group ul").html(li);
+                        //console.log(li);
                         $("#group").removeClass("hide");
                     }else {
                         $("#group").addClass("hide");
@@ -38,4 +48,5 @@ $(function () {
         }
 
     })
+
 });

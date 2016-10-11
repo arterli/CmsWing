@@ -21,9 +21,8 @@ export default class extends Base {
   }
   //上传文件
   async uploadAction(){
-    
-    let file = think.extend({}, this.file('file'));
-    console.log(file);
+
+      let file = think.extend({}, this.file('file'));
     let filepath = file.path;
     let basename = path.basename(filepath);
       let data;
@@ -77,7 +76,16 @@ export default class extends Base {
   }
 
   //上传图片
+    /**
+     * 上传图片统一接口
+     * ／uc/file/uploadpic
+     * 默认上传返回 图片id,展示图片请用 get_pic(id)函数
+     * /uc/file/uploadpic/type/path
+     * 返回图片地址,
+     *
+     */
   async uploadpicAction(){
+      let type = this.get('type');
     let file = think.extend({}, this.file('file'));
     let filepath = file.path;
     let basename = path.basename(filepath);
@@ -121,7 +129,12 @@ export default class extends Base {
         }
     }
 
-    this.json(res);
+        if(type=='path'){
+         this.json(await get_pic(res));
+    }else {
+         this.json(res);
+    }
+
   }
   //上传多图
   picsAction(){

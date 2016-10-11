@@ -371,6 +371,7 @@
             dataType:'json',//服务器返回json格式数据
             type:'get',//HTTP请求类型
             success:function(data){
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
                 //获得服务器响应
 //                console.log();
 //             var fragment = document.createDocumentFragment();
@@ -389,7 +390,7 @@
 //                }
                 //console.log($(tplRender(data)));
                 //document.getElementById("tpl").innerHTML= tplRender(data)
-                $('#pullrefresh .mui-table-view').append(tplRender(data));
+
             }
         });
 

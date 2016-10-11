@@ -62,7 +62,7 @@ CLASSES:
 
             <!-- LEFT -->
             <div class="col-md-9 col-sm-9">
-                <form role="form">
+                <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
                     <div class="form-group">
                         <label for="title">问题标题:</label>
                         <div class="input-group">
@@ -96,14 +96,12 @@ CLASSES:
                                 </div><!-- /btn-group -->
 
                             </div>
-                            <input type="text" class="form-control noradius" id="title">
+                            <input type="text" class="form-control noradius" name="title" id="title">
                         </div><!-- /input-group -->
                     </div>
                     <div class="form-group">
                         <label>问题补充 (选填):</label>
-                        <div id="detail" style="height:400px;max-height:500px;">
-                            <p>请输入内容...</p>
-                        </div>
+                        <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none"></textarea>
                     </div>
                     <div class="form-group">
                         <label>添加话题:</label>
@@ -121,7 +119,7 @@ CLASSES:
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-
+                            <input type="hidden" name="backurl" value="{{http.referrer()}}" >
                             <button class="btn btn-primary btn-lg" >确认发布</button>
 
                         </div>
