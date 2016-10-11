@@ -1118,6 +1118,29 @@ global.image_view=(str,w,m)=>{
     }
 }
 
+global.img_text_view=(str,w,h)=>{
+    //console.log(info);
+    let imgReg = /<img.*?(?:>|\/>)/gi;
+    let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    let arr = str.match(imgReg);
+    if(!think.isEmpty(arr)){
+        let narr=[];
+        for(let img of arr){
+            let _img = img.match(srcReg)
+            //console.log(_img[1]);
+            let nimg =_img[1];
+            if(!think.isEmpty(w) && !think.isEmpty(h)){
+                nimg = _img[1]+'?imageView2/1/w/'+w+'/h/'+h;
+            }
+            //console.log(nimg)
+            narr.push(nimg);
+        }
+        //console.log(narr);
+        return narr;
+    }else {
+        return [];
+    }
+}
 /**
  * 获取文件信息
  * @param file_id 文件id

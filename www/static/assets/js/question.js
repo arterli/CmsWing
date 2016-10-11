@@ -21,8 +21,9 @@ $(function () {
     $(document).on("click",".question_select .dropdown-menu>li",function () {
         var v = $(this).attr("data-value");
         var n = $(this).text();
-        $(this).parent().prev("button").find("span.name").text(n);
-        $(this).parent().prev("button").prev("input").val(v);
+        console.log(v);
+        $(this).parents(".question_select").find("span.name").text(n);
+        $(this).parents(".question_select").find("input").val(v);
         var isajax = $(this).parents().is("#group");
         //alert(isajax);
         //alert(v)

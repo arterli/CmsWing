@@ -80,8 +80,11 @@ export default class extends Base {
     }
 
     let data = await this.model(this.mod.name).where(map).page(this.param('page'),num).order(o).countSelect();
-
-    /* 模板赋值并渲染模板 */
+     for (let v of data.data){
+         v.imgs = img_text_view(v.detail,200,120);
+     }
+      console.log(data);
+      /* 模板赋值并渲染模板 */
       this.assign("group_id",group_id);
       this.assign('category', cate);
       this.assign('list', data.data);
@@ -107,8 +110,50 @@ export default class extends Base {
    * 详情入口
    * @returns {*}
    */
-  detailAction(){
+  async detailAction(){
+      //获取详情id
+      let id =this.get("id");
+      //判断请求参数是否合法。
+      if(!think.isNumberString(id)){
+          this.http.error = new Error("请求参数不合法！");
+          return think.statusAction(702, this.http);
+      }
+      //获取详情信息
+      let info = await this.model("question").find(id);
+      //判断信息是否存在
+      if(think.isEmpty(info)){
+              this.http.error = new Error("信息不存在！");
+              return think.statusAction(702, this.http);
+      }
+      //TODO
+      let roleid=8;//游客
+      //访问控制
+      if(this.is_login){
+          roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      let priv = await this.model("category_priv").priv(info.category_id,roleid,'visit');
+      if(!priv){
+          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+          return think.statusAction(702, this.http);
+      }
+      this.assign("info",info);
 
-    return this.display();
+      //seo
+      this.meta_title = info.title; //标题
+      this.keywords = info.keyname ? info.keyname : ''; //seo关键词
+      this.description = info.description ? info.description : ""; //seo描述
+
+      //获取面包屑信息
+      let breadcrumb = await this.model('category').get_parent_category(info.category_id,true);
+      this.assign('breadcrumb', breadcrumb);
+      //获取栏目信息
+      let cate = await this.category(info.category_id);
+      this.assign('category', cate);
+      //当前用户是否关注
+      if(this.is_login){
+          let focus = await this.model("question_focus").where({question_id:id,uid:this.user.uid}).find();
+          this.assign("focus",focus);
+      }
+      return this.display();
   }
 }
