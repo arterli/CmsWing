@@ -17,7 +17,6 @@ export default class extends Base {
   async addAction(){
       //前台登录验证
       await this.weblogin();
-
       let cid = this.get("cid");
       //获取面包屑信息
       let breadcrumb = await this.model('category').get_parent_category(cid,true);

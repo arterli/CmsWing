@@ -363,9 +363,10 @@ export default {
                  */
                 env.addExtension('groups', new groups(), true);
                 /**
-                 * 获取keywrods
+                 * 获取话题
                  */
                 env.addExtension('keywords', new keywords(), true);
+                env.addExtension('rkeywords', new rkeywords(), true);
             }
         }
     }

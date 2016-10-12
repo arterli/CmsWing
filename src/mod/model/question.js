@@ -15,6 +15,19 @@ export default class extends think.model.base {
                  //添加关注
             if(id){
                 await this.model("question_focus").add({question_id:id,uid:data.uid,add_time:new Date().getTime()});
+                //添加关键词
+                if(!think.isEmpty(data.keyname)){
+                    let keywrods = data.keyname.split(",");
+                    console.log(keywrods);
+                    for (let v of keywrods){
+                        let add = await this.model("keyword").thenAdd({keyname:v}, {keyname:v});
+                        if(add.type=='exist'){
+                            await this.model("keyword").where({id:add.id}).increment("videonum", 1);
+                        }
+                        await this.model("keyword_data").add({tagid:add.id,docid:id,add_time:new Date().getTime(),uid:data.uid,mod_type:1,mod_id:data.mod_id});
+                    }
+
+                }
             }
         }else {//更新主题
 

@@ -154,6 +154,12 @@ export default class extends Base {
           let focus = await this.model("question_focus").where({question_id:id,uid:this.user.uid}).find();
           this.assign("focus",focus);
       }
+      //话题
+      // let topicid = await this.model("keyword_data").where({docid:id,mod_type:1,mod_id:cate.model}).getField("tagid");
+      // if(!think.isEmpty(topicid)){
+      //     let topic = await this.model("keyword").where({id:["IN",topicid]}).select();
+      //     console.log(topic);
+      // }
       return this.display();
   }
 }

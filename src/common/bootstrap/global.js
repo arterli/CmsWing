@@ -654,7 +654,7 @@ global.call_user_func = function(cb, params) {
 /* global get_nickname */
 global.get_nickname = async (uid) => {
     //console.log(uid);
-    let data = await think.model('member', think.config("db"), 'admin').cache({
+    let data = await think.model('member', think.config("db")).cache({
         timeout: 1000,
         type: "file" //使用文件方式缓存
     }).get_nickname(uid)
@@ -1166,7 +1166,7 @@ global.get_file=async (file_id,field,key=false)=>{
  * @returns {*}
  */
 global.get_cate=async(cid)=>{
-    let column = await think.model('category', think.config("db"),'admin').get_all_category();
+    let column = await think.model('category', think.config("db")).get_all_category();
 
     for(let v of column){
         if(v.id==cid){

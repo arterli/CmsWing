@@ -108,7 +108,7 @@ export default class extends think.model.base {
         return lists;
     }
     //获取模型信息并缓存
-   async get_model(id=null,field=null,extend=null){
+   async get_model(id=null,field=null,extend={}){
         /* 读取缓存数据 */
         let list = await think.cache("get_model", () => {
             return this._get_model();
@@ -126,10 +126,11 @@ export default class extends think.model.base {
            }
 
        }
-       if(think.isEmpty(id)&&think.isEmpty(field)&&(!think.isEmpty(extend)||extend==0)){
+       if(think.isEmpty(id)&&think.isEmpty(field)&&(!think.isEmpty(extend))){
 
-           return think._.filter(list, {extend: Number(extend)})
+           return think._.filter(list, extend)
        }
+
    }
     //获取模型信息
     /* 获取模型名称 */

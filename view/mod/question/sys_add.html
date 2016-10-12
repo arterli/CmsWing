@@ -105,7 +105,7 @@ CLASSES:
                     </div>
                     <div class="form-group">
                         <label>添加话题:</label>
-                        <input type="text" class="form-control" id="keywords" name="keywords" value="keywrds" >
+                        <input type="text" class="form-control" id="keywords" name="keyname" value="" >
                     </div>
                     <div class="row">
 
@@ -120,8 +120,8 @@ CLASSES:
 
                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                             <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+                            <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
                             <button class="btn btn-primary btn-lg" >确认发布</button>
-
                         </div>
 
                     </div>

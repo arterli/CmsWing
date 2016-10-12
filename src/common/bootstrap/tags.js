@@ -288,7 +288,7 @@ global.topic = function(){
 }
 
 /**
- *获取导航标签
+ *获取话题标签
  * {% keywords data ="kws"%}
  *
  * data:接受返回数据的变量名称，例: data = "data"
@@ -320,6 +320,49 @@ global.keywords = function(){
             k.url=`/keywords/${k.keyname}`;
         }
         context.ctx[data] = keywrod;
+        return callback(null,'');
+    }
+}
+/**
+ *获取相关话题
+ * {% rkeywords data ="topic",type="0",mod_id="8",id="1"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
+ * type: 0系统模型，1,独立模型
+ * mod_id:模型id,
+ * id:文章的的id,
+ */
+global.rkeywords = function () {
+    this.tags = ['rkeywords'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let where = {};
+        let limit = think.isEmpty(args.limit) ? "5" : args.limit;
+        let type= think.isEmpty(args.type) ? "0" : args.type;
+        let mod_id= think.isEmpty(args.mod_id) ? "1" : args.mod_id;
+        let id = think.isEmpty(args.id) ? "0" : args.id;
+          where.docid=id;
+          where.mod_type=type;
+          where.mod_id=mod_id;
+        let keyword;
+        let topicid = await think.model("keyword_data", think.config("db")).where(where).getField("tagid");
+        if(!think.isEmpty(topicid)){
+            keyword = await think.model("keyword", think.config("db")).where({id:["IN",topicid]}).limit(limit).select();
+
+            for(let k of keyword){
+                k.url=`/t/${k.keyname}`;
+            }
+        }
+        //console.log(keyword);
+        context.ctx[data] = keyword;
         return callback(null,'');
     }
 }
