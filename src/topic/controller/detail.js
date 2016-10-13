@@ -80,14 +80,12 @@ export default class extends Base {
 
     //获取模板
     let temp;
-    let model = await this.model('model').get_document_model(info.model_id, 'name');
+    let model = await this.model('model').get_model(info.model_id, 'name');
 
     //详情模版 TODO
     //手机版模版
 
-
     this.assign('category', cate);
-
     //console.log(info);
     //目录/文章/段落
     let pid;

@@ -81,7 +81,7 @@ export default class extends think.model.base {
         //if(!(think.isNumberString(id) || think.isNumber(id))){
         //    return '555';
         //}
-
+       console.log(333333333)
         /* 读取缓存数据 */
         let list = await think.cache("get_document_model", () => {
             return this._get_document_model();

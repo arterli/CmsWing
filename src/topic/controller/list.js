@@ -51,7 +51,7 @@ export default class extends Base {
       for (let val of models.split(",")) {
         let modelobj = {}
         modelobj.id = val;
-        modelobj.title = await this.model("model").get_document_model(val, "title");
+        modelobj.title = await this.model("model").get_model(val, "title");
         modellist.push(modelobj);
       }
     }
@@ -68,7 +68,7 @@ export default class extends Base {
     if(cate.list_row>0){
       num = cate.list_row;
     } else if(cate.model.split(",").length == 1){
-      let pagenum=await think.model('model').get_document_model(cate.model,"list_row");
+      let pagenum=await this.model('model').get_model(cate.model,"list_row");
       if(pagenum !=0){
         num = pagenum;
       }
