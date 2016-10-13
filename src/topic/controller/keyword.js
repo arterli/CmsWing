@@ -79,8 +79,10 @@ export default class extends Base {
      console.log(list);
      this.assign("list",list);
      //该主题是否被关注。
-     let focus = await this.model("keyword_focus").where({key_id:topic.id,uid:this.user.id||0}).find();
-     this.assign("focus",focus);
+     if(this.is_login) {
+         let focus = await this.model("keyword_focus").where({key_id: topic.id, uid: this.user.id}).find();
+         this.assign("focus", focus);
+     }
      //seo
      this.meta_title = topic.keyname; //标题
      this.keywords = topic.keyname; //seo关键词
