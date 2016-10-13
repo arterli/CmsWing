@@ -148,7 +148,7 @@ CLASSES:
                     </figure>
                     {% endif %}
                     <div class="blog-item-small-content">
-                        <h2><a href="{%if mod.extend == 1%}{{val.name|get_url(val.id)}}{%else%}/mod/{{mod.name}}/{{val.id}}{{http.config('view.file_ext')}}{%endif%}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+                        <h2><a href="{%if val.mod_type == 0%}{{val.name|get_url(val.id)}}{%else%}/mod/{{mod.name}}/{{val.id}}{{http.config('view.file_ext')}}{%endif%}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
 
                         <ul class="blog-post-info list-inline {%if val.description%}padding-bottom-10{%else%}margin-bottom-0{%endif%}">
                             <li>
