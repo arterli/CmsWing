@@ -13,9 +13,9 @@ export default class extends think.model.base {
         let model =await this.field('name,extend').find(id);
         console.log(model);
         if(model.extend == 0){
-             table_name = think.config('db').prefix+model.name.toLowerCase();
+             table_name = think.parseConfig(true, think.config("db")).prefix+model.name.toLowerCase();
         }else if(model.extend == 1){
-            table_name = think.config('db').prefix+'document_'+model.name.toLowerCase();
+            table_name = think.parseConfig(true, think.config("db")).prefix+'document_'+model.name.toLowerCase();
         }else {
             //think.fail("只支持删除文档模型和独立模型");
             return false;

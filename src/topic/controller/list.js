@@ -41,7 +41,7 @@ export default class extends Base {
       return think.statusAction(702, this.http);
     }
     // 获取当前栏目的模型
-    let models = await this.model("category",{},'admin').get_category(cate.id, 'model');
+    let models = await this.model("category").get_category(cate.id, 'model');
     //获取模型信息
     let modellist = [];
     //console.log(111111111)
@@ -51,7 +51,7 @@ export default class extends Base {
       for (let val of models.split(",")) {
         let modelobj = {}
         modelobj.id = val;
-        modelobj.title = await this.model("model",{},'admin').get_document_model(val, "title");
+        modelobj.title = await this.model("model").get_document_model(val, "title");
         modellist.push(modelobj);
       }
     }
@@ -59,7 +59,7 @@ export default class extends Base {
     this.assign('model', models.split(","));
     //console.log(cate);
     //获取当前分类的所有子栏目
-    let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
+    let subcate = await this.model('category').get_sub_category(cate.id);
     // console.log(subcate);
     subcate.push(cate.id);
     //获取模型列表数据个数
@@ -68,7 +68,7 @@ export default class extends Base {
     if(cate.list_row>0){
       num = cate.list_row;
     } else if(cate.model.split(",").length == 1){
-      let pagenum=await think.model('model',{},'admin').get_document_model(cate.model,"list_row");
+      let pagenum=await think.model('model').get_document_model(cate.model,"list_row");
       if(pagenum !=0){
         num = pagenum;
       }
@@ -111,7 +111,7 @@ export default class extends Base {
     }
     let sortarr = query[4]||null;
     let nsobj = {};
-    let sort = await this.model("category", {}, 'admin').get_category(cate.id, 'documentsorts');
+    let sort = await this.model("category").get_category(cate.id, 'documentsorts');
     if (sort) {
       this.assign("sorturl",get.split("-")[4])
       sort = JSON.parse(sort);
@@ -266,7 +266,7 @@ export default class extends Base {
     this.description = cate.description ? cate.description : ""; //seo描述
 
     //获取面包屑信息
-    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
     //console.log(breadcrumb)
 
@@ -371,12 +371,12 @@ export default class extends Base {
       return think.statusAction(702, this.http);
     }
     // 获取当前栏目的模型
-    let model = await this.model("model",{},'admin').get_model(cate.model);
+    let model = await this.model("model").get_model(cate.model);
     //console.log(model);
     this.assign('model', model);
     //console.log(cate);
     //获取当前分类的所有子栏目
-    let subcate = await this.model('category', {}, 'admin').get_sub_category(cate.id);
+    let subcate = await this.model('category').get_sub_category(cate.id);
     // console.log(subcate);
     subcate.push(cate.id);
     //获取模型列表数据个数
@@ -385,7 +385,7 @@ export default class extends Base {
     if(cate.list_row>0){
       num = cate.list_row;
     } else if(cate.model.split(",").length == 1){
-      let pagenum=await this.model('model',{},'admin').get_model(cate.model,"list_row");
+      let pagenum=await this.model('model').get_model(cate.model,"list_row");
       if(pagenum !=0){
         num = pagenum;
       }
@@ -401,7 +401,7 @@ export default class extends Base {
     this.description = cate.description ? cate.description : ""; //seo描述
 
     //获取面包屑信息
-    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
     //console.log(breadcrumb)
     let map = {

@@ -109,7 +109,7 @@ export default class extends Base {
         if(this.is_login){
             roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
         }
-        let priv = await this.model("category_priv").priv(this.m_cate,roleid,ac);
+        let priv = await this.model("category_priv").priv(this.m_cate.id,roleid,ac);
         if(!priv){
             this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
             return think.statusAction(702, this.http);

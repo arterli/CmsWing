@@ -62,7 +62,7 @@ export default class extends Base {
           'last_login_time': last_login_time,
         };
         await this.session('webuser', qq_userInfo);
-        await this.model("member",{},"admin").autoLogin({id:qq_user.uid}, this.ip());//更新用户登录信息，自动登陆
+        await this.model("member").autoLogin({id:qq_user.uid}, this.ip());//更新用户登录信息，自动登陆
         this.redirect("/uc/index");
       }
     }
@@ -140,7 +140,7 @@ export default class extends Base {
       }
     }
     console.log(data);
-    await this.model("member",{},"admin").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+    await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
     let wx_userInfo = {
       'uid':reg,
       'username': data.username,
@@ -160,7 +160,7 @@ export default class extends Base {
     password = encryptPassword(password);
     console.log(data);
 
-    let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 5,0);
+    let res = await this.model("member").signin(username, password, this.ip(), 5,0);
     if (0 < res.uid) {
       //记录用户登录行为
       // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);

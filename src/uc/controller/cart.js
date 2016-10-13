@@ -145,7 +145,7 @@ export default class extends Base {
     for(let val of arr){
       let dataobj = {}
       let goods = await this.model('document').find(val.product_id);
-      let table = await this.model('model',{},'admin').get_table_name(goods.model_id);
+      let table = await this.model('model').get_table_name(goods.model_id);
       let info = await this.model(table).find(val.product_id);
       goods = think.extend(goods,info);
       dataobj.title=goods.title;

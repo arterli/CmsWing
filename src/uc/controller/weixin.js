@@ -200,7 +200,7 @@ export default class extends Base {
       await this.spiderImage(data.headimgurl,filePath+'/avatar.png')
     }
     console.log(data);
-    await this.model("member",{},"admin").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+    await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
     let wx_userInfo = {
       'uid':reg,
       'username': data.username,
@@ -223,10 +223,10 @@ export default class extends Base {
     password = encryptPassword(password);
     console.log(data);
 
-    let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 5,0);
+    let res = await this.model("member").signin(username, password, this.ip(), 5,0);
     if (0 < res.uid) {
       //记录用户登录行为
-      // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
+      // await this.model("action",).log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
       //console.log(11111111111111);
       let wx_info = await this.model("wx_user").where({openid:data.openid}).find();
       await this.model("wx_user").where({openid:data.openid}).update({uid:res.uid});

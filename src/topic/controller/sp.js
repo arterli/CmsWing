@@ -32,7 +32,7 @@ export default class extends Base {
     //频道页只显示模板，默认不读取任何内容
     //内容可以通过模板标签自行定制
     //获取面包屑信息
-    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     //console.log(breadcrumb);
     this.assign('breadcrumb', breadcrumb);
     /* 模板赋值并渲染模板 */

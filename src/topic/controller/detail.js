@@ -68,7 +68,7 @@ export default class extends Base {
       return this.redirect(info.link_id);
     }
     //获取面包屑信息
-    let breadcrumb = await this.model('category',{},'admin').get_parent_category(cate.id,true);
+    let breadcrumb = await this.model('category').get_parent_category(cate.id,true);
     this.assign('breadcrumb', breadcrumb);
 
     // 上一篇
@@ -80,7 +80,7 @@ export default class extends Base {
 
     //获取模板
     let temp;
-    let model = await this.model('model', {}, 'admin').get_document_model(info.model_id, 'name');
+    let model = await this.model('model').get_document_model(info.model_id, 'name');
 
     //详情模版 TODO
     //手机版模版
@@ -138,7 +138,7 @@ export default class extends Base {
         console.log(111111);
         let model_id =  plist[0].model_id;
         let p_id = plist[0].id;
-        let table = await this.model("model",{},"admin").get_table_name(model_id);
+        let table = await this.model("model").get_table_name(model_id);
         let p_info = await this.model(table).find(p_id);
         info = think.extend(info,p_info);
 

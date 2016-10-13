@@ -65,7 +65,7 @@ export default class extends Base {
         //用户副表
         await this.model("customer").add({user_id:reg});
       }
-      await this.model("member",{},"admin").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+      await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
       let userInfo = {
         'uid':reg,
         'username': data.username,
@@ -99,11 +99,11 @@ export default class extends Base {
       let username = this.post('username');
       let password = this.post('password');
       password = encryptPassword(password);
-      let res = await this.model("member", {}, "admin").signin(username, password, this.ip(), 5,0);
+      let res = await this.model("member").signin(username, password, this.ip(), 5,0);
 
       if (0 < res.uid) {
         //记录用户登录行为
-        // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
+        // await this.model("action").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
         // console.log(111111111111121);
         // console.log(res);
         await this.session('webuser', res);
@@ -227,7 +227,7 @@ export default class extends Base {
       //用户副表
       await this.model("customer").add({user_id:reg});
     }
-    await this.model("member",{},"admin").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+    await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
     let userInfo = {
       'uid':reg,
       'username': data.username,

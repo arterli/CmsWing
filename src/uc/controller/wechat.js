@@ -118,7 +118,8 @@ export default class extends think.controller.base {
   __call(){
     this.reply(DEFULT_AUTO_REPLY);
   }
-  
+
+
    /**
      * 获取用户分组
      */

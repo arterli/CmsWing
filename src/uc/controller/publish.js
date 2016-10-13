@@ -32,16 +32,16 @@ export default class extends Base {
     // let _model;
     if (!think.isEmpty(cate_id)) {
       // 获取分类信息
-      let sort = await this.model("category",{},'admin').get_category(cate_id, 'documentsorts');
+      let sort = await this.model("category").get_category(cate_id, 'documentsorts');
       if (sort) {
         sort = JSON.parse(sort);
         if(sortid==0){
           sortid=sort.defaultshow;
         }
-        let typevar = await this.model("typevar",{},'admin').where({sortid:sortid}).select();
+        let typevar = await this.model("typevar").where({sortid:sortid}).select();
         for (let val of typevar){
 
-          val.option= await this.model("typeoption",{},'admin').where({optionid:val.optionid}).find();
+          val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
           if(val.option.type == 'select'||val.option.type == 'radio'){
             if(!think.isEmpty(val.option.rules)){
               val.option.rules = JSON.parse(val.option.rules);
@@ -104,17 +104,17 @@ export default class extends Base {
       let pid = this.get("pid") || 0;
       // 获取列表绑定的模型
       if (pid == 0) {
-        models = await this.model("category",{},'admin').get_category(cate_id, 'model');
+        models = await this.model("category").get_category(cate_id, 'model');
         // 获取分组定义
-        groups = await this.model("category",{},'admin').get_category(cate_id, 'groups');
+        groups = await this.model("category").get_category(cate_id, 'groups');
         if (groups) {
           groups = parse_config_attr(groups);
         }
       } else { // 子文档列表
-        models = await this.model("category",{},'admin').get_category(cate_id, 'model_sub');
+        models = await this.model("category").get_category(cate_id, 'model_sub');
       }
       //获取面包屑信息
-      let nav = await this.model('category',{},'admin').get_parent_category(cate_id||0);
+      let nav = await this.model('category').get_parent_category(cate_id||0);
       this.assign('breadcrumb', nav);
       if (think.isEmpty(model_id) && !think.isNumberString(models)) {
 
@@ -200,7 +200,7 @@ export default class extends Base {
       for (let val of _model) {
         let modelobj = {}
         modelobj.id = val;
-        modelobj.title = await this.model("model",{},'admin').get_document_model(val, "title");
+        modelobj.title = await this.model("model").get_document_model(val, "title");
         modellist.push(modelobj);
       }
     }
@@ -236,21 +236,21 @@ export default class extends Base {
     think.isEmpty(cate_id) && this.fail("参数不能为空");
     think.isEmpty(model_id) && this.fail("该分类未绑定模型");
     // 获取分组定义
-    let groups = await this.model("category",{},'admin').get_category(cate_id, 'groups');
+    let groups = await this.model("category").get_category(cate_id, 'groups');
     if (groups) {
       groups = parse_config_attr(groups);
     }
     // 获取分类信息
-    let sort = await this.model("category",{},'admin').get_category(cate_id, 'documentsorts');
+    let sort = await this.model("category").get_category(cate_id, 'documentsorts');
     if (sort) {
       sort = JSON.parse(sort);
       if(sortid==0){
         sortid=sort.defaultshow;
       }
-      let typevar = await this.model("typevar",{},'admin').where({sortid:sortid}).select();
+      let typevar = await this.model("typevar").where({sortid:sortid}).select();
       for (let val of typevar){
 
-        val.option= await this.model("typeoption",{},'admin').where({optionid:val.optionid}).find();
+        val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
         if(val.option.type == 'select'){
           if(!think.isEmpty(val.option.rules)){
             val.option.rules = JSON.parse(val.option.rules);
@@ -275,12 +275,12 @@ export default class extends Base {
     //console.log(sort);
     this.assign("sort",sort);
     //检查该分类是否允许发布
-    let allow_publish = await this.model("category",{},'admin').check_category(cate_id);
+    let allow_publish = await this.model("category").check_category(cate_id);
     //console.log(allow_publish);
     !allow_publish && this.fail("该分类不允许发布内容");
 
     //获取当先的模型信息
-    let model = await this.model("model",{},'admin').get_document_model(model_id);
+    let model = await this.model("model").get_document_model(model_id);
 
     //处理结果
     let info = {};
@@ -290,17 +290,17 @@ export default class extends Base {
     info.group_id = group_id;
 
     if (info.pid) {
-      let article = await this.model("document",{},'admin').field('id,title,type').find(info.pid);
+      let article = await this.model("document").field('id,title,type').find(info.pid);
       this.assign("article", article);
     }
     //获取表单字段排序
-    let fields = await this.model("attribute",{},'admin').get_model_attribute(model.id,true);
+    let fields = await this.model("attribute").get_model_attribute(model.id,true);
     think.log(fields);
     //获取当前分类文档的类型
-    let type_list = await this.model("category",{},'admin').get_type_bycate(cate_id);
+    let type_list = await this.model("category").get_type_bycate(cate_id);
     //console.log(type_list);
     //获取面包屑信息
-    let nav = await this.model('category',{},'admin').get_parent_category(cate_id);
+    let nav = await this.model('category').get_parent_category(cate_id);
     //console.log(model);
     this.assign('groups',groups);
     this.assign('breadcrumb', nav);
@@ -322,7 +322,7 @@ export default class extends Base {
       this.fail("参数不能为空");
     }
     //获取详细数据；
-    let document = this.model("document",{},'admin')
+    let document = this.model("document")
     let data = await document.details(id);
     //安全验证
     if(data.uid != this.user.uid){
@@ -335,16 +335,16 @@ export default class extends Base {
       let article = document.field("id,title,type").find(data.pid);
       this.assign('article', article);
     }
-    let model = await this.model("model",{},'admin').get_document_model(data.model_id);
+    let model = await this.model("model").get_document_model(data.model_id);
 
     // 获取分组定义
-    let groups = await this.model("category",{},'admin').get_category(data.category_id, 'groups');
+    let groups = await this.model("category").get_category(data.category_id, 'groups');
     if (groups) {
       groups = parse_config_attr(groups);
     }
     this.assign('groups',groups);
     // 获取分类信息
-    let sort = await this.model("category",{},'admin').get_category(data.category_id, 'documentsorts');
+    let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
     if (sort) {
       sort = JSON.parse(sort);
       if(sortid !=0){
@@ -382,15 +382,15 @@ export default class extends Base {
     //console.log(sort);
     this.assign("sort",sort);
     //获取表单字段排序
-    let fields = await this.model("attribute",{},'admin').get_model_attribute(model.id,true);
+    let fields = await this.model("attribute").get_model_attribute(model.id,true);
     this.assign('fields', fields);
     //获取当前分类文档的类型
-    let type_list = await this.model("category",{},'admin').get_type_bycate(data.category_id)
+    let type_list = await this.model("category").get_type_bycate(data.category_id)
     //获取suk tags
     let tags = await this.model('tags').where({model_id:data.model_id}).select();
     this.assign('tags',tags);
     //获取面包屑信息
-    let nav = await this.model('category',{},'admin').get_parent_category(data.category_id);
+    let nav = await this.model('category').get_parent_category(data.category_id);
     //console.log(model);
     this.assign('breadcrumb', nav);
     //console.log(model);
@@ -420,7 +420,7 @@ export default class extends Base {
     }
     //console.log(data);
     //return false;
-    let res = await this.model('document',{},'admin').updates(data);
+    let res = await this.model('document').updates(data);
     // let res ={ data:
     // { name: '',
     //     title: '1111',
@@ -504,7 +504,7 @@ export default class extends Base {
 
     if (cate_id) {
       //获取当前分类的所有子栏目
-      let subcate = await this.model('category', {}, 'admin').get_sub_category(cate_id);
+      let subcate = await this.model('category').get_sub_category(cate_id);
       // console.log(subcate);
       subcate.push(cate_id);
       map.category_id = ['IN', subcate];
@@ -618,7 +618,7 @@ export default class extends Base {
     }
 
     //检查该分类是否允许发布内容
-    let allow_publish = await this.model("category",{},'admin').get_category(cate_id, 'allow_publish');
+    let allow_publish = await this.model("category").get_category(cate_id, 'allow_publish');
     this.assign("nsobj",nsobj);
     this.assign('_total', list.count);//该分类下的文档总数
     this.assign('pagerData', page); //分页展示使用
@@ -631,7 +631,7 @@ export default class extends Base {
   }
 //权限验证
   async priv(cate_id) {
-    let cate = cate_id || await this.model("category",{},'admin').get_all_category();
+    let cate = cate_id || await this.model("category").get_all_category();
     let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
     let cates= [];
     if(cate_id){
@@ -682,7 +682,7 @@ export default class extends Base {
    */
 
   async getmenuAction() {
-    let cate = await this.model("category",{},'admin').get_all_category({mold:0});
+    let cate = await this.model("category").get_all_category({mold:0});
     let roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
     // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
     // console.log(priv);

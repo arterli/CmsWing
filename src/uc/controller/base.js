@@ -165,7 +165,7 @@ export default class extends think.controller.base {
    */
   async parseDocumentList(list, model_id) {
     model_id = model_id || 1;
-    let attrList = await this.model('attribute',{},'admin').get_model_attribute(model_id, false, 'id,name,type,extra');
+    let attrList = await this.model('attribute').get_model_attribute(model_id, false, 'id,name,type,extra');
     //attrList=attrList[model_id];
     //this.end(attrList);
     // console.log(attrList);
