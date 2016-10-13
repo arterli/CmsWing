@@ -54,6 +54,7 @@ export default {
                  */
                 env.addFilter("moment",function (time,config) {
                     let moment = require('moment');
+                    moment.locale('zh-cn');
                     if(think.isEmpty(config)){
                         return moment(time).fromNow();
                     }else {

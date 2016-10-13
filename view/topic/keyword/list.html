@@ -24,20 +24,37 @@ CLASSES:
 <section class="page-header page-header-xs" >
     <div class="container">
 
-        <h1>热门话题</h1>
+        <div class="testimonial clearfix">
+            <figure class="pull-left">
+                {%if pic%}
+                <i class="ico-color" style="background-color:#1E8BC3"><img class="" src="/static/assets/images/demo/people/300x300/2-min.jpg" alt="" style="width: 50px;height: 50px;display: block; -webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;"></i>
+                {%else%}
+                <i class="ico-color et-chat" style="background-color:#1E8BC3"></i>
+                {%endif%}
+            </figure>
+            {%if focus.key_id%}
+            <a class="btn btn-default pull-right " style="z-index: 10" >
+                取消关注 <span class="badge">{{topic.focus_count}}</span>
+            </a>
+            {%else%}
+            <a class="btn btn-success pull-right " style="z-index: 10" >
+                关注 <span class="badge">{{topic.focus_count}}</span>
+            </a>
+            {%endif%}
+            <div class="testimonial-content" style="padding-right: 160px">
 
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb">
-            <li><a href="/">首页</a></li>
-            <li class="active">话题</li>
+                    <h1>{{topic.keyname}}</h1>
+                    <p>{{topic.description}}</p>
 
-        </ol><!-- /breadcrumbs -->
-        <!-- page tabs -->
+            </div>
+        </div>
+
+
 
         <ul class="page-header-tabs list-inline">
-            <li class="active"><a href="/topic">全部</a></li>
-            {%for m in model%}
-            <li class=""><a href="{{breadcrumb[0].url}}"> {{m.title}}</a></li>
+            <li class="{%if mod.id==null%}active{%endif%}"><a href="/t/{{key}}">全部</a></li>
+            {%for m in models%}
+            <li class="{%if mod.id==m.id%}active{%endif%}"><a href="/t/{{key}},{{m.id}}"> {{m.title}}</a></li>
             {%endfor%}
         </ul>
 
@@ -51,16 +68,119 @@ CLASSES:
         <div class="row">
 
             <!-- LEFT -->
-            <div class="col-md-12 col-sm-12">
-                <ul class="nav nav-tabs nav-bottom-border">
-                    <li class="{%if order ==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}" >最新的</a></li>
-                    <li class="{%if order ==1%}active{%endif%}"><a href="{{cate.url}}-1{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >最热的</a></li>
-                    <li class="{%if order ==2%}active{%endif%}"><a href="{{cate.url}}-2{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >推荐的</a></li>
-                    <li class="{%if order ==3%}active{%endif%}"><a href="{{cate.url}}-3{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >等待回复</a></li>
-                </ul>
+            <div class="col-md-9 col-sm-9">
 
+                {%if mod.id ==8%}
+                <div class="timeline">
+                    <div class="timeline-hline"><!-- horizontal line --></div>
+                    {%endif%}
+                {% for val in list.data %}
+                {% set categoryname = val.category_id|get_cate %}
+               {%if mod.id ==8%}
+                <!-- POST ITEM -->
+                <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+                    <div class="timeline-entry" ><!-- .rounded = entry -->
+                        <a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+                        <div class="timeline-vline"><!-- vertical line --></div>
+                    </div>
+                    <!-- IMAGE -->
+                    {% if val.imgs|length==1 %}
+                    <figure class="blog-item-small-image margin-bottom-0">
+                        <img class="img-responsive" src="{{val.imgs[0]}}" alt="">
+                    </figure>
+                    {% endif %}
+                    <div class="blog-item-small-content">
+                        <h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+                        <ul class="blog-post-info list-inline padding-bottom-10">
+                            <li>
 
+                                <a class="" href="{{categoryname.url}}">
+                                    <span class="label label-light">{{categoryname.name}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                </a>
+                                <span class="font-lato"> 回复了问题</span>
+                            </li>
+                            <li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+                            </li>
+                            <li>
+                                <span class="font-lato">3 个回复</span>
 
+                            </li>
+                            <li>
+                                <span class="font-lato">14 次浏览</span>
+                            </li>
+                            <li>
+                                <span class="font-lato"> {{val.create_time|moment}}</span>
+                            </li>
+
+                        </ul>
+                        {% if val.imgs|length>1 %}
+                        <div class="row margin-bottom-10">
+                            {%set i = 0%}
+                            {%for img in val.imgs%}
+                            {%if i< 4 %}
+                            <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+                            {%endif%}
+                            {%set i=i+1%}
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+                        <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                    </div>
+
+                </div
+
+               {%else%}
+                <!-- POST ITEM -->
+                <div class="blog-post-item {%if val.description%}padding-bottom-20{%else%}padding-bottom-0 {%endif%} margin-bottom-20 clearfix">
+
+                    <!-- IMAGE -->
+                    {% if val.cover_id>0 %}
+                    <figure class="blog-item-small-image margin-bottom-0">
+                        <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+                    </figure>
+                    {% endif %}
+                    <div class="blog-item-small-content">
+                        <h2><a href="{%if mod.extend == 1%}{{val.name|get_url(val.id)}}{%else%}/mod/{{mod.name}}/{{val.id}}{{http.config('view.file_ext')}}{%endif%}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+                        <ul class="blog-post-info list-inline {%if val.description%}padding-bottom-10{%else%}margin-bottom-0{%endif%}">
+                            <li>
+                                <a href="#"><i class="fa fa-clock-o"></i><span class="font-lato">{{val.create_time|moment('lll')}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-comment-o"></i><span class="font-lato">{{val.view}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fa fa-folder-open-o"></i><a class="category" href="{{categoryname.url}}"><span class="font-lato">{{categoryname.name}}</span>
+                            </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user"></i><span class="font-lato">{{val.uid|get_nickname}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                        {%if val.description%}
+                        <p>{{val.description|truncate(90, true, "...")}}</p>
+                        {%endif%}
+                    </div>
+
+                </div>
+                <!-- /POST ITEM -->
+                {%endif%}
+                {%endfor%}
+                    {%if mod.id ==8%}
+                     </div>
+                    {%endif%}
                 <!-- PAGINATION -->
                 <div class="text-left">
                     <!-- Pagination Default -->

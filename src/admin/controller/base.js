@@ -107,10 +107,23 @@ export default class extends think.controller.base {
         if (in_array('id', fields) && !think.isEmpty(id)) {
             where = think.extend({ 'id': ['IN', id] }, where);
         }
-
         msg = think.extend({ 'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax() }, msg);
         let res = await this.model(model).where(where).update(data);
         if (res) {
+            switch (model){
+                case 'channel'://更新频道缓存信息
+                    think.cache("get_channel_cache",null);
+                    res = true;
+                    msg = "更新导航缓存成功！";
+                    break;
+                case 'category'://更新全站分类缓存
+                    think.cache("sys_category_list",null);
+                    think.cache("all_category",null);
+                    think.cache("all_priv",null);//栏目权限缓存
+                    res = true;
+                    msg = "更新栏目缓存成功！";
+                    break;
+            }
             this.success({ name: msg.success, url: msg.url });
         } else {
             this.fail(msg.error, msg.url);
@@ -232,6 +245,7 @@ export default class extends think.controller.base {
                 case 'category'://更新全站分类缓存
                     think.cache("sys_category_list",null);
                     think.cache("all_category",null);
+                    think.cache("all_priv",null);//栏目权限缓存
                     break;
             }
            return this.success({ name: "更新排序成功！"});

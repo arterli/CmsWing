@@ -433,7 +433,7 @@ export default class extends Base {
     }
     console.log(map);
     this.assign("group_id",group_id);
-    let data = await this.model(model.name).where(map).page(this.param('page'),num).order(o).countSelect();
+    let data = await this.model(model.name).where(map).page(this.param('page'),num).order(o);
 
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);

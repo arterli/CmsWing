@@ -1,5 +1,6 @@
 'use strict';
 import Base from '../index.js';
+import pagination from 'think-pagination';
 export default class extends Base {
   /**
    * index action
@@ -56,6 +57,7 @@ export default class extends Base {
     };
     //排序
     let o = {};
+
     let order = this.modget(1)||0;
     order = Number(order);
     switch (order){
@@ -64,9 +66,11 @@ export default class extends Base {
         break;
       case 2:
         map.is_recommend = 1;
+          o.id='DESC';
         break;
       case 3:
         map.answer_count = 0;
+          o.id='DESC';
         break;
       default:
         o.create_time = 'DESC';
@@ -83,7 +87,19 @@ export default class extends Base {
      for (let v of data.data){
          v.imgs = img_text_view(v.detail,200,120);
      }
-      console.log(data);
+     //分页
+      let html = pagination(data, this.http, {
+          desc: false, //show description
+          pageNum: 2,
+          url: '', //page url, when not set, it will auto generated
+          class: 'nomargin', //pagenation extra class
+          text: {
+              next: '下一页',
+              prev: '上一页',
+              total: 'count: ${count} , pages: ${pages}'
+          }
+      });
+      this.assign('pagination', html);
       /* 模板赋值并渲染模板 */
       this.assign("group_id",group_id);
       this.assign('category', cate);

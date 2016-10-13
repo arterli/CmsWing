@@ -163,15 +163,14 @@ CLASSES:
         <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
         <!--评论表情-->
         <div class="divider divider-dotted"><!-- divider --></div>
-
-
         <!-- TAGS -->
-        {%for k in keywords%}
-        <a class="tag" href="/keywords/{{k|urlencode}}">
-            <span class="txt">{{k}}</span>
-            <!--<span class="num">12</span>-->
+        {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
+        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+        {%for k in tags%}
+        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+            {{k.keyname}}
         </a>
-      {%endfor%}
+        {%endfor%}
         <!-- /TAGS -->
 
 

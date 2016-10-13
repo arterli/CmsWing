@@ -317,7 +317,7 @@ global.keywords = function(){
         let keywrod = await think.model('keyword', think.config("db")).where(where).limit(limit).order(type).select();
         //console.log(channel);
         for(let k of keywrod){
-            k.url=`/keywords/${k.keyname}`;
+            k.url=`/t/${k.keyname}`;
         }
         context.ctx[data] = keywrod;
         return callback(null,'');
@@ -358,7 +358,7 @@ global.rkeywords = function () {
             keyword = await think.model("keyword", think.config("db")).where({id:["IN",topicid]}).limit(limit).select();
 
             for(let k of keyword){
-                k.url=`/t/${k.keyname}`;
+                k.url=`/t/${k.keyname},${mod_id}`;
             }
         }
         //console.log(keyword);

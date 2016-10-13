@@ -115,6 +115,7 @@ export default class extends Base {
       case 1:
       case 2:
         if(cate.mold==1){
+         // await this.action('question/list', 'index', 'mod')
           await this.action("mod/index","list");
         }else {
           await this.action("list","index");

@@ -92,7 +92,7 @@
 </td>
 <td><a class="text-info-dker" href="{{val.url}}" target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
 <td>
-{%if val.allow_publish == 0 %}不允许{% elif val.allow_publish==1%}允许后台发布{%elif val.allow_publish==2%}允许前后台发布{%endif%}
+{%if val.allow_publish == 0 %}封面{% elif val.allow_publish==1%}列表{%endif%}
 </td>
 <td> <a href="/admin/category/setstatus/ids/{{val.id}}/status/{{1-val.status}}" class="active ajax-get" data-toggle="class">
 <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>

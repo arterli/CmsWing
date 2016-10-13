@@ -89,9 +89,9 @@ export default class extends Base {
             //获取模型信息；
             let model;
             if(mold==0){
-                model = await this.model("model").get_model(null,null,1);
+                model = await this.model("model").get_model(null,null,{extend:1});
             }else if(mold==1) {
-                model = await this.model("model").get_model(null,null,0);
+                model = await this.model("model").get_model(null,null,{extend:0});
             }
 
             //console.log(obj_values(model));
@@ -186,9 +186,9 @@ export default class extends Base {
             //获取模型信息；
             let model;
             if(info.mold==0){
-                model = await this.model("model").get_model(null,null,1);
+                model = await this.model("model").get_model(null,null,{extend:1});
             }else if(info.mold==1) {
-                model = await this.model("model").get_model(null,null,0);
+                model = await this.model("model").get_model(null,null,{extend:0});
             }
 
             //console.log(obj_values(model));

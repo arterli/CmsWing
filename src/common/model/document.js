@@ -109,18 +109,17 @@ export default class extends think.model.base {
                     this.model("type_optionvalue"+data.sort_id).add(sortdata);
                 }
                 //添加关键词
-                if(!think.isEmpty(data.keyname)){
-                    let keywrods = data.keyname.split(",");
-                    console.log(keywrods);
-                    for (let v of keywrods){
-                        let add = await this.model("keyword").thenAdd({keyname:v}, {keyname:v});
-                        if(add.type=='exist'){
-                            await this.model("keyword").where({id:add.id}).increment("videonum", 1);
-                        }
-                        await this.model("keyword_data").add({tagid:add.id,docid:id});
-                    }
+                //添加关键词
+                /**
+                 * 添加话题
+                 * @param keyname "话题1,话题2.话题3"
+                 * @param id  "主题id"
+                 * @param uid "用户id"
+                 * @param mod_id "模型id"
+                 * @param mod_type "模型类型 0独立模型，1系统模型"
+                 */
+                await this.model("keyword").addkey(data.keyname,id,data.uid,data.model_id,0);
 
-                }
             }
         }else {//更新内容
             data.update_time=new Date().getTime();
@@ -148,7 +147,7 @@ export default class extends think.model.base {
                     if(add.type=='exist'){
                         await this.model("keyword").where({id:add.id}).increment("videonum", 1);
                     }
-                    await this.model("keyword_data").add({tagid:add.id,docid:data.id});
+                    await this.model("keyword_data").add({tagid:add.id,docid:data.id,add_time:new Date().getTime(),uid:data.uid,mod_type:data.model_id,mod_id:0});
                 }
 
             }

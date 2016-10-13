@@ -35,9 +35,10 @@ export default class extends Base {
  async indexAction(){
     try
     {
-      let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
-      let cc =new cxt(this.http)
-      await this.action(cc,"index")
+      // let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
+      // let cc =new cxt(this.http)
+      // await this.action(cc,"index")
+        await this.action(this.mod.name+'/index',"index")
     }
     catch (err)
     {
@@ -55,9 +56,11 @@ export default class extends Base {
   async listAction(){
     try
     {
-      let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
-      let cc =new cxt(this.http)
-      await this.action(cc,"list")
+      // let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
+      // let cc =new cxt(this.http)
+      // await this.action(cc,"list");
+        // console.log(2222);
+        await this.action(this.mod.name+'/index',"list")
     }
     catch (err)
     {
