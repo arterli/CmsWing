@@ -223,70 +223,29 @@ CLASSES:
                 {%endif%}
                 <div class="box-inner nopadding">
                     <h3>
-                        <a class="pull-right size-11 text-warning" href="#">更多</a>
+                        <a class="pull-right size-11 text-warning" href="/topic">更多</a>
                         热门话题
                     </h3>
                     <div class="" >
-
+                        {% keywords data ="topic",type="hot",limit="5",mod=model.id %}
+                        {%for k in topic%}
                         <div class="clearfix margin-bottom-10"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/3-min.jpg" width="60" height="60" alt="" />
-                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="/keywords/哈哈">
-                                <span class="txt">CmsWing</span>
-                                <span class="num">5</span>
-                            </a>
-                            </h4>
-                            <span class="size-13 text-muted">
-                                907 个问题, 361 人关注
-												</span>
-                        </div><!-- /discussion item -->
-
-                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
+                            {%if k.pic==0%}
+                            <i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
+                            {%else%}
                             <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
-                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="/keywords/哈哈">
-                                <span class="txt">微信公众平台</span>
-                                <span class="num">5</span>
+                            {%endif%}
+                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
+                                <span class="txt">{{k.keyname}}</span>
+                                <span class="num"><i class="fa fa-fire"></i></span>
                             </a>
                             </h4>
                             <span class="size-13 text-muted">
-                                907 个问题, 361 人关注
+                                {{k.videonum}} 个主题, {{k.focus_count}} 人关注
 												</span>
                         </div><!-- /discussion item -->
+                          {%endfor%}
 
-                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/5-min.jpg" width="60" height="60" alt="" />
-                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="/keywords/哈哈">
-                                <span class="txt">微信公众平台</span>
-                                <span class="num">5</span>
-                            </a>
-                            </h4>
-                            <span class="size-13 text-muted">
-                                907 个问题, 361 人关注
-												</span>
-                        </div><!-- /discussion item -->
-
-                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/6-min.jpg" width="60" height="60" alt="" />
-                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="/keywords/哈哈">
-                                <span class="txt">微信公众平台</span>
-                                <span class="num">5</span>
-                            </a>
-                            </h4>
-                            <span class="size-13 text-muted">
-                                907 个问题, 361 人关注
-												</span>
-                        </div><!-- /discussion item -->
-
-                        <div class="clearfix margin-bottom-10"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/7-min.jpg" width="60" height="60" alt="" />
-                            <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="/keywords/哈哈">
-                                <span class="txt">微信公众平台</span>
-                                <span class="num">5</span>
-                            </a>
-                            </h4>
-                            <span class="size-13 text-muted">
-                                907 个问题, 361 人关注
-												</span>
-                        </div><!-- /discussion item -->
 
                     </div>
                 </div>

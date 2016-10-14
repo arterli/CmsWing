@@ -1,8 +1,9 @@
 {% extends "../../topic/inc/base.html" %}
 {% block style %}
-<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css">
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css"/>
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css"  rel="stylesheet" type="text/css"/>
 {% endblock %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
@@ -104,7 +105,7 @@ CLASSES:
                         <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>添加话题:</label>
+                        <label>添加话题: 当一个话题输入完成后，按 <code>回车键</code> 确认</label>
                         <input type="text" class="form-control" id="keywords" name="keyname" value="" >
                     </div>
                     <div class="row">
@@ -149,4 +150,5 @@ CLASSES:
 <script src="/static/assets/js/question.js"></script>
 <script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 {%endblock%}

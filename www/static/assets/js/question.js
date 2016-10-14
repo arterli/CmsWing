@@ -10,6 +10,8 @@ $(function () {
     editor.create();
     //tags
     $('#keywords').tagsInput({
+        autocomplete_url:'/admin/public/getkeyword',
+        autocomplete:{selectFirst:true,width:'100px',autoFill:true},
         width:'auto',
         height:'43px',
         defaultText:'add a tag',

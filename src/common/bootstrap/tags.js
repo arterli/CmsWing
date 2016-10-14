@@ -308,7 +308,8 @@ global.keywords = function(){
         let data = think.isEmpty(args.data) ?"data":args.data;
         let where = {};
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
-        let type='videonum ASC';
+        let mod = think.isEmpty(args.mod) ? "" : ","+args.mod;
+        let type='discuss_count_update DESC';
         if(!think.isEmpty(args.type)){
             if(args.type=="hot"){
                 type="videonum DESC"
@@ -317,7 +318,7 @@ global.keywords = function(){
         let keywrod = await think.model('keyword', think.config("db")).where(where).limit(limit).order(type).select();
         //console.log(channel);
         for(let k of keywrod){
-            k.url=`/t/${k.keyname}`;
+            k.url=`/t/${k.keyname}`+mod;
         }
         context.ctx[data] = keywrod;
         return callback(null,'');

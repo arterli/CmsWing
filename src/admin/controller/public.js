@@ -151,4 +151,13 @@ export default class extends think.controller.base {
         });
         return deferred.promise;
     }
+
+    /**
+     * 关键词自动完成
+     */
+    async getkeywordAction(){
+        let term = this.get("term");
+       let data =  await this.model("keyword").where({keyname:["LIKE",`%${term}%`]}).field("id,keyname as label,keyname as value").select()
+        return this.json(data);
+    }
 }
