@@ -115,7 +115,7 @@ export default class extends Base {
      this.assign("list",list);
      //该主题是否被关注。
      if(this.is_login) {
-         let focus = await this.model("keyword_focus").where({key_id: topic.id, uid: this.user.id}).find();
+         let focus = await this.model("keyword_focus").where({key_id: topic.id, uid:this.user.uid}).find();
          this.assign("focus", focus);
      }
      //seo
