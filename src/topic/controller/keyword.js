@@ -3,13 +3,48 @@
 import Base from './base.js';
 import pagination from 'think-pagination';
 export default class extends Base {
+    init(http) {
+        super.init(http);
+        this.active = "/topic";
+    }
   /**
    * index action
    * @return {Promise} []
    */
  async indexAction(){
-    let model = await this.model("model").get_model(null,null,{key_show:1});
-    this.assign("model",model);
+     let q = this.get('key');
+      let map ={}
+      if(!think.isEmpty(q)){
+          switch (q){
+              case 'week':
+                  //todo
+                  map.discuss_count_update = [">",new Date().valueOf() - (7*3600*3600*1000)]
+                  break;
+              case 'month':
+                  //todo
+                  map.discuss_count_update = [">",new Date().valueOf() - (30*3600*3600*1000)]
+                  break;
+          }
+      }
+      let list = await this.model('keyword').page(this.get('page'),15).where(map).order("videonum DESC,focus_count DESC").countSelect();
+      let html = pagination(list, this.http, {
+          desc: false, //show description
+          pageNum: 2,
+          url: '', //page url, when not set, it will auto generated
+          class: 'nomargin', //pagenation extra class
+          text: {
+              next: '下一页',
+              prev: '上一页',
+              total: 'count: ${count} , pages: ${pages}'
+          }
+      });
+      this.assign('pagination', html);
+      //console.log(list);
+      this.assign("list",list);
+      //seo
+      this.meta_title = "话题"; //标题
+      this.keywords =  "话题"; //seo关键词
+      this.description =  "话题"; //seo描述
     //auto render template file index_index.html
     return this.display();
   }

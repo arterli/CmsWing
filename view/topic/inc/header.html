@@ -126,7 +126,7 @@
 						{% channel data='channel'%}
 						{% for val in channel%}
 						{%if val.status > 0%}
-						<li class="{% if val.children %}dropdown{% endif %} {% if category.id|in_Array(val.on) %}active{% endif %}">
+						<li class="{% if val.children %}dropdown{% endif %} {% if (category.id|in_Array(val.on)) or (val.url === controller.active) %}active{% endif %}">
 
 							<a {% if val.children%}class="dropdown-toggle" {% endif %} href="{{val.url}}" {%if val.target ==1%} target="_blank"{%endif%}>{{val.title}}</a> {% if val.children%}
 							<ul class="dropdown-menu">

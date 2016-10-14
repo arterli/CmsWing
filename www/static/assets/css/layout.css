@@ -8609,3 +8609,9 @@ ul.search-history {
 #contentcmswing h2{
 	margin-bottom: 7px;
 }
+i.ico-65 {
+	width: 65px;
+	height: 65px;
+	line-height: 65px;
+	font-size: 35px;
+}

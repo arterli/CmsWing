@@ -35,10 +35,9 @@ CLASSES:
         <!-- page tabs -->
 
         <ul class="page-header-tabs list-inline">
-            <li class="active"><a href="/topic">全部</a></li>
-            {%for m in model%}
-            <li class=""><a href="{{breadcrumb[0].url}}"> {{m.title}}</a></li>
-            {%endfor%}
+            <li class="{%if http.get('key')==''%}active{%endif%}"><a href="/topic">全部</a></li>
+            <li class="{%if http.get('key')=='week'%}active{%endif%}"><a href="/topic/week">7天</a></li>
+            <li class="{%if http.get('key')=='month'%}active{%endif%}"><a href="/topic/month">30天</a></li>
         </ul>
 
         <!-- /page tabs -->
@@ -48,32 +47,37 @@ CLASSES:
 <!-- -->
 <section >
     <div class="container">
-        <div class="row">
+            <ul class="row clearfix testimonial-dotted list-unstyled">
+                {%for k in list.data%}
+                <li class="col-md-4">
+                    <div class="testimonial" style="height: 70px;overflow: hidden">
+                        <figure class="pull-left">
+                         {%if k.pic%}
+                            <img class="radius-3" src="/static/assets/images/demo/people/300x300/6-min.jpg" alt="" />
+                            {%else%}
+                            <i class="ico-light ico-65 ico-hover et-chat" style="z-index: 10;position: relative"></i>
+                   {%endif%}
+                        </figure>
+                        <div class="testimonial-content" style="padding-top: 5px">
+                            <cite class="font-style-normal">
+                                <a href="/t/{{k.keyname}}" class="label label-primary ">{{k.keyname}}</a>
+                                <span class="margin-top-6">{{k.videonum}} 个内容 {{k.focus_count}} 个关注</span>
+                            </cite>
+                            <p>7 天新增 {{k.discuss_count_last_week}} 个内容, 30 天新增 {{k.discuss_count_last_month}} 个内容</p>
+                        </div>
+                    </div>
+                </li>
+                {%endfor%}
 
-            <!-- LEFT -->
-            <div class="col-md-12 col-sm-12">
-                <ul class="nav nav-tabs nav-bottom-border">
-                    <li class="{%if order ==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}" >最新的</a></li>
-                    <li class="{%if order ==1%}active{%endif%}"><a href="{{cate.url}}-1{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >最热的</a></li>
-                    <li class="{%if order ==2%}active{%endif%}"><a href="{{cate.url}}-2{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >推荐的</a></li>
-                    <li class="{%if order ==3%}active{%endif%}"><a href="{{cate.url}}-3{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >等待回复</a></li>
-                </ul>
+            </ul>
 
-
-
-                <!-- PAGINATION -->
-                <div class="text-left">
-                    <!-- Pagination Default -->
-                    {{pagination | safe}}
-                    <!-- /Pagination Default -->
-                </div>
-                <!-- /PAGINATION -->
-
-            </div>
-
-            <!-- RIGHT -->
-
+        <!-- PAGINATION -->
+        <div class="text-center">
+            <!-- Pagination Default -->
+            {{pagination | safe}}
+            <!-- /Pagination Default -->
         </div>
+        <!-- /PAGINATION -->
 
     </div>
 </section>
