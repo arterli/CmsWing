@@ -8,6 +8,7 @@ $(function () {
     editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
     editor.config.uploadImgFileName = 'file';
     editor.create();
+    editor.clear();
     //tags
     $('#keywords').tagsInput({
         autocomplete_url:'/admin/public/getkeyword',

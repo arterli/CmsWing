@@ -67,4 +67,10 @@ div.tagsinput {
 	border-radius: 0px;
 	margin-right: -1px;
 }
+.wangEditor-container .wangEditor-txt pre{
+	font-size: 1em !important;
+}
+.cmswing-container .wangEditor-txt img {
+	cursor: auto !important;
+}
 /*#eaeaea 1px dotted;*/
