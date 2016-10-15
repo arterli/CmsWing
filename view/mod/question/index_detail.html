@@ -117,7 +117,7 @@ CLASSES:
     </div>
 </div>
                 <div class="meta">
-                    <span class="text-color-999 margin-right-15">{{info.update_time|moment}}</span>
+                    <span class="text-color-999 margin-right-15">{{info.create_time|moment}}</span>
 
                     <!--<a data-id="5" data-type="question" class="tex-888 margin-right-15" data-comment-count="0" data-first-click="hide"><i class="fa fa-commenting-o"></i> 添加评论</a>-->
 
@@ -484,18 +484,18 @@ CLASSES:
                     <div class="row margin-bottom-20">
                         <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
                             <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.update_time|moment}}</h2>
-                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">活动</h3>
+                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">最近活动</h3>
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
-                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.view}} 次</h2>
-                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">浏览</h3>
+                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.view}}</h2>
+                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">浏览次数</h3>
                         </div>
                     </div>
                     <!-- /info -->
 
                     <div class="text-muted">
-                        <h2 class="size-16 text-muted margin-bottom-6">关注者:{{info.focus_count}} 人</h2>
+                        <h2 class="size-16 text-muted margin-bottom-6">关注者: {{info.focus_count}} 人</h2>
                         <ul class="list-unstyled nomargin row">
                             {%for u in focususer%}
                             <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/uc/index/avatar/uid/{{u}}" width="40" height="40" alt=""></a></li>
