@@ -205,8 +205,6 @@ function _ajax_get() {
 					setTimeout(function(){
 						if (data.data.url) {
 							location.href=data.data.url;
-						}else if( $(that).hasClass('no-refresh')){
-							toastr.clear()
 						}else{
 							location.reload();
 						}
@@ -2789,8 +2787,6 @@ function _ajax_post() {
                                                     $(form).find('button').removeClass('disabled').prop('disabled',false);
                                                     if (data.data.url) {
                                                         location.href=data.data.url;
-                                                    }else if( $(that).hasClass('no-refresh')){
-                                                        //toastr.clear()
                                                     }else{
                                                         location.reload();
                                                     }

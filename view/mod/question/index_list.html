@@ -126,11 +126,17 @@ CLASSES:
                                         <span class="label label-light">{{categoryname.name}}</span>
                                     </a>
                                 </li>
-                                <li>
+                                <li>{%if val.answer_users>0%}
+                                    <a href="#">
+                                        <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+                                    </a>
+                                    <span class="font-lato"> 回复了问题</span>
+                                    {%else%}
                                     <a href="#">
                                         <span class="font-lato">{{val.uid|get_nickname}}</span>
                                     </a>
-                                    <span class="font-lato"> 回复了问题</span>
+                                    <span class="font-lato"> 发起了问题</span>
+                                    {%endif%}
                                 </li>
                                 <li>
                                 <span class="font-lato">
@@ -138,14 +144,14 @@ CLASSES:
                                     </span>
                                 </li>
                                 <li>
-                                    <span class="font-lato">3 个回复</span>
+                                    <span class="font-lato">{{val.answer_count}} 个回复</span>
 
                                 </li>
                                 <li>
-                                    <span class="font-lato">14 次浏览</span>
+                                    <span class="font-lato">{{val.view}} 次浏览</span>
                                 </li>
                                 <li>
-                                    <span class="font-lato"> {{val.create_time|moment}}</span>
+                                    <span class="font-lato"> {{val.update_time|moment}}</span>
                                 </li>
 
                             </ul>

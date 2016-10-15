@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-10-15 02:53:51
+Date: 2016-10-16 05:55:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -6523,12 +6523,12 @@ CREATE TABLE `cmswing_member` (
 -- Records of cmswing_member
 -- ----------------------------
 INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1730', 'arterli@qq.com', '1164', '', '1452513965683', '0', '1476435149822', '2130706433', '0', '1', '1', '0', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '237', '13571883578', '1458989485616', '0', '1476459146884', '2130706433', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '238', '13571883578', '1458989485616', '0', '1476537477897', '2130706433', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '4', '', '1458990106486', '0', '1463734028394', '2099753746', '0', '-1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('7', 'ddd', '7fe293a2a8994cca42668d5a37747d4f', '0', 'ddd@dfsd.com', '0', '', '1458993322584', '0', '0', '0', '0', '-1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_member` VALUES ('8', 'arterli', '7fe293a2a8994cca42668d5a37747d4f', '10', 'arterli1@qq.com', '1', '', '1458994740328', '0', '1458994930173', '2130706433', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_member` VALUES ('8', 'arterli', '7fe293a2a8994cca42668d5a37747d4f', '10', 'arterli1@qq.com', '2', '', '1458994740328', '0', '1476538278857', '2130706433', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('9', 'cmswing.com', '7fe293a2a8994cca42668d5a37747d4f', '0', 'dsada@admin.com', '2', '', '1459707083913', '0', '1471947217937', '2130706433', '0', '1', '0', '4', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('10', '陈金龙', '7fe293a2a8994cca42668d5a37747d4f', '0', '18392377215@163.com', '2', '18392377215', '1460886804782', '1863597262', '1460887010499', '1863597262', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('11', '峰『沃』梅', '7fe293a2a8994cca42668d5a37747d4f', '0', 'ljt310@163.com', '1', '17791773212', '1460886865562', '2073503326', '1460886865582', '2073503326', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
@@ -7478,7 +7478,7 @@ CREATE TABLE `cmswing_picture` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信',
   `source_id` varchar(255) CHARACTER SET utf8 DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=769 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=770 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_picture
@@ -8251,6 +8251,7 @@ INSERT INTO `cmswing_picture` VALUES ('765', 'DkMhfT7QeqUTqiC5EasmCGft.jpg', '',
 INSERT INTO `cmswing_picture` VALUES ('766', '2QCPsAlsb4vLOcay0wL7t--h.jpg', '', '', 'Fm_Kfr0wZhX0F173xZvLQ7zy6c2n', '1', '1476348675227', '2', '');
 INSERT INTO `cmswing_picture` VALUES ('767', 'Hm2BtKQFHePZLL5jxLK-ENLS.jpg', '', '', 'FkCAvyuiZrEWsWs0ZbRn8RtCKP26', '1', '1476348675302', '2', '');
 INSERT INTO `cmswing_picture` VALUES ('768', 'qGtfat6UjEHZi00vYxVURMnS.jpg', '', '', 'FrD_UqsMyc1qRQh5_XGmyzIjkaZq', '1', '1476348675308', '2', '');
+INSERT INTO `cmswing_picture` VALUES ('769', 'Eh_8ciDSog0u2wbrAeKXwZ73.jpg', '', '', 'FnWEops4XdQOMbQyAB8NZFL3YtgA', '1', '1476568048762', '2', '');
 
 -- ----------------------------
 -- Table structure for cmswing_pingxx
@@ -8439,7 +8440,7 @@ INSERT INTO `cmswing_question` VALUES ('5', '发布测试测试测试', '124', '
 INSERT INTO `cmswing_question` VALUES ('6', '广泛受到广泛大使馆是', '125', '<p>功夫大师功夫大师广泛大使馆放大撒</p>', '1476191002385', '1476191002385', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('7', '图片上传分组1测试，1张图片', '124', '<p>图片上传分组1测试，1张图片<img src=\"//data.cmswing.com/c47HAUhHDJJzwIIjQrAbzFS7.jpg\" alt=\"23-min\" style=\"line-height: 1; max-width: 100%;\" class=\"\"></p><p>图片后的文字哈哈哈啊哈哈哈哈啊哈哈啊</p>', '1476191677090', '1476191677090', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('8', '图片上传测试2张', '124', '<p><img src=\"//data.cmswing.com/592pV1doBVPLREndNtLjxhh6.jpg\" alt=\"10-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/kYgtSu7tEF9w7l7jRYHCwI7w.jpg\" alt=\"3-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p>哈哈哈哈哈哈啊哈哈哈啊哈哈哈啊哈哈哈</p>', '1476194459457', '1476194459457', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
-INSERT INTO `cmswing_question` VALUES ('9', '图片上传测试4张', '124', '<p>图片上传测试4张的内容的内容的内容，我是兔八哥。哈哈哈哈</p><p><img src=\"//data.cmswing.com/_a9r24tj5Nws5ERyXVtWL_uo.jpg\" alt=\"36-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/DjF1VyjWzmXfyWehAPM7XsvS.jpg\" alt=\"34-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/xKnWP8MdPsMw93zctWosU9St.jpg\" alt=\"35-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/VE1pUIEebJE-J6KugB7Mw5oF.jpg\" alt=\"33-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p><br></p>', '1476194732933', '1476194732933', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
+INSERT INTO `cmswing_question` VALUES ('9', '图片上传测试4张', '124', '<p>图片上传测试4张的内容的内容的内容，我是兔八哥。哈哈哈哈</p><p><img src=\"//data.cmswing.com/_a9r24tj5Nws5ERyXVtWL_uo.jpg\" alt=\"36-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/DjF1VyjWzmXfyWehAPM7XsvS.jpg\" alt=\"34-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/xKnWP8MdPsMw93zctWosU9St.jpg\" alt=\"35-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/VE1pUIEebJE-J6KugB7Mw5oF.jpg\" alt=\"33-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p><br></p>', '1476194732933', '1476194732933', '2', '0', '0', '1', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('10', '很多图片上传分组三测试', '124', '<p>很多图片上传分组三测试很多图片上传分组三测试很多图片上传分组三测试很多图片上传分组三测试很多图片上传分组三测试很多图片上传分组三测试葫芦娃</p><p><img src=\"//data.cmswing.com/Xfa7UG937kqSIBN9HOY8U_i1.jpg\" alt=\"14-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/XvJolnNk5CUsdlAVrMgBUGTT.jpg\" alt=\"12-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/mrvEAVgSgxhIkug4CEPewAqK.jpg\" alt=\"11-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/OFsU5_Z2-t8eimWxcg3M34YO.jpg\" alt=\"16-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/U-NQ3kk1_msgndXXFSTn3ChA.jpg\" alt=\"15-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/rWtk0L2TJYoJ_wZu0IYOjcqn.jpg\" alt=\"18-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/sF7tMkpMPXO6i2JoyMDD0BHW.jpg\" alt=\"23-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/mOe6bCtlQbrztcogqz9lFrfP.jpg\" alt=\"27-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/gIZ8nJnk_hZOXnJ2vlN5wSAs.jpg\" alt=\"20-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/HPpR7Z_c3oZKQtU74ana1LPR.jpg\" alt=\"21-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/PFu-ZFO_HluIgk4rtVy2fvDF.jpg\" alt=\"13-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/XQzeAb3g91-5TqGlBMHluHB1.jpg\" alt=\"24-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/32j7MvKLuoHE4WXLNzUc1kah.jpg\" alt=\"22-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/K5fypRf2lpEibFfH7av2CKhr.jpg\" alt=\"26-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/Cp5FWZ5F73AbYcpB4eAifN7n.jpg\" alt=\"17-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/qKkYCWoWi0JO6alj0FHB3-eA.jpg\" alt=\"25-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p><br></p>', '1476195674831', '1476195674831', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '3');
 INSERT INTO `cmswing_question` VALUES ('11', '分组二测试', '124', '<p>分组二测试分组二测试分组二测试分组二测试分组二测试分组二测试分组二测试分组二测试</p><p><br></p>', '1476201079243', '1476201079243', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '2');
 INSERT INTO `cmswing_question` VALUES ('12', '关注测试', '124', '<p>关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试关注测试</p><p><br></p>', '1476202235196', '1476202235196', '2', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '3');
@@ -8448,14 +8449,189 @@ INSERT INTO `cmswing_question` VALUES ('14', '测试首次关注', '124', '<p>�
 INSERT INTO `cmswing_question` VALUES ('15', 'fdsaf saf dsa fads fdsa fa', '124', '<table class=\"\"><tbody><tr><td>fdsf&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;fdsf</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;fdsf</td><td>&nbsp;</td><td>&nbsp;</td><td>fdsfs&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;sdf</td><td>&nbsp;fdsf</td><td>&nbsp;sf</td><td>&nbsp;</td><td>&nbsp;</td></tr></tbody></table><p>fsdfds 范德萨发生</p><pre style=\"max-width: 100%;\"><code class=\"css hljs\" codemark=\"1\">\n\n<span class=\"hljs-selector-pseudo\">:hov</span>\n\n\n<span class=\"hljs-selector-class\">.cls</span>\n\n<span class=\"hljs-selector-tag\">element</span><span class=\"hljs-selector-class\">.style</span> {\n    <span class=\"hljs-attribute\">height</span>: <span class=\"hljs-number\">378px</span>;\n}\n<span class=\"hljs-selector-class\">.wangEditor-container</span> <span class=\"hljs-selector-class\">.wangEditor-txt</span> {\n    <span class=\"hljs-attribute\">width</span>: <span class=\"hljs-number\">100%</span>;\n    <span class=\"hljs-attribute\">text-align</span>: left;\n    <span class=\"hljs-attribute\">padding</span>: <span class=\"hljs-number\">0</span> <span class=\"hljs-number\">15px</span> <span class=\"hljs-number\">15px</span>;\n    <span class=\"hljs-attribute\">margin-top</span>: <span class=\"hljs-number\">5px</span>;\n    <span class=\"hljs-attribute\">overflow-y</span>: auto;\n}</code></pre><p><ol><li>发达萨法放大撒啊</li><li>发达萨法sa</li><li>放大撒啊飞洒</li></ol></p><p><br></p>', '1476213148752', '1476213148752', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('16', '测试话题测试话题测试话题测试话题', '123', '<p>测试话题测试话题测试话题测试话题测试话题测试话题</p><p><br></p>', '1476288576569', '1476288576569', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('17', '多个话题测试测试', '123', '<p>多个话题测试测试</p><p><br></p>', '1476293796965', '1476293796965', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
-INSERT INTO `cmswing_question` VALUES ('18', '话题测试测试测试', '123', '<p>话题测试测试测试话题测试测试测试话题测试测试测试话题测试测试测试</p><p><img src=\"//data.cmswing.com/DkMhfT7QeqUTqiC5EasmCGft.jpg\" alt=\"31-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/PHczQdV3bRFg5ZbDbaoNwqZL.jpg\" alt=\"29-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/2QCPsAlsb4vLOcay0wL7t--h.jpg\" alt=\"40-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/qGtfat6UjEHZi00vYxVURMnS.jpg\" alt=\"32-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/Hm2BtKQFHePZLL5jxLK-ENLS.jpg\" alt=\"38-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/4ocv-z4NUQQ_QVHHWeJ6bFlu.jpg\" alt=\"37-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/Nl0BePVuFFzc8qD1bbLWUr6s.jpg\" alt=\"28-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/irigG26U3at4u2SZZNHvYcgU.jpg\" alt=\"39-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/FApZzWHbgtpaRM7L-ZCGwJ9x.jpg\" alt=\"30-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p><br></p>', '1476348689177', '1476348689177', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
+INSERT INTO `cmswing_question` VALUES ('18', '话题测试测试测试', '123', '<p>话题测试测试测试话题测试测试测试话题测试测试测试话题测试测试测试</p><p><img src=\"//data.cmswing.com/DkMhfT7QeqUTqiC5EasmCGft.jpg\" alt=\"31-min\" style=\"max-width:100%;\"><img src=\"//data.cmswing.com/PHczQdV3bRFg5ZbDbaoNwqZL.jpg\" alt=\"29-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/2QCPsAlsb4vLOcay0wL7t--h.jpg\" alt=\"40-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/qGtfat6UjEHZi00vYxVURMnS.jpg\" alt=\"32-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/Hm2BtKQFHePZLL5jxLK-ENLS.jpg\" alt=\"38-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/4ocv-z4NUQQ_QVHHWeJ6bFlu.jpg\" alt=\"37-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/Nl0BePVuFFzc8qD1bbLWUr6s.jpg\" alt=\"28-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/irigG26U3at4u2SZZNHvYcgU.jpg\" alt=\"39-min\" style=\"line-height: 1; max-width: 100%;\"><img src=\"//data.cmswing.com/FApZzWHbgtpaRM7L-ZCGwJ9x.jpg\" alt=\"30-min\" style=\"line-height: 1; max-width: 100%;\"><br></p><p><br></p>', '1476348689177', '1476348689177', '2', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('19', '话题测试', '123', '<p>话题测试</p><p><br></p>', '1476371780037', '1476371780037', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('20', '话题测试22222', '123', '<p>话题测试22222</p><p><br></p>', '1476464566964', '1476464566964', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('21', '话题测试3333', '123', '<p>话题测试3333</p><p><br></p>', '1476464639295', '1476464639295', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
-INSERT INTO `cmswing_question` VALUES ('22', '测试添加问题，返回地址', '123', '<p>测试添加问题，返回地址</p><p><br></p>', '1476465165824', '1476465165824', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
+INSERT INTO `cmswing_question` VALUES ('22', '测试添加问题，返回地址', '123', '<p>测试添加问题，返回地址</p><p><br></p>', '1476465165824', '1476465165824', '2', '0', '0', '1', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('23', '测试添加问题，返回地址2', '123', '<p>测试添加问题，返回地址</p><p><br></p>', '1476465296263', '1476465296263', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
 INSERT INTO `cmswing_question` VALUES ('24', '话题更新时间测试', '124', '<p>话题更新时间测试话题更新时间测试</p><p><br></p>', '1476466247106', '1476466247106', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
-INSERT INTO `cmswing_question` VALUES ('25', '话题更新时间测试', '124', '<p>话题更新时间测试话题更新时间测试</p><p><br></p>', '1476466276198', '1476466276198', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '0', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
+INSERT INTO `cmswing_question` VALUES ('25', '话题更新时间测试', '124', '<p>话题更新时间测试话题更新时间测试</p><p><br></p>', '1476466276198', '1476568052582', '2', '7', '8', '126', '2', '0', '0', '0', '0', '0', '0', null, '0', '2130706433', '15', '0', '0', '0', '0', '0', null, '0', null, null, null, '0', '0');
+
+-- ----------------------------
+-- Table structure for cmswing_question_answer
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question_answer`;
+CREATE TABLE `cmswing_question_answer` (
+  `answer_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '回答id',
+  `question_id` int(11) NOT NULL COMMENT '问题id',
+  `answer_content` text COMMENT '回答内容',
+  `add_time` bigint(13) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `against_count` int(11) NOT NULL DEFAULT '0' COMMENT '反对人数',
+  `agree_count` int(11) NOT NULL DEFAULT '0' COMMENT '支持人数',
+  `uid` int(11) DEFAULT '0' COMMENT '发布问题用户ID',
+  `comment_count` int(11) DEFAULT '0' COMMENT '评论总数',
+  `uninterested_count` int(11) DEFAULT '0' COMMENT '不感兴趣',
+  `thanks_count` int(11) DEFAULT '0' COMMENT '感谢数量',
+  `category_id` int(11) DEFAULT '0' COMMENT '分类id',
+  `has_attach` tinyint(1) DEFAULT '0' COMMENT '是否存在附件',
+  `ip` bigint(11) DEFAULT NULL,
+  `force_fold` tinyint(1) DEFAULT '0' COMMENT '强制折叠',
+  `anonymous` tinyint(1) DEFAULT '0',
+  `publish_source` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`answer_id`),
+  KEY `question_id` (`question_id`),
+  KEY `agree_count` (`agree_count`),
+  KEY `against_count` (`against_count`),
+  KEY `add_time` (`add_time`),
+  KEY `uid` (`uid`),
+  KEY `uninterested_count` (`uninterested_count`),
+  KEY `force_fold` (`force_fold`),
+  KEY `anonymous` (`anonymous`),
+  KEY `publich_source` (`publish_source`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='回答';
+
+-- ----------------------------
+-- Records of cmswing_question_answer
+-- ----------------------------
+INSERT INTO `cmswing_question_answer` VALUES ('1', '1', 'FDSAFDSAF DSAFDSA FSAF\nFDSAFDSAFASFA', '1474389274', '0', '0', '1', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('2', '1', '刚刚发的是电风扇放大撒萨弗迪发', '1475704637', '0', '0', '1', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('3', '1', '法大师傅大师傅萨法倒萨放大撒阿发倒萨 ', '1475704740', '0', '0', '1', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('4', '5', '发放大使发达是非得失阿发发啊', '1476214180', '0', '1', '2', '6', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('5', '5', '发达萨法发倒萨放大撒发啊', '1476214193', '0', '0', '2', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('6', '6', 'fdsfdsfsdfsfdsfdsfsdfsdfsdfdsfdsffdsfsdfsdfsddfdsf', '1476542538', '0', '0', '2', '40', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('7', '6', 'dfdsfdsfdsfsdfsdfdsfdsf', '1476542599', '0', '0', '2', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('8', '6', 'fdsfdsf', '1476546724', '0', '0', '2', '0', '0', '0', '1', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('9', '25', '<p>fdsafsdafsafdsfdsgfdgdsg</p>', '1476560262115', '0', '0', '2', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('10', '25', '<p>fdsfdsafasfdsafdsaf</p>', '1476561413237', '0', '0', '2', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('11', '25', '<p>rewqrewqrewqrewqrewqrwr</p>', '1476561604066', '0', '0', '2', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('12', '25', '<p>fdsfdsafdsafdasfdsaf</p>', '1476561705578', '0', '0', '2', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('13', '25', '<p>222222222222222222222</p>', '1476563118463', '0', '0', '2', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('14', '25', '<p>fdsfdsafafdsafs<br></p>', '1476563703268', '0', '0', '8', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+INSERT INTO `cmswing_question_answer` VALUES ('15', '25', '<p>哈哈哈哈发达萨法放大撒放大撒</p><p><img src=\"//data.cmswing.com/Eh_8ciDSog0u2wbrAeKXwZ73.jpg\" alt=\"p14\" style=\"max-width:100%;\"></p><p><br></p>', '1476568052582', '0', '0', '8', '0', '0', '0', '124', '0', '2130706433', '0', '0', null);
+
+-- ----------------------------
+-- Table structure for cmswing_question_answer_comments
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question_answer_comments`;
+CREATE TABLE `cmswing_question_answer_comments` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `answer_id` int(11) DEFAULT '0',
+  `uid` int(11) DEFAULT '0',
+  `message` text,
+  `time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `answer_id` (`answer_id`),
+  KEY `time` (`time`)
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_question_answer_comments
+-- ----------------------------
+INSERT INTO `cmswing_question_answer_comments` VALUES ('2', '4', '2', '发达撒范德萨发达萨法阿三', '1476214205');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('3', '4', '1', 'fdsaf a fds', '1476217130');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('4', '4', '1', '@1:fdsa fsda f', '1476217136');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('5', '4', '2', 'jkjlkjljlkl', '1476219258');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('6', '4', '2', '@1:@2:154545454', '1476219631');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('7', '4', '2', '@1:45445545464545', '1476219672');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('8', '6', '2', 'gdfgfdg', '1476542771');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('9', '6', '2', 'gfdgfdgd', '1476542776');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('10', '6', '2', 'gfdgfdfgdgfdgdgdf', '1476542780');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('11', '6', '2', 'gfdgfdgdgfd', '1476542782');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('12', '6', '2', 'gdfgdfgdfgdfg', '1476542785');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('13', '6', '2', 'gfdgfdgdgfdgdfg', '1476542788');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('14', '6', '2', 'gfdgdfgfdgdfgdg', '1476542792');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('15', '6', '2', 'gfdgfdgfdgdfgdgfdgdg', '1476542796');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('16', '6', '2', 'fgdfgdfgdgdgd', '1476542800');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('17', '6', '2', 'gfdgfdgfdgfdgdfgfdgdfgdfg', '1476542804');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('18', '6', '2', 'gfdgfdgfdgfdgdfgdfgdfgdg', '1476542809');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('19', '6', '2', 'gfdgfdgfdgfdgdfgd', '1476542813');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('20', '6', '2', 'gfdgfdgfdgdfgdfgdg', '1476542818');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('21', '6', '2', 'gfdgfdgfdgfdgfdgd', '1476542822');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('22', '6', '2', 'gfdgfdgdfgdfgdfgdfg', '1476542826');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('23', '6', '2', 'gfdgdfgfdgdfgdfg', '1476542829');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('24', '6', '2', 'gfdgfdgdfgdfgdf', '1476542832');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('25', '6', '2', 'gfdgdfgfdgdg', '1476542836');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('26', '6', '2', 'gfdgfdgfdgdfgd', '1476542846');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('27', '6', '2', 'gfdgfdgdfgdfg', '1476542850');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('28', '6', '2', 'gfdgfdgfdgfdgdfgfdg', '1476542855');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('29', '6', '2', 'gfdgfdgfdgfdgdfgdf', '1476542861');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('30', '6', '2', 'gfdgfdgfdgfdgfdgfdgfdgdfg', '1476542866');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('31', '6', '2', 'gfdgfdgdfgfdgdfgfdgfdgfdgd', '1476542872');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('32', '6', '2', 'gfdgfdgfdgfdgfdgdfgfdgfdgfdgfdgfdgdfgdgdfgdf', '1476542879');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('33', '6', '2', 'gfdgfdgdfgdfgdg', '1476542884');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('34', '6', '2', 'gfdgfdgdfgfdgfdgfdgd', '1476542889');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('35', '6', '2', 'gfdgfdgfdgfdgdfgdfg', '1476542895');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('36', '6', '2', 'gfdgfdgfdgfdgfdgdfgdfg', '1476542900');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('37', '6', '2', 'gfdgfdgfdgfdgfdgdfgdfgd', '1476542911');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('38', '6', '2', 'gfdgfdgfdgfdgfdgfdg', '1476542916');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('39', '6', '2', 'gfdgfdgfghgfdhgfdhgfjhgjhgjhghgfdhgfhgfdhgfd', '1476542924');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('40', '6', '2', 'hgfdhgfdhgfdhgfdhgfhgfhf', '1476542930');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('41', '6', '2', 'hgfdhgfdhgfdhgfhgfhgfdhgfdhgfh', '1476542936');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('42', '6', '2', 'hgfdhgfdhgfdhgfdhhgfdhgfdhgfdhgfdh', '1476542950');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('43', '6', '2', 'hgfdhgfdhgfdhgfdhgfdhgfdhgfdhgfhgfhgfdhgfd', '1476542958');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('44', '6', '2', 'hgfhgfdhgfdhgfdhgfhgfhgfdhgfh', '1476542965');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('45', '6', '2', 'hgfhgfhfgdhgfhgfdhgfdhgfhgfhf', '1476542972');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('46', '6', '2', 'hgfhgfdhgfdhgfdhgfhgfjhghgfhgfdhgfhf', '1476542982');
+INSERT INTO `cmswing_question_answer_comments` VALUES ('47', '6', '2', 'fdsfdsf', '1476546714');
+
+-- ----------------------------
+-- Table structure for cmswing_question_answer_thanks
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question_answer_thanks`;
+CREATE TABLE `cmswing_question_answer_thanks` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT '0',
+  `answer_id` int(11) DEFAULT '0',
+  `user_name` varchar(255) DEFAULT NULL,
+  `time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `answer_id` (`answer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_question_answer_thanks
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_question_answer_uninterested
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question_answer_uninterested`;
+CREATE TABLE `cmswing_question_answer_uninterested` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT '0',
+  `answer_id` int(11) DEFAULT '0',
+  `user_name` varchar(255) DEFAULT NULL,
+  `time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `answer_id` (`answer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_question_answer_uninterested
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_question_answer_vote
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_question_answer_vote`;
+CREATE TABLE `cmswing_question_answer_vote` (
+  `voter_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自动ID',
+  `answer_id` int(11) DEFAULT NULL COMMENT '回复id',
+  `answer_uid` int(11) DEFAULT NULL COMMENT '回复作者id',
+  `vote_uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
+  `vote_value` tinyint(4) NOT NULL COMMENT '-1反对 1 支持',
+  `reputation_factor` int(10) DEFAULT '0',
+  PRIMARY KEY (`voter_id`),
+  KEY `answer_id` (`answer_id`),
+  KEY `vote_value` (`vote_value`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_question_answer_vote
+-- ----------------------------
+INSERT INTO `cmswing_question_answer_vote` VALUES ('1', '4', '2', '1', '1476215736', '1', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_question_focus
@@ -8469,7 +8645,7 @@ CREATE TABLE `cmswing_question_focus` (
   PRIMARY KEY (`focus_id`),
   KEY `question_id` (`question_id`),
   KEY `question_uid` (`question_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='问题关注表';
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='问题关注表';
 
 -- ----------------------------
 -- Records of cmswing_question_focus
@@ -8492,6 +8668,7 @@ INSERT INTO `cmswing_question_focus` VALUES ('15', '22', '2', '1476465165857');
 INSERT INTO `cmswing_question_focus` VALUES ('16', '23', '2', '1476465296290');
 INSERT INTO `cmswing_question_focus` VALUES ('17', '24', '2', '1476466247148');
 INSERT INTO `cmswing_question_focus` VALUES ('18', '25', '2', '1476466276223');
+INSERT INTO `cmswing_question_focus` VALUES ('25', '25', '8', '1476539035970');
 
 -- ----------------------------
 -- Table structure for cmswing_session

@@ -87,10 +87,20 @@ export default class extends Base {
   }
   //独立模型display方法封装
   modtemp(mod,moblie=false){
-    if(!moblie){
-      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+      let ctr = (this.http.controller).split("/");
+      if(!moblie){
+          if(ctr[1]){
+              return this.display();
+          }else {
+              return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+          }
+
     }else {
-      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+        if(ctr[1]){
+            return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+ctr[0]+think.sep+moblie+think.sep+ctr[1]+"_"+this.http.action+this.config("view.file_ext"));
+        }else {
+            return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+        }
     }
   }
   //独立模型get方法封装,只针对index入口action,其他的请用 this.get()方法。

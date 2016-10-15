@@ -115,7 +115,7 @@
 
                         if (data && (data.errno < 0)) {
 
-                            _toastr(msg.errmsg,"top-right","error",false);
+                            _toastr(data.errmsg,"top-right","error",false);
                             captchaObj.refresh();
 
                         } else {
