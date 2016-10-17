@@ -1,0 +1,77 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i> 话题管理 </a></li>
+            <li class=""><a data-toggle="tab" href="#"><i class="fa fa-user text-muted"></i> 其他</a>
+            </li>
+        </ul>
+    </header>
+
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                开发中
+            </header>
+            <div class="row wrapper">
+                <div class="col-sm-5 m-b-xs">
+                    <button class="btn btn-success" id="export" data-toggle="class:show inline" data-target="#spin"
+                            data-loading-text="正在备份...">按钮
+                    </button>
+                    <i class="fa fa-spin fa-spinner hide" id="spin"></i>
+                    <button class="btn  btn-success" id="optimize">按钮</button>
+                    <button class="btn  btn-success" id="repair">那妞</button>
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"
+                                                                                            checked="checked"><i></i></label>
+                        </th>
+                        <th>th</th>
+                        <th>th</th>
+                        <th>th</th>
+                        <th>th</th>
+                        <th>th</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" value="{{ item.Name }}"
+                                                                        name="tables" ><i></i></label>
+                        </td>
+                        <td>{{ item.Name }}</td>
+                        <td>{{ item.Rows }}</td>
+                        <td>{{ item.Data_length | format_bytes}}</td>
+                        <td>{{ item.Create_time | format_time('s')}}</td>
+                        <td class="infos">未备份</td>
+                        <td>
+                            <button class="btn  btn-default btn-xs optimize" data-tables="{{ item.Name }}">优化表</button>
+                            <button class="btn  btn-default btn-xs repair" data-tables="{{ item.Name }}">修复表</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

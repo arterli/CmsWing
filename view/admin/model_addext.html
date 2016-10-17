@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add" data-validate="parsley">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/addext" data-validate="parsley">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">模型标识</label>
 
@@ -50,11 +50,11 @@
                                     <div class="row">
                                         <div class="col-md-4 ">
                                             <label class="radio-inline i-checks">
-                                                <input type="radio" value="1" name="extend" checked><i></i> 系统模型
+                                                <input type="radio" value="0" name="extend" checked><i></i> 独立模型
                                             </label>
                                         </div>
                                         <div class="col-md-12">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 系统模型会继承基础模型</span>
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 独立模型不会继承基础模型，是完全独立的表</span>
 
                                         </div>
 

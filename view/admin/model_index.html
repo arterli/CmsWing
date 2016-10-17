@@ -16,7 +16,10 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
                                         <a class="btn btn-sm btn-info " href="/admin/model/add">
-                                            新增
+                                            新增系统模型
+                                        </a>
+                                        <a class="btn btn-sm btn-info " href="/admin/model/addext">
+                                            新增独立模型
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/model/setstatus/status/1"  target-form="ids">
                                            启用
@@ -47,6 +50,7 @@
                                         <th class="">标识</th>
                                         <th class="">名称</th>
                                         <th class="">创建时间</th>
+                                        <th class="">类型</th>
                                         <th class="">状态</th>
                                         <th >操作</th>
                                     </tr>
@@ -57,8 +61,9 @@
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
-                                        <td><a data-id="{{item.id}}" href="/admin/model/edit?id={{item.id}}" class="text-info">{{item.title}}</a></td>
+                                        <td><a data-id="{{item.id}}" href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">{{item.title}}</a></td>
                                         <td>{{item.create_time | format_time(1)}}</td>
+                                        <td>{%if item.extend==0%}{%if item.id==1%}系统{%else%}独立模型{%endif%}{%else%}系统模型{%endif%}</td>
                                         <td>
                                             <a href="/admin/model/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
                                                 <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
@@ -66,8 +71,8 @@
                                             </a>
                                         </td>
                                         
-                                        <td><a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>
-                                            <a href="/admin/model/edit?id={{item.id}}" class="text-info">编辑</a>
+                                        <td>{#<a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>#}
+                                            <a href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">编辑</a>
                                             <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
                                             {%if item.id !=1%}
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
