@@ -30,15 +30,14 @@
                         {%else%}
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
                             {%if http.get('mold')!=1%}
+                            <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
                             <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
-                            {%endif%}
                             <li class=""><a data-toggle="tab" href="#tab6">权限设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
-
+                            {%endif%}
                         </ul>
                         {%endif%}
                         <span class="hidden-sm">Left</span>
@@ -503,7 +502,7 @@
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">c类型</label>
+                                        <label class="col-sm-2 control-label">栏目类型</label>
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-10">
@@ -542,6 +541,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {%if http.get('mold')!=1%}
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 允许文档类型</label>
@@ -579,6 +579,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {%endif%}
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">栏目图标</label>
@@ -732,6 +733,49 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                 </div>
+                                <div id="tab3" class="tab-pane fade ">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Title（栏目标题）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Keywords（栏目关键词）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <textarea class="form-control" name="keywords"></textarea></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字中间用半角逗号隔开</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">META Description（栏目描述）</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <textarea name="description" class="form-control" ></textarea></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的网页描述</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                </div>
+                                {%if http.get('mold')!=1%}
                                 <div id="tab2" class="tab-pane fade ">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">频道模板</label>
@@ -917,48 +961,6 @@
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
-                                <div id="tab3" class="tab-pane fade ">
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">META Title（栏目标题）</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
-                                                <div class="col-md-12">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">META Keywords（栏目关键词）</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <textarea class="form-control" name="keywords"></textarea></div>
-                                                <div class="col-md-12">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 关键字中间用半角逗号隔开</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">META Description（栏目描述）</label>
-                                        <div class="col-sm-10">
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <textarea name="description" class="form-control" ></textarea></div>
-                                                <div class="col-md-12">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的网页描述</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                </div>
                                 <div id="tab4" class="tab-pane fade ">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">分组定义</label>
@@ -979,7 +981,6 @@
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
-                                {%if http.get('mold')!=1%}
                                 <div id="tab5" class="tab-pane fade ">
                                     <input type="hidden" name="documentsorts" value="">
                                     <div class="form-group">
@@ -1098,7 +1099,6 @@
                                         <div class="line line-dashed b-b line-lg pull-in"></div>
                                     </div>
                                 </div>
-                                {%endif%}
                                 <div id="tab6" class="tab-pane fade ">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">角色权限</label>
@@ -1195,7 +1195,7 @@
                                 <div id="tab7" class="tab-pane fade ">
                                     6
                                 </div>
-
+                                {%endif%}
                             </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">

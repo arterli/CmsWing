@@ -93,6 +93,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     {%if info.id != 1%}
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
@@ -113,6 +114,79 @@
                                         </div>
                                     </div>
                                     {%endif%}
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启模版</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="temp_show">
+                                                        <option value="1" {%if info.temp_show==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.temp_show==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,绑定该模版的栏目会显示模版的配置信息。<a href="#" class="text-info" >详细帮助</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启分组</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="groups_show">
+                                                        <option value="1" {%if info.groups_show==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.groups_show==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,绑定该模型的栏目会显示分组的配置信息。<a href="#" class="text-info" >详细帮助</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启分类信息</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="type_show">
+                                                        <option value="1" {%if info.type_show==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.type_show==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,绑定该模型的栏目会显示分类信息的配置信息。<a href="#" class="text-info" >详细帮助</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启权限管理</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="priv_show">
+                                                        <option value="1" {%if info.priv_show==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.priv_show==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,绑定该模型的栏目会显示权限管理的配置信息。<a href="#" class="text-info" >详细帮助</a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
                                 <div id="tab-2" class="tab-pane fade">
                                     <div class="form-group">

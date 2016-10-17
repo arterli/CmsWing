@@ -52,9 +52,12 @@ export default class extends Base {
                 if(think.isEmpty(data.model)){
                     return this.fail("至少要绑定一个模型！")
                 }
-                if(think.isEmpty(data.type)){
-                    return this.fail("允许文档类型，至少要选项一个！")
+                if(data.mold == 0){
+                    if(think.isEmpty(data.type)){
+                        return this.fail("允许文档类型，至少要选项一个！")
+                    }
                 }
+
             }
 
             //console.log(data);
@@ -193,6 +196,16 @@ export default class extends Base {
 
             //console.log(obj_values(model));
             this.assign("models",model);
+            if(info.mold == 1) {
+                let mod = await this.model("model").get_model(info.model);
+                console.log(mod);
+                this.assign("mod",mod)
+            }else {
+                this.assign("mod",{temp_show: 1,
+                    type_show: 1,
+                    priv_show: 1,
+                    groups_show: 1})
+            }
             this.active="admin/category/index";
                 this.action = "/admin/category/edit";
                 this.meta_title = "编辑栏目";

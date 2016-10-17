@@ -29,15 +29,22 @@
                         {%else%}
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
+                            {%if mod.temp_show ==1%}
                             <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
+                            {%endif%}
                             <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
+                            {%if mod.groups_show ==1%}
                             <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
-                            {%if info.mold !=1%}
+                            {%endif%}
+                            {%if mod.type_show ==1%}
                             <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
                             {%endif%}
+                            {%if mod.priv_show ==1%}
                             <li class=""><a data-toggle="tab" href="#tab6">权限设置</a></li>
+                            {%endif%}
+                            {#
                             <li class=""><a data-toggle="tab" href="#tab7">收费设置</a></li>
-
+                             #}
                         </ul>
                         {%endif%}
                         <span class="hidden-sm">Left</span>
@@ -560,6 +567,7 @@
                                     </div>
                                 </div>
                             </div>
+                                {%if info.mold!=1%}
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 允许文档类型</label>
@@ -578,6 +586,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                 <div class="form-group">
@@ -598,6 +607,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {%endif%}
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">栏目图标</label>
@@ -764,6 +774,8 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+
+                            {%if mod.temp_show ==1%}
                             <div id="tab2" class="tab-pane fade ">
 
 
@@ -949,6 +961,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+                            {%endif%}
                             <div id="tab3" class="tab-pane fade">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">META Title（栏目标题）</label>
@@ -989,6 +1002,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+                            {%if mod.groups_show ==1%}
                             <div id="tab4" class="tab-pane fade">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">分组定义</label>
@@ -1009,7 +1023,8 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
-                            {%if info.mold !=1%}
+                            {%endif%}
+                            {%if mod.type_show ==1%}
                             <div id="tab5" class="tab-pane fade ">
                                 <input type="hidden" name="documentsorts" value="{{info.documentsorts}}">
                                 <div class="form-group">
@@ -1130,6 +1145,7 @@
                                 </div>
                             </div>
                             {%endif%}
+                            {%if mod.priv_show ==1%}
                             <div id="tab6" class="tab-pane fade ">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">角色权限</label>
@@ -1224,10 +1240,12 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                             </div>
+                            {%endif%}
+                            {#
                             <div id="tab7" class="tab-pane fade">
                                7
                             </div>
-
+                             #}
                         </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
