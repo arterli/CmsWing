@@ -191,10 +191,12 @@ $(function () {
         var isopen = $('#'+rid).is(".isopen");
         if(isopen){
             $('#'+rid).html("");
-            $('#'+rid).removeClass("isopen")
+            $('#'+rid).removeClass("isopen");
+            $("#oc-"+id).text("显示");
         }else {
 
             addhtml(id)
+            $("#oc-"+id).text("关闭");
         }
 
     })

@@ -182,7 +182,7 @@ CLASSES:
                                         <a href="#" class="text-info"><i class="fa fa-reply"></i> 回复</a>
                                     </li>
                                     <li>
-                                        <a href="javascript:;"  class="text-muted comment-reply" data-comment="comment-reply-{{a.answer_id}}">显示全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
+                                        <a href="javascript:;"  class="text-muted comment-reply" data-comment="comment-reply-{{a.answer_id}}"><span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
                                     </li>
                                     {%if controller.user.uid == a.uid%}
                                     <li class="pull-right">
