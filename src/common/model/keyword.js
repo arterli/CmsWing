@@ -18,7 +18,7 @@ export default class extends think.model.base {
         if(!think.isEmpty(keyname)){
             let keywrods = keyname.split(",");
             for (let v of keywrods){
-                let add = await this.thenAdd({keyname:v,discuss_count_update:new Date().getTime()}, {keyname:v});
+                let add = await this.thenAdd({keyname:v,discuss_count_update:new Date().getTime(),videonum:1}, {keyname:v});
                 if(add.type=='exist'){
                     await this.where({id:add.id}).update({discuss_count_update:new Date().getTime()});
                     await this.where({id:add.id}).increment("videonum", 1);

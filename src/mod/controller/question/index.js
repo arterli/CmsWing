@@ -183,7 +183,11 @@ export default class extends Base {
       // }
       //获取回复
        let answer = await this.model("question_answer").where({question_id:id}).select();
+      for(let a of answer){
+          a.ccount = await this.model("question_answer_comments").where({answer_id:a.answer_id}).count("id");
+      }
        this.assign("answer",answer);
+
       return this.modtemp("question");
   }
 }

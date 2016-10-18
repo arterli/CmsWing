@@ -1,6 +1,7 @@
 'use strict';
 import Base from '../index.js';
-
+import moment from "moment"
+moment.locale('zh-cn');
 export default class extends Base {
     /**
      * index action
@@ -27,7 +28,7 @@ export default class extends Base {
         }
         return this.json(groups);
     }
-
+//关注
     async ajaxquestionfocusAction(){
         //前端验证登录
         await this.weblogin();
@@ -53,5 +54,30 @@ export default class extends Base {
                 return this.fail("缺少参数!")
         }
 
+    }
+    //获取评论
+    async ajaxanswercommentsAction(){
+        let answer_id = this.get("answer_id");
+        //let comments =
+        let comments = await this.model("question_answer_comments").where({answer_id:answer_id}).select();
+        for(let c of comments){
+            c.username = await get_nickname(c.uid);
+            c.time = moment(c.time).fromNow()
+        }
+        this.json({data:comments,is_login:this.is_login});
+    }
+    async ajaxanswercommentspostAction(){
+        //前端验证登录
+        await this.weblogin();
+
+        let data = this.post();
+        data.uid = this.user.uid;
+        data.time = new Date().getTime();
+        let add = await this.model("question_answer_comments").add(data);
+        if(add){
+            return this.success({name:"评论成功!"})
+        }else {
+            return this.fail("评论失败！")
+        }
     }
 }
