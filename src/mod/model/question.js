@@ -25,6 +25,12 @@ export default class extends think.model.base {
                  * @param mod_type "模型类型 0独立模型，1系统模型"
                  */
                 await this.model("keyword").addkey(data.keyname,id,data.uid,data.mod_id,1);
+                //更新用户统计信息
+                //初始化如果没有就添加
+                let userup = await this.model("question_user").thenAdd({question_count:1,uid:data.uid},{uid:data.uid});
+                if(userup.type=="exist"){
+                    await this.model("question_user").where({uid:userup.id}).increment("question_count", 1);
+                }
                 // if(!think.isEmpty(data.keyname)){
                 //     let keywrods = data.keyname.split(",");
                 //     console.log(keywrods);

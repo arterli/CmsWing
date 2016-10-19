@@ -256,48 +256,26 @@ CLASSES:
                     </div>
                 </div>
                 <hr />
+                {%model data="data",table="question_user",cache='1000',order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+                {%if data.length>0%}
                 <div class="box-inner nopadding">
                     <h3>
                         <a class="pull-right size-11 text-warning" href="#">更多</a>
                         热门用户
                     </h3>
                     <div class="" >
-
+                       {%for user in data%}
                         <div class="clearfix margin-bottom-10"><!-- squared item -->
-                            <img class="thumbnail pull-left rounded" src="/static/assets/images/demo/people/300x300/1-min.jpg" width="40" height="40" alt="" />
-                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Joana Doe</a></h4>
-                            <span class="size-12 text-muted">81 个问题, 68 次赞同</span>
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{user.uid}}" width="40" height="40" alt="" />
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
+                            <span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
                         </div><!-- /squared item -->
-
-                        <div class="clearfix margin-bottom-10"><!-- rounded item -->
-                            <img class="thumbnail pull-left rounded" src="/static/assets/images/demo/people/300x300/2-min.jpg" width="40" height="40" alt="" />
-                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Melissa Doe</a></h4>
-                            <span class="size-12 text-muted">81 个问题, 68 次赞同</span>
-                        </div><!-- /rounded item -->
-
-                        <div class="clearfix margin-bottom-10 "><!-- squared item -->
-                            <img class="thumbnail pull-left rounded" src="/static/assets/images/demo/people/300x300/3-min.jpg" width="40" height="40" alt="" />
-                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Felicia Doe</a></h4>
-                            <span class="size-12 text-muted">81 个问题, 68 次赞同</span>
-                        </div><!-- /squared item -->
-
-                        <div class="clearfix margin-bottom-10 "><!-- rounded item -->
-                            <img class="thumbnail pull-left rounded" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="40" height="40" alt="" />
-                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Suzana Doe</a></h4>
-                            <span class="size-12 text-muted">81 个问题, 68 次赞同</span>
-                        </div><!-- /rounded item -->
-
-                        <div class="clearfix margin-bottom-10 "><!-- squared item -->
-                            <img class="thumbnail pull-left rounded" src="/static/assets/images/demo/people/300x300/5-min.jpg" width="40" height="40" alt="" />
-                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">Jolie Doe</a></h4>
-                            <span class="size-12 text-muted">81 个问题, 68 次赞同</span>
-                        </div><!-- /squared item -->
+                       {%endfor%}
 
                     </div>
                 </div>
-
-
                 <hr />
+                {%endif%}
                 <!-- SOCIAL ICONS -->
                 <div class="hidden-xs margin-top-30 margin-bottom-60">
                     <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">

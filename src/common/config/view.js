@@ -368,6 +368,8 @@ export default {
                  */
                 env.addExtension('keywords', new keywords(), true);
                 env.addExtension('rkeywords', new rkeywords(), true);
+                //基于thinkjs model的万能查询
+                env.addExtension('model',new model(),true);
             }
         }
     }

@@ -367,3 +367,80 @@ global.rkeywords = function () {
         return callback(null,'');
     }
 }
+
+/**
+ * thinkjs model 万能数据调用标签
+ * {% mdoel data ="data"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * table:要查询的主表比如 table = "user"
+ * join :{Object} 要组合的查询语句，默认为 LEFT JOIN
+ * field {String} 设置要查询的字段，必须是字符串
+ * fieldReverse:{String} 反选字段，即查询的时候不包含这些字段
+ * alias:{String} 表别名
+ * limit(offset, length) :offset {Number} 设置查询的起始位置 length {Number} 设置查询的数据长度
+ * where(where):where {Object} where 条件
+ * order {String} 排序方式
+ * cache {Number} 缓存有效时间，单位为秒,建议1000秒
+ */
+global.model = function () {
+    this.tags = ['model'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let table = think.isEmpty(args.table) ? "5" : args.table;
+        let join = think.isEmpty(args.join) ? false : JSON.parse(args.join);
+        let fieldReverse = think.isEmpty(args.fieldReverse) ? false : args.fieldReverse;
+        let alias = think.isEmpty(args.alias) ? false : args.alias;
+        let limit = think.isEmpty(args.limit) ? false : args.limit;
+        let where = think.isEmpty(args.where) ? false : JSON.parse(args.where);
+        let order = think.isEmpty(args.order) ? false : args.order;
+        let cache = think.isEmpty(args.cache) ? false : args.cache;
+        let field = think.isEmpty(args.field) ? false : args.field;
+        let model =  think.model(table, think.config("db"));
+        //表别名
+        if(cache){
+            model.cache(cache);
+        }
+        //表别名
+        if(alias){
+            model.alias(alias);
+        }
+        //where
+        if(where){
+            model.where(where);
+        }
+        //order
+        if(order){
+            model.order(order);
+        }
+        //查询的字段
+        if(field){
+            model.field(field);
+        }
+        //排除字段
+        if(fieldReverse){
+            model.fieldReverse(fieldReverse);
+        }
+        //查询条数
+        if(limit){
+            model.limit(limit);
+        }
+        //join查询c
+        if(join){
+            model.join(join);
+         }
+
+          let ret =  await model.select();
+
+        console.log(ret);
+        context.ctx[data] = ret;
+        return callback(null,'');
+    }
+}
