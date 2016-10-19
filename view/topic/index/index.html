@@ -1,4 +1,7 @@
 {% extends "../inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+{% endblock %}
 {% block content %}
 
 <!-- SLIDER -->
@@ -445,7 +448,204 @@ owl-carousel item paddings
 	</div>
 </section>
 <!-- / -->
+<section>
+	<div class="container">
 
+		<div class="row">
+
+			<!-- RIGHT -->
+			<div class="col-md-9 col-sm-9">
+				<h3 class="page-header weight-300 margin-top-0 margin-bottom-0">
+					<a href="/question.html" data-toggle="tooltip" title="" data-original-title="互帮互助有问题必达"><i class="fa fa-plus-square-o"></i></a>
+					社区 <strong>问答</strong>
+				</h3>
+				<div class="timeline">
+					<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+					{%model data="list",table="question",order="update_time DESC",limit="10"%}
+					{% for val in list %}
+					{% set categoryname = val.category_id|get_cate %}
+					{% set imgs= val.detail|img_text_view(200,120)%}
+					<!-- POST ITEM -->
+					<div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+						<div class="timeline-entry" ><!-- .rounded = entry -->
+							<a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+							<div class="timeline-vline"><!-- vertical line --></div>
+						</div>
+						<!-- IMAGE -->
+						{% if imgs|length==1 %}
+						<figure class="blog-item-small-image margin-bottom-0">
+							<img class="img-responsive" src="{{imgs[0]}}" alt="">
+						</figure>
+						{% endif %}
+						<div class="blog-item-small-content">
+							<h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+							<ul class="blog-post-info list-inline padding-bottom-10">
+								<li>
+
+									<a class="" href="{{categoryname.url}}">
+										<span class="label label-light">{{categoryname.name}}</span>
+									</a>
+								</li>
+								<li>{%if val.answer_users>0%}
+									<a href="#">
+										<span class="font-lato">{{val.answer_users|get_nickname}}</span>
+									</a>
+									<span class="font-lato"> 回复了问题</span>
+									{%else%}
+									<a href="#">
+										<span class="font-lato">{{val.uid|get_nickname}}</span>
+									</a>
+									<span class="font-lato"> 发起了问题</span>
+									{%endif%}
+								</li>
+								<li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+								</li>
+								<li>
+									<span class="font-lato">{{val.answer_count}} 个回复</span>
+
+								</li>
+								<li>
+									<span class="font-lato">{{val.view}} 次浏览</span>
+								</li>
+								<li>
+									<span class="font-lato"> {{val.update_time|moment}}</span>
+								</li>
+
+							</ul>
+							{% if imgs|length>1 %}
+							<div class="row margin-bottom-10">
+								{%set i = 0%}
+								{%for img in imgs%}
+								{%if i< 4 %}
+								<div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+								{%endif%}
+								{%set i=i+1%}
+								{%endfor%}
+							</div>
+							{%endif%}
+							<p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+						</div>
+
+					</div>
+					<!-- /POST ITEM -->
+					{%endfor%}
+
+				</div>
+
+				<!-- PAGINATION -->
+				<a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
+					<span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
+					<i class="et-happy"></i>
+				</a>
+				<!-- /PAGINATION -->
+
+			</div>
+			<!-- LEFT -->
+			<div class="col-md-3 col-sm-3">
+
+				{% if controller.is_login %}
+				<div class="alert alert-info margin-bottom-20"><!-- INFO -->
+					今天，你遇到了什么问题呢？
+					<a href="/mod/question/sys/add/cid/123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+				</div>
+				{%else%}
+				<div class="alert alert-info margin-bottom-20"><!-- INFO -->
+					你好! 你还没有登录，请先登录.
+					<a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
+						<i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+					</a>
+				</div>
+				{%endif%}
+
+				<div class="box-inner nopadding  margin-bottom-20">
+					<h3>
+						<a class="pull-right size-11 text-warning" href="/topic">更多</a>
+						热门话题
+					</h3>
+					<div class="" >
+						{% keywords data ="topic",type="hot",limit="5" %}
+						{%for k in topic%}
+						<div class="clearfix margin-bottom-10"><!-- discussion item -->
+							{%if k.pic==0%}
+							<i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
+							{%else%}
+							<img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
+							{%endif%}
+							<h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
+								<span class="txt">{{k.keyname}}</span>
+								<span class="num"><i class="fa fa-fire"></i></span>
+							</a>
+							</h4>
+							<span class="size-13 text-muted">
+                                {{k.videonum}} 个主题, {{k.focus_count}} 人关注
+												</span>
+						</div><!-- /discussion item -->
+						{%endfor%}
+
+
+					</div>
+				</div>
+
+
+				{%model data="data",table="question_user",cache='1000',order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+				{%if data.length>0%}
+				<div class="box-inner nopadding  margin-bottom-20">
+					<h3>
+						<a class="pull-right size-11 text-warning" href="#">更多</a>
+						热门用户
+					</h3>
+					<div class="" >
+						{%for user in data%}
+						<div class="clearfix margin-bottom-10"><!-- squared item -->
+							<img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{user.uid}}" width="40" height="40" alt="" />
+							<h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
+							<span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
+						</div><!-- /squared item -->
+						{%endfor%}
+
+					</div>
+				</div>
+
+				{%endif%}
+				<div class="box-inner nopadding  margin-bottom-20">
+					<h3>
+						<a class="pull-right size-11 text-warning" href="#">更多</a>
+						捐赠墙
+					</h3>
+					<div class="" >
+						<div class="clearfix margin-bottom-20"><!-- notification item -->
+							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 5px;padding-right: 5px">
+													<i class="fa fa-rmb"></i>5.00
+												</span>
+							<span class="size-14 text-muted"><b class="weight-500 text-warning">仁伟</b>: 支付宝-转账</span>
+						</div>
+						<div class="clearfix margin-bottom-20"><!-- notification item -->
+							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>1500.00
+												</span>
+							<span class="size-14 text-muted"><b class="weight-500 text-warning">伴猪看斜阳</b>: 支付宝-转账</span>
+						</div>
+						<div class="clearfix margin-bottom-20"><!-- notification item -->
+							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>500.00
+												</span>
+							<span class="size-14 text-muted"><b class="weight-500 text-warning">张铁军</b>: 微信-转账</span>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+</section>
 
 <!--
 controlls-over		= navigation buttons over the image

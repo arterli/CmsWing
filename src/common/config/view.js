@@ -345,6 +345,15 @@ export default {
                     let data = await get_file(file_id,field,key);
                     callback(null,data);
                 },true)
+                /**
+                 * 提取文本内容中的图片
+                 * @param html 文本内容
+                 * @param w kuan 高
+                 * @returns []
+                 */
+                env.addFilter('img_text_view',(html,w=200,h=200)=>{
+                    return img_text_view(html,w,h)
+                })
 
                 env.addExtension('tagtest', new mytags(), true);
                 /**

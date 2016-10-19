@@ -73,7 +73,7 @@ export default class extends Base {
           o.id='DESC';
         break;
       default:
-        o.create_time = 'DESC';
+        o.update_time = 'DESC';
     }
     this.assign('order',order);
     //分组
