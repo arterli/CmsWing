@@ -571,3 +571,15 @@ video.fullvideo 		{ width:100%; height:100%; }
 	padding-left:15px;
 
 }
+/*question*/
+.question_card{
+	background-color: #efeff4;
+}
+.question_card .mui-card{
+	margin-left: 0px;
+	margin-right: 0px;
+	border-radius:0px;
+}
+.question_card .mui-card:first-child{
+	margin-top: 0px;
+}

@@ -3,7 +3,7 @@
         <span class="mui-icon iconfont icon-home"></span>
         <span class="mui-tab-label">首页</span>
     </a>
-    <a class="mui-tab-item" href="#wait">
+    <a class="mui-tab-item {% if 8 == category.model %}mui-active{%endif%}" href="/question">
         <span class="mui-icon iconfont icon-community"></span>
         <span class="mui-tab-label">社区</span>
     </a>
@@ -11,7 +11,7 @@
         <span class="mui-icon mui-icon-contact"></span>
         <span class="mui-tab-label">招聘</span>
     </a>
-    <a class="mui-tab-item {% if 4 == category.model %}mui-active{%endif%}" href="/shop">
+    <a class="mui-tab-item {% if 4 == category.model %}mui-active{%endif%}" href="/shangchengceshi">
         <span class="mui-icon iconfont icon-shoplight"></span>
         <span class="mui-tab-label">购物</span>
     </a>
