@@ -187,6 +187,19 @@ export default class extends Base {
           a.ccount = await this.model("question_answer_comments").where({answer_id:a.answer_id}).count("id");
       }
        this.assign("answer",answer);
+      //console.log(cate);
+      //相关问题
+      let where ={docid:id,mod_type:1,mod_id:cate.model}
+      //获取相关tagid
+      let tagid =  await this.model("keyword_data").where(where).getField("tagid");
+      if(!think.isEmpty(tagid)){
+          //找出相关的tagid
+          let rtid = await this.model("keyword_data").where({tagid:["IN",tagid],mod_id:cate.model}).getField("docid");
+          //相关问题
+          let rq = await this.model("question").where({id:["IN",rtid]}).limit(10).select();
+          this.assign("rq",rq);
+      }
+
 
       return this.modtemp("question");
   }

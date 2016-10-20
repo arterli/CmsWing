@@ -374,42 +374,22 @@ CLASSES:
                 </div>
                 {%endif%}
 
-
+                {%if rq.length>0%}
                 <div class="box-inner nopadding margin-bottom-20">
                     <h3>
                         相关问题
                     </h3>
                     <div class="" >
+                        {%for r in rq%}
                         <div class="tab-post"><!-- post -->
-                                <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                                <small>June 29 2014</small>
+                                <a href="/mod/question/{{r.id}}{{http.config('view.file_ext')}}" class="tab-post-link">{{r.title}}</a>
+                                <small>{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}</small>
                         </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
-                        <div class="tab-post"><!-- post -->
-                            <a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-                            <small>June 29 2014</small>
-                        </div>
+                        {%endfor%}
+
                     </div>
                 </div>
+                {%endif%}
                 <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
                     <div class="row margin-bottom-20">
                         <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
