@@ -1,7 +1,8 @@
 'use strict';
 
 import Base from './base.js';
-
+import crypto from "crypto";
+import fs from 'fs';
 export default class extends Base {
   /**
    * index action
@@ -172,10 +173,8 @@ export default class extends Base {
 
   }
   //Webhooks
-  async webhokksAction (){
+  async webhooksAction (){
     let data = this.post()
-
-
 // 验证 webhooks 签名
     var verify_signature = function(raw_data, signature, pub_key_path) {
       var verifier = crypto.createVerify('RSA-SHA256').update(raw_data, "utf8");

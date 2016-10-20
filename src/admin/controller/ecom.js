@@ -116,7 +116,7 @@ export default class extends Base {
     async webhokksAction (){
 
             let config =[
-                {name:"支付成功",url:`${this.http.host}/uc/pay/webhokks`}
+                {name:"支付成功",url:`${this.http.host}/uc/pay/webhooks`}
             ]
         this.assign("list",config);
         this.meta_title="Webhooks";

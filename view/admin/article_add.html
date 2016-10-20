@@ -121,7 +121,14 @@
                                     <option value="{{k}}">[{{k}}] {{v}}</option>
                                     {% endfor %}
                                 </select>
+                                {#
+                                <script>
+                                    var arr ='{{val.option.rules.choices|jsonToStr|safe}}';
+                                    console.log(arr)
+                                </script>
+                                #}
                             </div>
+
                             {% elif val.option.type == 'number' or val.option.type == 'range' %}
                             <div class="col-md-2">
                                 <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}" data-type="number"  {% if val.required == 1 %}data-required="true"{%endif%}>
