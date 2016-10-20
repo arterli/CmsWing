@@ -583,3 +583,7 @@ video.fullvideo 		{ width:100%; height:100%; }
 .question_card .mui-card:first-child{
 	margin-top: 0px;
 }
+/*shop*/
+#addcart.mui-active{
+	bottom: 0; height: 80%;min-height: 80%;top:inherit;overflow: inherit
+}
