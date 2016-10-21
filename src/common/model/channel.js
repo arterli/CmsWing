@@ -58,12 +58,12 @@ export default class extends think.model.base {
                 if(!think.isEmpty(v.url)&& think.isString(v.url)){
                     name = v.url.split("/")[1];
                     if(!think.isNumberString(name)&& !think.isEmpty(name)){
-                        name = await think.model('category',think.config("db"),'admin').where({name:name}).getField("id",true);
+                        name = await think.model('category',think.config("db")).where({name:name}).getField("id",true);
                     }
                 }
             }
             if(name != 0 && !think.isEmpty(name)){
-                let subcate = await think.model('category',think.config("db"), 'admin').get_sub_category(name);
+                let subcate = await think.model('category',think.config("db")).get_sub_category(name);
                 subcate.push(name);
                 v.on = subcate;
             }

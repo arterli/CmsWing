@@ -43,8 +43,8 @@ CLASSES:
         <ul class="page-header-tabs list-inline">
 
             <li class="active"><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
-            <li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>
-            <li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>
+            <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
 
         </ul>
 
@@ -52,7 +52,7 @@ CLASSES:
     </div>
 </section>
 {%column data="column",pid=breadcrumb[0].id%}
-{%if column%}
+{%if column|length >0%}
 <!-- /PAGE HEADER -->
 <section class="padding-bottom-0">
     <div class="container">

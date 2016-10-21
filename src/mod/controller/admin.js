@@ -11,13 +11,13 @@ export default class extends Base {
    */
   async __before() {
    await super.__before();//继承父类before
+    if(this.get('cate_id')){
+      //获取当前模型栏目id
+      this.m_cate= await this.category(this.get('cate_id'));
 
-    //获取当前模型栏目id
-    this.m_cate= await this.category(this.get('cate_id'));
-
-    //当前模型信息
-    this.mod = await this.model("model").get_model(this.m_cate.model);
-
+      //当前模型信息
+      this.mod = await this.model("model").get_model(this.m_cate.model);
+    }
   }
 
   /**
@@ -73,12 +73,23 @@ export default class extends Base {
       return think.statusAction(702, this.http);
     }
   }
+
   //独立模型display方法封装
   modtemp(mod,moblie=false){
+    let ctr = (this.http.controller).split("/");
     if(!moblie){
-      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+      if(ctr[1]){
+        return this.display();
+      }else {
+        return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+      }
+
     }else {
-      return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+      if(ctr[1]){
+        return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+ctr[0]+think.sep+moblie+think.sep+ctr[1]+"_"+this.http.action+this.config("view.file_ext"));
+      }else {
+        return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
+      }
     }
   }
 }

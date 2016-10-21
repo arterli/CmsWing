@@ -44,8 +44,8 @@ CLASSES:
         <ul class="page-header-tabs list-inline">
 
             <li class="active"><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
-            <li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>
-            <li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>
+            <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
 
         </ul>
 
@@ -53,7 +53,7 @@ CLASSES:
     </div>
 </section>
 {%column data="column",pid=breadcrumb[0].id%}
-{%if column%}
+{%if column|length >0%}
 <!-- /PAGE HEADER -->
 <section class="padding-bottom-0">
     <div class="container">
@@ -122,8 +122,9 @@ CLASSES:
                     <!--<a data-id="5" data-type="question" class="tex-888 margin-right-15" data-comment-count="0" data-first-click="hide"><i class="fa fa-commenting-o"></i> 添加评论</a>-->
 
                     <a class="tex-888 margin-right-15"><i class="fa fa-user-plus"></i> 邀请 </a>
-
-                    <a class="tex-888 margin-right-15" href="#"><i class="fa fa-edit"></i> 编辑</a>
+                    {%if controller.user.uid ==info.uid%}
+                    <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/id/{{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
+                    {%endif%}
                     <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
                     <div class="pull-right">
                         <span class="dropdown margin-right-15">
@@ -201,111 +202,7 @@ CLASSES:
 
                         <!-- /COMMENT -->
                   {%endfor%}
-                        {#
-                        <!-- COMMENT -->
-                        <ul class="comment list-unstyled">
-                            <li class="comment">
 
-                                <!-- avatar -->
-                                <img class="avatar" src="/static/assets/images/demo/people/300x300/2-min.jpg" width="50" height="50" alt="avatar">
-
-                                <!-- comment body -->
-                                <div class="comment-body">
-                                    <a href="#" class="comment-author">
-                                        <small class="text-muted pull-right"> 12 分钟前 </small>
-                                        <span>葫芦娃</span>
-                                    </a>
-                                    <p>据悉，三星电子在周一下午宣布，将会要求全球的移动运营商和零售合作伙伴停止销售Note 7手机，并要求Note 7用户关机，停止使用。
-
-                                        Note 7手机发布后，已在全球多地发生数十起因电池缺陷造成的自燃起火事故。三星电子终于做出终止生产Note 7的决定。
-
-                                    </p>
-                                </div><!-- /comment body -->
-
-                                <!-- options -->
-                                <ul class="list-inline size-11 margin-top-10">
-                                    <li>
-                                        <a href="#" class="text-info"><i class="fa fa-reply"></i> 回复</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="text-muted">显示全部评论 (36)</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-danger">删除</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-primary">编辑</a>
-                                    </li>
-                                </ul>
-                            </li><!-- /options -->
-
-                            <li class="comment comment-reply">
-
-                                <!-- avatar -->
-                                <img class="avatar" src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" height="50" alt="avatar">
-
-                                <!-- comment body -->
-                                <div class="comment-body">
-                                    <a href="#" class="comment-author">
-                                        <small class="text-muted pull-right"> 4 分钟前 </small>
-                                        <span>二狗子</span>
-                                    </a>
-                                    <p>
-                                        足协原本的意思是让高洪波率队打完40强赛的比赛，然后再重新选择新帅。但因为高洪波率队出线，足协最终让高洪波继续执教。 <i class="fa fa-smile-o green"></i>
-                                    </p>
-                                </div><!-- /comment body -->
-
-                                <!-- options -->
-                                <ul class="list-inline size-11 margin-top-10">
-                                    <li>
-                                        <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-danger">删除</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-primary">编辑</a>
-                                    </li>
-                                </ul><!-- /options -->
-
-                            </li>
-
-                            <li class="comment comment-reply">
-
-                                <!-- avatar -->
-                                <img class="avatar" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" height="50" alt="avatar">
-
-                                <!-- comment body -->
-                                <div class="comment-body">
-                                    <a href="#" class="comment-author">
-                                        <small class="text-muted pull-right"> 一个月前 </small>
-                                        <span>Simona Doe</span>
-                                    </a>
-                                    <p>
-                                        足协原本的意思是让高洪波率队打完40强赛的比赛，然后再重新选择新帅。但因为高洪波率队出线，足协最终让高洪波继续执教。 <i class="fa fa-smile-o green"></i>
-                                    </p>
-                                </div><!-- /comment body -->
-
-                                <!-- options -->
-                                <ul class="list-inline size-11 margin-top-10">
-                                    <li>
-                                        <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-danger">删除</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="text-primary">编辑</a>
-                                    </li>
-                                </ul><!-- /options -->
-
-                            </li>
-                        </ul>
-                        <!-- /COMMENT -->
-                        #}
 
                     </div>
 

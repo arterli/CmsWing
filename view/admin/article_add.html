@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css"  rel="stylesheet" type="text/css"/>
 <!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
 <script src="/static/admin/js/jquery.min.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
@@ -338,6 +339,8 @@
                         <script>
                             $(function () {
                                 $('#{{field.name}}').tagsInput({
+                                    autocomplete_url:'/admin/public/getkeyword',
+                                    autocomplete:{selectFirst:true,autoFill:true},
                                     width:'auto',
                                     height:'43px',
                                     defaultText:'add a tag',
@@ -1589,6 +1592,7 @@
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+
 <script type="text/javascript">
     <!--
     var zTree;

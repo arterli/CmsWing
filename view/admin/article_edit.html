@@ -5,6 +5,7 @@ c{% extends "./inc/base.html" %}
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css"  rel="stylesheet" type="text/css"/>
 {%if controller.setup.IS_QINIU == 1%}
 <link rel="stylesheet" href="/static/admin/js/qiniu/main.css" type="text/css">
 {%endif%}
@@ -339,6 +340,8 @@ table tr td{
                                                         <script>
                                                             $(function () {
                                                                 $('#{{field.name}}').tagsInput({
+                                                                    autocomplete_url:'/admin/public/getkeyword',
+                                                                    autocomplete:{selectFirst:true,autoFill:true},
                                                                     width:'auto',
                                                                     height:'43px',
                                                                     defaultText:'add a tag',
@@ -347,7 +350,7 @@ table tr td{
                                                         </script>
                  {% elif field.type == "freight" %}
                 <div class="col-md-5">
-                    <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}'' id="{{field.name}}"/>
+                    <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}' id="{{field.name}}"/>
                     {% set freight = data[field.name]|strToJson %}
                    <table  class="table table-bordered b-t b-light m-b-none">
                         <tr><td>
@@ -2203,7 +2206,7 @@ table tr td{
                                                 <input type="hidden" name="pid" value="{{data.pid}}"/>
                                                 <input type="hidden" name="topid" value="{{data.topid}}"/>
                                                 <input type="hidden" name="model_id" value="{{data.model_id}}"/>
-                                                <!--<input type="hidden" name="group_id" value="{{data.group_id}}"/>-->
+                                                <input type="hidden" name="userid" value="{{userinfo.uid}}"/>
                                                 <input type="hidden" name="category_id" value="{{data.category_id}}">
                                             </div>
                                         </div>
@@ -2244,6 +2247,7 @@ table tr td{
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript">
     <!--
     var zTree;

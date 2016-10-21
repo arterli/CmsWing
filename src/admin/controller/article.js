@@ -270,7 +270,7 @@ export default class extends Base {
 
         if (cate_id) {
             //获取当前分类的所有子栏目
-            let subcate = await this.model('category', {}, 'admin').get_sub_category(cate_id);
+            let subcate = await this.model('category').get_sub_category(cate_id);
             // console.log(subcate);
             subcate.push(cate_id);
             map.category_id = ['IN', subcate];

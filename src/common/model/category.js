@@ -349,7 +349,7 @@ export default class extends think.model.base {
                     n=n.split(":");
                     obj.url = cate.url+"/"+n[0]
                     obj.name=n[1];
-                    obj.id = n[0];
+                    obj.id = Number(n[0]);
                     arr.push(obj);
                 })
 

@@ -45,6 +45,11 @@ export default class extends think.model.base {
                 // }
             }
         }else {//更新主题
+            let status = this.update(data);
+            console.log(data);
+            //更新关键词
+            //获取相关话题;
+            await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.mod_id,1);
 
         }
         return {data:data,id:id};

@@ -23,7 +23,7 @@ export default class extends think.model.base {
         for (let val of goodlist){
             let model_id = await this.model("document").where({id:val.goods_id}).getField("model_id",true);
             //获取模型数据
-            let table =await this.model("model",{},"admin").get_table_name(model_id);
+            let table =await this.model("model").get_table_name(model_id);
             let model =this.model(table);
             let prom_goods=JSON.parse(val.prom_goods);
             if(!think.isEmpty(prom_goods.type)){
@@ -101,7 +101,7 @@ export default class extends think.model.base {
         let ressku;
         let model_id = await this.model("document").where({id:goods_id}).getField("model_id",true);
         //获取模型数据
-        let table =await this.model("model",{},"admin").get_table_name(model_id);
+        let table =await this.model("model").get_table_name(model_id);
         let model =this.model(table);
         if(think.isEmpty(type)){
             ressku = await model.where({id:goods_id}).getField(stock,true);

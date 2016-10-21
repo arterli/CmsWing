@@ -26,14 +26,112 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="active"><a  href="#">tab1</a></li>
-                                    <li class=""><a  href="#">tab2</a></li>
+                                    <li class="active"><a  href="#">{{controller.meta_title}}列表</a></li>
+                                    <!--<li class=""><a  href="#">tab2</a></li>-->
                                 </ul>
                                 <span class="hidden-sm"><a href="#" class="text-info" target="_blank">管理</a></span>
                             </header>
-                            <div class="panel-body">
-                                后台入口
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/mod/question/admin/del">
+                                            删除
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{http.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/mod/admin/index/cate_id/{{http.get('cate_id')}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
                             </div>
+                            {% if groups %}
+                            <header class="panel-heading">
+                                <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
+                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]
+                            </header>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;">
+                                            <label class="checkbox m-n i-checks">
+                                                <input type="checkbox"><i></i></label>
+                                        </th>
+
+                                        <th>问题标题</th>
+                                        <th>回答	</th>
+                                        <th>关注</th>
+                                        <th>浏览</th>
+                                        <th>作者</th>
+                                        <th>发布时间</th>
+                                        <th>最后更新</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for data in list.data %}
+                                    <tr>
+                                        <td>
+                                            <label class="checkbox m-n i-checks">
+                                                <input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label>
+                                        </td>
+
+                                        <td><a href="/mod/question/{{data.id}}" target="_blank" class="text-info">{{data.title}}</a></td>
+                                        <td>{{data.answer_count}}</td>
+                                        <td>{{data.focus_count}}</td>
+                                        <td>{{data.view}}</td>
+                                        <td><a href="#" class="text-info">{{data.uid|get_nickname}}</a></td>
+                                        <td>{{data.create_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
+                                        <td>{{data.update_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
+                                        <td><a href="/mod/question/sys/edit/id/{{data.id}}" target="_blank" class="text-info">编辑</a></td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="9">
+                                            <div class="alert alert-warning alert-block">
+                                                <button data-dismiss="alert" class="close" type="button">×</button>
+                                                <p>This would display if the 'item' collection were empty</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                微信图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                高级图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                推送
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
                         </section>
                     </section>
                 </section>

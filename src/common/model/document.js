@@ -28,7 +28,7 @@ export default class extends think.model.base {
             return {errno: 702, errmsg: "文档被禁用或已删除"};
         }
         //获取模型数据
-        let table =await this.model("model",{},"admin").get_table_name(info.model_id);
+        let table =await this.model("model").get_table_name(info.model_id);
         let details = await this.model(table).find(info.id);
         info = think.extend({},info,details);
         return info;
@@ -126,31 +126,7 @@ export default class extends think.model.base {
             data.status= await this.getStatus(data.id,data.category_id);
             data.create_time = !think.isEmpty( data.create_time)? new Date(data.create_time).valueOf():new Date().getTime();
             //更新关键词
-            let oldkn= await this.where({id:data.id}).getField("keyname",true);//原关键词
-            let newkn = data.keyname;//新关键词
-            if(!think.isEmpty(oldkn)){
-                oldkn = oldkn.split(",");
-            }else {
-                oldkn=[]
-            }
-            if(!think.isEmpty(newkn)){
-                newkn = newkn.split(",");
-            }else {
-                newkn = [];
-            }
-            let upkn = think._.difference(newkn,oldkn);//排除原来的关键词
-            //upkn =  think._.xor(oldkn,upkn);
-            console.log(upkn);
-            if(!think.isEmpty(upkn)){
-                for (let v of upkn){
-                    let add = await this.model("keyword").thenAdd({keyname:v}, {keyname:v});
-                    if(add.type=='exist'){
-                        await this.model("keyword").where({id:add.id}).increment("videonum", 1);
-                    }
-                    await this.model("keyword_data").add({tagid:add.id,docid:data.id,add_time:new Date().getTime(),uid:data.uid,mod_type:data.model_id,mod_id:0});
-                }
-
-            }
+            await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.model_id,0);
             let status = this.update(data);
             if(!status){
                 this.error = '更新基础内容出错！';
@@ -196,7 +172,7 @@ export default class extends think.model.base {
          * 获取当前扩模型表名字
          * @type {array}
          */
-        let modelinfo = await this.model('model','admin').get_document_model(data.model_id);
+        let modelinfo = await this.model('model').get_document_model(data.model_id);
         let model;
         if (modelinfo.extend==1){
             model = `document_${modelinfo.name}`;

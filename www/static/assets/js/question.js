@@ -9,13 +9,15 @@ $(function () {
         editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
         editor.config.uploadImgFileName = 'file';
         editor.create();
-        editor.clear();
+        if(($("#detail").html()).length==0){
+            editor.clear();
+        }
     }
 
     //tags
     $('#keywords').tagsInput({
         autocomplete_url:'/admin/public/getkeyword',
-        autocomplete:{selectFirst:true,width:'100px',autoFill:true},
+        autocomplete:{selectFirst:true,autoFill:true},
         width:'auto',
         height:'43px',
         defaultText:'add a tag',
@@ -57,77 +59,7 @@ $(function () {
     })
 
 //回复
-//     <li class="comment comment-reply">
-//
-//         <!-- avatar -->
-//         <img class="avatar" src="/static/assets/images/demo/people/300x300/3-min.jpg" width="50" height="50" alt="avatar">
-//
-//         <!-- comment body -->
-//     <div class="comment-body">
-//         <a href="#" class="comment-author">
-//         <small class="text-muted pull-right"> 4 分钟前 </small>
-//     <span>二狗子</span>
-//     </a>
-//     <p>
-//     足协原本的意思是让高洪波率队打完40强赛的比赛，然后再重新选择新帅。但因为高洪波率队出线，足协最终让高洪波继续执教。 <i class="fa fa-smile-o green"></i>
-//         </p>
-//         </div><!-- /comment body -->
-//
-//     <!-- options -->
-//     <ul class="list-inline size-11 margin-top-10">
-//         <li>
-//         <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
-//         </li>
-//         <li class="pull-right">
-//         <a href="#" class="text-danger">删除</a>
-//         </li>
-//         <li class="pull-right">
-//         <a href="#" class="text-primary">编辑</a>
-//         </li>
-//         </ul><!-- /options -->
-//
-//         </li>
-//
-//         <li class="comment comment-reply">
-//
-//         <!-- avatar -->
-//         <img class="avatar" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="50" height="50" alt="avatar">
-//
-//         <!-- comment body -->
-//     <div class="comment-body">
-//         <a href="#" class="comment-author">
-//         <small class="text-muted pull-right"> 一个月前 </small>
-//         <span>Simona Doe</span>
-//     </a>
-//     <p>
-//     足协原本的意思是让高洪波率队打完40强赛的比赛，然后再重新选择新帅。但因为高洪波率队出线，足协最终让高洪波继续执教。 <i class="fa fa-smile-o green"></i>
-//         </p>
-//         </div><!-- /comment body -->
-//
-//     <!-- options -->
-//     <ul class="list-inline size-11 margin-top-10">
-//         <li>
-//         <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
-//         </li>
-//         <li class="pull-right">
-//         <a href="#" class="text-danger">删除</a>
-//         </li>
-//         <li class="pull-right">
-//         <a href="#" class="text-primary">编辑</a>
-//         </li>
-//         </ul><!-- /options -->
-//
-//         </li>
-//         <li>
-//         <div class="input-group">
-//         <input id="btn-input" type="text" class="form-control" placeholder="Type your message...">
-//         <span class="input-group-btn">
-//         <button class="btn btn-primary" id="btn-chat">
-//         <i class="fa fa-reply"></i> 评论
-//         </button>
-//         </span>
-//         </div>
-//         </li>
+
     function addhtml(id) {
         var rhtml = "";
         //ajax

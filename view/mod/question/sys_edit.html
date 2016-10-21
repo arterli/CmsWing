@@ -44,7 +44,7 @@ CLASSES:
         <!-- page tabs -->
 
         <ul class="page-header-tabs list-inline">
-            <li class="active"><a href="#"><i class="et-pencil"></i> 发布</a></li>
+            <li class="active"><a href="#"><i class="et-pencil"></i> 编辑</a></li>
             <li class=""><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
             <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
             <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
@@ -66,6 +66,7 @@ CLASSES:
                 <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
                     <div class="form-group">
                         <label for="title">问题标题:</label>
+
                         <div class="input-group">
                             <div class=" input-group-btn">
                                 <div class="input-group-btn question_select">
@@ -84,10 +85,9 @@ CLASSES:
                                     </ul>
                                 </div><!-- /btn-group -->
                                 {% groups data="groups",cid=category.id%}
-
                                 <div class="input-group-btn question_select {%if groups|length == 0%}hide{%endif%}" id="group">
-                                    <input type="hidden" value="0" name="group_id">
-                                    <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown"><span class="name">选择分组</span> <span class="caret"></span></button>
+                                    <input type="hidden" value="{%if group|length >0 %}{{group[0].id}}{%else%}0{%endif%}" name="group_id">
+                                    <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown"><span class="name">{%if group|length >0 %}{{group[0].name}}{%else%}选择分组{%endif%}</span> <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li data-value="0"><a href="javascript:;">不分组</a></li>
                                         {%for v in groups%}
@@ -97,16 +97,16 @@ CLASSES:
                                 </div><!-- /btn-group -->
 
                             </div>
-                            <input type="text" class="form-control noradius required" name="title" id="title">
+                            <input type="text" class="form-control noradius required" name="title" id="title" value="{{info.title}}">
                         </div><!-- /input-group -->
                     </div>
                     <div class="form-group">
                         <label>问题补充 (选填):</label>
-                        <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none"></textarea>
+                        <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none">{{info.detail|safe}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>添加话题: 当一个话题输入完成后，按 <code>回车键</code> 确认</label>
-                        <input type="text" class="form-control" id="keywords" name="keyname" value="" >
+                        <input type="text" class="form-control" id="keywords" name="keyname" value="{{keyword}}" >
                     </div>
                     <div class="row">
 
@@ -121,7 +121,8 @@ CLASSES:
 
                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
                             <input type="hidden" name="backurl" value="{{http.referrer()}}" >
-                            <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
+                            <input type="hidden" name="mod_id" value="{{category.model}}">
+                            <input type="hidden" name="id" value="{{info.id}}">
                             <button class="btn btn-primary btn-lg" >确认发布</button>
                         </div>
 
