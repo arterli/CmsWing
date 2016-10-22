@@ -116,6 +116,7 @@
                     </label>
                     <div class="col-sm-10">
                         <div class="row">
+
                             {%if val.option.type == 'select' %}
                             <div class="col-md-10">
                                 <input type="hidden" name="sortid_{{val.option.identifier}}" value="" {% if val.required == 1 %}data-required="true"{%endif%}>
