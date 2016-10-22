@@ -115,7 +115,7 @@ table tr td{
 
                                                             {%if val.option.type == 'select'%}
                                                         <div class="col-md-10">
-                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="{{val.option.value}}">
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="{{val.option.value}}" {% if val.required == 1 %}data-required="true"{%endif%}>
                                                             <label id="info_{{val.option.identifier}}"  class="checkbox-inline i-checks" >{{val.option.rules.choices[val.option.value]|default("请选择",true)}}</label>
                                                             <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span>
                                                             <a href="#" id="edit_{{val.option.identifier}}" class="checkbox-inline i-checks text-info">修改</a>

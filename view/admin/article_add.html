@@ -118,13 +118,7 @@
                         <div class="row">
                             {%if val.option.type == 'select' %}
                             <div class="col-md-10">
-                                <input type="hidden" name="sortid_{{val.option.identifier}}" value="">
-                                <!--<select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>-->
-                                    <!--<option value=" "  >请选择</option>-->
-                                    <!--{% for k ,v in val.option.rules.choices %}-->
-                                    <!--<option value="{{k}}">[{{k}}] {{v}}</option>-->
-                                    <!--{% endfor %}-->
-                                <!--</select>-->
+                                <input type="hidden" name="sortid_{{val.option.identifier}}" value="" {% if val.required == 1 %}data-required="true"{%endif%}>
                                 <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span><span id="info_{{val.option.identifier}}" style="margin-left: 10px"></span>
 
                                 <script>
