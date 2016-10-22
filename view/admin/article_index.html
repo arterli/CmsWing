@@ -194,7 +194,7 @@
                                         <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
                                         value="{{http.get('title')}}">
                                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}">搜索</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/article/index/pid/{{pid}}{%if cate_id >0%}/cate_id/{{cate_id}}{%endif%}">搜索</button>
                       </span>
                                     </div>
                                 </div>
