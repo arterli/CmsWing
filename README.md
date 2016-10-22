@@ -5,8 +5,8 @@
 > 码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
 
 >coding.net:[https://coding.net/u/arterli/p/CmsWing/git](https://coding.net/u/arterli/p/CmsWing/git)
-> **简介:**
 
+> **简介:**
 > - 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。
 > - 模型/栏目/分类信息体系：通过栏目和模型绑定，以及不同的模型类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。
 > - 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。
@@ -15,6 +15,7 @@
 ![PC](http://www.cmswing.com/static/dome/macbookpro.png)
 ![IPAD](http://www.cmswing.com/static/dome/ipad.png)
 ![iphone](http://www.cmswing.com/static/dome/iphone.png)
+
 ## QQ 交流群: 49757468
 有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
 
@@ -59,9 +60,12 @@ LVOO[www.lvoo.net](http://www.lvoo.net) 分类信息应用案例展示。
 ![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
 
 ##手机端(微信)前台模版截图
-| 1900 | -10 | 25 |
 ![新闻](http://data.cmswing.com/43A5CB3C91BBE4FEE56DB2DCC26DC2C1.png)
+
 ![新闻列表](http://data.cmswing.com/A1A722C538340E2936D477EF24F3DBD2.png)
+
 ![新闻详情](http://data.cmswing.com/D8738B846D03D0854FA7FBB6C0CE189B.png)
+
 ![商城](http://data.cmswing.com/FC733DABE46344BC16D0142820D7850A.png)
+
 ![商城详情](http://data.cmswing.com/CCAFFD9C4D242EC89888A21AAE3C223B.png)
