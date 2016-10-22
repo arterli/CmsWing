@@ -61,12 +61,6 @@ LVOO[www.lvoo.net](http://www.lvoo.net) 分类信息应用案例展示。
 ![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
 
 ##手机端(微信)前台模版截图
-![新闻](http://data.cmswing.com/43A5CB3C91BBE4FEE56DB2DCC26DC2C1.png)
-
-![新闻列表](http://data.cmswing.com/A1A722C538340E2936D477EF24F3DBD2.png)
 
 ![新闻详情](http://data.cmswing.com/D8738B846D03D0854FA7FBB6C0CE189B.png)
 
-![商城](http://data.cmswing.com/FC733DABE46344BC16D0142820D7850A.png)
-
-![商城详情](http://data.cmswing.com/CCAFFD9C4D242EC89888A21AAE3C223B.png)
