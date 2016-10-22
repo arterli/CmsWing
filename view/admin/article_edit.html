@@ -37,6 +37,7 @@ table tr td{
     font-weight: normal;
     vertical-align: middle !important;
 }
+    .tabelselet select{display: inline-table;width: inherit}
 </style>
 <script>
     module = '{{http.module}}';
@@ -113,6 +114,84 @@ table tr td{
                                                     <div class="row">
 
                                                             {%if val.option.type == 'select'%}
+                                                        <div class="col-md-10">
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="{{val.option.value}}">
+                                                            <label id="info_{{val.option.identifier}}"  class="checkbox-inline i-checks" >{{val.option.rules.choices[val.option.value]|default("请选择",true)}}</label>
+                                                            <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span>
+                                                            <a href="#" id="edit_{{val.option.identifier}}" class="checkbox-inline i-checks text-info">修改</a>
+
+                                                            <script>
+
+
+
+                                                                $(function () {
+                                                                    function getShowTimes(string,indexChar){
+                                                                        //返回一个字符在字符串中出现的次数
+                                                                        return (string.split(indexChar).length-1);
+                                                                    }
+
+                                                                    var jsonObj ={{val.option.rules.choices|jsonToStr|safe}};
+                                                                    /*递归实现获取无级树数据并生成DOM结构*/
+                                                                    var jValue;
+                                                                    //alert(getShowTimes("4.2.1","4.3"));
+                                                                    var forTree = function(o){
+                                                                        jValue ='<select class="form-control">';
+                                                                        jValue +='<option value=""  >请选择</option>';
+                                                                        for(var item in jsonObj){
+                                                                            if(item.indexOf(".")<0){
+                                                                                jValue +='<option value='+ item +'>'+ jsonObj[item] +'</option>';
+                                                                            }
+                                                                        }
+                                                                        jValue += "</select>";
+                                                                        return jValue;
+                                                                    }
+                                                                    var subTree = function(jsonObj,item){
+                                                                        var arr =[];
+                                                                        for(var item2 in jsonObj){
+                                                                            let vvv = item+".";
+                                                                            let count = getShowTimes(vvv,".")
+                                                                            if(item2.indexOf(vvv)==0 && getShowTimes(item2,".")==count ){
+                                                                                var htm = '<option value='+ item2 +'>'+ jsonObj[item2] +'</option>';
+                                                                                arr.push(htm);
+                                                                                //subTree(jsonObj,item2);
+                                                                            }
+                                                                        }
+                                                                        if(arr.length>0){
+                                                                            var str = "";
+                                                                            str +='<select class="form-control">';
+                                                                            str +='<option value="">请选择</option>';
+                                                                            str += arr.join("")
+                                                                            str += "</select>";
+                                                                            return str;
+                                                                        }
+
+                                                                    }
+                                                                    $(document).on("change","#sortid_{{val.option.identifier}} select",function () {
+                                                                        var val = $(this).find("option:selected").val();
+                                                                        var text = $(this).find("option:selected").text();
+                                                                        var info;
+                                                                        if(val){
+                                                                            info = "你的选择: <b class='text-info'>" + text+"</b>";
+                                                                        }else {
+                                                                            info =text;
+                                                                        }
+                                                                        $(this).nextAll().remove();
+                                                                        $(this).after(subTree(jsonObj, val));
+                                                                        $('input[name="sortid_{{val.option.identifier}}"]').val(val);
+                                                                        $("#info_{{val.option.identifier}}").html(info)
+                                                                    })
+                                                                    $(document).on("click","#edit_{{val.option.identifier}}",function (e) {
+                                                                        e.preventDefault();
+
+                                                                        $("#sortid_{{val.option.identifier}}").html(forTree(jsonObj));
+                                                                    })
+                                                                    //
+
+                                                                })
+                                                            </script>
+
+                                                        </div>
+                                                        {#
                                                         <div class="col-md-3">
                                                             <select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>
                                                                 <option value=" "  >请选择</option>
@@ -121,6 +200,7 @@ table tr td{
                                                                 {% endfor %}
                                                             </select>
                                                             </div>
+                                                        #}
                                                         {% elif val.option.type == 'number' or val.option.type == 'range'%}
                                                         <div class="col-md-2">
                                                             <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
