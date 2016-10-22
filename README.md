@@ -12,6 +12,7 @@
 > - 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。
 > - 云服务支持：支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。
 > - 安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。
+
 ![PC](http://www.cmswing.com/static/dome/macbookpro.png)
 ![IPAD](http://www.cmswing.com/static/dome/ipad.png)
 ![iphone](http://www.cmswing.com/static/dome/iphone.png)
