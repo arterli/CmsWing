@@ -6,29 +6,19 @@
 
 >coding.net:[https://coding.net/u/arterli/p/CmsWing/git](https://coding.net/u/arterli/p/CmsWing/git)
 
-## 功能预告
->CmsWing后续开发计划
+## 简介
+> 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。
 
->1.加强用户系统的完善，可以自定义，用户模型，
+> 模型/栏目/分类信息体系：通过栏目和模型绑定，以及不同的模型类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。
 
->2.加强平台化，完善网站的前端的权限系统，可以对栏目，模块的，浏览，发布，进行权限控制。
+> 用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。
 
->3.增加招聘功能，简企业库和人才库功能。
+> 云服务支持：支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。
 
->4.增加活动模块，
-
->5.增加专题功能。
-
->6.增强与微信公众平台的耦合，
-
->7.电子商务功能的深入和完善。
-
->8.增加广告管理模块。
-
->9.增强投稿功能。
-
->10.增加问答模块。
-
+> 安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。
+![PC](http://www.cmswing.com/static/dome/macbookpro.png)
+![IPAD](http://www.cmswing.com/static/dome/ipad.png)
+![iphone](http://www.cmswing.com/static/dome/iphone.png)
 ## QQ 交流群: 49757468
 有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
 
@@ -65,39 +55,17 @@ LVOO[www.lvoo.net](http://www.lvoo.net) 分类信息应用案例展示。
 ##### 视频系统模型
 ##### 图库系统模型
 ##### 商城系统模型
+##### 问答社区模型
 
 ##后台部分截图
 
 ![内容管理](http://data.cmswing.com/%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-![1](http://7xt6v5.com2.z0.glb.clouddn.com/3.png?imageView2/2/w/973)
-![2](http://7xt6v5.com2.z0.glb.clouddn.com/4.png?imageView2/2/w/973)
-![3](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%AF%E4%BB%98%E7%AE%A1%E7%90%86.png?imageView2/2/w/973)
-
-![4](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-54-05.757Z.png?imageView2/2/w/973)
-
-![单据管理](http://7xt6v5.com2.z0.glb.clouddn.com/%E6%94%B6%E6%AC%BE%E5%8D%95%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-
-![运费模板](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%BF%90%E8%B4%B9%E6%A8%A1%E6%9D%BF%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-
-![财务日志](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-
-![yongh](http://7xt6v5.com2.z0.glb.clouddn.com/%E8%B4%A2%E5%8A%A1%E6%97%A5%E5%BF%97%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
-
-![数据库备份](http://7xt6v5.com2.z0.glb.clouddn.com/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%20%20%20CmsWing%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6.png?imageView2/2/w/973)
 ![微信](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-51-31.869Z.png?imageView2/2/w/973)
-##PC端前台模版截图
-![视频播放](http://data.cmswing.com/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-06-08%20%E4%B8%8B%E5%8D%887.22.26%E5%89%AF%E6%9C%AC.png?imageView2/2/w/973)
-![新闻](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-20T09-30-46.326Z.png?imageView2/2/w/973)
-![下载](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-05-26T04-53-55.185Z.png?imageView2/2/w/973)
-![图片](http://data.cmswing.com/%E7%81%AB%E7%8B%90%E6%88%AA%E5%9B%BE_2016-06-02T11-41-36.639Z.png?imageView2/2/w/973)
-##手机端(微信)前台模版截图
-![新闻](http://data.cmswing.com/Screenshot_2016-05-26-13-17-28.png?imageView2/0/w/500)
-![新闻列表](http://data.cmswing.com/Screenshot_2016-05-26-13-17-36.png?imageView2/0/w/500)
-![新闻详情](http://data.cmswing.com/Screenshot_2016-05-26-13-17-47.png?imageView2/0/w/500)
-![商城](http://data.cmswing.com/Screenshot_2016-05-26-13-18-19.png?imageView2/0/w/500)
-![商城详情](http://data.cmswing.com/Screenshot_2016-05-26-13-18-32.png?imageView2/0/w/500)
-![加入购物车](http://data.cmswing.com/Screenshot_2016-05-26-13-18-36.png?imageView2/0/w/500)
-![购物车](http://data.cmswing.com/Screenshot_2016-05-26-13-19-03.png?imageView2/0/w/500)
-![结算](http://data.cmswing.com/Screenshot_2016-05-26-13-19-10.png?imageView2/0/w/500)
-![付款](http://data.cmswing.com/Screenshot_2016-05-26-13-19-19.png?imageView2/0/w/500)
 
+##手机端(微信)前台模版截图
+
+![新闻](http://data.cmswing.com/43A5CB3C91BBE4FEE56DB2DCC26DC2C1.png)
+![新闻列表](http://data.cmswing.com/A1A722C538340E2936D477EF24F3DBD2.png)
+![新闻详情](http://data.cmswing.com/D8738B846D03D0854FA7FBB6C0CE189B.png)
+![商城](http://data.cmswing.com/FC733DABE46344BC16D0142820D7850A.png)
+![商城详情](http://data.cmswing.com/CCAFFD9C4D242EC89888A21AAE3C223B.png)

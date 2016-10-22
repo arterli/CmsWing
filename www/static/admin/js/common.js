@@ -51,7 +51,8 @@ $(document).on('click','.ajax-get',function(){
 });
 
 //todo
-$(".todo").click(function () {
+$(".todo").click(function (e) {
+    e.preventDefault();
     toastr.info("功能开发中，敬请期待...");
     return;
 })
