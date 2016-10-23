@@ -1,0 +1,39 @@
+<!--
+	Used By:
+		shortcode-lightbox.html
+-->
+<div class="lightbox-ajax" style="max-width: 860px">
+
+    <!-- title -->
+    <h4>编辑回复</h4>
+
+    <!-- body -->
+    <div class="lightbox-ajax-body clearfix" >
+        <form method="post" action="/mod/question/sys/updateanswer" class="box-light padding-0 validate"><!-- .box-light OR .box-dark -->
+            <div class="box-inner padding-0">
+                <textarea id="detail" name="answer_content"  class="form-control required" style="height: 280px"  placeholder="Type your message here...">{{answer.answer_content|safe}}</textarea>
+
+                <input type="hidden" name="answer_id" value="{{answer.answer_id}}">
+                <input type="hidden" name="backurl" value="{{http.url}}">
+                <button type="submit" class="btn btn-primary pull-right margin-top-20"><i class="fa fa-check"></i> 回复</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(function () {
+            _form();
+            if($("#detail").length>0){
+                //载入编辑器
+                var editor = new wangEditor('detail');
+                // 上传图片
+                editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
+                editor.config.uploadImgFileName = 'file';
+                editor.create();
+                if(($("#detail").html()).length==0){
+                    editor.clear();
+                }
+            }
+        })
+    </script>
+    <!-- /body -->
+</div>

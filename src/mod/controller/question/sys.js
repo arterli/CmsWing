@@ -115,20 +115,21 @@ export default class extends Base {
         //前台登录验证
         await this.weblogin();
         let data = this.post();
-        data.uid = this.user.uid;
-        data.ip = _ip2int(this.ip());
-        data.anonymous = data.anonymous||1;
+        if(think.isEmpty(data.answer_id)){
+            data.uid = this.user.uid;
+            data.ip = _ip2int(this.ip());
+            data.anonymous = data.anonymous||1;
+        }
         console.log(data);
         let res = await this.model('question_answer').updates(data);
         if (res) {
             //行为记录
-            if (!res.data.id) {
+            if (!res.data.answer_id) {
                 //添加操作日志，可根据需求后台设置日志类型。
                 //await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
-
                 this.success({name: "添加成功"});
             } else {
-                this.success({name: "更新成功", url: data.backurl});
+                this.success({name: "更新成功"});
             }
 
         } else {

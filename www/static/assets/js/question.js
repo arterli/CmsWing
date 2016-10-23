@@ -81,11 +81,11 @@ $(function () {
                                 if(res.is_login){
                                     rhtml+=  '<ul class="list-inline size-11 margin-top-10">'+
                             '<li>'+
-                            '<a href="#" class="text-info"><i class="fa fa-reply"></i> 回复</a>'+
+                            '<a href="#" class="text-info commentreyplay" data-name="@'+v.username+':" data-id="'+id+'"><i class="fa fa-reply"></i> 回复</a>'+
                             '</li>';
                         if(res.is_login==v.uid){
                         rhtml+='<li class="pull-right">'+
-                            '<a href="#" class="text-danger">删除</a>'+
+                            '<a href="/mod/question/ajax/delcomments/id/'+v.id+'" class="text-danger confirm ajax-get">删除</a>'+
                             '</li>';
                         }
                         rhtml+=  '</li></ul>';
@@ -156,5 +156,15 @@ $(function () {
             }
         })
         //alert(id)
+    })
+
+    //回复评论
+    $(document).on("click",'.commentreyplay',function (e) {
+        e.preventDefault();
+        var name = $(this).attr("data-name");
+        var id =$(this).attr("data-id");
+        //在光标位置插入回复者的姓名
+        $("#btn-input-" + id).insertContent(name);
+       // alert(name)
     })
 });

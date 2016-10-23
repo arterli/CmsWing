@@ -80,4 +80,62 @@ export default class extends Base {
             return this.fail("评论失败！")
         }
     }
+    //编辑回复
+    async editanswerAction(){
+        //前端登录验证
+        await this.weblogin();
+        let answer_id = this.get("id");
+        let answer = await this.model("question_answer").where({answer_id:answer_id}).find();
+        //后台管理员跳过验证
+        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+            //await this.c_verify("edit");
+            //安全判断
+            if(answer.uid !=this.user.uid){
+                this.http.error = new Error('你不能编辑，不属于自己的东西！');
+                return think.statusAction(702, this.http);
+            }
+        }
+        this.assign("answer",answer);
+        //pc
+       return this.modtemp();
+
+    }
+    async delanswerAction(){
+        //前端登录验证
+        await this.weblogin();
+        let answer_id = this.get("id");
+        let answer = await this.model("question_answer").where({answer_id:answer_id}).find();
+        //后台管理员跳过验证
+        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+            //await this.c_verify("edit");
+            //安全判断
+            if(answer.uid !=this.user.uid){
+                this.http.error = new Error('你不能编辑，不属于自己的东西！');
+                return think.statusAction(702, this.http);
+            }
+        }
+        //删除相关回复
+        await this.model("question_answer").where({answer_id:answer_id}).delete();
+        //删除相关的回复评论
+        await this.model("question_answer_comments").where({answer_id:answer_id}).delete();
+       return this.success({name:"删除成功!"})
+    }
+    async delcommentsAction(){
+        //前端登录验证
+        await this.weblogin();
+        let id = this.get("id");
+        let comments = await this.model("question_answer_comments").where({id:id}).find();
+        //后台管理员跳过验证
+        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+            //await this.c_verify("edit");
+            //安全判断
+            if(comments.uid !=this.user.uid){
+                this.http.error = new Error('你不能编辑，不属于自己的东西！');
+                return think.statusAction(702, this.http);
+            }
+        }
+        //删除相关的回复评论
+        await this.model("question_answer_comments").where({id:id}).delete();
+        return this.success({name:"删除成功!"})
+    }
 }

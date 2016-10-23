@@ -7,7 +7,7 @@ export default class extends think.model.base {
     async updates(data=null){
         //添加或者新增基础内容
         let id = null;
-        if(think.isEmpty(data.id)) {//新增主题
+        if(think.isEmpty(data.answer_id)) {//新增主题
             data.add_time = new Date().getTime();
             id = await this.add(data);
             if(id){
@@ -21,7 +21,7 @@ export default class extends think.model.base {
                 }
             }
         }else {//更新主题
-
+         await this.where({answer_id:data.answer_id}).update(data);
         }
         return {data:data,id:id};
     }

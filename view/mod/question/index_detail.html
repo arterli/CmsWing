@@ -179,18 +179,16 @@ CLASSES:
                                     <li>
                                         <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
                                     </li>
+
                                     <li>
-                                        <a href="#" class="text-info"><i class="fa fa-reply"></i> 回复</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;"  class="text-muted comment-reply" data-comment="comment-reply-{{a.answer_id}}"><span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
+                                        <a href="javascript:;"  class="text-info comment-reply" data-comment="comment-reply-{{a.answer_id}}"> <i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
                                     </li>
                                     {%if controller.user.uid == a.uid%}
                                     <li class="pull-right">
-                                        <a href="#" class="text-danger">删除</a>
+                                        <a href="/mod/question/ajax/delanswer/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
                                     </li>
                                     <li class="pull-right">
-                                        <a href="#" class="text-primary">编辑</a>
+                                        <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
                                     </li>
                                     {%endif%}
                                 </ul>
@@ -233,7 +231,6 @@ CLASSES:
                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                     要回复问题请先 <a class="" href="/uc/public/login" data-toggle="ajaxModal">登录</a> 或 <a href="/uc/public/register">注册</a>
                 </div>
-
                 {%endif%}
             </div>
 
@@ -349,7 +346,8 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
-<script src="/static/assets/js/question.js"></script>
+<script src="/static/assets/plugins/insertContent.js"></script>
 <script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/assets/js/question.js"></script>
 {%endblock%}
