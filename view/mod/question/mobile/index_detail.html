@@ -1,0 +1,147 @@
+
+{% extends "../../../topic/mobile/inc/appbase.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+{% include "../../../topic/mobile/inc/barnav.html" %}
+<div class="mui-content detail" style="background-color: #fff">
+    <div class="mui-content-padded">
+        <!-- 文章标题 -->
+        <h1 class="title">{{info.title}}</h1>
+        <div class="article-header">
+
+            <div class="pgc-bar-top mui-clearfix" >
+                <a href="#" ga_category="toutiaohao" ga_label="" ga_event="click" class="avatar-link vwo-media-profile">
+                    <div class="avatar">
+                        <img src="/uc/index/avatar/uid/{{info.uid}}" class="avatar">
+                    </div>
+                </a>
+                <div class="subtitle">
+                    <p class="name"><a href="#" class="screen-name vwo-media-profile">
+                        <span id="mediaName" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">{{info.uid|get_nickname}}</span>
+                        <img src="/static/webapp/img/logo.png">
+                    </a></p>
+                    <a href="#" class="time vwo-media-profile" >
+
+                        <span class="original original-fix">原创</span>
+
+                        <span>{{ info.update_time|dateformat('Y-m-d H:i') }}</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="favor-wrapper">
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">关注</button>
+            </div>
+        </div>
+
+        <article class="wangEditor-container cmswing-container margin-top-20" >
+
+                <div class="wangEditor-txt nopadding">
+                    {{info.detail|safe}}
+                </div>
+
+        </article>
+        <div class="mui-content-padded">
+            {% rkeywords data ="tags",type="1",mod_id="8",id=info.id%}
+            {%set color = ["btn-primary","mui-badge-primary","mui-badge-success","mui-badge-warning","mui-badge-danger","mui-badge-purple"]%}
+            {%for k in tags%}
+            <a href="{{k.url}}" class="mui-badge {{color|random}}">
+                {{k.keyname}}
+            </a>
+            {%endfor%}
+
+        </div>
+    </div>
+    <ul class="mui-table-view question_card">
+        {%for val in answer%}
+        <div class="mui-card">
+            <div class="mui-card-header mui-card-media">
+                <img src="/uc/index/avatar/uid/{{val.uid}}">
+                <div class="mui-media-body">
+                    {{val.uid|get_nickname}}
+                    <p>发表于 {{val.add_time|moment}}</p>
+                </div>
+            </div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner padding-top-0 padding-bottom-0" >
+                    <div class="wangEditor-container cmswing-container">
+                        <div class="wangEditor-txt nopadding">
+                            {{val.answer_content|safe}}
+                        </div>
+                    </div>
+                    {% if val.imgs|length==1 %}
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+                            <img class="list_img_holder" src="{{val.imgs[0]}}">
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if val.imgs|length>1 %}
+                    <div class="mui-row">
+                        {%set i = 0%}
+                        {%for img in val.imgs%}
+                        {%if i< 9 %}
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{img}}">
+                        </div>
+                        {%endif%}
+                        {%set i=i+1%}
+                        {%endfor%}
+                    </div>
+                    {%endif%}
+                    {%if val.answer_users>0%}
+                    <p>
+                        <span style="color: #333;" >{{val.answer_users|get_nickname}}</span> 在 {{val.update_time|moment}} 回复了问题
+
+                    </p>
+                    {%endif%}
+                </div>
+            </div>
+            <div class="mui-card-footer">
+                <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i>{{val.focus_count}}</a>
+                <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i>{{val.answer_count}}</a>
+                <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i>{{val.view}}</a>
+            </div>
+        </div>
+
+        {%endfor%}
+</div>
+{% endblock%}
+
+{% block script %}
+
+<script type="text/javascript">
+    mui.init()
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

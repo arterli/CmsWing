@@ -211,6 +211,24 @@ export default class extends Base {
       }
 
 
-      return this.modtemp("question");
+      if(checkMobile(this.userAgent())){
+          if(this.isAjax("get")){
+              for (let v of data.data){
+                  v.nickname= await get_nickname(v.uid);
+                  v.create_time=moment(v.create_time).fromNow();
+                  v.catename = await this.model("category").get_category(v.category_id,"title");
+                  v.detail=(v.detail).replace(/<[^>]+>/g, "");
+                  v.answer_username = await get_nickname(v.answer_users);
+                  v.update_time = moment(v.update_time).fromNow();
+              }
+              return this.json(data);
+          }
+          //手机端模版
+          return this.modtemp("question","mobile");
+      }else{
+          //console.log(temp);
+          // return this.display(temp);
+          return this.modtemp();
+      }
   }
 }

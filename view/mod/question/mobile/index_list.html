@@ -178,8 +178,8 @@
             url: url
         });
     })
-    mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
-        var url = this.getAttribute("href");
+    mui("#pullrefresh .mui-table-view").on("tap",".mui-card-content-inner",function(){
+        var url = this.getAttribute("data-url");
         //打开关于页面
         mui.openWindow({
             url: url
