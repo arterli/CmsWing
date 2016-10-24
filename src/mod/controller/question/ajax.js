@@ -64,7 +64,7 @@ export default class extends Base {
             c.username = await get_nickname(c.uid);
             c.time = moment(c.time).fromNow()
         }
-        this.json({data:comments,is_login:this.is_login});
+        this.json({data:comments,is_login:this.is_login,is_admin:in_array(parseInt(this.user.uid), this.config('user_administrator'))});
     }
     async ajaxanswercommentspostAction(){
         //前端验证登录
@@ -118,6 +118,8 @@ export default class extends Base {
         await this.model("question_answer").where({answer_id:answer_id}).delete();
         //删除相关的回复评论
         await this.model("question_answer_comments").where({answer_id:answer_id}).delete();
+        //删除统计
+        await this.model("question").where({id:this.get("qid")}).decrement("answer_count",1);
        return this.success({name:"删除成功!"})
     }
     async delcommentsAction(){

@@ -183,9 +183,10 @@ CLASSES:
                                     <li>
                                         <a href="javascript:;"  class="text-info comment-reply" data-comment="comment-reply-{{a.answer_id}}"> <i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
                                     </li>
-                                    {%if controller.user.uid == a.uid%}
+
+                                    {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
                                     <li class="pull-right">
-                                        <a href="/mod/question/ajax/delanswer/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
+                                        <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
                                     </li>
                                     <li class="pull-right">
                                         <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>

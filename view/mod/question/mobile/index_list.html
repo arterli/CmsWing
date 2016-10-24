@@ -273,9 +273,9 @@
         } else {
             var Y = 0;
         }
-        console.log(Y)
+        //console.log(Y)
         var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
-        console.log(Y);
+        //console.log(Y);
         if (window.sessionStorage) {
             sessionStorage.setItem("{{http.url}}_top", Y);
             sessionStorage.setItem("{{http.url}}_size", S);
@@ -287,7 +287,7 @@
     function pulldownRefresh() {
         setTimeout(function() {
             var table = document.body.querySelector('.mui-table-view');
-            var cells = document.body.querySelectorAll('.mui-table-view-cell');
+            var cells = document.body.querySelectorAll('.mui-card');
             for (var i = cells.length, len = i + 3; i < len; i++) {
                 var li = document.createElement('li');
                 li.className = 'mui-table-view-cell';
@@ -305,9 +305,9 @@
         setTimeout(function() {
 
             var table = document.body.querySelector('#pullrefresh .mui-table-view');
-            var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view-cell');
-            var count = "{{list.count}}";
-            console.log((parseInt(count) > cells.length));
+            var cells = document.body.querySelectorAll('#pullrefresh .mui-card');
+            var count = "{{count}}";
+            console.log((parseInt(count)));
 
             if(parseInt(cells.length) < parseInt(count)){
                 createFragment(10)
@@ -321,7 +321,7 @@
     var createFragment = function(count, page) {
         //无限加载
         var table = document.body.querySelector('#pullrefresh .mui-table-view');
-        var lastIndex = table.querySelectorAll('li.mui-table-view-cell').length;
+        var lastIndex = table.querySelectorAll('.mui-card').length;
         console.log(lastIndex);
         var pages = page || Math.ceil((lastIndex+count)/count);
         console.log(pages);
@@ -333,24 +333,6 @@
             type:'get',//HTTP请求类型
             success:function(data){
                 $('#pullrefresh .mui-table-view').append(tplRender(data));
-                //获得服务器响应
-//                console.log();
-//             var fragment = document.createDocumentFragment();
-//                var li;
-//                for (var i = 0; i < data.data.length; i++) {
-//                    li = document.createElement('li');
-//                    li.className = 'mui-table-view-cell';
-//                    li.innerHTML ='<a href="javascript:;">'+
-//                            '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
-//                            '<div class="mui-media-body">'+
-//                            data.data[i].title+
-//                            '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
-//                            '</div>'+
-//                            '</a>';
-//                    fragment.appendChild(li);
-//                }
-                //console.log($(tplRender(data)));
-                //document.getElementById("tpl").innerHTML= tplRender(data)
 
             }
         });

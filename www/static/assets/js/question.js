@@ -83,7 +83,7 @@ $(function () {
                             '<li>'+
                             '<a href="#" class="text-info commentreyplay" data-name="@'+v.username+':" data-id="'+id+'"><i class="fa fa-reply"></i> 回复</a>'+
                             '</li>';
-                        if(res.is_login==v.uid){
+                        if(res.is_login==v.uid || res.is_admin){
                         rhtml+='<li class="pull-right">'+
                             '<a href="/mod/question/ajax/delcomments/id/'+v.id+'" class="text-danger confirm ajax-get">删除</a>'+
                             '</li>';
