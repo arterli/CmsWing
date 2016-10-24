@@ -73,7 +73,10 @@ export default class extends Base {
     //删除相关回复
     await this.model("question_answer").where({question_id:["IN",ids]}).delete();
     //删除相关的回复评论
-    await this.model("question_answer_comments").where({answer_id:["IN",qm]}).delete();
+    if(!think.isEmpty(qm)){
+      await this.model("question_answer_comments").where({answer_id:["IN",qm]}).delete();
+    }
+
 
     //删除相关的
     return this.success({name:"删除成功！"});

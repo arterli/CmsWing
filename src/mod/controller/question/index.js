@@ -1,6 +1,8 @@
 'use strict';
 import Base from '../index.js';
 import pagination from 'think-pagination';
+import moment from "moment"
+moment.locale('zh-cn');
 export default class extends Base {
   /**
    * index action
@@ -110,6 +112,12 @@ export default class extends Base {
     //跨屏
     if(checkMobile(this.userAgent())){
       if(this.isAjax("get")){
+          for (let v of data.data){
+              v.nickname= await get_nickname(v.uid);
+              v.create_time=moment(v.create_time).fromNow();
+              v.catename = await this.model("category").get_category(v.category_id,"title")
+              v.detail=(v.detail).replace(/<[^>]+>/g, "");
+          }
         return this.json(data);
       }
       //手机端模版

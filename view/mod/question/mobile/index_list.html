@@ -103,127 +103,51 @@
 </div>
 <script type="text/template" id="tpl">
     {% raw %}
-    <%_.forEach(data,function(v,k){ %>
-    <!--如果有缩略图-->
-    <%if (v.cover_id){%>
-
-    <% if (v.model_id == 5){%>
-    <li class="mui-table-view-cell mui-media">
-        <a href="<%=v.url%>">
-
-
-            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
-
-
-            <div class="mui-row">
-                <div class="mui-col-sm-12 mui-col-xs-12">
-                    <img class="list_img_holder" src="<%=v.cover_id%>">
-                </div>
+    <%_.forEach(data,function(val,k){ %>
+    <div class="mui-card">
+        <div class="mui-card-header mui-card-media">
+            <img src="/uc/index/avatar/uid/<%=val.uid%>">
+            <div class="mui-media-body">
+                <%=val.nickname %>
+                <p>发表于 <%=val.create_time%></p>
             </div>
-            <p class="item_info">
-
-                <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;2323</span>
-
-                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-            </p>
-
-        </a>
-    </li>
-    <%}else{%>
-    <li class="mui-table-view-cell mui-media">
-        <a href="<%=v.url%>" >
-            <div class="mui-row">
-                <div class="mui-col-sm-8 mui-col-xs-8">
-
-                    <h4 class="dotdot line2 "><%=v.title%></h4>
-                    <p class="item_info">
-
-                        <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space">评论&nbsp;2323</span>
-
-                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-                    </p>
+        </div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner" data-url="/mod/question/<%=val.id%>">
+                <p style="color: #333;"><%=val.detail%></p>
+                <% if (val.imgs.length==1) {%>
+                <div class="mui-row">
+                    <div class="mui-col-sm-8 mui-col-xs-8">
+                        <img class="list_img_holder" src="<%=val.imgs[0]%>">
+                    </div>
                 </div>
-                <div class="mui-col-sm-4 mui-col-xs-4 ">
-                    <img class="list_img_holder" src="<%=v.cover_id%>" >
-
+                <%}%>
+                <% if (val.imgs.length>1) {%>
+                <div class="mui-row">
+                    <%_.forEach(val.imgs,function(v,k){ %>
+                    <%if (k< 9) {%>
+                    <div class="mui-col-sm-4 mui-col-xs-4">
+                        <img class="list_img_holder" src="<%=v%>">
+                    </div>
+                    <%}%>
+                    <%})%>
                 </div>
+                <%}%>
+                <%if(val.answer_users>0){%>
+                <p>
+                    <span style="color: #333;" ><%=val.answer_users%></span> 在 <%=val.update_time%> 回复了问题
+
+                </p>
+                <%}%>
             </div>
-        </a>
-    </li>
-    <%}%>
-    <%}else if(v.pics){%>
-    <% if (v.pics.length >2){%>
-    <li class="mui-table-view-cell mui-media">
-        <a href="<%=v.url%>">
-            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
-            <div class="mui-row">
-                <div class="mui-col-sm-4 mui-col-xs-4">
-                    <img class="list_img_holder" src="<%=v.pics[0]%>">
-                </div>
-                <div class="mui-col-sm-4 mui-col-xs-4">
-                    <img class="list_img_holder" src="<%=v.pics[1]%>">
-                </div>
-                <div class="mui-col-sm-4 mui-col-xs-4 ">
-                    <img class="list_img_holder" src="<%=v.pics[2]%>" >
-
-                </div>
-            </div>
-            <p class="item_info">
-
-                <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;2323</span>
-
-                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-            </p>
-
-        </a>
-    </li>
-    <%}else{%>
-    <li class="mui-table-view-cell mui-media">
-        <a href="<%=v.url%>" >
-            <div class="mui-row">
-                <div class="mui-col-sm-8 mui-col-xs-8">
-
-                    <h4 class="dotdot line2 "><%=v.title%></h4>
-                    <p class="item_info">
-                        <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space">评论&nbsp;2323</span>
-
-                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-                    </p>
-                </div>
-                <div class="mui-col-sm-4 mui-col-xs-4 ">
-                    <img class="list_img_holder" src="<%=v.pics[0]%>" >
-
-                </div>
-            </div>
-        </a>
-    </li>
-    <%}%>
-    <%}else{%>
-    <!--无图-->
-    <li class="mui-table-view-cell mui-media">
-        <a href="<%=v.url%>">
-            <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
-
-            <p class="item_info">
-
-                <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;0</span>
-
-                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-            </p>
-
-        </a>
-    </li>
-    <%}%>
+        </div>
+        <div class="mui-card-footer">
+            来自:<%= val.catename%>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i><%=val.focus_count%></a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i><%=val.answer_count%></a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i><%=val.view%></a>
+        </div>
+    </div>
     <%})%>
     {% endraw %}
 </script>
@@ -274,7 +198,7 @@
             var Y = 0;
         }
         //console.log(Y)
-        var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+        var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('.mui-card').length;
         //console.log(Y);
         if (window.sessionStorage) {
             sessionStorage.setItem("{{http.url}}_top", Y);
@@ -342,8 +266,9 @@
     mui.ready(function() {
 
         //mui('#pullrefresh').pullRefresh().pullupLoading();
-
+        console.log(size);
         var page = Math.ceil(size/10);
+
         if(page>1 ){
             for (var i = 1; i < (page+1); i++) {
                 createFragment(10,(i+1))
@@ -351,7 +276,7 @@
         }
         mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
         //alert(1)
-        console.log()
+
 //            $('header').on('doubleTap',function () {
 //                alert(3)
 //            })
