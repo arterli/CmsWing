@@ -115,8 +115,10 @@ export default class extends Base {
           for (let v of data.data){
               v.nickname= await get_nickname(v.uid);
               v.create_time=moment(v.create_time).fromNow();
-              v.catename = await this.model("category").get_category(v.category_id,"title")
+              v.catename = await this.model("category").get_category(v.category_id,"title");
               v.detail=(v.detail).replace(/<[^>]+>/g, "");
+              v.answer_username = await get_nickname(v.answer_users);
+              v.update_time = moment(v.update_time).fromNow();
           }
         return this.json(data);
       }
