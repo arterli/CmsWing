@@ -30,7 +30,7 @@ export default class extends Base {
         let modelname = await this.model("model").field('title').find(model_id);
         let list = await this.db.where({model_id:model_id}).page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(list);
        // console.log(modelname);
         this.meta_title="字段列表";

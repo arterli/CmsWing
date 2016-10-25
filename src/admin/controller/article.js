@@ -372,7 +372,7 @@ export default class extends Base {
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(list);
 
 

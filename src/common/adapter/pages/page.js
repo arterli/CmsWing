@@ -22,7 +22,7 @@ export default class extends think.adapter.base {
    * @return {[]}         []
    */
   init(http){
-    super.init(http);
+    this.thinkhttp= http;
   }
 
   /**
@@ -31,7 +31,7 @@ export default class extends think.adapter.base {
    * @returns {*}
    */
   pages(pagerData){
-    let http = think.http;
+    let http = this.thinkhttp;
     let pagerHtml;
     if(pagerData.totalPages > 1){
 
@@ -61,7 +61,6 @@ export default class extends think.adapter.base {
         }
         pageUrl = prefix + "page=${page}";
       }
-
       pagerHtml='<div class="btn-group m-t-none m-b-none">';
       if(!pagerData.hideDesc){
         pagerHtml += `<a class="disabled btn btn-default"><span>共有${pagerData.count}条记录，共${pagerData.totalPages}页</span></a>`
