@@ -52,8 +52,8 @@
                 <div class="mui-card-header mui-card-media">
                     <img src="/uc/index/avatar/uid/{{val.uid}}">
                     <div class="mui-media-body">
-                        {{val.uid|get_nickname}}
-                        <p>发表于 {{val.create_time|moment}}</p>
+                       {{val.title}}
+                        <p>{{val.uid|get_nickname}} 发表于 {{val.create_time|moment}}</p>
                     </div>
                 </div>
                 <div class="mui-card-content">
@@ -108,8 +108,8 @@
         <div class="mui-card-header mui-card-media">
             <img src="/uc/index/avatar/uid/<%=val.uid%>">
             <div class="mui-media-body">
-                <%=val.nickname %>
-                <p>发表于 <%=val.create_time%></p>
+                <%=val.title %>
+                <p><%=val.nickname %> 发表于 <%=val.create_time%></p>
             </div>
         </div>
         <div class="mui-card-content">
