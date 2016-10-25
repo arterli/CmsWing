@@ -188,14 +188,14 @@
         <!--<h1 class="mui-title">dfdsf</h1>-->
         <a  href="#answer" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link mui-btn-nav mui-pull-left">
 
-            <!--<span class="mui-icon iconfont icon-forward"> </span>-->
-                回复<span class="mui-badge">9</span>
+            <span class="mui-icon iconfont icon-forward"> <span class="mui-badge">9</span></span>
+                <!--回复-->
 
         </a>
-        <h1 class="mui-center mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+        <h1 class="mui-center mui-title">{{info.title}}</h1>
         <a  href="/mod/question/sys/add/cid/{{category.id}}" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link  mui-pull-right">
-            <!--<span class="mui-icon  iconfont icon-post"></span>-->
-            发布
+            <span class="mui-icon  iconfont icon-post"></span>
+            <!--发布-->
         </a>
     </div>
     {% include "../../../topic/mobile/inc/barnav.html" %}
