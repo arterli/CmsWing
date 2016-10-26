@@ -1,10 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-fdsfsdfsdfsdfdsafaf
-</body>
-</html>
+{% extends "../../../topic/mobile/inc/appbase.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/webapp/css/feedback.css">
+{% endblock %}
+{%block bodyattr%} class="feedback"{%endblock%}
+{% block content %}
+
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <button id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">保存</button>
+    <h1 class="mui-title">问题反馈</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <div class="mui-inline">问题和意见</div>
+        <a class="mui-pull-right mui-inline" href="#popover">
+           选择分组
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </a>
+        <!--快捷输入具体内容，开发者可自己替换常用语-->
+        <div id="popover" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        <!--仅流应用环境下显示-->
+                        <li class="mui-table-view-cell">
+                            <a href="#">分组1</a>
+                        </li>
+                        <li class="mui-table-view-cell"><a href="#">分组2</a></li>
+                        <li class="mui-table-view-cell"><a href="#">分组3</a></li>
+                        <li class="mui-table-view-cell"><a href="#">分组4</a></li>
+                        <li class="mui-table-view-cell"><a href="#">分组5</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mui-input-row">
+        <textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+    </div>
+    <p>图片(选填,提供问题截图,总大小10M以下)</p>
+    <div id='image-list' class="row image-list"></div>
+    <p>QQ/邮箱</p>
+    <div class="mui-input-row">
+        <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
+    </div>
+    <div class="mui-content-padded">
+        <div class="mui-inline">应用评分</div>
+        <div class="icons mui-inline" style="margin-left: 6px;">
+            <i data-index="1" class="mui-icon mui-icon-star"></i>
+            <i data-index="2" class="mui-icon mui-icon-star"></i>
+            <i data-index="3" class="mui-icon mui-icon-star"></i>
+            <i data-index="4" class="mui-icon mui-icon-star"></i>
+            <i data-index="5" class="mui-icon mui-icon-star"></i>
+        </div>
+    </div><br />
+</div>
+{% endblock%}
+
+{% block script %}
+<script src="/static/webapp/js/feedback.js"></script>
+<script type="text/javascript">
+    mui.init()
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}
