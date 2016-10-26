@@ -23,7 +23,7 @@ export default class extends Base {
         let map = {'status': ['>', -1]}
         let data = await this.db.where(map).page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         this.assign('list', data.data);

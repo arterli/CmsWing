@@ -30,7 +30,7 @@ export default class extends Base {
       v.lastuser = await this.model("keyword_data").where({tagid:v.id}).order("add_time DESC").getField("uid",true);
     }
     let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-    let pages = new Pages(); //实例化 Adapter
+    let pages = new Pages(this.http); //实例化 Adapter
     let page = pages.pages(list);
     this.assign('list', list);
     this.assign('pagerData', page); //分页展示使用

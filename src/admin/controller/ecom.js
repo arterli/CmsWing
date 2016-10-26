@@ -129,7 +129,7 @@ export default class extends Base {
     this.meta_title="正在使用的支付方式";
     let data = await this.model("payment").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         for(let val of data.data){
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
@@ -198,7 +198,7 @@ export default class extends Base {
      this.active = "admin/ecom/payment";
      let data = await this.model("pay_plugin").page(this.get('page')).countSelect();
      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-     let pages = new Pages(); //实例化 Adapter
+     let pages = new Pages(this.http); //实例化 Adapter
      let page = pages.pages(data); 
      this.assign('pagerData', page); //分页展示使用
      this.assign('list', data.data);
@@ -209,7 +209,7 @@ export default class extends Base {
       this.meta_title="运费模板";
       let list = await this.model("fare").page(this.get('page')).order("is_default DESC").countSelect();
       let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-      let pages = new Pages(); //实例化 Adapter
+      let pages = new Pages(this.http); //实例化 Adapter
       let page = pages.pages(list);
       //console.log(list);
       this.assign('pagerData', list); //分页展示使用
@@ -306,7 +306,7 @@ export default class extends Base {
   async expressAction(){
         let data = await this.model("express_company").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         this.assign('list', data.data);

@@ -26,7 +26,14 @@ export default class extends Base {
       console.log(breadcrumb)
       this.assign('category', this.m_cate);
       this.meta_title = "发布";
-      return this.display();
+      if(checkMobile(this.userAgent())){
+          //手机端模版
+          return this.modtemp("question","mobile");
+      }else{
+          //console.log(temp);
+          // return this.display(temp);
+          return this.modtemp();
+      }
   }
   async testAction(){
       return this.display();

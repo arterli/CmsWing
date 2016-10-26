@@ -666,7 +666,7 @@ export default class extends Base {
 
         let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(list);
         for(let val of list.data){
             val.category=await this.model('category').get_category(val.category_id,"title");
