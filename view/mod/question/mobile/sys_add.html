@@ -11,39 +11,62 @@
 </header>
 <div class="mui-content">
     <div class="mui-content-padded">
-        <div class="mui-inline">问题和意见</div>
-        <a class="mui-pull-right mui-inline" href="#popover">
-           选择分组
+        <div class="mui-inline">问题标题</div>
+        {% groups data="groups",cid=category.id%}
+        <a class="mui-pull-right mui-inline group" href="#group" {%if groups|length == 0%}style="display: none"{%endif%}>
+            <input type="hidden" value="0" name="group_id">
+           <span>选择分组</span>
             <span class="mui-icon mui-icon-arrowdown"></span>
         </a>
         <!--快捷输入具体内容，开发者可自己替换常用语-->
-        <div id="popover" class="mui-popover">
+        <div id="group" class="mui-popover">
             <div class="mui-popover-arrow"></div>
             <div class="mui-scroll-wrapper">
                 <div class="mui-scroll">
                     <ul class="mui-table-view">
-                        <!--仅流应用环境下显示-->
-                        <li class="mui-table-view-cell">
-                            <a href="#">分组1</a>
-                        </li>
-                        <li class="mui-table-view-cell"><a href="#">分组2</a></li>
-                        <li class="mui-table-view-cell"><a href="#">分组3</a></li>
-                        <li class="mui-table-view-cell"><a href="#">分组4</a></li>
-                        <li class="mui-table-view-cell"><a href="#">分组5</a></li>
+                        <li class="mui-table-view-cell" data-value="0"><a href="javascript:;">不分组</a></li>
+                        {%for v in groups%}
+                        <li class="mui-table-view-cell" data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <a class="mui-pull-right mui-inline cate" href="#cate" >
+            <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+            <span>{%if category.allow_publish==0%}选择分类{%else%}{{category.title}}{%endif%}</span>
+            <span class="mui-icon mui-icon-arrowdown"></span>
+        </a>
+        <!--快捷输入具体内容，开发者可自己替换常用语-->
+        <div id="cate" class="mui-popover">
+            <div class="mui-popover-arrow"></div>
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+                    <ul class="mui-table-view">
+                        {%column data="column",pid=breadcrumb[0].id%}
+                        {%if breadcrumb[0].allow_publish==1%}
+                        <li class="mui-table-view-cell" data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+                        {%endif%}
+                        {%if column%}
+                        {%for val in column%}
+                        <li class="mui-table-view-cell" data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
+                        {%endfor%}
+                        {%endif%}
                     </ul>
                 </div>
             </div>
 
         </div>
     </div>
-    <div class="row mui-input-row">
-        <textarea id='question' class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+    <div class=" mui-input-row">
+        <input id='question' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
+
     </div>
-    <p>图片(选填,提供问题截图,总大小10M以下)</p>
-    <div id='image-list' class="row image-list"></div>
-    <p>QQ/邮箱</p>
+    <p>问题标题:</p>
     <div class="mui-input-row">
-        <input id='contact' type="text" class="mui-input-clear contact" placeholder="(选填,方便我们联系你 )" />
+        <textarea id='contact' class="mui-input-clear question" placeholder="请详细描述你的问题..."></textarea>
     </div>
     <div class="mui-content-padded">
         <div class="mui-inline">应用评分</div>
@@ -59,7 +82,7 @@
 {% endblock%}
 
 {% block script %}
-<script src="/static/webapp/js/feedback.js"></script>
+<script src="/static/webapp/js/question.js"></script>
 <script type="text/javascript">
     mui.init()
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
