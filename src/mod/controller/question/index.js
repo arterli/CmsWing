@@ -120,6 +120,7 @@ export default class extends Base {
               v.answer_username = await get_nickname(v.answer_users);
               v.update_time = moment(v.update_time).fromNow();
           }
+          
         return this.json(data);
       }
       //手机端模版

@@ -1,6 +1,7 @@
 {% extends "../../../topic/mobile/inc/appbase.html" %}
 {% block style %}
 <link rel="stylesheet" href="/static/webapp/css/feedback.css">
+<link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
 {% endblock %}
 {%block bodyattr%} class="feedback"{%endblock%}
 {% block content %}
@@ -64,9 +65,9 @@
         <input id='question' type="text" name="title" class="mui-input-clear contact" placeholder="问题标题" />
 
     </div>
-    <p>问题标题:</p>
+    <p>问题内容:</p>
     <div class="mui-input-row">
-        <textarea id='contact' class="mui-input-clear question" placeholder="请详细描述你的问题..."></textarea>
+        <textarea id='detail' name="detail" class="mui-input-clear question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%"></textarea>
     </div>
     <div class="mui-content-padded">
         <div class="mui-inline">应用评分</div>
@@ -82,8 +83,16 @@
 {% endblock%}
 
 {% block script %}
+<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.touch.js"></script>
+<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.min.js"></script>
 <script src="/static/webapp/js/question.js"></script>
 <script type="text/javascript">
+
+            $(function () {
+                // ___E 三个下划线
+                var editor = new ___E('detail');
+                editor.init();
+            });
     mui.init()
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     for(var i = 0;i<btn.length;i++){
