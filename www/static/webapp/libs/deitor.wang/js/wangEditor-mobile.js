@@ -172,7 +172,7 @@ window.___E_mod(function (E, $) {
 
 	// 全局配置
 	E.config = {
-		
+
 		// 菜单栏中的 color 按钮点击时的颜色值（即css中的颜色值）
 		menuColorValue: 'red',
 
@@ -192,9 +192,9 @@ window.___E_mod(function (E, $) {
 			'color',
 			'quote',
 			'list',
-			'img',
 			'happy',
-			'check'
+			'check',
+	         'img'
 		],
 
 		// 表情图标配置
@@ -233,7 +233,7 @@ window.___E_mod(function (E, $) {
 		// 上传图片时，如果浏览器不支持预览图片，则用以下图片代替
 		loadingImg: 'http://images2015.cnblogs.com/blog/138012/201512/138012-20151208194759027-506651939.gif',
 	};
-	
+
 });
 // 初始化对象配置
 window.___E_mod(function (E, $) {
@@ -243,11 +243,11 @@ window.___E_mod(function (E, $) {
 		var globalConfig = E.config;
 		// 从全局配置拷贝到对象配置
 		var objConfig = $.extend({}, globalConfig);
-		
+
 		// 赋值到对象中
 		self.config = objConfig;
 	};
-	
+
 });
 // 上传图片
 window.___E_mod(function (E, $) {
@@ -256,7 +256,7 @@ window.___E_mod(function (E, $) {
 	var isUC = E.isUC;
 
 
-	
+
 
 });
 // 初始化编辑区域的数据对象
@@ -269,8 +269,8 @@ window.___E_mod(function (E, $) {
 
 		// 编辑区域（将textarea的值，直接复制过来）
 		var $txt = $(
-			'<div contentEditable="true" class="wangEditor-mobile-txt">' + 
-			val + 
+			'<div contentEditable="true" class="wangEditor-mobile-txt">' +
+			val +
 			'</div>'
 		);
 
@@ -284,7 +284,7 @@ window.___E_mod(function (E, $) {
 		// 最后插入一个空行
 		self.insertEmpltyLink();
 	};
-	
+
 });
 // 增加自带的菜单数据对象
 window.___E_mod(function (E, $) {
@@ -292,7 +292,7 @@ window.___E_mod(function (E, $) {
 	E.fn.addMenus = function () {
 		var self = this;
 
-		// ------------- menus container  
+		// ------------- menus container
 		var $menuContainer = $('<div class="wangEditor-mobile-menu-container" contentEditable="false"></div>');
 		var $menuItemContainer = $('<div class="item-container"></div>');
 		var $menuContainerTip = $('<div class="tip"></div>');  // 三角形
@@ -307,8 +307,8 @@ window.___E_mod(function (E, $) {
 		self.$menuContainer = $menuContainer;
 		self.$menuItemContainer = $menuItemContainer;
 
-		// ------------- menus 数据集合 ------------- 
-		self.menus = {};		
+		// ------------- menus 数据集合 -------------
+		self.menus = {};
 		self.addMenuBold('bold');
 		self.addMenuHead('head');
 		self.addMenuColor('color');
@@ -416,7 +416,7 @@ window.___E_mod(function (E, $) {
 			}
 		};
 	};
-	
+
 });
 // color
 window.___E_mod(function (E, $) {
@@ -504,7 +504,7 @@ window.___E_mod(function (E, $) {
 					var commandFn;
 					if (menuData.selected) {
 						// 此时已经是 quote 状态，此时点击，应该恢复为普通文字
-						
+
 						// 获取当前的 quote 元素
 						if ($focusElem.get(0).nodeName === 'BLOCKQUOTE') {
 							$quoteElem = $focusElem;
@@ -605,7 +605,7 @@ window.___E_mod(function (E, $) {
 
 					// 执行命令
 					self.command('InsertUnorderedList', false, undefined, e);
-					
+
 				});
 			},
 
@@ -716,7 +716,7 @@ window.___E_mod(function (E, $) {
 			// 包裹触发器的容器
 			$wrap: $('<div class="item"</div>'),
 
-			// $modal 
+			// $modal
 			$modal: $('<div class="wangEditor-mobile-modal"></div>'),
 
 			// 渲染 $modal
@@ -835,13 +835,14 @@ window.___E_mod(function (E, $) {
 			updateStyle: function () {
 				// 暂时不需要
 			}
-		};	
+		};
 	};
 
 });
 // 上传图片
 window.___E_mod(function (E, $) {
 	E.fn.addMenuImg = function (menuId) {
+
 		var self = this;
 		var $body = self.$body;
 		var $txt = self.$txt;
@@ -875,7 +876,7 @@ window.___E_mod(function (E, $) {
 					return $('<label for="' + inputFileId + '"><i class="icon-wangEditor-m-picture"></i></label>');
 				}
 			})(),
-			
+
 			// 包裹触发器的容器
 			$wrap: $('<div class="item"</div>'),
 
@@ -913,7 +914,7 @@ window.___E_mod(function (E, $) {
 				function convertBase64UrlToBlob(urlData, filetype){
 		    		//去掉url的头，并转换为byte
 				    var bytes=window.atob(urlData.split(',')[1]);
-				    
+
 				    //处理异常,将ascii码小于0的转换为大于0
 				    var ab = new ArrayBuffer(bytes.length);
 				    var ia = new Uint8Array(ab);
@@ -950,8 +951,8 @@ window.___E_mod(function (E, $) {
 					if (uploadImgUrl === '') {
 						// 没有配置上传图片的url
 						alert(
-							'没有配置 uploadImgUrl ，wangEditor 将无法上传图片。\n\n' + 
-							'想要配置上传图片，请参见文档说明。\n\n' + 
+							'没有配置 uploadImgUrl ，wangEditor 将无法上传图片。\n\n' +
+							'想要配置上传图片，请参见文档说明。\n\n' +
 							'不想要图片上传，可通过配置 menus 隐藏该功能。'
 						);
 						return;
@@ -985,9 +986,9 @@ window.___E_mod(function (E, $) {
 
 							// 生成预览图片，设置半透明
 							$focusElem.after(
-								'<div class="previmg-container" id="' + prveImgContainerId + '">' + 
+								'<div class="previmg-container" id="' + prveImgContainerId + '">' +
 								'   <p class="info" id="' + prevImgInfoId + '">上传中...</p>' +
-								'	<img src="' + prevImgSrc + '" style="opacity:0.2; max-width:100%;"/>' + 
+								'	<img src="' + prevImgSrc + '" style="opacity:0.2; max-width:100%;"/>' +
 								'</div>'
 							);
 						} else {
@@ -996,8 +997,8 @@ window.___E_mod(function (E, $) {
 
 							// 生成预览图片
 							$focusElem.after(
-								'<div class="previmg-container" id="' + prveImgContainerId + '">' + 
-								'	<img src="' + prevImgSrc + '" style="max-width:100%;"/>' + 
+								'<div class="previmg-container" id="' + prveImgContainerId + '">' +
+								'	<img src="' + prevImgSrc + '" style="max-width:100%;"/>' +
 								'</div>'
 							);
 						}
@@ -1013,11 +1014,11 @@ window.___E_mod(function (E, $) {
 
 			            	var $prevImgContainer = $('#' + prveImgContainerId);
 			            	$prevImgContainer.remove();
-	
+
 			            	if (xhr.abort) {
 			            		xhr.abort();
 			            	}
-			            	
+
 			            	alert('上传超时，请重试');
 
 			            	if (location.hostname.toLowerCase() === 'wangeditor.github.io') {
@@ -1031,7 +1032,7 @@ window.___E_mod(function (E, $) {
 
 			            // 计时开始
 			            timeoutId = setTimeout(timeoutCallback, timeout);
-			            
+
 			            xhr.onload = function () {
 			            	// 得到消息之后，清除计时
 			            	clearTimeout(timeoutId);
@@ -1048,7 +1049,7 @@ window.___E_mod(function (E, $) {
 			            	if (resultSrc.indexOf('error|') === 0) {
 			            		erroInfo = resultSrc.split('|')[1];
 			            		log('很遗憾，后台返回error，错误信息为：' + erroInfo);
-			            		
+
 			            		// 提示错误
 			            		alert('上传图片错误: \n' + erroInfo);
 
@@ -1060,15 +1061,15 @@ window.___E_mod(function (E, $) {
 
 			            		log('请确认以上图片是否有效，无效将无法显示在页面中');
 			            		log('准备下载该图片...');
-			            		
+
 			            		// 下载图片，下载完成后赋值到编辑器中
 			            		$('#' + prevImgInfoId).text('加载中...');
-			
+
 			            		loadImg = document.createElement('img');
 			            		loadImg.src = resultSrc;
 			            		loadImg.onload = function () {
 			            			log('下载完成，正式呈现在编辑区域');
-		
+
 									$loadImg = $(loadImg);
 									$loadImg.css('max-width', '100%');
 			            			$prevImgContainer.after($loadImg);
@@ -1079,7 +1080,7 @@ window.___E_mod(function (E, $) {
 			            		};
 			            		loadImg.onerror = function () {
 			            			log('图片加载失败，请确定这个url是否能成功得到图片：' + resultSrc);
-			            			
+
 			            			alert('图片加载失败');
 			            			$prevImgContainer.remove();
 
@@ -1102,11 +1103,13 @@ window.___E_mod(function (E, $) {
 
 				// 点击菜单，触发 input 事件
 				$trigger.on('singleTap', function (e) {
+					//alert(self.checkTapTime(e, 'img'))
 					// singleTap需要验证
 					if (self.checkTapTime(e, 'img') === false) {
+
 						return;
 					}
-
+                    //alert(1)
 					function fn() {
 						$inputFlie.trigger('click');
 					}
@@ -1173,7 +1176,7 @@ window.___E_mod(function (E, $) {
 				} else {
 					$menuItemContainer.append($trigger);
 				}
-				
+
 				// 菜单之间的间隙
 				// 之所以需要加 clone 是因为 append 由一种『单例移动』的特性！！需注意！！
 				$menuItemContainer.append($gap.clone());
@@ -1185,7 +1188,7 @@ window.___E_mod(function (E, $) {
 
 		// 默认隐藏
 		$menuContainer.hide();
-		
+
 		// 变量记录菜单容器的显示与隐藏
 		self.menuDisplayShow = false;
 		$body.append($menuContainer);
@@ -1295,7 +1298,7 @@ window.___E_mod(function (E, $) {
 			if ($focusElem) {
 				$focusElem.removeClass('focus-elem');
 			}
-			
+
 			// 等待 xxx ms    处理点击 $txt 的选区
 			setTimeout(selectionHeadle, self.txtTapDelay);
 			self.txtTapDelay = 100;
@@ -1350,7 +1353,7 @@ window.___E_mod(function (E, $) {
 			if (menuContainer.contains(explicitOriginalTarget)) {
 				// firefox 中，点击菜单会导致 $txt blur
 				// e.explicitOriginalTarget 有值，并且包含在菜单容器中，证明是 ff 点击菜单所致的 blur
-				
+
 				e.preventDefault();
 				return;
 
@@ -1373,7 +1376,7 @@ window.___E_mod(function (E, $) {
 
 	// ----------------- 绑定menucontiner事件
 	E.fn.bindMenuContainerEvent = function () {
-		
+
 		// tap时focus $text
 		var self = this;
 		var $menuContainer = self.$menuContainer;
@@ -1499,7 +1502,7 @@ window.___E_mod(function (E, $) {
 		$menuContainer.css({
 			'top': top,
 			'left': txtLeft + 2
-		}); 
+		});
 
 		// 显示menucontainer
 		self.showMenuContainer();
@@ -1524,7 +1527,7 @@ window.___E_mod(function (E, $) {
 		var self = this;
 		var $menuContainer = self.$menuContainer;
 		var $txt = self.$txt;
-		
+
 		var $focusElem = self.$focusElem;
 		var $otherFocusElem = $txt.find('.focus-elem'); // 得重新查找，可能发生变化
 
@@ -1547,7 +1550,7 @@ window.___E_mod(function (E, $) {
 });
 // menus api
 window.___E_mod(function (E, $) {
-	
+
 	// 更新菜单样式
 	E.fn.updateMenuStyle = function () {
 		var self = this;
@@ -1742,7 +1745,7 @@ window.___E_mod(function (E, $) {
 // editor API 对外开放的接口
 window.___E_mod(function (E, $) {
 
-	
+
 
 });
 // 初始化编辑器对象
