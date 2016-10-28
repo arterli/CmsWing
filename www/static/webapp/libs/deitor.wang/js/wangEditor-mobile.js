@@ -228,7 +228,7 @@ window.___E_mod(function (E, $) {
 		uploadTimeout: 10 * 1000,
 
 		// 测试地址（在测试地址，编辑器会主动输出一些console.log信息）
-		testHostname: 'localhost',
+		testHostname: '127.0.0.1:8360',
 
 		// 上传图片时，如果浏览器不支持预览图片，则用以下图片代替
 		loadingImg: 'http://images2015.cnblogs.com/blog/138012/201512/138012-20151208194759027-506651939.gif',
@@ -846,7 +846,6 @@ window.___E_mod(function (E, $) {
 		var $body = self.$body;
 		var $txt = self.$txt;
 		var menus = self.menus;
-
 		var isAndroid = E.isAndroid;
 		var isUC = E.isUC;
 

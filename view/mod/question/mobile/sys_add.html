@@ -2,6 +2,12 @@
 {% block style %}
 <link rel="stylesheet" href="/static/webapp/css/feedback.css">
 <link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
+<style>
+    *
+    {
+        -webkit-user-select:text;
+    }
+</style>
 {% endblock %}
 {%block bodyattr%} class="feedback"{%endblock%}
 {% block content %}
@@ -66,8 +72,10 @@
 
     </div>
     <p>问题内容:</p>
-    <div class="mui-input-row" style="height: 300px">
-        <textarea id='detail' name="detail" class="question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%"></textarea>
+    <div class="mui-input-row" style="height: 250px">
+        <textarea id='detail' name="detail" class="question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%">
+            <p>请输入内容...</p>
+        </textarea>
     </div>
     <div class="mui-content-padded">
         <div class="mui-inline">应用评分</div>
@@ -84,16 +92,18 @@
 
 {% block script %}
 <script src="/static/webapp/libs/deitor.wang/js/lib/zepto.touch.js"></script>
-<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.min.js"></script>
+<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.js"></script>
 <script src="/static/webapp/js/question.js"></script>
 <script type="text/javascript">
 
             $(function () {
                 // ___E 三个下划线
                 var editor = new ___E('detail');
+                // 上传图片
+                editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
                 editor.init();
             });
-    mui.init()
+
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     for(var i = 0;i<btn.length;i++){
         btn[i].addEventListener("tap",function () {
