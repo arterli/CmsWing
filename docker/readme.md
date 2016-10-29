@@ -12,6 +12,10 @@
     - 4. cmswing 源码需要修改的地方:
         - /CmsWing/src/common/config/db.js
             - 数据库的连接, 要改 `127.0.0.1` 为 `真实主机 IP`.
+            - docker 容器连接时, 需要使用真实 IP.
+        - /CmsWing/nginx.conf
+            - 请修改 server / root 根路径为: `/web/cmswing/www;`
+            - 这是 docker 容器里的项目路径.
     - 5. 其他细节, 参考本文档具体步骤.
    
 - 核心启动命令:
