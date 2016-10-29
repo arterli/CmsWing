@@ -38,9 +38,26 @@ docker ps
 # 第一次启动 cmswing server 容器, 大概有10s 左右延迟, 服务才可正常访问.
 # 服务生效前访问, 出现 nginx 404错误.
 
-```     
-        
-   
+```
+
+- cmswing 镜像, 已构建并发布到阿里云:
+    - [阿里云 docker 市场](https://dev.aliyun.com/list.html?namePrefix=cmswing)
+- cmswing 镜像拉取:
+
+```bash
+
+# 公网地址:registry.cn-hangzhou.aliyuncs.com/docker_open/cmswing
+# 经典内网:registry-internal.cn-hangzhou.aliyuncs.com/docker_open/cmswing
+
+# 公网拉取:
+docker pull registry.cn-hangzhou.aliyuncs.com/docker_open/cmswing:0.4
+
+# 阿里云内网拉取:
+docker pull registry-internal.cn-hangzhou.aliyuncs.com/docker_open/cmswing:0.4
+
+
+```
+ 
         
 
 
