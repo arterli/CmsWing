@@ -1,6 +1,9 @@
 
 # 使用 docker 镜像部署 cmswing 教程:
 
+- [docker 部署相关 PR 记录](https://github.com/arterli/CmsWing/pull/10/commits)
+    - 关于 docker 部署的相关提交, 作了详细说明.
+    - 参考 PR 记录, 应该能顺利完成部署工作.
 - 部署综述:
     - 1. 使用 docker 部署.
     - 2. 项目依赖2个容器:
