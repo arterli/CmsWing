@@ -193,32 +193,26 @@ window.___E_mod(function (E, $) {
 			'quote',
 			'list',
 			'happy',
-			'check',
+			// 'check',
 	         'img'
 		],
 
 		// 表情图标配置
 		happy: [
-			'http://wangeditor.github.io/expressions/1.gif',
-			'http://wangeditor.github.io/expressions/2.gif',
-			'http://wangeditor.github.io/expressions/3.gif',
-			'http://wangeditor.github.io/expressions/4.gif',
-			'http://wangeditor.github.io/expressions/5.gif',
-			'http://wangeditor.github.io/expressions/6.gif',
-			'http://wangeditor.github.io/expressions/7.gif',
-			'http://wangeditor.github.io/expressions/8.gif',
-			'http://wangeditor.github.io/expressions/9.gif',
-			'http://wangeditor.github.io/expressions/10.gif',
-			'http://wangeditor.github.io/expressions/11.gif',
-			'http://wangeditor.github.io/expressions/12.gif',
-			'http://wangeditor.github.io/expressions/13.gif',
-			'http://wangeditor.github.io/expressions/14.gif',
-			'http://wangeditor.github.io/expressions/15.gif',
-			'http://wangeditor.github.io/expressions/16.gif',
-			'http://wangeditor.github.io/expressions/17.gif',
-			'http://wangeditor.github.io/expressions/18.gif',
-			'http://wangeditor.github.io/expressions/19.gif',
-			'http://wangeditor.github.io/expressions/20.gif'
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/7a/shenshou_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/60/horse2_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/fuyun_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c9/geili_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/f2/wg_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/70/vw_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/6e/panda_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/81/rabbit_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/bc/otm_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/15/j_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/89/hufen_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/c4/liwu_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/ac/smilea_thumb.gif',
+			'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal/0b/tootha_thumb.gif'
 		],
 
 		// 上传图片
@@ -1093,7 +1087,7 @@ window.___E_mod(function (E, $) {
 			            // 添加图片数据
 			            // 1. 图片数据要经过 convertBase64UrlToBlob 转换
 			            // 2. wangEditorMobileFile 要和后台一致
-			            formData.append('wangEditorMobileFile', convertBase64UrlToBlob(base64, fileType));
+			            formData.append('file', convertBase64UrlToBlob(base64, fileType));
 			            xhr.send(formData);
 					};
 
@@ -1495,8 +1489,8 @@ window.___E_mod(function (E, $) {
 			// 停靠在编辑器区域上方
 			top = txtTop;
 		}
-		top = top - 55;  // 上移 55px 即菜单栏的高度
-
+		// top = top - 55;  // 上移 55px 即菜单栏的高度
+        top= top+30;
 
 		// 设置菜单的样式，定位
 		$menuContainer.css({

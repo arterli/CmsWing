@@ -83,19 +83,33 @@
 .wangEditor-mobile-menu-container *:focus {
   outline: none;
 }
+/*.wangEditor-mobile-menu-container .tip {*/
+  /*position: absolute;*/
+  /*width: 0;*/
+  /*height: 0;*/
+  /*border: 10px solid #111;*/
+  /*border-left-color: transparent;*/
+  /*border-right-color: transparent;*/
+  /*left: 0;*/
+  /*margin-left: 12px;*/
+  /*border-bottom-color: transparent;*/
+  /*bottom: 0;*/
+  /*margin-bottom: -20px;*/
+/*}*/
 .wangEditor-mobile-menu-container .tip {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 10px solid #111;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  left: 0;
-  margin-left: 12px;
-  border-bottom-color: transparent;
-  bottom: 0;
-  margin-bottom: -20px;
-}
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid #111;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    left: 0;
+    margin-left: 12px;
+    border-right-color: transparent;
+    /* bottom: 0; */
+    /* margin-bottom: -20px; */
+    top: -20px;}
+
 .wangEditor-mobile-menu-container .item-container {
   display: box;
   display: -webkit-box;
