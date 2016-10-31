@@ -134,9 +134,9 @@ export default class extends Base {
             if (!res.data.answer_id) {
                 //添加操作日志，可根据需求后台设置日志类型。
                 //await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
-                this.success({name: "添加成功"});
+                this.success({name: "添加成功",data:res});
             } else {
-                this.success({name: "更新成功"});
+                this.success({name: "更新成功",data:res});
             }
 
         } else {

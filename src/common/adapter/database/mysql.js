@@ -43,7 +43,7 @@ export default class extends think.adapter.base {
             sql += "-- Port     : " + db.port + "\n";
             sql += "-- Database : " + db.name + "\n";
             sql += "-- \n";
-            sql += "-- Part : #" + this.file['part'] + "\n";
+            sql += "-- Part : #" + this['part'] + "\n";
             sql += "-- Date : " + times(new Date(), "s") + "\n";
             sql += "-- -----------------------------\n\n";
             sql += "SET FOREIGN_KEY_CHECKS = 0;\n\n";
