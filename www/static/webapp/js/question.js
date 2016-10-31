@@ -21,6 +21,7 @@
 		feedback.question.value = '';
 		feedback.contact.value = '';
 	};
+
 	// feedback.newPlaceholder();
 	feedback.submitBtn.addEventListener('click', function(event) {
 		if (feedback.question.value == '') {
