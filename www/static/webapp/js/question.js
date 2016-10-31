@@ -14,7 +14,13 @@
 		submitBtn: document.getElementById('submit')
 	};
 	var url = $(".validate").attr("action");
-
+	/**
+	 *提交成功之后，恢复表单项
+	 */
+	feedback.clearForm = function() {
+		feedback.question.value = '';
+		feedback.contact.value = '';
+	};
 	// feedback.newPlaceholder();
 	feedback.submitBtn.addEventListener('click', function(event) {
 		if (feedback.question.value == '') {
@@ -30,9 +36,12 @@
 			success:function(data){
 				//服务器返回响应，根据响应结果，分析是否登录成功；
 				if(data.errno == 0){
-					mui.toast(data.data.name);
-					mui.back();
-
+					// mui.toast(data.data.name);
+					// mui.back();
+					mui.alert("发布成功，点击确定关闭","提示","确定",function () {
+			          feedback.clearForm();
+						mui.openWindow({url: data.data.url})
+		               });
 				}else {
 					mui.toast(data.errmsg);
 				}
