@@ -211,7 +211,20 @@ export default class extends Base {
           this.assign("rq",rq);
       }
 
+      //不同的设备,压缩不同的图片尺寸
+      let str = info.detail;
+      if(!think.isEmpty(str)){
+          let img;
+          if(checkMobile(this.userAgent())){
+              //手机端
+              img = image_view(str,640,4);
+          }else {
+              //pc端
 
+              img = image_view(str,847,0);
+          }
+          info.detail=img
+      }
       if(checkMobile(this.userAgent())){
           if(this.isAjax("get")){
               for (let v of data.data){
