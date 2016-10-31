@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
 <link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
 <style>
+    *{
+        -webkit-user-select:text;
+    }
     html,
     body {
         background-color: #efeff4;
@@ -417,8 +420,8 @@
     //回复
     var url = $(".validate").attr("action");
     // feedback.newPlaceholder();
-    $("#answer_post").on('click', function(event) {
-        if ($("#detail").val() == '') {
+    document.getElementById('answer_post').addEventListener('click', function(event) {
+        if ($("#detail").text() == '') {
             return mui.toast('信息填写不符合规范');
         }
         var data = $(".validate").serialize();
