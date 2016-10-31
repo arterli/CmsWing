@@ -36,6 +36,12 @@ use pm2 to deploy app on production envrioment.
 ```
 pm2 startOrGracefulReload pm2.json
 ```
+
+## 使用 Docker 容器部署 cmswing
+
+- [使用 docker 部署 cmswing 文档](./docker/readme.md)
+
+
 ## 后台账号密码1
 ```
 账号:admin
