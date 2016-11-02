@@ -54,10 +54,11 @@
         <div class="mui-scroll-more">
             <div class="mui-scroll">
                 <!--这里放置真实显示的DOM内容-->
-        <ul id="list" class="mui-table-view mui-table-view-chevron">
+
 
             {%if column|length>0%}
-            <li class="mui-table-view-divider">子栏目</li>
+            <h5 class="mui-content-padded">子栏目</h5>
+                <ul  class="mui-table-view mui-table-view-chevron">
             <div class="mui-row">
                 {%for val in column%}
                 <div class="mui-col-sm-6 mui-col-xs-6">
@@ -69,9 +70,12 @@
                 </div>
                 {%endfor%}
             </div>
+                    </ul>
             {%endif%}
+
             {%if groups|length>0%}
-            <li class="mui-table-view-divider">分组</li>
+                <h5 class="mui-content-padded">分组</h5>
+                <ul  class="mui-table-view mui-table-view-chevron">
             <div class="mui-row">
                 {%for v in groups%}
                 <div class="mui-col-sm-6 mui-col-xs-6">
@@ -83,9 +87,11 @@
                 </div>
                 {%endfor%}
             </div>
+                </ul>
             {%endif%}
             {%if sort|length>0%}
-            <li class="mui-table-view-divider">分类筛选</li>
+                <h5 class="mui-content-padded">分类筛选</h5>
+                <ul  class="mui-table-view mui-table-view-chevron">
             {%for val in typevar%}
             <li class="mui-table-view-cell mui-collapse">
                 <a class="mui-navigate-right" href="#">
@@ -107,9 +113,10 @@
                 </ul>
             </li>
             {%endfor%}
+                </ul>
             {%endif%}
 
-        </ul>
+
             </div>
     </div>
     </div>
