@@ -25,6 +25,11 @@
 <script src="/static/webapp/js/mui.min.js"></script>
 <script src="/static/webapp/libs/lodash.min.js"></script>
 <script src="/static/webapp/libs/zepto.min.js"></script>
+<script>
+    if(mui('.mui-scroll-more').length>0){
+        mui('.mui-scroll-more').scroll();
+    }
+</script>
 {% block script %}{% endblock %}
 </body>
 

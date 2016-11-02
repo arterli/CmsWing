@@ -1,5 +1,12 @@
+{%if breadcrumb[0].id > 0 %}
+{%column data="column",pid=breadcrumb[0].id,isnum="1"%}
+{%endif%}
+{%if category.id%}
+{% groups data="groups",cid=category.id%}
+{%set cate = category.id|get_cate()%}
+{%endif%}
 <div id="slider" class="mui-slider" style="top:44px" >
-    <div id="sliderSegmentedControl" style="width: 90%" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+    <div id="sliderSegmentedControl" {%if sort|length>0 or column|length>0 or groups|length>0%} style="width: 90%" {%endif%} class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
         <div class="mui-scroll">
             <a class="mui-control-item bar-item {%if order ==100%} mui-active{%endif%}" href="#item1mobile" data-url="/index">
                 推荐
@@ -7,9 +14,9 @@
             <a class="mui-control-item bar-item {%if order ==2%} mui-active{%endif%}" href="#item2mobile" data-url="/index/2">
                 热点
             </a>
-            {% column data="bar",isapp="0",isindex="1"%}
+            {% column data="bar",isapp="0"%}
             {%for v in bar%}
-            <a class="mui-control-item bar-item {%if category.id ==v.id%} mui-active{%endif%}" href="#item{{v.id}}"  data-url="{{v.url}}">
+            <a class="mui-control-item bar-item {%if breadcrumb[0].id ==v.id%} mui-active{%endif%}" href="#item{{v.id}}"  data-url="{{v.url}}">
                 {{v.name}}
             </a>
             {%endfor%}
@@ -22,7 +29,7 @@
         </div>
         <div id="item2mobile" class="mui-slider-item mui-control-content">
         </div>
-        {% column data="bar",isapp="0" %}
+        {% column data="bar",isapp="0"%}
         {%for v in bar%}
         <div id="item{{v.id}}" class="mui-slider-item mui-control-content">
 
@@ -31,5 +38,80 @@
 
 
     </div>
-    <a class="mui-icon iconfont icon-sort mui-pull-right more-icon "></a>
+
+    {%if sort|length>0 or column|length>0 or groups|length>0%}
+    <a href="#more" class="mui-icon iconfont icon-sort mui-pull-right more-icon "></a>
+    {%endif%}
 </div>
+{%if sort|length>0 or column|length>0 or groups|length>0%}
+<div id="more" class="mui-modal">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-close mui-pull-right" href="#more"></a>
+        <h1 class="mui-title">{{category.title}}</h1>
+    </header>
+    <div class="mui-content" style="height: 100%;">
+
+        <div class="mui-scroll-more">
+            <div class="mui-scroll">
+                <!--这里放置真实显示的DOM内容-->
+        <ul id="list" class="mui-table-view mui-table-view-chevron">
+
+            {%if column|length>0%}
+            <li class="mui-table-view-divider">子栏目</li>
+            <div class="mui-row">
+                {%for val in column%}
+                <div class="mui-col-sm-6 mui-col-xs-6">
+                    <li class="mui-table-view-cell">
+                        <a href="{{val.url}}{{http.config('view.file_ext')}}" class="mui-navigate-right {%if val.id == category.id %}mui-active{%endif%}">
+                            {{val.name}} <span class="mui-badge">{{val.doc_num}} </span>
+                        </a>
+                    </li>
+                </div>
+                {%endfor%}
+            </div>
+            {%endif%}
+            {%if groups|length>0%}
+            <li class="mui-table-view-divider">分组</li>
+            <div class="mui-row">
+                {%for v in groups%}
+                <div class="mui-col-sm-6 mui-col-xs-6">
+                    <li class="mui-table-view-cell">
+                        <a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" class="mui-navigate-right {%if v.id == group_id %}mui-active{%endif%}">
+                            {{v.name}}
+                        </a>
+                    </li>
+                </div>
+                {%endfor%}
+            </div>
+            {%endif%}
+            {%if sort|length>0%}
+            <li class="mui-table-view-divider">分类筛选</li>
+            {%for val in typevar%}
+            <li class="mui-table-view-cell mui-collapse">
+                <a class="mui-navigate-right" href="#">
+                    {{val.option.title}}
+                </a>
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}mui-active{%endif%}" href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}">
+                            全部
+                        </a>
+                    </li>
+                    {%for v in val.rules %}
+                    <li class="mui-table-view-cell ">
+                        <a class="mui-navigate-right {%if v.id|sort_act(nsobj[val.option.identifier])%} mui-active {%endif%}" href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}">
+                            {{v.name}}{{val.option.unit}}
+                        </a>
+                    </li>
+                    {%endfor%}
+                </ul>
+            </li>
+            {%endfor%}
+            {%endif%}
+
+        </ul>
+            </div>
+    </div>
+    </div>
+</div>
+{%endif%}

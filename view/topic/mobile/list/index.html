@@ -300,7 +300,7 @@
     var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
     var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
     //记录位置
-    window.onscroll = function () {
+    document.getElementById("pullrefresh").onscroll = function () {
 
         var patt1 = /\(.*?\)/;
         var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
