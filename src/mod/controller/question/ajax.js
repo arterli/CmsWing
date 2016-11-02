@@ -64,7 +64,12 @@ export default class extends Base {
             c.username = await get_nickname(c.uid);
             c.time = moment(c.time).fromNow()
         }
-        this.json({data:comments,is_login:this.is_login,is_admin:in_array(parseInt(this.user.uid), this.config('user_administrator'))});
+        //判断是不是超级管理员
+        let is_admin =false;
+        if(this.is_login){
+            is_admin=in_array(parseInt(this.user.uid), this.config('user_administrator'));
+        }
+        this.json({data:comments,is_login:this.is_login,is_admin:is_admin});
     }
     async ajaxanswercommentspostAction(){
         //前端验证登录

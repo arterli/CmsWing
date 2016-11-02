@@ -112,14 +112,12 @@ export default class extends think.controller.base {
         if (res) {
             switch (model){
                 case 'channel'://更新频道缓存信息
-                    think.cache("get_channel_cache",null);
+                    update_cache("channel")//更新频道缓存信息
                     res = true;
                     msg = "更新导航缓存成功！";
                     break;
                 case 'category'://更新全站分类缓存
-                    think.cache("sys_category_list",null);
-                    think.cache("all_category",null);
-                    think.cache("all_priv",null);//栏目权限缓存
+                    update_cache("category")//更新栏目缓存
                     res = true;
                     msg = "更新栏目缓存成功！";
                     break;
@@ -240,12 +238,10 @@ export default class extends think.controller.base {
             //更新缓存
             switch (model){
                 case 'channel'://更新频道缓存信息
-                    think.cache("get_channel_cache",null);
+                    update_cache("channel")//更新频道缓存信息
                     break;
                 case 'category'://更新全站分类缓存
-                    think.cache("sys_category_list",null);
-                    think.cache("all_category",null);
-                    think.cache("all_priv",null);//栏目权限缓存
+                    update_cache("category")//更新栏目缓存
                     break;
             }
            return this.success({ name: "更新排序成功！"});
@@ -262,14 +258,12 @@ export default class extends think.controller.base {
         let msg = "未知错误！";
         switch (type){
             case 'channel'://更新频道缓存信息
-                think.cache("get_channel_cache",null);
+                update_cache("channel")//更新频道缓存信息
                 res = true;
                 msg = "更新导航缓存成功！";
                 break;
             case 'category'://更新全站分类缓存
-                think.cache("sys_category_list",null);
-                think.cache("all_category",null);
-                think.cache("all_priv",null);//栏目权限缓存
+                update_cache("category")//更新栏目缓存
                 res = true;
                 msg = "更新栏目缓存成功！";
                 break;

@@ -75,6 +75,7 @@
                         <th>访问</th>
                         <th class="">发布</th>
                         <th style="width:80px;">状态</th>
+                        <th>移动端</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -98,7 +99,10 @@
 <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>
 <i class="fa fa-times text-danger {%if val.status %}text{%else%}text-active{%endif%}"></i>
 </a></td>
-
+    <td><a href="/admin/category/isapp/ids/{{val.id}}/isapp/{{1-val.isapp}}" class="active ajax-get" data-toggle="class">
+        <i class="fa fa-check text-success {%if val.isapp %}text-active{%else%}text{%endif%}"></i>
+        <i class="fa fa-times text-danger {%if val.isapp %}text{%else%}text-active{%endif%}"></i>
+    </a></td>
 <td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
 <a class="text-info delcate" href="javascript:void(0)" data-id="{{val.id}}">删除</a>
     {%if val.mold!=2%}

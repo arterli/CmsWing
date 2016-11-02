@@ -27,7 +27,7 @@ export default class extends Base {
         }
        // console.log(where);
         //auto render template file index_index.html
-         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold",where);
+         let tree = await this.db.gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold,isapp",where);
          //console.log(tree)
          this.assign("active",this.get("mold")||null);
          this.assign("list",tree);
@@ -339,9 +339,7 @@ export default class extends Base {
         //删除分类权限
         await this.model("category_priv").delete({where:{catid:id}});
         await this.model("document").delete({where:{category_id:id}});
-        think.cache("sys_category_list",null);
-        think.cache("all_category",null);
-        think.cache("all_priv",null);//栏目权限缓存
+        update_cache("category")//更新栏目缓存
         //查处要删除的该栏目内容的id
     }
     //移动/合并栏目
@@ -441,10 +439,7 @@ export default class extends Base {
                     if(data.merge == 1){//如果合并删除源栏目
                        await this.model("category").delete({where:{id:data.source}});
                     }
-                    //更新栏目缓存
-                    think.cache("sys_category_list",null);
-                    think.cache("all_category",null);
-                    think.cache("all_priv",null);//栏目权限缓存
+                    update_cache("category")//更新栏目缓存
                     return this.success({name: "成功！",url:"/admin/category/index"})
                 }
 
@@ -502,10 +497,7 @@ export default class extends Base {
             if(data.merge == 1){//如果合并删除源栏目
                 await this.model("category").delete({where:{id:data.source_id}});
             }
-            //更新栏目缓存
-            think.cache("sys_category_list",null);
-            think.cache("all_category",null);
-            think.cache("all_priv",null);//栏目权限缓存
+            update_cache("category")//更新栏目缓存
             return this.success({name: "成功！",url:"/admin/category/index"})
         }else {
             let data = this.get();
@@ -533,5 +525,15 @@ export default class extends Base {
             return this.display();
         }
 
+    }
+    //是否在手机端显示
+    async isappAction(){
+        let up = await this.model("category").where({id:this.get("ids")}).update({isapp:this.get("isapp")});
+        if(up){
+            update_cache("category")//更新栏目缓存
+            return this.success({name:"操作成功!"});
+        }else {
+            return this.fail("操作失败!");
+        }
     }
 }

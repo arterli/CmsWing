@@ -1236,3 +1236,18 @@ global.MathRand = function ()
     return Num;
 }
 
+//更新缓存
+global.update_cache =(type)=>{
+    switch (type){
+        case 'category':
+            //更新栏目缓存
+            think.cache("sys_category_list",null);
+            think.cache("all_category",null);
+            think.cache("all_priv",null);//栏目权限缓存
+            break;
+        case 'channel'://更新频道缓存信息
+            think.cache("get_channel_cache",null);
+            break;
+    }
+}
+
