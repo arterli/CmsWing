@@ -118,9 +118,9 @@ export default class extends Base {
     this.assign("plist",plist);
     //console.log(plist);
     if(plist[0]){
-      let lastlevel = plist[0].level;
+      //let lastlevel = plist[0].level;
       //console.log(lastlevel);
-      this.assign("lastlevel",lastlevel);
+      this.assign("lastlevel",plist[0]);
     }
     //console.log(plist);
     //文档无限级目录
@@ -149,12 +149,12 @@ export default class extends Base {
       //手机模版
       if (!think.isEmpty(info.template) && info.template !=0) {
         temp = info.template; //todo 已设置详情模板
-      } else if (!think.isEmpty(cate.template_detail)) {
+      } else if (!think.isEmpty(cate.template_m_detail)) {
         temp = cate.template_m_detail; //分类已经设置模板
       } else {
         temp = model;
       }
-
+      console.log(temp);
       //内容分页
       if(!think.isEmpty(info.content)){
         info.content=info.content.split("_ueditor_page_break_tag_");

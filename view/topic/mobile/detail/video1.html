@@ -1,0 +1,161 @@
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="detail_video" >
+    {#
+    <header class="bar bar-nav" >
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+        </a>
+        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+            <span class="icon icon-menu"></span> 导航
+        </a>
+        <h1 class='title'><img src="/static/mobile/img/logo.png" /></h1>
+    </header>
+#}
+    <nav class="bar bar-tab">
+        <a class="tab-item active back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+            <span class="tab-label">返回</span>
+        </a>
+        <a class="tab-item" href="#SOHUCS">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">评论</span>
+            <span class="badge" id="changyan_count_unit"></span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-star"></span>
+            <span class="tab-label">收藏</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">分享</span>
+        </a>
+        {% if controller.is_login %}
+        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/index">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+        {%else%}
+        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/login">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">登录</span>
+        </a>
+        {%endif%}
+        <a class="tab-item" href="#top_article">
+            <span class="icon icon-up"></span>
+            <span class="tab-label">TOP</span>
+        </a>
+    </nav>
+    <div class="content" >
+        <div id="video-box" style="width:100%; height: 50%">
+
+        </div>
+        <div class="list-block media-list margin-top-0">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" style='width: 2.2rem;'></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{pinfo.title}}</div>
+                            </div>
+                            <div class="item-subtitle">更新至<em>{{lastlevel}}</em>集 </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link open-popup" data-popup=".popup-playlist">
+                    <div class="item-media"><i class="icon icon-menu"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">播放列表</div>
+                        <div class="item-after">正在播放:{%if info.level== 0%} {{lastlevel}} {%else%} {{info.level}}{%endif%}</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="content-block bg-white"  id="top_article">
+            {#
+            <!--打赏-->
+            <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
+            <!--打赏-->
+            <!--评论表情-->
+            <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
+            <!--评论表情-->
+            #}
+            <div id="SOHUCS" sid="{{info.id}}"></div>
+            <script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+                    src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
+            </script>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+<div class="popup popup-playlist popup-bg">
+    <header class="bar bar-nav">
+        <!--<a class="icon icon-left pull-left close-popup"></a>-->
+        <a class="icon icon-down pull-right close-popup"></a>
+        <h1 class="title">播放列表</h1>
+    </header>
+    <div class="content">
+        <div class="list-block">
+            <ul>
+                {%for val in plist%}
+                <a class="item-content item-link" href="{{val.name|get_url(val.id)}}">
+                    <div class="item-media"><i class="fa {%if info.id == val.id%}fa-play-circle{%else%}fa-play-circle-o{%endif%} fa-2x"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">{{val.title}}</div>
+                        <div class="item-after">{{val.level}}</div>
+                    </div>
+                </a>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock%}
+{% block style %}
+
+{% endblock %}
+{%block norouter%}
+<script>$.config = {router: false}</script>
+{%endblock%}
+{% block script %}
+{#
+<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+#}
+<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script>
+    var ivaInstance = new Iva(
+            'video-box',//父容器id或者父容器DOM对象，给父容器设置宽高640px*480px以上可以获得最佳的浏览体验；
+            {
+                appkey: 'VJa72yR7W',//必填，请在控制台查看应用标识
+                live: false,//选填，是否是直播流，默认为false
+                video: '{%if info.video_id != 0%}http://{{controller.setup.QINIU_DOMAIN_NAME}}/{{info.video_id|get_file("savename",false)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（http://www.tudou.com/programs/view/tM_vZCQy2uM/）或者资源地址（http://7xi4ig.com2.z0.glb.qiniucdn.com/shapuolang_ts.mp4）
+                title: '{{info.title}}',//选填，视频标题
+                cover: '{{info.cover_id|get_pic("")}}',//选填，视频封面url
+                videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
+                videoEndPrefixSeconds: 0,//选填，跳过片尾，默认为0
+                /* 以下参数可以在“控制台->项目看板->应用管理->播放器设置”进行全局设置，前端设置可以覆盖全局设置 */
+                skinSelect: 0,//选填，播放器皮肤，可选0、1、2，默认为0，
+                autoplay: true,//选填，是否自动播放，默认为false
+                rightHand: true,//选填，是否开启右键菜单，默认为false
+                autoFormat: false,//选填，是否自动选择最高清晰度，默认为false
+                bubble: true,//选填，是否开启云泡功能，默认为true
+                jumpStep: 10,//选填，左右方向键快退快进的时间
+                tagTrack: false,//选填，云链是否跟踪，默认为false
+                tagShow: false,//选填，云链是否显示，默认为false
+                tagDuration: 5,//选填，云链显示时间，默认为5秒
+                tagFontSize: 16//选填，云链文字大小，默认为16像素
+            }
+    );
+</script>
+{% endblock %}

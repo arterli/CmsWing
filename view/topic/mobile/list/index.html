@@ -281,14 +281,7 @@
             }
         }
     });
-    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
-        var url = this.getAttribute("data-url");
-        //打开关于页面
-        //alert(url)
-        mui.openWindow({
-            url: url
-        });
-    })
+
     mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
         var url = this.getAttribute("href");
         //打开关于页面
