@@ -1,157 +1,287 @@
-{% extends "../inc/base.html" %}
-{% block page%}
-<div class="page page-current" id="detail_picture" >
+{% extends "../inc/appbase.html" %}
+{% block style%}
+<!--App自定义的css-->
+<style type="text/css">
+    .mui-preview-image.mui-fullscreen {
+        position: fixed;
+        z-index: 20;
+        background-color: #000;
+    }
+    .mui-preview-header,
+    .mui-preview-footer {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        z-index: 10;
+    }
+    .mui-preview-header {
+        height: 44px;
+        top: 0;
+    }
+    .mui-preview-footer {
+        height: 50px;
+        bottom: 0px;
+    }
+    .mui-preview-header .mui-preview-indicator {
+        display: block;
+        line-height: 25px;
+        color: #fff;
+        text-align: center;
+        margin: 15px auto 4;
+        width: 70px;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        font-size: 16px;
+    }
+    .mui-preview-image {
+        display: none;
+        -webkit-animation-duration: 0.5s;
+        animation-duration: 0.5s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+    .mui-preview-image.mui-preview-in {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+    .mui-preview-image.mui-preview-out {
+        background: none;
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut;
+    }
+    .mui-preview-image.mui-preview-out .mui-preview-header,
+    .mui-preview-image.mui-preview-out .mui-preview-footer {
+        display: none;
+    }
+    .mui-zoom-scroller {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        -webkit-backface-visibility: hidden;
+    }
+    .mui-zoom {
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+    .mui-slider .mui-slider-group .mui-slider-item img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+        width: 100%;
+    }
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+        display: inline-table;
+    }
+    .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .mui-preview-loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+    .mui-preview-loading.mui-active {
+        display: block;
+    }
+    .mui-preview-loading .mui-spinner-white {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -25px;
+        margin-top: -25px;
+        height: 50px;
+        width: 50px;
+    }
+    .mui-preview-image img.mui-transitioning {
+        -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+    }
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    p img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+{% endblock%}
+{% block content %}
 
-    <header class="bar bar-nav" >
-        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
-            <span class="icon icon-left"></span>
-        </a>
-        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
-            <span class="icon icon-menu"></span> 导航
-        </a>
-        <h1 class='title'><img src="/static/mobile/img/logo.png" /></h1>
-    </header>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>-->
+    <h1 class="mui-title">{{info.title}}</h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-action-back" >
+        <span class="mui-icon iconfont icon-back"></span>
+        <span class="mui-tab-label">返回</span>
+    </a>
+    <a class="mui-tab-item" href="#SOHUCS">
+        <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
+        <span class="mui-tab-label">评论</span>
+    </a>
+    <a class="mui-tab-item" href="#shoucang">
+        <span class="mui-icon iconfont icon-favor"></span>
+        <span class="mui-tab-label">收藏</span>
+    </a>
+    <a class="mui-tab-item" href="#fenxiang">
+        <span class="mui-icon iconfont icon-share"></span>
+        <span class="mui-tab-label">分享</span>
+    </a>
 
-    <nav class="bar bar-tab">
-        <a class="tab-item active back" href="{{http.referrer()}}">
-            <span class="icon icon-left"></span>
-            <span class="tab-label">返回</span>
-        </a>
-        <a class="tab-item" href="#SOHUCS">
-            <span class="icon icon-edit"></span>
-            <span class="tab-label">评论</span>
-            <span class="badge" id="changyan_count_unit"></span>
-        </a>
-        <a class="tab-item" href="#">
-            <span class="icon icon-star"></span>
-            <span class="tab-label">收藏</span>
-        </a>
-        <a class="tab-item" href="#">
-            <span class="icon icon-share"></span>
-            <span class="tab-label">分享</span>
-        </a>
-        {% if controller.is_login %}
-        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/index">
+    {% if controller.is_login %}
+    <a class="mui-tab-item" href="/user/index">
+        <span class="mui-icon iconfont icon-my"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+    {%else%}
+    <a class="mui-tab-item" href="/user/login">
+        <span class="mui-icon iconfont icon-myfill"></span>
+        <span class="mui-tab-label">登录</span>
+    </a>
+    {%endif%}
 
-            <span class="icon icon-me"></span>
-            <span class="tab-label">我的</span>
-        </a>
-        {%else%}
-        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/login">
+    <a class="mui-tab-item" href="#top">
+        <span class="mui-icon iconfont icon-top"></span>
+        <span class="mui-tab-label">顶部</span>
+    </a>
 
-            <span class="icon icon-me"></span>
-            <span class="tab-label">登录</span>
-        </a>
-        {%endif%}
-        <a class="tab-item" href="#top_article">
-            <span class="icon icon-up"></span>
-            <span class="tab-label">TOP</span>
-        </a>
-    </nav>
-    <div class="content" >
-        <div style="display: none">
-            <div class="swiper-wrapper">
-                {%set picurls = info.pictureurls|strToArray%}
-                {%set i =0%}
-                {%for v in picurls%}
-                <div class="swiper-slide"><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="{{info.content[i]|delhtmltags}}" style="width: 100%"></div>
-                {%set i=i+1%}
-                {%endfor%}
+</nav>
+<div class="mui-content detail" >
+    <div class="mui-content-padded">
+        <div class="article-header">
+            <div class="pgc-bar-top mui-clearfix" >
+                <a href="#" ga_category="toutiaohao" ga_label="" ga_event="click" class="avatar-link vwo-media-profile">
+                    <div class="avatar">
+                        <img src="/uc/index/avatar/uid/{{info.uid}}" class="avatar">
+                    </div>
+                </a>
+                <div class="subtitle">
+                    <p class="name"><a href="#" class="screen-name vwo-media-profile">
+                        <span id="mediaName" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">{{info.uid|get_nickname}}</span>
+                        <img src="/static/webapp/img/logo.png">
+                    </a></p>
+                    <a href="#" class="time vwo-media-profile" >
+
+                        <span class="original original-fix">原创</span>
+
+                        <span>{{ info.update_time|dateformat('Y-m-d H:i') }}</span>
+                    </a>
+                </div>
+
             </div>
 
-        </div>
-        <div class="list-block media-list margin-top-0">
-            <ul>
-                <li>
-                    <div class="item-content">
-                        <div class="item-media"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" style='width: 2.2rem;'></div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">{{pinfo.title}}</div>
-                            </div>
-                            <div class="item-subtitle"><i class="fa fa-calendar-minus-o"></i> {{ info.update_time|dateformat('Y-m-d H:i') }}</div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="list-block">
-            <ul>
-                <li class="item-content item-link pb-standalone-captions" >
-                    <div class="item-media"><i class="fa fa-expand"></i></div>
-                    <div class="item-inner">
-                        <div class="item-title">浏览图片</div>
-                        <div class="item-after">共 {{picurls|length}} 张</div>
-                    </div>
-                </li>
-
-            </ul>
-        </div>
-        <div class="content-block bg-white"  id="top_article">
-            {#
-            <!--打赏-->
-            <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
-            <!--打赏-->
-            <!--评论表情-->
-            <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
-            <!--评论表情-->
-            #}
-            <div id="SOHUCS" sid="{{info.id}}"></div>
-            <script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-                    src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
-            </script>
+            <div class="favor-wrapper">
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">关注</button>
+            </div>
         </div>
     </div>
+    <div class="mui-content-padded">
+        {%set picurls = info.pictureurls|strToArray%}
+        {%set i =0%}
+        {%for v in picurls%}
+        <p><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="{{info.content[i]|delhtmltags}}" data-preview-src="" data-preview-group="1"></p>
+        {%if info.content[i]%}
+        <p>{{info.content[i]|safe}}</p>
+        {%endif%}
+        {%set i=i+1%}
+        {%endfor%}
+    </div>
+    <div class="mui-content-padded">
+        <article class="article-content">
+            {%for val in info.content%}
+
+            {{val|safe}}
+
+            {%endfor%}
+        </article>
+    </div>
+    <div id="SOHUCS" sid="{{info.id}}"></div>
+
 </div>
-
-{% endblock %}
-{% block pageout%}
 {% endblock%}
-{% block style %}
 
-{% endblock %}
-{%block norouter%}
-<script>$.config = {router: false}</script>
-{%endblock%}
 {% block script %}
-{#
-<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
-#}
-<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
-<script>
-    var pics = $(".swiper-slide>img");
-    //console.log(pics);
-    //    var picsarr = pics.split(",");
-    var photos=[];
-    $.each(pics,function (key , val) {
-        var obj = {};
-        obj.url=val.src;
-        obj.caption= val.alt;
-        photos.push(obj);
-    })
+<script src="/static/webapp/js/mui.zoom.js"></script>
+<script src="/static/webapp/js/mui.previewimage.js"></script>
+<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
+</script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script type="text/javascript">
+    mui.previewImage();
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
 
-    /*=== 有标题 ===*/
-    var myPhotoBrowserCaptions = $.photoBrowser({
-//        photos : [
-//            {
-//                url: '//img.alicdn.com/tps/i3/TB1kt4wHVXXXXb_XVXX0HY8HXXX-1024-1024.jpeg',
-//                caption: 'Caption 1 Text'
-//            },
-//            {
-//                url: '//img.alicdn.com/tps/i1/TB1SKhUHVXXXXb7XXXX0HY8HXXX-1024-1024.jpeg',
-//                caption: 'Second Caption Text'
-//            },
-//            // 这个没有标题
-//            {
-//                url: '//img.alicdn.com/tps/i4/TB1AdxNHVXXXXasXpXX0HY8HXXX-1024-1024.jpeg',
-//            },
-//        ],
-        photos:photos,
-        theme: 'dark',
-        type: 'standalone'
-    });
-    $(document).on('click','.pb-standalone-captions',function () {
-        myPhotoBrowserCaptions.open();
-    });
+        })
+    }
+
 </script>
 {% endblock %}

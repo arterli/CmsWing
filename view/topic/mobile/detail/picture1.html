@@ -1,0 +1,157 @@
+{% extends "../inc/base.html" %}
+{% block page%}
+<div class="page page-current" id="detail_picture" >
+
+    <header class="bar bar-nav" >
+        <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+        </a>
+        <a class="button button-link button-nav pull-right open-panel" href="#" data-panel='#panel-left-menu'>
+            <span class="icon icon-menu"></span> 导航
+        </a>
+        <h1 class='title'><img src="/static/mobile/img/logo.png" /></h1>
+    </header>
+
+    <nav class="bar bar-tab">
+        <a class="tab-item active back" href="{{http.referrer()}}">
+            <span class="icon icon-left"></span>
+            <span class="tab-label">返回</span>
+        </a>
+        <a class="tab-item" href="#SOHUCS">
+            <span class="icon icon-edit"></span>
+            <span class="tab-label">评论</span>
+            <span class="badge" id="changyan_count_unit"></span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-star"></span>
+            <span class="tab-label">收藏</span>
+        </a>
+        <a class="tab-item" href="#">
+            <span class="icon icon-share"></span>
+            <span class="tab-label">分享</span>
+        </a>
+        {% if controller.is_login %}
+        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/index">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">我的</span>
+        </a>
+        {%else%}
+        <a  class="tab-item {% if 'user/index' == controller.active %}active{%endif%}" href="/user/login">
+
+            <span class="icon icon-me"></span>
+            <span class="tab-label">登录</span>
+        </a>
+        {%endif%}
+        <a class="tab-item" href="#top_article">
+            <span class="icon icon-up"></span>
+            <span class="tab-label">TOP</span>
+        </a>
+    </nav>
+    <div class="content" >
+        <div style="display: none">
+            <div class="swiper-wrapper">
+                {%set picurls = info.pictureurls|strToArray%}
+                {%set i =0%}
+                {%for v in picurls%}
+                <div class="swiper-slide"><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="{{info.content[i]|delhtmltags}}" style="width: 100%"></div>
+                {%set i=i+1%}
+                {%endfor%}
+            </div>
+
+        </div>
+        <div class="list-block media-list margin-top-0">
+            <ul>
+                <li>
+                    <div class="item-content">
+                        <div class="item-media"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" style='width: 2.2rem;'></div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{pinfo.title}}</div>
+                            </div>
+                            <div class="item-subtitle"><i class="fa fa-calendar-minus-o"></i> {{ info.update_time|dateformat('Y-m-d H:i') }}</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list-block">
+            <ul>
+                <li class="item-content item-link pb-standalone-captions" >
+                    <div class="item-media"><i class="fa fa-expand"></i></div>
+                    <div class="item-inner">
+                        <div class="item-title">浏览图片</div>
+                        <div class="item-after">共 {{picurls|length}} 张</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+        <div class="content-block bg-white"  id="top_article">
+            {#
+            <!--打赏-->
+            <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
+            <!--打赏-->
+            <!--评论表情-->
+            <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
+            <!--评论表情-->
+            #}
+            <div id="SOHUCS" sid="{{info.id}}"></div>
+            <script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+                    src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
+            </script>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block pageout%}
+{% endblock%}
+{% block style %}
+
+{% endblock %}
+{%block norouter%}
+<script>$.config = {router: false}</script>
+{%endblock%}
+{% block script %}
+{#
+<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+#}
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script>
+    var pics = $(".swiper-slide>img");
+    //console.log(pics);
+    //    var picsarr = pics.split(",");
+    var photos=[];
+    $.each(pics,function (key , val) {
+        var obj = {};
+        obj.url=val.src;
+        obj.caption= val.alt;
+        photos.push(obj);
+    })
+
+    /*=== 有标题 ===*/
+    var myPhotoBrowserCaptions = $.photoBrowser({
+//        photos : [
+//            {
+//                url: '//img.alicdn.com/tps/i3/TB1kt4wHVXXXXb_XVXX0HY8HXXX-1024-1024.jpeg',
+//                caption: 'Caption 1 Text'
+//            },
+//            {
+//                url: '//img.alicdn.com/tps/i1/TB1SKhUHVXXXXb7XXXX0HY8HXXX-1024-1024.jpeg',
+//                caption: 'Second Caption Text'
+//            },
+//            // 这个没有标题
+//            {
+//                url: '//img.alicdn.com/tps/i4/TB1AdxNHVXXXXasXpXX0HY8HXXX-1024-1024.jpeg',
+//            },
+//        ],
+        photos:photos,
+        theme: 'dark',
+        type: 'standalone'
+    });
+    $(document).on('click','.pb-standalone-captions',function () {
+        myPhotoBrowserCaptions.open();
+    });
+</script>
+{% endblock %}
