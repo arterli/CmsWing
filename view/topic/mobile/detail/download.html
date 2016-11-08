@@ -293,9 +293,10 @@
                         </ul>
                     </div>
                 </div>
-                {%endif%}
+
 
             </div>
+            {%endif%}
             <div class="mui-table-view-divider">详情</div>
 
             <article class="article-content" style="background-color: #fff;padding: 10px">
@@ -324,8 +325,6 @@
             </li>
         </ul>
     </div>
-
-
 </div>
 <div id="dlist" class="mui-popover mui-popover-action mui-popover-bottom">
     <ul class="mui-table-view">
@@ -361,10 +360,6 @@
 {% block script %}
 <script src="/static/webapp/js/mui.zoom.js"></script>
 <script src="/static/webapp/js/mui.previewimage.js"></script>
-<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
-</script>
-<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 <script type="text/javascript">
     mui.previewImage();
     mui('body').on('tap', '.mui-popover-action li>a', function() {
@@ -408,4 +403,6 @@
     }
 
 </script>
+<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}"></script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 {% endblock %}
