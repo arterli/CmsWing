@@ -10,7 +10,10 @@
 
 {% include "../inc/barnav.html" %}
 {% include "../inc/sliderbar.html" %}
-<div class="mui-content">
+    <div class=" mui-scroll-wrapper list-content" >
+        <div class="mui-scroll">
+            <!--这里放置真实显示的DOM内容-->
+
 {% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
 <div id="sliderpic" class="mui-slider">
     <div class="mui-slider-group mui-slider-loop">
@@ -46,7 +49,7 @@
         {%endfor%}
     </div>
 </div>
-    <ul class="mui-table-view list-content" style="bottom: 0; margin: 0">
+    <ul class="mui-table-view " >
     {% topic data = "list",limit= "5",cid=category.id,issub=1%}
         <li class="mui-table-view-divider">最新</li>
     {% for v in list %}
@@ -301,7 +304,9 @@
         {%endfor%}
         {%endfor%}
         </ul>
-</div>
+        </div>
+    </div>
+
 {% endblock%}
 
 {% block script %}
@@ -314,6 +319,10 @@
     var slider = mui("#sliderpic");
     slider.slider({
         interval: 5000
+    });
+    //alert(mui.os.plus)
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
     });
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     for(var i = 0;i<btn.length;i++){

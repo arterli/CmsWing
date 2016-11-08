@@ -60,7 +60,6 @@ export default class extends Base {
       }
       return this.display(temp)
     }else{
-
       switch (cate.ispct){
         case 0:
           //系统模版

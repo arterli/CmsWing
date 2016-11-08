@@ -1,0 +1,46 @@
+{% extends "../inc/appbase.html" %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <a class="mui-icon iconfont icon-search mui-pull-right"></a>
+</header>
+{% include "../inc/barnav.html" %}
+{% include "../inc/sliderbar.html" %}
+<!--下拉刷新容器-->
+<div class="mui-content mui-scroll-wrapper list-content bg-white">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <div id="contentcmswing" class="mui-content-padded ">{%if category.sp_hatml_m%}{{category.sp_html_m|safe}}{%else%}{{category.sp_html_pc|safe}}{%endif%}</div>
+    </div>
+</div>
+{% endblock%}
+
+{% block script %}
+<script>
+    mui.init();
+
+    //alert(mui.os.plus)
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+
+    mui.ready(function() {
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+</script>
+
+{% endblock %}
