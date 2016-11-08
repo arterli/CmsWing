@@ -202,7 +202,6 @@
 <div class="mui-content detail" >
     <ul class="mui-table-view">
         <li class="mui-table-view-cell mui-media">
-            <a href="javascript:;">
                 <img class="mui-media-object mui-pull-left" src="{{info.cover_id|get_pic('m=0,w=120')}}" style="width: 120px;height:120px;max-width: 120px">
                 <div class="mui-media-body">
                     {{info.title}}
@@ -211,9 +210,8 @@
                         {{info.description}}
                     <!-- /short description -->
                     {% endif %}</p>
-                    <button type="button" class="mui-btn mui-btn-primary" style="position:absolute;bottom: 10px;"><span class="mui-icon mui-icon-download"></span>下载 <span class="mui-badge mui-badge-primary">{{info.download}}</span></button>
+                    <a href="#dlist" type="button" class="mui-btn mui-btn-primary" style="position:absolute;bottom: 10px;"><span class="mui-icon mui-icon-download"></span>下载 <span class="mui-badge mui-badge-primary">{{info.download}}</span></a>
                 </div>
-            </a>
         </li>
 
     </ul>
@@ -251,7 +249,7 @@
                 详情
             </a>
             <a class="mui-control-item" href="#item2">
-                评论（8）
+                评论
             </a>
             <a class="mui-control-item" href="#item3">
                相关
@@ -329,6 +327,35 @@
 
 
 </div>
+<div id="dlist" class="mui-popover mui-popover-action mui-popover-bottom">
+    <ul class="mui-table-view">
+        {%if info.file_id >0%}
+        <li class="mui-table-view-cell">
+            <a href="#" data-dlink="/dlink/{{info.id}}||1">极速下载</a>
+        </li>
+        {%endif%}
+        {%if info.panurl%}
+        {%set panurl = info.panurl|strToArray("\r\n")%}
+        {%for url in panurl%}
+        {%set pu = url|strToArray("|")%}
+        <li class="mui-table-view-cell">
+
+            {%if pu[2]%}
+            <a href="#" data-dlink="/dlink/{{info.id}}||3||{{pu[1]|trim|urlencode}}">{{pu[0]}}</a>
+            {%else%}
+            <a href="#" data-dlink="/dlink/{{info.id}}||2||{{pu[1]|trim|urlencode}}">{{pu[0]}}</a>
+            {%endif%}
+        </li>
+        {%endfor%}
+        {%endif%}
+
+    </ul>
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell">
+            <a href="#dlist"><b>取消</b></a>
+        </li>
+    </ul>
+</div>
 {% endblock%}
 
 {% block script %}
@@ -340,6 +367,25 @@
 <script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 <script type="text/javascript">
     mui.previewImage();
+    mui('body').on('tap', '.mui-popover-action li>a', function() {
+        var a = this,
+                parent;
+        //根据点击按钮，反推当前是哪个actionsheet
+        for (parent = a.parentNode; parent != document.body; parent = parent.parentNode) {
+            if (parent.classList.contains('mui-popover-action')) {
+                break;
+            }
+        }
+        //关闭actionsheet
+        var link = $(a).attr("data-dlink");
+        mui('#' + parent.id).popover('toggle');
+        //mui.alert("你刚点击了\"" + link + "\"按钮");
+        //打开关于页面
+        mui.openWindow({
+            url: link,
+            id:'dlink'
+        });
+    })
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     for(var i = 0;i<btn.length;i++){
         btn[i].addEventListener("tap",function () {

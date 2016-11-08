@@ -208,7 +208,12 @@ export default class extends Base {
         await db.where({id:info.id}).increment('download');
         //return this.redirect(dlink);
         this.assign("durl",dlink);
-        return this.display()
+        if(checkMobile(this.userAgent())){
+          //手机模版
+          return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        }else{
+          return this.display();
+        }
       }else if(id[1]==2){
           dlink = id[2];
         await db.where({id:info.id}).increment('download');
@@ -227,7 +232,12 @@ export default class extends Base {
             })
           }
         }
-        return this.display()
+        if(checkMobile(this.userAgent())){
+          //手机模版
+          return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+        }else{
+          return this.display();
+        }
       }
 
   }
