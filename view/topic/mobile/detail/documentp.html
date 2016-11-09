@@ -1,0 +1,154 @@
+{% extends "../inc/appbase.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+
+{% endblock %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>-->
+    <h1 class="mui-title">{{info.title}}</h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-action-back" >
+        <span class="mui-icon iconfont icon-back"></span>
+        <span class="mui-tab-label">返回</span>
+    </a>
+    <a class="mui-tab-item" href="#SOHUCS">
+        <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
+        <span class="mui-tab-label">评论</span>
+    </a>
+    <a class="mui-tab-item" href="#shoucang">
+        <span class="mui-icon iconfont icon-favor"></span>
+        <span class="mui-tab-label">收藏</span>
+    </a>
+    <a class="mui-tab-item" href="#fenxiang">
+        <span class="mui-icon iconfont icon-share"></span>
+        <span class="mui-tab-label">分享</span>
+    </a>
+
+    {% if controller.is_login %}
+    <a class="mui-tab-item" href="/user/index">
+        <span class="mui-icon iconfont icon-my"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+    {%else%}
+    <a class="mui-tab-item" href="/user/login">
+        <span class="mui-icon iconfont icon-myfill"></span>
+        <span class="mui-tab-label">登录</span>
+    </a>
+    {%endif%}
+
+    <a class="mui-tab-item" href="#top">
+        <span class="mui-icon iconfont icon-top"></span>
+        <span class="mui-tab-label">顶部</span>
+    </a>
+
+</nav>
+<div class="mui-content detail" >
+    <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+            <img class="mui-media-object mui-pull-left" src="{{info.cover_id|get_pic('m=1,w=120,h=163')}}" style="width: 120px;max-width: 120px;height: auto">
+            <div class="mui-media-body">
+                {{info.title}}
+                <p class="mui-ellipsis"><span>最后更新时间:</span> {{lastinfo.update_time|moment()}}</p>
+                <p> {% rkeywords data ="tags",type="1",mod_id="info.model_id",id=info.id%}
+                    {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                    {%for k in tags%}
+                    <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                        {{k.keyname}}
+                    </a>
+                    {%endfor%}</p>
+                <a href="{{ptree[0].name|get_url(ptree[0].id)}}" type="button" class="mui-btn mui-btn-primary" style="position:absolute;bottom: 10px;"><span class="mui-icon iconfont icon-attentionfill"></span>阅读<span class="mui-badge mui-badge-primary">{{info.view}} </span></a>
+            </div>
+        </li>
+
+    </ul>
+    <div class="mui-content-padded">
+        <div class="article-header">
+            <div class="pgc-bar-top mui-clearfix" >
+                <a href="#" ga_category="toutiaohao" ga_label="" ga_event="click" class="avatar-link vwo-media-profile">
+                    <div class="avatar">
+                        <img src="/uc/index/avatar/uid/{{info.uid}}" class="avatar">
+                    </div>
+                </a>
+                <div class="subtitle">
+                    <p class="name"><a href="#" class="screen-name vwo-media-profile">
+                        <span id="mediaName" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">{{info.uid|get_nickname}}</span>
+                        <img src="/static/webapp/img/logo.png">
+                    </a></p>
+                    <a href="#" class="time vwo-media-profile" >
+
+                        <span class="original original-fix">原创</span>
+
+                        <span>{{ info.update_time|dateformat('Y-m-d H:i') }}</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="favor-wrapper">
+                <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">关注</button>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 10px 10px;">
+        <div id="segmentedControl" class="mui-segmented-control">
+            <a class="mui-control-item mui-active" href="#item1">
+                概要
+            </a>
+            <a class="mui-control-item" href="#item2">
+                目录
+            </a>
+            <a class="mui-control-item" href="#item3">
+                评论
+            </a>
+        </div>
+    </div>
+    <div id="item1" class="mui-control-content mui-active">
+        <article class="article-content" style="background-color: #fff;padding: 10px">
+            {%for val in info.content%}
+
+            {{val|safe}}
+
+            {%endfor%}
+        </article>
+    </div>
+    <div id="item2" class="mui-control-content ">
+        <div class="mui-content">
+            <table class="table table-hover treetable" id="category">
+                <tbody>
+                {%for val in ptree%}
+                <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%else%}class="active1" {%endif%}>
+                    <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+                </tr>
+                {%endfor%}
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div id="item3" class="mui-control-content">
+        <div id="SOHUCS" sid="{{info.id}}"></div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/jquery.min.js"></script>
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $("#category").treetable({ expandable: true });
+        $("#category").treetable("expandAll")
+    })
+</script>
+<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}"></script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+{% endblock %}
