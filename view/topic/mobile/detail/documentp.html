@@ -12,9 +12,9 @@
     <span class="mui-icon iconfont icon-search mui-pull-right"></span>
 </header>
 <nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item mui-action-back" >
-        <span class="mui-icon iconfont icon-back"></span>
-        <span class="mui-tab-label">返回</span>
+    <a class="mui-tab-item " href="/index" >
+        <span class="mui-icon iconfont icon-home"></span>
+        <span class="mui-tab-label">首页</span>
     </a>
     <a class="mui-tab-item" href="#SOHUCS">
         <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
@@ -61,7 +61,7 @@
                         {{k.keyname}}
                     </a>
                     {%endfor%}</p>
-                <a href="{{ptree[0].name|get_url(ptree[0].id)}}" type="button" class="mui-btn mui-btn-primary" style="position:absolute;bottom: 10px;"><span class="mui-icon iconfont icon-attentionfill"></span>阅读<span class="mui-badge mui-badge-primary">{{info.view}} </span></a>
+                <a href="{{ptree[0].name|get_url(ptree[0].id)}}" type="button" class="mui-btn mui-btn-primary" style="position:absolute;bottom: 10px;"><span class="mui-icon iconfont icon-read"></span>阅读<span class="mui-badge mui-badge-primary">{{info.view}} </span></a>
             </div>
         </li>
 
@@ -147,6 +147,26 @@
     $(function () {
         $("#category").treetable({ expandable: true });
         $("#category").treetable("expandAll")
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#top"){
+                    mui.scrollTo(0,500);
+                }else if(href=="#shoucang"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }else if(href=="#fenxiang"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }else {
+                    mui.openWindow({url: href})
+                }
+
+            })
+        }
     })
 </script>
 <script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}"></script>

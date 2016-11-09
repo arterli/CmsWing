@@ -376,7 +376,9 @@ video.fullvideo 		{ width:100%; height:100%; }
 .text-danger {
 	color: #a94442 !important;
 }
-
+.active .text-info{
+	color:#111 !important;
+}
 .tex-white {
 	color:#fff !important;
 }
