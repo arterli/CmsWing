@@ -75,8 +75,10 @@
         <a class="mui-icon mui-icon-close mui-pull-right" href="#mulu"></a>
         <h1 class="mui-title">目录</h1>
     </header>
-    <div class="mui-content mui-scroll-wrapper" style="height: 100%;">
-        <div class="mui-scroll"> <table class="table table-hover  treetable" id="category">
+    <div class="mui-content" style="height: 100%;">
+        <div class="mui-scroll-wrapper" style="top:44px">
+        <div class="mui-scroll">
+            <table class="table table-hover  treetable" id="category">
         <tbody>
         {%for val in ptree%}
         <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%endif%} {%if val.id == http.get("id")%}class="active" {%endif%}>
@@ -87,6 +89,7 @@
 
         </tbody>
     </table>
+        </div>
     </div>
 </div></div>
 {% endblock%}
@@ -100,12 +103,10 @@
 <script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
 <script type="text/javascript">
     mui.init()
-    mui('.mui-scroll-wrapper').scroll({
-        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-    });
+    mui('.mui-scroll-wrapper').scroll();
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
     $("#category").treetable({ expandable: true });
-    $("#category").treetable("expandAll")
+    $("#category").treetable("expandAll");
     for(var i = 0;i<btn.length;i++){
         btn[i].addEventListener("tap",function () {
             var href = this.getAttribute("href");

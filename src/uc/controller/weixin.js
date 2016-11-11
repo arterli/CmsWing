@@ -50,9 +50,9 @@ export default class extends Base {
       return deferred.promise;
     };
     let openid = await getopenid();
-    think.log(think.isEmpty(openid));
+    //9think.log(think.isEmpty(openid));
     let userinfo = await getUser(this.api,openid);
-    console.log(userinfo);
+    //console.log(userinfo);
     //如果没有关注先跳到关注页面
     if(userinfo.subscribe==0){
       console.log(1111111111111)
