@@ -15,13 +15,13 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info " href="/admin/model/add">
+                                        <a class="btn btn-sm btn-info todo" href="">
                                             新增插件
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/model/setstatus/status/1"  target-form="ids">
+                                        <a class="btn btn-sm btn-info todo" target-form="ids"  href="#"  target-form="ids">
                                            启用
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/status/0" target-form="ids">
+                                        <a class="btn btn-sm btn-info todo" href="#" target-form="ids">
                                         禁用
                                     </a>
                                         <a class="btn btn-sm btn-info todo" href="">
@@ -69,13 +69,13 @@
                                         </td>
                                         
                                         <td>
-                                            {%if item.isadm==0%}
+
                                             <a href="/ext/{{item.ext}}/admin/index" class="text-info">管理</a>
-                                            {%endif%}
-                                            <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">更新</a>
-                                            {%if item.id !=1%}
-                                            <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">卸载</a></td>
-                                            {%endif%}
+
+                                            <a href="#" class="text-info todo">更新</a>
+
+                                            <a href="#" class="confirm todo text-info">卸载</a></td>
+
                                     </tr>
                                     {% else %}
                                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
