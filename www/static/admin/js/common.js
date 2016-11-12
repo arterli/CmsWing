@@ -91,7 +91,7 @@ $(".cw-cf").click(function () {
  * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
  * confirm,
  */
-$(document).on('click','.ajax-post',function(){
+function ajaxpost(){
 
     var target,query,form;
     var target_form = $(this).attr('target-form');
@@ -108,10 +108,10 @@ $(document).on('click','.ajax-post',function(){
 
             //表单验证
             if($('[data-validate="parsley"]')){
-            $('[data-validate="parsley"]').parsley().validate();
-            if(true !== $('[data-validate="parsley"]').parsley().isValid()){
-                return false;
-            }
+                $('[data-validate="parsley"]').parsley().validate();
+                if(true !== $('[data-validate="parsley"]').parsley().isValid()){
+                    return false;
+                }
             }
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){
@@ -138,20 +138,20 @@ $(document).on('click','.ajax-post',function(){
                 }
             }
 
-           if($(form).hasClass('sort')){
-               var arr =[]
-               form.each(function (k, v) {
-                   var obj = {};
-                   obj.id=$(v).attr('data-id');
-                   obj.sort=$(v).val();
-                   arr.push(obj);
-               })
-              query = {sort:JSON.stringify(arr)};
-           }else {
-               //alert(1)
-               query = form.serialize();
-               //alert(query)
-           }
+            if($(form).hasClass('sort')){
+                var arr =[]
+                form.each(function (k, v) {
+                    var obj = {};
+                    obj.id=$(v).attr('data-id');
+                    obj.sort=$(v).val();
+                    arr.push(obj);
+                })
+                query = {sort:JSON.stringify(arr)};
+            }else {
+                //alert(1)
+                query = form.serialize();
+                //alert(query)
+            }
 
         }else{
             if ( $(this).hasClass('confirm') ) {
@@ -205,5 +205,6 @@ $(document).on('click','.ajax-post',function(){
         });
     }
     return false;
-});
+}
+$(document).on('click','.ajax-post',ajaxpost);
 

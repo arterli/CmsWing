@@ -9,13 +9,14 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/apply">审核申请</a></li>
+                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/apply">审核申请</a></li>
                                     <li class=""><a  href="/{{http.module}}/{{http.controller}}/setting">插件配置</a></li>
                                     <li class=""><a  href="/{{http.module}}/{{http.controller}}/type">分类管理</a></li>
                                 </ul>
                                 <span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
                             </header>
+                            {#
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
@@ -31,17 +32,15 @@
                                     </div>
                                 </div>
                             </div>
+                            #}
                             <div class="table-responsive">
                                 <table class="table table-striped b-t b-light">
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                        <th style="width:80px;">排序</th>
                                         <th style="">网站名称</th>
-                                        <th class="">网站logo</th>
-                                        <th class="">分类</th>
-                                        <th class="">链接类型</th>
-                                        <th class="">状态</th>
+                                        <th class="">网站网址</th>
+                                        <th class="">图片LOGO</th>
                                         <th >操作</th>
                                     </tr>
                                     </thead>
@@ -49,12 +48,9 @@
                                     {% for item in list %}
                                     <tr>
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.id}}"/></td>
                                         <td>{{item.name}}</td>
-                                        <td><img src="{{item.logo}}" style="height: 31px;width: 88px"></td>
-                                        <td>{{item.version}}</td>
-                                        <td>{%if item.linktype ==1%}logo链接{%else%}文字链接{%endif%}</td>
-                                        <td>{%if item.passed ==1%}已通过{%else%}待审核{%endif%}</td>
+                                        <td>{{item.url}}</td>
+                                        <td>{{item.logo}}</td>
                                         <td>
 
                                             <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
@@ -78,7 +74,7 @@
 
                                     <div class="col-sm-6 text-center-xs">
                                         <div class="btn-group">
-                                            <a href="/{{http.module}}/{{http.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>
+                                            <a href="/{{http.module}}/{{http.controller}}/apply" class="btn btn-default ajax-post" target-form="ids">审核</a>
                                             <a href="/{{http.module}}/{{http.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
                                         </div>
                                     </div>
