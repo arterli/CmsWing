@@ -668,35 +668,28 @@ data-plugin-options:
 "navigation": true
 "pagination": true
 -->
-<div class="text-center margin-top-30 margin-bottom-30">
-<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/1.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/2.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/3.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/4.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/5.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/6.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/7.jpg" alt="">
-</div>
-<div>
-<img class="img-responsive" src="/static/assets/images/demo/brands/8.jpg" alt="">
-</div>
-</div>
-</div>
+<section class="heading-title heading-arrow-bottom" style="padding-top: 10px ;padding-bottom: 10px">
+	<div class="container">
 
+		<div class="text-center">
+			<h4>友情 <span>链接</span></h4>
+			<p><a href="/ext/link/index/apply">申请友情链接</a> | <a href="/ext/link/index">更多>></a> </p>
+		</div>
+
+	</div>
+</section>
+<div class="text-center margin-top-20 margin-bottom-20">
+<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
+	{% model data ="link",table="ext_link",where='{"passed":1}',limit="8"%}
+	{%for l in link%}
+<div>
+	<a href="{{l.url}}" target="_blank">
+<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
+	</a>
+</div>
+	{%endfor%}
+</div>
+</div>
 {% endblock %}
 {%block script%}
 

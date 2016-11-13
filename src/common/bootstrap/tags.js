@@ -370,7 +370,7 @@ global.rkeywords = function () {
 
 /**
  * thinkjs model 万能数据调用标签
- * {% mdoel data ="data"%}
+ * {% model data ="data"%}
  *
  * data:接受返回数据的变量名称，例: data = "data"
  * table:要查询的主表比如 table = "user"
@@ -439,7 +439,7 @@ global.model = function () {
 
           let ret =  await model.select();
 
-        console.log(ret);
+        //console.log(ret);
         context.ctx[data] = ret;
         return callback(null,'');
     }

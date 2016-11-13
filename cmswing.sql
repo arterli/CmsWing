@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-11-13 03:56:48
+Date: 2016-11-14 02:03:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=953 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=954 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -714,6 +714,7 @@ INSERT INTO `cmswing_action_log` VALUES ('949', '9', '1', '2130706433', 'channel
 INSERT INTO `cmswing_action_log` VALUES ('950', '9', '1', '2130706433', 'channel', '0', '操作url:/admin/channel/updates', '1', '1478166614313');
 INSERT INTO `cmswing_action_log` VALUES ('951', '1', '1', '2130706433', 'member', '1', 'admin在2016-11-08 14:38:14登录了后台', '1', '1478587094241');
 INSERT INTO `cmswing_action_log` VALUES ('952', '1', '1', '2130706433', 'member', '1', 'admin在2016-11-11 23:06:55登录了后台', '1', '1478876815153');
+INSERT INTO `cmswing_action_log` VALUES ('953', '1', '1', '2130706433', 'member', '1', 'admin在2016-11-13 23:15:03登录了后台', '1', '1479050103521');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -6295,13 +6296,14 @@ CREATE TABLE `cmswing_ext_link` (
   `passed` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0没有审核，1通过审核',
   `addtime` bigint(13) NOT NULL DEFAULT '0' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of cmswing_ext_link
 -- ----------------------------
 INSERT INTO `cmswing_ext_link` VALUES ('1', '0', '1', 'CmsWing', 'http://www.cmswing.com', '/static/assets/images/logo_dark.png', '', '', '0', '0', '1', '1450621131');
 INSERT INTO `cmswing_ext_link` VALUES ('2', '0', '1', 'ThinkJS', 'https://thinkjs.org', 'https://p.ssl.qhimg.com/t016e3f6420ae1d782e.webp', 'ThinkJS 是一款使用 ES6/7 特性全新开发的 Node.js MVC 框架，使用 ES7 中 async/await，或者 ES6 中的 */yield 特性彻底解决了 Node.js 中异步嵌套的问题。同时吸收了国内外众多框架的设计理念和思想，让开发 Node.js 项目更加简单、高效。', '', '0', '0', '1', '0');
+INSERT INTO `cmswing_ext_link` VALUES ('6', '1', '1', '测试申请链接', 'http://127.0.0.1:8360', 'http://127.0.0.1:8360/static/assets/images/logo-footer-dark.png', null, '', '0', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_ext_type
@@ -6320,11 +6322,12 @@ CREATE TABLE `cmswing_ext_type` (
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`typeid`),
   KEY `ext` (`ext`,`pid`,`sort`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_ext_type
 -- ----------------------------
+INSERT INTO `cmswing_ext_type` VALUES ('1', 'link', '0', '测试分类', '0', '', '', '', '0', '测试用的分类');
 
 -- ----------------------------
 -- Table structure for cmswing_fare
@@ -6660,7 +6663,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1840', 'arterli@qq.com', '1194', '', '1452513965683', '0', '1478876815072', '2130706433', '0', '1', '1', '0', '0.00', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1850', 'arterli@qq.com', '1195', '', '1452513965683', '0', '1479050103267', '2130706433', '0', '1', '1', '0', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '248', '13571883578', '1458989485616', '0', '1478702237082', '2130706433', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '4', '', '1458990106486', '0', '1463734028394', '2099753746', '0', '-1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
@@ -6684,7 +6687,6 @@ INSERT INTO `cmswing_member` VALUES ('22', 'Steven', 'b2e62cae9c7e4b5a64bb5dd275
 INSERT INTO `cmswing_member` VALUES ('23', '牧羊人', '85b3f0a60b03e4eeac33f7c7604a5a09', '0', '810978626@qq.com', '8', '15016870422', '1461311814801', '1902964914', '1462521129745', '1947257694', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('24', '清风', '51d705b8b815d9994c820281deeb540e', '0', '459894336@qq.com', '1', '18206766729', '1461329703058', '1886428730', '1461329703119', '1886428730', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('25', '王宏', 'f26f75ddc8294873e7f11c8ca9abc66c', '0', '325889800@qq.com', '1', '13701253181', '1461548689232', '243447135', '1461548690259', '243447135', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_member` VALUES ('26', 'A0000贺伟庆', 'f1a94ba92621c20c4c0446a80fbf8095', '0', '20212891@qq.com', '1', '18991837755', '1461662351795', '606937639', '1461662351819', '606937639', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('27', '谋洋', '5c6ec17ec79ea714b678e6c15f0da55a', '0', '659681825@qq.com', '1', '18600228649', '1461735811574', '3663614202', '1461735811599', '3663614202', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('28', '风之影', '31091548b5360148c534264146e714a3', '0', 'sky8652@qq.com', '1', '13800000000', '1461810949643', '3698570763', '1461810949704', '3698570763', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_member` VALUES ('29', 'Jay', '2df65d2a6d457c4bd331b250c1d8a6cd', '0', '2222@aaa.mm', '5', '1322222222', '1462124154528', '759135380', '1465646459323', '3028880681', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0');

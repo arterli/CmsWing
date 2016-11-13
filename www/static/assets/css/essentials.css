@@ -9422,7 +9422,7 @@ input[type=color].colorpicker + .sp-replacer {
 
 .select2-container--default .select2-selection--single {
   background-color: #fff;
-  border: 2px solid #ddd;
+  border: 1px solid #ddd;
   border-radius: 4px; }
 
 section.dark .select2-container--default .select2-selection--single {
@@ -9748,7 +9748,7 @@ section.dark .select2-container--default .select2-selection--single {
 }
 .select2-dropdown {
 	border-color:#ddd;
-	border-width:2px;
+	border-width:1px;
 }
 .fancy-form .select2-selection__arrow {
 	display:none;
