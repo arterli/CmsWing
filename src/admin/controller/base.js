@@ -191,7 +191,7 @@ export default class extends think.controller.base {
     /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction(self, model) {
+    async setstatusAction(self, model,pk="id") {
         model = model || this.http.controller;
         let ids = this.param('ids');
         let status = this.param('status');
@@ -199,7 +199,11 @@ export default class extends think.controller.base {
         if (think.isEmpty(ids)) {
             this.fail("请选择要操作的数据");
         }
-        let map = { id: ['IN', ids] };
+        let map = {};
+        if(!think.isEmpty(this.param('pk'))){
+            pk=this.param('pk');
+        }
+         map[pk] = ['IN', ids];
         //let get = this.get();
         //this.end(status);
         switch (status) {
