@@ -4,7 +4,6 @@
  * 如果插件有后台管理业务写在这个控制器里面
  */
 import Base from '../admin.js';
-
 export default class extends Base {
   /**
    * index action
