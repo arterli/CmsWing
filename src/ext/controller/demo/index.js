@@ -13,6 +13,7 @@ export default class extends Base {
    *
    * @return {Promise} []
    */
+
   async indexAction(){
     //获取插件目录名
     //this.ext.ext;
