@@ -192,7 +192,11 @@ export default class extends think.controller.base {
      * 设置一条或者多条数据的状态
      */
     async setstatusAction(self, model,pk="id") {
-        model = model || this.http.controller;
+        if(think.isEmpty(this.param('model'))){
+            model = model || this.http.controller;
+        }else {
+            model = this.param('model');
+        }
         let ids = this.param('ids');
         let status = this.param('status');
         status = parseInt(status);

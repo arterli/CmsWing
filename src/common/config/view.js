@@ -195,6 +195,12 @@ export default {
                     return get_action_type(type, all);
                 })
                 /**
+                 * 数字转ip
+                 */
+                env.addFilter("int2ip",function (int) {
+                    return _int2iP(int);
+                })
+                /**
                  * 获取模型字段信息
                  * @param model_id 模型id 或 模型名称
                  * @param id 数据id
@@ -344,7 +350,14 @@ export default {
                 env.addFilter('get_file',async (file_id,field,key,callback)=>{
                     let data = await get_file(file_id,field,key);
                     callback(null,data);
-                },true)
+                },true);
+                /**
+                 * 获取用户组
+                 */
+                env.addFilter('get_member_group',async (groupid,callback)=>{
+                    let data = await think.model("member_group",think.config("db")).getgroup({groupid:groupid});
+                    callback(null,data[0]);
+                },true);
                 /**
                  * 提取文本内容中的图片
                  * @param html 文本内容

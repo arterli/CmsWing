@@ -203,18 +203,21 @@ export default class extends Base {
     async sortAction() {
      if(this.param('type')==1){
          await super.sortAction(this,'member_group','groupid');
+     }else {
+         await super.sortAction(this,'auth_role','id');
      }
-
     }
     /**
      * 管理角色管理首页
      * @returns {*}
      */
-    adminAction() {
+   async adminAction() {
+        let list = await this.model('auth_role').order("id ASC").select();
         this.assign({
             "datatables": true,
             "tactive": "/admin/user",
-            "selfjs": "auth"
+            "selfjs": "auth",
+            "list":list
         })
         this.active = "admin/auth/index";
         this.meta_title = "权限管理";
@@ -243,7 +246,11 @@ export default class extends Base {
             let desc = this.post("desc");
             let description = this.post("description");
             let data = await this.model('auth_role').where({id: id}).update({desc: desc, description: description});
-            return this.json(data);
+            if(data){
+                return this.success({ name: "修改成功！"});
+            }else {
+                return this.fail("修改失败！");
+            }
         } else {
             let id = this.get("id");
             let res = await this.model('auth_role').where({id: id}).find();
@@ -255,15 +262,20 @@ export default class extends Base {
     }
 
     async roleaddAction() {
-        let data = this.post();
-        //console.log(1111111111111111)
-        let res = await this.model('auth_role').add(data);
+        if(this.isPost()){
+            let data = this.post();
+            //console.log(1111111111111111)
+            let res = await this.model('auth_role').add(data);
 
-        if (res) {
-            return this.json(1);
-        } else {
-            return this.json(0)
+            if(res){
+                return this.success({ name: "添加成功！"});
+            }else {
+                return this.fail("添加失败！");
+            }
+        }else {
+            return this.display();
         }
+
     }
 
     /**
@@ -272,10 +284,17 @@ export default class extends Base {
      * @returns {Promise|*}
      */
     async roledelAction() {
-        let id = this.post("id");
+        let id = this.param("ids");
         //console.log(id);
-        let res = await this.model('auth_role').where({id: id}).delete();
-        return this.json(res);
+        if(think.isEmpty(id)){
+            return this.fail("参数不能为空！")
+        }
+        let res = await this.model('auth_role').where({id: ['IN',id]}).delete();
+        if(res){
+            return this.success({ name: "删除成功！"});
+        }else {
+            return this.fail("删除失败！");
+        }
     }
 
     /**

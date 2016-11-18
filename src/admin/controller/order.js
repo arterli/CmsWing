@@ -41,7 +41,7 @@ export default class extends Base {
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         //console.log(data.data);
-        this.active="admin/order/list"
+        this.active="admin/order/list";
         for(let val of data.data){
             switch (val.payment){
                 case 100:

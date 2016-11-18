@@ -3,9 +3,9 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">编辑用户组</h4>
+            <h4 class="modal-title">添加用户组</h4>
         </div>
-        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/auth/roleedit" data-validate="parsley">
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/auth/roleadd" data-validate="parsley">
             <div class="modal-body">
 
                 <div class="form-group">
@@ -34,11 +34,11 @@
                     </div>
                 </div>
 
-            <div class="modal-footer">
-                <input type="hidden" name="id" value="{{data.id}}">
-                <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
-                <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
-            </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" value="{{data.id}}">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                </div>
             </div>
         </form>
     </div><!-- /.modal-content -->

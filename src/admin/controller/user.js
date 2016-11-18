@@ -16,7 +16,7 @@ export default class extends Base {
      */
     init(http) {
         super.init(http);
-        this.db=this.model("member")
+        this.db=this.model("member");
         this.tactive = "user";
       
     }
@@ -26,7 +26,17 @@ export default class extends Base {
      * @returns {*}
      */
   
-    indexAction(){
+   async indexAction(){
+        let map = {'status': ['>', -1]}
+        let data = await this.db.where(map).page(this.get('page'),20).order('id DESC').countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
+        let page = pages.pages(data);
+        // for(let v of data.data){
+        //     console.log(await this.model("member_group").getgroup({groupid:v.groupid}));
+        // }
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', data.data);
         this.meta_title="用户列表";
         //获取管理组
         let role = this.model("auth_role").where({status:1}).select();
@@ -129,20 +139,25 @@ export default class extends Base {
      * @returns {Promise|*}
      */
     async userdelAction() {
-        let id = this.post("id");
+        let id = this.param("ids");
         //console.log(id);
         let res;
         let isadmin = await this.is_admin(id);
         // 判断是否是管理员，如果是不能删除;
         if(isadmin){
-           res=1000;
+           return this.fail("不能删除管理员!")
         }else{
              //res = await this.db.where({id: id}).delete();
             //逻辑删除
-            res = await this.db.where({id: id}).update({status:-1});
+            res = await this.db.where({id:["IN",id]}).update({status:-1});
+            if(res){
+                return this.success({name:"删除成功！"})
+            }else {
+                return this.fail("删除失败！")
+            }
         }
 
-        return this.json(res);
+
     }
     /**
      * 改变角色状态
