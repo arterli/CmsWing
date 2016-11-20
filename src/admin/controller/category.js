@@ -32,7 +32,6 @@ export default class extends Base {
          this.assign("active",this.get("mold")||null);
          this.assign("list",tree);
          this.meta_title = "栏目管理";
-        
         return this.display();
 
     }

@@ -113,26 +113,144 @@ export default class extends Base {
      * @returns {Promise|*}
      */
     async adduserAction(){
+        if(this.isPost()){
          let data=this.post();
+          if(data.password!=data.repassword){
+              return this.fail("两次填入的密码不一致");
+          }
              data.password = encryptPassword(data.password);
-             data.reg_time = new Date().valueOf();
+             data.reg_time = new Date().getTime();
+             if(data.vip==1){
+                 data.overduedate=new Date(data.overduedate).getTime();
+             }
+           //  console.log(data);
+           // return this.fail("ddd")
+            data.status=1;
          let res = await this.db.add(data);
-
          if(res){
-             //用户副表
-             await this.model("customer").add({user_id:res});
-
              //添加角色
              if(data.is_admin == 1){
                  await this.model("auth_user_role").add({user_id:res,role_id:data.role_id});
              }
-            return this.json(1);
+            return this.success({name:"添加成功！"});
          }else{
-            return this.json(0)
+            return this.fail("添加失败!")
          }
+        }else {
+            //会员组
+            let usergroup = await this.model("member_group").select();
+            this.assign("usergroup",usergroup);
+            //获取管理组
+            let role = this.model("auth_role").where({status:1}).select();
+            this.assign("role",role);
+            this.meta_title="添加用户";
+            return this.display();
+        }
 
     }
 
+    /**
+     * 编辑头像
+     * @returns {PreventPromise}
+     */
+  async edituserAction(){
+        if(this.isPost()){
+         let data = this.post();
+         //删除头像
+         if(data.delavatar ==1){
+             let uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + data.id;
+             let path = think.isFile(uploadPath  + "/avatar.png");
+             if(path){
+                 think.rmdir(uploadPath, false)
+             }
+         }
+
+            if(think.isEmpty(data.password)&&think.isEmpty(data.repassword)){
+             delete data.password;
+         }else {
+             if(data.password !=data.repassword){
+                 return this.fail("两次填入的密码不一致");
+             }
+             data.password = encryptPassword(data.password);
+         }
+            if(data.vip==1){
+                data.overduedate=new Date(data.overduedate).getTime();
+            }
+            //添加角色
+            if(data.is_admin == 1){
+                let addrole =await this.model("auth_user_role").where({user_id:data.id}).thenAdd({user_id:data.id,role_id:data.role_id});
+                console.log(addrole);
+                if(addrole.type=="exist"){
+                    await this.model("auth_user_role").update({id:addrole.id,role_id:data.role_id});
+                }
+            }
+            let res = await this.db.update(data);
+
+            if(res){
+                return this.success({name:"编辑成功！"});
+            }else{
+                return this.fail("编辑失败!")
+            }
+        }else {
+            let id = this.get("id");
+            let user = await this.model("member").find(id);
+            //非超级管理员只能修改自己的用户信息
+            if(!this.is_admin()){
+                if(this.user.uid!=id){
+                    this.http.error = new Error('您无权操作！');
+                    return think.statusAction(702, this.http);
+                }
+
+            }
+            this.assign("user",user);
+            console.log(user);
+            //所属管理组
+            if(user.is_admin==1){
+                let roleid =await this.model("auth_user_role").where({user_id:user.id}).getField("role_id",true);
+              this.assign("roleid",roleid)
+            }
+            //会员组
+            let usergroup = await this.model("member_group").select();
+            this.assign("usergroup",usergroup);
+            //获取管理组
+            let role = this.model("auth_role").where({status:1}).select();
+            this.assign("role",role);
+            this.meta_title="编辑用户";
+            return this.display();
+        }
+  }
+
+    /**
+     * 显示用户信息
+     * @returns {PreventPromise}
+     */
+  async showuserAction(){
+        let id = this.get("id");
+        let user = await this.model("member").find(id);
+        //非超级管理员只能修改自己的用户信息
+        if(!this.is_admin()){
+            if(this.user.uid!=id){
+                this.http.error = new Error('您无权操作！');
+                return think.statusAction(702, this.http);
+            }
+
+        }
+        this.assign("user",user);
+        console.log(user);
+        //所属管理组
+        if(user.is_admin==1){
+            let roleid =await this.model("auth_user_role").where({user_id:user.id}).getField("role_id",true);
+            this.assign("roleid",roleid)
+        }
+        //会员组
+        let usergroup = await this.model("member_group").select();
+        this.assign("usergroup",usergroup);
+        //获取管理组
+        let role = this.model("auth_role").where({status:1}).select();
+        this.assign("role",role);
+        this.meta_title="个人信息";
+        return this.display();
+    }
     /**
      * userdel
      * 用户删除
