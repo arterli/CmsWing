@@ -12,12 +12,9 @@ export default class extends Base {
     //判断是否登陆
     await this.weblogin();
     //获取用户信息
-    let userInfo = await this.model("member").join({
-      table: "customer",
-      jion: "left",
-      on: ["id", "user_id"]
-    }).find(this.user.uid);
-    //console.log(userInfo);
+    let userInfo = await this.model("member").find(this.user.uid);
+      console.log(userInfo);
+      //console.log(userInfo);
     this.assign("userInfo", userInfo);
     let province, city, county;
     //获取省份
@@ -52,13 +49,10 @@ export default class extends Base {
     // think.log(data);
     let member = {
       email: data.email,
-      mobile: data.mobile
-    }
-    let customer = {
+      mobile: data.mobile,
       real_name: data.real_name,
       sex: data.sex,
       birthday: new Date(data.birthday).getTime(),
-      phone: data.phone,
       province: data.province,
       city: data.city,
       county: data.county,
@@ -69,26 +63,24 @@ export default class extends Base {
     if (checkMobile(this.userAgent())) {
       if (!think.isEmpty(data.city_picke)) {
         let city_picke = data.city_picke.split(" ");
-        customer.province = await this.model("area").where({
+          member.province = await this.model("area").where({
           name: ["like", `%${city_picke[0]}%`],
           parent_id: 0
         }).getField("id", true);
-        customer.city = await this.model("area").where({
+          member.city = await this.model("area").where({
           name: ["like", `%${city_picke[1]}%`],
-          parent_id: customer.province
+          parent_id: member.province
         }).getField("id", true);
-        customer.county = await this.model("area").where({
+          member.county = await this.model("area").where({
           name: ["like", `%${city_picke[2]}%`],
-          parent_id: customer.city
+          parent_id: member.city
         }).getField("id", true);
       }
     }
 
-    let update1 = await this.model("member").where({id: this.user.uid}).update(member);
-    let update2 = await this.model("customer").where({user_id: this.user.uid}).update(customer);
-
+    let update = await this.model("member").where({id: this.user.uid}).update(member);
     // think.log(customer);
-    if (update1 && update2) {
+    if (update ) {
       return this.success({name: "更新用户资料成功！"})
     } else {
       return this.fail("更新失败！")

@@ -46,11 +46,7 @@ export default class extends Base {
     this.assign("type", type);
     this.assign("count",data.count)
     //获取用户信息
-    let userInfo = await this.model("member").join({
-      table: "customer",
-      jion: "left",
-      on: ["id", "user_id"]
-    }).find(this.user.uid);
+    let userInfo = await this.model("member").find(this.user.uid);
     this.assign("userInfo", userInfo);
     //未付款的充值订单统计
     let unpaid = await this.model("order").where({

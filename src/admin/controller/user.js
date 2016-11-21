@@ -77,10 +77,10 @@ export default class extends Base {
     async rechargeAction(){
         if(this.isAjax("POST")){
             let data = this.post();
-           let res =  await this.model("customer").where({user_id:data.id}).increment("balance",data.balance);
+           let res =  await this.model("member").where({id:data.id}).increment("amount",data.balance);
             console.log(res);
             if(res){
-                let amount_log = await this.model("customer").where({user_id:data.id}).getField("balance",true);
+                let amount_log = await this.model("member").where({id:data.id}).getField("amount",true);
                 console.log(amount_log);
                 //充值成功后插入日志
                 let log = {

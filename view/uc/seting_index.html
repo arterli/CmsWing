@@ -64,7 +64,7 @@
 									<div class="form-group">
 										<label class="col-md-2 control-label">会员级别</label>
 										<div class="col-md-10">
-											<p class="form-control-static">{{userInfo.group_id}}</p>
+											<p class="form-control-static">{%set usergroup = userInfo.groupid|get_member_group%}{{usergroup.name}}</p>
 										</div>
 									</div>
 									<div class="form-group">
@@ -104,12 +104,6 @@
 										<div class="col-md-4">
 											<input type="text" name="mobile" value="{{userInfo.mobile}}" class="form-control masked" data-format="99999999999" data-placeholder="X" placeholder="手机号码">
 										</div></div>
-									<div class="form-group">
-										<label class="col-md-2 control-label">电话号码</label>
-										<div class="col-md-4">
-										<input type="text" name="phone" value="{{userInfo.phone}}" placeholder="电话号码" class="form-control">
-											</div>
-									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label">所在地区</label>
 										<div class="col-md-10">

@@ -47,7 +47,7 @@
 							<div class="panel-body">
 								<a class="btn btn-success btn-xs pull-right " >提现</a>
 								<a class="btn btn-danger btn-xs pull-right" data-toggle="ajaxModal" href="/uc/account/recharge" id="recharge">充值</a>
-								账户余额：￥<span class="text-danger size-25">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%}</span>
+								账户余额：￥<span class="text-danger size-25">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</span>
 							</div>
 						</div>
 						<ul class="nav nav-tabs nav-top-border">

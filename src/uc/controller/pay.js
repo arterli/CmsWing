@@ -45,12 +45,12 @@ export default class extends Base {
 
       if(post.payment == 100){
         //先检查下用户余额
-        let balance = await this.model("customer").where({user_id:this.user.uid}).getField("balance",true);
+        let balance = await this.model("member").where({user_id:this.user.uid}).getField("amount",true);
         if(Number(balance) < Number(order.order_amount)){
           return this.fail("您余额不足，请充值，或者选择其他支付方式！")
         }else {
           //扣款
-          let decrement = this.model("customer").where({user_id:this.user.uid}).decrement("balance",Number(order.order_amount));
+          let decrement = this.model("member").where({user_id:this.user.uid}).decrement("amount",Number(order.order_amount));
           if(decrement){
             //扣款成功改变订单状态
             await this.model("order").where({order_no:order.order_no}).update({status:3,pay_status:1});
@@ -61,7 +61,7 @@ export default class extends Base {
               type:2,
               time:new Date().valueOf(),
               amount:(0 - Number(order.order_amount)),
-              amount_log:await this.model("customer").where({user_id:this.user.uid}).getField("balance",true),
+              amount_log:await this.model("member").where({id:this.user.uid}).getField("amount",true),
               note:`${await get_nickname(this.user.uid)} 通过余额支付方式进行商品购买,订单编号：${order.order_no}`
             }
             await this.model('balance_log').add(log);
@@ -202,7 +202,7 @@ export default class extends Base {
           //支付成功改变订单状态
           let update = await this.model("order").where({order_no:data.data.object.order_no}).update({status:3,pay_status:1,pay_time:(data.data.object.time_paid*1000)});
           if(order.type == 1 && update) {
-            await this.model("customer").where({user_id:order.user_id}).increment("balance",order.order_amount);
+            await this.model("member").where({user_id:order.user_id}).increment("amount",order.order_amount);
             //充值成功后插入日志
             let log = {
               admin_id:0,
@@ -210,7 +210,7 @@ export default class extends Base {
               type:2,
               time:new Date().valueOf(),
               amount:Number(order.order_amount),
-              amount_log:await this.model("customer").where({user_id:order.user_id}).getField("balance",true),
+              amount_log:await this.model("member").where({user_id:order.user_id}).getField("amount",true),
               note:`${await get_nickname(order.user_id)} 通过[${await this.model("pingxx").where({id: order.payment}).getField("title", true)}]支付方式进行充值,订单编号：${data.data.object.order_no}`
             }
             await this.model('balance_log').add(log);
@@ -261,7 +261,7 @@ export default class extends Base {
         let update = await this.model("order").where({order_no:charges.order_no}).update({status:3,pay_status:1,pay_time:(charges.time_paid*1000)});
 
         if(order.type == 1 && update){
-          await this.model("customer").where({user_id:order.user_id}).increment("balance",order.order_amount);
+          await this.model("member").where({id:order.user_id}).increment("amount",order.order_amount);
 
           //充值成功后插入日志
           let log = {
@@ -270,7 +270,7 @@ export default class extends Base {
             type:2,
             time:new Date().valueOf(),
             amount:Number(order.order_amount),
-            amount_log:await this.model("customer").where({user_id:order.user_id}).getField("balance",true),
+            amount_log:await this.model("member").where({id:order.user_id}).getField("amount",true),
             note:`${await get_nickname(order.user_id)} 通过[${await this.model("pingxx").where({id: order.payment}).getField("title", true)}]支付方式进行充值,订单编号：${order.order_no}`
           }
           await this.model('balance_log').add(log);
