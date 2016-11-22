@@ -1,0 +1,113 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/admin/js/datatables/datatables.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+<section class="hbox stretch">
+    <section class="vbox">
+        <header class="header bg-light dk">
+            <div class="btn-group pull-right">
+                <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                    <span class="dropdown-label">{{ this_role.desc }}</span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-select accessselect">
+                    {% for item in auth_role %}
+                    <li {%if thisid== item.id %}class="active" {% endif %}><input name="d-s-r" checked="" type="radio"
+                                                                                  value="/admin/auth/access/id/{{item.id}}"><a
+                            href="#">{{ item.desc }}</a></li>
+                    {% endfor %}
+                    <li class="disabled"><input name="d-s-r" disabled="" type="radio"><a href="#">I'm disabled</a></li>
+
+                </ul>
+
+            </div>
+            <ul class="nav nav-tabs pull-left">
+                <li class=""><a href="/admin/auth/access/id/{{http.get('id')}}"><i class="fa fa-comments text-muted"></i> 权限管理 </a></li>
+                <li class="active"><a href="/admin/auth/catepriv/id/{{http.get('id')}}"><i class="fa fa-user text-muted"></i> 分类授权</a></li>
+                <li class=""><a data-toggle="tab" href="#"><i class="fa fa-user text-muted"></i> 成员授权</a></li>
+            </ul>
+        </header>
+        <section class="scrollable wrapper">
+
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    {{controller.meta_title}}
+                    <i title="" data-original-title="" class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+                </header>
+                <div class="row wrapper">
+
+                    <div class="col-sm-9 m-b-xs">
+                        <div class="">
+                            <a href="/admin/channel/add" class="btn btn-sm btn-info ">
+                                添加分类
+                            </a>
+                            <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
+                                排序
+                            </a>
+
+                            <a href="#" onclick="jQuery('#category').treetable('expandAll'); return false;" class="btn btn-sm btn-info ">
+                                展开全部
+                            </a>
+                            <a  onclick="jQuery('#category').treetable('collapseAll'); return false;" href="#" class="btn btn-sm btn-info">
+                                合并全部
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover b-t b-light treetable" id="category">
+                        <thead>
+                        <tr>
+                            <th > 分类名称 </th>
+                            <th style="width:80px;">排序</th>
+                            <th class="">导航地址</th>
+                            <th class="">ID</th>
+                            <th style="width:80px;">状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {%for val in list%}
+                        <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
+                            <td><span class='folder ui-draggable'>{{val.title}}</span></td>
+                            <td><input class="form-control form-control-text sort" value="{{val.sort}}" name="sort" data-id="{{val.id}}"/></td>
+                            <td><a href="{{val.url}}" target="_blank" class="text-info">{{val.url}}</a> </td>
+                            <td>{{val.id}}</td>
+                            <td> <a href="/admin/channel/setstatus/ids/{{val.id}}/status/{{1-val.status}}" class="active ajax-get" data-toggle="class">
+                                <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>
+                                <i class="fa fa-times text-danger {%if val.status %}text{%else%}text-active{%endif%}"></i>
+                            </a></td>
+
+                            <td><a class="text-info" href="/admin/channel/edit/cid/{{val.id}}">编辑</a>
+                                <a class="text-info confirm ajax-get " href="/{{http.module}}/{{http.controller}}/del/id/{{val.id}}">删除</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+
+
+                        <div class="col-sm-12 text-right text-center-xs">
+
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock %}

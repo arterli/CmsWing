@@ -38,9 +38,9 @@
 
 
             <ul class="mui-table-view margin-top-0" >
-                <li class="mui-table-view-cell mui-badge-primary " >
+                <li class="mui-table-view-cell mui-badge-warning" >
                     账户余额
-                    <span class="mui-badge mui-badge-danger size-16">{%if userInfo.balance %}{{userInfo.balance|formatCurrency}}{%else%}0.00{%endif%} 元</span>
+                    <span class="mui-badge mui-badge-danger size-16">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%} 元</span>
                 </li>
                 <div class="mui-row" style="width: 100%;">
                     <div class="mui-col-sm-6 mui-col-xs-6">

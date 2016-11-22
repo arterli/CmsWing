@@ -327,6 +327,8 @@ export default class extends Base {
         })
         return this.display();
     }
+
+
     async accessdataAction() {
         await this.updaterules();//更新权限节点
         let auth_role = await this.model('auth_role').where({status:["!=",0],module :"admin",'type':1}).field('id,desc,rule_ids').select();
@@ -353,6 +355,14 @@ export default class extends Base {
             "this_role":this_role
         }
         return this.json(data);
+    }
+
+    /**
+     * 栏目权限
+     */
+    async cateprivAction(){
+
+        return this.display();
     }
     async testAction() {
 
