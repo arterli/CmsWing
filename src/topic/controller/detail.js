@@ -232,6 +232,7 @@ export default class extends Base {
             })
           }
         }
+          await db.where({id:info.id}).increment('download');
         if(checkMobile(this.userAgent())){
           //手机模版
           return this.display(`mobile/${this.http.controller}/${this.http.action}`)
