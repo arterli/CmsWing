@@ -361,7 +361,13 @@ export default class extends Base {
      * 栏目权限
      */
     async cateprivAction(){
-
+        let tree = await this.model('category').gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold,isapp");
+        this.assign({
+            "tactive": "/admin/user",
+            "tree":tree
+        })
+        this.active = "admin/auth/index";
+        this.meta_title = "栏目权限";
         return this.display();
     }
     async testAction() {
