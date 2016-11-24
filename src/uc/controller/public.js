@@ -61,10 +61,6 @@ export default class extends Base {
       data.reg_ip = _ip2int(this.ip());
       data.password = encryptPassword(data.password);
       let reg = await this.model("member").add(data);
-      if(reg){
-        //用户副表
-        await this.model("customer").add({user_id:reg});
-      }
       await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
       let userInfo = {
         'uid':reg,

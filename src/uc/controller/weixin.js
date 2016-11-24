@@ -192,7 +192,6 @@ export default class extends Base {
 
     if(!think.isEmpty(reg)){
       //用户副表
-      await this.model("customer").add({user_id:reg});
       await this.model("wx_user").where({openid:data.openid}).update({uid:reg});
       //更新微信头像
       let filePath=think.RESOURCE_PATH + '/upload/avatar/' +reg;

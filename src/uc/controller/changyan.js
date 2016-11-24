@@ -147,7 +147,6 @@ export default class extends Base {
         let reg = await this.model("member").add(data);
         if(!think.isEmpty(reg)){
             //添加用户副表
-            await this.model("customer").add({user_id:reg});
             await this.model("cy_user").where({cy_user_id:data.cy_user_id}).update({uid:reg});
             //更新微信头像
             let filePath=think.RESOURCE_PATH + '/upload/avatar/' +reg;
