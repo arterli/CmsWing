@@ -69,7 +69,7 @@ export default class extends think.adapter.base {
         pagerHtml += `<a class="prev btn btn-default" href="${pageUrl.replace('${page}', pagerData.currentPage - 1)}">上一页</a>`
       }
         //var num = pagerData.numsPerPage || 3;
-        var num =4;
+        var num =5;
       var pageIndex = [];
       var page = pagerData.currentPage | 0 || 1;
       for (var i = page - num; i <= page + num; i++) {
