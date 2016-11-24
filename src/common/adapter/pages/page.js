@@ -68,8 +68,8 @@ export default class extends think.adapter.base {
       if(pagerData.currentPage > 1){
         pagerHtml += `<a class="prev btn btn-default" href="${pageUrl.replace('${page}', pagerData.currentPage - 1)}">上一页</a>`
       }
-
-      var num = pagerData.numsPerPage || 3;
+        //var num = pagerData.numsPerPage || 3;
+        var num =4;
       var pageIndex = [];
       var page = pagerData.currentPage | 0 || 1;
       for (var i = page - num; i <= page + num; i++) {
@@ -77,8 +77,7 @@ export default class extends think.adapter.base {
           pageIndex.push(i);
         };
       }
-
-      if(pageIndex[0] > 1){
+        if(pageIndex[0] > 1){
         pagerHtml += `<a  class="btn btn-default"  href="${pageUrl.replace('${page}', 1)}">1</a>`
       }
       if(pageIndex[0] > 2){

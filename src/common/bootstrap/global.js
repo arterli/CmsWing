@@ -1250,4 +1250,25 @@ global.update_cache =(type)=>{
             break;
     }
 }
-
+/**
+ *缓存权限列表 all_priv
+ * @param catid 要验证的栏目id
+ * @param roleid 用户组
+ * @param action 权限类型
+ * @param is_admin 谁否前台 0前台，1后台
+ * @param type true
+ * @returns {bool} 返回flase 或true false:没权限，true:有权限。
+ */
+global.priv = async(catid,roleid,action,is_admin=0,type=true)=>{
+    // console.log(catid);
+    // console.log(roleid);
+    // console.log(action);
+    // console.log(is_admin);
+    let priv = await think.model("category_priv",think.config("db")).priv(catid,roleid,action,is_admin,type);
+    //console.log(priv);
+    if(!priv){
+        return false;
+    }else {
+        return true;
+    }
+}

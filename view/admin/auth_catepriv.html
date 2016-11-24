@@ -29,7 +29,7 @@
             </ul>
         </header>
         <section class="scrollable wrapper">
-
+            <form action="/admin/auth/catepriv" class="form-horizontal" method="post" data-validate="parsley">
             <section class="panel panel-default">
                 <header class="panel-heading">
                     {{controller.meta_title}}
@@ -71,24 +71,24 @@
                             <td><span class='folder ui-draggable'>{{val.title}}</span></td>
                             <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{val.id}}" ><i></i>全选</label></td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" ><i></i>查看</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'init',1,false)%} checked{%endif%}><i></i>查看</label>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" ><i></i>添加</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'add',1,false)%} checked{%endif%}><i></i>添加</label>
                             </td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" ><i></i>修改</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'edit',1,false)%} checked{%endif%}><i></i>修改</label>
                             </td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" ><i></i>删除</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'delete',1,false)%} checked{%endif%}><i></i>删除</label>
                             </td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" ><i></i>排序</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'listorder',1,false)%} checked{%endif%}><i></i>排序</label>
                             </td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" ><i></i>推送</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'push',1,false)%} checked{%endif%}><i></i>推送</label>
                             </td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" ><i></i>移动</label>
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}},{{http.get('id')}},1" {%if val.id|priv(http.get('id'),'move',1,false)%} checked{%endif%}><i></i>移动</label>
                             </td>
                         </tr>
                         {%endfor%}
@@ -102,11 +102,12 @@
 
 
                         <div class="col-sm-12  text-center">
-                            <button type="submit"  class="btn btn-primary ">提交</button>
+                            <button type="submit"  class="btn btn-primary ajax-post" target-form="form-horizontal">提交</button>
                         </div>
                     </div>
                 </footer>
             </section>
+            </form>
         </section>
     </section>
 

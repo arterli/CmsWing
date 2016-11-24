@@ -367,7 +367,18 @@ export default {
                 env.addFilter('img_text_view',(html,w=200,h=200)=>{
                     return img_text_view(html,w,h)
                 })
-
+                /**
+                 *缓存权限列表 all_priv
+                 * @param catid 要验证的栏目id
+                 * @param roleid 用户组
+                 * @param action 权限类型
+                 * @param is_admin 谁否前台 0前台，1后台
+                 * @returns {bool} 返回flase 或true flase:没权限，true:有权限。
+                 */
+                env.addFilter('priv',async(catid,roleid,action,is_admin=0,type=true,callback)=>{
+                    let isp= await priv(catid,roleid,action,is_admin,type);
+                    callback(null,isp);
+                },true);
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签
