@@ -362,8 +362,33 @@ export default class extends Base {
      */
     async cateprivAction(){
         if(this.isPost()){
-            console.log(this.post());
-            this.fail(111)
+            let data = this.post();
+            //构造权限
+            let priv =[]
+            if(!think.isEmpty(data.priv_roleid)){
+                if(think.isArray(data.priv_roleid)){
+                    //构造 角色权限
+                    for (let v of data.priv_roleid){
+                        let arr = v.split(",")
+                        let obj = {};
+                        obj.catid = arr[1];
+                        obj.roleid= arr[2];
+                        obj.action = arr[0];
+                        obj.is_admin = 1;
+                        priv.push(obj)
+                    }
+                }else {
+                    let arr = (data.priv_roleid).split(",")
+                    priv.push({ catid:arr[1],  roleid: arr[2], action: arr[0], is_admin: 1 })
+                }
+
+            }
+            await this.model("category_priv").delete({where:{is_admin:1,roleid:data.roleid}});
+            if(!think.isEmpty(priv)){
+                await this.model("category_priv").addMany(priv)
+            }
+            think.cache("all_priv",null);//栏目权限缓存
+           return this.success({name:"修改成功！"})
         }else {
             let tree = await this.model('category').gettree(0,"id,name,title,sort,pid,allow_publish,status,model,mold,isapp");
             this.assign({
