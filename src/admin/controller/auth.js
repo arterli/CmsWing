@@ -401,6 +401,22 @@ export default class extends Base {
         }
 
     }
+
+    /**
+     * 成员管理
+     */
+    async userlistAction(){
+        let id = this.get("id");
+        let userid = await this.model("auth_user_role").where({role_id:id}).getField("user_id");
+        let userdata;
+        if(!think.isEmpty(userid)){
+            userdata=await this.model("member").where({id:["IN",userid]}).select();
+        }
+        this.assign("userlist",userdata);
+        this.meta_title = "成员管理";
+        this.active = "admin/auth/index";
+        return this.display();
+    }
     async testAction() {
 
         let ss = await this.updaterules();

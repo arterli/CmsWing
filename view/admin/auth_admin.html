@@ -79,7 +79,7 @@
                                     <td><div class="btn-group">
                                         <a class="btn btn-default btn-xs" type="button" href="/admin/auth/access/id/{{item.id}}">权限设置</a>
                                         <a class="btn btn-default btn-xs" type="button" href="/admin/auth/catepriv/id/{{item.id}}">栏目权限</a>
-                                        <a class="btn btn-default btn-xs" type="button" href="#">成员管理</a>
+                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/userlist/id/{{item.id}}">成员管理</a>
                                     </div></td>
                                     <td><a href="/admin/auth/setstatus/ids/{{item.id}}/status/{{1-item.status}}/model/auth_role" class="active ajax-get" data-toggle="class">
                                         <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
