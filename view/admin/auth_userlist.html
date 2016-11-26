@@ -32,10 +32,11 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="input-group pull-right">
-                        <input type="text" class="input-sm form-control" placeholder="Search">
+                    <div class="input-group pull-right search-form">
+                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                               value="{{http.get('title')}}">
                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="#">搜索</button>
                       </span>
                     </div>
                 </div>
@@ -58,38 +59,18 @@
                     {% for item in userlist %}
                     <tr>
                         <td>{%if item.issystem !=1%}<label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.groupid}}" ><i></i></label>{%endif%}</td>
-                        <td>{{item.groupid}}</td>
-                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.groupid}}"/></td>
-                        <td>{{item.name}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.role}}</td>
 
-                        <td>{%if item.issystem ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}</td>
-                        <td>{{item.count}}</td>
+                        <td>{{item.last_login_ip|int2ip}}</td>
+                        <td>{{item.last_login_time|moment('YYYY-MM-DD HH:mm:ss')}}</td>
                         <td>
-                            {{item.starnum}}
+                            {{item.email}}
                         </td>
                         <td>
-                            {{item.point}}
+                            <a href="/admin/user/edituser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
                         </td>
-                        <td>
-                            {%if item.allowattachment ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
-                        </td>
-                        <td>
-                            {%if item.allowpost ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
-                        </td>
-                        <td>
-                            {%if item.allowpostverify ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
-                        </td>
-                        <td>
-                            {%if item.allowsearch ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
-                        </td>
-                        <td>
-                            {%if item.allowsendmessage ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
-                        </td>
-                        <td>
-                            <a href="/admin/auth/edituser?id={{item.groupid}}" class="text-info">编辑</a>
-                            {%if item.issystem !=1%}
-                            <a href="/admin/auth/deluser?id={{item.groupid}}" class="confirm ajax-get text-info">删除</a></td>
-                        {%endif%}
                     </tr>
                     {% else %}
                     <tr><td colspan="14"><div class="alert alert-warning alert-block">
@@ -116,4 +97,13 @@
     </section>
 </section>
 
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script>
+
+</script>
 {% endblock %}
