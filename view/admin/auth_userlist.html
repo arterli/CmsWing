@@ -52,6 +52,7 @@
                         <th class="">最后登录id	</th>
                         <th class="">最后登录时间</th>
                         <th>E-mail</th>
+                        <th>真实姓名</th>
                         <th >操作</th>
                     </tr>
                     </thead>
@@ -67,6 +68,9 @@
                         <td>{{item.last_login_time|moment('YYYY-MM-DD HH:mm:ss')}}</td>
                         <td>
                             {{item.email}}
+                        </td>
+                        <td>
+                            {{item.real_name}}
                         </td>
                         <td>
                             <a href="/admin/user/edituser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
