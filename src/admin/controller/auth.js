@@ -411,7 +411,12 @@ export default class extends Base {
         let userdata;
         if(!think.isEmpty(userid)){
             userdata=await this.model("member").where({id:["IN",userid]}).select();
+            for(let v of userdata){
+                let role_id = await this.model("auth_user_role").where({user_id:v.id}).getField("role_id",true);
+                v.role = await this.model("auth_role").where({id:role_id}).getField("desc",true)
+            }
         }
+
         this.assign("userlist",userdata);
         this.meta_title = "成员管理";
         this.active = "admin/auth/index";

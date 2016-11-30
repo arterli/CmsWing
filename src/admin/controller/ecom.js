@@ -304,7 +304,7 @@ export default class extends Base {
     }
     /**快递公司管理 */
   async expressAction(){
-        let data = await this.model("express_company").page(this.get('page')).countSelect();
+        let data = await this.model("express_company").page(this.get('page'),20).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
         let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
@@ -314,7 +314,15 @@ export default class extends Base {
         this.active="admin/ecom/express"
     return this.display();
   }
-  
+
+    /**
+     * 新增快递公司
+     */
+  async addexpressAction(){
+
+      this.meta_title="添加快递公司";
+      return this.display();
+  }
   /**
      * 设置一条或者多条数据的状态
      */
