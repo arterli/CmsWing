@@ -185,11 +185,7 @@ export default class extends Base {
        this.assign("goods",goods);
        //获取购买人信息
        //购买人信息
-       let user = await this.model("member").join({
-           customer: {
-               on: ["id", "user_id"]
-           }
-       }).find(order.user_id);
+       let user = await this.model("member").find(order.user_id);
        this.assign("user",user);
        //订单信息
        switch (order.payment){
@@ -355,11 +351,7 @@ export default class extends Base {
                 sum.push(val.goods_nums);
             }
             //购买人信息
-            let user = await this.model("member").join({
-                customer: {
-                    on: ["id", "user_id"]
-                }
-            }).find(order.user_id);
+            let user = await this.model("member").find(order.user_id);
             //获取 快递公司
             let express_company = this.model("express_company").order("sort ASC").select();
             this.assign("express_company",express_company);
