@@ -350,6 +350,7 @@ export default class extends Base {
                 val.sum = JSON.parse(val.prom_goods).price;
                 sum.push(val.goods_nums);
             }
+
             //购买人信息
             let user = await this.model("member").find(order.user_id);
             //获取 快递公司
