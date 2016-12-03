@@ -30,10 +30,10 @@
         </header>
         <section class="scrollable wrapper">
             <form action="/admin/auth/writerole" enctype="application/x-www-form-urlencoded" method="POST"
-                  class="form-horizontal auth-form">
+                  class="form-horizontal auth-form" data-validate="parsley">
                 <div id="category_tree"></div>
                 <input type="hidden" name="id" value="{{thisid}}"/>
-                <button type="submit" class="btn submit-btn " target-form="auth-form">确 定</button>
+                <button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
                 <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
             </form>
 

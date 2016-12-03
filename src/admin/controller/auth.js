@@ -12,6 +12,7 @@ export default class extends Base {
     init(http) {
         super.init(http);
         this.tactive = "user";
+
     }
     /**
      * 后台节点配置的url作为规则存入auth_rule

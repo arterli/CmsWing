@@ -178,6 +178,8 @@ export default class extends Base {
          }
             if(data.vip==1){
                 data.overduedate=new Date(data.overduedate).getTime();
+            }else {
+                data.overduedate = 0;
             }
             //添加角色
             if(data.is_admin == 1){
