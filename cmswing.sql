@@ -11,7 +11,7 @@
  Target Server Version : 50715
  File Encoding         : utf-8
 
- Date: 12/03/2016 22:02:43 PM
+ Date: 12/07/2016 08:58:53 AM
 */
 
 SET NAMES utf8mb4;
@@ -257,7 +257,7 @@ CREATE TABLE `cmswing_cart` (
   `unit_price` float(10,2) NOT NULL COMMENT '商品单价',
   `pic` varchar(255) NOT NULL COMMENT '商品图片',
   `url` varchar(255) NOT NULL COMMENT '商品地址',
-  `weight` int(11) NOT NULL,
+  `weight` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
@@ -561,7 +561,7 @@ CREATE TABLE `cmswing_document` (
   `pics` varchar(255) NOT NULL DEFAULT '' COMMENT '多图上传',
   `price` varchar(255) NOT NULL DEFAULT '' COMMENT '价格',
   `sort_id` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `keyname` varchar(255) NOT NULL DEFAULT '' COMMENT '关键词',
+  `keyname` varchar(255) DEFAULT NULL COMMENT '关键词',
   PRIMARY KEY (`id`),
   KEY `idx_category_status` (`category_id`,`status`),
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`),
