@@ -44,6 +44,7 @@ export default class extends think.controller.base {
         let is_admin = await this.is_admin();
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
+        console.log(url);
         if (!is_admin) {
             let Auth = think.adapter("auth", "rbac");
             let auth = new Auth(this.user.uid);
