@@ -9752,7 +9752,7 @@ CREATE TABLE `cmswing_temp` (
 -- -----------------------------
 -- Records of `cmswing_temp`
 -- -----------------------------
-INSERT INTO `cmswing_temp` VALUES ('1', 'topic', 'index', 'index', '首页模版', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('1', 'topic', 'index', 'index', '首页模版', '{% extends "../inc/base333.html" %}
 {% block content %}
 
 
@@ -11567,7 +11567,7 @@ data-plugin-options:
 
 {% endblock %}
 ', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('2', 'topic', 'index', 'index', '首页模版（移动版）', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('2', 'topic', 'index', 'index', '首页模版（移动版）', '{% extends "../inc/base333.html" %}
 {% block page%}
 <div class="page page-current" id="page-ptr">
 
@@ -11663,7 +11663,7 @@ INSERT INTO `cmswing_temp` VALUES ('2', 'topic', 'index', 'index', '首页模版
 
 </script>
 {% endblock %}', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('3', 'topic', 'cover', 'index', '默认封面模板', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('3', 'topic', 'cover', 'index', '默认封面模板', '{% extends "../inc/base333.html" %}
 {% block content %}
      <!--
 				PAGE HEADER
@@ -12111,7 +12111,7 @@ INSERT INTO `cmswing_temp` VALUES ('3', 'topic', 'cover', 'index', '默认封面
 INSERT INTO `cmswing_temp` VALUES ('4', 'topic', 'cover', 'index', '默认封面模板（移动版）', '11212111112123', '2', '1');
 INSERT INTO `cmswing_temp` VALUES ('5', 'topic', 'cover', 'shop', '商城封面模板', '商场封面模板', '1', '1');
 INSERT INTO `cmswing_temp` VALUES ('6', 'topic', 'cover', 'shop', '商城封面模板（手机版）', '', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('7', 'topic', 'list', 'index', '默认列表模板', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('7', 'topic', 'list', 'index', '默认列表模板', '{% extends "../inc/base333.html" %}
 {% block content %}
 <!--
 PAGE HEADER
@@ -12412,7 +12412,7 @@ CLASSES:
 </section>
 <!-- / -->
 {% endblock %}', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('8', 'topic', 'list', 'shop', '商城列表模板', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('8', 'topic', 'list', 'shop', '商城列表模板', '{% extends "../inc/base333.html" %}
 {% block style%}
 <link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -12836,7 +12836,7 @@ CLASSES:
 <!-- PAGE LEVEL SCRIPTS -->
 <script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
 {% endblock %}', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('9', 'topic', 'list', 'lindex', '默认列表模板（手机版）', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('9', 'topic', 'list', 'lindex', '默认列表模板（手机版）', '{% extends "../inc/base333.html" %}
 {% block page%}
 <div class="page page-current" id="page-infinite-scroll-bottom">
 <header class="bar bar-nav">
@@ -12914,7 +12914,7 @@ INSERT INTO `cmswing_temp` VALUES ('9', 'topic', 'list', 'lindex', '默认列表
 {% endblock%}
 {% block script %}
 {% endblock %}', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('10', 'topic', 'list', 'shop', '手机版商城列表模板', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('10', 'topic', 'list', 'shop', '手机版商城列表模板', '{% extends "../inc/base333.html" %}
 {% block page%}
 <div class="page page-current" id="list_shop">
 <header class="bar bar-nav">
@@ -13016,7 +13016,7 @@ INSERT INTO `cmswing_temp` VALUES ('10', 'topic', 'list', 'shop', '手机版商�
 {% endblock%}
 {% block script %}
 {% endblock %}', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('11', 'topic', 'detail', 'article', '文档内容页模版(PC)', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('11', 'topic', 'detail', 'article', '文档内容页模版(PC)', '{% extends "../inc/base333.html" %}
 {% block style %}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 {% endblock %}
@@ -13442,7 +13442,7 @@ rootPath: '/static/admin/js/udeitor/'
 </script>
 {% endblock %}
 ', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('12', 'topic', 'detail', 'shop', '商城内容页模板(PC)', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('12', 'topic', 'detail', 'shop', '商城内容页模板(PC)', '{% extends "../inc/base333.html" %}
 {% block style %}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 <link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
@@ -14378,7 +14378,7 @@ rootPath: '/static/admin/js/udeitor/'
 <script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
 {% endblock %}
 ', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('13', 'topic', 'detail', 'shop', '商城内容模板(移动)', '{% extends "../inc/base.html" %} {% block page%}
+INSERT INTO `cmswing_temp` VALUES ('13', 'topic', 'detail', 'shop', '商城内容模板(移动)', '{% extends "../inc/base333.html" %} {% block page%}
 <div class="page page-current" id="detail_shop">
 <header class="bar bar-nav">
 <a class="button button-link button-nav pull-left back" href="{{http.referrer()}}">
@@ -15338,7 +15338,7 @@ INSERT INTO `cmswing_temp` VALUES ('19', 'topic', 'inc', 'nav', '公共底部菜
     </a>
     {%endif%}
 </nav>', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('20', 'topic', 'cover', 'download', '下载封面模版', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('20', 'topic', 'cover', 'download', '下载封面模版', '{% extends "../inc/base333.html" %}
 {% block content %}
 <!--
            PAGE HEADER
@@ -15836,7 +15836,7 @@ INSERT INTO `cmswing_temp` VALUES ('20', 'topic', 'cover', 'download', '下载�
 ', '1', '1');
 INSERT INTO `cmswing_temp` VALUES ('21', 'topic', 'list', 'download', '下载列表模版', '下载列表模版', '1', '1');
 INSERT INTO `cmswing_temp` VALUES ('22', 'topic', 'detail', 'download', '下载详情页模版', 'download', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('23', 'topic', 'list', 'picture', '图片列表页模版', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('23', 'topic', 'list', 'picture', '图片列表页模版', '{% extends "../inc/base333.html" %}
 {% block content %}
 <!--
 PAGE HEADER
@@ -16145,7 +16145,7 @@ INSERT INTO `cmswing_temp` VALUES ('28', 'topic', 'cover', 'video', '视频封�
 INSERT INTO `cmswing_temp` VALUES ('29', 'topic', 'cover', 'picture', '图片封面模版', 'picture', '2', '1');
 INSERT INTO `cmswing_temp` VALUES ('30', 'topic', 'list', 'picture', '图片列表模版', 'picture', '2', '1');
 INSERT INTO `cmswing_temp` VALUES ('31', 'topic', 'detail', 'picture', '图片详情页模版', 'picture', '2', '1');
-INSERT INTO `cmswing_temp` VALUES ('32', 'topic', 'sp', 'index', '默认单页面模版', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('32', 'topic', 'sp', 'index', '默认单页面模版', '{% extends "../inc/base333.html" %}
 {% block content %}
     <!--
         PAGE HEADER
@@ -16200,7 +16200,7 @@ INSERT INTO `cmswing_temp` VALUES ('32', 'topic', 'sp', 'index', '默认单页�
 {{category.sp_html_pc|safe}}
 
 {% endblock %}', '1', '1');
-INSERT INTO `cmswing_temp` VALUES ('33', 'topic', 'list', 'documentation', '官方文档列表模板', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp` VALUES ('33', 'topic', 'list', 'documentation', '官方文档列表模板', '{% extends "../inc/base333.html" %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
 <!--
@@ -16491,7 +16491,7 @@ CREATE TABLE `cmswing_temp_bak` (
 -- -----------------------------
 -- Records of `cmswing_temp_bak`
 -- -----------------------------
-INSERT INTO `cmswing_temp_bak` VALUES ('1', 'topic', 'index', 'index', '首页模版', '{% extends "../inc/base.html" %}
+INSERT INTO `cmswing_temp_bak` VALUES ('1', 'topic', 'index', 'index', '首页模版', '{% extends "../inc/base333.html" %}
 {% block content %}
 
 
