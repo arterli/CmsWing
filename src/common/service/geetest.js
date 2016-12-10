@@ -22,8 +22,8 @@ export default class extends think.service.base {
      }
 
      let geetest = new Geetest({
-         geetest_key: privateKey,
-         geetest_id: publicKey
+         geetest_id: publicKey,
+         geetest_key: privateKey
      });
 
 
@@ -31,7 +31,8 @@ export default class extends think.service.base {
         let register=() =>{
              let deferred = think.defer();
              // 向极验申请一次验证所需的challenge
-             geetest.register(function (data) {
+             geetest.register(function (err,data) {
+                 console.log(data);
                  deferred.resolve({
                      gt: geetest.geetest_id,
                      challenge: data.challenge,
