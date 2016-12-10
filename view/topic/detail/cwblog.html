@@ -1,1 +1,248 @@
-cwblog
+{% extends "../inc/base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet"
+      href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+<style>
+    .active > .text{
+        display: block !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header  page-header-xs">
+
+    <div class="container">
+
+        <h1>{{pinfo.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb ">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endfor %}
+            <li><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></li>
+            <li>{{info.title}}</li>
+        </ol><!-- /breadcrumbs -->
+
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-30">
+                    <form action="" method="get" class="widget_search">
+                        <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+                <div class="side-nav margin-bottom-20 margin-top-20">
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>目录</h4>
+                    </div>
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                        <table class="table table-hover  treetable" id="category">
+                            <tbody>
+                            {%for val in ptree%}
+                            <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%endif%} {%if val.id == http.get("id")%}class="active" {%endif%}>
+                                <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+                            </tr>
+                            {%endfor%}
+
+
+                            </tbody>
+                        </table>
+                    </ul>
+                    <!-- /side navigation -->
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-md-9 col-sm-9">
+
+                <h1 class="blog-post-title text-center">{{info.title}}</h1>
+                <ul class="blog-post-info list-inline">
+
+                </ul>
+
+
+
+
+                <!-- article content -->
+                <div id="contentcmswing">
+
+                    <div class="tab-content">
+                        {%set p = 1%}
+                        {%for val in info.content%}
+                        <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
+                            {{val|safe}}
+                        </div>
+                        {% set p = p+1%}
+                        {%endfor%}
+                    </div>
+                    {%if info.content|length >1%}
+                    <!-- Pagination Default -->
+                    <div class="text-center">
+                        <ul class="pagination">
+                            {%set o = 1%}
+                            {%for val in info.content%}
+                            <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
+                            {% set o = o+1%}
+                            {%endfor%}
+                        </ul>
+                    </div>
+                    {%endif%}
+                </div>
+                <!-- /article content -->
+                <div class="divider"></div>
+                <!--打赏-->
+                <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
+                <!--打赏-->
+                <!--&lt;!&ndash;评论表情&ndash;&gt;-->
+                <!--<div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>-->
+                <!--&lt;!&ndash;评论表情&ndash;&gt;-->
+                <div class="divider divider-dotted"><!-- divider --></div>
+
+
+                <!-- TAGS -->
+                {%for k in keywords%}
+                <a class="tag" href="/keywords/{{k|urlencode}}">
+                    <span class="txt">{{k}}</span>
+                    <!--<span class="num">12</span>-->
+                </a>
+                {%endfor%}
+                <!-- /TAGS -->
+
+
+
+                <!-- SHARE POST -->
+                <div class="clearfix margin-top-20">
+
+<span class="pull-left margin-top-6 bold hidden-xs margin-right-10">
+分享到:
+</span>
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+                    {#
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-right" data-toggle="tooltip" data-placement="top" title="Facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter pull-right" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-right" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-right" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-pinterest pull-right" data-toggle="tooltip" data-placement="top" title="Pinterest">
+                        <i class="icon-pinterest"></i>
+                        <i class="icon-pinterest"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-sm social-icon-transparent social-call pull-right" data-toggle="tooltip" data-placement="top" title="Email">
+                        <i class="icon-email3"></i>
+                        <i class="icon-email3"></i>
+                    </a>
+                    #}
+                </div>
+                <!-- /SHARE POST -->
+
+
+                <div class="divider"><!-- divider --></div>
+
+
+                <ul class="pager">
+                    {%if previous.id%}
+                    <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
+                    {%endif%}
+                    {%if next.id%}
+                    <li class="next"><a class="noborder" href="{{next.name|get_url(next.id)}}" title="{{next.title}}">下一篇:{{next.title|block(20)}} &rarr;</a></li>
+                    {%endif%}
+                </ul>
+
+
+                <div class="divider"><!-- divider --></div>
+
+
+                <!-- COMMENTS -->
+                <div id="comments" class="comments margin-top-20">
+                    <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                    <div id="SOHUCS" sid="{{info.id}}"></div>
+                    <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                    <script type="text/javascript">
+                        window._config = { showScore: true };
+                        window.changyan.api.config({
+                            appid: '{{controller.setup.CY_APPID}}',
+                            conf: '{{controller.setup.CY_APPKEY}}'
+                        });
+                    </script>
+                </div>
+                <!-- /COMMENTS -->
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+<script>
+    $(function () {
+        $("#category").treetable({ expandable: true });
+        $("#category").treetable("expandAll")
+    })
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

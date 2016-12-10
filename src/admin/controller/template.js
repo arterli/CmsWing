@@ -348,6 +348,32 @@ export default class extends Base {
         }
 
     }
+
+    /**
+     * 删除模版
+     */
+    async delAction(){
+        let id = this.get("id");
+        let temp = await this.model("temp").find(id);
+        //console.log(temp);
+        let temppath;
+        if(temp.type==2){
+            temppath = `${think.ROOT_PATH}/view/${temp.module}/mobile/`;
+        }else {
+            temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
+        }
+        let templateFile = `${temppath}${temp.controller}${think.config("view",undefined,"topic").file_depr}${temp.action}${this.config("view.file_ext")}`;
+        //console.log(templateFile);
+        if(think.isFile(templateFile)){
+            fs.unlinkSync(templateFile);
+        }
+        let isdel = await this.model("temp").delete(id);
+        if(isdel){
+            return this.success({name:"删除成功!"});
+        }else {
+            return this.fail("删除失败!")
+        }
+    }
   // 获取模版组
   async get_temp_group(){
     let group = this.model("temp_group").select();
