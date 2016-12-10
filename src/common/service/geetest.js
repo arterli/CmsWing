@@ -26,6 +26,7 @@ export default class extends think.service.base {
          geetest_key: privateKey
      });
 
+
     //初始
         let register=() =>{
              let deferred = think.defer();
