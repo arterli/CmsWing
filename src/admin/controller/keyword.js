@@ -25,7 +25,7 @@ export default class extends Base {
     if(this.get("title")){
       map.title=["like","%"+this.get("title")+"%"]
     }
-    let list = await this.model("keyword").where(map).order('discuss_count_update DESC').page(this.get("page"),20).countSelect();
+    let list = await this.model("keyword").where(map).order('add_time DESC').page(this.get("page"),20).countSelect();
     for (let v of list.data){
       v.lastuser = await this.model("keyword_data").where({tagid:v.id}).order("add_time DESC").getField("uid",true);
     }
@@ -37,6 +37,34 @@ export default class extends Base {
     this.meta_title="话题管理";
     //auto render template file index_index.html
     return this.display();
+  }
+
+    /**
+     * 添加话题
+     */
+  async addAction(){
+    if(this.isPost()){
+     let data = this.post();
+     data.pic = data.pic||0;
+        data.pid = (data.is_parent==1)?0:data.pid;
+        data.add_time = new Date().getTime();
+        let isadd = await this.model("keyword").where({keyname:data.keyname}).find();
+        console.log(data);
+        if(!think.isEmpty(isadd)){
+          return this.fail("已经存在相同的话题");
+        }
+        let res = this.model("keyword").add(data)
+        if(res){
+          return this.success({name:"添加成功！",url:"/admin/keyword/index"})
+        }else {
+          return this.fail("添加失败！")
+        }
+    }else {
+      this.meta_title="新增话题";
+      let parent = await this.model("keyword").where({is_parent:1}).select();
+      this.assign("parent",parent);
+     return this.display();
+    }
   }
   //锁定话题
   async lockAction(){

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-11 00:43:57
+Date: 2016-12-11 03:13:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4488,7 +4488,7 @@ CREATE TABLE `cmswing_auth_role` (
 -- Records of cmswing_auth_role
 -- ----------------------------
 INSERT INTO `cmswing_auth_role` VALUES ('1', '超级管理员', '超级管理员', '1', '1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,233,234,235', 'admin', '1', '0');
-INSERT INTO `cmswing_auth_role` VALUES ('2', '普通管理员', '普通管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,49,50,51,52,53,65,71,72,73,74,75,76,78,79,80,85,86,87,88,89,90,91,92,93,94,95,102,104,110,115,120,121,122,123,124,125,126,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,215,216,217,218,219,220,221,222,223,224,225,226,227,228,undefined,229,230,231,231,232,233,234,235,236,237,238,239,240,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261', 'admin', '1', '0');
+INSERT INTO `cmswing_auth_role` VALUES ('2', '普通管理员', '普通管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,49,50,51,52,53,65,71,72,73,74,75,76,78,79,80,85,86,87,88,89,90,91,92,93,94,95,102,104,110,115,120,121,122,123,124,125,126,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,215,216,217,218,219,220,221,222,223,224,225,226,227,228,undefined,229,230,231,231,232,233,234,235,236,237,238,239,240,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262', 'admin', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('3', '发布人员', '发布人员', '1', '', '', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('4', '运营总监', '运营总监', '1', '', '', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('5', '编辑', '编辑', '1', '', '', '1', '0');
@@ -4509,7 +4509,7 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
@@ -4775,6 +4775,7 @@ INSERT INTO `cmswing_auth_rule` VALUES ('258', 'admin/type/typeoption', '字段�
 INSERT INTO `cmswing_auth_rule` VALUES ('259', 'admin/type/updatetypeoption', '修改', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('260', 'admin/type/edittype', '详情', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('261', 'admin/keyword/lock', '锁定', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('262', 'admin/keyword/add', '添加', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -6561,41 +6562,47 @@ CREATE TABLE `cmswing_keyword` (
   `discuss_count_last_week` int(10) DEFAULT '0',
   `discuss_count_last_month` int(10) DEFAULT '0',
   `discuss_count_update` bigint(13) NOT NULL DEFAULT '0',
+  `add_time` bigint(13) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `keyname` (`keyname`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_keyword
 -- ----------------------------
-INSERT INTO `cmswing_keyword` VALUES ('1', '546546546546', '546546546546', '2', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('2', '哈哈', 'haha', '9', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073896421');
-INSERT INTO `cmswing_keyword` VALUES ('3', '多福多寿', 'duofuduoshou', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('4', '放大撒', 'fangdasa', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('5', '哈哈1', 'haha1', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('6', '发达萨法', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('7', 'haha', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079582590');
-INSERT INTO `cmswing_keyword` VALUES ('8', '发达萨法放大撒', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('9', 'ddddd', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('10', 'fdsfsdf', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('11', 'fdsfsf', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('12', 'ThinkJS', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('13', '手册', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('14', 'nunjucks', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('15', '测试话题', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477076353802');
-INSERT INTO `cmswing_keyword` VALUES ('16', '话题测试', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477063515973');
-INSERT INTO `cmswing_keyword` VALUES ('17', '多个话题', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477063516003');
-INSERT INTO `cmswing_keyword` VALUES ('18', '在一个', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('19', '带图片的话题', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073798800');
-INSERT INTO `cmswing_keyword` VALUES ('20', '测试话题二', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_keyword` VALUES ('21', 'cmswing', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1476466276248');
-INSERT INTO `cmswing_keyword` VALUES ('22', 'javascript', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1476569871493');
-INSERT INTO `cmswing_keyword` VALUES ('23', '新加的', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073798833');
-INSERT INTO `cmswing_keyword` VALUES ('24', 'dsfdsf', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073757364');
-INSERT INTO `cmswing_keyword` VALUES ('25', '7777', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477074022020');
-INSERT INTO `cmswing_keyword` VALUES ('27', '添加一个', '', '2', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079582536');
-INSERT INTO `cmswing_keyword` VALUES ('26', '测试话题三', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477076353828');
-INSERT INTO `cmswing_keyword` VALUES ('28', '嘿嘿', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079868169');
+INSERT INTO `cmswing_keyword` VALUES ('1', '546546546546', '546546546546', '2', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('2', '哈哈', 'haha', '9', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073896421', '0');
+INSERT INTO `cmswing_keyword` VALUES ('3', '多福多寿', 'duofuduoshou', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('4', '放大撒', 'fangdasa', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('5', '哈哈1', 'haha1', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('6', '发达萨法', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('7', 'haha', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079582590', '0');
+INSERT INTO `cmswing_keyword` VALUES ('8', '发达萨法放大撒', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('9', 'ddddd', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('10', 'fdsfsdf', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('11', 'fdsfsf', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('12', 'ThinkJS', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('13', '手册', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('14', 'nunjucks', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('15', '测试话题', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477076353802', '0');
+INSERT INTO `cmswing_keyword` VALUES ('16', '话题测试', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477063515973', '0');
+INSERT INTO `cmswing_keyword` VALUES ('17', '多个话题', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477063516003', '0');
+INSERT INTO `cmswing_keyword` VALUES ('18', '在一个', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('19', '带图片的话题', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073798800', '0');
+INSERT INTO `cmswing_keyword` VALUES ('20', '测试话题二', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('21', 'cmswing', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1476466276248', '0');
+INSERT INTO `cmswing_keyword` VALUES ('22', 'javascript', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1476569871493', '0');
+INSERT INTO `cmswing_keyword` VALUES ('23', '新加的', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073798833', '0');
+INSERT INTO `cmswing_keyword` VALUES ('24', 'dsfdsf', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477073757364', '0');
+INSERT INTO `cmswing_keyword` VALUES ('25', '7777', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477074022020', '0');
+INSERT INTO `cmswing_keyword` VALUES ('27', '添加一个', '', '2', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079582536', '0');
+INSERT INTO `cmswing_keyword` VALUES ('26', '测试话题三', '', '0', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477076353828', '0');
+INSERT INTO `cmswing_keyword` VALUES ('28', '嘿嘿', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1477079868169', '0');
+INSERT INTO `cmswing_keyword` VALUES ('29', '跟话题测试', '', '0', '0', '321312', '0', '0', '0', '0', null, '0', null, '0', '1', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('30', '子话题测试', '', '0', '0', '子话题测试', '0', '0', '0', '0', null, '0', null, '29', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_keyword` VALUES ('31', '跟测试', '', '0', '0', '跟测试', '0', '0', '0', '0', null, '0', null, '0', '1', '0', '0', '0', '1481396423031');
+INSERT INTO `cmswing_keyword` VALUES ('32', '一级话题', '', '0', '0', '一级话题一级话题一级话题', '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '1481396652147');
+INSERT INTO `cmswing_keyword` VALUES ('33', '1级滑动', '', '0', '0', '1级滑动', '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '0', '1481396688904');
 
 -- ----------------------------
 -- Table structure for cmswing_keyword_data
@@ -6977,7 +6984,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -7200,6 +7207,7 @@ INSERT INTO `cmswing_menu` VALUES ('231', '设置', '214', '0', 'admin/type/upda
 INSERT INTO `cmswing_menu` VALUES ('232', '修改', '228', '0', 'admin/type/updatetypeoption', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('233', '详情', '228', '0', 'admin/type/edittype', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('234', '锁定', '218', '0', 'admin/keyword/lock', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('235', '添加', '218', '0', 'admin/keyword/add', '0', '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model

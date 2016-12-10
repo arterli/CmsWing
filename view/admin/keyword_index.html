@@ -16,7 +16,7 @@
             </header>
             <div class="row wrapper">
                 <div class="col-sm-5 m-b-xs">
-                    <a class="btn  btn-info" >新建话题</a>
+                    <a href="/admin/keyword/add" class="btn  btn-info" >新建话题</a>
                     <a class="btn  btn-info" >删除话题</a>
                     <a class="btn  btn-info" >锁定话题</a>
 
@@ -34,14 +34,14 @@
                         <th>合并</th>
                         <th>状态	</th>
                         <th>最后编辑用户</th>
-                        <th>最后编辑时间</th>
+                        <th>添加时间</th>
                         <th style="width:130px;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in list.data %}
                     <tr>
-                        <td><label class="checkbox m-n i-checks"><input type="checkbox" value="{{ item.Name }}"
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" value="{{ item.id }}"
                                                                         name="tables" ><i></i></label>
                         </td>
                         <td>{{ item.keyname }}</td>
@@ -54,7 +54,7 @@
                         </a></td>
                         <td>{{item.lastuser|get_nickname}}</td>
                         <td>
-                            {{item.discuss_count_update|moment('YYYY-MM-DD HH:mm:ss')}}
+                            {{item.add_time|moment('YYYY-MM-DD HH:mm:ss')}}
                         </td>
                         <td>
                             <a href="#" class="text-info">编辑</a>
