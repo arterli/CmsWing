@@ -27,7 +27,6 @@ export default class extends think.service.base {
      });
 
 
-
     //初始
         let register=() =>{
              let deferred = think.defer();
