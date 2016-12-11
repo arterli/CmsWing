@@ -11,15 +11,31 @@
     <section class="scrollable wrapper">
 
         <section class="panel panel-default">
-            <header class="panel-heading">
-                话题列表
+            <header class="panel-heading clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class="{{http.get('type')|default('active', true)}}"><a  href="/admin/keyword/index"> 话题列表 </a></li>
+                    <li class="{%if http.get('type')=='parent'%}active{%endif%}"><a  href="/admin/keyword/index/type/parent">根话题</a>
+                    <li ><a class="todo"  href="/admin/keyword/search">搜索</a>
+                    <li ><a class="todo" href="/admin/keyword/today">今日话题</a>
+                    </li>
+                </ul>
+                <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
             </header>
             <div class="row wrapper">
-                <div class="col-sm-5 m-b-xs">
+                <div class="col-sm-9 m-b-xs">
                     <a href="/admin/keyword/add" class="btn  btn-info" >新建话题</a>
-                    <a class="btn  btn-info" >删除话题</a>
-                    <a class="btn  btn-info" >锁定话题</a>
+                    <a class="btn btn-info ajax-post confirm" target-form="ids" href="/admin/keyword/del">删除话题</a>
+                    <a class="btn  btn-info ajax-post" target-form="ids" href="/admin/keyword/lock/lock/1" >锁定话题</a>
 
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right search-form">
+                        <input type="text" class="input-sm form-control" name="keyname" placeholder="请输入关键字"
+                               value="{{http.get('keyname')}}">
+                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/keyword/index">搜索</button>
+                      </span>
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -41,8 +57,8 @@
                     <tbody>
                     {% for item in list.data %}
                     <tr>
-                        <td><label class="checkbox m-n i-checks"><input type="checkbox" value="{{ item.id }}"
-                                                                        name="tables" ><i></i></label>
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" class="ids" value="{{item.id}}"
+                                                                        name="ids" ><i></i></label>
                         </td>
                         <td>{{ item.keyname }}</td>
                         <td>{{ item.videonum }}</td>
@@ -58,7 +74,7 @@
                         </td>
                         <td>
                             <a href="#" class="text-info">编辑</a>
-                            <a href="#" class="text-info">删除</a>
+                            <a href="/admin/keyword/del/ids/{{item.id}}" class="text-info ajax-get confirm" >删除</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -95,5 +111,26 @@
 {% endblock %}
 
 {% block script %}
+<script>
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
 
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+</script>
 {% endblock %}

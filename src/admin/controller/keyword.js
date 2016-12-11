@@ -22,10 +22,13 @@ export default class extends Base {
   async indexAction(){
     //搜索
     let map = {};
-    if(this.get("title")){
-      map.title=["like","%"+this.get("title")+"%"]
+    if(this.get("keyname")){
+      map.keyname=["like","%"+this.get("keyname")+"%"]
     }
-    let list = await this.model("keyword").where(map).order('add_time DESC').page(this.get("page"),20).countSelect();
+     if(this.get("type")=='parent'){
+        map.is_parent=1;
+     }
+      let list = await this.model("keyword").where(map).order('add_time DESC').page(this.get("page"),20).countSelect();
     for (let v of list.data){
       v.lastuser = await this.model("keyword_data").where({tagid:v.id}).order("add_time DESC").getField("uid",true);
     }
@@ -66,11 +69,27 @@ export default class extends Base {
      return this.display();
     }
   }
+
+    /**
+     * 删除话题
+     */
+  async delAction(){
+      let ids = this.param("ids");
+      if(think.isEmpty(ids)){
+          return this.fail("参数不能为空!")
+      }
+      //删除话题
+      await this.model("keyword").where({id:["IN",ids]}).delete();
+      //清除相关数据
+      await this.model("keyword_data").where({tagid:["IN",ids]}).delete();
+      await this.model("keyword_focus").where({key_id:["IN",ids]}).delete();
+      return this.success({name:"删除成功!"})
+  }
   //锁定话题
   async lockAction(){
-    let id = this.get("ids");
+    let ids = this.param("ids");
     let lock = this.get("lock");
-    let up = await this.model("keyword").where({id:id}).update({lock:lock});
+    let up = await this.model("keyword").where({id:["IN",ids]}).update({lock:lock});
     if(up){
       return this.success({name:"操作成功!"});
     }else {
