@@ -69,7 +69,7 @@ export default class extends think.controller.base {
         if(is_login){
             await this.session('userInfo', null);
             this.redirect('/admin/public/signin');
-        }else{c
+        }else{
             this.redirect('/admin/public/signin');
         }
     }
