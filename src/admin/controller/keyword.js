@@ -48,15 +48,15 @@ export default class extends Base {
   async addAction(){
     if(this.isPost()){
      let data = this.post();
-     data.pic = data.pic||0;
+        data.pic = data.pic||0;
         data.pid = (data.is_parent==1)?0:data.pid;
         data.add_time = new Date().getTime();
         let isadd = await this.model("keyword").where({keyname:data.keyname}).find();
-        console.log(data);
+        //console.log(data);
         if(!think.isEmpty(isadd)){
           return this.fail("已经存在相同的话题");
         }
-        let res = this.model("keyword").add(data)
+        let res = this.model("keyword").add(data);
         if(res){
           return this.success({name:"添加成功！",url:"/admin/keyword/index"})
         }else {
@@ -64,12 +64,42 @@ export default class extends Base {
         }
     }else {
       this.meta_title="新增话题";
+      this.active ='admin/keyword/index';
       let parent = await this.model("keyword").where({is_parent:1}).select();
       this.assign("parent",parent);
      return this.display();
     }
   }
 
+    /**
+     * 编辑话题
+     */
+  async editAction(){
+      if(this.isPost()){
+       let data = this.post();
+          data.pic = data.pic||0;
+          data.pid = (data.is_parent==1)?0:data.pid;
+          data.discuss_count_update=new Date().getTime();
+          console.log(data);
+          let res = this.model("keyword").update(data)
+          if(res){
+              return this.success({name:"修改成功！",url:"/admin/keyword/index"})
+          }else {
+              return this.fail("修改失败！")
+          }
+      }else {
+          let id = this.get("id");
+          this.meta_title="编辑话题";
+          this.active ='admin/keyword/index';
+          let info = await this.model("keyword").find(id);
+          let parent = await this.model("keyword").where({is_parent:1}).select();
+          this.assign("parent",parent);
+          this.assign("info",info);
+          return this.display();
+      }
+
+
+  }
     /**
      * 删除话题
      */
