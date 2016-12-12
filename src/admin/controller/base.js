@@ -31,8 +31,10 @@ export default class extends think.controller.base {
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
+        let is_admin = await this.is_admin();
         //后台菜单
-        this.adminmenu = await this.model('menu').adminmenu();
+        this.adminmenu = await this.model('menu').getallmenu(this.user.uid,is_admin);
+        console.log(this.adminmenu);
         this.assign("setup", this.setup);
         //菜单当前状态
 
@@ -41,7 +43,7 @@ export default class extends think.controller.base {
          */
         //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
         //console.log(url);
-        let is_admin = await this.is_admin();
+
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
         console.log(url);
