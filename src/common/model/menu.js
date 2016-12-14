@@ -12,7 +12,7 @@ export default class extends think.model.base {
         return menu;
     }
     //获取后台全部菜单
-    async getallmenu(){
+    async getallmenu(uid,is_admin){
         let where = {}
         where.hide = 0;
         let setup = await this.model("setup").getset();
@@ -27,12 +27,27 @@ export default class extends think.model.base {
                 //let obj = {}
 
                 where.group=v;
+                let menu=[];
                 if( where.group != 0){
-              var menu =await this.where(where).order('sort asc').select();
+                menu =await this.where(where).order('sort asc').select();
                 }
                 if(!think.isEmpty(menu)){
                     //arr.push(obj[v.id]=menu)
-                    arr[v]=arr_to_tree(menu,0);
+                    let nmenu=[];
+                    //验证权限，根据权限进行显示控制
+                    if (!is_admin) {
+                    for(let m of menu){
+                        let Auth = think.adapter("auth", "rbac");
+                        let auth = new Auth(uid);
+                        let res = await auth.check(m.url);
+                        console.log(res);
+                        if(res){
+                            nmenu.push(m);
+                        }
+                    }}else {
+                        nmenu=menu;
+                    }
+                    arr[v]=arr_to_tree(nmenu,0);
                 }
 
 

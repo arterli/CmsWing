@@ -88,7 +88,7 @@
                             <small>{{val.type}}</small>
                             {%endif%}</p>
                         <p class=""><span class="price" data-price ="{{val.price}}" >¥{{val.unit_price|formatCurrency}}</span> <span class="stock">{%if val.stock > 0%}<span class="original">有货</span> {%else%}<span class="original">无货</span>{%endif%}</span></p>
-                        <div class="mui-numbox margin-top-3" data-numbox-min='1'>
+                        <div class="mui-numbox margin-top-3" data-numbox-min='1' >
                             <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
                             <input class="mui-input-numbox number" type="number" value="{{val.qty}}"  />
                             <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>

@@ -159,7 +159,7 @@ export default class extends think.adapter.base {
    */
   async getRuleIds(){
     let data = await this.getRoles();
-      console.log(data);
+      //console.log(data);
       let ids = [];
     data.forEach(item => {
       let ruleIds = (item.rule_ids || '').split(',');
