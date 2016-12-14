@@ -34,6 +34,7 @@ export default class extends think.model.base {
                 if(!think.isEmpty(menu)){
                     //arr.push(obj[v.id]=menu)
                     let nmenu=[];
+                    //验证权限，根据权限进行显示控制
                     if (!is_admin) {
                     for(let m of menu){
                         let Auth = think.adapter("auth", "rbac");
