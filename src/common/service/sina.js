@@ -29,7 +29,6 @@ export default class extends think.service.base {
               'code':code,
               'redirect_uri':redirect_uri
           }
-
           console.log(postData);
           superagent.post('https://api.weibo.com/oauth2/access_token').send(postData).end(function(res){
               console.log(res);
