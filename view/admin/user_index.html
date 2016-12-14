@@ -122,6 +122,65 @@
 <script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script>
 $(function () {
+
+    function isPriceNumber(_keyword){
+        if(_keyword == "0" || _keyword == "0." || _keyword == "0.0" || _keyword == "0.00"){
+            _keyword = "0"; return true;
+        }else{
+            var index = _keyword.indexOf("0");
+            var length = _keyword.length;
+            if(index == 0 && length>1){/*0开头的数字串*/
+                var reg = /^[0]{1}[.]{1}[0-9]{1,2}$/;
+                if(!reg.test(_keyword)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{/*非0开头的数字*/
+                var reg = /^[1-9]{1}[0-9]{0,10}[.]{0,1}[0-9]{0,2}$/;
+                if(!reg.test(_keyword)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    $(document).on('click', ".recharge", function (e) {
+        var balance = $("input[name='balance']").val();
+        var name = $("input[name = 'name']").val();
+        var id = $("input[name = 'id']").val();
+        if(!isPriceNumber(balance)){
+            swal( "请填写正确的价格.");
+            return false;
+        }
+        swal({
+            title: "确认您的操作！",
+            text: "您将给 "+name+" 充值 "+balance+" 元！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定充值!",
+            cancelButtonText: "关闭!",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                url:"/admin/user/recharge",
+                data:{balance:balance,id:id},
+                type:"POST",
+                success:function (res) {
+                    if(res.errno == 0){
+                        swal(res.data.name, "", "success");
+                        $('#ajaxModal').modal('hide');
+                        location.reload();
+                    }
+
+                }
+            })
+
+        });
+    })
     //搜索功能
     $("#search").click(function(){
         var url = $(this).attr('url');

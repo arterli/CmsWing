@@ -59,9 +59,14 @@
            
          //应用的APPID  
          var appID ="{{controller.setup.QQ_APPID}}";
-           
-         //登录授权后的回调地址，设置为当前url  
-         var redirectURI = "http://{{http.host}}/uc/qq/index";
+           var redirectURI;
+         //登录授权后的回调地址，设置为当前url
+         if('{{http.config().http_}}'=='1'){
+              redirectURI = "http://{{http.host}}/uc/qq/index";
+         }else {
+              redirectURI = "https://{{http.host}}/uc/qq/index";
+         }
+       alert(redirectURI)
       
          //初始构造请求  
          if (window.location.hash.length == 0)

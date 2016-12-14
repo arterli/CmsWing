@@ -16,6 +16,11 @@
 	{{controller.setup.QQ_VALIDATION|safe}}
 	<!--qq互联网站验证结束-->
 	{%endif%}
+	{%if controller.setup.SINA_VALIDATION%}
+	<!--新浪微博网站验证-->
+	{{controller.setup.SINA_VALIDATION|safe}}
+	<!--新浪微博网站验证结束-->
+	{%endif%}
 	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
 	<!-- mobile settings -->
 	<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />

@@ -16,7 +16,7 @@ export default class extends Base {
       return think.statusAction(702, this.http);
     }
     if(this.is_login){
-      this.redirect('/user/index')
+      this.redirect('/uc/index')
     }
     return this.display();
   }
@@ -27,7 +27,7 @@ export default class extends Base {
       return think.statusAction(702, this.http);
     }
     if(this.is_login){
-      this.redirect('/user/index')
+      this.redirect('/uc/index')
     }
     let res = this.get();
     let qqapi = think.service("qqapi");

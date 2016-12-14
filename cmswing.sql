@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-12-12 01:57:46
+Date: 2016-12-14 22:12:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ CREATE TABLE `cmswing_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=977 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=979 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of cmswing_action_log
@@ -738,6 +738,8 @@ INSERT INTO `cmswing_action_log` VALUES ('973', '1', '1', '2130706433', 'member'
 INSERT INTO `cmswing_action_log` VALUES ('974', '1', '1', '2130706433', 'member', '1', 'admin在2016-12-10 17:46:55登录了后台', '1', '1481363215600');
 INSERT INTO `cmswing_action_log` VALUES ('975', '4', '1', '2130706433', 'document', '303', 'admin在2016-12-12 00:44:37发表了一篇文章。\r\n表document，记录编号303。', '1', '1481474677556');
 INSERT INTO `cmswing_action_log` VALUES ('976', '4', '1', '2130706433', 'document', '304', 'admin在2016-12-12 00:47:43发表了一篇文章。\r\n表document，记录编号304。', '1', '1481474863463');
+INSERT INTO `cmswing_action_log` VALUES ('977', '1', '1', '2130706433', 'member', '1', 'admin在2016-12-14 12:58:35登录了后台', '1', '1481691515822');
+INSERT INTO `cmswing_action_log` VALUES ('978', '1', '8', '2130706433', 'member', '8', 'arterli在2016-12-14 13:28:39登录了后台', '1', '1481693319596');
 
 -- ----------------------------
 -- Table structure for cmswing_address
@@ -4490,7 +4492,7 @@ CREATE TABLE `cmswing_auth_role` (
 -- Records of cmswing_auth_role
 -- ----------------------------
 INSERT INTO `cmswing_auth_role` VALUES ('1', '超级管理员', '超级管理员', '1', '1,3,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,233,234,235', 'admin', '1', '0');
-INSERT INTO `cmswing_auth_role` VALUES ('2', '普通管理员', '普通管理员', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,49,50,51,52,53,65,71,72,73,74,75,76,78,79,80,85,86,87,88,89,90,91,92,93,94,95,102,104,110,115,120,121,122,123,124,125,126,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,215,216,217,218,219,220,221,222,223,224,225,226,227,228,undefined,229,230,231,231,232,233,234,235,236,237,238,239,240,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263', 'admin', '1', '0');
+INSERT INTO `cmswing_auth_role` VALUES ('2', '普通管理员', '普通管理员', '1', '1,2,3,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,49,50,51,52,53,65,71,72,73,74,75,76,78,79,80,85,86,87,88,89,90,91,92,93,94,95,102,104,110,115,120,121,122,123,124,125,126,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,215,216,217,218,219,220,221,222,223,224,225,226,227,228,undefined,229,230,231,231,232,233,234,235,236,237,238,239,240,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265', 'admin', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('3', '发布人员', '发布人员', '1', '', '', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('4', '运营总监', '运营总监', '1', '', '', '1', '0');
 INSERT INTO `cmswing_auth_role` VALUES ('5', '编辑', '编辑', '1', '', '', '1', '0');
@@ -4511,7 +4513,7 @@ CREATE TABLE `cmswing_auth_rule` (
   `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=264 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=266 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_auth_rule
@@ -4519,8 +4521,8 @@ CREATE TABLE `cmswing_auth_rule` (
 INSERT INTO `cmswing_auth_rule` VALUES ('1', 'admin/index/index', '首页', '0', '1', '', 'admin', '2');
 INSERT INTO `cmswing_auth_rule` VALUES ('2', 'other', '其他', '0', '1', '', 'admin', '2');
 INSERT INTO `cmswing_auth_rule` VALUES ('3', 'user', '用户管理', '0', '1', '', 'admin', '2');
-INSERT INTO `cmswing_auth_rule` VALUES ('4', 'User/updatePassword', '修改密码', '0', '1', '', 'admin', '1');
-INSERT INTO `cmswing_auth_rule` VALUES ('5', 'User/updateNickname', '修改昵称', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('4', 'User/updatePassword', '修改密码', '0', '-1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('5', 'User/updateNickname', '修改昵称', '0', '-1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('6', 'admin/user/userlist', '获取用户列表（ajax）', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('7', 'admin/user/recharge', '会员充值', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('8', 'admin/user/index', '用户信息', '0', '1', '', 'admin', '1');
@@ -4779,6 +4781,8 @@ INSERT INTO `cmswing_auth_rule` VALUES ('260', 'admin/type/edittype', '详情', 
 INSERT INTO `cmswing_auth_rule` VALUES ('261', 'admin/keyword/lock', '锁定', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('262', 'admin/keyword/add', '添加', '0', '1', '', 'admin', '1');
 INSERT INTO `cmswing_auth_rule` VALUES ('263', 'admin/keyword/del', '删除', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('264', 'admin/user/setstatus', '启用/禁用', '0', '1', '', 'admin', '1');
+INSERT INTO `cmswing_auth_rule` VALUES ('265', 'admin/user/edituser', '编辑用户', '0', '1', '', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_auth_user_role
@@ -4817,7 +4821,7 @@ CREATE TABLE `cmswing_balance_log` (
   `amount_log` float(10,2) NOT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_balance_log
@@ -4867,6 +4871,9 @@ INSERT INTO `cmswing_balance_log` VALUES ('51', '0', '2', '2', '1474672308829', 
 INSERT INTO `cmswing_balance_log` VALUES ('52', '0', '2', '2', '1474717595565', '1.00', '1522.01', 'cmswing 通过[支付宝手机支付]支付方式进行充值,订单编号：c21474717592258');
 INSERT INTO `cmswing_balance_log` VALUES ('53', '0', '2', '2', '1474717811865', '1.00', '1523.01', 'cmswing 通过[支付宝手机支付]支付方式进行充值,订单编号：c21474717809682');
 INSERT INTO `cmswing_balance_log` VALUES ('54', '0', '2', '2', '1479735471865', '10.50', '10.50', 'cmswing 通过[支付宝 PC 网页支付]支付方式进行充值,订单编号：c21479735468801');
+INSERT INTO `cmswing_balance_log` VALUES ('55', '1', '93', '2', '1481695603387', '1.00', '1.00', '管理员（admin）为您充值，充值的金额为：1 元');
+INSERT INTO `cmswing_balance_log` VALUES ('56', '1', '93', '2', '1481695616805', '2.00', '3.00', '管理员（admin）为您充值，充值的金额为：2 元');
+INSERT INTO `cmswing_balance_log` VALUES ('57', '1', '93', '2', '1481695690770', '10.00', '13.00', '管理员（admin）为您充值，充值的金额为：10 元');
 
 -- ----------------------------
 -- Table structure for cmswing_cart
@@ -5578,7 +5585,7 @@ INSERT INTO `cmswing_document` VALUES ('263', '1', '', '数据库字典', '110',
 INSERT INTO `cmswing_document` VALUES ('264', '1', '', '公共函数', '110', '0', '公共函数，Adapter，Middleware的使用规范', '0', '252', '256', '2', '2', '0', '0', '0', '1', '1970', '0', '9', '0', '0', '90', '1474963560000', '1474998306489', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('265', '1', '', '模块类', '110', '0', '模块类', '0', '252', '260', '2', '2', '0', '0', '0', '1', '0', '0', '8', '0', '0', '90', '1474963698881', '1474963698881', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('266', '1', '', 'ThinkJS视频教程', '47', '4', 'ThinkJS视频教程', '0', '0', '0', '6', '1', '2', '0', '722', '1', '1970', '0', '42', '0', '0', '0', '1475050080000', '1475050507091', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('267', '1', '', 'ThinkJS 上传文件代码示例', '49', '2', 'ThinkJS 上传文件代码示例', '0', '0', '0', '2', '2', '2', 'https://github.com/75team/thinkjs2-demos/tree/master/file-upload', '723', '1', '1970', '0', '19', '0', '0', '0', '1475052240000', '1475483413463', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('267', '1', '', 'ThinkJS 上传文件代码示例', '49', '2', 'ThinkJS 上传文件代码示例', '0', '0', '0', '2', '2', '2', 'https://github.com/75team/thinkjs2-demos/tree/master/file-upload', '723', '1', '1970', '0', '20', '0', '0', '0', '1475052240000', '1475483413463', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('268', '1', '', '项目结构介绍', '47', '0', '项目结构介绍', '0', '266', '266', '6', '2', '0', '0', '0', '1', '0', '0', '3', '0', '0', '1', '1475053793668', '1475053793668', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('269', '1', '', '如何创建项目和项目介绍', '47', '0', '如何创建项目和项目介绍', '0', '266', '266', '6', '2', '0', '0', '0', '1', '0', '0', '3', '0', '0', '2', '1475054193110', '1475054193110', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('270', '1', '', '路由介绍', '47', '0', '路由介绍', '0', '266', '266', '6', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '3', '1475054334889', '1475054334889', '1', '', '', '0', '0');
@@ -6741,18 +6748,18 @@ CREATE TABLE `cmswing_member` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='用户表';
 
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1970', 'arterli@qq.com', '1210', '', '1452513965683', '0', '1481363215583', '2130706433', '0', '1', '1', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '1980', 'arterli@qq.com', '1211', '', '1452513965683', '0', '1481691515577', '2130706433', '0', '1', '1', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '80', 'cmswing@cmswing.com', '251', '13571883578', '1458989485616', '0', '1481166403034', '2130706433', '0', '1', '0', '2', '10.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '4', '', '1458990106486', '0', '1463734028394', '2099753746', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('7', 'ddd', '7fe293a2a8994cca42668d5a37747d4f', '0', 'ddd@dfsd.com', '0', '', '1458993322584', '0', '0', '0', '0', '-1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
-INSERT INTO `cmswing_member` VALUES ('8', 'arterli', '7fe293a2a8994cca42668d5a37747d4f', '40', 'arterli1@qq.com', '6', '', '1458994740328', '0', '1481163660896', '2130706433', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('8', 'arterli', '7fe293a2a8994cca42668d5a37747d4f', '50', 'arterli1@qq.com', '7', '', '1458994740328', '0', '1481693319338', '2130706433', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('9', 'cmswing.com', '7fe293a2a8994cca42668d5a37747d4f', '0', 'dsada@admin.com', '2', '', '1459707083913', '0', '1471947217937', '2130706433', '0', '1', '0', '4', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('10', '陈金龙', '7fe293a2a8994cca42668d5a37747d4f', '0', '18392377215@163.com', '2', '18392377215', '1460886804782', '1863597262', '1460887010499', '1863597262', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('11', '峰『沃』梅', '7fe293a2a8994cca42668d5a37747d4f', '0', 'ljt310@163.com', '1', '17791773212', '1460886865562', '2073503326', '1460886865582', '2073503326', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
@@ -6829,12 +6836,13 @@ INSERT INTO `cmswing_member` VALUES ('82', 'LztyLionheart', '990b497f21b3ff2e1a4
 INSERT INTO `cmswing_member` VALUES ('83', '  我要稳稳的RUN-', '85b3f0a60b03e4eeac33f7c7604a5a09', '0', 'chenrunfa@vip.qq.com', '2', '15505907667', '1466769606936', '3072683011', '1466769922148', '3707347831', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('84', '林冰清', '7fe293a2a8994cca42668d5a37747d4f', '0', '526509994 @qq.com', '1', '15659123132', '1466775669237', '463177917', '1466775669269', '463177917', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('85', '海上出云', '207e7acfe4a53d2e23bb20a9076b4e2e', '0', '1019943881@qq.com', '2', '13637914178', '1466995254312', '3748141392', '1466995813979', '3748141392', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
-INSERT INTO `cmswing_member` VALUES ('86', 'tb3816517', '6a67af13470f023f7e2c66270e3f112e', '0', '702101541@qq.com', '1', '18612189178', '1476588589758', '3746058675', '1476588589770', '3746058675', '0', '1', '0', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
-INSERT INTO `cmswing_member` VALUES ('87', 'lirbimb', '3c0cc98c6debe965410604735bc323e0', '0', 'afonyabel.goro.d@gmail.com', '1', '123456', '1476615342798', '2995323313', '1476615342805', '2995323313', '0', '1', '0', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('86', 'tb3816517', '6a67af13470f023f7e2c66270e3f112e', '0', '702101541@qq.com', '1', '18612189178', '1476588589758', '3746058675', '1476588589770', '3746058675', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('87', 'lirbimb', '3c0cc98c6debe965410604735bc323e0', '0', 'afonyabel.goro.d@gmail.com', '1', '123456', '1476615342798', '2995323313', '1476615342805', '2995323313', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('88', 'Tender', 'd8ef1f466c91854527f75c2b78196d35', '0', 'admin@maooh.com', '1', '15001894728', '1477879132292', '2090889082', '1477879132304', '2090889082', '0', '-1', '0', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('89', 'kun', '7fe293a2a8994cca42668d5a37747d4f', '0', '289740765@qq.com', '1', '13512736154', '1477902049187', '827193478', '1477902049211', '827193478', '0', '-1', '0', '0', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('92', '测试用户1', '7fe293a2a8994cca42668d5a37747d4f', '20', 'dsfsdf@afdasf.com', '0', '', '1479654642902', '0', '0', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '1', '1480517820000', null);
-INSERT INTO `cmswing_member` VALUES ('93', 'testadmin', '7fe293a2a8994cca42668d5a37747d4f', '0', 'arterli111@qq.com', '0', '12345678901', '1481095470607', '0', '0', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('93', 'testadmin', '7fe293a2a8994cca42668d5a37747d4f', '0', 'arterli111@qq.com', '0', '12345678901', '1481095470607', '0', '0', '0', '0', '1', '1', '2', '13.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
+INSERT INTO `cmswing_member` VALUES ('94', 'test11', 'c02caddd15d7838ef0c6b6fc2bff8619', '0', 'test@dfs.com', '0', '', '1481693425469', '0', '0', '0', '0', '-1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 
 -- ----------------------------
 -- Table structure for cmswing_member_group
@@ -6976,7 +6984,7 @@ CREATE TABLE `cmswing_menu` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_menu
@@ -7077,8 +7085,6 @@ INSERT INTO `cmswing_menu` VALUES ('93', '其他', '0', '100', 'other', '0', '',
 INSERT INTO `cmswing_menu` VALUES ('96', '新增', '75', '0', 'admin/menu/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('98', '编辑', '75', '0', 'admin/menu/edit', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('106', '行为日志', '16', '4', 'admin/action/log', '0', '', '40', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('108', '修改密码', '16', '0', 'User/updatePassword', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('109', '修改昵称', '16', '0', 'User/updateNickname', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('110', '查看行为日志', '106', '0', 'action/edit', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('112', '新增数据', '58', '0', 'admin/cms/add', '1', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('113', '编辑数据', '58', '0', 'admin/cms/edit', '1', '', '0', '0', '1');
@@ -7126,11 +7132,11 @@ INSERT INTO `cmswing_menu` VALUES ('158', '捆绑销售', '155', '0', 'admin/pro
 INSERT INTO `cmswing_menu` VALUES ('159', '团购', '155', '0', 'admin/promotion/tuan', '0', '', '20', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('160', '限时抢购', '155', '0', 'admin/promotin/flash', '0', '', '20', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('161', '代金卷', '155', '0', 'admin/promotion/voucher', '0', '', '20', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('162', '获取用户列表（ajax）', '16', '0', 'admin/user/userlist', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('162', '获取用户列表（ajax）', '17', '0', 'admin/user/userlist', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('163', '删除用户', '17', '0', 'admin/user/userdel', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('164', '禁用用户', '17', '0', 'admin/user/chsta', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('165', '验证用户', '17', '0', 'admin/user/parsley', '0', '', '0', '0', '1');
-INSERT INTO `cmswing_menu` VALUES ('166', '会员充值', '16', '0', 'admin/user/recharge', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('166', '会员充值', '17', '0', 'admin/user/recharge', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('167', '财务管理', '0', '7', 'finance', '0', '', '20', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('168', '财务日志', '167', '0', 'admin/finance/log', '0', '', '20', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('169', '提现申请', '167', '0', 'admin/finance/withdraw', '0', '', '20', '0', '1');
@@ -7201,6 +7207,8 @@ INSERT INTO `cmswing_menu` VALUES ('233', '详情', '228', '0', 'admin/type/edit
 INSERT INTO `cmswing_menu` VALUES ('234', '锁定', '218', '0', 'admin/keyword/lock', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('235', '添加', '218', '0', 'admin/keyword/add', '0', '', '0', '0', '1');
 INSERT INTO `cmswing_menu` VALUES ('236', '删除', '218', '0', 'admin/keyword/del', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('237', '启用/禁用', '17', '0', 'admin/user/setstatus', '0', '', '0', '0', '1');
+INSERT INTO `cmswing_menu` VALUES ('238', '编辑用户', '17', '0', 'admin/user/edituser', '0', '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for cmswing_model
@@ -9036,7 +9044,7 @@ CREATE TABLE `cmswing_setup` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_setup
@@ -9122,6 +9130,10 @@ INSERT INTO `cmswing_setup` VALUES ('108', 'SMS_zhuce', '1', '用户注册验证
 INSERT INTO `cmswing_setup` VALUES ('109', 'SMS_product', '1', '变量${product}', '12', '', '设置模版的时候填入的值，会替换${product}', '0', '1468583227214', '1', 'CmsWing', '4');
 INSERT INTO `cmswing_setup` VALUES ('110', 'GEETEST_ID_M', '1', 'ID (移动端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的ID (移动端)', '0', '1473017565745', '1', '61844714815758b8ea27c74681c3eb06', '3');
 INSERT INTO `cmswing_setup` VALUES ('111', 'GEETEST_KEY_M', '1', 'KEY (移动端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的KEY (移动端)', '1473017708120', '1473017680238', '1', 'b8bbf948f416c2c43927334f31075c76', '4');
+INSERT INTO `cmswing_setup` VALUES ('112', 'IS_SINA_LOGIN', '4', '是否开启新浪微博登陆', '7', '0:关闭\r\n1:开启', '开启后请配置下面的APP ID和APP KEY ，<a href=\"http://open.weibo.com/\" class = \"text-info\" target=\"_blank\">APP ID和APP KEY申请</a><br>\r\n回调地址：<code>http://www.abc.com/uc/sina/index</code></br>\r\n申请接口的是时候需要填写回调地址，你把www.abc.com替换成你网站的域名 如：http://www.cmswing.com/uc/sina/index', '0', '1481700902627', '1', '1', '5');
+INSERT INTO `cmswing_setup` VALUES ('113', 'SINA_APPKEY', '1', 'SINA App Key', '7', '', '在微博开放平台申请到的 App Key ,填写到此处。', '0', '1481701099061', '1', '3868482864', '6');
+INSERT INTO `cmswing_setup` VALUES ('114', 'SINA_APPSECRET', '1', 'SINA App Secret', '7', '', '在微博开放平台申请到的 App Secret ,填写到此处。', '0', '1481701308499', '1', 'ec0c3346d244d91c6e0189b4448fb326', '7');
+INSERT INTO `cmswing_setup` VALUES ('115', 'SINA_VALIDATION', '1', 'SINA验证码', '7', '', '申请微博登录应用添加新网站的时候，会提供给你一段代码进行网站验证,请填写到此处。', '0', '1481701478702', '1', '<meta property=\"wb:webmaster\" content=\"bc4f6c6952e7529b\" />', '8');
 
 -- ----------------------------
 -- Table structure for cmswing_sms_log
@@ -9959,7 +9971,7 @@ CREATE TABLE `cmswing_wx_custom_menu` (
 -- ----------------------------
 -- Records of cmswing_wx_custom_menu
 -- ----------------------------
-INSERT INTO `cmswing_wx_custom_menu` VALUES ('3', 0x7B2276657273696F6E223A313437363031343430343336362C22627574746F6E223A5B7B226E616D65223A22E7BD91E7AB99E88F9CE58D95222C2274797065223A2232222C226163745F6C697374223A5B5D2C227375625F627574746F6E223A5B7B226E616D65223A22E8A786E9A291E6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F6368616E6E656C2F73686970696E6365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393435333134304B4559227D2C7B226E616D65223A22E4B88BE8BDBDE6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F6368616E6E656C2F7869617A61696365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393430333430364B4559227D2C7B226E616D65223A22E59BBEE78987E6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F6368616E6E656C2F74757069616E6365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393335383430384B4559227D2C7B226E616D65223A22E696B0E997BBE6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F6368616E6E656C2F77656E7A68616E67227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393332383932314B4559227D2C7B226E616D65223A22E7BD91E7AB99E9A696E9A1B5222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393236383439394B4559227D5D2C226B6579223A22313436313734373234303333314B4559227D2C7B226E616D65223A22E5BEAEE4BFA1E8AEA2E8B4AD222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F7368616E676368656E676365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313437363031343430323136334B4559227D2C7B226E616D65223A22E68891E79A84222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F7563227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313437363031343337393439354B4559227D5D7D, null, '1476014404383', '0');
+INSERT INTO `cmswing_wx_custom_menu` VALUES ('3', 0x7B2276657273696F6E223A313438313437393532363035352C22627574746F6E223A5B7B226E616D65223A22E7BD91E7AB99E88F9CE58D95222C2274797065223A2232222C226163745F6C697374223A5B5D2C227375625F627574746F6E223A5B7B226E616D65223A22E8A786E9A291E6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F73686970696E6365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313438313437393438333632314B4559227D2C7B226E616D65223A22E4B88BE8BDBDE6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F7869617A61696365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313438313437393439363331304B4559227D2C7B226E616D65223A22E59BBEE78987E6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F74757069616E6365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313438313437393531323937344B4559227D2C7B226E616D65223A22E696B0E997BBE6B58BE8AF95222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F77656E7A68616E676365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313438313437393437383933354B4559227D2C7B226E616D65223A22E7BD91E7AB99E9A696E9A1B5222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313436363438393236383439394B4559227D5D2C226B6579223A22313436313734373234303333314B4559227D2C7B226E616D65223A22E5BEAEE4BFA1E8AEA2E8B4AD222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F7368616E676368656E676365736869227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313438313437393532323430314B4559227D2C7B226E616D65223A22E68891E79A84222C2274797065223A2232222C226163745F6C697374223A5B7B2274797065223A322C2276616C7565223A22687474703A2F2F7777772E636D7377696E672E636F6D2F7563227D5D2C227375625F627574746F6E223A5B5D2C226B6579223A22313437363031343337393439354B4559227D5D7D, null, '1481479526074', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_keywords
