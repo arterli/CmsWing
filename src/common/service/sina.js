@@ -22,19 +22,14 @@ export default class extends think.service.base {
       let URL_GET_USERINFO = this.baseUrl + `/oauth2/access_token`;
       let gettoken=(URL_GET_USERINFO)=>{
           let deferred = think.defer();
-          var postData = {
-              'client_id' :client_id,
-              'client_secret':client_secret,
-              'grant_type':grant_type,
-              'code':code,
-              'redirect_uri':redirect_uri
-          }
-          console.log(postData);
-          superagent.post('https://api.weibo.com/oauth2/access_token').send(postData).end(function(res){
-              console.log(res);
+          superagent.post( `${URL_GET_USERINFO}?client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${code}&redirect_uri=${redirect_uri}`).send({}).end(function(err,res){
+             // console.log(res);
               if (res.ok) {
-                  deferred.resolve(res.body);
-                      console.log('yay got ' + JSON.stringify(res.body));;
+                  if(think.isEmpty(res.body)){
+                      deferred.resolve(JSON.parse(res.text));
+                  }else {
+                      deferred.resolve(res.body);
+                  }
                   } else {
                       console.log('Oh no! error ' + res.text);
                   deferred.resolve(res.text);
