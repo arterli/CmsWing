@@ -40,7 +40,7 @@ export default class extends think.model.base {
                         let Auth = think.adapter("auth", "rbac");
                         let auth = new Auth(uid);
                         let res = await auth.check(m.url);
-                        console.log(res);
+                        //console.log(res);
                         if(res){
                             nmenu.push(m);
                         }

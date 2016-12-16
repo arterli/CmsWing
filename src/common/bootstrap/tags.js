@@ -24,23 +24,23 @@ global.mytags= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
         };
         this.run = async function (context, args, callback) {
-             console.log(args);
+             //console.log(args);
 
             for (var arg in args) {
-                console.log(arg);
+                //console.log(arg);
                 if (arg !== '__keywords') {
                   let map = args[arg].split(",");
                    let maps={}
                     for(let val of map){
                         val=val.split("=");
-                          console.log(val[1].indexOf("["));
+                          //console.log(val[1].indexOf("["));
                         if(val[1].indexOf("[")===0){
                             val[1]=val[1].replace("[", "").replace("]", "").split("-");
                             console.log(val[1]);
                         }
                         maps[val[0]]=val[1]
                     }
-                    console.log(maps);
+                    //console.log(maps);
                     let model_id;
                     //model
                     if(think.isEmpty(maps.mid)){
@@ -50,7 +50,7 @@ global.mytags= function(){
                         delete maps.mid;
                     }
                     let model = await think.model("model", think.config("db")).get_table_name(model_id);
-                    console.log(model);
+                    //console.log(model);
                     //limit
                     let offset,length;
                     if(think.isEmpty(maps.limit)){
@@ -73,8 +73,8 @@ global.mytags= function(){
                     if(!think.isEmpty(maps.order)){
                         order = maps.order;
                     }
-                    console.log(maps);
-                    console.log(offset);
+                    //console.log(maps);
+                    //console.log(offset);
                     let data = await think.model(model, think.config("db")).where(where).limit(offset,length).order(order).select();
                     //console.log(data);
                     context.ctx[arg] = data;
@@ -107,7 +107,7 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+        //console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
