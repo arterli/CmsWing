@@ -11,7 +11,7 @@
  Target Server Version : 50715
  File Encoding         : utf-8
 
- Date: 12/16/2016 18:38:20 PM
+ Date: 12/16/2016 18:49:01 PM
 */
 
 SET NAMES utf8mb4;
@@ -1728,7 +1728,7 @@ CREATE TABLE `cmswing_search` (
   PRIMARY KEY (`id`),
   KEY `m_id` (`m_id`,`d_id`) USING BTREE,
   FULLTEXT KEY `data` (`data`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 --  Table structure for `cmswing_session`
