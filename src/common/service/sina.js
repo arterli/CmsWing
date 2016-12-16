@@ -12,6 +12,7 @@ export default class extends think.service.base {
       this.baseUrl="https://api.weibo.com";
       this.redirect_uri = redirect_uri;
   }
+  //获取
   async gettoken(){
       let setup = await think.cache("setup");
       let client_id = setup.SINA_APPKEY;
@@ -35,29 +36,20 @@ export default class extends think.service.base {
                   deferred.resolve(res.text);
                   }
               });
-
-          // https.get(URL_GET_USERINFO, (res) => {
-          //     //console.log('statusCode: ', res.statusCode);
-          //     // console.log('headers: ', res.headers);
-          //
-          //     var body = [];
-          //     res.on('data', (d) => {
-          //         //process.stdout.write(d);
-          //         body.push(d);
-          //     });
-          //     res.on("end", function (d) {
-          //         body = Buffer.concat(body) ;
-          //         //console.log(body) ;
-          //         deferred.resolve(JSON.parse(body));
-          //         //boday+=d;
-          //     });
-          //
-          // }).on('error', (e) => {
-          //     console.error(e);
-          // });
           return deferred.promise;
       }
       return await gettoken(URL_GET_USERINFO);
   }
-
+  async getuserinfo(token,uid){
+   let getuserinfo = ()=>{
+       let deferred = think.defer();
+       superagent
+           .get(`${this.baseUrl}/2/users/show.json?access_token=${token}&uid=${uid}`)
+           .end(function(err,res){
+           deferred.resolve(JSON.parse(res.text))
+           });
+       return deferred.promise;
+   }
+   return await getuserinfo();
+  }
 }
