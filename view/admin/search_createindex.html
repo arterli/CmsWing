@@ -1,0 +1,98 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class=""><a  href="/admin/search/index"> 全站搜索 </a></li>
+                                    <li class=""><a  href="#">搜索配置</a>
+                                    <li class="active" ><a   href="/admin/search/createindex">重建索引</a>
+                                    </li>
+                                </ul>
+                                <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-12 m-b-xs">
+                                    <div class="alert alert-danger m-b-n-xxs">
+
+                                            <span>重建索引将会清空原有的所有的索引内容 , 每轮更新 <input  value="100" name="pagesize" type="number" style="width: 70px"> 条 </span>
+                                            <a class="btn btn-sm btn-success " href="#">
+                                                确认重建索引
+                                            </a>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped m-b-none">
+                                    <thead>
+                                    <tr>
+                                        <th>进度</th>
+                                        <th>提示</th>
+                                        <th style="width:70px;">状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="10%" style="width: 10%"></div>
+                                            </div>
+                                        </td>
+                                        <td>开始更新： <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span> - 总数：2000条</td>
+                                        <td class="">
+                                            <i class="fa fa-refresh "></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
+                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
+                                            </div>
+                                        </td>
+                                        <td>正在更新： <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span> - 总数：2000 - 当前第 <font color='red'>1</font> 页 </td>
+                                        <td class="">
+                                            <i class="fa fa-times text-danger text"></i>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <div class="progress progress-sm progress-striped  m-t-xs m-b-none">
+                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="100%" style="width: 100%"></div>
+                                            </div>
+                                        </td>
+                                        <td> <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span>索引更新完成</td>
+
+                                        <td class="">
+                                            <i class="fa fa-check text-success"></i>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12  text-center-xs">
+                                        <div class="alert alert-success text-center m-b-n-xxs">
+                                            <button type="button" class="close" data-dismiss="alert">×</button>
+                                            <i class="fa fa-smile-o"></i> 全站索引更新完成!
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}

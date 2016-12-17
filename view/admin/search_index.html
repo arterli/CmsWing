@@ -9,9 +9,9 @@
                         <section class="panel panel-default">
                             <header class="panel-heading clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="{{http.get('type')|default('active', true)}}"><a  href="/admin/search/index"> 全站搜索 </a></li>
-                                    <li class="{%if http.get('type')=='parent'%}active{%endif%}"><a  href="#">搜索配置</a>
-                                    <li ><a class="todo"  href="#">重建索引</a>
+                                    <li class="active"><a  href="/admin/search/index"> 全站搜索 </a></li>
+                                    <li class=""><a  href="#">搜索配置</a>
+                                    <li class=""><a   href="/admin/search/createindex">重建索引</a>
                                     </li>
                                 </ul>
                                 <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>

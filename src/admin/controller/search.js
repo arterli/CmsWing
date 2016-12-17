@@ -17,4 +17,10 @@ export default class extends Base {
       this.meta_title = "全站搜索";
     return this.display();
   }
+
+   async createindexAction(){
+      this.meta_title = "重建索引";
+      this.active="admin/search/index"
+      return this.display();
+    }
 }
