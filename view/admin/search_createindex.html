@@ -20,60 +20,25 @@
 
                                 <div class="col-sm-12 m-b-xs">
                                     <div class="alert alert-danger m-b-n-xxs">
+                                            <span> 每轮更新 <input id="pagesize" value="100" name="pagesize" type="number" style="width: 70px"> 条 </span>
 
-                                            <span>重建索引将会清空原有的所有的索引内容 , 每轮更新 <input  value="100" name="pagesize" type="number" style="width: 70px"> 条 </span>
-                                            <a class="btn btn-sm btn-success " href="#">
-                                                确认重建索引
-                                            </a>
-
+                                        <button class="btn btn-sm btn-success createindex"  data-toggle="class:show inline" data-target="#spin"
+                                                data-loading-text="正在重建索引..."> 确认重建索引
+                                        </button>
+                                        <i class="fa fa-spin fa-spinner hide" id="spin"></i>
                                     </div>
 
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped m-b-none">
-                                    <thead>
-                                    <tr>
-                                        <th>进度</th>
-                                        <th>提示</th>
-                                        <th style="width:70px;">状态</th>
-                                    </tr>
-                                    </thead>
+
                                     <tbody>
                                     <tr>
-                                        <td>
-                                            <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
-                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="10%" style="width: 10%"></div>
-                                            </div>
-                                        </td>
-                                        <td>开始更新： <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span> - 总数：2000条</td>
-                                        <td class="">
-                                            <i class="fa fa-refresh "></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="progress progress-sm progress-striped active m-t-xs m-b-none">
-                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="80%" style="width: 80%"></div>
-                                            </div>
-                                        </td>
-                                        <td>正在更新： <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span> - 总数：2000 - 当前第 <font color='red'>1</font> 页 </td>
-                                        <td class="">
-                                            <i class="fa fa-times text-danger text"></i>
-                                        </td>
-                                    </tr>
 
-                                    <tr>
-                                        <td>
-                                            <div class="progress progress-sm progress-striped  m-t-xs m-b-none">
-                                                <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="100%" style="width: 100%"></div>
-                                            </div>
-                                        </td>
-                                        <td> <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span>索引更新完成</td>
-
-                                        <td class="">
-                                            <i class="fa fa-check text-success"></i>
-                                        </td>
+                                        <td id="progress" class="text-center"> <div class="progress progress-sm ß  m-t-xs m-b-none" >
+                                            <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="0%" style="width: 0%"></div>
+                                        </div></td>
 
                                     </tr>
                                     </tbody>
@@ -84,9 +49,8 @@
 
 
                                     <div class="col-sm-12  text-center-xs">
-                                        <div class="alert alert-success text-center m-b-n-xxs">
-                                            <button type="button" class="close" data-dismiss="alert">×</button>
-                                            <i class="fa fa-smile-o"></i> 全站索引更新完成!
+                                        <div class="alert alert-success text-center m-b-n-xxs" id="info">
+                                            <i class="fa fa-smile-o"></i> 重建索引将会清空原有的所有的索引内容!
                                         </div>
                                     </div>
                                 </div>
@@ -96,3 +60,62 @@
                 </section>
 
 {% endblock %}
+{%block script%}
+<script type="text/javascript">
+    $(function () {
+        $(".createindex").click(function () {
+            var pagesize = $("#pagesize").val();
+            $.ajax({
+                "type":"POST",
+                "url":"/admin/search/createindex",
+                "data":{pagesize:pagesize},
+                "success":function (data) {
+                    console.log(data);
+                    if(data.errno==20){
+                        toastr.error(data.errmsg);
+                        setTimeout(function(){
+                            $(".createindex").removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                            $("#spin").removeClass('show inline')
+                        },1500);
+
+                        return;
+                    }
+
+                    createindex(data.page,data.status);
+                    window.onbeforeunload = function () {
+                        return "正在重建索引，请不要关闭！"
+                    }
+                }
+            })
+        })
+    })
+function createindex(page,status){
+        status && showmsg({progress:0,info:"开始更新： <span style='color:#ff0000;font-size:14px;text-decoration:underline;' >新闻</span> - 总数：2000条"});
+    $.ajax({
+        "url": "/admin/search/createindex",
+        "data": page,
+        "success": function (data) {
+            if (data.status) {
+                showmsg(data.msg);
+                if (!$.isPlainObject(data.page)) {
+                    $(".createindex").removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                    $("#spin").removeClass('show inline')
+                    window.onbeforeunload = function () {
+                        return null
+                    }
+                    toastr.success("重建索引成功！")
+                    return;
+                }
+                createindex(data.page, page.id != data.page.id);
+            }
+        }
+    })
+    function showmsg(msg) {
+        $("#progress .progress-bar").attr("data-original-title",msg.progress+"%");
+        $("#progress .progress-bar").css("width",msg.progress+"%");
+        $("#info").html(msg.info);
+    }
+}
+
+</script>
+{%endblock%}
