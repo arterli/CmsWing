@@ -7,7 +7,6 @@ export default class extends Base {
     init(http) {
         super.init(http);
         this.tactive = "setup";
-
     }
   /**
    * index action
