@@ -48,7 +48,7 @@
         <!-- /SEARCH -->
 
         <h6 class=" text-muted size-11 margin-top-8 margin-bottom-0">
-            约获得 34 条结果 <span>(0.01 seconds)</span>
+            约获得 {{list.count}} 条结果 <span>(0.01 seconds)</span>
         </h6>
         <ul class="page-header-tabs list-inline">
 
@@ -85,12 +85,15 @@
             <div class="col-md-10 col-md-10">
 
                 <!-- SEARCH RESULTS -->
+                {%for val in list.data%}
+                {% set categoryname = val.category_id|get_cate %}
                 <div class="clearfix search-result"><!-- item -->
-                    <h4 class="margin-bottom-0"><a href="#">Smarty Multipurpose &ndash; fully responsive template</a></h4>
-                    <small class="text-success">www.stepofweb.com/</small>
-                    <p>Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa.</p>
+                    <h4 class="margin-bottom-0"><a href="{%if val.m_type ==1%} {{val.name|get_url(val.d_id)}}{%else%}/mod/{{val.m_id|getmode('name')}}/index/detail/id/{{val.d_id}}{%endif%}">{{val.title}}</a></h4>
+                    <small class="text-success">{{val.m_id|getmode('title')}} / {{categoryname.name}}</small>
+                    <p>{{val.description}}</p>
                 </div><!-- /item -->
-
+                {%endfor%}
+{#
                 <div class="clearfix search-result"><!-- item -->
                     <h4 class="margin-bottom-0"><a href="#">Smarty Multipurpose &ndash; fully responsive template</a></h4>
                     <small class="text-danger">Dashboard / About</small>
@@ -424,18 +427,10 @@
 
                 </div>
 
-
+#}
                 <!-- PAGINATION -->
                 <div class="text-center margin-top-20">
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">Previous</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
+                    {{pagination | safe}}
                 </div>
                 <!-- /PAGINATION -->
 

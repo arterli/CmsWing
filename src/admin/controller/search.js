@@ -2,7 +2,7 @@
 
 import Base from './base.js';
 import fs  from 'fs';
-import path from 'path';
+import Segment from 'segment';
 export default class extends Base {
     init(http) {
         super.init(http);
@@ -120,7 +120,7 @@ export default class extends Base {
            field.push(tables[id].pk);
            field.push(tables[id].addtime);
            let olist = await this.model(tables[id].table).page(page,pagesize).where(map).field(field).countSelect();
-           //console.log(olist);
+           console.log(olist);
            if(olist.count){
                let narr = [];
                for (let v of olist.data){
@@ -132,12 +132,21 @@ export default class extends Base {
                    for(let d of tables[id].data.split(",")){
                        arr.push(v[d])
                    }
-                   obj.data = arr.join(" ");
+                   let segment = new Segment();
+                   // 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
+                   segment.useDefault();
+                   // 开始分词
+                   let segment_q= segment.doSegment(arr.join(" "), {
+                       simple: true,
+                       stripPunctuation: true
+                   });
+                   obj.data = arr.join(" ")+" "+segment_q.join(" ");
+                   //obj.data = arr.join(" ").replace(/<[^>]+>/g, "")
                    narr.push(obj)
                }
                //console.log(narr);
                await this.model("search").addMany(narr)
-               if(olist.totalPages> olist.currentPage+1){
+               if(olist.totalPages> olist.currentPage){
                    let page = {'id': id, 'page': olist.currentPage+1,'pagesize':olist.numsPerPage};
                    let rate = Math.floor(100 * ((olist.currentPage+1) / olist.totalPages));
                    return this.json({
