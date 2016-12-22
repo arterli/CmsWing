@@ -37,6 +37,8 @@
                 </div>
 
                 <input name="q" class="form-control input-lg" type="text" value="{{http.get('q')}}" placeholder="Search...">
+                {%if http.get('d')%}<input name="d" type="hidden" value="{{http.get('d')}}">  {%endif%}
+                {%if http.get('m')%}<input name="m" type="hidden" value="{{http.get('m')}}">  {%endif%}
                 <div class="input-group-btn">
                     <button type="submit" class="btn btn-default input-lg noborder-left">
                         <i class="fa fa-search fa-lg nopadding"></i>
