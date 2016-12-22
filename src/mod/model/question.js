@@ -29,7 +29,7 @@ export default class extends think.model.base {
                 //初始化如果没有就添加
                 let userup = await this.model("question_user").thenAdd({question_count:1,uid:data.uid},{uid:data.uid});
                 if(userup.type=="exist"){
-                    await this.model("question_user").where({uid:userup.id}).increment("question_count", 1);
+                    await this.model("question_user").where({id:userup.id}).increment("question_count", 1);
                 }
                 // if(!think.isEmpty(data.keyname)){
                 //     let keywrods = data.keyname.split(",");

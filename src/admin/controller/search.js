@@ -14,7 +14,7 @@ export default class extends Base {
    */
   async indexAction(){
     //auto render template file index_index.html
-      let list = await this.model("search_model").select();
+      let list = await this.model("search_model").order('sort ASC').select();
       this.assign("list",list);
       this.meta_title = "全站搜索";
     return this.display();
@@ -64,6 +64,10 @@ export default class extends Base {
           this.meta_title = "编辑搜索分类";
           return this.display();
       }
+  }
+
+  async sortAction(){
+      await super.sortAction(this,"search_model")
   }
     /**
      * 重建索引

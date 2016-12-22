@@ -25,7 +25,8 @@
     "qiniu":"latest",
     "urllib": ">=0.5.2",
     "moment": "latest",
-    "superagent": "latest"
+    "superagent": "latest",
+    "segment":"latest"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
