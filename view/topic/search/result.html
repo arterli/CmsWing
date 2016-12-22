@@ -89,8 +89,8 @@
                 {% set categoryname = val.category_id|get_cate %}
                 <div class="clearfix search-result"><!-- item -->
                     <h4 class="margin-bottom-0"><a href="{%if val.m_type ==1%} {{val.name|get_url(val.d_id)}}{%else%}/mod/{{val.m_id|getmode('name')}}/index/detail/id/{{val.d_id}}{%endif%}">{{val.title}}</a></h4>
-                    <small class="text-success">{{val.m_id|getmode('title')}} / {{categoryname.name}}</small>
-                    <p>{{val.description}}</p>
+                    <small class="text-success">{{val.m_id|getmode('title')}} / {{categoryname.name}} / {{val.add_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                    <p>{{val.description|truncate(120, true, "...")}}</p>
                 </div><!-- /item -->
                 {%endfor%}
 {#

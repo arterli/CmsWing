@@ -47,7 +47,7 @@ export default class extends Base {
           //检查全文搜索配置
           let variables = await this.model("mysql").query(`show variables`);
           let ft_min_word_len =think._.find(variables, ['Variable_name', 'ft_min_word_len']).Value;
-          if(ft_min_word_len ==4){
+          if(ft_min_word_len ==1){
               console.log(segment_q.join(" "));
               sql = "";
               sql = `MATCH (data) AGAINST ('${segment_q.join(" ")}' IN BOOLEAN MODE)`;
@@ -64,7 +64,7 @@ export default class extends Base {
                   console.log(k);
                   sql +="`data` like '%"+segment_q[k]+"%'";
                   if(segment_q[k+1]){
-                      sql +=' AND '
+                      sql +=' OR '
                   }
               }
               if(m_id){
@@ -98,7 +98,7 @@ export default class extends Base {
                map[pk] = v.d_id;
               data.push(think.extend(await this.model(table).where(map).find(),v))
           }
-          console.log(data);
+          //console.log(data);
           let list = {
               numsPerPage: numsPerPage, //每页显示的条数
                   currentPage: currentPage, //当前页
