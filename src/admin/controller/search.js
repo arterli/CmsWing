@@ -17,6 +17,10 @@ export default class extends Base {
       let list = await this.model("search_model").order('sort ASC').select();
       this.assign("list",list);
       this.meta_title = "全站搜索";
+      //检查全文搜索配置
+      let variables = await this.model("mysql").query(`show variables`);
+      let ft_min_word_len =think._.find(variables, ['Variable_name', 'ft_min_word_len']).Value;
+      this.assign("ft_min_word_len",ft_min_word_len)
     return this.display();
   }
 
@@ -76,6 +80,9 @@ export default class extends Base {
    async createindexAction(){
        let paths = think.RESOURCE_PATH + "/backup/";
        let lock = paths + "createindex.lock";
+        //检查全文搜索配置
+        let variables = await this.model("mysql").query(`show variables`);
+        let ft_min_word_len =think._.find(variables, ['Variable_name', 'ft_min_word_len']).Value;
        if(this.isAjax("post")&&!think.isEmpty(this.post())){
 
           think.mkdir(paths);
@@ -120,7 +127,7 @@ export default class extends Base {
            field.push(tables[id].pk);
            field.push(tables[id].addtime);
            let olist = await this.model(tables[id].table).page(page,pagesize).where(map).field(field).countSelect();
-           console.log(olist);
+           //console.log(olist);
            if(olist.count){
                let narr = [];
                for (let v of olist.data){
@@ -132,16 +139,19 @@ export default class extends Base {
                    for(let d of tables[id].data.split(",")){
                        arr.push(v[d])
                    }
-                   let segment = new Segment();
-                   // 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
-                   segment.useDefault();
-                   // 开始分词
-                   let segment_q= segment.doSegment(arr.join(" "), {
-                       simple: true,
-                       stripPunctuation: true
-                   });
-                   obj.data = arr.join(" ")+" "+segment_q.join(" ");
-                   //obj.data = arr.join(" ").replace(/<[^>]+>/g, "")
+                   if(ft_min_word_len==1){
+                       let segment = new Segment();
+                       // 使用默认的识别模块及字典，载入字典文件需要1秒，仅初始化时执行一次即可
+                       segment.useDefault();
+                       // 开始分词
+                       let segment_q= segment.doSegment(arr.join(" "), {
+                           simple: true,
+                           stripPunctuation: true
+                       });
+                       obj.data = arr.join(" ")+" "+segment_q.join(" ");
+                   }else {
+                       obj.data = arr.join(" ").replace(/<[^>]+>/g, "")
+                   }
                    narr.push(obj)
                }
                //console.log(narr);
@@ -183,6 +193,10 @@ export default class extends Base {
           })
 
       }else {
+           //检查全文搜索配置
+           let variables = await this.model("mysql").query(`show variables`);
+           let ft_min_word_len =think._.find(variables, ['Variable_name', 'ft_min_word_len']).Value;
+           this.assign("ft_min_word_len",ft_min_word_len);
           this.meta_title = "重建索引";
           this.active="admin/search/index"
           return this.display();

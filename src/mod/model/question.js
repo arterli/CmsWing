@@ -31,6 +31,8 @@ export default class extends think.model.base {
                 if(userup.type=="exist"){
                     await this.model("question_user").where({id:userup.id}).increment("question_count", 1);
                 }
+                //添加搜索
+                await this.model("search").addsearch(data.mod_id,id,data);
                 // if(!think.isEmpty(data.keyname)){
                 //     let keywrods = data.keyname.split(",");
                 //     console.log(keywrods);
@@ -50,7 +52,8 @@ export default class extends think.model.base {
             //更新关键词
             //获取相关话题;
             await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.mod_id,1);
-
+            //更新搜索
+            await this.model("search").updatesearch(data.mod_id,data);
         }
         return {data:data,id:id};
     }

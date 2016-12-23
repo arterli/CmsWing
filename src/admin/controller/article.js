@@ -653,6 +653,22 @@ export default class extends Base {
     async setstatusAction() {
 
         await super.setstatusAction(this,'document');
+        let data = await this.model("document").where({id:["IN",this.param('ids')]}).select();
+        if(this.param('status')==-1||this.param('status')==0){
+
+            for (let v of data){
+                //删除
+                await this.model('search').delsearch(v.model_id,v.id)
+            }
+
+
+        }else if(this.param('status')==1){
+
+            for (let v of data){
+                //添加到搜索
+                await this.model("search").addsearch(v.model_id,v.id,v);
+            }
+        }
     }
 
     /**

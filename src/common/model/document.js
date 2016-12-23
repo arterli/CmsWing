@@ -123,7 +123,8 @@ export default class extends think.model.base {
                  * @param mod_type "模型类型 0独立模型，1系统模型"
                  */
                 await this.model("keyword").addkey(data.keyname,id,data.uid,data.model_id,0);
-
+                //添加到搜索
+                await this.model("search").addsearch(data.model_id,id,data);
             }
         }else {//更新内容
             data.update_time=new Date().getTime();
@@ -136,6 +137,8 @@ export default class extends think.model.base {
                 this.error = '更新基础内容出错！';
                 return false;
             }else {
+                //更新搜索
+                await this.model("search").updatesearch(data.model_id,data);
                 if(data.sort_id !=0 && !think.isEmpty(data.sort_id)){
                     let sortdata = {};
                     let sortarr = [];

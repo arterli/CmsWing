@@ -59,14 +59,14 @@ export default class extends Base {
               }
           }else {
               sql = "";
-
+              sql +='('
               for (let k=0; k<segment_q.length ;k++){
-                  console.log(k);
                   sql +="`data` like '%"+segment_q[k]+"%'";
                   if(segment_q[k+1]){
                       sql +=' OR '
                   }
               }
+              sql +=')'
               if(m_id){
                   sql += ` AND m_id=${m_id}`
               }
@@ -78,8 +78,8 @@ export default class extends Base {
           console.log(sql);
           let numsPerPage =10;
           let currentPage = Number(this.get("page"))||1;
-          let count = await this.model("mysql").query(`SELECT count(id) FROM __SEARCH__ WHERE ${sql}`)
-          let res = await this.model("mysql").query(`SELECT * FROM __SEARCH__ WHERE ${sql} order by id DESC LIMIT ${(currentPage-1)*numsPerPage},${numsPerPage}`);
+          let count = await this.model("mysql").query(`SELECT count(search_id) FROM __SEARCH__ WHERE ${sql}`)
+          let res = await this.model("mysql").query(`SELECT * FROM __SEARCH__ WHERE ${sql} order by search_id DESC LIMIT ${(currentPage-1)*numsPerPage},${numsPerPage}`);
           console.log(count);
           let modlist = await this.model("search_model").order('sort ASC').select();
           //console.log(modlist);

@@ -5,7 +5,12 @@
                         <p>{{controller.meta_title}}</p>
                     </header>
                     <section class="scrollable wrapper">
-
+                        {%if ft_min_word_len >1%}
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <i class="fa fa-ban-circle"></i><strong>提示!</strong> 系统检测 mysql参数 <code>ft_min_word_len={{ft_min_word_len}}</code>,当 <code>ft_min_word_len=1</code> 时，创建索引才会进行分词处理。
+                        </div>
+                        {%endif%}
                         <section class="panel panel-default">
                             <header class="panel-heading clearfix">
                                 <ul class="nav nav-tabs pull-left">
