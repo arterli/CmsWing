@@ -45,7 +45,6 @@ export default class extends think.model.base {
      * @param data
      * @returns {Promise.<void>}
      */
-
  async updatesearch(m_id,data){
      let  search_model = await this.model("search_model").where({mod:m_id}).find();
      if(!think.isEmpty(search_model)){
