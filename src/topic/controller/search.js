@@ -80,7 +80,25 @@ export default class extends Base {
           let currentPage = Number(this.get("page"))||1;
           let count = await this.model("mysql").query(`SELECT count(search_id) FROM __SEARCH__ WHERE ${sql}`)
           let res = await this.model("mysql").query(`SELECT * FROM __SEARCH__ WHERE ${sql} order by search_id DESC LIMIT ${(currentPage-1)*numsPerPage},${numsPerPage}`);
-          console.log(count);
+          let hs = this.cookie("cmswing_historical_search");
+          this.assign("hs",hs.split("|").reverse());
+          //搜索记录
+          if(count[0]['count(search_id)']>0){
+
+
+              let hsq;
+              if(think.isEmpty(hs)){
+                  this.cookie("cmswing_historical_search", q);
+              }else {
+                  if(!in_array(q,hs.split("|"))){
+                      hsq = hs+'|'+q;
+                      this.cookie("cmswing_historical_search", hsq);
+                  }
+
+              }
+
+          }
+
           let modlist = await this.model("search_model").order('sort ASC').select();
           //console.log(modlist);
           let data = [];
@@ -102,11 +120,10 @@ export default class extends Base {
           let list = {
               numsPerPage: numsPerPage, //每页显示的条数
                   currentPage: currentPage, //当前页
-              count: count[0]['count(id)'], //总条数
-              totalPages: Math.ceil(count[0]['count(id)']/numsPerPage), //总页数
+              count: count[0]['count(search_id)'], //总条数
+              totalPages: Math.ceil(count[0]['count(search_id)']/numsPerPage), //总页数
               data:data
           }
-          console.log(list);
           //查询数据
 
           let html = pagination(list, this.http, {

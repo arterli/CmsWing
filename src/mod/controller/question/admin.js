@@ -57,7 +57,7 @@ export default class extends Base {
       "navxs": true,
       "name":name,
     });
-    this.assign('group_id', group_id);
+      this.assign('group_id', group_id);
     return this.modtemp(this.mod.name);
   }
   //删除
@@ -76,8 +76,15 @@ export default class extends Base {
     if(!think.isEmpty(qm)){
       await this.model("question_answer_comments").where({answer_id:["IN",qm]}).delete();
     }
-
-
+      //console.log(ids);
+      //删除搜索
+     if(think.isArray(ids)){
+      for(let id of ids){
+          await this.model("search").delsearch(8,id);
+      }
+     }else {
+         await this.model('search').delsearch(8,ids)
+     }
     //删除相关的
     return this.success({name:"删除成功！"});
   }

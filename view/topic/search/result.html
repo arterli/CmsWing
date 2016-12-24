@@ -48,10 +48,10 @@
 
         </form>
         <!-- /SEARCH -->
-
         <h6 class=" text-muted size-11 margin-top-8 margin-bottom-0">
             约获得 {{list.count}} 条结果 <span>(0.01 seconds)</span>
         </h6>
+
         <ul class="page-header-tabs list-inline">
 
             <li class="filter {%if http.get('m')==''%}active{%endif%}"><a href="/search?q={{http.get('q')}}{%if http.get('d')%}&d={{http.get('d')}}{%endif%}">全部</a></li>
@@ -74,13 +74,10 @@
             <div class="col-md-2 col-sm-2">
                 <h5 class="text-muted margin-bottom-10">搜索历史</h5>
                 <ul class="list-unstyled nomargin">
-                    <li><a href="#">Welcome to Smarty</a></li>
-                    <li><a href="#">Fully Responsive</a></li>
-                    <li><a href="#">Best Price</a></li>
-                    <li><a href="#">Incredible Design</a></li>
-                    <li><a href="#">SEO Development</a></li>
+                    {%for q in hs%}
+                    <li><a href="/search?q={{q|urlencode}}">{{q}}</a></li>
+                    {%endfor%}
                 </ul>
-                <a class="text-mutted" href="#">View All</a>
             </div>
 
             <!-- RIGHT -->
