@@ -16,31 +16,7 @@
                 {{controller.meta_title}}
                 <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
             </header>
-            <div class="row wrapper">
 
-                <div class="col-sm-9 m-b-xs">
-                    <div class="">
-                        <a class="btn btn-sm btn-info " href="/{{http.module}}/{{http.controller}}/adduser">
-                            添加会员组
-                        </a>
-                        <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{http.module}}/{{http.controller}}/deluser" target-form="ids">
-                            删除
-                        </a>
-                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort/type/1">
-                            排序
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="input-group pull-right search-form">
-                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                               value="{{http.get('title')}}">
-                        <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="#">搜索</button>
-                      </span>
-                    </div>
-                </div>
-            </div>
             <div class="table-responsive">
                 <table class="table table-striped b-t b-light">
                     <thead>
