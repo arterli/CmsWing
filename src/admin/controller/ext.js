@@ -49,6 +49,7 @@ export default class extends Base {
                 return this.fail("添加失败！")
             }
         }else {
+            this.active="admin/ext/index"
             this.meta_title = "新增插件";
             return this.display()
         }

@@ -242,6 +242,10 @@ export default class extends Base {
         this.display();
     }
 
+    /**
+     *删除备份
+     * @returns {Promise.<void>}
+     */
     async rmdirAction() {
         let dir = this.get("path");
         let paths = think.RESOURCE_PATH + "/backup/" + dir;
