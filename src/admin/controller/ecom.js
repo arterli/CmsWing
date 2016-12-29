@@ -319,9 +319,58 @@ export default class extends Base {
      * 新增快递公司
      */
   async addexpressAction(){
+      if(this.isPost()){
+          let data = this.post();
+          let res = await this.model('express_company').add(data);
+          if(res){
+              return this.success({name:"添加成功!"});
+          }else {
+              return this.fail("添加失败!")
+          }
+      }
+      else {
+          this.meta_title="添加快递公司";
+          return this.display();
+      }
 
-      this.meta_title="添加快递公司";
-      return this.display();
+
+  }
+
+    /**
+     * 编辑快递公司
+     * @returns {Promise.<void>}
+     */
+  async editexpressAction(){
+      if(this.isPost()){
+          let data = this.post();
+          let res = await this.model("express_company").update(data);
+          if(res){
+              return this.success({name:"更新成功!"});
+          }else {
+              return this.fail("更新失败!")
+          }
+      }else {
+          let id = this.get("id");
+          let info = await this.model("express_company").find(id);
+          this.assign("info",info);
+          this.meta_title = "编辑快递公司";
+          return this.display();
+      }
+  }
+
+    /**
+     * 删除快递公司
+     * @returns {Promise.<void>}
+     */
+  async delexpressAction(){
+      let ids = this.param("ids");
+      let res = await this.model("express_company").where({id:['IN',ids]}).delete();
+      if(res){
+          return this.success({name:"删除成功!"})
+      }else {
+          return this.fail("删除失败!")
+      }
+
   }
   /**
      * 设置一条或者多条数据的状态

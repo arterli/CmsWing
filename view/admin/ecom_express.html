@@ -17,7 +17,7 @@
                       新增
                   </a>
 
-                  <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/setstatus/status/-1" target-form="ids">
+                  <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/ecom/delexpress" target-form="ids">
                       删除
                   </a>
               </div>
@@ -55,8 +55,8 @@
                         <td>{{item.code}}</td>
                         <td><a data-id="{{item.id}}" href="{{item.url}}" class="text-info" target="_blank">{{item.url}}</a></td>
                         <td>
-                            <a href="/admin/ecom/editexpress/id/{{item.id}}" class="text-info">编辑</a>
-                            <a href="/admin/ecom/delexpress/id/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                            <a href="/admin/ecom/editexpress/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
+                            <a href="/admin/ecom/delexpress/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
