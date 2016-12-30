@@ -44,8 +44,13 @@
                           <i class="fa fa-angle-left text"></i>
                           <i class="fa fa-angle-down text-active"></i>
                         </span>
+                                {%if v.ico%}
+                                <i class="fa {{v.ico}}">
+                                </i>
+                                {%else%}
                                 <i class="icon-screen-desktop icon">
                                 </i>
+                                {%endif%}
                                 <span>{{v.title}}</span>
                             </a>
                             <ul class="nav dk text-sm">
