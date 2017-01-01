@@ -13,7 +13,12 @@ export default class extends Base {
       let q = this.get("q");
       this.meta_title="搜索";
       if(think.isEmpty(q)){
-          return this.display();
+          if(checkMobile(this.userAgent())){
+              return this.display(`mobile/${this.http.controller}/${this.http.action}`);
+          }else {
+              return this.display();
+          }
+
       }else {
           let time = this.get("d");
           let search_time,sql_time,sql;
@@ -140,7 +145,12 @@ export default class extends Base {
           this.assign('pagination', html);
           this.assign("modlist",modlist);
           this.assign("list",list);
-        return this.display("result");
+          if(checkMobile(this.userAgent())){
+              return this.display(`mobile/${this.http.controller}/result`);
+          }else {
+              return this.display("result");
+          }
+
       }
 
   }
