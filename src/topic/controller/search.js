@@ -3,6 +3,8 @@
 import Base from './base.js';
 import Segment from 'segment';
 import pagination from 'think-pagination';
+import moment from "moment"
+moment.locale('zh-cn');
 export default class extends Base {
   /**
    * index action
@@ -146,7 +148,16 @@ export default class extends Base {
           this.assign("modlist",modlist);
           this.assign("list",list);
           if(checkMobile(this.userAgent())){
-              return this.display(`mobile/${this.http.controller}/result`);
+              if(this.isAjax('get')){
+                  for(let v of list.data){
+                      v.model = await this.model("model").get_model(v.m_id,"title") ;
+                      v.url = get_url(v.name,v.id);
+                      v.categoryname = await this.model("category").get_category(v.category_id,"title");
+                      v.add_time = moment(v.add_time).format('YYYY-MM-DD HH:mm')
+                  }
+                  return this.json(list);
+              }
+              return this.display(`mobile/${this.http.controller}/${this.http.action}`);
           }else {
               return this.display("result");
           }
