@@ -151,7 +151,11 @@ export default class extends Base {
               if(this.isAjax('get')){
                   for(let v of list.data){
                       v.model = await this.model("model").get_model(v.m_id,"title") ;
-                      v.url = get_url(v.name,v.id);
+                      if (v.m_type ==1){
+                          v.url = get_url(v.name,v.id);
+                      }else {
+                          v.url =`/mod/${await this.model("model").get_model(v.m_id,"name")}/index/detail/id/${v.d_id}`
+                      }
                       v.categoryname = await this.model("category").get_category(v.category_id,"title");
                       v.add_time = moment(v.add_time).format('YYYY-MM-DD HH:mm')
                   }
