@@ -375,6 +375,8 @@
                                                         <th>添加</th>
                                                         <th>修改</th>
                                                         <th>删除</th>
+                                                        <th>审核</th>
+                                                        <th>禁用</th>
                                                         <th>排序</th>
                                                         <th>推送</th>
                                                         <th>移动</th>
@@ -397,6 +399,12 @@
                                                         </td>
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" {%if 'delete'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="examine,{{val.id}}" {%if 'examine'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="disable,{{val.id}}" {%if 'disable'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
                                                         </td>
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" {%if 'listorder'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
@@ -1159,6 +1167,8 @@
                                                     <th>添加</th>
                                                     <th>修改</th>
                                                     <th>删除</th>
+                                                    <th>审核</th>
+                                                    <th>禁用</th>
                                                     <th>排序</th>
                                                     <th>推送</th>
                                                     <th>移动</th>
@@ -1181,6 +1191,12 @@
                                                     </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" {%if 'delete'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="examine,{{val.id}}" {%if 'examine'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="disable,{{val.id}}" {%if 'disable'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
                                                     </td>
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" {%if 'listorder'|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>

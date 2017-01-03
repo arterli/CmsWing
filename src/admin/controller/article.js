@@ -32,7 +32,10 @@ export default class extends Base {
         let model;
         let _model;
         //console.log(2222);
+
         if (!think.isEmpty(cate_id)) {
+            //权限验证
+            await this.admin_priv("init",cate_id,"您没有权限查看本栏目！")
             // 获取分类信息
             let sort = await this.model("category").get_category(cate_id, 'documentsorts');
             if (sort) {
@@ -403,16 +406,9 @@ export default class extends Base {
 
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
-        if(this.get('type')==1){
-            //前台投稿分类
-            //TODO 权限控制
-            for (let val of cate) {
-                val.url = `/user/publish/cate_id/${val.id}`;
-                val.target = '_self';
-            }
-        }else {
+        if(!this.is_admin){
+        let parr =[];
             //后台分类
-            //TODO 权限控制
             for (let val of cate) {
                switch (val.mold){
                    case 1:
@@ -426,22 +422,64 @@ export default class extends Base {
                }
 
                 val.target = '_self';
+                let priv = await this.model("category_priv").priv(val.id,this.roleid,'init',1);
+                val.priv=priv
+                if(priv==1 && val.pid !=0 ){
+                    parr.push(val.pid)
+                }
+            }
+        let cates= [];
+        if(think.isEmpty(parr)){
+            cates=cate;
+        }else {
+
+            for(let val of cate){
+                if(in_array(val.id,parr)){
+                    val.priv=1
+                }
+            }
+
+            for(let val of cate){
+                if(val.priv==1){
+                    cates.push(val);
+                }
             }
         }
+
         //think.log(cate);
-        return this.json(arr_to_tree(cate, 0))
+        return this.json(arr_to_tree(cates, 0))
+        }else {
+            for (let val of cate) {
+                switch (val.mold){
+                    case 1:
+                        val.url =`/mod/admin/index/cate_id/${val.id}`;
+                        break
+                    case 2:
+                        val.url = `/admin/sp/index/cate_id/${val.id}`;
+                        break;
+                    default:
+                        val.url = `/admin/article/index/cate_id/${val.id}`;
+                }
+
+                val.target = '_self';
+            }
+            return this.json(arr_to_tree(cate, 0))
+        }
     }
 
     /**
      * 新增文档
      */
     async addAction() {
+
         let cate_id = this.get("cate_id") || 0;
         let model_id = this.get("model_id") || 0;
         let group_id = this.get("group_id") || '';
         let sortid = this.get('sortid')||0;
         think.isEmpty(cate_id) && this.fail("参数不能为空");
         think.isEmpty(model_id) && this.fail("该分类未绑定模型");
+        //权限验证
+        await this.admin_priv("add",cate_id);
         // 获取分组定义
         let groups = await this.model("category").get_category(cate_id, 'groups');
         if (groups) {
@@ -544,9 +582,12 @@ export default class extends Base {
         if (think.isEmpty(id)) {
             this.fail("参数不能为空");
         }
+
         //获取详细数据；
         let document = this.model("document")
         let data = await document.details(id);
+        //权限验证
+        await this.admin_priv("edit",data.category_id);
         //let model =  this.model("model").getmodel(2);
         if (data.pid != 0) {
             //获取上级文档
@@ -651,11 +692,30 @@ export default class extends Base {
      * 设置一条或者多条数据的状态
      */
     async setstatusAction() {
+        let data = await this.model("document").where({id:["IN",this.param('ids')]}).select();
+        switch (Number(this.param('status'))){
+            case -1:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("delete",v.category_id);
+                }
+                break;
+            case 1:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("examine",v.category_id);
+                }
+                break;
+            case 0:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("disable",v.category_id);
+                }
+                break;
+        }
 
         await super.setstatusAction(this,'document');
-        let data = await this.model("document").where({id:["IN",this.param('ids')]}).select();
         if(this.param('status')==-1||this.param('status')==0){
-
             for (let v of data){
                 //删除
                 await this.model('search').delsearch(v.model_id,v.id)
@@ -676,7 +736,7 @@ export default class extends Base {
      */
     async recycleAction(){
         let map={status:-1};
-        if(await this.is_admin()){
+        if(this.is_admin){
  //TODO
         }
 

@@ -25,12 +25,13 @@ export default class extends think.controller.base {
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
+        this.roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
-        let is_admin = await this.is_admin();
+        this.is_admin = await this.is_admin();
         //后台菜单
-        this.adminmenu = await this.model('menu').getallmenu(this.user.uid,is_admin);
+        this.adminmenu = await this.model('menu').getallmenu(this.user.uid,this.is_admin);
         //console.log(this.adminmenu);
         this.assign("setup", this.setup);
         //菜单当前状态
@@ -44,7 +45,7 @@ export default class extends think.controller.base {
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
         //console.log(url);
-        if (!is_admin) {
+        if (!this.is_admin) {
             let Auth = think.adapter("auth", "rbac");
             let auth = new Auth(this.user.uid);
             let res = await auth.check(url);
@@ -355,5 +356,23 @@ export default class extends think.controller.base {
             return list;
         }
     }
+    /**
+     * 后台栏目权限验证方法
+     * await this.admin_priv("init",cid,error) 查看
+     * @param ac //init:查看,add:添加,edit:编辑,delete:删除,listorder:排序,push:推送,move:移动，examine：审核，disable：禁用
+     * @param cid //栏目id
+     * @param error //错误提示
+     * @returns {PreventPromise}
+     */
+    async admin_priv(ac,cid,error="您所在的用户组,禁止本操作！"){
+        if(!this.is_admin){
+            //访问控制
+            let priv = await this.model("category_priv").priv(cid,this.roleid,ac,1);
+            if(!priv){
+                this.http.error = new Error(error);
+                return think.statusAction(702, this.http);
+            }
+        }
 
+    }
 }
