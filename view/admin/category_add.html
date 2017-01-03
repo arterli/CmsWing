@@ -350,15 +350,9 @@
                                                 <thead>
                                                 <tr class="bg-light">
                                                     <th>角色名称</th>
-                                                    <th>查看</th>
-                                                    <th>添加</th>
-                                                    <th>修改</th>
-                                                    <th>删除</th>
-                                                    <th>审核</th>
-                                                    <th>禁用</th>
-                                                    <th>排序</th>
-                                                    <th>推送</th>
-                                                    	<th>移动</th>
+                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                    <th>{{items}}</th>
+                                                    {% endfor%}
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -367,32 +361,11 @@
                                                     <td>
                                                         {{val.desc}}
                                                     </td>
+                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
                                                     <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" ><i></i></label>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" ><i></i></label>
+                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                     </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="examine,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="disable,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" ><i></i></label>
-                                                    </td>
-                                                    <td>
-                                                        <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" ><i></i></label>
-                                                    </td>
+                                                    {% endfor%}
 
                                                 </tr>
                                                 {%endfor%}
@@ -1116,15 +1089,9 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>角色名称</th>
-                                                        <th>查看</th>
-                                                        <th>添加</th>
-                                                        <th>修改</th>
-                                                        <th>删除</th>
-                                                        <th>审核</th>
-                                                        <th>禁用</th>
-                                                        <th>排序</th>
-                                                        <th>推送</th>
-                                                        <th>移动</th>
+                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
+                                                        <th>{{items}}</th>
+                                                        {% endfor%}
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -1133,32 +1100,11 @@
                                                         <td>
                                                             {{val.desc}}
                                                         </td>
+                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
                                                         <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}}" ><i></i></label>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}}" ><i></i></label>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                         </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="examine,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="disable,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}}" ><i></i></label>
-                                                        </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}}" ><i></i></label>
-                                                        </td>
+                                                        {% endfor%}
 
                                                     </tr>
                                                     {%endfor%}
@@ -1179,8 +1125,9 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>会员组名称</th>
-                                                        <th>允许访问</th>
-                                                        <th>允许投稿</th>
+                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
+                                                        <th>{{items}}</th>
+                                                        {% endfor%}
 
                                                     </tr>
                                                     </thead>
@@ -1190,12 +1137,11 @@
                                                         <td>
                                                             <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
                                                         </td>
+                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
                                                         <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="visit,{{val.groupid}}" ><i></i></label>
+                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="{{index}},{{val.groupid}}" ><i></i></label>
                                                         </td>
-                                                        <td>
-                                                            <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="add,{{val.groupid}}" ><i></i></label>
-                                                        </td>
+                                                        {% endfor%}
                                                     </tr>
                                                     {%endfor%}
                                                     </tbody>
