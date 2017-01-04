@@ -1117,7 +1117,6 @@ global.image_view=(str,w,m)=>{
         return str;
     }
 }
-
 global.img_text_view=(str,w,h)=>{
     //console.log(info);
     let imgReg = /<img.*?(?:>|\/>)/gi;
