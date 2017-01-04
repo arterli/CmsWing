@@ -1122,6 +1122,9 @@ global.img_text_view=(str,w,h)=>{
     //console.log(info);
     let imgReg = /<img.*?(?:>|\/>)/gi;
     let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    if(think.isEmpty(str)){
+        return []
+    }
     let arr = str.match(imgReg);
     if(!think.isEmpty(arr)){
         let narr=[];

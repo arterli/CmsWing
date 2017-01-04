@@ -1,6 +1,18 @@
 {% extends "./inc/base.html" %}
 {% block style%}
 <link rel="stylesheet" href="/static/admin/js/datatables/datatables.css" type="text/css"/>
+<style>
+    .i-checks{
+        display: inline-block;
+        width: 100px;
+        overflow: hidden;
+        padding-top: 0px !important;
+    }
+    .panel .table td, .panel .table th {
+        padding-bottom: 0px;
+        padding-top: 10px;
+    }
+</style>
 {% endblock %}
 {% block content %}
 <section class="hbox stretch">
@@ -54,43 +66,33 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover b-t b-light treetable" id="category">
-                        <thead>
+                        <thead class="bg-light dk">
                         <tr>
-                            <th > 分类名称 </th>
-                            <th > 全选</th>
-                            <th>查看</th>
-                            <th>添加</th>
-                            <th>修改</th>
-                            <th>删除</th>
-                            <th>排序</th>
-                            <th>推送</th>
-                            <th>移动</th>
+                            <th > <label class="checkbox m-n i-checks">分类名称 </label></th>
+                            <th > <label class="checkbox m-n i-checks"><input type="checkbox" name=""><i></i>全选</label></th>
                         </tr>
                         </thead>
                         <tbody>
                         {%for val in tree%}
                         <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
                             <td><span class='folder ui-draggable'>{{val.title}}</span></td>
-                            <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{val.id}}" ><i></i>全选</label></td>
                             <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="init,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'init',1,false)%} checked{%endif%}><i></i>查看</label>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="add,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'add',1,false)%} checked{%endif%}><i></i>添加</label>
-                            </td>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="edit,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'edit',1,false)%} checked{%endif%}><i></i>修改</label>
-                            </td>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="delete,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'delete',1,false)%} checked{%endif%}><i></i>删除</label>
-                            </td>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="listorder,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'listorder',1,false)%} checked{%endif%}><i></i>排序</label>
-                            </td>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="push,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'push',1,false)%} checked{%endif%}><i></i>推送</label>
-                            </td>
-                            <td>
-                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="move,{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),'move',1,false)%} checked{%endif%}><i></i>移动</label>
+                                {%if val.mold==0%}
+                                {%set roleid = controller.setup.SYS_PRIV_ROLE%}
+                                {%elif val.mold==1%}
+                                {%set ispriv = val.model|getmode('priv_show')%}
+                                {%if ispriv==1%}
+                                {%set priv_roleid = val.model|getmode('priv_roleid')%}
+                                {%if priv_roleid|length>0%}
+                                {%set roleid = priv_roleid|parse_config_attr%}
+                                {%endif%}
+                                {%endif%}
+                                {%elif val.mold==2%}
+                                {%set roleid = controller.setup.SP_PRIV_ROLE %}
+                                {%endif%}
+                                {% for index, items in roleid %}
+                                <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}},{{http.get('id')}}" {%if val.id|priv(http.get('id'),index,1,false)%} checked{%endif%}><i></i>{{items}}</label>
+                                {%endfor%}
                             </td>
                         </tr>
                         {%endfor%}

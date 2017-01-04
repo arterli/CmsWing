@@ -324,7 +324,7 @@ export default class extends think.model.base {
     }
 
     async get_colunm(){
-        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp,mold,description').order('pid,sort').select();
+        let lists= await this.where({status: 1}).field('id,title as name,name as title,pid,allow_publish,isapp,mold,description,icon').order('pid,sort').select();
         for(let v of lists) {
             if (!think.isEmpty(v.title)) {
                 v.url = `/${v.title}`
