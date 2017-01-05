@@ -202,7 +202,7 @@ export default class extends Base {
             let id = this.get("id");
             let user = await this.model("member").find(id);
             //非超级管理员只能修改自己的用户信息
-            if(!this.is_admin()){
+            if(!this.is_admin){
                 if(this.user.uid!=id){
                     this.http.error = new Error('您无权操作！');
                     return think.statusAction(702, this.http);
@@ -235,7 +235,7 @@ export default class extends Base {
         let id = this.get("id");
         let user = await this.model("member").find(id);
         //非超级管理员只能修改自己的用户信息
-        if(!this.is_admin()){
+        if(!this.is_admin){
             if(this.user.uid!=id){
                 this.http.error = new Error('您无权操作！');
                 return think.statusAction(702, this.http);
@@ -267,9 +267,8 @@ export default class extends Base {
         let id = this.param("ids");
         //console.log(id);
         let res;
-        let isadmin = await this.is_admin(id);
         // 判断是否是管理员，如果是不能删除;
-        if(isadmin){
+        if(this.is_admin){
            return this.fail("不能删除管理员!")
         }else{
              //res = await this.db.where({id: id}).delete();
