@@ -26,7 +26,7 @@ export default class extends Base {
    
     indexAction() {
         //auto render template file index_index.html
-        this.meta_title = '微信管理';
+        this.meta_title = '公众号信息';
         this.assign({"navxs": true,"bg": "bg-black"});
         return this.display();
     }

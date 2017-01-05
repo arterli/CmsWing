@@ -20,6 +20,7 @@
             </a>
         </li>
     </ul>
+    {#
     <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
         <div class="form-group">
             <div class="input-group">
@@ -31,8 +32,10 @@
             </div>
         </div>
     </form>
+    #}
     <div class="navbar-right ">
         <ul class="nav navbar-nav m-n hidden-xs nav-user user">
+            {#
             <li class="hidden-xs">
                 <a href="#" class="dropdown-toggle lt" data-toggle="dropdown">
                     <i class="icon-bell"></i>
@@ -68,6 +71,7 @@
                     </section>
                 </section>
             </li>
+            #}
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
@@ -76,6 +80,7 @@
                     {{userinfo.username}} <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight">
+                    {#
                     <li>
                         <span class="arrow top"></span>
                         <a href="#">Settings</a>
@@ -93,6 +98,8 @@
                         <a href="docs.html">Help</a>
                     </li>
                     <li class="divider"></li>
+                    #}
+
                     <li>
                         <!--<a href="/admin/public/logout" data-toggle="ajaxModal">退出登录</a>-->
                         <a href="/admin/public/logout" >退出登录</a>

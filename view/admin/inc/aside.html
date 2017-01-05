@@ -87,32 +87,43 @@
                       </span>
                       <span class="hidden-nav-xs clear">
                         <span class="block m-l">
-                          <strong class="font-bold text-lt">微信公共账号</strong>
+                          <strong class="font-bold text-lt">{{controller.setup.wx_name}}</strong>
                           <b class="caret"></b>
                         </span>
-                        <span class="text-muted text-xs block m-l">账号类型</span>
+                        <span class="text-muted text-xs block m-l">
+                            {%if controller.setup.wx_type==1%}
+                            未认证订阅号
+                            {%elif controller.setup.wx_type==2%}
+                            认证订阅号
+                            {%elif controller.setup.wx_type==3%}
+                            未认证服务号
+                            {%elif controller.setup.wx_type==4%}
+                            微信认证服务号
+                            {%endif%}
+                        </span>
                       </span>
                     </a>
 
                     <ul class="dropdown-menu animated fadeInRight aside text-left">
                         <li>
                             <span class="arrow bottom hidden-nav-xs"></span>
-                            <a href="/admin/mpbase/index">公共账号设置</a>
+                            <a href="/admin/setup/index?id=6">公众号信息</a>
                         </li>
                         <li>
-                            <a href="profile.html">群发功能</a>
+                            <a href="/admin/mpbase/mass">群发功能</a>
                         </li>
+                        <li><a href="/admin/mpbase/fodderlist">素材管理</a> </li>
                         <li>
-                            <a href="#">
-                                <span class="badge bg-danger pull-right">3</span>
-                                消息管理
+                            <a href="/admin/mpbase/userlist">
+                                <!--<span class="badge bg-danger pull-right">3</span>-->
+                                微信用户
                             </a>
                         </li>
                         <li>
-                            <a href="docs.html">自动回复</a>
+                            <a href="/admin/mpbase/autoreply">自动回复</a>
                         </li>
                         <li>
-                            <a href="docs.html">自定义菜单</a>
+                            <a href="/admin/mpbase/custommenu">自定义菜单</a>
                         </li>
                         <li class="divider"></li>
                         <li>
