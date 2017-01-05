@@ -24,7 +24,8 @@ export default class extends Base {
      * 用户首页
      * @returns {*}
      */
-  
+
+
    async indexAction(){
         let map = {'status': ['>', -1]}
         if(!think.isEmpty(this.get("username"))){
