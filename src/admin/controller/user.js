@@ -20,7 +20,6 @@ export default class extends Base {
         this.tactive = "user";
       
     }
-
     /**
      * 用户首页
      * @returns {*}
