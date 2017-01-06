@@ -100,6 +100,10 @@ export default class extends think.model.base {
     async getstock(goods_id,type,sku="suk",stock ="total_stock"){
         let ressku;
         let model_id = await this.model("document").where({id:goods_id}).getField("model_id",true);
+        // 如果宝贝不存在则库存为0
+        if(!model_id){
+            return 0;
+        }
         //获取模型数据
         let table =await this.model("model").get_table_name(model_id);
         let model =this.model(table);
