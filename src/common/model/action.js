@@ -198,12 +198,14 @@ export default class extends think.model.base {
                 action_id:action_id,
                 user_id:user_id
             }
+            if(!think.isEmpty(rule.cycle)&&!think.isEmpty(rule.max)){
             map.create_time = [">",new Date().valueOf() - rule.cycle * 3600 * 1000]
            // console.log(map);
            let exec_count = await this.model("action_log").where(map).count();
             //console.log(exec_count);
             if(exec_count>rule.max){
                 continue;
+            }
             }
             //执行数据库操作
             let model = this.model(rule.table);

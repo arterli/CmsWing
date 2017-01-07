@@ -19,7 +19,7 @@ export default class extends Base {
       await this.weblogin();
       let cid = this.get("cid");
       //验证用户权限
-      await this.c_verify("add");
+      await this.c_verify("add",cid,"您所在的用户组，没有发布权限！");
       //获取面包屑信息
       let breadcrumb = await this.model('category').get_parent_category(cid,true);
       this.assign('breadcrumb', breadcrumb);
@@ -105,7 +105,7 @@ export default class extends Base {
           //行为记录
           if (!res.data.id) {
               //添加操作日志，可根据需求后台设置日志类型。
-              //await this.model("action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
+              await this.model("action").log("addquestion", "question", res.id, this.user.uid, this.ip(), this.http.url);
 
             return this.success({name: "添加成功", url: '/mod/question/'+res.id});
           } else {

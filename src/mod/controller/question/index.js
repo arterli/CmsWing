@@ -153,16 +153,9 @@ export default class extends Base {
               return think.statusAction(702, this.http);
       }
       //TODO
-      let roleid=8;//游客
       //访问控制
-      if(this.is_login){
-          roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
-      }
-      let priv = await this.model("category_priv").priv(info.category_id,roleid,'visit');
-      if(!priv){
-          this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
-          return think.statusAction(702, this.http);
-      }
+      await this.c_verify("visit",info.category_id);
+
       this.assign("info",info);
 
       //seo

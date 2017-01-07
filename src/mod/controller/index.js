@@ -117,15 +117,16 @@ export default class extends Base {
      * await this.c_verify("edit") 前台编辑控制
      * @returns {PreventPromise}
      */
-   async c_verify(ac,cid=this.m_cate.id){
+   async c_verify(ac,cid=this.m_cate.id,info='您所在的用户组,禁止访问本栏目！'){
         let roleid=8;//游客
         //访问控制
         if(this.is_login){
             roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
         }
         let priv = await this.model("category_priv").priv(cid,roleid,ac);
+        console.log(priv);
         if(!priv){
-            this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
+            this.http.error = new Error(info);
             return think.statusAction(702, this.http);
         }
     }
