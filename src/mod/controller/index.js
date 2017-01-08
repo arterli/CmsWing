@@ -124,7 +124,6 @@ export default class extends Base {
             roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
         }
         let priv = await this.model("category_priv").priv(cid,roleid,ac);
-        console.log(priv);
         if(!priv){
             this.http.error = new Error(info);
             return think.statusAction(702, this.http);

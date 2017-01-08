@@ -91,10 +91,22 @@ export default class extends Base {
       await this.weblogin();
 
       let data = this.post();
-      if(think.isEmpty(data.id)){
+      if(think.isEmpty(data.id)){//发布
           data.uid = this.user.uid;
           data.ip = _ip2int(this.ip());
-      }else {
+          //检查本栏目发布是否需要审核
+          let roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+          let addexa = await this.model("category_priv").priv(data.category_id,roleid,'addexa');
+          if(addexa){
+              let addp = await this.model("approval").adds(data.mod_id,this.user.uid,data);
+              if(addp){
+                  return this.success({name: "发布成功, 请等待管理员审核...", url: '/'+data.category_id});
+              }else {
+                  return this.fail("操作失败！");
+              }
+
+          }
+      }else {//修改
           data.userid=this.user.uid;
       }
       data.anonymous = data.anonymous||1;
