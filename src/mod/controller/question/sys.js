@@ -98,7 +98,7 @@ export default class extends Base {
           let roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
           let addexa = await this.model("category_priv").priv(data.category_id,roleid,'addexa');
           if(addexa){
-              let addp = await this.model("approval").adds(data.mod_id,this.user.uid,data);
+              let addp = await this.model("approval").adds(data.mod_id,this.user.uid,data.title,data);
               if(addp){
                   return this.success({name: "发布成功, 请等待管理员审核...", url: '/'+data.category_id});
               }else {

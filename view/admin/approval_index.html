@@ -1,0 +1,97 @@
+{% extends "./inc/base.html" %}
+
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class="{{http.get('model')|default('active', true)}}"><a  href="/admin/approval/index"> 全部 <span class="badge bg-info">{{count}}</span></a></li>
+                    {%for m in model%}
+                    <li class="{%if http.get('model')==m.id%}active{%endif%}"><a  href="/admin/approval/index/model/{{m.id}}">{{m.title}} {%if m.count > 0%}<span class="badge bg-info">{{m.count}}</span>{%endif%}</a>
+                   {%endfor%}
+                    </li>
+                </ul>
+                <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+
+                        <a class="btn btn-sm btn-success ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
+                            通过审核
+                        </a>
+                        <a class="btn btn-sm btn-danger ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/puliccache">
+                            拒绝审核
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover b-t b-light treetable" id="category">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        <th > 用户 </th>
+                        <th>标题</th>
+                        <th>发布时间</th>
+                        <th>操作</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list.data %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                        <td><a href="/admin/user/showuser/id/{{item.uid}}" class="text-info" data-toggle="ajaxModal">{{item.uid|get_nickname}}</a></td>
+                        <td><a href="#" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
+                        <td>{{item.time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
+
+
+                        <td>
+                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看"><i class="fa fa-search-plus"></i></a>
+                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过审核"><i class="fa fa-check"></i></a>
+                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="拒绝审核"><i class="fa fa-minus-circle"></i></a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+
+</script>
+
+{% endblock %}

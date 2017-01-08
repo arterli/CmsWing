@@ -112,6 +112,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启审核</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="is_approval">
+                                                        <option value="1" {%if info.is_approval==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.is_approval==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,该模型会在内容审核管理中显示。</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {%endif%}
                                 </div>
                                 <div id="tab-2" class="tab-pane fade">

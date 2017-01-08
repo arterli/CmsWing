@@ -61,9 +61,23 @@ export default class extends think.controller.base {
             // console.log(this.active);
             this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
             //think.log(this.active);
-            this.assign({
+        //后台提示
+        //审核提示
+        let notifications ={};
+        notifications.count = 0;
+        notifications.data = [];
+        let approval = await this.model("approval").count();
+        if(approval>0){
+            notifications.count = notifications.count+Number(approval);
+            notifications.data.push({type:"approval",info:`有 ${approval} 条内容待审核`,url:"/admin/approval/index",ico:"fa-umbrella"});
+        }
+
+
+        console.log(notifications);
+        this.assign({
                 "navxs": false,
-                "bg": "bg-black"
+                "bg": "bg-black",
+                "notifications":notifications
             })
     }
 
