@@ -96,6 +96,7 @@ export default class extends Base {
      * 拒绝审核
      */
     async refuseAction(){
+
         let ids = this.param("ids");
         if(think.isEmpty(ids)){
             return this.fail("参数错误！");
