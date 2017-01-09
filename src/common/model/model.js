@@ -54,7 +54,7 @@ export default class extends think.model.base {
      * @return string 表名
      *
      */
-    async get_table_name(model_id){
+    async get_table_name(model_id,extend=false){
         model_id=model_id||null;
         if(think.isEmpty(model_id)){
             return false;
@@ -66,7 +66,15 @@ export default class extends think.model.base {
             name = name.name+'_'
         }
         name += info.name;
-        return name.replace(/undefined/, "");
+        if(extend){
+            return{
+                table:name.replace(/undefined/, ""),
+                extend:info.extend
+            }
+        }else {
+            return name.replace(/undefined/, "");
+        }
+
     }
     /**
      * 获取文档模型信息并缓存

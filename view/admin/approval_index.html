@@ -23,10 +23,10 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
 
-                        <a class="btn btn-sm btn-success ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
+                        <a class="btn btn-sm btn-success ajax-post" target-form="ids" href="/{{http.module}}/{{http.controller}}/adopta">
                             通过审核
                         </a>
-                        <a class="btn btn-sm btn-danger ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/puliccache">
+                        <a class="btn btn-sm btn-danger ajax-post" target-form="ids" href="/{{http.module}}/{{http.controller}}/refuse">
                             拒绝审核
                         </a>
                     </div>
@@ -50,12 +50,12 @@
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                         <td><a href="/admin/user/showuser/id/{{item.uid}}" class="text-info" data-toggle="ajaxModal">{{item.uid|get_nickname}}</a></td>
-                        <td><a href="#" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
+                        <td><a href="/admin/approval/details/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
                         <td>{{item.time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
 
 
                         <td>
-                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="查看"><i class="fa fa-search-plus"></i></a>
+                            <a href="/admin/approval/details/id/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="ajaxModal" title=""><i class="fa fa-search-plus"></i></a>
                             <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil-square-o"></i></a>
                             <a href="#" class="btn btn-rounded btn-xs btn-icon btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过审核"><i class="fa fa-check"></i></a>
                             <a href="#" class="btn btn-rounded btn-xs btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="拒绝审核"><i class="fa fa-minus-circle"></i></a>

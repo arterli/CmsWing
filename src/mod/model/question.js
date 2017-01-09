@@ -4,10 +4,10 @@
  */
 export default class extends think.model.base {
   //更新主题
-    async updates(data=null){
+    async updates(data=null,time=new Date().getTime()){
         //添加或者新增基础内容
         let id = null;
-        data.update_time=new Date().getTime();
+        data.update_time=time;
         if(think.isEmpty(data.id)) {//新增主题
             data.create_time = new Date().getTime();
             data.focus_count =1;

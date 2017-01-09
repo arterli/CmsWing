@@ -58,7 +58,7 @@ export default class extends think.model.base {
      * @param data 手动传入的数据
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
-    async updates(data){
+    async updates(data,time=new Date().getTime()){
        // console.log(data);
         for(let v in data){
             let vs = v.split("|||");
@@ -77,7 +77,7 @@ export default class extends think.model.base {
         }
         //添加或者新增基础内容
         if(think.isEmpty(data.id)){//新增数据
-            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
+            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():time;
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
