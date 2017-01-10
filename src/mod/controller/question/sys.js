@@ -139,7 +139,7 @@ export default class extends Base {
             data.ip = _ip2int(this.ip());
             data.anonymous = data.anonymous||1;
         }
-        console.log(data);
+        //console.log(data);
         let res = await this.model('question_answer').updates(data);
         if (res) {
             //行为记录

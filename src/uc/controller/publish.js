@@ -418,6 +418,36 @@ export default class extends Base {
     if(data.is_ajax != 'true'){
       return this.fail("非法提交！");
     }
+    //验证权限
+      if(think.isEmpty(data.id)){//发布
+          data.uid = this.user.uid;
+          data.ip = this.ip();
+          //检查本栏目发布是否需要审核
+          let roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+          let addexa = await this.model("category_priv").priv(data.category_id,roleid,'addexa');
+          if(addexa){
+              let addp = await this.model("approval").adds(data.model_id,this.user.uid,data.title,data);
+              if(addp){
+                  return this.success({name: "发布成功, 请等待管理员审核...", url: '/uc/publish/index/cate_id/'+data.category_id});
+              }else {
+                  return this.fail("操作失败！");
+              }
+          }
+      }else {//修改
+          data.uid = this.user.uid;
+          data.ip = this.ip();
+          //检查本栏目编辑是否需要审核
+          let roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+          let addexa = await this.model("category_priv").priv(data.category_id,roleid,'editexa');
+          if(addexa){
+              let addp = await this.model("approval").adds(data.model_id,this.user.uid,data.title,data);
+              if(addp){
+                  return this.success({name: "编辑成功, 请等待管理员审核...", url: '/uc/publish/index/cate_id/'+data.category_id});
+              }else {
+                  return this.fail("操作失败！");
+              }
+          }
+      }
     //console.log(data);
     //return false;
     let res = await this.model('document').updates(data);
@@ -676,6 +706,32 @@ export default class extends Base {
     return think.isEmpty(cates)
   }
 
+    /**
+     * 待审稿件
+     * @returns {Promise.<void>}
+     */
+ async approvalAction(){
+        let map = {};
+        map.uid = this.user.uid;
+        if(!think.isEmpty(this.get("model"))){
+            map.model = this.get("model");
+        }
+        let list = await this.model("approval").where(map).page(this.get('page'),20).order('time DESC').countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
+        let page = pages.pages(list);
+        this.assign('pagerData', page); //分页展示使用
+        this.assign('list', list);
+        let modlist = await this.model("model").get_model(null,null,{is_approval:1});
+        for(let val of modlist){
+            val.count = await this.model("approval").where({model:val.id}).count();
+        }
+        //console.log(modlist);
+        this.assign("model",modlist);
+        this.assign("count",await this.model("approval").where({uid:this.user.uid}).count())
+   this.meta_title="待审稿件";
+   return this.display();
+ }
   /**
    * 显示左边菜单，进行权限控制
    * @author

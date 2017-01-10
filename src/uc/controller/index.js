@@ -19,8 +19,14 @@ export default class extends Base {
     // this.http.error = new Error('错误信息！');
     // return think.statusAction(702, this.http);
     //获取用户信息
-    let userInfo = await this.model("member").find(this.user.uid);
-    this.assign("userInfo", userInfo);
+    let userInfo = await this.model("member").join({
+        table: "member_group",
+        join: "left",
+        as: "c",
+        on: ["groupid", "groupid"]
+    }).find(this.user.uid);
+
+      this.assign("userInfo", userInfo);
     //订单交易总金额
     let order = await this.model("order").where({user_id: this.user.uid, pay_status: 1}).getField('order_amount');
     let orderTotal = eval(order.join("+"));
