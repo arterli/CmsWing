@@ -732,6 +732,31 @@ export default class extends Base {
    this.meta_title="待审稿件";
    return this.display();
  }
+    /**
+     * 查看待审稿件详情
+     */
+    async approvaldetailsAction(){
+        let id = this.get("id");
+        let details = await this.model("approval").where({uid:this.user.uid}).find(id);
+        let info = JSON.parse(details.data);
+        this.assign("info",info)
+        this.meta_title = "查看详情";
+        return this.display();
+    }
+
+    /**
+     * 删除撤销审核
+     *
+     */
+    async approvaldelAction(){
+      let id = this.get("id");
+      let res = await this.model("approval").where({uid:this.user.uid,id:id}).delete();
+      if(res){
+        return this.success({name:"删除成功!"});
+      }else {
+        return this.fail("操作失败!");
+      }
+    }
   /**
    * 显示左边菜单，进行权限控制
    * @author

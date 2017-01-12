@@ -63,13 +63,13 @@
                     {% for item in list.data %}
                     <tr>
 
-                        <td><a href="/uc/publish/approvaldetails/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
+                        <td>{{item.title}} </td>
                         <td>{{item.time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
 
 
                         <td>
-                            <a href="/admin/approval/details/id/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="ajaxModal" title=""><i class="fa fa-search-plus"></i></a>
-                            <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="/uc/publish/approvaldetails/id/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="ajaxModal" title=""><i class="fa fa-search-plus"></i>详情</a>
+                            <a href="/uc/publish/approvaldel/id/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-default ajax-get confirm"  title="" ><i class="fa fa-close"></i>删除</a>
 
                         </td>
                     </tr>
