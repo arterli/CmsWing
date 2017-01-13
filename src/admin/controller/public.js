@@ -107,7 +107,8 @@ export default class extends think.controller.base {
 
         for (let val of cate) {
             let id = think.isEmpty(val.title)?val.id:val.title;
-             val.url =`/${id}`
+             val.url =`/${id}`;
+
         }
         //think.log(cate);
         return this.json(arr_to_tree(cate, 0))

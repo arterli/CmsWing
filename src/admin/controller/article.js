@@ -32,7 +32,7 @@ export default class extends Base {
         let model;
         let _model;
         //console.log(2222);
-
+        console.log(cate_id);
         if (!think.isEmpty(cate_id)) {
             //权限验证
             await this.admin_priv("init",cate_id,"您没有权限查看本栏目！")
@@ -422,6 +422,7 @@ export default class extends Base {
                }
 
                 val.target = '_self';
+                delete val.icon;
                 let priv = await this.model("category_priv").priv(val.id,this.roleid,'init',1);
                 val.priv=priv
                 if(priv==1 && val.pid !=0 ){
@@ -462,6 +463,7 @@ export default class extends Base {
                 }
 
                 val.target = '_self';
+                delete val.icon;
             }
             return this.json(arr_to_tree(cate, 0))
         }

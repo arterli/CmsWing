@@ -72,10 +72,11 @@ export default class extends think.model.base {
         let list = await think.cache("sys_category_list", () => {
             return this.getallcate();
         }, {timeout: 365 * 24 * 3600});
+
         /* 非法分类ID */
         if(think.isEmpty(id) || !think.isNumberString(id)){
             return list;
-        }else{
+        }else if (list[id]){
             if(think.isEmpty(list) || 1 != list[id].status){//不存在分类，或分类被禁用
                 return '';
             }
@@ -83,6 +84,8 @@ export default class extends think.model.base {
             // console.log(list[id]);
             //console.log(think.isNumber(field));
             return think.isEmpty(field) ? list[id] : list[id][field];
+        }else {
+            return ''
         }
     }
 

@@ -82,7 +82,7 @@ export default class extends think.adapter.base {
     {
         let http=this.http;
         let base64Data = http.post(this.fileField);
-        //console.log(base64Data);
+        // console.log(base64Data);
         let img = new Buffer(base64Data, 'base64');
         //console.log(img);
         this.oriName = this.config['oriName'];
