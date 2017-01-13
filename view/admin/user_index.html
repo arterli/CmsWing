@@ -65,7 +65,7 @@
                         {% for item in list %}
                         {%set group=item.groupid|get_member_group%}
                         <tr>
-                            <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
+                            <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}{{item.id}}{%endif%}" {%if item.id|in_Array(controller.config('user_administrator'))%}disabled="true"{%endif%}><i></i></label></td>
                             <td>{{item.id}}</td>
                             <td><a href="/admin/user/showuser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.username}} <i class="fa fa-search-plus"></i> </a> </td>
                             <td>{{item.email}}</td>
@@ -75,18 +75,20 @@
                             <td>{{item.amount}}</td>
                             <td>{{item.score}}</td>
                             <td>
+                                {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
                                 <a href="/admin/user/setstatus/ids/{{item.id}}/status/{{1-item.status}}/model/member" class="active ajax-get" data-toggle="class">
                                     <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
                                     <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
                                 </a>
+                                {%endif%}
                             </td>
 
                             <td>
                                 <a href="/admin/user/edituser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
                                 <a href="/admin/user/recharge/ids/{{item.id}}" class="text-info" data-toggle="ajaxModal">充值</a>
-                                {%if item.id !=1%}
+                                {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
                                 <a href="/admin/user/userdel?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
-                            {%endif%}
+                                {%endif%}
                             </td>
                         </tr>
                         {% else %}

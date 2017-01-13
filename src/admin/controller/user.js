@@ -201,9 +201,9 @@ export default class extends Base {
         }else {
             let id = this.get("id");
             let user = await this.model("member").find(id);
-            //非超级管理员只能修改自己的用户信息
+            //不能修改超级管理员的信息
             if(!this.is_admin){
-                if(this.user.uid!=id){
+                if(in_array(id,this.config("user_administrator"))){
                     this.http.error = new Error('您无权操作！');
                     return think.statusAction(702, this.http);
                 }
@@ -235,13 +235,13 @@ export default class extends Base {
         let id = this.get("id");
         let user = await this.model("member").find(id);
         //非超级管理员只能修改自己的用户信息
-        if(!this.is_admin){
-            if(this.user.uid!=id){
-                this.http.error = new Error('您无权操作！');
-                return think.statusAction(702, this.http);
-            }
-
-        }
+        // if(!this.is_admin){
+        //     if(this.user.uid!=id){
+        //         this.http.error = new Error('您无权操作！');
+        //         return think.statusAction(702, this.http);
+        //     }
+        //
+        // }
         this.assign("user",user);
         console.log(user);
         //所属管理组
