@@ -13,7 +13,7 @@ export default class extends think.model.base {
      * @param mod_id "模型id"
      * @param mod_type "模型类型 0独立模型，1系统模型"
      */
-   async addkey(keyname,id,uid,mod_id,mod_type=0){
+   async addkey(keyname,id,uid,mod_id,mod_type=1){
         //添加关键词
         if(!think.isEmpty(keyname)){
             let keywrods;
@@ -32,6 +32,17 @@ export default class extends think.model.base {
             }
 
         }
+    }
+
+    /**
+     * 删除话题
+     */
+    async delkey(docid,mod_id){
+      let tagid = await this.model("keyword_data").where({docid:docid,mod_id:mod_id}).getField("tagid",true);
+      if(tagid){
+          await this.model("keyword_data").where({docid:docid,mod_id:mod_id}).delete();
+          await this.where({id:tagid}).decrement("videonum");
+      }
     }
     /**
      * 添加话题

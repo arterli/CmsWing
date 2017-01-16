@@ -120,7 +120,7 @@ export default class extends think.model.base {
                  * @param id  "主题id"
                  * @param uid "用户id"
                  * @param mod_id "模型id"
-                 * @param mod_type "模型类型 0独立模型，1系统模型"
+                 * @param mod_type "模型类型 0系统模型，1独立模型"
                  */
                 await this.model("keyword").addkey(data.keyname,id,data.uid,data.model_id,0);
                 //添加到搜索

@@ -720,7 +720,11 @@ export default class extends Base {
         if(this.param('status')==-1||this.param('status')==0){
             for (let v of data){
                 //删除
-                await this.model('search').delsearch(v.model_id,v.id)
+                await this.model('search').delsearch(v.model_id,v.id);
+                if(!think.isEmpty(v.keyname)){
+                    await this.model("keyword").delkey(v.id,v.model_id);
+                }
+
             }
 
 
@@ -729,6 +733,10 @@ export default class extends Base {
             for (let v of data){
                 //添加到搜索
                 await this.model("search").addsearch(v.model_id,v.id,v);
+                console.log(v.keyname);
+                if(!think.isEmpty(v.keyname)){
+                    await this.model("keyword").addkey(v.keyname,v.id,v.uid,v.model_id,0);
+                }
             }
         }
     }

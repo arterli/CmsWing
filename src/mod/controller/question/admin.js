@@ -81,9 +81,13 @@ export default class extends Base {
      if(think.isArray(ids)){
       for(let id of ids){
           await this.model("search").delsearch(8,id);
+          //删除话题
+          await this.model("keyword").delkey(id,8);
       }
      }else {
-         await this.model('search').delsearch(8,ids)
+         await this.model('search').delsearch(8,ids);
+         //话题
+         await this.model("keyword").delkey(ids,8);
      }
     //删除相关的
     return this.success({name:"删除成功！"});
