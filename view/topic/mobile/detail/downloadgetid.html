@@ -1,0 +1,17 @@
+{% extends "../inc/appbase.html" %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{%if title%}{{title}}{%else%}生成下载地址{%endif%}</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded margin-top-20">
+    <h5>{%if sn%}提取码{%else%}下载地址{%endif%}：</h5>
+    <div class="mui-input-row mui-password">
+        <input type="password" class="mui-input-password" value="{%if sn%}{{sn}}{%else%}{{durl}}{%endif%}" readonly="readonly">
+    </div>
+
+    <a href="{{durl}}" class="mui-btn mui-btn-primary mui-btn-block">下载</a>
+    </div>
+</div>
+{% endblock%}

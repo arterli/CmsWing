@@ -82,23 +82,55 @@
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-4 ">
-                                                    <select class="form-control " name="extend">
-                                                        <option value="0" {% if info.extend== 0 %}selected {% endif %}>
-                                                            独立模型
-                                                        </option>
-                                                        <option value="1" {% if info.extend== 1 %}selected {% endif %}>
-                                                            系统模型
-                                                        </option>
-                                                    </select>
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio" value="1" name="extend" checked><i></i> 系统模型
+                                                    </label>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 配置分组 用于批量设置 不分组则不会显示在系统设置中</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 系统模型会继承基础模型</span>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {%if info.id != 1%}
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启话题</label>
 
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="key_show">
+                                                        <option value="1" {%if info.key_show==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.key_show==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,该模型会在话题模块中显示。</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否开启审核</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="is_approval">
+                                                        <option value="1" {%if info.is_approval==1%} selected="selected"{%endif%}>是</option>
+                                                        <option value="0" {%if info.is_approval==0%} selected="selected"{%endif%}>否</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">选“是”,该模型会在内容审核管理中显示。</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
                                 </div>
                                 <div id="tab-2" class="tab-pane fade">
                                     <div class="form-group">
@@ -185,10 +217,10 @@
                                                                  data-group="{{ingredient}}">
                                                                 <ol class="dd-list">
 
-                                                                    {% for key , value in allfields %}
+                                                                    {% for value in allfields %}
                                                                     {% if value.group == ingredient and value.is_show ==
                                                                     1 %}
-                                                                    <li data-id="{{key}}" class="dd-item">
+                                                                    <li data-id="{{value.id}}" class="dd-item">
                                                                         <div class="dd-handle"> {{ value.title}} <span
                                                                                 class="label bg-light">{{value.name}}</span>
                                                                         </div>
@@ -347,7 +379,7 @@
 
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
-                            <div class="form-group">
+                            <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <input type="hidden" name="id" value="{{info.id}}">
                                     <button class="btn btn-primary btn-s-md ajax-post " type="submit"

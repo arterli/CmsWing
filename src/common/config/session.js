@@ -6,7 +6,7 @@
 export default {
   name: 'thinkjs',
   type: 'file',
-  secret: 'TJDB~HRS',
+  secret: '`5O%R#*P',
   timeout: 24 * 3600,
   cookie: { // cookie options
     length: 32,
@@ -14,7 +14,7 @@ export default {
   },
   adapter: {
     file: {
-      path: think.getPath('common', 'runtime') + '/session',
+      path: think.RUNTIME_PATH + '/session',
     }
   }
 };

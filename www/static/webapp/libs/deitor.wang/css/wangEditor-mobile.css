@@ -1,0 +1,240 @@
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?jzleyn');
+	src:url('fonts/icomoon.eot?jzleyn#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.ttf?jzleyn') format('truetype'),
+		url('fonts/icomoon.woff?jzleyn') format('woff'),
+		url('fonts/icomoon.svg?jzleyn#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-wangEditor-m-"], [class*=" icon-wangEditor-m-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+.icon-wangEditor-m-close:before {
+	content: "\f00d";
+}
+.icon-wangEditor-m-quote-left:before {
+	content: "\f10d";
+}
+.icon-wangEditor-m-caret-up:before {
+	content: "\f0d8";
+}
+.icon-wangEditor-m-bold:before {
+	content: "\e807";
+}
+.icon-wangEditor-m-header:before {
+	content: "\e809";
+}
+.icon-wangEditor-m-brush:before {
+	content: "\e815";
+}
+.icon-wangEditor-m-picture:before {
+	content: "\e818";
+}
+.icon-wangEditor-m-camera:before {
+	content: "\e90f";
+}
+.icon-wangEditor-m-happy:before {
+	content: "\e9df";
+}
+.icon-wangEditor-m-list-ul:before {
+	content: "\f0ca";
+}
+.icon-wangEditor-m-ellipsis-h:before {
+	content: "\f141";
+}
+.icon-wangEditor-m-ccw:before {
+	content: "\e81b";
+}
+.icon-wangEditor-m-checkbox-checked:before {
+	content: "\e900";
+}
+.wangEditor-mobile-menu-container {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 9999;
+  height: 40px;
+  background-color: #111;
+  border: 1px solid #111;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px #999;
+  transition: opacity .3s;
+  max-width: 95%;
+  -webkit-transition: margin .15s;
+  -o-transition: margin .15s;
+  transition: margin .15s;
+}
+
+.wangEditor-mobile-menu-container * {
+  outline: none;
+}
+.wangEditor-mobile-menu-container *:focus {
+  outline: none;
+}
+/*.wangEditor-mobile-menu-container .tip {*/
+  /*position: absolute;*/
+  /*width: 0;*/
+  /*height: 0;*/
+  /*border: 10px solid #111;*/
+  /*border-left-color: transparent;*/
+  /*border-right-color: transparent;*/
+  /*left: 0;*/
+  /*margin-left: 12px;*/
+  /*border-bottom-color: transparent;*/
+  /*bottom: 0;*/
+  /*margin-bottom: -20px;*/
+/*}*/
+.wangEditor-mobile-menu-container .tip {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid #111;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    left: 0;
+    margin-left: 12px;
+    border-right-color: transparent;
+    /* bottom: 0; */
+    /* margin-bottom: -20px; */
+    top: -20px;}
+
+.wangEditor-mobile-menu-container .item-container {
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+}
+.wangEditor-mobile-menu-container .item-container .item {
+  box-flex: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+}
+.wangEditor-mobile-menu-container .item-container .item label,
+.wangEditor-mobile-menu-container .item-container .item div {
+  text-decoration: none;
+  color: #f1f1f1;
+  display: block;
+  padding: 5px 15px;
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+}
+.wangEditor-mobile-menu-container .item-container .item label i,
+.wangEditor-mobile-menu-container .item-container .item div i {
+  box-flex: 1;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  opacity: 1;
+}
+.wangEditor-mobile-menu-container .item-container .item .selected {
+  color: #666;
+}
+.wangEditor-mobile-menu-container .item-container .gap {
+  width: 1px;
+  height: 40px;
+  margin-top: -1px;
+  background-color: #f1f1f1;
+}
+
+.wangEditor-mobile-modal {
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  width: 80%;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  top: 0;
+  left: 50%;
+  box-shadow: 0 0 10px #666;
+  -webkit-transition: margin;
+  -o-transition: margin;
+  transition: margin;
+  display: box;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+}
+.wangEditor-mobile-modal * {
+  box-sizing: border-box;
+}
+.wangEditor-mobile-modal .command-link {
+  padding: 5px;
+}
+
+body {
+  -webkit-overflow-scrolling: touch;
+}
+.wangEditor-mobile-txt {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  outline: none;
+    background-color: #fff;
+}
+.wangEditor-mobile-txt * {
+  box-sizing: border-box;
+  padding: 0 !important;
+  margin: 0;
+  line-height: 1.5;
+}
+.wangEditor-mobile-txt .focus-elem {
+  background-color: #f1f1f1;
+}
+.wangEditor-mobile-txt ul .focus-elem {
+  background: none;
+}
+.wangEditor-mobile-txt ul {
+  display: block;
+  list-style-type: disc;
+  margin-left: 10px;
+  padding-left: 20px;
+}
+.wangEditor-mobile-txt ul li {
+  display: list-item;
+}
+.wangEditor-mobile-txt .previmg-container {
+  max-width: 100%;
+  text-align: left;
+  position: relative;
+}
+.wangEditor-mobile-txt .previmg-container .info {
+  position: absolute;
+  width: 100px;
+  text-align: center;
+  top: 20%;
+  left: 50%;
+  margin-left: -50px;
+  color: #f1f1f1;
+  background-color: #333;
+  border-radius: 5px;
+  padding: 5px;
+  opacity: 1;
+}

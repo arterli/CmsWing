@@ -115,15 +115,30 @@
 		_widget_dribbble();
 		_widget_media();
         _cart();
-	    _login();
+	    //_login();
         _swal();
         _ajax_post();
 	    _ajax_get();
 	    _pingpp();
 	    _recharge();
+	    _type_tr_b();
+	    _panel_toggle();
+
 		/** Bootstrap Tooltip **/ 
 		jQuery("a[data-toggle=tooltip], button[data-toggle=tooltip], span[data-toggle=tooltip]").tooltip();
 	}
+
+// panel toggle
+function _panel_toggle() {
+	$(document).on('click', '.panel-toggle', function(e){
+		e && e.preventDefault();
+		var $this = $(e.target), $class = 'collapse' , $target;
+		if (!$this.is('a')) $this = $this.closest('a');
+		$target = $this.closest('.panel');
+		$target.find('.panel-body').toggleClass($class);
+		$this.toggleClass('active');
+	});
+}
 
   // ajax modal
   function _ajaxmodal() {
@@ -142,7 +157,28 @@
     );
 
   }
-
+//typeb
+function _type_tr_b() {
+	if($('.type_tr_b1').length > 0){
+       if(localStorage.getItem("cmswing_type_tr_b")==1){
+		   $("tr.type_tr_m").show();
+		   $(".type_tr_b1").hide();
+		   $(".type_tr_b2").show();
+	   }
+		$(".type_tr_b1").click(function () {
+			$("tr.type_tr_m").show();
+			$(this).hide();
+			$(".type_tr_b2").show();
+			localStorage.setItem("cmswing_type_tr_b",1)
+		})
+		$(".type_tr_b2").click(function () {
+			$("tr.type_tr_m").hide();
+			$(this).hide();
+			$(".type_tr_b1").show();
+			localStorage.removeItem("cmswing_type_tr_b")
+		})
+	}
+}
 //ajax get请求
 /**
  * <a href="#" class="confirm ajax-get text-info" >删除</a></td>
@@ -169,8 +205,6 @@ function _ajax_get() {
 					setTimeout(function(){
 						if (data.data.url) {
 							location.href=data.data.url;
-						}else if( $(that).hasClass('no-refresh')){
-							toastr.clear()
 						}else{
 							location.reload();
 						}
@@ -413,7 +447,7 @@ function _ajax_post() {
           var data=$(this).serialize()
          $.ajax({ 
              type: "POST", 
-             url: "/user/login",
+             url: "/uc/public/login",
              data: data,
              success: function(msg){
                     if(msg.errno < 0){
@@ -990,7 +1024,7 @@ function _ajax_post() {
 				//return false;
             $.ajax({
             type: "POST",
-            url: "/cart/addcart",
+            url: "/uc/cart/addcart",
             data: str
             }).done(function( msg ) {
                 
@@ -1361,64 +1395,69 @@ function _ajax_post() {
 /** 04. Popover
  **************************************************************** **/
 	function _popover() {
+	$("[data-toggle=popover]").popover();
+	$(document).on('click', '.popover-title .close', function(e){
+		var $target = $(e.target), $popover = $target.closest('.popover').prev();
+		$popover && $popover.popover('hide');
+	});
 
-			jQuery("a[data-toggle=popover]").bind("click", function(e) {
-				jQuery('.popover-title .close').remove();
-				e.preventDefault();
-			});
-
-			var isVisible 	= false,
-				clickedAway = false;
-
-
-			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
-
-					html: true,
-					trigger: 'manual'
-
-				}).click(function(e) {
-
-					jQuery(this).popover('show');
-					
-					clickedAway = false;
-					isVisible = true;
-					e.preventDefault();
-
-				});
-
-				jQuery(document).click(function(e) {
-					if(isVisible & clickedAway) {
-
-						jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
-						isVisible = clickedAway = false;
-
-					} else {
-
-
-						clickedAway = true;
-
-					}
-
-				});
-
-			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
-
-				html: true,
-				trigger: 'manual'
-
-			}).click(function(e) {
-
-				$(this).popover('show');
-				$('.popover-title').append('<button type="button" class="close">&times;</button>');
-				$('.close').click(function(e){
-
-					jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
-
-				});
-
-				e.preventDefault();
-			});
-
+			// jQuery("a[data-toggle=popover]").on("click", function(e) {
+			// 	jQuery('.popover-title .close').remove();
+			// 	e.preventDefault();
+			// });
+            //
+			// var isVisible 	= false,
+			// 	clickedAway = false;
+            //
+            //
+			// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
+            //
+			// 		html: true,
+			// 		trigger: 'manual'
+            //
+			// 	}).click(function(e) {
+            //
+			// 		jQuery(this).popover('show');
+			//
+			// 		clickedAway = false;
+			// 		isVisible = true;
+			// 		e.preventDefault();
+            //
+			// 	});
+            //
+			// 	jQuery(document).click(function(e) {
+			// 		if(isVisible & clickedAway) {
+            //
+			// 			jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
+			// 			isVisible = clickedAway = false;
+            //
+			// 		} else {
+            //
+            //
+			// 			clickedAway = true;
+            //
+			// 		}
+            //
+			// 	});
+            //
+			// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover({
+            //
+			// 	html: true,
+			// 	trigger: 'manual'
+            //
+			// }).click(function(e) {
+            //
+			// 	$(this).popover('show');
+			// 	$('.popover-title').append('<button type="button" class="close">&times;</button>');
+			// 	$('.close').click(function(e){
+            //
+			// 		jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover('hide');
+            //
+			// 	});
+            //
+			// 	e.preventDefault();
+			// });
+            //
 
 		// jQuery("a[data-toggle=popover], button[data-toggle=popover]").popover();
 	}
@@ -2693,9 +2732,6 @@ function _ajax_post() {
 			});
 
 		}
-
-
-
 		/** Form Validate
 		 ************************ **/
 		if(jQuery('form.validate').length > 0) {
@@ -2719,12 +2755,12 @@ function _ajax_post() {
 
 							_t.validate({
 								submitHandler: function(form) {
-
+                                    $(form).find('button').addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 									// Show spin icon
 									jQuery(form).find('.input-group-addon').find('.fa-envelope').removeClass('fa-envelope').addClass('fa-refresh fa-spin');
 
 									jQuery(form).ajaxSubmit({
-
+                                        dataType:'json',
 										target: 	jQuery(form).find('.validate-result').length > 0 ? jQuery(form).find('.validate-result') : '',
 
 										error: 		function(data) { 
@@ -2732,32 +2768,70 @@ function _ajax_post() {
 										},
 
 										success: 	function(data) {
-											var data = data.trim();
+											//var data = data.trim();
 
 											// SMTP ERROR
 											if(data == '_failed_') {
 												_toastr("SMTP ERROR! Please, check your config file!",_Tposition,"error",false);
 											}
 
-											// CAPTCHA ERROR
-											else if(data == '_captcha_') {
-												_toastr("Invalid Captcha!",_Tposition,"error",false);
+                                            if (data.errno==0) {
+                                                if (data.data.url) {
+                                                    _toastr(data.data.name + ' 页面即将自动跳转~',_Tposition,"success",false);
+                                                    // toastr.success(data.data.name + ' 页面即将自动跳转~');
+                                                }else{
+                                                    _toastr(data.data.name,_Tposition,"success",false);
+                                                    //toastr.success(data.data.name);
+                                                }
+                                                setTimeout(function(){
+                                                    $(form).find('button').removeClass('disabled').prop('disabled',false);
+                                                    if (data.data.url) {
+                                                        location.href=data.data.url;
+                                                    }else{
+                                                        location.reload();
+                                                    }
+                                                },1500);
+                                            }else{
+                                                if(data.errno==1001){
+                                                    $.each(data.errmsg,function(i,n){
+                                                        _toastr(n,_Tposition,"error",false);
+                                                        //toastr.error(n);
+                                                    })
+                                                }else {
+                                                    _toastr(data.errmsg,_Tposition,"error",false);
+                                                    //toastr.error(data.errmsg);
+                                                }
+                                                //console.log(data);
 
+                                                setTimeout(function(){
+                                                    $(form).find('button').removeClass('disabled').prop('disabled',false);
+                                                    if (data.data) {
+                                                        location.href=data.data;
+                                                    }else{
+                                                        //toastr.clear()
+                                                    }
+                                                },1500);
+                                            }
+											// // CAPTCHA ERROR
+											// else if(data == 1000) {
+											// 	_toastr("Invalid Captcha!",_Tposition,"error",false);
+                                            //
+                                            //
+											// // SUCCESS
+											// } else {
+                                            //
+											// 	// Remove spin icon
+											// 	jQuery(form).find('.input-group-addon').find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-envelope');
+                                            //
+											// 	// Clear the form
+											// 	//jQuery(form).find('input.form-control').val('');
+                                            //
+											// 	// Toastr Message
+											// 	_toastr(_Smessage,_Tposition,_Ttype,_Turl);
+											//
+											// }
+										},
 
-											// SUCCESS
-											} else {
-
-												// Remove spin icon
-												jQuery(form).find('.input-group-addon').find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-envelope');
-
-												// Clear the form
-												jQuery(form).find('input.form-control').val('');
-
-												// Toastr Message
-												_toastr(_Smessage,_Tposition,_Ttype,_Turl);
-											
-											}
-										}
 									});
 
 								}
@@ -3720,7 +3794,7 @@ function _pingpp(){
 
 				$.ajax({
 					type:"post",
-					url:"/cart/pay",
+					url:"/uc/pay/pay",
 					data:{order_id:order_id,payment:payment},
 					success:function (res) {
 						console.log(res);
@@ -4023,7 +4097,7 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
 				
 				 $.ajax({
 					 type: "POST",
-					 url: "/user/recharge",
+					 url: "/uc/account/recharge",
 					 data: data,
 					 success:function (res) {
 						 console.log(res);

@@ -1,0 +1,169 @@
+{% extends "../inc/base.html" %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+<div class="container">
+
+<h1>{{http.get('key')}}</h1>
+
+<!-- breadcrumbs -->
+<ol class="breadcrumb">
+<li><a href="/">首页</a></li>
+
+<li>tags</li>
+
+</ol><!-- /breadcrumbs -->
+</div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section >
+<div class="container">
+
+
+<div class="row">
+
+<!-- LEFT -->
+    <div class="col-md-9 col-sm-9">
+        <div class="text-left">
+            <ul class="nav nav-pills mix-filter">
+
+                <li class="filter ">标签：<span class="text-red">{{http.get('key')}}</span> 总共有 <span class="text-orange">{{list.count}}</span> 条记录</li>
+
+            </ul>
+
+            <div class="divider divider-circle divider-center margin-top-0"><!-- divider -->
+               <a href="#"><i class="fa fa-rss"></i></a>
+            </div>
+        </div>
+
+        {% for val in list.data %}
+        <!-- POST ITEM -->
+        <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+            <!-- IMAGE -->
+            {% if val.cover_id>0 %}
+            <figure class="blog-item-small-image margin-bottom-0">
+                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+            </figure>
+            {% endif %}
+            <div class="blog-item-small-content">
+                <h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+                <ul class="blog-post-info list-inline padding-bottom-10">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-clock-o"></i>
+                            <span class="font-lato">{{val.update_time|moment('lll')}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-comment-o"></i>
+                            <span class="font-lato">{{val.view}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fa fa-folder-open-o"></i>
+
+                        <a class="category" href="{{categoryname.url}}">
+                            <span class="font-lato">{{categoryname.name}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="font-lato">{{val.uid|get_nickname}}</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <p>{{val.description|truncate(90, true, "...")}}</p>
+            </div>
+
+        </div>
+        <!-- /POST ITEM -->
+        {%endfor%}
+
+
+        <!-- PAGINATION -->
+        <div class="text-left">
+            <!-- Pagination Default -->
+            {{pagination | safe}}
+            <!-- /Pagination Default -->
+        </div>
+        <!-- /PAGINATION -->
+
+    </div>
+
+<!-- RIGHT -->
+
+    <div class="col-md-3 col-sm-3">
+
+        <!-- TAGS -->
+        <h3 class="hidden-xs size-16 margin-bottom-10">标签</h3>
+        <div class="hidden-xs margin-bottom-20">
+            {% keywords data ="kws",type="hot"%}
+            {%for key in kws%}
+            <a class="tag" href="{{key.url}}">
+                <span class="txt">{{key.keyname}}</span>
+                <span class="num">{{key.videonum}}</span>
+            </a>
+            {%endfor%}
+        </div>
+
+
+        <hr />
+
+
+        <!-- SOCIAL ICONS -->
+        <div class="hidden-xs margin-top-30 margin-bottom-60">
+            <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                <i class="icon-facebook"></i>
+                <i class="icon-facebook"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                <i class="icon-twitter"></i>
+                <i class="icon-twitter"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                <i class="icon-gplus"></i>
+                <i class="icon-gplus"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                <i class="icon-linkedin"></i>
+                <i class="icon-linkedin"></i>
+            </a>
+
+            <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                <i class="icon-rss"></i>
+                <i class="icon-rss"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</div>
+</section>
+<!-- / -->
+{% endblock %}

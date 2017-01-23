@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
         // console.log(step);
         // console.log(ids);
         $.ajax({
-            url:"/cart/stepper",
+            url:"/uc/cart/stepper",
             type:"POST",
             data:{qty:step,ids:ids},
             success:function (res) {
@@ -89,10 +89,10 @@ jQuery(document).ready(function() {
          url = url.join("<>");
         var href;
         if(url.length>0){
-             href = "/cart/delcart/ids/"+url;
+             href = "/uc/cart/delcart/ids/"+url;
             $("a.delall").attr("href",href);
         }else {
-             href = "/cart/delcart";
+             href = "/uc/cart/delcart";
             $("a.delall").attr("href",href);
         }
         if(nums.length > 0){

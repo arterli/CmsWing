@@ -13,9 +13,6 @@ export default class extends think.controller.base {
      */
     init(http) {
         super.init(http);
-        // http.action = http.method.toLowerCase();
-        //console.log(http.method.toLowerCase())
-
     }
 
     async __before() {
@@ -28,11 +25,14 @@ export default class extends think.controller.base {
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
+        this.roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
+        this.is_admin = await this.is_admin();
         //后台菜单
-        this.adminmenu = await this.model('menu').adminmenu();
+        this.adminmenu = await this.model('menu').getallmenu(this.user.uid,this.is_admin);
+        //console.log(this.adminmenu);
         this.assign("setup", this.setup);
         //菜单当前状态
 
@@ -41,10 +41,11 @@ export default class extends think.controller.base {
          */
         //let url = `${this.http.module}/${this.http.controller}/${think.sep+this.http.action}`;
         //console.log(url);
-        let is_admin = await this.is_admin();
+
         //console.log(is_admin);
         let url = `${this.http.module}/${this.http.controller}/${this.http.action}`;
-        if (!is_admin) {
+        //console.log(url);
+        if (!this.is_admin) {
             let Auth = think.adapter("auth", "rbac");
             let auth = new Auth(this.user.uid);
             let res = await auth.check(url);
@@ -59,10 +60,24 @@ export default class extends think.controller.base {
         //this.active = this.http.url.slice(1),
             // console.log(this.active);
             this.active =this.http.module+"/"+this.http.controller+"/"+this.http.action;
-            think.log(this.active);
-            this.assign({
+            //think.log(this.active);
+        //后台提示
+        //审核提示
+        let notifications ={};
+        notifications.count = 0;
+        notifications.data = [];
+        let approval = await this.model("approval").count();
+        if(approval>0){
+            notifications.count = notifications.count+Number(approval);
+            notifications.data.push({type:"approval",info:`有 ${approval} 条内容待审核`,url:"/admin/approval/index",ico:"fa-umbrella"});
+        }
+
+
+        console.log(notifications);
+        this.assign({
                 "navxs": false,
-                "bg": "bg-black"
+                "bg": "bg-black",
+                "notifications":notifications
             })
     }
 
@@ -107,10 +122,21 @@ export default class extends think.controller.base {
         if (in_array('id', fields) && !think.isEmpty(id)) {
             where = think.extend({ 'id': ['IN', id] }, where);
         }
-
         msg = think.extend({ 'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax() }, msg);
         let res = await this.model(model).where(where).update(data);
         if (res) {
+            switch (model){
+                case 'channel'://更新频道缓存信息
+                    update_cache("channel")//更新频道缓存信息
+                    res = true;
+                    msg = "更新导航缓存成功！";
+                    break;
+                case 'category'://更新全站分类缓存
+                    update_cache("category")//更新栏目缓存
+                    res = true;
+                    msg = "更新栏目缓存成功！";
+                    break;
+            }
             this.success({ name: msg.success, url: msg.url });
         } else {
             this.fail(msg.error, msg.url);
@@ -180,15 +206,23 @@ export default class extends think.controller.base {
     /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction(self, model) {
-        model = model || this.http.controller;
+    async setstatusAction(self, model,pk="id") {
+        if(think.isEmpty(this.param('model'))){
+            model = model || this.http.controller;
+        }else {
+            model = this.param('model');
+        }
         let ids = this.param('ids');
         let status = this.param('status');
         status = parseInt(status);
         if (think.isEmpty(ids)) {
             this.fail("请选择要操作的数据");
         }
-        let map = { id: ['IN', ids] };
+        let map = {};
+        if(!think.isEmpty(this.param('pk'))){
+            pk=this.param('pk');
+        }
+         map[pk] = ['IN', ids];
         //let get = this.get();
         //this.end(status);
         switch (status) {
@@ -208,7 +242,62 @@ export default class extends think.controller.base {
 
     }
 
+    /**
+     * 排序
+     */
+   async sortAction(self,model,id='id'){
+    model = model||this.http.controller;
+    let param = this.param();
+        let sort = JSON.parse(param.sort);
+       let data =[]
+       for(let v of sort){
+           let map={}
+           map[id]=v.id;
+           map.sort =v.sort;
+           data.push(map)
+       }
+        let res = await this.model(model).updateMany(data);
+        if (res>0) {
+            //更新缓存
+            switch (model){
+                case 'channel'://更新频道缓存信息
+                    update_cache("channel")//更新频道缓存信息
+                    break;
+                case 'category'://更新全站分类缓存
+                    update_cache("category")//更新栏目缓存
+                    break;
+            }
+           return this.success({ name: "更新排序成功！"});
+        } else {
+           return this.fail("排序失败！");
+        }
+    }
+    async puliccacheAction(self,model){
+        let type = this.param('type');
+        if(think.isEmpty(type)){
+            type = model||this.http.controller;
+        }
+        let res = false;
+        let msg = "未知错误！";
+        switch (type){
+            case 'channel'://更新频道缓存信息
+                update_cache("channel")//更新频道缓存信息
+                res = true;
+                msg = "更新导航缓存成功！";
+                break;
+            case 'category'://更新全站分类缓存
+                update_cache("category")//更新栏目缓存
+                res = true;
+                msg = "更新栏目缓存成功！";
+                break;
+        }
+        if(res){
+            return this.success({ name: msg});
+        }else {
+            return this.fail(msg)
+        }
 
+    }
     /**
      * 返回后台节点数据
      * @param {boolean} tree    是否返回多维数组结构(生成菜单时用到),为false返回一维数组(生成权限节点时用到)
@@ -281,5 +370,23 @@ export default class extends think.controller.base {
             return list;
         }
     }
+    /**
+     * 后台栏目权限验证方法
+     * await this.admin_priv("init",cid,error) 查看
+     * @param ac //init:查看,add:添加,edit:编辑,delete:删除,listorder:排序,push:推送,move:移动，examine：审核，disable：禁用
+     * @param cid //栏目id
+     * @param error //错误提示
+     * @returns {PreventPromise}
+     */
+    async admin_priv(ac,cid,error="您所在的用户组,禁止本操作！"){
+        if(!this.is_admin){
+            //访问控制
+            let priv = await this.model("category_priv").priv(cid,this.roleid,ac,1);
+            if(!priv){
+                this.http.error = new Error(error);
+                return think.statusAction(702, this.http);
+            }
+        }
 
+    }
 }

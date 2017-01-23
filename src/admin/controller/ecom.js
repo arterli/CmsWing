@@ -116,7 +116,7 @@ export default class extends Base {
     async webhokksAction (){
 
             let config =[
-                {name:"支付成功",url:`${this.http.host}/cart/webhokks`}
+                {name:"支付成功",url:`${this.http.host}/uc/pay/webhooks`}
             ]
         this.assign("list",config);
         this.meta_title="Webhooks";
@@ -129,7 +129,7 @@ export default class extends Base {
     this.meta_title="正在使用的支付方式";
     let data = await this.model("payment").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         for(let val of data.data){
            val.logo =  await this.model("pay_plugin").where({id:val.plugin_id}).getField("logo",true);
@@ -198,7 +198,7 @@ export default class extends Base {
      this.active = "admin/ecom/payment";
      let data = await this.model("pay_plugin").page(this.get('page')).countSelect();
      let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-     let pages = new Pages(); //实例化 Adapter
+     let pages = new Pages(this.http); //实例化 Adapter
      let page = pages.pages(data); 
      this.assign('pagerData', page); //分页展示使用
      this.assign('list', data.data);
@@ -209,7 +209,7 @@ export default class extends Base {
       this.meta_title="运费模板";
       let list = await this.model("fare").page(this.get('page')).order("is_default DESC").countSelect();
       let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-      let pages = new Pages(); //实例化 Adapter
+      let pages = new Pages(this.http); //实例化 Adapter
       let page = pages.pages(list);
       //console.log(list);
       this.assign('pagerData', list); //分页展示使用
@@ -304,9 +304,9 @@ export default class extends Base {
     }
     /**快递公司管理 */
   async expressAction(){
-        let data = await this.model("express_company").page(this.get('page')).countSelect();
+        let data = await this.model("express_company").page(this.get('page'),20).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         this.assign('list', data.data);
@@ -314,7 +314,64 @@ export default class extends Base {
         this.active="admin/ecom/express"
     return this.display();
   }
-  
+
+    /**
+     * 新增快递公司
+     */
+  async addexpressAction(){
+      if(this.isPost()){
+          let data = this.post();
+          let res = await this.model('express_company').add(data);
+          if(res){
+              return this.success({name:"添加成功!"});
+          }else {
+              return this.fail("添加失败!")
+          }
+      }
+      else {
+          this.meta_title="添加快递公司";
+          return this.display();
+      }
+
+
+  }
+
+    /**
+     * 编辑快递公司
+     * @returns {Promise.<void>}
+     */
+  async editexpressAction(){
+      if(this.isPost()){
+          let data = this.post();
+          let res = await this.model("express_company").update(data);
+          if(res){
+              return this.success({name:"更新成功!"});
+          }else {
+              return this.fail("更新失败!")
+          }
+      }else {
+          let id = this.get("id");
+          let info = await this.model("express_company").find(id);
+          this.assign("info",info);
+          this.meta_title = "编辑快递公司";
+          return this.display();
+      }
+  }
+
+    /**
+     * 删除快递公司
+     * @returns {Promise.<void>}
+     */
+  async delexpressAction(){
+      let ids = this.param("ids");
+      let res = await this.model("express_company").where({id:['IN',ids]}).delete();
+      if(res){
+          return this.success({name:"删除成功!"})
+      }else {
+          return this.fail("删除失败!")
+      }
+
+  }
   /**
      * 设置一条或者多条数据的状态
      */

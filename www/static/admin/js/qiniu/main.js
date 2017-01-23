@@ -15,7 +15,7 @@ $(function() {
         dragdrop: true,
         chunk_size: '4mb',
         multi_selection: !(mOxie.Env.OS.toLowerCase()==="ios"),
-        uptoken_url: '/admin/file/getqiniuuptoken',
+        uptoken_url: '/'+module+'/file/getqiniuuptoken',
         // uptoken_func: function(){
         //     var ajax = new XMLHttpRequest();
         //     ajax.open('GET', $('#uptoken_url').val(), false);

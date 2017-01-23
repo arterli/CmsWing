@@ -1,0 +1,95 @@
+{% extends "../../admin/inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading text-right bg-light  clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/apply">审核申请</a></li>
+                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/setting">插件配置</a></li>
+                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/type">分类管理</a></li>
+                                </ul>
+                                <span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
+                            </header>
+                            {#
+                            <div class="row wrapper">
+
+                                <div class="col-sm-12 m-b-xs">
+                                    <div class="btn-group" >
+                                        <a href="/{{http.module}}/{{http.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
+                                             全部
+                                        </a>
+                                       {%for t in type%}
+                                        <a href="/{{http.module}}/{{http.controller}}/index/typeid/{{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
+                                            {{t.name}}
+                                        </a>
+                                        {%endfor%}
+                                    </div>
+                                </div>
+                            </div>
+                            #}
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th style="">网站名称</th>
+                                        <th class="">网站网址</th>
+                                        <th class="">图片LOGO</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.url}}</td>
+                                        <td>{{item.logo}}</td>
+                                        <td>
+
+                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                                            <a href="/{{http.module}}/{{http.controller}}/del/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+                                    <div class="col-sm-6 text-center-xs">
+                                        <div class="btn-group">
+                                            <a href="/{{http.module}}/{{http.controller}}/apply" class="btn btn-default ajax-post" target-form="ids">审核</a>
+                                            <a href="/{{http.module}}/{{http.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

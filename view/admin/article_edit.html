@@ -5,6 +5,7 @@ c{% extends "./inc/base.html" %}
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css"  rel="stylesheet" type="text/css"/>
 {%if controller.setup.IS_QINIU == 1%}
 <link rel="stylesheet" href="/static/admin/js/qiniu/main.css" type="text/css">
 {%endif%}
@@ -36,7 +37,11 @@ table tr td{
     font-weight: normal;
     vertical-align: middle !important;
 }
+    .tabelselet select{display: inline-table;width: inherit}
 </style>
+<script>
+    module = '{{http.module}}';
+</script>
 {% endblock%}
 {% block content %}
 <section class="vbox">
@@ -78,6 +83,290 @@ table tr td{
 
                                         {% for key ,group in model.field_group | parse_config_attr %}
                                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
+                                            {%if sort and key ==1%}
+                                            <input type="hidden" name="sort_id" value="{{data.sort_id}}">
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label">
+                                                    分类
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <div class="btn-group" >
+                                                                {%for val in sort.types%}
+                                                                <a href="/admin/article/edit/id/{{data.id}}/model/{{data.model_id}}/cate_id/{{data.category_id}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if data.sort_id == val.enable%}active{%endif%}">
+                                                                    {{val.name}}
+                                                                </a>
+                                                                {%endfor%}
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {%for val in typevar%}
+                                            {%if val.available==1%}
+                                            <div class="form-group">
+                                                <label  class="col-sm-2 control-label">
+                                                    {{val.option.title}}
+                                                </label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+
+                                                            {%if val.option.type == 'select'%}
+                                                        <div class="col-md-10">
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="{{val.option.value}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                            <label id="info_{{val.option.identifier}}"  class="checkbox-inline i-checks" >{{val.option.rules.choices[val.option.value]|default("请选择",true)}}</label>
+                                                            <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span>
+                                                            <a href="#" id="edit_{{val.option.identifier}}" class="checkbox-inline i-checks text-info">修改</a>
+
+                                                            <script>
+
+
+
+                                                                $(function () {
+                                                                    function getShowTimes(string,indexChar){
+                                                                        //返回一个字符在字符串中出现的次数
+                                                                        return (string.split(indexChar).length-1);
+                                                                    }
+
+                                                                    var jsonObj ={{val.option.rules.choices|jsonToStr|safe}};
+                                                                    /*递归实现获取无级树数据并生成DOM结构*/
+                                                                    var jValue;
+                                                                    //alert(getShowTimes("4.2.1","4.3"));
+                                                                    var forTree = function(o){
+                                                                        jValue ='<select class="form-control">';
+                                                                        jValue +='<option value=""  >请选择</option>';
+                                                                        for(var item in jsonObj){
+                                                                            if(item.indexOf(".")<0){
+                                                                                jValue +='<option value='+ item +'>'+ jsonObj[item] +'</option>';
+                                                                            }
+                                                                        }
+                                                                        jValue += "</select>";
+                                                                        return jValue;
+                                                                    }
+                                                                    var subTree = function(jsonObj,item){
+                                                                        var arr =[];
+                                                                        for(var item2 in jsonObj){
+                                                                            let vvv = item+".";
+                                                                            let count = getShowTimes(vvv,".")
+                                                                            if(item2.indexOf(vvv)==0 && getShowTimes(item2,".")==count ){
+                                                                                var htm = '<option value='+ item2 +'>'+ jsonObj[item2] +'</option>';
+                                                                                arr.push(htm);
+                                                                                //subTree(jsonObj,item2);
+                                                                            }
+                                                                        }
+                                                                        if(arr.length>0){
+                                                                            var str = "";
+                                                                            str +='<select class="form-control">';
+                                                                            str +='<option value="">请选择</option>';
+                                                                            str += arr.join("")
+                                                                            str += "</select>";
+                                                                            return str;
+                                                                        }
+
+                                                                    }
+                                                                    $(document).on("change","#sortid_{{val.option.identifier}} select",function () {
+                                                                        var val = $(this).find("option:selected").val();
+                                                                        var text = $(this).find("option:selected").text();
+                                                                        var info;
+                                                                        if(val){
+                                                                            info = "你的选择: <b class='text-info'>" + text+"</b>";
+                                                                        }else {
+                                                                            info =text;
+                                                                        }
+                                                                        $(this).nextAll().remove();
+                                                                        $(this).after(subTree(jsonObj, val));
+                                                                        $('input[name="sortid_{{val.option.identifier}}"]').val(val);
+                                                                        $("#info_{{val.option.identifier}}").html(info)
+                                                                    })
+                                                                    $(document).on("click","#edit_{{val.option.identifier}}",function (e) {
+                                                                        e.preventDefault();
+
+                                                                        $("#sortid_{{val.option.identifier}}").html(forTree(jsonObj));
+                                                                    })
+                                                                    //
+
+                                                                })
+                                                            </script>
+
+                                                        </div>
+                                                        {#
+                                                        <div class="col-md-3">
+                                                            <select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                                <option value=" "  >请选择</option>
+                                                                {% for k ,v in val.option.rules.choices %}
+                                                                <option value="{{k}}" {% if val.option.value == k %}selected{%endif%}>[{{k}}] {{v}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            </div>
+                                                        #}
+                                                        {% elif val.option.type == 'number' or val.option.type == 'range'%}
+                                                        <div class="col-md-2">
+                                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                        </div>
+                                                        {% elif val.option.type == 'textarea' %}
+                                                        <div class="col-md-8">
+                                                            <textarea class="form-control" name="sortid_{{val.option.identifier}}"  {% if val.required == 1 %}data-required="true"{%endif%}  {% if val.option.rules.rowsize %} rows="{{val.option.rules.rowsize}}" {% endif %}>{{val.option.value}}</textarea>
+                                                        </div>
+                                                        {% elif val.option.type == 'radio' %}
+                                                        <div class="col-md-8">
+                                                            {% for k ,v in val.option.rules.choices %}
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if val.option.value == k %}checked{%endif%} ><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% elif val.option.type == 'checkbox' %}
+                                                        <div class="col-md-8">
+                                                            <input class="hide" type="checkbox" value="0" name="sortid_{{val.option.identifier}}" checked>
+                                                            {% for k ,v in val.option.rules.choices %}
+                                                            <label class="checkbox-inline i-checks">
+                                                                <input type="checkbox" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if k|in_Array(val.option.value|strToJson)  %}checked{%endif%}><i></i> {{v}}
+                                                            </label>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% elif val.option.type == 'calendar' %}
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control date" value="{{val.option.value}}" data-type="dateIso" placeholder="YYYY-MM-DD" {% if val.required == 1 %}data-required="true"{%endif%}/>
+                                                        </div>
+                                                        {%elif val.option.type == 'email'%}
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control" value="{{val.option.value}}" data-type="email" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                        </div>
+                                                        {%elif val.option.type == "image"%}
+                                                        <div class="col-sm-10">
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}" value="{{val.option.value}}"/>
+                                                            <div id="fileList_sortid_{{val.option.identifier}}" class="uploader-list"></div>
+                                                            <div id="filePicker_sortid_{{val.option.identifier}}">选择图片</div>
+                                                            <script type="text/javascript">
+                                                                $list_sortid_{{val.option.identifier}} = $('#fileList_sortid_{{val.option.identifier}}'),
+                                                                        // 优化retina, 在retina下这个值是2
+                                                                        ratio_sortid_{{val.option.identifier}} = window.devicePixelRatio || 1,
+
+                                                                        // 缩略图大小
+                                                                        thumbnailWidth_sortid_{{val.option.identifier}} = 100 * ratio_sortid_{{val.option.identifier}},
+                                                                thumbnailHeight_sortid_{{val.option.identifier}} = 100 * ratio_sortid_{{val.option.identifier}},
+
+                                                                // Web Uploader实例
+                                                                uploader_sortid_{{val.option.identifier}};
+
+                                                                // 初始化Web Uploader
+                                                                // 初始化Web Uploader
+                                                                var uploader_sortid_{{val.option.identifier}} = WebUploader.create({
+                                                                    // 选完文件后，是否自动上传。
+                                                                    auto: true,
+                                                                    // swf文件路径
+                                                                    swf: '/static/admin/js/webuploader/Uploader.swf',
+                                                                    // 文件接收服务端。
+                                                                    server: '/admin/file/uploadpic',
+                                                                    // 选择文件的按钮。可选。
+                                                                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                                                                    pick: {
+                                                                        id:'#filePicker_sortid_{{val.option.identifier}}',
+                                                                        multiple: false
+                                                                    },
+                                                                    // 只允许选择图片文件。
+                                                                    accept: {
+                                                                        title: 'Images',
+                                                                        extensions: 'gif,jpg,jpeg,bmp,png',
+                                                                        mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
+                                                                    }
+                                                                });
+                                                                //当有图片时加载图片
+                                                                var cover_id="{{val.option.value}}";
+                                                                console.log(cover_id);
+                                                                if(cover_id != 0){
+                                                                    var picurl = "{{val.option.value|get_pic('m=0,h=110')}}"
+                                                                    var $li = $(
+                                                                                    '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                                    '<img src="'+picurl+'">' +
+                                                                                    '</div>'
+                                                                            ),
+                                                                            $img = $li.find('img');
+
+                                                                    $list_{{field.name}}.html( $li );
+                                                                }
+                                                                // 当有文件添加进来的时候
+                                                                uploader_sortid_{{val.option.identifier}}.on( 'fileQueued', function( file ) {
+                                                                    var $li = $(
+                                                                                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                                                                                    '<img>' +
+                                                                                    '<div class="info">' + file.name + '</div>' +
+                                                                                    '</div>'
+                                                                            ),
+                                                                            $img = $li.find('img');
+
+                                                                    $list_sortid_{{val.option.identifier}}.html( $li );
+
+                                                                    // 创建缩略图
+                                                                    uploader_sortid_{{val.option.identifier}}.makeThumb( file, function( error, src ) {
+                                                                        if ( error ) {
+                                                                            $img.replaceWith('<span>不能预览</span>');
+                                                                            return;
+                                                                        }
+
+                                                                        $img.attr( 'src', src );
+                                                                    }, thumbnailWidth_sortid_{{val.option.identifier}}, thumbnailHeight_sortid_{{val.option.identifier}} );
+                                                                });
+
+                                                                // 文件上传过程中创建进度条实时显示。
+                                                                uploader_sortid_{{val.option.identifier}}.on( 'uploadProgress', function( file, percentage ) {
+
+                                                                    var $li = $( '#'+file.id ),
+                                                                            $percent = $li.find('.progress span');
+
+                                                                    // 避免重复创建
+                                                                    if ( !$percent.length ) {
+                                                                        $percent = $('<p class="progress"><span></span></p>')
+                                                                                .appendTo( $li )
+                                                                                .find('span');
+                                                                    }
+
+                                                                    $percent.css( 'width', percentage * 100 + '%' );
+                                                                });
+
+                                                                // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                                                                uploader_sortid_{{val.option.identifier}}.on( 'uploadSuccess', function( file,res ) {
+                                                                    $( '#'+file.id ).addClass('upload-state-done');
+                                                                    $("#sortid_{{val.option.identifier}}").val(res);
+                                                                });
+
+                                                                // 文件上传失败，现实上传出错。
+                                                                uploader_sortid_{{val.option.identifier}}.on( 'uploadError', function( file ) {
+                                                                    var $li = $( '#'+file.id ),
+                                                                            $error = $li.find('div.error');
+
+                                                                    // 避免重复创建
+                                                                    if ( !$error.length ) {
+                                                                        $error = $('<div class="error"></div>').appendTo( $li );
+                                                                    }
+
+                                                                    $error.text('上传失败');
+                                                                });
+
+                                                                // 完成上传完了，成功或者失败，先删除进度条。
+                                                                uploader_sortid_{{val.option.identifier}}.on( 'uploadComplete', function( file ) {
+                                                                    $( '#'+file.id ).find('.progress').remove();
+                                                                });
+                                                            </script>
+                                                        </div>
+                                                        {%elif val.option.type == "url"%}
+                                                        <div class="col-md-6">
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" data-type="url" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%} class="form-control" placeholder="">
+                                                        </div>
+                                                        {%else%}
+                                                        <div class="col-md-8">
+                                                            <input type="text" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                        </div>
+                                                            {%endif%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {%endif%}
+                                            {%endfor%}
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            {%endif%}
                                             {% if groups and key==1 %}
                                             <div class="form-group">
                                                 <label  class="col-sm-2 control-label">
@@ -118,15 +407,30 @@ table tr td{
                                                         </div>
                                                         {% elif field.type == "date" %}
                                                         <div class="col-md-3">
-                                                            <input type="text" name="{{field.name}}" class="form-control date" value="{{data[field.name]|dateformat('Y-m-d')}}" placeholder="请选择日期" />
+                                                            <input type="text" name="date|||{{field.name}}" class="form-control date" value="{%if data[field.name]==0%}{%else%}{{data[field.name]|moment('YYYY-MM-DD')}}{%endif%}" placeholder="请选择日期" />
                                                         </div>
                                                         {% elif field.type == "datetime" %}
                                                         <div class="col-md-3">
-                                                            <input type="text" name="{{field.name}}" class="form-control time" value="{{data[field.name]|dateformat('Y-m-d H:i')}}" placeholder="请选择时间" />
+                                                            <input type="text" name="date|||{{field.name}}" class="form-control time" value="{%if data[field.name]==0%}{%else%}{{data[field.name]|moment('YYYY-MM-DD HH:mm')}}{%endif%}" placeholder="请选择时间" />
                                                         </div>
+                                                        {% elif field.type == "keyword" %}
+                                                        <div class="col-md-10">
+                                                            <input type="text" class="form-control" id="{{field.name}}" name="{{field.name}}" value="{{data[field.name]}}" >
+                                                        </div>
+                                                        <script>
+                                                            $(function () {
+                                                                $('#{{field.name}}').tagsInput({
+                                                                    autocomplete_url:'/admin/public/getkeyword',
+                                                                    autocomplete:{selectFirst:true,autoFill:true},
+                                                                    width:'auto',
+                                                                    height:'43px',
+                                                                    defaultText:'add a tag',
+                                                                });
+                                                            })
+                                                        </script>
                  {% elif field.type == "freight" %}
                 <div class="col-md-5">
-                    <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}'' id="{{field.name}}"/>
+                    <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}' id="{{field.name}}"/>
                     {% set freight = data[field.name]|strToJson %}
                    <table  class="table table-bordered b-t b-light m-b-none">
                         <tr><td>
@@ -509,7 +813,7 @@ table tr td{
                     accept: {
                         title: 'Images',
                         extensions: 'gif,jpg,jpeg,bmp,png',
-                        mimeTypes: 'image/*'
+                        mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
                     }
                 });
                 // 当有文件添加进来的时候
@@ -1176,7 +1480,7 @@ table tr td{
         accept: {
             title: 'Images',
             extensions: 'gif,jpg,jpeg,bmp,png',
-            mimeTypes: 'image/*'
+            mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
         },
 
         // swf文件路径
@@ -1206,7 +1510,7 @@ table tr td{
             ids = res;
         }
         
-        console.log(ids);
+        //console.log(ids);
        $("#{{field.name}}").val(ids);
     });
     //编辑的时候载入图片
@@ -1224,7 +1528,7 @@ table tr td{
     $placeHolder.addClass('element-invisible');
     $statusBar.show();
     $queue.parent().addClass('filled');   
-      var $li = $('<li id="' + file.id + '">' +
+      var $li = $('<li id="' + file.id + '" class="up">' +
             '<p class="title">' + file.name + '</p>' +
             '<p class="imgWrap"></p>' +
             '<p class="progress"><span></span></p>' +
@@ -1237,6 +1541,36 @@ table tr td{
             $prgress = $li.find('p.progress span'),
             $wrap = $li.find('p.imgWrap'),
             $info = $('<p class="error"></p>');
+        $li.on('mouseenter', function () {
+            $btns.stop().animate({ height: 30 });
+        });
+
+        $li.on('mouseleave', function () {
+            $btns.stop().animate({ height: 0 });
+        });
+        $btns.on('click', 'span', function () {
+            var index = $(this).index(),
+                    deg;
+            var id=$(this).parents("li.up").attr("id");
+            switch (index) {
+                case 0:
+                    removepics(id);
+                    //removepics()
+                    return;
+
+                case 1:
+                    //file.rotation += 90;
+                    break;
+
+                case 2:
+                   // file.rotation -= 90;
+                    break;
+            }
+
+
+
+
+        });
              var img = $('<img src="' + file.src + '">');
                 $wrap.empty().append(img);
             $li.appendTo($queue);  
@@ -1380,12 +1714,28 @@ table tr td{
         });
         //console.log($queue)
         $li.appendTo($queue);
+        //console.log(percentages);
     }
+// 负责view的销毁
+                function removepics(file) {
+                    var $li = $('#' + file);
+                    //delete percentages[file.id];
+                    var id = $("#{{field.name}}").val();
+                    var ids=[]
+                    id.split(",").forEach(function ( v) {
+                        if(file!=v) {
+                            ids.push(v)
+                        }
+                    });
 
+                    $("#{{field.name}}").val(ids.join(","))
+                    //console.log(ids);
+                    updateTotalProgress();
+                    $li.off().find('.file-panel').off().end().remove();
+                }
     // 负责view的销毁
     function removeFile(file) {
         var $li = $('#' + file.id);
-
         delete percentages[file.id];
         updateTotalProgress();
         $li.off().find('.file-panel').off().end().remove();
@@ -1437,6 +1787,7 @@ table tr td{
     }
 
     function setState(val) {
+        //alert(val)
         var file, stats;
 
         if (val === state) {
@@ -1512,7 +1863,7 @@ table tr td{
 
     uploader.onFileQueued = function (file) {
         fileCount++;
-        fileSize += file.size;
+        fileSize -= file.size;
 
         if (fileCount === 1) {
             $placeHolder.addClass('element-invisible');
@@ -1526,9 +1877,8 @@ table tr td{
 
     uploader.onFileDequeued = function (file) {
         fileCount--;
-        fileSize -= file.size;
-
-        if (!fileCount) {
+        fileSize += file.size;
+        if (!fileCount && !$('.filelist>li.up')) {
             setState('pedding');
         }
 
@@ -1669,7 +2019,7 @@ table tr td{
         accept: {
             title: 'Images',
             extensions: 'gif,jpg,jpeg,bmp,png',
-            mimeTypes: 'image/*'
+            mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
         }
     });
     //当有图片时加载图片
@@ -1928,14 +2278,15 @@ table tr td{
         {% endfor %}
     </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group form-submit">
                                             <div class="col-sm-4 col-sm-offset-2">
                                                 <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
                                                 <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
                                                 <input type="hidden" name="id" value="{{data.id}}"/>
                                                 <input type="hidden" name="pid" value="{{data.pid}}"/>
+                                                <input type="hidden" name="topid" value="{{data.topid}}"/>
                                                 <input type="hidden" name="model_id" value="{{data.model_id}}"/>
-                                                <!--<input type="hidden" name="group_id" value="{{data.group_id}}"/>-->
+                                                <input type="hidden" name="userid" value="{{userinfo.uid}}"/>
                                                 <input type="hidden" name="category_id" value="{{data.category_id}}">
                                             </div>
                                         </div>
@@ -1976,6 +2327,7 @@ table tr td{
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript">
     <!--
     var zTree;

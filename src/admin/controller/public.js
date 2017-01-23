@@ -8,7 +8,9 @@
 'use strict';
 
 export default class extends think.controller.base {
-
+    async  __before(){
+        this.setup = await this.model("setup").getset();
+    }
     /**
      * public action
      * @return {Promise} []
@@ -17,6 +19,18 @@ export default class extends think.controller.base {
         //用户登录
         let is_login = await this.islogin();
         if(this.isPost()){
+            //验证码
+            if(1==this.setup.GEETEST_IS_ADMLOGIN){
+                let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
+                let geetest = new Geetest();
+                let res = await geetest.validate(this.post());
+                if("success" != res.status){
+                    this.http.error = new Error("验证码不正确");
+                    return think.statusAction(702, this.http);
+                }
+            }
+
+
             let username = this.post('username');
             let password = this.post('password');
             password = encryptPassword(password);
@@ -88,19 +102,63 @@ export default class extends think.controller.base {
     //获取分类
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
-        console.log(cate);
+        //console.log(cate);
         //生成菜单
 
         for (let val of cate) {
             let id = think.isEmpty(val.title)?val.id:val.title;
-            if(val.allow_publish > 0){
-                val.url = `/column/${id}`;
-            }else {
-                val.url =`/channel/${id}`;
-            }
+             val.url =`/${id}`;
 
         }
         //think.log(cate);
         return this.json(arr_to_tree(cate, 0))
+    }
+
+//验证码
+    async geetestAction(){
+        let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
+        let geetest = new Geetest();
+        if(this.isPost()){
+            let post =this.post();
+            //console.log(post);
+            let res = await geetest.validate(post);
+            return this.json(res);
+        }else {
+            let res = await geetest.register(this.get('type'));
+            //console.log(res);
+            return this.json(res);
+        }
+
+
+    }
+    async validate(data){
+        let deferred = think.defer();
+        geetest.validate({
+
+            challenge: data.geetest_challenge,
+            validate: data.geetest_validate,
+            seccode: data.geetest_seccode
+
+        }, function (err, result) {
+            console.log(result);
+            var data = {status: "success"};
+
+            if (err || !result) {
+                console.log(err);
+                data.status = "fail";
+            }
+
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
+    /**
+     * 关键词自动完成
+     */
+    async getkeywordAction(){
+        let term = this.get("term");
+       let data =  await this.model("keyword").where({keyname:["LIKE",`%${term}%`]}).field("id,keyname as label,keyname as value").select()
+        return this.json(data);
     }
 }

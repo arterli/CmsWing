@@ -22,7 +22,7 @@ export default class extends Base {
     //auto render template file index_index.html
     this.config = this.config("ueditor");
     let action = this.get("action");
-    think.log(action);
+    //think.log(action);
     let result;
     switch (action) {
       case 'config':
@@ -135,7 +135,7 @@ export default class extends Base {
        if(!think.isEmpty(uppic)){
          return {
            "state" : "SUCCESS",
-           "url" : `http://${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+           "url" : `//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
            "title" : uppic.hash,
            "original" : file.originalFilename,
            "type" : ".jpg",

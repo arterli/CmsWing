@@ -21,7 +21,7 @@ export default class extends Base {
     //auto render template file index_index.html
     let action = await this.model('action').where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
     let _pages = think.adapter("pages","page");
-    let pages = new _pages();
+    let pages = new _pages(this.http);
     let page = pages.pages(action);
     this.assign("pagerData",page);
     this.assign("list",action.data);
@@ -41,7 +41,7 @@ export default class extends Base {
     let list = await this.model("action_log").where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
     //console.log(list);
     let _pages = think.adapter("pages","page");
-    let pages = new _pages();
+    let pages = new _pages(this.http);
     let page = pages.pages(list);
     this.assign("pagerData",page);
     for(let itme of list.data){

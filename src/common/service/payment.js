@@ -19,7 +19,7 @@ export default class extends think.service.base {
 
 //发起付款
     async pingxx(channel, order_no, order_amount, ip,open_id) {
-
+        let http_=think.config("http_")==1?"http":"https";
         let config;
         let extra = {};
         let amount = Number(order_amount) * 100;
@@ -30,7 +30,7 @@ export default class extends think.service.base {
             case 'alipay_pc_direct':
                 //支付宝网页支付
                 extra = {
-                    success_url: `http://${this.http.host}/cart/payres`
+                    success_url: `${http_}://${this.http.host}/uc/pay/payres`
                 }
 
                 break;
@@ -47,26 +47,26 @@ export default class extends think.service.base {
             case 'upacp_pc':
                 //网银pc网页支付
                 extra = {
-                    result_url: `http://${this.http.host}/cart/payres`
+                    result_url: `${http_}://${this.http.host}/uc/pay/payres`
                 }
                 break;
             case 'upacp_wap':
                 //网银pc网页支付
                 extra = {
-                    result_url: `http://${this.http.host}/cart/payres`
+                    result_url: `${http_}://${this.http.host}/uc/pay/payres`
                 }
                 break;
             case 'alipay_wap':
                 //支付宝网页支付
                 extra = {
-                    success_url: `http://${this.http.host}/cart/payres`
+                    success_url: `${http_}://${this.http.host}/uc/pay/payres`
                 }
 
                 break;
             case 'bfb_wap':
                 //支付宝网页支付
                 extra = {
-                    result_url: `http://${this.http.host}/cart/payres`,
+                    result_url: `${http_}://${this.http.host}/uc/pay/payres`,
                     bfb_login:false
                 }
 

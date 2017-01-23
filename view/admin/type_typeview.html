@@ -1,0 +1,218 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a href="/admin/type/index"><i class="fa fa-file-text text-muted"></i> 分类管理 </a></li>
+            {#
+            <li class=""><a href="/admin/type/topic"><i class="fa fa-file-text text-muted"></i> 内容管理</a> </li>
+#}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> 字段管理 <b class="caret"></b></a>
+                <ul class="dropdown-menu text-left">
+                    {% for val in typeoption %}
+                    <li><a href="/admin/type/typeoption/classid/{{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    {%endfor%}
+                </ul>
+            </li>
+
+
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+
+            <header class="panel-heading">
+                技巧提示
+            </header>
+
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    正式使用后尽量不要修改添加字段，不要修改项目字段，以免造成数据丢失                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+            <header class="panel-heading">
+                是否设置有效期
+            </header>
+
+            <div class="row wrapper">
+
+                <div class="col-sm-3 m-b-xs ">
+                    <label class="checkbox-inline i-checks">
+                        <input type="radio" value="1" name="expiration"><i></i> 是
+                    </label>
+                    <label class="checkbox-inline i-checks">
+                        <input type="radio" value="0" name="expiration" checked><i></i> 否
+                    </label>
+                  </div>
+                <div class="col-sm-9">
+                    此分类信息是否有有效期限制，过期后将不参与分类信息搜索，此有效期在发布内容时选择
+                </div>
+            </div>
+            <header class="panel-heading">
+                {{info.name}}-添加分类信息字段
+            </header>
+            <div class="wrapper">
+                <header class="panel-heading text-right bg-light">
+                    <ul class="nav nav-tabs pull-left">
+                        {%for val in typeoption%}
+                        <li class="{%if val.optionid == 1%}active{%endif%}"><a href="#type-{{val.optionid}}" data-toggle="tab">{{val.title}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <span class="hidden-sm">Left</span>
+                </header>
+                <div class="tab-content m-t">
+                    {%for val in typeoption%}
+                    <div class="tab-pane fade {%if val.optionid == 1%}active in{%endif%}" id="type-{{val.optionid}}">
+                        {%for v in option%}
+                        {%if v.classid==val.optionid%}
+                        <label class="checkbox-inline i-checks">
+                            <input type="checkbox" class="checkdom" data-name="{{v.title}}" data-type="{{v.type}}" value="{{v.optionid}}" name="option" {%if info.typeid|in_Array(v.sortid)%} checked="checked" {%endif%}><i></i> {{v.title}}
+                        </label>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <header class="panel-heading">
+                {{info.name}}-已有字段
+            </header>
+            <form method="post" class="" autocomplete="off" action="/admin/type/update" id="threadtypeform" enctype="multipart/form-data" >
+                <div class="table-responsive">
+                    <table class="table table-hover b-light m-b-xxs" id="type-list">
+                        <thead>
+                        <tr>
+                            <th style="width:80px;">删除?</label></th>
+                            <th style="width: 90px">显示顺序</th>
+                            <th>可用</th>
+                            <th>名称</th>
+                            <th>类型</th>
+                            <th>必填</th>
+                            <th>不可修改</th>
+                            <th>表单搜索</th>
+                            <th>文字检索</th>
+                            <th>主题展示</th>
+                            <th style="width:130px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {%for val in typevar%}
+                        <tr data-id="{{val.optionid}}">
+                            <input type="hidden" name="optionid" value="{{val.optionid}}">
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="isdel" value="1"><i></i></label></td>
+                            <td> <input type="text" class="form-control form-control-text" name="displayorder" value="{{val.displayorder}}" ></td>
+                             <td><label class="checkbox m-n i-checks"><input type="checkbox" name="available" value="1" {%if val.available ==1%}checked="checked"{%endif%}><i></i></label></td>
+                            <td>{{val.title}}</td>
+                            <td>{{val.type}}</td>
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="required" value="1" {%if val.required ==1%}checked{%endif%}><i></i></label></td>
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="unchangeable" value="1" {%if val.unchangeable ==1%}checked{%endif%}><i></i></label></td>
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_form" value="1" {%if val.search ==1 or val.search==3%}checked{%endif%}><i></i></label></td>
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_font" value="2" {%if val.search ==2 or val.search==3%}checked{%endif%}><i></i></label></td>
+                            <td><label class="checkbox m-n i-checks"><input type="checkbox" name="subjectshow" value="1" {%if val.subjectshow ==1%}checked{%endif%}><i></i></label></td>
+
+                            <td><a href="/admin/type/edittype/optionid/{{val.optionid}}" class="text-info"> 编辑</a></td>
+                        </tr>
+                        {%endfor%}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <footer class="panel-footer">
+                    <input type="hidden" name="sortid" value="{{info.typeid}}">
+                    <div class="row"><div class="col-sm-offset-2"> <button class="btn btn-primary btn-s-md posttype" type="submit" >确定</button></div></div>
+
+                </footer>
+            </form>
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+    $(function () {
+
+        $(".checkdom").click(function () {
+            var val = $(this).val();
+            var name = $(this).attr('data-name');
+            var type = $(this).attr('data-type');
+            if($(this).attr("checked")){
+                $(this).removeAttr("checked");
+                var id = 'tr[data-id="'+val+'"]';
+                $(id).remove();
+            }else {
+                $(this).attr("checked",'true');
+                var tr = '  <tr data-id="'+val+'">'+
+                        '<input type="hidden" name="optionid" value="'+val+'">'+
+                        '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="isdel" value="1"><i></i></label></td>'+
+                '<td> <input type="text" class="form-control form-control-text" name="displayorder" value="0" ></td>'+
+                        '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="available" value="1" checked="checked"><i></i></label></td>'+
+                '<td>'+name+'</td>'+
+                '<td>'+type+'</td>'+
+                '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="required" value="1" ><i></i></label></td>'+
+                '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="unchangeable" value="1" ><i></i></label></td>'+
+                '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_form" value="1"><i></i></label></td>'+
+                '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_font" value="2" ><i></i></label></td>'+
+                '<td><label class="checkbox m-n i-checks"><input type="checkbox" name="subjectshow" value="1" ><i></i></label></td>'+
+                '<td></td></tr>';
+                $('#type-list>tbody').append(tr);
+            }
+        })
+//提交数据
+        $(".posttype").click(function () {
+            var tr = $("#type-list>tbody>tr");
+            var dataarr = []
+            $.each(tr,function (k,v) {
+                var obj = {};
+                obj.isdel = $(v).find("input[name='isdel']:checked").val()||0;
+
+                    obj.sortid=$("input[name='sortid']").val();
+                    obj.optionid = $(v).find("input[name='optionid']").val();
+                    obj.available=$(v).find("input[name='available']:checked").val()||0;
+                    obj.required=$(v).find("input[name='required']:checked").val()||0;
+                    obj.unchangeable=$(v).find("input[name='unchangeable']:checked").val()||0;
+                    obj.search = Number($(v).find("input[name='search_form']:checked").val()||0) + Number($(v).find("input[name='search_font']:checked").val()||0)
+                    obj.displayorder=$(v).find("input[name='displayorder']").val()||0;
+                    obj.subjectshow=$(v).find("input[name='subjectshow']:checked").val()||0;
+                    //console.log(obj);
+                    dataarr.push(obj);
+
+
+            })
+            var datas = {id:$("input[name='sortid']").val(),datarr:dataarr}
+            //console.log(datas);
+
+            $.ajax({
+                url:"/{{http.module}}/{{http.controller}}/updatetypevar",
+                data:{data:JSON.stringify(datas)},
+                type:"post",
+                success:function (res) {
+                    if (res.errno==0) {
+                        if (res.data.url) {
+
+                            toastr.success(res.data.name + ' 页面即将自动跳转~');
+                        }else{
+                            toastr.success(res.data.name);
+                        }
+                        setTimeout(function(){
+                            if (res.data.url) {
+                                location.href=res.data.url;
+                            }else{
+                                location.reload();
+                            }
+                        },1500);
+                    }
+                }
+            })
+            return false;
+        })
+
+    })
+</script>
+{% endblock%}

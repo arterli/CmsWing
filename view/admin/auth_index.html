@@ -1,81 +1,124 @@
 {% extends "./inc/base.html" %}
-{% block style%}
-<link rel="stylesheet" href="/static/admin/js/datatables/datatables.css" type="text/css"/>
-{% endblock %}
 {% block content %}
-    <section class="hbox stretch">
+<section class="vbox">
 
-        <aside id="asideres" class="aside-lg bg-light b-r hide">
-            <div class="wrapper">
-                <h4 class="m-t-none">新增角色 </h4>
-                <form data-validate="" id="register">
-                    <div class="form-group">
-                        <label>用户组 </label>
-                        <input id="desc" type="text" name="desc" class="input-sm form-control" placeholder="角色名称" data-required="true">
-                    </div>
-                    <div class="form-group">
-                        <label>描述 </label>
-                        <textarea id="description" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" ></textarea>
-                    </div>
-                    <div class="m-t-lg"><button class="btn btn-lg btn-default" id="btn">添加角色</button></div>
-                </form>
-            </div>
-        </aside>
-        <aside id="bjax-target" class="aside-lg bg-light b-r hide">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="{% if http.action == 'index'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/index"><i class="fa fa-user text-muted"></i> 会员组 </a></li>
+            <li class="{% if http.action == 'admin'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/admin"><i class="fa fa-user text-muted"></i> 管理员角色</a></li>
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
 
-        </aside>
-        <aside>
-            <section class="vbox">
-                <header class="header bg-light dk">
-                    <div class="btn-group pull-right">
-                        <a href="#asideres" class="btn btn-sm btn-default" data-toggle="class:show">
-                            <i class="fa fa-plus text"></i>
-                            <span class="text">添加角色</span>
-                            <i class="fa fa-minus text-active"></i>
-                            <span class="text-active">添加完成</span>
+        <section class="panel panel-default">
+            <header class="panel-heading">
+               {{controller.meta_title}}
+                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+                        <a class="btn btn-sm btn-info " href="/{{http.module}}/{{http.controller}}/adduser">
+                            添加会员组
                         </a>
-                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 启用</button>
-                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-minus-square-o"></i> 禁用</button>
-                        <button class="btn btn-default btn-sm" type="button"><i class="fa fa-trash-o"></i> 删除</button>
-
+                        <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{http.module}}/{{http.controller}}/deluser" target-form="ids">
+                            删除
+                        </a>
+                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort/type/1">
+                            排序
+                        </a>
                     </div>
-                    <p>权限管理</p>
-                </header>
-                <section class="scrollable wrapper">
-                    <section class="panel panel-default">
-                        <header class="panel-heading">
-                            角色列表
-                            <i class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title="ajax to load the data."></i>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" class="input-sm form-control" placeholder="Search">
+                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        <th style="width:50px;">ID</th>
+                        <th style="width:80px;">排序</th>
+                        <th class="">用户组名</th>
+                        <th class="">系统组	</th>
+                        <th class="">会员数</th>
+                        <th>星星数</th>
+                        <th>积分小于</th>
+                        <th>允许上传附件</th>
+                        <th>投稿权限</th>
+                        <th>投稿不需审核</th>
+                        <th>搜索权限</th>
+                        <th class="">发短消息</th>
+                        <th >操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td>{%if item.issystem !=1%}<label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.groupid}}" ><i></i></label>{%endif%}</td>
+                        <td>{{item.groupid}}</td>
+                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.groupid}}"/></td>
+                        <td>{{item.name}}</td>
 
-                        </header>
-                        <div class="table-responsive">
-                            <table class="table table-striped m-b-none" data-ride="datatables">
-                                <thead>
-                                <tr>
-                                    <th style="width:5%"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                    <th  style="width:15%">用户组</th>
-                                    <th  style="width:20%">描述</th>
-                                    <th  style="width:30%">授权</th>
-                                    <th  style="width:10%">状态</th>
-                                    <th  style="width:15%">操作</th>
+                        <td>{%if item.issystem ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}</td>
+                        <td>{{item.count}}</td>
+                        <td>
+                            {{item.starnum}}
+                        </td>
+                        <td>
+                            {{item.point}}
+                        </td>
+                        <td>
+                            {%if item.allowattachment ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
+                        </td>
+                        <td>
+                            {%if item.allowpost ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
+                        </td>
+                        <td>
+                            {%if item.allowpostverify ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
+                        </td>
+                        <td>
+                            {%if item.allowsearch ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
+                        </td>
+                        <td>
+                            {%if item.allowsendmessage ==1%}<i class="fa fa-check text-success"></i>{%else%}<i class="fa fa-times text-danger"></i>{%endif%}
+                        </td>
+                        <td>
+                            <a href="/admin/auth/edituser?id={{item.groupid}}" class="text-info">编辑</a>
+                            {%if item.issystem !=1%}
+                            <a href="/admin/auth/deluser?id={{item.groupid}}" class="confirm ajax-get text-info">删除</a></td>
+                            {%endif%}
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="14"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-                </section>
-            </section>
-        </aside>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+        </section>
     </section>
-{% endblock%}
+</section>
 
-{% block script%}
-<script src="/static/admin/js/datatables/jquery.dataTables.min.js"></script>
-<script src="/static/admin/js/datatables/jquery.csv-0.71.min.js"></script>
-<script src="/static/admin/js/parsley/parsley.min.js"></script>
-<script src="/static/admin/js/parsley/parsley.extend.js"></script>
-<script src="/static/admin/js/datatables/auth.js"></script>
 {% endblock %}

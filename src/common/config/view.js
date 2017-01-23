@@ -47,7 +47,20 @@ export default {
                     }
                     return time;
                 })
-
+                /**
+                 * moment
+                 * YYYY-MM-DD HH:mm:ss
+                 * lll
+                 */
+                env.addFilter("moment",function (time,config) {
+                    let moment = require('moment');
+                    moment.locale('zh-cn');
+                    if(think.isEmpty(config)){
+                        return moment(time).fromNow();
+                    }else {
+                        return moment(time).format(config);
+                    }
+                })
                 /**
                  *分析枚举类型配置值 格式 a:名称1,b:名称2
                  */
@@ -95,7 +108,7 @@ export default {
                     }
                 })
                 env.addFilter("strToJson", function (str) {
-                    if (!think.isEmpty(str)) {
+                    if (!think.isEmpty(str) && str !=0) {
                         return JSON.parse(str);
                     }
                 })
@@ -104,15 +117,22 @@ export default {
                         return JSON.stringify(json);
                     }
                 })
-                env.addFilter("strToArray", function (str) {
+                env.addFilter("strToArray", function (str,sn=",") {
                     if (!think.isEmpty(str)) {
-                        let ss = str.split(",");// 在每个逗号(,)处进行分解。
+                        let ss = str.split(sn);// 在每个逗号(,)处进行分解。
+                        console.log(ss);
                         return ss;
+                    }else{
+                        return str;
                     }
                 })
 
                 env.addFilter("in_Array", function (str, arr) {
+                    arr= arr||0;
                     if (!think.isArray(arr)) {
+                        if(think.isNumber(arr)){
+                            arr = "'"+arr+"'";
+                        }
                         arr = arr.split(",");
                     }
                     //console.log(arr);
@@ -140,7 +160,21 @@ export default {
                     }
                     return wx_bq;
                 })
+                //解析分类信息url
+                env.addFilter("sort_url", function (id,val,arr,http) {
+                    
+                        return sort_url(id,val,arr,http);
 
+                })
+                //解析分类信息当前状态
+                env.addFilter("sort_act",function (id,getid) {
+                    //console.log(in_array(id, sanjiao(getid.split("."))));
+                    if(!think.isEmpty(getid)){
+                        return in_array(id,sanjiao(getid.split(".")));
+                    }
+
+
+                })
                 /**
                  * 时间戳格式化 dateformat('Y-m-d H:i:s')
                  * @param extra 'Y-m-d H:i:s'
@@ -161,6 +195,12 @@ export default {
                     return get_action_type(type, all);
                 })
                 /**
+                 * 数字转ip
+                 */
+                env.addFilter("int2ip",function (int) {
+                    return _int2iP(int);
+                })
+                /**
                  * 获取模型字段信息
                  * @param model_id 模型id 或 模型名称
                  * @param id 数据id
@@ -170,6 +210,17 @@ export default {
                  */
                 env.addFilter("getmodelfield", async(id, model_id, field, callback) => {
                     let data = await getmodelfield(model_id, id, field);
+                    callback(null, data);
+                }, true)
+                /**
+                 * 获取模型信息
+                 * @param model_id 模型id 或 模型名称
+                 * @param field 字段
+                 * @param return 整条数据或字段数据
+                 * @author arterli <arterli@qq.com>
+                 */
+                env.addFilter("getmode", async(model_id, field, callback) => {
+                    let data = await get_model(model_id, field);
                     callback(null, data);
                 }, true)
                 /**
@@ -199,7 +250,7 @@ export default {
                  */
                 env.addFilter('get_pic', async(id, type, callback)=> {
                     let m, w, h;
-                    console.log(type);
+                    //console.log(type);
                     let obj = {};
                     for (let v of type.split(",")) {
                         v = v.split("=");
@@ -266,12 +317,18 @@ export default {
                  */
                 env.addFilter('block',(str,sn,flg)=>{
                     var newstr="";
-                    var tmp=str.substring(0,sn);
                     if(think.isEmpty(flg)){
                         flg="...";
                     }
-                    newstr=tmp+flg;
-                    return newstr;
+                    if(!think.isEmpty(str)){
+                        if(sn>=str.length){
+                            newstr = str;
+                        }
+                        else{
+                            newstr=str.substring(0,sn);
+                        }
+                    }
+                    return newstr+flg;
                 })
                 /**
                  * 过滤html标签
@@ -293,7 +350,35 @@ export default {
                 env.addFilter('get_file',async (file_id,field,key,callback)=>{
                     let data = await get_file(file_id,field,key);
                     callback(null,data);
-                },true)
+                },true);
+                /**
+                 * 获取用户组
+                 */
+                env.addFilter('get_member_group',async (groupid,callback)=>{
+                    let data = await think.model("member_group",think.config("db")).getgroup({groupid:groupid});
+                    callback(null,data[0]);
+                },true);
+                /**
+                 * 提取文本内容中的图片
+                 * @param html 文本内容
+                 * @param w kuan 高
+                 * @returns []
+                 */
+                env.addFilter('img_text_view',(html,w=200,h=200)=>{
+                    return img_text_view(html,w,h)
+                })
+                /**
+                 *缓存权限列表 all_priv
+                 * @param catid 要验证的栏目id
+                 * @param roleid 用户组
+                 * @param action 权限类型
+                 * @param is_admin 谁否前台 0前台，1后台
+                 * @returns {bool} 返回flase 或true flase:没权限，true:有权限。
+                 */
+                env.addFilter('priv',async(catid,roleid,action,is_admin=0,type=true,callback)=>{
+                    let isp= await priv(catid,roleid,action,is_admin,type);
+                    callback(null,isp);
+                },true);
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签
@@ -311,6 +396,13 @@ export default {
                  * 获取分类分组
                  */
                 env.addExtension('groups', new groups(), true);
+                /**
+                 * 获取话题
+                 */
+                env.addExtension('keywords', new keywords(), true);
+                env.addExtension('rkeywords', new rkeywords(), true);
+                //基于thinkjs model的万能查询
+                env.addExtension('model',new model(),true);
             }
         }
     }

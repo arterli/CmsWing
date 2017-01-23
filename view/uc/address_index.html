@@ -1,0 +1,203 @@
+{% extends "./inc/base.html" %} {% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户</a></li>
+            <li class="active">收货地址</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+
+
+<!-- -->
+			<section>
+				<div class="container">
+					<div class="row">
+					<!-- LEFT -->
+					{% include "./inc/user_left.html" %}
+					<!-- RIGHT -->
+					<div class="col-lg-10 col-md-10 col-sm-8">
+						<h4 class="page-header margin-top-0"><i class="fa fa-reorder fa-lg text-default"></i>
+							{{controller.meta_title}}<button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target=".add-addr-dialog">添加新地址</button></h4>
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped table-vertical-middle">
+								<thead>
+								<tr>
+									<th >收货人</th>
+									<th>所在地区</th>
+									<th>街道地址</th>
+									<th>邮编</th>
+									<th>手机</th>
+									<th></th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								{%for item in list %}
+								<tr>
+									<td >{{item.accept_name}}</td>
+									<td>{{item.province}},{{item.city}},{{item.county}}</td>
+									<td>{{item.addr}}</td>
+									<td>
+										{{item.zip}}
+									</td>
+									<td>
+									{{item.mobile}}
+									</td>
+									<td>{%if item.is_default == 1%}<span class="label label-primary">默认地址 </span>{%else%}<a class="btn btn-default btn-xs ajax-get" href="/uc/address/addrisdefault/id/{{item.id}}"><i class="fa fa-check white"></i>设为默认地址 </a>{%endif%}</td>
+									<td><a class="btn btn-default btn-xs" data-toggle="ajaxModal" href="/uc/address/editaddrmodal/id/{{item.id}}/type/1"><i class="fa fa-edit white"></i>编辑 </a>
+										<a class="btn btn-default btn-xs confirm ajax-get" href="/uc/address/deladdr/id/{{item.id}}"><i class="fa fa-times white"></i>删除 </a></td>
+								</tr>
+								{%endfor%}
+
+								</tbody>
+							</table>
+						</div>
+						<!-- PAGINATION -->
+						<div class="text-right">
+							<!-- Pagination Default -->
+							{{pagination | safe}}
+							<!-- /Pagination Default -->
+						</div>
+						<!-- /PAGINATION -->
+					</div>
+					</div>
+				</div>
+			</section>
+			<!-- / -->
+<div class="modal fade add-addr-dialog" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- header modal -->
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title " id="myLargeModalLabel">新增收货人信息</h4>
+			</div>
+
+			<!-- body modal -->
+			<div class="modal-body">
+				<form  method="post"  class="add-addr" >
+					<fieldset>
+						<!-- required [php action request] -->
+						<div class="row">
+							<div class="form-group" id="areas">
+								<div class="col-md-3 col-sm-12">
+									<label>所在地区（省份/直辖市） *</label>
+									<select class="form-control pointer " id="province" name="province" required>
+										<option value="">--- 省份/直辖市 ---</option>
+
+									</select>
+								</div>
+								<div class="col-md-3 col-sm-12">
+									<label>（市） *</label>
+									<select class="form-control pointer " id="city" name="city" required>
+										<option value="">--- 市 ---</option>
+
+									</select>
+								</div>
+								<div class="col-md-3 col-sm-12">
+									<label>（县/区） *</label>
+									<select class="form-control pointer " id="county" name="county" required>
+										<option value="">--- 县/区 ---</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12">
+									<label>街道地址 *</label>
+									<textarea class="form-control required"  name="addr" required></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6">
+									<label>邮政编码 *</label>
+									<input type="text" class="form-control required" value="" name="zip" required>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<label>手机号码 *</label>
+									<input type="text" class="form-control required" value="" name="mobile" required>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-6 col-sm-6">
+									<label>收货人姓名 *</label>
+									<input type="text" class="form-control required" value="" name="accept_name" required>
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<label>电话号码 </label>
+									<input type="text" class="form-control " value="" name="phone">
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row">
+							<div class="form-group">
+								<div class="col-md-12 col-sm-12">
+									<label>
+										设为默认地址
+
+									</label>
+									<!-- checkbox -->
+									<label class="checkbox">
+										<input type="checkbox" value="1" name="is_default">
+										<i></i> 设置为默认收货地址
+									</label>
+								</div>
+							</div>
+						</div>
+
+					</fieldset>
+					<div class="row">
+						<div class="col-md-12">
+							<input type="hidden" name="type" value="1">
+							<button class="btn btn-3d btn-teal btn-lg btn-block margin-top-30" type="submit">
+								保存收货人地址
+							</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+{% block script %}
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+        {% endblock %}

@@ -1,0 +1,61 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+    .mui-content-padded .iconfont {
+        margin: 3px;
+        display: inline-block;
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 100px;
+        background-clip: padding-box;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">确认？</h1>
+
+    <a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right mui-action-back" >取消</a>
+
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded text-center margin-top-40" >
+        <a class="mui-icon iconfont icon-warn size-60 " style="padding: 20px" ></a>
+    </div>
+
+    <div class="mui-content-padded" >
+        <h4 class=" text-center">删除商品？</h4>
+        <p class=" text-center">
+            您可以选择移到关注，或删除商品。
+        </p>
+    </div>
+    <div class="mui-content-padded">
+        <input type="hidden" value="{{ids}}" name="ids" class="ids">
+        <p><button class="mui-btn mui-btn-danger mui-btn-block goodsdel">删除</button></p>
+
+        <p><a class="mui-btn mui-btn-block mui-btn-outlined "  href="#"  >移到我的关注</a></p>
+
+    </div>
+</div>
+{%endblock%}
+{% block script %}
+<script>
+    mui('.mui-content-padded').on("tap",'button.goodsdel',function () {
+        mui.post('/uc/cart/delcart',{
+                    ids:mui(".ids")[0].value
+                },function(data){
+                   if(data.errno==0){
+                           mui.toast(data.data.name + ' 即将跳转~');
+                       setTimeout(function () {
+                           mui.openWindow({url: data.data.url})
+                       },1000)
+
+                   }
+                },'json'
+        );
+    })
+</script>
+
+{% endblock %}

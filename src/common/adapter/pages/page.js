@@ -22,7 +22,7 @@ export default class extends think.adapter.base {
    * @return {[]}         []
    */
   init(http){
-    super.init(http);
+    this.thinkhttp= http;
   }
 
   /**
@@ -31,7 +31,7 @@ export default class extends think.adapter.base {
    * @returns {*}
    */
   pages(pagerData){
-    let http = think.http;
+    let http = this.thinkhttp;
     let pagerHtml;
     if(pagerData.totalPages > 1){
 
@@ -61,7 +61,6 @@ export default class extends think.adapter.base {
         }
         pageUrl = prefix + "page=${page}";
       }
-
       pagerHtml='<div class="btn-group m-t-none m-b-none">';
       if(!pagerData.hideDesc){
         pagerHtml += `<a class="disabled btn btn-default"><span>共有${pagerData.count}条记录，共${pagerData.totalPages}页</span></a>`
@@ -69,8 +68,8 @@ export default class extends think.adapter.base {
       if(pagerData.currentPage > 1){
         pagerHtml += `<a class="prev btn btn-default" href="${pageUrl.replace('${page}', pagerData.currentPage - 1)}">上一页</a>`
       }
-
-      var num = pagerData.numsPerPage || 3;
+        //var num = pagerData.numsPerPage || 3;
+        var num =5;
       var pageIndex = [];
       var page = pagerData.currentPage | 0 || 1;
       for (var i = page - num; i <= page + num; i++) {
@@ -78,8 +77,7 @@ export default class extends think.adapter.base {
           pageIndex.push(i);
         };
       }
-
-      if(pageIndex[0] > 1){
+        if(pageIndex[0] > 1){
         pagerHtml += `<a  class="btn btn-default"  href="${pageUrl.replace('${page}', 1)}">1</a>`
       }
       if(pageIndex[0] > 2){

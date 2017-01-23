@@ -74,14 +74,15 @@ global.encryptPassword = function(password, md5encoded) {
  */
 /* global unique */
 global.unique = function(arr) {
-    var result = [], hash = {};
-    for (var i = 0, elem; (elem = arr[i]) != null; i++) {
-        if (!hash[elem]) {
-            result.push(elem);
-            hash[elem] = true;
-        }
-    }
-    return result;
+    // var result = [], hash = {};
+    // for (var i = 0, elem; (elem = arr[i]) != null; i++) {
+    //     if (!hash[elem]) {
+    //         result.push(elem);
+    //         hash[elem] = true;
+    //     }
+    // }
+    // return result;
+    return Array.from(new Set(arr));
 }
 /**
  * in_array
@@ -134,13 +135,15 @@ global.times = function(d, sec) {
 function sort_node(v, w) {
     return v["sort"] - w["sort"];
 }
-
+function sort_node1(v, w) {
+    return w["sort"] - v["sort"];
+}
 /**
  * global get_children
  * 获取子集分类 （这里是获取所有子集）
  */
-global.get_children = function(nodes, parent) {
-    console.log(11);
+global.get_children = function(nodes, parent , sn=0) {
+   // console.log(11);
     var children = [];
     var last = [];
     /* 未访问的节点 */
@@ -158,7 +161,12 @@ global.get_children = function(nodes, parent) {
             last.push(node);
         }
     }
-    children.sort(sort_node);
+    if(sn==0){
+        children.sort(sort_node);
+    }else {
+        children.sort(sort_node1);
+    }
+
 
     /* 同级排序 */
     var jumper = 0;
@@ -170,7 +178,6 @@ global.get_children = function(nodes, parent) {
         var shift_node = stack.shift();
         var list = [];
         /* 当前子节点列表 */
-
         var last_static = last.slice(0);
         last = [];
         for (var i in last_static) {
@@ -182,7 +189,12 @@ global.get_children = function(nodes, parent) {
                 last.push(node);
             }
         }
-        list.sort(sort_node);
+        if(sn==0){
+            list.sort(sort_node);
+        }else {
+            list.sort(sort_node1);
+        }
+
 
         for (var i in list) {
             node = list[i];
@@ -308,7 +320,9 @@ global.parse_config_attr = function(str) {
         strs = str.split("\r\n");
     } else if (str.search(/,/ig) > -1) {
         strs = str.split(",");
-    } else {
+    } else if(str.search(/\n/ig) > -1){
+        strs = str.split("\n");
+    }else {
         strs = [str];
     }
     if (think.isArray(strs)) {
@@ -318,6 +332,40 @@ global.parse_config_attr = function(str) {
             obj[n[0]] = n[1];
         })
         return obj;
+    }
+
+}
+global.parse_type_attr = function (str) {
+    let strs;
+    if (str.search(/\r\n/ig) > -1) {
+        strs = str.split("\r\n");
+    } else if (str.search(/,/ig) > -1) {
+        strs = str.split(",");
+    } else if(str.search(/\n/ig) > -1){
+        strs = str.split("\n");
+    }else {
+        strs = [str];
+    }
+    if(think.isArray(strs)){
+            let arr = [];
+            for (let v of strs){
+                let obj = {};
+                v = v.split(":");
+                if(!think.isEmpty(v[0])&&!think.isEmpty(v[1])){
+                obj.id = v[0];
+                obj.name = v[1];
+                if(obj.id.split(".").length ==1){
+                    obj.pid = 0
+                }else {
+                    obj.pid = obj.id.split(".").splice(0,obj.id.split(".").length-1).join(".");
+                }
+                arr.push(obj);
+                }
+            }
+        //console.log(arr);
+        let tree = arr_to_tree(arr,0)
+       //think.log(tree);
+        return tree;
     }
 
 }
@@ -362,6 +410,14 @@ global.arr_to_tree = function(data, pid) {
     }
     return result;
 }
+//计算分类信息当前状态
+global.sanjiao = (arr)=>{
+    var result = [];
+    for(var i = 0,len = arr.length;i<len;i++){
+        result.push(result[i - 1]!==undefined?result[i - 1]+'.'+arr[i]:arr[i]);
+    }
+    return result;
+}
 /* global arr_to_tree */
 global.sub_cate = function(data, pid) {
     var result = [], temp;
@@ -398,7 +454,8 @@ global.get_attribute_type = function(type) {
         'suk': ['商品规格', 'text NOT NULL'],
         'pics': ['多图上传', 'varchar(255) NOT NULL'],
         'price': ['价格', 'varchar(255) NOT NULL'],
-        'freight': ['运费', 'varchar(255) NOT NULL']
+        'freight': ['运费', 'varchar(255) NOT NULL'],
+        'keyword': ['关键词', 'varchar(255) NOT NULL']
     }
     return type ? _type[type][0] : _type;
 }
@@ -597,7 +654,10 @@ global.call_user_func = function(cb, params) {
 /* global get_nickname */
 global.get_nickname = async (uid) => {
     //console.log(uid);
-    let data = await think.model('member', think.config("db"), 'admin').get_nickname(uid)
+    let data = await think.model('member', think.config("db")).cache({
+        timeout: 1000,
+        type: "file" //使用文件方式缓存
+    }).get_nickname(uid)
     return data;
 }
 //时间格式
@@ -649,9 +709,9 @@ global.str_replace = function(search, replace, subject, count) {
 global.get_url = (name, id) => {
 
     if (!think.isEmpty(name)) {
-        return `/detail/${name}`;
+        return `/p/${name}.html`;
     } else {
-        return `/detail/${id}`;
+        return `/p/${id}.html`;
     }
 }
 /**
@@ -716,7 +776,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
              q = `?imageView2${m}${w}${h}`
         }
         let name = await think.cache("setup");
-        return `http://${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
+        return `//${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
     }else {
         return picture.path
     }
@@ -741,7 +801,7 @@ global.get_pics_one = async (arr_id, field) => {
 global.formatprice = function(price) {
     let pr = JSON.parse(price);
     var present_price;
-    console.log(pr);
+    //console.log(pr);
     if (think.isNumber(pr.present_price)) {
         pr.present_price = pr.present_price.toString();
     }
@@ -820,7 +880,7 @@ global.formatCurrency = function(num) {
     num = Math.floor(num / 100).toString();
     if (cents < 10)
         cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+    for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + ',' +
             num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num + '.' + cents);
@@ -842,7 +902,7 @@ global.formatCurrencyTenThou = function(num) {
     num = Math.floor(num * 10 + 0.50000000001);
     let cents = num % 10;
     num = Math.floor(num / 10).toString();
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+    for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
         num = num.substring(0, num.length - (4 * i + 3)) + ',' +
             num.substring(num.length - (4 * i + 3));
     return (((sign) ? '' : '-') + num + '.' + cents);
@@ -983,7 +1043,7 @@ global.checkMobile = function(agent) {
     //排除 Windows 桌面系统  
     if (!(agent.indexOf("windows nt") > -1) || (agent.indexOf("windows nt") > -1 && agent.indexOf("compatible; msie 9.0;") > -1)) {
         //排除苹果桌面系统  
-        if (!(agent.indexOf("windows nt") > -1) && !agent.indexOf("macintosh") > -1) {
+        if (!(agent.indexOf("windows nt") > -1) && !agent.indexOf("macintosh") > -1 && !(agent.indexOf("ipad")>-1)) {
             for (let item of keywords) {
                 if (agent.indexOf(item) > -1) {
                     flag = true;
@@ -1046,9 +1106,9 @@ global.image_view=(str,w,m)=>{
         let narr=[];
         for(let img of arr){
             let _img = img.match(srcReg)
-            console.log(_img);
+            //console.log(_img);
             let nimg = _img[1]+'?imageView2/'+m+'/w/'+w;
-            console.log(nimg)
+            //console.log(nimg)
             let inputimg = _img['input'].replace(_img[1],nimg)
             narr.push(inputimg);
         }
@@ -1057,7 +1117,32 @@ global.image_view=(str,w,m)=>{
         return str;
     }
 }
-
+global.img_text_view=(str,w,h)=>{
+    //console.log(info);
+    let imgReg = /<img.*?(?:>|\/>)/gi;
+    let srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+    if(think.isEmpty(str)){
+        return []
+    }
+    let arr = str.match(imgReg);
+    if(!think.isEmpty(arr)){
+        let narr=[];
+        for(let img of arr){
+            let _img = img.match(srcReg)
+            //console.log(_img[1]);
+            let nimg =_img[1];
+            if(!think.isEmpty(w) && !think.isEmpty(h)){
+                nimg = _img[1]+'?imageView2/1/w/'+w+'/h/'+h;
+            }
+            //console.log(nimg)
+            narr.push(nimg);
+        }
+        //console.log(narr);
+        return narr;
+    }else {
+        return [];
+    }
+}
 /**
  * 获取文件信息
  * @param file_id 文件id
@@ -1072,7 +1157,7 @@ global.get_file=async (file_id,field,key=false)=>{
     let file = await think.model('file', think.config("db")).find(file_id);
     if(file.location==1 && key){
         let name = await think.cache("setup");
-        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?attname=`
+        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?download/${file.savename}`
     }
     return think.isEmpty(field) ? file : file[field];
 }
@@ -1083,12 +1168,109 @@ global.get_file=async (file_id,field,key=false)=>{
  * @returns {*}
  */
 global.get_cate=async(cid)=>{
-    let column = await think.model('category', think.config("db"),'admin').get_all_category();
+    let column = await think.model('category', think.config("db")).get_all_category();
 
     for(let v of column){
         if(v.id==cid){
-            console.log(v)
+           // console.log(v)
            return v;
         }
+    }
+}
+/**
+ * 获取分类信息url
+ * @param id
+ * @param val
+ * @param arr
+ */
+global.sort_url = (id,val,arr,http)=>{
+    //console.log(http.get(val))
+    let url;
+        url=`${val}_${id}`;
+        for(let v of arr){
+            if(v.option.identifier != val){
+                url += `|${v.option.identifier}_${http[v.option.identifier]||0}`
+            }
+        }
+    //console.log(url);
+    return url;
+}
+/*
+ *比较数组是否完全相同
+ */
+global.a2a = function (a1,a2){
+    if(!(think.isArray(a1) && think.isArray(a2))){
+        return false;
+    }
+    if(a1.length != a2.length){
+        return false;
+    }
+
+    a1.sort();
+    a2.sort();
+    for(var i=0;i<a1.length;i++){
+        if(typeof a1[i] != typeof a2[i]){
+            return false;
+        }
+        if(think.isObject(a1[i]) && think.isObject(a2[i])){
+            var retVal = o2o(a1[i],a2[i]);
+            if(!retVal){
+                return false;
+            }
+        }else if(think.isArray(a1[i]) && think.isArray(a2[i]) ){//recursion
+            if(!a2a(a1[i],a2[i])){
+                return false;
+            }
+        }else if(a1[i] !== a2[i]){
+            return false;
+        }
+    }
+    return true;
+}
+//生成6位的随机数
+global.MathRand = function ()
+{
+    var Num="";
+    for(var i=0;i<6;i++)
+    {
+        Num+=Math.floor(Math.random()*10);
+    }
+    return Num;
+}
+
+//更新缓存
+global.update_cache =(type)=>{
+    switch (type){
+        case 'category':
+            //更新栏目缓存
+            think.cache("sys_category_list",null);
+            think.cache("all_category",null);
+            think.cache("all_priv",null);//栏目权限缓存
+            break;
+        case 'channel'://更新频道缓存信息
+            think.cache("get_channel_cache",null);
+            break;
+    }
+}
+/**
+ *缓存权限列表 all_priv
+ * @param catid 要验证的栏目id
+ * @param roleid 用户组
+ * @param action 权限类型
+ * @param is_admin 谁否前台 0前台，1后台
+ * @param type true
+ * @returns {bool} 返回flase 或true false:没权限，true:有权限。
+ */
+global.priv = async(catid,roleid,action,is_admin=0,type=true)=>{
+    // console.log(catid);
+    // console.log(roleid);
+    // console.log(action);
+    // console.log(is_admin);
+    let priv = await think.model("category_priv",think.config("db")).priv(catid,roleid,action,is_admin,type);
+    //console.log(priv);
+    if(!priv){
+        return false;
+    }else {
+        return true;
     }
 }

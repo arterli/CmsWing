@@ -1,0 +1,131 @@
+{% extends "../inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+{%endblock%}
+{% block content %}
+
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>-->
+    <h1 class="mui-title">{{pinfo.title}}</h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item " href="{{pinif.name|get_url(pinfo.id)}}">
+        <span class="mui-icon iconfont icon-form"></span>
+        <span class="mui-tab-label">封面</span>
+    </a>
+    <a class="mui-tab-item "  href="#mulu">
+        <span class="mui-icon iconfont icon-sortlight"></span>
+        <span class="mui-tab-label">目录</span>
+    </a>
+    <a class="mui-tab-item" href="#SOHUCS">
+        <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
+        <span class="mui-tab-label">评论</span>
+    </a>
+    <a class="mui-tab-item" href="#shoucang">
+        <span class="mui-icon iconfont icon-favor"></span>
+        <span class="mui-tab-label">收藏</span>
+    </a>
+    <a class="mui-tab-item" href="#fenxiang">
+        <span class="mui-icon iconfont icon-share"></span>
+        <span class="mui-tab-label">分享</span>
+    </a>
+
+    {% if controller.is_login %}
+    <a class="mui-tab-item" href="/user/index">
+        <span class="mui-icon iconfont icon-my"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+    {%else%}
+    <a class="mui-tab-item" href="/user/login">
+        <span class="mui-icon iconfont icon-myfill"></span>
+        <span class="mui-tab-label">登录</span>
+    </a>
+    {%endif%}
+
+    <a class="mui-tab-item" href="#top">
+        <span class="mui-icon iconfont icon-top"></span>
+        <span class="mui-tab-label">顶部</span>
+    </a>
+
+</nav>
+<div class="mui-content detail" style="background-color: #fff">
+    <div class="mui-content-padded">
+        <!-- 文章标题 -->
+        <h1 class="title">{{info.title}}</h1>
+        <article class="article-content wangEditor-container cmswing-container" >
+            <div class="wangEditor-txt nopadding">
+                {%for val in info.content%}
+
+                {{val|safe}}
+
+                {%endfor%}
+            </div>
+
+        </article>
+    </div>
+    <div id="SOHUCS" sid="{{info.id}}"></div>
+
+</div>
+<div id="mulu" class="mui-modal">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-close mui-pull-right" href="#mulu"></a>
+        <h1 class="mui-title">目录</h1>
+    </header>
+    <div class="mui-content" style="height: 100%;">
+        <div class="mui-scroll-wrapper" style="top:44px">
+        <div class="mui-scroll">
+            <table class="table table-hover  treetable" id="category">
+        <tbody>
+        {%for val in ptree%}
+        <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%endif%} {%if val.id == http.get("id")%}class="active" {%endif%}>
+        <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+        </tr>
+        {%endfor%}
+
+
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div></div>
+{% endblock%}
+
+{% block script %}
+    <script src="/static/admin/js/jquery.min.js"></script>
+    <script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{controller.setup.CY_APPID}}&conf={{controller.setup.CY_APPKEY}}">
+</script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script type="text/javascript">
+    mui.init()
+    mui('.mui-scroll-wrapper').scroll();
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    $("#category").treetable({ expandable: true });
+    $("#category").treetable("expandAll");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

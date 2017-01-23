@@ -29,7 +29,102 @@
                             <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                         </ul>
                         <!-- / .breadcrumb -->
+                        {%if sort%}
+                        <section class="panel panel-default m-b-xs clearfix">
+                            <header class="panel-heading text-right bg-light clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    {%for val in sort.types%}
+                                    <li class="{%if http.get('sortid')|length > 0%}{%if http.get('sortid')==val.enable%}active{%endif%}{%else%}{%if sort.defaultshow == val.enable%}active{%endif%}{%endif%}">
+                                        <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{val.enable}}" > {{val.name}}</a>
+                                    </li>
+                                   {%endfor%}
+                                </ul>
+                                <ul class="nav nav-pills pull-right">
+                                    <li>
+                                        <a href="#" class="panel-toggle text-muted" id="sorttoggle"><i class="fa fa-caret-down text"></i><i class="fa fa-caret-up text-active"></i></a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div class="panel-body collapse" id="sortbody" style="padding: 0">
+                                <div class="tab-content">
+                                    <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
+                                        <tbody>
+                                        {%for val in typevar%}
+                                        {%if val.search > 1 and val.available==1%}
+                                        <tr>
+                                            <td style="width: 140px" class="text-right">
+                                               {{val.option.title}}:
+                                            </td>
+                                            <td>
+                                                {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                                                <span style="margin-right: 10px">全部</span>
+                                                {%else%}
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                                {%endif%}
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                <span style="margin-right: 10px">{{v.name}}{{val.option.unit}}</span>
+                                                {%else%}
+                                                <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
+                                                {%endif%}
+                                            {%endfor%}
 
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v.children%}
+                                                <div class="subtsm">
+
+                                                    {% for v_ in v.children %}
+                                                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                    <span style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</span>
+                                                    {%else%}
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
+                                                    {%endif%}
+                                                    {% endfor %}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v.children%}
+
+                                                {% for v_ in v.children %}
+                                                {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v_.children%}
+                                                <div class="subtsm">
+                                                    {% for v__ in v_.children %}
+
+                                                    {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                                                    <span style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</span>
+                                                    {%else%}
+                                                    <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</a>
+
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {% endfor %}
+
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                            </td>
+
+                                        </tr>
+                                        {%endif%}
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                        {%endif%}
                         <section class="panel panel-default">
                             <header class="panel-heading">
                                 <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
@@ -41,9 +136,7 @@
                                 <a
                                 href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}" class="text-info"> 全部 </a>{%endif%}&nbsp; {% for val in modellist%} {% if model_id != val.id %}<a href="/admin/article/index/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}"
                                     class="text-info">{{val.title}}</a>{% else %}<strong>{{val.title}}</strong>{% endif %}&nbsp;
-                                    {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==null %}<strong>全部</strong>{%else%}
-                                    <a
-                                    href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info">全部</a>{%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                    {% endfor %} ]{% endif %} {% if groups %}[ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/article/index/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{key}}/sortid/{{sortid}}"  class="text-info">{{val}}</a>{%
                                         else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]{% endif %}
                             </header>
                             <div class="row wrapper">
@@ -53,13 +146,13 @@
                                         <div class="btn-group">
                                             <button {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm document_add
                                                 dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"{%endif%}
+                                                == 1 %} url="/admin/article/add/model_id/{{modellist[0].id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
                                                 >添加内容 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</button>
                                             {%if model|length > 1 %}
                                             <ul class="dropdown-menu">
 
                                                 {% for val in modellist%}
-                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}"
+                                                <li> <a href="/admin/article/add/model_id/{{val.id}}/pid/{{pid}}/cate_id/{{cate_id}}/group_id/{{group_id}}/sortid/{{sortid}}"
                                                     class="text-info">添加{{val.title}}</a></li>
                                                 {% endfor %}
 
@@ -70,28 +163,28 @@
                                         </div>
                                         <div class="btn-group">
                                             <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/admin/article/setstatus/status/1" target-form="ids">
-                            启用
+                            审核
                         </a>
                                             <a class="btn btn-sm btn-info ajax-post" href="/admin/article/setstatus/status/0" target-form="ids">
                             禁用
                         </a>
                                         </div>
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
                                             移动
                                         </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
                                             复制
                                         </a>
-                                            <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
                                             粘贴
                                         </a>
                                         </div>
                                        
-                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/admin/article/setstatus/status/-1">
                                             删除
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                        <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
                                             排序
                                         </a>
                                     </div>
@@ -101,7 +194,7 @@
                                         <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
                                         value="{{http.get('title')}}">
                                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/article/index/pid/{{pid}}{%if cate_id >0%}/cate_id/{{cate_id}}{%endif%}">搜索</button>
                       </span>
                                     </div>
                                 </div>
@@ -150,13 +243,13 @@
                                 <div class="row">
                                  <div class="col-md-3">
                                       <div class="btn-group">
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
                                                 微信图文
                                             </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
                                                 高级图文
                                             </a>
-                                            <a class="btn btn-sm btn-default ajax-post confirm" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
                                                 推送
                                             </a>
                                         </div>
@@ -255,6 +348,18 @@
                 window.location.href = url;
             }
         });
+        if(localStorage.getItem("sortoggle")==1){
+            $("#sorttoggle").addClass("active");
+            $("#sortbody").removeClass("collapse");
+        }
+        //分类菜单
+        $("#sorttoggle").click(function () {
+            if(!$(this).is(".active")){
+                localStorage.setItem("sortoggle",1)
+            }else {
+                localStorage.removeItem("sortoggle");
+            }
+        })
     })
 
 </script>

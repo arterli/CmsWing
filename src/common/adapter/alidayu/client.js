@@ -11,22 +11,36 @@ export default class extends think.adapter.base {
   init(...args){
     super.init(...args);
   }
-  send(){
+  async send(info){
+    let setup = await think.model("setup",think.config("db"),"admin").getset();
+    let key;
+    if(!think.isEmpty(setup.SMS_Key)){
+      key = setup.SMS_Key.split("|");
+      console.log(key);
+      if(think.isEmpty(key[0])||think.isEmpty(key[1])){
+        return {result: { errno: '1000', errmsg: '请在后台配合正确的凭着'}}
+      };
+
+    }else {
+      return {result: { errno: '1000', errmsg: '请在后台配合正确的凭着'}}
+    }
     let client = new TopClient({
-      'appkey': '23381127',
-      'appsecret': '92c5495dab01640530d3da88f4537d5e',
+      'appkey': key[0],
+      'appsecret': key[1],
       'REST_URL': 'http://gw.api.taobao.com/router/rest'
     });
-    client.execute('alibaba.aliqin.fc.sms.num.send', {
-      'extend':'123456',
-      'sms_type':'normal',
-      'sms_free_sign_name':'酷翼cms',
-      'sms_param':'{\"code\":\"1234\",\"product\":\"cmswing\"}',
-      'rec_num':'18681851637',
-      'sms_template_code':'SMS_10281005'
-    }, function(error, response) {
-      if (!error) console.log(response);
-      else console.log(error);
-    })
+    let execute =()=> {
+      let deferred = think.defer();
+      client.execute('alibaba.aliqin.fc.sms.num.send', info, function(error, response) {
+        if (!error){
+          deferred.resolve(response);
+        }else {
+          deferred.resolve(error);
+        }
+
+      })
+      return deferred.promise;
+    }
+    return await execute();
   }
 }

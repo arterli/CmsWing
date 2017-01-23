@@ -1,63 +1,45 @@
-<div class="wrapper" >
-    <h4 class="m-t-none">编辑用户组 <span class="pull-right "><a href="#" id="colse"><i class="fa fa-times icon-muted fa-fw"></i></a></span></h4>
-    <form data-validate="" id="eidtform">
-        <div class="form-group">
-            <label>用户名称 <i class="fa fa-info-sign text-xs text-muted">用户名会作为默认的昵称</i></label>
-            <input type="text" id="edesc" name="desc" class="input-sm form-control" placeholder="用户名称" data-required="true" value="{{data.desc}}">
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">编辑用户组</h4>
         </div>
-        <div class="form-group">
-            <label>密码 <i class="fa fa-info-sign text-xs text-muted">用户密码不能少于6位</i></label>
-            <textarea id="edescription" type="text" name="description" class="datepicker input-sm form-control" placeholder="描述" data-required="true" >{{data.description}}</textarea>
-        </div>
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/auth/roleedit" data-validate="parsley">
+            <div class="modal-body">
 
-       <input id="eid" type="hidden" name="id" value="{{data.id}}">
-        <div class="m-t-lg"><button class="btn btn-lg btn-default" id="editbtn">修改用户组</button></div>
-    </form>
-</div>
-<script>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户组</label>
 
-    $(function(){
+                    <div class="col-sm-10">
 
-        $("#colse").click(function(){
-            $("#bjax-target").addClass("hide");
-        })
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="desc" value="{{data.desc}}" data-required="true" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="form-group" >
+                    <label class="col-sm-2 control-label">描述</label>
+                    <div class="col-sm-10">
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea  class="form-control" name="description"  >{{data.description}}</textarea>
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
 
-    $("#editbtn").on('click',function(){
-        $('#eidtform').parsley().validate();
-        if (true === $('#eidtform').parsley().isValid()) {
-            _editFunAjax();
-        }
-        return false;
-    })
-    function _editFunAjax() {
-        var id = $("#eid").val();
-        var desc = $("#edesc").val();
-        var description = $("#edescription").val();
-        var jsonData = {
-            "id": id,
-            "desc": desc,
-            "description": description
-        };
-//        console.log(jsonData);
-//        return false;
-        $.ajax({
-            type: 'POST',
-            url: '/admin/auth/roleedit',
-            data: jsonData,
-            success: function (json) {
-                if (json) {
-                    //$("#myModal").modal("hide");
-                    //resetFrom();
-                    oTable.fnReloadAjax(oTable.fnSettings());
-                    toastr.success('编辑成功!')
-                } else {
-                    toastr.error('编辑失败！')
-                }
-            }
-        });
-    }
-    })
-</script>
+            <div class="modal-footer">
+                <input type="hidden" name="id" value="{{data.id}}">
+                <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+                <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+            </div>
+            </div>
+        </form>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

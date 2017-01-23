@@ -5,6 +5,8 @@
 export default {
   //key: value
     //port:8888
+    http_:1,//1:http,2:https
+    default_module: "topic",//默认模块
     route_on: true,
     resource_on: true,
     resource_reg: /^(upload\/|backup\/|static\/|[^\/]+\.(?!js|html)\w+$)/,

@@ -122,4 +122,8 @@ export default class extends Base {
       let name = cass.getname(1);
       console.log(name)
     }
+    async typeAction(){
+        let tabel = await this.model("type").checkTableExist(1);
+        console.log(tabel);
+    }
 }

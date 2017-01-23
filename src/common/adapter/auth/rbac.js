@@ -65,7 +65,7 @@ export default class extends think.adapter.base {
       user_role: 'auth_user_role', //user - role relation table
       userInfo: null
     }, config);
-
+    this.http= http;
   }
   /**
    * check auth
@@ -159,8 +159,8 @@ export default class extends think.adapter.base {
    */
   async getRuleIds(){
     let data = await this.getRoles();
-
-    let ids = [];
+      //console.log(data);
+      let ids = [];
     data.forEach(item => {
       let ruleIds = (item.rule_ids || '').split(',');
       ids = ids.concat(ruleIds);

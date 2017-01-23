@@ -50,15 +50,48 @@ $(document).on('click','.ajax-get',function(){
     return false;
 });
 
+//todo
+$(".todo").click(function (e) {
+    e.preventDefault();
+    toastr.info("功能开发中，敬请期待...");
+    return;
+})
+$(".cw-cf").click(function () {
+   var href =  $(this).attr("href");
+    console.log(href);
+    swal({
+        title: "确定清空回收站?",
+        text: "清空后不可恢复，请谨慎操作!",
+        html:true,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定!",
+        cancelButtonText:"算了",
+        closeOnConfirm: false }, function(){
+        $.get(href).success(function(data){
 
+                console.log(data);
+                if(data.errno == 0){
+                    swal({title:data.data.name, text:"", type:"success"},function () {
+                        location.reload();
+                    });
 
+                } else{
+
+                }
+
+        });
+    })
+    return false;
+})
 /**
  * ajax post submit请求
  * <form class = "form-horizontal">
  * <button target-form="form-horizontal" type="submit" class="ajax-post">确定</button>
  * confirm,
  */
-$(document).on('click','.ajax-post',function(){
+function ajaxpost(){
 
     var target,query,form;
     var target_form = $(this).attr('target-form');
@@ -75,10 +108,10 @@ $(document).on('click','.ajax-post',function(){
 
             //表单验证
             if($('[data-validate="parsley"]')){
-            $('[data-validate="parsley"]').parsley().validate();
-            if(true !== $('[data-validate="parsley"]').parsley().isValid()){
-                return false;
-            }
+                $('[data-validate="parsley"]').parsley().validate();
+                if(true !== $('[data-validate="parsley"]').parsley().isValid()){
+                    return false;
+                }
             }
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){
@@ -104,7 +137,22 @@ $(document).on('click','.ajax-post',function(){
                     return false;
                 }
             }
-            query = form.serialize();
+
+            if($(form).hasClass('sort')){
+                var arr =[]
+                form.each(function (k, v) {
+                    var obj = {};
+                    obj.id=$(v).attr('data-id');
+                    obj.sort=$(v).val();
+                    arr.push(obj);
+                })
+                query = {sort:JSON.stringify(arr)};
+            }else {
+                //alert(1)
+                query = form.serialize();
+                //alert(query)
+            }
+
         }else{
             if ( $(this).hasClass('confirm') ) {
                 if(!confirm('确认要执行该操作吗?')){
@@ -115,6 +163,7 @@ $(document).on('click','.ajax-post',function(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
+            //alert(JSON.stringify(data))
             //console.log(data)
             //return false;
             if (data.errno==0) {
@@ -156,5 +205,6 @@ $(document).on('click','.ajax-post',function(){
         });
     }
     return false;
-});
+}
+$(document).on('click','.ajax-post',ajaxpost);
 

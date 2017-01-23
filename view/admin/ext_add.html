@@ -1,0 +1,215 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+{%endblock%}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/ext/add" data-validate="parsley">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">插件目录</label>
+
+                                                <div class="col-sm-10">
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" name="ext" value="" data-required="true" data-Remote="/admin/ext/checkext">
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母，不能重复</span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">插件名称</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="name" value=""
+                                                                   data-required="true" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 插件的名称</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">是否有后台管理</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="1" name="isadm" checked><i></i> 有
+                                                            </label>
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="0" name="isadm" ><i></i> 木有
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择有会生成后台管理入口</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">版本号</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="version" value=""
+                                                                   data-required="true" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 版本号，如 1.0</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">安装时间</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" name="installtime" class="form-control time" value="" placeholder="请选择时间" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认为当前时间</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">更新时间</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" name="updatetime" class="form-control time" value="" placeholder="请选择时间" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认为当前时间</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">排序</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <input type="text" name="sort" class="form-control" value="0" placeholder="" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 越小越靠前</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">插件简介</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <textarea type="text" name="description" class="form-control" ></textarea>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 最多120个字</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">是否启用</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="1" name="status" checked><i></i> 是
+                                                            </label>
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="0" name="status" ><i></i> 否
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 启用插件</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group form-submit">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                                            type="submit">返回
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+    })
+
+</script>
+{% endblock%}

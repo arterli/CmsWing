@@ -1,0 +1,160 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css">
+<link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+            <li class="active"><a href="/uc/question"><i class="et-pencil"></i> 发布</a></li>
+            <li class=""><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
+            <li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>
+            <li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section >
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="title">问题标题:</label>
+                        <div class="input-group">
+                            <div class=" input-group-btn">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">{{breadcrumb[0].title}} <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    {%column data="column",pid=breadcrumb[0].id%}
+                                    <li><a href="#">{{breadcrumb[0].title}}</a></li>
+                                    {%if column%}
+                                    {%for val in column%}
+                                    <li><a href="#">{{val.name}}</a></li>
+                                    {%endfor%}
+                                    {%endif%}
+                                </ul>
+                            </div><!-- /btn-group -->
+                                {% groups data="groups",cid=category.id%}
+                                {%if groups|length >0%}
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown">全部 <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">全部</a></li>
+                                    {%for v in groups%}
+                                    <li><a href="#">{{v.name}}</a></li>
+                                    {%endfor%}
+                                </ul>
+                            </div><!-- /btn-group -->
+                                {%endif%}
+                            </div>
+                            <input type="text" class="form-control" id="title">
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="form-group">
+                        <label>问题补充 (选填):</label>
+                        <div id="detail" style="height:400px;max-height:500px;">
+                            <p>请输入内容...</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>添加话题:</label>
+                        <input type="text" class="form-control" id="keywords" name="keywords" value="keywrds" >
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <!-- primary -->
+                            <label class="switch switch-primary margin-top-20">
+                                <input type="checkbox" checked="" name="anonymous" value="0">
+                                <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                            </label>
+
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+
+                            <button class="btn btn-primary btn-lg" >确认发布</button>
+
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                <h3 class="hidden-xs size-16 margin-bottom-10">问题发起指南</h3>
+                <div class="mod-body">
+                    <p class="margin-bottom-20"><b>• 问题标题:</b> 请用准确的语言描述您发布的问题思想</p>
+                    <p class="margin-bottom-20"><b>• 问题补充:</b> 详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想</p>
+                    <p class="margin-bottom-20"><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var editor = new wangEditor('detail');
+        editor.create();
+        $('#keywords').tagsInput({
+            width:'auto',
+            height:'43px',
+            defaultText:'add a tag',
+        });
+    });
+</script>
+{%endblock%}

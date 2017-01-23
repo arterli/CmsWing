@@ -16,10 +16,10 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
 
-                        <a class="btn btn-sm btn-info ajax-post" href="/admin/article/clear">
+                        <a class="btn btn-sm btn-info cw-cf" href="/admin/article/clear">
                             清空
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/article/permit" target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/article/setstatus/status/1" target-form="ids">
                             还原
                         </a>
                     </div>
@@ -58,10 +58,10 @@
                         <td>{{item.category}}</td>
                         <td>{{item.update_time|dateformat("Y-m-d H:i:s")}}</td>
                         <td>
-                            <a href="/admin/article/permit?ids={{item.id}}" class="confirm ajax-get text-info">还原</a></td>
+                            <a href="/admin/article/setstatus/status/1?ids={{item.id}}" class="confirm ajax-get text-info">还原</a></td>
                     </tr>
                     {% else %}
-                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
                         <button data-dismiss="alert" class="close" type="button">×</button>
                         <p>This would display if the 'item' collection were empty</p>
                     </div></td></tr>

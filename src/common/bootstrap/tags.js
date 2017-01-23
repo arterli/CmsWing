@@ -24,23 +24,23 @@ global.mytags= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
         };
         this.run = async function (context, args, callback) {
-             console.log(args);
+             //console.log(args);
 
             for (var arg in args) {
-                console.log(arg);
+                //console.log(arg);
                 if (arg !== '__keywords') {
                   let map = args[arg].split(",");
                    let maps={}
                     for(let val of map){
                         val=val.split("=");
-                          console.log(val[1].indexOf("["));
+                          //console.log(val[1].indexOf("["));
                         if(val[1].indexOf("[")===0){
                             val[1]=val[1].replace("[", "").replace("]", "").split("-");
                             console.log(val[1]);
                         }
                         maps[val[0]]=val[1]
                     }
-                    console.log(maps);
+                    //console.log(maps);
                     let model_id;
                     //model
                     if(think.isEmpty(maps.mid)){
@@ -49,8 +49,8 @@ global.mytags= function(){
                         model_id=maps.mid;
                         delete maps.mid;
                     }
-                    let model = await think.model("model", think.config("db"),'admin').get_table_name(model_id);
-                    console.log(model);
+                    let model = await think.model("model", think.config("db")).get_table_name(model_id);
+                    //console.log(model);
                     //limit
                     let offset,length;
                     if(think.isEmpty(maps.limit)){
@@ -73,8 +73,8 @@ global.mytags= function(){
                     if(!think.isEmpty(maps.order)){
                         order = maps.order;
                     }
-                    console.log(maps);
-                    console.log(offset);
+                    //console.log(maps);
+                    //console.log(offset);
                     let data = await think.model(model, think.config("db")).where(where).limit(offset,length).order(order).select();
                     //console.log(data);
                     context.ctx[arg] = data;
@@ -88,12 +88,13 @@ global.mytags= function(){
  * 获取同一级栏目标签
  *
  * @param data:接受返回数据的变量名称，例: data = "list"
- *  {% colum data="list",pid=1 %}
+ *  {% column data="list",pid=1 %}
  * @param pid: 获取同级栏目
- * {% colum data="list",pid=1 %}
+ * {% column data="list",cid=1 %}
  * @param cid: 获取里栏目
- * {% colum data="list",tree=1 %}
+ * {% column data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
+ * @param isapp: 是否在在移动端调用 iaapp="all" 调用全部栏目 isapp="1" pid为0的栏目,isindex="1",除去封面。
  * @parpm isnum = "1" ,1-获取栏目条数,默认不获取
  */
 global.column= function(){
@@ -106,41 +107,48 @@ global.column= function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+        //console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let pid = !think.isEmpty(args.pid) ?args.pid:false;
         let cid = !think.isEmpty(args.cid) ?args.cid:false;
         let tree = !think.isEmpty(args.tree) ?args.tree:false;
-        let column = await think.model('category', think.config("db"),'admin').get_all_category();
+        let isapp = !think.isEmpty(args.isapp) ?args.isapp:false;
+        let isindex = !think.isEmpty(args.isindex) ?args.isindex:false;
+
+        let column = await think.model('category', think.config("db")).get_all_category();
         if(args.isnum==1){
             for(let v of column){
-                v.doc_num = await think.model('document',think.config("db")).where({category_id:v.id,status:[">",0]}).count("id");
+                v.doc_num = await think.model('document',think.config("db")).cache(1000).where({category_id:v.id,status:[">",0]}).count("id");
             }
         }
-        //console.log(column);
-        let arr=[];
+       //console.log(column);
+        let arr;
         //获取同级栏目
-        
+        let map = {};
         if(pid){
-            for (let val of column){
-               if(val.pid == pid){
-                   arr.push(val);
-               }
-            }
-             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+           map.pid=think._.toInteger(pid);
+            arr = think._.filter(column, map)
         }else if(cid){
-            for (let val of column){
-                if(val.pid == cid){
-                    arr.push(val);
-                }
-            }
-             context.ctx[data] = !think.isEmpty(arr)?arr:false;
+            map.pid=think._.toInteger(cid);
+            arr = think._.filter(column, map)
         }else if(tree){
             let trees = arr_to_tree(column,tree);
             //console.log(trees)
-            context.ctx[data] = !think.isEmpty(trees)?trees:false;
+            arr = !think.isEmpty(trees)?trees:false;
+        }else if(isapp||isapp==0){
+
+            map.isapp =1;
+            if(think.isNumberString(isapp)||think.isNumber(isapp)){
+                map.pid=think._.toInteger(isapp);
+            }
+            arr = think._.filter(column, map);
+            if(isindex){
+                for(let v of arr){
+                    v.url=(v.url).replace(/channel/,'column');
+                }
+            }
         }
-       
+        context.ctx[data] = arr;
         return callback(null,'');
     };
 
@@ -160,9 +168,9 @@ global.column= function(){
    };
    this.run = async function (context, args, callback) {
      let data = think.isEmpty(args.data) ?"data":args.data;
-     let channel = await think.model('channel', think.config("db"),'admin').get_channel_cache();
+     let channel = await think.model('channel', think.config("db")).get_channel_cache();
      channel = arr_to_tree(channel,0);
-    // console.log(channel);
+     //console.log(channel);
      context.ctx[data] = channel;
      return callback(null,'');
    }
@@ -181,30 +189,8 @@ global.groups = function(){
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
-
-        let groups = await think.model('category', think.config("db")).where({id:args.cid}).getField("groups",true);
-        if(!think.isEmpty(groups)){
-            let cate = await get_cate(args.cid);
-            if(groups.search(/\r\n/ig)>-1){
-            groups=groups.split("\r\n");
-           let arr = []
-            groups.forEach(n =>{
-                let obj ={}
-                n=n.split(":");
-               obj.url = cate.url+"/"+n[0]
-                obj.name=n[1];
-                obj.id = n[0];
-                arr.push(obj);
-            })
-
-            groups = arr;
-        }
-        }
-        console.log(groups)
-        // console.log(channel);
-        context.ctx[data] = groups;
+        context.ctx[data] = await think.model('category', think.config("db")).get_groups(args.cid);
         return callback(null,'');
     }
 }
@@ -222,7 +208,8 @@ global.groups = function(){
  * position:1:列表推荐,2:频道推荐,4:首页推荐
  * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
  * issub:1:包含自栏目,2:不包含自栏目,默认包含自栏目
- * isstu:1:获取副表内容,2:只从主表拿数据,默认包含主表
+ * isstu:1:获取副表内容,2:只从主表拿数据,默认只从主表拿
+ * group:分组id，单个分组：group="1",多个分组 :group="1,2,3,4",不写调取全部分组。
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -243,7 +230,7 @@ global.topic = function(){
             let cids = `${args.cid}`;
             let cidarr = []
             for (let v of cids.split(",")){
-                let subcate = await think.model('category',think.config("db"), 'admin').get_sub_category(v);
+                let subcate = await think.model('category',think.config("db")).get_sub_category(v);
                 cidarr = cidarr.concat(subcate)
                 cidarr.push(Number(v))
             }
@@ -256,6 +243,10 @@ global.topic = function(){
         let cid = think.isEmpty(args.cid) ? false :{'category_id':['IN',args.cid]};
         if(cid){
             where = think.extend({},where,cid);
+        }
+        //分组
+        if( !think.isEmpty(args.group)){
+            where = think.extend(where,{'group_id':['IN',args.group]});
         }
         let type='update_time DESC';
         if(!think.isEmpty(args.type)){
@@ -277,13 +268,14 @@ global.topic = function(){
                 where = think.extend(where,{cover_id:0});
             }
         }
+
         console.log(where);
         let topic = await think.model('document', think.config("db")).where(where).limit(limit).order(type).select();
         //副表数据
         if(args.isstu == 1){
             let topicarr = []
             for(let v of topic){
-            let table =await think.model("model",think.config("db"),"admin").get_table_name(v.model_id);
+            let table =await think.model("model",think.config("db")).get_table_name(v.model_id);
             let details = await think.model(table,think.config("db")).find(v.id);
            topicarr.push(think.extend({},v,details));
             }
@@ -295,3 +287,160 @@ global.topic = function(){
     }
 }
 
+/**
+ *获取话题标签
+ * {% keywords data ="kws"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
+ * type: hot
+ */
+
+global.keywords = function(){
+    this.tags = ['keywords'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let where = {};
+        let limit = think.isEmpty(args.limit) ? "10" : args.limit;
+        let mod = think.isEmpty(args.mod) ? "" : ","+args.mod;
+        let type='discuss_count_update DESC';
+        if(!think.isEmpty(args.type)){
+            if(args.type=="hot"){
+                type="videonum DESC"
+            }
+        }
+        let keywrod = await think.model('keyword', think.config("db")).where(where).limit(limit).order(type).select();
+        //console.log(channel);
+        for(let k of keywrod){
+            k.url=`/t/${k.keyname}`+mod;
+        }
+        context.ctx[data] = keywrod;
+        return callback(null,'');
+    }
+}
+/**
+ *获取相关话题
+ * {% rkeywords data ="topic",type="0",mod_id="8",id="1"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
+ * type: 0系统模型，1,独立模型
+ * mod_id:模型id,
+ * id:文章的的id,
+ */
+global.rkeywords = function () {
+    this.tags = ['rkeywords'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let where = {};
+        let limit = think.isEmpty(args.limit) ? "5" : args.limit;
+        let type= think.isEmpty(args.type) ? "0" : args.type;
+        let mod_id= think.isEmpty(args.mod_id) ? "1" : args.mod_id;
+        let id = think.isEmpty(args.id) ? "0" : args.id;
+          where.docid=id;
+          where.mod_type=type;
+          where.mod_id=mod_id;
+        let keyword;
+        let topicid = await think.model("keyword_data", think.config("db")).where(where).getField("tagid");
+        if(!think.isEmpty(topicid)){
+            keyword = await think.model("keyword", think.config("db")).where({id:["IN",topicid]}).limit(limit).select();
+
+            for(let k of keyword){
+                k.url=`/t/${k.keyname},${mod_id}`;
+            }
+        }
+        //console.log(keyword);
+        context.ctx[data] = keyword;
+        return callback(null,'');
+    }
+}
+
+/**
+ * thinkjs model 万能数据调用标签
+ * {% model data ="data"%}
+ *
+ * data:接受返回数据的变量名称，例: data = "data"
+ * table:要查询的主表比如 table = "user"
+ * join :{Object} 要组合的查询语句，默认为 LEFT JOIN
+ * field {String} 设置要查询的字段，必须是字符串
+ * fieldReverse:{String} 反选字段，即查询的时候不包含这些字段
+ * alias:{String} 表别名
+ * limit(offset, length) :offset {Number} 设置查询的起始位置 length {Number} 设置查询的数据长度
+ * where(where):where {Object} where 条件
+ * order {String} 排序方式
+ * cache {Number} 缓存有效时间，单位为秒,建议1000秒
+ */
+global.model = function () {
+    this.tags = ['model'];
+    this.parse = function (parser,nodes,lexer) {
+        var tok = parser.nextToken();
+        var args = parser.parseSignature(null, true);
+        parser.advanceAfterBlockEnd(tok.value);
+        return new nodes.CallExtensionAsync(this, 'run', args)
+    };
+    this.run = async function (context, args, callback) {
+        console.log(args);
+        let data = think.isEmpty(args.data) ?"data":args.data;
+        let table = think.isEmpty(args.table) ? "5" : args.table;
+        let join = think.isEmpty(args.join) ? false : JSON.parse(args.join);
+        let fieldReverse = think.isEmpty(args.fieldReverse) ? false : args.fieldReverse;
+        let alias = think.isEmpty(args.alias) ? false : args.alias;
+        let limit = think.isEmpty(args.limit) ? false : args.limit;
+        let where = think.isEmpty(args.where) ? false : JSON.parse(args.where);
+        let order = think.isEmpty(args.order) ? false : args.order;
+        let cache = think.isEmpty(args.cache) ? false : args.cache;
+        let field = think.isEmpty(args.field) ? false : args.field;
+        let model =  think.model(table, think.config("db"));
+        //表别名
+        if(cache){
+            model.cache(cache);
+        }
+        //表别名
+        if(alias){
+            model.alias(alias);
+        }
+        //where
+        if(where){
+            model.where(where);
+        }
+        //order
+        if(order){
+            model.order(order);
+        }
+        //查询的字段
+        if(field){
+            model.field(field);
+        }
+        //排除字段
+        if(fieldReverse){
+            model.fieldReverse(fieldReverse);
+        }
+        //查询条数
+        if(limit){
+            model.limit(limit);
+        }
+        //join查询c
+        if(join){
+            model.join(join);
+         }
+
+          let ret =  await model.select();
+
+        //console.log(ret);
+        context.ctx[data] = ret;
+        return callback(null,'');
+    }
+}

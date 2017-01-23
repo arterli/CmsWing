@@ -143,21 +143,21 @@
 	});
 	
 	// add notes
-	function addMsg($msg){
-		var $el = $('.nav-user'), $n = $('.count:first', $el), $v = parseInt($n.text());
-		$('.count', $el).fadeOut().fadeIn().text($v+1);
-		$($msg).hide().prependTo($el.find('.list-group')).slideDown().css('display','block');
-	}
-	var $msg = '<a href="#" class="media list-group-item">'+
-                  '<span class="pull-left thumb-sm text-center">'+
-                    '<i class="fa fa-envelope-o fa-2x text-success"></i>'+
-                  '</span>'+
-                  '<span class="media-body block m-b-none">'+
-                    'Sophi sent you a email<br>'+
-                    '<small class="text-muted">1 minutes ago</small>'+
-                  '</span>'+
-                '</a>';	
-  setTimeout(function(){addMsg($msg);}, 1500);
+	// function addMsg($msg){
+	// 	var $el = $('.nav-user'), $n = $('.count:first', $el), $v = parseInt($n.text());
+	// 	$('.count', $el).fadeOut().fadeIn().text($v+1);
+	// 	$($msg).hide().prependTo($el.find('.list-group')).slideDown().css('display','block');
+	// }
+	// var $msg = '<a href="#" class="media list-group-item">'+
+  //                 '<span class="pull-left thumb-sm text-center">'+
+  //                   '<i class="fa fa-envelope-o fa-2x text-success"></i>'+
+  //                 '</span>'+
+  //                 '<span class="media-body block m-b-none">'+
+  //                   'Sophi sent you a email<br>'+
+  //                   '<small class="text-muted">1 minutes ago</small>'+
+  //                 '</span>'+
+  //               '</a>';
+  // setTimeout(function(){addMsg($msg);}, 1500);
 
 	//chosen
 	//$(".chosen-select").length && $(".chosen-select").chosen();

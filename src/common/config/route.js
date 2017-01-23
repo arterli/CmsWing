@@ -2,11 +2,20 @@
  * Created by Arterli on 2016/1/24.
  */
 export default {
-    admin: {
+    admin: {//系统后台
         reg: /^admin/
     },
-    //默认走home
-    home: {
+    uc:{//前台用户中心
+        reg:/^uc/
+    },
+    mod:{//模型
+        reg:/^mod/
+    },
+    ext:{//扩展
+        reg:/^ext/
+    },
+    //默认走topic
+    topic: {//网站信息统一输出口
 
     }
 }

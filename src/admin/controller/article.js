@@ -24,13 +24,88 @@ export default class extends Base {
         let cate_id = this.get('cate_id') || null;
         let model_id = this.get('model_id') || null;
         let position = this.get('position') || null;
-        let group_id = this.get('group_id') || null;
+        let group_id = this.get('group_id') || 0;
+        let sortid = this.get('sortid')||0;
+        let sortval = this.get('sortval')||null;
         let models;
         let groups;
         let model;
         let _model;
         //console.log(2222);
+        console.log(cate_id);
         if (!think.isEmpty(cate_id)) {
+            //权限验证
+            await this.admin_priv("init",cate_id,"您没有权限查看本栏目！")
+            // 获取分类信息
+            let sort = await this.model("category").get_category(cate_id, 'documentsorts');
+            if (sort) {
+                sort = JSON.parse(sort);
+                if(sortid==0){
+                    sortid=sort.defaultshow;
+                }
+                let typevar = await this.model("typevar").where({sortid:sortid}).select();
+                for (let val of typevar){
+
+                    val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                    if(val.option.type == 'select'||val.option.type == 'radio'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        }
+
+                    }else if(val.option.type == 'checkbox'){
+                        if(!think.isEmpty(val.option.rules)){
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=parse_type_attr(val.option.rules.choices);
+                            console.log(val.rules);
+                            for(let v of val.rules){
+                                v.id = "l>"+v.id
+                            }
+                            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                            //console.log(val.rules);
+                        }
+                    }else if(val.option.type == 'range'){
+                        if(!think.isEmpty(val.option.rules)){
+                            let searchtxt = JSON.parse(val.option.rules).searchtxt;
+                            let searcharr = []
+                            if(!think.isEmpty(searchtxt)){
+                                let arr = searchtxt.split(",");
+                                let len = arr.length;
+                                for (var i=0;i<len;i++)
+                                {
+                                    let obj = {}
+                                    if (!think.isEmpty(arr[i-1])){
+                                        if(i==1){
+                                            obj.id = 'd>'+arr[i];
+                                            obj.name = '低于'+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj);
+                                        }else {
+                                            obj.id = arr[i-1]+'>'+arr[i];
+                                            obj.name = arr[i-1]+"-"+arr[i]+val.option.unit;
+                                            obj.pid=0
+                                            searcharr.push(obj)
+                                        }
+
+                                    }
+
+                                }
+                                searcharr.push({id:'u>'+arr[len-1],name:'高于'+arr[len-1]+val.option.unit,pid:0})
+                            }
+                            //console.log(searcharr);
+                            val.option.rules = JSON.parse(val.option.rules);
+                            val.rules=searcharr;
+                            // val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+
+                        }
+                    }
+                }
+                //console.log(typevar);
+                this.assign("typevar",typevar);
+            }
+            //console.log(sort);
+            this.assign("sort",sort);
             let pid = this.get("pid") || 0;
             // 获取列表绑定的模型
             if (pid == 0) {
@@ -111,7 +186,7 @@ export default class extends Base {
         fields = unique(fields);
         //console.log(fields);
        // console.log(model_id);
-        let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id);
+        let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id,sortval,sortid);
         for(let val of list){
             if(val.pics){
                 //val.pics = await get_pics_one(val.pics,"path");
@@ -146,6 +221,7 @@ export default class extends Base {
         this.assign('cate_id', cate_id);
         this.assign('model_id', model_id);
         this.assign('group_id', group_id);
+        this.assign('sortid',sortid);
         this.assign('position', position);
         this.assign('groups', groups);
         this.assign('list', list);
@@ -166,7 +242,7 @@ export default class extends Base {
      * @param mixed $field 字段列表
      * @param integer $group_id 分组id
      */
-    async getDocumentList(cate_id, model_id, position, field, group_id) {
+    async getDocumentList(cate_id, model_id, position, field, group_id,sortval,sortid) {
         //console.log(2222222);
         /* 查询条件初始化 */
         cate_id = cate_id||0,field=field||true;
@@ -197,7 +273,7 @@ export default class extends Base {
 
         if (cate_id) {
             //获取当前分类的所有子栏目
-            let subcate = await this.model('category', {}, 'admin').get_sub_category(cate_id);
+            let subcate = await this.model('category').get_sub_category(cate_id);
             // console.log(subcate);
             subcate.push(cate_id);
             map.category_id = ['IN', subcate];
@@ -248,11 +324,58 @@ export default class extends Base {
         if (!think.isEmpty(group_id)) {
             map['group_id'] = group_id;
         }
+        if(!think.isEmpty(sortid)){
+            map.sort_id = ["IN",[sortid,0]];
+        }
+        let nsobj = {};
+        if(!think.isEmpty(sortval)) {
+            sortval = sortval.split("|");
+            nsobj = {}
+            let optionidarr = [];
+            let valuearr = [];
+            for (let v of sortval) {
+                let qarr = v.split("_");
+                nsobj[qarr[0]] = qarr[1];
+                if(qarr[1] !=0){
+                    let vv = qarr[1].split(">");
+                    //console.log(vv);
+                    if(vv[0]=="d" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["<",vv[1]];
+                    }else if(vv[0]=="u" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = [">",vv[1]];
+                    }else if(vv[0]=="l" && !think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["like",`%"${vv[1]}"%`];
+                    }else if(!think.isEmpty(vv[0])&&!think.isEmpty(vv[1])){
+                        map["t."+qarr[0]] = ["BETWEEN", Number(vv[0]), Number(vv[1])];
+                    }else {
+                        map["t."+qarr[0]] = qarr[1];
+                    }
 
-        let list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")).countSelect();
+                }
+            }
+            map.fid = cate_id;
+            // where.optionid = ["IN",optionidarr];
+            // where['value'] = ["IN",valuearr];
+            // let type= await this.model("typeoptionvar").where(where).select();
+            //  console.log(type);
+            // console.log(map);
+        }
+        console.log(map);
+        let list;
+        if(!think.isEmpty(sortval)){
+            list = await Document.alias('DOCUMENT').join({
+                table: "type_optionvalue"+sortid,
+                join: "left", // 有 left,right,inner 3 个值
+                as: "t",
+                on: ["id", "tid"]
+
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+        }else {
+             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+        }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(list);
 
 
@@ -265,7 +388,7 @@ export default class extends Base {
 
         //检查该分类是否允许发布内容
         let allow_publish = await this.model("category").get_category(cate_id, 'allow_publish');
-
+        this.assign("nsobj",nsobj);
         this.assign('_total', list.count);//该分类下的文档总数
         this.assign('pagerData', page); //分页展示使用
         this.assign('status', status);
@@ -283,32 +406,124 @@ export default class extends Base {
 
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
-        for (let val of cate) {
-            val.url = `/admin/article/index/cate_id/${val.id}`;
-            val.target = '_self';
+        if(!this.is_admin){
+        let parr =[];
+            //后台分类
+            for (let val of cate) {
+               switch (val.mold){
+                   case 1:
+                       val.url =`/mod/admin/index/cate_id/${val.id}`;
+                       break
+                   case 2:
+                       val.url = `/admin/sp/index/cate_id/${val.id}`;
+                       break;
+                   default:
+                       val.url = `/admin/article/index/cate_id/${val.id}`;
+               }
+
+                val.target = '_self';
+                delete val.icon;
+                let priv = await this.model("category_priv").priv(val.id,this.roleid,'init',1);
+                val.priv=priv
+                if(priv==1 && val.pid !=0 ){
+                    parr.push(val.pid)
+                }
+            }
+        let cates= [];
+        if(think.isEmpty(parr)){
+            cates=cate;
+        }else {
+
+            for(let val of cate){
+                if(in_array(val.id,parr)){
+                    val.priv=1
+                }
+            }
+
+            for(let val of cate){
+                if(val.priv==1){
+                    cates.push(val);
+                }
+            }
         }
+
         //think.log(cate);
-        return this.json(arr_to_tree(cate, 0))
+        return this.json(arr_to_tree(cates, 0))
+        }else {
+            for (let val of cate) {
+                switch (val.mold){
+                    case 1:
+                        val.url =`/mod/admin/index/cate_id/${val.id}`;
+                        break
+                    case 2:
+                        val.url = `/admin/sp/index/cate_id/${val.id}`;
+                        break;
+                    default:
+                        val.url = `/admin/article/index/cate_id/${val.id}`;
+                }
+
+                val.target = '_self';
+                delete val.icon;
+            }
+            return this.json(arr_to_tree(cate, 0))
+        }
     }
 
     /**
      * 新增文档
      */
     async addAction() {
+
         let cate_id = this.get("cate_id") || 0;
         let model_id = this.get("model_id") || 0;
         let group_id = this.get("group_id") || '';
+        let sortid = this.get('sortid')||0;
         think.isEmpty(cate_id) && this.fail("参数不能为空");
         think.isEmpty(model_id) && this.fail("该分类未绑定模型");
+        //权限验证
+        await this.admin_priv("add",cate_id);
         // 获取分组定义
         let groups = await this.model("category").get_category(cate_id, 'groups');
         if (groups) {
             groups = parse_config_attr(groups);
         }
-        console.log(groups);
+        // 获取分类信息
+        let sort = await this.model("category").get_category(cate_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid==0){
+                sortid=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:sortid}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.rules=parse_type_attr(val.option.rules.choices);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                    }
+                }else {
+                  if(!think.isEmpty(val.option.rules)){
+                      val.option.rules = JSON.parse(val.option.rules);
+                  }
+                }
+            }
+            //console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
         //检查该分类是否允许发布
         let allow_publish = await this.model("category").check_category(cate_id);
-        console.log(allow_publish);
+        //console.log(allow_publish);
         !allow_publish && this.fail("该分类不允许发布内容");
 
         //获取当先的模型信息
@@ -320,11 +535,25 @@ export default class extends Base {
         info.model_id = model_id;
         info.category_id = cate_id;
         info.group_id = group_id;
+        let topid=0;
+        if (info.pid != 0) {
+            let i = info.pid;
+            //
+            while (i!=0)
+            {
+                let nav = await this.model("document").where({id:i}).find();
+                if(nav.pid==0) {
+                    topid= nav.id;
+                }
+                i = nav.pid;
 
-        if (info.pid) {
+            }
             let article = await this.model("document").field('id,title,type').find(info.pid);
             this.assign("article", article);
         }
+        //console.log(topid);
+        // this.assign("topid",topid);
+        info.topid = topid;
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         //think.log(fields);
@@ -351,12 +580,16 @@ export default class extends Base {
     //编辑文档
     async editAction() {
         let id = this.get('id') || "";
+        let sortid = this.get('sortid')||0;
         if (think.isEmpty(id)) {
             this.fail("参数不能为空");
         }
+
         //获取详细数据；
         let document = this.model("document")
         let data = await document.details(id);
+        //权限验证
+        await this.admin_priv("edit",data.category_id);
         //let model =  this.model("model").getmodel(2);
         if (data.pid != 0) {
             //获取上级文档
@@ -364,16 +597,51 @@ export default class extends Base {
             this.assign('article', article);
         }
         let model = await this.model("model").get_document_model(data.model_id);
-        this.assign('data', data);
-        this.assign('model_id', data.model_id);
-        this.assign('model', model);
+
         // 获取分组定义
         let groups = await this.model("category").get_category(data.category_id, 'groups');
         if (groups) {
             groups = parse_config_attr(groups);
         }
         this.assign('groups',groups);
-        this.assign('')
+        // 获取分类信息
+        let sort = await this.model("category").get_category(data.category_id, 'documentsorts');
+        if (sort) {
+            sort = JSON.parse(sort);
+            if(sortid !=0){
+                data.sort_id=sortid;
+            }else if(data.sort_id==0){
+                data.sort_id=sort.defaultshow;
+            }
+            let typevar = await this.model("typevar").where({sortid:data.sort_id}).select();
+            for (let val of typevar){
+
+                val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
+                if(val.option.type == 'select'){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+
+                }else if (val.option.type =="radio" || val.option.type =="checkbox"){
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }else {
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                        val.option.value = await this.model("typeoptionvar").where({sortid:data.sort_id,tid:data.id,fid:data.category_id,optionid:val.option.optionid}).getField("value",true)||"";
+                    }
+                }
+            }
+           // console.log(typevar);
+            this.assign("typevar",typevar);
+        }
+        //console.log(sort);
+        this.assign("sort",sort);
         //获取表单字段排序
         let fields = await this.model("attribute").get_model_attribute(model.id,true);
         this.assign('fields', fields);
@@ -393,6 +661,10 @@ export default class extends Base {
         this.assign({
             "navxs": true,
         });
+        //console.log(data);
+        this.assign('data', data);
+        this.assign('model_id', data.model_id);
+        this.assign('model', model);
         this.display();
     }
 
@@ -422,8 +694,51 @@ export default class extends Base {
      * 设置一条或者多条数据的状态
      */
     async setstatusAction() {
+        let data = await this.model("document").where({id:["IN",this.param('ids')]}).select();
+        switch (Number(this.param('status'))){
+            case -1:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("delete",v.category_id);
+                }
+                break;
+            case 1:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("examine",v.category_id);
+                }
+                break;
+            case 0:
+                for (let v of data){
+                    //权限验证
+                    await this.admin_priv("disable",v.category_id);
+                }
+                break;
+        }
 
         await super.setstatusAction(this,'document');
+        if(this.param('status')==-1||this.param('status')==0){
+            for (let v of data){
+                //删除
+                await this.model('search').delsearch(v.model_id,v.id);
+                if(!think.isEmpty(v.keyname)){
+                    await this.model("keyword").delkey(v.id,v.model_id);
+                }
+
+            }
+
+
+        }else if(this.param('status')==1){
+
+            for (let v of data){
+                //添加到搜索
+                await this.model("search").addsearch(v.model_id,v.id,v);
+                console.log(v.keyname);
+                if(!think.isEmpty(v.keyname)){
+                    await this.model("keyword").addkey(v.keyname,v.id,v.uid,v.model_id,0);
+                }
+            }
+        }
     }
 
     /**
@@ -431,13 +746,13 @@ export default class extends Base {
      */
     async recycleAction(){
         let map={status:-1};
-        if(await this.is_admin()){
+        if(this.is_admin){
  //TODO
         }
 
         let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(list);
         for(let val of list.data){
             val.category=await this.model('category').get_category(val.category_id,"title");
@@ -449,6 +764,28 @@ export default class extends Base {
         this.assign('list', list.data);
         this.meta_title = "回收站";
         return this.display()
+
+    }
+    async clearAction(){
+        // 获取回收站的所有信息
+        let clist =await this.model("document").where({status:-1}).select();
+        if(think.isEmpty(clist)){
+            return this.success({name: "回收站没有内容！"});
+        }
+        //console.log(clist);
+        //查出模型内容并删除
+        for(let v of clist){
+            //模型表
+            let table = await this.model("model").get_table_name(v.model_id);
+            console.log(table);
+            await this.model(table).where({id:v.id}).delete();
+        }
+        //删除主表内容
+        let res = await this.model("document").delete({where:{status:-1}});
+
+        if(res){
+            return this.success({name: "清空回收站成功"});
+        }
 
     }
 }

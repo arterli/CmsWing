@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+	<meta charset="utf-8" />
+	<title>{{controller.meta_title}} | {{controller.setup.WEB_SITE_TITLE}}</title>
+	<meta name="keywords" content="{{controller.keywords}}" />
+	<meta name="description" content="{{controller.description}}" />
+	<meta name="Author" content="Arterli [www.cmswing.com]" />
+	{%if controller.setup.QQ_VALIDATION%}
+	<!--qq互联网站验证-->
+	{{controller.setup.QQ_VALIDATION|safe}}
+	<!--qq互联网站验证结束-->
+	{%endif%}
+	{%if controller.setup.SINA_VALIDATION%}
+	<!--新浪微博网站验证-->
+	{{controller.setup.SINA_VALIDATION|safe}}
+	<!--新浪微博网站验证结束-->
+	{%endif%}
+	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+	<!-- mobile settings -->
+	<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+	<!-- WEB FONTS : use %7C instead of | (pipe) -->
+	<!--<link href="http://fonts.useso.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />-->
+
+	<!-- CORE CSS -->
+	<link href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- REVOLUTION SLIDER -->
+	<link href="/static/assets/plugins/slider.revolution/css/extralayers.css" rel="stylesheet" type="text/css" />
+	<link href="/static/assets/plugins/slider.revolution/css/settings.css" rel="stylesheet" type="text/css" />
+
+	<!-- THEME CSS -->
+	<link href="/static/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+	<link href="/static/assets/css/layout.css" rel="stylesheet" type="text/css" />
+
+	<!-- PAGE LEVEL SCRIPTS -->
+	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
+	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
+	{% block style %}{% endblock %}
+	{%if controller.setup.WEB_TONGJI%}
+	<!--统计代码-->
+	{{controller.setup.WEB_TONGJI|safe}}
+	<!--统计-->
+	{%endif%}
+</head>
+
+<!--
+		AVAILABLE BODY CLASSES:
+
+		smoothscroll 			= create a browser smooth scroll
+		enable-animation		= enable WOW animations
+
+		bg-grey					= grey background
+		grain-grey				= grey grain background
+		grain-blue				= blue grain background
+		grain-green				= green grain background
+		grain-blue				= blue grain background
+		grain-orange			= orange grain background
+		grain-yellow			= yellow grain background
+
+		boxed 					= boxed layout
+		pattern1 ... patern11	= pattern background
+		menu-vertical-hide		= hidden, open on click
+
+		BACKGROUND IMAGE [together with .boxed class]
+		data-background="assets/images/boxed_background/1.jpg"
+	-->
+
+<body class="smoothscroll enable-animation ">
+
+	<!-- SLIDE TOP -->
+	{% include "./slidetop.html" %}
+	<!-- /SLIDE TOP -->
+
+
+	<!-- wrapper -->
+	<div id="wrapper" >
+
+		<!-- Top Bar -->
+		{% include "./topbar.html" %}
+		<!-- /Top Bar -->
+
+		<!--HEADER-->
+		{% include "./header.html" %}
+		<!--/HEADER-->
+		<!-- REVOLUTION SLIDER -->
+		{% block content %}{% endblock %}
+		<!-- FOOTER -->
+		<footer id="footer" class="footer-light" >
+			<div class="container">
+
+				<div class="row">
+
+					<div class="col-md-3">
+						<!-- Footer Logo -->
+						<img class="footer-logo" src="/static/assets/images/logo-footer-dark.png" alt="" />
+
+						<!-- Contact Address -->
+						<address>
+								<ul class="list-unstyled">
+									<li class="footer-sprite address">
+										中国 陕西
+										西安雁塔区高新路
+										望庭国际1号楼2单元24层
+									</li>
+									<!--<li class="footer-sprite phone">-->
+										<!--电话: 86-029-88365435-->
+									<!--</li>-->
+									<li class="footer-sprite email">
+										<a href="mailto:arterli@cmswing.com">arterli@cmswing.com</a>
+									</li>
+								</ul>
+							</address>
+						<!-- /Contact Address -->
+
+					</div>
+
+					<div class="col-md-3">
+
+						<!-- Latest Blog Post -->
+						<h4 class="letter-spacing-1">功能更新</h4>
+						<ul class="footer-posts list-unstyled">
+							{% topic data = "data",limit= "3",cid="118"%}
+							{%for t in data%}
+							<li>
+								<a href="{{t.name|get_url(t.id)}}">{{t.title}}</a>
+								<small>{{t.update_time|moment('lll')}}</small>
+							</li>
+							{%endfor%}
+						</ul>
+						<!-- /Latest Blog Post -->
+
+					</div>
+
+					<div class="col-md-2">
+
+						<!-- Links -->
+						<h4 class="letter-spacing-1">认识我们</h4>
+						<ul class="footer-links list-unstyled">
+							<li><a href="/">网站首页</a></li>
+							<li><a href="/about.html">关于我们</a></li>
+							<li><a href="/documentation">二次开发</a></li>
+							<li><a href="/donate.html">捐助我们</a></li>
+							<li><a href="/disclaimer.html">免责声明</a></li>
+							<li><a href="/licence.html">授权协议</a></li>
+							<li><a href="/contribute.html">贡献者名单</a></li>
+						</ul>
+						<!-- /Links -->
+
+					</div>
+
+					<div class="col-md-4">
+
+						<!-- Newsletter Form -->
+						<h4 class="letter-spacing-1">邮件订阅</h4>
+						<p>订阅我们的邮件，以获得重要版本升级信息</p>
+
+						<form class="validate" action="php/newsletter.php" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+								<input type="email" id="email" name="email" class="form-control required" placeholder="请输入您的邮箱">
+								<span class="input-group-btn">
+										<button class="btn btn-primary" type="submit">订阅</button>
+									</span>
+							</div>
+						</form>
+						<!-- /Newsletter Form -->
+
+						<!-- Social Icons -->
+						<div class="margin-top-20">
+							<a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+
+								<i class="icon-facebook"></i>
+								<i class="icon-facebook"></i>
+							</a>
+
+							<a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+								<i class="icon-twitter"></i>
+								<i class="icon-twitter"></i>
+							</a>
+
+							<a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+								<i class="icon-gplus"></i>
+								<i class="icon-gplus"></i>
+							</a>
+
+							<a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+								<i class="icon-linkedin"></i>
+								<i class="icon-linkedin"></i>
+							</a>
+
+							<a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+								<i class="icon-rss"></i>
+								<i class="icon-rss"></i>
+							</a>
+
+						</div>
+						<!-- /Social Icons -->
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="copyright">
+				<div class="container">
+					<ul class="pull-right nomargin list-inline mobile-block">
+						<li><a href="#">条款与条件</a></li>
+						<li>&bull;</li>
+						<li><a href="#">隐私</a></li>
+					</ul>
+					&copy; 2015 - <script>document.write(new Date().getFullYear())</script> cmswing.com  版权所有 <!--{{controller.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{controller.setup.WEB_SITE_ICP}}</a>
+					<noscript><a href="http://www.51.la/?19065555" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/19065555.asp" style="border:none" /></a></noscript>
+				</div>
+			</div>
+		</footer>
+		<!-- /FOOTER -->
+
+	</div>
+	<!-- /wrapper -->
+
+
+	<!--
+			SIDE PANEL
+
+				sidepanel-dark 			= dark color
+				sidepanel-light			= light color (white)
+				sidepanel-theme-color		= theme color
+
+				sidepanel-inverse		= By default, sidepanel is placed on right (left for RTL)
+								If you add "sidepanel-inverse", will be placed on left side (right on RTL).
+		-->
+	<div id="sidepanel" class="sidepanel-light">
+		<a id="sidepanel_close" href="#">
+			<!-- close -->
+			<i class="glyphicon glyphicon-remove"></i>
+		</a>
+
+		<div class="sidepanel-content">
+			<h2 class="sidepanel-title">网站导航</h2>
+
+			<!-- SIDE NAV -->
+			<ul class="list-group">
+
+                 {% channel data='channel', num='4'%} {% for val in channel%}
+						<li class="list-group-item {% if val.children %}list-toggle{% endif %} {% if http.url == val.url %}active{% endif %} ">
+
+							<a {% if val.children%}data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-{{val.id}}" class="collapsed"{% else %} href="{{val.url}}" {% endif %}>
+                                {% if val.children%}<i class="ico-dd icon-angle-down"><!-- Drop Down Indicator --></i>{% endif %}
+                                <i class="ico-category et-heart"></i> {{val.title}}</a> 
+                                
+                                {% if val.children%}
+							<ul id="collapse-{{val.id}}" class="list-unstyled collapse">
+								{% for _val in val.children%}
+								<li class="{% if _val.children%}{% endif %}">
+									<a {% if _val.children%}class="" {% endif %} href="{{_val.url}}"><i class="fa fa-angle-right"> </i>{{_val.title}}</a> {% if _val.children%}
+									<ul class="list-unstyled">
+										{% for __val in _val.children%}
+                                        <span class="badge hide">New</span>
+										<a href="{{__val.url}}"> <li><i class="fa fa-angle-right"> </i> {{__val.title}}</a></li>
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</li>
+						{% endfor%}
+				
+				
+			</ul>
+			<!-- /SIDE NAV -->
+
+			<!-- social icons -->
+			<div class="text-center margin-bottom-30">
+
+				<a href="#" class="social-icon social-icon-sm social-facebook" data-toggle="tooltip" data-placement="top" title="Facebook">
+					<i class="icon-facebook"></i>
+					<i class="icon-facebook"></i>
+				</a>
+
+				<a href="#" class="social-icon social-icon-sm social-twitter" data-toggle="tooltip" data-placement="top" title="Twitter">
+					<i class="icon-twitter"></i>
+					<i class="icon-twitter"></i>
+				</a>
+
+				<a href="#" class="social-icon social-icon-sm social-linkedin" data-toggle="tooltip" data-placement="top" title="Linkedin">
+					<i class="icon-linkedin"></i>
+					<i class="icon-linkedin"></i>
+				</a>
+
+				<a href="#" class="social-icon social-icon-sm social-rss" data-toggle="tooltip" data-placement="top" title="RSS">
+					<i class="icon-rss"></i>
+					<i class="icon-rss"></i>
+				</a>
+
+			</div>
+			<!-- /social icons -->
+
+		</div>
+
+	</div>
+	<!-- /SIDE PANEL -->
+
+
+	<!-- SCROLL TO TOP -->
+	<a href="#" id="toTop"></a>
+
+{#
+	<!-- PRELOADER -->
+	<div id="preloader">
+		<div class="inner">
+			<span class="loader"></span>
+		</div>
+	</div>
+	<!-- /PRELOADER -->
+#}
+
+	<!-- JAVASCRIPT FILES -->
+
+	<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		var plugin_path = '/static/assets/plugins/';
+		$(function () {
+			if($("#topMain.nav-pills>li.active>a")){
+				var w = $("#topMain.nav-pills>li.active>a").width();
+				$("#topMain.nav-pills>li.active>.aline").width(w);
+			}
+
+		})
+	</script>
+	<script type="text/javascript" src="/static/assets/js/scripts.js"></script>
+{#
+	<!-- STYLESWITCHER - REMOVE -->
+	<script async type="text/javascript" src="/static/assets/plugins/styleswitcher/styleswitcher.js"></script>
+#}
+	<!-- REVOLUTION SLIDER -->
+	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.tools.min.js"></script>
+	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
+	<script type="text/javascript" src="/static/assets/js/view/demo.revolution_slider.js"></script>
+	{% block script %}{% endblock %}
+    <!--[if lte IE 9]>
+    <script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
+<![endif]-->
+</body>
+
+</html>

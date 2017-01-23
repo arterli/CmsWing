@@ -21,16 +21,21 @@ export default class extends think.service.base {
     qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
     qiniu.conf.SECRET_KEY = setup.QINIU_SK;
       let bucket = setup.QINIU_BUCKET;
+        //用于前端直传直接返回 token
         if(istoken && filePath==null){
-            var putPolicy = new qiniu.rs.PutPolicy(bucket);
+            let putPolicy = new qiniu.rs.PutPolicy(bucket);
+            //let putPolicy = new qiniu.rs.PutPolicy2(new policy(bucket));
             return putPolicy.token();
         }
+
+        //获取token
       function uptoken(bucket, key) {
-               var putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
+               let putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
+               // let putPolicy = new qiniu.rs.PutPolicy2(new policy(bucket+":"+key));
                return putPolicy.token();
            }
       let  token = uptoken(bucket, key);
-       console.log(token);
+
 
        //构造上传函数
        //noinspection JSAnnotator
@@ -59,11 +64,12 @@ export default class extends think.service.base {
         qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
         qiniu.conf.SECRET_KEY = setup.QINIU_SK;
         let bucket = setup.QINIU_BUCKET;
+
         function delfile() {
             let deferred = think.defer();
             //构建bucketmanager对象
             let client = new qiniu.rs.Client();
-//删除资源
+            //删除资源
             client.remove(bucket, key, function(err, ret) {
                 if (!err) {
                     // ok
@@ -140,5 +146,20 @@ return deferred.promise;
                 console.log(err);
             }
         });
+    }
+    async download(key){
+        let setup = await think.cache("setup");
+        qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
+        qiniu.conf.SECRET_KEY = setup.QINIU_SK;
+//构建私有空间的链接
+        let url = `http://${setup.QINIU_DOMAIN_NAME}/${key}`;
+        var policy = new qiniu.rs.GetPolicy();
+
+//生成下载链接url
+        var downloadUrl = policy.makeRequest(url);
+
+//打印下载的url
+        console.log(downloadUrl);
+        return downloadUrl;
     }
 }

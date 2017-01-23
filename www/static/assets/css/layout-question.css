@@ -1,0 +1,76 @@
+/**	HOME - MODAL ON LOAD
+ **************************************************************** **/
+.group{
+	display: block !important;
+    padding-top: 6px;
+	border-bottom: 1px solid #ddd;
+	background-color: rgba(0,0,0,0.03);
+}
+.timeline .timeline-entry{
+	top:50px;
+}
+.timeline>.timeline-hline{
+	border-left: rgba(0,0,0,0.06) 1px solid;
+}
+.timeline .timeline-entry>.timeline-vline{
+	border-top: 1px dotted #eaeaea;
+}
+h1.blog-post-title, .blog-post-item h2{
+	height: 24px;
+}
+ul.blog-post-info{
+	height: 33px;
+}
+.blog-post-info>li+li:before {
+	content: "•";
+}
+ul.blog-post-info li{
+	margin: 0;
+	padding: 0;
+}
+ul.blog-post-info li>a {
+	color: #333;
+}
+ul.blog-post-info li>span {
+	color: #888;
+}
+img.pull-left{
+	margin-right: 10px;
+}
+.wangEditor-menu-container .menu-item {
+	width: 26.5px !important;
+}
+.wangEditor-container {
+	border: 1px solid #ddd;
+}
+.wangEditor-menu-container .menu-group:last-child{
+	border: none;
+}
+.wangEditor-menu-container .menu-item a {
+	font-size: 1em !important;
+}
+div.tagsinput {
+	overflow-y: hidden !important;
+}
+.wangEditor-drop-panel select{
+	height: auto !important;
+}
+.box-icon.active{
+	border: #1087dd 1px dotted;
+}
+.box-icon.box-icon-transparent.active .box-icon-title>i{
+	border: #1087dd 1px dotted;
+}
+#group >button{
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
+	margin-right: -1px;
+}
+.wangEditor-container .wangEditor-txt pre{
+	font-size: 1em !important;
+}
+.cmswing-container .wangEditor-txt img {
+	cursor: auto !important;
+}
+/*#eaeaea 1px dotted;*/

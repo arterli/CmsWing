@@ -61,6 +61,10 @@
             <label>说明 <i class="fa fa-info-sign text-xs text-muted">菜单详细说明</i></label>
             <input id="tip" type="text" name="tip" class=" input-sm form-control" placeholder="说明"  value="{{data.tip}}" >
         </div>
+        <div class="form-group">
+            <label>图标 <i class="fa fa-info-sign text-xs text-muted">菜单图标，只对一级菜单有效，请使用 <a href="http://fontawesome.io/" target="_blank">fontawesome.io</a> ,默认留空。</i></label>
+            <input id="ico" type="text" name="ico" class=" input-sm form-control" placeholder="说明"  value="{{data.ico}}" >
+        </div>
         <input id="eid" type="hidden" name="id" value="{{data.id}}">
         <div class="m-t-lg"><button class="btn btn-block btn-primary" id="editbtn">编辑菜单</button></div>
         <div class="m-t-lg"></div>
@@ -92,6 +96,7 @@
             var hide=  $("input[name='hide']:checked").val();
             var is_dev=  $("input[name='is_dev']:checked").val();
             var tip = $("input[name='tip']").val();
+            var ico = $("input[name='ico']").val();
             var jsonData = {
                 "id":id,
                 "title": title,
@@ -101,7 +106,8 @@
                 "group":group,
                 "hide":hide,
                 "is_dev":is_dev,
-                "tip":tip
+                "tip":tip,
+                "ico":ico
             };
             $.ajax({
                 type: 'POST',

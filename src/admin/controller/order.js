@@ -37,11 +37,11 @@ export default class extends Base {
        // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         //console.log(data.data);
-        this.active="admin/order/list"
+        this.active="admin/order/list";
         for(let val of data.data){
             switch (val.payment){
                 case 100:
@@ -185,11 +185,7 @@ export default class extends Base {
        this.assign("goods",goods);
        //获取购买人信息
        //购买人信息
-       let user = await this.model("member").join({
-           customer: {
-               on: ["id", "user_id"]
-           }
-       }).find(order.user_id);
+       let user = await this.model("member").find(order.user_id);
        this.assign("user",user);
        //订单信息
        switch (order.payment){
@@ -354,12 +350,9 @@ export default class extends Base {
                 val.sum = JSON.parse(val.prom_goods).price;
                 sum.push(val.goods_nums);
             }
+
             //购买人信息
-            let user = await this.model("member").join({
-                customer: {
-                    on: ["id", "user_id"]
-                }
-            }).find(order.user_id);
+            let user = await this.model("member").find(order.user_id);
             //获取 快递公司
             let express_company = this.model("express_company").order("sort ASC").select();
             this.assign("express_company",express_company);
@@ -396,7 +389,7 @@ export default class extends Base {
     async receivingAction(){
         let data = await this.model("doc_receiving").page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         //console.log(data.data);
@@ -427,7 +420,7 @@ export default class extends Base {
     
         let data = await this.model("doc_invoice").page(this.get('page')).order("create_time DESC").countSelect();
         let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(); //实例化 Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
         let page = pages.pages(data);
         this.assign('pagerData', page); //分页展示使用
         for(let v of data.data){
