@@ -77,7 +77,11 @@ export default class extends think.model.base {
         }
         //添加或者新增基础内容
         if(think.isEmpty(data.id)){//新增数据
-            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():time;
+            if(think.isEmpty(data.create_time)){
+                data.create_time = time;
+            }else{
+                data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():time;
+            }
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
@@ -129,7 +133,9 @@ export default class extends think.model.base {
         }else {//更新内容
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
-            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
+            if(!think.isEmpty(data.create_time)){
+                data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
+            }
             //更新关键词
             await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.model_id,0);
             let status = this.update(data);
