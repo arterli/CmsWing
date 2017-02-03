@@ -161,6 +161,7 @@ CLASSES:
                 <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}">{{v.name}}</a></li>
                 {%endfor%}
             </ul>
+            {%if category.id|priv(controller.user.roleid,'add',0,false)%}
             <!--投稿按钮-->
             <div class="btn-group btn-group-sm pull-right">
                 <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
@@ -181,6 +182,7 @@ CLASSES:
                 {% endif %}
             </div>
             <!--//投稿按钮-->
+            {%endif%}
             <div class="btn-group btn-group-sm pull-right">
                 <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
                 <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>

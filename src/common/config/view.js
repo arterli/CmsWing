@@ -377,6 +377,7 @@ export default {
                  */
                 env.addFilter('priv',async(catid,roleid,action,is_admin=0,type=true,callback)=>{
                     let isp= await priv(catid,roleid,action,is_admin,type);
+                    console.log(isp);
                     callback(null,isp);
                 },true);
                 env.addExtension('tagtest', new mytags(), true);
