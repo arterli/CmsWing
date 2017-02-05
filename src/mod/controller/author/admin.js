@@ -1,0 +1,88 @@
+'use strict';
+
+import Base from '../admin.js';
+
+export default class extends Base {
+    init(http) {
+        super.init(http);
+        this.tactive = "article";
+    }
+    /**
+     * 模型后台管理入口
+     * index action
+     * @return {Promise} []
+     */
+    async indexAction(){
+        let cate_id = this.get('cate_id') || null;
+        let group_id =  this.get('group_id') || 0;
+        if(think.isEmpty(cate_id)){
+            this.http.error = new Error('该栏目不存在！');
+            return think.statusAction(702, this.http);
+        }
+        //获取面包屑信息
+        let nav = await this.model('category').get_parent_category(cate_id);
+        this.assign('breadcrumb', nav);
+        //获取内容
+        // 构建列表数据
+        let question = this.model('question');
+        let map = {}
+        if (cate_id) {
+            //获取当前分类的所有子栏目
+            let subcate = await this.model('category').get_sub_category(cate_id);
+            // console.log(subcate);
+            subcate.push(cate_id);
+            map.category_id = ['IN', subcate];
+        }
+        map.group_id=group_id;
+        //获取分组
+        let  groups = await this.model("category").get_category(cate_id, 'groups');
+        if (groups) {
+            groups = parse_config_attr(groups);
+        }
+        this.assign('groups', groups);
+        //搜索
+        if(this.get("title")){
+            map.title=["like","%"+this.get("title")+"%"]
+        }
+        let list = await question.where(map).order('update_time DESC').page(this.get("page"),20).countSelect();
+        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
+        let pages = new Pages(this.http); //实例化 Adapter
+        let page = pages.pages(list);
+        this.assign('list', list);
+        this.assign('pagerData', page); //分页展示使用
+        console.log(map);
+        this.meta_title = this.m_cate.title;
+        this.assign({
+            "navxs": true,
+            "name":this.m_cate.name,
+        });
+        this.assign('group_id', group_id);
+        //渲染模版
+        return this.modtemp(this.mod.name);
+    }
+
+    /**
+     * 添加名家
+     * @returns {Promise.<void>}
+     */
+    async addAction(){
+        let cate_id = this.get('cate_id') || null;
+        let group_id =  this.get('group_id') || 0;
+        if(think.isEmpty(cate_id)){
+            this.http.error = new Error('该栏目不存在！');
+            return think.statusAction(702, this.http);
+        }
+        //获取面包屑信息
+        let nav = await this.model('category').get_parent_category(cate_id);
+        this.assign('breadcrumb', nav);
+
+        this.meta_title = "添加"+this.m_cate.title;
+        this.assign({
+            "navxs": true,
+            "name":this.m_cate.name,
+        });
+        //渲染模版
+       return this.modtemp(this.mod.name);
+    }
+
+}

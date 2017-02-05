@@ -45,6 +45,22 @@ export default class extends Base {
     }
 
     /**
+     * 独立模型字段列表
+     */
+    async extAction(){
+        let model_id = this.get('model_id');
+        let model = await this.model("model").find(model_id);
+        let table = think.parseConfig(true,think.config("db")).prefix + model.name;
+        let db = think.model('mysql', think.config('db'));
+        let result = await db.getSchema(table);
+        console.log(result);
+        this.meta_title="字段列表";
+        this.active = "admin/model/index";
+        this.assign("table",table);
+        this.assign("list",result);
+        return this.display();
+    }
+    /**
      * 新增字段
      * @returns {*}
      */

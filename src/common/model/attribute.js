@@ -73,6 +73,65 @@ export default class extends think.model.base {
     }
 
     /**
+     * 独立模型初始化表结构
+     * @param mod_id 模型id;
+     */
+    async addtable(mod_id){
+        let table_exist = await this.checkTableExist(mod_id);
+        let sql;
+        if(!table_exist){
+            let model_info = await this.model('model').where({id:mod_id}).field('engine_type,need_pk').find();
+            console.log(model_info);
+            if (model_info.need_pk) {
+                sql = ` CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
+                \`id\`  int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT \'主键\' ,
+                \`title\` char(80) NOT NULL COMMENT \'标题\',
+                \`category_id\` int(10) unsigned NOT NULL DEFAULT \'0\' COMMENT \'栏目目录\',
+                \`group_id\` smallint(3) unsigned NOT NULL DEFAULT \'0\' COMMENT \'所属分组\',
+                \`model_id\` tinyint(3) unsigned NOT NULL DEFAULT \'0\' COMMENT \'内容模型ID\',
+                \`create_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'创建时间\',
+                \`update_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'更新时间\',
+                \`status\` tinyint(4) NOT NULL DEFAULT \'0\' COMMENT \'数据状态0禁用，1启用，-1删除\',
+                PRIMARY KEY (\`id\`),
+                KEY \`category_id\` (\`category_id\`),
+                KEY \`group_id\` (\`group_id\`),
+                KEY \`status\` (\`status\`)
+                )
+                ENGINE=${model_info.engine_type}
+                DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+                CHECKSUM=0
+                ROW_FORMAT=DYNAMIC
+                DELAY_KEY_WRITE=0
+                ;`
+                sql = this.parseSql(sql);
+            } else {
+                sql = ` CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
+               
+                \`title\` char(80) NOT NULL COMMENT \'标题\',
+                \`category_id\` int(10) unsigned NOT NULL DEFAULT \'0\' COMMENT \'栏目目录\',
+                \`group_id\` smallint(3) unsigned NOT NULL DEFAULT \'0\' COMMENT \'所属分组\',
+                \`model_id\` tinyint(3) unsigned NOT NULL DEFAULT \'0\' COMMENT \'内容模型ID\',
+                \`create_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'创建时间\',
+                \`update_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'更新时间\',
+                \`status\` tinyint(4) NOT NULL DEFAULT \'0\' COMMENT \'数据状态0禁用，1启用，-1删除\',
+              
+                KEY \`category_id\` (\`category_id\`),
+                KEY \`group_id\` (\`group_id\`),
+                KEY \`status\` (\`status\`)
+                )
+                ENGINE=${model_info.engine_type}
+                DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+                CHECKSUM=0
+                ROW_FORMAT=DYNAMIC
+                DELAY_KEY_WRITE=0
+                ;`
+                sql = this.parseSql(sql);
+            }
+        }
+        let res = await think.model('mysql', think.config("db")).execute(sql);
+        return res >= 0;
+    }
+    /**
      * 新建表字段
      * @param Array field 需要新建的字段属性
      * @return Boolean  true 成功 ， false 失败

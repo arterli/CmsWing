@@ -73,7 +73,11 @@
                                         
                                         <td>{#<a href="/admin/cms/list/model/{{item.name}}" class="text-info">数据</a>#}
                                             <a href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">编辑</a>
+                                            {%if item.extend==1 or item.id==1%}
                                             <a href="/admin/attribute/index/model_id/{{item.id}}" class="text-info">字段</a>
+                                            {%else%}
+                                            <a href="/admin/attribute/ext/model_id/{{item.id}}" class="text-info">字段</a>
+                                            {%endif%}
                                             {%if item.id !=1%}
                                             <a href="/admin/model/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                             {%endif%}
