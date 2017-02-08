@@ -36,8 +36,8 @@
                                     <div class="panel-body">
                                         <form id="ajaxForm" method="post" class="form-horizontal" action="/mod/author/admin/update" data-validate="parsley">
 
-                                            {%if sort %}
-                                            <input type="hidden" name="sort_id" value="{{http.get('sortid')}}">
+                                            {%if sort%}
+                                            <input type="hidden" name="sort_id" value="{{data.sort_id}}">
                                             <div class="form-group">
                                                 <label  class="col-sm-2 control-label">
                                                     分类
@@ -47,7 +47,7 @@
                                                         <div class="col-md-10">
                                                             <div class="btn-group" >
                                                                 {%for val in sort.types%}
-                                                                <a href="/mod/author/admin/add/model_id/{{http.get('model_id')}}/cate_id/{{http.get('cate_id')}}/group_id/{{http.get('group_id')}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if http.get('sortid') == val.enable%}active{%endif%}">
+                                                                <a href="/mod/author/admin/edit/id/{{data.id}}/model/{{data.model_id}}/cate_id/{{data.category_id}}/sortid/{{val.enable}}" class="btn btn-sm btn-default {%if data.sort_id == val.enable%}active{%endif%}">
                                                                     {{val.name}}
                                                                 </a>
                                                                 {%endfor%}
@@ -57,7 +57,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                             {%for val in typevar%}
                                             {%if val.available==1%}
                                             <div class="form-group">
@@ -67,10 +66,12 @@
                                                 <div class="col-sm-10">
                                                     <div class="row">
 
-                                                        {%if val.option.type == 'select' %}
+                                                        {%if val.option.type == 'select'%}
                                                         <div class="col-md-10">
-                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="" {% if val.required == 1 %}data-required="true"{%endif%}>
-                                                            <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span><span id="info_{{val.option.identifier}}" style="margin-left: 10px"></span>
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" value="{{val.option.value}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                            <label id="info_{{val.option.identifier}}"  class="checkbox-inline i-checks" >{{val.option.rules.choices[val.option.value]|default("请选择",true)}}</label>
+                                                            <span id="sortid_{{val.option.identifier}}" class="tabelselet"></span>
+                                                            <a href="#" id="edit_{{val.option.identifier}}" class="checkbox-inline i-checks text-info">修改</a>
 
                                                             <script>
 
@@ -132,26 +133,40 @@
                                                                         $('input[name="sortid_{{val.option.identifier}}"]').val(val);
                                                                         $("#info_{{val.option.identifier}}").html(info)
                                                                     })
-                                                                    $("#sortid_{{val.option.identifier}}").html(forTree(jsonObj));
+                                                                    $(document).on("click","#edit_{{val.option.identifier}}",function (e) {
+                                                                        e.preventDefault();
+
+                                                                        $("#sortid_{{val.option.identifier}}").html(forTree(jsonObj));
+                                                                    })
+                                                                    //
 
                                                                 })
                                                             </script>
 
                                                         </div>
-
-                                                        {% elif val.option.type == 'number' or val.option.type == 'range' %}
+                                                        {#
+                                                        <div class="col-md-3">
+                                                            <select class="form-control " name="sortid_{{val.option.identifier}}" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                                <option value=" "  >请选择</option>
+                                                                {% for k ,v in val.option.rules.choices %}
+                                                                <option value="{{k}}" {% if val.option.value == k %}selected{%endif%}>[{{k}}] {{v}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        #}
+                                                        {% elif val.option.type == 'number' or val.option.type == 'range'%}
                                                         <div class="col-md-2">
-                                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}" data-type="number"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
                                                         </div>
                                                         {% elif val.option.type == 'textarea' %}
                                                         <div class="col-md-8">
-                                                            <textarea class="form-control" name="sortid_{{val.option.identifier}}"  {% if val.required == 1 %}data-required="true"{%endif%}  {% if val.option.rules.rowsize %} rows="{{val.option.rules.rowsize}}" {% endif %}>{{val.option.rules.defaultvalue}}</textarea>
+                                                            <textarea class="form-control" name="sortid_{{val.option.identifier}}"  {% if val.required == 1 %}data-required="true"{%endif%}  {% if val.option.rules.rowsize %} rows="{{val.option.rules.rowsize}}" {% endif %}>{{val.option.value}}</textarea>
                                                         </div>
                                                         {% elif val.option.type == 'radio' %}
                                                         <div class="col-md-8">
                                                             {% for k ,v in val.option.rules.choices %}
                                                             <label class="radio-inline i-checks">
-                                                                <input type="radio" value="{{k}}" name="sortid_{{val.option.identifier}}" ><i></i> {{v}}
+                                                                <input type="radio" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if val.option.value == k %}checked{%endif%} ><i></i> {{v}}
                                                             </label>
                                                             {% endfor %}
                                                         </div>
@@ -160,21 +175,21 @@
                                                             <input class="hide" type="checkbox" value="0" name="sortid_{{val.option.identifier}}" checked>
                                                             {% for k ,v in val.option.rules.choices %}
                                                             <label class="checkbox-inline i-checks">
-                                                                <input type="checkbox" value="{{k}}" name="sortid_{{val.option.identifier}}" ><i></i> {{v}}
+                                                                <input type="checkbox" value="{{k}}" name="sortid_{{val.option.identifier}}" {% if k|in_Array(val.option.value|strToJson)  %}checked{%endif%}><i></i> {{v}}
                                                             </label>
                                                             {% endfor %}
                                                         </div>
                                                         {% elif val.option.type == 'calendar' %}
                                                         <div class="col-md-3">
-                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control date" value="" data-type="dateIso" placeholder="YYYY-MM-DD" {% if val.required == 1 %}data-required="true"{%endif%}/>
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control date" value="{{val.option.value}}" data-type="dateIso" placeholder="YYYY-MM-DD" {% if val.required == 1 %}data-required="true"{%endif%}/>
                                                         </div>
                                                         {%elif val.option.type == 'email'%}
                                                         <div class="col-md-3">
-                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control" data-type="email" {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" class="form-control" value="{{val.option.value}}" data-type="email" {% if val.required == 1 %}data-required="true"{%endif%}>
                                                         </div>
                                                         {%elif val.option.type == "image"%}
                                                         <div class="col-sm-10">
-                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}"/>
+                                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}" value="{{val.option.value}}"/>
                                                             <div id="fileList_sortid_{{val.option.identifier}}" class="uploader-list"></div>
                                                             <div id="filePicker_sortid_{{val.option.identifier}}">选择图片</div>
                                                             <script type="text/javascript">
@@ -211,6 +226,20 @@
                                                                         mimeTypes: 'image/jpg,image/jpeg,image/png,image/gif,image/bmp'
                                                                     }
                                                                 });
+                                                                //当有图片时加载图片
+                                                                var cover_id="{{val.option.value}}";
+                                                                console.log(cover_id);
+                                                                if(cover_id != 0){
+                                                                    var picurl = "{{val.option.value|get_pic('m=0,h=110')}}"
+                                                                    var $li = $(
+                                                                            '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                            '<img src="'+picurl+'">' +
+                                                                            '</div>'
+                                                                        ),
+                                                                        $img = $li.find('img');
+
+                                                                    $list_{{field.name}}.html( $li );
+                                                                }
                                                                 // 当有文件添加进来的时候
                                                                 uploader_sortid_{{val.option.identifier}}.on( 'fileQueued', function( file ) {
                                                                     var $li = $(
@@ -277,11 +306,11 @@
                                                         </div>
                                                         {%elif val.option.type == "url"%}
                                                         <div class="col-md-6">
-                                                            <input type="text" name="sortid_{{val.option.identifier}}" data-type="url"  {% if val.required == 1 %}data-required="true"{%endif%} class="form-control" placeholder="">
+                                                            <input type="text" name="sortid_{{val.option.identifier}}" data-type="url" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%} class="form-control" placeholder="">
                                                         </div>
                                                         {%else%}
                                                         <div class="col-md-8">
-                                                            <input type="text" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                                            <input type="text" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.value}}"  {% if val.required == 1 %}data-required="true"{%endif%}>
                                                         </div>
                                                         {%endif%}
                                                     </div>
@@ -297,20 +326,17 @@
                                                 <label  class="col-sm-2 control-label">
                                                     分组
                                                 </label>
-                                                <div class="col-sm-10">
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            <select class="form-control " name="group_id">
-                                                                <option value="0">不分组</option>
-                                                                {% for k ,v in groups %}
-                                                                <option value="{{k}}" {%if http.get('group_id')==k%} selected{%endif%}>{{v}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control " name="group_id">
+                                                            <option value="0" {% if data.group_id == k%} selected {%endif%}>不分组</option>
+                                                            {% for k ,v in groups %}
+                                                            <option value="{{k}}" {% if data.group_id == k%} selected {%endif%}>{{v}}</option>
+                                                            {% endfor %}
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
                                             {% endif%}
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">姓名</label>
@@ -319,7 +345,7 @@
 
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input type="text" class="form-control  " name="title" value="" data-required="true" data-Remote="/mod/author/public/check">
+                                                            <input type="text" class="form-control  " name="title" value="{{data.title}}" data-required="true" >
                                                         </div>
                                                         {#
                                                         <div class="col-md-12">
@@ -338,7 +364,7 @@
 
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            <input type="text" class="form-control  " name="pinyin" value="" data-required="true" data-Remote="/mod/author/public/check">
+                                                            <input type="text" class="form-control  " name="pinyin" value="{{data.pinyin}}" data-required="true" >
                                                         </div>
                                                         {#
                                                         <div class="col-md-12">
@@ -355,7 +381,7 @@
                                                 <div class="col-sm-10">
                                                     <div class="row">
                                                         <div class="col-sm-10">
-                                                            <input type="hidden" name="pin" id="cover_id_{{field.name}}"/>
+                                                            <input type="hidden" name="pin" id="cover_id_{{field.name}}" value="{{data.pin}}"/>
                                                             <div id="fileList_{{field.name}}" class="uploader-list"></div>
                                                             <div id="filePicker_{{field.name}}">选择图片</div>
 
@@ -393,6 +419,20 @@
                                                                         mimeTypes: 'image/*'
                                                                     }
                                                                 });
+                                                                //当有图片时加载图片
+                                                                var cover_id="{{data.pin}}";
+                                                                console.log(cover_id);
+                                                                if(cover_id != 0){
+                                                                    var picurl = "{{data.pin|get_pic('m=0,h=110')}}"
+                                                                    var $li = $(
+                                                                            '<div id="' + cover_id + '" class="file-item thumbnail ">' +
+                                                                            '<img src="'+picurl+'">' +
+                                                                            '</div>'
+                                                                        ),
+                                                                        $img = $li.find('img');
+
+                                                                    $list_{{field.name}}.html( $li );
+                                                                }
                                                                 // 当有文件添加进来的时候
                                                                 uploader_{{field.name}}.on( 'fileQueued', function( file ) {
                                                                     var $li = $(
@@ -468,8 +508,9 @@
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group form-submit">
                                                 <div class="col-sm-4 col-sm-offset-2">
-                                                    <input type="hidden" name="model_id" value="{{http.get('model_id')}}"/>
-                                                    <input type="hidden" name="category_id" value="{{http.get('cate_id')}}">
+                                                    <input type="hidden" name="id" value="{{data.id}}"/>
+                                                    <input type="hidden" name="model_id" value="{{data.model_id}}"/>
+                                                    <input type="hidden" name="category_id" value="{{data.category_id}}">
                                                     <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
                                                     <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
                                                             type="submit">返回

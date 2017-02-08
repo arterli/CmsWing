@@ -4542,3 +4542,4 @@ textarea.parsley-error {
   background-color: #e8eff0;
   color: #788188;
 }
+.tabelselet select{display: inline-table;width: inherit}

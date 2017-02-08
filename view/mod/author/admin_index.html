@@ -1,7 +1,11 @@
 {% extends "../../admin/inc/base.html" %} {% block style %}
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
 <link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
-
+<style>
+    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+        vertical-align:middle;
+    }
+</style>
 {% endblock%} {% block content %}
 <section class="vbox">
     <section id="bjax-target">
@@ -23,6 +27,102 @@
                             <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                         </ul>
                         <!-- / .breadcrumb -->
+                        {%if sort%}
+                        <section class="panel panel-default m-b-xs clearfix">
+                            <header class="panel-heading text-right bg-light clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    {%for val in sort.types%}
+                                    <li class="{%if http.get('sortid')|length > 0%}{%if http.get('sortid')==val.enable%}active{%endif%}{%else%}{%if sort.defaultshow == val.enable%}active{%endif%}{%endif%}">
+                                        <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{group_id}}/sortid/{{val.enable}}" > {{val.name}}</a>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                                <ul class="nav nav-pills pull-right">
+                                    <li>
+                                        <a href="#" class="panel-toggle text-muted" id="sorttoggle"><i class="fa fa-caret-down text"></i><i class="fa fa-caret-up text-active"></i></a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div class="panel-body collapse" id="sortbody" style="padding: 0">
+                                <div class="tab-content">
+                                    <table class="table table-hover table-condensed m-b-none" style="margin-top: -1px">
+                                        <tbody>
+                                        {%for val in typevar%}
+                                        {%if val.search > 1 and val.available==1%}
+                                        <tr>
+                                            <td style="width: 140px" class="text-right">
+                                                {{val.option.title}}:
+                                            </td>
+                                            <td>
+                                                {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                                                <span style="margin-right: 10px">全部</span>
+                                                {%else%}
+                                                <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">全部</a>
+                                                {%endif%}
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                <span style="margin-right: 10px">{{v.name}}{{val.option.unit}}</span>
+                                                {%else%}
+                                                <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v.name}}{{val.option.unit}}</a>
+                                                {%endif%}
+                                                {%endfor%}
+
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v.children%}
+                                                <div class="subtsm">
+
+                                                    {% for v_ in v.children %}
+                                                    {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                    <span style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</span>
+                                                    {%else%}
+                                                    <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v_.name}}{{val.option.unit}}</a>
+                                                    {%endif%}
+                                                    {% endfor %}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                                <!--子栏目-->
+                                                {%for v in val.rules %}
+                                                {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v.children%}
+
+                                                {% for v_ in v.children %}
+                                                {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                                                {% if v_.children%}
+                                                <div class="subtsm">
+                                                    {% for v__ in v_.children %}
+
+                                                    {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                                                    <span style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</span>
+                                                    {%else%}
+                                                    <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{group_id}}/sortid/{{sortid}}/sortval/{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="text-info" style="margin-right: 10px">{{v__.name}}{{val.option.unit}}</a>
+
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                                {%endif%}
+                                                {%endif%}
+                                                {% endfor %}
+
+                                                {%endif%}
+                                                {%endif%}
+                                                {%endfor%}
+                                            </td>
+
+                                        </tr>
+                                        {%endif%}
+                                        {%endfor%}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                        {%endif%}
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
@@ -35,9 +135,17 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info " href="/mod/author/admin/add/model_id/{{controller.mod.id}}/cate_id/{{controller.m_cate.id}}/group_id/{{group_id}}/sortid/0">
+                                        <a class="btn btn-sm btn-info " href="/mod/author/admin/add/model_id/{{controller.mod.id}}/cate_id/{{controller.m_cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}">
                                             添加
                                         </a>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/mod/author/admin/setstatus/status/1/model/{{controller.mod.name}}" target-form="ids">
+                                                启用
+                                            </a>
+                                            <a class="btn btn-sm btn-info ajax-post" href="/mod/author/admin/setstatus/status/0/model/{{controller.mod.name}}" target-form="ids">
+                                                禁用
+                                            </a>
+                                        </div>
                                         <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/mod/question/admin/del">
                                             删除
                                         </a>
@@ -57,7 +165,7 @@
                             {% if groups %}
                             <header class="panel-heading">
                                 <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
-                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{key}}/sortid/{{sortid}}"  class="text-info">{{val}}</a>{%
                                 else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]
                             </header>
                             {% endif %}
@@ -69,14 +177,15 @@
                                             <label class="checkbox m-n i-checks">
                                                 <input type="checkbox"><i></i></label>
                                         </th>
-
-                                        <th>问题标题</th>
-                                        <th>回答	</th>
+                                        <th style="width:60px;">编号</th>
+                                          <th style="width:80px;">头像</th>
+                                        <th>姓名</th>
+                                        <th>姓名拼音	</th>
                                         <th>关注</th>
                                         <th>浏览</th>
-                                        <th>作者</th>
                                         <th>发布时间</th>
                                         <th>最后更新</th>
+                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -87,15 +196,21 @@
                                             <label class="checkbox m-n i-checks">
                                                 <input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label>
                                         </td>
-
-                                        <td><a href="/mod/question/{{data.id}}" target="_blank" class="text-info">{{data.title}}</a></td>
-                                        <td>{{data.answer_count}}</td>
+                                        <td>{{data.id}}</td>
+<td><span class="thumb-sm"><img alt="{{data.title}}" src="{{data.pin|get_pic('m=1,w=100,h=100')}}" class="img-responsive img-thumbnail"></span></td>
+                                        <td><a href="/mod/author/{{data.id}}" target="_blank" class="text-info">{{data.title}}</a></td>
+                                        <td><a href="/mod/author/{{data.pinyin}}" target="_blank" class="text-info">{{data.pinyin}}</a></td>
                                         <td>{{data.focus_count}}</td>
                                         <td>{{data.view}}</td>
-                                        <td><a href="#" class="text-info">{{data.uid|get_nickname}}</a></td>
                                         <td>{{data.create_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
                                         <td>{{data.update_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
-                                        <td><a href="/mod/question/sys/edit/id/{{data.id}}" target="_blank" class="text-info">编辑</a></td>
+                                        <td> <a href="/mod/author/admin/setstatus/ids/{{data.id}}/status/{{1-data.status}}/model/{{controller.mod.name}}" class="active ajax-get" data-toggle="class">
+                                            <i class="fa fa-check text-success {%if data.status %}text-active{%else%}text{%endif%}"></i>
+                                            <i class="fa fa-times text-danger {%if data.status %}text{%else%}text-active{%endif%}"></i>
+                                        </a></td>
+                                        <td><a href="/mod/author/admin/edit/id/{{data.id}}" class="text-info">编辑</a>
+                                            <a href="/mod/author/admin/del/id/{{data.id}}"  class="text-info ajax-get confirm">删除</a>
+                                        </td>
                                     </tr>
                                     {% else %}
                                     <tr>
@@ -210,8 +325,25 @@
             }
             window.location.href = url;
         });
+        //回车自动提交
+        $('.search-form').find('input').keyup(function(event){
+            if(event.keyCode===13){
+                $("#search").click();
+            }
+        });
+        if(localStorage.getItem("sortoggle")==1){
+            $("#sorttoggle").addClass("active");
+            $("#sortbody").removeClass("collapse");
+        }
+        //分类菜单
+        $("#sorttoggle").click(function () {
+            if(!$(this).is(".active")){
+                localStorage.setItem("sortoggle",1)
+            }else {
+                localStorage.removeItem("sortoggle");
+            }
+        })
 
-        <!-- 实例化编辑器 -->
         $(".ispct").click(function () {
             var t =  $(this).find("input").val();
             switch (parseInt(t)){

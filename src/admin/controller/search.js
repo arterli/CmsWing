@@ -101,7 +101,7 @@ export default class extends Base {
                    v.table="document";
                }
            }
-
+           //console.log(tables);
            await this.session('createindex_tables', tables);
            //清空缓存表
            await this.model("search").where("1=1").delete();
@@ -113,6 +113,7 @@ export default class extends Base {
           })
       }else if(this.isAjax("get")&&!think.isEmpty(this.get())){
            let tables = await this.session('createindex_tables');
+           console.log(tables);
            let id = this.get("id");
            let start = this.get("start");
            let page = this.get("page");
@@ -127,7 +128,7 @@ export default class extends Base {
            field.push(tables[id].pk);
            field.push(tables[id].addtime);
            let olist = await this.model(tables[id].table).page(page,pagesize).where(map).field(field).countSelect();
-           //console.log(olist);
+
            if(olist.count){
                let narr = [];
                for (let v of olist.data){
@@ -154,7 +155,7 @@ export default class extends Base {
                    }
                    narr.push(obj)
                }
-               //console.log(narr);
+               console.log("wwww"+narr);
                await this.model("search").addMany(narr)
                if(olist.totalPages> olist.currentPage){
                    let page = {'id': id, 'page': olist.currentPage+1,'pagesize':olist.numsPerPage};
@@ -183,6 +184,13 @@ export default class extends Base {
                        })
                    }
                }
+           }else if(tables[id]){
+               let page = {'id': ++id, 'page': 1,"pagesize":1};
+               return this.json({
+                   'msg': `<span style='color:#ff0000;font-size:14px;text-decoration:underline;' >${tables[id-1].name}</span>索引更新完成`,
+                   'page': page,
+                   'status': 1
+               })
            }
            if (think.isFile(lock)) {
               fs.unlinkSync(lock)

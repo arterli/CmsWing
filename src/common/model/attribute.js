@@ -92,10 +92,12 @@ export default class extends think.model.base {
                 \`create_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'创建时间\',
                 \`update_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'更新时间\',
                 \`status\` tinyint(4) NOT NULL DEFAULT \'0\' COMMENT \'数据状态0禁用，1启用，-1删除\',
+                \`sort_id\` smallint(6) unsigned NOT NULL DEFAULT \'0\' COMMENT \'分类信息关联id\',
                 PRIMARY KEY (\`id\`),
                 KEY \`category_id\` (\`category_id\`),
                 KEY \`group_id\` (\`group_id\`),
-                KEY \`status\` (\`status\`)
+                KEY \`status\` (\`status\`),
+                KEY \`sort_id\` (\`sort_id\`)
                 )
                 ENGINE=${model_info.engine_type}
                 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -106,7 +108,6 @@ export default class extends think.model.base {
                 sql = this.parseSql(sql);
             } else {
                 sql = ` CREATE TABLE IF NOT EXISTS \`${this.table_name}\` (
-               
                 \`title\` char(80) NOT NULL COMMENT \'标题\',
                 \`category_id\` int(10) unsigned NOT NULL DEFAULT \'0\' COMMENT \'栏目目录\',
                 \`group_id\` smallint(3) unsigned NOT NULL DEFAULT \'0\' COMMENT \'所属分组\',
@@ -114,10 +115,11 @@ export default class extends think.model.base {
                 \`create_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'创建时间\',
                 \`update_time\` bigint(13) unsigned NOT NULL DEFAULT \'0\' COMMENT \'更新时间\',
                 \`status\` tinyint(4) NOT NULL DEFAULT \'0\' COMMENT \'数据状态0禁用，1启用，-1删除\',
-              
+                \`sort_id\` smallint(6) unsigned NOT NULL DEFAULT \'0\' COMMENT \'分类信息关联id\',
                 KEY \`category_id\` (\`category_id\`),
                 KEY \`group_id\` (\`group_id\`),
-                KEY \`status\` (\`status\`)
+                KEY \`status\` (\`status\`),
+                KEY \`sort_id\` (\`sort_id\`)
                 )
                 ENGINE=${model_info.engine_type}
                 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci

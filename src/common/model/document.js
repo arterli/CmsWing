@@ -85,6 +85,7 @@ export default class extends think.model.base {
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
+            console.log(id);
             //let id = 100;
             if(!id){
                 this.error = '新增基础内容出错！';
@@ -195,7 +196,7 @@ export default class extends think.model.base {
 
         if (think.isEmpty(data.id)) {//新增数据
             data.id=id;
-            let ids = this.model(model).add(data);
+            let ids =  this.model(model).add(data);
             data.id=null;
             if (!ids) {
                 this.delete(id);
@@ -203,7 +204,7 @@ export default class extends think.model.base {
                 return false;
             }
         } else { //更新数据
-            let status = this.model(model).update(data);
+            let status =  this.model(model).update(data);
             if(!status){
                 this.error = '更新数据失败！';
                 return false;
