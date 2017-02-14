@@ -64,6 +64,7 @@ export default class extends Base {
     });
     return this.display();
   }
+
   //编辑
   async updateAction(){
     let data = this.post();
