@@ -4,4 +4,5 @@
  */
 export default [
     [/^mod\/question\/(\d+).*$/,"mod/question/index/detail?id=:1"],
+    [/^mod\/artist\/(.*)$/,"/mod/author/index/detail?id=:1"],
 ];

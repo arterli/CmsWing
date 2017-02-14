@@ -455,7 +455,8 @@ global.get_attribute_type = function(type) {
         'pics': ['多图上传', 'varchar(255) NOT NULL'],
         'price': ['价格', 'varchar(255) NOT NULL'],
         'freight': ['运费', 'varchar(255) NOT NULL'],
-        'keyword': ['关键词', 'varchar(255) NOT NULL']
+        'keyword': ['关键词', 'varchar(255) NOT NULL'],
+        'relation': ['关联', 'int(10) unsigned NOT NULL']
     }
     return type ? _type[type][0] : _type;
 }

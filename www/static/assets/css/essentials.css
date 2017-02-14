@@ -4589,7 +4589,20 @@ div.divider.divider-circle i {
 	   -moz-border-radius: 50%;
 			border-radius: 50%;
 }
+.bg-grey div.divider.divider-circle i {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #f1f2f7;
+	margin-top:-11px;
+	text-align:center;
+	z-index:1;
+	color:#999;
 
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
 
 /* border */
 div.divider.divider-border.divider-left:after {

@@ -20,6 +20,7 @@ c{% extends "./inc/base.html" %}
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/jquery.coolautosuggest.js"></script>
 <style type="text/css">
     .tab-content > .tab-pane{
         position: absolute !important;
@@ -428,6 +429,29 @@ table tr td{
                                                                 });
                                                             })
                                                         </script>
+                                                        {%elif field.type == 'relation'%}
+                                                        {%set relext = field.extra|parse_config_attr%}
+                                                        <div class="col-md-3">
+                                                            <input type="hidden" name="{{field.name}}" value="{{data[field.name]}}" id="{{field.name}}">
+                                                            <input type="text" class="form-control  " id="{{field.name}}_show" name="{{field.name}}_show" value="{{data[field.name]|get_relation(relext.model,relext.id,relext.val)}}" />
+
+                                                            <script language="javascript" type="text/javascript">
+                                                                $("#{{field.name}}_show").coolautosuggest({
+                                                                    url:"/admin/public/getrelation/model/{{relext.model}}/id/{{relext.id}}/val/{{relext.val}}?key=",
+                                                                    onSelected:function(result){
+
+                                                                        // Check if the result is not null
+                                                                        if(result!=null){
+                                                                            $("#{{field.name}}").val(result.id); // Get the ID field
+                                                                        }
+                                                                        else{
+                                                                            $("#{{field.name}}").val(""); // Empty the ID field
+
+                                                                        }
+                                                                    }
+                                                                });
+                                                            </script>
+                                                        </div>
                  {% elif field.type == "freight" %}
                 <div class="col-md-5">
                     <input type="hidden" name="{{field.name}}" value='{{data[field.name]}}' id="{{field.name}}"/>

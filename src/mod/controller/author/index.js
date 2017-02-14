@@ -260,4 +260,178 @@ export default class extends Base {
         }
 
     }
+
+    /**
+     * 详情入口
+     * @returns {*}
+     */
+    async detailAction(){
+        //获取详情id
+        let id =this.get("id");
+        // //判断请求参数是否合法。
+        if(think.isEmpty(id)){
+            this.http.error = new Error("请求参数不合法！");
+            return think.statusAction(702, this.http);
+        }
+        if(!think.isNumberString(id)){
+           id = await this.model("author").where({pinyin:id}).getField("id",true);
+        }
+        // //判断请求参数是否合法。
+        // if(!think.isNumberString(id)){
+        //     this.http.error = new Error("请求参数不合法！");
+        //     return think.statusAction(702, this.http);
+        // }
+        //获取详情信息
+        let info = await this.model("author").find(id);
+        //判断信息是否存在
+        if(think.isEmpty(info)){
+            this.http.error = new Error("信息不存在！");
+            return think.statusAction(702, this.http);
+        }
+        //TODO
+        //访问控制
+        //await this.c_verify("visit",info.category_id);
+
+        this.assign("info",info);
+
+        //seo
+        this.meta_title = info.title; //标题
+        this.keywords = info.keyname ? info.keyname : ''; //seo关键词
+        this.description = info.description ? info.description : ""; //seo描述
+
+        //获取面包屑信息
+        let breadcrumb = await this.model('category').get_parent_category(info.category_id,true);
+        this.assign('breadcrumb', breadcrumb);
+        //获取栏目信息
+        let cate = await this.category(info.category_id);
+        this.assign('category', cate);
+        //当前用户是否关注
+        if(this.is_login){
+            let focus = await this.model("question_focus").where({question_id:id,uid:this.user.uid}).find();
+            this.assign("focus",focus);
+        }
+        //获取当前主题所有关注的用户
+        let focususer = await this.model("question_focus").where({question_id:id}).getField("uid");
+        this.assign("focususer",focususer);
+        //访问统计
+        await this.model("author").where({id:info.id}).increment('view');
+        //话题
+        // let topicid = await this.model("keyword_data").where({docid:id,mod_type:1,mod_id:cate.model}).getField("tagid");
+        // if(!think.isEmpty(topicid)){
+        //     let topic = await this.model("keyword").where({id:["IN",topicid]}).select();
+        //     console.log(topic);
+        // }
+        //获取回复
+        let answer = await this.model("question_answer").where({question_id:id}).select();
+        for(let a of answer){
+            a.ccount = await this.model("question_answer_comments").where({answer_id:a.answer_id}).count("id");
+        }
+        this.assign("answer",answer);
+        //console.log(cate);
+        //相关问题
+        let where ={docid:id,mod_type:1,mod_id:cate.model}
+        //获取相关tagid
+        let tagid =  await this.model("keyword_data").where(where).getField("tagid");
+        if(!think.isEmpty(tagid)){
+            //找出相关的tagid
+            let rtid = await this.model("keyword_data").where({tagid:["IN",tagid],mod_id:cate.model}).getField("docid");
+            //相关问题
+            let rq = await this.model("question").where({id:["IN",rtid]}).limit(10).select();
+            this.assign("rq",rq);
+        }
+
+        //不同的设备,压缩不同的图片尺寸
+        let str = info.detail;
+        if(!think.isEmpty(str)){
+            let img;
+            if(checkMobile(this.userAgent())){
+                //手机端
+                img = image_view(str,640,4);
+            }else {
+                //pc端
+
+                img = image_view(str,847,0);
+            }
+            info.detail=img
+        }
+        if(checkMobile(this.userAgent())){
+            if(this.isAjax("get")){
+                for (let v of data.data){
+                    v.nickname= await get_nickname(v.uid);
+                    v.create_time=moment(v.create_time).fromNow();
+                    v.catename = await this.model("category").get_category(v.category_id,"title");
+                    v.detail=(v.detail).replace(/<[^>]+>/g, "");
+                    v.answer_username = await get_nickname(v.answer_users);
+                    v.update_time = moment(v.update_time).fromNow();
+                }
+                return this.json(data);
+            }
+            //手机端模版
+            return this.modtemp("question","mobile");
+        }else{
+            //console.log(temp);
+            // return this.display(temp);
+            return this.modtemp();
+        }
+    }
+
+    async infoAction(){
+        let author_id = this.get('author_id');
+        let model_id = this.get("model_id");
+        //获取详情信息
+        let info = await this.model("author").find(author_id);
+        //判断信息是否存在
+        if(think.isEmpty(info)){
+            this.http.error = new Error("信息不存在！");
+            return think.statusAction(702, this.http);
+        }
+        this.assign("info",info);
+        //seo
+        this.meta_title = info.title; //标题
+        this.keywords = info.keyname ? info.keyname : ''; //seo关键词
+        this.description = info.description ? info.description : ""; //seo描述
+        //获取面包屑信息
+        let breadcrumb = await this.model('category').get_parent_category(info.category_id,true);
+        this.assign('breadcrumb', breadcrumb);
+        //获取栏目信息
+        let cate = await this.category(info.category_id);
+        this.assign('category', cate);
+        
+        //排序
+        let o = {};
+        o.level = 'DESC';
+        let order = this.get("order");
+        order = Number(order);
+        switch (order){
+            case 1:
+                o.update_time = 'ASC';
+                break;
+            case 2:
+                o.view = 'DESC';
+                break;
+            case 3:
+                o.view = 'ASC';
+                break;
+            default:
+                o.update_time = 'DESC';
+        }
+        this.assign('order',order);
+        let list = await this.model("document").where({model_id:model_id,author_id:author_id}).page(this.param('page'),10).order(o).countSelect();
+        this.assign("list",list);
+        //分页
+        let html = pagination(list, this.http, {
+            desc: false, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: 'count: ${count} , pages: ${pages}'
+            }
+        });
+        this.assign('pagination', html);
+        console.log(list);
+        return this.modtemp();
+    }
 }

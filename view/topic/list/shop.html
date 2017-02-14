@@ -76,7 +76,7 @@ CLASSES:
     </ul>
     {%endif%}
     <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
-        <table class="table table-hover  m-b-none" style="margin-top: -1px">
+        <table class="table table-hover  m-b-none bg-white" style="margin-top: -1px">
             <tbody>
             {% set typenum = 1%}
             {%for val in typevar%}
@@ -245,7 +245,7 @@ CLASSES:
 
 <div class="shop-item">
 {% set pic = item.pics|strToArray%}
-<div class="thumbnail">
+<div class="thumbnail" style="background-color: #fff">
 <!-- product image(s) -->
 <a class="shop-item-image" href="{{item.name|get_url(item.id)}}" title="{{item.title}}" target="_blank">
 <img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=260,h=260')}}" alt="shop first image" />

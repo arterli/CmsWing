@@ -18,6 +18,8 @@ export default class extends Base {
       this.http.error = new Error('该栏目不存在！');
       return think.statusAction(702, this.http);
     }
+      //权限验证
+      await this.admin_priv("init",cate_id,"您没有权限查看本栏目！")
     let name = await this.model("category").get_category(cate_id, 'name')||cate_id;
     //获取面包屑信息
     let nav = await this.model('category').get_parent_category(cate_id);
@@ -46,6 +48,8 @@ export default class extends Base {
       this.http.error = new Error('该栏目不存在！');
       return think.statusAction(702, this.http);
     }
+      //权限验证
+      await this.admin_priv("init",cate_id,"您没有权限查看本栏目！")
     let name = await this.model("category").get_category(cate_id, 'name')||cate_id;
     //获取面包屑信息
     let nav = await this.model('category').get_parent_category(cate_id);
@@ -63,9 +67,10 @@ export default class extends Base {
   //编辑
   async updateAction(){
     let data = this.post();
-    console.log(data);
-    let isup = await this.db.thenAdd(data, {cid:data.cid});
-    console.log(isup);
+      console.log(data);
+      //权限验证
+      await this.admin_priv("edit",data.cid);
+      let isup = await this.db.thenAdd(data, {cid:data.cid});
     if(isup.type == 'exist'){
       await this.db.update(data, {where:{cid:data.cid}})
     }

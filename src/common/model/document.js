@@ -59,7 +59,9 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data,time=new Date().getTime()){
-       // console.log(data);
+     data.position = data.position||0;
+     //    console.log(data);
+     // return false;
         for(let v in data){
             let vs = v.split("|||");
             if(vs.length>1){

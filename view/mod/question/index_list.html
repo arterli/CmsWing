@@ -64,7 +64,7 @@ CLASSES:
 
                 <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}{{http.config('view.file_ext')}}" style="padding-top: 35px">
                     <div class="box-icon-title">
-                        {%if val.icon%}<i><img class="thumbnail rounded" src="{{val.icon|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -1px"></img></i>{%else%}<i class="et-chat"></i>{%endif%}
+                        {%if val.icon%}<i><img class="thumbnail rounded" src="{{val.icon|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -1px"></i>{%else%}<i class="et-chat"></i>{%endif%}
                         <h4 class="nomargin">{{val.name}}</h4>
                     </div>
                     <p class="nomargin" style="height: 44px;overflow: hidden">{{val.description|truncate(30, true, "...")}}</p>

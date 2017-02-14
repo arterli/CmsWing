@@ -1292,7 +1292,11 @@ section.dark.page-header {
 			background-color: #212121;
 		}
 
-
+.bg-grey .page-header.dark ul.page-header-tabs>li.active:hover,
+.bg-grey .page-header ul.page-header-tabs>li.active {
+	font-weight:500;
+	background-color:#f1f2f7;
+}
 
     @media only screen and (max-width: 767px){
         .page-header.page-header-xs ul.page-header-tabs{
@@ -7204,7 +7208,7 @@ ul.search-history {
 #footer>.copyright {
 	background-color:rgba(0,0,0,0.2);
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-	padding:25px 0;
+	padding:15px 0;
 	font-size:13px;
 	display:block;
 }
@@ -8620,4 +8624,12 @@ i.ico-60 {
 	height: 60px;
 	line-height: 60px;
 	font-size: 30px;
+}
+
+.bg-grey .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .bg-grey .nav-tabs>li.active>a:hover{
+	background-color: transparent;
+}
+.bg-grey .nav-tabs.nav-button-tabs>li.active>a {
+	color:#fff !important;
+	background-color:rgba(0,0,0,0.6);
 }

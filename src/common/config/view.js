@@ -231,6 +231,15 @@ export default {
                     callback(null, data);
                 }, true)
                 /**
+                 * 获取关联
+                 */
+                env.addFilter("get_relation", async(id,model,pk,val, callback) => {
+                    let map ={};
+                    map[pk] = id;
+                    let data = await think.model(model,think.config("db")).where(map).getField(val,true);
+                    callback(null, data);
+                }, true)
+                /**
                  * 获取文档url
                  */
                 env.addFilter('get_url', (name, id) => {

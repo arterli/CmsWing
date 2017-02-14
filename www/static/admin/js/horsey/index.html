@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>js实用表单模糊搜索和自动提示插件</title>
+
+	<link href='css/horsey.css' rel='stylesheet' type='text/css' />
+	<link href='css/example.css' rel='stylesheet' type='text/css' />
+	<!--[if IE]>
+		<script src="http://www.jq22.com/jquery/html5.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="jq22-container">
+		<header class="jq22-header">
+			<h1>js实用表单模糊搜索和自动提示插件 <span>A Tiny and blazing-fast fuzzy search in JavaScript</span></h1>
+		</header>
+		<div class="jq22-content">
+			<div class='examples'>
+			  <div class='parent'>
+			    <label for='hy'>Enter the name of a fruit: </label>
+			    <input id='hy'/>
+			    <pre>
+			      <code>
+			horsey(input, {
+			  suggestions: ['banana', 'apple', 'orange','cmyk','ddrom','ebay','four','good','html','item','jack','kfack']
+			});
+			      </code>
+			    </pre>
+			  </div>
+			</div>
+			  <div class='parent'>
+			    <label for='ly'>Lazy load the fruits, useful for AJAX! <i>(loading starts when the field is focused)</i></label>
+			    <div><i id='lyr'>Being lazy...</i></div>
+			    <input id='ly'/>
+			    <pre>
+			      <code>
+			horsey(input, {
+			  suggestions: function (done) {
+			    setTimeout(function () {
+			      done(['banana', 'apple', 'orange','cmyk','ddrom','ebay','four','good','html','item','jack','kfack']);
+			    }, 2000);
+			  }
+			});
+			      </code>
+			    </pre>
+			  </div>
+			  <div class='parent'>
+			    <label for='kv'>You can also use "key value pairs": </label>
+			    <input id='kv'/>
+			    <pre>
+			      <code>
+			horsey(input, {
+			  suggestions: [
+			    { value: 'banana', text: 'Bananas from Amazon Rainforest' },
+			    { value: 'apple', text: 'Red apples from New Zealand' },
+			    { value: 'orange', text: 'Oranges from Moscow' },
+			    { value: 'lemon', text: 'Juicy lemons from Amalfitan Coast' }
+			  ]
+			});
+			      </code>
+			    </pre>
+			  </div>
+			  <div class='parent'>
+			    <label for='ig'>But why stop there? You can render the suggestion however you like! </label>
+			    <input id='ig'/>
+			    <pre>
+			      <code>
+			horsey(input, {
+			  suggestions: [
+			    { value: 'banana', text: 'Bananas from Amazon Rainforest' },
+			    { value: 'apple', text: 'Red apples from New Zealand' },
+			    { value: 'orange', text: 'Oranges from Moscow' },
+			    { value: 'lemon', text: 'Juicy lemons from Amalfitan Coast' }
+			  ],
+			  render: function (li, suggestion) {
+			    var image = '&lt;img class="autofruit" src="img/fruits/' + suggestion.value + '.png" /&gt; ';
+			    li.innerHTML = image + suggestion.text;
+			  }
+			});
+			      </code>
+			    </pre>
+			  </div>
+			</div>
+		</div>
+		
+	</div>
+	
+	<script src='js/horsey.js'></script>
+	<script src='js/example.js'></script>
+</body>
+</html>
