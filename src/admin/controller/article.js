@@ -673,7 +673,7 @@ export default class extends Base {
      */
     async updateAction() {
         let data = this.post();
-        console.log(data);
+       // console.log(data);
         let res = await this.model('document').updates(data);
 
         if (res) {

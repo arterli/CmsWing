@@ -60,14 +60,16 @@ export default class extends think.model.base {
      */
     async updates(data,time=new Date().getTime()){
      data.position = data.position||0;
-     //    console.log(data);
-     // return false;
+
         for(let v in data){
             let vs = v.split("|||");
+
             if(vs.length>1){
+                console.log(data[v]);
              data[vs[1]]=(think.isEmpty(data[v])||data[v]==0)?0:new Date(data[v]).getTime();
             };
         }
+        //console.log(data);
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -87,7 +89,7 @@ export default class extends think.model.base {
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
-            console.log(id);
+            //console.log(id);
             //let id = 100;
             if(!id){
                 this.error = '新增基础内容出错！';

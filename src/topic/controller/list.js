@@ -13,7 +13,9 @@ import pagination from 'think-pagination';
 export default class extends Base {
   //列表页[核心]
   async indexAction() {
-    //跨域
+      console.log(GetDateStr(5)+" "+"00:00:00");
+      console.log(new Date(GetDateStr(0)+" "+"23:59:59").getTime());
+      //跨域
     let method = this.http.method.toLowerCase();
     if(method === "options"){
       this.setCorsHeader();
@@ -100,6 +102,23 @@ export default class extends Base {
       case 3:
         o.view = 'ASC';
         break;
+        case 4:
+          map.create_time = {">": new Date(GetDateStr(0)+" "+"00:00:00").getTime(), "<": new Date(GetDateStr(0)+" "+"23:59:59").getTime()}
+            o.update_time = 'DESC';
+          break;
+        case 5:
+            map.create_time = {">": new Date(GetDateStr(1)+" "+"00:00:00").getTime(), "<": new Date(GetDateStr(5)+" "+"23:59:59").getTime()}
+            o.update_time = 'DESC';
+            break;
+        case 6:
+            map.create_time = {"<": new Date().getTime()}
+            map.deadline = {">": new Date().getTime()}
+            o.update_time = 'DESC';
+            break;
+        case 7:
+            map.deadline = {"<": new Date().getTime()}
+            o.update_time = 'DESC';
+            break;
       default:
         o.update_time = 'DESC';
     }
