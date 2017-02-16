@@ -309,6 +309,12 @@ export default {
                     return get_price(price, type);
                 })
                 /**
+                 * 获取当前事件 时间戳
+                 */
+                env.addFilter('getnow', function () {
+                    return new Date().getTime();
+                })
+                /**
                  * 字符串在指定位置插入内容
                  * str表示原字符串变量，flg表示要插入的字符串，sn表示要插入的位置
                  */

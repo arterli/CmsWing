@@ -34,7 +34,7 @@ CLASSES:
                     <div class="col-md-10"><!-- company detail -->
                         <h4 class="margin-bottom-10 size-25 width-700">{{info.title}}</h4>
                         <ul class="list-inline">
-                            <li><i class="fa fa-globe text-success"></i>网址: <a class="text-success" href="#">http://{{http.hostname}}/mod/artist/{{info.pinyin}}</a></li>
+                            <li><i class="fa fa-globe text-success"></i>网址: <a class="text-success" href="http://{{http.hostname}}/mod/artist/{{info.pinyin}}">http://{{http.hostname}}/mod/artist/{{info.pinyin}}</a></li>
                             <li><i class="fa fa-briefcase"></i>作品: <span class="text-warning">0</span></li>
                             <li><i class="fa fa-eye"></i>浏览: <span class="text-warning">{{info.view}}</span></li>
                             <li><i class="fa fa-money"></i>润格: <span class="text-warning">{{info.runge}}</span>元/平尺</li>
@@ -61,7 +61,7 @@ CLASSES:
         <ul class="page-header-tabs list-inline">
             <li class="{%if mod.id==null%}active{%endif%}"><a href="/mod/author/index/detail/id/{{info.id}}">{{info.title}}介绍</a></li>
             <li ><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/4"> {{info.title}}作品</a></li>
-            <li ><a href="/t/{{key}},{{m.id}}"> {{info.title}}展览</a></li>
+            <li ><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/10"> {{info.title}}展览</a></li>
             <li ><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/2"> {{info.title}}新闻</a></li>
         </ul>
 

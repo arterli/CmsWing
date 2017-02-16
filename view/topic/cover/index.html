@@ -1,7 +1,5 @@
 {% extends "../inc/base.html" %}
-{%block style%}
-<link href="/static/assets/plugins/slider.camera/css/camera.css" rel="stylesheet" type="text/css" />
-{%endblock%}
+
 {% block content %}
      <!--
 				PAGE HEADER
@@ -41,83 +39,35 @@
 				</div>
 			</section>
 			<!-- /PAGE HEADER -->
-
-
+            <!-- -->
 			<section>
 				<div class="container">
 
-					<div class="row ">
+					<div class="row">
 
 						<!-- LEFT -->
 
 						<div class="col-md-9 col-sm-9">
-							<div class="row margin-bottom-20">
-								<div class="col-md-7 col-sm-7">
-									<!-- -->
-									<section id="slider">
+							<!--
+                                                        controlls-over		= navigation buttons over the image
+                                                        buttons-autohide 	= navigation buttons visible on mouse hover only
 
-										<div class="camera_wrap" id="camera_wrap_1" data-height="63%">
-											{% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
-											{% for v in slider%}
-											<div data-thumb="{{v.cover_id|get_pic('m=1,w=60,h=40')}}" data-src="http:{{v.cover_id|get_pic('')}}">
-												<a href="{{v.name|get_url(v.id)}}" target="_blank" class="camera_caption fadeFromBottom size-18">
-													{{v.title}}
-												</a>
-											</div>
-											{%endfor%}
-										</div>
-
-
-									</section>
-									<!-- / -->
-
-
+                                                        data-plugin-options:
+                                                            "singleItem": true
+                                                            "autoPlay": true (or ms. eg: 4000)
+                                                            "navigation": true
+                                                            "pagination": true
+                                                            "transitionStyle":"fadeUp" (fade,backSlide,goDown,fadeUp)
+                                                    -->
+							<div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"singleItem": true, "autoPlay": true, "navigation": true, "pagination": true, "transitionStyle":"fade"}'>
+								{% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+								{% for v in slider%}
+								<a href="{{v.name|get_url(v.id)}}">
+									<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=848,h=300')}}" alt="{{v.title}}">
+								</a>
+								{%endfor%}
 							</div>
-								<div class="col-md-5 col-sm-5">
-									<div class="box-light">
-									<h3>名家推荐 <small>(multiple effects)</small></h3>
-									<div class="owl-carousel text-center owl-mini-testimonial nomargin" data-plugin-options='{"singleItem": true, "autoPlay": 4000, "navigation": false, "pagination": true, "transitionStyle":"fade"}'>
-										{%model data="toplist",table="author",order="update_time DESC",limit="4"%}
-										{% for val in toplist %}
-										<a class="testimonial" href="/mod/artist/{{val.pinyin}}.html">
-											<figure>
-												<img class="rounded" src="{{val.pin|get_pic('m=1,w=100,h=100')}}" alt="" />
-											</figure>
-											<div class="testimonial-content nopadding">
-												<cite class="text-black" style="font-style: normal">
-													{{val.title}}
-													<span class="text-warning">浏览: {{val.view}}</span>
-												</cite>
-												<p class="tex-888">{{val.description|truncate(40, true, "...")}}</p>
 
-											</div>
-										</a>
-                                        {%endfor%}
-
-
-									</div>
-									</div>
-									<div class="callout alert alert-border margin-top-10">
-
-										<div class="row">
-
-											<div class="col-md-7 col-sm-7"><!-- left text -->
-												<h4 class="size-20">网上画廊</h4>
-												<p class=" size-14">
-													如实描述，终身保真！
-												</p>
-											</div><!-- /left text -->
-
-
-											<div class="col-md-5 col-sm-5 text-right"><!-- right btn -->
-												<a href="#purchase" rel="nofollow" target="_blank" class="btn btn-default btn-lg">去选购</a>
-											</div><!-- /right btn -->
-
-										</div>
-
-									</div>
-									</div>
-							</div>
 							<ul class="nav nav-tabs nav-button-tabs">
 								<!-- side navigation -->
 								{%column data="cates",cid=category.id%}
@@ -434,7 +384,3 @@
 			</section>
 			<!-- / -->
 {% endblock %}
-{%block script%}
-<script type="text/javascript" src="/static/assets/plugins/slider.camera/scripts/jquery.camera.js"></script>
-<script type="text/javascript" src="/static/assets/js/view/demo.camera_slider.js"></script>
-{%endblock%}

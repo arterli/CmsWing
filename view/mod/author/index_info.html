@@ -65,7 +65,7 @@ CLASSES:
         <ul class="page-header-tabs list-inline">
             <li ><a href="/mod/author/index/detail/id/{{info.id}}">{{info.title}}介绍</a></li>
             <li {%if http.get('model_id')==4%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/4"> {{info.title}}作品</a></li>
-            <li ><a href="/t/{{key}},{{m.id}}"> {{info.title}}展览</a></li>
+            <li  {%if http.get('model_id')==10%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/10"> {{info.title}}展览</a></li>
             <li {%if http.get('model_id')==2%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/2"> {{info.title}}新闻</a></li>
         </ul>
         <!-- /page tabs -->
@@ -213,6 +213,39 @@ CLASSES:
             </div><!-- /item -->
             {%endfor%}
 
+        </div>
+        {%elif http.get('model_id')==10%}
+        <div class="row">
+        {% for val in list.data %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="btn btn-danger btn-xs pull-right" target="_blank" href="{{val.name|get_url(val.id)}}">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</a>
+                    <h2 class="panel-title">{{val.title}}</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a class="btn btn-danger btn-xs pull-right thumbnail nomargin" style="display: block" target="_blank" href="{{val.name|get_url(val.id)}}">
+                                <img class="" src="{{val.cover_id|get_pic('m=1,w=200,h=270')}}" width="200" height="270" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-left: -15px; padding-right: 0"><div class="clearfix margin-bottom-6"><!-- squared item -->
+                            <img class="thumbnail pull-left" style="margin-right: 10px" src="{{info.pin|get_pic('m=1,w=40,h=40')}}" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="/mod/artist/{{info.pinyin}}" target="_blank">{{info.title}}</a></h4>
+                            <span class="size-12 text-muted">{{info.description|truncate(20, true, "...")}}</span>
+                        </div><ul class="list-group margin-bottom-0">
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d H:i') }}</li>
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d H:i')}}</li>
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}</li>
+                            <li class="list-group-item "><span style="width: 60px"><i class="fa fa-globe"></i> 官网:</span> <a class="text-success" href="/mod/artist/{{author.pinyin}}" target="_blank">{{info.title}}官网</a></li>
+                            <li class="list-group-item active text-center"><a class="text-white" target="_blank" href="{{val.name|get_url(val.id)}}">查看详情>></a></li>
+                        </ul></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
         </div>
         {%endif%}
         <!-- PAGINATION -->
