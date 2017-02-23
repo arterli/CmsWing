@@ -191,7 +191,7 @@ export default class extends Base {
         let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
         console.log(temp);
         let Pages = think.adapter("pages","page");
-        let pages = new Pages();
+        let pages = new Pages(this.http);
         let page = pages.pages(temp);
         this.assign('pagerData',page);
         this.assign('list',temp.data);
