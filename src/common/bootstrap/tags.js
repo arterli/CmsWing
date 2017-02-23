@@ -127,6 +127,7 @@ global.column= function(){
         let map = {};
         if(pid){
            map.pid=think._.toInteger(pid);
+
             arr = think._.filter(column, map)
         }else if(cid){
             map.pid=think._.toInteger(cid);
