@@ -129,7 +129,7 @@ global.column= function(){
            map.pid=think._.toInteger(pid);
             arr = think._.filter(column, map)
         }else if(cid){
-            map.id=think._.toInteger(cid);
+            map.pid=think._.toInteger(cid);
             arr = think._.filter(column, map)
         }else if(tree){
             let trees = arr_to_tree(column,tree);
