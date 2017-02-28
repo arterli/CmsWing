@@ -7,10 +7,28 @@
 // +----------------------------------------------------------------------
 'use strict';
 
-import Base from './base.js';
+//import Base from './base.js';
 import * as fs from 'fs';
 import * as path from 'path';
-export default class extends Base {
+export default class extends think.controller.base {
+    async __before() {
+        //登陆验证
+        let is_login = await this.islogin();
+        if (!is_login) {
+            return this.fail("非法操作!");
+        }
+    }
+    /**
+     * 判断是否登录
+     * @returns {boolean}
+     */
+    async islogin() {
+        //判断是否登录
+        let user = await this.session('userInfo');
+        let res = think.isEmpty(user) ? false : user.uid;
+        return res;
+
+    }
   /**
    * index action
    * @return {Promise} []
