@@ -58,6 +58,9 @@ div.tagsinput {
 .box-icon.active{
 	border: #1087dd 1px dotted;
 }
+.bg-grey .box-icon.active{
+	border: #F07057 1px dotted;
+}
 .box-icon.box-icon-transparent.active .box-icon-title>i{
 	border: #1087dd 1px dotted;
 }

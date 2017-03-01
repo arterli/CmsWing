@@ -35,7 +35,7 @@ export default class extends Base {
      */
     async setingAction() {
         let map = { 'status': ['>', -1] }
-        if (!this.is_admin()) {//管理员可以管理全部公共账号
+        if (!this.is_admin) {//管理员可以管理全部公共账号
             map.uid = this.user.uid;
         }
         let data = await this.model('member_public').where(map).page(this.get('page')).countSelect();

@@ -20,9 +20,13 @@ export default class extends think.controller.base {
     //当前登录状态
     this.is_login = await this.islogin();
     //用户信息
-    this.user = await this.session('webuser');
-    //console.log(this.user);
-
+      this.user = {};
+      this.user.roleid=8;//游客
+      //访问控制
+      if(this.is_login){
+          this.user.roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
+      }
+      this.user = think.extend(this.user,await this.session('webuser'));
     //获取当前分类信息
     //console.log(action);
     // this.meta_title = cate.meta_title?cate.meta_title:cate.title;

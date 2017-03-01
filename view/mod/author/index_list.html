@@ -1,0 +1,214 @@
+{% extends "../../topic/inc/base.html" %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs parallax parallax-2 dark" style="background-image: url(/static/assets/images/spotted.jpg); background-position: 50% 59px;" >
+    <div class="overlay dark-5"><!-- dark overlay [1 to 9 opacity] --></div>
+    <div class="container">
+        <div class="row">
+            {%model data="toplist",table="author",order="update_time DESC",limit="4"%}
+            {% for val in toplist %}
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="{{val.pin|get_pic('m=1,w=300,h=300')}}" alt="{{val.title}}" />
+                    <div class="caption">
+                        <h4 class="margin-bottom-10 size-20">{{val.title}}</h4>
+                        <p class="margin-bottom-10" style="height: 40px;overflow: hidden">{{val.description|truncate(36, true, "...")}}</p>
+                        <a href="/mod/artist/{{val.pinyin}}.html" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-home"></i> 主页</a>
+                        <a href="#" class="btn btn-default" role="button"><i class="glyphicon glyphicon-plus"></i> 关注</a>
+                    </div>
+                </div>
+            </div>
+           {%endfor%}
+
+        </div>
+
+
+
+        <ul class="page-header-tabs list-inline">
+
+            <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}">全部</a></li>
+            {% groups data="groups",cid=category.id%}
+            {%for v in groups%}
+            <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}">{{v.name}}</a></li>
+            {%endfor%}
+        </ul>
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+        <!--分类信息-->
+        {%if sort%}
+        {%if sort.types|length >1%}
+        <ul class="nav nav-tabs">
+            {%for val in sort.types%}
+            <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{group_id}}-{{val.enable}}{{http.config('view.file_ext')}}" >{{val.name}}</a></li>
+            {%endfor%}
+
+        </ul>
+        {%endif%}
+        <div class="tab-content table-bordered bg-white" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+            <table class="table table-hover  m-b-none" style="margin-top: -1px">
+                <tbody>
+                {% set typenum = 1%}
+                {%for val in typevar%}
+                {%if val.search > 1%}
+                <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                    <td style="width: 120px" class="text-right">
+                        {{val.option.title}}:
+                    </td>
+                    <td>
+                        {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                        <span class="btn btn-danger btn-xs relative">全部</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >全部</a>
+                        {%endif%}
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+                        <div class="subtsm">
+
+                            {% for v_ in v.children %}
+                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                            <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v_.children%}
+                        <div class="subtsm">
+                            {% for v__ in v_.children %}
+
+                            {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                            <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}{{http.config('view.file_ext')}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {% endfor %}
+
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                </tr>
+                {% set typenum = typenum+1%}
+                {%endif%}
+                {%endfor%}
+
+                </tbody>
+            </table>
+            {% if typenum > 4%}
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+            {%endif%}
+        </div>
+
+        {%endif%}
+        <!--/分类信息-->
+        <div class="row">
+            {% for val in list %}
+            <div class="col-md-3 col-sm-3 margin-bottom-20">
+
+                <div class="price-clean padding-10 price-clean-popular bg-white">
+                    <div class="ribbon">
+                        <div class="ribbon-inner">POPULAR</div>
+                    </div>
+                    <h4>
+                        <img class="img-responsive" src="{{val.pin|get_pic('m=1,w=241,h=241')}}" alt="">
+                    </h4>
+                    <h5 class="margin-top-10 text-info size-25 weight-700"> {{val.title}} </h5>
+                    <hr class="margin-top-10 margin-bottom-10" />
+                    <p style="height: 42px; overflow: hidden">{{val.description|truncate(36, true, "...")}}</p>
+                    <hr class="margin-top-10 margin-bottom-10" />
+                    <a href="/mod/artist/{{val.pinyin}}.html" class="btn btn-3d btn-primary"><i class="glyphicon glyphicon-home"></i> 主页</a>
+                    <a href="#" class="btn btn-3d btn-teal"><i class="glyphicon glyphicon-plus"></i> 关注</a>
+                    <!--
+	INFO BAR
+	outside .container and section
+-->
+                    <div class="info-bar padding-0" style="margin-left: -10px;margin-right: -10px;margin-bottom: -10px;margin-top: 10px;border-top: rgba(0,0,0,0.1) 1px solid;">
+                            <div class="row">
+
+                                <div class="col-sm-4" style="padding: 5px 5px 5px 20px">
+                                    <h5>作品</h5>
+                                    <p>0</p>
+                                </div>
+
+                                <div class="col-sm-4" style="padding: 5px">
+                                    <h5>关注</h5>
+                                    <p>{{val.focus_count}}</p>
+                                </div>
+
+                                <div class="col-sm-4" style="padding: 5px 20px 5px 5px">
+                                    <h5>热度</h5>
+                                    <p>{{val.view}}</p>
+                                </div>
+
+
+                            </div>
+
+                    </div>
+                    <!-- /INFO BAR -->
+                </div>
+
+            </div>
+            {%endfor%}
+            <!-- PAGINATION -->
+            <div class="text-center">
+                <!-- Pagination Default -->
+                {{pagination | safe}}
+                <!-- /Pagination Default -->
+            </div>
+            <!-- /PAGINATION -->
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}

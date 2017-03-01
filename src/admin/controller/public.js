@@ -161,4 +161,15 @@ export default class extends think.controller.base {
        let data =  await this.model("keyword").where({keyname:["LIKE",`%${term}%`]}).field("id,keyname as label,keyname as value").select()
         return this.json(data);
     }
+
+    async getrelationAction(){
+        let model = this.get("model");
+        let id = this.get("id");
+        let val = this.get("val");
+        let key = this.get("key");
+        let map = {};
+        map[val] =  ["like", "%"+key+"%"]
+        let data = await this.model(model).where(map).field(`${id} as id, ${val} as data`).select();
+        return this.end(data);
+    }
 }

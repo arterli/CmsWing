@@ -15,7 +15,7 @@
                         <!-- .breadcrumb -->
                         <ul class="breadcrumb">
                             <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
-                            {% for nav in breadcrumb%} {% if cate_id == nav.id %}
+                            {% for nav in breadcrumb%} {% if controller.m_cate.id == nav.id %}
                             <li class="active">{{nav.title}}  </li>
                             {%else%}
                             <li><a href="/mod/admin/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>

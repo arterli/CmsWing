@@ -9,7 +9,6 @@
 'use strict';
 
 import Base from './base.js';
-
 export default class extends Base {
     init(http) {
         super.init(http);
@@ -582,7 +581,7 @@ export default class extends Base {
         let id = this.get('id') || "";
         let sortid = this.get('sortid')||0;
         if (think.isEmpty(id)) {
-            this.fail("参数不能为空");
+            return this.fail("参数不能为空");
         }
 
         //获取详细数据；
@@ -673,6 +672,7 @@ export default class extends Base {
      */
     async updateAction() {
         let data = this.post();
+       // console.log(data);
         let res = await this.model('document').updates(data);
 
         if (res) {

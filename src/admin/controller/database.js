@@ -318,4 +318,19 @@ export default class extends Base {
             console.log("Got error: " + e.message);
         });
     }
+    /**
+  * 解锁
+  */
+    unlockAction(){
+           let paths = think.RESOURCE_PATH + "/backup/";
+       let lock = paths + "backup.lock";
+       //检查是否有正在执行的任务
+          if (think.isFile(lock)) {
+              fs.unlinkSync(lock)
+              return this.success({name:"解锁成功!"});
+          } else {
+              //创建锁文件
+              return this.success({name:"无需解锁!"});
+          }
+    }
 }

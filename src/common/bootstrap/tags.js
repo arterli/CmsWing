@@ -86,7 +86,7 @@ global.mytags= function(){
 }
 /**
  * 获取同一级栏目标签
- *
+ *{%column data = "list"%}
  * @param data:接受返回数据的变量名称，例: data = "list"
  *  {% column data="list",pid=1 %}
  * @param pid: 获取同级栏目
@@ -127,6 +127,7 @@ global.column= function(){
         let map = {};
         if(pid){
            map.pid=think._.toInteger(pid);
+
             arr = think._.filter(column, map)
         }else if(cid){
             map.pid=think._.toInteger(cid);
@@ -156,6 +157,7 @@ global.column= function(){
 
 /**
  *获取导航标签
+ * {chan}
  */
 
  global.channel = function(){

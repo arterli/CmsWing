@@ -20,7 +20,7 @@
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
-
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/jquery.coolautosuggest.js"></script>
 <style type="text/css">
     .tab-content > .tab-pane{
         position: absolute !important;
@@ -83,8 +83,11 @@
                                     <span class="hidden-sm">Left</span>
                                 </header>
                                 <div class="panel-body">
+
             <form id="ajaxForm" action="/admin/article/update" method="post" class="form-horizontal" data-validate="parsley">
+
             <div class="tab-content">
+
             {% for key ,group in model.field_group | parse_config_attr %}
             <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                 {%if sort and key ==1%}
@@ -222,6 +225,7 @@
                             <div class="col-md-3">
                                 <input type="text" name="sortid_{{val.option.identifier}}" class="form-control" data-type="email" {% if val.required == 1 %}data-required="true"{%endif%}>
                             </div>
+
                             {%elif val.option.type == "image"%}
                             <div class="col-sm-10">
                                 <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}"/>
@@ -406,6 +410,27 @@
                                 });
                             })
                         </script>
+                        {%elif field.type == 'relation'%}
+                        <div class="col-md-3">
+                            <input type="hidden" name="{{field.name}}" value="" id="{{field.name}}">
+                            <input type="text" class="form-control  " id="{{field.name}}_show" name="{{field.name}}_show" />
+                            {%set relext = field.extra|parse_config_attr%}
+                            <script language="javascript" type="text/javascript">
+                                $("#{{field.name}}_show").coolautosuggest({
+                                    url:"/admin/public/getrelation/model/{{relext.model}}/id/{{relext.id}}/val/{{relext.val}}?key=",
+                                    onSelected:function(result){
+                                        // Check if the result is not null
+                                        if(result!=null){
+                                            $("#{{field.name}}").val(result.id); // Get the ID field
+                                        }
+                                        else{
+                                            $("#{{field.name}}").val(""); // Empty the ID field
+
+                                        }
+                                    }
+                                });
+                            </script>
+                        </div>
                  {% elif field.type == "freight" %}
                 <div class="col-md-5">
                     <input type="hidden" name="{{field.name}}" value='{"type":0,"val":0}'' id="{{field.name}}"/>
@@ -1651,7 +1676,7 @@
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
-
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript">
     <!--
     var zTree;

@@ -455,7 +455,8 @@ global.get_attribute_type = function(type) {
         'pics': ['多图上传', 'varchar(255) NOT NULL'],
         'price': ['价格', 'varchar(255) NOT NULL'],
         'freight': ['运费', 'varchar(255) NOT NULL'],
-        'keyword': ['关键词', 'varchar(255) NOT NULL']
+        'keyword': ['关键词', 'varchar(255) NOT NULL'],
+        'relation': ['关联', 'int(10) unsigned NOT NULL']
     }
     return type ? _type[type][0] : _type;
 }
@@ -1273,4 +1274,13 @@ global.priv = async(catid,roleid,action,is_admin=0,type=true)=>{
     }else {
         return true;
     }
+}
+
+global.GetDateStr=function (AddDayCount) {
+    var dd = new Date();
+    dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+    var y = dd.getFullYear();
+    var m = (dd.getMonth()+1)<10?"0"+(dd.getMonth()+1):(dd.getMonth()+1);//获取当前月份的日期，不足10补0
+    var d = dd.getDate()<10?"0"+dd.getDate():dd.getDate();//获取当前几号，不足10补0
+    return y+"-"+m+"-"+d;
 }

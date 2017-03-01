@@ -231,6 +231,15 @@ export default {
                     callback(null, data);
                 }, true)
                 /**
+                 * 获取关联
+                 */
+                env.addFilter("get_relation", async(id,model,pk,val, callback) => {
+                    let map ={};
+                    map[pk] = id;
+                    let data = await think.model(model,think.config("db")).where(map).getField(val,true);
+                    callback(null, data);
+                }, true)
+                /**
                  * 获取文档url
                  */
                 env.addFilter('get_url', (name, id) => {
@@ -298,6 +307,12 @@ export default {
                  */
                 env.addFilter('get_price', function (price, type) {
                     return get_price(price, type);
+                })
+                /**
+                 * 获取当前事件 时间戳
+                 */
+                env.addFilter('getnow', function () {
+                    return new Date().getTime();
                 })
                 /**
                  * 字符串在指定位置插入内容
@@ -377,6 +392,7 @@ export default {
                  */
                 env.addFilter('priv',async(catid,roleid,action,is_admin=0,type=true,callback)=>{
                     let isp= await priv(catid,roleid,action,is_admin,type);
+                    console.log(isp);
                     callback(null,isp);
                 },true);
                 env.addExtension('tagtest', new mytags(), true);

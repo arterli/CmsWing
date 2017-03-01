@@ -268,7 +268,7 @@ export default class extends Base {
         //console.log(id);
         let res;
         // 判断是否是管理员，如果是不能删除;
-        if(this.is_admin){
+        if(await this.isadmin(id)){
            return this.fail("不能删除管理员!")
         }else{
              //res = await this.db.where({id: id}).delete();

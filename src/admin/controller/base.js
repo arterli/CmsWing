@@ -29,7 +29,7 @@ export default class extends think.controller.base {
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
-        this.is_admin = await this.is_admin();
+        this.is_admin = await this.isadmin();
         //后台菜单
         this.adminmenu = await this.model('menu').getallmenu(this.user.uid,this.is_admin);
         //console.log(this.adminmenu);
@@ -98,7 +98,7 @@ export default class extends think.controller.base {
      * @param uid
      * @returns {*|boolean}
      */
-    async is_admin(uid) {
+    async isadmin(uid) {
         uid = uid || null;
         uid = think.isEmpty(uid) ? await this.islogin() : uid;
         return uid && (in_array(parseInt(uid), this.config('user_administrator')));

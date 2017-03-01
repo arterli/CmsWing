@@ -126,4 +126,7 @@ export default class extends Base {
         let tabel = await this.model("type").checkTableExist(1);
         console.log(tabel);
     }
+    async sssAction(){
+        await this.model().table("user",true).select()
+    }
 }

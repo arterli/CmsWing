@@ -2421,7 +2421,7 @@ function _ajax_post() {
 							var _d = new Date(_date);
 							jQuery(this).countdown({
 								until: new Date(_d),
-								labels: _labels || ["Years","Months","Weeks","Days","Hours","Minutes","Seconds"]
+								labels: _labels || ["年","月","周","天","时","分","秒"]
 							});
 						}
 				});

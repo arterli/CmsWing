@@ -34,7 +34,10 @@ export default class extends Base {
       subcate.push(cate_id);
       map.category_id = ['IN', subcate];
     }
-    map.group_id=group_id;
+    if(group_id){
+        map.group_id=group_id;
+    }
+
     //获取分组
     let  groups = await this.model("category").get_category(cate_id, 'groups');
     if (groups) {

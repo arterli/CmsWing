@@ -4542,3 +4542,70 @@ textarea.parsley-error {
   background-color: #e8eff0;
   color: #788188;
 }
+.tabelselet select{display: inline-table;width: inherit}
+/* Style For Suggestions */
+
+/*
+ For creating side border like this
+ | item 1   |
+ | item 2   |
+ */
+.suggestions .suggest_item{
+  padding-bottom: 2px;
+  padding-top: 2px;
+  padding-left: 12px;
+  background-color:#EEEEEE;
+  border-left:1px solid #CCCCCC;
+  border-right:1px solid #CCCCCC;
+}
+
+/*
+ For creating top border like this
+ ------------
+   item 1
+   ...
+ */
+.suggestions .suggest_item.first{
+  border-top:1px solid #CCCCCC;
+}
+
+/*
+ For creating bottom border like this
+   ...
+   item 2
+  ------------
+ */
+.suggestions .suggest_item.last{
+  border-bottom:1px solid #CCCCCC;
+}
+
+/*
+ For coloring the selected item
+ */
+.suggestions .suggest_item.selected, .suggestions .suggest_item.selected .description{
+  background-color:#999999;
+  color:#FFFFFF;
+  cursor:pointer;
+}
+
+/*
+ Image thumbnail
+ */
+.suggestions .suggest_item .thumbnail{
+  background-color: transparent;
+  background-position: top center;
+  background-repeat: no-repeat;
+  margin: 1px 2px 1px 2px;
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+/*
+ Description
+ */
+.suggestions .suggest_item .description{
+  font-style: italic;
+  font-size: 11px;
+  color: #777;
+}

@@ -65,7 +65,14 @@
 	bottom: -1px;
 	left: 15px;
 }
-
+.dark #topMain.nav-pills>li.active>.aline {
+	display: block;
+	height: 3px;
+	background-color: #F07057;
+	position: absolute;
+	bottom: -1px;
+	left: 15px;
+}
 @media only screen and (max-width: 1215px) {
 	#topMain.nav-pills>li>a {
 		font-size:13px;

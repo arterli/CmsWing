@@ -59,13 +59,17 @@ export default class extends think.model.base {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data,time=new Date().getTime()){
-       // console.log(data);
+     data.position = data.position||0;
+
         for(let v in data){
             let vs = v.split("|||");
+
             if(vs.length>1){
+                console.log(data[v]);
              data[vs[1]]=(think.isEmpty(data[v])||data[v]==0)?0:new Date(data[v]).getTime();
             };
         }
+        //console.log(data);
         data=data||null;
         //检查文档类型是否符合要求
         let type = data.type||2;
@@ -77,10 +81,15 @@ export default class extends think.model.base {
         }
         //添加或者新增基础内容
         if(think.isEmpty(data.id)){//新增数据
-            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():time;
+            if(think.isEmpty(data.create_time)){
+                data.create_time = time;
+            }else{
+                data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():time;
+            }
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
             var id = await this.add(data);//添加基础数据
+            //console.log(id);
             //let id = 100;
             if(!id){
                 this.error = '新增基础内容出错！';
@@ -129,7 +138,9 @@ export default class extends think.model.base {
         }else {//更新内容
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
-            data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
+            if(!think.isEmpty(data.create_time)){
+                data.create_time = data.create_time!=0? new Date(data.create_time).valueOf():new Date().getTime();
+            }
             //更新关键词
             await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.model_id,0);
             let status = this.update(data);
@@ -189,7 +200,7 @@ export default class extends think.model.base {
 
         if (think.isEmpty(data.id)) {//新增数据
             data.id=id;
-            let ids = this.model(model).add(data);
+            let ids =  this.model(model).add(data);
             data.id=null;
             if (!ids) {
                 this.delete(id);
@@ -197,7 +208,7 @@ export default class extends think.model.base {
                 return false;
             }
         } else { //更新数据
-            let status = this.model(model).update(data);
+            let status =  this.model(model).update(data);
             if(!status){
                 this.error = '更新数据失败！';
                 return false;
