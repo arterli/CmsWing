@@ -12,6 +12,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 export default class extends think.controller.base {
     async __before() {
+        //网站配置
+        this.setup = await this.model("setup").getset();
         //登陆验证
         let is_login = await this.islogin();
         if (!is_login) {
