@@ -87,46 +87,51 @@ CLASSES:
 
             <!-- LEFT -->
             <div class="col-md-9 col-sm-9">
-                <div class="heading-title heading-border heading-color margin-bottom-10">
-                    <h1 class="size-20 clearfix" >{{info.title}} </h1>
-                    <div class="meta margin-top-6">
-                        {% rkeywords data ="tags",type="1",mod_id="8",id=info.id%}
-                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
-                        {%for k in tags%}
-                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
-                            {{k.keyname}}
-                        </a>
-                        {%endfor%}
-                        {%if controller.is_login%}
-                        {%if focus.uid%}
-                        <a href="/mod/question/ajax/ajaxquestionfocus/type/2/id/{{info.id}}" class="btn btn-default btn-xs pull-right ajax-get" style="margin-top: -28px">取消关注 ({{info.focus_count}})</a>
-                        {%else%}
-                        <a href="/mod/question/ajax/ajaxquestionfocus/type/1/id/{{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
-                        {%endif%}
-                        {%else%}
-                        <a href="/uc/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
-                        {%endif%}
-                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="heading-title heading-border heading-color margin-bottom-10">
+                            <h1 class="size-20 clearfix" >{{info.title}} </h1>
+                            <div class="meta margin-top-6">
+                                {% rkeywords data ="tags",type="1",mod_id="8",id=info.id%}
+                                {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                                {%for k in tags%}
+                                <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                                    {{k.keyname}}
+                                </a>
+                                {%endfor%}
+                                {%if controller.is_login%}
+                                {%if focus.uid%}
+                                <a href="/mod/question/ajax/ajaxquestionfocus/type/2/id/{{info.id}}" class="btn btn-default btn-xs pull-right ajax-get" style="margin-top: -28px">取消关注 ({{info.focus_count}})</a>
+                                {%else%}
+                                <a href="/mod/question/ajax/ajaxquestionfocus/type/1/id/{{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                {%endif%}
+                                {%else%}
+                                <a href="/uc/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                {%endif%}
+                            </div>
 
 
-                </div>
-                <div class="divider divider-dotted nomargin"></div>
-<div class="wangEditor-container cmswing-container" style="border: none">
-    <div class="wangEditor-txt">
-    {{info.detail|safe}}
-    </div>
-</div>
-                <div class="meta">
-                    <span class="text-color-999 margin-right-15">{{info.create_time|moment}}</span>
+                        </div>
+                        <div class="divider divider-dotted nomargin"></div>
+                        <div class="wangEditor-container cmswing-container" style="border: none">
+                            <div class="wangEditor-txt nopadding">
+                                {{info.detail|safe}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="meta">
+                            <span class="text-color-999 margin-right-15">{{info.create_time|moment}}</span>
 
-                    <!--<a data-id="5" data-type="question" class="tex-888 margin-right-15" data-comment-count="0" data-first-click="hide"><i class="fa fa-commenting-o"></i> 添加评论</a>-->
+                            <!--<a data-id="5" data-type="question" class="tex-888 margin-right-15" data-comment-count="0" data-first-click="hide"><i class="fa fa-commenting-o"></i> 添加评论</a>-->
 
-                    <a class="tex-888 margin-right-15"><i class="fa fa-user-plus"></i> 邀请 </a>
-                    {%if controller.user.uid ==info.uid%}
-                    <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/id/{{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
-                    {%endif%}
-                    <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
-                    <div class="pull-right">
+                            <a class="tex-888 margin-right-15"><i class="fa fa-user-plus"></i> 邀请 </a>
+                            {%if controller.user.uid ==info.uid%}
+                            <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/id/{{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
+                            {%endif%}
+                            <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
+                            <div class="pull-right">
                         <span class="dropdown margin-right-15">
                             <a  data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-share-alt"></i> 分享
@@ -140,9 +145,12 @@ CLASSES:
                         </span>
 
 
-                        <a href="javascript:;" class="text-color-999"><i class="fa fa-get-pocket"></i> 举报</a>								</div>
+                                <a href="javascript:;" class="text-color-999"><i class="fa fa-get-pocket"></i> 举报</a>								</div>
 
+                        </div>
+                    </div>
                 </div>
+
 
                 <!--评论================================-->
                 <div class="box-light margin-top-20 "><!-- .box-light OR .box-dark -->
@@ -208,8 +216,8 @@ CLASSES:
                 </div>
                 <!--评论结束============================-->
                 {%if controller.is_login %}
-                <form method="post" action="/mod/question/sys/updateanswer" class="box-light margin-top-20 padding-0 validate"><!-- .box-light OR .box-dark -->
-                    <div class="box-inner padding-0">
+                <form method="post" action="/mod/question/sys/updateanswer" class=" margin-top-20 padding-0 validate"><!-- .box-light OR .box-dark -->
+                    <div class="padding-0">
                         <h4 class="uppercase padding-bottom-0 clearfix margin-bottom-0 noborder row">  <div class="col-md-9 col-sm-9"><div class="clearfix margin-bottom-0"><!-- rounded item -->
                             <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{controller.user.uid}}" width="40" height="40" alt="">
                             <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{controller.user.uid|get_nickname}}</a></h4>

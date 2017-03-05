@@ -19,7 +19,17 @@ export default class extends think.controller.base {
     // console.log(this.setup);
     //当前登录状态
     this.is_login = await this.islogin();
-    //用户信息
+      //关闭站点
+      if(this.setup.WEB_SITE_CLOSE==0){
+          let isshow = await this.session('userInfo');
+          if (think.isEmpty(isshow)){
+              this.http.error = new Error('该网站已关闭，只有管理员可以正常访问');
+              return think.statusAction(404, this.http);
+          }
+      }
+
+
+      //用户信息
       this.user = {};
       this.user.roleid=8;//游客
       //访问控制
