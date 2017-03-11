@@ -9,6 +9,7 @@ export default class extends think.model.base {
      * @param spaceid 广告位id
      * @returns {Promise.<void>}
      */
+
    async upad(spaceid){
        //获取广告模板
         let json,replace=[],adtemp='',info,setting;
