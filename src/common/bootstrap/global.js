@@ -756,6 +756,9 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
         map.path = id;
     }
     let picture = await think.model('picture', think.config("db")).where(map).find();
+    if(think.isEmpty(picture)){
+        return "/static/noimg.jpg";
+    }
     let q="";
     if(picture.type > 0){
        if(m !=null){

@@ -1,554 +1,677 @@
 {% extends "../inc/base.html" %}
 {% block style %}
+<link href="/static/assets/plugins/slider.revolution.v5/css/pack.css" rel="stylesheet" type="text/css" />
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
-<!-- SLIDER -->
-<section id="slider" class="" style="background:url('/static/assets/images/index.jpg');height: 500px;background-position: center center">
-	<span class="overlay dark-2"><!-- dark overlay [0 to 9 opacity] --></span>
+<section class="alternate parallax-2">
+	<div class="overlay dark-0"><!-- dark overlay [1 to 9 opacity] --></div>
+	<div class="container " style="position: relative;z-index: 10">
+		{{11|show_ad("code")|safe}}
+		<div class="row">
+			<div class="col-md-9">
+				<div id="rev_slider_8_1_wrapper" class="rev_slider_wrapper arrows-bottom fullwidthbanner-container box-shadow-3" data-alias="facebook-feed8" style="margin:0px auto;background-color:#dddddd;">
+					<!-- START REVOLUTION SLIDER 5.0.7 auto mode -->
+					<div id="rev_slider_8_1" class="rev_slider fullwidthabanner softhide" data-version="5.0.7">
+						<ul>
+							{% topic data = "slider",limit= "10",position='2',issub="1"%}
+							{%for val in slider%}
+							{%if val.model_id==4%}
+							{% set pic = val.pics|strToArray%}
+							<!-- SLIDE  -->
+							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{pic[0]|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description='{% if val.price|get_price_format("2") %}<span class="line-through f-14">¥{{val.price|get_price_format("2")}}</span>{%endif%}
+					<b class="text-danger size-16">¥{{val.price|get_price_format("1")}}</b>'>
+								<!-- MAIN IMAGE -->
+								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{pic[0]|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+								<!-- LAYERS -->
 
-	<div class="display-table">
-		<div class="display-table-cell vertical-align-middle">
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption Facebook-Likes  "
+									 id="slide-28-layer-1"
+									 data-x="10"
+									 data-y="bottom" data-voffset="10"
+									 data-width="['165']"
+									 data-height="['32']"
+									 data-transform_idle="o:1;tO:-20% 50%;"
 
-			<div class="container text-center">
+									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+									 data-start="500"
+									 data-splitin="none"
+									 data-splitout="none"
+									 data-basealign="slide"
+									 data-responsive_offset="off"
+									 data-responsive="off"
 
-				<h1 class="nomargin wow fadeInUp" data-wow-delay="0.4s">
-					WE ARE
-					<!--
-                        TEXT ROTATOR
-                        data-animation="fade|flip|flipCube|flipUp|spin"
-                    -->
-					<span class="rotate " data-animation="fade" data-speed="1500">
-									CMSWING, MULTIPURPOSE, POWERFUL
-								</span>
-				</h1>
+									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+								</div>
 
-				<p class="lead size-20 wow fadeInUp" data-wow-delay="0.7s">
-					一款基于ThinkJS的功能强大的（PC端,手机端和微信公众平台）电子商务平台及CMS建站系统
-					<!--Over <span class="countTo" data-speed="4000">550</span> html files!-->
-					<!--<span class="theme-color weight-400 font-style-italic">Admin included</span> &amp; MLT-->
-				</p>
+								<!-- LAYER NR. 2 -->
+								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
+								   id="slide-28-layer-2"
+								   data-x="176"
+								   data-y="bottom" data-voffset="10"
+								   data-width="['45']"
+								   data-height="['32']"
+								   data-transform_idle="o:1;tO:-20% 50%;"
+								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
+								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
 
-				<a class="btn btn-default btn-lg" href="/documentation">Getting Started</a>
+								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+								   data-start="500"
+								   data-splitin="none"
+								   data-splitout="none"
+								   data-actions=''
+								   data-basealign="slide"
+								   data-responsive_offset="off"
+								   data-responsive="off"
+
+								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
+								</a>
+							</li>
+							{%elif val.model_id==10%}
+							<!-- SLIDE  -->
+							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{val.cover_id|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description="开始:{{val.create_time|moment('YYYY-MM-DD')}} - 结束:{{val.deadline|moment('YYYY-MM-DD')}}">
+								<!-- MAIN IMAGE -->
+								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{val.cover_id|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+								<!-- LAYERS -->
+
+
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption Facebook-Likes  "
+									 id="slide-28-layer-1"
+									 data-x="10"
+									 data-y="bottom" data-voffset="10"
+									 data-width="['165']"
+									 data-height="['32']"
+									 data-transform_idle="o:1;tO:-20% 50%;"
+
+									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+									 data-start="500"
+									 data-splitin="none"
+									 data-splitout="none"
+									 data-basealign="slide"
+									 data-responsive_offset="off"
+									 data-responsive="off"
+
+									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+								</div>
+
+								<!-- LAYER NR. 2 -->
+								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
+								   id="slide-28-layer-2"
+								   data-x="176"
+								   data-y="bottom" data-voffset="10"
+								   data-width="['45']"
+								   data-height="['32']"
+								   data-transform_idle="o:1;tO:-20% 50%;"
+								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
+								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
+
+								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+								   data-start="500"
+								   data-splitin="none"
+								   data-splitout="none"
+								   data-actions=''
+								   data-basealign="slide"
+								   data-responsive_offset="off"
+								   data-responsive="off"
+
+								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
+								</a>
+							</li>
+							{%else %}
+							<!-- SLIDE  -->
+							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{val.cover_id|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description="{{val.description|truncate(18, true, '...')}}">
+								<!-- MAIN IMAGE -->
+								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{val.cover_id|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+								<!-- LAYERS -->
+
+
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption Facebook-Likes  "
+									 id="slide-28-layer-1"
+									 data-x="10"
+									 data-y="bottom" data-voffset="10"
+									 data-width="['165']"
+									 data-height="['32']"
+									 data-transform_idle="o:1;tO:-20% 50%;"
+
+									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+									 data-start="500"
+									 data-splitin="none"
+									 data-splitout="none"
+									 data-basealign="slide"
+									 data-responsive_offset="off"
+									 data-responsive="off"
+
+									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+								</div>
+
+								<!-- LAYER NR. 2 -->
+								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
+								   id="slide-28-layer-2"
+								   data-x="176"
+								   data-y="bottom" data-voffset="10"
+								   data-width="['45']"
+								   data-height="['32']"
+								   data-transform_idle="o:1;tO:-20% 50%;"
+								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
+								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
+
+								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
+								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
+								   data-start="500"
+								   data-splitin="none"
+								   data-splitout="none"
+								   data-actions=''
+								   data-basealign="slide"
+								   data-responsive_offset="off"
+								   data-responsive="off"
+
+								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
+								</a>
+							</li>
+							{%endif%}
+							{%endfor%}
+						</ul>
+						<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
+					</div>
+				</div><!-- END REVOLUTION SLIDER -->
+
 			</div>
+			<div class="col-md-3">
+				<div class="box-light padding-10 ">
+					<div class="box-inner">
+						<h3>
+							<a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
+							名家
+						</h3>
+						<div class="slimscroll" style="height: 247px" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
+							{%model data="authorlist",table="author",order="update_time DESC",limit="10"%}
+							{% for val in authorlist %}
+							<div class="clearfix margin-bottom-10"><!-- post item -->
+								<img class="thumbnail pull-left margin-right-10" src="{{val.pin|get_pic('m=1,w=100,h=100')}}" width="60" height="60" alt="" />
+								<h4 class="size-14 nomargin noborder nopadding"><a href="/mod/artist/{{val.pinyin}}.html" target="_blank">{{val.title}}</a></h4>
+								<span class="size-12 text-muted">{{val.description|truncate(20, true, "...")}}</span>
+							</div><!-- /post item -->
+							{%endfor%}
 
-		</div>
-	</div>
-
-</section>
-<!-- /SLIDER -->
-<!-- INFO BAR -->
-<section class="info-bar info-bar-clean ">
-<div class="container">
-
-<div class="row">
-
-<div class="col-sm-3 padding-top-0 padding-bottom-0">
-<i><img src="http://git.oschina.net/logo.gif" style="width:32px; margin-top: -2px"></i>
-<h3>码云主页</h3>
-<p>去 <a href="http://git.oschina.net/arterli/CmsWing" target="_blank">码云</a> 查看最新的开发进度</p>
-</div>
-
-<div class="col-sm-3 padding-top-0 padding-bottom-0">
-<i class="glyphicon glyphicon-download-alt"></i>
-<h3>下载CmsWing</h3>
-	{% topic data = "lastd",limit= "1",cid="111",position="1",isstu="1",issub="2",group="1"%}
-	{%set vv = lastd[0].title|strToArray("@")%}
-<p><a href="/download">下载最新版本</a> {{vv[1]}} 下载次数:{{lastd[0].download}}</p>
-</div>
-
-<div class="col-sm-3 padding-top-0 padding-bottom-0">
-<i><img src="/static/logo_32x32.png" style="width:32px; margin-top: -2px"></i>
-<h3>交流学习</h3>
-<p><a href="/question">社区</a> QQ群:49757468</p>
-</div>
-	<div class="col-sm-3 padding-top-0 padding-bottom-0">
-		<i><img src="/static/thinkjslogo_32.png" style="width:32px; margin-top: -2px"></i>
-		<h3>ThinkJS</h3>
-		<p><a href="https://thinkjs.org" target="_blank">官方网站</a> QQ群:339337680</p>
-	</div>
-
-</div>
-
-</div>
-</section>
-<!-- /INFO BAR -->
-<!-- RECENT NEWS -->
-<section>
-<div class="container">
-
-<header class="text-center margin-bottom-20">
-	<div class="heading-title heading-line-double text-center margin-bottom-0"><h3>示例/教程</h3>
-		</div>
-
-</header>
-
-<!--
-controlls-over		= navigation buttons over the image
-buttons-autohide 	= navigation buttons visible on mouse hover only
-
-data-plugin-options:
-"singleItem": true
-"autoPlay": true (or ms. eg: 4000)
-"navigation": true
-"pagination": true
-"items": "4"
-
-owl-carousel item paddings
-.owl-padding-0
-.owl-padding-3
-.owl-padding-6
-.owl-padding-10
-.owl-padding-15
-.owl-padding-20
--->
-<div class="owl-carousel owl-padding-10 buttons-autohide controlls-over" data-plugin-options='{"singleItem": false, "items":"4", "autoPlay": 4000, "navigation": true, "pagination": false}'>
-	{% topic data = "indexnew",cid="46",limit="12",ispic="1"%}
-	{%for v in indexnew%}
-<div class="img-hover">
-<a href="{{v.name|get_url(v.id)}}" target="_blank">
-<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=256,h=126')}}" alt="">
-</a>
-<h5 class="text-left margin-top-10 margin-bottom-2"><a href="{{v.name|get_url(v.id)}}" target="_blank">{{v.title|truncate(20, true, "...")}}</a></h5>
-<p class="text-left" style="height: 42px;overflow:hidden;">{{v.description}}</p>
-<ul class="text-left size-12 list-inline list-separator">
-<li>
-<i class="fa fa-calendar"></i>{{v.update_time|moment}}
-</li>
-<li>
-<a href="{{v.name|get_url(v.id)}}#comments">
-<i class="fa fa-comments"></i>
-3
-</a>
-</li>
-</ul>
-</div>
-	{%endfor%}
-
-
-</div>
-
-</div>
-</section>
-<!-- /RECENT NEWS -->
-<!-- -->
-<section class="alternate">
-	<div class="container portfolio">
-		<header class="section-header text-center margin-bottom-20">
-			<div class="heading-title heading-line-double text-center margin-bottom-0">
-				<h3><span>DEMO</span> 演示</h3>
-				<p class="size-12">CmsWing 模型演示</p>
-			</div>
-		</header>
-		<div  class=" portfolio-title-over">
-			<div class="row mix-grid">
-
-
-				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure>
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_wenzhang.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/wenzhangceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">文章模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/wenzhang.jpg"  alt="">
-						</figure>
+						</div>
 					</div>
 
-				</div><!-- /item -->
+					<div class="box-footer">
+						<!-- INLINE SEARCH -->
+						<div class="inline-search clearfix">
+							<form action="#" method="get" class="widget_search nomargin">
+								<input type="search" placeholder="Search Post..." name="s" class="serch-input">
+								<button type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+								<div class="clear"></div>
+							</form>
+						</div>
+						<!-- /INLINE SEARCH -->
 
-
-				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure>
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_shipin.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/shipinceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">视频模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/shipin.jpg"  alt="">
-						</figure>
 					</div>
 
-				</div><!-- /item -->
-
-				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure>
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_tupian.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/tupianceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">图片模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/tupian.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-
-				<div class="col-md-3 col-sm-3 mix development"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure>
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_shangcheng.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/shangchengceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">商城模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/shangcheng.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-				<div class="col-md-3 col-sm-3 mix development  margin-top-20"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure >
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_xiazai.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/xiazaiceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">下载模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/xiazai.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-				<div class="col-md-3 col-sm-3 mix development  margin-top-20"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure >
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_danyemianceshi.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="/danyeceshi" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">单页面模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">系统模型</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/danyemianceshi.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-				<div class="col-md-3 col-sm-3 mix development  margin-top-20"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure >
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_maooh.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-
-												<!-- details -->
-												<a class="ico-rounded" href="http://www.maooh.com/" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">猫oh</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">模版开发</a></li>
-									<li><a href="#">PC端</a></li>
-									<li><a href="#">移动端</a></li>
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/maooh.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-				<div class="col-md-3 col-sm-3 mix development  margin-top-20"><!-- item -->
-
-					<div class="item-box thumbnail">
-						<figure >
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-                                               {#
-												<!-- lightbox -->
-												<a class="ico-rounded lightbox" href="/static/dome/s_danyemianceshi.jpg" data-plugin-options='{"type":"image"}'>
-													<span class="glyphicon glyphicon-qrcode size-20"></span>
-												</a>
-                                                #}
-												<!-- details -->
-												<a class="ico-rounded" href="http://www.lvoo.net/" target="_blank">
-													<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-												</a>
-
-											</span>
-										</span>
-
-							<!-- overlay title -->
-							<div class="item-box-overlay-title">
-								<h4 class="nomargin">单页面模型演示</h4>
-								<ul class="list-inline categories nomargin">
-									<li><a href="#">模板制作</a></li>
-									<li><a href="#">PC端</a></li>
-									<!--<li><a href="#">移动端</a></li>-->
-								</ul>
-							</div><!-- /overlay title -->
-
-							<img class="img-responsive" src="/static/dome/lvoo.jpg"  alt="">
-						</figure>
-					</div>
-
-				</div><!-- /item -->
-
+				</div>
 			</div>
 
 		</div>
 
+		{%if 14|show_ad('code')%}
+		<!-- INFO BAR -->
+		<div class="margin-top-20">
+			{{14|show_ad('code')|safe}}
+		</div>
+		<!-- /INFO BAR -->
+		{%endif%}
 	</div>
 </section>
-<!-- / -->
 <section>
 	<div class="container">
 
 		<div class="row">
 
 			<!-- RIGHT -->
-			<div class="col-md-9 col-sm-9">
-				<h3 class="page-header weight-300 margin-top-0 margin-bottom-0">
-					<a href="/question.html" data-toggle="tooltip" title="" data-original-title="互帮互助有问题必达"><i class="fa fa-plus-square-o"></i></a>
-					社区 <strong>问答</strong>
-				</h3>
-				<div class="timeline">
-					<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
-					{%model data="list",table="question",order="update_time DESC",limit="10"%}
-					{% for val in list %}
-					{% set categoryname = val.category_id|get_cate %}
-					{% set imgs= val.detail|img_text_view(200,120)%}
-					<!-- POST ITEM -->
-					<div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
-						<div class="timeline-entry" ><!-- .rounded = entry -->
-							<a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
-							<div class="timeline-vline"><!-- vertical line --></div>
-						</div>
-						<!-- IMAGE -->
-						{% if imgs|length==1 %}
-						<figure class="blog-item-small-image margin-bottom-0">
-							<img class="img-responsive" src="{{imgs[0]}}" alt="">
-						</figure>
-						{% endif %}
-						<div class="blog-item-small-content">
-							<h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
-							<ul class="blog-post-info list-inline padding-bottom-10">
-								<li>
+			<div class="col-sm-9">
+				<ul class="nav nav-tabs nav-justified">
+					<li class="active"><a href="#new" data-toggle="tab">最新</a></li>
+					<li ><a href="#hot" data-toggle="tab">最热</a></li>
+					<li><a href="#wenda" data-toggle="tab">问答</a></li>
+					{#
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#dropdown1" tabindex="-1" data-toggle="tab">@fat</a></li>
+							<li><a href="#dropdown2" tabindex="-1" data-toggle="tab">@mdo</a></li>
+						</ul>
+					</li>
+					#}
+				</ul>
 
-									<a class="" href="{{categoryname.url}}">
-										<span class="label label-light">{{categoryname.name}}</span>
-									</a>
-								</li>
-								<li>{%if val.answer_users>0%}
-									<a href="#">
-										<span class="font-lato">{{val.answer_users|get_nickname}}</span>
-									</a>
-									<span class="font-lato"> 回复了问题</span>
-									{%else%}
-									<a href="#">
-										<span class="font-lato">{{val.uid|get_nickname}}</span>
-									</a>
-									<span class="font-lato"> 发起了问题</span>
-									{%endif%}
-								</li>
-								<li>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="new">
+						{% topic data = "newlist",limit="10"%}
+						{% for val in newlist %}
+						{% set categoryname = val.category_id|get_cate %}
+						{%if val.model_id==4%}
+						{% set pic = val.pics|strToArray%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if pic[0]>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title|truncate(50, true, "...")}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p><div class="shop-item-price" style="font-size: 20px;margin-top: 6px;font-weight: bold; float: left">
+								{% if val.price|get_price_format('2') %}<span class="line-through" style="color: #999;font-size: 15px;display: inline-block;padding: 0 10px;font-weight: 400;">¥{{val.price|get_price_format('2')}}</span>{%endif%}
+								¥{{val.price|get_price_format('1')}}
+							</div><div class="shop-item-buttons" style="float: left;margin-left: 15px">
+								<a class="btn btn-default" href="{{val.name|get_url(val.id)}}" target="_blank"><i class="fa fa-cart-plus"></i> 立即购买</a>
+								<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+								<a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+								<a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+							</div></p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%elif val.model_id === 10 %}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+							<div class="ribbon">
+								<div class="ribbon-inner">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</div>
+							</div>
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title|truncate(50, true, "...")}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+								</div>
+
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%else%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title|truncate(50, true, "...")}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p>{{val.description|truncate(90, true, "...")}}</p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%endif%}
+						{%endfor%}
+					</div>
+					<div class="tab-pane fade" id="hot">
+						{% topic data = "hotlist",limit="10",type="hot"%}
+						{% for val in hotlist %}
+						{% set categoryname = val.category_id|get_cate %}
+						{%if val.model_id==4%}
+						{% set pic = val.pics|strToArray%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if pic[0]>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p><div class="shop-item-price" style="font-size: 20px;margin-top: 6px;font-weight: bold; float: left">
+								{% if val.price|get_price_format('2') %}<span class="line-through" style="color: #999;font-size: 15px;display: inline-block;padding: 0 10px;font-weight: 400;">¥{{val.price|get_price_format('2')}}</span>{%endif%}
+								¥{{val.price|get_price_format('1')}}
+							</div><div class="shop-item-buttons" style="float: left;margin-left: 15px">
+								<a class="btn btn-default" href="{{val.name|get_url(val.id)}}" target="_blank"><i class="fa fa-cart-plus"></i> 立即购买</a>
+								<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+								<a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+								<a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+							</div></p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%elif val.model_id === 10 %}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+							<div class="ribbon">
+								<div class="ribbon-inner">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</div>
+							</div>
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+								</div>
+
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%else%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p>{{val.description|truncate(90, true, "...")}}</p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%endif%}
+						{%endfor%}
+					</div>
+					<div class="tab-pane fade" id="wenda">
+						<div class="timeline">
+							<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+							{%model data="list",table="question",order="update_time DESC",limit="10"%}
+							{% for val in list %}
+							{% set categoryname = val.category_id|get_cate %}
+							{% set imgs= val.detail|img_text_view(200,120)%}
+							<!-- POST ITEM -->
+							<div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+								<div class="timeline-entry" ><!-- .rounded = entry -->
+									<a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+									<div class="timeline-vline"><!-- vertical line --></div>
+								</div>
+								<!-- IMAGE -->
+								{% if imgs|length==1 %}
+								<figure class="blog-item-small-image margin-bottom-0">
+									<img class="img-responsive" src="{{imgs[0]}}" alt="">
+								</figure>
+								{% endif %}
+								<div class="blog-item-small-content">
+									<h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
+									<ul class="blog-post-info list-inline padding-bottom-10">
+										<li>
+
+											<a class="" href="{{categoryname.url}}">
+												<span class="label label-light">{{categoryname.name}}</span>
+											</a>
+										</li>
+										<li>{%if val.answer_users>0%}
+											<a href="#">
+												<span class="font-lato">{{val.answer_users|get_nickname}}</span>
+											</a>
+											<span class="font-lato"> 回复了问题</span>
+											{%else%}
+											<a href="#">
+												<span class="font-lato">{{val.uid|get_nickname}}</span>
+											</a>
+											<span class="font-lato"> 发起了问题</span>
+											{%endif%}
+										</li>
+										<li>
                                 <span class="font-lato">
                                 {{val.focus_count}} 人关注
                                     </span>
-								</li>
-								<li>
-									<span class="font-lato">{{val.answer_count}} 个回复</span>
+										</li>
+										<li>
+											<span class="font-lato">{{val.answer_count}} 个回复</span>
 
-								</li>
-								<li>
-									<span class="font-lato">{{val.view}} 次浏览</span>
-								</li>
-								<li>
-									<span class="font-lato"> {{val.update_time|moment}}</span>
-								</li>
+										</li>
+										<li>
+											<span class="font-lato">{{val.view}} 次浏览</span>
+										</li>
+										<li>
+											<span class="font-lato"> {{val.update_time|moment}}</span>
+										</li>
 
-							</ul>
-							{% if imgs|length>1 %}
-							<div class="row margin-bottom-10">
-								{%set i = 0%}
-								{%for img in imgs%}
-								{%if i< 4 %}
-								<div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
-								{%endif%}
-								{%set i=i+1%}
-								{%endfor%}
+									</ul>
+									{% if imgs|length>1 %}
+									<div class="row margin-bottom-10">
+										{%set i = 0%}
+										{%for img in imgs%}
+										{%if i< 4 %}
+										<div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+										{%endif%}
+										{%set i=i+1%}
+										{%endfor%}
+									</div>
+									{%endif%}
+									<p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+								</div>
+
 							</div>
-							{%endif%}
-							<p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+							<!-- /POST ITEM -->
+							{%endfor%}
+
 						</div>
 
+						<!-- PAGINATION -->
+						<a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
+							<span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
+							<i class="et-happy"></i>
+						</a>
+						<!-- /PAGINATION -->
 					</div>
-					<!-- /POST ITEM -->
-					{%endfor%}
+
 
 				</div>
-
-				<!-- PAGINATION -->
-				<a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
-					<span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
-					<i class="et-happy"></i>
-				</a>
-				<!-- /PAGINATION -->
-
 			</div>
 			<!-- LEFT -->
 			<div class="col-md-3 col-sm-3">
 
 				{% if controller.is_login %}
-				<div class="alert alert-info margin-bottom-20"><!-- INFO -->
+				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
 					今天，你遇到了什么问题呢？
 					<a href="/mod/question/sys/add/cid/123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
 				</div>
 				{%else%}
-				<div class="alert alert-info margin-bottom-20"><!-- INFO -->
+				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
 					你好! 你还没有登录，请先登录.
 					<a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
 						<i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
@@ -606,51 +729,8 @@ owl-carousel item paddings
 				</div>
 
 				{%endif%}
-				<div class="box-inner nopadding  margin-bottom-20">
-					<h3>
-						<a class="pull-right size-11 text-warning" href="#">更多</a>
-						捐赠墙
-					</h3>
-					<div class="" >
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 5px;padding-right: 5px">
-													<i class="fa fa-rmb"></i>5.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">仁伟</b>: 支付宝-转账</span>
-						</div>
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
-													<i class="fa fa-rmb"></i>1500.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">伴猪看斜阳</b>: 支付宝-转账</span>
-						</div>
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
-													<i class="fa fa-rmb"></i>500.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">张轶军</b>: 微信-转账</span>
-						</div>
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
-													<i class="fa fa-rmb"></i>50.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">koala</b>:QQ红包-转账</span>
-						</div>
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
-													<i class="fa fa-rmb"></i>50.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
-						</div>
-						<div class="clearfix margin-bottom-20"><!-- notification item -->
-							<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
-													<i class="fa fa-rmb"></i>666.00
-												</span>
-							<span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
-						</div>
-					</div>
-				</div>
 
+				{{13|show_ad('code')|safe}}
 			</div>
 
 
@@ -694,5 +774,100 @@ data-plugin-options:
 </div>
 {% endblock %}
 {%block script%}
+<!-- REVOLUTION SLIDER -->
+<script type="text/javascript" src="/static/assets/plugins/slider.revolution.v5/js/jquery.themepunch.revolution.min.js"></script>	<script type="text/javascript">
+    jQuery(document).ready(function() {
+        if(jQuery("#rev_slider_8_1").revolution == undefined){
+            revslider_showDoubleJqueryError("#rev_slider_8_1");
+        }else{
+            revapi8 = jQuery("#rev_slider_8_1").show().revolution({
+                sliderType:"standard",
+                jsFileLocation:plugin_path + "slider.revolution.v5/js/",
+                sliderLayout:"auto",
+                dottedOverlay:"none",
+                delay:9000,
+                navigation: {
+                    keyboardNavigation:"on",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation:"off",
+                    onHoverStop:"off",
+                    touch:{
+                        touchenabled:"on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    }
+                    ,
+                    arrows: {
+                        style:"gyges",
+                        enable:true,
+                        hide_onmobile:false,
+                        hide_onleave:false,
+                        tmp:'',
+                        left: {
+                            h_align:"right",
+                            v_align:"bottom",
+                            h_offset:40,
+                            v_offset:0
+                        },
+                        right: {
+                            h_align:"right",
+                            v_align:"bottom",
+                            h_offset:0,
+                            v_offset:0
+                        }
+                    }
+                    ,
+                    tabs: {
+                        style:"ares",
+                        enable:true,
+                        width:350,
+                        height:80,
+                        min_width:350,
+                        wrapper_padding:0,
+                        wrapper_color:"#f5f5f5",
+                        wrapper_opacity:"1",
+                        tmp:'{% raw %}<div class="tp-tab-content">  <span class="tp-tab-date">{{param1}}</span>  <span class="tp-tab-title">{{title}}</span><span class="tp-tab-description tex-888 size-12">{{description}}</span></div><div class="tp-tab-image"></div>{%endraw%}',
+                        visibleAmount: 10,
+                        hide_onmobile: true,
+                        hide_under:776,
+                        hide_onleave:false,
+                        hide_delay:200,
+                        direction:"vertical",
+                        span:true,
+                        position:"outer-left",
+                        space:0,
+                        h_align:"left",
+                        v_align:"top",
+                        h_offset:0,
+                        v_offset:0
+                    }
+                },
+                gridwidth:800,
+                gridheight:640,
+                lazyType:"single",
+                shadow:0,
+                spinner:"off",
+                stopLoop:"on",
+                stopAfterLoops:0,
+                stopAtSlide:1,
+                shuffle:"off",
+                autoHeight:"off",
+                disableProgressBar:"on",
+                hideThumbsOnMobile:"off",
+                hideSliderAtLimit:0,
+                hideCaptionAtLimit:0,
+                hideAllCaptionAtLilmit:0,
+                debugMode:false,
+                fallbacks: {
+                    simplifyAll:"off",
+                    nextSlideOnWindowFocus:"off",
+                    disableFocusListener:false,
+                }
+            });
+        }
+    });
+</script>
 
 {%endblock%}

@@ -133,7 +133,11 @@
                                                 </div></div>
                                             <div class="col-md-6">
                                                 <input type="hidden" name="att_{{i}}" id="cover_id_{{i}}" value="{{setting[i].att}}"/>
-                                                <div id="fileList_{{i}}" class="uploader-list pull-left" style="width: auto"></div>
+                                                <div id="fileList_{{i}}" class="uploader-list pull-left" style="width: auto">
+                                                    <div id="{{setting[i].att}}" class="file-item thumbnail ">
+                                                    <img src="{{setting[i].att|get_pic('')}}">
+                                                    </div>
+                                                </div>
                                                 <div id="filePicker_{{i}}" class="pull-left">选择图片</div>
                                             </div>
                                         </div>
@@ -375,6 +379,7 @@
                    mimeTypes: 'image/*'
                }
            });
+
            // 当有文件添加进来的时候
            uploader.on( 'fileQueued', function( file ) {
                var $li = $(

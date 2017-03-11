@@ -60,7 +60,7 @@ export default class extends Base {
             }
         }else {
             let spaceid = this.get("spaceid");
-            let temp = await this.model('ext_ad_temp').field("tempid,title,name").select();
+            let temp = await this.model('ext_ad_temp').select();
             //console.log(temp);
             this.assign("temp",temp);
             let space = await this.model('ext_ad_space').find({where:{spaceid:spaceid}});
