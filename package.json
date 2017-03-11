@@ -8,6 +8,7 @@
     "watch-compile": "node -e \"console.log('<npm run watch-compile> no longer need, use <npm start> command direct.');console.log();\"",
     "watch": "npm run watch-compile"
   },
+
   "dependencies": {
     "thinkjs": "2.2.x",
     "babel-runtime": "6.x.x",
