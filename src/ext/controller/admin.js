@@ -36,9 +36,11 @@ export default class extends Base {
    */
   async sortAction(self,table,id='id'){
     table = table||"ext_"+this.http.controller.split("/")[0];
-    let param = this.param();
+      console.log(table);
+      let param = this.param();
     let sort = JSON.parse(param.sort);
-    let data =[]
+      console.log(sort);
+      let data =[]
     for(let v of sort){
       let map={}
       map[id]=v.id;

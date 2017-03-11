@@ -1,4 +1,5 @@
 {% extends "../../admin/inc/base.html" %}
+
 {% block content %}
                 <section class="vbox">
                     <header class="header bg-light dk">
@@ -18,8 +19,8 @@
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
-                                    <a href="/{{http.module}}/{{http.controller}}/addspace" class="btn btn-s-md btn-primary" data-toggle="ajaxModal">添加广告模板</a>
-                                    <a href="#" class="btn btn-s-md btn-dark">更新广告缓存</a>
+                                    <a href="/{{http.module}}/{{http.controller}}/addtemp" class="btn btn-s-md btn-primary">添加广告模板</a>
+                                    <a href="/{{http.module}}/{{http.controller}}/adcache" class="btn btn-s-md btn-dark ajax-get">更新广告缓存</a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -27,30 +28,34 @@
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                                        <th style="">广告位名称</th>
-                                        <th class="">广告位类型</th>
-                                        <th class="">广告位尺寸</th>
-                                        <th class="">广告数</th>
-                                        <th class="">广告位描述</th>
+                                        <th style="">模板名称</th>
+                                        <th class="">可用广告类型</th>
                                         <th >操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for item in list %}
                                     <tr>
-                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.spaceid}}"><i></i></label></td>
-                                        <td>{{item.name}}</td>
-                                        <td>{{item.type}}</td>
-                                        <td>{{item.width}}*{{item.height}}</td>
-                                        <td>0</td>
-                                        <td>{{item.description}}</td>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.tempid}}"><i></i></label></td>
+                                        <td>{{item.title}}[{{item.name}}]</td>
                                         <td>
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">预览</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">调用代码</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">广告列表</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                                           {%for v,k in item.type|strToJson%}
+                                            {%if k =="1"%}
+                                            {%if v=='images'%}
+                                            图片
+                                            {%elif v=='flash'%}
+                                            动画
+                                            {%elif v=='text'%}
+                                            文字
+                                            {%else%}
+                                            代码
+                                            {%endif%}
+                                            {%endif%}
+                                            {%endfor%}
+                                        </td>
+                                        <td>
+                                            <a href="/{{http.module}}/{{http.controller}}/edittemp/tempid/{{item.tempid}}" class="text-info" >修改</a>
                                             <a href="/{{http.module}}/{{http.controller}}/del/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">添加广告</a>
                                         </td>
 
 

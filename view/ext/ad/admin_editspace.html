@@ -4,7 +4,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{{controller.meta_title}}</h4>
         </div>
-        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{http.module}}/{{http.controller}}/addspace" data-validate="parsley">
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{http.module}}/{{http.controller}}/editspace" data-validate="parsley">
         <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">名称</label>
@@ -13,7 +13,7 @@
 
                         <div class="row">
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="name" value="" data-required="true" >
+                                <input type="text" class="form-control" name="name" value="{{space.name}}" data-required="true" >
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                             <select class="form-control " name="type">
                                 <option value="">选择类型</option>
                                 {%for t in temp%}
-                                <option value="{{t.name}}">{{t.title}}</option>
+                                <option value="{{t.name}}" {%if space.type==t.name%}selected{%endif%}>{{t.title}}</option>
                                 {%endfor%}
                             </select>
                         </div>
@@ -44,7 +44,7 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <textarea  class="form-control" name="description"  ></textarea>
+                            <textarea  class="form-control" name="description">{{space.description}}</textarea>
                         </div>
 
                     </div>
@@ -52,6 +52,7 @@
             </div>
         </div>
         <div class="modal-footer">
+            <input type="hidden" value="{{space.spaceid}}" name="spaceid">
             <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
             <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
         </div>

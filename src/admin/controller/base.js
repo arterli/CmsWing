@@ -72,8 +72,7 @@ export default class extends think.controller.base {
             notifications.data.push({type:"approval",info:`有 ${approval} 条内容待审核`,url:"/admin/approval/index",ico:"fa-umbrella"});
         }
 
-
-        console.log(notifications);
+        //console.log(notifications);
         this.assign({
                 "navxs": false,
                 "bg": "bg-black",
