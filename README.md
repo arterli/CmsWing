@@ -49,7 +49,8 @@ pm2 startOrGracefulReload pm2.json
 ```
 ## 演示网站
 #####PC端直接输入下面网址:
-CmsWing [www.cmswing.com](http://www.cmswing.com/ "Title") 演示网站.
+CmsWing.com [www.cmswing.com](http://www.cmswing.com/ "Title") CMSWing 官网.
+CmsWing.net [www.cmswing.net](http://www.cmswing.net/ "Title") CMSWing 演示网站.
 LVOO[www.lvoo.net](http://www.lvoo.net) 分类信息应用案例展示。
 #####手机端,用手机浏览器或者微信客户端扫下面二维码:
 ![二维码](http://data.cmswing.com/1C30EFE7-A0DD-474B-88B5-4AD2270C422E.png)
