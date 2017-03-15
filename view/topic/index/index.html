@@ -762,17 +762,23 @@ data-plugin-options:
 
 	</div>
 </section>
-<div class="text-center margin-top-20 margin-bottom-20">
-<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-	{% model data ="link",table="ext_link",where='{"passed":1}',limit="8"%}
-	{%for l in link%}
-<div>
-	<a href="{{l.url}}" target="_blank">
-<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
-	</a>
-</div>
-	{%endfor%}
-</div>
+<div class="text-center margin-top-20 margin-bottom-10 container link">
+	<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
+		{% model data ="link",table="ext_link",where='{"passed":1}',limit="24"%}
+		{%for l in link%}
+		{%if l.linktype==0%}
+		<div class="linkbox alternate">
+			<a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
+		</div>
+		{%else%}
+		<div class="linkbox alternate">
+			<a href="{{l.url}}" target="_blank" title="{{l.name}}">
+				<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
+			</a>
+		</div>
+		{%endif%}
+		{%endfor%}
+	</div>
 </div>
 {% endblock %}
 {%block script%}

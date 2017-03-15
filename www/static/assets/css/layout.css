@@ -8642,3 +8642,27 @@ i.ico-60 {
 	width: 70px;
 	right: 0;
 }
+
+.link .owl-controls{
+	margin-top: 10px;
+}
+.linkbox {
+	display: table;
+	border: #eee 1px solid;
+	width: 90%;
+	height: 50px;
+}
+.linkbox a{
+	height: 50px;
+	display:table-cell;
+	vertical-align: middle;
+	text-align: center;
+
+}
+.linkbox a:hover{
+	background-color: #fff;
+}
+.linkbox a img{
+	max-width: 100%;
+	max-height: 50px;
+}
