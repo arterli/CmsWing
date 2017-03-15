@@ -764,7 +764,7 @@ data-plugin-options:
 </section>
 <div class="text-center margin-top-20 margin-bottom-10 container link">
 	<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-		{% model data ="link",table="ext_link",where='{"passed":1}',limit="24"%}
+		{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC"%}
 		{%for l in link%}
 		{%if l.linktype==0%}
 		<div class="linkbox alternate">
