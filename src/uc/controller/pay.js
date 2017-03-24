@@ -67,7 +67,7 @@ export default class extends Base {
             await this.model('balance_log').add(log);
             receiving.pay_status=1;
             await this.model("doc_receiving").add(receiving);
-            let url = `/cart/payres/c_o_id/${post.order_id}`;
+            let url = `/uc/pay/cart/payres/c_o_id/${post.order_id}`;
             return this.success({name:"支付订单对接成功，正在转跳！",url:url})
           }else {
             return this.fail("您没有要支付的订单");
@@ -76,7 +76,7 @@ export default class extends Base {
 
       }
       if(post.payment == 1001){
-        let url = `/cart/payres/c_o_id/${post.order_id}`;
+        let url = `/uc/pay/payres/c_o_id/${post.order_id}`;
         return this.success({name:"支付订单对接成功，正在转跳！",url:url})
       }
       //1001货到付款
