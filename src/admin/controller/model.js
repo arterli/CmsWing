@@ -77,7 +77,7 @@ export default class extends Base {
                 console.log(addtable);
                 this.cache("get_document_model", null);//清除模型缓存
                 this.cache("get_model", null);//清除模型缓存
-                return this.fail("添加失败!")
+                //return this.fail("添加失败!")
                 return this.success({name: "添加成功", url: "/admin/model/index"});
             }else {
                 return this.fail("添加失败!")
