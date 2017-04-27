@@ -1254,6 +1254,10 @@ global.update_cache =(type)=>{
         case 'channel'://更新频道缓存信息
             think.cache("get_channel_cache",null);
             break;
+        case 'model':
+            think.cache("get_document_model", null);//清除模型缓存
+            think.cache("get_model", null);//清除模型缓存
+            break;
     }
 }
 /**

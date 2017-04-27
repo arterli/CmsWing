@@ -69,22 +69,22 @@
               <li class="col-md-4">
                 <div class="testimonial">
                   <figure class="pull-left">
-                    <i class="ico-light ico-rounded ico-hover icon-wallet"></i>
+                    <i class="ico-light ico-rounded ico-hover fa fa-star-half-full "></i>
                   </figure>
                   <div class="testimonial-content">
-                    <h5 class="margin-bottom-8">账户余额： </h5>
-                    ￥<span class="text-danger">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</span>
+                    <h5 class="margin-bottom-8">会员级别： </h5>
+                    <span class="text-danger">{{userInfo.name}}</span>
                   </div>
                 </div>
               </li>
               <li class="col-md-4">
                 <div class="testimonial">
                   <figure class="pull-left">
-                    <i class="ico-light ico-rounded ico-hover et-calendar"></i>
+                    <i class="ico-light ico-rounded ico-hover icon-wallet"></i>
                   </figure>
                   <div class="testimonial-content">
-                    <h5 class="margin-bottom-8">订单交易总金额： </h5>
-                    ￥<span class="text-danger">{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</span>
+                    <h5 class="margin-bottom-8">账户余额： </h5>
+                    ￥<span class="text-danger">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</span>
                   </div>
                 </div>
               </li>
@@ -100,17 +100,20 @@
                   </div>
                 </div>
               </li>
+              {% if 4|getmode('')|length>0 %}
               <li class="col-md-4">
                 <div class="testimonial">
                   <figure class="pull-left">
-                    <i class="ico-light ico-rounded ico-hover fa fa-star-half-full "></i>
+                    <i class="ico-light ico-rounded ico-hover et-calendar"></i>
                   </figure>
                   <div class="testimonial-content">
-                    <h5 class="margin-bottom-8">会员级别： </h5>
-                    <span class="text-danger">{{userInfo.name}}</span>
+                    <h5 class="margin-bottom-8">订单交易总金额： </h5>
+                    ￥<span class="text-danger">{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</span>
                   </div>
                 </div>
               </li>
+
+
               <li class="col-md-4">
                 <div class="testimonial">
                   <figure class="pull-left">
@@ -134,6 +137,7 @@
                   </div>
                 </div>
               </li>
+              {%endif%}
             </ul>
           </div>
         </div>

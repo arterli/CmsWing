@@ -127,13 +127,12 @@ export default class extends think.controller.base {
             switch (model){
                 case 'channel'://更新频道缓存信息
                     update_cache("channel")//更新频道缓存信息
-                    res = true;
-                    msg = "更新导航缓存成功！";
                     break;
                 case 'category'://更新全站分类缓存
                     update_cache("category")//更新栏目缓存
-                    res = true;
-                    msg = "更新栏目缓存成功！";
+                    break;
+                case 'model':
+                    update_cache("model")//更新栏目缓存
                     break;
             }
             this.success({ name: msg.success, url: msg.url });
@@ -286,6 +285,11 @@ export default class extends think.controller.base {
                 break;
             case 'category'://更新全站分类缓存
                 update_cache("category")//更新栏目缓存
+                res = true;
+                msg = "更新栏目缓存成功！";
+                break;
+            case 'model':
+                update_cache("model")//更新模型缓存
                 res = true;
                 msg = "更新栏目缓存成功！";
                 break;

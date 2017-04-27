@@ -45,8 +45,7 @@ export default class extends Base {
             //console.log(data);
             let res = await this.db.add(data);
             if (res) {
-                this.cache("get_document_model", null);//清除模型缓存
-                this.cache("get_model", null);//清除模型缓存
+                update_cache("model")//更新模型缓存
                 return this.success({name: "添加成功", url: "/admin/model/index"});
             }else {
                 return this.fail("添加模型失败!");
@@ -68,15 +67,14 @@ export default class extends Base {
             data.create_time = new Date().valueOf();
             data.update_time = new Date().valueOf();
             data.status = 1;
-            console.log(data);
+            //console.log(data);
 
             let res = await this.db.add(data);
             if (res) {
                 //初始化表结构
                 let addtable = await this.model("attribute").addtable(res);
-                console.log(addtable);
-                this.cache("get_document_model", null);//清除模型缓存
-                this.cache("get_model", null);//清除模型缓存
+                //console.log(addtable);
+                update_cache("model")//更新模型缓存
                 return this.fail("添加失败!")
                 return this.success({name: "添加成功", url: "/admin/model/index"});
             }else {
@@ -102,8 +100,7 @@ export default class extends Base {
 
             let res =await this.db.update(post);
             if(res){
-                this.cache("get_document_model", null);//清除模型缓存
-                this.cache("get_model", null);//清除模型缓存
+                update_cache("model")//更新模型缓存
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})
             }
         } else {
@@ -281,8 +278,7 @@ export default class extends Base {
         if (!res) {
             this.fail("删除失败");
         } else {
-            this.cache("get_document_model", null);//清除模型缓存
-            this.cache("get_model", null);//清除模型缓存
+            update_cache("model")//更新模型缓存
             this.success({name: "删除成功！"});
         }
     }
@@ -299,4 +295,5 @@ export default class extends Base {
             return this.json(0);
         }
     }
+
 }

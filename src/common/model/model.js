@@ -102,7 +102,12 @@ export default class extends think.model.base {
         } else if(think.isEmpty(field)){
             return list[id];
         } else {
-            return list[id][field];
+            try{
+                return list[id][field];
+            }catch(err) {
+             return false;
+            }
+
         }
     }
     /* 获取模型名称 */

@@ -19,6 +19,7 @@ export default class extends think.controller.base {
     // console.log(this.setup);
     //当前登录状态
     this.is_login = await this.islogin();
+
       //关闭站点
       if(this.setup.WEB_SITE_CLOSE==0){
           let isshow = await this.session('userInfo');
@@ -37,13 +38,14 @@ export default class extends think.controller.base {
           this.user.roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
       }
       this.user = think.extend(this.user,await this.session('webuser'));
-    //获取当前分类信息
-    //console.log(action);
-    // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
-    //设置主题
-    //this.http.theme("default);
-    //购物车
-
+      //获取当前分类信息
+      //console.log(action);
+      // this.meta_title = cate.meta_title?cate.meta_title:cate.title;
+      //设置主题
+      //this.http.theme("default);
+      //购物车
+      //关闭商品模型时同时关闭购物车
+      if(!think.isEmpty(await this.model('model').get_model(4)) && this.http.action != "avatar" ){
     let cartList = await this.shopCart();
     let cartInfo;
     if(think.isEmpty(cartList)){
@@ -76,6 +78,7 @@ export default class extends think.controller.base {
       }
     }
     this.cart = cartInfo;
+      }
   }
   /**
    * 判断是否登录

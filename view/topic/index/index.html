@@ -188,14 +188,14 @@
 				<div class="box-light padding-10 ">
 					<div class="box-inner">
 						<h3>
-							<a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
-							名家
+							<a class="pull-right size-11 text-warning" href="#"></a>
+							热点
 						</h3>
 						<div class="slimscroll" style="height: 247px" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-							{%model data="authorlist",table="author",order="update_time DESC",limit="10"%}
+							{%model data="authorlist",table="document",order="update_time DESC",limit="10"%}
 							{% for val in authorlist %}
 							<div class="clearfix margin-bottom-10"><!-- post item -->
-								<img class="thumbnail pull-left margin-right-10" src="{{val.pin|get_pic('m=1,w=100,h=100')}}" width="60" height="60" alt="" />
+								<img class="thumbnail pull-left margin-right-10" src="{{val.cover_id|get_pic('m=1,w=100,h=100')}}" width="60" height="60" alt="" />
 								<h4 class="size-14 nomargin noborder nopadding"><a href="/mod/artist/{{val.pinyin}}.html" target="_blank">{{val.title}}</a></h4>
 								<span class="size-12 text-muted">{{val.description|truncate(20, true, "...")}}</span>
 							</div><!-- /post item -->

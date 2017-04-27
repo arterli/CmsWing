@@ -55,13 +55,14 @@
 					</div>
 				</li>
 				<!-- /SEARCH -->
-
+				{% if 4|getmode('')|length>0 %}
 				<!-- QUICK SHOP CART -->
 				<li class="quick-cart">
 					<a href="#">
 						<span class="badge badge-aqua btn-xs badge-corner" id="badge-corner">{% if controller.cart.num %}{{controller.cart.num}}{%endif%}</span>
 						<i class="fa fa-shopping-cart"></i>
 					</a>
+
 					<div class="quick-cart-box">
 						<h4>购物车</h4>
 
@@ -91,9 +92,10 @@
 						<!-- /quick cart footer -->
 
 					</div>
+
 				</li>
 				<!-- /QUICK SHOP CART -->
-
+				{%endif%}
 			</ul>
 			<!-- /BUTTONS -->
 
