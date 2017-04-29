@@ -174,7 +174,7 @@ CLASSES:
 
                 </div>
                 <!-- /SHARE POST -->
-#}
+
 {#
                 <div class="divider"><!-- divider --></div>
 
@@ -228,18 +228,19 @@ CLASSES:
                             <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> {{info.uid|get_nickname}}</li>
                             <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{ info.update_time|dateformat('Y-m-d H:i') }}</li>
                             <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span>{%set nn = 1%} {%for val in breadcrumb %}{%if nn != 1%} /{%endif%} <a href="{{val.url}}">{{val.title}}</a>{%set nn = nn+1%}{% endfor %}</li>
-                            <li><span style="width: 60px"><i class="fa fa-link"></i>来源:</span> <a href="#">www.cmswing.com</a></li>
+                           {# <li><span style="width: 60px"><i class="fa fa-link"></i>来源:</span> <a href="#">www.cmswing.com</a></li>#}
                         </ul>
 
                     </div>
-
+{#
                     <div class="panel-footer">
                         <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
                         <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
                     </div>
-
+#}
                 </div>
+                {#
                 <!-- side navigation -->
                 {% column data="cate",cid=category.id %}
                 {% if cate %}
@@ -256,7 +257,7 @@ CLASSES:
                     <!-- /side navigation -->
                 </div>
                 {%endif%}
-
+#}
                 <!-- JUSTIFIED TAB -->
                 <div class="tabs nomargin-top hidden-xs margin-bottom-10">
 

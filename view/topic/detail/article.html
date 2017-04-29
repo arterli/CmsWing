@@ -155,14 +155,18 @@ CLASSES:
             {%endif%}
         </div>
         <!-- /article content -->
+        {#
         <div class="divider"></div>
         <!--打赏-->
         <div id="cyReward" role="cylabs" data-use="reward" sourceid="{{info.id}}" cid="{{category.id}}" class="text-center"></div>
         <!--打赏-->
+
         <!--评论表情-->
         <div id="cyEmoji" role="cylabs" data-use="emoji" sourceid="{{info.id}}" cid="{{category.id}}"></div>
         <!--评论表情-->
+
         <div class="divider divider-dotted"><!-- divider --></div>
+        #}
         <!-- TAGS -->
         {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
         {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
@@ -174,7 +178,7 @@ CLASSES:
         <!-- /TAGS -->
 
 
-
+        {#
         <!-- SHARE POST -->
         <div class="clearfix margin-top-20">
 
@@ -183,7 +187,7 @@ CLASSES:
 </span>
             <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
             <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-            {#
+
             <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-right" data-toggle="tooltip" data-placement="top" title="Facebook">
                 <i class="icon-facebook"></i>
                 <i class="icon-facebook"></i>
@@ -213,11 +217,11 @@ CLASSES:
                 <i class="icon-email3"></i>
                 <i class="icon-email3"></i>
             </a>
-#}
+
         </div>
         <!-- /SHARE POST -->
 
-
+        #}
         <div class="divider"><!-- divider --></div>
 
 
@@ -238,7 +242,7 @@ CLASSES:
         <div id="comments" class="comments margin-top-20">
             <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
             <div id="SOHUCS" sid="{{info.id}}"></div>
-            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+            <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
             <script type="text/javascript">
                 window._config = { showScore: true };
                 window.changyan.api.config({
@@ -411,7 +415,8 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{controller.setup.CY_APPID}}"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid={{controller.setup.CY_APPID}}"></script>
 <script>
 uParse('#contentcmswing', {
 rootPath: '/static/admin/js/udeitor/'
