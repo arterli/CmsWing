@@ -64,12 +64,12 @@ export default class extends think.controller.rest {
         for(let v of data.data){
             let imgarr = [];
             if(v.cover_id !=0){
-                imgarr.push(await get_pic(v.cover_id,1,360,240))
+                imgarr.push("https:"+await get_pic(v.cover_id,1,360,240))
             }
             if(!think.isEmpty(v.pics)){
                 let pics = v.pics.split(",")
                 for(let i of pics){
-                    imgarr.push(await get_pic(i,1,360,240))
+                    imgarr.push("https:"+await get_pic(i,1,360,240))
                 }
             }
             v.imgurl=imgarr;
