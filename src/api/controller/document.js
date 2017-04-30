@@ -61,15 +61,29 @@ export default class extends think.controller.rest {
             o.update_time = 'DESC';
         }
         data = await this.modelInstance.where(map).page(this.get('page')).order(o).countSelect();
+        let http_=this.config("http_")==1?"http":"https";
+        let http__;
         for(let v of data.data){
             let imgarr = [];
             if(v.cover_id !=0){
-                imgarr.push("https:"+await get_pic(v.cover_id,1,360,240))
+                let pic = await get_pic(v.cover_id,1,360,240);
+                if(pic.indexOf("//")==0){
+                     http__ =http_;
+                }else {
+                     http__ =`${http_}://${this.http.host}`;
+                }
+                imgarr.push(http__+pic)
             }
             if(!think.isEmpty(v.pics)){
                 let pics = v.pics.split(",")
                 for(let i of pics){
-                    imgarr.push("https:"+await get_pic(i,1,360,240))
+                    let pic = await get_pic(i,1,360,240);
+                    if(pic.indexOf("//")==0){
+                        http__ =http_;
+                    }else {
+                        http__ =`${http_}://${this.http.host}`;
+                    }
+                    imgarr.push(http__+pic)
                 }
             }
             v.imgurl=imgarr;
