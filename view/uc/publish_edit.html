@@ -78,8 +78,11 @@ table tr td{
                             <div class="col-lg-12">
 
                                     <ul class="nav nav-tabs">
+                                        {% set mm = model.field_group | parse_config_attr|length %}
                                         {% for key ,group in model.field_group | parse_config_attr %}
+                                        {%if loop.index != mm%}
                                         <li {% if 1 == key %} class="active" {% endif %}><a data-toggle="tab" href="#tabl-{{key}}"><i class="fa fa-comments text-muted"></i> {{group}}</a></li>
+                                        {%endif%}
                                         {% endfor %}
                                     </ul>
                                 <section class="panel panel-default padding-0" style="margin-top: 0px;border-top-width: 0; border-top-left-radius: 0;border-top-right-radius: 0">
@@ -88,6 +91,7 @@ table tr td{
                                     <div class="tab-content">
 
                                         {% for key ,group in model.field_group | parse_config_attr %}
+                                        {%if loop.index != mm%}
                                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                                             {%if sort and key ==1%}
                                             <input type="hidden" name="sort_id" value="{{data.sort_id}}">
@@ -278,7 +282,7 @@ table tr td{
                                                 </div>
                                             {%endif%}
                                             {%endfor%}
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="b-b margin-bottom-10"></div>
                                             {%endif%}
                                             {% if groups and key==1 %}
                                             <div class="form-group">
@@ -2180,8 +2184,10 @@ table tr td{
                 </div>
             </div>
             {% endif %}
-            <div class="line line-dashed b-b line-lg pull-in"></div>
-            {% endfor%}</div>
+            <div class="b-b margin-bottom-10"></div>
+            {% endfor%}
+                                        </div>
+                                        {%endif%}
         {% endfor %}
     </div>
 

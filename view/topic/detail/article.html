@@ -71,25 +71,37 @@ CLASSES:
                 </a>
             </li>
             <li>
-                <a href="#">
+                <i class="fa fa-eye"></i>
+
+                <a class="category" href="javascript:void(0)">
+                    <span class="font-lato">{{info.view}}</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="#comments">
                     <i class="fa fa-comment-o"></i>
-                    <span class="font-lato">28 Comments</span>
+                    <span class="font-lato"><span id="changyan_count_unit">0</span></span>
                 </a>
             </li>
             <li>
                 <i class="fa fa-folder-open-o"></i>
 
-                <a class="category" href="#">
-                    <span class="font-lato">{{info.category_id}}</span>
+                <a class="category" href="javascript:void(0)">
+                    <span class="font-lato">{{category.title}}</span>
                 </a>
-                <a class="category" href="#">
-                    <span class="font-lato">Photography</span>
+
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <i class="fa fa-user"></i>
+                    <span class="font-lato">{{info.uid|get_nickname}}</span>
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <i class="fa fa-user"></i>
-                    <span class="font-lato">{{info.uid|get_nickname}}</span>
+                <a href="javascript:void(0)">
+                    来源：
+                    <span class="font-lato">{{info.form|d('本站',true)}}</span>
                 </a>
             </li>
         </ul>
