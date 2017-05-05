@@ -104,11 +104,12 @@ export default class extends Base {
   }
   //还原模板
   async tempreplyAction(){
+    let pid = this.get("pid");
     let id = this.get("id");
-    let bak =await this.model("temp_bak").where({pid:id}).find();
+    let bak =await this.model("temp_bak").where({pid:pid, id: id}).find();
     if(!think.isEmpty(bak)){
       delete bak.id;
-      await this.model("temp").where({id:id}).update(bak);
+      await this.model("temp").where({id:pid}).update(bak);
         let temppath;
         if(bak.type==2){
             temppath = `${think.ROOT_PATH}/view/${bak.module}/mobile/`;
