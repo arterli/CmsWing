@@ -36,8 +36,9 @@ export default class extends think.controller.rest {
     async getAction(){
         let data;
         if (this.id) {
-            let pk = await this.modelInstance.getPk();
-            data = await this.modelInstance.where({[pk]: this.id}).find();
+            //let pk = await this.modelInstance.getPk();
+            data = await this.modelInstance.detail(this.id);
+            //data.content=html_encode(data.content);
             return this.success(data);
         }
         let map={'pid':0, 'status': 1};
@@ -68,7 +69,7 @@ export default class extends think.controller.rest {
             if(v.cover_id !=0){
                 let pic = await get_pic(v.cover_id,1,360,240);
                 if(pic.indexOf("//")==0){
-                     http__ =http_;
+                     http__ =`${http_}:`;
                 }else {
                      http__ =`${http_}://${this.http.host}`;
                 }
@@ -79,7 +80,7 @@ export default class extends think.controller.rest {
                 for(let i of pics){
                     let pic = await get_pic(i,1,360,240);
                     if(pic.indexOf("//")==0){
-                        http__ =http_;
+                        http__ =`${http_}:`;
                     }else {
                         http__ =`${http_}://${this.http.host}`;
                     }
