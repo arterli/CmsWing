@@ -39,6 +39,9 @@ export default class extends think.controller.rest {
             //let pk = await this.modelInstance.getPk();
             data = await this.modelInstance.detail(this.id);
             //data.content=html_encode(data.content);
+            data.catename = await this.model("category").get_category(data.category_id, "title");
+            data.uid = await get_nickname(data.uid);
+            data.update_time = moment(data.update_time).fromNow()
             return this.success(data);
         }
         let map={'pid':0, 'status': 1};
