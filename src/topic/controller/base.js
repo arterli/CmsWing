@@ -13,12 +13,17 @@ export default class extends think.controller.base {
   }
 
   async __before() {
-    await this.action("uc/weixin", "oauth");
+
     //网站配置
     this.setup = await this.model("setup").getset();
-    // console.log(this.setup);
-    //当前登录状态
-    this.is_login = await this.islogin();
+      // console.log(this.setup);
+      //当前登录状态
+      this.is_login = await this.islogin();
+
+    //判断公众账号类型
+      if(this.setup.wx_type == 4){
+      await this.action("uc/weixin", "oauth");
+      }
 
       //关闭站点
       if(this.setup.WEB_SITE_CLOSE==0){
