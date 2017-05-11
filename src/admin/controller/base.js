@@ -25,7 +25,7 @@ export default class extends think.controller.base {
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
-        this.roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
+        this.roleid = await this.model("auth_user_role").where({user_id:this.user.uid}).getField('role_id', true);
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
