@@ -1,6 +1,5 @@
 {% extends "../inc/base.html" %}
 {% block style %}
-<link href="/static/assets/plugins/slider.revolution.v5/css/pack.css" rel="stylesheet" type="text/css" />
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
@@ -10,179 +9,108 @@
 		{{11|show_ad("code")|safe}}
 		<div class="row">
 			<div class="col-md-9">
-				<div id="rev_slider_8_1_wrapper" class="rev_slider_wrapper arrows-bottom fullwidthbanner-container box-shadow-3" data-alias="facebook-feed8" style="margin:0px auto;background-color:#dddddd;">
-					<!-- START REVOLUTION SLIDER 5.0.7 auto mode -->
-					<div id="rev_slider_8_1" class="rev_slider fullwidthabanner softhide" data-version="5.0.7">
-						<ul>
+				<!-- REVOLUTION SLIDER -->
+				<div class="slider fullwidthbanner-container roundedcorners margin-bottom-0">
+					<!--
+                        Navigation Styles:
+
+                            data-navigationStyle="" theme default navigation
+
+                            data-navigationStyle="preview1"
+                            data-navigationStyle="preview2"
+                            data-navigationStyle="preview3"
+                            data-navigationStyle="preview4"
+
+                        Bottom Shadows
+                            data-shadow="1"
+                            data-shadow="2"
+                            data-shadow="3"
+
+                        Slider Height (do not use on fullscreen mode)
+                            data-height="300"
+                            data-height="350"
+                            data-height="400"
+                            data-height="450"
+                            data-height="500"
+                            data-height="550"
+                            data-height="600"
+                            data-height="650"
+                            data-height="700"
+                            data-height="750"
+                            data-height="800"
+                    -->
+					<div class="fullwidthbanner" data-height="550" data-shadow="" data-navigationStyle="">
+						<ul class="hide">
 							{% topic data = "slider",limit= "10",position='2',issub="1"%}
 							{%for val in slider%}
-							{%if val.model_id==4%}
-							{% set pic = val.pics|strToArray%}
+							{%if val.model_id==4%} {% set pic = val.pics|strToArray%}{%else%}{%set pic = val.cover_id%}{%endif%}
 							<!-- SLIDE  -->
-							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{pic[0]|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description='{% if val.price|get_price_format("2") %}<span class="line-through f-14">¥{{val.price|get_price_format("2")}}</span>{%endif%}
-					<b class="text-danger size-16">¥{{val.price|get_price_format("1")}}</b>'>
-								<!-- MAIN IMAGE -->
-								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{pic[0]|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-								<!-- LAYERS -->
+							<li data-transition="fade" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
+								<img src="/static/assets/images/1x1.png" data-lazyload="{{pic|get_pic('m=2,w=848,h=400')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
 
-								<!-- LAYER NR. 1 -->
-								<div class="tp-caption Facebook-Likes  "
-									 id="slide-28-layer-1"
-									 data-x="10"
-									 data-y="bottom" data-voffset="10"
-									 data-width="['165']"
-									 data-height="['32']"
-									 data-transform_idle="o:1;tO:-20% 50%;"
-
-									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-									 data-start="500"
-									 data-splitin="none"
-									 data-splitout="none"
-									 data-basealign="slide"
-									 data-responsive_offset="off"
-									 data-responsive="off"
-
-									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+								<div class="tp-caption lft start"
+									 data-x="0"
+									 data-y="0"
+									 data-speed="750"
+									 data-start="750"
+									 data-easing="easeOutExpo"
+									 data-elementdelay="0.1"
+									 data-endelementdelay="0.1"
+									 data-endspeed="300">
+									<img src="/static/assets/images/1x1.png" alt="" data-lazyload="/static/assets/images/caption_bg.png">
 								</div>
 
-								<!-- LAYER NR. 2 -->
-								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
-								   id="slide-28-layer-2"
-								   data-x="176"
-								   data-y="bottom" data-voffset="10"
-								   data-width="['45']"
-								   data-height="['32']"
-								   data-transform_idle="o:1;tO:-20% 50%;"
-								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
-								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
-
-								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-								   data-start="500"
+								<a class="tp-caption medium_light_white lfb start" href="{{val.name|get_url(val.id)}}" target="_blank"
+								   data-x="left" data-hoffset="70"
+								   data-y="96"
+								   data-speed="300"
+								   data-start="1200"
+								   data-easing="easeOutExpo"
 								   data-splitin="none"
 								   data-splitout="none"
-								   data-actions=''
-								   data-basealign="slide"
-								   data-responsive_offset="off"
-								   data-responsive="off"
-
-								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
+								   data-elementdelay="0.1"
+								   data-endelementdelay="0.1"
+								   data-endspeed="300">
+									{{val.title|truncate(20, true, "")|insert_flg("<br>",10)|safe}}
 								</a>
-							</li>
-							{%elif val.model_id==10%}
-							<!-- SLIDE  -->
-							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{val.cover_id|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description="开始:{{val.create_time|moment('YYYY-MM-DD')}} - 结束:{{val.deadline|moment('YYYY-MM-DD')}}">
-								<!-- MAIN IMAGE -->
-								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{val.cover_id|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-								<!-- LAYERS -->
 
-
-								<!-- LAYER NR. 1 -->
-								<div class="tp-caption Facebook-Likes  "
-									 id="slide-28-layer-1"
-									 data-x="10"
-									 data-y="bottom" data-voffset="10"
-									 data-width="['165']"
-									 data-height="['32']"
-									 data-transform_idle="o:1;tO:-20% 50%;"
-
-									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-									 data-start="500"
+								<div class="tp-caption block_black lfl start"
+									 data-x="left" data-hoffset="70"
+									 data-y="195"
+									 data-speed="300"
+									 data-start="1500"
+									 data-easing="easeOutExpo"
 									 data-splitin="none"
 									 data-splitout="none"
-									 data-basealign="slide"
-									 data-responsive_offset="off"
-									 data-responsive="off"
-
-									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+									 data-elementdelay="0.1"
+									 data-endelementdelay="0.1"
+									 data-endspeed="300" >
+									{{val.update_time|dateformat('Y-m-d H:i')}}
 								</div>
 
-								<!-- LAYER NR. 2 -->
-								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
-								   id="slide-28-layer-2"
-								   data-x="176"
-								   data-y="bottom" data-voffset="10"
-								   data-width="['45']"
-								   data-height="['32']"
-								   data-transform_idle="o:1;tO:-20% 50%;"
-								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
-								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
-
-								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-								   data-start="500"
-								   data-splitin="none"
-								   data-splitout="none"
-								   data-actions=''
-								   data-basealign="slide"
-								   data-responsive_offset="off"
-								   data-responsive="off"
-
-								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
-								</a>
-							</li>
-							{%else %}
-							<!-- SLIDE  -->
-							<li data-index="rs-{{val.id}}" data-transition="scaledownfromleft" data-slotamount="default"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="{{val.cover_id|get_pic('m=1,w=100,h=50')}}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="{{val.title|truncate(16, true, '...')}}" data-param1="{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}" data-param2="" data-description="{{val.description|truncate(18, true, '...')}}">
-								<!-- MAIN IMAGE -->
-								<img src="/static/assets/images/1x1.png"  alt=""   data-lazyload="{{val.cover_id|get_pic('m=2,w=528,h=422')}}" data-bgposition="center center" data-bgfit="contain" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-								<!-- LAYERS -->
-
-
-								<!-- LAYER NR. 1 -->
-								<div class="tp-caption Facebook-Likes  "
-									 id="slide-28-layer-1"
-									 data-x="10"
-									 data-y="bottom" data-voffset="10"
-									 data-width="['165']"
-									 data-height="['32']"
-									 data-transform_idle="o:1;tO:-20% 50%;"
-
-									 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-									 data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-									 data-start="500"
+								<div class="tp-caption small_light_white lfl start"
+									 data-x="left" data-hoffset="70"
+									 data-y="250"
+									 data-speed="1000"
+									 data-start="1800"
+									 data-easing="easeOutExpo"
 									 data-splitin="none"
 									 data-splitout="none"
-									 data-basealign="slide"
-									 data-responsive_offset="off"
-									 data-responsive="off"
-
-									 style="z-index: 5;  max-width: 90px; max-width: 32px; max-width: 32px; white-space: normal;text-align:center;"><i class="fa fa-thumbs-o-up"></i> {{val.view}}
+									 data-elementdelay="0.1"
+									 data-endelementdelay="0.1"
+									 data-endspeed="300" >
+									{{val.description|truncate(90, true, "...")|insert_flg("<br>",20)|safe}}
 								</div>
-
-								<!-- LAYER NR. 2 -->
-								<a class="tp-caption Facebook-Likes" href="{{val.name|get_url(val.id)}}" target="_blank"
-								   id="slide-28-layer-2"
-								   data-x="176"
-								   data-y="bottom" data-voffset="10"
-								   data-width="['45']"
-								   data-height="['32']"
-								   data-transform_idle="o:1;tO:-20% 50%;"
-								   data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:500;e:Power1.easeInOut;"
-								   data-style_hover="c:rgba(255, 255, 255, 1.00);bg:rgba(0, 0, 0, 1.00);cursor:pointer;"
-
-								   data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;"
-								   data-transform_out="opacity:0;s:700;e:Power1.easeInOut;s:700;e:Power1.easeInOut;"
-								   data-start="500"
-								   data-splitin="none"
-								   data-splitout="none"
-								   data-actions=''
-								   data-basealign="slide"
-								   data-responsive_offset="off"
-								   data-responsive="off"
-
-								   style="fa fa-linkz-index: 6; min-width: 45px; max-width: 45px; max-width: 32px; max-width: 32px; white-space: normal; color: rgba(0, 0, 0, 1.00);text-align:center;background-color:rgba(255, 255, 255, 1.00);"><i class="fa fa-link"></i>
-								</a>
 							</li>
-							{%endif%}
 							{%endfor%}
-						</ul>
-						<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
-					</div>
-				</div><!-- END REVOLUTION SLIDER -->
 
+
+						</ul>
+
+						<div class="tp-bannertimer"><!-- progress bar --></div>
+					</div>
+				</div>
+				<!-- /REVOLUTION SLIDER -->
 			</div>
 			<div class="col-md-3">
 				<div class="box-light padding-10 ">
@@ -782,100 +710,5 @@ data-plugin-options:
 </div>
 {% endblock %}
 {%block script%}
-<!-- REVOLUTION SLIDER -->
-<script type="text/javascript" src="/static/assets/plugins/slider.revolution.v5/js/jquery.themepunch.revolution.min.js"></script>	<script type="text/javascript">
-    jQuery(document).ready(function() {
-        if(jQuery("#rev_slider_8_1").revolution == undefined){
-            revslider_showDoubleJqueryError("#rev_slider_8_1");
-        }else{
-            revapi8 = jQuery("#rev_slider_8_1").show().revolution({
-                sliderType:"standard",
-                jsFileLocation:plugin_path + "slider.revolution.v5/js/",
-                sliderLayout:"auto",
-                dottedOverlay:"none",
-                delay:9000,
-                navigation: {
-                    keyboardNavigation:"on",
-                    keyboard_direction: "horizontal",
-                    mouseScrollNavigation:"off",
-                    onHoverStop:"off",
-                    touch:{
-                        touchenabled:"on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    }
-                    ,
-                    arrows: {
-                        style:"gyges",
-                        enable:true,
-                        hide_onmobile:false,
-                        hide_onleave:false,
-                        tmp:'',
-                        left: {
-                            h_align:"right",
-                            v_align:"bottom",
-                            h_offset:40,
-                            v_offset:0
-                        },
-                        right: {
-                            h_align:"right",
-                            v_align:"bottom",
-                            h_offset:0,
-                            v_offset:0
-                        }
-                    }
-                    ,
-                    tabs: {
-                        style:"ares",
-                        enable:true,
-                        width:350,
-                        height:80,
-                        min_width:350,
-                        wrapper_padding:0,
-                        wrapper_color:"#f5f5f5",
-                        wrapper_opacity:"1",
-                        tmp:'{% raw %}<div class="tp-tab-content">  <span class="tp-tab-date">{{param1}}</span>  <span class="tp-tab-title">{{title}}</span><span class="tp-tab-description tex-888 size-12">{{description}}</span></div><div class="tp-tab-image"></div>{%endraw%}',
-                        visibleAmount: 10,
-                        hide_onmobile: true,
-                        hide_under:776,
-                        hide_onleave:false,
-                        hide_delay:200,
-                        direction:"vertical",
-                        span:true,
-                        position:"outer-left",
-                        space:0,
-                        h_align:"left",
-                        v_align:"top",
-                        h_offset:0,
-                        v_offset:0
-                    }
-                },
-                gridwidth:800,
-                gridheight:640,
-                lazyType:"single",
-                shadow:0,
-                spinner:"off",
-                stopLoop:"on",
-                stopAfterLoops:0,
-                stopAtSlide:1,
-                shuffle:"off",
-                autoHeight:"off",
-                disableProgressBar:"on",
-                hideThumbsOnMobile:"off",
-                hideSliderAtLimit:0,
-                hideCaptionAtLimit:0,
-                hideAllCaptionAtLilmit:0,
-                debugMode:false,
-                fallbacks: {
-                    simplifyAll:"off",
-                    nextSlideOnWindowFocus:"off",
-                    disableFocusListener:false,
-                }
-            });
-        }
-    });
-</script>
 
 {%endblock%}
