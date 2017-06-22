@@ -321,8 +321,39 @@ export default class extends Base {
     //    3、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。
     //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
     //TODO
-    //计算商品的总重量
-    real_freight = await this.model("fare").getfare(check_goods,null,this.user.uid);
+      //拿到运费模板
+      let farr = [];
+      for(let cg of check_goods){
+        cg.fare = await this.model("document_shop").where({id:cg.product_id}).getField('fare',true);
+        if(cg.fare !=0){
+          let isd = await this.model("fare").where({id:cg.fare}).getField('is_default',true);
+          if(isd==1){
+            cg.fare=0;
+          }
+        }
+        farr.push(cg.fare);
+      }
+     //去重
+      farr=think._.uniq(farr);
+      console.log(farr);
+      let cgarr=[];
+      for(let fa of farr){
+        let fobj = {};
+        fobj.id = fa;
+        fobj.cg=think._.filter(check_goods, ['fare', fa]);
+        cgarr.push(fobj);
+      }
+      think.log(cgarr);
+      //计算运费模板
+      let rarr =[];
+    for(let r of cgarr){
+        let rf = await this.model("fare").getfare(r.cg,null,this.user.uid,r.id);
+        rarr.push(rf);
+    }
+      //console.log(rarr);
+      real_freight = think._.sum(rarr);
+     // console.log(real_freight);
+      // real_freight = await this.model("fare").getfare(check_goods,null,this.user.uid);
     this.assign("real_freight",real_freight);
     //订单促销优惠信息
     //TODO
@@ -330,7 +361,7 @@ export default class extends Base {
 
     //订单金融 实付金额+邮费-订单优惠金额
     //TODO
-    // console.log(real_amount);
+    //console.log(real_amount);
     order_amount =Number(real_amount) + Number(real_freight)
     this.assign("order_amount",order_amount);
 
