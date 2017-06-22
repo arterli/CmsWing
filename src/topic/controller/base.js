@@ -20,11 +20,6 @@ export default class extends think.controller.base {
       //当前登录状态
       this.is_login = await this.islogin();
 
-    //判断公众账号类型
-      if(this.setup.wx_type == 4){
-      await this.action("uc/weixin", "oauth");
-      }
-
       //关闭站点
       if(this.setup.WEB_SITE_CLOSE==0){
           let isshow = await this.session('userInfo');
