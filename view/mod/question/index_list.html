@@ -239,7 +239,7 @@ CLASSES:
                             {%if k.pic==0%}
                             <i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
                             {%else%}
-                            <img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
+                            <img class="thumbnail pull-left" src="{{k.pic|get_pic('m=1,w=65,h=65')}}" width="60" height="60" alt="" />
                             {%endif%}
                             <h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
                                 <span class="txt">{{k.keyname}}</span>

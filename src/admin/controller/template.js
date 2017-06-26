@@ -83,9 +83,9 @@ export default class extends Base {
        //console.log(this.adminmenu["10"]);
        this.meta_title= '首页模板';
 
-       console.log(templateFile)
-       //let tempcon = fs.readFileSync(templateFile,"utf8");
-
+       //console.log(templateFile)
+       let tempcon = fs.readFileSync(templateFile,"utf8");
+       temp.html = tempcon;
        console.log(temp);
        this.assign('temp',temp);
        return this.display();
