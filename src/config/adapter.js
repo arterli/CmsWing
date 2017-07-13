@@ -33,7 +33,7 @@ exports.model = {
     logger: msg => think.logger.info(msg)
   },
   mysql: {
-    database: 'cmswing3',
+    database: 'cmswing1.1',
     prefix: 'cmswing_',
     encoding: 'UTF8MB4_GENERAL_CI',
     host: '127.0.0.1',

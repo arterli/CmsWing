@@ -71,7 +71,7 @@ module.exports = class extends Home {
         await this.modInfo();
         const list = this.controller('mod/'+this.mod.name+'/index');
         return list.listAction();
-        //await this.action(this.mod.name+'/index',"list")
+        // await this.action(this.mod.name+'/index',"list")
     }
     catch (err)
     {

@@ -18,6 +18,9 @@ module.exports =  class extends Index {
    * @returns {*}
    */
  async listAction(){
+     await this.allInfo();
+      //加载模块公共信息
+      await this.modInfo();
     //跨域
     let method = this.ctx.method.toLowerCase();
     if(method === "options"){
@@ -26,8 +29,7 @@ module.exports =  class extends Index {
       return;
     }
     this.setCorsHeader();
-    //加载模块公共信息
-      await this.modInfo();
+
     //获取栏目信息
     let cate = this.m_cate;
 

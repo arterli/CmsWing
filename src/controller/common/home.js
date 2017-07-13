@@ -7,7 +7,15 @@
 // +----------------------------------------------------------------------
 module.exports = class extends think.Controller {
     async __before() {
+        //加载全局
+        await this.allInfo();
 
+    }
+
+    /**
+     * 全局
+     */
+   async allInfo(){
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);

@@ -6,7 +6,6 @@
     "start": "node development.js"
   },
   "dependencies": {
-    "geetest": "^4.1.2",
     "gt3-sdk": "^2.0.0",
     "lodash": "4.x.x",
     "moment": ">= 2.9.0",
@@ -14,12 +13,12 @@
     "think-cache-file": "~1.0.8",
     "think-model": "*",
     "think-session-file": "^1.0.5",
-    "think-view": "^1.0.0",
+    "think-view": "^1.0.8",
     "think-view-nunjucks": "^1.0.1",
     "thinkjs": "next"
   },
   "devDependencies": {
-    "think-watcher": "^3.0.0"
+    "think-watcher": "^3.0.3"
   },
   "repository": "",
   "license": "MIT",
