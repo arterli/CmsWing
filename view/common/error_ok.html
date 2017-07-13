@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8" />
+    <title>跳转提示 | CmsWing</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/app.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script src="/static/admin/js/ie/html5shiv.js"></script>
+    <script src="/static/admin/js/ie/respond.min.js"></script>
+    <script src="/static/admin/js/ie/excanvas.js"></script>
+    <![endif]-->
+</head>
+<body class="bg-light dk">
+<section id="content">
+    <div class="row m-n">
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="text-center m-b-lg">
+                <h1 class="h text-white animated fadeInDownBig"  >:) <!--:(--></h1>
+            </div>
+            <div class="alert alert-success text-md">
+
+                <i class="fa fa-exclamation-circle "></i> {{message}}
+            </div>
+            <div class="list-group auto m-b-sm m-b-lg">
+                <div  class="list-group-item">
+
+                    <i class="fa fa-fw fa-history icon-muted"></i> 页面自动
+                    <a id="href" href="{{ctx.referrer()}}" class="text-info">跳转</a> 等待时间： <b id="wait" class="text-danger">6</b>
+                </div>
+                <!--<a href="user/register" class="list-group-item">-->
+                <!--<i class="fa fa-chevron-right icon-muted"></i>-->
+                <!--<i class="fa fa-fw fa-user icon-muted"></i> 还没账号，立即注册！-->
+                <!--</a>-->
+                <a href="/index" class="list-group-item">
+                    <i class="fa fa-chevron-right icon-muted"></i>
+                    <!--<span class="badge bg-info lt">021-215-584</span>-->
+                    <i class="fa fa-fw fa-home icon-muted"></i> 返回首页
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- footer -->
+<footer id="footer">
+    <div class="text-center padder clearfix">
+        <p>
+            <small> <a href="http://www.cmswing.com" target="_blank" class="badge ">CmsWing内容管理框架 [cmswing.com]</a> <br>&copy;2005 - <script>document.write(new Date().getFullYear())</script></small>
+        </p>
+    </div>
+</footer>
+<!-- / footer -->
+<script src="/static/admin/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/admin/js/bootstrap.js"></script>
+<!-- App -->
+<script src="/static/admin/js/app.js"></script>
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/admin/js/app.plugin.js"></script>
+<script>
+    (function(){
+        var wait = document.getElementById('wait'),href = document.getElementById('href').href,url = document.URL;
+        if(href == url){
+            href = '/index';
+        }
+        var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+
+</script>
+
+</body>
+</html>

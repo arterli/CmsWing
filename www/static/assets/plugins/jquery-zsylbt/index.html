@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>超酷响应式带缩略图的jQuery轮播图插件</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" type="text/css" href="css/pgwslideshow.css">
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="jq22-container">
+		<header class="jq22-header">
+			<h1>超酷响应式带缩略图的jQuery轮播图插件 <span>Responsive Slideshow / Gallery / Carousel plugin for jQuery and Zepto</span></h1>
+			
+		</header>
+		<div class="jq22-content bgcolor-3">
+			<ul class="pgwSlideshow">
+			    <li><img src="img/san-francisco.jpg" alt="San Francisco, USA" data-description="Golden Gate Bridge"></li>
+			    <li><img src="img/rio.jpg" alt="Rio de Janeiro, Brazil"></li>
+			    <li><img src="img/london.jpg" alt="" data-large-src="img/london.jpg"></li>
+			    <li><img src="img/new-york.jpg" alt=""></li>
+			    <li><img src="img/new-delhi.jpg" alt=""></li>
+			    <li><img src="img/paris.jpg" alt=""></li>
+			    <li><img src="img/sydney.jpg" alt=""></li>
+			    <li><img src="img/tokyo.jpg" alt=""></li>
+			    <li><img src="img/honk-kong.jpg" alt=""></li>
+			    <li><img src="img/dakar.jpg" alt=""></li>
+			    <li><img src="img/toronto.jpg" alt=""></li>
+			    <li>
+			        <a href="http://en.wikipedia.org/wiki/Monaco" target="_blank">
+			            <img src="img/monaco.jpg" alt="Monaco">
+			        </a>
+			    </li>
+			</ul>
+			<h3 class="center">缩放你的浏览器查看该幻灯片的响应式效果！</h3>
+		</div>
+		
+	</div>
+	
+	<script src="http://libs.useso.com/js/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/pgwslideshow.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('.pgwSlideshow').pgwSlideshow({
+		    	transitionEffect:'fading',
+		    	autoSlide:true
+		    });
+		});
+	</script>
+</body>
+</html>

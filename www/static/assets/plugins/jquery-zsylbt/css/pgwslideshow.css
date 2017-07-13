@@ -1,0 +1,210 @@
+/**
+ * PgwSlideshow - Version 2.0
+ *
+ * Copyright 2014, Jonathan M. Piat
+ * http://pgwjs.com - http://pagawa.com
+ *
+ * Released under the GNU GPLv3 license - http://opensource.org/licenses/gpl-3.0
+ */
+.pgwSlideshow {
+    width: 100%;
+    background: #333;
+    display: none;
+}
+
+.pgwSlideshow a{
+    color: #fff;
+}
+
+.pgwSlideshow .ps-current {
+    text-align: center;
+    position: relative;
+    min-height: 150px;
+    overflow: hidden;
+}
+
+.pgwSlideshow .ps-current > ul  > li {
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    display: block;
+}
+
+.pgwSlideshow .ps-current > ul  > li img {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+}
+
+.pgwSlideshow .ps-caption {
+    background: rgba(0, 0, 0, 0.5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000')";
+    text-align: left;
+    font-size: 1rem;
+    color: #fff;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+    display: none;
+}
+
+.pgwSlideshow .ps-caption span {
+    padding: 7px;
+    display: inline-block;
+}
+
+.pgwSlideshow .ps-list {
+    border-top: 1px solid #555;
+    box-shadow: 0 10px 10px -5px #333 inset;
+    background: #555;
+    overflow: hidden;
+    position: relative;
+}
+
+.pgwSlideshow .ps-list ul {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    left: 0;
+}
+
+.pgwSlideshow .ps-list li {
+    float: left;
+}
+
+.pgwSlideshow .ps-list li .ps-item {
+    display: block;
+    margin: 15px 8px;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+.pgwSlideshow .ps-list li img {
+    display: block;
+    border: 1px solid #777;
+    width: 80px;
+    height: 80px;
+}
+
+.pgwSlideshow .ps-list li .ps-item.ps-selected {
+    float: left;
+    opacity: 1;
+    border: 4px solid #fff;
+    overflow: hidden;
+}
+
+.pgwSlideshow .ps-list li .ps-item.ps-selected img {
+    margin: -4px;
+}
+
+.pgwSlideshow .ps-prevIcon {
+    border-color:transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    display: block;
+}
+
+.pgwSlideshow .ps-nextIcon {
+    border-color:transparent #fff transparent;
+    border-style: solid;
+    border-width: 10px 0 10px 10px;
+    display: block;
+}
+
+.pgwSlideshow .ps-current .ps-prev {
+    background: rgba(0, 0, 0, 0.5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000')";
+    border: 1px solid #777;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    position: absolute;
+    padding: 20px 20px 20px 15px;
+    left: 0;
+    top: 45%;
+    cursor: pointer;
+}
+
+.pgwSlideshow .ps-current .ps-next {
+    background: rgba(0, 0, 0, 0.5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#99000000', endColorstr='#99000000')";
+    border: 1px solid #777;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    position: absolute;
+    padding: 20px 15px 20px 20px;
+    right: 0;
+    top: 45%;
+    cursor: pointer;
+}
+
+.pgwSlideshow .ps-list .ps-prev {
+    background: rgba(0, 0, 0, 0.5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bb000000', endColorstr='#bb000000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bb000000', endColorstr='#bb000000')";
+    border: 1px solid #777;
+    border-left: 0;
+    border-radius: 0 4px 4px 0;
+    padding: 20px 15px 20px 12px;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: 1000;
+    display: none;
+}
+
+.pgwSlideshow .ps-list .ps-next {
+    background: rgba(0, 0, 0, 0.5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bb000000', endColorstr='#bb000000');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#bb000000', endColorstr='#bb000000')";
+    border: 1px solid #777;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    padding: 20px 12px 20px 15px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 25px;
+    z-index: 1000;
+    display: none;
+}
+
+/*
+ * The media-queries are not used because IE8 doesn't support them.
+ */
+.pgwSlideshow.narrow .ps-list li img {
+    width: 60px;
+    height: 60px;
+}
+
+.pgwSlideshow.narrow .ps-current .ps-prev {
+    padding: 15px 15px 15px 12px;
+    top: 40%;
+}
+
+.pgwSlideshow.narrow .ps-current .ps-next {
+    padding: 15px 12px 15px 15px;
+    top: 40%;
+}
+
+.pgwSlideshow.narrow .ps-list .ps-prev {
+    padding: 15px 12px 15px 10px;
+    top: 20px;
+}
+
+.pgwSlideshow.narrow .ps-list .ps-next {
+    padding: 15px 10px 15px 12px;
+    top: 20px;
+}
+
+.pgwSlideshow.narrow .ps-caption {
+    font-size: 0.8rem;
+    padding: 8px;
+}

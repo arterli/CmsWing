@@ -1,0 +1,196 @@
+/*-----------------------------------------------------------------------------
+
+- Revolution Slider 5.0 Navigatin Skin Style  -
+
+ HEBE SKIN
+
+author:  ThemePunch
+email:      info@themepunch.com
+website:    http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+/* ARROWS */
+.hebe.tparrows {
+  cursor:pointer;
+  background:#fff;
+  min-width:70px;
+    min-height:70px;
+  position:absolute;
+  display:block;
+  z-index:100;
+}
+.hebe.tparrows:hover {
+}
+.hebe.tparrows:before {
+  font-family: "revicons";
+  font-size:30px;
+  color:#aaa;
+  display:block;
+  line-height: 70px;
+  text-align: center;
+  -webkit-transition: color 0.3s;
+  -moz-transition: color 0.3s;
+  transition: color 0.3s;
+  z-index:2;
+  position:relative;
+   background:#fff;
+  min-width:70px;
+    min-height:70px;
+}
+.hebe.tparrows.tp-leftarrow:before {
+  content: "\e824";
+}
+.hebe.tparrows.tp-rightarrow:before {
+  content: "\e825";
+}
+.hebe.tparrows:hover:before {
+ color:#000;
+      }
+.tp-title-wrap { 
+  position:absolute;
+  z-index:0;
+  display:inline-block;
+  background:#000;
+  background:rgba(0,0,0,0.75);
+  min-height:60px;
+  line-height:60px;
+  top:-10px;
+  margin-left:0px;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transform:scaleX(0);  
+  -webkit-transform:scaleX(0);  
+  transform-origin:0% 50%; 
+   -webkit-transform-origin:0% 50%;
+}
+ .hebe.tp-rightarrow .tp-title-wrap { 
+   right:0px;
+   -webkit-transform-origin:100% 50%;
+ }
+.hebe.tparrows:hover .tp-title-wrap {
+  transform:scaleX(1);
+  -webkit-transform:scaleX(1);
+}
+.hebe .tp-arr-titleholder {
+  position:relative;
+  text-transform:uppercase;
+  color:#fff;
+  font-weight:600;
+  font-size:12px;
+  line-height:90px;
+  white-space:nowrap;
+  padding:0px 20px 0px 90px;
+}
+
+.hebe.tp-rightarrow .tp-arr-titleholder {
+   margin-left:0px; 
+   padding:0px 90px 0px 20px;
+ }
+
+.hebe.tparrows:hover .tp-arr-titleholder {
+   transform:translateX(0px);
+   -webkit-transform:translateX(0px);
+  transition-delay: 0.1s;
+  opacity:1;
+}
+
+.hebe .tp-arr-imgholder{
+      width:90px;
+      height:90px;
+      position:absolute;
+      left:100%;
+      display:block;
+      background-size:cover;
+      background-position:center center;
+  	 top:0px; right:-90px;
+    }
+.hebe.tp-rightarrow .tp-arr-imgholder{
+        right:auto;left:-90px;
+      }
+
+/* BULLETS */
+.hebe.tp-bullets {
+}
+.hebe.tp-bullets:before {
+  content:" ";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:transparent;
+  padding:10px;
+  margin-left:-10px;margin-top:-10px;
+  box-sizing:content-box;
+}
+
+.hebe .tp-bullet {
+  width:3px;
+  height:3px;
+  position:absolute;
+  background:#fff;  
+  cursor: pointer;
+  border:5px solid #222;
+  border-radius:50%;
+  box-sizing:content-box;
+  -webkit-perspective:400;
+  perspective:400;
+  -webkit-transform:translateZ(0.01px);
+  transform:translateZ(0.01px);
+   transition:all 0.3s;
+}
+.hebe .tp-bullet:hover,
+.hebe .tp-bullet.selected {
+  background:#222;
+  border-color:#fff;
+}
+
+.hebe .tp-bullet-image {
+  position:absolute;
+  top:-90px; left:-40px;
+  width:70px;
+  height:70px;
+  background-position:center center;
+  background-size:cover;
+  visibility:hidden;
+  opacity:0;
+  transition:all 0.3s;
+  -webkit-transform-style:flat;
+  transform-style:flat;
+  perspective:600;
+  -webkit-perspective:600;
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  transform-origin:50% 100%;
+  -webkit-transform-origin:50% 100%;
+border-radius:6px;
+  
+  
+}
+.hebe .tp-bullet:hover .tp-bullet-image {
+  display:block;
+  opacity:1;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  visibility:visible;
+    }
+.hebe .tp-bullet-title {
+}
+
+
+/* TABS */
+.hebe .tp-tab-title {
+    color:#a8d8ee;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    font-family:"Roboto Slab"
+    margin-bottom:5px;
+}
+
+.hebe .tp-tab-desc {
+	font-size:18px;
+    font-weight:400;
+    color:#fff;
+    line-height:25px;
+	font-family:"Roboto Slab";
+}
+
+

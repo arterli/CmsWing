@@ -1,0 +1,386 @@
+{% extends "./inc/base.html" %}
+
+{% block content %}
+<!--
+           PAGE HEADER
+
+           CLASSES:
+               .page-header-xs	= 20px margins
+               .page-header-md	= 50px margins
+               .page-header-lg	= 80px margins
+               .page-header-xlg= 130px margins
+               .dark			= dark page header
+
+               .shadow-before-1 	= shadow 1 header top
+               .shadow-after-1 	= shadow 1 header bottom
+               .shadow-before-2 	= shadow 2 header top
+               .shadow-after-2 	= shadow 2 header bottom
+               .shadow-before-3 	= shadow 3 header top
+               .shadow-after-3 	= shadow 3 header bottom
+       -->
+<section class="page-header page-header-xs">
+    <div class="container">
+        {#
+        <h1>{{category.title}}</h1>
+        #}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页 </a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-9 col-sm-9">
+                <!--
+                                            controlls-over		= navigation buttons over the image
+                                            buttons-autohide 	= navigation buttons visible on mouse hover only
+
+                                            data-plugin-options:
+                                                "singleItem": true
+                                                "autoPlay": true (or ms. eg: 4000)
+                                                "navigation": true
+                                                "pagination": true
+                                                "transitionStyle":"fadeUp" (fade,backSlide,goDown,fadeUp)
+                                        -->
+                <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"singleItem": true, "autoPlay": true, "navigation": true, "pagination": true, "transitionStyle":"fade"}'>
+                    {% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+                    {% for v in slider%}
+                    <a href="{{v.name|get_url(v.id)}}">
+                        <img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=848,h=300')}}" alt="{{v.title}}">
+                    </a>
+                    {%endfor%}
+                </div>
+
+                <ul class="nav nav-tabs nav-button-tabs">
+                    <!-- side navigation -->
+                    {%column data="cates",cid=category.id%}
+                    <li class="active"><a href="#taball" data-toggle="tab">全部</a></li>
+                    {%for val in cates%}
+                    <li ><a href="#tab{{val.id}}" data-toggle="tab">{{val.name}}</a></li>
+                    {%endfor%}
+
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="taball">
+                        {% topic data = "list",limit= "10",cid=category.id,issub=1%}
+                        {% for val in list %}
+                        {% set categoryname = val.category_id|get_cate %}
+                        <!-- POST ITEM -->
+                        <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+                            <!-- IMAGE -->
+                            {% if val.cover_id>0 %}
+                            <figure class="blog-item-small-image margin-bottom-0">
+                                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+                            </figure>
+                            {% endif %}
+                            <div class="blog-item-small-content">
+                                <h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+                                <ul class="blog-post-info list-inline padding-bottom-10">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o"></i>
+                                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-comment-o"></i>
+                                            <span class="font-lato">{{val.view}} </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-folder-open-o"></i>
+
+                                        <a class="category" href="{{categoryname.url}}">
+                                            <span class="font-lato">{{categoryname.name}}</span>
+                                        </a>
+                                        {#
+                                        <a class="category" href="#">
+                                            <span class="font-lato">Photography</span>
+                                        </a>
+                                        #}
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user"></i>
+                                            <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <p>{{val.description|truncate(90, true, "...")}}</p>
+                            </div>
+
+                        </div>
+                        <!-- /POST ITEM -->
+                        {%endfor%}
+
+                    </div>
+                    {%for v in cates%}
+                    <div class="tab-pane fade  " id="tab{{v.id}}">
+                        {% topic data = "list",limit= "10",cid=v.id%}
+                        {% for val in list %}
+                        {% set categoryname = val.category_id|get_cate %}
+                        <!-- POST ITEM -->
+                        <div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+                            <!-- IMAGE -->
+                            {% if val.cover_id>0 %}
+                            <figure class="blog-item-small-image margin-bottom-0">
+                                <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+                            </figure>
+                            {% endif %}
+                            <div class="blog-item-small-content">
+                                <h2><a href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h2>
+
+                                <ul class="blog-post-info list-inline padding-bottom-10">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o"></i>
+                                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-comment-o"></i>
+                                            <span class="font-lato">{{val.view}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-folder-open-o"></i>
+
+                                        <a class="category" href="{{categoryname.url}}">
+                                            <span class="font-lato">{{categoryname.name}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-user"></i>
+                                            <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <p>{{val.description|truncate(90, true, "...")}}</p>
+                            </div>
+
+                        </div>
+                        <!-- /POST ITEM -->
+                        {%endfor%}
+                        <!-- PAGINATION -->
+                        <div class="text-center">
+                            <a href="{{v.url}}" class="btn btn-reveal btn-default">
+                                <i class="fa fa-plus"></i>
+                                <span>查看全部内容</span>
+                            </a>
+                        </div>
+                        <!-- /PAGINATION -->
+                    </div>
+                    {%endfor%}
+
+                </div>
+
+            </div>
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-30">
+                    <form action="" method="get" class="widget_search">
+                        <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+
+                <hr />
+
+                <!-- side navigation -->
+                {%column data="cate",cid=category.id,isnum="1"%}
+                {%if cate%}
+                <div class="side-nav margin-bottom-20 margin-top-20">
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>{{category.title}} 子分类</h4>
+                    </div>
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                        {%for val in cate%}
+                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <!-- /side navigation -->
+                </div>
+                {%endif%}
+
+
+
+                <!-- JUSTIFIED TAB -->
+                <div class="tabs nomargin-top hidden-xs margin-bottom-10">
+
+                    <!-- tabs -->
+                    <ul class="nav nav-tabs nav-bottom-border nav-justified">
+                        <li class="active">
+                            <a href="#tab_1" data-toggle="tab">
+                                最热
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#tab_2" data-toggle="tab">
+                                最新
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- tabs content -->
+                    <div class="tab-content margin-bottom-0 margin-top-10">
+
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!--topic tags test-->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            <!--返回数据赋值给变量data,遍历data-->
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+
+                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+
+                    </div>
+
+                </div>
+                <!-- JUSTIFIED TAB -->
+
+
+                <!-- TAGS -->
+                <h3 class="hidden-xs size-16 margin-bottom-10">标签</h3>
+                <div class="hidden-xs margin-bottom-20">
+                    {% keywords data ="kws",type="hot"%}
+                    {%for key in kws%}
+                    <a class="tag" href="{{key.url}}">
+                        <span class="txt">{{key.keyname}}</span>
+                        <span class="num">{{key.videonum}}</span>
+                    </a>
+                    {%endfor%}
+                </div>
+
+                {#
+                <!-- TWIITER WIDGET -->
+                <h3 class="hidden-xs size-16 margin-bottom-10">TWITTER FEED</h3>
+                <ul class="hidden-xs widget-twitter margin-bottom-60" data-php="php/twitter/tweet.php" data-username="stepofweb" data-limit="3">
+                    <li></li>
+                </ul>
+
+                <!-- FEATURED VIDEO -->
+                <h3 class="hidden-xs size-16 margin-bottom-10">FEATURED VIDEO</h3>
+                <div class="hidden-xs embed-responsive embed-responsive-16by9 margin-bottom-60">
+                    <iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
+                </div>
+
+                <!-- FLICKR WIDGET -->
+                <h3 class="hidden-xs size-16 margin-bottom-10">FLICKR PHOTO</h3>
+                <div class="hidden-xs widget-flickr clearfix lightbox margin-bottom-60" data-id="37304598@N02" data-limit="16" data-plugin-options='{"delegate": "a", "gallery": {"enabled": true}}'></div>
+
+
+                <!-- FACEBOOK -->
+                <iframe class="hidden-xs" src="http://player.youku.com/embed/XOTA3NzI0NDI4" style="border:none; overflow:hidden; width:263px; height:258px;"></iframe>
+                #}
+
+                <hr />
+
+
+                <!-- SOCIAL ICONS -->
+                <div class="hidden-xs margin-top-30 margin-bottom-60">
+                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                        <i class="icon-rss"></i>
+                        <i class="icon-rss"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}

@@ -1,0 +1,269 @@
+{% extends "../../topic/inc/base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<style>
+    .timeline .timeline-item{min-height: 100px}
+</style>
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs parallax parallax-2 dark" style="background-image: url(/static/assets/images/wall3-min.jpg); background-position: 50% 59px;" >
+    <div class="overlay dark-5"><!-- dark overlay [1 to 9 opacity] --></div>
+    <div class="container">
+
+        <div class="testimonial clearfix">
+            <div class="pull-left">
+                <div class="row"><!-- item -->
+                    <div class="col-md-2"><!-- company logo -->
+                        <img src="{{info.pin|get_pic('m=1,w=241,h=241')}}" class="img-responsive thumbnail" alt="company logo">
+                    </div>
+                    <div class="col-md-10"><!-- company detail -->
+                        <h4 class="margin-bottom-10 size-25 width-700">{{info.title}}</h4>
+                        <ul class="list-inline">
+                            <li><i class="fa fa-globe text-success"></i>网址: <a class="text-success" href="#">http://{{http.hostname}}/mod/artist/{{info.pinyin}}</a></li>
+                            <li><i class="fa fa-briefcase"></i>作品: <span class="text-warning">0</span></li>
+                            <li><i class="fa fa-eye"></i>浏览: <span class="text-warning">{{info.view}}</span></li>
+                            <li><i class="fa fa-money"></i>润格: <span class="text-warning">{{info.runge}}</span>元/平尺</li>
+                            <li><i class="fa fa-opencart"></i>已售: <span class="text-warning">0</span>幅</li>
+                        </ul>
+                        <p class="margin-bottom-10">{{info.description}}</p>
+                        {%if focus.key_id%}
+                        <a class="btn btn-default  " style="z-index: 10" >
+                            取消关注 <span class="badge">{{topic.focus_count}}</span>
+                        </a>
+
+                        {%else%}
+                        <a href="#" class="btn btn-3d btn-teal  "><i class="glyphicon glyphicon-plus"></i> 关注 <span class="badge">{{info.focus_count}}</span></a>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <ul class="page-header-tabs list-inline">
+            <li ><a href="/mod/author/index/detail/id/{{info.id}}">{{info.title}}介绍</a></li>
+            <li {%if http.get('model_id')==4%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/4"> {{info.title}}作品</a></li>
+            <li  {%if http.get('model_id')==10%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/10"> {{info.title}}展览</a></li>
+            <li {%if http.get('model_id')==2%}class="active"{%endif%}><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/2"> {{info.title}}新闻</a></li>
+        </ul>
+        <!-- /page tabs -->
+    </div>
+</section>
+
+<!-- -->
+<section >
+    <div class="container">
+        {%if http.get('model_id')==2%}
+        <div class="text-left">
+            <ul class="nav nav-pills mix-filter">
+
+                <li class="filter active"><a href="/mod/author/index/info/author_id/{{info.id}}/model_id/{{http.get('model_id')}}">全部</a></li>
+
+            </ul>
+
+            <div class="btn-group btn-group-sm pull-right">
+                <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="/mod/author/index/info/author_id/{{info.id}}/model_id/{{http.get('model_id')}}/order/{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
+                <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="/mod/author/index/info/author_id/{{info.id}}/model_id/{{http.get('model_id')}}/order/{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
+            </div>
+
+            <div class="divider divider-circle divider-center margin-top-0"><!-- divider -->
+                <a href="#"><i class="fa fa-rss"></i></a>
+            </div>
+        </div>
+        <div class="box-light margin-bottom-20" style="margin-top: -42px"><!-- .box-light OR .box-dark -->
+
+            <div class="box-inner">
+
+                <div class="timeline"><!-- .timeline-inverse = right position [left on RTL] -->
+                   {%for val in list.data%}
+
+                    <!-- ITEM -->
+                    <div class="timeline-item timeline-item-bordered margin-bottom-20">
+                        <!-- timeline entry -->
+                        <div class="timeline-entry rounded"><!-- .rounded = entry -->
+                            {{val.create_time|moment('Do')}}<span>{{val.create_time|moment('MMMM')}}</span>
+                            <div class="timeline-vline"><!-- vertical line --></div>
+                        </div>
+                        <!-- /timeline entry -->
+
+                        <h2 class=" bold"><a href="{{val.name|get_url(val.id)}}" target="_blank">{{val.title}}</a> </h2>
+                        <div class="clearfix "><!-- discussion item -->
+                            {%if val.cover_id%}
+                            <img class=" pull-left" src="{{val.cover_id|get_pic('m=1,w=80,h=60')}}" width="80" height="60" alt="">
+                            {%endif%}
+                            <h4 class="size-12 nomargin noborder nopadding ">发布时间: {{val.create_time|moment('YYYY-MM-DD HH:mm:ss')}}</h4>
+                            <span class="size-13 text-muted">
+													{{val.description|truncate(130, true, "...")}}
+												</span>
+                        </div>
+
+                    </div>
+                    <!-- /ITEM -->
+                   {%endfor%}
+
+
+                </div>
+
+            </div>
+
+        </div>
+        {%elif http.get('model_id')==4%}
+        <div class="panel panel-default margin-bottom-20">
+            <div class="panel-body padding-10">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        共有 <span class="label label-light">{{list.count}}</span> 幅作品
+                    </div>
+
+                    <div class="col-md-10 col-sm-10 ">
+                        <div class="btn-group btn-group-sm pull-right" style="margin-top: -4px;margin-bottom: -10px">
+                            <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="/mod/author/index/info/author_id/{{info.id}}/model_id/{{http.get('model_id')}}/order/{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
+                            <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="/mod/author/index/info/author_id/{{info.id}}/model_id/{{http.get('model_id')}}/order/{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-4">
+            {% for item in list.data%}
+            {% set pic = item.pics|strToArray%}
+            {% set stock = item.id|getmodelfield(item.model_id,'total_stock') %}
+            <div class="portfolio-item design"><!-- item -->
+
+                <div class="item-box bg-white">
+                    <figure>
+									<span class="item-hover ">
+										<span class="overlay dark-5"></span>
+										<span class="inner">
+
+											<!-- lightbox -->
+											<a class="ico-rounded lightbox" href="{{pic[0]|get_pic('')}}" data-plugin-options='{"type":"image"}'>
+												<span class="fa fa-plus size-20"></span>
+											</a>
+
+                                            <!-- details -->
+											<a class="ico-rounded" href="{{item.name|get_url(item.id)}}" target="_blank">
+												<span class="glyphicon glyphicon-shopping-cart size-20"></span>
+											</a>
+
+										</span>
+									</span>
+                        {% if pic|length >1%}
+                        <!-- carousel -->
+                        <div class="flexslider bg-black" data-arrowNav="false" data-slideshowSpeed="3000">
+                            <ul class="slides">
+                                {%for img in pic%}
+                                <!-- Slide 1 -->
+                                <li>
+                                    <a href="#">
+                                        <img class="img-responsive" src="{{img|get_pic('m=2,w=365')}}"  alt="">
+                                    </a>
+                                </li>
+                                {%endfor%}
+
+                            </ul>
+                        </div>
+                        <!-- /carousel -->
+                        {%else%}
+                        <img class="img-responsive" src="{{pic[0]|get_pic('m=2,w=365')}}" alt="">
+                        {% endif %}
+
+                    </figure>
+
+                    <div class="item-box-desc">
+                        <h3>{{item.title|truncate(15, true, "...")}}</h3>
+                        <!-- price -->
+                        <div class="shop-item-price text-danger f-16">
+                            ¥{{item.price|get_price_format('1')}}
+                            {% if item.price|get_price_format('2') %}<span class="line-through f-14">¥{{item.price|get_price_format('2')}}</span>{%endif%}
+
+                        </div>
+                        <!-- /price -->
+                        <ul class="list-inline categories nomargin">
+                            <li><a href="/mod/artist/{{item.author_id}}.html" target="_blank"><i class="glyphicon glyphicon-user"></i> {{item.author_id|getmodelfield(9,'title')}}</a></li>
+                            <li><a href="#">Design</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div><!-- /item -->
+            {%endfor%}
+
+        </div>
+        {%elif http.get('model_id')==10%}
+        <div class="row">
+        {% for val in list.data %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="btn btn-danger btn-xs pull-right" target="_blank" href="{{val.name|get_url(val.id)}}">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</a>
+                    <h2 class="panel-title">{{val.title}}</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a class="btn btn-danger btn-xs pull-right thumbnail nomargin" style="display: block" target="_blank" href="{{val.name|get_url(val.id)}}">
+                                <img class="" src="{{val.cover_id|get_pic('m=1,w=200,h=270')}}" width="200" height="270" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-7" style="margin-left: -15px; padding-right: 0"><div class="clearfix margin-bottom-6"><!-- squared item -->
+                            <img class="thumbnail pull-left" style="margin-right: 10px" src="{{info.pin|get_pic('m=1,w=40,h=40')}}" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="/mod/artist/{{info.pinyin}}" target="_blank">{{info.title}}</a></h4>
+                            <span class="size-12 text-muted">{{info.description|truncate(20, true, "...")}}</span>
+                        </div><ul class="list-group margin-bottom-0">
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d H:i') }}</li>
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d H:i')}}</li>
+                            <li class="list-group-item"><span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}</li>
+                            <li class="list-group-item "><span style="width: 60px"><i class="fa fa-globe"></i> 官网:</span> <a class="text-success" href="/mod/artist/{{author.pinyin}}" target="_blank">{{info.title}}官网</a></li>
+                            <li class="list-group-item active text-center"><a class="text-white" target="_blank" href="{{val.name|get_url(val.id)}}">查看详情>></a></li>
+                        </ul></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+        </div>
+        {%endif%}
+        <!-- PAGINATION -->
+        <div class="text-center">
+            <!-- Pagination Default -->
+            {{pagination | safe}}
+            <!-- /Pagination Default -->
+        </div>
+        <!-- /PAGINATION -->
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script>
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

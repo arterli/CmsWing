@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+
 # Runtime data
 pids
 *.pid
@@ -24,17 +25,14 @@ node_modules/
 
 # IDE config
 .idea
-.vscode
+
 # output
 output/
 output.tar.gz
 
-#typings
-typings/
-
-#app
-app/
 runtime/
+app/
+
 # OS generated files #
 ######################
 .DS_Store

@@ -1,0 +1,261 @@
+/**.hs_pre_menu_list
+ * 自定义菜单样式 
+ */
+
+body {font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "\9ED1\4F53", Arial, sans-serif;}
+a {text-decoration: none;}
+ul {list-style: none;padding-left: 0px;}
+.hs_save_btn {
+	background-color:#44b549 ;
+	border: 0px;
+	padding:10px;
+	border-radius: 3px;
+	width: 150px;
+	letter-spacing: 9px;
+	text-align: center;
+	color: white;
+	font-size: 19px;
+}
+.hs_build_menu_wx {
+	border: 0px;
+	padding:10px;
+	border-radius: 3px;
+	width: 200px;
+	letter-spacing: 9px;
+	text-align: center;
+	color: white;
+	background-color: #44b549;
+	font-size: 19px;
+}
+.hs_father_menu_tips{
+	position: relative;
+	bottom: 163px;
+	color: black;
+}
+.hs_col_main {
+	vertical-align: top;
+	word-wrap: break-word;
+	word-break: break-all;
+	width: 980px;
+	height: 625px;
+	/*margin: 0px auto;*/
+	border: 1px solid #e7e7eb;}
+
+.hs_main_hd {margin: 14px 30px 0;}
+.hs_ml {float: left;}
+.hs_fr {float: right;}
+.hs_mt {margin-top: 30px;}
+.hs_mt_15 {margin-top: 15px;}
+.hs_mr_20 {margin-right: 20px;}
+.hs_ml_20 {margin-left: 20px;}
+.hs_mt_5 {margin-top: 5px;}
+.hs_menu_hidden {display: none;}
+.hs_arrow {
+	position: absolute;
+	left: 50%;
+	margin-left: -6px;
+}
+.hs_arrow_out {
+	bottom: -6px;
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-width: 6px;
+	border-style: dashed;
+	border-color: transparent;
+	border-bottom-width: 0;
+	border-top-color: #d0d0d0;
+	border-top-style: solid;
+}
+
+.hs_arrow_in {
+	bottom: -6px;
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-width: 6px;
+	border-style: dashed;
+	border-color: transparent;
+	border-bottom-width: 0;
+	border-top-color: #fafafa;
+	border-top-style: solid;
+}
+
+.hs_icon_msg_sender {
+	margin-right: 3px;
+	margin-top: -2px;
+	*margin-top: 2px;
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+	display: inline-block;
+	background: url(../img/hs_base_editor.png) 0 -240px no-repeat;
+
+}
+.hs_radio_padding {
+	padding: 2px;
+	background-color: white;
+}
+.hs_mobile_menu_preview {
+	width: 319px;
+	height: 582px;
+	background-position: 0 0;
+	border: 1px solid #e7e7eb;
+	background: transparent url(../img/bg_mobile_head_default2968da.png) no-repeat 0 0;
+}
+.hs_clearflow {
+	overflow: hidden;
+}
+.hs_pre_menu_list {
+	display: block;
+	position: relative;
+	top: 531px;
+	left: 0;
+	right: 0;
+	height: 50px;
+	width: 319px;
+	list-style: none;
+	padding-left: 0px;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	background: transparent url(../img/bg_mobile_foot_default2968da.png) no-repeat 0 0;
+}
+.hs_pre_menu_list li {
+	height: 50px;
+	line-height: 50px;
+	float: left;
+	text-align: center;
+	position:relative;
+}
+.hs_pre_menu_list .hs_first_li {
+	margin-left: 40px;
+}
+.hs_pre_menu_list >.hs_father_menu:first-child {
+	margin-left: 42px;
+}
+.hs_pre_menu_list .hs_father_menu_all:first-child {
+	margin-left: 42px;
+}
+
+.hs_first_li2 {
+	margin-left: 44px;
+	border: 1px solid #44b549;
+	color: #44b549;
+}
+.hs_father_menu {
+	border: 1px solid #E7E7EB;
+	width:138px;
+}
+.hs_father_menu_all {
+	border: 1px solid #E7E7EB;
+	width:92px;
+}
+.hs_icon14_menu_add {
+	background: url(../img/icon_add.png) 0 0 ;
+	width: 14px;
+	height: 14px;
+	vertical-align: middle;
+	display: inline-block;
+	margin-top: -2px;
+}
+.hs_pre_menu_list .hs_second_li {
+	border-left: 1px solid #e7e7eb;
+	border-right: 1px solid #e7e7eb;
+}
+.hs_menu_form_bd {
+	height: 90px;
+}
+.hs_menu_form_area {
+	width: 579px;
+	height: 584px;
+	float: left;
+	margin-left: 20px;
+	background-color: #e7e7eb;
+}
+.hs_portable_editor {
+	padding: 0 20px 5px;
+}
+.hs_menu_hd {
+	height: 50px;
+	border-bottom: 1px solid #959596;
+}
+.hs_del_menu_link {
+	margin-top: 21px;
+}
+.hs_menu_name {
+	font-weight: 400;
+	width: 50%;
+}
+.hs_meun_name_val {
+	width: 300px;
+}
+.hs_menu_name_span {
+	display: inline-block;
+	color: #8d8d8d;
+}
+.hs_menu_name_input {
+	width: 200px;
+	height: 30px;
+	border-radius: 5px;
+	border: 1px solid #929292;
+	padding: 3px;
+}
+.hs_menu_content {
+	height: 300px;
+}
+.hs_menu_weburl {
+	background-color: white;
+	height: 150px;
+	width: 539px;
+	margin: 0px auto;
+	padding: 10px 0px;
+}
+.hs_menu_message_content {
+	background-color: white;
+	height: 300px;
+	width: 539px;
+	
+	margin: 0px auto;
+	padding: 10px 0px;
+}
+.hs_tab_navs_wrp {
+	overflow: hidden;
+}
+
+.hs_menu_child_relative {
+	position: absolute;
+	bottom:55px;
+	left:-1px;
+	width: 92px;
+	height: auto;
+	border:1px solid #e7e7eb;
+}
+
+/**
+ * 当只有一个或者两个一级菜单时用此样式
+ */
+.hs_menu_child_relative_one {
+	
+    position: absolute;
+	bottom:55px;
+	width: 136px;
+	height: auto;
+	border:1px solid #e7e7eb;
+}
+.hs_sub_pre_menu_list li {
+    width:90px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid #E7E7EB;
+}
+
+.hs_sub_pre_menu_list {height: auto;display:block; overflow:hidden;	width: 135px; }
+
+/**
+ * 一级菜单选中样式
+ */
+.hs_father_menu_active {
+	border:1px solid #44b549 !important;
+	background-color: #ffffff;
+	color:#44b549;
+}

@@ -1,0 +1,103 @@
+/**
+	DO NOT USE IT IF YOU DON'T NEED IT!
+
+	This file is not used - you can use it on your custom.css 
+	if you want to rewrite the fonts.
+	
+	
+	Three google fonts are used on Smarty:
+	- Open Sans (default font)
+	- Raleway (used for numbers)
+	- Lato (used to highlight the text using font-weight:300)
+	
+	* Please note: all files starting with "_" (underscore), are not used by default!
+ ** ***************************** **/
+
+
+
+/** essentials.css 
+ *********************** **/
+.countTo-sm,
+.countTo-md,
+.countTo-lg,
+.countdown,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family:'Raleway','Open Sans',Arial,Helvetica,sans-serif;
+}
+.ribbon-inner {
+	font-family: "Open Sans",Helvetica,Arial,sans-serif;
+}
+div.mega-price-table .pricing-head small {
+	font-family:'Open Sans', Arial, Hevletica, sans-serif;
+}
+.datepicker.dropdown-menu {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.time_pick .time,
+.time_pick .mins,
+.time_pick .meridian,
+.mfp-close,
+.price-clean {
+	font-family: Arial, Helvetica, sans-serif;
+}
+.daterangepicker .calendar th, .daterangepicker .calendar td {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.flex-caption {
+	font-family:'Lato',Arial,Helvetica,sans-serif;
+}
+.switch > .switch-label {
+	font-family:Helvetica, Arial, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** layout.css 
+ *********************** **/
+body {
+	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+}
+small { 
+	font-family: 'Lato', sans-serif; 
+}
+
+/* fonts */
+.font-open-sans {
+	font-family:'Open Sans',Arial,Helvetica,sans-serif !important;
+}
+.timeline .timeline-entry,
+.font-lato {
+	font-family:'Lato',Arial,Helvetica,sans-serif !important;
+}
+.font-raleway {
+	font-family:'Raleway',Arial,Helvetica,sans-serif !important;
+}
+	/* elastic slider */
+	.ei-title h3 {
+		font-family: 'Open Sans', sans-serif;
+	}
+
+.maintenance,
+.timeline .timeline-entry>span,
+#footer ul.footer-list li small,
+.comments small,
+h1.blog-post-title,
+.blog-post-item h2 {
+	font-family:'Open Sans',Arial,Helvetica,sans-serif;
+}

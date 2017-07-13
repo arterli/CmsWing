@@ -1,0 +1,289 @@
+/*放大萨法*/
+.dd-handle{
+    margin:0;
+    /*padding:0;*/
+}
+.dd-handle{
+    border:0 none;
+}
+
+.app-mobile-con {
+    border: 1px solid #ebebeb;
+    border-radius: 18px 18px 0 0;
+    width:350px;
+}
+.app-header {
+    height: 70px;
+    background:url(../img/weixin_iphone_head.png) no-repeat scroll center center;
+}
+
+.app-entry {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #c5c5c5;
+    margin: 0 auto;
+    min-height: 200px;
+    padding-bottom: 11px;
+    width: 320px;
+}
+.app-entry-hader .app-black-head {
+    background: rgba(0, 0, 0, 0) url("../img/weixin_titlebar.png") no-repeat scroll 0 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    height: 64px;
+    line-height: 46px;
+    padding: 18px 60px 0;
+    text-align: center;
+}
+.app-entry-hader .app-black-head span {
+    display: inline-block;
+    height: 46px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+}
+
+.app-entry-fileds .app-sortul {
+    border: 1px solid #aeaeae;
+    margin: 10px 15px;
+    position:relative;
+}
+.dd-item{
+    border-bottom: 1px solid #ddd;
+}
+.dd-item:first-child{
+    height: 171px;
+}
+.app-article {
+    position:relative;
+}
+.dd-item:last-child{
+    border-bottom:0px;
+}
+.dd-handle-first{
+    border-bottom: 1px solid #ddd;
+}
+.app-article .app-msg{
+    position: relative;
+    width: 266px;
+}
+
+.app-msg-first  .app-msg-thumb-wrap{
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+.app-msg-first .app-msg-title {
+    background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+    bottom: 0;
+    box-sizing: border-box;
+    color: #fff;
+    line-height: 44px;
+    max-height: 56px;
+    overflow: hidden;
+    padding: 0 5px;
+    position: absolute;
+    width: 100%;
+    word-break: break-all;
+    word-wrap: break-word;
+    z-index: 1;
+}
+.app-msg-first .app-msg-thumb-wrap p {
+    background-color: #ececec;
+    bottom: 0;
+    color: #c0c0c0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    left: 0;
+    line-height: 150px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    height:150px;
+}
+.app-article .app-msg h4 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+    min-height: 40px;
+    overflow: hidden;
+}
+.app-article .app-msg-first h4{
+    color:#fff;
+}
+.app-article .app-msg-others {
+    min-height: 40px;
+    position: relative;
+    width: 268px;
+}
+.dd-item:hover{
+    cursor:move;
+}
+.dd-handle:hover{
+    background-color:#ececec;
+}
+.dd-handle-nodrag{
+    padding:10px;
+}
+.dd-handle-nodrag:hover{
+    background-color:#ececec;
+    cursor:pointer;
+}
+.dd-nodrag:hover{
+    cursor:pointer;
+}
+.app-add-btn {
+    height: 46px;
+    line-height: 46px;
+    text-align: center;
+    line-height: 46px;
+    cursor: pointer;
+}
+.app-add-btn h4{
+    margin:0;
+    padding:0;
+    height:100%;
+    line-height:46px;
+    background-color:#f9f9f9;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+}
+.app-add-btn h4 span{
+    color:#07d;
+    font-size:13px;
+    font-weight:bold;
+}
+
+
+/*�༭ɾ����ť*/
+.app-actions {
+    width: auto;
+    position: absolute;
+    top: 148px;
+    right:0px;
+    z-index:10;
+}
+.app-actions span {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 8px;
+    padding: 3px 8px;
+    float:right;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+}
+.app-actions span:hover{
+    color: #ddd;
+    cursor:pointer;
+}
+.app-confirm {
+    padding: 2px 8px;
+    margin: 0 5px;
+    font-size: 12px;
+}
+
+
+
+.app-hide-edit-sec {
+    position: absolute;
+    right: -485px;
+    top: 0px;
+    background: #fff none repeat scroll 0 0;
+    min-height: 28px;
+    padding: 12px 10px;
+    width:458px;
+    color:#333;
+    cursor:default;
+    display:none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    margin-left:10px;
+}
+.app-hide-edit-sec .app-es-btn{
+    color:#07d;
+}
+.app-hide-edit-sec .app-es-line .app-es-line-top {
+    margin-bottom: 5px;
+}
+.app-hide-edit-sec .app-es-line .app-es-line-con {
+    margin-bottom: 10px;
+}
+.app-es-arrow {
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    content: " ";
+    border-color: transparent;
+    border-right-color: rgba(0, 0, 0, 0.5);
+    left: -20px;
+    position: absolute;
+    top: 20px;
+}
+.app-es-arrow::after {
+    width: 0;
+    height: 0;
+    border-width: 9px;
+    border-style: solid;
+    content: " ";
+    border-color: transparent;
+    border-right-color: #fff;
+    position: absolute;
+    display: block;
+    top: -9px;
+    left: -8px;
+}
+.app-img-pre-show-left{
+    background-size: 268px auto;
+    background-position:center 0;
+    background-repeat:no-repeat;
+    background-attachment: scroll;
+}
+.app-img-pre-show-small {
+    position: absolute;
+    right: 0;
+    top: -5px;
+}
+.app-img-pre-show-small img{
+    width:50px;
+    height:50px;
+}
+.app-hide-edit-sec .app-input-tips-con{
+    margin-bottom:10px;
+    color:#b94a48;
+    display:none;
+}
+.app-hide-edit-sec .app-input-tips-word {
+    padding: 0 4px;
+}
+.app-hide-edit-sec .app-es-selected-url {
+    background-color: #468847;
+    color: #fff;
+    padding: 0 5px;
+    border-radius: 3px;
+    margin-right: 20px;
+    display:none;
+}
+.app-hide-edit-sec .app-es-selected-url:hover{
+    color:#fff;
+    text-decoration: none;
+    cursor:pointer;
+}

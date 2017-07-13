@@ -1,0 +1,196 @@
+/*controls*/
+.jp-controls {
+	display: table;
+	table-layout: fixed;
+	border-spacing: 0;
+	width: 100%;
+}
+.jp-controls a{
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 5px;
+}
+
+.jp-controls a i{
+	line-height: inherit;
+}
+.jp-controls > div{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 40px;
+	height: 60px;
+}
+div.jp-progress{
+	width: auto;
+	padding: 0 15px;
+	vertical-align: top;
+	position: relative;
+}
+.jp-seek-bar{
+	position: relative;
+}
+.jp-title{
+	position: absolute;
+	left: 25px;
+	top: 0;
+	right: 25px;
+	display: block !important;
+	line-height: 60px;
+}
+.jp-title ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;	
+}
+
+.jp-title li{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.jp-artist{
+	opacity: 0.6;
+}
+
+.jp-play-bar{
+	height: 60px;
+}
+.jp-volume{
+	width: 60px !important;
+	padding-right:10px !important;
+}
+.jp-volume-bar-value{
+  height: 6px;
+}
+a.hid{
+	display: none;
+}
+
+/*video*/
+.jp-video{
+	font-size: 0;
+	line-height: 0;
+	min-height: 160px;
+}
+.jp-video-play{
+	display: inline-block;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	cursor: pointer;
+	margin-left: -30px;
+	margin-top: -65px;
+}
+.jp-video-full {
+	/* Rules for IE6 (full-screen) */
+	width:480px;
+	height:270px;
+	/* Rules for IE7 (full-screen) - Otherwise the relative container causes other page items that are not position:static (default) to appear over the video/gui. */
+	position:static !important; position:relative;
+}
+
+/* The z-index rule is defined in this manner to enable Popcorn plugins that add overlays to video area. EG. Subtitles. */
+.jp-video-full div div {
+	z-index:1000;
+}
+
+.jp-video-full .jp-jplayer {
+	top: 0;
+	left: 0;
+	position: fixed !important; position: relative; /* Rules for IE6 (full-screen) */
+	overflow: hidden;
+}
+
+.jp-video-full .jp-gui {
+	position: fixed !important; position: static; /* Rules for IE6 (full-screen) */
+	top: 0;
+	left: 0;
+	width:100%;
+	height:100%;
+	z-index:1001; /* 1 layer above the others. */
+}
+
+.jp-video-full .jp-interface {
+	position: absolute !important; position: relative; /* Rules for IE6 (full-screen) */
+	bottom: 0;
+	left: 0;
+}
+
+
+/*playlist*/
+
+.jp-playlist ul{
+	max-height: 320px;
+	overflow-x: hidden;
+	overflow-y: auto; 
+	padding: 0;
+	display: none !important;
+}
+
+.jp-playlist.open ul{
+	display: block !important;
+	bottom: 60px;
+	left: 180px;
+}
+
+.jp-playlist li{
+	list-style: none;
+	position: relative;
+}
+
+.jp-playlist-item{	
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	padding: 12px 40px 12px 8px;
+}
+.jp-playlist-item:focus{
+	outline: 0;
+}
+
+.jp-playlist-item:before{
+	display: inline-block;
+	text-align: center;
+	width: 30px;
+	font-family: FontAwesome;
+	content:"\f0da";
+	opacity: 0.6;
+}
+
+a.jp-playlist-current:before{
+	content:"\f144";
+	opacity: 1;
+}
+
+.jp-playlist li:first-child .jp-playlist-item{
+	border-width: 0;
+}
+
+.jp-playlist-item-remove{
+	font-size: 15px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 11px 18px;
+	opacity: 0.6;
+}
+
+
+@media (max-width: 767px) {
+	.footer .jp-gui{
+		margin: 0 -10px;
+	}
+	div.jp-progress{
+		padding: 0 10px;
+	}
+	.jp-playlist.open ul{
+		display: block !important;
+		bottom: 60px;
+		left: 0px;
+		right: 0px;
+	}
+}

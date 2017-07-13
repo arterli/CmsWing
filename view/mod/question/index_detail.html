@@ -1,0 +1,362 @@
+{% extends "../../topic/inc/base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+
+            <li class="active"><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
+            <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+{%column data="column",pid=breadcrumb[0].id%}
+{%if column|length >0%}
+<!-- /PAGE HEADER -->
+<section class="padding-bottom-0">
+    <div class="container">
+
+        <div class="row">
+
+            {%for val in column%}
+            <div class="col-md-3">
+
+                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}{{http.config('view.file_ext')}}" style="padding-top: 35px">
+                    <div class="box-icon-title">
+                        {%if val.icon%}<i><img class="thumbnail rounded" src="{{val.icon|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -1px"></i>{%else%}<i class="et-chat"></i>{%endif%}
+                        <h4 class="nomargin">{{val.name}}</h4>
+                    </div>
+                    <p class="nomargin" style="height: 44px;overflow: hidden">{{val.description|truncate(30, true, "...")}}</p>
+                </a>
+
+            </div>
+            {%endfor%}
+
+        </div>
+
+
+    </div>
+</section>
+{%endif%}
+<!-- -->
+<section >
+    <div class="container">
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="heading-title heading-border heading-color margin-bottom-10">
+                            <h1 class="size-20 clearfix" >{{info.title}} </h1>
+                            <div class="meta margin-top-6">
+                                {% rkeywords data ="tags",type="1",mod_id="8",id=info.id%}
+                                {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                                {%for k in tags%}
+                                <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                                    {{k.keyname}}
+                                </a>
+                                {%endfor%}
+                                {%if controller.is_login%}
+                                {%if focus.uid%}
+                                <a href="/mod/question/ajax/ajaxquestionfocus/type/2/id/{{info.id}}" class="btn btn-default btn-xs pull-right ajax-get" style="margin-top: -28px">取消关注 ({{info.focus_count}})</a>
+                                {%else%}
+                                <a href="/mod/question/ajax/ajaxquestionfocus/type/1/id/{{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                {%endif%}
+                                {%else%}
+                                <a href="/uc/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                {%endif%}
+                            </div>
+
+
+                        </div>
+                        <div class="divider divider-dotted nomargin"></div>
+                        <div class="wangEditor-container cmswing-container" style="border: none">
+                            <div class="wangEditor-txt nopadding">
+                                {{info.detail|safe}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="meta">
+                            <span class="text-color-999 margin-right-15">{{info.create_time|moment}}</span>
+
+                            <!--<a data-id="5" data-type="question" class="tex-888 margin-right-15" data-comment-count="0" data-first-click="hide"><i class="fa fa-commenting-o"></i> 添加评论</a>-->
+
+                            <a class="tex-888 margin-right-15"><i class="fa fa-user-plus"></i> 邀请 </a>
+                            {%if controller.user.uid ==info.uid%}
+                            <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/id/{{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
+                            {%endif%}
+                            <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
+                            <div class="pull-right">
+                        <span class="dropdown margin-right-15">
+                            <a  data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-share-alt"></i> 分享
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li><a ><i class="icon icon-weibo"></i> 微博</a></li>
+                                <li><a ><i class="icon icon-qzone"></i> QZONE</a></li>
+                                <li><a ><i class="icon icon-wechat"></i> 微信</a></li>
+                            </ul>
+                        </span>
+
+
+                                <a href="javascript:;" class="text-color-999"><i class="fa fa-get-pocket"></i> 举报</a>								</div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--评论================================-->
+                <div class="box-light margin-top-20 "><!-- .box-light OR .box-dark -->
+
+                    <div class="box-inner">
+                        <h4 class="uppercase size-20 row " style="padding-left: 15px;padding-right: 15px;margin-bottom: -15px;" >{{info.answer_count}} 个回复 <div class="btn-group btn-group-xs pull-right">
+                            <a class="btn btn-default height-auto active" href="#">默认排序</a>
+                            <a class="btn btn-default height-auto " href="#" style="height: auto">时间排序<span class="glyphicon  glyphicon-arrow-down"></span></a>
+                        </div></h4>
+                 {% for a in answer%}
+                        <div class="divider divider-dotted " style="margin:10px -15px"><!-- divider --></div>
+                        <!-- COMMENT -->
+                        <ul class="comment list-unstyled margin-bottom-0">
+                            <li class="comment margin-bottom-0">
+
+                                <!-- avatar -->
+                                <img class="avatar" src="/uc/index/avatar/uid/{{a.uid}}" width="50" height="50" alt="avatar">
+
+                                <!-- comment body -->
+                                <div class="comment-body">
+                                    <a href="#" class="comment-author" style="position: relative;z-index: 10;background-color: #fff">
+                                        <small class="text-muted pull-right">{{a.add_time|moment}} </small>
+                                        <span>{{a.uid|get_nickname}}</span>
+                                    </a>
+                                    <div class="wangEditor-container cmswing-container" style="position: relative;z-index: 9;border: none; top: -10px">
+                                        <div class="wangEditor-txt nopadding">
+                                            {{a.answer_content|safe}}
+                                        </div>
+                                    </div>
+                                </div><!-- /comment body -->
+
+                                <!-- options -->
+                                <ul class="list-inline size-11 margin-top-10">
+                                    <li>
+                                        <a href="#" class="text-success"><i class="fa fa-thumbs-up"></i> 赞同</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:;"  class="text-info comment-reply" data-comment="comment-reply-{{a.answer_id}}"> <i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
+                                    </li>
+
+                                    {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+                                    <li class="pull-right">
+                                        <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
+                                    </li>
+                                    {%endif%}
+                                </ul>
+                            </li><!-- /options -->
+                         <div id="comment-reply-{{a.answer_id}}" class="margin-top-10 ">
+
+                         </div>
+                        </ul>
+
+                        <!-- /COMMENT -->
+                  {%endfor%}
+
+
+                    </div>
+
+                </div>
+                <!--评论结束============================-->
+                {%if controller.is_login %}
+                <form method="post" action="/mod/question/sys/updateanswer" class=" margin-top-20 padding-0 validate"><!-- .box-light OR .box-dark -->
+                    <div class="padding-0">
+                        <h4 class="uppercase padding-bottom-0 clearfix margin-bottom-0 noborder row">  <div class="col-md-9 col-sm-9"><div class="clearfix margin-bottom-0"><!-- rounded item -->
+                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{controller.user.uid}}" width="40" height="40" alt="">
+                            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{controller.user.uid|get_nickname}}</a></h4>
+                            <span class="size-12 text-muted">....</span>
+                        </div>   </div><div class="col-md-3 col-sm-3"><label class="switch switch-primary margin-top-10 pull-right">
+                            <input type="checkbox" checked="" name="anonymous" value="0">
+                            <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                        </label></div></h4>
+
+                        <textarea id="detail" name="answer_content"  class="form-control required" style="height: 280px"  placeholder="Type your message here..."></textarea>
+
+                        <input type="hidden" name="question_id" value="{{info.id}}">
+                        <input type="hidden" name="category_id" value="{{info.category_id}}">
+                        <input type="hidden" name="backurl" value="{{http.url}}">
+                        <button type="submit" class="btn btn-primary pull-right margin-top-20"><i class="fa fa-check"></i> 回复</button>
+                    </div>
+                </form>
+                {%else%}
+                <div class="alert alert-success margin-bottom-30 margin-top-30"><!-- SUCCESS -->
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    要回复问题请先 <a class="" href="/uc/public/login" data-toggle="ajaxModal">登录</a> 或 <a href="/uc/public/register">注册</a>
+                </div>
+                {%endif%}
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                <div class="box-inner nopadding">
+                    <h3>
+                        发起人
+                    </h3>
+                    <div class="" >
+
+                        <div class="clearfix margin-bottom-20"><!-- discussion item -->
+                            <img class="thumbnail pull-left" src="/uc/index/avatar/uid/{{info.uid}}" width="60" height="60" alt="">
+                            <h4 class="size-15 nomargin noborder nopadding bold"><a href="#">{{info.uid|get_nickname}}</a></h4>
+                            <span class="size-13 text-muted">
+													Lorem ipsum dolor sit amet<br>
+													<span class="text-success size-11">1 month ago</span>
+												</span>
+                        </div>
+
+                    </div>
+                </div>
+                {% if controller.is_login %}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    今天，你遇到了什么问题呢？
+                    <a href="/mod/question/sys/add/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                </div>
+                {%else%}
+                <div class="alert alert-info margin-bottom-20"><!-- INFO -->
+                    你好! 你还没有登录，请先登录.
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
+                        <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+                    </a>
+                </div>
+                {%endif%}
+
+                {%if rq.length>0%}
+                <div class="box-inner nopadding margin-bottom-20">
+                    <h3>
+                        相关问题
+                    </h3>
+                    <div class="" >
+                        {%for r in rq%}
+                        <div class="tab-post"><!-- post -->
+                                <a href="/mod/question/{{r.id}}{{http.config('view.file_ext')}}" class="tab-post-link">{{r.title}}</a>
+                                <small>{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}</small>
+                        </div>
+                        {%endfor%}
+
+                    </div>
+                </div>
+                {%endif%}
+                <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.update_time|moment}}</h2>
+                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">最近活动</h3>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.view}}</h2>
+                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">浏览次数</h3>
+                        </div>
+                    </div>
+                    <!-- /info -->
+
+                    <div class="text-muted">
+                        <h2 class="size-16 text-muted margin-bottom-6">关注者: {{info.focus_count}} 人</h2>
+                        <ul class="list-unstyled nomargin row">
+                            {%for u in focususer%}
+                            <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/uc/index/avatar/uid/{{u}}" width="40" height="40" alt=""></a></li>
+                           {%endfor%}
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- SOCIAL ICONS -->
+                <div class="hidden-xs margin-top-30 margin-bottom-60">
+                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                        <i class="icon-facebook"></i>
+                        <i class="icon-facebook"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                        <i class="icon-twitter"></i>
+                        <i class="icon-twitter"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                        <i class="icon-gplus"></i>
+                        <i class="icon-gplus"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                        <i class="icon-linkedin"></i>
+                        <i class="icon-linkedin"></i>
+                    </a>
+
+                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                        <i class="icon-rss"></i>
+                        <i class="icon-rss"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/insertContent.js"></script>
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/assets/js/question.js"></script>
+{%endblock%}

@@ -1,0 +1,75 @@
+.hs_main_bd{
+	/*padding-bottom: 30px;*/
+}
+.hs_highlight_box {
+    position: relative;
+    padding: 9px 30px;
+    background-color: #f4f5f9;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+.hs_highlight_box .desc {
+    color: #8d8d8d;
+    overflow: hidden;
+}
+.hs_send_filter {
+    padding: 0 30px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.hs_grid_item {
+	padding-right: 8px;
+    float: left;
+}
+.hs_grid_item select:not(.hs-hide){ display: inline-block; }
+.hs_grid_item select{  width:initial; }
+.hs_main_bd label {
+    line-height: 30px;
+    font-size: 14px;
+}
+.hs_dropdown_menu {
+    vertical-align: middle;
+}
+.hs_main_bd select{
+	font-size: 14px;
+}
+.hs_xx{
+	padding: 0 30px;
+}
+.hs_qf{
+	padding: 30px;
+}
+.hs_qf button{
+	width: 100px;
+	height: 30px;
+	font-size: 14px;
+	cursor: pointer;
+}
+/** 已发送**/
+
+.hassend-img{
+    width: 100px;
+    height: 100px;
+}
+.hassend-deled{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    position: relative;
+}
+.hassend-deled .deled-mask{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    color: #ffffff;
+    text-align: center;
+    top:0;
+    font-style: normal;
+    line-height: 100px;
+}
+#newssed .hs-fodder-list-col.active:before,
+#newssed .hs-fodder-list-col.active:after{ display: none }
+#newssed .hs-fodder-list-col{ width: 305px; margin-right: 10px; float: none; display: inline-block }
+#newsdel {color:#459ae9; display: inline-block;position:relative;top: 10px; }
