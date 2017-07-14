@@ -9,7 +9,7 @@ module.exports =  class extends Index {
     //console.log(this);
     //auto render template file index_index.html
 
-   this.end(2222)
+  return this.body='封面入口';
    return this.display();
   }
 
@@ -18,9 +18,6 @@ module.exports =  class extends Index {
    * @returns {*}
    */
  async listAction(){
-     await this.allInfo();
-      //加载模块公共信息
-      await this.modInfo();
     //跨域
     let method = this.ctx.method.toLowerCase();
     if(method === "options"){
@@ -110,7 +107,7 @@ module.exports =  class extends Index {
       this.assign('breadcrumb', breadcrumb);
 
     //跨屏
-    if(this.isMobile()){
+    if(this.isMobile){
       if(this.isAjax("get")){
           for (let v of data.data){
               v.nickname= await get_nickname(v.uid);
@@ -126,9 +123,7 @@ module.exports =  class extends Index {
       //手机端模版
       return this.modtemp(this.mod.name,"mobile");
     }else{
-      //console.log(temp);
-     // return this.display(temp);
-      return this.modtemp('index','list');
+      return this.modtemp('list');
     }
 
   }

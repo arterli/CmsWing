@@ -7,15 +7,6 @@
 // +----------------------------------------------------------------------
 module.exports = class extends think.Controller {
     async __before() {
-        //加载全局
-        await this.allInfo();
-
-    }
-
-    /**
-     * 全局
-     */
-   async allInfo(){
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
@@ -78,7 +69,10 @@ module.exports = class extends think.Controller {
             }
             this.cart = cartInfo;
         }
+
     }
+
+
     /**
      * 判断是否登录
      * @returns {boolean}
@@ -94,7 +88,7 @@ module.exports = class extends think.Controller {
         let islogin =await this.islogin();
         if(!islogin){
             //判断浏览客户端
-            if (this.isMobile()) {
+            if (this.isMobile) {
                 //手机端直接跳转到登录页面
                 return this.redirect('/center/public/login')
             } else {

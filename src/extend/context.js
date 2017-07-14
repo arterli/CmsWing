@@ -4,7 +4,7 @@
 const moment = require('moment');
 moment.locale('zh-cn');
 module.exports = {
-      isMobile: function(){
+     get isMobile(){
         const userAgent = this.userAgent.toLowerCase();
         const mList = ['iphone', 'android'];
         return mList.some(item => userAgent.indexOf(item) > -1);

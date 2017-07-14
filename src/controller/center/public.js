@@ -126,7 +126,7 @@ module.exports = class extends Center {
             }
             this.meta_title = "用户登录";
             //判断浏览客户端
-            if (this.isMobile()) {
+            if (this.isMobile) {
                 this.active = "center/index";
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             } else {

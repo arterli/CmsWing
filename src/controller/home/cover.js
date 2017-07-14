@@ -13,8 +13,6 @@ module.exports = class extends Home{
      */
     //频道页
     async indexAction() {
-        await this.allInfo();
-
         //auto render template file index_index.html
         let get = this.get('category') || 0;
         let id=0;

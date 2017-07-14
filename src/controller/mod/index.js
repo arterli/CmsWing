@@ -1,5 +1,5 @@
-const Home = require('../common/home');
-module.exports = class extends Home {
+const Index = require('../common/home');
+module.exports = class extends Index {
 
     /**
      * 模型公共参数
@@ -21,20 +21,6 @@ module.exports = class extends Home {
        }
 
     }
-    async modInfo(){
-        if(this.get('category').split("-")[0]||this.get("cid")){
-            //获取当前模型栏目id
-            this.m_cate= await this.category(this.get('category').split("-")[0]||this.get("cid"));
-
-            //当前模型信息
-            this.mod = await this.model("model").get_model(this.m_cate.model);
-
-            //seo
-            this.meta_title = this.m_cate.meta_title ? this.m_cate.meta_title : this.m_cate.title; //标题
-            this.keywords = this.m_cate.keywords ? this.m_cate.keywords : ''; //seo关键词
-            this.description = this.m_cate.description ? this.m_cate.description : ""; //seo描述
-        }
-    }
   /**
    * index action
    * @return {Promise} []
@@ -43,17 +29,12 @@ module.exports = class extends Home {
  async indexAction(){
     try
     {
-      // let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
-      // let cc =new cxt(this.http)
-      // await this.action(cc,"index")
-        await this.action(this.mod.name+'/index',"index")
+        await this.action('mod/'+this.mod.name+'/index',"index")
     }
     catch (err)
     {
-      //console.log(err);
-        think.log(err.message,'ERROR');
       this.assign("err",err);
-      return this.action("index","moderror");
+      return this.action("mod/index","moderror");
     }
   }
 
@@ -64,49 +45,28 @@ module.exports = class extends Home {
   async listAction(){
     try
     {
-      // let cxt  = think.require("mod/controller/"+this.mod.name+"/index");
-      // let cc =new cxt(this.http)
-      // await this.action(cc,"list");
-        // console.log(2222);
-        await this.modInfo();
-        const list = this.controller('mod/'+this.mod.name+'/index');
-        return list.listAction();
-        // await this.action(this.mod.name+'/index',"list")
+        await this.action('mod/'+this.mod.name+'/index',"list")
     }
     catch (err)
     {
-        //think.log(err.message,'ERROR');
-      //console.log(err);
-      this.assign("err",err);
-      return this.moderrorAction();
-     //return this.action("index","moderror");
+        this.assign("err",err);
+     return this.action("mod/index","moderror");
     }
     //
   }
 
-  /**
-   * 详情入口
-   * @returns {*}
-   */
-  detailAction(){
-    this.end(11)
-    return this.display();
-  }
+
 //创建独立模型时错误提示
   moderrorAction(){
 
     return this.display('common/moderror')
   }
   //独立模型display方法封装
-  modtemp(c=this.ctx.controller,a=this.ctx.action,moblie=false){
+  modtemp(action,moblie=false){
       if(!moblie){
-              return this.display(`mod/${this.mod.name}/${c}_${a}`);
+              return this.display(`mod/${this.mod.name}/index_${action}`);
     }else {
-        if(ctr[1]){
-            return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+ctr[0]+think.sep+moblie+think.sep+ctr[1]+"_"+this.http.action+this.config("view.file_ext"));
-        }else {
-            return this.display(think.ROOT_PATH+think.sep+"view"+think.sep+"mod"+think.sep+mod+think.sep+moblie+think.sep+this.http.controller+"_"+this.http.action+this.config("view.file_ext"));
-        }
+            return this.display();
     }
   }
   //独立模型get方法封装,只针对index入口action,其他的请用 this.get()方法。
@@ -152,7 +112,7 @@ module.exports = class extends Home {
         }else {
             num =this.config("db.nums_per_page");
         }
-        if(this.isMobile()){
+        if(this.isMobile){
             num=10;
         }
         return num;

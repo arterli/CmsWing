@@ -42,7 +42,7 @@ module.exports = class extends Home {
         let str = info.content;
         if(!think.isEmpty(str)){
             let img;
-            if(this.isMobile()){
+            if(this.isMobile){
                 //手机端
                 img = image_view(str,640,4);
             }else {
@@ -150,7 +150,7 @@ module.exports = class extends Home {
         //console.log(info);
         this.assign('info', info);
         //判断浏览客户端
-        if(this.isMobile()){
+        if(this.isMobile){
             //手机模版
             if (!think.isEmpty(info.template) && info.template !=0) {
                 temp = info.template; //todo 已设置详情模板
@@ -213,7 +213,7 @@ module.exports = class extends Home {
             await db.where({id:info.id}).increment('download');
             //return this.redirect(dlink);
             this.assign("durl",dlink);
-            if(this.isMobile()){
+            if(this.isMobile){
                 //手机模版
                 return this.display(`mobile/${this.ctx.controller}/${this.ctx.action}`)
             }else{
@@ -238,7 +238,7 @@ module.exports = class extends Home {
                 }
             }
             await db.where({id:info.id}).increment('download');
-            if(this.isMobile()){
+            if(this.isMobile){
                 //手机模版
                 return this.display(`mobile/${this.http.controller}/${this.http.action}`)
             }else{

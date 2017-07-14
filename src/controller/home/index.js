@@ -18,7 +18,7 @@ module.exports = class extends Home{
         this.active=['/','/index','/index.html'];
         //debugger;
         //判断浏览客户端
-        if(checkMobile(this.ctx.userAgent)){
+        if(this.isMobile){
             //跨域
             let method = this.http.method.toLowerCase();
             if(method === "options"){

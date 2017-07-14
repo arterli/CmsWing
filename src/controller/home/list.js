@@ -10,7 +10,6 @@ module.exports = class extends Home{
 
     //列表页[核心]
     async indexAction() {
-        await this.allInfo();
         // console.log(this.moment(1499788799000).fromNow());
         // console.log(GetDateStr(5)+" "+"00:00:00");
         // console.log(new Date(GetDateStr(0)+" "+"23:59:59").getTime());
@@ -77,7 +76,7 @@ module.exports = class extends Home{
         }else {
             num =this.config("db.nums_per_page");
         }
-        if(this.isMobile()){
+        if(this.isMobile){
             num=10;
         }
 
@@ -296,7 +295,7 @@ module.exports = class extends Home{
         let temp = cate.template_lists ? `${cate.template_lists}` : "index";
         //console.log(cate);
         //console.log(111)
-        if(this.isMobile()){
+        if(this.isMobile){
             if(this.isAjax("get")){
                 for(let v of data.data){
                     if(!think.isEmpty(v.pics)){

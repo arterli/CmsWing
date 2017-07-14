@@ -131,7 +131,7 @@ global.column= function(){
         }else if(cid){
             map.pid=think._.toInteger(cid);
             arr = think._.filter(column, map)
-            console.log(arr);
+           // console.log(arr);
         }else if(tree){
             let trees = arr_to_tree(column,tree);
             //console.log(trees)
@@ -419,7 +419,7 @@ global.model = function () {
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+       // console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let table = think.isEmpty(args.table) ? "5" : args.table;
         let join = think.isEmpty(args.join) ? false : JSON.parse(args.join);
