@@ -21,15 +21,15 @@
 			<li class="list-group-item list-toggle {% if http.action == 'publish' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-0"><i class="fa fa-newspaper-o"></i> 内容管理</a>
 				<ul id="collapse-0" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
-					<li><a href="/uc/publish" class="{% if http.action == 'publish' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 在线投稿</a></li>
-					<li><a href="/uc/publish/approval" class="{% if http.action == 'approval' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 待审稿件</a></li>
+					<li><a href="/center/publish" class="{% if http.action == 'publish' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 在线投稿</a></li>
+					<li><a href="/center/publish/approval" class="{% if http.action == 'approval' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 待审稿件</a></li>
 				</ul>
 			</li>
 			{% if 4|getmode('')|length>0 %}
 			<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
 				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
-					<li><a href="/uc/order" class="{% if http.action == 'index' and http.controller == 'order'%}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
+					<li><a href="/center/order" class="{% if http.action == 'index' and http.controller == 'order'%}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
 					<li>
 
 						<a href="#"><i class="fa fa-angle-right"></i> 退款申请</a>
@@ -59,16 +59,16 @@
 					<i class="fa fa-user"></i> 账户管理</a>
 				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
 					<li>
-						<a href="/uc/seting" class="{% if http.controller == 'seting' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
+						<a href="/center/seting" class="{% if http.controller == 'seting' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
 					<li>
-						<a href="/uc/address" class="{% if http.controller == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
+						<a href="/center/address" class="{% if http.controller == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
 					</li>
 					<li><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
-					<li><a href="/uc/account" class="{% if http.action == 'account' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
+					<li><a href="/center/account" class="{% if http.action == 'account' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
 					<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>
 				</ul>
 			</li>
-			<li class="list-group-item"><a href="/uc/public/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+			<li class="list-group-item"><a href="/center/public/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
 		</ul>
 		<!-- /SIDE NAV -->
 

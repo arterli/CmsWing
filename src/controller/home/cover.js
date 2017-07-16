@@ -47,11 +47,11 @@ module.exports = class extends Home{
         let temp = cate.template_index ? `${cate.template_index}` : `index`;
 
         //判断浏览客户端
-        if(checkMobile(this.ctx.userAgent)){
-            temp = cate.template_m_index ? `${cate.template_m_index}` : `index`
-            return this.display(`mobile/${this.http.controller}/${temp}`)
+        if(this.isMobile){
+            temp = cate.template_m_index ? `${cate.template_m_index}` : `index`;
+            return this.display(`home/mobile/cover_${temp}`)
         }else{
-            return this.display("home/cover_"+temp);
+            return this.display(`home/cover_${temp}`);
         }
     }
 

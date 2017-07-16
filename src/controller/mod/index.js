@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Index = require('../common/home');
 module.exports = class extends Index {
 
@@ -7,7 +14,9 @@ module.exports = class extends Index {
      */
     async __before() {
         await super.__before();//继承父类before
-       if(this.get('category').split("-")[0]||this.get("cid")){
+        console.log(this.get('category'));
+        let getCategory = this.get('category')?this.get('category').split("-")[0]:false;
+        if(this.get('category')||this.get("cid")){
            //获取当前模型栏目id
            this.m_cate= await this.category(this.get('category').split("-")[0]||this.get("cid"));
 
@@ -63,10 +72,20 @@ module.exports = class extends Index {
   }
   //独立模型display方法封装
   modtemp(action,moblie=false){
+    if(this.ctx.controller=='home/route'){
       if(!moblie){
               return this.display(`mod/${this.mod.name}/index_${action}`);
     }else {
             return this.display();
+    }
+    }else{
+        let c = this.ctx.controller.split('/');
+        c.splice((this.ctx.controller.split('/').length-1),0,'mobile');
+        if(action === "m"||moblie){
+            return this.display(`${c.join("/")}_${this.ctx.action}`);
+        }else {
+            return this.display();
+        }
     }
   }
   //独立模型get方法封装,只针对index入口action,其他的请用 this.get()方法。

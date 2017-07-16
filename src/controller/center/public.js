@@ -11,9 +11,9 @@ module.exports = class extends Center {
      * 注册页面
      */
     async registerAction() {
-        if(this.isPost()){
+        if(this.isPost){
             let data = this.post();
-            console.log(data);
+            //console.log(data);
             //验证
             let res;
             if(think.isEmpty(data.username)){
@@ -54,17 +54,17 @@ module.exports = class extends Center {
 
             data.status = 1;
             data.reg_time = new Date().valueOf();
-            data.reg_ip = _ip2int(this.ip());
+            data.reg_ip = _ip2int(this.ip);
             data.password = encryptPassword(data.password);
             let reg = await this.model("member").add(data);
-            await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+            await this.model("member").autoLogin({id:reg}, this.ip);//更新用户登录信息，自动登陆
             let userInfo = {
                 'uid':reg,
                 'username': data.username,
                 'last_login_time': data.reg_time,
             };
             await this.session('webuser', userInfo);
-            return this.success({name:"注册成功,登录中!",url:"/uc/index"});
+            return this.success({name:"注册成功,登录中!",url:"/center/index"});
         }else {
             this.meta_title = "用户注册";
             return this.display();
@@ -75,7 +75,7 @@ module.exports = class extends Center {
     async loginAction() {
         //判断公众账号类型
         if(this.setup.wx_type == 4 && this.setup.wx_type == 2){
-            await this.action("uc/weixin", "oauth");
+            await this.action("center/weixin", "oauth");
         }
         if (this.isAjax("post")) {
 //验证码

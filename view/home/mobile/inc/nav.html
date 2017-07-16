@@ -1,0 +1,35 @@
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item " href="/index">
+        <span class="mui-icon iconfont icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item {% if 8 == category.model %}mui-active{%endif%}" href="/question">
+        <span class="mui-icon iconfont icon-community"></span>
+        <span class="mui-tab-label">社区</span>
+    </a>
+    <a class="mui-tab-item" href="#wait">
+        <span class="mui-icon mui-icon-contact"></span>
+        <span class="mui-tab-label">招聘</span>
+    </a>
+    <a class="mui-tab-item {% if 4 == category.model %}mui-active{%endif%}" href="/shangchengceshi">
+        <span class="mui-icon iconfont icon-shoplight"></span>
+        <span class="mui-tab-label">购物</span>
+    </a>
+    {#
+    <a class="mui-tab-item" href="#tabbar-with-chat">
+        <span class="mui-icon iconfont icon-gouwuche"><span class="mui-badge">9</span></span>
+        <span class="mui-tab-label">购物车</span>
+    </a>
+    #}
+    {% if controller.is_login %}
+    <a class="mui-tab-item" href="/center/index">
+        <span class="mui-icon iconfont icon-my"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+    {%else%}
+    <a class="mui-tab-item" href="/center/public/login">
+        <span class="mui-icon iconfont icon-myfill"></span>
+        <span class="mui-tab-label">登录</span>
+    </a>
+    {%endif%}
+</nav>

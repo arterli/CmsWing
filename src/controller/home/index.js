@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Home = require('../common/home');
 module.exports = class extends Home{
     /**
@@ -20,7 +27,7 @@ module.exports = class extends Home{
         //判断浏览客户端
         if(this.isMobile){
             //跨域
-            let method = this.http.method.toLowerCase();
+            let method = this.method.toLowerCase();
             if(method === "options"){
                 this.setCorsHeader();
                 this.end();
@@ -51,7 +58,7 @@ module.exports = class extends Home{
             }
 
             this.assign('order',order);
-            let data = await this.model('document').where(map).page(this.param('page'),10).order(o).countSelect();
+            let data = await this.model('document').where(map).page(this.get('page'),10).order(o).countSelect();
             this.assign("list",data);
             //console.log(data);
             if(this.isAjax("get")){
@@ -75,11 +82,11 @@ module.exports = class extends Home{
                     }
                     v.uid = await get_nickname(v.uid);
                     v.url = get_url(v.name,v.id);
-                    v.update_time = moment(v.update_time).fromNow()
+                    v.update_time = this.moment(v.update_time).fromNow()
                 }
                 return this.json(data);
             }
-            return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+            return this.display(this.mtpl());
         }else{
             //debugger;
             //console.log(think.datetime(new Date(), "YYYY-MM-DD"));

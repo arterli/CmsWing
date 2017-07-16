@@ -17,8 +17,8 @@ module.exports = class extends think.Controller {
         if(this.setup.WEB_SITE_CLOSE==0){
             let isshow = await this.session('userInfo');
             if (think.isEmpty(isshow)){
-                this.http.error = new Error('该网站已关闭，只有管理员可以正常访问');
-                return think.statusAction(404, this.http);
+                const error = this.controller("common/error");
+                return error.noAction('该网站已关闭，只有管理员可以正常访问');
             }
         }
         //用户信息
@@ -93,7 +93,10 @@ module.exports = class extends think.Controller {
                 return this.redirect('/center/public/login')
             } else {
                 //pc端跳转到错误页面
-                return think.statusAction(700,this.http);
+                // const error = this.controller("common/error");
+                // return error.loginAction();
+                //return this.action('common/error','login');
+                return this.redirect('/common/error/login')
             }
 
         }

@@ -23378,7 +23378,7 @@ UE.commands['insertparagraph'] = {
 
 
 
-// plugins/webapp.js
+// plugins/mobile.js
 /**
  * 百度应用
  * @file
@@ -23388,7 +23388,7 @@ UE.commands['insertparagraph'] = {
 
 /**
  * 插入百度应用
- * @command webapp
+ * @command mobile
  * @method execCommand
  * @remind 需要百度APPKey
  * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
@@ -23398,7 +23398,7 @@ UE.commands['insertparagraph'] = {
  * ```javascript
  * //editor是编辑器实例
  * //在编辑器里插入一个“植物大战僵尸”的APP
- * editor.execCommand( 'webapp' , {
+ * editor.execCommand( 'mobile' , {
  *     title: '植物大战僵尸',
  *     width: 560,
  *     height: 465,
@@ -23408,22 +23408,22 @@ UE.commands['insertparagraph'] = {
  * ```
  */
 
-//UE.plugins['webapp'] = function () {
+//UE.plugins['mobile'] = function () {
 //    var me = this;
 //    function createInsertStr( obj, toIframe, addParagraph ) {
 //        return !toIframe ?
 //                (addParagraph ? '<p>' : '') + '<img title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"' +
-//                        ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" style="background:url(' + obj.logo+') no-repeat center center; border:1px solid gray;" class="edui-faked-webapp" _url="' + obj.url + '" />' +
+//                        ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" style="background:url(' + obj.logo+') no-repeat center center; border:1px solid gray;" class="edui-faked-mobile" _url="' + obj.url + '" />' +
 //                        (addParagraph ? '</p>' : '')
 //                :
-//                '<iframe class="edui-faked-webapp" title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = '+obj.logo+'></iframe>';
+//                '<iframe class="edui-faked-mobile" title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = '+obj.logo+'></iframe>';
 //    }
 //
 //    function switchImgAndIframe( img2frame ) {
 //        var tmpdiv,
 //                nodes = domUtils.getElementsByTagName( me.document, !img2frame ? "iframe" : "img" );
 //        for ( var i = 0, node; node = nodes[i++]; ) {
-//            if ( node.className != "edui-faked-webapp" ){
+//            if ( node.className != "edui-faked-mobile" ){
 //                continue;
 //            }
 //            tmpdiv = me.document.createElement( "div" );
@@ -23445,7 +23445,7 @@ UE.commands['insertparagraph'] = {
 //        switchImgAndIframe( false );
 //    } );
 //
-//    me.commands['webapp'] = {
+//    me.commands['mobile'] = {
 //        execCommand:function ( cmd, obj ) {
 //            me.execCommand( "inserthtml", createInsertStr( obj, false,true ) );
 //        }
@@ -23458,12 +23458,12 @@ UE.plugin.register('webapp', function (){
         return  !toEmbed ?
             '<img title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"' +
                 ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" _logo_url="'+obj.logo+'" style="background:url(' + obj.logo
-                +') no-repeat center center; border:1px solid gray;" class="edui-faked-webapp" _url="' + obj.url + '" ' +
+                +') no-repeat center center; border:1px solid gray;" class="edui-faked-mobile" _url="' + obj.url + '" ' +
                 (obj.align && !obj.cssfloat? 'align="' + obj.align + '"' : '') +
                 (obj.cssfloat ? 'style="float:' + obj.cssfloat + '"' : '') +
                 '/>'
             :
-            '<iframe class="edui-faked-webapp" title="'+obj.title+'" ' +
+            '<iframe class="edui-faked-mobile" title="'+obj.title+'" ' +
                 (obj.align && !obj.cssfloat? 'align="' + obj.align + '"' : '') +
                 (obj.cssfloat ? 'style="float:' + obj.cssfloat + '"' : '') +
                 'width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = "'+obj.logo+'"></iframe>'
@@ -23473,7 +23473,7 @@ UE.plugin.register('webapp', function (){
         outputRule: function(root){
             utils.each(root.getNodesByTagName('img'),function(node){
                 var html;
-                if(node.getAttr('class') == 'edui-faked-webapp'){
+                if(node.getAttr('class') == 'edui-faked-mobile'){
                     html =  createInsertStr({
                         title:node.getAttr('title'),
                         'width':node.getAttr('width'),
@@ -23490,7 +23490,7 @@ UE.plugin.register('webapp', function (){
         },
         inputRule:function(root){
             utils.each(root.getNodesByTagName('iframe'),function(node){
-                if(node.getAttr('class') == 'edui-faked-webapp'){
+                if(node.getAttr('class') == 'edui-faked-mobile'){
                     var img = UE.uNode.createElement(createInsertStr({
                         title:node.getAttr('title'),
                         'width':node.getAttr('width'),
@@ -23508,7 +23508,7 @@ UE.plugin.register('webapp', function (){
         commands:{
             /**
              * 插入百度应用
-             * @command webapp
+             * @command mobile
              * @method execCommand
              * @remind 需要百度APPKey
              * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
@@ -23518,7 +23518,7 @@ UE.plugin.register('webapp', function (){
              * ```javascript
              * //editor是编辑器实例
              * //在编辑器里插入一个“植物大战僵尸”的APP
-             * editor.execCommand( 'webapp' , {
+             * editor.execCommand( 'mobile' , {
              *     title: '植物大战僵尸',
              *     width: 560,
              *     height: 465,
@@ -23539,7 +23539,7 @@ UE.plugin.register('webapp', function (){
                 queryCommandState:function () {
                     var me = this,
                         img = me.selection.getRange().getClosedNode(),
-                        flag = img && (img.className == "edui-faked-webapp");
+                        flag = img && (img.className == "edui-faked-mobile");
                     return flag ? 1 : 0;
                 }
             }
@@ -27680,7 +27680,7 @@ UE.ui = baidu.editor.ui = {};
         'edittip':'~/dialogs/table/edittip.html',
         'edittable':'~/dialogs/table/edittable.html',
         'edittd':'~/dialogs/table/edittd.html',
-        'webapp':'~/dialogs/webapp/webapp.html',
+        'webapp':'~/dialogs/mobile/mobile.html',
         'snapscreen':'~/dialogs/snapscreen/snapscreen.html',
         'scrawl':'~/dialogs/scrawl/scrawl.html',
         'music':'~/dialogs/music/music.html',
@@ -28743,7 +28743,7 @@ UE.ui = baidu.editor.ui = {};
                         if (img.className.indexOf("edui-faked-video") != -1 || img.className.indexOf("edui-upload-video") != -1) {
                             dialogName = "insertvideoDialog"
                         }
-                        if (img.className.indexOf("edui-faked-webapp") != -1) {
+                        if (img.className.indexOf("edui-faked-mobile") != -1) {
                             dialogName = "webappDialog"
                         }
                         if (img.src.indexOf("http://api.map.baidu.com") != -1) {

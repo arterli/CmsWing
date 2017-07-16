@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Index = require('../index');
 module.exports =  class extends Index {
   /**
@@ -203,7 +210,7 @@ module.exports =  class extends Index {
       let str = info.detail;
       if(!think.isEmpty(str)){
           let img;
-          if(this.isMobile()){
+          if(this.isMobile){
               //手机端
               img = image_view(str,640,4);
           }else {
@@ -213,11 +220,11 @@ module.exports =  class extends Index {
           }
           info.detail=img
       }
-      if(this.isMobile()){
+      if(this.isMobile){
           if(this.isAjax("get")){
               for (let v of data.data){
                   v.nickname= await get_nickname(v.uid);
-                  v.create_time=moment(v.create_time).fromNow();
+                  v.create_time=this.moment(v.create_time).fromNow();
                   v.catename = await this.model("category").get_category(v.category_id,"title");
                   v.detail=(v.detail).replace(/<[^>]+>/g, "");
                   v.answer_username = await get_nickname(v.answer_users);
@@ -228,8 +235,6 @@ module.exports =  class extends Index {
           //手机端模版
           return this.modtemp("question","mobile");
       }else{
-          //console.log(temp);
-          // return this.display(temp);
           return this.modtemp();
       }
   }

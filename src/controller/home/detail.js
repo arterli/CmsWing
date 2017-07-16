@@ -159,12 +159,12 @@ module.exports = class extends Home {
             } else {
                 temp = model;
             }
-            console.log(temp);
+            //console.log(temp);
             //内容分页
             if(!think.isEmpty(info.content)){
                 info.content=info.content.split("_ueditor_page_break_tag_");
             }
-            return this.display(`mobile/${this.http.controller}/${temp}`)
+            return this.display(this.mtpl(temp))
         }else{
             if (!think.isEmpty(info.template) && info.template !=0) {
                 temp = info.template; //已设置详情模板
@@ -215,7 +215,7 @@ module.exports = class extends Home {
             this.assign("durl",dlink);
             if(this.isMobile){
                 //手机模版
-                return this.display(`mobile/${this.ctx.controller}/${this.ctx.action}`)
+                return this.display(`home/mobile/detail_downloadgetid`)
             }else{
                 return this.display();
             }
@@ -240,7 +240,7 @@ module.exports = class extends Home {
             await db.where({id:info.id}).increment('download');
             if(this.isMobile){
                 //手机模版
-                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+                return this.display(`home/mobile/detail_downloadgetid`)
             }else{
                 return this.display();
             }

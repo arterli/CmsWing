@@ -1,4 +1,4 @@
-{% extends "../../topic/inc/base.html" %}
+{% extends "../../home/inc/base.html" %}
 {% block style %}
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
@@ -63,7 +63,7 @@ CLASSES:
             {%for val in column%}
             <div class="col-md-3">
 
-                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}{{http.config('view.file_ext')}}" style="padding-top: 35px">
+                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}" style="padding-top: 35px">
                     <div class="box-icon-title">
                         {%if val.icon%}<i><img class="thumbnail rounded" src="{{val.icon|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -1px"></i>{%else%}<i class="et-chat"></i>{%endif%}
                         <h4 class="nomargin">{{val.name}}</h4>
@@ -107,7 +107,7 @@ CLASSES:
                                 <a href="/mod/question/ajax/ajaxquestionfocus/type/1/id/{{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
                                 {%endif%}
                                 {%else%}
-                                <a href="/uc/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                <a href="/center/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
                                 {%endif%}
                             </div>
 
@@ -153,7 +153,7 @@ CLASSES:
 
 
                 <!--评论================================-->
-                <div class="box-light margin-top-20 "><!-- .box-light OR .box-dark -->
+                <div class="box-light margin-top-20 " style="padding:1px"><!-- .box-light OR .box-dark -->
 
                     <div class="box-inner">
                         <h4 class="uppercase size-20 row " style="padding-left: 15px;padding-right: 15px;margin-bottom: -15px;" >{{info.answer_count}} 个回复 <div class="btn-group btn-group-xs pull-right">
@@ -167,7 +167,7 @@ CLASSES:
                             <li class="comment margin-bottom-0">
 
                                 <!-- avatar -->
-                                <img class="avatar" src="/uc/index/avatar/uid/{{a.uid}}" width="50" height="50" alt="avatar">
+                                <img class="avatar" src="/u/avatar/{{a.uid}}" width="50" height="50" alt="avatar">
 
                                 <!-- comment body -->
                                 <div class="comment-body">
@@ -192,7 +192,7 @@ CLASSES:
                                         <a href="javascript:;"  class="text-info comment-reply" data-comment="comment-reply-{{a.answer_id}}"> <i class="fa fa-reply"></i> <span id="oc-{{a.answer_id}}">显示</span>全部评论 (<span id="count-{{a.answer_id}}">{{a.ccount}}</span>)</a>
                                     </li>
 
-                                    {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(http.config('user_administrator'))) %}
+                                    {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(ctx.config('user_administrator'))) %}
                                     <li class="pull-right">
                                         <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
                                     </li>
@@ -231,14 +231,14 @@ CLASSES:
 
                         <input type="hidden" name="question_id" value="{{info.id}}">
                         <input type="hidden" name="category_id" value="{{info.category_id}}">
-                        <input type="hidden" name="backurl" value="{{http.url}}">
+                        <input type="hidden" name="backurl" value="{{ctx.url}}">
                         <button type="submit" class="btn btn-primary pull-right margin-top-20"><i class="fa fa-check"></i> 回复</button>
                     </div>
                 </form>
                 {%else%}
                 <div class="alert alert-success margin-bottom-30 margin-top-30"><!-- SUCCESS -->
                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    要回复问题请先 <a class="" href="/uc/public/login" data-toggle="ajaxModal">登录</a> 或 <a href="/uc/public/register">注册</a>
+                    要回复问题请先 <a class="" href="/center/public/login" data-toggle="ajaxModal">登录</a> 或 <a href="/center/public/register">注册</a>
                 </div>
                 {%endif%}
             </div>
@@ -253,7 +253,7 @@ CLASSES:
                     <div class="" >
 
                         <div class="clearfix margin-bottom-20"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/uc/index/avatar/uid/{{info.uid}}" width="60" height="60" alt="">
+                            <img class="thumbnail pull-left" src="/u/avatar/{{info.uid}}" width="60" height="60" alt="">
                             <h4 class="size-15 nomargin noborder nopadding bold"><a href="#">{{info.uid|get_nickname}}</a></h4>
                             <span class="size-13 text-muted">
 													Lorem ipsum dolor sit amet<br>
@@ -271,7 +271,7 @@ CLASSES:
                 {%else%}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     你好! 你还没有登录，请先登录.
-                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/center/public/login" data-toggle="ajaxModal">
                         <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
                     </a>
                 </div>
@@ -285,7 +285,7 @@ CLASSES:
                     <div class="" >
                         {%for r in rq%}
                         <div class="tab-post"><!-- post -->
-                                <a href="/mod/question/{{r.id}}{{http.config('view.file_ext')}}" class="tab-post-link">{{r.title}}</a>
+                                <a href="/q/{{r.id}}" class="tab-post-link">{{r.title}}</a>
                                 <small>{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}</small>
                         </div>
                         {%endfor%}
@@ -311,7 +311,7 @@ CLASSES:
                         <h2 class="size-16 text-muted margin-bottom-6">关注者: {{info.focus_count}} 人</h2>
                         <ul class="list-unstyled nomargin row">
                             {%for u in focususer%}
-                            <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/uc/index/avatar/uid/{{u}}" width="40" height="40" alt=""></a></li>
+                            <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/u/avatar/{{u}}" width="40" height="40" alt=""></a></li>
                            {%endfor%}
                         </ul>
                     </div>

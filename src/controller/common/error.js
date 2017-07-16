@@ -39,4 +39,20 @@ module.exports = class extends think.Controller {
 
         return this.display('common/error_no');
     }
+    loginAction(message="错误信息！",status=700){
+        if(this.isJsonp()){
+            return this.jsonp({
+                [this.config('errnoField')]: status,
+                [this.config('errmsgField ')]: message
+            })
+        }else if(this.isAjax()){
+            return this.fail(status, message);
+        }
+        this.assign({
+            status:status,
+            message:message
+        })
+
+        return this.display('common/error_login');
+    }
 }

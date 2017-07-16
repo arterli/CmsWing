@@ -297,6 +297,7 @@ module.exports = class extends Home{
         //console.log(111)
         if(this.isMobile){
             if(this.isAjax("get")){
+                console.log("ssdfsdf");
                 for(let v of data.data){
                     if(!think.isEmpty(v.pics)){
                         let arr = []
@@ -322,15 +323,13 @@ module.exports = class extends Home{
                 return this.json(data);
             }
             //手机端模版
-            temp = cate.template_m_lists ? `${cate.template_m_lists}` : `${this.http.action}`;
+            temp = cate.template_m_lists ? `${cate.template_m_lists}` : `index`;
             //think.log(temp);
-            return this.display(`mobile/${this.http.controller}/${temp}`)
+            return this.display('home/mobile/list_'+temp);
         }else{
             //console.log(temp);
             return this.display('home/list_'+temp);
         }
     }
-    tessAction(){
-        return this.display();
-    }
+
 }
