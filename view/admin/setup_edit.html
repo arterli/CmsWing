@@ -1,0 +1,147 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                      <div class="row"><div class="col-lg-6">
+                        <section class="panel panel-default">
+                            <div class="panel-body">
+                                <form id="ajaxForm" method="post" class="form-horizontal" action="{{action}}">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置标识</label>
+                                        <div class="col-sm-10">
+
+                                            <input type="text" class="form-control" name="name" value="{{info.name if info.name else null}}" data-required="true">
+                                            <span class="help-block m-b-none">（用于this.model("setup").getset()函数调用，只能使用英文且不能重复）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置标题</label>
+                                        <div class="col-sm-10">
+
+                                            <input type="text" class="form-control" name="title" value="{{info.title if info.title else null}}"   data-required="true">
+                                            <span class="help-block m-b-none">（用于后台显示的配置标题）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">排序</label>
+                                        <div class="col-sm-10">
+
+                                            <input type="text" class="form-control" name="sort" value="{{info.sort}}">
+                                            <span class="help-block m-b-none">（用于分组显示的顺序）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置类型</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="type">
+                                                {% for index, items in setup.CONFIG_TYPE_LIST %}
+                                                <option value="{{index}}" {% if info.type == index %} selected {% endif %}>{{items}}</option>
+                                                {% endfor%}
+                                            </select>
+                                            <span class="help-block m-b-none">（系统会根据不同类型解析配置值）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置分组</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="group">
+                                                <option value="0" {% if info.group == 0 %} selected {% endif %}>不分组</option>
+                                                {% for index, items in setup.CONFIG_GROUP_LIST %}
+                                                <option value="{{index}}" {% if info.group == index %} selected {% endif %}>{{items}}</option>
+                                                {% endfor%}
+                                            </select>
+                                            <span class="help-block m-b-none">（配置分组 用于批量设置 不分组则不会显示在系统设置中）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置值</label>
+                                        <div class="col-sm-10">
+                                                <textarea class="form-control" name="value">{{ info.value }}</textarea>
+                                            <span class="help-block m-b-none">（配置值）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">配置项</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="extra">{{ info.extra }}</textarea>
+                                            <span class="help-block m-b-none">（如果是枚举型 需要配置该项）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">说明</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" name="remark">{{ info.remark }}</textarea>
+                                            <span class="help-block m-b-none">（配置详细说明）</span>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group form-submit">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <input type="hidden" class="form-control" name="id" value="{{info.id}}">
+                                            <button class="btn btn-primary" type="submit" id="btn">确定</button>
+                                            <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                      </div></div>
+                    </section>
+                </section>
+
+{% endblock %}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        $('#ajaxForm #btn').on('click', function () {
+            $('#ajaxForm').parsley().validate();
+            if (true === $('#ajaxForm').parsley().isValid()) {
+                _addFun();
+            }
+            return false;
+        });
+
+        function _addFun() {
+            var AjaxURL= $('#ajaxForm').attr("action");
+            var jsonData = $('#ajaxForm').serialize();
+            $.ajax({
+                url: AjaxURL,
+                data: jsonData,
+                type: "post",
+                success: function (data) {
+                    console.log(data)
+                    if (data) {
+                        toastr.success('修改成功!')
+                        location.href = "/admin/setup/group";
+                    }
+                }, error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+    })
+</script>
+{% endblock %}

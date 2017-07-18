@@ -1,0 +1,144 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a href="/admin/type/index"><i class="fa fa-file-text text-muted"></i> 分类管理 </a></li>
+            {#
+            <li class=""><a href="/admin/type/topic"><i class="fa fa-file-text text-muted"></i> 内容管理</a> </li>
+#}
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> 字段管理 <b class="caret"></b></a>
+                <ul class="dropdown-menu text-left">
+                 {% for val in typeoption %}
+                    <li><a href="/admin/type/typeoption/?classid={{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    {%endfor%}
+                </ul>
+            </li>
+
+
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            {#
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+#}
+            <form method="post" class="" autocomplete="off" action="/admin/type/update" id="threadtypeform" enctype="multipart/form-data" >
+            <div class="table-responsive">
+                <table class="table table-striped b-light m-b-xxs" id="export-form">
+                    <thead>
+                    <tr>
+                        <th style="width:80px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i>删?</label></th>
+                        <th style="width: 90px">显示顺序</th>
+                        <th style="width: 200px">名称</th>
+                        <th>描述</th>
+                        <th>关联栏目</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for val in list%}
+                    <tr>
+                        <input type="hidden" name="typeid" value="{{val.typeid}}">
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" name="isdel" value="1"><i></i><span class="text-info">删?</span></label></td>
+                        <td> <input type="text" class="form-control form-control-text" name="displayorder" value="{{val.displayorder}}" ></td>
+
+                        <td><input type="text" class="form-control form-control-text" name="name" value="{{val.name}}"></td>
+                        <td><input type="text" class="form-control form-control-text" name="description" value="{{val.description}}"></td>
+                        <td>
+                            {%set i = 1%}
+                            {% for v in val.cate%}
+                           {%if i !=1%}, {%endif%}<a href="/admin/category/edit/?cid={{v.id}}" class="text-info">{{v.title}}</a>
+                            {% set i = i+1%}
+                            {%else%}
+                            <span class="text-muted">无关联</span>
+                            {%endfor%}
+                        </td>
+
+                        <td><a href="/admin/type/typeview/?typeid={{val.typeid}}" class="text-info"> 详情</a> <a href="#" class="text-info"> 模版</a> <a href="#" class="text-info"> 导出</a></td>
+                    </tr>
+                    {%endfor%}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm"><i class="icon-plus"></i> 导入</a>
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm addtr"><i class="icon-plus"></i> 添加分类</a>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row"><div class="col-sm-offset-2"> <button class="btn btn-primary btn-s-md posttype" type="submit" >确定</button></div></div>
+
+            </footer>
+                </form>
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+    $(function () {
+        $(".addtr").click(function () {
+           var tr = '<tr>'+
+                    '<td></td>'+
+                    '<td> <input type="text" class="form-control form-control-text" name="displayorder" value="" ></td>'+
+                    '<td><input type="text" class="form-control form-control-text" name="name" value=""></td>'+
+                    '<td><input type="text" class="form-control form-control-text" name="description" value=""></td>'+
+                    '<td></td>'+
+                    '<td></td>'+
+                    '</tr>';
+            $("#export-form>tbody").append(tr);
+        })
+//提交数据
+     $(".posttype").click(function () {
+        var tr = $("#export-form>tbody>tr");
+         var dataarr = []
+         $.each(tr,function (k,v) {
+             var obj = {};
+             obj.isdel = $(v).find("input[name='isdel']:checked").val()||0;
+             obj.typeid = $(v).find("input[name='typeid']").val()||0;
+             obj.displayorder=$(v).find("input[name='displayorder']").val()||0;
+             obj.name=$(v).find("input[name='name']").val();
+             obj.description = $(v).find("input[name='description']").val();
+             //console.log(obj);
+             dataarr.push(obj);
+         })
+
+         $.ajax({
+             url:"/admin/type/update",
+             data:{data:JSON.stringify(dataarr)},
+             type:"post",
+             success:function (res) {
+                 if (res.errno==0) {
+                     if (res.data.url) {
+
+                         toastr.success(res.data.name + ' 页面即将自动跳转~');
+                     }else{
+                         toastr.success(res.data.name);
+                     }
+                     setTimeout(function(){
+                         if (res.data.url) {
+                             location.href=res.data.url;
+                         }else{
+                             location.reload();
+                         }
+                     },1500);
+                 }
+             }
+         })
+         return false;
+     })
+
+    })
+</script>
+{% endblock%}

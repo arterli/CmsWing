@@ -1,0 +1,108 @@
+{% extends "./inc/base.html" %} {% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/template_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <ul class="nav nav-tabs pull-left">
+                            <li {%if controller.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/detail"><i class="icon-screen-desktop text-muted"></i>
+                            PC端模板 </a></li>
+                            <li {%if controller.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/detail/?type=2"><i
+                                class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                {{controller.meta_title}}管理
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+
+                                        <a class="btn btn-sm btn-info" href="/admin/template/add/?temptype=detail&type={%if controller.get('type')==2%}2{%else%}1{%endif%}">
+                                            添加{%if controller.get('type')==2%}移动端{%else%}PC端{%endif%}内容模板
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
+                                            管理分类
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{controller.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th style="width:80px;">编号</th>
+                                        <th class="">模板名称</th>
+                                        <th class="">模板路径</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>view/{{item.module}}/{%if controller.get("type")==2%}mobile/{%endif%}{{item.controller}}{{ctx.config("view.nunjucks.sep")}}{{item.action}}{{ctx.config('view.nunjucks.extname')}}</td>
+
+
+                                        <td><a href="/admin/template/edit/?id={{item.id}}" class="text-info">修改</a>
+                                            <a href="#" class="text-info">复制</a>
+                                            {%if item.action != "index"%}
+                                            <a href="/admin/template/del/?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                        {%endif%}
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+{% endblock %}}

@@ -584,9 +584,9 @@ global.get_list_field = function(data, grid, controller, module) {
                 // console.log(show)
                 // 替换系统特殊字符串
                 let hrefs = {
-                    '[DELETE]': 'setstatus/status/-1/ids/[id]',
-                    '[EDIT]': 'edit/id/[id]/model/[model_id]/cate_id/[category_id]',
-                    '[LIST]': 'index/pid/[id]/model/[model_id]/cate_id/[category_id]'
+                    '[DELETE]': 'setstatus/?status=-1&ids=[id]',
+                    '[EDIT]': 'edit/?id=[id]&model=[model_id]&cate_id=[category_id]',
+                    '[LIST]': 'index/?pid=[id]&model=[model_id]&cate_id=[category_id]'
                 }
                 let match = hrefs[href].match(/\[(\S+?)\]/g);
                 // console.log(match);
@@ -597,7 +597,7 @@ global.get_list_field = function(data, grid, controller, module) {
                 }
                 // console.log(u);
                 let query = str_replace(match, u, hrefs[href]);
-                let href1 = `/${module}/${controller}/${query}`;
+                let href1 = `/${controller}/${query}`;
                 //console.log(query);
                 if (href == "[DELETE]") {
                     val.push('<a href="' + href1 + '" class="text-info ajax-get confirm">' + show + '</a> ');

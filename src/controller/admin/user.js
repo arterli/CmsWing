@@ -13,12 +13,13 @@ module.exports = class extends Base {
      * index action
      * @return {Promise} []
      */
-    init(http) {
-        super.init(http);
+    constructor(ctx){
+        super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
+        // 其他额外的操作
         this.db=this.model("member");
         this.tactive = "user";
-      
     }
+
     /**
      * 用户首页
      * @returns {*}

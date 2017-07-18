@@ -1,0 +1,237 @@
+{% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" href="/static/admin/editormd/editormd.min.css" type="text/css">
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/template_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                {%if temp.type ==1%}<i class="icon-screen-desktop text-danger"></i>{%else%}<i class="icon-screen-smartphone text-danger"></i>{%endif%} 修改{{temp.name}}
+                                <i data-title="帮助信息" data-placement="bottom" data-toggle="tooltip"
+                                   class="fa fa-info-sign text-muted">
+                                    <i class="fa fa-question-circle"></i>
+                                </i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-default " id="fullscreen-btn">
+                                                全屏
+
+                                            </a>
+                                        </div>
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                模板变量
+                                            </a>
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                模板标签
+                                            </a>
+                                            <a class="btn btn-sm btn-default" href="#">
+                                                公共模板
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control"
+                                               name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{controller.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search"
+                                url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row wrapper">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模板中文名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="name" value="{{temp.name}}" placeholder="模板名称">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模板路径</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="action" value="view/{{temp.module}}/{%if temp.type==2%}mobile/{%endif%}{{temp.controller}}{{ctx.config("view.nunjucks.sep")}}{{temp.action}}{{ctx.config('view.nunjucks.extname')}}" placeholder="index" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="layout">
+                                <header class="hide">
+                                    <h1>Chnage mode</h1>
+                                    <p>Become to the code editor</p>
+                                    <p>Modes : <select id="modes">
+                                        <option value="">select modes</option>
+                                    </select>&nbsp;&nbsp;Themes :
+                                        <select id="themes">
+                                            <option selected="selected" value="">select themes</option>
+                                        </select>
+                                    </p>
+                                </header>
+
+                                <div id="codes" class="hide">
+                                    <textarea id="html-code">{{temp.html}}</textarea>
+                                </div>
+                                <div id="test-editormd" style="margin: 0">
+                                    <textarea style="display:none;"></textarea>
+                                </div>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-primary btn-s-md ajax_post_temp">修改</button>
+                                        <button class="btn btn-default">重置</button>
+                                        <a class="btn btn-default" href="/admin/template/tempbak/?module={{temp.module}}&controller={{temp.controller}}&action={{temp.action}}&type={{temp.type}}&pid={{temp.id}}" data-toggle="ajaxModal">修改记录</a>
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+<script src="/static/admin/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    var testEditor;
+
+    function getCodeValue() {
+        return (localStorage.modeName) ? $("#" + localStorage.modeName.replace("text/", "").replace("c/c++", "cpp") + "-code").val() : $("#html-code").val();
+    }
+
+    $(function () {
+        testEditor = editormd("test-editormd", {
+            width: "100%",
+            height: 640,
+            watch: false,
+            toolbar: false,
+            codeFold: true,
+            searchReplace: true,
+            placeholder: "Enjoy coding!",
+            value: getCodeValue(),
+            theme: (localStorage.theme) ? localStorage.theme : "default",
+            mode: (localStorage.mode) ? localStorage.mode : "text/html",
+            path: '/static/admin/editormd/lib/'
+        });
+
+        $("#get-code-btn").bind("click", function () {
+            alert(testEditor.getValue());
+        });
+        //提交表单
+        $(".ajax_post_temp").click(function (e) {
+            var name=$("[name='name']").val();
+            $.ajax({
+                url: "/admin/template/edit",
+                data: {
+                    html: testEditor.getValue(),
+                    id:'{{temp.id}}',
+                    name:name
+                },
+                type: "post",
+                success: function (res) {
+                    if (res.errno == 0) {
+                        swal({
+                            title: res.data.name,
+                            text: "模板已自动备份!",
+                            type: "success",
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "OK",
+                        }, function () {
+                            location.reload();
+                        });
+                    }else {
+                        swal(res.errmsg,"",'warning')
+                    }
+                }
+            })
+        })
+        $("#fullscreen-btn").bind("click", function () {
+            testEditor.fullscreen();
+        });
+
+        var select = $("#themes");
+
+        for (var i = 0, len = editormd.themes.length; i < len; i++) {
+            var theme = editormd.themes[i];
+            var selected = (localStorage.theme == theme) ? " selected=\"selected\"" : "";
+            select.append("<option value=\"" + theme + "\"" + selected + ">" + theme + "</option>");
+        }
+
+        select.change(function () {
+            var theme = $(this).val();
+
+            if (theme == "") {
+                alert("theme == \"\"");
+                return false;
+            }
+
+            localStorage.theme = theme;
+            testEditor.setTheme(theme);
+        });
+
+        var modesSelect = $("#modes");
+        var modeNames = ["text/html", "javascript", "php", "text/xml", "text/json", "java", "actionscript", "perl", "go", "python", "c/c++", "css", "ruby"];
+        var modes = ["text/html", "javascript", "php", "text/xml", "text/json", "clike", "javascript", "perl", "go", "python", "clike", "css", "ruby"];
+
+        for (var i = 0, len = modes.length; i < len; i++) {
+            var mode = modes[i];
+            var selected = (localStorage.modeName == modeNames[i]) ? " selected=\"selected\"" : "";
+            modesSelect.append("<option value=\"" + mode + "\"" + selected + " name=\"" + modeNames[i] + "\"" + selected + ">" + modeNames[i] + "</option>");
+        }
+
+        modesSelect.change(function () {
+            var mode = $(this).val();
+            var modeName = $(this).find("option:selected").attr("name");
+
+            if (mode == "") {
+                alert("mode == \"\"");
+                return false;
+            }
+
+            localStorage.mode = mode;
+            localStorage.modeName = modeName;
+
+            var code = getCodeValue();
+
+            testEditor.setCodeMirrorOption("mode", mode);
+            //testEditor.setCodeMirrorOption("value", code);
+            testEditor.setValue(code);
+        });
+
+
+    });
+</script>
+{% endblock %}}

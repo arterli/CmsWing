@@ -8,9 +8,12 @@
 
 const Base = require('../common/admin');
 module.exports = class extends Base {
-  init() {
-    this.tactive = "user";
-  }
+    constructor(ctx){
+        super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
+        // 其他额外的操作
+        this.tactive = "user";
+    }
+
   /**
    * index action
    * @return {Promise} []
@@ -19,10 +22,20 @@ module.exports = class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     let action = await this.model('action').where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
-    let _pages = think.adapter("pages","page");
-    let pages = new _pages(this.http);
-    let page = pages.pages(action);
-    this.assign("pagerData",page);
+      let Page = this.service('pagination');
+      let page = new Page();
+      let html = page.page(action,this.ctx,{
+          desc: true, //show description
+          pageNum: 2,
+          url: '', //page url, when not set, it will auto generated
+          class: 'nomargin', //pagenation extra class
+          text: {
+              next: '下一页',
+              prev: '上一页',
+              total: '总数: ${count} , 页数: ${pages}'
+          }
+      });
+    this.assign("pagerData",html);
     this.assign("list",action.data);
     this.meta_title = "用户行为";
     return this.display();
@@ -39,10 +52,20 @@ module.exports = class extends Base {
      map.status = ['>',-1];
     let list = await this.model("action_log").where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
     //console.log(list);
-    let _pages = think.adapter("pages","page");
-    let pages = new _pages(this.http);
-    let page = pages.pages(list);
-    this.assign("pagerData",page);
+      let Page = this.service('pagination');
+      let page = new Page();
+      let html = page.page(list,this.ctx,{
+          desc: true, //show description
+          pageNum: 2,
+          url: '', //page url, when not set, it will auto generated
+          class: 'nomargin', //pagenation extra class
+          text: {
+              next: '下一页',
+              prev: '上一页',
+              total: '总数: ${count} , 页数: ${pages}'
+          }
+      });
+    this.assign("pagerData",html);
     for(let itme of list.data){
        itme.action_id=await this.model("action").get_action(itme.action_id,"title");
       itme.user_id = await this.model("member").get_nickname(itme.user_id);

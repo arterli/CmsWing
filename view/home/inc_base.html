@@ -8,7 +8,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="renderer" content="webkit" />
-	<title>{{controller.meta_title}} | {{controller.setup.WEB_SITE_TITLE}}</title>
+	<title>{{controller.meta_title}}| {{controller.setup.WEB_SITE_TITLE}}</title>
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
 	<meta name="Author" content="Arterli [www.cmswing.com]" />
@@ -77,7 +77,7 @@
 <body class="smoothscroll enable-animation ">
 
 	<!-- SLIDE TOP -->
-	{% include "./slidetop.html" %}
+	{% include "./inc_slidetop.html" %}
 	<!-- /SLIDE TOP -->
 
 
@@ -85,11 +85,11 @@
 	<div id="wrapper" >
 
 		<!-- Top Bar -->
-		{% include "./topbar.html" %}
+		{% include "./inc_topbar.html" %}
 		<!-- /Top Bar -->
 
 		<!--HEADER-->
-		{% include "./header.html" %}
+		{% include "./inc_header.html" %}
 		<!--/HEADER-->
 		<!-- REVOLUTION SLIDER -->
 		{% block content %}{% endblock %}

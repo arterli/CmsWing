@@ -165,7 +165,7 @@ function ajaxpost(){
         $.post(target,query).success(function(data){
             // alert(JSON.stringify(data))
             //console.log(data)
-            // return false;
+             //return false;
             if (data.errno==0) {
                 if (data.data.url) {
 
@@ -192,11 +192,10 @@ function ajaxpost(){
                 }else {
                     toastr.error(data.errmsg);
                 }
-                //console.log(data);
 
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
-                    if (!$.isPlainObject(data.data)) {
+                    if (!$.isPlainObject(data.data) && data.data) {
                         location.href=data.data;
                     }else{
                         toastr.clear()

@@ -13,7 +13,8 @@ module.exports = class extends Base {
     async indexAction(){
         //auto render template file index_index.html
         //console.log(think.parseConfig(true,think.config("db")).prefix);
-        //await this.model("action").log("chufa","member","sdffds",this.uuu.uid,this.ip(),this.http.url);//测试日志行为
+        //await this.model("action").log("testaction","member","sdffds",this.user.uid,this.ip,this.ctx.url);//测试日志行为
+        //console.log(think.config('model.mysql.prefix'));
         let pa = JSON.parse(fs.readFileSync(think.ROOT_PATH+"/package.json",'utf-8'));
 
         //服务器信息
@@ -51,4 +52,5 @@ module.exports = class extends Base {
         //console.log(111)
         return this.display();
     }
+
 }

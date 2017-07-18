@@ -1,0 +1,88 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}} <span class="badge bg-info">{{_total}}</span>
+                <!--<i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+
+                        <a class="btn btn-sm btn-info cw-cf" href="/admin/article/clear">
+                            清空
+                        </a>
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/article/setstatus/?status=1" target-form="ids">
+                            还原
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        <th style="width:80px;">编号</th>
+                        <th class="">标题</th>
+                        <th class="">创建者</th>
+                        <th class="">类型</th>
+                        <th class="">分类</th>
+                        <th class="">删除时间</th>
+                        <th class="">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.type|get_document_type}}</td>
+                        <td>{{item.category}}</td>
+                        <td>{{item.update_time|moment("YYYY-MM-DD HH:mm")}}</td>
+                        <td>
+                            <a href="/admin/article/setstatus/?status=1&ids={{item.id}}" class="confirm ajax-get text-info">还原</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>This would display if the 'item' collection were empty</p>
+                    </div></td></tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "./inc/base.html" %} {% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/template_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                {{controller.meta_title}}
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+
+                                        <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
+                                            导入模版
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{controller.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/?model={{model.name}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;">
+                                            <label class="checkbox m-n i-checks">
+                                                <input type="checkbox"><i></i></label>
+                                        </th>
+                                        <th style="width:80px;">编号</th>
+                                        <th class="">名称</th>
+                                        <th class="">是否使用</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in temp_group %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
+                                        <td>{{item.gid}}</td>
+                                        <td>{{item.gname}}</td>
+                                        <td>
+                                            <a href="/admin/model/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
+                                                <i class="fa fa-check text-success {%if item.isdefault %}text-active{%else%}text{%endif%}"></i>
+                                                <i class="fa fa-times text-danger {%if item.isdefault %}text{%else%}text-active{%endif%}"></i>
+                                            </a>
+                                        </td>
+
+                                        <td><a href="#" class="text-info todo">修改</a>
+                                            <a href="#" class="text-info todo">导出</a>
+                                            {%if item.pid !=1%}
+                                            <a href="#" class="text-info todo">删除</a></td>
+                                        {%endif%}
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="{{list_grids|length + 1}}">
+                                            <div class="alert alert-warning alert-block">
+                                                <button data-dismiss="alert" class="close" type="button">×</button>
+                                                <p>This would display if the 'item' collection were empty</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+{% endblock %}}

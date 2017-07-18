@@ -16,10 +16,9 @@ module.exports = class extends think.Model {
         }
         //console.log(map);
         let info = await this.where(map).find();
-        //console.log(info);
         if(think.isEmpty(info)){
             return {errno: 702, errmsg: "数据不存在"};
-        }else if(!(think.isObject(info) || 1 != info.status)){
+        }else if(!think.isObject(info) || 1 != info.status){
             return {errno: 702, errmsg: "文档被禁用或已删除"};
         }
         //获取模型数据

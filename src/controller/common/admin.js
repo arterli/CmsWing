@@ -1,3 +1,11 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
+
 module.exports = class extends think.Controller {
 
     async __before() {
@@ -95,13 +103,15 @@ module.exports = class extends think.Controller {
      * @author arterli <arterli@qq.com>
      */
     async editRow(model, data, where, msg) {
-        let id = this.param('id');
-        id = think.isArray(id) ? id : id;
+        // let id = this.para('id');
+        // id = think.isArray(id) ? id : id;
         //如存在id字段，则加入该条件
-        let fields = this.model(model).getSchema();
-        if (in_array('id', fields) && !think.isEmpty(id)) {
-            where = think.extend({ 'id': ['IN', id] }, where);
-        }
+        // let fields = await this.model(model).getSchema();
+        // console.log(fields);
+        // if (in_array('id', fields) && !think.isEmpty(id)) {
+        //     where = think.extend({ 'id': ['IN', id] }, where);
+        // }
+
         msg = think.extend({ 'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax() }, msg);
         let res = await this.model(model).where(where).update(data);
         if (res) {
@@ -116,9 +126,9 @@ module.exports = class extends think.Controller {
                     update_cache("model")//更新栏目缓存
                     break;
             }
-            this.success({ name: msg.success, url: msg.url });
+           return this.success({ name: msg.success, url: msg.url });
         } else {
-            this.fail(msg.error, msg.url);
+           return this.fail(msg.error, msg.url);
         }
     }
 
@@ -185,25 +195,26 @@ module.exports = class extends think.Controller {
     /**
      * 设置一条或者多条数据的状态
      */
-    async setstatusAction(self, model,pk="id") {
-        if(think.isEmpty(this.param('model'))){
-            model = model || this.http.controller;
+    async setstatusAction(model,pk="id") {
+        if(think.isEmpty(this.ctx.param('model'))){
+            model = model || this.ctx.controller.substring(6);
         }else {
-            model = this.param('model');
+            model = this.para('model');
         }
-        let ids = this.param('ids');
-        let status = this.param('status');
+
+        let ids = this.para('ids');
+        let status = this.para('status');
         status = parseInt(status);
         if (think.isEmpty(ids)) {
-            this.fail("请选择要操作的数据");
+           return this.fail("请选择要操作的数据");
         }
         let map = {};
-        if(!think.isEmpty(this.param('pk'))){
-            pk=this.param('pk');
+        if(!think.isEmpty(this.para('pk'))){
+            pk=this.para('pk');
         }
         map[pk] = ['IN', ids];
-        //let get = this.get();
-        //this.end(status);
+       // return this.fail(model);
+
         switch (status) {
             case -1:
                 await this.delete(model, map, { 'success': '删除成功', 'error': '删除失败' });
@@ -224,10 +235,10 @@ module.exports = class extends think.Controller {
     /**
      * 排序
      */
-    async sortAction(self,model,id='id'){
-        model = model||this.http.controller;
-        let param = this.param();
-        let sort = JSON.parse(param.sort);
+    async sortAction(model,id='id'){
+        model = model||this.ctx.controller.substring(6);
+        let param = this.para('sort');
+        let sort = JSON.parse(param);
         let data =[]
         for(let v of sort){
             let map={}
@@ -251,10 +262,10 @@ module.exports = class extends think.Controller {
             return this.fail("排序失败！");
         }
     }
-    async puliccacheAction(self,model){
-        let type = this.param('type');
+    async puliccacheAction(model){
+        let type = this.para('type');
         if(think.isEmpty(type)){
-            type = model||this.http.controller;
+            type = model||this.ctx.controller.substring(6);
         }
         let res = false;
         let msg = "未知错误！";
@@ -293,7 +304,6 @@ module.exports = class extends think.Controller {
      */
     async returnnodes(tree) {
         tree = tree || true;
-        let http = this.http;
         //let modelname = http.module;
         let tree_nodes = [];
         if (tree && !think.isEmpty(tree_nodes)) {

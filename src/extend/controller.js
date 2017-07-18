@@ -12,5 +12,8 @@ module.exports = {
         let c = this.ctx.controller.split('/');
         c.splice((this.ctx.controller.split('/').length-1),0,'mobile');
         return temp = `${c.join("/")}_${action}`;
+    },
+    para(param){
+         return this.get(param)||this.post(param)
     }
 }

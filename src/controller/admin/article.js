@@ -8,10 +8,12 @@
 
 const Base = require('../common/admin');
 module.exports = class extends Base {
-    init() {
+
+    constructor(ctx){
+        super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
+        // 其他额外的操作
         this.tactive = "article";
     }
-
     /**
      * index action
      * @return {Promise} []
@@ -181,7 +183,7 @@ module.exports = class extends Base {
         //过滤重复字段
         fields = unique(fields);
         //console.log(fields);
-       // console.log(model_id);
+        // console.log(model_id);
         let list = await this.getDocumentList(cate_id, model_id, position, fields, group_id,sortval,sortid);
         for(let val of list){
             if(val.pics){
@@ -191,8 +193,8 @@ module.exports = class extends Base {
                 val.pics = '/static/noimg.jpg';
             }
         }
-       // console.log(list);
-         list = await this.parseDocumentList(list, model_id);
+        // console.log(list);
+        list = await this.parseDocumentList(list, model_id);
         //console.log(list);
         //获取面包屑信息
         let nav = await this.model('category').get_parent_category(cate_id);
@@ -293,7 +295,7 @@ module.exports = class extends Base {
                 let modelName = await this.model('model').where({id: model_id}).getField('name');
                 //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 // let sql = Document.parseSql(sql)
-               //console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
+                //console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
                 // return
                 //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
                 //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
@@ -367,7 +369,7 @@ module.exports = class extends Base {
 
             }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }else {
-             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Page = this.service('pagination');
@@ -388,7 +390,7 @@ module.exports = class extends Base {
             // 获取上级文档
             let article = await Document.field('id,title,type').find(map['pid']);
             this.assign('article', article);
-           // console.log(article);
+            // console.log(article);
         }
 
         //检查该分类是否允许发布内容
@@ -412,19 +414,19 @@ module.exports = class extends Base {
     async getmenuAction() {
         let cate = await this.model("category").get_all_category();
         if(!this.is_admin){
-        let parr =[];
+            let parr =[];
             //后台分类
             for (let val of cate) {
-               switch (val.mold){
-                   case 1:
-                       val.url =`/mod/admin/index?cate_id=${val.id}`;
-                       break
-                   case 2:
-                       val.url = `/admin/sp/index?cate_id=${val.id}`;
-                       break;
-                   default:
-                       val.url = `/admin/article/index?cate_id=${val.id}`;
-               }
+                switch (val.mold){
+                    case 1:
+                        val.url =`/mod/admin/index?cate_id=${val.id}`;
+                        break
+                    case 2:
+                        val.url = `/admin/sp/index?cate_id=${val.id}`;
+                        break;
+                    default:
+                        val.url = `/admin/article/index?cate_id=${val.id}`;
+                }
 
                 val.target = '_self';
                 delete val.icon;
@@ -434,26 +436,26 @@ module.exports = class extends Base {
                     parr.push(val.pid)
                 }
             }
-        let cates= [];
-        if(think.isEmpty(parr)){
-            cates=cate;
-        }else {
+            let cates= [];
+            if(think.isEmpty(parr)){
+                cates=cate;
+            }else {
 
-            for(let val of cate){
-                if(in_array(val.id,parr)){
-                    val.priv=1
+                for(let val of cate){
+                    if(in_array(val.id,parr)){
+                        val.priv=1
+                    }
+                }
+
+                for(let val of cate){
+                    if(val.priv==1){
+                        cates.push(val);
+                    }
                 }
             }
 
-            for(let val of cate){
-                if(val.priv==1){
-                    cates.push(val);
-                }
-            }
-        }
-
-        //think.log(cate);
-        return this.json(arr_to_tree(cates, 0))
+            //think.log(cate);
+            return this.json(arr_to_tree(cates, 0))
         }else {
             for (let val of cate) {
                 switch (val.mold){
@@ -518,9 +520,9 @@ module.exports = class extends Base {
                         val.option.rules.choices = parse_config_attr(val.option.rules.choices);
                     }
                 }else {
-                  if(!think.isEmpty(val.option.rules)){
-                      val.option.rules = JSON.parse(val.option.rules);
-                  }
+                    if(!think.isEmpty(val.option.rules)){
+                        val.option.rules = JSON.parse(val.option.rules);
+                    }
                 }
             }
             //console.log(typevar);
@@ -644,7 +646,7 @@ module.exports = class extends Base {
                     }
                 }
             }
-           // console.log(typevar);
+            // console.log(typevar);
             this.assign("typevar",typevar);
         }
         //console.log(sort);
@@ -672,7 +674,7 @@ module.exports = class extends Base {
         this.assign('data', data);
         this.assign('model_id', data.model_id);
         this.assign('model', model);
-        this.display();
+        return this.display();
     }
 
     /**
@@ -701,8 +703,11 @@ module.exports = class extends Base {
      * 设置一条或者多条数据的状态
      */
     async setstatusAction() {
-        let data = await this.model("document").where({id:["IN",this.param('ids')]}).select();
-        switch (Number(this.param('status'))){
+        let ids =this.para('ids');
+        if (think.isEmpty(ids)) {
+          return  this.fail("请选择要操作的数据");
+        }        let data = await this.model("document").where({id:["IN",ids]}).select();
+        switch (Number(this.para('status'))){
             case -1:
                 for (let v of data){
                     //权限验证
@@ -722,9 +727,8 @@ module.exports = class extends Base {
                 }
                 break;
         }
-
-        await super.setstatusAction(this,'document');
-        if(this.param('status')==-1||this.param('status')==0){
+        await super.setstatusAction('document');
+        if(this.para('status')==-1||this.para('status')==0){
             for (let v of data){
                 //删除
                 await this.model('search').delsearch(v.model_id,v.id);
@@ -735,7 +739,7 @@ module.exports = class extends Base {
             }
 
 
-        }else if(this.param('status')==1){
+        }else if(this.para('status')==1){
 
             for (let v of data){
                 //添加到搜索
@@ -754,20 +758,30 @@ module.exports = class extends Base {
     async recycleAction(){
         let map={status:-1};
         if(this.is_admin){
- //TODO
+            //TODO
         }
 
         let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(this.http); //实例化 Adapter
-        let page = pages.pages(list);
+        let Page = this.service('pagination');
+        let page = new Page();
+        let html = page.page(list,this.ctx,{
+            desc: true, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: '总数: ${count} , 页数: ${pages}'
+            }
+        });
         for(let val of list.data){
             val.category=await this.model('category').get_category(val.category_id,"title");
             val.username = await this.model('member').get_nickname(val.uid);
         }
 
         this.assign("_total",list.count)
-        this.assign('pagerData', page); //分页展示使用
+        this.assign('pagerData', html); //分页展示使用
         this.assign('list', list.data);
         this.meta_title = "回收站";
         return this.display()
@@ -784,7 +798,7 @@ module.exports = class extends Base {
         for(let v of clist){
             //模型表
             let table = await this.model("model").get_table_name(v.model_id);
-            console.log(table);
+           // console.log(table);
             await this.model(table).where({id:v.id}).delete();
         }
         //删除主表内容

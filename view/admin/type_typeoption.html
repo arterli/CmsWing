@@ -1,0 +1,149 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class=""><a href="/admin/type/index"><i class="fa fa-file-text text-muted"></i> 分类管理 </a></li>
+            {#
+            <li class=""><a href="/admin/type/topic"><i class="fa fa-file-text text-muted"></i> 内容管理</a> </li>
+#}
+            <li class="dropdown active">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> {{option.title}} <b class="caret"></b></a>
+                <ul class="dropdown-menu text-left">
+                 {% for val in typeoption %}
+                    <li><a href="/admin/type/typeoption/?classid={{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    {%endfor%}
+                </ul>
+            </li>
+
+
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            {#
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+#}
+            <form method="post" class="" autocomplete="off" action="/admin/type/update" id="threadtypeform" enctype="multipart/form-data" >
+            <div class="table-responsive">
+                <table class="table table-striped b-light m-b-xxs" id="export-form">
+                    <thead>
+                    <tr>
+                        <th style="width:80px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i>删?</label></th>
+                        <th style="width: 90px">显示顺序</th>
+                        <th style="width: 200px">名称</th>
+                        <th style="width: 200px">变量名</th>
+                        <th style="width: 200px">类型</th>
+
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for val in optionlist%}
+                    <tr>
+                        <input type="hidden" name="optionid" value="{{val.optionid}}">
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" name="isdel" value="1"><i></i><span class="text-info">删?</span></label></td>
+                        <td> <input type="text" class="form-control form-control-text" name="displayorder" value="{{val.displayorder}}" ></td>
+                        <td><input type="text" class="form-control form-control-text" name="title" value="{{val.title}}"></td>
+                        <td><input type="hidden" name="identifier" value="{{val.identifier}}">{{val.identifier}}</td>
+
+                        <td>
+                            <select name="type" class="form-control form-control-text " disabled>
+                                <option value="number" {%if val.type == 'number'%}selected=""{%endif%}>数字(number)</option>
+                                <option value="text" {%if val.type == 'text'%}selected=""{%endif%}>字串(text)</option>
+                                <option value="textarea" {%if val.type == 'textarea'%}selected=""{%endif%}>文本(textarea)</option>
+                                <option value="radio" {%if val.type == 'radio'%}selected=""{%endif%}>单选(radio)</option>
+                                <option value="checkbox" {%if val.type == 'checkbox'%}selected=""{%endif%}>多选(checkbox)</option>
+                                <option value="select" {%if val.type == 'select'%}selected=""{%endif%}>选择(select)</option>
+                                <option value="calendar" {%if val.type == 'calendar'%}selected=""{%endif%}>日历(calendar)</option>
+                                <option value="email" {%if val.type == 'email'%}selected=""{%endif%}>电子邮件(email)</option>
+                                <option value="image" {%if val.type == 'image'%}selected=""{%endif%}>上传图片(image)</option>
+                                <option value="url" {%if val.type == 'url'%}selected=""{%endif%}>超级链接(url)</option>
+                                <option value="range" {%if val.type == 'range'%}selected=""{%endif%}>范围(range)</option></select>
+                            </td>
+                        <td><a href="/admin/type/edittype/?optionid={{val.optionid}}" class="text-info"> 详情</a></td>
+                    </tr>
+                    {%endfor%}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <a href="javascript:void(0)" class="btn btn-default btn-sm addtr"><i class="icon-plus"></i> 添加分类信息字段</a>
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row"><div class="col-sm-offset-2"> <button class="btn btn-primary btn-s-md posttype" type="submit" >确定</button></div></div>
+
+            </footer>
+                </form>
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+    $(function () {
+        $(".addtr").click(function () {
+           var tr = '<tr>'+
+                    '<td></td>'+
+                    '<td> <input type="text" class="form-control form-control-text" name="displayorder" value="0" ></td>'+
+                    '<td><input type="text" class="form-control form-control-text" name="title" value=""></td>'+
+                    '<td><input type="text" class="form-control form-control-text" name="identifier" value=""></td>'+
+                    '<td><select name="type" class="form-control form-control-text"><option value="number">数字(number)</option><option value="text" selected="">字串(text)</option><option value="textarea">文本(textarea)</option><option value="radio">单选(radio)</option><option value="checkbox">多选(checkbox)</option><option value="select">选择(select)</option><option value="calendar">日历(calendar)</option><option value="email">电子邮件(email)</option><option value="image">上传图片(image)</option><option value="url">超级链接(url)</option><option value="range">范围(range)</option></select></td>'+
+                    '</tr>';
+            $("#export-form>tbody").append(tr);
+        })
+//提交数据
+     $(".posttype").click(function () {
+        var tr = $("#export-form>tbody>tr");
+         var dataarr = []
+         $.each(tr,function (k,v) {
+             var obj = {};
+             obj.isdel = $(v).find("input[name='isdel']:checked").val()||0;
+             obj.optionid = $(v).find("input[name='optionid']").val()||0;
+             obj.displayorder=$(v).find("input[name='displayorder']").val()||0;
+             obj.title=$(v).find("input[name='title']").val();
+             obj.identifier = $(v).find("input[name='identifier']").val()||0;
+             obj.type = $(v).find("select[name='type']").val();
+             obj.classid = '{{controller.get("classid")}}';
+             //console.log(obj);
+             dataarr.push(obj);
+         })
+         console.log(dataarr);
+         $.ajax({
+             url:"/admin/type/updatetypeoption",
+             data:{data:JSON.stringify(dataarr)},
+             type:"post",
+             success:function (res) {
+                 if (res.errno==0) {
+                     if (res.data.url) {
+
+                         toastr.success(res.data.name + ' 页面即将自动跳转~');
+                     }else{
+                         toastr.success(res.data.name);
+                     }
+                     setTimeout(function(){
+                         if (res.data.url) {
+                             location.href=res.data.url;
+                         }else{
+                             location.reload();
+                         }
+                     },1500);
+                 }
+             }
+         })
+         return false;
+     })
+
+    })
+</script>
+{% endblock%}

@@ -1,0 +1,155 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+
+    </header>
+    <section class="scrollable wrapper">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+
+                    <div class="panel-body">
+                        <form action="/admin/action/update" class="form-horizontal" method="post" data-validate="parsley">
+                            <div class="tab-content">
+
+                                <div id="tab1" class="tab-pane fade active in">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">行为标识</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3"><input name="name" type="text"
+                                                                             value="{{data.name}}"
+                                                                             class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> 输入行为标识 英文字母.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">行为名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-3"><input name="title" type="text"
+                                                                             value="{{data.title}}"
+                                                                             class="form-control"></div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> 输入行为名称.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">行为类型</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    {% for key,val in ""|get_action_type(true) %}
+                                                    <label class="radio-inline i-checks">
+                                                        <input type="radio" value="{{key}}" name="type" {%if data.type==
+                                                               key %}checked {%endif%}><i></i> {{val}}
+                                                    </label>
+                                                    {%endfor%}
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> 选择行为类型</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">行为描述</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-7"><textarea name="remark"
+                                                                                class="form-control">{{data.remark}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> 输入行为描述</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">行为规则</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-7"><textarea name="rule"
+                                                                                class="form-control">{{data.rule}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> 输入行为规则，不写则只记录日志 ，<code>${self}</code> 替换规则里的变量为执行用户的id。<br>
+                                                            定义规则 ：<code>table:member|field:score|condition:id=${self}|rule:10|cycle:24|max:5</code><br>
+                                                    <code>table</code>->要操作的数据表，不需要加表前缀；<br>
+                                                            <code>field</code>->要操作的字段；<br>
+                                                                      <code>condition</code>->操作的条件，目前支持字符串，默认变量 ${self} 为执行行为的用户<br>
+                                                                    <code>rule</code>->对字段进行的具体操作，目前支持加或者减，如：10，-10<br>
+                                                                       <code>cycle</code>->执行周期，单位（小时），表示cycle小时内最多执行max次<br>
+                                                                     <code>max</code>->单个周期内的最大执行次数（cycle和max必须同时定义，否则无效）<br>
+                                                                         单个行为后可加 ； 连接其他规则
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">日志规则</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-7"><textarea name="log"
+                                                                                class="form-control">{{data.log}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i
+                                                            class="fa fa-info-circle text-info"></i> （记录日志备注时按此规则来生成，支持[变量|函数]。目前变量有：user,time,model,record,data）</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                </div>
+
+                            </div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{{data.id}}"/>
+                                    <button type="submit" target-form="form-horizontal"
+                                            class="btn btn-primary ajax-post">保存
+                                    </button>
+                                    <button type="submit" class="btn btn-default"
+                                            onclick="javascript:history.back(-1);return false;">返回
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </section>
+</section>
+
+{% endblock %}
+{% block script %}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock %}
