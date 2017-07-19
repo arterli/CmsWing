@@ -1,4 +1,4 @@
-'use strict';
+
 const Geetest =require('gt3-sdk') ;
 module.exports =  class  {
 

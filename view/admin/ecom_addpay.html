@@ -1,0 +1,303 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/ecom/addpay" data-validate="parsley">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">支付方式名称</label>
+
+                                <div class="col-sm-10">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control  " name="pay_name" value="{{info.name}}" data-required="true" data-Remote="/admin/model/checkname">
+                                        </div>
+                                        <div class="col-md-12">
+                                        <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用来显示的支付名称, 必填项.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">合作身份者id</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" id="partner_id" value="" data-required="true" >
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  必填项.</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                              <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">安全检验码key</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" id="partner_key" value="" data-required="true" >
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  必填项.</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手续费设置</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                             <input type="hidden" name="pay_fee" value='0' id="pay_fee"/>
+                                            <table  class="table table-bordered b-t b-light m-b-none">
+                        <tr><td>
+                    <div class="radio i-checks">
+                          <label>
+                            <input type="radio" checked="" value="1" id="js-fee-1" name="fee_type">
+                            <i></i>
+                            百分比 （费率）
+                          </label>
+                         
+                        </div>
+                        </td>
+                        <td>
+                       <div class="radio i-checks">
+                          <label>
+                            <input type="radio" value="2" id="js-fee-2" name="fee_type">
+                            <i></i>
+                            固定额度（金额/元）
+                          </label>
+                        </div>
+                         
+                        </td></tr>
+                        <tr><td colspan="2">
+                            <div class="radio-tab1">
+                                
+                       <div class="input-group ">
+                          <span class="input-group-addon">%</span>
+                          <input type="text" class="form-control" style="width:100px" value="0" id="js-pay_fee_1">
+                        </div>
+                            </div>
+                            <div class="radio-tab2 hide ">
+                         <div class="input-group ">
+                          <span class="input-group-addon">￥</span>
+                          <input type="text" class="form-control" style="width:100px" value="0" id="js-pay_fee_2">
+                        </div>
+                            </div>
+                        </td>
+                        </tr>
+                            </table>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  
+                                            百分比：顾客将支付订单总金额乘以此费率作为手续费，
+                                           固定额度： 顾客每笔订单需要支付的手续费； </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="sort" value="0" data-required="true" >
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  越小越靠前.</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                              <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否开启</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                           <label class="radio-inline i-checks">
+                          <input type="radio" value="1" name="status" checked><i></i> 开启
+                        </label><label class="radio-inline i-checks">
+                          <input type="radio" value="0" name="status"><i></i> 关闭
+                        </label>
+                                        </div>
+                                       <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  启用或者禁用支付接口.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">支持终端</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                           <label class="radio-inline i-checks">
+                          <input type="radio" value="0" name="client_type" checked><i></i> PC,ipad
+                        </label><label class="radio-inline i-checks">
+                          <input type="radio" value="1" name="client_type"><i></i> 手机
+                        </label>
+                        <label class="radio-inline i-checks">
+                          <input type="radio" value="2" name="client_type"><i></i> PC,ipad +手机
+                        </label>
+                                        </div>
+                                       <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  支持终端.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">简述</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                           <script id="Editor_description" name="description" style="width: 100%; height: 150px" type="text/plain">{{info.description|safe}}</script>
+                                        </div>
+                                      <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">支付说明</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                           <script id="Editor_note" name="note" style="width: 100%; height: 150px" type="text/plain">
+
+                                            </script>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">此信息会展示在用户的支付页面</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="plugin_id" value="{{info.id}}">
+                                    <input type="hidden" name="config" value="" id="config">
+                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.all.min.js"> </script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    $(function(){
+        
+        UE.getEditor('Editor_note', {
+                                                theme:"default", //皮肤
+                                                lang:'zh-cn', //语言
+                                                //serverUrl: '/admin/ueditor/index'
+                                                toolbars:[['FullScreen', 'Source', 'Undo', 'Redo','Bold','test']],
+                                            });
+                                             UE.getEditor('Editor_description', {
+                                                theme:"default", //皮肤
+                                                lang:'zh-cn', //语言
+                                                //serverUrl: '/admin/ueditor/index'
+                                                toolbars:[['FullScreen', 'Source', 'Undo', 'Redo','Bold','test']],
+                                            });
+        $(document).on("change","#partner_id,#partner_key",function(e){
+            var partner_id = $("#partner_id").val();
+            var partner_key = $("#partner_key").val();
+            var obj = {"partner_id":partner_id,"partner_key":partner_key};
+            $("#config").val(JSON.stringify(obj));
+        })                                     
+                                            
+        $.each($("[name='fee_type']"),function(){
+                                 
+                                 $(this).click(function(){
+                                     var id = $(this).val();
+                                     var val;
+                                     if(1 == id){
+                                      $(".radio-tab1").removeClass('hide');
+                                      $(".radio-tab2").addClass('hide');
+                                      val = $("#js-pay_fee_1").val();
+                                     }else{
+                                       $(".radio-tab1").addClass('hide');
+                                      $(".radio-tab2").removeClass('hide');
+                                       val = $("#js-pay_fee_2").val();
+                                      
+                                     }
+                                      $("#pay_fee").val(val);
+                                     //var o = {"type":id,"val":val};
+                                    //$("#{{field.name}}").val(JSON.stringify(o));
+                                 })
+                                 
+                             })
+                            $("#js-pay_fee_1").on("focus",function(){
+                                  val = $("#js-pay_fee_1").val()
+                                  
+                                $("#pay_fee").val(val);
+                             })
+                             $("#js-pay_fee_1").on("change",function(){
+                                 val = $("#js-pay_fee_1").val()
+                                 
+                                $("#pay_fee").val(val);
+                             })
+                               $("#js-pay_fee_2").on("focus",function(){
+                                  val = $("#js-pay_fee_2").val()
+                                  
+                                $("#pay_fee").val(val);
+                             })
+                             $("#js-pay_fee_2").on("change",function(){
+                                 val = $("#js-pay_fee_2").val()
+                                 
+                                $("#pay_fee").val(val);
+                             })
+
+    })
+    
+</script>
+{% endblock%}

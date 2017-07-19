@@ -1,0 +1,321 @@
+<div class="modal-dialog modal-lg add-addr-dialog">
+    <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/order/edit" data-validate="parsley">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+            <section class="panel panel-default m-b-xs">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs">{{sum}}</span>
+                    发货清单
+                </header>
+                <table class="table  m-b-none">
+                    <thead>
+                    <tr>
+                        <th>货号</th>
+                        <th>商品名</th>
+                        <th>规格</th>
+                        <th>价格</th>
+                        <th>数量</th>
+                        <th>促销</th>
+                        <th>小计</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for v in goods %}
+                    <tr>
+                        <td>
+                            <span class="thumb-sm"><img class="img-responsive img-thumbnail" src="{{v.pic}}" alt="{{v.title}}"></span>
+                        </td>
+                        <td>{{v.title}}</td>
+                        <td>
+                            {{v.type}}
+                        </td>
+                        <td>
+                            {{v.goods_price|formatCurrency}}
+                        </td>
+                        <td>{{v.goods_nums}}</td>
+                        <td></td>
+                        <td>{{v.sum|formatCurrency}}</td>
+                    </tr>
+                  {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+            <section class="panel panel-default m-b-xs">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs"></span>
+                    购买人信息
+                </header>
+                <table class="table  m-b-none">
+                    <thead>
+                    <tr>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>手机</th>
+                        <th>电话</th>
+                        <th>邮箱</th>
+                        <th>地址</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+                            {{user.username}}
+                        </td>
+                        <td>{{user.real_name}}</td>
+                        <td>
+                            {{user.mobile}}
+                        </td>
+                        <td>{{user.phone}}</td>
+                        <td>
+                            {{user.email}}
+                        </td>
+                        <td>{{user.addr}}</td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </section>
+            <section class="panel panel-default m--xs">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs"></span>
+                    订单信息
+                </header>
+                <table class="table m-b-none">
+                    <tbody>
+
+                    <tr>
+                        <td class="active">
+                       订单编号
+                        </td>
+                        <td>{{order.order_no}}
+                        <td class="active">
+                       下单时间
+                        </td>
+                        <td>{{order.create_time|dateformat('Y-m-d H:i:s')}}</td>
+                        <td class="active">
+                        支付方式
+                        </td>
+                        <td>{{order.payment}}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            支付手续费
+                        </td>
+                        <td><span class="text-danger">{% if order.shou|formatCurrency %}{{order.shou|formatCurrency}}{% else %} 免费 {% endif%}</span></td>
+                        <td class="active">
+                            配送方式
+                        </td>
+                        <td>物流</td>
+                        <td class="active">
+                            配送费用
+                        </td>
+                        <td><span class="text-danger">{% if order.real_freight|formatCurrency %}{{order.real_freight|formatCurrency}}{% else %} 包邮 {% endif%}</span></td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            代金券
+                        </td>
+                        <td><span class="text-danger">-</span></td>
+                        <td class="active">
+                            商品总金额
+                        </td>
+                        <td><span class="text-danger">{{order.real_amount|formatCurrency }}</span> </td>
+                        <td class="active">
+                            发票税金
+                        </td>
+                        <td><span class="text-danger">{% if order.taxes|formatCurrency %}{{order.taxes|formatCurrency}}{% else %} 无发票{%endif%}</span> </td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            原订单总金额
+                        </td>
+                        <td colspan="5"><span class="text-danger olde_order_amount">{{olde_order_amount|formatCurrency}}</span>
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 注：记订单在未调价之前的总金额</span></td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            订单折扣或涨价
+                        </td>
+                        <td colspan="5"> <input type="text" id="adjust_amount"   class=" input-sm form-control" style="width: 100px"  name="adjust_amount" value="{{order.adjust_amount}}" >
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 要给顾客便宜100元，则输入"-100";要提高订单价格100元，则输入"100"</span>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            调整后订单总金额
+                        </td>
+                        <td colspan="5"><span class="text-danger" id="order_amount">{{order.order_amount|formatCurrency}}</span>
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 注：总金额不会小于0元</span></td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            用户备注
+                        </td>
+                        <td colspan="5">{{order.user_remark}}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            管理员备注
+                        </td>
+                        <td colspan="5">{{order.admin_remark}}</td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            调价原因
+                        </td>
+                        <td colspan="5"><textarea class="form-control" placeholder="调价原因。" name="adjust_note"  data-required="true">{{order.adjust_note}}</textarea></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs"></span>
+                    收货人信息
+                </header>
+                <table class="table m-b-none">
+                    <tbody>
+
+                    <tr>
+                        <td class="active">
+                            收货人姓名
+                        </td>
+                        <td><input type="text" data-required="true"  class=" input-sm form-control" name="accept_name" value="{{order.accept_name}}" ></td>
+                        <td class="active">
+                            联系手机
+                        </td>
+                        <td><input type="text" data-required="true"  class=" input-sm form-control" name="mobile" value="{{order.mobile}}" ></td>
+
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            联系电话
+                        </td>
+                        <td><input type="text"   class=" input-sm form-control" name="phone" value="{{order.phone}}" ></td>
+                        <td class="active">
+                            邮编
+                        </td>
+                        <td><input type="text"   class=" input-sm form-control" name="zip" value="{{order.zip}}" ></td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            收货地区
+                        </td>
+                        <td colspan="3"> 	<div class="form-group m-b-none" id="areas">
+                            <div class="col-md-3 col-sm-12">
+
+                                <select class="form-control pointer " id="province1" name="province" data-required="true">
+                                    <option value="">--- 省份/直辖市 ---</option>
+                                    {% for val in province %}
+                                    <option value="{{val.id}}" {% if order.province == val.id %} selected {% endif%}>{{val.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+
+                                <select class="form-control pointer " id="city1" name="city" data-required="true">
+                                    {% for val in city %}
+                                    <option value="{{val.id}}" {% if order.city == val.id %} selected {% endif%}>{{val.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+
+                                <select class="form-control pointer " id="county1" name="county" data-required="true">
+                                    {% for val in county %}
+                                    <option value="{{val.id}}" {% if order.county == val.id %} selected {% endif%}>{{val.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div></td>
+                    </tr>
+                    <tr>
+                        <td class="active">
+                            收货地址
+                        </td>
+                        <td colspan="3"> <input type="text"   class=" input-sm form-control" data-required="true" name="addr" value="{{order.addr}}" ></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </section>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" value="{{order.id}}" name="id">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <a href="javascript:;" class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</a>
+        </div>
+    </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->
+<script>
+
+    /**省市三级联动 */
+    $(function () {
+        $(document).on( "change","#province1",function (e) {
+            var pid = $("#province1 option:selected").val();
+            $.ajax({
+                url: "/cart/getarea",
+                data: {"pid":pid},
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 市 ---</option>']
+                    $.each(msg,function name(k,v) {
+                        province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                    })
+                    province_html = province_arr.join("")
+                    $("#city1").html(province_html);
+                } });
+        })
+
+
+        $(document).on( "change","#city1",function (e) {
+            var pid = $("#city1 option:selected").val();
+            $.ajax({
+                url: "/cart/getarea",
+                data: {"pid":pid},
+                success: function(msg){
+                    var province_arr = ['<option value="">--- 县/区 ---</option>']
+                    $.each(msg,function name(k,v) {
+                        province_arr.push('<option value="'+v.id+'">'+v.name+'</option>')
+                    })
+                    province_html = province_arr.join("")
+                    $("#county1").html(province_html);
+                } });
+        })
+    
+        //改价
+        $("#adjust_amount").on("change",function (e) {
+            var olde_order_amount = $(".olde_order_amount").text();
+            var adjust_amount = $("#adjust_amount").val();
+            var order_amount = Number(olde_order_amount)+Number(adjust_amount);
+            $("#order_amount").text(formatCurrency(order_amount));
+        })
+    })
+    function formatCurrency (num) {
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        var sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        var cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+                    num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + num + '.' + cents);
+    }
+
+</script>

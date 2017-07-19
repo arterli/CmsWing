@@ -24,7 +24,7 @@ module.exports = class extends Base {
       if(!think.isEmpty(this.get("model"))){
           map.model = this.get("model");
       }
-      let list = await this.db.where(map).page(this.get('page'),20).order('time DESC').countSelect();
+      let list = await this.db.where(map).page(this.get('page')||1,20).order('time DESC').countSelect();
       let Page = this.service('pagination');
       let page = new Page();
       let html = page.page(list,this.ctx,{

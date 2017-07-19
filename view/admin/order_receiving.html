@@ -1,0 +1,75 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a href="/admin/order/receiving"><i class="fa fa-file-text text-muted"></i> 收款单 </a></li>
+            <li class=""><a href="/admin/order/invoice"><i class="fa fa-file-text text-muted"></i> 发货单</a>
+            <li class=""><a href="/admin/order/refund"><i class="fa fa-file-text text-muted"></i> 退款单</a>
+            </li>
+        </ul>
+    </header>
+    <section class="scrollable wrapper">
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group pull-right">
+                        <input type="text" placeholder="Search" class="input-sm form-control">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-default">Go!</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+
+                        <th>类型</th>
+                        <th>支付方式</th>
+                        <th>支付状态</th>
+                        <th>金额</th>
+                        <th>用户</th>
+                        <th>订单编号</th>
+                        <th>付款时间</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+{%for val in list%}
+                    <tr>
+                        <td>{%if val.doc_type == 0%}购买商品{%elif val.doc_type==1%}在线充值{%endif%}</td>
+                        <td> {{val.channel}}</td>
+
+                        <td>{%if val.pay_status == 0%} <span class="text-muted">未支付</span>{%else%}<span class="text-success">已支付</span>{%endif%} </td>
+                        <td>{{val.amount|formatCurrency}}</td>
+                        <td>
+                            {{val.user_id|get_nickname}}
+                        </td>
+                        <td>
+                            {{val.order_id}}
+                        </td><td>{{val.payment_time|dateformat('Y-m-d H:i:s')}}</td>
+                        <td><a href="#" class="text-info"> 查看</a></td>
+                    </tr>
+{%endfor%}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                {{pagerData | safe}}
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}

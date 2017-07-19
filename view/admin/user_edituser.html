@@ -1,0 +1,190 @@
+<div class="modal-dialog ">
+    <form method="post" class="form-horizontal" action="/admin/user/edituser" data-validate="parsley">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">修改会员【{{user.username}}】</h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名称</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <p class="form-control-static">{{user.username}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="padding-top: 25px">头像</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <a href="#" class="pull-left thumb-md avatar b-3x m-r">
+                                <img src="/u/avatar/{{user.id}}" alt="{{user.username}}">
+                            </a>
+                            <label class="checkbox-inline i-checks" style="padding-top: 25px">
+                                <input type="checkbox" value="1" name="delavatar" ><i></i> 删除头像
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <input type="password" name="password" class="input-sm form-control" placeholder="不修改密码请留空" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <input type="password" class="input-sm form-control" placeholder="不修改密码请留空" name="repassword" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" name="email" class="form-control input-sm" data-type="email" data-required="true" value="{{user.email}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" name="mobile" class="form-control input-sm" data-type="number" value="{{user.mobile}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员组</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <select class="form-control input-sm" name="groupid">
+                                {%for v in usergroup%}
+                                <option value="{{v.groupid}}" {%if v.groupid == user.groupid%} selected{%endif%}>{{v.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">积分点数</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" name="score" class="form-control input-sm" data-type="number" value="{{user.score}}">
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"><span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>
+                                积分点数将影响会员用户组</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户类型</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <label class="radio-inline i-checks">
+                                <input type="radio" value="0" name="is_admin" {%if user.is_admin==0%}checked{%endif%}><i></i> 前台
+                            </label><label class="radio-inline i-checks">
+                            <input type="radio" value="1" name="is_admin" {%if user.is_admin==1%}checked{%endif%}><i></i> 后台
+                        </label>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"><span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择前台用户不能登陆后台管理</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group is_admin_group {%if user.is_admin==0%}hide{%endif%}">
+                <label class="col-sm-2 control-label">管理组</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <select class="form-control " name="role_id">
+                                {%for v in role%}
+                                <option value="{{v.id}}" {%if v.id == roleid%} selected{%endif%}>{{v.desc}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"><span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择后台时才生效</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">vip会员</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="input-group">
+                            <span class="input-group-addon" style="padding-top: 5px; padding-bottom: 3px">
+                             <label class="checkbox-inline i-checks" style="padding-top: 0">
+                                <input type="checkbox" value="1" name="vip" {% if user.vip==1%} checked{%endif%}><i></i> 是否为vip会员,过期时间
+                            </label>
+                          </span><input class="input-sm input-s time form-control" size="16" type="text" value="{% if user.vip==1%}{{user.overduedate|moment('YYYY-MM-DD HH:mm')}}{%endif%}"  name="overduedate">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" value="{{user.id}}" name="id">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+        </div>
+    </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->
+<script>
+    $(function () {
+
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        //用户组选择
+        $("input[name='is_admin']").on("change",function () {
+            var val = $(this).val();
+            console.log(val);
+            if(val == 1){
+                $(".is_admin_group").removeClass('hide');
+            }else {
+                $(".is_admin_group").addClass('hide');
+            }
+        })
+    })
+</script>

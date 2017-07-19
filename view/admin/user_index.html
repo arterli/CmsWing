@@ -1,0 +1,209 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+{% endblock %}
+{% block content %}
+    <section class="hbox stretch">
+    <section class="vbox">
+        <header class="header bg-light dk">
+
+            <p>用户管理</p>
+        </header>
+        <section class="scrollable wrapper">
+
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    用户列表
+                    <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                </header>
+                <div class="row wrapper">
+
+                    <div class="col-sm-9 m-b-xs">
+                        <div class="">
+                            <a href="/admin/user/adduser" class="btn btn-sm btn-info " data-toggle="ajaxModal">
+                                添加用户
+                            </a>
+                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/?status=1&model=member"  target-form="ids">
+                                启用
+                            </a>
+                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/?status=0&model=member" target-form="ids">
+                                禁用
+                            </a>
+                            <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/user/userdel" target-form="ids">
+                                删除
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="input-group pull-right search-form">
+                            <input type="text" class="input-sm form-control" name="username" placeholder="请输入用户名"
+                                   value="{{controller.get('username')}}">
+                            <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/user/index">搜索</button>
+                      </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped b-t b-light">
+                        <thead>
+                        <tr>
+                            <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                            <th >uid</th>
+                            <th class="">用户名</th>
+                            <th class="">邮箱</th>
+                            <th class="">用户组</th>
+                            <th class="">注册ip</th>
+                            <th class="">最后登录</th>
+                            <th class="">金钱总数</th>
+                            <th class="">积分点数</th>
+                            <th class="">状态</th>
+                            <th >操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in list %}
+                        {%set group=item.groupid|get_member_group%}
+                        <tr>
+                            <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}{{item.id}}{%endif%}" {%if item.id|in_Array(controller.config('user_administrator'))%}disabled="true"{%endif%}><i></i></label></td>
+                            <td>{{item.id}}</td>
+                            <td><a href="/admin/user/showuser/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.username}} <i class="fa fa-search-plus"></i> </a> </td>
+                            <td>{{item.email}}</td>
+                            <td>{{group.name}}</td>
+                            <td>{{item.reg_ip|int2ip}}</td>
+                            <td>{{item.last_login_time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.score}}</td>
+                            <td>
+                                {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
+                                <a href="/admin/user/setstatus/?ids={{item.id}}&status={{1-item.status}}&model=member" class="active ajax-get" data-toggle="class">
+                                    <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                    <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                </a>
+                                {%endif%}
+                            </td>
+
+                            <td>
+                                <a href="/admin/user/edituser/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
+                                <a href="/admin/user/recharge/?ids={{item.id}}" class="text-info" data-toggle="ajaxModal">充值</a>
+                                {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
+                                <a href="/admin/user/userdel/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
+                                {%endif%}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                            <button data-dismiss="alert" class="close" type="button">×</button>
+                            <p>This would display if the 'item' collection were empty</p>
+                        </div></td></tr>
+
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+
+
+                        <div class="col-sm-12 text-right text-center-xs">
+                            {{pagerData | safe}}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </section>
+    </section>
+    </section>
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script>
+$(function () {
+
+    function isPriceNumber(_keyword){
+        if(_keyword == "0" || _keyword == "0." || _keyword == "0.0" || _keyword == "0.00"){
+            _keyword = "0"; return true;
+        }else{
+            var index = _keyword.indexOf("0");
+            var length = _keyword.length;
+            if(index == 0 && length>1){/*0开头的数字串*/
+                var reg = /^[0]{1}[.]{1}[0-9]{1,2}$/;
+                if(!reg.test(_keyword)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{/*非0开头的数字*/
+                var reg = /^[1-9]{1}[0-9]{0,10}[.]{0,1}[0-9]{0,2}$/;
+                if(!reg.test(_keyword)){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    $(document).on('click', ".recharge", function (e) {
+        var balance = $("input[name='balance']").val();
+        var name = $("input[name = 'name']").val();
+        var id = $("input[name = 'id']").val();
+        if(!isPriceNumber(balance)){
+            swal( "请填写正确的价格.");
+            return false;
+        }
+        swal({
+            title: "确认您的操作！",
+            text: "您将给 "+name+" 充值 "+balance+" 元！",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定充值!",
+            cancelButtonText: "关闭!",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                url:"/admin/user/recharge",
+                data:{balance:balance,id:id},
+                type:"POST",
+                success:function (res) {
+                    if(res.errno == 0){
+                        swal(res.data.name, "", "success");
+                        $('#ajaxModal').modal('hide');
+                        location.reload();
+                    }
+
+                }
+            })
+
+        });
+    })
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+
+    //回车自动提交
+    $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+            $("#search").click();
+        }
+    });
+})
+</script>
+{% endblock %}

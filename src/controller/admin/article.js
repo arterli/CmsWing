@@ -367,9 +367,9 @@ module.exports = class extends Base {
                 as: "t",
                 on: ["id", "tid"]
 
-            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
         }else {
-            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
+            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let Page = this.service('pagination');
@@ -761,7 +761,7 @@ module.exports = class extends Base {
             //TODO
         }
 
-        let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')).countSelect();
+        let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')||1,20).countSelect();
         let Page = this.service('pagination');
         let page = new Page();
         let html = page.page(list,this.ctx,{

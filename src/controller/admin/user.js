@@ -31,14 +31,21 @@ module.exports = class extends Base {
         if(!think.isEmpty(this.get("username"))){
             map.username= ["like", "%"+this.get("username")+"%"]
         }
-        let data = await this.db.where(map).page(this.get('page'),20).order('id DESC').countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(this.http); //实例化 Adapter
-        let page = pages.pages(data);
-        // for(let v of data.data){
-        //     console.log(await this.model("member_group").getgroup({groupid:v.groupid}));
-        // }
-        this.assign('pagerData', page); //分页展示使用
+        let data = await this.db.where(map).page(this.get('page')||1,20).order('id DESC').countSelect();
+        let Page = this.service('pagination');
+        let page = new Page();
+        let html = page.page(data,this.ctx,{
+            desc: true, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: '总数: ${count} , 页数: ${pages}'
+            }
+        });
+        this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title="用户列表";
         //获取管理组
@@ -80,29 +87,30 @@ module.exports = class extends Base {
     async rechargeAction(){
         if(this.isAjax("POST")){
             let data = this.post();
-           let res =  await this.model("member").where({id:data.id}).increment("amount",data.balance);
-            console.log(res);
-            if(res){
-                let amount_log = await this.model("member").where({id:data.id}).getField("amount",true);
-                console.log(amount_log);
-                //充值成功后插入日志
-                let log = {
-                    admin_id:this.user.uid,
-                    user_id:data.id,
-                    type:2,
-                    time:new Date().valueOf(),
-                    amount:data.balance,
-                    amount_log:amount_log,
-                    note:`管理员（${await get_nickname(this.user.uid)}）为您充值，充值的金额为：${data.balance} 元`
-                }
-                await this.model('balance_log').add(log);
-                return this.success({name:"充值成功！"});
+            let self =this;
+            let insertId = await this.db.transaction(async () => {
+                await  self.db.where({id:data.id}).increment("amount",data.balance);
+                let amount_log = await self.db.where({id:data.id}).getField("amount",true);
+                return await self.model('balance_log').db(self.db.db()).add({
+                             admin_id:self.user.uid,
+                             user_id:data.id,
+                             type:2,
+                             time:new Date().valueOf(),
+                             amount:data.balance,
+                             amount_log:amount_log,
+                             note:`管理员（${await get_nickname(self.user.uid)}）为您充值，充值的金额为：${data.balance} 元`
+                        });
+            });
+
+            if(insertId){
+                return this.success({name:"充值成功!"});
             }else {
-                return this.fail("充值失败！");
+                return this.fail("充值失败!")
             }
+
         }else {
             let id = this.get("ids");
-            let name = get_nickname(id);
+            let name =await get_nickname(id);
             this.assign("name",name);
             this.assign("id",id);
             this.meta_title = "会员充值";
@@ -116,7 +124,7 @@ module.exports = class extends Base {
      * @returns {Promise|*}
      */
     async adduserAction(){
-        if(this.isPost()){
+        if(this.isPost){
          let data=this.post();
           if(data.password!=data.repassword){
               return this.fail("两次填入的密码不一致");
@@ -128,15 +136,24 @@ module.exports = class extends Base {
              }else {
                  data.overduedate = think.isEmpty(data.overduedate)?0:data.overduedate;
              }
-           //  console.log(data);
+           console.log(data);
            // return this.fail("ddd")
             data.status=1;
-         let res = await this.db.add(data);
+             let self = this;
+             let res;
+            if(data.is_admin == 1) {
+                res = await this.db.transaction(async () => {
+                    let userId = await self.db.add(data);
+                    return await self.model('auth_user_role').db(self.db.db()).add({
+                        user_id: userId,
+                        role_id: data.role_id
+                    });
+                });
+            }else{
+                res = await this.db.add(data);
+            }
+
          if(res){
-             //添加角色
-             if(data.is_admin == 1){
-                 await this.model("auth_user_role").add({user_id:res,role_id:data.role_id});
-             }
             return this.success({name:"添加成功！"});
          }else{
             return this.fail("添加失败!")
@@ -146,7 +163,7 @@ module.exports = class extends Base {
             let usergroup = await this.model("member_group").select();
             this.assign("usergroup",usergroup);
             //获取管理组
-            let role = this.model("auth_role").where({status:1}).select();
+            let role = await this.model("auth_role").where({status:1}).select();
             this.assign("role",role);
             this.meta_title="添加用户";
             return this.display();
@@ -159,11 +176,11 @@ module.exports = class extends Base {
      * @returns {PreventPromise}
      */
   async edituserAction(){
-        if(this.isPost()){
+        if(this.isPost){
          let data = this.post();
          //删除头像
          if(data.delavatar ==1){
-             let uploadPath = think.RESOURCE_PATH + '/upload/avatar/' + data.id;
+             let uploadPath = think.resource + '/upload/avatar/' + data.id;
              let path = think.isFile(uploadPath  + "/avatar.png");
              if(path){
                  think.rmdir(uploadPath, false)
@@ -186,7 +203,7 @@ module.exports = class extends Base {
             //添加角色
             if(data.is_admin == 1){
                 let addrole =await this.model("auth_user_role").where({user_id:data.id}).thenAdd({user_id:data.id,role_id:data.role_id});
-                console.log(addrole);
+                //console.log(addrole);
                 if(addrole.type=="exist"){
                     await this.model("auth_user_role").update({id:addrole.id,role_id:data.role_id});
                 }
@@ -204,13 +221,13 @@ module.exports = class extends Base {
             //不能修改超级管理员的信息
             if(!this.is_admin){
                 if(in_array(id,this.config("user_administrator"))){
-                    this.http.error = new Error('您无权操作！');
-                    return think.statusAction(702, this.http);
+                    const error = this.controller('common/error');
+                    return error.noAction('您无权操作！')
                 }
 
             }
             this.assign("user",user);
-            console.log(user);
+            //console.log(user);
             //所属管理组
             if(user.is_admin==1){
                 let roleid =await this.model("auth_user_role").where({user_id:user.id}).getField("role_id",true);
@@ -220,7 +237,7 @@ module.exports = class extends Base {
             let usergroup = await this.model("member_group").select();
             this.assign("usergroup",usergroup);
             //获取管理组
-            let role = this.model("auth_role").where({status:1}).select();
+            let role = await this.model("auth_role").where({status:1}).select();
             this.assign("role",role);
             this.meta_title="编辑用户";
             return this.display();
@@ -243,7 +260,7 @@ module.exports = class extends Base {
         //
         // }
         this.assign("user",user);
-        console.log(user);
+        //console.log(user);
         //所属管理组
         if(user.is_admin==1){
             let roleid =await this.model("auth_user_role").where({user_id:user.id}).getField("role_id",true);
@@ -253,7 +270,7 @@ module.exports = class extends Base {
         let usergroup = await this.model("member_group").select();
         this.assign("usergroup",usergroup);
         //获取管理组
-        let role = this.model("auth_role").where({status:1}).select();
+        let role = await this.model("auth_role").where({status:1}).select();
         this.assign("role",role);
         this.meta_title="个人信息";
         return this.display();
@@ -264,7 +281,7 @@ module.exports = class extends Base {
      * @returns {Promise|*}
      */
     async userdelAction() {
-        let id = this.param("ids");
+        let id = this.para("ids");
         //console.log(id);
         let res;
         // 判断是否是管理员，如果是不能删除;

@@ -27,7 +27,7 @@ module.exports = class extends Base {
      if(this.get("type")=='parent'){
         map.is_parent=1;
      }
-      let list = await this.model("keyword").where(map).order('add_time DESC').page(this.get("page"),20).countSelect();
+      let list = await this.model("keyword").where(map).order('add_time DESC').page(this.get("page")||1,20).countSelect();
     for (let v of list.data){
       v.lastuser = await this.model("keyword_data").where({tagid:v.id}).order("add_time DESC").getField("uid",true);
     }

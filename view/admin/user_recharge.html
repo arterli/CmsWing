@@ -1,0 +1,25 @@
+<div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+                <div class="form-group">
+                    <label>输入要充值的金额</label>
+                    <div class="input-group m-b">
+                        <input type="hidden" value="{{name}}" name="name">
+                        <input type="hidden" value="{{id}}" name="id">
+                        <input type="text" class="form-control" placeholder="最少金额为0.01" name="balance">
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <a href="javascript:;" class="btn btn-primary recharge">充值</a>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

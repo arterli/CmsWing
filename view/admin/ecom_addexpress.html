@@ -1,0 +1,66 @@
+<div class="modal-dialog ">
+    <form method="post" class="form-horizontal" action="/admin/ecom/addexpress" data-validate="parsley">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{controller.meta_title}}</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名称</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <input type="text" name="name" class="input-sm form-control" placeholder="物流公司" data-required="true" >
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">别名</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <input type="text" name="alias" class="input-sm form-control" placeholder="别名" data-required="true">
+                            </div>
+                            <div class="col-md-12">
+                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 纯英文字母</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Code</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <input type="text" class="input-sm form-control" placeholder="快递100Code" name="code" data-required="true">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">公司网址</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" name="url" class="form-control input-sm" data-type="url" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+                <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+        </div>
+    </form>
+</div><!-- /.modal-dialog -->
+

@@ -16,6 +16,8 @@ module.exports = class extends think.Model {
    async stock(oder_id,regulation=true,sku="suk",stock ="total_stock"){
 
         let goodlist = await this.model("order_goods").where({order_id:oder_id}).select();
+        // console.log(goodlist);
+        // return false;
         for (let val of goodlist){
             let model_id = await this.model("document").where({id:val.goods_id}).getField("model_id",true);
             //获取模型数据
@@ -27,7 +29,7 @@ module.exports = class extends think.Model {
                 let data = await model.where({id:val.goods_id}).getField(sku,true);
                 data = JSON.parse(data);
                 let type = prom_goods.type.split(",");
-                console.log(type);
+                //console.log(type);
                 for(let v of data.data){
                     if(v.ch && v.name==type[0]){
                         for (let _v of v.ch){
@@ -66,7 +68,7 @@ module.exports = class extends think.Model {
                     }
 
                 }
-                think.log(data)
+
                 let date = {}
                 date[sku]=JSON.stringify(data);
                 await model.where({id:val.goods_id}).update(date);

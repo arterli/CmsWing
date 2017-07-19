@@ -1,0 +1,138 @@
+<div class="modal-dialog ">
+    <form class="form-horizontal" >
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名称</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <p class="form-control-static">{{user.username}}</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" style="padding-top: 25px">头像</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <a href="#" class="pull-left thumb-md avatar b-3x m-r">
+                                <img src="/u/avatar/{{user.id}}" alt="{{user.username}}">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮箱</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="form-control-static">{{user.email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="form-control-static">{{user.mobile}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">会员组</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+
+                                {%for v in usergroup%}
+                            {%if v.groupid == user.groupid%}
+                            <p class="form-control-static">{{v.name}}</p>
+                            {%endif%}
+                                {%endfor%}
+
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">积分点数</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p class="form-control-static">{{user.score}}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {%if user.is_admin==1%}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户类型</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <p class="form-control-static">管理</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group is_admin_group">
+                <label class="col-sm-2 control-label">管理组</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+
+                                {%for v in role%}
+                            {%if v.id == roleid%}
+                            <p class="form-control-static">{{v.desc}}</p>
+                            {%endif%}
+                                {%endfor%}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+            {% if user.vip==1%}
+            <div class="form-group">
+                <label class="col-sm-2 control-label">vip会员</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <div class="input-group">
+                            <span class="input-group-addon" style="padding-top: 5px; padding-bottom: 3px">
+                            过期时间
+                          </span><input class="input-sm input-s form-control" size="16" type="text" value="{{user.overduedate|moment('YYYY-MM-DD HH:mm')}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+        <div class="modal-footer">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+        </div>
+    </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->
+

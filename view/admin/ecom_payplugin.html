@@ -1,0 +1,59 @@
+{% extends "./inc/base.html" %} {% block content %}
+
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class=""><a  href="/admin/ecom/payment"><i class="fa fa-comments text-muted"></i> 正在使用的支付 </a></li>
+            <li class="active"><a  href="#"><i class="fa fa-user text-muted"></i> 全部支付方式</a>
+            </li>
+        </ul>
+    </header>
+    <section class="scrollable wrapper">   
+ <section class="panel panel-default">
+            <header class="panel-heading">
+               {{controller.meta_title}}
+            </header>
+            <div class="row wrapper">
+                <div class="col-sm-5 m-b-xs">
+                    111
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+                        
+                        <th>支付方式</th>
+                        
+                        <th>支付描述</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                       
+                        <td> <img src="{{item.logo}}" class="img-responsive img-thumbnail" width="100" > {{ item.name }}</td>
+                        
+                                        </td></td>
+                       <td>
+                                           {{item.description|safe}}
+                                        </td>
+                        <td>
+                           <a href="/admin/ecom/addpay/id/{{item.id}}" class="text-info">添加使用</a>
+                           
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+{% endblock %}
