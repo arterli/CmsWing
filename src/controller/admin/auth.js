@@ -129,7 +129,7 @@ module.exports = class extends Base {
      * 添加会员组
      */
     async adduserAction(){
-        if(this.isPost()){
+        if(this.isPost){
             let data = this.post();
             let add = await this.model("member_group").add(data);
 
@@ -150,7 +150,7 @@ module.exports = class extends Base {
      * 编辑会员组
      */
     async edituserAction(){
-        if(this.isPost()){
+        if(this.isPost){
             let data = this.post();
             data.allowpost= data.allowpost||0;
             data.allowpostverify= data.allowpostverify||0;
@@ -158,7 +158,6 @@ module.exports = class extends Base {
             data.allowsendmessage= data.allowsendmessage||0;
             data.allowattachment= data.allowattachment||0;
             data.allowsearch= data.allowsearch||0;
-            console.log(data);
             let update = await this.model("member_group").where({groupid:data.groupid}).update(data);
 
             if (update) {
@@ -180,7 +179,7 @@ module.exports = class extends Base {
      * 删除会员组
      */
     async deluserAction(){
-        if(this.isPost()){
+        if(this.isPost){
             let ids = this.post("ids");
             let dels = await this.model('member_group').where({groupid:['IN',ids]}).delete();
             if(dels){
@@ -207,10 +206,10 @@ module.exports = class extends Base {
      * 排序
      */
     async sortAction() {
-     if(this.param('type')==1){
-         await super.sortAction(this,'member_group','groupid');
+     if(this.para('type')==1){
+         await super.sortAction('member_group','groupid');
      }else {
-         await super.sortAction(this,'auth_role','id');
+         await super.sortAction('auth_role','id');
      }
     }
     /**
