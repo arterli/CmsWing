@@ -367,7 +367,7 @@ module.exports = class extends Base {
                 as: "t",
                 on: ["id", "tid"]
 
-            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
+            }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }else {
             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
         }

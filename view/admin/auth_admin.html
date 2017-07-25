@@ -5,8 +5,8 @@
 
                 <header class="header bg-light dk">
                     <ul class="nav nav-tabs pull-left">
-                        <li class="{% if http.action == 'index'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/index"><i class="fa fa-user text-muted"></i> 会员组 </a></li>
-                        <li class="{% if http.action == 'admin'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/admin"><i class="fa fa-user text-muted"></i> 管理员角色</a></li>
+                        <li class="{% if ctx.action == 'index'%}active{%endif%}" ><a href="/{{ctx.controller}}/index"><i class="fa fa-user text-muted"></i> 会员组 </a></li>
+                        <li class="{% if ctx.action == 'admin'%}active{%endif%}" ><a href="/{{ctx.controller}}/admin"><i class="fa fa-user text-muted"></i> 管理员角色</a></li>
                     </ul>
                     {#
                     <div class="btn-group pull-right">
@@ -34,13 +34,13 @@
 
                             <div class="col-sm-9 m-b-xs">
                                 <div class="">
-                                    <a class="btn btn-sm btn-info " href="/{{http.module}}/{{http.controller}}/roleadd" data-toggle="ajaxModal">
+                                    <a class="btn btn-sm btn-info " href="/{{ctx.controller}}/roleadd" data-toggle="ajaxModal">
                                         添加管理角色
                                     </a>
-                                    <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{http.module}}/{{http.controller}}/roledel" target-form="ids">
+                                    <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{ctx.controller}}/roledel" target-form="ids">
                                         删除
                                     </a>
-                                    <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
+                                    <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
                                         排序
                                     </a>
                                 </div>
@@ -77,18 +77,18 @@
 
                                     <td>{{item.description}}</td>
                                     <td><div class="btn-group">
-                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/access/id/{{item.id}}">权限设置</a>
-                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/catepriv/id/{{item.id}}">栏目权限</a>
-                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/userlist/id/{{item.id}}">成员管理</a>
+                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/access/?id={{item.id}}">权限设置</a>
+                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/catepriv/?id={{item.id}}">栏目权限</a>
+                                        <a class="btn btn-default btn-xs" type="button" href="/admin/auth/userlist/?id={{item.id}}">成员管理</a>
                                     </div></td>
-                                    <td><a href="/admin/auth/setstatus/ids/{{item.id}}/status/{{1-item.status}}/model/auth_role" class="active ajax-get" data-toggle="class">
+                                    <td><a href="/admin/auth/setstatus/?ids={{item.id}}&status={{1-item.status}}&model=auth_role" class="active ajax-get" data-toggle="class">
                                         <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
                                         <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
                                     </a></td>
                                     <td>
-                                        <a href="/admin/auth/roleedit/id/{{item.id}}" data-toggle="ajaxModal" class="text-info">编辑</a>
+                                        <a href="/admin/auth/roleedit/?id={{item.id}}" data-toggle="ajaxModal" class="text-info">编辑</a>
                                         {%if item.issystem !=1%}
-                                        <a href="/admin/auth/roledel/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                        <a href="/admin/auth/roledel/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                     {%endif%}
                                 </tr>
                                 {% else %}

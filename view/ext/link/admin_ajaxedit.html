@@ -1,0 +1,150 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">修改{{link.name}}</h4>
+        </div>
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/ajaxedit" data-validate="parsley">
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属分类</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <select class="form-control " name="typeid">
+                                <option value="0" {%if link.typeid == 0%} selected{%endif%}>默认分类</option>
+                                {%for t in type%}
+                                <option value="{{t.typeid}}" {%if link.typeid == t.typeid%} selected{%endif%}>{{t.name}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">链接类型</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <label class="radio-inline i-checks">
+                                <input type="radio" value="1" name="linktype" onclick="$('#logolink').show()" {%if link.linktype==1%}checked{%endif%}><i></i> LOGO链接
+                            </label>
+                            <label class="radio-inline i-checks">
+                                <input type="radio" value="0" name="linktype" onclick="$('#logolink').hide()" {%if link.linktype==0%}checked{%endif%}><i></i> 文字链接
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">网站名称</label>
+
+                    <div class="col-sm-10">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="name" value="{{link.name}}" data-required="true" >
+                            </div>
+                            <div class="col-md-12">
+                                <span class="help-block m-b-none">请输入网站名称</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">网站地址</label>
+
+                <div class="col-sm-10">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="url" value="{{link.url}}" data-required="true" >
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none">请输入网站网址</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" id="logolink">
+                <label class="col-sm-2 control-label">图片logo</label>
+                <div class="col-sm-10">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="logo" value="{{link.logo}}" >
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none">远程图片地址</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-sm-2 control-label">联系人</label>
+                <div class="col-sm-10">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="username" value="{{link.username}}" >
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label class="col-sm-2 control-label">网站简介</label>
+                <div class="col-sm-10">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea  class="form-control" name="introduce"  >{{link.introduce}}</textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">推荐</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                    <label class="radio-inline i-checks">
+                                        <input type="radio" value="1" name="elite" {%if link.elite==1%}checked{%endif%}><i></i> 是
+                                    </label>
+                                    <label class="radio-inline i-checks">
+                                        <input type="radio" value="0" name="elite" {%if link.elite==0%}checked{%endif%} ><i></i> 否
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">审核</label>
+
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <label class="radio-inline i-checks">
+                                    <input type="radio" value="1" name="passed" {%if link.passed==1%}checked{%endif%}><i></i> 是
+                                </label>
+                                <label class="radio-inline i-checks">
+                                    <input type="radio" value="0" name="passed"  {%if link.passed==0%}checked{%endif%}><i></i> 否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id" value="{{link.id}}">
+            <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+        </div>
+        </form>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

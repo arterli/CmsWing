@@ -1,0 +1,109 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <div class="btn-group pull-right">
+            <a href="/admin/channel/add" class="btn btn-default btn-sm" type="button"><i class="fa fa-check-square-o"></i> 添加导航</a>
+        </div>
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                {{controller.meta_title}}
+                <i title="" data-original-title="" class="fa fa-info-sign text-muted" data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+            </header>
+            <div class="row wrapper">
+
+                <div class="col-sm-9 m-b-xs">
+                    <div class="">
+                        <a href="/admin/channel/add" class="btn btn-sm btn-info ">
+                            添加导航
+                        </a>
+                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
+                            排序
+                        </a>
+
+                        <a href="#" onclick="jQuery('#category').treetable('expandAll'); return false;" class="btn btn-sm btn-info ">
+                            展开全部
+                        </a>
+                        <a  onclick="jQuery('#category').treetable('collapseAll'); return false;" href="#" class="btn btn-sm btn-info">
+                            合并全部
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover b-t b-light treetable" id="category">
+                    <thead>
+                    <tr>
+                        <th > 分类名称 </th>
+                        <th style="width:80px;">排序</th>
+                        <th class="">导航地址</th>
+                        <th class="">ID</th>
+                        <th style="width:80px;">状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {%for val in list%}
+                    <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
+                        <td><span class='folder ui-draggable'>{{val.title}}</span></td>
+                        <td><input class="form-control form-control-text sort" value="{{val.sort}}" name="sort" data-id="{{val.id}}"/></td>
+                        <td><a href="{{val.url}}" target="_blank" class="text-info">{{val.url}}</a> </td>
+                        <td>{{val.id}}</td>
+                        <td> <a href="/admin/channel/setstatus/?ids={{val.id}}&status={{1-val.status}}" class="active ajax-get" data-toggle="class">
+                            <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>
+                            <i class="fa fa-times text-danger {%if val.status %}text{%else%}text-active{%endif%}"></i>
+                        </a></td>
+
+                        <td><a class="text-info" href="/admin/channel/edit/?cid={{val.id}}">编辑</a>
+                            <a class="text-info confirm ajax-get " href="/{{ctx.controller}}/del/?id={{val.id}}">删除</a>
+</td>
+                    </tr>
+                    {%endfor%}
+
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+
+                    <div class="col-sm-12 text-right text-center-xs">
+
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+    <section class="scrollable wrapper hide">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="tree">
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("#category").treetable({ expandable: true });
+    jQuery('#category').treetable('expandAll')
+
+</script>
+
+{% endblock %}

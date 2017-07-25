@@ -1,0 +1,359 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/admin/js/hswx/css/hs_self_menu.css" type="text/css"/>
+<link rel="stylesheet" href="/static/admin/js/hswx/css/hs_wx_base.css" type="text/css"/>
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="hs_col_main">
+                            <div id="" class="hs_main_hd ">
+                                <div id="" class="hs_menu_setting_area js_editBox">
+                                    <div class="hs_mobile_menu_preview hs_ml">
+                                        <div id="hs_mobile_bd" class="hs_mobile_bd">
+                                            <ul id="hs_pre_menu_list" class="hs_pre_menu_list">
+                                                <!--<li class="hs_first_li2 hs_menu_add_click" style="width:274px;">
+                                                    <span style="text-align: center;font-size: 20px;"><span style=";font-weight: bold;" class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加菜单</span>
+                                                </li>-->
+                                                <!--<li class="hs_father_menu_all">
+                                                    <span id="">
+                                                        菜单名称
+                                                    </span>
+                                                    <div class="hs_menu_child_three  hs_menu_child_relative">
+                                                        <ul class="hs_sub_pre_menu_list">
+                                                            <li class="hs_add_child_menu">菜单名称</li>
+                                                            <li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>
+                                                        </ul>
+                                                        <i class="hs_arrow hs_arrow_out"></i>
+                                                        <i class="hs_arrow hs_arrow_in"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="hs_father_menu_all">
+                                                    <span id="">
+                                                        菜单名称s
+                                    <div class="hs_mobile_menu_preview hs_ml">
+                                        <div id="hs_mobile_bd" class="hs_mobile_bd">
+                                            <ul id="hs_pre_menu_list" class="hs_pre_menu_list">
+                                                <li class="hs_first_li2 hs_menu_add_click" style="width:274px;">
+                                                    <span style="text-align: center;font-size: 20px;"><span style=";font-weight: bold;" class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加菜单</span>
+                                                </li>
+                                                <!--<li class="hs_father_menu_all">
+                                                    <span id="">
+                                                        菜单名称
+                                                    </span>
+                                                    <div class="hs_menu_child_three  hs_menu_child_relative">
+                                                        <ul class="hs_sub_pre_menu_list">
+                                                            <li class="hs_add_child_menu">菜单名称</li>
+                                                            <li class="hs_add_child_menu"><i class="hs_icon14_menu_add"></i></li>
+                                                        </ul>
+                                                        <i class="hs_arrow hs_arrow_out"></i>
+                                                        <i class="hs_arrow hs_arrow_in"></i>
+                                                    </div>
+                                                </li>
+                                                <li class="hs_father_menu_all">
+                                                    <span id="">
+                                                        菜单名称
+                                                    </span>
+                                                </li>
+                                                <li class="hs_father_menu_all hs_menu_add_father"><i class="hs_icon14_menu_add"></i></li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="hs_menu_form_area" class="hs_menu_form_area hs_ml">
+                                        <input id="menu_id" type="hidden" value="">
+                                        <input id="menu_f_id" type="hidden" name="" value=""/>
+                                        <input id="material_id" type="hidden"  value="">
+                                        <input id="sort" type="hidden" value="">
+                                        <input id="menu_type" type="hidden" value="">
+                                        <input id="add_id" type="hidden">
+                                        <input id="menu_news_url" type="hidden">
+                                        <input id="menu_is_new_add" type="hidden">
+                                        <div id="" class="hs_portable_editor">
+                                            <div id="" class="hs_menu_hd hs_clearflow">
+                                                <h4 class="hs_menu_name hs_ml">菜单名称</h4>
+                                                <a class="hs_del_menu_link hs_fr" href="#">删除菜单</a>
+                                            </div>
+                                            <div id="" style="width: 100%;">
+                                                <div id="" class="hs_menu_form_bd hs_mt">
+                                                    <div id="" class="hs_menu_set_name">
+                                                        <label class="hs_ml hs_mr_20">菜单名称：</label>
+                                                        <div id="" class="hs_meun_name_val hs_ml">
+                                                            <span id="" class="hs_menu_name_span">
+                                                                <input class="hs_menu_name_input" type="" name="hs_menu_name_input" id="" value=""/>
+                                                            </span>
+                                                            <span class="hs_menu_name_span hs_mt_5">
+                                                               <label>字数不超过4个汉字或8个字母</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div id="" class="hs_menu_content hs_mt_15">
+                                                    </div>
+                                                </div>
+                                                <div id="" class="hs_frm_control_group">
+                                                    <label class="hs_mr_20">菜单内容</label>
+                                                    <input class="hs_radio_padding" type="radio" name="menu_type"
+                                                           checked="true" value="0"/>
+                                                    <label class="hs_mr_20"> 发送消息</label>
+                                                    <input class="hs_radio_padding" type="radio" name="menu_type"
+                                                           value="1"/>
+                                                    <label>跳转网页</label>
+                                                </div>
+                                            </div>
+                                            <div class="hs_menu_weburl hs_mt hs_menu_hidden">
+                                                <div class="hs_menu_tip" style="color:#8d8d8d;margin-left: 20px;;">
+                                                    订阅者点击该菜单会跳转到以下菜单
+                                                </div>
+                                                <div id="" class="hs_menu_url_edit hs_mt_15" style="margin-left: 20px;">
+                                                    <div id="">
+                                                        <span>
+                                                            <label>页面地址</label>
+                                                        </span>
+                                                        <span id="">
+                                                            <input class="hs_menu_url hs_menu_name_input" type="" name="hs_menu_name_input_url" id="" value=""
+                                                                   placeholder="url链接"/>
+                                                        </span>
+                                                    </div>
+                                                    <div id="selectnews" class="hs_mt_15" style="margin-left: 73px;">
+                                                        <span id="" >
+                                                            <a href="javascript:void(0)" style="color:#459ae9;">从公众号图文消息中选择</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="" class="hs_menu_message_content hs_mt  ">
+                                                <div class="hs-ui-beditor hs-js-tab hs-auto">
+                                                    <div class="hs-etap-nav">
+                                                        <ul>
+                                                            <li jstab-target="imgtextArea"
+                                                                class="hs-etap-one hs-etap-text active">
+                                                                <a href="javascript:void(0);" onclick="return false;">
+                                                                    &nbsp;<i class="hs_icon_msg_sender"></i><span
+                                                                        class="hs-etap-title">图文</span></a>
+                                                            </li>
+                                                            <li jstab-target="imageArea"
+                                                                class="hs-etap-one hs-etap-image">
+                                                                <a href="javascript:void(0);" onclick="return false;">
+                                                                    &nbsp;<i class="hs-etap-icon"></i><span
+                                                                        class="hs-etap-title">图片</span></a>
+                                                            </li>
+                                                            <li jstab-target="audioArea"
+                                                                class="hs-etap-one hs-etap-audio">
+                                                                <a href="javascript:void(0);" onclick="return false;">
+                                                                    &nbsp;<i class="hs-etap-icon"></i><span
+                                                                        class="hs-etap-title">语音</span></a>
+                                                            </li>
+                                                            <li jstab-target="videoArea"
+                                                                class="hs-etap-one hs-etap-video">
+                                                                <a href="javascript:void(0);" onclick="return false;">
+                                                                    &nbsp;<i class="hs-etap-icon"></i>
+                                                                    <span class="hs-etap-title">视频</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="hs-etap-panel">
+                                                        <div jstab-des="imgtextArea" class="hs-etap-content">
+                                                            <div class="hs-etap-imgtextArea hs-inner">
+                                                                <div id="newsxz" class="hs-con-cover">
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>从素材库中选择</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>新建图文消息</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="newssed" class="hs-etap-panel" style="display:none;">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div jstab-des="imageArea" class="hs-etap-content" style="display: none;">
+                                                            <div class="hs-etap-imageArea hs-inner">
+                                                                <div class="hs-con-cover">
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>从素材库中选择</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>上传图片</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div jstab-des="audioArea" class="hs-etap-content" style="display: none;">
+                                                            <div class="hs-etap-audioArea hs-inner">
+                                                                <div class="hs-con-cover">
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>从素材库中选择</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>新建语音</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div jstab-des="videoArea" class="hs-etap-content" style="display: none;">
+                                                            <div class="hs-etap-videoArea hs-inner">
+                                                                <div class="hs-con-cover">
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>从素材库中选择</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="hs-media-cover">
+                                                                        <span class="hs-create-access">
+                                                                            <a href="javascript:;">
+                                                                                <i class="hs-icon36 hs-icon36-add"></i>
+                                                                                <strong>新建视频</strong>
+                                                                            </a>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="hs_mt_15">-->
+                                                <!--<span><button class="hs_save_btn">保存</button></span>-->
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hs_mt_15">
+                            <span><button class="hs_save_btn">保存</button></span>
+                            <span><button class="hs_build_menu_wx">生成菜单</button></span>
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+{% endblock %}
+{% block script%}
+
+<script src="/static/admin/js/hswx/js/hs_self_menu.js"></script>
+<script src="/static/admin/js/hswx/js/hs_js_common.js"></script>
+<script type="text/javascript">
+    var menu = {{ menu | safe }};//已存在的微信菜单数据结构  selectnews
+    var menuItem = {};
+    $(function () {
+        $('#group_type').on('change', function () {
+            var type_class = $(this).val();
+            if (type_class == 1) {
+                $('#group_object').removeClass('hidden');
+            } else {
+                $('#group_object').addClass('hidden');
+            }
+        });
+
+        $(document).on('click','#selectnews',function(){
+            hs_show_dialog('imgtext',
+                {'submit':
+                    function(e,d,i){
+                        var d = i;
+                        var meterial_id = d.substr(9);
+                        $('#material_id').val(meterial_id);
+                        var data = {"id":meterial_id};
+                        var div = $("#"+i);
+                        var material_id = i.substr(9);
+                        var data = {"id":material_id};
+                        $.post('/admin/mpbase/getmaterialbyid',data,function(res){
+                            $('input[name=hs_menu_name_input_url]').val(res);
+                            $('#menu_news_url').val(res);
+                        },'text');
+                    }
+                }
+            )
+        });
+
+        $(document).on('click','.hs-media-cover',function(){
+            hs_show_dialog('imgtext',
+                {'submit':
+                    function(e,d,i){
+                        var d = i;
+                        var meterial_id = d.substr(9);
+                        $('#material_id').val(meterial_id);
+                        var data = {"id":meterial_id};
+                        var div = $("#"+i);
+                        $('#newssed').html(div);
+                        $('#newssed').append('<a id="newsdel" class="clearfix" href="#">删除</a>');
+                        $('#newssed').show();
+                        $('#newsxz').hide();
+                    }
+                }
+            )
+        });
+
+        /**
+         * 删除已有素材
+         */
+        $(document).on('click','#newsdel',function(){
+            $('#newssed').empty();
+            $('#newssed').hide();
+            $('#newsxz').show();
+            $('#material_id').val("");
+        });
+
+        /**
+         * 微信菜单生成
+         */
+        $(document).on('click','.hs_build_menu_wx',function(){
+            $.post('/admin/mpbase/sendselfmenutowx',{},function(res){
+                if(res == '1'){
+                    alert('微信菜单创建成功！');
+                }else{
+                    alert('微信菜单创建失败！');
+                }
+            });
+        });
+    })
+</script>
+{% endblock%}

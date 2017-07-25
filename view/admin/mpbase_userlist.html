@@ -1,0 +1,88 @@
+{% extends "./inc/base.html" %} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                     <header class="header bg-light b-b">
+                            <p>{{controller.meta_title}}</p>
+                        </header>
+                    <section class="scrollable wrapper">
+                       
+                        
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                微信用户管理
+                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info ajax-get" href="/admin/mpbase/getusers">
+                                            同步微信用户
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th class="">昵称</th>
+                                        <th class="">地区</th>
+                                        <th class="">关注时间</th>
+                                        <th class="">是否绑定网站账户</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                                        <td><img src="{{item.headimgurl}}" style="width:48px;height:48px"> {{item.nickname}}</td>
+                                        <td>{{item.country}} {{item.province}} {{item.city}}</td>
+                                        <td>{{item.subscribe_time | dateformat('Y-m-d H:i:s')}}</td>
+                                        <td>{%if item.uid%}已绑定{%else%}未绑定{%endif%}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}

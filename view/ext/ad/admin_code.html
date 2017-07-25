@@ -1,0 +1,72 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">({{space.name}})广告位调用</h4>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-warning alert-block">
+                <h4><i class="fa fa-bell-alt"></i>调用说明</h4>
+                <p>1、调用方式一返回广告代码，再调用位置直接显示广告内同；</p>
+                  <p> 2、调用方式二返回广告json数据，可以自己再模板中制作显示内容；</p>
+                   <p>3、根据自身情况选择一种调用方式，然后把调用代码复制粘贴到需要显示广告的模板再更新相关网页即可。</p>
+            </div>
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs">code</span>
+                    调用方式一
+                </header>
+                <div class="panel-body"><input type="text" value=" {% raw %}{{{%endraw%}{{space.spaceid}}{% raw %}|show_ad('code')|safe}}{%endraw%} " class="form-control"></div>
+            </section>
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    <span class="label bg-danger pull-right m-t-xs">json</span>
+                    调用方式二
+                </header>
+                <div class="panel-body"><input type="text" value=" {% raw %}{% set jsonad = {%endraw%}{{space.spaceid}}{% raw %}|show_ad('json') %}{%endraw%} " class="form-control"></div>
+            </section>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+        </div>
+
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script>
+    $("select[name='type']").change(function(){
+        var temp_size = '<div class="form-group" >'+
+            '<label class="col-sm-2 control-label">尺寸</label>'+
+            '<div class="col-sm-10">'+
+            '<div class="row">'+
+            '<div class="col-md-3">'+
+            '<div class="input-group ">'+
+            '<input type="text" class="form-control" placeholder="宽" name="width">'+
+            '<span class="input-group-addon">px</span>'+
+            '</div>'+
+            '</div>'+
+            '<div class="col-md-3">'+
+            '<div class="input-group ">'+
+            '<input type="text" class="form-control" placeholder="高" name="height">'+
+            '<span class="input-group-addon">px</span>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'
+        var name = $(this).val();
+        if(name){
+            $.ajax({
+                url:"/ext/ad/admin/gettemp/name/"+name,
+                success:function (data) {
+                    var temp = [];
+                    if(data.size==1){
+                     temp.push(temp_size)
+                    }
+                    $(".more").html(temp.join(""));
+                }
+            })
+        }else {
+            $(".more").html("");
+        }
+    });
+</script>

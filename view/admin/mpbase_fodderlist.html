@@ -1,0 +1,117 @@
+{% extends "./inc/base.html" %} 
+{% block style %}
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <!--陈金龙 start-->
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                素材列表
+                                <i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+                                <div class="col-sm-9 m-b-xs">
+                                    <div>
+                                        <a class="btn btn-sm btn-info" href="/admin/mpbase/fodder">新增素材</a>
+                                        <!--<a class="btn btn-sm btn-info" href="javascript:void(0)" onclick="_hs_delete()">批量删除</a>-->
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-default">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                            <th style="width:80px;">编号</th>
+                                            <th class="">封面图</th>
+                                            <th class="">标题</th>
+                                            <th >操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in fodder_list %}
+                                        {% set arts = item.material_content|strToJson %}
+                                        {% set art = arts.articles[0] %}
+                                        <tr>
+                                            <td><label class="checkbox m-n i-checks"><input type="checkbox" class="ids" name="ids" value="{{item.id}}" /><i></i></label></td>
+                                            <td>{{item.id}}</td>
+                                            <td style="width:120px">
+                                                <div style="width:120px"><img class="img-responsive" src="{{art.hs_image_id | get_pic('m=1,w=120,h=67')}}"/></div></td>
+                                            <td>{{art.title}}</td>
+                                            <td>
+                                                <a class="text-info" href="javascript:void(0)" onclick="kkk({{item.id}})">编辑</a>
+                                                <a class="text-info ajax-get confirm" href="/admin/mpbase/deletefodder/id/{{item.id}}">删除</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 text-right text-center-xs">{{pagerData|safe}}</div>
+                                </div>
+                            </footer>
+                        </section>
+                        <!--陈金龙 end-->
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+    function kkk(id){
+        if(true){//confirm("可以预览，但编辑仍在开发中，是否继续？")
+            window.location.href = "/admin/mpbase/fodderedit/id/"+id;
+        }
+    }
+    
+    //批量删除
+    function _hs_delete() {
+        var ids = [];
+        $('input[name=ids]:checked').each(function (i, o) {
+            ids.push(o.value);
+        });
+        if(ids.length == 0){
+            alert('请选择要删除的素材');
+            return false;
+        }
+        if(confirm('确定要删除吗？')){
+            $.get('/admin/mpbase/deletefodder', {id: ids.join(',')},
+                function(data){
+                    if(data.errno == 0){
+                        toastr.success(data.data.name);
+                    }else{
+                        toastr.error(data.errmsg);
+                    }
+                    //setTimeout(function(){ location.reload() }, 1100);
+                }
+            );
+        }
+    }
+</script>
+{% endblock %}

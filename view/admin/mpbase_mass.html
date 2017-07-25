@@ -1,0 +1,274 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/hswx/css/hs_wx_base.css"/>
+<link rel="stylesheet" type="text/css" href="/static/admin/js/hswx/css/hs_mass.css"/>
+
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form method="post" action="/admin/mpbase/masssend" class="form-horizontal"
+                                      id="ajaxForm">
+                                    <input id="send_type" name="send_type" type="hidden" value="newsArea">
+                                    <input id="editor_content" name="editor_content" type="hidden" value="">
+                                    <input id="provincetext" name="provincetext" type="hidden" value="">
+                                    <input id="citytext" name="citytext" type="hidden" value="">
+                                    <input id="me_id" name="me_id" type="hidden" value="">
+                                    <section class="panel panel-default">
+                                        <header class="panel-heading text-right bg-light">
+                                            <ul class="nav nav-tabs ">
+                                                <li class="active"><a href="/admin/mpbase/mass">新建群发消息</a></li>
+                                                <li class=""><a href="/admin/mpbase/hassend">已发送</a></li>
+                                            </ul>
+
+                                        </header>
+                                        <div class="hs_main_bd">
+                                            <div class="hs_highlight_box">
+                                                <p class="desc">
+
+                                                    为保障用户体验，微信公众平台严禁恶意营销以及诱导分享朋友圈，严禁发布色情低俗、暴力血腥、政治谣言等各类违反法律法规及相关政策规定的信息。一旦发现，我们将严厉打击和处理。
+                                                </p>
+                                            </div>
+                                            <div class="hs_send_filter">
+                                                <div class="hs_grid_item target">
+                                                    <label class="hs-label">群发对象</label>
+
+                                                    <div class="hs_dropdown_menu">
+                                                        <select id="group_type" name="group_type"
+                                                                class="hs_select_option form-control">
+                                                            <option class="" value="0">全部用户</option>
+                                                            <option value="1">按分组选择</option>
+                                                        </select>
+                                                        <select id="group_id" name="group_id" class="hs-hide form-control">
+                                                            {% for item in groups %}
+                                                            <option value="{{ item.id }}">{{ item.name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="hs_grid_item sex">
+                                                    <label class="hs-label">性别</label>
+
+                                                    <div class="hs_dropdown_menu">
+                                                        <select id="sex" name="sex" class="form-control">
+                                                            <option value="0">全部</option>
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="hs_grid_item area">
+                                                    <label class="hs-label">群发地区</label>
+
+                                                    <div class="">
+                                                        <select id="province" name="province" class="form-control">
+                                                        </select>
+                                                        <select id="city" name="city" class="hs-hide form-control">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="panel panel-default">
+                                        <div class="hs-ui hs_xx m-lg" style="padding:0">
+                                            <div class="hs-ui-beditor hs-js-tab hs-auto">
+                                                <div class="hs-etap-nav">
+                                                    <ul id="hs-area">
+                                                        <li jstab-target="newsArea"
+                                                            class="hs-etap-one hs-etap-news active">
+                                                            <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                                    class="hs-etap-icon"></i><span
+                                                                    class="hs-etap-title">图文</span></a>
+                                                        </li>
+                                                        <li jstab-target="textArea" class="hs-etap-one hs-etap-text">
+                                                            <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                                    class="hs-etap-icon"></i><span
+                                                                    class="hs-etap-title">文字</span></a>
+                                                        </li>
+                                                        <li jstab-target="imageArea" class="hs-etap-one hs-etap-image">
+                                                            <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                                    class="hs-etap-icon"></i><span
+                                                                    class="hs-etap-title">图片</span></a>
+                                                        </li>
+                                                        <li jstab-target="audioArea" class="hs-etap-one hs-etap-audio">
+                                                            <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                                    class="hs-etap-icon"></i><span
+                                                                    class="hs-etap-title">语音</span></a>
+                                                        </li>
+                                                        <li jstab-target="videoArea" class="hs-etap-one hs-etap-video">
+                                                            <a href="javascript:void(0);" onclick="return false;">&nbsp;<i
+                                                                    class="hs-etap-icon"></i><span
+                                                                    class="hs-etap-title">视频</span></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="hs-etap-panel">
+                                                    <div jstab-des="textArea" class="hs-etap-content"
+                                                         style="display: none;">
+                                                        <div class="hs-etap-textArea hs-inner">
+                                                            <!--*****-->
+                                                            <div class="emotion_editor">
+                                                                <!--<div class="edit_area js_editorArea" style="display: none;"></div>-->
+                                                                <div id="edit_content" class="edit_area js_editorArea"
+                                                                     contenteditable="true"
+                                                                     style="overflow-y: auto; overflow-x: hidden;"></div>
+                                                                <div class="editor_toolbar">
+                                                                    <a href="javascript:void(0);"
+                                                                       class="icon_emotion emotion_switch js_switch">表情</a>
+
+                                                                    <p class="editor_tip opr_tips">，按下Shift+Enter键换行</p>
+
+                                                                    <p class="editor_tip js_editorTip">还可以输入<em>600</em>字
+                                                                    </p>
+
+                                                                    <div class="emotion_wrp js_emotionArea">
+											<span class="hook">
+											<span class="hook_dec hook_top"></span>
+											<span class="hook_dec hook_btm"></span>
+											</span>
+                                                                        <ul class="emotions"
+                                                                            onselectstart="return false;"></ul>
+                                                                        <span class="emotions_preview js_emotionPreviewArea"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--*****-->
+                                                        </div>
+                                                    </div>
+                                                    <div jstab-des="newsArea" class="hs-etap-content">
+                                                        <div class="hs-etap-newsArea hs-inner">
+                                                            <div id="newsxz" class="hs-con-cover">
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a id="news-dialog" href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="/admin/mpbase2/fodder">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建图文</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                            </div>
+                                                            <div id="newssed" class="hs-etap-panel"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div jstab-des="imageArea" class="hs-etap-content"
+                                                         style="display: none;">
+                                                        <div class="hs-etap-imageArea hs-inner">
+                                                            <div class="hs-con-cover">
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>上传图片</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div jstab-des="audioArea" class="hs-etap-content"
+                                                         style="display: none;">
+                                                        <div class="hs-etap-audioArea hs-inner">
+                                                            <div class="hs-con-cover">
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建语音</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div jstab-des="videoArea" class="hs-etap-content"
+                                                         style="display: none;">
+                                                        <div class="hs-etap-videoArea hs-inner">
+                                                            <div class="hs-con-cover">
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>从素材库中选择</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                                <div class="hs-media-cover">
+										<span class="hs-create-access">
+						                <a href="javascript:;">
+                                            <i class="hs-icon36 hs-icon36-add"></i>
+                                            <strong>新建视频</strong>
+                                        </a>
+						            </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--选择end-->
+                                        <div class="m-none m-t-n-lg">
+                                            <div class="hs_qf">
+                                                <button type="submit" id="btn">群发</button>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </form>
+                            </div>
+
+                        </div>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/hswx/js/hs_mass.js"></script>
+<script src="/static/admin/js/hswx/js/hs_wx_area.js"></script>
+<script src="/static/admin/js/hswx/js/hs_js_common.js"></script>
+<script>
+
+</script>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "./inc/base.html" %} 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/hswx/css/hs_wx_base.css"/>
+<style>
+    .dialog_bd .editor_toolbar{ display: none }
+    .dialog_bd .emotion_editor{ margin: 20px 0; }
+    .dialog_bd .hs-ui-beditor{ margin: 20px 0; }
+    .dialog_bd .hs-ui-beditor .emotion_editor{ margin: 0 }
+    .hs-kv-recol .hs-reply-opts a{ color: #ddd }
+    .dialog_bd .hs-etap-nav ul{padding-left: 20px}
+</style>
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <!--陈金龙 start-->
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                <ul class="nav nav-tabs ">
+                                    <li class="active"><a href="#">关键词回复</a></li>
+                                    <li class=""><a href="/admin/mpbase/message">消息自动回复</a></li>
+                                    <li class=""><a href="/admin/mpbase/follow">关注自动回复</a></li>
+                                </ul>
+                            </header>
+                            <div class="row wrapper">
+                                <div class="col-sm-9 m-b-xs">
+                                    <div>
+                                        <a id="hs_js_keywords_rule_add" class="btn btn-sm btn-info" href="javascript:void(0);">添加规则</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-sm btn-default">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body hs-ui">
+                                <ul id="Js_ruleList" class="keywords_rule_list">
+                                    {% for rule in rulelist %}
+                                    <li class="keywords_rule_item" id="{{rule.id}}">
+                                        <div class="keywords_rule_hd no_extra" style="-webkit-transition: all, 1s;">
+                                            <div class="info">
+                                                <em class="keywords_rule_num">规则{{loop.index}}:</em>
+                                                <strong class="keywords_rule_name">{{rule.rule_name}}</strong>
+                                                <div class="hs-reply-opts">
+                                                    <a class="js-edit-rule" data-id="{{rule.id}}" href="javascript:;">编辑</a> - <a class="js-delete-rule" data-id="{{rule.id}}" href="javascript:;">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="keywords_rule_bd keywords_rule_overview">
+                                            <!--关键词-->
+                                            <div class="keywords_info keywords">
+                                                <strong class="keywords_info_title">关键词：</strong>
+                                                <div class="hs-keyword-container">
+                                                    <div class="hs-keyword-none-tip" {% if rule.ks.length %} style="display:none" {% endif %} >没有关键词！</div>
+                                                    <div class="keywords_item_list">
+                                                        {% for ks in rule.ks %}
+                                                        <div class="keywords_item" data-kid="{{ks.id}}">
+                                                            <a href="javascript:;" class="hs-remove-kvs hs-closed"></a>
+                                                            <span class="hs-ik">{{ks.keyword_name}}</span><span class="hs-iv">全匹配</span>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <a class="keywords_add_btn" href="javascript:;">添加一个关键词</a>
+                                            </div>
+                                            <!--关键词回复-->
+                                            <div class="keywords_info reply">
+                                                <strong class="keywords_info_title">回复：</strong>
+                                                <div class="hs-keyword-container">
+                                                    <div class="hs-keyword-none-tip" {% if rule.rs.length %} style="display:none" {% endif %}>没有任何回复！</div>
+                                                    <ol class="hs-kv-recol">
+                                                        {% set typeobj = { 'text':'文本' } %}
+                                                        {% for rs in rule.rs %}
+                                                        <li>
+                                                            <div class="hs-reply-content"><span class="hs-kv-rectype">{{typeobj[rs.type]}}</span><span class="reply-dom">{{rs.content}}</span></div>
+                                                            <div class="hs-reply-opts">
+                                                                <a class="js-edit-it" data-rid="{{rs.id}}" data-rtype="{{rs.type}}" href="javascript:;">编辑</a> - <a class="js-delete-it" data-rid="{{rs.id}}" href="javascript:;">删除</a>
+                                                            </div>
+                                                        </li>
+                                                        {% endfor %}
+                                                    </ol>
+                                                </div>
+                                                <a class="keywords_addrec_btn" href="javascript:;">添加一条回复</a>
+                                            </div>
+                                            <!--竖线-->
+                                            <div class="hs-clearfix hs-cutline"></div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 text-right text-center-xs">{{pagerData|safe}}</div>
+                                </div>
+                            </footer>
+                        </section>
+                        <!--陈金龙 end-->
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/hswx/js/hs_js_common.js"></script>
+<script src="/static/admin/js/hswx/js/hs_auto_reply.js"></script>
+{% endblock %}

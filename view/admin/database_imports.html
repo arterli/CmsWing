@@ -1,0 +1,135 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class=""><a data-toggle="tab" href="/admin/database/index"><i class="fa fa-comments text-muted"></i>
+                备份数据库 </a></li>
+            <li class="active"><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i>
+                还原数据</a></li>
+        </ul>
+    </header>
+
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                已备份的数据库
+            </header>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+                        <th>备份名称</th>
+                        <th>卷数</th>
+                        <th>类型</th>
+                        <th>数据大小</th>
+                        <th>备份时间</th>
+                        <th>状态</th>
+                        <th style="width:210px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in fileslist %}
+                    <tr>
+                        <td>{{ item.dir }}</td>
+                        <td>{{ item.part }}</td>
+                        <td>SQL</td>
+                        <td>{{ item.size | format_bytes}}</td>
+                        <td>{{ item.ctime | format_time('s')}}</td>
+                        <td class="infos">-</td>
+                        <td>
+                            <button class="btn  btn-default btn-xs optimize" data-dir="{{ item.dir }}">还原</button>
+                            <button class="btn  btn-default btn-xs tar" data-dir="{{ item.dir }}">打包下载</button>
+                            <button class="btn  btn-default btn-xs rmdir" data-dir="{{ item.dir }}">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    (function ($) {
+          $(".rmdir").click(function(){
+              var dir=$(this).attr("data-dir");
+              swal({
+                          title: "你确定?",
+                          text: "你将要删除的数据不能恢复!",
+                          type: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#DD6B55",
+                          confirmButtonText: "是的!",
+                          cancelButtonText: "就不!",
+                          closeOnConfirm: false
+                      },
+                      function(){
+              $.ajax({
+                  "url":"/admin/database/rmdir",
+                  "data":{"path":dir},
+                  "success": function (res) {
+                      swal("删除成功!", res.dir +" 已经被删除.", "success");
+                      window.location.reload();
+                  }
+              })
+                      })
+          })
+         $(".tar").click(function(){
+             var dir=$(this).attr("data-dir");
+             window.onbeforeunload = function () {
+                 return "正在压缩数据库，请不要关闭！"
+             }
+             tar(dir,$(this));
+         })
+
+        function tar(dir,self){
+            self.html("正在压缩...")
+            $.ajax({
+                "url":"/admin/database/targz",
+                "data":{"dir":dir},
+                "success": function (res) {
+                    if (res) {
+                        if (res.data.name=="download") {
+                            self.html("打包下载")
+                            window.onbeforeunload = function () {
+                                return null
+                            }
+                            $.download("/admin/database/targz",'name='+res.data.url+'','post' );
+                            return;
+                        }
+                        tar(dir,self);
+                    }
+                }
+            })
+        }
+        // Ajax 文件下载
+        jQuery.download = function(url, data, method){    // 获得url和data
+        if( url && data ){
+            // data 是 string 或者 array/object
+            data = typeof data == 'string' ? data : jQuery.param(data);        // 把参数组装成 form的  input
+            var inputs = '';
+            jQuery.each(data.split('&'), function(){
+                var pair = this.split('=');
+                inputs+='<input type="hidden" name="'+ pair[0] +'" value="'+ pair[1] +'" />';
+            });        // request发送请求
+            jQuery('<form action="'+ url +'" method="'+ (method||'post') +'">'+inputs+'</form>')
+                    .appendTo('body').submit().remove();
+        };
+    };
+        $(".nav-tabs > li > a").click(function () {
+            location.href = $(this).attr("href");
+        })
+    })(jQuery);
+</script>
+{% endblock %}

@@ -18,10 +18,20 @@ module.exports = class extends Base {
     async indexAction() {
         let map = {'status': ['>', -1]}
         let data = await this.db.where(map).page(this.get('page')).countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(this.http); //实例化 Adapter
-        let page = pages.pages(data);
-        this.assign('pagerData', page); //分页展示使用
+        let Page = this.service('pagination');
+        let page = new Page();
+        let html = page.page(data,this.ctx,{
+            desc: true, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: '总数: ${count} , 页数: ${pages}'
+            }
+        });
+        this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title = "模型管理";
         return this.display()
@@ -32,7 +42,7 @@ module.exports = class extends Base {
      * @returns {*}
      */
     async addAction() {
-        if (this.isPost()) {
+        if (this.isPost) {
             let data = this.post();
             //console.log(data);
             data.create_time = new Date().valueOf();
@@ -57,7 +67,7 @@ module.exports = class extends Base {
      * @returns {*}
      */
     async addextAction() {
-        if (this.isPost()) {
+        if (this.isPost) {
             let data = this.post();
             //console.log(data);
             data.create_time = new Date().valueOf();
@@ -88,7 +98,7 @@ module.exports = class extends Base {
      *
      */
     async editAction() {
-        if (this.isPost()) {
+        if (this.isPost) {
             let post = this.post()
             post.update_time = new Date().valueOf();
            if(think.isArray(post.attribute_list)){
@@ -165,7 +175,7 @@ module.exports = class extends Base {
             this.assign({'fields': fields, 'extend_fields': extend_fields, 'allfields': orderbgy, 'info': data})
             this.active = "admin/model/index"
             this.meta_title = "编辑模型"
-            this.display();
+            return this.display();
         }
     }
 
@@ -174,7 +184,7 @@ module.exports = class extends Base {
      *
      */
     async editextAction() {
-        if (this.isPost()) {
+        if (this.isPost) {
             let post = this.post()
             post.update_time = new Date().valueOf();
             if(think.isArray(post.attribute_list)){
@@ -188,6 +198,7 @@ module.exports = class extends Base {
                 return this.success({name:"更新模型成功!",url: "/admin/model/index"})
             }
         } else {
+
             let id = this.get("id");
             let allfields;
             if (think.isEmpty(id)) {
@@ -252,7 +263,7 @@ module.exports = class extends Base {
             this.assign({'fields': fields, 'extend_fields': extend_fields, 'allfields': orderbgy, 'info': data})
             this.active = "admin/model/index"
             this.meta_title = "编辑模型"
-            this.display();
+            return this.display();
         }
     }
     /**
@@ -273,10 +284,10 @@ module.exports = class extends Base {
         think.isEmpty(ids) && this.fail("参数不能为空")
         let res = await this.db.del(ids)
         if (!res) {
-            this.fail("删除失败");
+           return this.fail("删除失败");
         } else {
             update_cache("model")//更新模型缓存
-            this.success({name: "删除成功！"});
+            return this.success({name: "删除成功！"});
         }
     }
     /**

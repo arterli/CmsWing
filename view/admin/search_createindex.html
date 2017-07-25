@@ -1,0 +1,127 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        {%if ft_min_word_len >1%}
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <i class="fa fa-ban-circle"></i><strong>提示!</strong> 系统检测 mysql参数 <code>ft_min_word_len={{ft_min_word_len}}</code>,当 <code>ft_min_word_len=1</code> 时，创建索引才会进行分词处理。
+                        </div>
+                        {%endif%}
+                        <section class="panel panel-default">
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class=""><a  href="/admin/search/index"> 全站搜索 </a></li>
+                                    <li class="todo"><a  href="#">搜索配置</a>
+                                    <li class="active" ><a   href="/admin/search/createindex">重建索引</a>
+                                    </li>
+                                </ul>
+                                <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-12 m-b-xs">
+                                    <div class="alert alert-danger m-b-n-xxs">
+                                            <span> 每轮更新 <input id="pagesize" value="100" name="pagesize" type="number" style="width: 70px"> 条 </span>
+
+                                        <button class="btn btn-sm btn-success createindex"  data-toggle="class:show inline" data-target="#spin"
+                                                data-loading-text="正在重建索引..."> 确认重建索引
+                                        </button>
+                                        <i class="fa fa-spin fa-spinner hide" id="spin"></i>
+                                          <a class="btn btn-sm btn-danger ajax-get" href="/admin/search/unlock"> 解锁</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped m-b-none">
+
+                                    <tbody>
+                                    <tr>
+
+                                        <td id="progress" class="text-center"> <div class="progress progress-sm ß  m-t-xs m-b-none" >
+                                            <div class="progress-bar bg-success" data-toggle="tooltip" data-original-title="0%" style="width: 0%"></div>
+                                        </div></td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12  text-center-xs">
+                                        <div class="alert alert-success text-center m-b-n-xxs" id="info">
+                                            <i class="fa fa-smile-o"></i> 重建索引将会清空原有的所有的索引内容!
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}
+{%block script%}
+<script type="text/javascript">
+    $(function () {
+        $(".createindex").click(function () {
+            var pagesize = $("#pagesize").val();
+            $.ajax({
+                "type":"POST",
+                "url":"/admin/search/createindex",
+                "data":{pagesize:pagesize},
+                "success":function (data) {
+                    console.log(data);
+                    if(data.errno==20){
+                        toastr.error(data.errmsg);
+                        setTimeout(function(){
+                            $(".createindex").removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                            $("#spin").removeClass('show inline')
+                        },1500);
+
+                        return;
+                    }
+
+                    createindex(data.page,data.status);
+                    window.onbeforeunload = function () {
+                        return "正在重建索引，请不要关闭！"
+                    }
+                }
+            })
+        })
+    })
+function createindex(page,status){
+        status && showmsg({progress:0,info:"准备中请勿关闭页面。。。"});
+    $.ajax({
+        "url": "/admin/search/createindex",
+        "data": page,
+        "success": function (data) {
+            if (data.status) {
+                showmsg(data.msg);
+                if (!$.isPlainObject(data.page)) {
+                    $(".createindex").removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                    $("#spin").removeClass('show inline')
+                    window.onbeforeunload = function () {
+                        return null
+                    }
+                    toastr.success("重建索引成功！")
+                    return;
+                }
+                createindex(data.page, page.id != data.page.id);
+            }
+        }
+    })
+    function showmsg(msg) {
+        $("#progress .progress-bar").attr("data-original-title",msg.progress+"%");
+        $("#progress .progress-bar").css("width",msg.progress+"%");
+        $("#info").html(msg.info);
+    }
+}
+
+</script>
+{%endblock%}

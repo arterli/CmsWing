@@ -14,6 +14,7 @@ module.exports = {
         return temp = `${c.join("/")}_${action}`;
     },
     para(param){
+
          return this.get(param)||this.post(param)
     }
 }

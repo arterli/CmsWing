@@ -1,0 +1,194 @@
+{% extends "./inc/base.html" %}
+
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel panel-default">
+                                    <div class="panel-body">
+                                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/mpbase/editseting" data-validate="parsley">
+                                            <input type="hidden" id="id" name="id" value="{{info.id}}">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">用户</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="uid" value="{{info.uid}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">公众号管理</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">微信号</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="wechat" value="{{info.wechat}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">微信号</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">原始ID</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="public_id" value="{{info.public_id}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">公众号原始ID</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">类型</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+                                                            <select class="form-control " name="type">
+                                                                <option value="0" {% if info.type== 0 %}selected {% endif %}>请选择</option>
+                                                                <option value="1" {% if info.type== 1 %}selected {% endif %}>未认证订阅号</option>
+                                                                <option value="2" {% if info.type== 2 %}selected {% endif %}>微信认证订阅号</option>
+                                                                <option value="3" {% if info.type== 3 %}selected {% endif %}>未认证订服务号</option>
+                                                                <option value="4" {% if info.type== 4 %}selected {% endif %}>认证微信服务号</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">请选择公众号类型</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">AppID</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="appid" value="{{info.appid}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">应用ID</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">AppSecret</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="secret" value="{{info.secret}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">应用密钥，需公众号管理员才能在mp.weixin.qq.com后台完整显示</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">消息加解密密钥</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="encodingaeskey" value="{{info.encodingaeskey}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">安全模式下必填</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">微信支付商户号</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="mchid" value="{{info.mchid}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">微信支付必须配置</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">微信支付商户支付密钥</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="mchkey" value="{{info.mchkey}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">微信支付必须配置</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">接受微信支付异步通知回调地址</label>
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control  " name="notify_url" value="{{info.notify_url}}" >
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none">微信支付必须配置，带http://的完整URL</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                            <div class="form-group form-submit">
+                                                <div class="col-sm-4 col-sm-offset-2">
+                                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                                            type="submit">返回
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+
+

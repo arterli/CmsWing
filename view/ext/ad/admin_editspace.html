@@ -1,0 +1,112 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/editspace" data-validate="parsley">
+        <div class="modal-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">名称</label>
+
+                    <div class="col-sm-10">
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="name" value="{{space.name}}" data-required="true" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <select class="form-control " name="type">
+                                <option value="">选择类型</option>
+                                {%for t in temp%}
+                                <option value="{{t.name}}" {%if space.type==t.name%}selected{%endif%}>{{t.title}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more">
+                {%for t in temp%}
+                {%if space.type==t.name%}
+                {%if t.size==1%}
+                <div class="form-group"><label class="col-sm-2 control-label">尺寸</label><div class="col-sm-10"><div class="row"><div class="col-md-3"><div class="input-group "><input type="text" class="form-control" placeholder="宽" name="width" value="{{space.width}}"><span class="input-group-addon">px</span></div></div><div class="col-md-3"><div class="input-group "><input type="text" class="form-control" placeholder="高" name="height" value="{{space.height}}"><span class="input-group-addon">px</span></div></div></div></div></div>
+                {%endif%}
+                {%endif%}
+                {%endfor%}
+            </div>
+            <div class="form-group" >
+                <label class="col-sm-2 control-label">描述</label>
+                <div class="col-sm-10">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea  class="form-control" name="description">{{space.description}}</textarea>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" value="{{space.spaceid}}" name="spaceid">
+            <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+        </div>
+        </form>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<script>
+    $(function(){
+        var temp_size = '<div class="form-group" >'+
+            '<label class="col-sm-2 control-label">尺寸</label>'+
+            '<div class="col-sm-10">'+
+            '<div class="row">'+
+            '<div class="col-md-3">'+
+            '<div class="input-group ">'+
+            '<input type="text" class="form-control" placeholder="宽" name="width">'+
+            '<span class="input-group-addon">px</span>'+
+            '</div>'+
+            '</div>'+
+            '<div class="col-md-3">'+
+            '<div class="input-group ">'+
+            '<input type="text" class="form-control" placeholder="高" name="height">'+
+            '<span class="input-group-addon">px</span>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'+
+            '</div>'
+        $("select[name='type']").change(function(){
+
+            var name = $(this).val();
+            if(name){
+                $.ajax({
+                    url:"/ext/ad/admin/gettemp/?name="+name,
+                    success:function (data) {
+                        var temp = [];
+                        if(data.size==1){
+                            temp.push(temp_size)
+                        }
+                        $(".more").html(temp.join(""));
+                    }
+                })
+            }else {
+                $(".more").html("");
+            }
+
+
+        });
+
+    })
+
+</script>

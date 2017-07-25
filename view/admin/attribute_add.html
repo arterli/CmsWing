@@ -1,0 +1,365 @@
+{% extends "./inc/base.html" %}
+
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{meta_title}} <strong class="text-primary-dker">{{modelname}}</strong> 字段 <a
+                href="/admin/attribute/index/?model_id={{model_id}}" class="text-info-dk"><i class="fa fa-reply"></i> 返回列表</a>
+        </p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <header class="panel-heading text-right bg-light clearfix">
+                        <ul class="nav nav-tabs pull-left">
+                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-cog text-muted"></i>
+                                基础</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-cog text-muted"></i> 高级</a>
+                            </li>
+                        </ul>
+
+                    </header>
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/attribute/update"
+                              data-validate="parsley">
+                            <div class="tab-content">
+
+                                <div id="tab-1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段名</label>
+
+                                        <div class="col-sm-10">
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="name" value="{{info.name}}" data-required="true" data-Remote="/admin/attribute/checkname/?model_id={{model_id}}&id={{info.id}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入字段名 英文字母开头，长度不超过30</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段标题</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="title"
+                                                           value="{{info.title}}"
+                                                           data-required="true">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入字段标题，用于表单显示</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段类型</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="type" id="data-type">
+                                                        <option value="">----请选择----</option>
+
+                                                        {% for key ,value in null|get_attribute_type %}
+                                                        <option value="{{key}}" rule="{{value[1]}}" {% if info.type==
+                                                                key %}selected {% endif %}>
+                                                            {{value[0]}}
+                                                        </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单中的展示方式</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段定义</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="field"
+                                                           value="{{info.field}}" id="data-field" data-required="true">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 字段属性的sql表示</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">参数</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <textarea name="extra" class="form-control">{{info.extra}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted">1.布尔、枚举、多选、单选字段类型的定义数据，例如</span>
+                                                    <pre>1:光电鼠标
+2:机械鼠标
+3:没有鼠标
+</pre>
+                                                    <span class="help-block m-b-none text-muted">2.关联字段类型的定义数据，例如</span>
+                                                    <pre>model:author //关联表名称
+id:id //关联id
+val:title //关联文字字段
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">默认值</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="value"
+                                                           value="{{info.value}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 字段的默认值</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">字段备注</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <textarea class="form-control  " name="remark">{{info.remark}}</textarea>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于表单中的提示</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否显示</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="is_show">
+                                                        <option value="1" {% if info.is_show== 1 %}selected {% endif %}>始终显示</option>
+                                                        <option value="2" {% if info.is_show== 2 %}selected {% endif %}>新增显示</option>
+                                                        <option value="3" {% if info.is_show== 3 %}selected {% endif %}>编辑显示</option>
+                                                        <option value="0" {% if info.is_show== 0 %}selected {% endif %}>不显示</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 是否显示在表单中</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否必填</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="is_must">
+                                                        <option value="0" {% if info.is_must== 0 %}selected {% endif %}>否</option>
+                                                        <option value="1" {% if info.is_must== 1 %}selected {% endif %}>是</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于自动验证</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="tab-2" class="tab-pane fade">
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">验证方式</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="validate_type">
+                                                        <option value="regex" {% if info.validate_type == "regex" %}selected {% endif %}>正则验证</option>
+                                                        <option value="function" {% if info.validate_type == "function" %}selected {% endif %}>函数验证</option>
+                                                        <option value="unique" {% if info.validate_type == "unique" %}selected {% endif %}>唯一验证</option>
+                                                        <option value="length" {% if info.validate_type == "length" %}selected {% endif %}>长度验证</option>
+                                                        <option value="in" {% if info.validate_type == "in" %}selected {% endif %}>验证在范围内</option>
+                                                        <option value="notin" {% if info.validate_type == "notin" %}selected {% endif %}>验证不在范围内</option>
+                                                        <option value="between" {% if info.validate_type == "between" %}selected {% endif %}>区间验证</option>
+                                                        <option value="notbetween" {% if info.validate_type == "notbetween" %}selected {% endif %}>不在区间验证</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">验证规则</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="validate_rule" value="{{info.validate_rule}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 根据验证方式定义相关验证规则</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">出错提示</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="error_info" value="{{info.error_info}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">验证时间</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="validate_time">
+                                                        <option value="3" {% if info.validate_time == 3 %}selected {% endif %}>始 终</option>
+                                                        <option value="1" {% if info.validate_time == 1 %}selected {% endif %}>新 增</option>
+                                                        <option value="2" {% if info.validate_time == 2 %}selected {% endif %}>编 辑</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">自动完成方式</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="auto_type">
+                                                        <option value="function" {% if info.auto_type == "function" %}selected {% endif %}>函数</option>
+                                                        <option value="field" {% if info.auto_type == "field" %}selected {% endif %}>字段</option>
+                                                        <option value="string" {% if info.auto_type == "string" %}selected {% endif %}>字符串</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">自动完成规则</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <input type="text" class="form-control" name="auto_rule" value="{{info.auto_rule}}">
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 根据完成方式订阅相关规则</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">自动完成时间</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+                                                    <select class="form-control " name="auto_time">
+                                                        <option value="3" {% if info.auto_time == 3 %}selected {% endif %}>始 终</option>
+                                                        <option value="1"  {% if info.auto_time == 1 %}selected {% endif %}>新 增</option>
+                                                        <option value="2" {% if info.auto_time == 2 %}selected {% endif %}>编 辑</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {% if info.id %}
+                                    <input type="hidden" name="id" value="{{info.id}}">
+                                    {% endif %}
+                                    <input type="hidden" name="model_id" value="{{model_id}}"/>
+                                    <button class="btn btn-primary btn-s-md ajax-post " type="submit"
+                                            target-form="form-horizontal">确定
+                                    </button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/parsley/parsley.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#data-type').change(function () {
+            $('#data-field').val($(this).find('option:selected').attr('rule'));
+        });
+    })
+</script>
+{% endblock%}

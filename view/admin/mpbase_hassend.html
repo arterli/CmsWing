@@ -1,0 +1,121 @@
+{% extends "./inc/base.html" %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="/static/admin/js/hswx/css/hs_mass.css"/>
+{% endblock %}
+{% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "./inc/mp_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <header class="header bg-light b-b">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <section class="panel panel-default">
+                                    <header class="panel-heading text-right bg-light">
+                                        <ul class="nav nav-tabs ">
+                                            <li class=""><a href="/admin/mpbase/mass">新建群发消息</a></li>
+                                            <li class="active"><a  href="/admin/mpbase/hassend">已发送</a></li>
+                                        </ul>
+
+                                    </header>
+                                </section>
+                                <section class="vbox panel panel-default">
+                                    <!--<header class="panel-heading">Stats</header>-->
+                                    <table class="table table-striped m-b-none">
+                                        <thead>
+                                        <tr>
+                                            <th>消息类型</th>
+                                            <th >发送时间</th>
+                                            <th >成功发送人数</th>
+                                            <th >失败人数</th>
+                                            <th >操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in list %}
+                                        <tr>
+                                            {%if item.type == 'textArea' %}
+                                                <td>
+                                                    [文字]
+                                                    {% set wx_bq = item.material_wx_content %}
+                                                    {% set temp = wx_bq|get_bq(emoji) %}
+                                                    {{temp|safe}}
+                                                </td>
+                                            {% else %}
+                                            {%if item.del_status == 0 %}
+                                                <td>
+                                                    {% set wx_content = item.material_content|strToJson %}
+                                                    {% for val in wx_content.articles %}
+                                                    <div style="position: relative; padding-left: 120px;min-height: 100px">
+                                                        <div style="position: absolute; left: 0">
+                                                            <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}" target="_blank"><img src="{{val.hs_image_src}}" class="hassend-img"></a>
+                                                        </div>
+                                                        <div>
+                                                            <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}" target="_blank">[图文]{{val.title}}</a>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                </td>
+                                            {% else %}
+                                                <td>
+                                                    {% set wx_content = item.material_content|strToJson %}
+                                                    {% for val in wx_content.articles %}
+                                                    <div class="hassend-deled" style="float:left;margin-right:20px">
+                                                        <a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">
+                                                            <img src="{{val.hs_image_src}}" class="hassend-img">
+                                                        </a>
+                                                        <i class="deled-mask">已删除</i>
+                                                    </div>
+                                                    <div style="float:left"><a href="/admin/mpbase/findurl/msg_id/{{item.msg_id}}/status/{{item.del_status}}" target="_blank">[图文]{{val.title}}</a></div>
+                                                    {% endfor %}
+                                                </td>
+                                            {% endif %}
+                                            {%endif%}
+                                            <td>{{item.create_time}}</td>
+                                            <td>{{item.sent_count}}</td>
+                                            <td>{{item.error_count}}</td>
+                                            {%if item.del_status == 0 %}
+                                                <td><a class="btn btn-sm btn-info ajax-get confirm" href="/admin/mpbase/delmass/msg_id/{{item.msg_id}}">删除</a></td>
+                                            {% else %}
+                                                <td>已删除</td>
+                                            {% endif %}
+                                        </tr>
+                                        {% else %}
+                                        <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                            <button data-dismiss="alert" class="close" type="button">×</button>
+                                            <p>This would display if the 'item' collection were empty</p>
+                                        </div></td></tr>
+
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
+                        </div>
+                        <footer class="panel-footer">
+                            <div class="row">
+
+
+                                <div class="col-sm-12 text-right text-center-xs">
+                                    {{pagerData | safe}}
+                                </div>
+                            </div>
+                        </footer>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+{% endblock %}
+
+
+

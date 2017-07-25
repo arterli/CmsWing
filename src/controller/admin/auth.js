@@ -27,7 +27,7 @@ module.exports = class extends Base {
     async updaterules() {
         //需要新增的节点必然位于$nodes
         let nodes = await this.returnnodes(false);
-        //think.log(nodes);
+        //console.log(nodes);
         let AuthRule = this.model('auth_rule');
         let map = {'module': 'admin', 'type': ['in', [1, 2]]};//status全部取出,以进行更新
         //需要更新和删除的节点必然位于$rules
@@ -46,7 +46,6 @@ module.exports = class extends Base {
                 temp.type = 2;
             }
             temp.status = 1;
-            //$data[strtolower($temp['name'].$temp['module'].$temp['type'])] = $temp;//去除重复项
             let url = temp.name + temp.module + temp.type;
             url = url.toLocaleLowerCase();
             data[url] = temp;
@@ -101,12 +100,7 @@ module.exports = class extends Base {
         if (!think.isEmpty(data)) {
             AuthRule.addMany(obj_values(data));
         }
-        //if ( $AuthRule->getDbError() ) {
-        //    trace('['.__METHOD__.']:'.$AuthRule->getDbError());
-        //    return false;
-        //}else{
-        //    return true;
-        //}
+
         return true;
     }
 
@@ -267,7 +261,7 @@ module.exports = class extends Base {
     }
 
     async roleaddAction() {
-        if(this.isPost()){
+        if(this.isPost){
             let data = this.post();
             //console.log(1111111111111111)
             let res = await this.model('auth_role').add(data);
@@ -289,7 +283,7 @@ module.exports = class extends Base {
      * @returns {Promise|*}
      */
     async roledelAction() {
-        let id = this.param("ids");
+        let id = this.para("ids");
         //console.log(id);
         if(think.isEmpty(id)){
             return this.fail("参数不能为空！")
@@ -366,7 +360,7 @@ module.exports = class extends Base {
      * 栏目权限
      */
     async cateprivAction(){
-        if(this.isPost()){
+        if(this.isPost){
             let data = this.post();
             //构造权限
             let priv =[]

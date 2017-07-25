@@ -1,0 +1,105 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+                        {%if ft_min_word_len >1%}
+                        <div class="alert alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <i class="fa fa-ban-circle"></i><strong>提示!</strong> 系统检测 mysql参数 <code>ft_min_word_len={{ft_min_word_len}}</code>,将会关闭全文检索，如要启用，请修改 <code>ft_min_word_len</code>  参数为<code>1</code>
+                        </div>
+                        {%endif%}
+                        <section class="panel panel-default">
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class="active"><a  href="/admin/search/index"> 全站搜索 </a></li>
+                                    <li class="todo"><a  href="#">搜索配置</a>
+                                    <li class=""><a  href="/admin/search/createindex">重建索引</a>
+                                    </li>
+                                </ul>
+                                <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info " href="/admin/search/add" data-toggle="ajaxModal">
+                                            添加搜索分类
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
+                                            排序
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:80px;">排序</th>
+                                        <th style="width:80px;">编号</th>
+                                        <th class="">类别名称</th>
+                                        <th class="">所属模型</th>
+                                        <th class="">所属类型</th>
+                                        <th class="">类别描述</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.id}}"/></td>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.mod|getmode('title')}}</td>
+                                        <td>{%if item.extend==0%}{%if item.id==1%}系统{%else%}独立模型{%endif%}{%else%}系统模型{%endif%}</td>
+                                        <td>
+                                            {{item.info}}
+                                        </td>
+                                        
+                                        <td>
+                                            <a href="/admin/search/edit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
+                                            <a href="/admin/search/del/?id={{item.id}}" class="text-info confirm ajax-get ">删除</a>
+
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

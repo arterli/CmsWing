@@ -1,0 +1,208 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <ul class="nav nav-tabs pull-left">
+            <li class="active"><a data-toggle="tab" href="#"><i class="fa fa-comments text-muted"></i> 备份数据库 </a></li>
+            <li class=""><a data-toggle="tab" href="/admin/database/imports"><i class="fa fa-user text-muted"></i> 还原数据</a>
+            </li>
+        </ul>
+    </header>
+
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                Database Tables
+            </header>
+            <div class="row wrapper">
+                <div class="col-sm-5 m-b-xs">
+                    <button class="btn btn-success" id="export" data-toggle="class:show inline" data-target="#spin"
+                            data-loading-text="正在备份...">备份数据库
+                    </button>
+                    <i class="fa fa-spin fa-spinner hide" id="spin"></i>
+                    <button class="btn  btn-success" id="optimize">优化表</button>
+                    <button class="btn  btn-success" id="repair">修复表</button>
+ <a class="btn btn-danger ajax-get" href="/admin/database/unlock"> 解锁</a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="export-form">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"
+                                                                                            checked="checked"><i></i></label>
+                        </th>
+                        <th>表名</th>
+                        <th>数据量</th>
+                        <th>数据大小</th>
+                        <th>创建时间</th>
+                        <th>备份状态</th>
+                        <th style="width:130px;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input type="checkbox" value="{{ item.Name }}"
+                                                                        name="tables" checked="checked"><i></i></label>
+                        </td>
+                        <td>{{ item.Name }}</td>
+                        <td>{{ item.Rows }}</td>
+                        <td>{{ item.Data_length | format_bytes}}</td>
+                        <td>{{ item.Create_time | format_time('s')}}</td>
+                        <td class="infos">未备份</td>
+                        <td>
+                            <button class="btn  btn-default btn-xs optimize" data-tables="{{ item.Name }}">优化表</button>
+                            <button class="btn  btn-default btn-xs repair" data-tables="{{ item.Name }}">修复表</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+
+            </footer>
+        </section>
+    </section>
+</section>
+
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    (function ($) {
+        var $form = $("#export-form"), $export = $("#export"), tables, $optimize = $("#optimize"), $repair = $("#repair");
+        //优化表
+        $("button.optimize").click(function () {
+            tables = $(this).attr("data-tables");
+
+            optimize(tables)
+        })
+        $optimize.click(function () {
+            tables = $('input[name="tables"]:checked');
+            var arr = [];
+            tables.each(function () {
+                var sfruit = $(this).val();
+                arr.push(sfruit);
+            });
+
+            tables = arr.join(",");
+            optimize(tables)
+        })
+
+        $("button.repair").click(function () {
+            tables = $(this).attr("data-tables");
+
+            repair(tables)
+        })
+        $repair.click(function () {
+            tables = $('input[name="tables"]:checked');
+            var arr = [];
+            tables.each(function () {
+                var sfruit = $(this).val();
+                arr.push(sfruit);
+            });
+
+            tables = arr.join(",");
+            repair(tables);
+        })
+        function optimize(tables) {
+            $.ajax({
+                "type": "POST",
+                "url": "/admin/database/optimize",
+                "data": {"tables": tables},
+                "success": function (res) {
+                    toastr.success("优化表成功！")
+                }
+            })
+        }
+
+        function repair(tables) {
+
+            $.ajax({
+                "type": "POST",
+                "url": "/admin/database/repair",
+                "data": {"tables": tables},
+                "success": function (res) {
+                    toastr.success("修复表成功！")
+                }
+            })
+        }
+
+
+        $export.click(function () {
+            tables = $('input[name="tables"]:checked');
+            var arr = [];
+            tables.each(function () {
+                var sfruit = $(this).val();
+                arr.push(sfruit);
+            });
+
+            tables = arr.join(",");
+            $.ajax({
+                "type": "POST",
+                "url": "/admin/database/export",
+                "data": {"tables": tables},
+                "success": function (data) {
+                    if(data.errno==20){
+                        toastr.error(data.errmsg);
+                        setTimeout(function(){
+                            $export.removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                            $("#spin").removeClass('show inline')
+                        },1500);
+
+                        return;
+                    }
+
+                    if (data.status) {
+                        tables = data.tables;
+                        backup(data.tab, data.status, data.tables);
+                        window.onbeforeunload = function () {
+                            return "正在备份数据库，请不要关闭！"
+                        }
+                    }
+                }
+            })
+
+
+        });
+
+        function backup(tab, status, tables) {
+            status && showmsg(tab.id, "开始备份...(0%)");
+            $.ajax({
+                "url": "/admin/database/export",
+                "data": tab,
+                "success": function (data) {
+                    if (data.status) {
+                        showmsg(tab.id, data.info);
+                        if (!$.isPlainObject(data.tab)) {
+                            $export.removeClass('active disabled').removeAttr("disabled").html("备份完成")
+                            $("#spin").removeClass('show inline')
+                            window.onbeforeunload = function () {
+                                return null
+                            }
+                            toastr.success("备份数据成功！")
+                            return;
+                        }
+                        backup(data.tab, tab.id != data.tab.id);
+                    }
+                }
+            })
+
+
+        }
+
+        function showmsg(id, msg) {
+            $form.find("input[value=" + tables[id] + "]").closest("tr").find(".infos").html(msg);
+        }
+
+        $(".nav-tabs > li > a").click(function () {
+            location.href = $(this).attr("href");
+        })
+    })(jQuery);
+</script>
+{% endblock %}

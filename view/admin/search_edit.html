@@ -1,0 +1,121 @@
+<div class="modal-dialog ">
+    <form method="post" class="form-horizontal" action="/admin/search/edit" data-validate="parsley">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{controller.meta_title}}</h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">类型名称</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <div class="col-md-8 ">
+                                <input type="text" name="name" class="input-sm form-control" placeholder="类型名称" data-required="true" value="{{info.name}}" >
+                            </div>
+                            <div class="col-md-12">
+                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入类型名称</span>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所属模型</label>
+
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <select class="form-control input-sm" name="mod">
+                                {%for v in modlist%}
+                                <option value="{{v.id}}" {%if info.mod == v.id%} selected{%endif%}>{{v.title}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">数据id字段名称</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <input type="text" name="pk" class="input-sm form-control" placeholder="搜索id" data-required="true" value="{{info.pk}}">
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 搜索数据的id,字段名称一般为"id"</span>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">搜索字段</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8 ">
+                            <input type="text" class="input-sm form-control" placeholder="搜索字段" name="data" data-required="true" value="{{info.data}}">
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 要搜索的字段，多个用<code>,</code>隔开</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">创建时间字段名称</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" name="addtime" class="form-control input-sm"  data-required="true" value="{{info.addtime}}" >
+                        </div>
+                        <div class="col-md-12">
+                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 搜索数据的'创建时间'字段名称</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">描述</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <textarea  name="info" class="form-control input-sm"  >{{info.info}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="hidden" name="id" value="{{info.id}}">
+            <a href="javascript:;" class="btn btn-default" data-dismiss="modal">关闭</a>
+            <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+        </div>
+    </div><!-- /.modal-content -->
+    </form>
+</div><!-- /.modal-dialog -->
+<script>
+    $(function () {
+
+        //用户组选择
+        $("input[name='is_admin']").on("change",function () {
+            var val = $(this).val();
+            console.log(val);
+            if(val == 1){
+                $(".is_admin_group").removeClass('hide');
+            }else {
+                $(".is_admin_group").addClass('hide');
+            }
+        })
+    })
+</script>

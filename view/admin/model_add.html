@@ -1,0 +1,165 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/admin/model/add" data-validate="parsley">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型标识</label>
+
+                                <div class="col-sm-10">
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control  " name="name" value="" data-required="true" data-Remote="/admin/model/checkname">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">请输入文档模型标识</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型名称</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control  " name="title" value=""
+                                                   data-required="true" >
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">请输入模型的名称</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">模型类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <label class="radio-inline i-checks">
+                                                <input type="radio" value="1" name="extend" checked><i></i> 系统模型
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 系统模型会继承基础模型</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">引擎类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="engine_type">
+                                                <option value="InnoDB">InnoDB</option>
+                                                <option value="MyISAM">MyISAM</option>
+                                                <option value="MEMORY">MEMORY</option>
+                                                <option value="BLACKHOLE">BLACKHOLE</option>
+                                                <option value="MRG_MYISAM">MRG_MYISAM</option>
+                                                <option value="ARCHIVE">ARCHIVE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否需要主键</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="need_pk">
+                                                <option value="1" selected="selected">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">选“是”则会新建默认的id字段作为主键</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否开启话题</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="key_show">
+                                                <option value="1" selected="selected">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">选“是”,该模型会在话题模块中显示。</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否开审核</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <select class="form-control " name="is_approval">
+                                                <option value="1" selected="selected">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">选“是”,该模型会在内容审核管理中显示。</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+
+{% endblock%}
