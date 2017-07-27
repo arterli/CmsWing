@@ -10,13 +10,19 @@ const Base = require('../common/admin');
 const API = require('co-wechat-api');
 const http = require('http');
 const fs = require('fs');
+const superagent = require('superagent');
 module.exports = class extends Base {
     constructor(ctx){
         super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
         // 其他额外的操作
 
     }
-
+async xxxAction(){
+    let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+    let ddd =  await api.getMaterials("image");
+    console.log(ddd);
+    return this.body = "ddd"
+}
     /**
      * index action
      * @return {Promise} []
@@ -139,7 +145,7 @@ module.exports = class extends Base {
      * 设置一条或者多条数据的状态
      */
     async setstatusAction() {
-        await super.setstatusAction(this,'member_public');
+        await super.setstatusAction('member_public');
     }
     
     
@@ -352,18 +358,9 @@ module.exports = class extends Base {
         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         let self = this;
         //获取关注者列表
-        let users = function(api) {
-            let deferred = think.defer();
-            api.getFollowers((err,result)=>{
-                if(!think.isEmpty(result)){
-                   deferred.resolve(result);
-                }else{
-                    Console.error('err'+err)
-                } 
-            });
-            return deferred.promise;
-        }
-        let res = await users(api);
+
+        let res = await api.getFollowers();
+        console.log(res);
         let useropenid = res['data']['openid'];
         let count = res['count'];
         //self.end(useropenid);
@@ -374,23 +371,8 @@ module.exports = class extends Base {
         for(let i=0;i<count;i++){
             tmp_openids.push(useropenid[i]);
             if((i+1)%100 == 0 || i == (count-1)){
-                //think.log('dd','aaa');
-                 let userinfo = function(api) {
-                    let deferinfo = think.defer();
-                    api.batchGetUsers(tmp_openids,(err,result)=>{
-                        if(!think.isEmpty(result)){
-                        deferinfo.resolve(result);
-                        }else{
-                            Console.error('err'+err);
-                        } 
-                    });
-                    return deferinfo.promise;
-                }
-                let resusers = await userinfo(api);
+                let resusers = await api.batchGetUsers(tmp_openids);
                 let resinfo = resusers['user_info_list'];
-                //console.log(resusers);
-                //return false;
-               //self.end(resinfo);
                 console.log("开始：")
                for (let key in resinfo) {
                        let element = resinfo[key];
@@ -415,9 +397,9 @@ module.exports = class extends Base {
             }
         }
         if(isadd){
-            this.success({name:"操作成功！",url:"/admin/mpbase/userlist"});
+           return this.success({name:"操作成功！",url:"/admin/mpbase/userlist"});
         }else{
-            this.fail("error");
+           return this.fail("error");
         }
     }
     
@@ -468,25 +450,26 @@ module.exports = class extends Base {
         }
         //self.end(aa);
         let res = '';
-        
+        //console.log(openids);
+       // return this.fail('ddd')
         //判断是通过groupid还是openid进行群发
         if(group_type == 1){
             //分组群发
             switch (send_type) {
                 case 'newsArea'://图文
-                    res = await massSendNews(api,media_id,group_id);
+                    res = await api.massSendNews(media_id, group_id);
                     break;
                 case 'textArea'://文本
-                    res = await massSendText(api,content,group_id);
+                    res = await api.massSendText(content,group_id);
                     break;
                 case 'imageArea'://图片
-                    res = await massSendImage(api,media_id,group_id);
+                    res = await api.massSendImage(media_id,group_id);
                     break;
                 case 'audioArea'://语音
-                    res = await massSendVoice(api,media_id,group_id);
+                    res = await api.massSendVoice(media_id,group_id);
                     break;
                 case 'videoArea'://视频
-                    res = await massSendVideo(api,media_id,group_id);
+                    res = await api.massSendVideo(media_id,group_id);
                     break;
             }
             
@@ -494,19 +477,19 @@ module.exports = class extends Base {
             //根据条件通过openid进行群发
             switch (send_type) {
                 case 'newsArea'://图文
-                    res = await massSendNews(api,media_id,openids);
+                    res = await api.massSendNews(media_id,openids);
                     break;
                 case 'textArea'://文本
-                    res = await massSendText(api,content,openids);
+                    res = await api.massSendText(content,openids);
                     break;
                 case 'imageArea'://图片
-                    res = await massSendImage(api,media_id,openids);
+                    res = await api.massSendImage(media_id,openids);
                     break;
                 case 'audioArea'://语音
-                    res = await massSendVoice(api,media_id,openids);
+                    res = await api.massSendVoice(media_id,openids);
                     break;
                 case 'videoArea'://视频
-                    res = await massSendVideo(api,media_id,openids);
+                    res = await api.massSendVideo(media_id,openids);
                     break;
             }
         }
@@ -544,7 +527,7 @@ module.exports = class extends Base {
                 return this.redirect("/admin/mpbase/mass");
             }
         }else{
-            this.fail("error");
+           return this.fail("error");
         }
 
         //this.assign({"navxs": true,"bg": "bg-dark"});
@@ -625,10 +608,20 @@ module.exports = class extends Base {
      */
     async userlistAction(){
         let data = await this.model('wx_user').page(this.get('page'),20).countSelect();
-        let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-        let pages = new Pages(this.http); //实例化 Adapter
-        let page = pages.pages(data);
-        this.assign('pagerData', page); //分页展示使用
+        let Page = this.service('pagination');
+        let page = new Page();
+        let html = page.page(data,this.ctx,{
+            desc: true, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: '总数: ${count} , 页数: ${pages}'
+            }
+        });
+        this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title="微信用户管理"
         this.assign({"navxs": true,"bg": "bg-dark"});
@@ -744,22 +737,24 @@ module.exports = class extends Base {
         return this.json(data);
     }
     //远程拿图片
-    spiderImage(imgUrl, filePath) {
+    spiderImage(imgUrl, filePath,name) {
         let deferred = think.defer();
-        http.get(imgUrl, function (res) {
-            var imgData = "";
-            res.setEncoding("binary");
-            res.on("data", function (chunk) {
-                imgData += chunk;
-            });
-
-            res.on("end", function () {
-                fs.writeFileSync(filePath, imgData, "binary");
+        superagent
+            .get(imgUrl) //这里的URL也可以是绝对路径
+            .end(function(req,res){
+                if(name.indexOf(".")==-1){
+                    filePath = filePath+name+'.jpg';
+                }else {
+                    filePath=filePath+name;
+                }
+               // console.log(filePath);
+                //console.log(res.body);
+                fs.writeFileSync(filePath, res.body);
                 deferred.resolve(filePath);
-            });
-        });
+            })
         return deferred.promise;
     }
+
     /**
      * 微信素材列表
      */
@@ -769,10 +764,20 @@ module.exports = class extends Base {
         self.assign({"navxs": true, "bg": "bg-dark"});
         let model = self.model("wx_material");
         let data = await model.page(this.get('page')).order('add_time DESC').countSelect();
-        let Pages = think.adapter("pages", "page");
-        let pages = new Pages(this.http);
-        let page = pages.pages(data);
-        self.assign('pagerData', page);
+        let Page = this.service('pagination');
+        let page = new Page();
+        let html = page.page(data,this.ctx,{
+            desc: true, //show description
+            pageNum: 2,
+            url: '', //page url, when not set, it will auto generated
+            class: 'nomargin', //pagenation extra class
+            text: {
+                next: '下一页',
+                prev: '上一页',
+                total: '总数: ${count} , 页数: ${pages}'
+            }
+        });
+        self.assign('pagerData', html);
         self.assign('fodder_list', data.data);
         return this.display();
     }
@@ -797,19 +802,8 @@ module.exports = class extends Base {
         let model = self.model('wx_material');
         let olddata = await model.where({id: ['IN', id]}).getField('media_id', false);
         // return self.end(olddata);
-        let wxremove = function (api, data) {
-            let deferred = think.defer();
-            api.removeMaterial(data, (err, result)=> {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(result);
-                }
-            });
-            return deferred.promise;
-        }
         if (!think.isEmpty(olddata)) {
-            let wxres = await wxremove(api, olddata[0]);
+            let wxres = await api.removeMaterial(olddata[0]);
             // let wxres = { errcode: 0 };
             // try{
             //     for(let midi in olddata){
@@ -867,33 +861,29 @@ module.exports = class extends Base {
         // let data = await model.where({id:thumb_id}).find();
         //获取图片
         let pic = await get_pic(thumb_id, 1, 900, 500);
+       // console.log(pic);
+       // return false;
         //判断是本地还是外地,如果是外地就抓回来
         let paths;
-        let filePath = think.RESOURCE_PATH + '/upload/long/';
-        if (pic.indexOf("http://") == 0) {
+        let filePath = think.resource + '/upload/long/';
+        let type = await get_cover(thumb_id,'type');
+        //console.log(type);
+        if (type != 0) {
+           //判断http||https
+            let _http = this.config('http_')==1?'http:':'https:';
+
             think.mkdir(filePath)
             let name = await get_cover(thumb_id, "path");
-            let longpic = await this.spiderImage(pic, filePath + name);
+            pic = _http+pic;
+            //console.log(pic);
+            let longpic = await this.spiderImage(pic, filePath,name);
             paths = longpic;
         } else {
             paths = think.ROOT_PATH + '/www/' + pic;
         }
-        //console.log(pic);
-        //return false;
-        let wx = function (api, data) {
-            let deferred = think.defer();
-            api.uploadMaterial(data, 'thumb', (err, result)=> {
-                if (!think.isEmpty(result)) {
-                    deferred.resolve(result);
-                } else {
-                    console.error(err);
-                }
-            });
-            return deferred.promise;
-        }
-
         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
-        let img_result = await wx(api, paths);
+        console.log(paths);
+        let img_result = await api.uploadMaterial(paths, 'thumb');
         if (img_result) {
             //删除远程文件
             fs.unlinkSync(paths);
@@ -916,49 +906,14 @@ module.exports = class extends Base {
         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
         if (edit_id) {
             let olddata = await model.where({id: edit_id}).find();
-            let wxr = function (api, data) {
-                let deferred = think.defer();
-                api.removeMaterial(data, (err, result)=> {
-                    if (err) {
-                        deferred.reject(err);
-                    } else {
-                        deferred.resolve(result);
-                    }
-                });
-                return deferred.promise;
-            }
-            let wxrres = await wxr(api, olddata.media_id);
+            let wxrres = await api.removeMaterial(olddata.media_id);
             let delrow = await model.where({id: edit_id}).delete();
         }
         try {
             var anews = JSON.parse(params);
-
-            let wx = function (api, data) {
-                let deferred = think.defer();
-                api.uploadNewsMaterial(data, (err, result)=> {
-                    if (err) {
-                        deferred.reject(err);
-                    } else {
-                        deferred.resolve(result);
-                    }
-                });
-                return deferred.promise;
-            }
-
-            let wxres = await wx(api, anews);
+            let wxres = await api.uploadNewsMaterial(anews);
             if (wxres) {
-                let wxg = function (api, data) {
-                    let deferred = think.defer();
-                    api.getMaterial(data, (err, result)=> {
-                        if (err) {
-                            deferred.reject(err);
-                        } else {
-                            deferred.resolve(result);
-                        }
-                    });
-                    return deferred.promise;
-                }
-                let wx_news = await wxg(api, wxres.media_id);
+                let wx_news = await api.getMaterial(wxres.media_id);
                 // let wx_news_str = JSON.stringify(wx_news);
                 let time = new Date().getTime();
                 let data = {
@@ -1446,17 +1401,17 @@ module.exports = class extends Base {
         let model = self.model('wx_custom_menu');
         let data = await model.where({}).find();
 
-        let wxsubmit = function (api, data) {
-            let deferred = think.defer();
-            api.createMenu(data, (err, result)=> {
-                if (err) {
-                    deferred.reject(false);
-                } else {
-                    deferred.resolve(result);
-                }
-            });
-            return deferred.promise;
-        }
+        // let wxsubmit = function (api, data) {
+        //     let deferred = think.defer();
+        //     api.createMenu(data, (err, result)=> {
+        //         if (err) {
+        //             deferred.reject(false);
+        //         } else {
+        //             deferred.resolve(result);
+        //         }
+        //     });
+        //     return deferred.promise;
+        // }
 
         console.log(data);
 
@@ -1523,10 +1478,10 @@ module.exports = class extends Base {
             final.button.push(tmpbtn);
             console.log(tmpbtn);
         }
-        think.log(final)
+        //think.log(final)
         //return false;
         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
-        let res = await wxsubmit(api, final);
+        let res = await api.createMenu(final);
         // let res = true;
         console.log(res);
         if (res) {

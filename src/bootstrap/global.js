@@ -726,7 +726,7 @@ global.get_cover = async (cover_id, field) => {
     if (think.isEmpty(cover_id)) {
         return false;
     }
-    let picture = await think.model('picture', think.config("db")).where({ 'status': 1 }).find(cover_id);
+    let picture = await think.model('picture', think.config("model")).where({ 'status': 1 }).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
 /**
@@ -753,7 +753,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
     }else {
         map.path = id;
     }
-    let picture = await think.model('picture', think.config("db")).where(map).find();
+    let picture = await think.model('picture', think.config("model")).where(map).find();
     if(think.isEmpty(picture)){
         return "/static/noimg.jpg";
     }
