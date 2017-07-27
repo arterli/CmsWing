@@ -36,6 +36,7 @@ export default class extends Base {
     this.assign("onOrder", onOrder);
     //带评价的商品 TODO
     this.meta_title = "用户中心";
+
     //判断浏览客户端
     if (checkMobile(this.userAgent())) {
       let mtype = this.get('mtype')

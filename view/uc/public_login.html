@@ -84,11 +84,13 @@
 {%if controller.setup.GEETEST_IS_LOGIN ==1%}
 <!-- 引入封装了failback的接口--initGeetest -->
 
+{%if http.config("http_")==1%}
 <!-- 引入封装了failback的接口--initGeetest -->
-<script src="//static.geetest.com/static/tools/gt.js"></script>
-
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+{%else%}
 <!-- 若是https，使用以下接口 -->
-<!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+ <script src="https://static.geetest.com/static/tools/gt.js"></script>
+{%endif%}
 <script>
     $(function () {
         var handlerEmbed = function (captchaObj) {

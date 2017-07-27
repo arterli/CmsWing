@@ -149,8 +149,8 @@ table tr td{
                                                                     var subTree = function(jsonObj,item){
                                                                         var arr =[];
                                                                         for(var item2 in jsonObj){
-                                                                            let vvv = item+".";
-                                                                            let count = getShowTimes(vvv,".")
+                                                                            var vvv = item+".";
+                                                                            var count = getShowTimes(vvv,".")
                                                                             if(item2.indexOf(vvv)==0 && getShowTimes(item2,".")==count ){
                                                                                 var htm = '<option value='+ item2 +'>'+ jsonObj[item2] +'</option>';
                                                                                 arr.push(htm);
@@ -436,6 +436,12 @@ table tr td{
                                                             <input type="text" class="form-control  " id="{{field.name}}_show" name="{{field.name}}_show" value="{{data[field.name]|get_relation(relext.model,relext.id,relext.val)}}" />
 
                                                             <script language="javascript" type="text/javascript">
+                                                                $("#{{field.name}}_show").change(function(){
+                                                                    var v = $(this).val();
+                                                                    if(v.length==0){
+                                                                        $("#{{field.name}}").val(0);
+                                                                    }
+                                                                })
                                                                 $("#{{field.name}}_show").coolautosuggest({
                                                                     url:"/admin/public/getrelation/model/{{relext.model}}/id/{{relext.id}}/val/{{relext.val}}?key=",
                                                                     onSelected:function(result){

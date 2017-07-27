@@ -388,7 +388,7 @@ body.bg-grey #wrapper {
 section {
 	display: block;
 	position: relative;
-	padding: 30px 0;
+	padding: 20px 0;
 	border-bottom:rgba(0,0,0,0.1) 1px solid;
 
 	-webkit-transition: all .400s;
@@ -1239,7 +1239,7 @@ section.dark.page-header {
 		margin-top:80px;
 	}
 	.page-header ul.page-header-tabs>li {
-		background-color: rgba(0,0,0,0.02);
+		background-color: rgba(0,0,0,0.1);
 		padding:0;
 
 		-webkit-border-top-left-radius: 3px;
@@ -8632,4 +8632,37 @@ i.ico-60 {
 .bg-grey .nav-tabs.nav-button-tabs>li.active>a {
 	color:#fff !important;
 	background-color:rgba(0,0,0,0.6);
+}
+.owl-box{
+	position: relative;
+}
+.owl-box div.owl-controls{
+	position: absolute;
+	top:-42px;
+	width: 70px;
+	right: 0;
+}
+
+.link .owl-controls{
+	margin-top: 10px;
+}
+.linkbox {
+	display: table;
+	border: #eee 1px solid;
+	width: 90%;
+	height: 50px;
+}
+.linkbox a{
+	height: 50px;
+	display:table-cell;
+	vertical-align: middle;
+	text-align: center;
+
+}
+.linkbox a:hover{
+	background-color: #fff;
+}
+.linkbox a img{
+	max-width: 100%;
+	max-height: 50px;
 }

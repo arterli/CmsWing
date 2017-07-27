@@ -2,6 +2,7 @@
 <html lang="en" class="app">
 <head>
     <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
     <title>登录 | CmsWing 管理后台</title>
     <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -73,11 +74,13 @@
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
 {%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+{%if http.config("http_")==1%}
 <!-- 引入封装了failback的接口--initGeetest -->
-<script src="//static.geetest.com/static/tools/gt.js"></script>
-
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+{%else%}
 <!-- 若是https，使用以下接口 -->
-<!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+<script src="https://static.geetest.com/static/tools/gt.js"></script>
+{%endif%}
 <script>
     $(function () {
         var handlerEmbed = function (captchaObj) {

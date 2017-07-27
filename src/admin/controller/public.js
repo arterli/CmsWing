@@ -162,6 +162,10 @@ export default class extends think.controller.base {
         return this.json(data);
     }
 
+    /**
+     * 关联字段
+     * @returns {Promise<PreventPromise>}
+     */
     async getrelationAction(){
         let model = this.get("model");
         let id = this.get("id");
@@ -171,5 +175,25 @@ export default class extends think.controller.base {
         map[val] =  ["like", "%"+key+"%"]
         let data = await this.model(model).where(map).field(`${id} as id, ${val} as data`).select();
         return this.end(data);
+    }
+
+    /**
+     * 验证表内字段是否重复
+     * /public/remote/table/要验证的表名
+     * @returns {Promise<PreventPromise>}
+     */
+    async remoteAction(){
+       let data = this.get();
+       let table = this.get('table');
+       for (let v in data){
+           data[v]=think._.trim(data[v]);
+       }
+       delete data.table;
+       let res = await this.model(table).where(data).find();
+        if(think.isEmpty(res)){
+            return this.json(1);
+        }else {
+            return this.json(0);
+        }
     }
 }

@@ -97,8 +97,11 @@
         <div class="col-lg-12">
 
                 <ul class="nav nav-tabs ">
+                    {% set mm = model.field_group | parse_config_attr|length %}
                     {% for key ,group in model.field_group | parse_config_attr %}
+                    {%if loop.index != mm%}
                     <li {% if 1 == key %} class="active" {% endif %}><a data-toggle="tab" href="#tabl-{{key}}"><i class="fa fa-comments text-muted"></i> {{group}}</a></li>
+                    {%endif%}
                     {% endfor %}
                 </ul>
 
@@ -108,6 +111,7 @@
                 <form action="/uc/publish/update" method="post" enctype="multipart/form-data" class="form-horizontal validate" data-toastr-position="top-full-width" >
                     <div class="tab-content">
                         {% for key ,group in model.field_group | parse_config_attr %}
+                        {%if loop.index != mm%}
                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                             {%if sort and key ==1%}
                             <input type="hidden" name="sort_id" value="{{http.get('sortid')}}">
@@ -297,7 +301,7 @@
                             </div>
                             {%endif%}
                             {%endfor%}
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="b-b margin-bottom-10"></div>
                             {%endif%}
                             {% if groups and key==1 %}
                             <div class="form-group">
@@ -317,7 +321,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="b-b margin-bottom-10"></div>
                             {% endif%}
                             {% for field in fields[key] %}
                             {% if field.is_show == 1 or field.is_show == 2 %}
@@ -1551,8 +1555,9 @@
                                 </div>
                             </div>
                             {% endif %}
-
-                            {% endfor%}</div>
+                            {% endfor%}
+                        </div>
+                        {%endif%}
                         {% endfor %}
                         <div class="line line-dashed b-b line-lg pull-in"></div>
                     </div>

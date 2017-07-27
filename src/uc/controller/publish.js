@@ -781,7 +781,11 @@ export default class extends Base {
     }
     let cates= [];
     if(think.isEmpty(parr)){
-      cates=cate;
+        for(let val of cate){
+            if(val.priv==1){
+                cates.push(val);
+            }
+        }
     }else {
 
       for(let val of cate){

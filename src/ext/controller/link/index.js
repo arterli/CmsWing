@@ -16,12 +16,12 @@ export default class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     let table ="ext_"+this.ext.ext;
-    console.log(table);
+    //console.log(table);
     //获取当前分类
     this.assign("type",await this.gettype());
     //获取友情链接
     let data = await this.model(table).where({passed:1}).order("sort ASC").select();
-    console.log(data);
+    //console.log(data);
     this.assign("list",data)
     return this.display();
   }

@@ -25,7 +25,7 @@ export default class extends think.controller.base {
         //用户信息
         this.user = await this.session('userInfo');
         this.assign("userinfo", this.user);
-        this.roleid = await this.model("member").where({id:this.user.uid}).getField('groupid', true);
+        this.roleid = await this.model("auth_user_role").where({user_id:this.user.uid}).getField('role_id', true);
         //网站配置
         this.setup = await this.model("setup").getset();
         // console.log(this.setup);
@@ -72,8 +72,7 @@ export default class extends think.controller.base {
             notifications.data.push({type:"approval",info:`有 ${approval} 条内容待审核`,url:"/admin/approval/index",ico:"fa-umbrella"});
         }
 
-
-        console.log(notifications);
+        //console.log(notifications);
         this.assign({
                 "navxs": false,
                 "bg": "bg-black",
@@ -128,13 +127,12 @@ export default class extends think.controller.base {
             switch (model){
                 case 'channel'://更新频道缓存信息
                     update_cache("channel")//更新频道缓存信息
-                    res = true;
-                    msg = "更新导航缓存成功！";
                     break;
                 case 'category'://更新全站分类缓存
                     update_cache("category")//更新栏目缓存
-                    res = true;
-                    msg = "更新栏目缓存成功！";
+                    break;
+                case 'model':
+                    update_cache("model")//更新栏目缓存
                     break;
             }
             this.success({ name: msg.success, url: msg.url });
@@ -287,6 +285,11 @@ export default class extends think.controller.base {
                 break;
             case 'category'://更新全站分类缓存
                 update_cache("category")//更新栏目缓存
+                res = true;
+                msg = "更新栏目缓存成功！";
+                break;
+            case 'model':
+                update_cache("model")//更新模型缓存
                 res = true;
                 msg = "更新栏目缓存成功！";
                 break;

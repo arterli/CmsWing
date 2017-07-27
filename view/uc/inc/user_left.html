@@ -25,6 +25,7 @@
 					<li><a href="/uc/publish/approval" class="{% if http.action == 'approval' %}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 待审稿件</a></li>
 				</ul>
 			</li>
+			{% if 4|getmode('')|length>0 %}
 			<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
 				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
@@ -47,6 +48,7 @@
 
 				</ul>
 			</li>
+			{%endif%}
 			<li class="list-group-item list-toggle
 			 {% if http.action == 'order'
 			    or http.action == 'address'

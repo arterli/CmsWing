@@ -1,7 +1,4 @@
 {% extends "../../topic/inc/base.html" %}
-{% block style %}
-<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
-{% endblock %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
 <!--
@@ -49,7 +46,7 @@ CLASSES:
 <section>
     <div class="container">
 
-        <ul id="portfolio_filter" class="nav nav-pills margin-bottom-30">
+        <ul id="portfolio_filter" class="nav nav-pills margin-bottom-10">
             <li class="filter active"><a data-filter="*" href="#">全部</a></li>
             {%for t in type%}
             <li class="filter"><a data-filter=".t_{{t.typeid}}" href="#">{{t.name}}</a></li>
@@ -57,28 +54,23 @@ CLASSES:
         </ul>
 
         <div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-6">
-           {%for link in list%}
-            <div class="portfolio-item t_{{link.typeid}}"><!-- item -->
 
-                <div class="item-box">
-                    <figure>
-									<span class="item-hover">
-										<span class="overlay dark-5"></span>
-										<span class="inner">
-                                            <!-- details -->
-											<a class="ico-rounded" href="{{link.url}}" target="_blank">
-												<span class="glyphicon glyphicon-option-horizontal size-20"></span>
-											</a>
+            {%for link in list%}
+            {%if link.linktype == 0%}
+            <div class="linkbox alternate portfolio-item t_{{link.typeid}}">
+                <a href="{{link.url}}" target="_blank" title="{{link.name}}">{{link.name}}</a>
+            </div>
+            {%else%}
+            <div class="linkbox alternate portfolio-item t_{{link.typeid}}"><!-- item -->
 
-										</span>
-									</span>
-                        <img class="img-responsive" src="{{link.logo}}" alt="{{link.name}}">
-                    </figure>
-                </div>
+                <a href="{{link.url}}" target="_blank" title="{{link.name}}">
+                    <img class="img-responsive" src="{{link.logo}}" alt="{{link.name}}">
+
+                </a>
 
             </div><!-- /item -->
-
-{%endfor%}
+            {%endif%}
+            {%endfor%}
         </div>
 
     </div>

@@ -77,7 +77,10 @@ export default class extends Base {
   }
   //   登陆页面
   async loginAction() {
-
+      //判断公众账号类型
+      if(this.setup.wx_type == 4 && this.setup.wx_type == 2){
+          await this.action("uc/weixin", "oauth");
+      }
     if (this.isAjax("post")) {
 //验证码
       if(1==this.setup.GEETEST_IS_LOGIN){

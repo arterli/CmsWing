@@ -53,7 +53,7 @@ CLASSES:
                     <div class="testimonial" style="height: 70px;overflow: hidden">
                         <figure class="pull-left">
                          {%if k.pic%}
-                            <img class="radius-3" src="/static/assets/images/demo/people/300x300/6-min.jpg" alt="" />
+                            <img class="radius-3" src="{{k.pic|get_pic('m=1,w=65,h=65')}}" alt="" />
                             {%else%}
                             <i class="ico-light ico-65 ico-hover et-chat" style="z-index: 10;position: relative"></i>
                    {%endif%}

@@ -1,4 +1,4 @@
-<div id="header" class="sticky clearfix header-md ">
+<div id="header" class=" clearfix header-md ">
 	<!--
 				AVAILABLE HEADER CLASSES
 
@@ -55,7 +55,7 @@
 					</div>
 				</li>
 				<!-- /SEARCH -->
-
+				{% if 4|getmode('')|length>0 %}
 				<!-- QUICK SHOP CART -->
 				<li class="quick-cart">
 					<a href="#">
@@ -93,7 +93,7 @@
 					</div>
 				</li>
 				<!-- /QUICK SHOP CART -->
-
+{%endif%}
 			</ul>
 			<!-- /BUTTONS -->
 

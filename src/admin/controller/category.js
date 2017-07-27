@@ -95,7 +95,7 @@ export default class extends Base {
             }else if(mold==1) {
                 model = await this.model("model").get_model(null,null,{extend:0});
             }
-
+            console.log(model);
             //console.log(obj_values(model));
             this.assign("models",model);
 

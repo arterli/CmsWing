@@ -14,6 +14,9 @@ export default {
     ext:{//扩展
         reg:/^ext/
     },
+    api:{//api
+        reg:/^api/
+    },
     //默认走topic
     topic: {//网站信息统一输出口
 

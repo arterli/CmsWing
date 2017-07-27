@@ -416,6 +416,12 @@
                             <input type="text" class="form-control  " id="{{field.name}}_show" name="{{field.name}}_show" />
                             {%set relext = field.extra|parse_config_attr%}
                             <script language="javascript" type="text/javascript">
+                                $("#{{field.name}}_show").change(function(){
+                                    var v = $(this).val();
+                                    if(v.length==0){
+                                        $("#{{field.name}}").val(0);
+                                    }
+                                })
                                 $("#{{field.name}}_show").coolautosuggest({
                                     url:"/admin/public/getrelation/model/{{relext.model}}/id/{{relext.id}}/val/{{relext.val}}?key=",
                                     onSelected:function(result){

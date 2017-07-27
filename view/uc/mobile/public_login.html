@@ -160,11 +160,13 @@
 {% endblock %}
 {% block script %}
 {%if controller.setup.GEETEST_IS_LOGIN ==1%}
-    <!-- 引入封装了failback的接口--initGeetest -->
-    <script src="http://static.geetest.com/static/tools/gt.js"></script>
-
-    <!-- 若是https，使用以下接口 -->
-    <!-- <script src="https://static.geetest.com/static/tools/gt.js"></script> -->
+{%if http.config("http_")==1%}
+<!-- 引入封装了failback的接口--initGeetest -->
+<script src="http://static.geetest.com/static/tools/gt.js"></script>
+{%else%}
+<!-- 若是https，使用以下接口 -->
+<script src="https://static.geetest.com/static/tools/gt.js"></script>
+{%endif%}
 {%endif%}
 <script>
     var btn = document.getElementById("login"),account = document.getElementById("account"),password = document.getElementById("password");

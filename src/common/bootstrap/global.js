@@ -756,6 +756,9 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
         map.path = id;
     }
     let picture = await think.model('picture', think.config("db")).where(map).find();
+    if(think.isEmpty(picture)){
+        return "/static/noimg.jpg";
+    }
     let q="";
     if(picture.type > 0){
        if(m !=null){
@@ -1251,6 +1254,10 @@ global.update_cache =(type)=>{
         case 'channel'://更新频道缓存信息
             think.cache("get_channel_cache",null);
             break;
+        case 'model':
+            think.cache("get_document_model", null);//清除模型缓存
+            think.cache("get_model", null);//清除模型缓存
+            break;
     }
 }
 /**
@@ -1283,4 +1290,36 @@ global.GetDateStr=function (AddDayCount) {
     var m = (dd.getMonth()+1)<10?"0"+(dd.getMonth()+1):(dd.getMonth()+1);//获取当前月份的日期，不足10补0
     var d = dd.getDate()<10?"0"+dd.getDate():dd.getDate();//获取当前几号，不足10补0
     return y+"-"+m+"-"+d;
+}
+//转意符换成普通字符
+global.escape2Html=function (str) {
+    var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+    return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+}
+global.html_decode = function (str)
+{
+    var s = "";
+    if (str.length == 0) return "";
+    s = str.replace(/&gt;/g, "&");
+    s = s.replace(/&lt;/g, "<");
+    s = s.replace(/&gt;/g, ">");
+    s = s.replace(/&nbsp;/g, " ");
+    s = s.replace(/&#39;/g, "\'");
+    s = s.replace(/&quot;/g, "\"");
+    s = s.replace(/<br>/g, "\n");
+    return s;
+}
+
+global.html_encode = function (str)
+{
+    var s = "";
+    if (str.length == 0) return "";
+    s = str.replace(/&/g, "&gt;");
+    s = s.replace(/</g, "&lt;");
+    s = s.replace(/>/g, "&gt;");
+    s = s.replace(/ /g, "&nbsp;");
+    s = s.replace(/\'/g, "&#39;");
+    s = s.replace(/\"/g, "&quot;");
+    s = s.replace(/\n/g, "<br>");
+    return s;
 }

@@ -49,6 +49,11 @@ export default class extends Base {
       }
 
   }
+
+    /**
+     * 编辑
+     * @returns {Promise.<void>}
+     */
   async editAction(){
       if(this.isPost()){
           let data = this.post();
@@ -69,7 +74,15 @@ export default class extends Base {
           return this.display();
       }
   }
-
+  async delAction(){
+      let id = this.get("id");
+      let del = await this.model("search_model").where({id:id}).delete();
+      if(del){
+          return this.success({name:"删除成功!"})
+      }else {
+          return this.fail("删除失败!");
+      }
+  }
   async sortAction(){
       await super.sortAction(this,"search_model")
   }

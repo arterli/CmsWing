@@ -29,8 +29,14 @@
                     <!--</ul>-->
                     <ul class="nav" data-ride="collapse">
                         <!--111111111111111111-->
+                        {% if 4|getmode('')|length==0 %}
+                        {%set ism = 20%}
+                        {%else%}
+                        {%set ism = 0%}
+                        {%endif%}
                         {% for i, v in controller.setup.MENU_GROUP%}
-                        {% if i!= 0 and i != 99  %}
+                        {% if i!= 0 and i != 99  and i !=ism%}
+
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
                             <span class="pull-right"><a href="#{{ i }}"><i class="icon-plus i-lg"></i></a></span>
                             {{ v }}

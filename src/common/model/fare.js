@@ -15,6 +15,7 @@ export default class extends think.model.base {
      * @param {obj} cart_godds 购物车内的宝贝列表
      * @param {number} addr_id null-默认地址，number-配送地址id
      * @param {int} uid 用户id
+     * @param {number} f 运费模板id, 如果为0就是默认模板规则
      * 运费计算
      * 1、如果店铺只使用统一运费，那么顾客下单计算时按最低运费收取。
      * 2、如果店铺只使用一种运费模板规则，那么顾客下单计算时均按此规则收取运费。
@@ -23,7 +24,7 @@ export default class extends think.model.base {
      *TODO
      * @returns {*}
      */
-    async getfare(cart_godds,addr_id,uid){
+    async getfare(cart_godds,addr_id,uid,f=0){
         let real_freight;
         let fare;
         let address;
@@ -40,9 +41,11 @@ export default class extends think.model.base {
         let goods_weight = eval(warr.join('+'));
         //console.log(goods_weight);
         let area = address.province+"_"+address.city+"_"+address.county;
+        if(f==0){
             fare = await this.where({is_default:1}).find();
-
-
+        }else {
+            fare = await this.find(f)
+        }
         let zoning = JSON.parse(fare.zoning)
         if(think.isEmpty(zoning)||think.isEmpty(address)){
             real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;

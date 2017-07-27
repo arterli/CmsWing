@@ -392,9 +392,10 @@ export default {
                  */
                 env.addFilter('priv',async(catid,roleid,action,is_admin=0,type=true,callback)=>{
                     let isp= await priv(catid,roleid,action,is_admin,type);
-                    console.log(isp);
+                    //console.log(isp);
                     callback(null,isp);
                 },true);
+
                 env.addExtension('tagtest', new mytags(), true);
                 /**
                  * 获取分类标签
@@ -419,6 +420,27 @@ export default {
                 env.addExtension('rkeywords', new rkeywords(), true);
                 //基于thinkjs model的万能查询
                 env.addExtension('model',new model(),true);
+                /**
+                 * 广告位调用
+                 * //返回代码
+                 * {{广告位id|show_ad('code')|safe}}
+                 * //json调用
+                 * {% set adlist = 广告位id|show_ad('json')%}
+                 * {%for ad in adlist%}
+                 * ....
+                 * {%endfor%}
+                 */
+                env.addFilter('show_ad',async(spaceid,type,callback)=> {
+                    let data = await think.model("ext_ad_space",think.config("db"),"ext").showad(spaceid);
+                    let res;
+                    if(type=="code"){
+                        res = data[0].code;
+                    }else {
+                        res = JSON.parse(data[0].json);
+                    }
+                    callback(null, res);
+                }, true);
+
             }
         }
     }

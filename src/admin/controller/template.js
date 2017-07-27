@@ -83,9 +83,9 @@ export default class extends Base {
        //console.log(this.adminmenu["10"]);
        this.meta_title= '首页模板';
 
-       console.log(templateFile)
-       //let tempcon = fs.readFileSync(templateFile,"utf8");
-
+       //console.log(templateFile)
+       let tempcon = fs.readFileSync(templateFile,"utf8");
+       temp.html = tempcon;
        console.log(temp);
        this.assign('temp',temp);
        return this.display();
@@ -221,22 +221,23 @@ export default class extends Base {
   async editAction(){
       let id = this.param("id");
       let temp = await this.model("temp").find(id);
+      let temppath;
+      if(temp.type==2){
+          temppath = `${think.ROOT_PATH}/view/${temp.module}/mobile/`;
+      }else {
+          temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
+      }
+      let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"topic")}${temp.action}${this.config("view.file_ext")}`;
       if(this.isPost()){
           temp.pid = temp.id;
           delete temp.id;
           temp.baktime = new Date().getTime();
           temp.lastuser = this.user.uid;
        let data = this.post();
-          let temppath;
-          if(temp.type==2){
-              temppath = `${think.ROOT_PATH}/view/${temp.module}/mobile/`;
-          }else {
-              temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
-          }
-          let templateFile = `${temppath}${temp.controller}${think.config("view.file_depr",undefined,"topic")}${temp.action}${this.config("view.file_ext")}`;
-          console.log(data);
-          console.log(temp);
-          console.log(templateFile);
+
+          // console.log(data);
+          // console.log(temp);
+          // console.log(templateFile);
           //检查是否修改内容
           if(data.html==temp.html){
               return this.fail("请先修改模板!")
@@ -263,6 +264,9 @@ export default class extends Base {
               this.active = "admin/template/sp"
           }
           this.meta_title="修改模板"
+          //获取本地模板
+          let tempcon = fs.readFileSync(templateFile,"utf8");
+          temp.html = tempcon;
           this.assign({
               "navxs":true,
               "temp":temp
