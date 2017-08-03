@@ -28,19 +28,7 @@ module.exports = class extends Base {
   async logAction(){
     let list = await this.model("balance_log").order("id DESC").page(this.get('page')||1,20).countSelect();
     //console.log(list);
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(list,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(list);
     this.assign("pagerData",html);
     for(let itme of list.data){
       itme.user_id = await this.model("member").get_nickname(itme.user_id);

@@ -17,6 +17,9 @@ module.exports = class extends Base {
         //console.log(think.config('model.mysql.prefix'));
        // let pa = JSON.parse(fs.readFileSync(think.ROOT_PATH+"/package.json",'utf-8'));
 
+        console.log(this.config('setup.WEB_SITE_TITLE'));
+        //console.log(process);
+
         //服务器信息
         this.meta_title='首页';
         let mysqlv=await this.model('mysql').query("select version()");

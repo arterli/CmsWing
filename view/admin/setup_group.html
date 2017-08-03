@@ -7,7 +7,7 @@
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
             <li class="active"><a href="#messages-2" data-toggle="tab" class="groupindex">全部配置</a></li>
-            {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
+            {% for ingredient, amount in config.setup.CONFIG_GROUP_LIST %}
             <li ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>

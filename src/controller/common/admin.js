@@ -20,20 +20,20 @@ module.exports = class extends think.Controller {
         this.assign("userinfo", this.user);
         this.roleid = await this.model("auth_user_role").where({user_id:this.user.uid}).getField('role_id', true);
         //网站配置
-        this.setup = await this.model("setup").getset();
+        //this.setup = await this.model("setup").getset();
         // console.log(this.setup);
         this.is_admin = await this.isadmin();
         //后台菜单
         this.adminmenu = await this.model('menu').getallmenu(this.user.uid,this.is_admin);
         //console.log(this.adminmenu);
-        this.assign("setup", this.setup);
+        //this.assign("setup", this.setup);
         //菜单当前状态
 
         /**
          * 权限验证超级管理员
          */
         let url = `${this.ctx.controller}/${this.ctx.action}`;
-        console.log(url);
+        //console.log(url);
         if (!this.is_admin) {
             let Auth = think.adapter("auth", "rbac");
             let auth = new Auth(this.user.uid);

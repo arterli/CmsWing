@@ -12,16 +12,16 @@ module.exports = class extends Home{
      * @return {Promise} []
      */
     async indexAction(){
-       //  let p = this.get();
-       // return this.body=p;
+       // let p = this.get();
+       //return this.body="dfdfdfd";
         // let ss = think.service("geetest");
         // let sss = new ss();
 
         //console.log(this.config("view").nunjucks.extname);
         //auto render template file index_index.html
         this.meta_title = "首页";//标题1
-        this.keywords = this.setup.WEB_SITE_KEYWORD ? this.setup.WEB_SITE_KEYWORD : '';//seo关键词
-        this.description = this.setup.WEB_SITE_DESCRIPTION ? this.setup.WEB_SITE_DESCRIPTION : "";//seo描述
+        this.keywords = this.config('setup.WEB_SITE_KEYWORD') ? this.config('setup.WEB_SITE_KEYWORD') : '';//seo关键词
+        this.description = this.config('setup.WEB_SITE_DESCRIPTION') ? this.config('setup.WEB_SITE_DESCRIPTION') : "";//seo描述
         this.active=['/','/index','/index.html'];
         //debugger;
         //判断浏览客户端

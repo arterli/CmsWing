@@ -62,8 +62,8 @@ module.exports = class extends Base {
                 }else{
                     v.up_title="一级菜单";
                 }
-                //console.log(this.setup.MEUN_GROUP)
-                v.group=this.setup.MENU_GROUP[v.group];
+
+                v.group=(this.config('setup.MENU_GROUP'))[v.group];
             })
         }
         let relist = {

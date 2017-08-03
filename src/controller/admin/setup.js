@@ -35,7 +35,7 @@ module.exports = class extends Base {
         //await this.loadsetup();
         //auto render template file index_index.html
         let id = this.get('id')||1;
-        let type = this.setup.CONFIG_GROUP_LIST;
+        let type = this.config('setup.CONFIG_GROUP_LIST');
         let list = await this.db.where({'status':1,'group':id}).field('id,name,title,extra,value,remark,type').order('sort').select();
        if(list){
            this.assign('list',list);
@@ -70,11 +70,11 @@ module.exports = class extends Base {
             let lists = await this.db.limit(start, length).where(map).order("sort ASC").countSelect()
             lists.data.forEach(v =>{
                 if(v.group){
-                v.group=this.setup.CONFIG_GROUP_LIST[v.group];
+                v.group=(this.config('setup.CONFIG_GROUP_LIST'))[v.group];
                 }else{
                     v.group="未分组";
                 }
-                v.type =this.setup.CONFIG_TYPE_LIST[v.type];
+                v.type =(this.config('setup.CONFIG_TYPE_LIST'))[v.type];
             })
 
             let data={
@@ -99,6 +99,7 @@ module.exports = class extends Base {
             let addres =await this.db.add(data);
             if(addres){
                 think.cache("setup", null);
+                process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
                 //await this.loadsetup();
                 return this.json(1)
             }else {
@@ -122,7 +123,9 @@ module.exports = class extends Base {
             let upres =await this.db.update(data);
             if(upres){
                 think.cache("setup", null);
-               // await this.loadsetup();
+                process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
+
+                // await this.loadsetup();
                 return this.json(1)
             }else {
                 return this.json(0)
@@ -148,6 +151,7 @@ module.exports = class extends Base {
             this.db.where({name: v}).update({value: post[v]});
         }
         think.cache("setup", null);
+        process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
         //await this.loadsetup();
         this.json(1)
     }
@@ -158,6 +162,9 @@ module.exports = class extends Base {
         let res = await this.db.where({id:id}).delete();
         if(res){
             think.cache("setup", null);
+            process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
+            // console.log(process);
+            // console.log("sdfsfasfa");
             //await this.loadsetup();
             return this.json(1)
         }else {

@@ -76,8 +76,8 @@
                         </li>
 
                     </ul>
-                    <h4 class="text-success m-b-xs">支付渠道: <small>{% if controller.setup.PREPAID == 0 %}<code>支持预付款消费</code>{%else%}<code>不支持预付款消费</code>{%endif%} ,
-                        {% if controller.setup.COD == 0 %}<code>支持货到付款</code>{%else%}<code>不支持货到付款</code>{%endif%}
+                    <h4 class="text-success m-b-xs">支付渠道: <small>{% if config.setup.PREPAID == 0 %}<code>支持预付款消费</code>{%else%}<code>不支持预付款消费</code>{%endif%} ,
+                        {% if config.setup.COD == 0 %}<code>支持货到付款</code>{%else%}<code>不支持货到付款</code>{%endif%}
                     如要更改，请到 系统设置>网站设置>商城 <a href="/admin/setup/index?id=5" class="text-info">设置</a>
                     </small></h4>
                 </div>

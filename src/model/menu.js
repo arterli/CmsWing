@@ -10,11 +10,10 @@ module.exports = class extends think.Model {
     async getallmenu(uid,is_admin){
         let where = {}
         where.hide = 0;
-        let setup = await this.model("setup").getset();
-        if(!setup.DEVELOP_MODE){// 是否开发者模式
+        if(!think.config('setup.DEVELOP_MODE')){// 是否开发者模式
             where.is_dev    =   0;
         }
-        let groups = setup.MENU_GROUP;
+        let groups = think.config('setup.MENU_GROUP');
         //think.log(group)
         //let pid = await this.topmenu();
         var arr = {};
@@ -57,8 +56,7 @@ module.exports = class extends think.Model {
         let where = {}
         where.hide = 0;
         where.pid = 0;
-        let setup = await this.model("setup").getset();
-        if(!setup.DEVELOP_MODE){// 是否开发者模式
+        if(!think.config('setup.DEVELOP_MODE')){// 是否开发者模式
             where.is_dev    =   0;
         }
         let menu =await this.where(where).order('sort asc').select();
@@ -71,8 +69,7 @@ module.exports = class extends think.Model {
         let where = {}
         where.hide = 0;
         where.pid = id;
-        let setup = await this.model("setup").getset();
-        if(!setup.DEVELOP_MODE){// 是否开发者模式
+        if(!think.config('setup.DEVELOP_MODE')){// 是否开发者模式
             where.is_dev    =   0;
         }
         let groups =await this.where(where).field("group").order('sort asc').select();

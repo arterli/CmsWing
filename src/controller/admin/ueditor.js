@@ -10,8 +10,6 @@ const path = require('path');
 const fs = require('fs');
 module.exports = class extends think.Controller {
     async __before() {
-        //网站配置
-        this.setup = await this.model("setup").getset();
         //登陆验证
         let is_login = await this.islogin();
         if (!is_login) {
@@ -231,29 +229,29 @@ module.exports = class extends think.Controller {
         break;
     }
      //加入七牛接口
-     if(this.setup.IS_QINIU==1 && base64=="upload"){
+     if(think.config('setup.IS_QINIU')==1 && base64=="upload"){
        let file = think.extend({}, this.file(fieldName));
        // console.log(file);
        let filepath = file.path;
-       let basename = path.basename(filepath);
-       let qiniu = think.service("qiniu");
-       let instance = new qiniu();
-       let uppic = await instance.uploadpic(filepath,basename);
+       let extname = path.extname(file.name);
+       let basename = path.basename(filepath)+extname;
+       let qiniu = this.service("qiniu");
+       let uppic = await qiniu.uploadpic(filepath,basename);
        if(!think.isEmpty(uppic)){
          return {
            "state" : "SUCCESS",
-           "url" : `//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+           "url" : `//${think.config('setup.QINIU_DOMAIN_NAME')}/${uppic.key}`,
            "title" : uppic.hash,
-           "original" : file.originalFilename,
-           "type" : ".jpg",
-           "size" : 0
+           "original" : file.name,
+           "type" : extname,
+           "size" : file.size
          };
        }
      } else {
        //return self.uploader(fieldName, config, oriName, size, path, base64);
-       let up = this.service("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
-       let upload = new up(fieldName, config, base64, this.http); //实例化 Adapter
-       return upload.getFileInfo();
+       let up = this.service("ueditor",fieldName, config, base64, this.ctx); //加载名为 ueditor 的 editor Adapter
+         //console.log("ddddddd"+upload.getFileInfo);
+         return up.getFileInfo;
      }
   }
 
@@ -275,9 +273,8 @@ module.exports = class extends think.Controller {
     }
     let list = [];
     for(let imgUrl of source){
-      let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
-      let upload = new up(imgUrl, config, "remote"); //实例化 Adapter
-      let info =  await upload.saveRemote();
+      let up = this.service("ueditor",imgUrl, config, "remote"); //加载名为 ueditor 的 editor Adapter
+      let info =  await up.saveRemote();
       //console.log(info);
       list.push({"state":"SUCCESS","url":info.url,"size":431521,"title":info.title,"original":info.original,"source":imgUrl});
     }
@@ -315,7 +312,8 @@ module.exports = class extends think.Controller {
     var end = parseInt(size) + parseInt(start);
     /* 获取文件列表 */
     path = path.substr(0, path.lastIndexOf("/"));
-    var files = this.scanFolder(path).files;
+      console.log(path);
+      var files = this.scanFolder(path).files;
     if (files.length == 0) {
       return {
         "state": "no match file",
@@ -355,10 +353,10 @@ module.exports = class extends think.Controller {
     var fileList = [],
         folderList = [],
         walk = function (path, fileList, folderList) {
-          let files = fs.readdirSync(think.RESOURCE_PATH+"/"+path);
+          let files = fs.readdirSync(think.resource+"/"+path);
           files.forEach(function (item) {
             var tmpPath = path + '/' + item,
-                stats = fs.statSync(think.RESOURCE_PATH+"/"+tmpPath);
+                stats = fs.statSync(think.resource+"/"+tmpPath);
 
             if (stats.isDirectory()) {
               walk(tmpPath, fileList, folderList);

@@ -15,21 +15,9 @@ module.exports = class extends Admin {
    */
   async indexAction(){
     //获取广告位置列表
-      let data = await this.model("ext_ad_space").page(this.get('page')).order("spaceid DESC").countSelect();
+    let data = await this.model("ext_ad_space").page(this.get('page')).order("spaceid DESC").countSelect();
     //console.log(data);
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(data,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+    let html = this.pagination(data);
     this.assign('pagerData', html); //分页展示使用
     this.assign('list', data.data);
     return this.display();
@@ -159,19 +147,7 @@ module.exports = class extends Admin {
        //获取广告位置列表
        let data = await this.model("ext_ad").page(this.get('page')).where(map).order("sort ASC,addtime DESC").countSelect();
        //console.log(data);
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
        this.assign('pagerData', html); //分页展示使用
        this.assign('list', data.data);
        return this.display();
@@ -284,19 +260,7 @@ module.exports = class extends Admin {
     async tempAction(){
         //获取广告位置列表
         let data = await this.model("ext_ad_temp").page(this.get('page')).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         return this.display();

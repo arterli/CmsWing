@@ -21,19 +21,7 @@ module.exports = class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     let data = await this.db.page(this.get('page')).countSelect();
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(data,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(data);
     this.assign('pagerData', html); //分页展示使用
     this.assign('list', data.data);
     this.meta_title = "插件管理";

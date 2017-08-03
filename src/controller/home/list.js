@@ -263,19 +263,7 @@ module.exports = class extends Home{
             data = await this.model('document').where(map).page(this.get('page'),num).order(o).countSelect();
         }
 
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-                desc: true, //show description
-                pageNum: 2,
-                url: '', //page url, when not set, it will auto generated
-                class: 'nomargin', //pagenation extra class
-                text: {
-                    next: '下一页',
-                    prev: '上一页',
-                    total: '总数: ${count} , 页数: ${pages}'
-                }
-            });
+        let html = this.pagination(data);
         this.assign('pagination', html);
         //seo
         this.meta_title = cate.meta_title ? cate.meta_title : cate.title; //标题

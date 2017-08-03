@@ -656,7 +656,7 @@ global.call_user_func = function(cb, params) {
 global.get_nickname = async (uid) => {
     //console.log(uid);
     //let data = await think.model('member', think.config("model")).cache(1000).get_nickname(uid);
-    let data = await think.model('member', think.config("model")).get_nickname(uid);
+    let data = await think.model('member').get_nickname(uid);
     return data;
 }
 //时间格式
@@ -726,7 +726,7 @@ global.get_cover = async (cover_id, field) => {
     if (think.isEmpty(cover_id)) {
         return false;
     }
-    let picture = await think.model('picture', think.config("model")).where({ 'status': 1 }).find(cover_id);
+    let picture = await think.model('picture').where({ 'status': 1 }).find(cover_id);
     return think.isEmpty(field) ? picture : picture[field];
 }
 /**
@@ -753,7 +753,7 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
     }else {
         map.path = id;
     }
-    let picture = await think.model('picture', think.config("model")).where(map).find();
+    let picture = await think.model('picture').where(map).find();
     if(think.isEmpty(picture)){
         return "/static/noimg.jpg";
     }
@@ -777,8 +777,8 @@ global.get_pic = async(id,m=null,w=null,h=null)=>{
         if(m != "" || w != "" || h != ""){
              q = `?imageView2${m}${w}${h}`
         }
-        let name = await think.cache("setup");
-        return `//${name.QINIU_DOMAIN_NAME}/${picture.path}${q}`;
+
+        return `//${think.config('setup.QINIU_DOMAIN_NAME')}/${picture.path}${q}`;
     }else {
         return picture.path
     }
@@ -1156,10 +1156,10 @@ global.get_file=async (file_id,field,key=false)=>{
     if (think.isEmpty(file_id)) {
         return false;
     }
-    let file = await think.model('file', think.config("db")).find(file_id);
+    let file = await think.model('file').find(file_id);
     if(file.location==1 && key){
-        let name = await think.cache("setup");
-        file.savename = `http://${name.QINIU_DOMAIN_NAME}/${file.savename}?download/${file.savename}`
+
+        file.savename = `http://${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`
     }
     return think.isEmpty(field) ? file : file[field];
 }
@@ -1170,7 +1170,7 @@ global.get_file=async (file_id,field,key=false)=>{
  * @returns {*}
  */
 global.get_cate=async(cid)=>{
-    let column = await think.model('category', think.config("model")).get_all_category();
+    let column = await think.model('category').get_all_category();
 
     for(let v of column){
         if(v.id==cid){
@@ -1268,11 +1268,8 @@ global.update_cache =(type)=>{
  * @returns {bool} 返回flase 或true false:没权限，true:有权限。
  */
 global.priv = async(catid,roleid,action,is_admin=0,type=true)=>{
-    // console.log(catid);
-    // console.log(roleid);
-    // console.log(action);
-    // console.log(is_admin);
-    let priv = await think.model("category_priv",think.config("db")).priv(catid,roleid,action,is_admin,type);
+
+    let priv = await think.model("category_priv").priv(catid,roleid,action,is_admin,type);
     //console.log(priv);
     if(!priv){
         return false;

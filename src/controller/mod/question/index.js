@@ -93,19 +93,8 @@ module.exports =  class extends Index {
      for (let v of data.data){
          v.imgs = img_text_view(v.detail,200,120);
      }
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(data,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(data);
+      this.assign('pagerData', html); //分页展示使用
       /* 模板赋值并渲染模板 */
       this.assign("group_id",group_id);
       this.assign('category', cate);

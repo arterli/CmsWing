@@ -1,5 +1,5 @@
 module.exports = [
-    ['', '/home/index', 'get'],
+    ['', '/home/index/index', 'get'],
     ['/index', '/home/index/index', 'get'],
     ['/index/:order', '/home/index/index/:1/', 'get'],
     ['/p/:id', "/home/detail/index/:1/",'get'],

@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 const Fs = require('fs');
-module.exports =  class Mysql {
+module.exports =  class extends think.Service {
     /**
      * init
      *  @param {Array}  file   [备份或还原的文件信息]
@@ -15,6 +15,7 @@ module.exports =  class Mysql {
      * @return {[]}         []
      */
     constructor(file, config, type,ctx) {
+        super(ctx);
         this.file = file;
         this.config = config;
         this.type = type;

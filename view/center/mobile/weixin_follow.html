@@ -1,0 +1,37 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+    .mui-table h4 ,.mui-media-body h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+</header>
+<div class="mui-content">
+   <div class="mui-table-view mui-table-view-chevron">
+       <li class=" text-center">
+           <img src="{{qrurl}}" style="width: 70%">
+       </li>
+       <li class="mui-table-view-divider text-center">
+           长按图片[识别二维码]关注
+       </li>
+   </div>
+    <div class="mui-content-padded" >
+        <h4 class=" text-center">关注{{controller.setup.WEB_SITE_TITLE}}</h4>
+        <ul>
+            <li class="">关注后会自动登陆</li>
+            <li class="">第一次登录要和网站会员绑定</li>
+            <li class="">后面随意了</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block script %}
+{% endblock %}

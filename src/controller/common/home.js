@@ -7,14 +7,10 @@
 // +----------------------------------------------------------------------
 module.exports = class extends think.Controller {
     async __before() {
-        //网站配置
-        this.setup = await this.model("setup").getset();
-        // console.log(this.setup);
         //当前登录状态
         this.is_login = await this.islogin();
-        //console.log(this.is_login);
         //关闭站点
-        if(this.setup.WEB_SITE_CLOSE==0){
+        if(this.config('setup.WEB_SITE_CLOSE')==0){
             let isshow = await this.session('userInfo');
             if (think.isEmpty(isshow)){
                 const error = this.controller("common/error");
@@ -36,6 +32,7 @@ module.exports = class extends think.Controller {
         //this.http.theme("default);
         //购物车
         //关闭商品模型时同时关闭购物车
+
         if(!think.isEmpty(await this.model('model').get_model(4)) && this.ctx.action != "avatar" ){
             let cartList = await this.shopCart();
             let cartInfo;

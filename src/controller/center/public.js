@@ -74,14 +74,13 @@ module.exports = class extends Center {
     //   登陆页面
     async loginAction() {
         //判断公众账号类型
-        if(this.setup.wx_type == 4 && this.setup.wx_type == 2){
+        if(this.config('setup.wx_type') == 4 || this.config('setup.wx_type') == 2){
             await this.action("center/weixin", "oauth");
         }
         if (this.isAjax("post")) {
 //验证码
-            if(1==this.setup.GEETEST_IS_LOGIN){
-                let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
-                let geetest = new Geetest();
+            if(1==this.config('setup.GEETEST_IS_LOGIN')){
+                let geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
                 let res = await geetest.validate(this.ctx,this.post(),this.get('type'));
                 console.log(res);
                 if("success" != res.status){
@@ -128,7 +127,8 @@ module.exports = class extends Center {
             //判断浏览客户端
             if (this.isMobile) {
                 this.active = "center/index";
-                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+                console.log(this.mtpl());
+                return this.display(this.mtpl())
             } else {
                 return this.display();
             }
@@ -163,16 +163,16 @@ module.exports = class extends Center {
 
         let dayu = think.adapter("alidayu", "client");
         let instance = new dayu();
-        let qianming = this.setup.SMS_qianming;
+        let qianming = this.config('setup.SMS_qianming');
         let temp_code;
         if(data.type ==1){
-            temp_code = this.setup.SMS_zhuce
+            temp_code = this.config('setup.SMS_zhuce')
         }
         let info = {
             'extend':data.mobile,
             'sms_type':'normal',
             'sms_free_sign_name':qianming,
-            'sms_param':`{"code":"${code}","product":"${this.setup.SMS_product}"}`,
+            'sms_param':`{"code":"${code}","product":"${this.config('setup.SMS_product')}"}`,
             'rec_num':data.mobile,
             'sms_template_code':temp_code
         }

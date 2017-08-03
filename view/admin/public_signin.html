@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <input id="password" type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
                 </div>
-                {%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+                {%if config.setup.GEETEST_IS_ADMLOGIN ==1%}
                 <div class="form-group">
                     <div class="">
                         <div id="captcha">
@@ -76,7 +76,7 @@
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
 <script src="/static/admin/js/toastr/toastr.min.js"></script>
-{%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+{%if config.setup.GEETEST_IS_ADMLOGIN ==1%}
 <script src="/static/admin/js/gt.js"></script>
 <script>
     toastr.options = {

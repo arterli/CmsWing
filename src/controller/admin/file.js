@@ -10,8 +10,6 @@ const path = require('path');
 const fs = require('fs');
 module.exports = class extends think.Controller {
     async __before() {
-        //网站配置
-        this.setup = await this.model("setup").getset();
         //登陆验证
         let is_login = await this.islogin();
         if (!is_login) {
@@ -41,16 +39,16 @@ module.exports = class extends think.Controller {
   async uploadAction(){
     
     let file = think.extend({}, this.file('file'));
-    console.log(file);
-    let filepath = file.path;
-    let basename = path.basename(filepath);
+    //console.log(file);
+     let filepath = file.path;
+      let extname = path.extname(file.name);
+      let basename = path.basename(filepath)+extname;
       let data;
       //强势插入七牛
-      if(this.setup.IS_QINIU == 1){
+      if(this.config('setup.IS_QINIU') == 1){
           let qiniu = this.service("qiniu");
-          let instance = new qiniu();
-          let uppic = await instance.uploadpic(filepath,basename);
-          console.log(uppic);
+          let uppic = await qiniu.uploadpic(filepath,basename);
+          //console.log(uppic);
           // { fieldName: 'file',
           //     originalFilename: '2015-07-06_BaiduPlayerNetSetup_100.exe',
           //     path: '/Users/Arterli/Projects/CmsWing/runtime/upload/EPKRrpZvCsSV73J-7kuDiiEY.exe',
@@ -61,9 +59,9 @@ module.exports = class extends think.Controller {
           if(!think.isEmpty(uppic)){
                data ={
                   create_time:new Date().getTime(),
-                  name:file.originalFilename,
+                  name:file.name,
                   savename:basename,
-                  mime:file.headers["content-type"],
+                  mime:file.type,
                   size:file.size,
                   location:1,
                   sha1:uppic.hash,
@@ -80,32 +78,34 @@ module.exports = class extends think.Controller {
               data ={
                   savepath:'/upload/download/'+dateformat("Y-m-d",new Date().getTime())+ '/',
                   create_time:new Date().getTime(),
-                  name:file.originalFilename,
+                  name:file.name,
                   savename:basename,
-                  mime:file.headers["content-type"],
+                  mime:file.type,
                   size:file.size,
                   md5:think.md5(basename)
               }
       }
 
     }
-      console.log(data);
+      //console.log(data);
       var res = await this.model("file").data(data).add();
-    this.json({id:res,size:file.size});
+    return this.json({id:res,size:file.size});
   }
 
   //上传图片
   async uploadpicAction(){
     let file = think.extend({}, this.file('file'));
-    let filepath = file.path;
-    let basename = path.basename(filepath);
-    let ret = {'status':1,'info':'上传成功','data':""}
+      console.log(file);
+      let filepath = file.path;
+      let extname = path.extname(file.name);
+      let basename = path.basename(filepath)+extname;
+      console.log(basename);
+      let ret = {'status':1,'info':'上传成功','data':""}
       let res;
       //加入七牛接口
-    if(this.setup.IS_QINIU==1){
+    if(this.config('setup.IS_QINIU')==1){
         let qiniu = this.service("qiniu");
-        let instance = new qiniu();
-         let uppic = await instance.uploadpic(filepath,basename);
+         let uppic = await qiniu.uploadpic(filepath,basename);
         if(!think.isEmpty(uppic)){
             let data ={
                 create_time:new Date().getTime(),
@@ -204,10 +204,9 @@ module.exports = class extends think.Controller {
   }
     //获取七牛token
    async getqiniuuptokenAction (){
-        let qiniu = think.service("qiniu");
-        let instance = new qiniu();
+        let qiniu = this.service("qiniu");
        let key = think.uuid();
-       let uptoken = await instance.uploadpic(null,key,true);
+       let uptoken = await qiniu.uploadpic(null,key,true);
        this.json({
            "uptoken": uptoken
        })
@@ -233,9 +232,8 @@ module.exports = class extends think.Controller {
     async delqiniufileAction(){
         let id = this.get("id");
         let file = await this.model("file").find(id);
-        let qiniu = think.service("qiniu");
-        let instance = new qiniu();
-        let res = await instance.remove(file.savename);
+        let qiniu = this.service("qiniu");
+        let res = await qiniu.remove(file.savename);
         if(res) {
             this.model("file").where({id:id}).delete();
             return this.success({name: "删除文件成功!"})

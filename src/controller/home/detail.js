@@ -198,7 +198,7 @@ module.exports = class extends Home {
             let location = await this.model('file').where({id:file_id}).getField("location",true);
             //console.log(location);
             let d = await get_file(file_id);
-            if(this.setup.IS_QINIU==1 && location==1){
+            if(this.config('setup.IS_QINIU')==1 && location==1){
                 //七牛下载
                 // dlink = await get_file(file_id,"savename",true);
                 let qiniu = think.service("qiniu");

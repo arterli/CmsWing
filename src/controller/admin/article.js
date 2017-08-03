@@ -372,20 +372,7 @@ module.exports = class extends Base {
             list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(list,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
-
+        let html = this.pagination(list);
         if (map['pid'] != 0) {
             // 获取上级文档
             let article = await Document.field('id,title,type').find(map['pid']);
@@ -762,19 +749,7 @@ module.exports = class extends Base {
         }
 
         let list = await this.model('document').where(map).order('update_time desc').field("id,title,uid,type,category_id,update_time").page(this.get('page')||1,20).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(list,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(list);
         for(let val of list.data){
             val.category=await this.model('category').get_category(val.category_id,"title");
             val.username = await this.model('member').get_nickname(val.uid);

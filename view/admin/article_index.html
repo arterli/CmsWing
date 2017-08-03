@@ -130,7 +130,7 @@
                                 <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
 
                                 {% if breadcrumb|length == 0%} [ {% if position %} <a href="/admin/article/index" class="text-info">全部</a>{%else%}<strong>全部</strong>{%endif%}
-                                {%for key ,val in controller.setup.DOCUMENT_POSITION %} {%if position != key %}<a href="/admin/article/index?position={{key}}"
+                                {%for key ,val in config.setup.DOCUMENT_POSITION %} {%if position != key %}<a href="/admin/article/index?position={{key}}"
                                 class="text-info">{{val}}</a>{%else%}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor
                                 %}] {%endif%} {%if model|length > 1 %}[ 模型：{%if model_id ==null %}<strong>全部</strong>{%else%}
                                 <a

@@ -8,21 +8,24 @@
 
 const path = require('path');
 const fs = require('fs');
-const http = require('http');
-module.exports = class  {
+const superagent = require('superagent');
+module.exports =  class extends think.Service {
     /**
      * init
      * @return {[]}         []
      */
     constructor(fileField, config, type ,http){
+        super(http)
         type = type||"upload";
         //super.init(http);
         this.http = http;
         this.fileField = fileField;
         this.config = config;
         this.type = type;
+        // console.log(fileField);
+        // console.log(http);
         if (type == "remote") {
-            //await this.saveRemote();
+             this.saveRemote();
         } else if(type == "base64") {
             this.upBase64();
         } else {
@@ -38,30 +41,29 @@ module.exports = class  {
     upFile(){
         let http=this.http;
         let file = http.file(this.fileField);
-        //console.log(file);
+        console.log(file);
         if(!think.isFile(file.path)){
             this.stateInfo = "找不到临时文件";
             return;
         }
 
-        this.oriName = file.originalFilename;
+        this.oriName = file.name;
         this.fileSize = file.size;
-        this.fileType = this.getFileExt();
-        this.fullName = this.getFullName();
-        this.filePath = this.getFilePath();
-        this.fileName = this.getFileName();
+        this.fileType = this.getFileExt;
+        this.fullName = this.getFullName;
+        this.filePath = this.getFilePath;
+        this.fileName = this.getFileName;
         think.mkdir(this.filePath.replace(this.fileName, ""));
         //检查文件大小是否超出限制
-        if (!this.checkSize()) {
+        if (!this.checkSize) {
             this.stateInfo = "文件大小超出网站限制";
             return;
         }
         //检查是否不允许的文件格式
-        if (!this.checkType()) {
+        if (!this.checkType) {
             this.stateInfo = "文件类型不允许";
             return;
         }
-
         //移动文件
         fs.renameSync(file.path, this.filePath);
         if(think.isFile(this.filePath)){
@@ -85,10 +87,10 @@ module.exports = class  {
         this.oriName = this.config['oriName'];
         //console.log(this.oriName);
         this.fileSize = img.length;
-        this.fileType = this.getFileExt();
-        this.fullName = this.getFullName();
-        this.filePath = this.getFilePath();
-        this.fileName = this.getFileName();
+        this.fileType = this.getFileExt;
+        this.fullName = this.getFullName;
+        this.filePath = this.getFilePath;
+        this.fileName = this.getFileName;
         think.mkdir(this.filePath.replace(this.fileName, ""));
 
         //检查文件大小是否超出限制
@@ -114,18 +116,12 @@ module.exports = class  {
 
     spiderImage(imgUrl,filePath) {
         let deferred = think.defer();
-        http.get(imgUrl, function (res) {
-            var imgData = "";
-            res.setEncoding("binary");
-            res.on("data", function (chunk) {
-                imgData += chunk;
-            });
-
-            res.on("end", function () {
-                fs.writeFileSync(filePath, imgData, "binary");
+        superagent
+            .get(imgUrl) //这里的URL也可以是绝对路径
+            .end(function(req,res){
+                fs.writeFileSync(filePath, res.body);
                 deferred.resolve(filePath);
             });
-        });
         return deferred.promise;
     }
     /**
@@ -133,7 +129,7 @@ module.exports = class  {
      * @return mixed
      */
     async saveRemote(){
-        think.log("dddddd")
+        //think.log("dddddd")
         let imgUrl = this.fileField;
         //imgUrl = imgUrl.replace(/&amp;/,"&");
         //http开头验证
@@ -146,10 +142,10 @@ module.exports = class  {
         this.oriName = m ? m:"";
         //console.log(this.oriName);
         this.fileSize = imgUrl.length;//TODO 这里有问题，后面弄
-        this.fileType = this.getFileExt();
-        this.fullName = this.getFullName();
-        this.filePath = this.getFilePath();
-        this.fileName = this.getFileName();
+        this.fileType = this.getFileExt;
+        this.fullName = this.getFullName;
+        this.filePath = this.getFilePath;
+        this.fileName = this.getFileName;
         let filePath = this.filePath;
         let fullName =this.fullName;
         think.mkdir(this.filePath.replace(this.fileName, ""));
@@ -174,17 +170,17 @@ module.exports = class  {
      * 获取文件扩展名
      * @return string
      */
-    getFileExt()
+   get getFileExt()
     {
 
-        return this.oriName.substr(this.oriName.lastIndexOf(".")).toLocaleLowerCase();
+        return path.extname(this.oriName);
     }
 
     /**
      * 重命名文件
      * @return string
      */
-    getFullName() {
+   get getFullName() {
         //替换目录日期事件
         ///ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}
         var self = this;
@@ -209,7 +205,7 @@ module.exports = class  {
         rand = rand.substr(2, index);
         //替换随机数
         format = format.replace(str[0], rand);
-        var ext = this.getFileExt();
+        var ext = this.getFileExt;
         return  format + ext;
     }
 
@@ -217,20 +213,20 @@ module.exports = class  {
      * 获取文件完整路径
      * @return string
      */
-    getFilePath()
+   get getFilePath()
     {
 
         if (this.fullName.substr(0, 1) != '/') {
             this.fullName = '/' + this.fullName;
         }
 
-        return think.RESOURCE_PATH + this.fullName;
+        return think.resource + this.fullName;
     }
     /**
      * 获取文件名
      * @return string
      */
-    getFileName() {
+   get getFileName() {
         return path.basename(this.filePath);
     }
 
@@ -238,16 +234,16 @@ module.exports = class  {
      * 文件类型检测
      * @return bool
      */
-    checkType()
+   get checkType()
     {
-        return in_array(this.getFileExt(), this.config["allowFiles"]);
+        return think._.includes(this.config["allowFiles"], this.getFileExt);
     }
 
     /**
      * 文件大小检测
      * @return bool
      */
-    checkSize()
+    get checkSize()
     {
         return this.fileSize <= (this.config["maxSize"]);
     }
@@ -255,7 +251,7 @@ module.exports = class  {
      * 获取当前上传成功文件的各项信息
      * @return array
      */
-    getFileInfo()
+   get getFileInfo()
     {
         return {
             "state" : this.stateInfo,

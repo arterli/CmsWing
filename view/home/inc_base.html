@@ -8,18 +8,18 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="renderer" content="webkit" />
-	<title>{{controller.meta_title}}| {{controller.setup.WEB_SITE_TITLE}}</title>
+	<title>{{controller.meta_title}}| {{config.setup.WEB_SITE_TITLE}}</title>
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
 	<meta name="Author" content="Arterli [www.cmswing.com]" />
-	{%if controller.setup.QQ_VALIDATION%}
+	{%if config.setup.QQ_VALIDATION%}
 	<!--qq互联网站验证-->
-	{{controller.setup.QQ_VALIDATION|safe}}
+	{{config.setup.QQ_VALIDATION|safe}}
 	<!--qq互联网站验证结束-->
 	{%endif%}
-	{%if controller.setup.SINA_VALIDATION%}
+	{%if config.setup.SINA_VALIDATION%}
 	<!--新浪微博网站验证-->
-	{{controller.setup.SINA_VALIDATION|safe}}
+	{{config.setup.SINA_VALIDATION|safe}}
 	<!--新浪微博网站验证结束-->
 	{%endif%}
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -45,9 +45,9 @@
 	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
 	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
 	{% block style %}{% endblock %}
-	{%if controller.setup.WEB_TONGJI%}
+	{%if config.setup.WEB_TONGJI%}
 	<!--统计代码-->
-	{{controller.setup.WEB_TONGJI|safe}}
+	{{config.setup.WEB_TONGJI|safe}}
 	<!--统计-->
 	{%endif%}
 </head>
@@ -218,7 +218,7 @@
 						<li>&bull;</li>
 						<li><a href="#">隐私</a></li>
 					</ul>
-					&copy; 2015 - <script>document.write(new Date().getFullYear())</script> cmswing.com  版权所有 <!--{{controller.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{controller.setup.WEB_SITE_ICP}}</a>
+					&copy; 2015 - <script>document.write(new Date().getFullYear())</script> cmswing.com  版权所有 <!--{{config.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{config.setup.WEB_SITE_ICP}}</a>
 					<noscript><a href="http://www.51.la/?19065555" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/19065555.asp" style="border:none" /></a></noscript>
 				</div>
 			</div>

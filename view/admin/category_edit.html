@@ -371,7 +371,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>角色名称</th>
-                                                        {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
                                                     </tr>
@@ -382,7 +382,7 @@
                                                         <td>
                                                             {{val.desc}}
                                                         </td>
-                                                        {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" {%if index|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
                                                         </td>
@@ -1126,8 +1126,8 @@
                             {%endif%}
                             {%if mod.priv_show ==1%}
                             {%if info.mold==0%}
-                            {%set roleid = controller.setup.SYS_PRIV_ROLE%}
-                            {%set groupid = controller.setup.SYS_PRIV_GROUP%}
+                            {%set roleid = config.setup.SYS_PRIV_ROLE%}
+                            {%set groupid = config.setup.SYS_PRIV_GROUP%}
                             {%elif info.mold==1%}
                             {%set roleid = mod.priv_roleid|parse_config_attr %}
                             {%set groupid = mod.priv_groupid|parse_config_attr%}

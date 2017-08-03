@@ -1,0 +1,217 @@
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
+<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+    .original {
+        border: 1px solid #999;
+        font-size: 10px !important;
+        border-radius: 4px;
+        line-height: 14px;
+        width: 30px;
+        color: #505050;
+        text-align: center;
+        margin-right: 5px;
+        top: -2px;
+        position: relative;
+        padding: 0 1px;
+    }
+    .mui-bar-tab .mui-tab-item.mui-active {
+        color: #929292;
+    }
+    .mui-table h4 ,.mui-media-body h4{
+        line-height: 21px;
+        font-weight: 400;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+
+
+
+</header>
+
+<div class="mui-content">
+    <form action="/uc/address/addaddr" method="post" class="form-post" >
+<div class="mui-input-group mui-table-view">
+    <div class="mui-input-row">
+        <label>姓名</label>
+        <input type="text" placeholder="收货人姓名" name="accept_name" value="{{info.accept_name}}">
+    </div>
+    <div class="mui-input-row">
+        <label>手机号码</label>
+        <input type="number" placeholder="手机号码" value="{{info.mobile}}" name="mobile" >
+    </div>
+    <div class="mui-input-row">
+        <label>邮政编码</label>
+        <input type="number" placeholder="邮政编码(选填)" value="{{info.zip}}" name="zip" >
+    </div>
+        <div class="mui-input-row">
+            <label>所在地区</label>
+            <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+        </div>
+
+    <li class="mui-table-view-divider">街道地址</li>
+    <div style="margin: 5px;">
+        <textarea class="margin-bottom-0" id="textarea" rows="3" placeholder="填写详细地址，例如街道名称，楼层和门牌号等" name="addr">{{info.addr}}</textarea>
+    </div>
+    <li class="mui-table-view-cell">
+        设为默认地址
+        <input type="hidden"  name="is_default" value="{{info.is_default}}">
+        <div class="mui-switch ">
+            <div class="mui-switch-handle"></div>
+        </div>
+    </li>
+</div>
+        <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+            <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+            <button  type="button" class="mui-btn mui-btn-primary mui-btn-block addr">{% if info.id %}编辑地址{%else%}添加新地址{%endif%}</button>
+            {% if info.id %}
+            <input type="hidden" value="{{info.id}}" name="id" class="id">
+            <a  class="mui-btn mui-btn-danger mui-btn-block deladdr" >删除地址</a>
+            {%endif%}
+        </div>
+    </form>
+</div>
+
+{% endblock%}
+
+{% block script %}
+<script src="/static/webapp/js/mui.picker.min.js"></script>
+<script src="/static/webapp/js/mui.poppicker.js"></script>
+<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    mui.init();
+    //-----------------------------------------
+    //					//级联示例
+    var cityPicker3 = new mui.PopPicker({
+        layer: 3
+    });
+    cityPicker3.setData(cityData3);
+    var showCityPickerButton = document.getElementById('city-picker');
+    showCityPickerButton.addEventListener('tap', function(event) {
+        cityPicker3.show(function(items) {
+            //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+            showCityPickerButton.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+            //返回 false 可以阻止选择框的关闭
+            //return false;
+        });
+    }, false);
+    /**
+     * toggle 事件监听
+     */
+    mui('.mui-switch')[0].addEventListener('toggle', function(event) {
+        //event.detail.isActive 可直接获取当前状态
+        if(event.detail.isActive){
+            $("input[name='is_default']").val(1)
+        }else {
+            $("input[name='is_default']").val("")
+        }
+        //this.parentNode.querySelector('span').innerText = '状态：' + (event.detail.isActive ? 'true' : 'false');
+    });
+    var falg = false;
+
+     $("a.deladdr").on("tap",function () {
+         if(falg){
+             return false;
+         }
+         var that = this;
+         var btnArray = ['否', '是'];
+         mui.confirm('删除后不能恢复!', '确认删除?', btnArray, function(e) {
+             if (e.index == 1) {
+                 $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+                 falg = true;
+                 mui.post("/uc/address/deladdr",{resurl:'{{http.referrer()}}',id:'{{info.id}}'},function(data){
+                     if (data.errno==0) {
+                         if (data.data.url) {
+                             mui.toast(data.data.name + ' 即将跳转~');
+                         }else{
+                             mui.toast(data.data.name);
+                         }
+                         setTimeout(function(){
+                             $(that).removeClass('disabled').prop('disabled',false);
+                             falg=false;
+                             if (data.data.url) {
+                                 mui.openWindow({url: data.data.url})
+                             }else{
+                                 location.reload();
+                             }
+                         },1500);
+                     }else{
+                         if(data.errno==1001){
+                             $.each(data.errmsg,function(i,n){
+                                 mui.toast(n);
+                             })
+                         }else {
+                             mui.toast(data.errmsg);
+                         }
+
+                         setTimeout(function(){
+                             $(that).removeClass('disabled').prop('disabled',false);
+                             falg=false;
+                             if (data.data) {
+                                 mui.openWindow({url: data.data})
+                             }
+                         },1500);
+                     }
+                 },'json');
+             } else {
+                 return false;
+             }
+         })
+         return false;
+     })
+
+    $("button.addr").on("tap",function () {
+        if(falg){
+            return false;
+        }
+        var that = this;
+        var form =$(".form-post")
+        var query = form.serialize();
+        var target = form.get(0).action;
+        $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        falg = true;
+
+        mui.post(target,query,function(data){
+            if (data.errno==0) {
+                if (data.data.url) {
+                    mui.toast(data.data.name + ' 即将跳转~');
+                }else{
+                    mui.toast(data.data.name);
+                }
+                setTimeout(function(){
+                    $(that).removeClass('disabled').prop('disabled',false);
+                    falg=false;
+                    if (data.data.url) {
+                        mui.openWindow({url: data.data.url})
+                    }else{
+                        location.reload();
+                    }
+                },1500);
+            }else{
+                if(data.errno==1001){
+                    $.each(data.errmsg,function(i,n){
+                        mui.toast(n);
+                    })
+                }else {
+                    mui.toast(data.errmsg);
+                }
+
+                setTimeout(function(){
+                    $(that).removeClass('disabled').prop('disabled',false);
+                    falg=false;
+                    if (data.data) {
+                        mui.openWindow({url: data.data})
+                    }
+                },1500);
+            }
+        },'json');
+        return false;
+    })
+
+</script>
+{% endblock %}

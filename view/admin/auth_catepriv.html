@@ -78,7 +78,7 @@
                             <td><span class='folder ui-draggable'>{{val.title}}</span></td>
                             <td>
                                 {%if val.mold==0%}
-                                {%set roleid = controller.setup.SYS_PRIV_ROLE%}
+                                {%set roleid = config.setup.SYS_PRIV_ROLE%}
                                 {%elif val.mold==1%}
                                 {%set ispriv = val.model|getmode('priv_show')%}
                                 {%if ispriv==1%}
@@ -88,7 +88,7 @@
                                 {%endif%}
                                 {%endif%}
                                 {%elif val.mold==2%}
-                                {%set roleid = controller.setup.SP_PRIV_ROLE %}
+                                {%set roleid = config.setup.SP_PRIV_ROLE %}
                                 {%endif%}
                                 {% for index, items in roleid %}
                                 <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}},{{controller.get('id')}}" {%if val.id|priv(controller.get('id'),index,1,false)%} checked{%endif%}><i></i>{{items}}</label>

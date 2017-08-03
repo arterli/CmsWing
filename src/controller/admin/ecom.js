@@ -28,8 +28,8 @@ module.exports = class extends Base {
       */
    async pingxxAction(){
         //获取app_id
-        let app_id = this.setup.PINGXX_APP_ID;
-        let livesecretkey = this.setup.PINGXX_LIVE_SECRET_KEY;
+        let app_id = this.config("setup.PINGXX_APP_ID");
+        let livesecretkey = this.config("setup.PINGXX_LIVE_SECRET_KEY");
         this.assign("app_id",app_id);
         this.assign("livesecretkey",livesecretkey);
         //获取支付渠道
@@ -196,19 +196,7 @@ module.exports = class extends Base {
     // this.end(11);
      this.active = "admin/ecom/payment";
      let data = await this.model("pay_plugin").page(this.get('page')).countSelect();
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(data,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(data);
      this.assign('pagerData', html); //分页展示使用
      this.assign('list', data.data);
     return this.display(); 
@@ -217,19 +205,7 @@ module.exports = class extends Base {
  async fareAction(){
       this.meta_title="运费模板";
       let list = await this.model("fare").page(this.get('page')).order("is_default DESC").countSelect();
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(list,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(list);
       //console.log(list);
       this.assign('pagerData', html); //分页展示使用
       this.assign('list', list.data);
@@ -324,19 +300,7 @@ module.exports = class extends Base {
     /**快递公司管理 */
   async expressAction(){
         let data = await this.model("express_company").page(this.get('page'),10).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title="快递公司管理";

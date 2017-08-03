@@ -139,19 +139,7 @@ module.exports = class extends Base {
          gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Page = this.service('pagination');
-     let page = new Page();
-     let html = page.page(temp,this.ctx,{
-         desc: true, //show description
-         pageNum: 2,
-         url: '', //page url, when not set, it will auto generated
-         class: 'nomargin', //pagenation extra class
-         text: {
-             next: '下一页',
-             prev: '上一页',
-             total: '总数: ${count} , 页数: ${pages}'
-         }
-     });
+     let html = this.pagination(temp);
      this.assign('pagerData', html); //分页展示使用
      this.assign('list', temp.data);
      
@@ -169,19 +157,7 @@ module.exports = class extends Base {
          gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Page = this.service('pagination');
-     let page = new Page();
-     let html = page.page(temp,this.ctx,{
-         desc: true, //show description
-         pageNum: 2,
-         url: '', //page url, when not set, it will auto generated
-         class: 'nomargin', //pagenation extra class
-         text: {
-             next: '下一页',
-             prev: '上一页',
-             total: '总数: ${count} , 页数: ${pages}'
-         }
-     });
+     let html = this.pagination(temp);
      this.assign('pagerData', html); //分页展示使用
      this.assign('list', temp.data);
     this.meta_title= '列表模板';
@@ -198,19 +174,7 @@ module.exports = class extends Base {
           gid:gid
       }
       let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Page = this.service('pagination');
-     let page = new Page();
-     let html = page.page(temp,this.ctx,{
-         desc: true, //show description
-         pageNum: 2,
-         url: '', //page url, when not set, it will auto generated
-         class: 'nomargin', //pagenation extra class
-         text: {
-             next: '下一页',
-             prev: '上一页',
-             total: '总数: ${count} , 页数: ${pages}'
-         }
-     });
+     let html = this.pagination(temp);
       this.assign('pagerData', html); //分页展示使用
       this.assign('list', temp.data);
     this.meta_title='内容模板'
@@ -229,19 +193,7 @@ module.exports = class extends Base {
         console.log(map);
         let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
         console.log(temp);
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(temp,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(temp);
         this.assign('pagerData',html);
         this.assign('list',temp.data);
         this.meta_title='单页模版';
@@ -257,19 +209,7 @@ module.exports = class extends Base {
          gid:gid
      }
      let temp = await this.model("temp").where(map).page(this.get('page')).countSelect();
-     let Page = this.service('pagination');
-     let page = new Page();
-     let html = page.page(temp,this.ctx,{
-         desc: true, //show description
-         pageNum: 2,
-         url: '', //page url, when not set, it will auto generated
-         class: 'nomargin', //pagenation extra class
-         text: {
-             next: '下一页',
-             prev: '上一页',
-             total: '总数: ${count} , 页数: ${pages}'
-         }
-     });
+     let html = this.pagination(temp);
      this.assign('pagerData', html); //分页展示使用
      this.assign('list', temp.data);
     this.meta_title='公共模板';

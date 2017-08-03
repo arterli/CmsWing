@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <!--是否开启验证码-->
-                        {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+                        {%if config.setup.GEETEST_IS_LOGIN ==1%}
                         <div class="form-group">
                             <div id="captcha">
                                 <p id="wait" class="">正在加载验证码......</p>
@@ -59,17 +59,17 @@
                     <h4>还没有账号?</h4>
                     <p>你可以在<a href="/uc/public/register" class="text-info">这里</a>创建一个帐户 </p>
                     <p>或者</p>
-                    {%if controller.setup.IS_QQ_LOGIN == 1%}
+                    {%if config.setup.IS_QQ_LOGIN == 1%}
                     <a href="/uc/qq/" class="btn btn-block btn-social btn-twitter margin-bottom-10">
                         <i class="fa fa-qq"></i> 使用QQ账号登录
                     </a>
                     {%endif%}
-                    {%if controller.setup.IS_WEIXIN_LOGIN == 1%}
+                    {%if config.setup.IS_WEIXIN_LOGIN == 1%}
                     <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
                                     <i class="fa fa-weixin"></i> 使用微信账号登录
                                 </a>
                     {%endif%}
-                    {%if controller.setup.IS_SINA_LOGIN == 1%}
+                    {%if config.setup.IS_SINA_LOGIN == 1%}
                                 <a href="/uc/sina/" class="btn btn-block btn-social btn-google margin-bottom-10">
                                     <i class="fa fa-weibo"></i> 使用新浪微博账号登录 {{controller.setup.GEETEST_IS_LOGIN}}
                                 </a>
@@ -81,7 +81,7 @@
     <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-{%if controller.setup.GEETEST_IS_LOGIN ==1%}
+{%if config.setup.GEETEST_IS_LOGIN ==1%}
 <!-- 引入封装了failback的接口--initGeetest -->
 <script src="/static/admin/js/gt.js"></script>
 <script>

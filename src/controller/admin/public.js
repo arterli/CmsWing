@@ -6,11 +6,6 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Controller {
-    async  __before() {
-        this.setup = await this.model("setup").getset();
-
-    }
-
     /**
      * public action
      * @return {Promise} []
@@ -23,10 +18,8 @@ module.exports = class extends think.Controller {
             //console.log(this.isAjax());
            // console.log(this.post());
             //验证码
-            if (1 == this.setup.GEETEST_IS_ADMLOGIN) {
-                //console.log(this.setup.GEETEST_IS_ADMLOGIN);
-                let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
-                let geetest = new Geetest();
+            if (1 == this.config('setup.GEETEST_IS_ADMLOGIN')) {
+                const geetest = this.service("geetest");
                 let res = await geetest.validate(this.ctx,this.post());
                 //console.log(res);
                 if ("success" != res.status) {
@@ -136,8 +129,7 @@ module.exports = class extends think.Controller {
 
 //验证码
     async geetestAction() {
-        let Geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
-        let geetest = new Geetest();
+        let geetest = this.service("geetest"); //加载 commoon 模块下的 geetset service
         if (this.isPost) {
             let post = this.post();
             //console.log(post);

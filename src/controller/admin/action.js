@@ -22,19 +22,7 @@ module.exports = class extends Base {
   async indexAction(){
     //auto render template file index_index.html
     let action = await this.model('action').where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(action,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(action);
     this.assign("pagerData",html);
     this.assign("list",action.data);
     this.meta_title = "用户行为";
@@ -52,19 +40,7 @@ module.exports = class extends Base {
      map.status = ['>',-1];
     let list = await this.model("action_log").where({'status':['>',-1]}).order("id DESC").page(this.get('page')).countSelect();
     //console.log(list);
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(list,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(list);
     this.assign("pagerData",html);
     for(let itme of list.data){
        itme.action_id=await this.model("action").get_action(itme.action_id,"title");

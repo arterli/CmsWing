@@ -6,11 +6,13 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 const Geetest =require('gt3-sdk') ;
-module.exports =  class  {
-
+module.exports = class extends think.Service{
+    constructor(ctx) {
+        super(ctx);
+    }
   //初始化
  async register(ctx,type){
-    let setup = await think.cache("setup");
+    let setup = think.config("setup");
      let privateKey,publicKey
      if(type == 'mobile'){
          privateKey = setup.GEETEST_KEY_M;//key
@@ -28,16 +30,6 @@ module.exports =  class  {
      //初始
         let register=() =>{
              let deferred = think.defer();
-             // 向极验申请一次验证所需的challenge
-             // geetest.register(function (err,data) {
-             //     console.log(data);
-             //     deferred.resolve({
-             //         gt: geetest.geetest_id,
-             //         challenge: data.challenge,
-             //         success: data.success
-             //     });
-             // });
-            // 向极验申请每次验证所需的challenge
             geetest.register(null, function (err, data) {
                 if (err) {
                     deferred.reject(err)
@@ -71,7 +63,7 @@ module.exports =  class  {
   }
 // 二次服务器验证
   async validate(ctx,data,type){
-    let setup = await think.cache("setup");
+    let setup = think.config("setup");
       let privateKey,publicKey;
       if(type == 'mobile'){
           privateKey = setup.GEETEST_KEY_M;//key

@@ -31,19 +31,7 @@ module.exports = class extends Base {
     for (let v of list.data){
       v.lastuser = await this.model("keyword_data").where({tagid:v.id}).order("add_time DESC").getField("uid",true);
     }
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(list,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(list);
     this.assign('list', list);
     this.assign('pagerData', html); //分页展示使用
     this.meta_title="话题管理";

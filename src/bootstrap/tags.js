@@ -36,7 +36,7 @@ global.mytags= function(){
                     //console.log(val[1].indexOf("["));
                     if(val[1].indexOf("[")===0){
                         val[1]=val[1].replace("[", "").replace("]", "").split("-");
-                        console.log(val[1]);
+                        //console.log(val[1]);
                     }
                     maps[val[0]]=val[1]
                 }
@@ -49,7 +49,7 @@ global.mytags= function(){
                     model_id=maps.mid;
                     delete maps.mid;
                 }
-                let model = await think.model("model", think.config("model")).get_table_name(model_id);
+                let model = await think.model("model").get_table_name(model_id);
                 //console.log(model);
                 //limit
                 let offset,length;
@@ -75,7 +75,7 @@ global.mytags= function(){
                 }
                 //console.log(maps);
                 //console.log(offset);
-                let data = await think.model(model, think.config("model")).where(where).limit(offset,length).order(order).select();
+                let data = await think.model(model).where(where).limit(offset,length).order(order).select();
                 //console.log(data);
                 context.ctx[arg] = data;
             }
@@ -115,10 +115,10 @@ global.column= function(){
         let isapp = !think.isEmpty(args.isapp) ?args.isapp:false;
         let isindex = !think.isEmpty(args.isindex) ?args.isindex:false;
 
-        let column = await think.model('category', think.config("model")).get_all_category();
+        let column = await think.model('category').get_all_category();
         if(args.isnum==1){
             for(let v of column){
-                v.doc_num = await think.model('document',think.config("model")).where({category_id:v.id,status:[">",0]}).count("id");
+                v.doc_num = await think.model('document').where({category_id:v.id,status:[">",0]}).count("id");
             }
         }
         //console.log(column);
@@ -170,7 +170,7 @@ global.channel = function(){
     };
     this.run = async function (context, args, callback) {
         let data = think.isEmpty(args.data) ?"data":args.data;
-        let channel = await think.model('channel', think.config("model")).get_channel_cache();
+        let channel = await think.model('channel').get_channel_cache();
         channel = arr_to_tree(channel,0);
         //console.log(channel);
         context.ctx[data] = channel;
@@ -192,7 +192,7 @@ global.groups = function(){
     };
     this.run = async function (context, args, callback) {
         let data = think.isEmpty(args.data) ?"data":args.data;
-        context.ctx[data] = await think.model('category', think.config("model")).get_groups(args.cid);
+        context.ctx[data] = await think.model('category').get_groups(args.cid);
         return callback(null,'');
     }
 }
@@ -225,7 +225,7 @@ global.topic = function(){
         return new nodes.CallExtensionAsync(this, 'run', args);
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+       // console.log(args);
         let where = {'status':1,'pid':0};
         let data = think.isEmpty(args.data) ? "data" : args.data;
         let limit = think.isEmpty(args.limit) ? "10" : args.limit;
@@ -235,7 +235,7 @@ global.topic = function(){
                 let cids = `${args.cid}`;
                 let cidarr = []
                 for (let v of cids.split(",")){
-                    let subcate = await think.model('category',think.config("model")).get_sub_category(v);
+                    let subcate = await think.model('category').get_sub_category(v);
                     cidarr = cidarr.concat(subcate)
                     cidarr.push(Number(v))
                 }
@@ -274,15 +274,15 @@ global.topic = function(){
             }
         }
 
-        console.log(where);
+        //console.log(where);
         let topic
         if(args.tid &&!think.isEmpty(args.tval)){
-            console.log();
+            //console.log();
             for(let v in JSON.parse(args.tval)){
                 where["t."+v]=JSON.parse(args.tval)[v]
             }
-            console.log(where);
-            topic = await think.model('document', think.config("model")).join({
+            //console.log(where);
+            topic = await think.model('document').join({
                 table: "type_optionvalue"+args.tid,
                 join: "left", // 有 left,right,inner 3 个值
                 as: "t",
@@ -290,7 +290,7 @@ global.topic = function(){
 
             }).where(where).limit(limit).order(type).select();
         }else {
-            topic = await think.model('document', think.config("model")).where(where).limit(limit).order(type).select();
+            topic = await think.model('document').where(where).limit(limit).order(type).select();
         }
         //副表数据
         if(args.isstu == 1){
@@ -298,8 +298,8 @@ global.topic = function(){
             let stuwhere ={};
 
             for(let v of topic){
-                let table =await think.model("model",think.config("model")).get_table_name(v.model_id);
-                let details = await think.model(table,think.config("model")).find(v.id);
+                let table =await think.model("model").get_table_name(v.model_id);
+                let details = await think.model(table).find(v.id);
                 topicarr.push(think.extend({},v,details));
             }
             if(!think.isEmpty(args.stuwhere)){
@@ -342,7 +342,7 @@ global.keywords = function(){
                 type="videonum DESC"
             }
         }
-        let keywrod = await think.model('keyword', think.config("model")).where(where).limit(limit).order(type).select();
+        let keywrod = await think.model('keyword').where(where).limit(limit).order(type).select();
         //console.log(channel);
         for(let k of keywrod){
             k.url=`/t/${k.keyname}`+mod;
@@ -370,7 +370,7 @@ global.rkeywords = function () {
         return new nodes.CallExtensionAsync(this, 'run', args)
     };
     this.run = async function (context, args, callback) {
-        console.log(args);
+       // console.log(args);
         let data = think.isEmpty(args.data) ?"data":args.data;
         let where = {};
         let limit = think.isEmpty(args.limit) ? "5" : args.limit;
@@ -381,9 +381,9 @@ global.rkeywords = function () {
         where.mod_type=type;
         where.mod_id=mod_id;
         let keyword;
-        let topicid = await think.model("keyword_data", think.config("model")).where(where).getField("tagid");
+        let topicid = await think.model("keyword_data").where(where).getField("tagid");
         if(!think.isEmpty(topicid)){
-            keyword = await think.model("keyword", think.config("model")).where({id:["IN",topicid]}).limit(limit).select();
+            keyword = await think.model("keyword").where({id:["IN",topicid]}).limit(limit).select();
 
             for(let k of keyword){
                 k.url=`/t/${k.keyname},${mod_id}`;
@@ -430,7 +430,7 @@ global.model = function () {
         let order = think.isEmpty(args.order) ? false : args.order;
         let cache = think.isEmpty(args.cache) ? false : Number(args.cache);
         let field = think.isEmpty(args.field) ? false : args.field;
-        let model =  think.model(table, think.config("mdoel"));
+        let model =  think.model(table);
         //console.log(cache);
         //缓存
         if(cache){

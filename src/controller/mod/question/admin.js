@@ -46,11 +46,9 @@ module.exports =  class extends Admin {
       map.title=["like","%"+this.get("title")+"%"]
     }
     let list = await question.where(map).order('update_time DESC').page(this.get("page"),20).countSelect();
-    let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-    let pages = new Pages(this.http); //实例化 Adapter
-    let page = pages.pages(list);
+      let html = this.pagination(list);
     this.assign('list', list);
-    this.assign('pagerData', page); //分页展示使用
+    this.assign('pagerData', html); //分页展示使用
     console.log(map);
     this.meta_title = this.m_cate.title;
     this.assign({

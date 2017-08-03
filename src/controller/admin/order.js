@@ -35,19 +35,7 @@ module.exports = class extends Base {
         map.type = 0;
        // this.config("db.nums_per_page",20)
         let data = await this.model("order").where(map).page(this.get('page')||1,20).order("create_time DESC").countSelect();
-      let Page = this.service('pagination');
-      let page = new Page();
-      let html = page.page(data,this.ctx,{
-          desc: true, //show description
-          pageNum: 2,
-          url: '', //page url, when not set, it will auto generated
-          class: 'nomargin', //pagenation extra class
-          text: {
-              next: '下一页',
-              prev: '上一页',
-              total: '总数: ${count} , 页数: ${pages}'
-          }
-      });
+      let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         //console.log(data.data);
         this.active="admin/order/list";
@@ -398,19 +386,7 @@ module.exports = class extends Base {
 
     async receivingAction(){
         let data = await this.model("doc_receiving").page(this.get('page')).order("create_time DESC").countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         //console.log(data.data);
         // this.active="admin/order/list"
@@ -439,19 +415,7 @@ module.exports = class extends Base {
     async invoiceAction(){
     
         let data = await this.model("doc_invoice").page(this.get('page')).order("create_time DESC").countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         for(let v of data.data){
             v.express_company_id = await this.model("express_company").where({id:v.express_company_id}).getField("name",true);

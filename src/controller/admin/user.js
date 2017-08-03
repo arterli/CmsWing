@@ -32,19 +32,7 @@ module.exports = class extends Base {
             map.username= ["like", "%"+this.get("username")+"%"]
         }
         let data = await this.db.where(map).page(this.get('page')||1,20).order('id DESC').countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title="用户列表";

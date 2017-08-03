@@ -350,7 +350,7 @@
                                                 <thead>
                                                 <tr class="bg-light">
                                                     <th>角色名称</th>
-                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                    {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                     <th>{{items}}</th>
                                                     {% endfor%}
                                                 </tr>
@@ -361,7 +361,7 @@
                                                     <td>
                                                         {{val.desc}}
                                                     </td>
-                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                    {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                     </td>
@@ -1089,7 +1089,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>角色名称</th>
-                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SYS_PRIV_ROLE %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
                                                     </tr>
@@ -1100,7 +1100,7 @@
                                                         <td>
                                                             {{val.desc}}
                                                         </td>
-                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SYS_PRIV_ROLE %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                         </td>
@@ -1125,7 +1125,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>会员组名称</th>
-                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
+                                                        {% for index, items in config.setup.SYS_PRIV_GROUP %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
 
@@ -1137,7 +1137,7 @@
                                                         <td>
                                                             <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
                                                         </td>
-                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
+                                                        {% for index, items in config.setup.SYS_PRIV_GROUP %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="{{index}},{{val.groupid}}" ><i></i></label>
                                                         </td>

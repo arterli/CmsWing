@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 const qiniu = require('qiniu');
-module.exports = class {
+module.exports =  class extends think.Service {
     /**
      * 七牛上传
      * @param filePath 要上传文件的本地路径
@@ -14,7 +14,7 @@ module.exports = class {
      * @returns {*}
      */
     async uploadpic(filePath,key,istoken=false){
-        let setup = await think.cache("setup");
+        let setup = think.config("setup");
         // qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
         // qiniu.conf.SECRET_KEY = setup.QINIU_SK;
         let accessKey = setup.QINIU_AK;
@@ -94,7 +94,7 @@ module.exports = class {
     //删除资源
     async remove(key){
 
-        let setup = await think.cache("setup");
+        let setup = think.config("setup");
         let accessKey = setup.QINIU_AK;
         let secretKey = setup.QINIU_SK;
         let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
@@ -145,7 +145,7 @@ module.exports = class {
     }
     //获取文件信息
     async stat(key){
-        let setup = await think.cache("setup");
+        let setup = think.config("setup");
         qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
         qiniu.conf.SECRET_KEY = setup.QINIU_SK;
         let bucket = setup.QINIU_BUCKET;
@@ -171,7 +171,7 @@ module.exports = class {
     }
     //音视频转码
     async pfop(){
-        let setup = await think.cache("setup");
+        let setup = think.config("setup");
         qiniu.conf.ACCESS_KEY = setup.QINIU_AK;
         qiniu.conf.SECRET_KEY = setup.QINIU_SK;
 
@@ -206,7 +206,7 @@ module.exports = class {
         });
     }
     async download(key){
-        let setup = await think.cache("setup");
+        let setup = await think.config("setup");
         let accessKey = setup.QINIU_AK;
         let secretKey = setup.QINIU_SK;
         let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);

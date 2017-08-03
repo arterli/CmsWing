@@ -8,7 +8,6 @@
 
 const Base = require('../common/admin');
 const API = require('co-wechat-api');
-const http = require('http');
 const fs = require('fs');
 const superagent = require('superagent');
 module.exports = class extends Base {
@@ -18,7 +17,7 @@ module.exports = class extends Base {
 
     }
 async xxxAction(){
-    let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+    let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     let ddd =  await api.getMaterials("image");
     console.log(ddd);
     return this.body = "ddd"
@@ -154,7 +153,7 @@ async xxxAction(){
      */
      async massAction(){
          this.meta_title="群发功能";
-         let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+         let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
          let groups = await api.getGroups();
          this.assign('groups', groups.groups);//用户分组
          this.assign({"navxs": true});
@@ -290,21 +289,10 @@ async xxxAction(){
         let FromUserName = 'openid';//发送方帐号（一个OpenID）
         let Event = 'subscribe';//subscribe(订阅)、unsubscribe(取消订阅)
         let user_model = this.model('wx_user');
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         if(Event == 'subscribe' && !thik.isEmpty(FromUserName)){
             //通过openid获取用户基本信息
-             let userinfo = function(api) {
-                    let deferinfo = think.defer();
-                    api.getUser(FromUserName,(err,result)=>{
-                        if(!think.isEmpty(result)){
-                        deferinfo.resolve(result);
-                        }else{
-                            Console.error('err'+err);
-                        } 
-                    });
-                    return deferinfo.promise;
-             }
-             let resusers = await userinfo(api);
+             let resusers = await api.getUser(FromUserName);
              //添加到本地库中
              await user_model.add(resusers);            
         }else{
@@ -322,26 +310,12 @@ async xxxAction(){
         let materid = this.post('id');
         let materialinfo = await material_model.where({id: materid}).find();
         //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         let self = this;
-
-        let info = function(api) {
-            let deferred = think.defer();
-            api.getMaterial(materialinfo.media_id,(err,result)=>{
-                if(!think.isEmpty(result)){
-                    deferred.resolve(result);
-                }else{
-                    Console.error('err'+err)
-                }
-            });
-            return deferred.promise;
-        }
-
         //let res =  await
         //    info(api);
         //
-
-        let res = await info(api);
+        let res = await api.getMaterial(materialinfo.media_id);
         console.log(res);
 
 
@@ -355,7 +329,7 @@ async xxxAction(){
     async getusersAction(){
         this.meta_title="获取粉丝信息";
         let user_model = this.model('wx_user');
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         let self = this;
         //获取关注者列表
 
@@ -365,6 +339,8 @@ async xxxAction(){
         let count = res['count'];
         //self.end(useropenid);
         //think.log(res);
+        //清除原来的数据
+        await this.model('myslq').execute(`TRUNCATE TABLE ${this.config('model.mysql.prefix')}wx_user`);
         //批量获取用户基本信息
         let isadd = false;
         let tmp_openids = [];
@@ -385,22 +361,27 @@ async xxxAction(){
                        let subscribe_time = element.subscribe_time*1000;
                        //element.nickname = nickname;
                        element.subscribe_time =subscribe_time;
-                       
-                       let addres = await user_model.thenAdd(element,{openid:element.openid});
-                       console.log(addres);
-                       if(addres.type=='exist'){
-                           await user_model.where({openid:element.openid}).update(element);
-                           isadd = true;
-                       }
+                       //let deluser = await user_model.where({openid:element.openid}).delete();
+
+                       // let addres = await user_model.thenAdd(element,{openid:element.openid});
+                       // console.log(addres);
+                       // if(addres.type=='exist'){
+                       //     await user_model.where({openid:element.openid}).update(element);
+                       //     isadd = true;
+                       // }
+                        await user_model.add(element);
+
                }
+
                tmp_openids = [];
             }
         }
-        if(isadd){
-           return this.success({name:"操作成功！",url:"/admin/mpbase/userlist"});
-        }else{
-           return this.fail("error");
-        }
+        return this.success({name:"操作成功！"});
+        // if(isadd){
+        //    return this.success({name:"操作成功！"});
+        // }else{
+        //    return this.fail("error");
+        // }
     }
     
 
@@ -409,7 +390,7 @@ async xxxAction(){
      * 通过分组groupid进行群发，认证后的订阅号和服务号都可以使用
      */
     async masssendAction(){
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         //let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
         //let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
         let model = this.model('wx_user');
@@ -539,19 +520,7 @@ async xxxAction(){
      */
     async hassendAction(){
         let data = await this.model('wx_masssend').page(this.get('page')).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         let emoji = ["微笑","撇嘴","色","发呆","得意","流泪","害羞","闭嘴","睡","大哭","尴尬","发怒","调皮","呲牙","惊讶","难过","酷","冷汗","抓狂","吐","偷笑","可爱","白眼","傲慢","饥饿","困","惊恐","流汗","憨笑","大兵","奋斗","咒骂","疑问","嘘","晕","折磨","衰","骷髅","敲打","再见","擦汗","抠鼻","鼓掌","糗大了","坏笑","左哼哼","右哼哼","哈欠","鄙视","委屈","快哭了","阴险","亲亲","吓","可怜","菜刀","西瓜","啤酒","篮球","乒乓","咖啡","饭","猪头","玫瑰","凋谢","示爱","爱心","心碎","蛋糕","闪电","炸弹","刀","足球","瓢虫","便便","月亮","太阳","礼物","拥抱","强","弱","握手","胜利","抱拳","勾引","拳头","差劲","爱你","NO","OK","爱情","飞吻","跳跳","发抖","怄火","转圈","磕头","回头","跳绳","挥手","激动","街舞","献吻","左太极","右太极"];
 
         this.assign('emoji', emoji);
@@ -608,19 +577,7 @@ async xxxAction(){
      */
     async userlistAction(){
         let data = await this.model('wx_user').page(this.get('page'),20).countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         this.assign('pagerData', html); //分页展示使用
         this.assign('list', data.data);
         this.meta_title="微信用户管理"
@@ -653,7 +610,7 @@ async xxxAction(){
         let menu_model = this.model('wx_menu');
         let data = await menu_model.order('pid ASC, sort ASC').select();
         let menu = buildselfmenu(data);
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         //let api = new API('wx3e72261823fb62dd', '593bf2b86a00c913d8e38e9cf1d4e1ec');
 
         console.log(menu);
@@ -764,19 +721,7 @@ async xxxAction(){
         self.assign({"navxs": true, "bg": "bg-dark"});
         let model = self.model("wx_material");
         let data = await model.page(this.get('page')).order('add_time DESC').countSelect();
-        let Page = this.service('pagination');
-        let page = new Page();
-        let html = page.page(data,this.ctx,{
-            desc: true, //show description
-            pageNum: 2,
-            url: '', //page url, when not set, it will auto generated
-            class: 'nomargin', //pagenation extra class
-            text: {
-                next: '下一页',
-                prev: '上一页',
-                total: '总数: ${count} , 页数: ${pages}'
-            }
-        });
+        let html = this.pagination(data);
         self.assign('pagerData', html);
         self.assign('fodder_list', data.data);
         return this.display();
@@ -794,7 +739,7 @@ async xxxAction(){
      * 删除素材
      */
     async deletefodderAction() {
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         let self = this;
         let id = self.get('id');
         //let ids = self.get('ids')
@@ -804,6 +749,10 @@ async xxxAction(){
         // return self.end(olddata);
         if (!think.isEmpty(olddata)) {
             let wxres = await api.removeMaterial(olddata[0]);
+            //console.log(wxres);
+            if(think.isBuffer(wxres)){
+                wxres=JSON.parse(wxres.toString());
+            }
             // let wxres = { errcode: 0 };
             // try{
             //     for(let midi in olddata){
@@ -848,7 +797,7 @@ async xxxAction(){
         this.assign('data', JSON.stringify(data));
 
         //this.end(data);
-        return this.display('fodder');
+        return this.display('admin/mpbase_fodder');
     }
     /**
      * 给微信上传临时素材 /图片 更新本地库
@@ -881,9 +830,12 @@ async xxxAction(){
         } else {
             paths = think.ROOT_PATH + '/www/' + pic;
         }
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         console.log(paths);
         let img_result = await api.uploadMaterial(paths, 'thumb');
+        if(think.isBuffer(img_result)){
+            img_result=JSON.parse(img_result.toString());
+        }
         if (img_result) {
             //删除远程文件
             fs.unlinkSync(paths);
@@ -903,15 +855,19 @@ async xxxAction(){
         let params = self.post("params");
         let edit_id = self.get("edit_id");
         let model = self.model('wx_material');
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         if (edit_id) {
             let olddata = await model.where({id: edit_id}).find();
-            let wxrres = await api.removeMaterial(olddata.media_id);
-            let delrow = await model.where({id: edit_id}).delete();
+             await api.removeMaterial(olddata.media_id);
+             await model.where({id: edit_id}).delete();
         }
         try {
             var anews = JSON.parse(params);
             let wxres = await api.uploadNewsMaterial(anews);
+            if(think.isBuffer(wxres)){
+                wxres=JSON.parse(wxres.toString());
+            }
+            console.log(wxres);
             if (wxres) {
                 let wx_news = await api.getMaterial(wxres.media_id);
                 // let wx_news_str = JSON.stringify(wx_news);
@@ -925,12 +881,12 @@ async xxxAction(){
                 }
                 let effect = await model.add(data);
                 if (effect) {
-                    self.success({"name": "上传成功！", url: ""});
+                    return self.success({"name": "上传成功！", url: ""});
                 }
             }
-            self.fail("上传失败！");
+           return self.fail("上传失败！");
         } catch (e) {
-            self.fail("上传失败！");
+           return self.fail("上传失败！");
         }
     }
 
@@ -966,43 +922,40 @@ async xxxAction(){
         let currtime = new Date().getTime();
         let currwebtoken = 0;
         let result = 0;
-        await model.startTrans();
-        switch (type) {
-            case 'text':
-                let content = self.post('content')
-                result = await model.add({
-                    'type': 'text',
-                    'content': content,
-                    'create_time': currtime,
-                    'web_token': currwebtoken
-                });
-                break;
-            case 'image':
-                break;
-            case 'audio':
-                break;
-            case 'video':
-                break;
-            case 'news':
-                break;
-        }
 
-        if (result) {
-            let rulemodel = self.model('wx_keywords_rule');
+        let insertId = await model.transaction(async () => {
+            switch (type) {
+                case 'text':
+                    let content = self.post('content')
+                    result = await model.add({
+                        'type': 'text',
+                        'content': content,
+                        'create_time': currtime,
+                        'web_token': currwebtoken
+                    });
+                    break;
+                case 'image':
+                    break;
+                case 'audio':
+                    break;
+                case 'video':
+                    break;
+                case 'news':
+                    break;
+            }
+
+            let rulemodel = self.model('wx_keywords_rule').db(model.db());
             let ruledata = await rulemodel.where({id: ruleid}).find();
             console.log(ruledata);
             let rs = ruledata.reply_id.split(',');
             rs.push(result);
-            let r = await rulemodel.where({id: ruleid}).update({'reply_id': rs.join(','), 'create_time': currtime});
-            if (r) {
-                await model.commit();
-                return self.success({name: '添加回复成功', rid: result});
-            } else {
-                await model.rollback();
-                return self.fail('回复添加失败');
-            }
+            await rulemodel.where({id: ruleid}).update({'reply_id': rs.join(','), 'create_time': currtime});
+            return result;
+        });
+
+        if (insertId) {
+            return self.success({name: '添加回复成功', rid: insertId});
         } else {
-            await model.rollback();
             return self.fail('回复添加失败');
         }
     }
@@ -1041,20 +994,21 @@ async xxxAction(){
         let self = this;
         let ruleid = self.post('ruleid');
         let rulemodel = self.model('wx_keywords_rule');
-        await rulemodel.startTrans();
-        let currentrule = await rulemodel.where({id: ruleid}).find();
-        let kids = currentrule.keywords_id;
-        let rids = currentrule.reply_id;
-        let kmodel = self.model('wx_keywords');
-        let rmodel = self.model('wx_replylist');
-        let kres = await kmodel.where({id: ['IN', kids]}).delete();
-        let rres = await rmodel.where({id: ['IN', rids]}).delete();
-        let rulres = await rulemodel.where({id: ruleid}).delete();
-        if (rulres) {
-            await rulemodel.commit();
+        let insertId = await rulemodel.transaction(async () => {
+            let currentrule = await rulemodel.where({id: ruleid}).find();
+            let kids = currentrule.keywords_id;
+            let rids = currentrule.reply_id;
+            let kmodel = self.model('wx_keywords').db(rulemodel.db());
+            let rmodel = self.model('wx_replylist').db(rulemodel.db());
+             await kmodel.where({id: ['IN', kids]}).delete();
+             await rmodel.where({id: ['IN', rids]}).delete();
+            return await rulemodel.where({id: ruleid}).delete();
+        });
+        if (insertId) {
+
             return self.success({name: '规则删除成功'});
         } else {
-            await rulemodel.rollback();
+
             return self.fail('规则删除失败');
         }
     }
@@ -1124,10 +1078,9 @@ async xxxAction(){
         let currtime = new Date().getTime();
         if (ruleid && rid) {
             let model = self.model('wx_replylist');
-            await model.startTrans();
-            let rr = await model.where({id: rid}).delete();
-            if (rr) {
-                let rulemodel = self.model('wx_keywords_rule');
+            let insertId = await model.transaction(async () => {
+                await model.where({id: rid}).delete();
+                let rulemodel = self.model('wx_keywords_rule').db(model.db());
                 let ruledata = await rulemodel.where({id: ruleid}).find();
                 let tmp = [];
                 let rs = ruledata.reply_id.split(',');
@@ -1136,19 +1089,14 @@ async xxxAction(){
                         tmp.push(rs[i]);
                     }
                 }
-                let r = await rulemodel.where({id: ruleid}).update({
+                return await rulemodel.where({id: ruleid}).update({
                     'reply_id': tmp.join(','),
                     'create_time': currtime
                 });
-                if (r) {
-                    await model.commit();
-                    return self.success({name: '回复删除成功'});
-                } else {
-                    await model.rollback();
-                    return self.fail('回复删除失败');
-                }
-            } else {
-                await model.rollback();
+            });
+            if(insertId){
+                return self.success({name: '回复删除成功'});
+            }else {
                 return self.fail('删除失败');
             }
         } else {
@@ -1480,7 +1428,7 @@ async xxxAction(){
         }
         //think.log(final)
         //return false;
-        let api = new API(this.setup.wx_AppID, this.setup.wx_AppSecret);
+        let api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
         let res = await api.createMenu(final);
         // let res = true;
         console.log(res);

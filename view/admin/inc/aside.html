@@ -34,7 +34,7 @@
                         {%else%}
                         {%set ism = 0%}
                         {%endif%}
-                        {% for i, v in controller.setup.MENU_GROUP%}
+                        {% for i, v in config.setup.MENU_GROUP%}
                         {% if i!= 0 and i != 99  and i !=ism%}
 
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
@@ -93,17 +93,17 @@
                       </span>
                       <span class="hidden-nav-xs clear">
                         <span class="block m-l">
-                          <strong class="font-bold text-lt">{{controller.setup.wx_name}}</strong>
+                          <strong class="font-bold text-lt">{{config.setup.wx_name}}</strong>
                           <b class="caret"></b>
                         </span>
                         <span class="text-muted text-xs block m-l">
-                            {%if controller.setup.wx_type==1%}
+                            {%if config.setup.wx_type==1%}
                             未认证订阅号
-                            {%elif controller.setup.wx_type==2%}
+                            {%elif config.setup.wx_type==2%}
                             认证订阅号
-                            {%elif controller.setup.wx_type==3%}
+                            {%elif config.setup.wx_type==3%}
                             未认证服务号
-                            {%elif controller.setup.wx_type==4%}
+                            {%elif config.setup.wx_type==4%}
                             微信认证服务号
                             {%endif%}
                         </span>

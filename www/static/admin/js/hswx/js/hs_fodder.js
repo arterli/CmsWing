@@ -13,8 +13,8 @@ var _hs_uploader = WebUploader.create({
     // 只允许选择图片文件。
     accept: {
         title: 'Images',
-        extensions: 'gif,jpg,jpeg,bmp,png',
-        mimeTypes: 'image/*'
+        extensions: 'jpg,jpeg',
+        mimeTypes: 'image/jpg,image/jpeg'
     }
 });
 _hs_uploader.on('uploadSuccess', function(file, id) {

@@ -123,8 +123,7 @@ module.exports = class extends Base {
             await this.session('backup_tables', tables);
 
             //创建备份文件
-            let mysql = require("../../service/mysql");
-            let db = new mysql(file,config,"export",this.ctx);
+            let db = this.service("mysql",file,config,"export",this.ctx)
             if (false !== db.create()) {
                 let tab = {'id': 0, 'start': 0};
                 return this.json({
@@ -145,8 +144,7 @@ module.exports = class extends Base {
             let backup_file = await this.session('backup_file');
             //console.log(backup_file);
             let backup_config = await this.session('backup_config');
-            let mysql = require("../../service/mysql");
-            let db = new mysql(backup_file,backup_config,"export",this.ctx);
+            let db = this.service("mysql",backup_file,backup_config,"export",this.ctx);
             start = await db.backup(table[id], start);
             if (false === start) {
                 return this.fail("备份出错！")
@@ -270,7 +268,7 @@ module.exports = class extends Base {
         this.end();
     }
 
-    targzAction() {
+    async targzAction() {
         // Streams
         if (this.isGet) {
             let paths = think.resource;
@@ -278,18 +276,10 @@ module.exports = class extends Base {
             let dir = paths + path + this.get("dir");
             let tar = paths + path + this.get("dir") + ".tar.gz"
             if (!think.isFile(tar)) {
-                //var read = targz().createReadStream(dir);
-                //var parse = fs.createWriteStream(tar);
-                //read.pipe(parse);
-                let self = this;
-                targz().compress(dir, tar)
-                    .then(function () {
-                        self.success({'name': "tar", 'url': self.get("dir")})
-                    })
-                    .catch(function (err) {
-                        console.log('Something is wrong ', err.stack);
-                    });
-
+              let targ = await targz().compress(dir, tar)
+                if(!targ){
+                    return  this.success({'name': "tar", 'url': self.get("dir")})
+                }
             } else {
              return this.success({'name': "download", 'url': this.get("dir")})
             }
@@ -297,8 +287,7 @@ module.exports = class extends Base {
             let paths = think.resource;
             let path = "/backup/";
             let tar = paths + path + this.post("name") + ".tar.gz";
-            console.log(tar);
-            //return  this.download(tar);
+            return  this.download(tar);
         }
     }
 
