@@ -8,13 +8,13 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="renderer" content="webkit" />
-	<title>{{controller.meta_title}} | {{controller.setup.WEB_SITE_TITLE}}</title>
+	<title>{{controller.meta_title}} | {{config.setup.WEB_SITE_TITLE}}</title>
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
 	<meta name="Author" content="Arterli [www.cmswing.com]" />
-	{%if controller.setup.QQ_VALIDATION%}
+	{%if config.setup.QQ_VALIDATION%}
 	<!--qq互联网站验证-->
-	{{controller.setup.QQ_VALIDATION|safe}}
+	{{config.setup.QQ_VALIDATION|safe}}
 	<!--qq互联网站验证结束-->
 	{%endif%}
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />

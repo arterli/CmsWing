@@ -81,7 +81,7 @@ module.exports = class extends Center {
 //验证码
             if(1==this.config('setup.GEETEST_IS_LOGIN')){
                 let geetest = think.service("geetest"); //加载 commoon 模块下的 geetset service
-                let res = await geetest.validate(this.ctx,this.post(),this.get('type'));
+                let res = await geetest.validate(this.ctx,this.post());
                 console.log(res);
                 if("success" != res.status){
                     // this.http.error = new Error("验证码不正确");
@@ -221,14 +221,14 @@ module.exports = class extends Center {
             //用户副表
             await this.model("customer").add({user_id:reg});
         }
-        await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+        await this.model("member").autoLogin({id:reg}, this.ip);//更新用户登录信息，自动登陆
         let userInfo = {
             'uid':reg,
             'username': data.username,
             'last_login_time': data.reg_time,
         };
         await this.session('webuser', userInfo);
-        return this.success({name:"注册成功,登录中!",url:"/uc/index"});
+        return this.success({name:"注册成功,登录中!",url:"/center/index"});
     }
     async verifymemberAction(){
         let v = this.get("v");

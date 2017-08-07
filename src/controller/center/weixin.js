@@ -190,7 +190,7 @@ module.exports = class extends Center {
         }
         data.status = 1;
         data.reg_time = new Date().valueOf();
-        data.reg_ip = _ip2int(this.ip());
+        data.reg_ip = _ip2int(this.ip);
         data.password = encryptPassword(data.password);
         let reg = await this.model("member").add(data);
 
@@ -203,7 +203,7 @@ module.exports = class extends Center {
             await this.spiderImage(data.headimgurl,filePath+'/avatar.png')
         }
         console.log(data);
-        await this.model("member").autoLogin({id:reg}, this.ip());//更新用户登录信息，自动登陆
+        await this.model("member").autoLogin({id:reg}, this.ip);//更新用户登录信息，自动登陆
         let wx_userInfo = {
             'uid':reg,
             'username': data.username,
@@ -213,15 +213,13 @@ module.exports = class extends Center {
         //成功后储存opid,防止无限登陆
         await this.session('wx_openid',data.openid);
         this.cookie('wx_openid',null);
-        return this.success({name:"绑定成功",url:"/uc/index"});
+        return this.success({name:"绑定成功",url:"/center/index"});
 
 
     }
     /**登录绑定 */
     async logonbindingAction(){
         let data = this.post();
-        console.log(data);
-        return this.fail("dsdd");
         let username = this.post('username');
         let password = this.post('password');
         password = encryptPassword(password);
@@ -244,7 +242,7 @@ module.exports = class extends Center {
             await this.session('wx_openid',data.openid);
             this.cookie('wx_openid',null);
             //TODO 用户密钥
-            return this.success({name:"绑定成功",url:"/uc/index"});
+            return this.success({name:"绑定成功",url:"/center/index"});
         } else { //登录失败
             let fail;
             switch (res) {

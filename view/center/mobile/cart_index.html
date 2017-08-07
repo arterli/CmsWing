@@ -74,11 +74,11 @@
 
 </nav>
 <div class="mui-content">
-    <form class="cart-tbody form-cart" action="/uc/cart/getorderinfo" method="post" >
+    <form class="cart-tbody form-cart" action="/center/cart/getorderinfo" method="post" >
         <ul class="mui-table-view ">
             {% for val in controller.cart.data%}
             <li class="mui-table-view-cell  mui-left ">
-                <div class="mui-checkbox "  style="width: 28px;height: 28px; top:30%;left: 30px; position: absolute"><input name="ids" type="checkbox" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}"></div>
+                <div class="mui-checkbox "  style="width: 28px;height: 28px; top:30%;left: 30px; position: absolute"><input name="ids" type="checkbox" value="{{val.product_id}}{%if val.type%}||{{val.type}}{%endif%}" data-val="{{val.product_id}}{%if val.type%}||{{val.type|urlencode}}{%endif%}"></div>
                 <div style="margin-left: 25px">
 
                     <img class="mui-media-object mui-pull-left" src="{{val.pic}}" style="min-width: 80px;height: 80px">
@@ -180,7 +180,7 @@
             if(c){
                 nums.push($(v).parents("li").find("input.number").val());
                 total =total + Number($(v).parents("li").find("span.price").attr("data-price"));
-                url.push($(v).parents("li").find('input[name="ids"]').val())
+                url.push($(v).parents("li").find('input[name="ids"]').data("val"))
                 console.log(nums)
             }
             badgecorner.push($(v).parents("li").find("input.number").val());
@@ -189,10 +189,10 @@
         url = url.join("<>");
         var href;
         if(url.length>0){
-            href = "/uc/cart/delcart/ids/"+url;
+            href = "/center/cart/delcart/?ids="+url;
             $("a.delall").attr("href",href);
         }else {
-            href = "/uc/cart/delcart";
+            href = "/center/cart/delcart";
             $("a.delall").attr("href",href);
         }
         if(nums.length > 0){
@@ -239,7 +239,7 @@
                 }else {
                     if(res.errmsg == "请先登录"){
                         //location.href="/user/login";
-                        mui.openWindow({url:"/uc/public/login"})
+                        mui.openWindow({url:"/center/public/login"})
                     }else {
                         $(self).parents("li").find("span.stock").html('<span class="original">无货</span>')
                     }

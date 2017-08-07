@@ -37,7 +37,7 @@ jQuery(document).ready(function() {
         // console.log(step);
         // console.log(ids);
         $.ajax({
-            url:"/uuu/cart/stepper",
+            url:"/center/cart/stepper",
             type:"POST",
             data:{qty:step,ids:ids},
             success:function (res) {
@@ -83,16 +83,16 @@ jQuery(document).ready(function() {
             if(c){
                 nums.push($(v).parents("tr").find("input.stepper").val());
                 total =total + Number($(v).parents("tr").find("td").eq(5).attr("data-price"));
-                url.push($(v).parents("tr").find('input[name="ids"]').val())
+                url.push($(v).parents("tr").find('input[name="ids"]').data("val"))
             }
         })
          url = url.join("<>");
         var href;
         if(url.length>0){
-             href = "/uuu/cart/delcart/ids/"+url;
+             href = "/center/cart/delcart/?ids="+url;
             $("a.delall").attr("href",href);
         }else {
-             href = "/uuu/cart/delcart";
+             href = "/center/cart/delcart";
             $("a.delall").attr("href",href);
         }
         if(nums.length > 0){

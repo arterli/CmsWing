@@ -43,7 +43,7 @@
 {% block script %}
 <script>
     mui('.mui-content-padded').on("tap",'button.goodsdel',function () {
-        mui.post('/uc/cart/delcart',{
+        mui.post('/center/cart/delcart',{
                     ids:mui(".ids")[0].value
                 },function(data){
                    if(data.errno==0){

@@ -51,8 +51,8 @@ module.exports = class extends Home {
                 let vuedata = {orderTotal:orderTotal,onOrder:onOrder}
                 return this.json(vuedata)
             }else {//普通模板
-                this.active = this.http.controller+"/"+this.http.action;
-                return this.display(`mobile/${this.http.controller}/${this.http.action}`)
+                this.active = this.ctx.controller+"/"+this.ctx.action;
+                return this.display(this.mtpl());
             }
 
         } else {

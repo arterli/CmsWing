@@ -117,7 +117,7 @@
 {% block content%}
 <header class="mui-bar mui-bar-nav">
     <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
-    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
 </header>
 <div class="mui-content">
     <form id='login-form' class="mui-input-group">
@@ -146,33 +146,28 @@
         <div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
         </div>
     </div>
-    {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+    {%if config.setup.GEETEST_IS_LOGIN ==1%}
     <div id="mask" class="hide"></div>
     <div id="popup-captcha-mobile" class="hide"></div>
     {%endif%}
     <div class="mui-content-padded oauth-area">
-        <a  href="/uc/qq" class="oauth-btn" style="background: url('/static/webapp/img/qq.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
-        <div class="oauth-btn weixin" style="background: url('/static/webapp/img/weixin.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></div>
-        <a href="/uc/sina" class="oauth-btn" style="background: url('/static/webapp/img/sinaweibo.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+        <a  href="/center/qq" class="oauth-btn" style="background: url('/static/mobile/img/qq.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+        <div class="oauth-btn weixin" style="background: url('/static/mobile/img/weixin.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></div>
+        <a href="/center/sina" class="oauth-btn" style="background: url('/static/mobile/img/sinaweibo.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
     </div>
 </div>
 
 {% endblock %}
 {% block script %}
-{%if controller.setup.GEETEST_IS_LOGIN ==1%}
-{%if config("http_")==1%}
-<!-- 引入封装了failback的接口--initGeetest -->
-<script src="http://static.geetest.com/static/tools/gt.js"></script>
-{%else%}
+{%if config.setup.GEETEST_IS_LOGIN ==1%}
 <!-- 若是https，使用以下接口 -->
-<script src="https://static.geetest.com/static/tools/gt.js"></script>
-{%endif%}
+<script src="//static.geetest.com/static/tools/gt.js"></script>
 {%endif%}
 <script>
     var btn = document.getElementById("login"),account = document.getElementById("account"),password = document.getElementById("password");
-    var href = "{{http.referrer()}}"==""?"/uc/public/login":"{{http.referrer()}}";
+    var href = "{{ctx.referrer()}}"==""?"/center/public/login":"{{ctx.referrer()}}";
 
-    {%if controller.setup.GEETEST_IS_LOGIN ==1%}
+    {%if config.setup.GEETEST_IS_LOGIN ==1%}
     var pop=document.getElementById("popup-captcha-mobile"),
             mask=document.getElementById("mask");
     var show = function (ele) {
@@ -206,7 +201,7 @@
             var validate = captchaObj.getValidate();
 
             mui.ajax({
-                url: "/uc/public/login/type/mobile", // 进行二次验证
+                url: "/center/public/login/?type=mobile", // 进行二次验证
                 type: "post",
                 dataType: "json",
                 data: {
@@ -241,7 +236,7 @@
     };
     mui.ajax({
         // 获取id，challenge，success（是否启用failback）
-        url: "/admin/public/geetest/type/mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "/admin/public/geetest/?type=mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -266,7 +261,7 @@
             mui.toast("密码不能为空");
             return;
         }
-        mui.post('/uc/public/login',{
+        mui.post('/center/public/login',{
             username:account.value,
             password:password.value
                 },function(msg){

@@ -42,14 +42,14 @@
 {% if controller.cart.data|length > 0 %}
 
 <div class="mui-content">
-    <form class="form-post" action="/uc/cart/createorder" method="post" >
+    <form class="form-post" action="/center/cart/createorder" method="post" >
 
         <ul class="mui-table-view">
             <li class="mui-table-view-divider">收货人信息</li>
             {%for item in addrlist %}
             <li class="mui-table-view-cell">
                 <input type="hidden"  name="address" value="{{item.id}}" >
-                <a class="mui-navigate-right" href="/uc/address/selectaddr/id/{{item.id}}/goodslist/{{goodsget|jsonToStr}}">
+                <a class="mui-navigate-right" href="/center/address/selectaddr/?id={{item.id}}&goodslist={{goodsget|jsonToStr}}">
                 <div class="mui-table">
                     <div class="mui-table-cell mui-col-xs-10">
                         <h4 class="mui-ellipsis">{{item.accept_name}} <small>({{item.mobile}})</small></h4>
@@ -64,7 +64,7 @@
             </li>
             {% else %}
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right" href="/uc/address/selectaddr/id/0/goodslist/{{goodsget|jsonToStr}}">
+                <a class="mui-navigate-right" href="/center/address/selectaddr/?id=0&goodslist={{goodsget|jsonToStr}}">
                     添加新地址
                 </a>
             </li>

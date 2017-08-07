@@ -1,7 +1,7 @@
 {% extends "./inc/appbase.html" %}
 {%block style%}
-<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
-<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/static/mobile/css/mui.picker.min.css" />
+<link href="/static/mobile/css/mui.poppicker.css" rel="stylesheet" />
 <style>
     .original {
         border: 1px solid #999;
@@ -35,7 +35,7 @@
 </header>
 
 <div class="mui-content">
-    <form action="/uc/address/addaddr" method="post" class="form-post" >
+    <form action="/center/address/addaddr" method="post" class="form-post" >
 <div class="mui-input-group mui-table-view">
     <div class="mui-input-row">
         <label>姓名</label>
@@ -67,7 +67,7 @@
     </li>
 </div>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
-            <input type="hidden" value="{{http.referrer()}}" name="resurl" class="id">
+            <input type="hidden" value="{{ctx.referrer()}}" name="resurl" class="id">
             <button  type="button" class="mui-btn mui-btn-primary mui-btn-block addr">{% if info.id %}编辑地址{%else%}添加新地址{%endif%}</button>
             {% if info.id %}
             <input type="hidden" value="{{info.id}}" name="id" class="id">
@@ -80,9 +80,9 @@
 {% endblock%}
 
 {% block script %}
-<script src="/static/webapp/js/mui.picker.min.js"></script>
-<script src="/static/webapp/js/mui.poppicker.js"></script>
-<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/mobile/js/mui.picker.min.js"></script>
+<script src="/static/mobile/js/mui.poppicker.js"></script>
+<script src="/static/mobile/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 <script>
     mui.init();
     //-----------------------------------------
@@ -124,7 +124,7 @@
              if (e.index == 1) {
                  $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
                  falg = true;
-                 mui.post("/uc/address/deladdr",{resurl:'{{http.referrer()}}',id:'{{info.id}}'},function(data){
+                 mui.post("/center/address/deladdr",{resurl:'{{ctx.referrer()}}',id:'{{info.id}}'},function(data){
                      if (data.errno==0) {
                          if (data.data.url) {
                              mui.toast(data.data.name + ' 即将跳转~');

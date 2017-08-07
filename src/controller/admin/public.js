@@ -136,7 +136,7 @@ module.exports = class extends think.Controller {
             let res = await geetest.validate(this.ctx,post);
             return this.json(res);
         } else {
-            let res = await geetest.register(this.ctx,this.get('type'));
+            let res = await geetest.register(this.ctx);
             //console.log(res);
             return this.json(res);
         }

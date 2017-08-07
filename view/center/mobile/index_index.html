@@ -50,16 +50,16 @@
 {% block content%}
 <header class="mui-bar mui-bar-nav">
 	<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-	<a href="/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
-	<h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+	<a href="/center/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+	<h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
 	<a class="mui-icon iconfont icon-search mui-pull-right"></a>
 </header>
 {% include "./inc/barnav.html" %}
 <div class="mui-content">
 	<ul class="mui-table-view mui-table-view-chevron">
 		<li class="mui-table-view-cell mui-media">
-			<a class="mui-navigate-right" href="/uc/seting">
-				<img class="mui-media-object mui-pull-left head-img" id="head-img" src="/uc/index/avatar">
+			<a class="mui-navigate-right" href="/center/seting">
+				<img class="mui-media-object mui-pull-left head-img" id="head-img" src="/u/avatar">
 				<div class="mui-media-body">
 					{{controller.user.username}}
 					<p class='mui-ellipsis'>手机:{{userInfo.mobile}}</p>
@@ -79,12 +79,12 @@
 			</a></div>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="/uc/account" class="mui-navigate-right"><span class="mui-icon iconfont icon-pay size-18 text-muted"></span> 钱包 <i class="mui-pull-right info text-danger"><span class="mui-icon iconfont icon-recharge"></span> {%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</i></a>
+			<a href="/center/account" class="mui-navigate-right"><span class="mui-icon iconfont icon-pay size-18 text-muted"></span> 钱包 <i class="mui-pull-right info text-danger"><span class="mui-icon iconfont icon-recharge"></span> {%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</i></a>
 		</li>
 	</ul>
 	<ul class="mui-table-view mui-table-view-chevron">
 		<li class="mui-table-view-cell">
-			<a href="/uc/order" class="mui-navigate-right"><span class="mui-icon iconfont icon-order size-18 text-muted"></span> 我的订单 <i class="mui-pull-right info ">{{onOrder}}</i></a>
+			<a href="/center/order" class="mui-navigate-right"><span class="mui-icon iconfont icon-order size-18 text-muted"></span> 我的订单 <i class="mui-pull-right info ">{{onOrder}}</i></a>
 		</li>
 		<li class="mui-table-view-cell">
 			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-refund size-18 text-muted"></span> 退款/售后 </a>
@@ -95,13 +95,13 @@
 			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-ticket size-18 text-muted"></span> 优惠券 <i class="mui-pull-right info ">5</i></a>
 		</li>
 		<li class="mui-table-view-cell">
-			<a href="/uc/address" class="mui-navigate-right"><span class="mui-icon iconfont icon-addressbook size-18 text-muted"></span> 收货地址 </a>
+			<a href="/center/address" class="mui-navigate-right"><span class="mui-icon iconfont icon-addressbook size-18 text-muted"></span> 收货地址 </a>
 		</li>
 	</ul>
-	{% if http.userAgent()|is_weixin != true %}
+	{% if controller.isweixin != true %}
 	<ul class="mui-table-view ">
 		<li class="mui-table-view-cell" style="text-align: center;">
-			<a href="/uc/public/logout" > 退出登录 </a>
+			<a href="/center/public/logout" > 退出登录 </a>
 		</li>
 
 	</ul>
