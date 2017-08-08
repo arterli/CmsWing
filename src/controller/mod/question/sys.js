@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Index = require('../index');
 module.exports =  class extends Index {
   /**
@@ -24,7 +31,7 @@ module.exports =  class extends Index {
       console.log(breadcrumb)
       this.assign('category', this.m_cate);
       this.meta_title = "发布";
-      if(checkMobile(this.userAgent())){
+      if(this.isMobile){
           //手机端模版
           return this.modtemp("question","mobile");
       }else{
@@ -48,8 +55,8 @@ module.exports =  class extends Index {
            //await this.c_verify("edit");
            //安全判断
            if(info.uid !=this.user.uid){
-               this.http.error = new Error('你不能编辑，不属于自己的东西！');
-               return think.statusAction(702, this.http);
+               const error = this.controller('common/error');
+               return error.noAction("你不能编辑，不属于自己的东西！");
            }
        }
         //获取面包屑信息
@@ -87,11 +94,10 @@ module.exports =  class extends Index {
   async updateAction(){
       //前台登录验证
       await this.weblogin();
-
       let data = this.post();
       if(think.isEmpty(data.id)){//发布
           data.uid = this.user.uid;
-          data.ip = _ip2int(this.ip());
+          data.ip = _ip2int(this.ip);
           //检查本栏目发布是否需要审核
           let roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
           let addexa = await this.model("category_priv").priv(data.category_id,roleid,'addexa');
@@ -115,11 +121,10 @@ module.exports =  class extends Index {
           //行为记录
           if (!res.data.id) {
               //添加操作日志，可根据需求后台设置日志类型。
-              await this.model("action").log("addquestion", "question", res.id, this.user.uid, this.ip(), this.http.url);
-
-            return this.success({name: "添加成功", url: '/mod/question/'+res.id});
+              await this.model("action").log("addquestion", "question", res.id, this.user.uid, this.ip, this.ctx.url);
+            return this.success({name: "添加成功", url: '/q/'+res.id});
           } else {
-              return this.success({name: "更新成功", url: '/mod/question/'+res.data.id});
+              return this.success({name: "更新成功", url: '/q/'+res.data.id});
           }
 
       } else {
@@ -134,7 +139,7 @@ module.exports =  class extends Index {
         let data = this.post();
         if(think.isEmpty(data.answer_id)){
             data.uid = this.user.uid;
-            data.ip = _ip2int(this.ip());
+            data.ip = _ip2int(this.ip);
             data.anonymous = data.anonymous||1;
         }
         //console.log(data);

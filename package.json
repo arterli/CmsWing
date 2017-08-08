@@ -8,6 +8,7 @@
   "dependencies": {
     "co-wechat-api": "^3.1.0",
     "gt3-sdk": "^2.0.0",
+    "jimp": "^0.2.28",
     "lodash": "4.x.x",
     "moment": ">= 2.9.0",
     "pingpp": "^2.0.13",

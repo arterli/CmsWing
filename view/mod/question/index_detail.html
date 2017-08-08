@@ -102,9 +102,9 @@ CLASSES:
                                 {%endfor%}
                                 {%if controller.is_login%}
                                 {%if focus.uid%}
-                                <a href="/mod/question/ajax/ajaxquestionfocus/type/2/id/{{info.id}}" class="btn btn-default btn-xs pull-right ajax-get" style="margin-top: -28px">取消关注 ({{info.focus_count}})</a>
+                                <a href="/mod/question/ajax/ajaxquestionfocus/?type=2&id={{info.id}}" class="btn btn-default btn-xs pull-right ajax-get" style="margin-top: -28px">取消关注 ({{info.focus_count}})</a>
                                 {%else%}
-                                <a href="/mod/question/ajax/ajaxquestionfocus/type/1/id/{{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
+                                <a href="/mod/question/ajax/ajaxquestionfocus/?type=1&id={{info.id}}" class="btn btn-primary btn-xs pull-right ajax-get" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
                                 {%endif%}
                                 {%else%}
                                 <a href="/center/public/login" class="btn btn-primary btn-xs pull-right " data-toggle="ajaxModal" style="margin-top: -28px">关注 ({{info.focus_count}})</a>
@@ -128,7 +128,7 @@ CLASSES:
 
                             <a class="tex-888 margin-right-15"><i class="fa fa-user-plus"></i> 邀请 </a>
                             {%if controller.user.uid ==info.uid%}
-                            <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/id/{{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
+                            <a class="tex-888 margin-right-15" href="/mod/question/sys/edit/?id={{info.id}}"><i class="fa fa-edit"></i> 编辑</a>
                             {%endif%}
                             <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
                             <div class="pull-right">
@@ -194,10 +194,10 @@ CLASSES:
 
                                     {%if controller.user.uid == a.uid or (controller.user.uid|in_Array(ctx.config('user_administrator'))) %}
                                     <li class="pull-right">
-                                        <a href="/mod/question/ajax/delanswer/qid/{{info.id}}/id/{{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
+                                        <a href="/mod/question/ajax/delanswer/?qid={{info.id}}&id={{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
                                     </li>
                                     <li class="pull-right">
-                                        <a href="/mod/question/ajax/editanswer/id/{{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
+                                        <a href="/mod/question/ajax/editanswer/?id={{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
                                     </li>
                                     {%endif%}
                                 </ul>
@@ -219,7 +219,7 @@ CLASSES:
                 <form method="post" action="/mod/question/sys/updateanswer" class=" margin-top-20 padding-0 validate"><!-- .box-light OR .box-dark -->
                     <div class="padding-0">
                         <h4 class="uppercase padding-bottom-0 clearfix margin-bottom-0 noborder row">  <div class="col-md-9 col-sm-9"><div class="clearfix margin-bottom-0"><!-- rounded item -->
-                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{controller.user.uid}}" width="40" height="40" alt="">
+                            <img class="thumbnail pull-left rounded" src="/u/avatar/{{controller.user.uid}}" width="40" height="40" alt="">
                             <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{controller.user.uid|get_nickname}}</a></h4>
                             <span class="size-12 text-muted">....</span>
                         </div>   </div><div class="col-md-3 col-sm-3"><label class="switch switch-primary margin-top-10 pull-right">
@@ -266,7 +266,7 @@ CLASSES:
                 {% if controller.is_login %}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     今天，你遇到了什么问题呢？
-                    <a href="/mod/question/sys/add/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                    <a href="/mod/question/sys/add/?cid={{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
                 </div>
                 {%else%}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->

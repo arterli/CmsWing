@@ -1,7 +1,7 @@
-{% extends "../../../topic/mobile/inc_base.html" %}
+{% extends "../../../home/mobile/inc_base.html" %}
 {% block style %}
-<link rel="stylesheet" href="/static/webapp/css/feedback.css">
-<link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
+<link rel="stylesheet" href="/static/mobile/css/feedback.css">
+<link rel="stylesheet" href="/static/mobile/libs/deitor.wang/css/wangEditor-mobile.css">
 <style>
     *{
         -webkit-user-select:text;
@@ -100,24 +100,24 @@
     </div>
     #}<br />
         <input type="hidden" checked="" name="anonymous" value="0">
-    <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+    <input type="hidden" name="backurl" value="{{ctx.referrer()}}" >
     <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
     </form>
 </div>
 {% endblock%}
 
 {% block script %}
-<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.js"></script>
-<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.touch.js"></script>
-<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.js"></script>
-<script src="/static/webapp/js/question.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.touch.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/wangEditor-mobile.js"></script>
+<script src="/static/mobile/js/question.js"></script>
 <script type="text/javascript">
     mui.init();
             $(function () {
                 // ___E 三个下划线
                 var editor = new ___E('detail');
                 // 上传图片
-                editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
+                editor.config.uploadImgUrl = '/center/file/uploadpic/?type=path';
                 editor.init();
             });
             mui('.anonymous .mui-switch').each(function() { //循环所有toggle

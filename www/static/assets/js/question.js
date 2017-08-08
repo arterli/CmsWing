@@ -6,7 +6,7 @@ $(function () {
         //载入编辑器
         var editor = new wangEditor('detail');
         // 上传图片
-        editor.config.uploadImgUrl = '/uuu/file/uploadpic/type/path';
+        editor.config.uploadImgUrl = '/center/file/uploadpic/?type=path';
         editor.config.uploadImgFileName = 'file';
         editor.create();
         if(($("#detail").html()).length==0){
@@ -37,7 +37,7 @@ $(function () {
         //alert(v)
         if(!isajax){
             $.ajax({
-                url:"/mod/question/ajax/getgroups/cid/"+v,
+                url:"/mod/question/ajax/getgroups/?cid="+v,
                 success:function (res) {
                     if(res){
                         var li ="";
@@ -64,13 +64,13 @@ $(function () {
         var rhtml = "";
         //ajax
         $.ajax({
-            url:"/mod/question/ajax/ajaxanswercomments/answer_id/"+id,
+            url:"/mod/question/ajax/ajaxanswercomments/?answer_id="+id,
             success:function (res) {
                 var count = (res.data).length;
                 if(count>0){
                     $.each(res.data,function (k,v) {
                         rhtml+='<li class="comment comment-reply">'+
-                            '<img class="avatar" src="/uuu/index/avatar/uid/'+v.uid+'" width="50" height="50" alt="avatar">'+
+                            '<img class="avatar" src="/u/avatar/'+v.uid+'" width="50" height="50" alt="avatar">'+
                             '<div class="comment-body">'+
                             '<a href="#" class="comment-author">'+
                             '<small class="text-muted pull-right">'+v.time+'</small>'+
@@ -85,7 +85,7 @@ $(function () {
                             '</li>';
                         if(res.is_login==v.uid || res.is_admin){
                         rhtml+='<li class="pull-right">'+
-                            '<a href="/mod/question/ajax/delcomments/id/'+v.id+'" class="text-danger confirm ajax-get">删除</a>'+
+                            '<a href="/mod/question/ajax/delcomments/?id='+v.id+'" class="text-danger confirm ajax-get">删除</a>'+
                             '</li>';
                         }
                         rhtml+=  '</li></ul>';

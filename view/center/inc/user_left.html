@@ -1,7 +1,7 @@
 <div class="col-lg-2 col-md-2 col-sm-4">
 					
 		<div class="thumbnail text-center avatar-view hide">
-			<img src="/user/avatar"  alt="{{controller.user.username}}" style="width: 100%" />
+			<img src="/u/avatar"  alt="{{controller.user.username}}" style="width: 100%" />
 			<h2 class="size-18 margin-top-10 margin-bottom-0">{{controller.user.username}}</h2>
 			<h3 class="size-11 margin-top-0 margin-bottom-10 text-muted">DEVELOPER</h3>
 		</div>
@@ -17,7 +17,7 @@
 
 		<!-- SIDE NAV -->
 		<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
-			<li class="list-group-item {% if http.action == 'index' and http.controller == 'index' %}active{%endif%}"><a href="/uc/index"><i class="fa fa-home"></i> 用户主页</a></li>
+			<li class="list-group-item {% if http.action == 'index' and http.controller == 'index' %}active{%endif%}"><a href="/center/index"><i class="fa fa-home"></i> 用户主页</a></li>
 			<li class="list-group-item list-toggle {% if http.action == 'publish' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-0"><i class="fa fa-newspaper-o"></i> 内容管理</a>
 				<ul id="collapse-0" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
@@ -29,14 +29,14 @@
 			<li class="list-group-item list-toggle {% if http.action == 'order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
 				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
-					<li><a href="/center/order" class="{% if http.action == 'index' and http.controller == 'order'%}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
-					<li>
-
-						<a href="#"><i class="fa fa-angle-right"></i> 退款申请</a>
-					</li>
+					<li><a href="/center/order" class="{% if ctx.action == 'index' and ctx.controller == 'center/order'%}text-danger{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
+					{#
+					<li><a href="#"><i class="fa fa-angle-right"></i> 退款申请</a></li>
 					<li><a href="#"><i class="fa fa-angle-right"></i> 我的关注</a></li>
+					#}
 				</ul>
 			</li>
+			{#
 			<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" ><i class="fa fa-server"></i> 客户服务</a>
 				<ul id="collapse-2" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
@@ -48,24 +48,23 @@
 
 				</ul>
 			</li>
+			#}
 			{%endif%}
 			<li class="list-group-item list-toggle
-			 {% if http.action == 'order'
-			    or http.action == 'address'
-			    or http.action == 'account'
-			    or http.action == 'seting'
-			 %}active{%endif%}" >   <!-- NOTE: "active" to be open on page load -->
+			 {% if (ctx.controller == 'center/seting' or ctx.controller =='center/address' or ctx.controller =='center/account' ) %}active{%endif%}" >   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3">
 					<i class="fa fa-user"></i> 账户管理</a>
 				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
 					<li>
-						<a href="/center/seting" class="{% if http.controller == 'seting' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
+						<a href="/center/seting" class="{% if ctx.controller == 'center/seting' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
 					<li>
-						<a href="/center/address" class="{% if http.controller == 'address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
+						<a href="/center/address" class="{% if ctx.controller == 'center/address' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
 					</li>
+					{#
 					<li><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
-					<li><a href="/center/account" class="{% if http.action == 'account' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
-					<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>
+					#}
+					<li><a href="/center/account" class="{% if ctx.controller == 'center/account' %}text-danger{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
+					{#<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>#}
 				</ul>
 			</li>
 			<li class="list-group-item"><a href="/center/public/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>

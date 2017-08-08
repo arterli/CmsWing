@@ -1,4 +1,10 @@
-
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Index = require('../index');
 module.exports =  class extends Index {
     /**
@@ -38,10 +44,10 @@ module.exports =  class extends Index {
         switch (Number(type)){
             case 1:
             //关注
-            await this.model("question_focus").add({question_id:id,uid:this.user.uid,add_time:new Date().getTime()});
+                 await this.model("question_focus").add({question_id:id,uid:this.user.uid,add_time:new Date().getTime()});
                  await this.model("question").where({id:id}).increment("focus_count");
                  this.success({name:"关注成功!"});
-                break;
+                 break;
             case 2:
                //取消关注
                 await this.model("question_focus").where({question_id:id,uid:this.user.uid}).delete();
@@ -60,12 +66,12 @@ module.exports =  class extends Index {
         let comments = await this.model("question_answer_comments").where({answer_id:answer_id}).select();
         for(let c of comments){
             c.username = await get_nickname(c.uid);
-            c.time = moment(c.time).fromNow()
+            c.time = this.moment(c.time).fromNow()
         }
         //判断是不是超级管理员
         let is_admin =false;
         if(this.is_login){
-            is_admin=in_array(parseInt(this.user.uid), this.config('user_administrator'));
+            is_admin=in_array(Number(this.user.uid), this.config('user_administrator'));
         }
         this.json({data:comments,is_login:this.is_login,is_admin:is_admin});
     }
@@ -90,12 +96,12 @@ module.exports =  class extends Index {
         let answer_id = this.get("id");
         let answer = await this.model("question_answer").where({answer_id:answer_id}).find();
         //后台管理员跳过验证
-        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+        if(!in_array(Number(this.user.uid), this.config('user_administrator'))){
             //await this.c_verify("edit");
             //安全判断
             if(answer.uid !=this.user.uid){
-                this.http.error = new Error('你不能编辑，不属于自己的东西！');
-                return think.statusAction(702, this.http);
+                const error = this.controller("common/error");
+                return error.noAction('你不能编辑，不属于自己的东西！')
             }
         }
         this.assign("answer",answer);
@@ -109,12 +115,12 @@ module.exports =  class extends Index {
         let answer_id = this.get("id");
         let answer = await this.model("question_answer").where({answer_id:answer_id}).find();
         //后台管理员跳过验证
-        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+        if(!in_array(Number(this.user.uid), this.config('user_administrator'))){
             //await this.c_verify("edit");
             //安全判断
             if(answer.uid !=this.user.uid){
-                this.http.error = new Error('你不能编辑，不属于自己的东西！');
-                return think.statusAction(702, this.http);
+                const error = this.controller("common/error");
+                return error.noAction('你不能编辑，不属于自己的东西！')
             }
         }
         //删除相关回复
@@ -131,12 +137,12 @@ module.exports =  class extends Index {
         let id = this.get("id");
         let comments = await this.model("question_answer_comments").where({id:id}).find();
         //后台管理员跳过验证
-        if(!in_array(parseInt(this.user.uid), this.config('user_administrator'))){
+        if(!in_array(Number(this.user.uid), this.config('user_administrator'))){
             //await this.c_verify("edit");
             //安全判断
             if(comments.uid !=this.user.uid){
-                this.http.error = new Error('你不能编辑，不属于自己的东西！');
-                return think.statusAction(702, this.http);
+                const error = this.controller("common/error");
+                return error.noAction('你不能编辑，不属于自己的东西！')
             }
         }
         //删除相关的回复评论

@@ -1,3 +1,10 @@
+// +----------------------------------------------------------------------
+// | CmsWing [ 网站内容管理框架 ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2015-2115 http://www.cmswing.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Author: arterli <arterli@qq.com>
+// +----------------------------------------------------------------------
 const Admin = require('../admin');
 module.exports =  class extends Admin {
   init(http) {
@@ -56,7 +63,7 @@ module.exports =  class extends Admin {
       "name":name,
     });
       this.assign('group_id', group_id);
-    return this.modtemp(this.mod.name);
+    return this.modtemp("index");
   }
   //删除
   async delAction(){

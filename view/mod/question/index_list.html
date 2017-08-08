@@ -190,12 +190,12 @@ CLASSES:
                 {% if controller.is_login %}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     今天，你遇到了什么问题呢？
-                    <a href="/mod/question/sys/add/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                    <a href="/mod/question/sys/add/?cid={{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
                 </div>
                 {%else%}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     你好! 你还没有登录，请先登录.
-                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/center/public/login" data-toggle="ajaxModal">
                         <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
                     </a>
                 </div>

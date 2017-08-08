@@ -1,0 +1,236 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">搜索</h1>
+</header>
+{% include "./inc_nav.html" %}
+<div class="mui-content">
+    <div class="mui-content-padded">
+        <form action="/search" method="get">
+<div class="mui-input-row mui-search">
+    <input type="search" class="mui-input-clear" placeholder="" name="q" value="{{ctx.get('q')}}">
+</div>
+        </form>
+    </div>
+</div>
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content" style="margin-top: 94px">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view ">
+            {%for val in list.data%}
+            {% set categoryname = val.category_id|get_cate %}
+            <!--无图-->
+            <li class="mui-table-view-cell mui-media">
+                <a href="{%if val.m_type ==1%} {{val.name|get_url(val.d_id)}}{%else%}/mod/{{val.m_id|getmode('name')}}/index/detail/?id={{val.d_id}}{%endif%}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{val.title}}</h4>
+
+                    <p class="item_info text-success">
+
+                        <span class="src space">{{val.m_id|getmode('title')}}</span>
+                        <span class="cmt space">{{categoryname.name}}</span>
+
+                        <span class="time" >{{val.add_time|moment('YYYY-MM-DD HH:mm')}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%endfor%}
+
+
+        </ul>
+    </div>
+</div>
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(val,k){ %>
+
+    <!--无图-->
+    <li class="mui-table-view-cell mui-media">
+        <a href="<%=val.url%>">
+            <h4 class="dotdot line2 margin-bottom-6"><%=val.title%></h4>
+
+            <p class="item_info text-success">
+
+                <span class="src space"><%=val.model%></span>
+                <span class="cmt space"><%=val.categoryname%></span>
+
+                <span class="time" title="2016-08-30 11:06"><%=val.add_time%></span>
+
+            </p>
+
+        </a>
+    </li>
+
+    <%})%>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script>
+
+    //console.log();
+    var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+    mui.init({
+        pullRefresh: {
+            container: '#pullrefresh',
+            down: {
+                callback: pulldownRefresh
+            },
+            up: {
+                contentrefresh: '正在加载...',
+                callback: pullupRefresh
+            }
+        }
+    });
+    mui("#sliderSegmentedControl").on("tap","a.mui-control-item",function(){
+        var url = this.getAttribute("data-url");
+        //打开关于页面
+        //alert(url)
+        mui.openWindow({
+            url: url
+        });
+    })
+    mui("#pullrefresh .mui-table-view").on("tap","li.mui-table-view-cell > a",function(){
+        var url = this.getAttribute("href");
+        //打开关于页面
+        mui.openWindow({
+            url: url
+        });
+    })
+    /**
+     * 下拉刷新具体业务实现
+     */
+    function pulldownRefresh() {
+        setTimeout(function() {
+            var table = document.body.querySelector('.mui-table-view');
+            var cells = document.body.querySelectorAll('.mui-table-view-cell');
+            for (var i = cells.length, len = i + 3; i < len; i++) {
+                var li = document.createElement('li');
+                li.className = 'mui-table-view-cell';
+                li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //下拉刷新，新纪录插到最前面；
+                table.insertBefore(li, table.firstChild);
+            }
+            mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+        }, 1000);
+    }
+    /**
+     * 上拉加载具体业务实现
+     */
+    function pullupRefresh() {
+        setTimeout(function() {
+
+            var table = document.body.querySelector('#pullrefresh .mui-table-view');
+            var cells = document.body.querySelectorAll('#pullrefresh .mui-table-view-cell');
+            var count = "{{list.count}}";
+            console.log((parseInt(count) > cells.length));
+
+            if(parseInt(cells.length) < parseInt(count)){
+                createFragment(10)
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+            }else {
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+            }
+
+        }, 1000);
+    }
+    var createFragment = function(count, page) {
+        //无限加载
+        var table = document.body.querySelector('#pullrefresh .mui-table-view');
+        var lastIndex = table.querySelectorAll('li.mui-table-view-cell').length;
+        console.log(lastIndex);
+        var pages = page || Math.ceil((lastIndex+count)/count);
+        console.log(pages);
+        mui.ajax("{{ctx.url}}",{
+            data:{
+                page:pages
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'get',//HTTP请求类型
+            success:function(data){
+                $('#pullrefresh .mui-table-view').append(tplRender(data));
+                //获得服务器响应
+//                console.log();
+//             var fragment = document.createDocumentFragment();
+//                var li;
+//                for (var i = 0; i < data.data.length; i++) {
+//                    li = document.createElement('li');
+//                    li.className = 'mui-table-view-cell';
+//                    li.innerHTML ='<a href="javascript:;">'+
+//                            '<img class="mui-media-object mui-pull-right" src="/static/webapp/img/yuantiao.jpg">'+
+//                            '<div class="mui-media-body">'+
+//                            data.data[i].title+
+//                            '<p class="mui-ellipsis">静静的看这个世界，最后终于疯了</p>'+
+//                            '</div>'+
+//                            '</a>';
+//                    fragment.appendChild(li);
+//                }
+                //console.log($(tplRender(data)));
+                //document.getElementById("tpl").innerHTML= tplRender(data)
+
+            }
+        });
+
+    };
+
+    mui.ready(function() {
+//        var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
+//        var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+//        //记录位置
+//        document.getElementById("pullrefresh").onscroll = function () {
+//
+//            var patt1 = /\(.*?\)/;
+//            var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+//            if (srtY) {
+//                var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+//            } else {
+//                var Y = 0;
+//            }
+//            console.log(Y)
+//            var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+//            console.log(Y);
+//            if (window.sessionStorage) {
+//                sessionStorage.setItem("{{http.url}}_top", Y);
+//                sessionStorage.setItem("{{http.url}}_size", S);
+//            }
+//        }
+        //mui('#pullrefresh').pullRefresh().pullupLoading();
+//        var page = Math.ceil(size/10);
+//        if(page>1 ){
+//            for (var i = 1; i < (page+1); i++) {
+//                createFragment(10,(i+1))
+//            }
+//        }
+        //mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+        //alert(1)
+        console.log()
+//            $('header').on('doubleTap',function () {
+//                alert(3)
+//            })
+        document.querySelector('header h1').addEventListener('tap',function () {
+            //内容区滚动到顶部
+            mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+        });
+        var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+        for(var i = 0;i<btn.length;i++){
+            btn[i].addEventListener("tap",function () {
+                var href = this.getAttribute("href");
+                if(href=="#wait"){
+                    //todo
+                    mui.toast("功能开发中。。。")
+                    return
+                }
+                mui.openWindow({url: href})
+
+            })
+        }
+    });
+
+
+</script>
+
+{% endblock %}

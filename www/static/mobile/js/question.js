@@ -33,7 +33,6 @@
 			dataType:'json',//服务器返回json格式数据
 			type:'post',//HTTP请求类型
 			timeout:10000,//超时时间设置为10秒；
-			headers:{'Content-Type':'application/json'},
 			success:function(data){
 				//服务器返回响应，根据响应结果，分析是否登录成功；
 				if(data.errno == 0){
@@ -127,7 +126,7 @@
 		var isajax = $('a[href="#'+id+'"]').hasClass("cate");
 		if(isajax){
 			$.ajax({
-				url:"/mod/question/ajax/getgroups/cid/"+value,
+				url:"/mod/question/ajax/getgroups/?cid="+value,
 				success:function (res) {
 					if(res){
 						var li ="";

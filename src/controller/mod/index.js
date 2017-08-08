@@ -18,7 +18,7 @@ module.exports = class extends Index {
         let getCategory = this.get('category')?this.get('category').split("-")[0]:false;
         if(this.get('category')||this.get("cid")){
            //获取当前模型栏目id
-           this.m_cate= await this.category(this.get('category').split("-")[0]||this.get("cid"));
+           this.m_cate= await this.category(getCategory||this.get("cid"));
 
            //当前模型信息
            this.mod = await this.model("model").get_model(this.m_cate.model);
@@ -72,13 +72,16 @@ module.exports = class extends Index {
   }
   //独立模型display方法封装
   modtemp(action,moblie=false){
+      console.log(this.ctx.controller);
     if(this.ctx.controller=='home/route'){
       if(!moblie){
               return this.display(`mod/${this.mod.name}/index_${action}`);
     }else {
-            return this.display();
+          console.log(`mod/${this.mod.name}/mobile/index_${action}`);
+          return this.display(`mod/${this.mod.name}/mobile/index_${action}`);
     }
     }else{
+
         let c = this.ctx.controller.split('/');
         c.splice((this.ctx.controller.split('/').length-1),0,'mobile');
         if(action === "m"||moblie){

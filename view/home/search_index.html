@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--[if IE 8]>			<html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>			<html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->	<html> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>{{controller.meta_title}} | {{config.setup.WEB_SITE_TITLE}}</title>
+    <meta name="keywords" content="{{controller.keywords}}" />
+    <meta name="description" content="{{controller.description}}" />
+    <meta name="Author" content="Arterli [www.cmswing.com]" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+    <!-- CORE CSS -->
+    <link href="/static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- THEME CSS -->
+    <link href="/static/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="/static/assets/css/layout.css" rel="stylesheet" type="text/css" />
+
+    <!-- PAGE LEVEL SCRIPTS -->
+    <link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
+    <link href="/static/assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+</head>
+
+<!--
+    AVAILABLE BODY CLASSES:
+
+    smoothscroll 			= create a browser smooth scroll
+    enable-animation		= enable WOW animations
+
+    bg-grey					= grey background
+    grain-grey				= grey grain background
+    grain-blue				= blue grain background
+    grain-green				= green grain background
+    grain-blue				= blue grain background
+    grain-orange			= orange grain background
+    grain-yellow			= yellow grain background
+
+    boxed 					= boxed layout
+    pattern1 ... patern11	= pattern background
+    menu-vertical-hide		= hidden, open on click
+
+    BACKGROUND IMAGE [together with .boxed class]
+    data-background="assets/images/boxed_background/1.jpg"
+-->
+<body class="enable-animation">
+
+
+<!-- wrapper -->
+<div id="wrapper">
+
+    <!-- HEADER -->
+    <div id="header" class="sticky dark header-md transparent noborder clearfix">
+        <!-- TOP NAV -->
+
+        <header id="topNav">
+            <div class="container">
+
+                <!-- Mobile Menu Button -->
+                <button class="btn btn-mobile" id="sidepanel_btn" >
+                    <i class="fa fa-bars"></i>
+                </button>
+
+
+
+                <!-- Logo -->
+                <a class="logo pull-left" href="/">
+                    <img src="/static/assets/images/logo_light.png" alt="" />
+                </a>
+
+
+                <div class="navbar-collapse pull-right nav-main-collapse collapse submenu-dark">
+                    <nav class="nav-main">
+
+
+                        <ul id="topMain" class="nav nav-pills nav-main">
+                            {% channel data='channel'%}
+                            {% for val in channel%}
+                            {%if val.status > 0%}
+                            <li class="{% if val.children %}dropdown{% endif %} {% if (category.id|in_Array(val.on)) or (val.url === controller.active) %}active{% endif %}">
+
+                                <a {% if val.children%}class="dropdown-toggle" {% endif %} href="{{val.url}}" {%if val.target ==1%} target="_blank"{%endif%}>{{val.title}}</a> {% if val.children%}
+                                <ul class="dropdown-menu">
+                                    {% for _val in val.children%}
+                                    {%if _val.status > 0%}
+                                    <li class="{% if _val.children%}dropdown{% endif %} {% if category.id|in_Array(_val.on) %}active{% endif %}">
+                                        <a {% if _val.children%}class="dropdown-toggle" {% endif %} href="{{_val.url}}" {%if _val.target ==1%} target="_blank"{%endif%}>{{_val.title}}</a> {% if _val.children%}
+                                        <ul class="dropdown-menu">
+                                            {% for __val in _val.children%}
+                                            {%if __val.status > 0%}
+                                            <li class="{% if category.id|in_Array(__val.on) %}active{% endif %}"><a href="{{__val.url}}" {%if __val.target ==1%} target="_blank"{%endif%}>{{__val.title}}</a></li>
+                                            {% endif%}
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </li>
+                                    {% endif%}
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                                <span class="aline"></span>
+                            </li>
+                            {%endif%}
+                            {% endfor%}
+
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </header>
+        <!-- /Top Nav -->
+    </div>
+    <!-- /HEADER -->
+
+
+
+    <!-- -->
+    <section id="slider" class="fullheight" style="background:url('/static/assets/images/backgrounds/18-min.jpg');">
+        <div class="overlay dark-5"><!-- dark overlay [0 to 9 opacity] --></div>
+
+        <div class="display-table">
+            <div class="display-table-cell vertical-align-middle">
+                <div class="container text-center">
+
+                    <h1 class="margin-bottom-20 size-40 ">站内搜索</h1>
+                    <div style="max-width:600px; margin:auto;">
+
+                        <form class="nomargin" action="/search" method="get" >
+                            <div class="input-group">
+                                <!--<span class="input-group-addon"><i class="fa fa-envelope"></i></span>-->
+                                <input type="text"  name="q" class="form-control required input-lg" placeholder="请输入关键词">
+                                <span class="input-group-btn">
+											<button class="btn btn-success btn-lg" type="submit">搜一下</button>
+										</span>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- / -->
+
+</div>
+<!-- /wrapper -->
+
+<!-- JAVASCRIPT FILES -->
+<script type="text/javascript">var plugin_path = '/static/assets/plugins/';</script>
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+
+<script type="text/javascript" src="/static/assets/js/scripts.js"></script>
+
+</body>
+</html>

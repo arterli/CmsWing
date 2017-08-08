@@ -31,7 +31,7 @@
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class="mui-title">{{controller.meta_title}}</h1>
-    <a href="/uc/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right userindex" >个人中心</a>
+    <a href="/center/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right userindex" >个人中心</a>
 </header>
 
 <div class="mui-content">
@@ -45,7 +45,7 @@
                 <div class="mui-row" style="width: 100%;">
                     <div class="mui-col-sm-6 mui-col-xs-6">
                         <li class="mui-table-view-cell">
-                            <a class="mui-navigate-right geturl" href="/uc/account/recharge" >
+                            <a class="mui-navigate-right geturl" href="/center/account/recharge" >
                                 余额充值
                             </a>
                         </li>
@@ -61,10 +61,10 @@
 
     </ul>
     <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-        <a class="mui-control-item {%if http.get('type') == ''%}mui-active{%endif%}" href="/uc/account/index">
+        <a class="mui-control-item {%if controller.get('type') == ''%}mui-active{%endif%}" href="/center/account/index">
             交易记录
         </a>
-        <a class="mui-control-item {% if http.get('type') == 1%}mui-active{%endif%}" href="/uc/account/index/type/1">
+        <a class="mui-control-item {% if controller.get('type') == 1%}mui-active{%endif%}" href="/center/account/index/?type=1">
             提现记录
         </a>
     </div>
@@ -157,8 +157,8 @@
             }
         }
     });
-    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
-    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{ctx.url}}_size"))||0;
     //记录位置
     window.onscroll = function () {
 
@@ -173,8 +173,8 @@
         var S = document.querySelector('#pullrefresh').querySelectorAll('ul.mui-table-view').length;
         console.log(Y);
         if (window.sessionStorage) {
-            sessionStorage.setItem("{{http.url}}_top", Y);
-            sessionStorage.setItem("{{http.url}}_size", S);
+            sessionStorage.setItem("{{ctx.url}}_top", Y);
+            sessionStorage.setItem("{{ctx.url}}_size", S);
         }
     }
     //点击跳转
@@ -233,7 +233,7 @@
         console.log(lastIndex);
         var pages = page || Math.ceil((lastIndex+count)/count);
         console.log(pages);
-        mui.ajax("{{http.url}}",{
+        mui.ajax("{{ctx.url}}",{
             data:{
                 page:pages
             },

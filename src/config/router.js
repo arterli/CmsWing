@@ -6,6 +6,7 @@ module.exports = [
     ['/dlink/:id', "/home/detail/downloadgetid/:1/",'get'],
     ['/u/avatar',"/center/index/avatar/:1/",'get'],
     ['/u/avatar/:uid',"/center/index/avatar/:1/",'get'],
+    ['/search/',"home/search/index","get"],
     ['/q/:id','/mod/question/index/detail/:1/','get'],
     [/^(?!\/admin\/|\/home\/|\/center\/|\/uuu\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
     ['/:category', '/home/route/index/:1/', 'get'],

@@ -71,7 +71,7 @@ module.exports = class extends Base {
                      res = await this.model(table.table).updates(JSON.parse(v.data),v.time);
                     if (res) {
                             //添加操作日志，可根据需求后台设置日志类型。
-                            await this.model("action").log("addquestion", "question", res.id, res.data.uid, this.ip(), this.http.url);
+                            await this.model("action").log("addquestion", "question", res.id, res.data.uid, this.ip, this.ctx.url);
                              //审核成功后删掉审核表中内容
                             await this.db.where({id:v.id}).delete();
                             return this.success({name: "审核成功"});

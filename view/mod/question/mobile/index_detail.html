@@ -1,8 +1,8 @@
 
-{% extends "../../../topic/mobile/inc_base.html" %}
+{% extends "../../../home/mobile/inc_base.html" %}
 {% block style %}
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
-<link rel="stylesheet" href="/static/webapp/libs/deitor.wang/css/wangEditor-mobile.css">
+<link rel="stylesheet" href="/static/mobile/libs/deitor.wang/css/wangEditor-mobile.css">
 <style>
     *{
         -webkit-user-select:text;
@@ -199,12 +199,12 @@
         </a>
         {%endif%}
         <h1 class="mui-center mui-title">{{info.title}}</h1>
-        <a  href="/mod/question/sys/add/cid/{{category.id}}" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link  mui-pull-right">
+        <a  href="/mod/question/sys/add/?cid={{category.id}}" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link  mui-pull-right">
             <span class="mui-icon  iconfont icon-post"></span>
             <!--发布-->
         </a>
     </div>
-    {% include "../../../topic/mobile/inc/nav.html" %}
+    {% include "../../../home/mobile/inc_nav.html" %}
     <div class="mui-page-content detail" >
             <div class="mui-scroll-wrapper">
                 <div class="mui-scroll">
@@ -216,13 +216,13 @@
                 <div class="pgc-bar-top mui-clearfix" >
                     <a href="#" ga_category="toutiaohao" ga_label="" ga_event="click" class="avatar-link vwo-media-profile">
                         <div class="avatar">
-                            <img src="/uc/index/avatar/uid/{{info.uid}}" class="avatar">
+                            <img src="/u/avatar/{{info.uid}}" class="avatar">
                         </div>
                     </a>
                     <div class="subtitle">
                         <p class="name"><a href="#" class="screen-name vwo-media-profile">
                             <span id="mediaName" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">{{info.uid|get_nickname}}</span>
-                            <img src="/static/webapp/img/logo.png" >
+                            <img src="/static/mobile/img/logo.png" >
                         </a></p>
                         <a href="#" class="time vwo-media-profile" >
 
@@ -261,7 +261,7 @@
             {%for val in answer%}
             <div class="mui-card" id="a{{val.answer_id}}">
                 <div class="mui-card-header mui-card-media">
-                    <img src="/uc/index/avatar/uid/{{val.uid}}">
+                    <img src="/u/avatar/{{val.uid}}">
                     <div class="mui-media-body">
                         {{val.uid|get_nickname}}
                         <p>发表于 {{val.add_time|moment}}</p>
@@ -290,7 +290,7 @@
                             {%if controller.is_login%}
                             <a href="#answer"><span class="mui-icon iconfont icon-forward"></span> 回复 </a>
                             {%else%}
-                            <a href="/uc/public/login"> 要回复问题请先 登录 或 注册 </a>
+                            <a href="/center/public/login"> 要回复问题请先 登录 或 注册 </a>
                             {%endif%}
                         </li>
 
@@ -333,7 +333,7 @@
             <input type="hidden" checked="" name="anonymous" value="0">
             <input type="hidden" name="question_id" value="{{info.id}}">
             <input type="hidden" name="category_id" value="{{info.category_id}}">
-            <input type="hidden" name="backurl" value="{{http.url}}">
+            <input type="hidden" name="backurl" value="{{ctx.url}}">
         </form>
 
     </div>
@@ -342,7 +342,7 @@
     {% raw %}
     <div class="mui-card" id="a<%=data.id%>">
         <div class="mui-card-header mui-card-media">
-            <img src="/uc/index/avatar/uid/<%=data.data.uid%>">
+            <img src="/u/avatar/<%=data.data.uid%>">
             <div class="mui-media-body">
                 <%=data.data.uid%>
                 <p>发表于 <%=data.data.add_time%></p>
@@ -368,10 +368,10 @@
 {% endblock%}
 
 {% block script %}
-<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.js"></script>
-<script src="/static/webapp/libs/deitor.wang/js/lib/zepto.touch.js"></script>
-<script src="/static/webapp/libs/deitor.wang/js/wangEditor-mobile.js"></script>
-<script src="/static/webapp/js/mui.view.js "></script>
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.touch.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/wangEditor-mobile.js"></script>
+<script src="/static/mobile/js/mui.view.js "></script>
 <script type="text/javascript">
 
     mui.init();
@@ -393,7 +393,7 @@
         // ___E 三个下划线
         var editor = new ___E('detail');
         // 上传图片
-        editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
+        editor.config.uploadImgUrl = '/center/file/uploadpic/?type=path';
         editor.init();
     });
     //初始化单页的区域滚动
@@ -430,7 +430,6 @@
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型
             timeout:10000,//超时时间设置为10秒；
-            headers:{'Content-Type':'application/json'},
             success:function(data){
                 //服务器返回响应，根据响应结果，分析是否登录成功；
                 if(data.errno == 0){

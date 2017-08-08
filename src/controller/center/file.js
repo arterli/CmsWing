@@ -5,28 +5,10 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-
+const Home = require('../common/home');
 const path = require('path');
 const fs = require('fs');
-module.exports = class extends think.Controller {
-    async __before() {
-        //登陆验证
-        let is_login = await this.islogin();
-        if (!is_login) {
-            return this.fail("非法操作!");
-        }
-    }
-    /**
-     * 判断是否登录
-     * @returns {boolean}
-     */
-    async islogin() {
-        //判断是否登录
-        let user = await this.session('userInfo');
-        let res = think.isEmpty(user) ? false : user.uid;
-        return res;
-
-    }
+module.exports = class extends Home {
   /**
    * index action
    * @return {Promise} []
@@ -37,10 +19,9 @@ module.exports = class extends think.Controller {
   }
   //上传文件
   async uploadAction(){
-    
-    let file = think.extend({}, this.file('file'));
-    //console.log(file);
-     let filepath = file.path;
+      await this.weblogin();
+      let file = think.extend({}, this.file('file'));
+      let filepath = file.path;
       let extname = path.extname(file.name);
       let basename = path.basename(filepath)+extname;
       let data;
@@ -57,7 +38,7 @@ module.exports = class extends think.Controller {
           //         'content-type': 'application/x-msdownload' },
           //     size: 1292280 }
           if(!think.isEmpty(uppic)){
-               data ={
+              data ={
                   create_time:new Date().getTime(),
                   name:file.name,
                   savename:basename,
@@ -89,23 +70,30 @@ module.exports = class extends think.Controller {
     }
       //console.log(data);
       var res = await this.model("file").data(data).add();
-    return this.json({id:res,size:file.size});
+    this.json({id:res,size:file.size});
   }
 
   //上传图片
+    /**
+     * 上传图片统一接口
+     * ／uc/file/uploadpic
+     * 默认上传返回 图片id,展示图片请用 get_pic(id)函数
+     * /uc/file/uploadpic/?type=path
+     * 返回图片地址,
+     *
+     */
   async uploadpicAction(){
+        await this.weblogin();
+      let type = this.get('type');
     let file = think.extend({}, this.file('file'));
-      //console.log(file);
-      let filepath = file.path;
-      let extname = path.extname(file.name);
-      let basename = path.basename(filepath)+extname;
-      //console.log(basename);
-      let ret = {'status':1,'info':'上传成功','data':""}
+    let filepath = file.path;
+    let basename = path.basename(filepath);
+    let ret = {'status':1,'info':'上传成功','data':""}
       let res;
       //加入七牛接口
     if(this.config('setup.IS_QINIU')==1){
         let qiniu = this.service("qiniu");
-         let uppic = await qiniu.uploadpic(filepath,basename);
+        let uppic = await qiniu.uploadpic(filepath,basename);
         if(!think.isEmpty(uppic)){
             let data ={
                 create_time:new Date().getTime(),
@@ -139,7 +127,12 @@ module.exports = class extends think.Controller {
         }
     }
 
-    this.json(res);
+        if(type=='path'){
+         this.json(await get_pic(res));
+    }else {
+         this.json(res);
+    }
+
   }
   //上传多图
   picsAction(){

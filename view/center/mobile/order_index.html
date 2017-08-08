@@ -32,19 +32,19 @@
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class="mui-title">{{controller.meta_title}}</h1>
-    <a href="/uc/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right userindex" >个人中心</a>
+    <a href="/center/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right userindex" >个人中心</a>
 </header>
 
 <div class="mui-content">
 
         <div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
-            <a class="mui-control-item {%if status == null%}mui-active{%endif%}" href="/uc/order">
+            <a class="mui-control-item {%if status == null%}mui-active{%endif%}" href="/center/order">
                 全部订单
             </a>
-            <a class="mui-control-item {% if status == 0%}mui-active{%endif%}" href="/uc/order/index/status/0">
+            <a class="mui-control-item {% if status == 0%}mui-active{%endif%}" href="/center/order/index/?status=0">
                 待付款 ({{nopaid}})
             </a>
-            <a class="mui-control-item {% if status == 1%}mui-active{%endif%}" href="/uc/order/index/status/1">
+            <a class="mui-control-item {% if status == 1%}mui-active{%endif%}" href="/center/order/index/?status=1">
                 待收货 ({{receipt}})
             </a>
         </div>
@@ -77,14 +77,14 @@
                             </div>
                             <div class="mui-col-sm-6 mui-col-xs-7">
                                 {%if item.status == 4 or item.status== 6%}
-                                <a href="/uc/order/delorder/id/{{item.id}}" class="mui-btn mui-btn-primary delorder" >删除订单</a>
+                                <a href="/center/order/delorder/?id={{item.id}}" class="mui-btn mui-btn-primary delorder" >删除订单</a>
                                 {%endif%}
                                 {%if item.pay_status == 0 and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
-                                <a class="mui-btn mui-btn-danger pay" href="/uc/pay/pay?order={{item.id}}">立即付款</a>
+                                <a class="mui-btn mui-btn-danger pay" href="/center/pay/pay?order={{item.id}}">立即付款</a>
                                 {%elif (item.pay_status == 1 or item.status ==3) and item.delivery_status != 1 and item.status != 6 and item.status != 4%}
                                 <a class="mui-btn mui-btn-primary" href="#">提醒发货</a>
                                 {%elif item.delivery_status == 1 and item.status != 6 and item.status != 4 %}
-                                <a class="mui-btn mui-btn-primary confirmreceipt" href="/uc/order/confirmreceipt/id/{{item.id}}" >确认收货</a>
+                                <a class="mui-btn mui-btn-primary confirmreceipt" href="/center/order/confirmreceipt/?id={{item.id}}" >确认收货</a>
                                 {%elif item.status == 4 or item.status == 6%}
                                 <a class="mui-btn mui-btn-warning" href="#">再次购买</a>
                                 {%endif%}
@@ -142,14 +142,14 @@
                 </div>
                 <div class="mui-col-sm-6 mui-col-xs-7">
                     <%if (item.status == 4 || item.status== 6){%>
-                    <a href="/user/delorder/id/<%=item.id%>" class="mui-btn mui-btn-primary delorder" >删除订单</a>
+                    <a href="/center/order/delorder/?id=<%=item.id%>" class="mui-btn mui-btn-primary delorder" >删除订单</a>
                     <%}%>
                     <%if (item.pay_status == 0 && item.delivery_status != 1 && item.status != 6 && item.status != 4){%>
-                    <a class="mui-btn mui-btn-danger pay" href="/cart/pay/order/<%=item.id%>">立即付款</a>
+                    <a class="mui-btn mui-btn-danger pay" href="/cart/pay/pay/?order=<%=item.id%>">立即付款</a>
                     <%}else if ((item.pay_status == 1 || item.status ==3) && item.delivery_status != 1 && item.status != 6 && item.status != 4){%>
                     <a class="mui-btn mui-btn-primary" href="#">提醒发货</a>
                     <%}else if (item.delivery_status == 1 && item.status != 6 && item.status != 4) {%>
-                    <a class="mui-btn mui-btn-primary confirmreceipt" href="/user/confirmreceipt/id/<%=item.id%>">确认收货</a>
+                    <a class="mui-btn mui-btn-primary confirmreceipt" href="/center/order/confirmreceipt/?id=<%=item.id%>">确认收货</a>
                     <%}else if (item.status == 4 || item.status == 6){%>
                     <a class="mui-btn mui-btn-warning" href="#">再次购买</a>
                     <%}%>
@@ -199,8 +199,8 @@
             }
         }
     });
-    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
-    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{ctx.url}}_size"))||0;
     //记录位置
     window.onscroll = function () {
 
@@ -215,8 +215,8 @@
         var S = document.querySelector('#pullrefresh').querySelectorAll('ul.mui-table-view').length;
         console.log(Y);
         if (window.sessionStorage) {
-            sessionStorage.setItem("{{http.url}}_top", Y);
-            sessionStorage.setItem("{{http.url}}_size", S);
+            sessionStorage.setItem("{{ctx.url}}_top", Y);
+            sessionStorage.setItem("{{ctx.url}}_size", S);
         }
     }
     //点击跳转
@@ -275,7 +275,7 @@
         console.log(lastIndex);
         var pages = page || Math.ceil((lastIndex+count)/count);
         console.log(pages);
-        mui.ajax("{{http.url}}",{
+        mui.ajax("{{ctx.url}}",{
             data:{
                 page:pages
             },

@@ -1,13 +1,13 @@
-{% extends "../../../topic/mobile/inc_base.html" %}
+{% extends "../../../home/mobile/inc_base.html" %}
 {% block content %}
 <header class="mui-bar mui-bar-nav">
     <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
     <a class="mui-icon iconfont icon-search mui-pull-right" href="/search"></a>
-    <a href="/mod/question/sys/add/cid/{{category.id}}" class="mui-icon iconfont icon-post "></a>
-    <h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>
+    <a href="/mod/question/sys/add/?cid={{category.id}}" class="mui-icon iconfont icon-post "></a>
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
 
 </header>
-{% include "../../../topic/mobile/inc/nav.html" %}
+{% include "../../../home/mobile/inc_nav.html" %}
 <div id="slider" class="mui-slider" style="top:44px" >
     <div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-scroll-bar mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
         <div class="mui-scroll">
@@ -50,14 +50,14 @@
             {% set categoryname = val.category_id|get_cate %}
             <div class="mui-card">
                 <div class="mui-card-header mui-card-media">
-                    <img src="/uc/index/avatar/uid/{{val.uid}}">
+                    <img src="/u/avatar/{{val.uid}}">
                     <div class="mui-media-body">
                        {{val.title}}
                         <p>{{val.uid|get_nickname}} 发表于 {{val.create_time|moment}}</p>
                     </div>
                 </div>
                 <div class="mui-card-content">
-                    <div class="mui-card-content-inner" data-url="/mod/question/{{val.id}}">
+                    <div class="mui-card-content-inner" data-url="/q/{{val.id}}">
                     <p style="color: #333;">{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
                         {% if val.imgs|length==1 %}
                         <div class="mui-row">
@@ -106,14 +106,14 @@
     <%_.forEach(data,function(val,k){ %>
     <div class="mui-card">
         <div class="mui-card-header mui-card-media">
-            <img src="/uc/index/avatar/uid/<%=val.uid%>">
+            <img src="/u/avatar/<%=val.uid%>">
             <div class="mui-media-body">
                 <%=val.title %>
                 <p><%=val.nickname %> 发表于 <%=val.create_time%></p>
             </div>
         </div>
         <div class="mui-card-content">
-            <div class="mui-card-content-inner" data-url="/mod/question/<%=val.id%>">
+            <div class="mui-card-content-inner" data-url="/q/<%=val.id%>">
                 <p style="color: #333;"><%=val.detail%></p>
                 <% if (val.imgs.length==1) {%>
                 <div class="mui-row">
@@ -184,8 +184,8 @@
             url: url
         });
     })
-    var tops=parseInt(sessionStorage.getItem("{{http.url}}_top"))||0;
-    var size=parseInt(sessionStorage.getItem("{{http.url}}_size"))||0;
+    var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))||0;
+    var size=parseInt(sessionStorage.getItem("{{ctx.url}}_size"))||0;
     //记录位置
     window.onscroll = function () {
 
@@ -200,8 +200,8 @@
         var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('.mui-card').length;
         //console.log(Y);
         if (window.sessionStorage) {
-            sessionStorage.setItem("{{http.url}}_top", Y);
-            sessionStorage.setItem("{{http.url}}_size", S);
+            sessionStorage.setItem("{{ctx.url}}_top", Y);
+            sessionStorage.setItem("{{ctx.url}}_size", S);
         }
     }
     /**
@@ -248,7 +248,7 @@
         console.log(lastIndex);
         var pages = page || Math.ceil((lastIndex+count)/count);
         console.log(pages);
-        mui.ajax("{{http.url}}",{
+        mui.ajax("{{ctx.url}}",{
             data:{
                 page:pages
             },
@@ -261,7 +261,7 @@
         });
 
     };
-   
+
     mui.ready(function() {
 
         //mui('#pullrefresh').pullRefresh().pullupLoading();

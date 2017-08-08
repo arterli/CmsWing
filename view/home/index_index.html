@@ -522,7 +522,7 @@
 								</figure>
 								{% endif %}
 								<div class="blog-item-small-content">
-									<h2><a href="/mod/question/{{val.id}}.html" title="{{val.title}}">{{val.title}}</a></h2>
+									<h2><a href="/q/{{val.id}}.html" title="{{val.title}}">{{val.title}}</a></h2>
 									<ul class="blog-post-info list-inline padding-bottom-10">
 										<li>
 
@@ -597,7 +597,7 @@
 				{% if controller.is_login %}
 				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
 					今天，你遇到了什么问题呢？
-					<a href="/mod/question/sys/add/cid/123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+					<a href="/mod/question/sys/add/?cid=123" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
 				</div>
 				{%else%}
 				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->

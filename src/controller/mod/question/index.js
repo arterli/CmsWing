@@ -116,8 +116,10 @@ module.exports =  class extends Index {
           
         return this.json(data);
       }
-      //手机端模版
-      return this.modtemp(this.mod.name,"mobile");
+       // console.log(this.mod.name);
+        console.log(this.ctx.controller);
+        //手机端模版
+      return this.modtemp('list',"m");
     }else{
       return this.modtemp('list');
     }

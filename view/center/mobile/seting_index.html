@@ -1,9 +1,9 @@
 
 {% extends "./inc/appbase.html" %}
 {%block style%}
-<link rel="stylesheet" href="/static/webapp/libs/webuploader/webuploader.css">
-<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
-<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="/static/mobile/libs/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/mobile/css/mui.picker.min.css" />
+<link href="/static/mobile/css/mui.poppicker.css" rel="stylesheet" />
 <style>
     .mui-views,
     .mui-view,
@@ -204,10 +204,10 @@
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <ul class="mui-table-view mui-table-view-chevron">
-                    <li class="mui-table-view-cell" ">
+                    <li class="mui-table-view-cell">
                         <a id="head" class="mui-navigate-right" >头像
                             <span class="mui-pull-right head">
-									<img class="head-img mui-action-preview" id="head-img1" src="/uc/index/avatar"/>
+									<img class="head-img mui-action-preview" id="head-img1" src="/u/avatar"/>
 								</span>
                         </a>
                     </li>
@@ -217,20 +217,22 @@
                     <li class="mui-table-view-cell">
                         <a href="#privacy" class="mui-navigate-right" >修改密码</a>
                     </li>
+                    {#
                     <li class="mui-table-view-cell">
                         <a href="#notifications" class="mui-navigate-right" >隐私设置</a>
                     </li>
+                    #}
                 </ul>
                 <ul class="mui-table-view mui-table-view-chevron">
                     <li class="mui-table-view-cell">
-                        <a href="/uc/address" class="mui-navigate-right" >收货地址</a>
+                        <a href="/center/address" class="mui-navigate-right" >收货地址</a>
                     </li>
 
                 </ul>
-                {% if http.userAgent()|is_weixin != true %}
+                {% if ctx.userAgent|is_weixin != true %}
                 <ul class="mui-table-view ">
                     <li class="mui-table-view-cell" style="text-align: center;">
-                        <a href="/user/logout" > 退出登录 </a>
+                        <a href="/center/public/logout" > 退出登录 </a>
                     </li>
 
                 </ul>
@@ -398,12 +400,12 @@
 
 {% endblock %}
 {%block script%}
-<script src="/static/webapp/js/mui.view.js "></script>
-<script src='/static/webapp/libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
-<script type="text/javascript" src="/static/webapp/libs/webuploader/webuploader.min.js"></script>
-<script src="/static/webapp/js/mui.picker.min.js"></script>
-<script src="/static/webapp/js/mui.poppicker.js"></script>
-<script src="/static/webapp/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/mobile/js/mui.view.js "></script>
+<script src='/static/mobile/libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
+<script type="text/javascript" src="/static/mobile/libs/webuploader/webuploader.min.js"></script>
+<script src="/static/mobile/js/mui.picker.min.js"></script>
+<script src="/static/mobile/js/mui.poppicker.js"></script>
+<script src="/static/mobile/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
 <script>
 
     mui.init();
@@ -435,7 +437,7 @@
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '#head',
         // 只允许选择文件，可选。
-        server: '/uc/seting/updateavatar',
+        server: '/center/seting/updateavatar',
         accept: {
             title: 'Images',
             extensions: 'gif,jpg,jpeg,bmp,png',
@@ -517,12 +519,11 @@
     var accountbtn = document.getElementById("account-btn");
     accountbtn.addEventListener('tap',function (event) {
         var data = $("#accountform").serialize();
-        mui.ajax('/uc/seting/updateinfo',{
+        mui.ajax('/center/seting/updateinfo',{
             data:data,
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型
             timeout:10000,//超时时间设置为10秒；
-            headers:{'Content-Type':'application/json'},
             success:function(data){
                 //服务器返回响应，根据响应结果，分析是否登录成功；
                 if(data.errno == 0){
@@ -543,12 +544,11 @@
     var privacybtn = document.getElementById("privacy-btn");
     privacybtn.addEventListener('tap',function (event) {
         var data = $("#privacyform").serialize();
-        mui.ajax('/uc/seting/updatepassword',{
+        mui.ajax('/center/seting/updatepassword',{
             data:data,
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型
             timeout:10000,//超时时间设置为10秒；
-            headers:{'Content-Type':'application/json'},
             success:function(data){
                 //服务器返回响应，根据响应结果，分析是否登录成功；
                 if(data.errno == 0){

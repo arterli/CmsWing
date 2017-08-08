@@ -65,7 +65,7 @@
 {% endblock%}
 
 {% block script %}
-<script type="text/javascript" src="/static/webapp/libs/pingpp/pingpp.js"></script>
+<script type="text/javascript" src="/static/mobile/libs/pingpp/pingpp.js"></script>
 <script>
     var falg = false;
     $("#pay").on("tap",function () {
@@ -83,7 +83,7 @@
         var that = this;
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         falg = true;
-        mui.post("/uc/account/recharge",{order_amount:order_amount,payment:payment},function(data){
+        mui.post("/center/account/recharge",{order_amount:order_amount,payment:payment},function(data){
             if (data.errno!=1000) {
                 if (data.data.url) {
                     mui.toast(data.data.name + ' 即将跳转~');

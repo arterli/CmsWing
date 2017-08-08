@@ -27,7 +27,7 @@
 <header class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class="mui-title">{{controller.meta_title}}</h1>
-    <a href="/uc/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right btn-edit" >个人中心</a>
+    <a href="/center/index" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right btn-edit" >个人中心</a>
 </header>
 
 <div class="mui-content">
@@ -35,7 +35,7 @@
             <li class="mui-table-view-divider">我的地址</li>
             {%for item in list %}
             <li class="mui-table-view-cell {%if id == item.id%}mui-selected{%endif%}">
-                <a class="mui-navigate-right" href="/uc/address/editaddrmodal/id/{{item.id}}/type/1">
+                <a class="mui-navigate-right" href="/center/address/editaddrmodal/?id={{item.id}}/type/1">
                     <div class="mui-table">
                         <div class="mui-table-cell mui-col-xs-10">
                             <h4 class="mui-ellipsis">{{item.accept_name}} <small>({{item.mobile}})</small></h4>
@@ -52,7 +52,7 @@
 
         </ul>
         <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
-            <a href="/uc/address/editaddrmodal" type="button" class="mui-btn mui-btn-primary mui-btn-block">添加新地址</a>
+            <a href="/center/address/editaddrmodal" type="button" class="mui-btn mui-btn-primary mui-btn-block">添加新地址</a>
         </div>
 </div>
 
