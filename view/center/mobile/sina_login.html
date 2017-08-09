@@ -1,9 +1,9 @@
 
 {% extends "./inc/appbase.html" %}
 {%block style%}
-<link rel="stylesheet" href="/static/webapp/libs/webuploader/webuploader.css">
-<link rel="stylesheet" type="text/css" href="/static/webapp/css/mui.picker.min.css" />
-<link href="/static/webapp/css/mui.poppicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="/static/mobile/libs/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/mobile/css/mui.picker.min.css" />
+<link href="/static/mobile/css/mui.poppicker.css" rel="stylesheet" />
 <style>
     .mui-views,
     .mui-view,
@@ -212,7 +212,7 @@
                     <li class="mui-table-view-cell">
                         <a href="#account" class="mui-navigate-right" >已有PC端账号，点击登录绑定。</i></a>
                     </li>
-                    <form method="post" action="/uc/sina/organizing" class="mui-input-group form-organizing">
+                    <form method="post" action="/center/sina/organizing" class="mui-input-group form-organizing">
                         <li class="mui-table-view-divider">这是您登录PC端网站的凭证，请认真填写!</li>
                         <div class="mui-input-row">
                             <label>用户昵称</label>
@@ -273,7 +273,7 @@
                         <a href="#setting" class="mui-navigate-right" >没有账号,完善资料。</i></a>
                     </li>
                     <li class="mui-table-view-divider">绑定到已有账号</li>
-                    <form role="form" class="mui-input-group form-logonbinding" action="/uc/sina/logonbinding" method="post">
+                    <form role="form" class="mui-input-group form-logonbinding" action="/center/sina/logonbinding" method="post">
 
                         <div class="mui-input-row">
                             <label>账号</label>
@@ -299,7 +299,7 @@
 
 {% endblock %}
 {%block script%}
-<script src="/static/webapp/js/mui.view.js "></script>
+<script src="/static/mobile/js/mui.view.js "></script>
 <script>
     mui.init();
     //初始化单页view
@@ -366,7 +366,7 @@
     var formlogonbinding = document.getElementById("form-logonbinding");
     formlogonbinding.addEventListener('tap',function (event) {
         var data = $(".form-logonbinding").serialize();
-        mui.ajax('/uc/sina/logonbinding',{
+        mui.ajax('/center/sina/logonbinding',{
             data:data,
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型

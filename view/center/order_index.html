@@ -77,7 +77,7 @@
                     <tr class="active">
                         <td colspan="5">
                             {%if item.status == 4 or item.status== 6%}
-                            <a href="/uc/order/delorder/?id={{item.id}}" class="btn btn-default btn-xs pull-right nomargin confirm ajax-get"><i class="fa fa-trash-o nopadding"></i></a>
+                            <a href="/center/order/delorder/?id={{item.id}}" class="btn btn-default btn-xs pull-right nomargin confirm ajax-get"><i class="fa fa-trash-o nopadding"></i></a>
                             {%endif%}
                             {%if item.pay_status ==0 and item.status != 6%}
                             <div class=" pull-right">

@@ -67,10 +67,10 @@
                                         <td>view/{{item.module}}/{%if controller.get("type")==2%}mobile/{%endif%}{{item.controller}}{{ctx.config("view.nunjucks.sep")}}{{item.action}}{{ctx.config('view.nunjucks.extname')}}</td>
 
 
-                                        <td><a href="/admin/template/edit/id/{{item.id}}" class="text-info">修改</a>
+                                        <td><a href="/admin/template/edit/?id={{item.id}}" class="text-info">修改</a>
                                             <a href="#" class="text-info">复制</a>
                                             {%if item.action != "index"%}
-                                            <a href="/admin/template/del/id/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                            <a href="/admin/template/del/?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                         {%endif%}
                                     </tr>
                                     {% else %}

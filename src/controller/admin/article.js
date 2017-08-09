@@ -317,7 +317,7 @@ module.exports = class extends Base {
         //console.log(field);
         //console.log(1111111);
         if (!think.isEmpty(position)) {
-            map[1] = "position & {$position} = {$position}";
+            map['position'] = position;
         }
         if (!think.isEmpty(group_id)) {
             map['group_id'] = group_id;
