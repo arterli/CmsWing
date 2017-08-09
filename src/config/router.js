@@ -11,6 +11,8 @@ module.exports = [
     ['/topic/:key',"home/keyword/index/:1",'get'],
     ['/t/:key',"home/keyword/list/:1","get"],
     ['/q/:id','/mod/question/index/detail/:1/','get'],
-    [/^(?!\/admin\/|\/home\/|\/center\/|\/uuu\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
+    [/\/api\/category(?:\/(\d+))?/, 'api/category?id=:1', 'rest'],//rest
+    [/\/api\/document(?:\/(\d+))?/, 'api/document?id=:1', 'rest'],//rest
+    [/^(?!\/admin\/|\/home\/|\/center\/|\/api\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
     ['/:category', '/home/route/index/:1/', 'get'],
 ];
