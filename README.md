@@ -8,7 +8,6 @@
 
 > 码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
 
->coding.net:[https://coding.net/u/arterli/p/CmsWing/git](https://coding.net/u/arterli/p/CmsWing/git)
 
 > **简介:**
 > - 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。
