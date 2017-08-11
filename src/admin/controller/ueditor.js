@@ -41,7 +41,7 @@ export default class extends think.controller.base {
   async indexAction(){
     //auto render template file index_index.html
     this.config = this.config("ueditor");
-    let action = this.get("action");
+      let action = this.get("action")||this.get("editorid");
     //think.log(action);
     let result;
     switch (action) {
@@ -58,7 +58,7 @@ export default class extends think.controller.base {
       case 'uploadvideo':
         /* 上传文件 */
       case 'uploadfile':
-
+        case 'myEditor':
         result =await this.uploads();
         //console.log(result);
         break;
@@ -84,9 +84,12 @@ export default class extends think.controller.base {
 
         break;
     }
-    //返回结果
-    this.jsonp(result);
-
+      if(action=='myEditor'){
+          this.header('Content-Type', 'text/html'); //Content-Type:text/html
+          return this.end(SON.stringify(result));
+      }else {
+          return this.jsonp(result);
+      }
   }
 
   async uploads(){
@@ -101,13 +104,14 @@ export default class extends think.controller.base {
      *     "size" : "",           //文件大小
      * }
      */
-    let action = this.get("action");
+    let action = this.get("action")||this.get("editorid");
     let base64 = "upload";
     let config = {};
     let fieldName;
     //console.log(setup);
     switch (action) {
       case 'uploadimage':
+        case 'myEditor':
         config = {
           pathFormat: this.config['imagePathFormat'],
           maxSize: this.config['imageMaxSize'],
@@ -153,20 +157,44 @@ export default class extends think.controller.base {
        let instance = new qiniu();
        let uppic = await instance.uploadpic(filepath,basename);
        if(!think.isEmpty(uppic)){
-         return {
-           "state" : "SUCCESS",
-           "url" : `//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
-           "title" : uppic.hash,
-           "original" : file.originalFilename,
-           "type" : ".jpg",
-           "size" : 0
-         };
+           if(action=='myEditor'){
+               return {
+                   originalName:file.originalFilename ,
+                   name:uppic.hash,
+                   url:`//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+                   size:0,
+                   type:".jpg",
+                   state:"SUCCESS"
+               }
+           }else {
+               return {
+                   "state" : "SUCCESS",
+                   "url" : `//${this.setup.QINIU_DOMAIN_NAME}/${uppic.key}`,
+                   "title" : uppic.hash,
+                   "original" : file.originalFilename,
+                   "type" : ".jpg",
+                   "size" : 0
+               };
+           }
+
        }
      } else {
        //return self.uploader(fieldName, config, oriName, size, path, base64);
        let up = think.adapter("editor", "ueditor"); //加载名为 ueditor 的 editor Adapter
        let upload = new up(fieldName, config, base64, this.http); //实例化 Adapter
-       return upload.getFileInfo();
+         let res = upload.getFileInfo();
+         if(action=='myEditor'){
+             return {
+                 originalName:res.original ,
+                 name:res.title,
+                 url:res.url,
+                 size:res.size,
+                 type:res.type,
+                 state:"SUCCESS"
+             }
+         }else {
+             return res;
+         }
      }
   }
 
