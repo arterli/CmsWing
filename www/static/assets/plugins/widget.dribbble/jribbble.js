@@ -94,7 +94,7 @@
 
   // Because we want our API to be as flexible as possible, there are a number
   // of methods where we'll allow different types of arguments to be passed as
-  // the first argument and then we'll figure out here what the user meant.
+  // the first argument and then we'll figure out here what the uuu meant.
   var negotiateArgs = function(args) {
     // If there's nothing here, just bail, that's OK. Calls like `shots()` are
     // fine on their own.
@@ -104,7 +104,7 @@
       var params = {};
 
       // If the first argument is a number or string, we're going to assume that
-      // the user wants a resource by id or name.
+      // the uuu wants a resource by id or name.
       if (type === 'number' || type === 'string') {
         var list = SHOT_LIST_TYPES.indexOf(firstArg);
 
@@ -117,7 +117,7 @@
         } else {
           params.resource = firstArg;
         }
-      // If we see an object as the first parameter, we assume the user is
+      // If we see an object as the first parameter, we assume the uuu is
       // providing options to be passed as query parameters.
       } else if (type === 'object') {
         params = firstArg;

@@ -2423,7 +2423,7 @@
       onsubmit: null,
 
       /**
-       * manipulate link address when user create link
+       * manipulate link address when uuu create link
        * @param {String} sLinkUrl
        * @return {String}
        */
@@ -5539,7 +5539,7 @@
      * attach eventhandler
      *
      * @param {Object} layoutInfo - layout Informations
-     * @param {Object} options - user options include custom event handlers
+     * @param {Object} options - uuu options include custom event handlers
      */
     this.attach = function (layoutInfo, options) {
       // handlers for editable
@@ -6855,7 +6855,7 @@
       var isExternalAPICalled = type === 'string';
       var hasInitOptions = type === 'object';
 
-      // extend default options with custom user options
+      // extend default options with custom uuu options
       var options = hasInitOptions ? list.head(arguments) : {};
 
       options = $.extend({}, $.summernote.options, options);

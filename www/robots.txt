@@ -1,8 +1,0 @@
-#
-# robots.txt for CmsWing
-#
-
-User-agent: *
-
-Disallow: /admin/
-Disallow: /common/

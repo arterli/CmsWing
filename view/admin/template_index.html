@@ -28,9 +28,9 @@
                                 <div class="col-sm-3">
                                     <div class="input-group pull-right search-form">
                                         <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
+                                               value="{{controller.get('title')}}">
                                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/?model={{model.name}}">搜索</button>
                       </span>
                                     </div>
                                 </div>
@@ -56,7 +56,7 @@
                                         <td>{{item.gid}}</td>
                                         <td>{{item.gname}}</td>
                                         <td>
-                                            <a href="/admin/model/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
+                                            <a href="/admin/model/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
                                                 <i class="fa fa-check text-success {%if item.isdefault %}text-active{%else%}text{%endif%}"></i>
                                                 <i class="fa fa-times text-danger {%if item.isdefault %}text{%else%}text-active{%endif%}"></i>
                                             </a>

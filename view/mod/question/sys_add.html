@@ -1,4 +1,4 @@
-{% extends "../../topic/inc/base.html" %}
+{% extends "../../home/inc_base.html" %}
 {% block style %}
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css"/>
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
@@ -120,7 +120,7 @@ CLASSES:
                         </div>
 
                         <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                            <input type="hidden" name="backurl" value="{{http.referrer()}}" >
+                            <input type="hidden" name="backurl" value="{{ctx.referrer()}}" >
                             <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
                             <button class="btn btn-primary btn-lg" >确认发布</button>
                         </div>

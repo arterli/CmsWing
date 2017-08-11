@@ -21,10 +21,10 @@
                                         <a class="btn btn-sm btn-info " href="/admin/ext/add">
                                             新增插件
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/status/1/pk/ext"  target-form="ids">
+                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/?status=1&pk=ext"  target-form="ids">
                                             启用
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/status/0/pk/ext" target-form="ids">
+                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/?status=0&pk=ext" target-form="ids">
                                             禁用
                                         </a>
                                         <a class="btn btn-sm btn-info todo" href="">
@@ -65,7 +65,7 @@
                                         <td>{{item.installtime | moment('YYYY-MM-DD HH:mm')}}</td>
                                         <td>{{item.updatetime | moment('YYYY-MM-DD HH:mm')}}</td>
                                         <td>
-                                            <a href="/admin/ext/setstatus/ids/{{item.ext}}/status/{{1-item.status}}/pk/ext" class="active ajax-get" data-toggle="class">
+                                            <a href="/admin/ext/setstatus/?ids={{item.ext}}&status={{1-item.status}}&pk=ext" class="active ajax-get" data-toggle="class">
                                                 <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
                                                 <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
                                             </a>
@@ -75,7 +75,7 @@
                                            {%if item.isadm==1%}
                                             <a href="/ext/{{item.ext}}/admin/index" class="text-info">管理</a>
                                             {%endif%}
-                                            <a href="/admin/ext/edit/ids/{{item.ext}}" class="text-info" data-toggle="ajaxModal">更新</a>
+                                            <a href="/admin/ext/edit/?ids={{item.ext}}" class="text-info" data-toggle="ajaxModal">更新</a>
 
                                             <a href="#" class="confirm todo text-info">卸载</a></td>
 

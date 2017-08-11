@@ -40,7 +40,7 @@
                                     <div class="row">
 
                                         <div class="col-md-10">
-                                            <p class="form-control-static">{{controller.setup.wx_name}}</p>
+                                            <p class="form-control-static">{{config.setup.wx_name}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -55,13 +55,13 @@
 
                                         <div class="col-md-10">
                                             <p class="form-control-static">
-                                            {%if controller.setup.wx_type==1%}
+                                            {%if config.setup.wx_type==1%}
                                             未认证订阅号
-                                            {%elif controller.setup.wx_type==2%}
+                                            {%elif config.setup.wx_type==2%}
                                             认证订阅号
-                                            {%elif controller.setup.wx_type==3%}
+                                            {%elif config.setup.wx_type==3%}
                                             未认证服务号
-                                            {%elif controller.setup.wx_type==4%}
+                                            {%elif config.setup.wx_type==4%}
                                             微信认证服务号
                                             {%endif%}
                                             </p>
@@ -79,7 +79,7 @@
                                     <div class="row">
 
                                         <div class="col-md-10">
-                                            <p class="form-control-static">{{controller.setup.wx_AppID}}</p>
+                                            <p class="form-control-static">{{config.setup.wx_AppID}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="row">
 
                                         <div class="col-md-10">
-                                            <p class="form-control-static">{{controller.setup.wx_AppSecret}}</p>
+                                            <p class="form-control-static">{{config.setup.wx_AppSecret}}</p>
                                         </div>
 
                                     </div>
@@ -108,7 +108,7 @@
                                     <div class="row">
 
                                         <div class="col-md-10">
-                                            <p class="form-control-static">{{controller.setup.wx_Token}}</p>
+                                            <p class="form-control-static">{{config.setup.wx_Token}}</p>
                                         </div>
                                     </div>
                                 </div>

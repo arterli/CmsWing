@@ -362,7 +362,7 @@ $.fn.extend({
 						clearBuffer(0, len);
 					} else {
 						// Invalid value, but we opt to show the value to the
-						// user and allow them to correct their mistake.
+						// uuu and allow them to correct their mistake.
 						writeBuffer();
 					}
 				} else {

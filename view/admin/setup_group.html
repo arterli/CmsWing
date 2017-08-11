@@ -7,7 +7,7 @@
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
             <li class="active"><a href="#messages-2" data-toggle="tab" class="groupindex">全部配置</a></li>
-            {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
+            {% for ingredient, amount in config.setup.CONFIG_GROUP_LIST %}
             <li ><a href="#{{ ingredient }}" data-toggle="tab" data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {% endfor %}
         </ul>
@@ -55,7 +55,7 @@
             "ajax": {
                 "url": "/admin/setup/groupdata",
                 "data": {
-                    "user_id": 451
+                    "user_id": 1
                 }
             },
             "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
@@ -84,7 +84,7 @@
                     targets: 6,
                     render: function (data, type, row) {
                         //console.log(data);
-                        var html = '<a class="btn btn-default btn-xs" href="/admin/setup/edit/id/'+data.id+'">编辑</a> ' +
+                        var html = '<a class="btn btn-default btn-xs" href="/admin/setup/edit/?id='+data.id+'">编辑</a> ' +
                                 ' <a class="btn btn-default btn-xs del" onclick="del('+ data.id +')">删除</a>';
                         return html;
                     }
@@ -122,7 +122,7 @@
         })
         $(".grouplist").click(function(){
             var groupid=$(this).attr('data-groupid');
-            table.ajax.url( '/admin/setup/groupdata/group/'+groupid ).load();
+            table.ajax.url( '/admin/setup/groupdata?group='+groupid ).load();
         })
     } );
 

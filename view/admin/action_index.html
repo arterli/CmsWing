@@ -18,13 +18,13 @@
                         <a class="btn btn-sm btn-info " href="/admin/action/add">
                             新增
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/action/setstatus/status/1"  target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post" target-form="ids"  href="/admin/action/setstatus/?status=1"  target-form="ids">
                             启用
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post" href="/admin/action/setstatus/status/0" target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post" href="/admin/action/setstatus/?status=0" target-form="ids">
                             禁用
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/setstatus/status/-1" target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/action/setstatus/?status=-1" target-form="ids">
                             删除
                         </a>
                     </div>
@@ -62,7 +62,7 @@
                         <td><span>{{item.type|get_action_type}}</span></td>
                         <td>{{item.remark}}</td>
                         <td>
-                            <a href="/admin/action/setstatus/ids/{{item.id}}/status/{{1-item.status}}" class="active ajax-get" data-toggle="class">
+                            <a href="/admin/action/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
                                 <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
                                 <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
                             </a>
@@ -87,7 +87,7 @@
                 <div class="row">
 
 
-                    <div class="col-sm-12 text-right text-center-xs">
+                    <div class="col-sm-12 text-right text-center-xs cmswing-pg">
                         {{pagerData | safe}}
                     </div>
                 </div>

@@ -498,7 +498,7 @@
                 $(this).parent().fadeOut(opts.loading.speed);
             });
 
-            // user provided callback when done
+            // uuu provided callback when done
             opts.errorCallback.call($(opts.contentSelector)[0],'done');
         },
 

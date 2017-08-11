@@ -656,7 +656,7 @@
 		}
 	};
 
-	// Construct trees style based on user options
+	// Construct trees style based on uuu options
 	Tree.prototype.buildStyle = function () {
 
 		var style = '.node-' + this.elementId + '{';

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>
+    <meta charset="utf-8" />
+    <title>未登录 | CmsWing</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="/static/admin/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/css/app.css" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script src="/static/admin/js/ie/html5shiv.js"></script>
+    <script src="/static/admin/js/ie/respond.min.js"></script>
+    <script src="/static/admin/js/ie/excanvas.js"></script>
+    <![endif]-->
+</head>
+<body class="bg-light dk">
+<section id="content" >
+    <div class="row m-n">
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="text-center m-b-lg">
+                <h1 class="h text-white animated fadeInDownBig" >:(</h1>
+            </div>
+            <div class="alert alert-danger text-md ">
+                <i class="fa fa-exclamation-circle "></i>   系统检测您尚未登录，请先登录！
+            </div>
+            <div class="list-group auto m-b-sm m-b-lg">
+                <!--<a href="/center/public/login" data-toggle="ajaxModal" class="list-group-item">-->
+                    <!--<i class="fa fa-chevron-right icon-muted"></i>-->
+                    <!--<i class="fa fa-fw icon-login icon-muted"></i> 立即登录-->
+                <!--</a>-->
+                <a href="/center/public/register" class="list-group-item">
+                    <i class="fa fa-chevron-right icon-muted"></i>
+                    <i class="fa fa-fw fa-user icon-muted"></i> 还没账号，立即注册！
+                </a>
+                <a href="{{ctx.referrer()}}" class="list-group-item" id="href">
+                    <i class="fa fa-chevron-right icon-muted"></i>
+                    <i class="fa fa-fw fa-mail-reply icon-muted"></i> 返回上一页
+                </a>
+                <a href="/index" class="list-group-item">
+                    <i class="fa fa-chevron-right icon-muted"></i>
+                    <!--<span class="badge bg-info lt">021-215-584</span>-->
+                    <i class="fa fa-fw fa-home icon-muted"></i> 返回首页 登录
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- footer -->
+<footer id="footer">
+    <div class="text-center padder clearfix">
+        <p>
+            <small> <a href="http://www.cmswing.com" target="_blank" class="badge ">CmsWing内容管理框架 [cmswing.com]</a> <br>&copy;2005 - <script>document.write(new Date().getFullYear())</script></small>
+        </p>
+    </div>
+</footer>
+<!-- / footer -->
+<script src="/static/admin/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/admin/js/bootstrap.js"></script>
+<!-- App -->
+
+<script>
+    $(function () {
+        var href = document.getElementById('href').href,url = document.URL;
+        if(href == url){
+            $("#href").addClass("hide");
+        }
+    })
+
+</script>
+
+</body>
+</html>

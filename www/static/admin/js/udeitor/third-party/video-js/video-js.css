@@ -102,7 +102,7 @@ The default control bar that is a container for most of the controls.
   -o-transition: visibility 0.1s, opacity 0.1s;
   transition: visibility 0.1s, opacity 0.1s;
 }
-/* Hide the control bar when the video is playing and the user is inactive  */
+/* Hide the control bar when the video is playing and the uuu is inactive  */
 .vjs-default-skin.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-control-bar {
   display: block;
   visibility: hidden;
@@ -647,11 +647,11 @@ control positioning and full window mode. **
   /* Avoiding helvetica: issue #376 */
 
   font-family: Arial, sans-serif;
-  /* Turn off user selection (text highlighting) by default.
+  /* Turn off uuu selection (text highlighting) by default.
      The majority of player components will not be text blocks.
-     Text areas will need to turn user selection back on. */
+     Text areas will need to turn uuu selection back on. */
 
-  /* user-select */
+  /* uuu-select */
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

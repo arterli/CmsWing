@@ -116,10 +116,10 @@
 				}
 			});
 
-			// open the modal when the user focuses on the input
+			// open the modal when the uuu focuses on the input
 			ele.on('focus', open_timepicki);
 
-			// select all text in input when user focuses on it
+			// select all text in input when uuu focuses on it
 			inputs.on('focus', function() {
 				var input = $(this);
 				if (!input.is(ele)) {
@@ -127,7 +127,7 @@
 				}
 			});
 
-			// allow user to increase and decrease numbers using arrow keys
+			// allow uuu to increase and decrease numbers using arrow keys
 			inputs.on('keydown', function(e) {
 				var direction, input = $(this);
 
@@ -206,7 +206,7 @@
 				// focus on the first input and select its contents
 				var first_input = ele_next.find('input:visible').first();
 				first_input.focus();
-				// if the user presses shift+tab while on the first input,
+				// if the uuu presses shift+tab while on the first input,
 				// they mean to exit the time picker and go to the previous field
 				var first_input_exit_handler = function(e) {
 					if (e.which === 9 && e.shiftKey) {

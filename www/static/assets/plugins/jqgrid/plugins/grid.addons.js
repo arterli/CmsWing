@@ -255,7 +255,7 @@ $.jgrid.extend({
 						$("<div id='"+fid+"' role='dialog' tabindex='-1'></div>").insertBefore("#gview_"+$t.p.id);
 						// Before we create searchFilter we need to decide if we want to get back a string or a JS object.
 						//  see http://github.com/tonytomov/jqGrid/issues/#issue/36 for background on the issue.
-						// If p.stringResult is defined, it was explisitly passed to us by user. Honor the choice, whatever it is.
+						// If p.stringResult is defined, it was explisitly passed to us by uuu. Honor the choice, whatever it is.
 						if (p.stringResult===undefined) {
 							// to provide backward compatibility, inferring stringResult value from multipleSearch
 							p.stringResult = p.multipleSearch;

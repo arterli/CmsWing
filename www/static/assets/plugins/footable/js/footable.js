@@ -203,12 +203,12 @@
     $.fn.footable = function (options) {
         ///<summary>The main constructor call to initialize the plugin using the supplied <paramref name="options"/>.</summary>
         ///<param name="options">
-        ///<para>A JSON object containing user defined options for the plugin to use. Any options not supplied will have a default value assigned.</para>
+        ///<para>A JSON object containing uuu defined options for the plugin to use. Any options not supplied will have a default value assigned.</para>
         ///<para>Check the documentation or the default options object above for more information on available options.</para>
         ///</param>
 
         options = options || {};
-        var o = $.extend(true, {}, w.footable.options, options); //merge user and default options
+        var o = $.extend(true, {}, w.footable.options, options); //merge uuu and default options
         return this.each(function () {
             instanceCount++;
             var footable = new Footable(this, o, instanceCount);

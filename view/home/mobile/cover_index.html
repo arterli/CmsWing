@@ -1,0 +1,349 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+
+{% include "./inc/nav.html" %}
+{% include "./inc/sliderbar.html" %}
+<div class=" mui-scroll-wrapper list-content" >
+    <div class="mui-scroll">
+        <!--这里放置真实显示的DOM内容-->
+
+        {% topic data = "slider",limit= "5",cid=category.id,position='2',issub="1",ispic="1"%}
+        <div id="sliderpic" class="mui-slider">
+            <div class="mui-slider-group mui-slider-loop">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                {%set pnus = slider|length -1%}
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="{{slider[pnus].name|get_url(slider[pnus].id)}}">
+                        <img src="{{slider[pnus].cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <p class="mui-slider-title">{{slider[pnus].title}}</p>
+                    </a>
+                </div>
+                {% for v in slider%}
+                <div class="mui-slider-item">
+                    <a href="{{v.name|get_url(v.id)}}">
+                        <img src="{{v.cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <p class="mui-slider-title">{{v.title}}</p>
+                    </a>
+                </div>
+                {%endfor%}
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                    <a href="{{slider[0].name|get_url(slider[0].id)}}">
+                        <img src="{{slider[0].cover_id|get_pic('m=1,w=360,h=130')}}">
+                        <p class="mui-slider-title">{{slider[0].title}}</p>
+                    </a>
+                </div>
+            </div>
+            <div class="mui-slider-indicator mui-text-right">
+                {%set isone = 0%}
+                {% for v in slider%}
+                <div class="mui-indicator {%if isone == 0 %}mui-active{%endif%}"></div>
+                {%set isone = isone+1%}
+                {%endfor%}
+            </div>
+        </div>
+        <ul class="mui-table-view " >
+            {% topic data = "list",limit= "5",cid=category.id,issub=1%}
+            <li class="mui-table-view-divider">最新</li>
+            {% for v in list %}
+            {% set categoryname = v.category_id|get_cate %}
+            <!--如果有缩略图-->
+            {%if v.cover_id >0%}
+            {% if v.model_id == 5%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+
+
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+
+                    <div class="mui-row">
+                        <div class="mui-col-sm-12 mui-col-xs-12">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=0,w=360')}}">
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%elif v.pics%}
+            {% set pics = v.pics|strToArray%}
+            {% if pics|length >2%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                    <div class="mui-row">
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[1]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[2]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%else%}
+            <!--无图-->
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;0</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%endif%}
+            {%endfor%}
+            {%column data="cates",cid=category.id%}
+            {%for val in cates%}
+            <li class="mui-table-view-divider">{{val.name}}</li>
+            {% topic data = "list",limit= "5",cid=val.id%}
+            {% for v in list %}
+            {% set categoryname = v.category_id|get_cate %}
+            <!--如果有缩略图-->
+            {%if v.cover_id >0%}
+            {% if v.model_id == 5%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+
+
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+
+                    <div class="mui-row">
+                        <div class="mui-col-sm-12 mui-col-xs-12">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=0,w=360')}}">
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{v.cover_id|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%elif v.pics%}
+            {% set pics = v.pics|strToArray%}
+            {% if pics|length >2%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                    <div class="mui-row">
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4">
+                            <img class="list_img_holder" src="{{pics[1]|get_pic('m=1,w=123,h=82')}}">
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[2]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;2323</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%else%}
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}" >
+                    <div class="mui-row">
+                        <div class="mui-col-sm-8 mui-col-xs-8">
+
+                            <h4 class="dotdot line2 ">{{v.title}}</h4>
+                            <p class="item_info">
+                                <span class="src space">{{v.uid|get_nickname}}</span>
+                                <span class="cmt space">评论&nbsp;2323</span>
+
+                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                            </p>
+                        </div>
+                        <div class="mui-col-sm-4 mui-col-xs-4 ">
+                            <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}" >
+
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {%endif%}
+            {%else%}
+            <!--无图-->
+            <li class="mui-table-view-cell mui-media">
+                <a href="{{v.name|get_url(v.id)}}">
+                    <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+
+                    <p class="item_info">
+
+                        <span class="src space">{{v.uid|get_nickname}}</span>
+                        <span class="cmt space">评论&nbsp;0</span>
+
+                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
+
+                    </p>
+
+                </a>
+            </li>
+            {%endif%}
+            {%endfor%}
+            {%endfor%}
+        </ul>
+    </div>
+</div>
+
+{% endblock%}
+
+{% block script %}
+
+
+<script type="text/javascript">
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    })
+    var slider = mui("#sliderpic");
+    slider.slider({
+        interval: 5000
+    });
+    //alert(mui.os.plus)
+    mui('.mui-scroll-wrapper').scroll({
+        deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

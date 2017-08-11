@@ -8,8 +8,8 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            <li ><a href="/{{http.module}}/{{http.controller}}"  class="grouplist"> 广告</a></li>
-            <li ><a href="/{{http.module}}/{{http.controller}}/adlist/spaceid/{{space.spaceid}}"  class="grouplist"> {{space.name}}</a></li>
+            <li ><a href="/{{ctx.controller}}"  class="grouplist"> 广告</a></li>
+            <li ><a href="/{{ctx.controller}}/adlist/?spaceid={{space.spaceid}}"  class="grouplist"> {{space.name}}</a></li>
             <li class="active"><a href="javascript:void(0)"  class="grouplist"> {{controller.meta_title}}</a></li>
         </ul>
     </header>
@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{http.module}}/{{http.controller}}/editad" data-validate="parsley">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/editad" data-validate="parsley">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">广告标题</label>
 

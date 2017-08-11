@@ -15,11 +15,11 @@
   <section class="panel {%if val.is_default == 1 %} panel-info{%else%} panel-default{%endif%} ">
             <header class="panel-heading">
                 <div class=" pull-right">
-                    <a href="/admin/ecom/editfare/id/{{val.id}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> 编辑</a>
-                    <a href="/admin/ecom/delfare/id/{{val.id}}" class="btn btn-danger btn-xs confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a>
+                    <a href="/admin/ecom/editfare/?id={{val.id}}" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> 编辑</a>
+                    <a href="/admin/ecom/delfare/?id={{val.id}}" class="btn btn-danger btn-xs confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a>
 
                 </div>
-                {%if val.is_default == 1 %}<span class="label bg-danger">正在使用</span>{%else%}<a href="/admin/ecom/defaulffare/id/{{val.id}}" class="btn btn-info btn-xs ajax-get"><i class="fa fa-check"></i> 使用此模板</a>{%endif%} {{val.name}}
+                {%if val.is_default == 1 %}<span class="label bg-danger">正在使用</span>{%else%}<a href="/admin/ecom/defaulffare/?id={{val.id}}" class="btn btn-info btn-xs ajax-get"><i class="fa fa-check"></i> 使用此模板</a>{%endif%} {{val.name}}
             </header>
 
             <div class="table-responsive">

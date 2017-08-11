@@ -77,7 +77,7 @@
       'Question? is not a citation.');
 
   MT('codeBogus',
-      'user@example.com');
+      'uuu@example.com');
 
   MT('subBogus',
       '~username');

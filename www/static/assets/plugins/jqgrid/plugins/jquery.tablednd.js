@@ -91,7 +91,7 @@ jQuery.tableDnD = {
         // Set up the defaults if any
 
         this.each(function() {
-            // This is bound to each matching table, set up the defaults and override with user options
+            // This is bound to each matching table, set up the defaults and override with uuu options
             this.tableDnDConfig = jQuery.extend({
                 onDragStyle: null,
                 onDropStyle: null,
@@ -265,7 +265,7 @@ jQuery.tableDnD = {
 			} else {
 	            dragObj.css(config.onDragStyle);
 			}
-            // If we're over a row then move the dragged row to there so that the user sees the
+            // If we're over a row then move the dragged row to there so that the uuu sees the
             // effect dynamically
             var currentRow = jQuery.tableDnD.findDropTargetRow(dragObj, y);
             if (currentRow) {

@@ -11,7 +11,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> {{option.title}} <b class="caret"></b></a>
                 <ul class="dropdown-menu text-left">
                  {% for val in typeoption %}
-                    <li><a href="/admin/type/typeoption/classid/{{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    <li><a href="/admin/type/typeoption/?classid={{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
                     {%endfor%}
                 </ul>
             </li>
@@ -63,7 +63,7 @@
                                 <option value="url" {%if val.type == 'url'%}selected=""{%endif%}>超级链接(url)</option>
                                 <option value="range" {%if val.type == 'range'%}selected=""{%endif%}>范围(range)</option></select>
                             </td>
-                        <td><a href="/admin/type/edittype/optionid/{{val.optionid}}" class="text-info"> 详情</a></td>
+                        <td><a href="/admin/type/edittype/?optionid={{val.optionid}}" class="text-info"> 详情</a></td>
                     </tr>
                     {%endfor%}
 
@@ -114,7 +114,7 @@
              obj.title=$(v).find("input[name='title']").val();
              obj.identifier = $(v).find("input[name='identifier']").val()||0;
              obj.type = $(v).find("select[name='type']").val();
-             obj.classid = '{{http.get("classid")}}';
+             obj.classid = '{{controller.get("classid")}}';
              //console.log(obj);
              dataarr.push(obj);
          })

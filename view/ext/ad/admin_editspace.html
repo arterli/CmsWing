@@ -4,7 +4,7 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">{{controller.meta_title}}</h4>
         </div>
-        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{http.module}}/{{http.controller}}/editspace" data-validate="parsley">
+        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/editspace" data-validate="parsley">
         <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">名称</label>
@@ -91,7 +91,7 @@
             var name = $(this).val();
             if(name){
                 $.ajax({
-                    url:"/ext/ad/admin/gettemp/name/"+name,
+                    url:"/ext/ad/admin/gettemp/?name="+name,
                     success:function (data) {
                         var temp = [];
                         if(data.size==1){

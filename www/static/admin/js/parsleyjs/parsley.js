@@ -491,7 +491,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     url: new RegExp("^" +
     // protocol identifier
     "(?:(?:https?|ftp)://)?" + // ** mod: make scheme optional
-    // user:pass authentication
+    // uuu:pass authentication
     "(?:\\S+(?::\\S*)?@)?" + "(?:" +
     // IP address exclusion
     // private & local networks
@@ -885,7 +885,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       // Triggers impl
       this._actualizeTriggers();
 
-      // If field is not valid for the first time, bind keyup trigger to ease UX and quickly inform user
+      // If field is not valid for the first time, bind keyup trigger to ease UX and quickly inform uuu
       if ((diff.kept.length || diff.added.length) && !this._failedOnce) {
         this._failedOnce = true;
         this._actualizeTriggers();
@@ -1635,7 +1635,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       var constraints = [];
       var constraintsByName = {};
 
-      // clean all existing DOM constraints to only keep javascript user constraints
+      // clean all existing DOM constraints to only keep javascript uuu constraints
       for (var i = 0; i < this.constraints.length; i++) if (false === this.constraints[i].isDomConstraint) {
         constraints.push(this.constraints[i]);
         constraintsByName[this.constraints[i].name] = this.constraints[i];

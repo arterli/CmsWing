@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/static/admin/css/simple-line-icons.css" type="text/css" />
     <link rel="stylesheet" href="/static/admin/css/font.css" type="text/css" />
     <link rel="stylesheet" href="/static/admin/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/js/toastr/toastr.min.css" type="text/css"/>
     <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico" />
     <!--[if lt IE 9]>
     <script src="/static/admin/js/ie/html5shiv.js"></script>
@@ -26,20 +27,21 @@
         <a class="navbar-brand block" href="index.html"><span class="h1 font-bold">CmsWing</span></a>
         <section class="m-b-lg">
             <header class="wrapper text-center">
-                <strong>管理员登陆</strong>
+                <strong>管理员登陆{{controller.config("http_")}}</strong>
             </header>
             <form action="#" method="post" >
                 <div class="form-group">
-                    <input type="username" name="username" placeholder="用户名" class="form-control rounded input-lg text-center no-border">
+                    <input id="username" type="username" name="username" placeholder="用户名" class="form-control rounded input-lg text-center no-border">
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
+                    <input id="password" type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
                 </div>
-                {%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
+                {%if config.setup.GEETEST_IS_ADMLOGIN ==1%}
                 <div class="form-group">
-                    <div class="form-control rounded input-lg text-center no-border">
-                    <div id="captcha"></div>
-                    <p id="wait" class="show">正在加载验证码......</p>
+                    <div class="">
+                        <div id="captcha">
+                            <p id="wait" class=" text-center">正在加载验证码......</p>
+                        </div>
                     </div>
                 </div>
                 <div class="alert alert-danger hide" id="notice">
@@ -73,14 +75,104 @@
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/admin/js/app.plugin.js"></script>
-{%if controller.setup.GEETEST_IS_ADMLOGIN ==1%}
-{%if http.config("http_")==1%}
-<!-- 引入封装了failback的接口--initGeetest -->
-<script src="http://static.geetest.com/static/tools/gt.js"></script>
-{%else%}
-<!-- 若是https，使用以下接口 -->
-<script src="https://static.geetest.com/static/tools/gt.js"></script>
-{%endif%}
+<script src="/static/admin/js/toastr/toastr.min.js"></script>
+{%if config.setup.GEETEST_IS_ADMLOGIN ==1%}
+<script src="/static/admin/js/gt.js"></script>
+<script>
+    toastr.options = {
+        "positionClass": "toast-top-full-width",
+        "timeOut": "1500",
+
+    }
+    var handler = function (captchaObj) {
+        captchaObj.appendTo('#captcha');
+        captchaObj.onReady(function () {
+            $("#wait").hide();
+        });
+        $('#validate-submit').click(function () {
+
+            var result = captchaObj.getValidate();
+            if (!result) {
+                toastr.error('请完成验证');
+                return false;
+            }
+            var self = this;
+            $(self).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+            $.ajax({
+                url: '/admin/public/signin',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    geetest_challenge: result.geetest_challenge,
+                    geetest_validate: result.geetest_validate,
+                    geetest_seccode: result.geetest_seccode
+                },
+                success: function (data) {
+                    if (data.errno==0) {
+                        if (data.data.url) {
+
+                            toastr.success(data.data.name + ' 页面即将自动跳转~');
+                        }else{
+                            toastr.success(data.data.name);
+                        }
+                        setTimeout(function(){
+                            $(self).removeClass('disabled').prop('disabled',false);
+                            if (data.data.url) {
+                                location.href=data.data.url;
+                            }else if( $(this).hasClass('no-refresh')){
+                                toastr.clear()
+                            }else{
+                                location.reload();
+                            }
+                        },1500);
+                    }else{
+                        toastr.error(data.errmsg);
+
+                        //console.log(data);
+                        setTimeout(function(){
+                            $(self).removeClass('disabled').prop('disabled',false);
+                            captchaObj.reset();
+                            if (data.data) {
+                                location.href=data.data;
+                            }else{
+                                toastr.clear()
+                            }
+                        },1500);
+                    }
+                }
+            });
+            return false;
+        })
+        // 更多接口说明请参见：http://docs.geetest.com/install/client/web-front/
+    };
+
+
+    $.ajax({
+        url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+
+            // 调用 initGeetest 进行初始化
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+            initGeetest({
+                // 以下 4 个配置参数为必须，不能缺少
+                gt: data.gt,
+                challenge: data.challenge,
+                offline: !data.success, // 表示用户后台检测极验服务器是否宕机
+                new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+
+                product: "float", // 产品形式，包括：float，popup
+                width: "100%"
+                // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
+            }, handler);
+        }
+    });
+</script>
+{#
 <script>
     $(function () {
         var handlerEmbed = function (captchaObj) {
@@ -131,6 +223,7 @@
 
     })
 </script>
+#}
 {%endif%}
 </body>
 </html>

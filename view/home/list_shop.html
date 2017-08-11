@@ -1,0 +1,524 @@
+{% extends "./inc_base.html" %}
+{% block style%}
+<link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!-- 
+PAGE HEADER 
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs " >
+
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb f-14">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+        {%if category.pid ==0%}
+        {%column data="column",pid=category.id%}
+        {%else%}
+        {%column data="column",pid=category.pid%}
+        {%endif%}
+        {%if column%}
+        <ul class="page-header-tabs list-inline">
+
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+
+
+<!-- -->
+<section>
+    <div class="container">
+        <!--分类信息-->
+        {%if sort%}
+        {%if sort.types|length >1%}
+        <ul class="nav nav-tabs">
+            {%for val in sort.types%}
+            <li class="{%if sortid == val.enable%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{group_id}}-{{val.enable}}" >{{val.name}}</a></li>
+            {%endfor%}
+
+        </ul>
+        {%endif%}
+        <div class="tab-content table-bordered" style="padding: 0; margin-bottom: 20px; margin-top: -1px">
+            <table class="table table-hover  m-b-none bg-white" style="margin-top: -1px">
+                <tbody>
+                {% set typenum = 1%}
+                {%for val in typevar%}
+                {%if val.search > 1%}
+                <tr {% if typenum > 3 %} class="type_tr_m"  style="display:none"{%endif%} >
+                    <td style="width: 120px" class="text-right">
+                        {{val.option.title}}:
+                    </td>
+                    <td>
+                        {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
+                        <span class="btn btn-danger btn-xs relative">全部</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >全部</a>
+                        {%endif%}
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
+                        {%else%}
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+                        <div class="subtsm">
+
+                            {% for v_ in v.children %}
+                            {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                            <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                        <!--子栏目-->
+                        {%for v in val.rules %}
+                        {%if v.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v.children%}
+
+                        {% for v_ in v.children %}
+                        {%if v_.id|sort_act(nsobj[val.option.identifier])%}
+                        {% if v_.children%}
+                        <div class="subtsm">
+                            {% for v__ in v_.children %}
+
+                            {%if v__.id|sort_act(nsobj[val.option.identifier])%}
+
+                            <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
+                            {%else%}
+                            <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+
+                            {%endif%}
+                            {%endfor%}
+                        </div>
+                        {%endif%}
+                        {%endif%}
+                        {% endfor %}
+
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                    </td>
+
+                </tr>
+                {% set typenum = typenum+1%}
+                {%endif%}
+                {%endfor%}
+
+                </tbody>
+            </table>
+            {% if typenum > 4%}
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b1" style="border-top: 1px solid #cfd8e1; display: block"><span class="fa fa-chevron-down"></span></a>
+            <a href="javascript:;" class="center-block btn btn-xs btn-white type_tr_b2" style="border-top: 1px solid #cfd8e1; display: none"><span class="fa fa-chevron-up"></span></a>
+            {%endif%}
+        </div>
+
+        {%endif%}
+        <!--/分类信息-->
+        <div class="row">
+
+            <!-- RIGHT -->
+            <div class="col-lg-10 col-md-10 col-sm-10 col-lg-push-2 col-md-push-2 col-sm-push-2">
+
+                {#
+                <!-- CAROUSEL -->
+                <div class="owl-carousel buttons-autohide controlls-over margin-bottom-30 radius-4" data-plugin-options='{"singleItem": true, "autoPlay": 6000, "navigation": true, "pagination": true, "transitionStyle":"fade"}'>
+                    <!-- item -->
+                    <div>
+                        <div class="caption-slider-default">
+                            <div class="display-table">
+                                <div class="display-table-cell vertical-align-middle">
+                                    <div class="caption-container text-left">
+                                        <h2>全场 <strong>限时折扣</strong> &ndash; 50% OFF</h2>
+                                        <p>
+                                            这是一个商城分类页面的广告位<br />
+                                            你可以放置您的推广营销内容.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img class="img-responsive radius-4" src="/static/assets/images/demo/shop/banners/top_2.png" width="851" height="335" alt="">
+                    </div>
+                    <!-- /item -->
+
+                    <!-- item -->
+                    <div>
+
+                        <div class="caption-slider-default">
+                            <div class="display-table">
+                                <div class="display-table-cell vertical-align-middle">
+                                    <div class="caption-container text-left">
+                                        <h2>演示广告位置 <strong>就是这里</strong></h2>
+                                        <p>
+                                            这是一个商城分类页面的广告位<br />
+                                            你可以放置您的推广营销内容.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img class="img-responsive radius-4" src="/static/assets/images/demo/shop/banners/top_1.png" width="851" height="335" alt="">
+                    </div>
+                    <!-- /item -->
+
+                </div>
+                <!-- /CAROUSEL -->
+                #}
+
+
+                <!-- LIST OPTIONS -->
+                <div class="clearfix shop-list-options margin-bottom-20">
+                    <div class="nomargin pull-right">
+                        {{pagination | safe}}
+                    </div>
+
+
+                    <div class="options-left">
+                        <select>
+                            <option value="pos_asc">默认排序 高</option>
+                            <option value="pos_desc">默认排序 低</option>
+                            <option value="name_asc">销量排序 高</option>
+                            <option value="name_desc">销量排序 低</option>
+                            <option value="price_asc">价格排序 高</option>
+                            <option value="price_desc">价格排序 低</option>
+                        </select>
+
+                        <a class="btn active fa fa-th" href="shop-4col-left.html"><!-- grid --></a>
+                        <a class="btn fa fa-list" href="shop-1col-left.html"><!-- list --></a>
+                    </div>
+
+                </div>
+                <!-- /LIST OPTIONS -->
+
+
+                <ul class="shop-item-list1 row list-inline nomargin">
+                    {% for item in list%}
+                    <!-- ITEM -->
+                    <li class="col-xs-6 col-lg-3 col-md-3 col-sm-3 ">
+
+                        <div class="shop-item">
+                            {% set pic = item.pics|strToArray%}
+                            <div class="thumbnail" style="background-color: #fff">
+                                <!-- product image(s) -->
+                                <a class="shop-item-image" href="{{item.name|get_url(item.id)}}" title="{{item.title}}" target="_blank">
+                                    <img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=260,h=260')}}" alt="shop first image" />
+                                    {% if pic|length >1%}
+                                    <img class="img-responsive" src="{{pic[1]|get_pic('m=1,w=260,h=260')}}" alt="shop hover image" />
+                                    {% endif %}
+                                </a>
+                                <!-- /product image(s) -->
+
+                                <!-- hover buttons -->
+                                <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+
+                                    <a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+                                    <a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+                                </div>
+                                <!-- /hover buttons -->
+                                <!-- countdown -->
+                                <div class="shop-item-counter">
+                                    <div class="countdown" data-from="January 31, 2018 15:03:26" data-labels="年,月,周,天,时,分,秒"><!-- Example Date From: December 31, 2018 15:03:26 --></div>
+                                </div>
+                                <!-- /countdown -->
+                                <!-- product more info -->
+                                <div class="shop-item-info">
+                                    <span class="label label-success">新品</span>
+                                    <span class="label label-danger">热卖</span>
+                                </div>
+                                <!-- /product more info -->
+                            </div>
+
+                            <div class="shop-item-summary text-center">
+                                <h2 class="text-intercept"><a class=""  href="{{item.name|get_url(item.id)}}" title="{{item.title}}" target="_blank">{{item.title}}</a></h2>
+
+                                <!-- rating -->
+                                <div class="shop-item-rating-line">
+                                    <div class="rating rating-5 size-13"><!-- rating-0 ... rating-5 --></div>
+                                </div>
+                                <!-- /rating -->
+
+                                <!-- price -->
+                                <div class="shop-item-price text-danger f-16">
+                                    {% if item.price|get_price_format('2') %}<span class="line-through f-14">¥{{item.price|get_price_format('2')}}</span>{%endif%}
+                                    ¥{{item.price|get_price_format('1')}}
+                                </div>
+                                <!-- /price -->
+                            </div>
+                            {% set stock = item.id|getmodelfield(item.model_id,'total_stock') %}
+                            {% if stock == 0%}
+                            <!-- buttons -->
+                            <div class="shop-item-buttons text-center">
+                                <span class="out-of-stock">已售罄</span><!-- add .clean to remove css characteres -->
+                            </div>
+                            <!-- /buttons -->
+                            {% else %}
+                            <!-- buttons -->
+                            <div class="shop-item-buttons text-center">
+                                <a class="btn btn-default" href="{{item.name|get_url(item.id)}}"><i class="fa fa-cart-plus"></i> 立即购买 </a>
+                            </div>
+                            <!-- /buttons -->
+                            {% endif %}
+                        </div>
+
+                    </li>
+                    <!-- /ITEM -->
+                    {%endfor%}
+
+                </ul>
+
+                <hr />
+
+                <!-- Pagination Default -->
+                <div class="text-center">
+                    {{pagination | safe}}
+                </div>
+                <!-- /Pagination Default -->
+
+            </div>
+
+
+            <!-- LEFT -->
+            <div class="col-lg-2 col-md-2 col-sm-2 col-lg-pull-10 col-md-pull-10 col-sm-pull-10">
+
+                <!-- CATEGORIES -->
+                <div class="side-nav margin-bottom-40">
+
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>商城分类</h4>
+                    </div>
+
+
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                        <!--{{breadcrumb[1].id}}-->
+
+                        {% column data="list",tree=breadcrumb[0].id %}
+                        {% for val in list %}
+                        <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
+                        <li class="list-group-item {%if breadcrumb[1].id == val.id%}active {%endif%} ">
+                            <a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.url}}">{{val.name}}</a>
+                            {% if val.children %}
+                            <ul >
+                                {% for _val in val.children %}
+                                <li class="{%if breadcrumb[2].id == _val.id%}active {%endif%}"><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
+                                {%endfor%}
+
+                            </ul>
+                            {%endif%}
+                        </li>
+                        {%endfor%}
+
+                    </ul>
+
+                </div>
+                <!-- /CATEGORIES -->
+
+                <!-- BRANDS -->
+                <div class="side-nav margin-bottom-40 hidden-xs">
+
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>品牌</h4>
+                    </div>
+
+                    <ul class="list-group list-unstyled">
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(21)</span> Armani</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(44)</span> Nike</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(2)</span> Jolidon</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(18)</span> Ralph Lauren</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(87)</span> Lotto</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(32)</span> Fila</a></li>
+                        <li class="list-group-item"><a href="#"><span class="size-11 text-muted pull-right">(69)</span> Boss</a></li>
+                    </ul>
+
+                </div>
+                <!-- BRANDS -->
+
+
+                <!-- BANNER ROTATOR -->
+                <div class="owl-carousel buttons-autohide controlls-over margin-bottom-40 text-center hidden-xs" data-plugin-options='{"singleItem": true, "autoPlay": 4000, "navigation": true, "pagination": false, "transitionStyle":"goDown"}'>
+                    <a href="#">
+                        <img class="img-responsive" src="/static/assets/images/demo/shop/banners/off_1.png" width="270" height="350" alt="">
+                    </a>
+                    <a href="#">
+                        <img class="img-responsive" src="/static/assets/images/demo/shop/banners/off_2.png" width="270" height="350" alt="">
+                    </a>
+                </div>
+                <!-- /BANNER ROTATOR -->
+
+                {#
+                <!-- FEATURED -->
+                <div class="margin-bottom-40 hidden-xs">
+
+                    <h2 class="owl-featured">FEATURED</h2>
+                    <div class="owl-carousel featured" data-plugin-options='{"singleItem": true, "stopOnHover":false, "autoPlay":false, "autoHeight": false, "navigation": true, "pagination": false}'>
+
+                        <div><!-- SLIDE 1 -->
+                            <ul class="list-unstyled nomargin nopadding text-left">
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p10.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-12" href="#">Long Grey Dress - Special</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$132.00</div>
+                                </li><!-- /item -->
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p2.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-1" href="#">Black Fashion Hat</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$65.00</div>
+                                </li><!-- /item -->
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p13.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-1" href="#">Cotton 100% - Pink Dress</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$77.00</div>
+                                </li><!-- /item -->
+
+                            </ul>
+                        </div><!-- /SLIDE 1 -->
+
+                        <div><!-- SLIDE 2 -->
+                            <ul class="list-unstyled nomargin nopadding text-left">
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p12.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-12" href="#">Long Grey Dress - Special</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$132.00</div>
+                                </li><!-- /item -->
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p6.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-1" href="#">Black Fashion Hat</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$65.00</div>
+                                </li><!-- /item -->
+
+                                <li class="clearfix"><!-- item -->
+                                    <div class="thumbnail featured clearfix pull-left">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demo/shop/products/100x100/p14.jpg" width="80" height="80" alt="featured item">
+                                        </a>
+                                    </div>
+
+                                    <a class="block size-1" href="#">Cotton 100% - Pink Dress</a>
+                                    <div class="rating rating-4 size-13 width-100 text-left"><!-- rating-0 ... rating-5 --></div>
+                                    <div class="size-18 text-left">$77.00</div>
+                                </li><!-- /item -->
+
+                            </ul>
+                        </div><!-- /SLIDE 2 -->
+
+                    </div>
+
+                </div>
+                <!-- /FEATURED -->
+
+                <!-- HTML BLOCK -->
+                <div class="margin-bottom-40 hidden-xs">
+                    <h4>HTML BLOCK</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non placerat mi. Etiam non tellus eunit.</p>
+
+                    <form action="#" role="form" method="post">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" id="email" name="email" class="form-control required" placeholder="Enter your Email">
+                            <span class="input-group-btn">
+<button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+</span>
+                        </div>
+                    </form>
+
+                </div>
+                <!-- /HTML BLOCK -->
+                #}
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+
+{% endblock %}
+
+{% block script%}
+<!-- PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/static/assets/js/view/demo.shop.js"></script>
+
+{% endblock %}

@@ -17,7 +17,7 @@
                                             <input type="text" class="form-control" name="name" value="{{info.name if info.name else null}}"  data-required="true" data-Remote="/admin/setup/parsley">
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于this.model("setup").getset()函数调用，只能使用英文且不能重复</span>
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 用于<code>this.config('setup.配置标识')</code>函数调用，只能使用英文且不能重复</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                             <select class="form-control " name="type">
-                                                {% for index, items in setup.CONFIG_TYPE_LIST %}
+                                                {% for index, items in config.setup.CONFIG_TYPE_LIST %}
                                                 <option value="{{index}}" {% if info.type == index %} selected {% endif %}>{{items}}</option>
                                                 {% endfor%}
                                             </select>
@@ -79,7 +79,7 @@
                                                 <div class="col-md-3">
                                             <select class="form-control " name="group">
                                                 <option value="0">不分组</option>
-                                                {% for index, items in setup.CONFIG_GROUP_LIST %}
+                                                {% for index, items in config.setup.CONFIG_GROUP_LIST %}
                                                 <option value="{{index}}" {% if info.group == index %} selected {% endif %}>{{items}}</option>
                                                 {% endfor%}
                                             </select>

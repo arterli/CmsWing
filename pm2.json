@@ -1,16 +1,15 @@
 {
   "apps": [{
-    "name": "cmswing",
-    "script": "www/production.js",
-    "cwd": "/usr/web/cmswing",
-    "exec_mode": "cluster",
-    "instances": 0,
+    "name": "CMSWing",
+    "script": "production.js",
+    "cwd": "/home/www.cmswing.net",
+    "exec_mode": "fork",
     "max_memory_restart": "1G",
     "autorestart": true,
     "node_args": [],
     "args": [],
     "env": {
-
+      
     }
   }]
 }

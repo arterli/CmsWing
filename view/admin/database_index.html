@@ -148,6 +148,16 @@
                 "url": "/admin/database/export",
                 "data": {"tables": tables},
                 "success": function (data) {
+                    if(data.errno==20){
+                        toastr.error(data.errmsg);
+                        setTimeout(function(){
+                            $export.removeClass('active disabled').removeAttr("disabled").html("重建索引完成")
+                            $("#spin").removeClass('show inline')
+                        },1500);
+
+                        return;
+                    }
+
                     if (data.status) {
                         tables = data.tables;
                         backup(data.tab, data.status, data.tables);

@@ -9,17 +9,17 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/temp">模板设置</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/setting">插件配置</a></li>
+                                    <li class="active"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/temp">模板设置</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
                                 </ul>
                                 <!--<span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>-->
                             </header>
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
-                                    <a href="/{{http.module}}/{{http.controller}}/addspace" class="btn btn-s-md btn-primary" data-toggle="ajaxModal">添加广告位</a>
-                                    <a href="/{{http.module}}/{{http.controller}}/adcache" class="btn btn-s-md btn-dark ajax-get">更新广告缓存</a>
+                                    <a href="/{{ctx.controller}}/addspace" class="btn btn-s-md btn-primary" data-toggle="ajaxModal">添加广告位</a>
+                                    <a href="/{{ctx.controller}}/adcache" class="btn btn-s-md btn-dark ajax-get">更新广告缓存</a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -45,12 +45,12 @@
                                         <td>{{item.items}}</td>
                                         <td>{{item.description}}</td>
                                         <td>
-                                            <a href="/{{http.module}}/{{http.controller}}/showad/spaceid/{{item.spaceid}}" class="text-info" target="_blank">预览</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/code/spaceid/{{item.spaceid}}" class="text-info" data-toggle="ajaxModal">调用代码</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/adlist/spaceid/{{item.spaceid}}" class="text-info" >广告列表</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/editspace/spaceid/{{item.spaceid}}" class="text-info" data-toggle="ajaxModal">修改</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/delspace/ids/{{item.spaceid}}" class="confirm ajax-get text-info">删除</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/addad/spaceid/{{item.spaceid}}" class="text-info">添加广告</a>
+                                            <a href="/{{ctx.controller}}/showad/?spaceid={{item.spaceid}}" class="text-info" target="_blank">预览</a>
+                                            <a href="/{{ctx.controller}}/code/?spaceid={{item.spaceid}}" class="text-info" data-toggle="ajaxModal">调用代码</a>
+                                            <a href="/{{ctx.controller}}/adlist/?spaceid={{item.spaceid}}" class="text-info" >广告列表</a>
+                                            <a href="/{{ctx.controller}}/editspace/?spaceid={{item.spaceid}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                                            <a href="/{{ctx.controller}}/delspace/?ids={{item.spaceid}}" class="confirm ajax-get text-info">删除</a>
+                                            <a href="/{{ctx.controller}}/addad/?spaceid={{item.spaceid}}" class="text-info">添加广告</a>
                                         </td>
 
 
@@ -72,7 +72,7 @@
 
                                     <div class="col-sm-6 text-center-xs">
                                         <div class="btn-group">
-                                            <a href="/{{http.module}}/{{http.controller}}/delspace" class="btn btn-default ajax-post confirm" target-form="ids">删除选定广告位</a>
+                                            <a href="/{{ctx.controller}}/delspace" class="btn btn-default ajax-post confirm" target-form="ids">删除选定广告位</a>
                                         </div>
                                     </div>
 

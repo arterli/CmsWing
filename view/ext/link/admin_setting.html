@@ -9,17 +9,17 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/apply">审核申请</a></li>
-                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/setting">插件配置</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/type">分类管理</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/apply">审核申请</a></li>
+                                    <li class="active"><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/type">分类管理</a></li>
                                 </ul>
-                                <span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
+                                <span class="hidden-sm"><a href="/{{ctx.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
                             </header>
 
                             <div class="row wrapper" style="padding-bottom: 0">
                                 <div class="panel-body">
-                                    <form action="/{{http.module}}/{{http.controller}}/setting" class="form-horizontal" method="post"
+                                    <form action="/{{ctx.controller}}/setting" class="form-horizontal" method="post"
                                           data-validate="parsley">
                                             <!--自定义配置开始-->
                                                 <div class="form-group">

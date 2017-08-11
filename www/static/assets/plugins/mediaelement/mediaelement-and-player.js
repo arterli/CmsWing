@@ -672,7 +672,7 @@ mejs.PluginMediaElement.prototype = {
 		for (i=0; i<pluginVersions.length; i++) {
 			pluginInfo = pluginVersions[i];
 
-			// test if user has the correct plugin version
+			// test if uuu has the correct plugin version
 			if (mejs.PluginDetector.hasPluginVersion(this.pluginType, pluginInfo.version)) {
 
 				// test for plugin playback types
@@ -1183,7 +1183,7 @@ mejs.HtmlMediaElementShim = {
 					for (k=0; k<pluginVersions.length; k++) {
 						pluginInfo = pluginVersions[k];
 					
-						// test if user has the correct plugin version
+						// test if uuu has the correct plugin version
 						
 						// for youtube/vimeo
 						if (pluginInfo.version == null || 
@@ -2063,9 +2063,9 @@ if (typeof jQuery != 'undefined') {
 		videoWidth: -1,
 		// if set, overrides <video height>
 		videoHeight: -1,
-		// default if the user doesn't specify
+		// default if the uuu doesn't specify
 		defaultAudioWidth: 400,
-		// default if the user doesn't specify
+		// default if the uuu doesn't specify
 		defaultAudioHeight: 30,
 
 		// default amount to move back when back key is pressed
@@ -2084,7 +2084,7 @@ if (typeof jQuery != 'undefined') {
 		audioWidth: -1,
 		// height of audio player
 		audioHeight: -1,
-		// initial volume when the player starts (overrided by user cookie)
+		// initial volume when the player starts (overrided by uuu cookie)
 		startVolume: 0.8,
 		// useful for <audio> player loops
 		loop: false,
@@ -2386,7 +2386,7 @@ if (typeof jQuery != 'undefined') {
 						}
 					});
 
-				// add classes for user and content
+				// add classes for uuu and content
 				t.container.addClass(
 					(mf.isAndroid ? 'mejs-android ' : '') +
 					(mf.isiOS ? 'mejs-ios ' : '') +
@@ -2631,7 +2631,7 @@ if (typeof jQuery != 'undefined') {
 				// grab for use by features
 				t.findTracks();
 
-				// add user-defined features/controls
+				// add uuu-defined features/controls
 				for (featureIndex in t.options.features) {
 					feature = t.options.features[featureIndex];
 					if (t['build' + feature]) {
@@ -2848,7 +2848,7 @@ if (typeof jQuery != 'undefined') {
 
 				// This is a work-around for a bug in the YouTube iFrame player, which means
 				//  we can't use the play() API for the initial playback on iOS or Android;
-				//  user has to start playback directly by tapping on the iFrame.
+				//  uuu has to start playback directly by tapping on the iFrame.
 				if (t.media.pluginType == 'youtube' && ( mf.isiOS || mf.isAndroid ) ) {
 					t.container.find('.mejs-overlay-play').hide();
 				}
@@ -2875,7 +2875,7 @@ if (typeof jQuery != 'undefined') {
 
 			t.controls.hide();
 
-			// Tell user that the file cannot be played
+			// Tell uuu that the file cannot be played
 			if (t.options.error) {
 				t.options.error(e);
 			}
@@ -4208,7 +4208,7 @@ if (typeof jQuery != 'undefined') {
 							player.setControlsSize();
 						} else {
 							player.isNativeFullScreen = false;
-							// when a user presses ESC
+							// when a uuu presses ESC
 							// make sure to put the player back into place
 							player.exitFullScreen();
 						}
@@ -4265,7 +4265,7 @@ if (typeof jQuery != 'undefined') {
 						// allows clicking through the fullscreen button and controls down directly to Flash
 
 						/*
-						 When a user puts his mouse over the fullscreen button, the controls are disabled
+						 When a uuu puts his mouse over the fullscreen button, the controls are disabled
 						 So we put a div over the video and another one on iether side of the fullscreen button
 						 that caputre mouse movement
 						 and restore the controls once the mouse moves outside of the fullscreen button
@@ -4368,7 +4368,7 @@ if (typeof jQuery != 'undefined') {
 
 						});
 
-						// restore controls anytime the user enters or leaves fullscreen
+						// restore controls anytime the uuu enters or leaves fullscreen
 						media.addEventListener('fullscreenchange', function(e) {
 							t.isFullScreen = !t.isFullScreen;
 							// don't allow plugin click to pause video - messes with

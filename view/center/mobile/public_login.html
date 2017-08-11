@@ -1,0 +1,287 @@
+
+{% extends "./inc/appbase.html" %}
+{% block style%}
+<style>
+    .area {
+        margin: 20px auto 0px auto;
+    }
+
+    .mui-input-group {
+        margin-top: 10px;
+    }
+
+    .mui-input-group:first-child {
+        margin-top: 20px;
+    }
+
+    .mui-input-group label {
+        width: 22%;
+    }
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+        width: 78%;
+    }
+
+    .mui-checkbox input[type=checkbox],
+    .mui-radio input[type=radio] {
+        top: 6px;
+    }
+
+    .mui-content-padded {
+        margin-top: 25px;
+    }
+
+    .mui-btn {
+        padding: 10px;
+    }
+
+    .link-area {
+        display: block;
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    .spliter {
+        color: #bbb;
+        padding: 0px 8px;
+    }
+
+    .oauth-area {
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .oauth-area .oauth-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: 30px 30px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin: 0px 20px;
+        /*-webkit-filter: grayscale(100%); */
+        border: solid 1px #ddd;
+        border-radius: 25px;
+    }
+
+    .oauth-area .oauth-btn:active {
+        border: solid 1px #aaa;
+    }
+
+    .oauth-area .oauth-btn.disabled {
+        background-color: #ddd;
+    }
+
+    /* 以下遮罩层为demo.用户可自行设计实现 */
+    #mask {
+        display: none;
+        position: fixed;
+        text-align: center;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        overflow: auto;
+    }
+
+    /* 可自行设计实现captcha的位置大小 */
+    .popup-mobile {
+        position: relative;
+    }
+
+    #popup-captcha-mobile {
+        position: fixed;
+        display: none;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+    .show {
+        display: block !important;
+    }
+    .hide {
+        display: none;
+    }
+</style>
+{%endblock%}
+{% block content%}
+<header class="mui-bar mui-bar-nav">
+    <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+</header>
+<div class="mui-content">
+    <form id='login-form' class="mui-input-group">
+        <div class="mui-input-row">
+            <label>账号</label>
+            <input id='account' type="text" value="" name="username" class="mui-input-clear mui-input" placeholder="邮箱/手机号/昵称">
+        </div>
+        <div class="mui-input-row">
+            <label>密码</label>
+            <input id='password' type="password" value="" name="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+        </div>
+    </form>
+    <form class="mui-input-group">
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell">
+                自动登录
+                <div id="autoLogin" class="mui-switch">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <div class="mui-content-padded">
+
+        <button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
+        <div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+        </div>
+    </div>
+    {%if config.setup.GEETEST_IS_LOGIN ==1%}
+    <div id="mask" class="hide"></div>
+    <div id="popup-captcha-mobile" class="hide"></div>
+    {%endif%}
+    <div class="mui-content-padded oauth-area">
+        <a  href="/center/qq" class="oauth-btn" style="background: url('/static/mobile/img/qq.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+        <div class="oauth-btn weixin" style="background: url('/static/mobile/img/weixin.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></div>
+        <a href="/center/sina" class="oauth-btn" style="background: url('/static/mobile/img/sinaweibo.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+{%if config.setup.GEETEST_IS_LOGIN ==1%}
+<!-- 若是https，使用以下接口 -->
+<script src="//static.geetest.com/static/tools/gt.js"></script>
+{%endif%}
+<script>
+    var btn = document.getElementById("login"),account = document.getElementById("account"),password = document.getElementById("password");
+    var href = "{{ctx.referrer()}}"==""?"/center/public/login":"{{ctx.referrer()}}";
+
+    {%if config.setup.GEETEST_IS_LOGIN ==1%}
+    var pop=document.getElementById("popup-captcha-mobile"),
+            mask=document.getElementById("mask");
+    var show = function (ele) {
+        ele.className = ele.className.replace("hide", "show");
+    };
+    var hide = function (ele) {
+        ele.className = ele.className.replace("show", "hide");
+    };
+    mask.addEventListener("tap", function () {
+        hide(mask);
+        hide(pop);
+    });
+    btn.addEventListener("tap", function () {
+        if(!account.value){
+            mui.toast("账号不能为空");
+            return;
+        }
+        if(!password.value){
+            mui.toast("密码不能为空");
+            return;
+        }
+        show(pop);
+        show(mask);
+    });
+    var handlerPopupMobile = function (captchaObj) {
+
+        // 将验证码加到id为captcha的元素里
+        captchaObj.appendTo("#popup-captcha-mobile");
+        //拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
+        captchaObj.onSuccess(function () {
+            var validate = captchaObj.getValidate();
+
+            mui.ajax({
+                url: "/center/public/login/?type=mobile", // 进行二次验证
+                type: "post",
+                dataType: "json",
+                data: {
+                    // 二次验证所需的三个值
+                    username:account.value,
+                    password:password.value,
+                    geetest_challenge: validate.geetest_challenge,
+                    geetest_validate: validate.geetest_validate,
+                    geetest_seccode: validate.geetest_seccode
+                },
+                success: function (data) {
+                    if (data && (data.errno < 0)) {
+                        mui.toast(data.errmsg);
+                        if(data.errno !=  -3){
+                            hide(mask);
+                            hide(pop);
+                        }
+                        captchaObj.refresh();
+                    } else {
+                        hide(mask);
+                        hide(pop);
+                        mui.toast(data.data.name);
+                    setTimeout(function(){
+                        mui.openWindow({url: href})
+
+                    },1500);
+                    }
+                }
+            });
+        });
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+    };
+    mui.ajax({
+        // 获取id，challenge，success（是否启用failback）
+        url: "/admin/public/geetest/?type=mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "get",
+        dataType: "json",
+        success: function (data) {
+            // 使用initGeetest接口
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+            initGeetest({
+                gt: data.gt,
+                challenge: data.challenge,
+                offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+                // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+            }, handlerPopupMobile);
+        }
+    });
+    {%else%}
+    btn.addEventListener("tap", function () {
+        if(!account.value){
+            mui.toast("账号不能为空");
+            return;
+        }
+        if(!password.value){
+            mui.toast("密码不能为空");
+            return;
+        }
+        mui.post('/center/public/login',{
+            username:account.value,
+            password:password.value
+                },function(msg){
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+            if(msg.errno < 0){
+                mui.toast(msg.errmsg);
+            }else{
+                //$('#ajaxModal').remove();
+                mui.toast(msg.data.name);
+                setTimeout(function(){
+                    mui.openWindow({url: href})
+
+                },1500);
+            }
+                },'json'
+        );
+
+    });
+
+    {%endif%}
+</script>
+
+{% endblock %}

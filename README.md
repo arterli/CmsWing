@@ -1,3 +1,7 @@
+## 特别提示
+```
+本项目已升级到ThinkJS 3.0 ,项目运行的 Node 版本大于 7.6.0（推荐使用 8.x.x LTS 版本）;
+```
 ## git
 
 > github地址：[https://github.com/arterli/CmsWing](https://github.com/arterli/CmsWing)
@@ -36,11 +40,6 @@ use pm2 to deploy app on production envrioment.
 ```
 pm2 startOrGracefulReload pm2.json
 ```
-
-## 使用 Docker 容器部署 cmswing
-
-- [使用 docker 部署 cmswing 文档](./docker/readme.md)
-
 
 ## 后台账号密码1
 ```

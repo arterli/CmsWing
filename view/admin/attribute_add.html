@@ -4,7 +4,7 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <p>{{meta_title}} <strong class="text-primary-dker">{{modelname}}</strong> 字段 <a
-                href="/admin/attribute/index/model_id/{{model_id}}" class="text-info-dk"><i class="fa fa-reply"></i> 返回列表</a>
+                href="/admin/attribute/index/?model_id={{model_id}}" class="text-info-dk"><i class="fa fa-reply"></i> 返回列表</a>
         </p>
     </header>
     <section class="scrollable wrapper">
@@ -33,7 +33,7 @@
 
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <input type="text" class="form-control  " name="name" value="{{info.name}}" data-required="true" data-Remote="/admin/attribute/checkname/model_id/{{model_id}}/id/{{info.id}}">
+                                                    <input type="text" class="form-control  " name="name" value="{{info.name}}" data-required="true" data-Remote="/admin/attribute/checkname/?model_id={{model_id}}&id={{info.id}}">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入字段名 英文字母开头，长度不超过30</span>

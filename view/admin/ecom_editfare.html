@@ -51,7 +51,7 @@
                                                     </div></td>
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" > <div class="input-group ">
                                                         <input data-required="true" type="text" placeholder="首重运费" class="form-control" name="first_price" value="{{info.first_price}}">
-                                                        <span class="input-group-addon">{{controller.setup.UNIT}}</span>
+                                                        <span class="input-group-addon">{{config.setup.UNIT}}</span>
                                                     </div></td>
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" ><div class=" input-group ">
                                                         <span class="input-group-addon">每增加</span>
@@ -61,7 +61,7 @@
                                                     <td style="border-top: 0px; padding-left: 0; padding-top: 0" > <div class="input-group ">
                                                         <span class="input-group-addon">增加运费</span>
                                                         <input data-required="true" type="text" placeholder="增加运费" class="form-control" name="second_price" value="{{info.second_price}}">
-                                                        <span class="input-group-addon">{{controller.setup.UNIT}}</span>
+                                                        <span class="input-group-addon">{{config.setup.UNIT}}</span>
                                                     </div></td>
                                                 </tr>
                                                 </tbody>
@@ -108,7 +108,7 @@
                                                         {% set zoning = info.zoning|strToJson %}
                                                         {%set i = 1%}
                                                         {% for v in zoning %}
-                                                        <tr id="tr{{i}}"><td><input type="hidden" class="area" value="{{v.area}}"><input type="hidden" class="selectarea" value="{{v.selectarea}}"> <div class="tohtml" >{{v.title|safe}}</div> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea/id/tr{{i}}" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="{{v.f_weight}}" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="{{v.f_price|formatCurrency}}" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="{{v.s_weight}}" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="{{v.s_price|formatCurrency}}" class="form-control s_price"></td></tr>
+                                                        <tr id="tr{{i}}"><td><input type="hidden" class="area" value="{{v.area}}"><input type="hidden" class="selectarea" value="{{v.selectarea}}"> <div class="tohtml" >{{v.title|safe}}</div> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea/?id=tr{{i}}" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="{{v.f_weight}}" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="{{v.f_price|formatCurrency}}" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="{{v.s_weight}}" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="{{v.s_price|formatCurrency}}" class="form-control s_price"></td></tr>
                                                         {%set i = i+1%}
                                                         {% endfor%}
                                                         </tbody>
@@ -183,7 +183,7 @@
     function addTr(num){
         var html = ""
 
-        html += '<tr id="tr'+num+'"><td><input type="hidden" class="area" value=""><input type="hidden" class="selectarea" value=""> <div class="tohtml" ><a data-toggle="ajaxModal" href="/admin/ecom/farearea/id/tr'+num+'" class="text-info">添加可配送区域</a></div> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea/id/tr'+num+'" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="1000" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="1000" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control s_price"></td></tr>'
+        html += '<tr id="tr'+num+'"><td><input type="hidden" class="area" value=""><input type="hidden" class="selectarea" value=""> <div class="tohtml" ><a data-toggle="ajaxModal" href="/admin/ecom/farearea/?id=tr'+num+'" class="text-info">添加可配送区域</a></div> <span class="pull-right"> <a data-toggle="ajaxModal" href="/admin/ecom/farearea/?id=tr'+num+'" class="text-info">编辑</a> <a href="javascript:;" class="text-info remove_fare">删除</a></span> </td> <td class="active"><input data-required="true" type="text" placeholder="" value="1000" class="form-control f_weight" ></td> <td class="active"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control f_price"></td> <td class="warning"><input data-required="true" type="text" placeholder="" value="1000" class="form-control s_weight"></td> <td class="warning"><input data-required="true" type="text" placeholder="填写价格" value="" class="form-control s_price"></td></tr>'
 
         $("#addfare tbody").append(html);
     }

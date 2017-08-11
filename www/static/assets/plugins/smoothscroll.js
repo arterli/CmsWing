@@ -348,7 +348,7 @@
 				var modifier = event.ctrlKey || event.altKey || event.metaKey ||
 							  (event.shiftKey && event.keyCode !== key.spacebar);
 
-				// do nothing if user is editing text
+				// do nothing if uuu is editing text
 				// or using a modifier key (except shift)
 				// or in a dropdown
 				if ( /input|textarea|select|embed/i.test(target.nodeName) ||

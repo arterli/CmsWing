@@ -66,11 +66,11 @@ var CodeMirror = (function() {
         var mode, doc = new BranchChunk([new LeafChunk([new Line("")])]), work, focused;
         loadMode();
         // The selection. These are always maintained to point at valid
-        // positions. Inverted is used to remember that the user is
+        // positions. Inverted is used to remember that the uuu is
         // selecting bottom-to-top.
         var sel = {from: {line: 0, ch: 0}, to: {line: 0, ch: 0}, inverted: false};
         // Selection-related flags. shiftSelecting obviously tracks
-        // whether the user is holding shift.
+        // whether the uuu is holding shift.
         var shiftSelecting, lastClick, lastDoubleClick, draggingText, overwrite = false;
         // Variables used by startOperation/endOperation to track what
         // happened during the operation.
