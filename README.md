@@ -3,7 +3,6 @@
 本项目已升级到ThinkJS 3.0 ,项目运行的 Node 版本大于 7.6.0（推荐使用 8.x.x LTS 版本）;
 ```
 ## git
-
 > github地址：[https://github.com/arterli/CmsWing](https://github.com/arterli/CmsWing)
 
 > 码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
