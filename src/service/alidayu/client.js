@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const TopClient = require('./topclient').TopClient;
+const TopClient = require('./topClient').TopClient;
 module.exports =  class extends think.Service {
   /**
    * init

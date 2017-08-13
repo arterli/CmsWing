@@ -35,13 +35,11 @@ module.exports = class extends think.Controller {
         let url = `${this.ctx.controller}/${this.ctx.action}`;
         //console.log(url);
         if (!this.is_admin) {
-            let Auth = think.adapter("auth", "rbac");
-            let auth = new Auth(this.user.uid);
+            let auth = this.service("rbac",this.user.uid);
             let res = await auth.check(url);
             if (!res) {
-                //return this.fail('未授权访问!');
-                this.http.error = new Error('未授权访问!');
-                return think.statusAction(702, this.http);
+                const error = this.controller("common/error");
+                return error.noAction('未授权访问!')
             }
         }
 
