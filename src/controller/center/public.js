@@ -137,7 +137,7 @@ module.exports = class extends Center {
     }
 //获取短信验证码
     async verifycodesendAction(){
-        if(!this.isPost()){
+        if(!this.isPost){
             return this.fail("请求错误！")
         }
         let data = this.post();
@@ -161,8 +161,7 @@ module.exports = class extends Center {
             return this.fail("发送过于频发请24小时后，再尝试。")
         }
 
-        let dayu = think.adapter("alidayu", "client");
-        let instance = new dayu();
+        let dayu = this.service("alidayu/client");
         let qianming = this.config('setup.SMS_qianming');
         let temp_code;
         if(data.type ==1){
@@ -176,7 +175,7 @@ module.exports = class extends Center {
             'rec_num':data.mobile,
             'sms_template_code':temp_code
         }
-        let result = await instance.send(info);
+        let result = await dayu.send(info);
         // let result ={ err_code: '0',
         //     model: '102201717069^1102848633337',
         //     success: true }
@@ -214,7 +213,7 @@ module.exports = class extends Center {
         data.username = data.mobile;
         data.status = 1;
         data.reg_time = new Date().valueOf();
-        data.reg_ip = _ip2int(this.ip());
+        data.reg_ip = _ip2int(this.ip);
         data.password = encryptPassword(data.password);
         let reg = await this.model("member").add(data);
         if(reg){

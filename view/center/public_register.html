@@ -49,8 +49,8 @@
 							</div>
 							-->
                 <!-- /ALERT -->
-{%if controller.setup.USER_ALLOW_REGISTER ==1%}
-				{%if controller.setup.USER_ALLOW_SMSREGISTER == 1%}
+{%if config.setup.USER_ALLOW_REGISTER ==1%}
+				{%if config.setup.USER_ALLOW_SMSREGISTER == 1%}
                 <!-- register form 短信注册-->
                 <form class="nomargin sky-form boxed registerpost" action="/center/public/smsreg" method="post">
                     <header>
@@ -59,7 +59,7 @@
                     <fieldset class="nomargin">
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-mobile"></i>
-							<input type="text" placeholder="可用于登录和找回密码" name="mobile">
+							<input type="text" placeholder="请输入中国大陆手机号" name="mobile">
 							<b class="tooltip tooltip-bottom-right">请输入中国大陆手机号</b>
 						</label>
                         <label class="input margin-bottom-10">
@@ -366,7 +366,7 @@
 {% block script %}
 <!-- PAGE LEVEL SCRIPTS -->
 		<script type="text/javascript">
-			{% if controller.setup.USER_ALLOW_SMSREGISTER == 1 %}
+			{% if config.setup.USER_ALLOW_SMSREGISTER == 1 %}
        $("#verifycodesend").click(function () {
 		   var that = this;
 		   var mobile = $("input[name='mobile']").val();
@@ -380,7 +380,7 @@
 		   $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 		   $.ajax({
 			   type:"post",
-			   url:"/uc/public/verifycodesend",
+			   url:"/center/public/verifycodesend",
 			   data:{mobile:mobile,type:type,check:1},
 			   success:function (data) {
 				   if(data.err_code==0){
