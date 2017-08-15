@@ -827,6 +827,15 @@ module.exports = class extends Home {
     let res = await model.where(map).select();
     return this.json(res);
   }
+   //删除投稿/软删除
+    async setstatusAction(){
 
+        let res = await this.model('document').where({id:this.get("ids")}).update({ 'status': -1 });
+        if(res){
+            return this.success({name:"删除成功!"});
+        }else {
+            return this.fail("操作失败!");
+        }
+    }
 }
 

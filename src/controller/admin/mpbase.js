@@ -1223,7 +1223,7 @@ async xxxAction(){
                 material_content = JSON.parse(material_content);
                 let targetArr = [];
                 let articles = material_content.articles;
-                let host = `http://${this.http.host}`
+                let host = `http://${this.ctx.host}`
                 for (let key in articles) {
                     let tmpobj = {};
                     tmpobj.title = articles[key]['title'];
