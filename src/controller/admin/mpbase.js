@@ -838,7 +838,7 @@ async xxxAction(){
         }
         if (img_result) {
             //删除远程文件
-            fs.unlinkSync(paths);
+           if (type != 0) fs.unlinkSync(paths);
             await model.where({id: thumb_id}).update({url: img_result.url, source_id: img_result.media_id});
             img_result.hs_image_src = pic;
             return this.json(img_result);

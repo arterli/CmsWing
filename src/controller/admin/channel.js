@@ -58,7 +58,7 @@ module.exports = class extends Base {
         this.assign('info',info);
         this.meta_title = "编辑导航";
         this.active="admin/channel/index";
-        return this.display('add');
+        return this.display('admin/channel_add');
     }
     //更新或者新增导航
    async updatesAction(){
