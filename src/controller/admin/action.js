@@ -73,7 +73,7 @@ module.exports = class extends Base {
     this.active="admin/action/index";
     this.meta_title = "编辑行为";
     this.assign("data",data);
-    return this.display('add');
+    return this.display('admin/action_add');
   }
 
   /**

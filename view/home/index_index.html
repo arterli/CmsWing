@@ -3,11 +3,11 @@
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
-<section class="alternate parallax-2">
-	<div class="overlay dark-0"><!-- dark overlay [1 to 9 opacity] --></div>
-	<div class="container " style="position: relative;z-index: 10">
+<section>
+	<div class="container">
 		{{11|show_ad("code")|safe}}
 		<div class="row">
+
 			<div class="col-md-9">
 				<!-- REVOLUTION SLIDER -->
 				<div class="slider fullwidthbanner-container roundedcorners margin-bottom-0">
@@ -113,65 +113,37 @@
 				<!-- /REVOLUTION SLIDER -->
 			</div>
 			<div class="col-md-3">
-				<div class="box-light padding-10 ">
-					<div class="box-inner">
-						<h3>
-							<a class="pull-right size-11 text-warning" href="#"></a>
-							热点
-						</h3>
-						<div class="slimscroll" style="height: 247px" data-always-visible="true" data-size="5px" data-position="right" data-opacity="0.4" disable-body-scroll="true">
-							{%model data="authorlist",table="document",order="update_time DESC",limit="10"%}
+				<div class="panel panel-default margin-bottom-0">
+					<div class="panel-heading">
+						<a class="btn btn-primary btn-xs pull-right"><i class="fa fa-fire"></i></a>
+						<h2 class="panel-title">热点</h2>
+					</div>
+					<div class="panel-body con " style="height: 354px">
+						<ol class="current">
+							{%model data="authorlist",table="document",order="view DESC,create_time DESC",limit="10"%}
 							{% for val in authorlist %}
-							<div class="clearfix margin-bottom-10"><!-- post item -->
-								<img class="thumbnail pull-left margin-right-10" src="{{val.cover_id|get_pic('m=1,w=100,h=100')}}" width="60" height="60" alt="" />
-								<h4 class="size-14 nomargin noborder nopadding"><a href="{{val.name|get_url(val.id)}}" target="_blank">{{val.title}}</a></h4>
-								<span class="size-12 text-muted">{{val.description|truncate(20, true, "...")}}</span>
-							</div><!-- /post item -->
+							<li>
+								<span {%if loop.index < 4 %}class="topRank"{%endif%}>{{loop.index}}</span><a target="_blank" href="{{val.name|get_url(val.id)}}">{{val.title}}</a>
+							</li>
 							{%endfor%}
-
-						</div>
+							</ol>
 					</div>
-
-					<div class="box-footer">
-						<!-- INLINE SEARCH -->
-						<div class="inline-search clearfix">
-							<form action="#" method="get" class="widget_search nomargin">
-								<input type="search" placeholder="Search Post..." name="s" class="serch-input">
-								<button type="submit">
-									<i class="fa fa-search"></i>
-								</button>
-								<div class="clear"></div>
-							</form>
-						</div>
-						<!-- /INLINE SEARCH -->
-
-					</div>
-
 				</div>
+
 			</div>
-
-		</div>
-
-		{%if 14|show_ad('code')%}
-		<!-- INFO BAR -->
-		<div class="margin-top-20">
-			{{14|show_ad('code')|safe}}
-		</div>
-		<!-- /INFO BAR -->
-		{%endif%}
-	</div>
-</section>
-<section>
-	<div class="container">
-
-		<div class="row">
-
+			{%if 14|show_ad('code') %}
+			<!-- INFO BAR -->
+			<div class="margin-top-20 col-md-12 ">
+				{{14|show_ad('code')|safe}}
+			</div>
+			<!-- /INFO BAR -->
+			{%endif%}
 			<!-- RIGHT -->
-			<div class="col-sm-9">
-				<ul class="nav nav-tabs nav-justified">
-					<li class="active"><a href="#new" data-toggle="tab">最新</a></li>
-					<li ><a href="#hot" data-toggle="tab">最热</a></li>
-					<li><a href="#wenda" data-toggle="tab">问答</a></li>
+			<div class="col-sm-9 margin-top-20">
+
+				<ul class="nav nav-tabs nav-justified" style="position: inherit;background-color: #f1f2f7">
+					<li class="active"><a href="#new" data-toggle="tab" class="size-18">最新</a></li>
+					<li><a href="#wenda" data-toggle="tab" class="size-18">问答</a></li>
 					{#
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -182,6 +154,8 @@
 					</li>
 					#}
 				</ul>
+				<div class="panel panel-default" style="margin-top: -5px">
+					<div class="panel-body">
 
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="new">
@@ -343,167 +317,8 @@
 						{%endif%}
 						{%endfor%}
 					</div>
-					<div class="tab-pane fade" id="hot">
-						{% topic data = "hotlist",limit="10",type="hot"%}
-						{% for val in hotlist %}
-						{% set categoryname = val.category_id|get_cate %}
-						{%if val.model_id==4%}
-						{% set pic = val.pics|strToArray%}
-						<!-- POST ITEM -->
-						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
-
-							<!-- IMAGE -->
-							{% if pic[0]>0 %}
-							<figure class="blog-item-small-image margin-bottom-0">
-								<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=200,h=120')}}" alt="">
-							</figure>
-							{% endif %}
-							<div class="blog-item-small-content">
-								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
-
-								<ul class="blog-post-info list-inline padding-bottom-10">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">{{val.view}}</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="{{categoryname.url}}">
-											<span class="font-lato">{{categoryname.name}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">{{val.uid|get_nickname}}</span>
-										</a>
-									</li>
-								</ul>
-
-								<p><div class="shop-item-price" style="font-size: 20px;margin-top: 6px;font-weight: bold; float: left">
-								{% if val.price|get_price_format('2') %}<span class="line-through" style="color: #999;font-size: 15px;display: inline-block;padding: 0 10px;font-weight: 400;">¥{{val.price|get_price_format('2')}}</span>{%endif%}
-								¥{{val.price|get_price_format('1')}}
-							</div><div class="shop-item-buttons" style="float: left;margin-left: 15px">
-								<a class="btn btn-default" href="{{val.name|get_url(val.id)}}" target="_blank"><i class="fa fa-cart-plus"></i> 立即购买</a>
-								<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-								<a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
-								<a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-							</div></p>
-							</div>
-
-						</div>
-						<!-- /POST ITEM -->
-						{%elif val.model_id === 10 %}
-						<!-- POST ITEM -->
-						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
-							<div class="ribbon">
-								<div class="ribbon-inner">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</div>
-							</div>
-							<!-- IMAGE -->
-							{% if val.cover_id>0 %}
-							<figure class="blog-item-small-image margin-bottom-0">
-								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
-							</figure>
-							{% endif %}
-							<div class="blog-item-small-content">
-								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
-
-								<ul class="blog-post-info list-inline padding-bottom-10">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">{{val.view}}</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="{{categoryname.url}}">
-											<span class="font-lato">{{categoryname.name}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">{{val.uid|get_nickname}}</span>
-										</a>
-									</li>
-								</ul>
-
-								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
-									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
-								</div>
-
-							</div>
-
-						</div>
-						<!-- /POST ITEM -->
-						{%else%}
-						<!-- POST ITEM -->
-						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
-
-							<!-- IMAGE -->
-							{% if val.cover_id>0 %}
-							<figure class="blog-item-small-image margin-bottom-0">
-								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
-							</figure>
-							{% endif %}
-							<div class="blog-item-small-content">
-								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
-
-								<ul class="blog-post-info list-inline padding-bottom-10">
-									<li>
-										<a href="#">
-											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-comment-o"></i>
-											<span class="font-lato">{{val.view}}</span>
-										</a>
-									</li>
-									<li>
-										<i class="fa fa-folder-open-o"></i>
-
-										<a class="category" href="{{categoryname.url}}">
-											<span class="font-lato">{{categoryname.name}}</span>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user"></i>
-											<span class="font-lato">{{val.uid|get_nickname}}</span>
-										</a>
-									</li>
-								</ul>
-
-								<p>{{val.description|truncate(90, true, "...")}}</p>
-							</div>
-
-						</div>
-						<!-- /POST ITEM -->
-						{%endif%}
-						{%endfor%}
-					</div>
 					<div class="tab-pane fade" id="wenda">
-						<div class="timeline">
+						<div class="timeline" style="margin-top: -25px">
 							<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
 							{%model data="list",table="question",order="update_time DESC",limit="10"%}
 							{% for val in list %}
@@ -590,9 +405,11 @@
 
 
 				</div>
+					</div>
+				</div>
 			</div>
 			<!-- LEFT -->
-			<div class="col-md-3 col-sm-3">
+			<div class="col-md-3 col-sm-3 margin-top-20">
 
 				{% if controller.is_login %}
 				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
@@ -602,25 +419,24 @@
 				{%else%}
 				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
 					你好! 你还没有登录，请先登录.
-					<a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
+					<a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/center/public/login" data-toggle="ajaxModal">
 						<i class="fa fa-sign-in"></i> 登录{{config.setup.WEB_SITE_TITLE}}
 					</a>
 				</div>
 				{%endif%}
-
-				<div class="box-inner nopadding  margin-bottom-20">
-					<h3>
-						<a class="pull-right size-11 text-warning" href="/topic">更多</a>
-						热门话题
-					</h3>
-					<div class="" >
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a class="btn btn-primary btn-xs pull-right" href="/topic" >更多</a>
+						<h2 class="panel-title">热门话题</h2>
+					</div>
+					<div class="panel-body">
 						{% keywords data ="topic",type="hot",limit="5" %}
 						{%for k in topic%}
 						<div class="clearfix margin-bottom-10"><!-- discussion item -->
 							{%if k.pic==0%}
 							<i class="ico-light ico-60 ico-hover et-chat pull-left margin-bottom-0 margin-top-0" ></i>
 							{%else%}
-							<img class="thumbnail pull-left" src="/static/assets/images/demo/people/300x300/4-min.jpg" width="60" height="60" alt="" />
+							<img class="thumbnail pull-left" src="{{k.pic|get_pic('m=1,w=100,h=100')}}}}" width="60" height="60" alt="" />
 							{%endif%}
 							<h4 class=" nomargin noborder nopadding bold"><a class="tag " href="{{k.url}}">
 								<span class="txt">{{k.keyname}}</span>
@@ -632,20 +448,17 @@
 												</span>
 						</div><!-- /discussion item -->
 						{%endfor%}
-
-
 					</div>
 				</div>
 
-
 				{%model data="data",table="question_user",order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
 				{%if data.length>0%}
-				<div class="box-inner nopadding  margin-bottom-20">
-					<h3>
-						<a class="pull-right size-11 text-warning" href="#">更多</a>
-						热门用户
-					</h3>
-					<div class="" >
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<a class="btn btn-primary btn-xs pull-right">更多</a>
+						<h2 class="panel-title">热门用户</h2>
+					</div>
+					<div class="panel-body">
 						{%for user in data%}
 						<div class="clearfix margin-bottom-10"><!-- squared item -->
 							<img class="thumbnail pull-left rounded" src="/u/avatar/{{user.uid}}" width="40" height="40" alt="" />
@@ -653,10 +466,8 @@
 							<span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
 						</div><!-- /squared item -->
 						{%endfor%}
-
 					</div>
 				</div>
-
 				{%endif%}
 
 				{{13|show_ad('code')|safe}}
@@ -667,9 +478,14 @@
 
 
 	</div>
-</section>
-
-<!--
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a> <a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>
+				<h2 class="panel-title">友情链接</h2>
+			</div>
+			<div class="panel-body link">
+				<!--
 controlls-over		= navigation buttons over the image
 buttons-autohide 	= navigation buttons visible on mouse hover only
 
@@ -679,35 +495,26 @@ data-plugin-options:
 "navigation": true
 "pagination": true
 -->
-<section class="heading-title " style="padding-top: 10px ;padding-bottom: 10px;background-color: rgba(0,0,0,0.05)">
-	<div class="container">
-
-		<!-- H4 -->
-		<div class="heading-title heading-border heading-color nomargin">
-			<h4 style="background-color: rgba(0,0,0,0);color: #333">友情链接 <span>Friendship link</span></h4>
-			<p class="font-lato size-14"><a href="/ext/link/index/apply">申请友情链接</a> | <a href="/ext/link/index">更多&gt;&gt;</a> </p>
+				<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
+					{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC"%}
+					{%for l in link%}
+					{%if l.linktype==0%}
+					<div class="linkbox alternate">
+						<a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
+					</div>
+					{%else%}
+					<div class="linkbox alternate">
+						<a href="{{l.url}}" target="_blank" title="{{l.name}}">
+							<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
+						</a>
+					</div>
+					{%endif%}
+					{%endfor%}
+				</div>
+			</div>
 		</div>
-
 	</div>
 </section>
-<div class="text-center margin-top-20 margin-bottom-10 container link">
-	<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-		{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC"%}
-		{%for l in link%}
-		{%if l.linktype==0%}
-		<div class="linkbox alternate">
-			<a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
-		</div>
-		{%else%}
-		<div class="linkbox alternate">
-			<a href="{{l.url}}" target="_blank" title="{{l.name}}">
-				<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
-			</a>
-		</div>
-		{%endif%}
-		{%endfor%}
-	</div>
-</div>
 {% endblock %}
 {%block script%}
 

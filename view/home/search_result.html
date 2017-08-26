@@ -10,11 +10,11 @@
 
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default input-lg dropdown-toggle noborder-right" data-toggle="dropdown">
-                        {%if controller.get('d')==''%} 全部时间{%else%}{%if controller.get('d')=='day'%}一天内{%elif controller.get('d')=='week'%}一周内{%elif controller.get('d')=='month'%}一月内{%elif controller.get('d')=='year'%}一年内{%endif%}{%endif%} <span class="caret"></span>
+                        {%if controller.get('d')==null%} 全部时间{%else%}{%if controller.get('d')=='day'%}一天内{%elif controller.get('d')=='week'%}一周内{%elif controller.get('d')=='month'%}一月内{%elif controller.get('d')=='year'%}一年内{%endif%}{%endif%} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li {%if controller.get('d')==''%} class="active" {%endif%}>
-                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}">{%if controller.get('d')==''%}<i class="fa fa-check"></i>{%endif%} 全部时间</a>
+                        <li {%if controller.get('d')==null%} class="active" {%endif%}>
+                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}">{%if controller.get('d')==null%}<i class="fa fa-check"></i>{%endif%} 全部时间</a>
                         </li>
                         <li class="divider"></li>
                         <li {%if controller.get('d')=='day'%} class="active" {%endif%}>
@@ -54,7 +54,7 @@
 
         <ul class="page-header-tabs list-inline">
 
-            <li class="filter {%if controller.get('m')==''%}active{%endif%}"><a href="/search?q={{controller.get('q')}}{%if controller.get('d')%}&d={{controller.get('d')}}{%endif%}">全部</a></li>
+            <li class="filter {%if controller.get('m')==null%}active{%endif%}"><a href="/search?q={{controller.get('q')}}{%if controller.get('d')%}&d={{controller.get('d')}}{%endif%}">全部</a></li>
 
             {%for v in modlist%}
             <li class="filter {%if controller.get('m')==v.mod%}active{%endif%}"><a href="/search?q={{controller.get('q')}}&m={{v.mod}}{%if controller.get('d')%}&d={{controller.get('d')}}{%endif%}">{{v.name}}</a></li>

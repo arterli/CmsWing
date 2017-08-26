@@ -45,7 +45,8 @@ module.exports = class extends Base {
           let appid = this.post('appid');
             let res = await this.model("setup").where({name:'PINGXX_APP_ID'}).update({value:appid});
             if(res){
-                think.cache("setup", null);//清除设置缓存
+                await this.cache("setup", null);
+                process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
                return this.success({name:"设置成功！"});
             }else {
                return this.fail("设置失败！");
@@ -60,7 +61,8 @@ module.exports = class extends Base {
             let appid = this.post('livesecretkey');
             let res = await this.model("setup").where({name:'PINGXX_LIVE_SECRET_KEY'}).update({value:appid});
             if(res){
-                think.cache("setup", null);//清除设置缓存
+                await this.cache("setup", null);
+                process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
                 return this.success({name:"设置成功！"});
             }else {
                 return this.fail("设置失败！");

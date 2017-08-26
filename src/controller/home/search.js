@@ -14,7 +14,8 @@ module.exports = class extends Home{
    */
   async indexAction(){
     //auto render template file index_index.html
-      let q = this.get("q");
+      let q = decodeURI(this.get("q"));
+      console.log(q);
       this.meta_title="搜索";
       if(think.isEmpty(q)){
           if(this.isMobile){
@@ -26,7 +27,7 @@ module.exports = class extends Home{
       }else {
           let time = this.get("d");
           let search_time,sql_time,sql;
-          let q = this.get('q');
+          let q = decodeURI( this.get('q'));
           let m_id = this.get('m')||0;
           //按时间搜索
           if(time=='day'){
@@ -105,6 +106,7 @@ module.exports = class extends Home{
               }else {
                   if(!in_array(q,hs.split("|"))){
                       hsq = hs+'|'+q;
+                      console.log(hsq);
                       this.cookie("cmswing_historical_search", hsq);
                   }
 

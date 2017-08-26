@@ -6039,7 +6039,7 @@ span.badge-dark,
 /** 28. Panels
 *************************************************** **/
 .panel {
-	margin-bottom:30px;
+	/*margin-bottom:30px;*/
 }
 section.dark .panel-default>.panel-heading {
 	border-color:#666;

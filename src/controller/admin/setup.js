@@ -98,7 +98,7 @@ module.exports = class extends Base {
             data.update_time = new Date().valueOf();
             let addres =await this.db.add(data);
             if(addres){
-                think.cache("setup", null);
+                await this.cache("setup", null);
                 process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
                 //await this.loadsetup();
                 return this.json(1)
@@ -122,7 +122,7 @@ module.exports = class extends Base {
             data.create_time = new Date().valueOf();
             let upres =await this.db.update(data);
             if(upres){
-                think.cache("setup", null);
+                await this.cache("setup", null);
                 process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
 
                 // await this.loadsetup();
@@ -161,7 +161,7 @@ module.exports = class extends Base {
         let id = this.get("id");
         let res = await this.db.where({id:id}).delete();
         if(res){
-            think.cache("setup", null);
+            await this.cache("setup", null);
             process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
             // console.log(process);
             // console.log("sdfsfasfa");

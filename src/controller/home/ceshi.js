@@ -30,4 +30,9 @@ module.exports= class extends think.Controller{
         console.log(send);
         return this.body="emial"
     }
+
+    cookAction(){
+        this.cookie("hz", 'sfs|dfg|fdsfs');
+        return this.body= this.cookie('hz');
+    }
 }
