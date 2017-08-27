@@ -32,7 +32,13 @@ module.exports= class extends think.Controller{
     }
 
     cookAction(){
-        this.cookie("hz", 'sfs|dfg|fdsfs');
-        return this.body= this.cookie('hz');
+        //this.cookie("hz", 'sfs|dfg|fdsfs');
+        // $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
+        // $orderSn = $yCode[intval(date('Y')) - 2011] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(0, 99));
+        let d = new Date();
+        let ycode  = ['C', 'M', 'S', 'W', 'I', 'N', 'G', 'N', 'E', 'T'];
+        //return this.body= ycode[this.moment().format('YYYY')-2017]+ (d.getMonth()+1).toString(16).toUpperCase()+this.moment().format('DD')+m.substr(8);
+        let m = new Date().getTime().toString();
+        return this.body = think._.padEnd('1', 10, '0')+m.substr(8);
     }
 }

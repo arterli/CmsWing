@@ -90,9 +90,9 @@ module.exports = class extends Home {
       //用户
       data.user_id = this.user.uid;
       //生成订单编号//todo
-      let nowtime = new Date().valueOf();
-      let oid = ["c", this.user.uid, nowtime]
-      data.order_no = oid.join("");
+      //let nowtime = new Date().valueOf();
+      //let oid = ["c", this.user.uid, nowtime]
+      data.order_no =  await this.model("order").orderid(this.user.uid);
       //支付状态 pay_stayus 0:未付款 ,1:已付款
       data.pay_status = 0;
       //订单状态 status 2:等待审核，3:已审核

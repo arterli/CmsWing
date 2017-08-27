@@ -440,7 +440,7 @@ module.exports = class extends Home {
     // let nowtime = new Date().valueOf();
     // let oid =["d",this.user.uid,nowtime]
     // data.order_no = oid.join("");
-    data.order_no = await this.model("order").orderid();
+    data.order_no = await this.model("order").orderid(this.user.uid);
     //添加送货地址
     let address = await this.model("address").fieldReverse("id,user_id,is_default").find(data.address);
     console.log(address);

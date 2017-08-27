@@ -142,15 +142,18 @@ module.exports = class extends think.Model {
         }
         return ressku;
     }
-    async orderid(){
+    async orderid(uid){
         // let date = new Date();
         // let y = date.getFullYear();
         // let m = date.getMonth()+1 <10 ?"0"+(date.getMonth()+1):date.getMonth()+1;
         // let d = date.getDate()<10?"0"+date.getDate():date.getDate();
         // let v_timestr = y+m+d;
-        let prefix=think.config('model.mysql.prefix');
-        let oo = await think.model("mysql").query(`call seq_no(1)`);//TODO
+        //let prefix=think.config('model.mysql.prefix');
+        //let oo = await think.model("mysql").query(`call seq_no(1)`);//TODO
         // let order_no= await this.query(`SELECT CONCAT(${v_timestr},LPAD(order_sn,7,0)) AS order_sn FROM cmswing_order_seq WHERE timestr=${v_timestr}`);
-        return oo[0][0]["order_sn"];
+        //return oo[0][0]["order_sn"];
+        //用户id+毫秒时间戳后5位
+        let m = new Date().getTime().toString();
+        return think._.padEnd(uid, 10, '0')+m.substr(8);
     }
 }
