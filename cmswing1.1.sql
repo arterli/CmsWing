@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地
-Source Server Version : 50553
-Source Host           : localhost:3306
-Source Database       : cmswing1.1
+Source Server         : 腾讯云
+Source Server Version : 50718
+Source Host           : 56a0469a1fda7.sh.cdb.myqcloud.com:3477
+Source Database       : cmswing
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2017-08-26 21:58:55
+Date: 2017-08-27 16:16:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `cmswing_action` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
 
 -- ----------------------------
 -- Records of cmswing_action
@@ -98,7 +98,7 @@ CREATE TABLE `cmswing_address` (
   `addr` varchar(250) DEFAULT NULL,
   `is_default` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_address
@@ -108,9 +108,9 @@ INSERT INTO `cmswing_address` VALUES ('2', '3', 'hgfhfgh', '18681851637', '86888
 INSERT INTO `cmswing_address` VALUES ('3', '1', '天津帅小伙', '18651569374', '', '120000', '120100', '120107', '300021', '六大街72号', '0');
 INSERT INTO `cmswing_address` VALUES ('4', '1', '路人丁', '18681851637', '', '110000', '110100', '110101', '710065', '东花市北里20号楼6单元501室 ', '0');
 INSERT INTO `cmswing_address` VALUES ('32', '2', '郭德纲1', '18688888888', '', '110000', '110100', '110102', '10001', '北京德云社吗一路金子一号', '0');
-INSERT INTO `cmswing_address` VALUES ('51', '2', '222333', '12345678901', '', '150000', '150300', '150303', '11223', '12321312312312', '1');
 INSERT INTO `cmswing_address` VALUES ('44', '48', '哈哈', '17051005001', null, '120000', '120100', '120101', '', '哈哈', '0');
 INSERT INTO `cmswing_address` VALUES ('50', '2', '测试是', '1234567890', null, '110000', '110200', '110229', '123456', '是发法撒', '0');
+INSERT INTO `cmswing_address` VALUES ('51', '2', '222333', '12345678901', '', '150000', '150300', '150303', '11223', '12321312312312', '1');
 INSERT INTO `cmswing_address` VALUES ('52', '1', '1232222', '1525626262', null, '110000', '110100', '110101', '166226', '不间断', '0');
 
 -- ----------------------------
@@ -128,7 +128,7 @@ CREATE TABLE `cmswing_approval` (
   KEY `uid` (`uid`),
   KEY `time` (`time`),
   KEY `model` (`model`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_approval
@@ -146,389 +146,13 @@ CREATE TABLE `cmswing_area` (
   `sort` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=910011 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=910011 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_area
 -- ----------------------------
 INSERT INTO `cmswing_area` VALUES ('110000', '北京市', '0', '1');
-INSERT INTO `cmswing_area` VALUES ('120000', '天津市', '0', '2');
-INSERT INTO `cmswing_area` VALUES ('130000', '河北省', '0', '3');
-INSERT INTO `cmswing_area` VALUES ('140000', '山西省', '0', '4');
-INSERT INTO `cmswing_area` VALUES ('150000', '内蒙古', '0', '5');
-INSERT INTO `cmswing_area` VALUES ('210000', '辽宁省', '0', '6');
-INSERT INTO `cmswing_area` VALUES ('220000', '吉林省', '0', '7');
-INSERT INTO `cmswing_area` VALUES ('230000', '黑龙江', '0', '8');
-INSERT INTO `cmswing_area` VALUES ('310000', '上海市', '0', '9');
-INSERT INTO `cmswing_area` VALUES ('320000', '江苏省', '0', '10');
-INSERT INTO `cmswing_area` VALUES ('330000', '浙江省', '0', '11');
-INSERT INTO `cmswing_area` VALUES ('340000', '安徽省', '0', '12');
-INSERT INTO `cmswing_area` VALUES ('350000', '福建省', '0', '13');
-INSERT INTO `cmswing_area` VALUES ('360000', '江西省', '0', '14');
-INSERT INTO `cmswing_area` VALUES ('370000', '山东省', '0', '15');
-INSERT INTO `cmswing_area` VALUES ('410000', '河南省', '0', '16');
-INSERT INTO `cmswing_area` VALUES ('420000', '湖北省', '0', '17');
-INSERT INTO `cmswing_area` VALUES ('430000', '湖南省', '0', '18');
-INSERT INTO `cmswing_area` VALUES ('440000', '广东省', '0', '19');
-INSERT INTO `cmswing_area` VALUES ('450000', '广西省', '0', '20');
-INSERT INTO `cmswing_area` VALUES ('460000', '海南省', '0', '21');
-INSERT INTO `cmswing_area` VALUES ('500000', '重庆市', '0', '22');
-INSERT INTO `cmswing_area` VALUES ('510000', '四川省', '0', '23');
-INSERT INTO `cmswing_area` VALUES ('520000', '贵州省', '0', '24');
-INSERT INTO `cmswing_area` VALUES ('530000', '云南省', '0', '25');
-INSERT INTO `cmswing_area` VALUES ('540000', '西　藏', '0', '26');
-INSERT INTO `cmswing_area` VALUES ('610000', '陕西省', '0', '27');
-INSERT INTO `cmswing_area` VALUES ('620000', '甘肃省', '0', '28');
-INSERT INTO `cmswing_area` VALUES ('630000', '青海省', '0', '29');
-INSERT INTO `cmswing_area` VALUES ('640000', '宁　夏', '0', '30');
-INSERT INTO `cmswing_area` VALUES ('650000', '新　疆', '0', '31');
-INSERT INTO `cmswing_area` VALUES ('710000', '台湾省', '0', '32');
-INSERT INTO `cmswing_area` VALUES ('810000', '香　港', '0', '33');
-INSERT INTO `cmswing_area` VALUES ('820000', '澳　门', '0', '34');
 INSERT INTO `cmswing_area` VALUES ('110100', '北京市', '110000', '1');
-INSERT INTO `cmswing_area` VALUES ('110200', '县', '110000', '2');
-INSERT INTO `cmswing_area` VALUES ('120100', '市辖区', '120000', '1');
-INSERT INTO `cmswing_area` VALUES ('120200', '县', '120000', '2');
-INSERT INTO `cmswing_area` VALUES ('130100', '石家庄市', '130000', '1');
-INSERT INTO `cmswing_area` VALUES ('130200', '唐山市', '130000', '2');
-INSERT INTO `cmswing_area` VALUES ('130300', '秦皇岛市', '130000', '3');
-INSERT INTO `cmswing_area` VALUES ('130400', '邯郸市', '130000', '4');
-INSERT INTO `cmswing_area` VALUES ('130500', '邢台市', '130000', '5');
-INSERT INTO `cmswing_area` VALUES ('130600', '保定市', '130000', '6');
-INSERT INTO `cmswing_area` VALUES ('130700', '张家口市', '130000', '7');
-INSERT INTO `cmswing_area` VALUES ('130800', '承德市', '130000', '8');
-INSERT INTO `cmswing_area` VALUES ('130900', '沧州市', '130000', '9');
-INSERT INTO `cmswing_area` VALUES ('131000', '廊坊市', '130000', '10');
-INSERT INTO `cmswing_area` VALUES ('131100', '衡水市', '130000', '11');
-INSERT INTO `cmswing_area` VALUES ('140100', '太原市', '140000', '1');
-INSERT INTO `cmswing_area` VALUES ('140200', '大同市', '140000', '2');
-INSERT INTO `cmswing_area` VALUES ('140300', '阳泉市', '140000', '3');
-INSERT INTO `cmswing_area` VALUES ('140400', '长治市', '140000', '4');
-INSERT INTO `cmswing_area` VALUES ('140500', '晋城市', '140000', '5');
-INSERT INTO `cmswing_area` VALUES ('140600', '朔州市', '140000', '6');
-INSERT INTO `cmswing_area` VALUES ('140700', '晋中市', '140000', '7');
-INSERT INTO `cmswing_area` VALUES ('140800', '运城市', '140000', '8');
-INSERT INTO `cmswing_area` VALUES ('140900', '忻州市', '140000', '9');
-INSERT INTO `cmswing_area` VALUES ('141000', '临汾市', '140000', '10');
-INSERT INTO `cmswing_area` VALUES ('141100', '吕梁市', '140000', '11');
-INSERT INTO `cmswing_area` VALUES ('150100', '呼和浩特市', '150000', '1');
-INSERT INTO `cmswing_area` VALUES ('150200', '包头市', '150000', '2');
-INSERT INTO `cmswing_area` VALUES ('150300', '乌海市', '150000', '3');
-INSERT INTO `cmswing_area` VALUES ('150400', '赤峰市', '150000', '4');
-INSERT INTO `cmswing_area` VALUES ('150500', '通辽市', '150000', '5');
-INSERT INTO `cmswing_area` VALUES ('150600', '鄂尔多斯市', '150000', '6');
-INSERT INTO `cmswing_area` VALUES ('150700', '呼伦贝尔市', '150000', '7');
-INSERT INTO `cmswing_area` VALUES ('150800', '巴彦淖尔市', '150000', '8');
-INSERT INTO `cmswing_area` VALUES ('150900', '乌兰察布市', '150000', '9');
-INSERT INTO `cmswing_area` VALUES ('152200', '兴安盟', '150000', '10');
-INSERT INTO `cmswing_area` VALUES ('152500', '锡林郭勒盟', '150000', '11');
-INSERT INTO `cmswing_area` VALUES ('152900', '阿拉善盟', '150000', '12');
-INSERT INTO `cmswing_area` VALUES ('210100', '沈阳市', '210000', '1');
-INSERT INTO `cmswing_area` VALUES ('210200', '大连市', '210000', '2');
-INSERT INTO `cmswing_area` VALUES ('210300', '鞍山市', '210000', '3');
-INSERT INTO `cmswing_area` VALUES ('210400', '抚顺市', '210000', '4');
-INSERT INTO `cmswing_area` VALUES ('210500', '本溪市', '210000', '5');
-INSERT INTO `cmswing_area` VALUES ('210600', '丹东市', '210000', '6');
-INSERT INTO `cmswing_area` VALUES ('210700', '锦州市', '210000', '7');
-INSERT INTO `cmswing_area` VALUES ('210800', '营口市', '210000', '8');
-INSERT INTO `cmswing_area` VALUES ('210900', '阜新市', '210000', '9');
-INSERT INTO `cmswing_area` VALUES ('211000', '辽阳市', '210000', '10');
-INSERT INTO `cmswing_area` VALUES ('211100', '盘锦市', '210000', '11');
-INSERT INTO `cmswing_area` VALUES ('211200', '铁岭市', '210000', '12');
-INSERT INTO `cmswing_area` VALUES ('211300', '朝阳市', '210000', '13');
-INSERT INTO `cmswing_area` VALUES ('211400', '葫芦岛市', '210000', '14');
-INSERT INTO `cmswing_area` VALUES ('220100', '长春市', '220000', '1');
-INSERT INTO `cmswing_area` VALUES ('220200', '吉林市', '220000', '2');
-INSERT INTO `cmswing_area` VALUES ('220300', '四平市', '220000', '3');
-INSERT INTO `cmswing_area` VALUES ('220400', '辽源市', '220000', '4');
-INSERT INTO `cmswing_area` VALUES ('220500', '通化市', '220000', '5');
-INSERT INTO `cmswing_area` VALUES ('220600', '白山市', '220000', '6');
-INSERT INTO `cmswing_area` VALUES ('220700', '松原市', '220000', '7');
-INSERT INTO `cmswing_area` VALUES ('220800', '白城市', '220000', '8');
-INSERT INTO `cmswing_area` VALUES ('222400', '延边朝鲜族自治州', '220000', '9');
-INSERT INTO `cmswing_area` VALUES ('230100', '哈尔滨市', '230000', '1');
-INSERT INTO `cmswing_area` VALUES ('230200', '齐齐哈尔市', '230000', '2');
-INSERT INTO `cmswing_area` VALUES ('230300', '鸡西市', '230000', '3');
-INSERT INTO `cmswing_area` VALUES ('230400', '鹤岗市', '230000', '4');
-INSERT INTO `cmswing_area` VALUES ('230500', '双鸭山市', '230000', '5');
-INSERT INTO `cmswing_area` VALUES ('230600', '大庆市', '230000', '6');
-INSERT INTO `cmswing_area` VALUES ('230700', '伊春市', '230000', '7');
-INSERT INTO `cmswing_area` VALUES ('230800', '佳木斯市', '230000', '8');
-INSERT INTO `cmswing_area` VALUES ('230900', '七台河市', '230000', '9');
-INSERT INTO `cmswing_area` VALUES ('231000', '牡丹江市', '230000', '10');
-INSERT INTO `cmswing_area` VALUES ('231100', '黑河市', '230000', '11');
-INSERT INTO `cmswing_area` VALUES ('231200', '绥化市', '230000', '12');
-INSERT INTO `cmswing_area` VALUES ('232700', '大兴安岭地区', '230000', '13');
-INSERT INTO `cmswing_area` VALUES ('310100', '市辖区', '310000', '1');
-INSERT INTO `cmswing_area` VALUES ('310200', '县', '310000', '2');
-INSERT INTO `cmswing_area` VALUES ('320100', '南京市', '320000', '1');
-INSERT INTO `cmswing_area` VALUES ('320200', '无锡市', '320000', '2');
-INSERT INTO `cmswing_area` VALUES ('320300', '徐州市', '320000', '3');
-INSERT INTO `cmswing_area` VALUES ('320400', '常州市', '320000', '4');
-INSERT INTO `cmswing_area` VALUES ('320500', '苏州市', '320000', '5');
-INSERT INTO `cmswing_area` VALUES ('320600', '南通市', '320000', '6');
-INSERT INTO `cmswing_area` VALUES ('320700', '连云港市', '320000', '7');
-INSERT INTO `cmswing_area` VALUES ('320800', '淮安市', '320000', '8');
-INSERT INTO `cmswing_area` VALUES ('320900', '盐城市', '320000', '9');
-INSERT INTO `cmswing_area` VALUES ('321000', '扬州市', '320000', '10');
-INSERT INTO `cmswing_area` VALUES ('321100', '镇江市', '320000', '11');
-INSERT INTO `cmswing_area` VALUES ('321200', '泰州市', '320000', '12');
-INSERT INTO `cmswing_area` VALUES ('321300', '宿迁市', '320000', '13');
-INSERT INTO `cmswing_area` VALUES ('330100', '杭州市', '330000', '1');
-INSERT INTO `cmswing_area` VALUES ('330200', '宁波市', '330000', '2');
-INSERT INTO `cmswing_area` VALUES ('330300', '温州市', '330000', '3');
-INSERT INTO `cmswing_area` VALUES ('330400', '嘉兴市', '330000', '4');
-INSERT INTO `cmswing_area` VALUES ('330500', '湖州市', '330000', '5');
-INSERT INTO `cmswing_area` VALUES ('330600', '绍兴市', '330000', '6');
-INSERT INTO `cmswing_area` VALUES ('330700', '金华市', '330000', '7');
-INSERT INTO `cmswing_area` VALUES ('330800', '衢州市', '330000', '8');
-INSERT INTO `cmswing_area` VALUES ('330900', '舟山市', '330000', '9');
-INSERT INTO `cmswing_area` VALUES ('331000', '台州市', '330000', '10');
-INSERT INTO `cmswing_area` VALUES ('331100', '丽水市', '330000', '11');
-INSERT INTO `cmswing_area` VALUES ('340100', '合肥市', '340000', '1');
-INSERT INTO `cmswing_area` VALUES ('340200', '芜湖市', '340000', '2');
-INSERT INTO `cmswing_area` VALUES ('340300', '蚌埠市', '340000', '3');
-INSERT INTO `cmswing_area` VALUES ('340400', '淮南市', '340000', '4');
-INSERT INTO `cmswing_area` VALUES ('340500', '马鞍山市', '340000', '5');
-INSERT INTO `cmswing_area` VALUES ('340600', '淮北市', '340000', '6');
-INSERT INTO `cmswing_area` VALUES ('340700', '铜陵市', '340000', '7');
-INSERT INTO `cmswing_area` VALUES ('340800', '安庆市', '340000', '8');
-INSERT INTO `cmswing_area` VALUES ('341000', '黄山市', '340000', '9');
-INSERT INTO `cmswing_area` VALUES ('341100', '滁州市', '340000', '10');
-INSERT INTO `cmswing_area` VALUES ('341200', '阜阳市', '340000', '11');
-INSERT INTO `cmswing_area` VALUES ('341300', '宿州市', '340000', '12');
-INSERT INTO `cmswing_area` VALUES ('341500', '六安市', '340000', '13');
-INSERT INTO `cmswing_area` VALUES ('341600', '亳州市', '340000', '14');
-INSERT INTO `cmswing_area` VALUES ('341700', '池州市', '340000', '15');
-INSERT INTO `cmswing_area` VALUES ('341800', '宣城市', '340000', '16');
-INSERT INTO `cmswing_area` VALUES ('350100', '福州市', '350000', '1');
-INSERT INTO `cmswing_area` VALUES ('350200', '厦门市', '350000', '2');
-INSERT INTO `cmswing_area` VALUES ('350300', '莆田市', '350000', '3');
-INSERT INTO `cmswing_area` VALUES ('350400', '三明市', '350000', '4');
-INSERT INTO `cmswing_area` VALUES ('350500', '泉州市', '350000', '5');
-INSERT INTO `cmswing_area` VALUES ('350600', '漳州市', '350000', '6');
-INSERT INTO `cmswing_area` VALUES ('350700', '南平市', '350000', '7');
-INSERT INTO `cmswing_area` VALUES ('350800', '龙岩市', '350000', '8');
-INSERT INTO `cmswing_area` VALUES ('350900', '宁德市', '350000', '9');
-INSERT INTO `cmswing_area` VALUES ('360100', '南昌市', '360000', '1');
-INSERT INTO `cmswing_area` VALUES ('360200', '景德镇市', '360000', '2');
-INSERT INTO `cmswing_area` VALUES ('360300', '萍乡市', '360000', '3');
-INSERT INTO `cmswing_area` VALUES ('360400', '九江市', '360000', '4');
-INSERT INTO `cmswing_area` VALUES ('360500', '新余市', '360000', '5');
-INSERT INTO `cmswing_area` VALUES ('360600', '鹰潭市', '360000', '6');
-INSERT INTO `cmswing_area` VALUES ('360700', '赣州市', '360000', '7');
-INSERT INTO `cmswing_area` VALUES ('360800', '吉安市', '360000', '8');
-INSERT INTO `cmswing_area` VALUES ('360900', '宜春市', '360000', '9');
-INSERT INTO `cmswing_area` VALUES ('361000', '抚州市', '360000', '10');
-INSERT INTO `cmswing_area` VALUES ('361100', '上饶市', '360000', '11');
-INSERT INTO `cmswing_area` VALUES ('370100', '济南市', '370000', '1');
-INSERT INTO `cmswing_area` VALUES ('370200', '青岛市', '370000', '2');
-INSERT INTO `cmswing_area` VALUES ('370300', '淄博市', '370000', '3');
-INSERT INTO `cmswing_area` VALUES ('370400', '枣庄市', '370000', '4');
-INSERT INTO `cmswing_area` VALUES ('370500', '东营市', '370000', '5');
-INSERT INTO `cmswing_area` VALUES ('370600', '烟台市', '370000', '6');
-INSERT INTO `cmswing_area` VALUES ('370700', '潍坊市', '370000', '7');
-INSERT INTO `cmswing_area` VALUES ('370800', '济宁市', '370000', '8');
-INSERT INTO `cmswing_area` VALUES ('370900', '泰安市', '370000', '9');
-INSERT INTO `cmswing_area` VALUES ('371000', '威海市', '370000', '10');
-INSERT INTO `cmswing_area` VALUES ('371100', '日照市', '370000', '11');
-INSERT INTO `cmswing_area` VALUES ('371200', '莱芜市', '370000', '12');
-INSERT INTO `cmswing_area` VALUES ('371300', '临沂市', '370000', '13');
-INSERT INTO `cmswing_area` VALUES ('371400', '德州市', '370000', '14');
-INSERT INTO `cmswing_area` VALUES ('371500', '聊城市', '370000', '15');
-INSERT INTO `cmswing_area` VALUES ('371600', '滨州市', '370000', '16');
-INSERT INTO `cmswing_area` VALUES ('371700', '菏泽市', '370000', '17');
-INSERT INTO `cmswing_area` VALUES ('410100', '郑州市', '410000', '1');
-INSERT INTO `cmswing_area` VALUES ('410200', '开封市', '410000', '2');
-INSERT INTO `cmswing_area` VALUES ('410300', '洛阳市', '410000', '3');
-INSERT INTO `cmswing_area` VALUES ('410400', '平顶山市', '410000', '4');
-INSERT INTO `cmswing_area` VALUES ('410500', '安阳市', '410000', '5');
-INSERT INTO `cmswing_area` VALUES ('410600', '鹤壁市', '410000', '6');
-INSERT INTO `cmswing_area` VALUES ('410700', '新乡市', '410000', '7');
-INSERT INTO `cmswing_area` VALUES ('410800', '焦作市', '410000', '8');
-INSERT INTO `cmswing_area` VALUES ('410900', '濮阳市', '410000', '9');
-INSERT INTO `cmswing_area` VALUES ('411000', '许昌市', '410000', '10');
-INSERT INTO `cmswing_area` VALUES ('411100', '漯河市', '410000', '11');
-INSERT INTO `cmswing_area` VALUES ('411200', '三门峡市', '410000', '12');
-INSERT INTO `cmswing_area` VALUES ('411300', '南阳市', '410000', '13');
-INSERT INTO `cmswing_area` VALUES ('411400', '商丘市', '410000', '14');
-INSERT INTO `cmswing_area` VALUES ('411500', '信阳市', '410000', '15');
-INSERT INTO `cmswing_area` VALUES ('411600', '周口市', '410000', '16');
-INSERT INTO `cmswing_area` VALUES ('411700', '驻马店市', '410000', '17');
-INSERT INTO `cmswing_area` VALUES ('420100', '武汉市', '420000', '1');
-INSERT INTO `cmswing_area` VALUES ('420200', '黄石市', '420000', '2');
-INSERT INTO `cmswing_area` VALUES ('420300', '十堰市', '420000', '3');
-INSERT INTO `cmswing_area` VALUES ('420500', '宜昌市', '420000', '4');
-INSERT INTO `cmswing_area` VALUES ('420600', '襄樊市', '420000', '5');
-INSERT INTO `cmswing_area` VALUES ('420700', '鄂州市', '420000', '6');
-INSERT INTO `cmswing_area` VALUES ('420800', '荆门市', '420000', '7');
-INSERT INTO `cmswing_area` VALUES ('420900', '孝感市', '420000', '8');
-INSERT INTO `cmswing_area` VALUES ('421000', '荆州市', '420000', '9');
-INSERT INTO `cmswing_area` VALUES ('421100', '黄冈市', '420000', '10');
-INSERT INTO `cmswing_area` VALUES ('421200', '咸宁市', '420000', '11');
-INSERT INTO `cmswing_area` VALUES ('421300', '随州市', '420000', '12');
-INSERT INTO `cmswing_area` VALUES ('422800', '恩施土家族苗族自治州', '420000', '13');
-INSERT INTO `cmswing_area` VALUES ('429000', '省直辖行政单位', '420000', '14');
-INSERT INTO `cmswing_area` VALUES ('430100', '长沙市', '430000', '1');
-INSERT INTO `cmswing_area` VALUES ('430200', '株洲市', '430000', '2');
-INSERT INTO `cmswing_area` VALUES ('430300', '湘潭市', '430000', '3');
-INSERT INTO `cmswing_area` VALUES ('430400', '衡阳市', '430000', '4');
-INSERT INTO `cmswing_area` VALUES ('430500', '邵阳市', '430000', '5');
-INSERT INTO `cmswing_area` VALUES ('430600', '岳阳市', '430000', '6');
-INSERT INTO `cmswing_area` VALUES ('430700', '常德市', '430000', '7');
-INSERT INTO `cmswing_area` VALUES ('430800', '张家界市', '430000', '8');
-INSERT INTO `cmswing_area` VALUES ('430900', '益阳市', '430000', '9');
-INSERT INTO `cmswing_area` VALUES ('431000', '郴州市', '430000', '10');
-INSERT INTO `cmswing_area` VALUES ('431100', '永州市', '430000', '11');
-INSERT INTO `cmswing_area` VALUES ('431200', '怀化市', '430000', '12');
-INSERT INTO `cmswing_area` VALUES ('431300', '娄底市', '430000', '13');
-INSERT INTO `cmswing_area` VALUES ('433100', '湘西土家族苗族自治州', '430000', '14');
-INSERT INTO `cmswing_area` VALUES ('440100', '广州市', '440000', '1');
-INSERT INTO `cmswing_area` VALUES ('440200', '韶关市', '440000', '2');
-INSERT INTO `cmswing_area` VALUES ('440300', '深圳市', '440000', '3');
-INSERT INTO `cmswing_area` VALUES ('440400', '珠海市', '440000', '4');
-INSERT INTO `cmswing_area` VALUES ('440500', '汕头市', '440000', '5');
-INSERT INTO `cmswing_area` VALUES ('440600', '佛山市', '440000', '6');
-INSERT INTO `cmswing_area` VALUES ('440700', '江门市', '440000', '7');
-INSERT INTO `cmswing_area` VALUES ('440800', '湛江市', '440000', '8');
-INSERT INTO `cmswing_area` VALUES ('440900', '茂名市', '440000', '9');
-INSERT INTO `cmswing_area` VALUES ('441200', '肇庆市', '440000', '10');
-INSERT INTO `cmswing_area` VALUES ('441300', '惠州市', '440000', '11');
-INSERT INTO `cmswing_area` VALUES ('441400', '梅州市', '440000', '12');
-INSERT INTO `cmswing_area` VALUES ('441500', '汕尾市', '440000', '13');
-INSERT INTO `cmswing_area` VALUES ('441600', '河源市', '440000', '14');
-INSERT INTO `cmswing_area` VALUES ('441700', '阳江市', '440000', '15');
-INSERT INTO `cmswing_area` VALUES ('441800', '清远市', '440000', '16');
-INSERT INTO `cmswing_area` VALUES ('441900', '东莞市', '440000', '17');
-INSERT INTO `cmswing_area` VALUES ('442000', '中山市', '440000', '18');
-INSERT INTO `cmswing_area` VALUES ('445100', '潮州市', '440000', '19');
-INSERT INTO `cmswing_area` VALUES ('445200', '揭阳市', '440000', '20');
-INSERT INTO `cmswing_area` VALUES ('445300', '云浮市', '440000', '21');
-INSERT INTO `cmswing_area` VALUES ('450100', '南宁市', '450000', '1');
-INSERT INTO `cmswing_area` VALUES ('450200', '柳州市', '450000', '2');
-INSERT INTO `cmswing_area` VALUES ('450300', '桂林市', '450000', '3');
-INSERT INTO `cmswing_area` VALUES ('450400', '梧州市', '450000', '4');
-INSERT INTO `cmswing_area` VALUES ('450500', '北海市', '450000', '5');
-INSERT INTO `cmswing_area` VALUES ('450600', '防城港市', '450000', '6');
-INSERT INTO `cmswing_area` VALUES ('450700', '钦州市', '450000', '7');
-INSERT INTO `cmswing_area` VALUES ('450800', '贵港市', '450000', '8');
-INSERT INTO `cmswing_area` VALUES ('450900', '玉林市', '450000', '9');
-INSERT INTO `cmswing_area` VALUES ('451000', '百色市', '450000', '10');
-INSERT INTO `cmswing_area` VALUES ('451100', '贺州市', '450000', '11');
-INSERT INTO `cmswing_area` VALUES ('451200', '河池市', '450000', '12');
-INSERT INTO `cmswing_area` VALUES ('451300', '来宾市', '450000', '13');
-INSERT INTO `cmswing_area` VALUES ('451400', '崇左市', '450000', '14');
-INSERT INTO `cmswing_area` VALUES ('460100', '海口市', '460000', '1');
-INSERT INTO `cmswing_area` VALUES ('460200', '三亚市', '460000', '2');
-INSERT INTO `cmswing_area` VALUES ('469000', '省直辖县级行政单位', '460000', '3');
-INSERT INTO `cmswing_area` VALUES ('500100', '市辖区', '500000', '1');
-INSERT INTO `cmswing_area` VALUES ('500200', '县', '500000', '2');
-INSERT INTO `cmswing_area` VALUES ('500300', '市', '500000', '3');
-INSERT INTO `cmswing_area` VALUES ('510100', '成都市', '510000', '1');
-INSERT INTO `cmswing_area` VALUES ('510300', '自贡市', '510000', '2');
-INSERT INTO `cmswing_area` VALUES ('510400', '攀枝花市', '510000', '3');
-INSERT INTO `cmswing_area` VALUES ('510500', '泸州市', '510000', '4');
-INSERT INTO `cmswing_area` VALUES ('510600', '德阳市', '510000', '5');
-INSERT INTO `cmswing_area` VALUES ('510700', '绵阳市', '510000', '6');
-INSERT INTO `cmswing_area` VALUES ('510800', '广元市', '510000', '7');
-INSERT INTO `cmswing_area` VALUES ('510900', '遂宁市', '510000', '8');
-INSERT INTO `cmswing_area` VALUES ('511000', '内江市', '510000', '9');
-INSERT INTO `cmswing_area` VALUES ('511100', '乐山市', '510000', '10');
-INSERT INTO `cmswing_area` VALUES ('511300', '南充市', '510000', '11');
-INSERT INTO `cmswing_area` VALUES ('511400', '眉山市', '510000', '12');
-INSERT INTO `cmswing_area` VALUES ('511500', '宜宾市', '510000', '13');
-INSERT INTO `cmswing_area` VALUES ('511600', '广安市', '510000', '14');
-INSERT INTO `cmswing_area` VALUES ('511700', '达州市', '510000', '15');
-INSERT INTO `cmswing_area` VALUES ('511800', '雅安市', '510000', '16');
-INSERT INTO `cmswing_area` VALUES ('511900', '巴中市', '510000', '17');
-INSERT INTO `cmswing_area` VALUES ('512000', '资阳市', '510000', '18');
-INSERT INTO `cmswing_area` VALUES ('513200', '阿坝藏族羌族自治州', '510000', '19');
-INSERT INTO `cmswing_area` VALUES ('513300', '甘孜藏族自治州', '510000', '20');
-INSERT INTO `cmswing_area` VALUES ('513400', '凉山彝族自治州', '510000', '21');
-INSERT INTO `cmswing_area` VALUES ('520100', '贵阳市', '520000', '1');
-INSERT INTO `cmswing_area` VALUES ('520200', '六盘水市', '520000', '2');
-INSERT INTO `cmswing_area` VALUES ('520300', '遵义市', '520000', '3');
-INSERT INTO `cmswing_area` VALUES ('520400', '安顺市', '520000', '4');
-INSERT INTO `cmswing_area` VALUES ('522200', '铜仁地区', '520000', '5');
-INSERT INTO `cmswing_area` VALUES ('522300', '黔西南布依族苗族自治州', '520000', '6');
-INSERT INTO `cmswing_area` VALUES ('522400', '毕节地区', '520000', '7');
-INSERT INTO `cmswing_area` VALUES ('522600', '黔东南苗族侗族自治州', '520000', '8');
-INSERT INTO `cmswing_area` VALUES ('522700', '黔南布依族苗族自治州', '520000', '9');
-INSERT INTO `cmswing_area` VALUES ('530100', '昆明市', '530000', '1');
-INSERT INTO `cmswing_area` VALUES ('530300', '曲靖市', '530000', '2');
-INSERT INTO `cmswing_area` VALUES ('530400', '玉溪市', '530000', '3');
-INSERT INTO `cmswing_area` VALUES ('530500', '保山市', '530000', '4');
-INSERT INTO `cmswing_area` VALUES ('530600', '昭通市', '530000', '5');
-INSERT INTO `cmswing_area` VALUES ('530700', '丽江市', '530000', '6');
-INSERT INTO `cmswing_area` VALUES ('530800', '思茅市', '530000', '7');
-INSERT INTO `cmswing_area` VALUES ('530900', '临沧市', '530000', '8');
-INSERT INTO `cmswing_area` VALUES ('532300', '楚雄彝族自治州', '530000', '9');
-INSERT INTO `cmswing_area` VALUES ('532500', '红河哈尼族彝族自治州', '530000', '10');
-INSERT INTO `cmswing_area` VALUES ('532600', '文山壮族苗族自治州', '530000', '11');
-INSERT INTO `cmswing_area` VALUES ('532800', '西双版纳傣族自治州', '530000', '12');
-INSERT INTO `cmswing_area` VALUES ('532900', '大理白族自治州', '530000', '13');
-INSERT INTO `cmswing_area` VALUES ('533100', '德宏傣族景颇族自治州', '530000', '14');
-INSERT INTO `cmswing_area` VALUES ('533300', '怒江傈僳族自治州', '530000', '15');
-INSERT INTO `cmswing_area` VALUES ('533400', '迪庆藏族自治州', '530000', '16');
-INSERT INTO `cmswing_area` VALUES ('540100', '拉萨市', '540000', '1');
-INSERT INTO `cmswing_area` VALUES ('542100', '昌都地区', '540000', '2');
-INSERT INTO `cmswing_area` VALUES ('542200', '山南地区', '540000', '3');
-INSERT INTO `cmswing_area` VALUES ('542300', '日喀则地区', '540000', '4');
-INSERT INTO `cmswing_area` VALUES ('542400', '那曲地区', '540000', '5');
-INSERT INTO `cmswing_area` VALUES ('542500', '阿里地区', '540000', '6');
-INSERT INTO `cmswing_area` VALUES ('542600', '林芝地区', '540000', '7');
-INSERT INTO `cmswing_area` VALUES ('610100', '西安市', '610000', '1');
-INSERT INTO `cmswing_area` VALUES ('610200', '铜川市', '610000', '2');
-INSERT INTO `cmswing_area` VALUES ('610300', '宝鸡市', '610000', '3');
-INSERT INTO `cmswing_area` VALUES ('610400', '咸阳市', '610000', '4');
-INSERT INTO `cmswing_area` VALUES ('610500', '渭南市', '610000', '5');
-INSERT INTO `cmswing_area` VALUES ('610600', '延安市', '610000', '6');
-INSERT INTO `cmswing_area` VALUES ('610700', '汉中市', '610000', '7');
-INSERT INTO `cmswing_area` VALUES ('610800', '榆林市', '610000', '8');
-INSERT INTO `cmswing_area` VALUES ('610900', '安康市', '610000', '9');
-INSERT INTO `cmswing_area` VALUES ('611000', '商洛市', '610000', '10');
-INSERT INTO `cmswing_area` VALUES ('620100', '兰州市', '620000', '1');
-INSERT INTO `cmswing_area` VALUES ('620200', '嘉峪关市', '620000', '2');
-INSERT INTO `cmswing_area` VALUES ('620300', '金昌市', '620000', '3');
-INSERT INTO `cmswing_area` VALUES ('620400', '白银市', '620000', '4');
-INSERT INTO `cmswing_area` VALUES ('620500', '天水市', '620000', '5');
-INSERT INTO `cmswing_area` VALUES ('620600', '武威市', '620000', '6');
-INSERT INTO `cmswing_area` VALUES ('620700', '张掖市', '620000', '7');
-INSERT INTO `cmswing_area` VALUES ('620800', '平凉市', '620000', '8');
-INSERT INTO `cmswing_area` VALUES ('620900', '酒泉市', '620000', '9');
-INSERT INTO `cmswing_area` VALUES ('621000', '庆阳市', '620000', '10');
-INSERT INTO `cmswing_area` VALUES ('621100', '定西市', '620000', '11');
-INSERT INTO `cmswing_area` VALUES ('621200', '陇南市', '620000', '12');
-INSERT INTO `cmswing_area` VALUES ('622900', '临夏回族自治州', '620000', '13');
-INSERT INTO `cmswing_area` VALUES ('623000', '甘南藏族自治州', '620000', '14');
-INSERT INTO `cmswing_area` VALUES ('630100', '西宁市', '630000', '1');
-INSERT INTO `cmswing_area` VALUES ('632100', '海东地区', '630000', '2');
-INSERT INTO `cmswing_area` VALUES ('632200', '海北藏族自治州', '630000', '3');
-INSERT INTO `cmswing_area` VALUES ('632300', '黄南藏族自治州', '630000', '4');
-INSERT INTO `cmswing_area` VALUES ('632500', '海南藏族自治州', '630000', '5');
-INSERT INTO `cmswing_area` VALUES ('632600', '果洛藏族自治州', '630000', '6');
-INSERT INTO `cmswing_area` VALUES ('632700', '玉树藏族自治州', '630000', '7');
-INSERT INTO `cmswing_area` VALUES ('632800', '海西蒙古族藏族自治州', '630000', '8');
-INSERT INTO `cmswing_area` VALUES ('640100', '银川市', '640000', '1');
-INSERT INTO `cmswing_area` VALUES ('640200', '石嘴山市', '640000', '2');
-INSERT INTO `cmswing_area` VALUES ('640300', '吴忠市', '640000', '3');
-INSERT INTO `cmswing_area` VALUES ('640400', '固原市', '640000', '4');
-INSERT INTO `cmswing_area` VALUES ('640500', '中卫市', '640000', '5');
-INSERT INTO `cmswing_area` VALUES ('650100', '乌鲁木齐市', '650000', '1');
-INSERT INTO `cmswing_area` VALUES ('650200', '克拉玛依市', '650000', '2');
-INSERT INTO `cmswing_area` VALUES ('652100', '吐鲁番地区', '650000', '3');
-INSERT INTO `cmswing_area` VALUES ('652200', '哈密地区', '650000', '4');
-INSERT INTO `cmswing_area` VALUES ('652300', '昌吉回族自治州', '650000', '5');
-INSERT INTO `cmswing_area` VALUES ('652700', '博尔塔拉蒙古自治州', '650000', '6');
-INSERT INTO `cmswing_area` VALUES ('652800', '巴音郭楞蒙古自治州', '650000', '7');
-INSERT INTO `cmswing_area` VALUES ('652900', '阿克苏地区', '650000', '8');
-INSERT INTO `cmswing_area` VALUES ('653000', '克孜勒苏柯尔克孜自治州', '650000', '9');
-INSERT INTO `cmswing_area` VALUES ('653100', '喀什地区', '650000', '10');
-INSERT INTO `cmswing_area` VALUES ('653200', '和田地区', '650000', '11');
-INSERT INTO `cmswing_area` VALUES ('654000', '伊犁哈萨克自治州', '650000', '12');
-INSERT INTO `cmswing_area` VALUES ('654200', '塔城地区', '650000', '13');
-INSERT INTO `cmswing_area` VALUES ('654300', '阿勒泰地区', '650000', '14');
-INSERT INTO `cmswing_area` VALUES ('659000', '省直辖行政单位', '650000', '15');
 INSERT INTO `cmswing_area` VALUES ('110101', '东城区', '110100', '1');
 INSERT INTO `cmswing_area` VALUES ('110102', '西城区', '110100', '2');
 INSERT INTO `cmswing_area` VALUES ('110103', '崇文区', '110100', '3');
@@ -545,8 +169,11 @@ INSERT INTO `cmswing_area` VALUES ('110114', '昌平区', '110100', '13');
 INSERT INTO `cmswing_area` VALUES ('110115', '大兴区', '110100', '14');
 INSERT INTO `cmswing_area` VALUES ('110116', '怀柔区', '110100', '15');
 INSERT INTO `cmswing_area` VALUES ('110117', '平谷区', '110100', '16');
+INSERT INTO `cmswing_area` VALUES ('110200', '县', '110000', '2');
 INSERT INTO `cmswing_area` VALUES ('110228', '密云县', '110200', '1');
 INSERT INTO `cmswing_area` VALUES ('110229', '延庆县', '110200', '2');
+INSERT INTO `cmswing_area` VALUES ('120000', '天津市', '0', '2');
+INSERT INTO `cmswing_area` VALUES ('120100', '市辖区', '120000', '1');
 INSERT INTO `cmswing_area` VALUES ('120101', '和平区', '120100', '1');
 INSERT INTO `cmswing_area` VALUES ('120102', '河东区', '120100', '2');
 INSERT INTO `cmswing_area` VALUES ('120103', '河西区', '120100', '3');
@@ -562,9 +189,12 @@ INSERT INTO `cmswing_area` VALUES ('120112', '津南区', '120100', '12');
 INSERT INTO `cmswing_area` VALUES ('120113', '北辰区', '120100', '13');
 INSERT INTO `cmswing_area` VALUES ('120114', '武清区', '120100', '14');
 INSERT INTO `cmswing_area` VALUES ('120115', '宝坻区', '120100', '15');
+INSERT INTO `cmswing_area` VALUES ('120200', '县', '120000', '2');
 INSERT INTO `cmswing_area` VALUES ('120221', '宁河县', '120200', '1');
 INSERT INTO `cmswing_area` VALUES ('120223', '静海县', '120200', '2');
 INSERT INTO `cmswing_area` VALUES ('120225', '蓟　县', '120200', '3');
+INSERT INTO `cmswing_area` VALUES ('130000', '河北省', '0', '3');
+INSERT INTO `cmswing_area` VALUES ('130100', '石家庄市', '130000', '1');
 INSERT INTO `cmswing_area` VALUES ('130101', '市辖区', '130100', '1');
 INSERT INTO `cmswing_area` VALUES ('130102', '长安区', '130100', '2');
 INSERT INTO `cmswing_area` VALUES ('130103', '桥东区', '130100', '3');
@@ -589,6 +219,7 @@ INSERT INTO `cmswing_area` VALUES ('130182', '藁城市', '130100', '21');
 INSERT INTO `cmswing_area` VALUES ('130183', '晋州市', '130100', '22');
 INSERT INTO `cmswing_area` VALUES ('130184', '新乐市', '130100', '23');
 INSERT INTO `cmswing_area` VALUES ('130185', '鹿泉市', '130100', '24');
+INSERT INTO `cmswing_area` VALUES ('130200', '唐山市', '130000', '2');
 INSERT INTO `cmswing_area` VALUES ('130201', '市辖区', '130200', '1');
 INSERT INTO `cmswing_area` VALUES ('130202', '路南区', '130200', '2');
 INSERT INTO `cmswing_area` VALUES ('130203', '路北区', '130200', '3');
@@ -604,6 +235,7 @@ INSERT INTO `cmswing_area` VALUES ('130229', '玉田县', '130200', '12');
 INSERT INTO `cmswing_area` VALUES ('130230', '唐海县', '130200', '13');
 INSERT INTO `cmswing_area` VALUES ('130281', '遵化市', '130200', '14');
 INSERT INTO `cmswing_area` VALUES ('130283', '迁安市', '130200', '15');
+INSERT INTO `cmswing_area` VALUES ('130300', '秦皇岛市', '130000', '3');
 INSERT INTO `cmswing_area` VALUES ('130301', '市辖区', '130300', '1');
 INSERT INTO `cmswing_area` VALUES ('130302', '海港区', '130300', '2');
 INSERT INTO `cmswing_area` VALUES ('130303', '山海关区', '130300', '3');
@@ -612,6 +244,7 @@ INSERT INTO `cmswing_area` VALUES ('130321', '青龙满族自治县', '130300', 
 INSERT INTO `cmswing_area` VALUES ('130322', '昌黎县', '130300', '6');
 INSERT INTO `cmswing_area` VALUES ('130323', '抚宁县', '130300', '7');
 INSERT INTO `cmswing_area` VALUES ('130324', '卢龙县', '130300', '8');
+INSERT INTO `cmswing_area` VALUES ('130400', '邯郸市', '130000', '4');
 INSERT INTO `cmswing_area` VALUES ('130401', '市辖区', '130400', '1');
 INSERT INTO `cmswing_area` VALUES ('130402', '邯山区', '130400', '2');
 INSERT INTO `cmswing_area` VALUES ('130403', '丛台区', '130400', '3');
@@ -632,6 +265,7 @@ INSERT INTO `cmswing_area` VALUES ('130433', '馆陶县', '130400', '17');
 INSERT INTO `cmswing_area` VALUES ('130434', '魏　县', '130400', '18');
 INSERT INTO `cmswing_area` VALUES ('130435', '曲周县', '130400', '19');
 INSERT INTO `cmswing_area` VALUES ('130481', '武安市', '130400', '20');
+INSERT INTO `cmswing_area` VALUES ('130500', '邢台市', '130000', '5');
 INSERT INTO `cmswing_area` VALUES ('130501', '市辖区', '130500', '1');
 INSERT INTO `cmswing_area` VALUES ('130502', '桥东区', '130500', '2');
 INSERT INTO `cmswing_area` VALUES ('130503', '桥西区', '130500', '3');
@@ -652,6 +286,7 @@ INSERT INTO `cmswing_area` VALUES ('130534', '清河县', '130500', '17');
 INSERT INTO `cmswing_area` VALUES ('130535', '临西县', '130500', '18');
 INSERT INTO `cmswing_area` VALUES ('130581', '南宫市', '130500', '19');
 INSERT INTO `cmswing_area` VALUES ('130582', '沙河市', '130500', '20');
+INSERT INTO `cmswing_area` VALUES ('130600', '保定市', '130000', '6');
 INSERT INTO `cmswing_area` VALUES ('130601', '市辖区', '130600', '1');
 INSERT INTO `cmswing_area` VALUES ('130602', '新市区', '130600', '2');
 INSERT INTO `cmswing_area` VALUES ('130603', '北市区', '130600', '3');
@@ -678,6 +313,7 @@ INSERT INTO `cmswing_area` VALUES ('130681', '涿州市', '130600', '23');
 INSERT INTO `cmswing_area` VALUES ('130682', '定州市', '130600', '24');
 INSERT INTO `cmswing_area` VALUES ('130683', '安国市', '130600', '25');
 INSERT INTO `cmswing_area` VALUES ('130684', '高碑店市', '130600', '26');
+INSERT INTO `cmswing_area` VALUES ('130700', '张家口市', '130000', '7');
 INSERT INTO `cmswing_area` VALUES ('130701', '市辖区', '130700', '1');
 INSERT INTO `cmswing_area` VALUES ('130702', '桥东区', '130700', '2');
 INSERT INTO `cmswing_area` VALUES ('130703', '桥西区', '130700', '3');
@@ -696,6 +332,7 @@ INSERT INTO `cmswing_area` VALUES ('130730', '怀来县', '130700', '15');
 INSERT INTO `cmswing_area` VALUES ('130731', '涿鹿县', '130700', '16');
 INSERT INTO `cmswing_area` VALUES ('130732', '赤城县', '130700', '17');
 INSERT INTO `cmswing_area` VALUES ('130733', '崇礼县', '130700', '18');
+INSERT INTO `cmswing_area` VALUES ('130800', '承德市', '130000', '8');
 INSERT INTO `cmswing_area` VALUES ('130801', '市辖区', '130800', '1');
 INSERT INTO `cmswing_area` VALUES ('130802', '双桥区', '130800', '2');
 INSERT INTO `cmswing_area` VALUES ('130803', '双滦区', '130800', '3');
@@ -708,6 +345,7 @@ INSERT INTO `cmswing_area` VALUES ('130825', '隆化县', '130800', '9');
 INSERT INTO `cmswing_area` VALUES ('130826', '丰宁满族自治县', '130800', '10');
 INSERT INTO `cmswing_area` VALUES ('130827', '宽城满族自治县', '130800', '11');
 INSERT INTO `cmswing_area` VALUES ('130828', '围场满族蒙古族自治县', '130800', '12');
+INSERT INTO `cmswing_area` VALUES ('130900', '沧州市', '130000', '9');
 INSERT INTO `cmswing_area` VALUES ('130901', '市辖区', '130900', '1');
 INSERT INTO `cmswing_area` VALUES ('130902', '新华区', '130900', '2');
 INSERT INTO `cmswing_area` VALUES ('130903', '运河区', '130900', '3');
@@ -725,6 +363,7 @@ INSERT INTO `cmswing_area` VALUES ('130981', '泊头市', '130900', '14');
 INSERT INTO `cmswing_area` VALUES ('130982', '任丘市', '130900', '15');
 INSERT INTO `cmswing_area` VALUES ('130983', '黄骅市', '130900', '16');
 INSERT INTO `cmswing_area` VALUES ('130984', '河间市', '130900', '17');
+INSERT INTO `cmswing_area` VALUES ('131000', '廊坊市', '130000', '10');
 INSERT INTO `cmswing_area` VALUES ('131001', '市辖区', '131000', '1');
 INSERT INTO `cmswing_area` VALUES ('131002', '安次区', '131000', '2');
 INSERT INTO `cmswing_area` VALUES ('131003', '广阳区', '131000', '3');
@@ -736,6 +375,7 @@ INSERT INTO `cmswing_area` VALUES ('131026', '文安县', '131000', '8');
 INSERT INTO `cmswing_area` VALUES ('131028', '大厂回族自治县', '131000', '9');
 INSERT INTO `cmswing_area` VALUES ('131081', '霸州市', '131000', '10');
 INSERT INTO `cmswing_area` VALUES ('131082', '三河市', '131000', '11');
+INSERT INTO `cmswing_area` VALUES ('131100', '衡水市', '130000', '11');
 INSERT INTO `cmswing_area` VALUES ('131101', '市辖区', '131100', '1');
 INSERT INTO `cmswing_area` VALUES ('131102', '桃城区', '131100', '2');
 INSERT INTO `cmswing_area` VALUES ('131121', '枣强县', '131100', '3');
@@ -748,6 +388,8 @@ INSERT INTO `cmswing_area` VALUES ('131127', '景　县', '131100', '9');
 INSERT INTO `cmswing_area` VALUES ('131128', '阜城县', '131100', '10');
 INSERT INTO `cmswing_area` VALUES ('131181', '冀州市', '131100', '11');
 INSERT INTO `cmswing_area` VALUES ('131182', '深州市', '131100', '12');
+INSERT INTO `cmswing_area` VALUES ('140000', '山西省', '0', '4');
+INSERT INTO `cmswing_area` VALUES ('140100', '太原市', '140000', '1');
 INSERT INTO `cmswing_area` VALUES ('140101', '市辖区', '140100', '1');
 INSERT INTO `cmswing_area` VALUES ('140105', '小店区', '140100', '2');
 INSERT INTO `cmswing_area` VALUES ('140106', '迎泽区', '140100', '3');
@@ -759,6 +401,7 @@ INSERT INTO `cmswing_area` VALUES ('140121', '清徐县', '140100', '8');
 INSERT INTO `cmswing_area` VALUES ('140122', '阳曲县', '140100', '9');
 INSERT INTO `cmswing_area` VALUES ('140123', '娄烦县', '140100', '10');
 INSERT INTO `cmswing_area` VALUES ('140181', '古交市', '140100', '11');
+INSERT INTO `cmswing_area` VALUES ('140200', '大同市', '140000', '2');
 INSERT INTO `cmswing_area` VALUES ('140201', '市辖区', '140200', '1');
 INSERT INTO `cmswing_area` VALUES ('140202', '城　区', '140200', '2');
 INSERT INTO `cmswing_area` VALUES ('140203', '矿　区', '140200', '3');
@@ -771,12 +414,14 @@ INSERT INTO `cmswing_area` VALUES ('140224', '灵丘县', '140200', '9');
 INSERT INTO `cmswing_area` VALUES ('140225', '浑源县', '140200', '10');
 INSERT INTO `cmswing_area` VALUES ('140226', '左云县', '140200', '11');
 INSERT INTO `cmswing_area` VALUES ('140227', '大同县', '140200', '12');
+INSERT INTO `cmswing_area` VALUES ('140300', '阳泉市', '140000', '3');
 INSERT INTO `cmswing_area` VALUES ('140301', '市辖区', '140300', '1');
 INSERT INTO `cmswing_area` VALUES ('140302', '城　区', '140300', '2');
 INSERT INTO `cmswing_area` VALUES ('140303', '矿　区', '140300', '3');
 INSERT INTO `cmswing_area` VALUES ('140311', '郊　区', '140300', '4');
 INSERT INTO `cmswing_area` VALUES ('140321', '平定县', '140300', '5');
 INSERT INTO `cmswing_area` VALUES ('140322', '盂　县', '140300', '6');
+INSERT INTO `cmswing_area` VALUES ('140400', '长治市', '140000', '4');
 INSERT INTO `cmswing_area` VALUES ('140401', '市辖区', '140400', '1');
 INSERT INTO `cmswing_area` VALUES ('140402', '城　区', '140400', '2');
 INSERT INTO `cmswing_area` VALUES ('140411', '郊　区', '140400', '3');
@@ -791,6 +436,7 @@ INSERT INTO `cmswing_area` VALUES ('140429', '武乡县', '140400', '11');
 INSERT INTO `cmswing_area` VALUES ('140430', '沁　县', '140400', '12');
 INSERT INTO `cmswing_area` VALUES ('140431', '沁源县', '140400', '13');
 INSERT INTO `cmswing_area` VALUES ('140481', '潞城市', '140400', '14');
+INSERT INTO `cmswing_area` VALUES ('140500', '晋城市', '140000', '5');
 INSERT INTO `cmswing_area` VALUES ('140501', '市辖区', '140500', '1');
 INSERT INTO `cmswing_area` VALUES ('140502', '城　区', '140500', '2');
 INSERT INTO `cmswing_area` VALUES ('140521', '沁水县', '140500', '3');
@@ -798,6 +444,7 @@ INSERT INTO `cmswing_area` VALUES ('140522', '阳城县', '140500', '4');
 INSERT INTO `cmswing_area` VALUES ('140524', '陵川县', '140500', '5');
 INSERT INTO `cmswing_area` VALUES ('140525', '泽州县', '140500', '6');
 INSERT INTO `cmswing_area` VALUES ('140581', '高平市', '140500', '7');
+INSERT INTO `cmswing_area` VALUES ('140600', '朔州市', '140000', '6');
 INSERT INTO `cmswing_area` VALUES ('140601', '市辖区', '140600', '1');
 INSERT INTO `cmswing_area` VALUES ('140602', '朔城区', '140600', '2');
 INSERT INTO `cmswing_area` VALUES ('140603', '平鲁区', '140600', '3');
@@ -805,6 +452,7 @@ INSERT INTO `cmswing_area` VALUES ('140621', '山阴县', '140600', '4');
 INSERT INTO `cmswing_area` VALUES ('140622', '应　县', '140600', '5');
 INSERT INTO `cmswing_area` VALUES ('140623', '右玉县', '140600', '6');
 INSERT INTO `cmswing_area` VALUES ('140624', '怀仁县', '140600', '7');
+INSERT INTO `cmswing_area` VALUES ('140700', '晋中市', '140000', '7');
 INSERT INTO `cmswing_area` VALUES ('140701', '市辖区', '140700', '1');
 INSERT INTO `cmswing_area` VALUES ('140702', '榆次区', '140700', '2');
 INSERT INTO `cmswing_area` VALUES ('140721', '榆社县', '140700', '3');
@@ -817,6 +465,7 @@ INSERT INTO `cmswing_area` VALUES ('140727', '祁　县', '140700', '9');
 INSERT INTO `cmswing_area` VALUES ('140728', '平遥县', '140700', '10');
 INSERT INTO `cmswing_area` VALUES ('140729', '灵石县', '140700', '11');
 INSERT INTO `cmswing_area` VALUES ('140781', '介休市', '140700', '12');
+INSERT INTO `cmswing_area` VALUES ('140800', '运城市', '140000', '8');
 INSERT INTO `cmswing_area` VALUES ('140801', '市辖区', '140800', '1');
 INSERT INTO `cmswing_area` VALUES ('140802', '盐湖区', '140800', '2');
 INSERT INTO `cmswing_area` VALUES ('140821', '临猗县', '140800', '3');
@@ -831,6 +480,7 @@ INSERT INTO `cmswing_area` VALUES ('140829', '平陆县', '140800', '11');
 INSERT INTO `cmswing_area` VALUES ('140830', '芮城县', '140800', '12');
 INSERT INTO `cmswing_area` VALUES ('140881', '永济市', '140800', '13');
 INSERT INTO `cmswing_area` VALUES ('140882', '河津市', '140800', '14');
+INSERT INTO `cmswing_area` VALUES ('140900', '忻州市', '140000', '9');
 INSERT INTO `cmswing_area` VALUES ('140901', '市辖区', '140900', '1');
 INSERT INTO `cmswing_area` VALUES ('140902', '忻府区', '140900', '2');
 INSERT INTO `cmswing_area` VALUES ('140921', '定襄县', '140900', '3');
@@ -846,6 +496,7 @@ INSERT INTO `cmswing_area` VALUES ('140930', '河曲县', '140900', '12');
 INSERT INTO `cmswing_area` VALUES ('140931', '保德县', '140900', '13');
 INSERT INTO `cmswing_area` VALUES ('140932', '偏关县', '140900', '14');
 INSERT INTO `cmswing_area` VALUES ('140981', '原平市', '140900', '15');
+INSERT INTO `cmswing_area` VALUES ('141000', '临汾市', '140000', '10');
 INSERT INTO `cmswing_area` VALUES ('141001', '市辖区', '141000', '1');
 INSERT INTO `cmswing_area` VALUES ('141002', '尧都区', '141000', '2');
 INSERT INTO `cmswing_area` VALUES ('141021', '曲沃县', '141000', '3');
@@ -864,6 +515,7 @@ INSERT INTO `cmswing_area` VALUES ('141033', '蒲　县', '141000', '15');
 INSERT INTO `cmswing_area` VALUES ('141034', '汾西县', '141000', '16');
 INSERT INTO `cmswing_area` VALUES ('141081', '侯马市', '141000', '17');
 INSERT INTO `cmswing_area` VALUES ('141082', '霍州市', '141000', '18');
+INSERT INTO `cmswing_area` VALUES ('141100', '吕梁市', '140000', '11');
 INSERT INTO `cmswing_area` VALUES ('141101', '市辖区', '141100', '1');
 INSERT INTO `cmswing_area` VALUES ('141102', '离石区', '141100', '2');
 INSERT INTO `cmswing_area` VALUES ('141121', '文水县', '141100', '3');
@@ -878,6 +530,8 @@ INSERT INTO `cmswing_area` VALUES ('141129', '中阳县', '141100', '11');
 INSERT INTO `cmswing_area` VALUES ('141130', '交口县', '141100', '12');
 INSERT INTO `cmswing_area` VALUES ('141181', '孝义市', '141100', '13');
 INSERT INTO `cmswing_area` VALUES ('141182', '汾阳市', '141100', '14');
+INSERT INTO `cmswing_area` VALUES ('150000', '内蒙古', '0', '5');
+INSERT INTO `cmswing_area` VALUES ('150100', '呼和浩特市', '150000', '1');
 INSERT INTO `cmswing_area` VALUES ('150101', '市辖区', '150100', '1');
 INSERT INTO `cmswing_area` VALUES ('150102', '新城区', '150100', '2');
 INSERT INTO `cmswing_area` VALUES ('150103', '回民区', '150100', '3');
@@ -888,6 +542,7 @@ INSERT INTO `cmswing_area` VALUES ('150122', '托克托县', '150100', '7');
 INSERT INTO `cmswing_area` VALUES ('150123', '和林格尔县', '150100', '8');
 INSERT INTO `cmswing_area` VALUES ('150124', '清水河县', '150100', '9');
 INSERT INTO `cmswing_area` VALUES ('150125', '武川县', '150100', '10');
+INSERT INTO `cmswing_area` VALUES ('150200', '包头市', '150000', '2');
 INSERT INTO `cmswing_area` VALUES ('150201', '市辖区', '150200', '1');
 INSERT INTO `cmswing_area` VALUES ('150202', '东河区', '150200', '2');
 INSERT INTO `cmswing_area` VALUES ('150203', '昆都仑区', '150200', '3');
@@ -898,10 +553,12 @@ INSERT INTO `cmswing_area` VALUES ('150207', '九原区', '150200', '7');
 INSERT INTO `cmswing_area` VALUES ('150221', '土默特右旗', '150200', '8');
 INSERT INTO `cmswing_area` VALUES ('150222', '固阳县', '150200', '9');
 INSERT INTO `cmswing_area` VALUES ('150223', '达尔罕茂明安联合旗', '150200', '10');
+INSERT INTO `cmswing_area` VALUES ('150300', '乌海市', '150000', '3');
 INSERT INTO `cmswing_area` VALUES ('150301', '市辖区', '150300', '1');
 INSERT INTO `cmswing_area` VALUES ('150302', '海勃湾区', '150300', '2');
 INSERT INTO `cmswing_area` VALUES ('150303', '海南区', '150300', '3');
 INSERT INTO `cmswing_area` VALUES ('150304', '乌达区', '150300', '4');
+INSERT INTO `cmswing_area` VALUES ('150400', '赤峰市', '150000', '4');
 INSERT INTO `cmswing_area` VALUES ('150401', '市辖区', '150400', '1');
 INSERT INTO `cmswing_area` VALUES ('150402', '红山区', '150400', '2');
 INSERT INTO `cmswing_area` VALUES ('150403', '元宝山区', '150400', '3');
@@ -915,6 +572,7 @@ INSERT INTO `cmswing_area` VALUES ('150426', '翁牛特旗', '150400', '10');
 INSERT INTO `cmswing_area` VALUES ('150428', '喀喇沁旗', '150400', '11');
 INSERT INTO `cmswing_area` VALUES ('150429', '宁城县', '150400', '12');
 INSERT INTO `cmswing_area` VALUES ('150430', '敖汉旗', '150400', '13');
+INSERT INTO `cmswing_area` VALUES ('150500', '通辽市', '150000', '5');
 INSERT INTO `cmswing_area` VALUES ('150501', '市辖区', '150500', '1');
 INSERT INTO `cmswing_area` VALUES ('150502', '科尔沁区', '150500', '2');
 INSERT INTO `cmswing_area` VALUES ('150521', '科尔沁左翼中旗', '150500', '3');
@@ -924,6 +582,7 @@ INSERT INTO `cmswing_area` VALUES ('150524', '库伦旗', '150500', '6');
 INSERT INTO `cmswing_area` VALUES ('150525', '奈曼旗', '150500', '7');
 INSERT INTO `cmswing_area` VALUES ('150526', '扎鲁特旗', '150500', '8');
 INSERT INTO `cmswing_area` VALUES ('150581', '霍林郭勒市', '150500', '9');
+INSERT INTO `cmswing_area` VALUES ('150600', '鄂尔多斯市', '150000', '6');
 INSERT INTO `cmswing_area` VALUES ('150602', '东胜区', '150600', '1');
 INSERT INTO `cmswing_area` VALUES ('150621', '达拉特旗', '150600', '2');
 INSERT INTO `cmswing_area` VALUES ('150622', '准格尔旗', '150600', '3');
@@ -932,6 +591,7 @@ INSERT INTO `cmswing_area` VALUES ('150624', '鄂托克旗', '150600', '5');
 INSERT INTO `cmswing_area` VALUES ('150625', '杭锦旗', '150600', '6');
 INSERT INTO `cmswing_area` VALUES ('150626', '乌审旗', '150600', '7');
 INSERT INTO `cmswing_area` VALUES ('150627', '伊金霍洛旗', '150600', '8');
+INSERT INTO `cmswing_area` VALUES ('150700', '呼伦贝尔市', '150000', '7');
 INSERT INTO `cmswing_area` VALUES ('150701', '市辖区', '150700', '1');
 INSERT INTO `cmswing_area` VALUES ('150702', '海拉尔区', '150700', '2');
 INSERT INTO `cmswing_area` VALUES ('150721', '阿荣旗', '150700', '3');
@@ -946,6 +606,7 @@ INSERT INTO `cmswing_area` VALUES ('150782', '牙克石市', '150700', '11');
 INSERT INTO `cmswing_area` VALUES ('150783', '扎兰屯市', '150700', '12');
 INSERT INTO `cmswing_area` VALUES ('150784', '额尔古纳市', '150700', '13');
 INSERT INTO `cmswing_area` VALUES ('150785', '根河市', '150700', '14');
+INSERT INTO `cmswing_area` VALUES ('150800', '巴彦淖尔市', '150000', '8');
 INSERT INTO `cmswing_area` VALUES ('150801', '市辖区', '150800', '1');
 INSERT INTO `cmswing_area` VALUES ('150802', '临河区', '150800', '2');
 INSERT INTO `cmswing_area` VALUES ('150821', '五原县', '150800', '3');
@@ -954,6 +615,7 @@ INSERT INTO `cmswing_area` VALUES ('150823', '乌拉特前旗', '150800', '5');
 INSERT INTO `cmswing_area` VALUES ('150824', '乌拉特中旗', '150800', '6');
 INSERT INTO `cmswing_area` VALUES ('150825', '乌拉特后旗', '150800', '7');
 INSERT INTO `cmswing_area` VALUES ('150826', '杭锦后旗', '150800', '8');
+INSERT INTO `cmswing_area` VALUES ('150900', '乌兰察布市', '150000', '9');
 INSERT INTO `cmswing_area` VALUES ('150901', '市辖区', '150900', '1');
 INSERT INTO `cmswing_area` VALUES ('150902', '集宁区', '150900', '2');
 INSERT INTO `cmswing_area` VALUES ('150921', '卓资县', '150900', '3');
@@ -966,12 +628,14 @@ INSERT INTO `cmswing_area` VALUES ('150927', '察哈尔右翼中旗', '150900', 
 INSERT INTO `cmswing_area` VALUES ('150928', '察哈尔右翼后旗', '150900', '10');
 INSERT INTO `cmswing_area` VALUES ('150929', '四子王旗', '150900', '11');
 INSERT INTO `cmswing_area` VALUES ('150981', '丰镇市', '150900', '12');
+INSERT INTO `cmswing_area` VALUES ('152200', '兴安盟', '150000', '10');
 INSERT INTO `cmswing_area` VALUES ('152201', '乌兰浩特市', '152200', '1');
 INSERT INTO `cmswing_area` VALUES ('152202', '阿尔山市', '152200', '2');
 INSERT INTO `cmswing_area` VALUES ('152221', '科尔沁右翼前旗', '152200', '3');
 INSERT INTO `cmswing_area` VALUES ('152222', '科尔沁右翼中旗', '152200', '4');
 INSERT INTO `cmswing_area` VALUES ('152223', '扎赉特旗', '152200', '5');
 INSERT INTO `cmswing_area` VALUES ('152224', '突泉县', '152200', '6');
+INSERT INTO `cmswing_area` VALUES ('152500', '锡林郭勒盟', '150000', '11');
 INSERT INTO `cmswing_area` VALUES ('152501', '二连浩特市', '152500', '1');
 INSERT INTO `cmswing_area` VALUES ('152502', '锡林浩特市', '152500', '2');
 INSERT INTO `cmswing_area` VALUES ('152522', '阿巴嘎旗', '152500', '3');
@@ -984,9 +648,12 @@ INSERT INTO `cmswing_area` VALUES ('152528', '镶黄旗', '152500', '9');
 INSERT INTO `cmswing_area` VALUES ('152529', '正镶白旗', '152500', '10');
 INSERT INTO `cmswing_area` VALUES ('152530', '正蓝旗', '152500', '11');
 INSERT INTO `cmswing_area` VALUES ('152531', '多伦县', '152500', '12');
+INSERT INTO `cmswing_area` VALUES ('152900', '阿拉善盟', '150000', '12');
 INSERT INTO `cmswing_area` VALUES ('152921', '阿拉善左旗', '152900', '1');
 INSERT INTO `cmswing_area` VALUES ('152922', '阿拉善右旗', '152900', '2');
 INSERT INTO `cmswing_area` VALUES ('152923', '额济纳旗', '152900', '3');
+INSERT INTO `cmswing_area` VALUES ('210000', '辽宁省', '0', '6');
+INSERT INTO `cmswing_area` VALUES ('210100', '沈阳市', '210000', '1');
 INSERT INTO `cmswing_area` VALUES ('210101', '市辖区', '210100', '1');
 INSERT INTO `cmswing_area` VALUES ('210102', '和平区', '210100', '2');
 INSERT INTO `cmswing_area` VALUES ('210103', '沈河区', '210100', '3');
@@ -1001,6 +668,7 @@ INSERT INTO `cmswing_area` VALUES ('210122', '辽中县', '210100', '11');
 INSERT INTO `cmswing_area` VALUES ('210123', '康平县', '210100', '12');
 INSERT INTO `cmswing_area` VALUES ('210124', '法库县', '210100', '13');
 INSERT INTO `cmswing_area` VALUES ('210181', '新民市', '210100', '14');
+INSERT INTO `cmswing_area` VALUES ('210200', '大连市', '210000', '2');
 INSERT INTO `cmswing_area` VALUES ('210201', '市辖区', '210200', '1');
 INSERT INTO `cmswing_area` VALUES ('210202', '中山区', '210200', '2');
 INSERT INTO `cmswing_area` VALUES ('210203', '西岗区', '210200', '3');
@@ -1012,6 +680,7 @@ INSERT INTO `cmswing_area` VALUES ('210224', '长海县', '210200', '8');
 INSERT INTO `cmswing_area` VALUES ('210281', '瓦房店市', '210200', '9');
 INSERT INTO `cmswing_area` VALUES ('210282', '普兰店市', '210200', '10');
 INSERT INTO `cmswing_area` VALUES ('210283', '庄河市', '210200', '11');
+INSERT INTO `cmswing_area` VALUES ('210300', '鞍山市', '210000', '3');
 INSERT INTO `cmswing_area` VALUES ('210301', '市辖区', '210300', '1');
 INSERT INTO `cmswing_area` VALUES ('210302', '铁东区', '210300', '2');
 INSERT INTO `cmswing_area` VALUES ('210303', '铁西区', '210300', '3');
@@ -1020,6 +689,7 @@ INSERT INTO `cmswing_area` VALUES ('210311', '千山区', '210300', '5');
 INSERT INTO `cmswing_area` VALUES ('210321', '台安县', '210300', '6');
 INSERT INTO `cmswing_area` VALUES ('210323', '岫岩满族自治县', '210300', '7');
 INSERT INTO `cmswing_area` VALUES ('210381', '海城市', '210300', '8');
+INSERT INTO `cmswing_area` VALUES ('210400', '抚顺市', '210000', '4');
 INSERT INTO `cmswing_area` VALUES ('210401', '市辖区', '210400', '1');
 INSERT INTO `cmswing_area` VALUES ('210402', '新抚区', '210400', '2');
 INSERT INTO `cmswing_area` VALUES ('210403', '东洲区', '210400', '3');
@@ -1028,6 +698,7 @@ INSERT INTO `cmswing_area` VALUES ('210411', '顺城区', '210400', '5');
 INSERT INTO `cmswing_area` VALUES ('210421', '抚顺县', '210400', '6');
 INSERT INTO `cmswing_area` VALUES ('210422', '新宾满族自治县', '210400', '7');
 INSERT INTO `cmswing_area` VALUES ('210423', '清原满族自治县', '210400', '8');
+INSERT INTO `cmswing_area` VALUES ('210500', '本溪市', '210000', '5');
 INSERT INTO `cmswing_area` VALUES ('210501', '市辖区', '210500', '1');
 INSERT INTO `cmswing_area` VALUES ('210502', '平山区', '210500', '2');
 INSERT INTO `cmswing_area` VALUES ('210503', '溪湖区', '210500', '3');
@@ -1035,6 +706,7 @@ INSERT INTO `cmswing_area` VALUES ('210504', '明山区', '210500', '4');
 INSERT INTO `cmswing_area` VALUES ('210505', '南芬区', '210500', '5');
 INSERT INTO `cmswing_area` VALUES ('210521', '本溪满族自治县', '210500', '6');
 INSERT INTO `cmswing_area` VALUES ('210522', '桓仁满族自治县', '210500', '7');
+INSERT INTO `cmswing_area` VALUES ('210600', '丹东市', '210000', '6');
 INSERT INTO `cmswing_area` VALUES ('210601', '市辖区', '210600', '1');
 INSERT INTO `cmswing_area` VALUES ('210602', '元宝区', '210600', '2');
 INSERT INTO `cmswing_area` VALUES ('210603', '振兴区', '210600', '3');
@@ -1042,6 +714,7 @@ INSERT INTO `cmswing_area` VALUES ('210604', '振安区', '210600', '4');
 INSERT INTO `cmswing_area` VALUES ('210624', '宽甸满族自治县', '210600', '5');
 INSERT INTO `cmswing_area` VALUES ('210681', '东港市', '210600', '6');
 INSERT INTO `cmswing_area` VALUES ('210682', '凤城市', '210600', '7');
+INSERT INTO `cmswing_area` VALUES ('210700', '锦州市', '210000', '7');
 INSERT INTO `cmswing_area` VALUES ('210701', '市辖区', '210700', '1');
 INSERT INTO `cmswing_area` VALUES ('210702', '古塔区', '210700', '2');
 INSERT INTO `cmswing_area` VALUES ('210703', '凌河区', '210700', '3');
@@ -1050,6 +723,7 @@ INSERT INTO `cmswing_area` VALUES ('210726', '黑山县', '210700', '5');
 INSERT INTO `cmswing_area` VALUES ('210727', '义　县', '210700', '6');
 INSERT INTO `cmswing_area` VALUES ('210781', '凌海市', '210700', '7');
 INSERT INTO `cmswing_area` VALUES ('210782', '北宁市', '210700', '8');
+INSERT INTO `cmswing_area` VALUES ('210800', '营口市', '210000', '8');
 INSERT INTO `cmswing_area` VALUES ('210801', '市辖区', '210800', '1');
 INSERT INTO `cmswing_area` VALUES ('210802', '站前区', '210800', '2');
 INSERT INTO `cmswing_area` VALUES ('210803', '西市区', '210800', '3');
@@ -1057,6 +731,7 @@ INSERT INTO `cmswing_area` VALUES ('210804', '鲅鱼圈区', '210800', '4');
 INSERT INTO `cmswing_area` VALUES ('210811', '老边区', '210800', '5');
 INSERT INTO `cmswing_area` VALUES ('210881', '盖州市', '210800', '6');
 INSERT INTO `cmswing_area` VALUES ('210882', '大石桥市', '210800', '7');
+INSERT INTO `cmswing_area` VALUES ('210900', '阜新市', '210000', '9');
 INSERT INTO `cmswing_area` VALUES ('210901', '市辖区', '210900', '1');
 INSERT INTO `cmswing_area` VALUES ('210902', '海州区', '210900', '2');
 INSERT INTO `cmswing_area` VALUES ('210903', '新邱区', '210900', '3');
@@ -1065,6 +740,7 @@ INSERT INTO `cmswing_area` VALUES ('210905', '清河门区', '210900', '5');
 INSERT INTO `cmswing_area` VALUES ('210911', '细河区', '210900', '6');
 INSERT INTO `cmswing_area` VALUES ('210921', '阜新蒙古族自治县', '210900', '7');
 INSERT INTO `cmswing_area` VALUES ('210922', '彰武县', '210900', '8');
+INSERT INTO `cmswing_area` VALUES ('211000', '辽阳市', '210000', '10');
 INSERT INTO `cmswing_area` VALUES ('211001', '市辖区', '211000', '1');
 INSERT INTO `cmswing_area` VALUES ('211002', '白塔区', '211000', '2');
 INSERT INTO `cmswing_area` VALUES ('211003', '文圣区', '211000', '3');
@@ -1073,11 +749,13 @@ INSERT INTO `cmswing_area` VALUES ('211005', '弓长岭区', '211000', '5');
 INSERT INTO `cmswing_area` VALUES ('211011', '太子河区', '211000', '6');
 INSERT INTO `cmswing_area` VALUES ('211021', '辽阳县', '211000', '7');
 INSERT INTO `cmswing_area` VALUES ('211081', '灯塔市', '211000', '8');
+INSERT INTO `cmswing_area` VALUES ('211100', '盘锦市', '210000', '11');
 INSERT INTO `cmswing_area` VALUES ('211101', '市辖区', '211100', '1');
 INSERT INTO `cmswing_area` VALUES ('211102', '双台子区', '211100', '2');
 INSERT INTO `cmswing_area` VALUES ('211103', '兴隆台区', '211100', '3');
 INSERT INTO `cmswing_area` VALUES ('211121', '大洼县', '211100', '4');
 INSERT INTO `cmswing_area` VALUES ('211122', '盘山县', '211100', '5');
+INSERT INTO `cmswing_area` VALUES ('211200', '铁岭市', '210000', '12');
 INSERT INTO `cmswing_area` VALUES ('211201', '市辖区', '211200', '1');
 INSERT INTO `cmswing_area` VALUES ('211202', '银州区', '211200', '2');
 INSERT INTO `cmswing_area` VALUES ('211204', '清河区', '211200', '3');
@@ -1086,6 +764,7 @@ INSERT INTO `cmswing_area` VALUES ('211223', '西丰县', '211200', '5');
 INSERT INTO `cmswing_area` VALUES ('211224', '昌图县', '211200', '6');
 INSERT INTO `cmswing_area` VALUES ('211281', '调兵山市', '211200', '7');
 INSERT INTO `cmswing_area` VALUES ('211282', '开原市', '211200', '8');
+INSERT INTO `cmswing_area` VALUES ('211300', '朝阳市', '210000', '13');
 INSERT INTO `cmswing_area` VALUES ('211301', '市辖区', '211300', '1');
 INSERT INTO `cmswing_area` VALUES ('211302', '双塔区', '211300', '2');
 INSERT INTO `cmswing_area` VALUES ('211303', '龙城区', '211300', '3');
@@ -1094,6 +773,7 @@ INSERT INTO `cmswing_area` VALUES ('211322', '建平县', '211300', '5');
 INSERT INTO `cmswing_area` VALUES ('211324', '喀喇沁左翼蒙古族自治县', '211300', '6');
 INSERT INTO `cmswing_area` VALUES ('211381', '北票市', '211300', '7');
 INSERT INTO `cmswing_area` VALUES ('211382', '凌源市', '211300', '8');
+INSERT INTO `cmswing_area` VALUES ('211400', '葫芦岛市', '210000', '14');
 INSERT INTO `cmswing_area` VALUES ('211401', '市辖区', '211400', '1');
 INSERT INTO `cmswing_area` VALUES ('211402', '连山区', '211400', '2');
 INSERT INTO `cmswing_area` VALUES ('211403', '龙港区', '211400', '3');
@@ -1101,6 +781,8 @@ INSERT INTO `cmswing_area` VALUES ('211404', '南票区', '211400', '4');
 INSERT INTO `cmswing_area` VALUES ('211421', '绥中县', '211400', '5');
 INSERT INTO `cmswing_area` VALUES ('211422', '建昌县', '211400', '6');
 INSERT INTO `cmswing_area` VALUES ('211481', '兴城市', '211400', '7');
+INSERT INTO `cmswing_area` VALUES ('220000', '吉林省', '0', '7');
+INSERT INTO `cmswing_area` VALUES ('220100', '长春市', '220000', '1');
 INSERT INTO `cmswing_area` VALUES ('220101', '市辖区', '220100', '1');
 INSERT INTO `cmswing_area` VALUES ('220102', '南关区', '220100', '2');
 INSERT INTO `cmswing_area` VALUES ('220103', '宽城区', '220100', '3');
@@ -1112,6 +794,7 @@ INSERT INTO `cmswing_area` VALUES ('220122', '农安县', '220100', '8');
 INSERT INTO `cmswing_area` VALUES ('220181', '九台市', '220100', '9');
 INSERT INTO `cmswing_area` VALUES ('220182', '榆树市', '220100', '10');
 INSERT INTO `cmswing_area` VALUES ('220183', '德惠市', '220100', '11');
+INSERT INTO `cmswing_area` VALUES ('220200', '吉林市', '220000', '2');
 INSERT INTO `cmswing_area` VALUES ('220201', '市辖区', '220200', '1');
 INSERT INTO `cmswing_area` VALUES ('220202', '昌邑区', '220200', '2');
 INSERT INTO `cmswing_area` VALUES ('220203', '龙潭区', '220200', '3');
@@ -1122,6 +805,7 @@ INSERT INTO `cmswing_area` VALUES ('220281', '蛟河市', '220200', '7');
 INSERT INTO `cmswing_area` VALUES ('220282', '桦甸市', '220200', '8');
 INSERT INTO `cmswing_area` VALUES ('220283', '舒兰市', '220200', '9');
 INSERT INTO `cmswing_area` VALUES ('220284', '磐石市', '220200', '10');
+INSERT INTO `cmswing_area` VALUES ('220300', '四平市', '220000', '3');
 INSERT INTO `cmswing_area` VALUES ('220301', '市辖区', '220300', '1');
 INSERT INTO `cmswing_area` VALUES ('220302', '铁西区', '220300', '2');
 INSERT INTO `cmswing_area` VALUES ('220303', '铁东区', '220300', '3');
@@ -1129,11 +813,13 @@ INSERT INTO `cmswing_area` VALUES ('220322', '梨树县', '220300', '4');
 INSERT INTO `cmswing_area` VALUES ('220323', '伊通满族自治县', '220300', '5');
 INSERT INTO `cmswing_area` VALUES ('220381', '公主岭市', '220300', '6');
 INSERT INTO `cmswing_area` VALUES ('220382', '双辽市', '220300', '7');
+INSERT INTO `cmswing_area` VALUES ('220400', '辽源市', '220000', '4');
 INSERT INTO `cmswing_area` VALUES ('220401', '市辖区', '220400', '1');
 INSERT INTO `cmswing_area` VALUES ('220402', '龙山区', '220400', '2');
 INSERT INTO `cmswing_area` VALUES ('220403', '西安区', '220400', '3');
 INSERT INTO `cmswing_area` VALUES ('220421', '东丰县', '220400', '4');
 INSERT INTO `cmswing_area` VALUES ('220422', '东辽县', '220400', '5');
+INSERT INTO `cmswing_area` VALUES ('220500', '通化市', '220000', '5');
 INSERT INTO `cmswing_area` VALUES ('220501', '市辖区', '220500', '1');
 INSERT INTO `cmswing_area` VALUES ('220502', '东昌区', '220500', '2');
 INSERT INTO `cmswing_area` VALUES ('220503', '二道江区', '220500', '3');
@@ -1142,6 +828,7 @@ INSERT INTO `cmswing_area` VALUES ('220523', '辉南县', '220500', '5');
 INSERT INTO `cmswing_area` VALUES ('220524', '柳河县', '220500', '6');
 INSERT INTO `cmswing_area` VALUES ('220581', '梅河口市', '220500', '7');
 INSERT INTO `cmswing_area` VALUES ('220582', '集安市', '220500', '8');
+INSERT INTO `cmswing_area` VALUES ('220600', '白山市', '220000', '6');
 INSERT INTO `cmswing_area` VALUES ('220601', '市辖区', '220600', '1');
 INSERT INTO `cmswing_area` VALUES ('220602', '八道江区', '220600', '2');
 INSERT INTO `cmswing_area` VALUES ('220621', '抚松县', '220600', '3');
@@ -1149,18 +836,21 @@ INSERT INTO `cmswing_area` VALUES ('220622', '靖宇县', '220600', '4');
 INSERT INTO `cmswing_area` VALUES ('220623', '长白朝鲜族自治县', '220600', '5');
 INSERT INTO `cmswing_area` VALUES ('220625', '江源县', '220600', '6');
 INSERT INTO `cmswing_area` VALUES ('220681', '临江市', '220600', '7');
+INSERT INTO `cmswing_area` VALUES ('220700', '松原市', '220000', '7');
 INSERT INTO `cmswing_area` VALUES ('220701', '市辖区', '220700', '1');
 INSERT INTO `cmswing_area` VALUES ('220702', '宁江区', '220700', '2');
 INSERT INTO `cmswing_area` VALUES ('220721', '前郭尔罗斯蒙古族自治县', '220700', '3');
 INSERT INTO `cmswing_area` VALUES ('220722', '长岭县', '220700', '4');
 INSERT INTO `cmswing_area` VALUES ('220723', '乾安县', '220700', '5');
 INSERT INTO `cmswing_area` VALUES ('220724', '扶余县', '220700', '6');
+INSERT INTO `cmswing_area` VALUES ('220800', '白城市', '220000', '8');
 INSERT INTO `cmswing_area` VALUES ('220801', '市辖区', '220800', '1');
 INSERT INTO `cmswing_area` VALUES ('220802', '洮北区', '220800', '2');
 INSERT INTO `cmswing_area` VALUES ('220821', '镇赉县', '220800', '3');
 INSERT INTO `cmswing_area` VALUES ('220822', '通榆县', '220800', '4');
 INSERT INTO `cmswing_area` VALUES ('220881', '洮南市', '220800', '5');
 INSERT INTO `cmswing_area` VALUES ('220882', '大安市', '220800', '6');
+INSERT INTO `cmswing_area` VALUES ('222400', '延边朝鲜族自治州', '220000', '9');
 INSERT INTO `cmswing_area` VALUES ('222401', '延吉市', '222400', '1');
 INSERT INTO `cmswing_area` VALUES ('222402', '图们市', '222400', '2');
 INSERT INTO `cmswing_area` VALUES ('222403', '敦化市', '222400', '3');
@@ -1169,6 +859,8 @@ INSERT INTO `cmswing_area` VALUES ('222405', '龙井市', '222400', '5');
 INSERT INTO `cmswing_area` VALUES ('222406', '和龙市', '222400', '6');
 INSERT INTO `cmswing_area` VALUES ('222424', '汪清县', '222400', '7');
 INSERT INTO `cmswing_area` VALUES ('222426', '安图县', '222400', '8');
+INSERT INTO `cmswing_area` VALUES ('230000', '黑龙江', '0', '8');
+INSERT INTO `cmswing_area` VALUES ('230100', '哈尔滨市', '230000', '1');
 INSERT INTO `cmswing_area` VALUES ('230101', '市辖区', '230100', '1');
 INSERT INTO `cmswing_area` VALUES ('230102', '道里区', '230100', '2');
 INSERT INTO `cmswing_area` VALUES ('230103', '南岗区', '230100', '3');
@@ -1189,6 +881,7 @@ INSERT INTO `cmswing_area` VALUES ('230181', '阿城市', '230100', '17');
 INSERT INTO `cmswing_area` VALUES ('230182', '双城市', '230100', '18');
 INSERT INTO `cmswing_area` VALUES ('230183', '尚志市', '230100', '19');
 INSERT INTO `cmswing_area` VALUES ('230184', '五常市', '230100', '20');
+INSERT INTO `cmswing_area` VALUES ('230200', '齐齐哈尔市', '230000', '2');
 INSERT INTO `cmswing_area` VALUES ('230201', '市辖区', '230200', '1');
 INSERT INTO `cmswing_area` VALUES ('230202', '龙沙区', '230200', '2');
 INSERT INTO `cmswing_area` VALUES ('230203', '建华区', '230200', '3');
@@ -1206,6 +899,7 @@ INSERT INTO `cmswing_area` VALUES ('230229', '克山县', '230200', '14');
 INSERT INTO `cmswing_area` VALUES ('230230', '克东县', '230200', '15');
 INSERT INTO `cmswing_area` VALUES ('230231', '拜泉县', '230200', '16');
 INSERT INTO `cmswing_area` VALUES ('230281', '讷河市', '230200', '17');
+INSERT INTO `cmswing_area` VALUES ('230300', '鸡西市', '230000', '3');
 INSERT INTO `cmswing_area` VALUES ('230301', '市辖区', '230300', '1');
 INSERT INTO `cmswing_area` VALUES ('230302', '鸡冠区', '230300', '2');
 INSERT INTO `cmswing_area` VALUES ('230303', '恒山区', '230300', '3');
@@ -1216,6 +910,7 @@ INSERT INTO `cmswing_area` VALUES ('230307', '麻山区', '230300', '7');
 INSERT INTO `cmswing_area` VALUES ('230321', '鸡东县', '230300', '8');
 INSERT INTO `cmswing_area` VALUES ('230381', '虎林市', '230300', '9');
 INSERT INTO `cmswing_area` VALUES ('230382', '密山市', '230300', '10');
+INSERT INTO `cmswing_area` VALUES ('230400', '鹤岗市', '230000', '4');
 INSERT INTO `cmswing_area` VALUES ('230401', '市辖区', '230400', '1');
 INSERT INTO `cmswing_area` VALUES ('230402', '向阳区', '230400', '2');
 INSERT INTO `cmswing_area` VALUES ('230403', '工农区', '230400', '3');
@@ -1225,6 +920,7 @@ INSERT INTO `cmswing_area` VALUES ('230406', '东山区', '230400', '6');
 INSERT INTO `cmswing_area` VALUES ('230407', '兴山区', '230400', '7');
 INSERT INTO `cmswing_area` VALUES ('230421', '萝北县', '230400', '8');
 INSERT INTO `cmswing_area` VALUES ('230422', '绥滨县', '230400', '9');
+INSERT INTO `cmswing_area` VALUES ('230500', '双鸭山市', '230000', '5');
 INSERT INTO `cmswing_area` VALUES ('230501', '市辖区', '230500', '1');
 INSERT INTO `cmswing_area` VALUES ('230502', '尖山区', '230500', '2');
 INSERT INTO `cmswing_area` VALUES ('230503', '岭东区', '230500', '3');
@@ -1234,6 +930,7 @@ INSERT INTO `cmswing_area` VALUES ('230521', '集贤县', '230500', '6');
 INSERT INTO `cmswing_area` VALUES ('230522', '友谊县', '230500', '7');
 INSERT INTO `cmswing_area` VALUES ('230523', '宝清县', '230500', '8');
 INSERT INTO `cmswing_area` VALUES ('230524', '饶河县', '230500', '9');
+INSERT INTO `cmswing_area` VALUES ('230600', '大庆市', '230000', '6');
 INSERT INTO `cmswing_area` VALUES ('230601', '市辖区', '230600', '1');
 INSERT INTO `cmswing_area` VALUES ('230602', '萨尔图区', '230600', '2');
 INSERT INTO `cmswing_area` VALUES ('230603', '龙凤区', '230600', '3');
@@ -1244,6 +941,7 @@ INSERT INTO `cmswing_area` VALUES ('230621', '肇州县', '230600', '7');
 INSERT INTO `cmswing_area` VALUES ('230622', '肇源县', '230600', '8');
 INSERT INTO `cmswing_area` VALUES ('230623', '林甸县', '230600', '9');
 INSERT INTO `cmswing_area` VALUES ('230624', '杜尔伯特蒙古族自治县', '230600', '10');
+INSERT INTO `cmswing_area` VALUES ('230700', '伊春市', '230000', '7');
 INSERT INTO `cmswing_area` VALUES ('230701', '市辖区', '230700', '1');
 INSERT INTO `cmswing_area` VALUES ('230702', '伊春区', '230700', '2');
 INSERT INTO `cmswing_area` VALUES ('230703', '南岔区', '230700', '3');
@@ -1262,6 +960,7 @@ INSERT INTO `cmswing_area` VALUES ('230715', '红星区', '230700', '15');
 INSERT INTO `cmswing_area` VALUES ('230716', '上甘岭区', '230700', '16');
 INSERT INTO `cmswing_area` VALUES ('230722', '嘉荫县', '230700', '17');
 INSERT INTO `cmswing_area` VALUES ('230781', '铁力市', '230700', '18');
+INSERT INTO `cmswing_area` VALUES ('230800', '佳木斯市', '230000', '8');
 INSERT INTO `cmswing_area` VALUES ('230801', '市辖区', '230800', '1');
 INSERT INTO `cmswing_area` VALUES ('230802', '永红区', '230800', '2');
 INSERT INTO `cmswing_area` VALUES ('230803', '向阳区', '230800', '3');
@@ -1274,11 +973,13 @@ INSERT INTO `cmswing_area` VALUES ('230828', '汤原县', '230800', '9');
 INSERT INTO `cmswing_area` VALUES ('230833', '抚远县', '230800', '10');
 INSERT INTO `cmswing_area` VALUES ('230881', '同江市', '230800', '11');
 INSERT INTO `cmswing_area` VALUES ('230882', '富锦市', '230800', '12');
+INSERT INTO `cmswing_area` VALUES ('230900', '七台河市', '230000', '9');
 INSERT INTO `cmswing_area` VALUES ('230901', '市辖区', '230900', '1');
 INSERT INTO `cmswing_area` VALUES ('230902', '新兴区', '230900', '2');
 INSERT INTO `cmswing_area` VALUES ('230903', '桃山区', '230900', '3');
 INSERT INTO `cmswing_area` VALUES ('230904', '茄子河区', '230900', '4');
 INSERT INTO `cmswing_area` VALUES ('230921', '勃利县', '230900', '5');
+INSERT INTO `cmswing_area` VALUES ('231000', '牡丹江市', '230000', '10');
 INSERT INTO `cmswing_area` VALUES ('231001', '市辖区', '231000', '1');
 INSERT INTO `cmswing_area` VALUES ('231002', '东安区', '231000', '2');
 INSERT INTO `cmswing_area` VALUES ('231003', '阳明区', '231000', '3');
@@ -1290,6 +991,7 @@ INSERT INTO `cmswing_area` VALUES ('231081', '绥芬河市', '231000', '8');
 INSERT INTO `cmswing_area` VALUES ('231083', '海林市', '231000', '9');
 INSERT INTO `cmswing_area` VALUES ('231084', '宁安市', '231000', '10');
 INSERT INTO `cmswing_area` VALUES ('231085', '穆棱市', '231000', '11');
+INSERT INTO `cmswing_area` VALUES ('231100', '黑河市', '230000', '11');
 INSERT INTO `cmswing_area` VALUES ('231101', '市辖区', '231100', '1');
 INSERT INTO `cmswing_area` VALUES ('231102', '爱辉区', '231100', '2');
 INSERT INTO `cmswing_area` VALUES ('231121', '嫩江县', '231100', '3');
@@ -1297,6 +999,7 @@ INSERT INTO `cmswing_area` VALUES ('231123', '逊克县', '231100', '4');
 INSERT INTO `cmswing_area` VALUES ('231124', '孙吴县', '231100', '5');
 INSERT INTO `cmswing_area` VALUES ('231181', '北安市', '231100', '6');
 INSERT INTO `cmswing_area` VALUES ('231182', '五大连池市', '231100', '7');
+INSERT INTO `cmswing_area` VALUES ('231200', '绥化市', '230000', '12');
 INSERT INTO `cmswing_area` VALUES ('231201', '市辖区', '231200', '1');
 INSERT INTO `cmswing_area` VALUES ('231202', '北林区', '231200', '2');
 INSERT INTO `cmswing_area` VALUES ('231221', '望奎县', '231200', '3');
@@ -1308,9 +1011,12 @@ INSERT INTO `cmswing_area` VALUES ('231226', '绥棱县', '231200', '8');
 INSERT INTO `cmswing_area` VALUES ('231281', '安达市', '231200', '9');
 INSERT INTO `cmswing_area` VALUES ('231282', '肇东市', '231200', '10');
 INSERT INTO `cmswing_area` VALUES ('231283', '海伦市', '231200', '11');
+INSERT INTO `cmswing_area` VALUES ('232700', '大兴安岭地区', '230000', '13');
 INSERT INTO `cmswing_area` VALUES ('232721', '呼玛县', '232700', '1');
 INSERT INTO `cmswing_area` VALUES ('232722', '塔河县', '232700', '2');
 INSERT INTO `cmswing_area` VALUES ('232723', '漠河县', '232700', '3');
+INSERT INTO `cmswing_area` VALUES ('310000', '上海市', '0', '9');
+INSERT INTO `cmswing_area` VALUES ('310100', '市辖区', '310000', '1');
 INSERT INTO `cmswing_area` VALUES ('310101', '黄浦区', '310100', '1');
 INSERT INTO `cmswing_area` VALUES ('310103', '卢湾区', '310100', '2');
 INSERT INTO `cmswing_area` VALUES ('310104', '徐汇区', '310100', '3');
@@ -1329,7 +1035,10 @@ INSERT INTO `cmswing_area` VALUES ('310117', '松江区', '310100', '15');
 INSERT INTO `cmswing_area` VALUES ('310118', '青浦区', '310100', '16');
 INSERT INTO `cmswing_area` VALUES ('310119', '南汇区', '310100', '17');
 INSERT INTO `cmswing_area` VALUES ('310120', '奉贤区', '310100', '18');
+INSERT INTO `cmswing_area` VALUES ('310200', '县', '310000', '2');
 INSERT INTO `cmswing_area` VALUES ('310230', '崇明县', '310200', '1');
+INSERT INTO `cmswing_area` VALUES ('320000', '江苏省', '0', '10');
+INSERT INTO `cmswing_area` VALUES ('320100', '南京市', '320000', '1');
 INSERT INTO `cmswing_area` VALUES ('320101', '市辖区', '320100', '1');
 INSERT INTO `cmswing_area` VALUES ('320102', '玄武区', '320100', '2');
 INSERT INTO `cmswing_area` VALUES ('320103', '白下区', '320100', '3');
@@ -1344,6 +1053,7 @@ INSERT INTO `cmswing_area` VALUES ('320115', '江宁区', '320100', '11');
 INSERT INTO `cmswing_area` VALUES ('320116', '六合区', '320100', '12');
 INSERT INTO `cmswing_area` VALUES ('320124', '溧水县', '320100', '13');
 INSERT INTO `cmswing_area` VALUES ('320125', '高淳县', '320100', '14');
+INSERT INTO `cmswing_area` VALUES ('320200', '无锡市', '320000', '2');
 INSERT INTO `cmswing_area` VALUES ('320201', '市辖区', '320200', '1');
 INSERT INTO `cmswing_area` VALUES ('320202', '崇安区', '320200', '2');
 INSERT INTO `cmswing_area` VALUES ('320203', '南长区', '320200', '3');
@@ -1353,6 +1063,7 @@ INSERT INTO `cmswing_area` VALUES ('320206', '惠山区', '320200', '6');
 INSERT INTO `cmswing_area` VALUES ('320211', '滨湖区', '320200', '7');
 INSERT INTO `cmswing_area` VALUES ('320281', '江阴市', '320200', '8');
 INSERT INTO `cmswing_area` VALUES ('320282', '宜兴市', '320200', '9');
+INSERT INTO `cmswing_area` VALUES ('320300', '徐州市', '320000', '3');
 INSERT INTO `cmswing_area` VALUES ('320301', '市辖区', '320300', '1');
 INSERT INTO `cmswing_area` VALUES ('320302', '鼓楼区', '320300', '2');
 INSERT INTO `cmswing_area` VALUES ('320303', '云龙区', '320300', '3');
@@ -1365,6 +1076,7 @@ INSERT INTO `cmswing_area` VALUES ('320323', '铜山县', '320300', '9');
 INSERT INTO `cmswing_area` VALUES ('320324', '睢宁县', '320300', '10');
 INSERT INTO `cmswing_area` VALUES ('320381', '新沂市', '320300', '11');
 INSERT INTO `cmswing_area` VALUES ('320382', '邳州市', '320300', '12');
+INSERT INTO `cmswing_area` VALUES ('320400', '常州市', '320000', '4');
 INSERT INTO `cmswing_area` VALUES ('320401', '市辖区', '320400', '1');
 INSERT INTO `cmswing_area` VALUES ('320402', '天宁区', '320400', '2');
 INSERT INTO `cmswing_area` VALUES ('320404', '钟楼区', '320400', '3');
@@ -1373,6 +1085,7 @@ INSERT INTO `cmswing_area` VALUES ('320411', '新北区', '320400', '5');
 INSERT INTO `cmswing_area` VALUES ('320412', '武进区', '320400', '6');
 INSERT INTO `cmswing_area` VALUES ('320481', '溧阳市', '320400', '7');
 INSERT INTO `cmswing_area` VALUES ('320482', '金坛市', '320400', '8');
+INSERT INTO `cmswing_area` VALUES ('320500', '苏州市', '320000', '5');
 INSERT INTO `cmswing_area` VALUES ('320501', '市辖区', '320500', '1');
 INSERT INTO `cmswing_area` VALUES ('320502', '沧浪区', '320500', '2');
 INSERT INTO `cmswing_area` VALUES ('320503', '平江区', '320500', '3');
@@ -1385,6 +1098,7 @@ INSERT INTO `cmswing_area` VALUES ('320582', '张家港市', '320500', '9');
 INSERT INTO `cmswing_area` VALUES ('320583', '昆山市', '320500', '10');
 INSERT INTO `cmswing_area` VALUES ('320584', '吴江市', '320500', '11');
 INSERT INTO `cmswing_area` VALUES ('320585', '太仓市', '320500', '12');
+INSERT INTO `cmswing_area` VALUES ('320600', '南通市', '320000', '6');
 INSERT INTO `cmswing_area` VALUES ('320601', '市辖区', '320600', '1');
 INSERT INTO `cmswing_area` VALUES ('320602', '崇川区', '320600', '2');
 INSERT INTO `cmswing_area` VALUES ('320611', '港闸区', '320600', '3');
@@ -1394,6 +1108,7 @@ INSERT INTO `cmswing_area` VALUES ('320681', '启东市', '320600', '6');
 INSERT INTO `cmswing_area` VALUES ('320682', '如皋市', '320600', '7');
 INSERT INTO `cmswing_area` VALUES ('320683', '通州市', '320600', '8');
 INSERT INTO `cmswing_area` VALUES ('320684', '海门市', '320600', '9');
+INSERT INTO `cmswing_area` VALUES ('320700', '连云港市', '320000', '7');
 INSERT INTO `cmswing_area` VALUES ('320701', '市辖区', '320700', '1');
 INSERT INTO `cmswing_area` VALUES ('320703', '连云区', '320700', '2');
 INSERT INTO `cmswing_area` VALUES ('320705', '新浦区', '320700', '3');
@@ -1402,6 +1117,7 @@ INSERT INTO `cmswing_area` VALUES ('320721', '赣榆县', '320700', '5');
 INSERT INTO `cmswing_area` VALUES ('320722', '东海县', '320700', '6');
 INSERT INTO `cmswing_area` VALUES ('320723', '灌云县', '320700', '7');
 INSERT INTO `cmswing_area` VALUES ('320724', '灌南县', '320700', '8');
+INSERT INTO `cmswing_area` VALUES ('320800', '淮安市', '320000', '8');
 INSERT INTO `cmswing_area` VALUES ('320801', '市辖区', '320800', '1');
 INSERT INTO `cmswing_area` VALUES ('320802', '清河区', '320800', '2');
 INSERT INTO `cmswing_area` VALUES ('320803', '楚州区', '320800', '3');
@@ -1411,6 +1127,7 @@ INSERT INTO `cmswing_area` VALUES ('320826', '涟水县', '320800', '6');
 INSERT INTO `cmswing_area` VALUES ('320829', '洪泽县', '320800', '7');
 INSERT INTO `cmswing_area` VALUES ('320830', '盱眙县', '320800', '8');
 INSERT INTO `cmswing_area` VALUES ('320831', '金湖县', '320800', '9');
+INSERT INTO `cmswing_area` VALUES ('320900', '盐城市', '320000', '9');
 INSERT INTO `cmswing_area` VALUES ('320901', '市辖区', '320900', '1');
 INSERT INTO `cmswing_area` VALUES ('320902', '亭湖区', '320900', '2');
 INSERT INTO `cmswing_area` VALUES ('320903', '盐都区', '320900', '3');
@@ -1421,6 +1138,7 @@ INSERT INTO `cmswing_area` VALUES ('320924', '射阳县', '320900', '7');
 INSERT INTO `cmswing_area` VALUES ('320925', '建湖县', '320900', '8');
 INSERT INTO `cmswing_area` VALUES ('320981', '东台市', '320900', '9');
 INSERT INTO `cmswing_area` VALUES ('320982', '大丰市', '320900', '10');
+INSERT INTO `cmswing_area` VALUES ('321000', '扬州市', '320000', '10');
 INSERT INTO `cmswing_area` VALUES ('321001', '市辖区', '321000', '1');
 INSERT INTO `cmswing_area` VALUES ('321002', '广陵区', '321000', '2');
 INSERT INTO `cmswing_area` VALUES ('321003', '邗江区', '321000', '3');
@@ -1429,6 +1147,7 @@ INSERT INTO `cmswing_area` VALUES ('321023', '宝应县', '321000', '5');
 INSERT INTO `cmswing_area` VALUES ('321081', '仪征市', '321000', '6');
 INSERT INTO `cmswing_area` VALUES ('321084', '高邮市', '321000', '7');
 INSERT INTO `cmswing_area` VALUES ('321088', '江都市', '321000', '8');
+INSERT INTO `cmswing_area` VALUES ('321100', '镇江市', '320000', '11');
 INSERT INTO `cmswing_area` VALUES ('321101', '市辖区', '321100', '1');
 INSERT INTO `cmswing_area` VALUES ('321102', '京口区', '321100', '2');
 INSERT INTO `cmswing_area` VALUES ('321111', '润州区', '321100', '3');
@@ -1436,6 +1155,7 @@ INSERT INTO `cmswing_area` VALUES ('321112', '丹徒区', '321100', '4');
 INSERT INTO `cmswing_area` VALUES ('321181', '丹阳市', '321100', '5');
 INSERT INTO `cmswing_area` VALUES ('321182', '扬中市', '321100', '6');
 INSERT INTO `cmswing_area` VALUES ('321183', '句容市', '321100', '7');
+INSERT INTO `cmswing_area` VALUES ('321200', '泰州市', '320000', '12');
 INSERT INTO `cmswing_area` VALUES ('321201', '市辖区', '321200', '1');
 INSERT INTO `cmswing_area` VALUES ('321202', '海陵区', '321200', '2');
 INSERT INTO `cmswing_area` VALUES ('321203', '高港区', '321200', '3');
@@ -1443,12 +1163,15 @@ INSERT INTO `cmswing_area` VALUES ('321281', '兴化市', '321200', '4');
 INSERT INTO `cmswing_area` VALUES ('321282', '靖江市', '321200', '5');
 INSERT INTO `cmswing_area` VALUES ('321283', '泰兴市', '321200', '6');
 INSERT INTO `cmswing_area` VALUES ('321284', '姜堰市', '321200', '7');
+INSERT INTO `cmswing_area` VALUES ('321300', '宿迁市', '320000', '13');
 INSERT INTO `cmswing_area` VALUES ('321301', '市辖区', '321300', '1');
 INSERT INTO `cmswing_area` VALUES ('321302', '宿城区', '321300', '2');
 INSERT INTO `cmswing_area` VALUES ('321311', '宿豫区', '321300', '3');
 INSERT INTO `cmswing_area` VALUES ('321322', '沭阳县', '321300', '4');
 INSERT INTO `cmswing_area` VALUES ('321323', '泗阳县', '321300', '5');
 INSERT INTO `cmswing_area` VALUES ('321324', '泗洪县', '321300', '6');
+INSERT INTO `cmswing_area` VALUES ('330000', '浙江省', '0', '11');
+INSERT INTO `cmswing_area` VALUES ('330100', '杭州市', '330000', '1');
 INSERT INTO `cmswing_area` VALUES ('330101', '市辖区', '330100', '1');
 INSERT INTO `cmswing_area` VALUES ('330102', '上城区', '330100', '2');
 INSERT INTO `cmswing_area` VALUES ('330103', '下城区', '330100', '3');
@@ -1463,6 +1186,7 @@ INSERT INTO `cmswing_area` VALUES ('330127', '淳安县', '330100', '11');
 INSERT INTO `cmswing_area` VALUES ('330182', '建德市', '330100', '12');
 INSERT INTO `cmswing_area` VALUES ('330183', '富阳市', '330100', '13');
 INSERT INTO `cmswing_area` VALUES ('330185', '临安市', '330100', '14');
+INSERT INTO `cmswing_area` VALUES ('330200', '宁波市', '330000', '2');
 INSERT INTO `cmswing_area` VALUES ('330201', '市辖区', '330200', '1');
 INSERT INTO `cmswing_area` VALUES ('330203', '海曙区', '330200', '2');
 INSERT INTO `cmswing_area` VALUES ('330204', '江东区', '330200', '3');
@@ -1475,6 +1199,7 @@ INSERT INTO `cmswing_area` VALUES ('330226', '宁海县', '330200', '9');
 INSERT INTO `cmswing_area` VALUES ('330281', '余姚市', '330200', '10');
 INSERT INTO `cmswing_area` VALUES ('330282', '慈溪市', '330200', '11');
 INSERT INTO `cmswing_area` VALUES ('330283', '奉化市', '330200', '12');
+INSERT INTO `cmswing_area` VALUES ('330300', '温州市', '330000', '3');
 INSERT INTO `cmswing_area` VALUES ('330301', '市辖区', '330300', '1');
 INSERT INTO `cmswing_area` VALUES ('330302', '鹿城区', '330300', '2');
 INSERT INTO `cmswing_area` VALUES ('330303', '龙湾区', '330300', '3');
@@ -1487,6 +1212,7 @@ INSERT INTO `cmswing_area` VALUES ('330328', '文成县', '330300', '9');
 INSERT INTO `cmswing_area` VALUES ('330329', '泰顺县', '330300', '10');
 INSERT INTO `cmswing_area` VALUES ('330381', '瑞安市', '330300', '11');
 INSERT INTO `cmswing_area` VALUES ('330382', '乐清市', '330300', '12');
+INSERT INTO `cmswing_area` VALUES ('330400', '嘉兴市', '330000', '4');
 INSERT INTO `cmswing_area` VALUES ('330401', '市辖区', '330400', '1');
 INSERT INTO `cmswing_area` VALUES ('330402', '秀城区', '330400', '2');
 INSERT INTO `cmswing_area` VALUES ('330411', '秀洲区', '330400', '3');
@@ -1495,12 +1221,14 @@ INSERT INTO `cmswing_area` VALUES ('330424', '海盐县', '330400', '5');
 INSERT INTO `cmswing_area` VALUES ('330481', '海宁市', '330400', '6');
 INSERT INTO `cmswing_area` VALUES ('330482', '平湖市', '330400', '7');
 INSERT INTO `cmswing_area` VALUES ('330483', '桐乡市', '330400', '8');
+INSERT INTO `cmswing_area` VALUES ('330500', '湖州市', '330000', '5');
 INSERT INTO `cmswing_area` VALUES ('330501', '市辖区', '330500', '1');
 INSERT INTO `cmswing_area` VALUES ('330502', '吴兴区', '330500', '2');
 INSERT INTO `cmswing_area` VALUES ('330503', '南浔区', '330500', '3');
 INSERT INTO `cmswing_area` VALUES ('330521', '德清县', '330500', '4');
 INSERT INTO `cmswing_area` VALUES ('330522', '长兴县', '330500', '5');
 INSERT INTO `cmswing_area` VALUES ('330523', '安吉县', '330500', '6');
+INSERT INTO `cmswing_area` VALUES ('330600', '绍兴市', '330000', '6');
 INSERT INTO `cmswing_area` VALUES ('330601', '市辖区', '330600', '1');
 INSERT INTO `cmswing_area` VALUES ('330602', '越城区', '330600', '2');
 INSERT INTO `cmswing_area` VALUES ('330621', '绍兴县', '330600', '3');
@@ -1508,6 +1236,7 @@ INSERT INTO `cmswing_area` VALUES ('330624', '新昌县', '330600', '4');
 INSERT INTO `cmswing_area` VALUES ('330681', '诸暨市', '330600', '5');
 INSERT INTO `cmswing_area` VALUES ('330682', '上虞市', '330600', '6');
 INSERT INTO `cmswing_area` VALUES ('330683', '嵊州市', '330600', '7');
+INSERT INTO `cmswing_area` VALUES ('330700', '金华市', '330000', '7');
 INSERT INTO `cmswing_area` VALUES ('330701', '市辖区', '330700', '1');
 INSERT INTO `cmswing_area` VALUES ('330702', '婺城区', '330700', '2');
 INSERT INTO `cmswing_area` VALUES ('330703', '金东区', '330700', '3');
@@ -1518,6 +1247,7 @@ INSERT INTO `cmswing_area` VALUES ('330781', '兰溪市', '330700', '7');
 INSERT INTO `cmswing_area` VALUES ('330782', '义乌市', '330700', '8');
 INSERT INTO `cmswing_area` VALUES ('330783', '东阳市', '330700', '9');
 INSERT INTO `cmswing_area` VALUES ('330784', '永康市', '330700', '10');
+INSERT INTO `cmswing_area` VALUES ('330800', '衢州市', '330000', '8');
 INSERT INTO `cmswing_area` VALUES ('330801', '市辖区', '330800', '1');
 INSERT INTO `cmswing_area` VALUES ('330802', '柯城区', '330800', '2');
 INSERT INTO `cmswing_area` VALUES ('330803', '衢江区', '330800', '3');
@@ -1525,11 +1255,13 @@ INSERT INTO `cmswing_area` VALUES ('330822', '常山县', '330800', '4');
 INSERT INTO `cmswing_area` VALUES ('330824', '开化县', '330800', '5');
 INSERT INTO `cmswing_area` VALUES ('330825', '龙游县', '330800', '6');
 INSERT INTO `cmswing_area` VALUES ('330881', '江山市', '330800', '7');
+INSERT INTO `cmswing_area` VALUES ('330900', '舟山市', '330000', '9');
 INSERT INTO `cmswing_area` VALUES ('330901', '市辖区', '330900', '1');
 INSERT INTO `cmswing_area` VALUES ('330902', '定海区', '330900', '2');
 INSERT INTO `cmswing_area` VALUES ('330903', '普陀区', '330900', '3');
 INSERT INTO `cmswing_area` VALUES ('330921', '岱山县', '330900', '4');
 INSERT INTO `cmswing_area` VALUES ('330922', '嵊泗县', '330900', '5');
+INSERT INTO `cmswing_area` VALUES ('331000', '台州市', '330000', '10');
 INSERT INTO `cmswing_area` VALUES ('331001', '市辖区', '331000', '1');
 INSERT INTO `cmswing_area` VALUES ('331002', '椒江区', '331000', '2');
 INSERT INTO `cmswing_area` VALUES ('331003', '黄岩区', '331000', '3');
@@ -1540,6 +1272,7 @@ INSERT INTO `cmswing_area` VALUES ('331023', '天台县', '331000', '7');
 INSERT INTO `cmswing_area` VALUES ('331024', '仙居县', '331000', '8');
 INSERT INTO `cmswing_area` VALUES ('331081', '温岭市', '331000', '9');
 INSERT INTO `cmswing_area` VALUES ('331082', '临海市', '331000', '10');
+INSERT INTO `cmswing_area` VALUES ('331100', '丽水市', '330000', '11');
 INSERT INTO `cmswing_area` VALUES ('331101', '市辖区', '331100', '1');
 INSERT INTO `cmswing_area` VALUES ('331102', '莲都区', '331100', '2');
 INSERT INTO `cmswing_area` VALUES ('331121', '青田县', '331100', '3');
@@ -1550,6 +1283,8 @@ INSERT INTO `cmswing_area` VALUES ('331125', '云和县', '331100', '7');
 INSERT INTO `cmswing_area` VALUES ('331126', '庆元县', '331100', '8');
 INSERT INTO `cmswing_area` VALUES ('331127', '景宁畲族自治县', '331100', '9');
 INSERT INTO `cmswing_area` VALUES ('331181', '龙泉市', '331100', '10');
+INSERT INTO `cmswing_area` VALUES ('340000', '安徽省', '0', '12');
+INSERT INTO `cmswing_area` VALUES ('340100', '合肥市', '340000', '1');
 INSERT INTO `cmswing_area` VALUES ('340101', '市辖区', '340100', '1');
 INSERT INTO `cmswing_area` VALUES ('340102', '瑶海区', '340100', '2');
 INSERT INTO `cmswing_area` VALUES ('340103', '庐阳区', '340100', '3');
@@ -1558,6 +1293,7 @@ INSERT INTO `cmswing_area` VALUES ('340111', '包河区', '340100', '5');
 INSERT INTO `cmswing_area` VALUES ('340121', '长丰县', '340100', '6');
 INSERT INTO `cmswing_area` VALUES ('340122', '肥东县', '340100', '7');
 INSERT INTO `cmswing_area` VALUES ('340123', '肥西县', '340100', '8');
+INSERT INTO `cmswing_area` VALUES ('340200', '芜湖市', '340000', '2');
 INSERT INTO `cmswing_area` VALUES ('340201', '市辖区', '340200', '1');
 INSERT INTO `cmswing_area` VALUES ('340202', '镜湖区', '340200', '2');
 INSERT INTO `cmswing_area` VALUES ('340203', '马塘区', '340200', '3');
@@ -1566,6 +1302,7 @@ INSERT INTO `cmswing_area` VALUES ('340207', '鸠江区', '340200', '5');
 INSERT INTO `cmswing_area` VALUES ('340221', '芜湖县', '340200', '6');
 INSERT INTO `cmswing_area` VALUES ('340222', '繁昌县', '340200', '7');
 INSERT INTO `cmswing_area` VALUES ('340223', '南陵县', '340200', '8');
+INSERT INTO `cmswing_area` VALUES ('340300', '蚌埠市', '340000', '3');
 INSERT INTO `cmswing_area` VALUES ('340301', '市辖区', '340300', '1');
 INSERT INTO `cmswing_area` VALUES ('340302', '龙子湖区', '340300', '2');
 INSERT INTO `cmswing_area` VALUES ('340303', '蚌山区', '340300', '3');
@@ -1574,6 +1311,7 @@ INSERT INTO `cmswing_area` VALUES ('340311', '淮上区', '340300', '5');
 INSERT INTO `cmswing_area` VALUES ('340321', '怀远县', '340300', '6');
 INSERT INTO `cmswing_area` VALUES ('340322', '五河县', '340300', '7');
 INSERT INTO `cmswing_area` VALUES ('340323', '固镇县', '340300', '8');
+INSERT INTO `cmswing_area` VALUES ('340400', '淮南市', '340000', '4');
 INSERT INTO `cmswing_area` VALUES ('340401', '市辖区', '340400', '1');
 INSERT INTO `cmswing_area` VALUES ('340402', '大通区', '340400', '2');
 INSERT INTO `cmswing_area` VALUES ('340403', '田家庵区', '340400', '3');
@@ -1581,21 +1319,25 @@ INSERT INTO `cmswing_area` VALUES ('340404', '谢家集区', '340400', '4');
 INSERT INTO `cmswing_area` VALUES ('340405', '八公山区', '340400', '5');
 INSERT INTO `cmswing_area` VALUES ('340406', '潘集区', '340400', '6');
 INSERT INTO `cmswing_area` VALUES ('340421', '凤台县', '340400', '7');
+INSERT INTO `cmswing_area` VALUES ('340500', '马鞍山市', '340000', '5');
 INSERT INTO `cmswing_area` VALUES ('340501', '市辖区', '340500', '1');
 INSERT INTO `cmswing_area` VALUES ('340502', '金家庄区', '340500', '2');
 INSERT INTO `cmswing_area` VALUES ('340503', '花山区', '340500', '3');
 INSERT INTO `cmswing_area` VALUES ('340504', '雨山区', '340500', '4');
 INSERT INTO `cmswing_area` VALUES ('340521', '当涂县', '340500', '5');
+INSERT INTO `cmswing_area` VALUES ('340600', '淮北市', '340000', '6');
 INSERT INTO `cmswing_area` VALUES ('340601', '市辖区', '340600', '1');
 INSERT INTO `cmswing_area` VALUES ('340602', '杜集区', '340600', '2');
 INSERT INTO `cmswing_area` VALUES ('340603', '相山区', '340600', '3');
 INSERT INTO `cmswing_area` VALUES ('340604', '烈山区', '340600', '4');
 INSERT INTO `cmswing_area` VALUES ('340621', '濉溪县', '340600', '5');
+INSERT INTO `cmswing_area` VALUES ('340700', '铜陵市', '340000', '7');
 INSERT INTO `cmswing_area` VALUES ('340701', '市辖区', '340700', '1');
 INSERT INTO `cmswing_area` VALUES ('340702', '铜官山区', '340700', '2');
 INSERT INTO `cmswing_area` VALUES ('340703', '狮子山区', '340700', '3');
 INSERT INTO `cmswing_area` VALUES ('340711', '郊　区', '340700', '4');
 INSERT INTO `cmswing_area` VALUES ('340721', '铜陵县', '340700', '5');
+INSERT INTO `cmswing_area` VALUES ('340800', '安庆市', '340000', '8');
 INSERT INTO `cmswing_area` VALUES ('340801', '市辖区', '340800', '1');
 INSERT INTO `cmswing_area` VALUES ('340802', '迎江区', '340800', '2');
 INSERT INTO `cmswing_area` VALUES ('340803', '大观区', '340800', '3');
@@ -1608,6 +1350,7 @@ INSERT INTO `cmswing_area` VALUES ('340826', '宿松县', '340800', '9');
 INSERT INTO `cmswing_area` VALUES ('340827', '望江县', '340800', '10');
 INSERT INTO `cmswing_area` VALUES ('340828', '岳西县', '340800', '11');
 INSERT INTO `cmswing_area` VALUES ('340881', '桐城市', '340800', '12');
+INSERT INTO `cmswing_area` VALUES ('341000', '黄山市', '340000', '9');
 INSERT INTO `cmswing_area` VALUES ('341001', '市辖区', '341000', '1');
 INSERT INTO `cmswing_area` VALUES ('341002', '屯溪区', '341000', '2');
 INSERT INTO `cmswing_area` VALUES ('341003', '黄山区', '341000', '3');
@@ -1616,6 +1359,7 @@ INSERT INTO `cmswing_area` VALUES ('341021', '歙　县', '341000', '5');
 INSERT INTO `cmswing_area` VALUES ('341022', '休宁县', '341000', '6');
 INSERT INTO `cmswing_area` VALUES ('341023', '黟　县', '341000', '7');
 INSERT INTO `cmswing_area` VALUES ('341024', '祁门县', '341000', '8');
+INSERT INTO `cmswing_area` VALUES ('341100', '滁州市', '340000', '10');
 INSERT INTO `cmswing_area` VALUES ('341101', '市辖区', '341100', '1');
 INSERT INTO `cmswing_area` VALUES ('341102', '琅琊区', '341100', '2');
 INSERT INTO `cmswing_area` VALUES ('341103', '南谯区', '341100', '3');
@@ -1625,6 +1369,7 @@ INSERT INTO `cmswing_area` VALUES ('341125', '定远县', '341100', '6');
 INSERT INTO `cmswing_area` VALUES ('341126', '凤阳县', '341100', '7');
 INSERT INTO `cmswing_area` VALUES ('341181', '天长市', '341100', '8');
 INSERT INTO `cmswing_area` VALUES ('341182', '明光市', '341100', '9');
+INSERT INTO `cmswing_area` VALUES ('341200', '阜阳市', '340000', '11');
 INSERT INTO `cmswing_area` VALUES ('341201', '市辖区', '341200', '1');
 INSERT INTO `cmswing_area` VALUES ('341202', '颍州区', '341200', '2');
 INSERT INTO `cmswing_area` VALUES ('341203', '颍东区', '341200', '3');
@@ -1634,6 +1379,7 @@ INSERT INTO `cmswing_area` VALUES ('341222', '太和县', '341200', '6');
 INSERT INTO `cmswing_area` VALUES ('341225', '阜南县', '341200', '7');
 INSERT INTO `cmswing_area` VALUES ('341226', '颍上县', '341200', '8');
 INSERT INTO `cmswing_area` VALUES ('341282', '界首市', '341200', '9');
+INSERT INTO `cmswing_area` VALUES ('341300', '宿州市', '340000', '12');
 INSERT INTO `cmswing_area` VALUES ('341301', '市辖区', '341300', '1');
 INSERT INTO `cmswing_area` VALUES ('341302', '墉桥区', '341300', '2');
 INSERT INTO `cmswing_area` VALUES ('341321', '砀山县', '341300', '3');
@@ -1645,6 +1391,7 @@ INSERT INTO `cmswing_area` VALUES ('341402', '巢湖市', '340100', '10');
 INSERT INTO `cmswing_area` VALUES ('341422', '无为县', '340200', '9');
 INSERT INTO `cmswing_area` VALUES ('341423', '含山县', '340500', '6');
 INSERT INTO `cmswing_area` VALUES ('341424', '和　县', '340500', '7');
+INSERT INTO `cmswing_area` VALUES ('341500', '六安市', '340000', '13');
 INSERT INTO `cmswing_area` VALUES ('341501', '市辖区', '341500', '1');
 INSERT INTO `cmswing_area` VALUES ('341502', '金安区', '341500', '2');
 INSERT INTO `cmswing_area` VALUES ('341503', '裕安区', '341500', '3');
@@ -1653,16 +1400,19 @@ INSERT INTO `cmswing_area` VALUES ('341522', '霍邱县', '341500', '5');
 INSERT INTO `cmswing_area` VALUES ('341523', '舒城县', '341500', '6');
 INSERT INTO `cmswing_area` VALUES ('341524', '金寨县', '341500', '7');
 INSERT INTO `cmswing_area` VALUES ('341525', '霍山县', '341500', '8');
+INSERT INTO `cmswing_area` VALUES ('341600', '亳州市', '340000', '14');
 INSERT INTO `cmswing_area` VALUES ('341601', '市辖区', '341600', '1');
 INSERT INTO `cmswing_area` VALUES ('341602', '谯城区', '341600', '2');
 INSERT INTO `cmswing_area` VALUES ('341621', '涡阳县', '341600', '3');
 INSERT INTO `cmswing_area` VALUES ('341622', '蒙城县', '341600', '4');
 INSERT INTO `cmswing_area` VALUES ('341623', '利辛县', '341600', '5');
+INSERT INTO `cmswing_area` VALUES ('341700', '池州市', '340000', '15');
 INSERT INTO `cmswing_area` VALUES ('341701', '市辖区', '341700', '1');
 INSERT INTO `cmswing_area` VALUES ('341702', '贵池区', '341700', '2');
 INSERT INTO `cmswing_area` VALUES ('341721', '东至县', '341700', '3');
 INSERT INTO `cmswing_area` VALUES ('341722', '石台县', '341700', '4');
 INSERT INTO `cmswing_area` VALUES ('341723', '青阳县', '341700', '5');
+INSERT INTO `cmswing_area` VALUES ('341800', '宣城市', '340000', '16');
 INSERT INTO `cmswing_area` VALUES ('341801', '市辖区', '341800', '1');
 INSERT INTO `cmswing_area` VALUES ('341802', '宣州区', '341800', '2');
 INSERT INTO `cmswing_area` VALUES ('341821', '郎溪县', '341800', '3');
@@ -1671,6 +1421,8 @@ INSERT INTO `cmswing_area` VALUES ('341823', '泾　县', '341800', '5');
 INSERT INTO `cmswing_area` VALUES ('341824', '绩溪县', '341800', '6');
 INSERT INTO `cmswing_area` VALUES ('341825', '旌德县', '341800', '7');
 INSERT INTO `cmswing_area` VALUES ('341881', '宁国市', '341800', '8');
+INSERT INTO `cmswing_area` VALUES ('350000', '福建省', '0', '13');
+INSERT INTO `cmswing_area` VALUES ('350100', '福州市', '350000', '1');
 INSERT INTO `cmswing_area` VALUES ('350101', '市辖区', '350100', '1');
 INSERT INTO `cmswing_area` VALUES ('350102', '鼓楼区', '350100', '2');
 INSERT INTO `cmswing_area` VALUES ('350103', '台江区', '350100', '3');
@@ -1685,6 +1437,7 @@ INSERT INTO `cmswing_area` VALUES ('350125', '永泰县', '350100', '11');
 INSERT INTO `cmswing_area` VALUES ('350128', '平潭县', '350100', '12');
 INSERT INTO `cmswing_area` VALUES ('350181', '福清市', '350100', '13');
 INSERT INTO `cmswing_area` VALUES ('350182', '长乐市', '350100', '14');
+INSERT INTO `cmswing_area` VALUES ('350200', '厦门市', '350000', '2');
 INSERT INTO `cmswing_area` VALUES ('350201', '市辖区', '350200', '1');
 INSERT INTO `cmswing_area` VALUES ('350203', '思明区', '350200', '2');
 INSERT INTO `cmswing_area` VALUES ('350205', '海沧区', '350200', '3');
@@ -1692,12 +1445,14 @@ INSERT INTO `cmswing_area` VALUES ('350206', '湖里区', '350200', '4');
 INSERT INTO `cmswing_area` VALUES ('350211', '集美区', '350200', '5');
 INSERT INTO `cmswing_area` VALUES ('350212', '同安区', '350200', '6');
 INSERT INTO `cmswing_area` VALUES ('350213', '翔安区', '350200', '7');
+INSERT INTO `cmswing_area` VALUES ('350300', '莆田市', '350000', '3');
 INSERT INTO `cmswing_area` VALUES ('350301', '市辖区', '350300', '1');
 INSERT INTO `cmswing_area` VALUES ('350302', '城厢区', '350300', '2');
 INSERT INTO `cmswing_area` VALUES ('350303', '涵江区', '350300', '3');
 INSERT INTO `cmswing_area` VALUES ('350304', '荔城区', '350300', '4');
 INSERT INTO `cmswing_area` VALUES ('350305', '秀屿区', '350300', '5');
 INSERT INTO `cmswing_area` VALUES ('350322', '仙游县', '350300', '6');
+INSERT INTO `cmswing_area` VALUES ('350400', '三明市', '350000', '4');
 INSERT INTO `cmswing_area` VALUES ('350401', '市辖区', '350400', '1');
 INSERT INTO `cmswing_area` VALUES ('350402', '梅列区', '350400', '2');
 INSERT INTO `cmswing_area` VALUES ('350403', '三元区', '350400', '3');
@@ -1711,6 +1466,7 @@ INSERT INTO `cmswing_area` VALUES ('350428', '将乐县', '350400', '10');
 INSERT INTO `cmswing_area` VALUES ('350429', '泰宁县', '350400', '11');
 INSERT INTO `cmswing_area` VALUES ('350430', '建宁县', '350400', '12');
 INSERT INTO `cmswing_area` VALUES ('350481', '永安市', '350400', '13');
+INSERT INTO `cmswing_area` VALUES ('350500', '泉州市', '350000', '5');
 INSERT INTO `cmswing_area` VALUES ('350501', '市辖区', '350500', '1');
 INSERT INTO `cmswing_area` VALUES ('350502', '鲤城区', '350500', '2');
 INSERT INTO `cmswing_area` VALUES ('350503', '丰泽区', '350500', '3');
@@ -1724,6 +1480,7 @@ INSERT INTO `cmswing_area` VALUES ('350527', '金门县', '350500', '10');
 INSERT INTO `cmswing_area` VALUES ('350581', '石狮市', '350500', '11');
 INSERT INTO `cmswing_area` VALUES ('350582', '晋江市', '350500', '12');
 INSERT INTO `cmswing_area` VALUES ('350583', '南安市', '350500', '13');
+INSERT INTO `cmswing_area` VALUES ('350600', '漳州市', '350000', '6');
 INSERT INTO `cmswing_area` VALUES ('350601', '市辖区', '350600', '1');
 INSERT INTO `cmswing_area` VALUES ('350602', '芗城区', '350600', '2');
 INSERT INTO `cmswing_area` VALUES ('350603', '龙文区', '350600', '3');
@@ -1736,6 +1493,7 @@ INSERT INTO `cmswing_area` VALUES ('350627', '南靖县', '350600', '9');
 INSERT INTO `cmswing_area` VALUES ('350628', '平和县', '350600', '10');
 INSERT INTO `cmswing_area` VALUES ('350629', '华安县', '350600', '11');
 INSERT INTO `cmswing_area` VALUES ('350681', '龙海市', '350600', '12');
+INSERT INTO `cmswing_area` VALUES ('350700', '南平市', '350000', '7');
 INSERT INTO `cmswing_area` VALUES ('350701', '市辖区', '350700', '1');
 INSERT INTO `cmswing_area` VALUES ('350702', '延平区', '350700', '2');
 INSERT INTO `cmswing_area` VALUES ('350721', '顺昌县', '350700', '3');
@@ -1747,6 +1505,7 @@ INSERT INTO `cmswing_area` VALUES ('350781', '邵武市', '350700', '8');
 INSERT INTO `cmswing_area` VALUES ('350782', '武夷山市', '350700', '9');
 INSERT INTO `cmswing_area` VALUES ('350783', '建瓯市', '350700', '10');
 INSERT INTO `cmswing_area` VALUES ('350784', '建阳市', '350700', '11');
+INSERT INTO `cmswing_area` VALUES ('350800', '龙岩市', '350000', '8');
 INSERT INTO `cmswing_area` VALUES ('350801', '市辖区', '350800', '1');
 INSERT INTO `cmswing_area` VALUES ('350802', '新罗区', '350800', '2');
 INSERT INTO `cmswing_area` VALUES ('350821', '长汀县', '350800', '3');
@@ -1755,6 +1514,7 @@ INSERT INTO `cmswing_area` VALUES ('350823', '上杭县', '350800', '5');
 INSERT INTO `cmswing_area` VALUES ('350824', '武平县', '350800', '6');
 INSERT INTO `cmswing_area` VALUES ('350825', '连城县', '350800', '7');
 INSERT INTO `cmswing_area` VALUES ('350881', '漳平市', '350800', '8');
+INSERT INTO `cmswing_area` VALUES ('350900', '宁德市', '350000', '9');
 INSERT INTO `cmswing_area` VALUES ('350901', '市辖区', '350900', '1');
 INSERT INTO `cmswing_area` VALUES ('350902', '蕉城区', '350900', '2');
 INSERT INTO `cmswing_area` VALUES ('350921', '霞浦县', '350900', '3');
@@ -1765,6 +1525,8 @@ INSERT INTO `cmswing_area` VALUES ('350925', '周宁县', '350900', '7');
 INSERT INTO `cmswing_area` VALUES ('350926', '柘荣县', '350900', '8');
 INSERT INTO `cmswing_area` VALUES ('350981', '福安市', '350900', '9');
 INSERT INTO `cmswing_area` VALUES ('350982', '福鼎市', '350900', '10');
+INSERT INTO `cmswing_area` VALUES ('360000', '江西省', '0', '14');
+INSERT INTO `cmswing_area` VALUES ('360100', '南昌市', '360000', '1');
 INSERT INTO `cmswing_area` VALUES ('360101', '市辖区', '360100', '1');
 INSERT INTO `cmswing_area` VALUES ('360102', '东湖区', '360100', '2');
 INSERT INTO `cmswing_area` VALUES ('360103', '西湖区', '360100', '3');
@@ -1775,17 +1537,20 @@ INSERT INTO `cmswing_area` VALUES ('360121', '南昌县', '360100', '7');
 INSERT INTO `cmswing_area` VALUES ('360122', '新建县', '360100', '8');
 INSERT INTO `cmswing_area` VALUES ('360123', '安义县', '360100', '9');
 INSERT INTO `cmswing_area` VALUES ('360124', '进贤县', '360100', '10');
+INSERT INTO `cmswing_area` VALUES ('360200', '景德镇市', '360000', '2');
 INSERT INTO `cmswing_area` VALUES ('360201', '市辖区', '360200', '1');
 INSERT INTO `cmswing_area` VALUES ('360202', '昌江区', '360200', '2');
 INSERT INTO `cmswing_area` VALUES ('360203', '珠山区', '360200', '3');
 INSERT INTO `cmswing_area` VALUES ('360222', '浮梁县', '360200', '4');
 INSERT INTO `cmswing_area` VALUES ('360281', '乐平市', '360200', '5');
+INSERT INTO `cmswing_area` VALUES ('360300', '萍乡市', '360000', '3');
 INSERT INTO `cmswing_area` VALUES ('360301', '市辖区', '360300', '1');
 INSERT INTO `cmswing_area` VALUES ('360302', '安源区', '360300', '2');
 INSERT INTO `cmswing_area` VALUES ('360313', '湘东区', '360300', '3');
 INSERT INTO `cmswing_area` VALUES ('360321', '莲花县', '360300', '4');
 INSERT INTO `cmswing_area` VALUES ('360322', '上栗县', '360300', '5');
 INSERT INTO `cmswing_area` VALUES ('360323', '芦溪县', '360300', '6');
+INSERT INTO `cmswing_area` VALUES ('360400', '九江市', '360000', '4');
 INSERT INTO `cmswing_area` VALUES ('360401', '市辖区', '360400', '1');
 INSERT INTO `cmswing_area` VALUES ('360402', '庐山区', '360400', '2');
 INSERT INTO `cmswing_area` VALUES ('360403', '浔阳区', '360400', '3');
@@ -1799,13 +1564,16 @@ INSERT INTO `cmswing_area` VALUES ('360428', '都昌县', '360400', '10');
 INSERT INTO `cmswing_area` VALUES ('360429', '湖口县', '360400', '11');
 INSERT INTO `cmswing_area` VALUES ('360430', '彭泽县', '360400', '12');
 INSERT INTO `cmswing_area` VALUES ('360481', '瑞昌市', '360400', '13');
+INSERT INTO `cmswing_area` VALUES ('360500', '新余市', '360000', '5');
 INSERT INTO `cmswing_area` VALUES ('360501', '市辖区', '360500', '1');
 INSERT INTO `cmswing_area` VALUES ('360502', '渝水区', '360500', '2');
 INSERT INTO `cmswing_area` VALUES ('360521', '分宜县', '360500', '3');
+INSERT INTO `cmswing_area` VALUES ('360600', '鹰潭市', '360000', '6');
 INSERT INTO `cmswing_area` VALUES ('360601', '市辖区', '360600', '1');
 INSERT INTO `cmswing_area` VALUES ('360602', '月湖区', '360600', '2');
 INSERT INTO `cmswing_area` VALUES ('360622', '余江县', '360600', '3');
 INSERT INTO `cmswing_area` VALUES ('360681', '贵溪市', '360600', '4');
+INSERT INTO `cmswing_area` VALUES ('360700', '赣州市', '360000', '7');
 INSERT INTO `cmswing_area` VALUES ('360701', '市辖区', '360700', '1');
 INSERT INTO `cmswing_area` VALUES ('360702', '章贡区', '360700', '2');
 INSERT INTO `cmswing_area` VALUES ('360721', '赣　县', '360700', '3');
@@ -1825,6 +1593,7 @@ INSERT INTO `cmswing_area` VALUES ('360734', '寻乌县', '360700', '16');
 INSERT INTO `cmswing_area` VALUES ('360735', '石城县', '360700', '17');
 INSERT INTO `cmswing_area` VALUES ('360781', '瑞金市', '360700', '18');
 INSERT INTO `cmswing_area` VALUES ('360782', '南康市', '360700', '19');
+INSERT INTO `cmswing_area` VALUES ('360800', '吉安市', '360000', '8');
 INSERT INTO `cmswing_area` VALUES ('360801', '市辖区', '360800', '1');
 INSERT INTO `cmswing_area` VALUES ('360802', '吉州区', '360800', '2');
 INSERT INTO `cmswing_area` VALUES ('360803', '青原区', '360800', '3');
@@ -1839,6 +1608,7 @@ INSERT INTO `cmswing_area` VALUES ('360828', '万安县', '360800', '11');
 INSERT INTO `cmswing_area` VALUES ('360829', '安福县', '360800', '12');
 INSERT INTO `cmswing_area` VALUES ('360830', '永新县', '360800', '13');
 INSERT INTO `cmswing_area` VALUES ('360881', '井冈山市', '360800', '14');
+INSERT INTO `cmswing_area` VALUES ('360900', '宜春市', '360000', '9');
 INSERT INTO `cmswing_area` VALUES ('360901', '市辖区', '360900', '1');
 INSERT INTO `cmswing_area` VALUES ('360902', '袁州区', '360900', '2');
 INSERT INTO `cmswing_area` VALUES ('360921', '奉新县', '360900', '3');
@@ -1850,6 +1620,7 @@ INSERT INTO `cmswing_area` VALUES ('360926', '铜鼓县', '360900', '8');
 INSERT INTO `cmswing_area` VALUES ('360981', '丰城市', '360900', '9');
 INSERT INTO `cmswing_area` VALUES ('360982', '樟树市', '360900', '10');
 INSERT INTO `cmswing_area` VALUES ('360983', '高安市', '360900', '11');
+INSERT INTO `cmswing_area` VALUES ('361000', '抚州市', '360000', '10');
 INSERT INTO `cmswing_area` VALUES ('361001', '市辖区', '361000', '1');
 INSERT INTO `cmswing_area` VALUES ('361002', '临川区', '361000', '2');
 INSERT INTO `cmswing_area` VALUES ('361021', '南城县', '361000', '3');
@@ -1862,6 +1633,7 @@ INSERT INTO `cmswing_area` VALUES ('361027', '金溪县', '361000', '9');
 INSERT INTO `cmswing_area` VALUES ('361028', '资溪县', '361000', '10');
 INSERT INTO `cmswing_area` VALUES ('361029', '东乡县', '361000', '11');
 INSERT INTO `cmswing_area` VALUES ('361030', '广昌县', '361000', '12');
+INSERT INTO `cmswing_area` VALUES ('361100', '上饶市', '360000', '11');
 INSERT INTO `cmswing_area` VALUES ('361101', '市辖区', '361100', '1');
 INSERT INTO `cmswing_area` VALUES ('361102', '信州区', '361100', '2');
 INSERT INTO `cmswing_area` VALUES ('361121', '上饶县', '361100', '3');
@@ -1875,6 +1647,8 @@ INSERT INTO `cmswing_area` VALUES ('361128', '鄱阳县', '361100', '10');
 INSERT INTO `cmswing_area` VALUES ('361129', '万年县', '361100', '11');
 INSERT INTO `cmswing_area` VALUES ('361130', '婺源县', '361100', '12');
 INSERT INTO `cmswing_area` VALUES ('361181', '德兴市', '361100', '13');
+INSERT INTO `cmswing_area` VALUES ('370000', '山东省', '0', '15');
+INSERT INTO `cmswing_area` VALUES ('370100', '济南市', '370000', '1');
 INSERT INTO `cmswing_area` VALUES ('370101', '市辖区', '370100', '1');
 INSERT INTO `cmswing_area` VALUES ('370102', '历下区', '370100', '2');
 INSERT INTO `cmswing_area` VALUES ('370103', '市中区', '370100', '3');
@@ -1886,6 +1660,7 @@ INSERT INTO `cmswing_area` VALUES ('370124', '平阴县', '370100', '8');
 INSERT INTO `cmswing_area` VALUES ('370125', '济阳县', '370100', '9');
 INSERT INTO `cmswing_area` VALUES ('370126', '商河县', '370100', '10');
 INSERT INTO `cmswing_area` VALUES ('370181', '章丘市', '370100', '11');
+INSERT INTO `cmswing_area` VALUES ('370200', '青岛市', '370000', '2');
 INSERT INTO `cmswing_area` VALUES ('370201', '市辖区', '370200', '1');
 INSERT INTO `cmswing_area` VALUES ('370202', '市南区', '370200', '2');
 INSERT INTO `cmswing_area` VALUES ('370203', '市北区', '370200', '3');
@@ -1899,6 +1674,7 @@ INSERT INTO `cmswing_area` VALUES ('370282', '即墨市', '370200', '10');
 INSERT INTO `cmswing_area` VALUES ('370283', '平度市', '370200', '11');
 INSERT INTO `cmswing_area` VALUES ('370284', '胶南市', '370200', '12');
 INSERT INTO `cmswing_area` VALUES ('370285', '莱西市', '370200', '13');
+INSERT INTO `cmswing_area` VALUES ('370300', '淄博市', '370000', '3');
 INSERT INTO `cmswing_area` VALUES ('370301', '市辖区', '370300', '1');
 INSERT INTO `cmswing_area` VALUES ('370302', '淄川区', '370300', '2');
 INSERT INTO `cmswing_area` VALUES ('370303', '张店区', '370300', '3');
@@ -1908,6 +1684,7 @@ INSERT INTO `cmswing_area` VALUES ('370306', '周村区', '370300', '6');
 INSERT INTO `cmswing_area` VALUES ('370321', '桓台县', '370300', '7');
 INSERT INTO `cmswing_area` VALUES ('370322', '高青县', '370300', '8');
 INSERT INTO `cmswing_area` VALUES ('370323', '沂源县', '370300', '9');
+INSERT INTO `cmswing_area` VALUES ('370400', '枣庄市', '370000', '4');
 INSERT INTO `cmswing_area` VALUES ('370401', '市辖区', '370400', '1');
 INSERT INTO `cmswing_area` VALUES ('370402', '市中区', '370400', '2');
 INSERT INTO `cmswing_area` VALUES ('370403', '薛城区', '370400', '3');
@@ -1915,12 +1692,14 @@ INSERT INTO `cmswing_area` VALUES ('370404', '峄城区', '370400', '4');
 INSERT INTO `cmswing_area` VALUES ('370405', '台儿庄区', '370400', '5');
 INSERT INTO `cmswing_area` VALUES ('370406', '山亭区', '370400', '6');
 INSERT INTO `cmswing_area` VALUES ('370481', '滕州市', '370400', '7');
+INSERT INTO `cmswing_area` VALUES ('370500', '东营市', '370000', '5');
 INSERT INTO `cmswing_area` VALUES ('370501', '市辖区', '370500', '1');
 INSERT INTO `cmswing_area` VALUES ('370502', '东营区', '370500', '2');
 INSERT INTO `cmswing_area` VALUES ('370503', '河口区', '370500', '3');
 INSERT INTO `cmswing_area` VALUES ('370521', '垦利县', '370500', '4');
 INSERT INTO `cmswing_area` VALUES ('370522', '利津县', '370500', '5');
 INSERT INTO `cmswing_area` VALUES ('370523', '广饶县', '370500', '6');
+INSERT INTO `cmswing_area` VALUES ('370600', '烟台市', '370000', '6');
 INSERT INTO `cmswing_area` VALUES ('370601', '市辖区', '370600', '1');
 INSERT INTO `cmswing_area` VALUES ('370602', '芝罘区', '370600', '2');
 INSERT INTO `cmswing_area` VALUES ('370611', '福山区', '370600', '3');
@@ -1934,6 +1713,7 @@ INSERT INTO `cmswing_area` VALUES ('370684', '蓬莱市', '370600', '10');
 INSERT INTO `cmswing_area` VALUES ('370685', '招远市', '370600', '11');
 INSERT INTO `cmswing_area` VALUES ('370686', '栖霞市', '370600', '12');
 INSERT INTO `cmswing_area` VALUES ('370687', '海阳市', '370600', '13');
+INSERT INTO `cmswing_area` VALUES ('370700', '潍坊市', '370000', '7');
 INSERT INTO `cmswing_area` VALUES ('370701', '市辖区', '370700', '1');
 INSERT INTO `cmswing_area` VALUES ('370702', '潍城区', '370700', '2');
 INSERT INTO `cmswing_area` VALUES ('370703', '寒亭区', '370700', '3');
@@ -1947,6 +1727,7 @@ INSERT INTO `cmswing_area` VALUES ('370783', '寿光市', '370700', '10');
 INSERT INTO `cmswing_area` VALUES ('370784', '安丘市', '370700', '11');
 INSERT INTO `cmswing_area` VALUES ('370785', '高密市', '370700', '12');
 INSERT INTO `cmswing_area` VALUES ('370786', '昌邑市', '370700', '13');
+INSERT INTO `cmswing_area` VALUES ('370800', '济宁市', '370000', '8');
 INSERT INTO `cmswing_area` VALUES ('370801', '市辖区', '370800', '1');
 INSERT INTO `cmswing_area` VALUES ('370802', '市中区', '370800', '2');
 INSERT INTO `cmswing_area` VALUES ('370811', '任城区', '370800', '3');
@@ -1960,6 +1741,7 @@ INSERT INTO `cmswing_area` VALUES ('370832', '梁山县', '370800', '10');
 INSERT INTO `cmswing_area` VALUES ('370881', '曲阜市', '370800', '11');
 INSERT INTO `cmswing_area` VALUES ('370882', '兖州市', '370800', '12');
 INSERT INTO `cmswing_area` VALUES ('370883', '邹城市', '370800', '13');
+INSERT INTO `cmswing_area` VALUES ('370900', '泰安市', '370000', '9');
 INSERT INTO `cmswing_area` VALUES ('370901', '市辖区', '370900', '1');
 INSERT INTO `cmswing_area` VALUES ('370902', '泰山区', '370900', '2');
 INSERT INTO `cmswing_area` VALUES ('370903', '岱岳区', '370900', '3');
@@ -1967,19 +1749,23 @@ INSERT INTO `cmswing_area` VALUES ('370921', '宁阳县', '370900', '4');
 INSERT INTO `cmswing_area` VALUES ('370923', '东平县', '370900', '5');
 INSERT INTO `cmswing_area` VALUES ('370982', '新泰市', '370900', '6');
 INSERT INTO `cmswing_area` VALUES ('370983', '肥城市', '370900', '7');
+INSERT INTO `cmswing_area` VALUES ('371000', '威海市', '370000', '10');
 INSERT INTO `cmswing_area` VALUES ('371001', '市辖区', '371000', '1');
 INSERT INTO `cmswing_area` VALUES ('371002', '环翠区', '371000', '2');
 INSERT INTO `cmswing_area` VALUES ('371081', '文登市', '371000', '3');
 INSERT INTO `cmswing_area` VALUES ('371082', '荣成市', '371000', '4');
 INSERT INTO `cmswing_area` VALUES ('371083', '乳山市', '371000', '5');
+INSERT INTO `cmswing_area` VALUES ('371100', '日照市', '370000', '11');
 INSERT INTO `cmswing_area` VALUES ('371101', '市辖区', '371100', '1');
 INSERT INTO `cmswing_area` VALUES ('371102', '东港区', '371100', '2');
 INSERT INTO `cmswing_area` VALUES ('371103', '岚山区', '371100', '3');
 INSERT INTO `cmswing_area` VALUES ('371121', '五莲县', '371100', '4');
 INSERT INTO `cmswing_area` VALUES ('371122', '莒　县', '371100', '5');
+INSERT INTO `cmswing_area` VALUES ('371200', '莱芜市', '370000', '12');
 INSERT INTO `cmswing_area` VALUES ('371201', '市辖区', '371200', '1');
 INSERT INTO `cmswing_area` VALUES ('371202', '莱城区', '371200', '2');
 INSERT INTO `cmswing_area` VALUES ('371203', '钢城区', '371200', '3');
+INSERT INTO `cmswing_area` VALUES ('371300', '临沂市', '370000', '13');
 INSERT INTO `cmswing_area` VALUES ('371301', '市辖区', '371300', '1');
 INSERT INTO `cmswing_area` VALUES ('371302', '兰山区', '371300', '2');
 INSERT INTO `cmswing_area` VALUES ('371311', '罗庄区', '371300', '3');
@@ -1993,6 +1779,7 @@ INSERT INTO `cmswing_area` VALUES ('371326', '平邑县', '371300', '10');
 INSERT INTO `cmswing_area` VALUES ('371327', '莒南县', '371300', '11');
 INSERT INTO `cmswing_area` VALUES ('371328', '蒙阴县', '371300', '12');
 INSERT INTO `cmswing_area` VALUES ('371329', '临沭县', '371300', '13');
+INSERT INTO `cmswing_area` VALUES ('371400', '德州市', '370000', '14');
 INSERT INTO `cmswing_area` VALUES ('371401', '市辖区', '371400', '1');
 INSERT INTO `cmswing_area` VALUES ('371402', '德城区', '371400', '2');
 INSERT INTO `cmswing_area` VALUES ('371421', '陵　县', '371400', '3');
@@ -2005,6 +1792,7 @@ INSERT INTO `cmswing_area` VALUES ('371427', '夏津县', '371400', '9');
 INSERT INTO `cmswing_area` VALUES ('371428', '武城县', '371400', '10');
 INSERT INTO `cmswing_area` VALUES ('371481', '乐陵市', '371400', '11');
 INSERT INTO `cmswing_area` VALUES ('371482', '禹城市', '371400', '12');
+INSERT INTO `cmswing_area` VALUES ('371500', '聊城市', '370000', '15');
 INSERT INTO `cmswing_area` VALUES ('371501', '市辖区', '371500', '1');
 INSERT INTO `cmswing_area` VALUES ('371502', '东昌府区', '371500', '2');
 INSERT INTO `cmswing_area` VALUES ('371521', '阳谷县', '371500', '3');
@@ -2014,6 +1802,7 @@ INSERT INTO `cmswing_area` VALUES ('371524', '东阿县', '371500', '6');
 INSERT INTO `cmswing_area` VALUES ('371525', '冠　县', '371500', '7');
 INSERT INTO `cmswing_area` VALUES ('371526', '高唐县', '371500', '8');
 INSERT INTO `cmswing_area` VALUES ('371581', '临清市', '371500', '9');
+INSERT INTO `cmswing_area` VALUES ('371600', '滨州市', '370000', '16');
 INSERT INTO `cmswing_area` VALUES ('371601', '市辖区', '371600', '1');
 INSERT INTO `cmswing_area` VALUES ('371602', '滨城区', '371600', '2');
 INSERT INTO `cmswing_area` VALUES ('371621', '惠民县', '371600', '3');
@@ -2022,6 +1811,7 @@ INSERT INTO `cmswing_area` VALUES ('371623', '无棣县', '371600', '5');
 INSERT INTO `cmswing_area` VALUES ('371624', '沾化县', '371600', '6');
 INSERT INTO `cmswing_area` VALUES ('371625', '博兴县', '371600', '7');
 INSERT INTO `cmswing_area` VALUES ('371626', '邹平县', '371600', '8');
+INSERT INTO `cmswing_area` VALUES ('371700', '菏泽市', '370000', '17');
 INSERT INTO `cmswing_area` VALUES ('371701', '市辖区', '371700', '1');
 INSERT INTO `cmswing_area` VALUES ('371702', '牡丹区', '371700', '2');
 INSERT INTO `cmswing_area` VALUES ('371721', '曹　县', '371700', '3');
@@ -2032,6 +1822,8 @@ INSERT INTO `cmswing_area` VALUES ('371725', '郓城县', '371700', '7');
 INSERT INTO `cmswing_area` VALUES ('371726', '鄄城县', '371700', '8');
 INSERT INTO `cmswing_area` VALUES ('371727', '定陶县', '371700', '9');
 INSERT INTO `cmswing_area` VALUES ('371728', '东明县', '371700', '10');
+INSERT INTO `cmswing_area` VALUES ('410000', '河南省', '0', '16');
+INSERT INTO `cmswing_area` VALUES ('410100', '郑州市', '410000', '1');
 INSERT INTO `cmswing_area` VALUES ('410101', '市辖区', '410100', '1');
 INSERT INTO `cmswing_area` VALUES ('410102', '中原区', '410100', '2');
 INSERT INTO `cmswing_area` VALUES ('410103', '二七区', '410100', '3');
@@ -2045,6 +1837,7 @@ INSERT INTO `cmswing_area` VALUES ('410182', '荥阳市', '410100', '10');
 INSERT INTO `cmswing_area` VALUES ('410183', '新密市', '410100', '11');
 INSERT INTO `cmswing_area` VALUES ('410184', '新郑市', '410100', '12');
 INSERT INTO `cmswing_area` VALUES ('410185', '登封市', '410100', '13');
+INSERT INTO `cmswing_area` VALUES ('410200', '开封市', '410000', '2');
 INSERT INTO `cmswing_area` VALUES ('410201', '市辖区', '410200', '1');
 INSERT INTO `cmswing_area` VALUES ('410202', '龙亭区', '410200', '2');
 INSERT INTO `cmswing_area` VALUES ('410203', '顺河回族区', '410200', '3');
@@ -2056,6 +1849,7 @@ INSERT INTO `cmswing_area` VALUES ('410222', '通许县', '410200', '8');
 INSERT INTO `cmswing_area` VALUES ('410223', '尉氏县', '410200', '9');
 INSERT INTO `cmswing_area` VALUES ('410224', '开封县', '410200', '10');
 INSERT INTO `cmswing_area` VALUES ('410225', '兰考县', '410200', '11');
+INSERT INTO `cmswing_area` VALUES ('410300', '洛阳市', '410000', '3');
 INSERT INTO `cmswing_area` VALUES ('410301', '市辖区', '410300', '1');
 INSERT INTO `cmswing_area` VALUES ('410302', '老城区', '410300', '2');
 INSERT INTO `cmswing_area` VALUES ('410303', '西工区', '410300', '3');
@@ -2072,6 +1866,7 @@ INSERT INTO `cmswing_area` VALUES ('410327', '宜阳县', '410300', '13');
 INSERT INTO `cmswing_area` VALUES ('410328', '洛宁县', '410300', '14');
 INSERT INTO `cmswing_area` VALUES ('410329', '伊川县', '410300', '15');
 INSERT INTO `cmswing_area` VALUES ('410381', '偃师市', '410300', '16');
+INSERT INTO `cmswing_area` VALUES ('410400', '平顶山市', '410000', '4');
 INSERT INTO `cmswing_area` VALUES ('410401', '市辖区', '410400', '1');
 INSERT INTO `cmswing_area` VALUES ('410402', '新华区', '410400', '2');
 INSERT INTO `cmswing_area` VALUES ('410403', '卫东区', '410400', '3');
@@ -2083,6 +1878,7 @@ INSERT INTO `cmswing_area` VALUES ('410423', '鲁山县', '410400', '8');
 INSERT INTO `cmswing_area` VALUES ('410425', '郏　县', '410400', '9');
 INSERT INTO `cmswing_area` VALUES ('410481', '舞钢市', '410400', '10');
 INSERT INTO `cmswing_area` VALUES ('410482', '汝州市', '410400', '11');
+INSERT INTO `cmswing_area` VALUES ('410500', '安阳市', '410000', '5');
 INSERT INTO `cmswing_area` VALUES ('410501', '市辖区', '410500', '1');
 INSERT INTO `cmswing_area` VALUES ('410502', '文峰区', '410500', '2');
 INSERT INTO `cmswing_area` VALUES ('410503', '北关区', '410500', '3');
@@ -2093,12 +1889,14 @@ INSERT INTO `cmswing_area` VALUES ('410523', '汤阴县', '410500', '7');
 INSERT INTO `cmswing_area` VALUES ('410526', '滑　县', '410500', '8');
 INSERT INTO `cmswing_area` VALUES ('410527', '内黄县', '410500', '9');
 INSERT INTO `cmswing_area` VALUES ('410581', '林州市', '410500', '10');
+INSERT INTO `cmswing_area` VALUES ('410600', '鹤壁市', '410000', '6');
 INSERT INTO `cmswing_area` VALUES ('410601', '市辖区', '410600', '1');
 INSERT INTO `cmswing_area` VALUES ('410602', '鹤山区', '410600', '2');
 INSERT INTO `cmswing_area` VALUES ('410603', '山城区', '410600', '3');
 INSERT INTO `cmswing_area` VALUES ('410611', '淇滨区', '410600', '4');
 INSERT INTO `cmswing_area` VALUES ('410621', '浚　县', '410600', '5');
 INSERT INTO `cmswing_area` VALUES ('410622', '淇　县', '410600', '6');
+INSERT INTO `cmswing_area` VALUES ('410700', '新乡市', '410000', '7');
 INSERT INTO `cmswing_area` VALUES ('410701', '市辖区', '410700', '1');
 INSERT INTO `cmswing_area` VALUES ('410702', '红旗区', '410700', '2');
 INSERT INTO `cmswing_area` VALUES ('410703', '卫滨区', '410700', '3');
@@ -2112,6 +1910,7 @@ INSERT INTO `cmswing_area` VALUES ('410727', '封丘县', '410700', '10');
 INSERT INTO `cmswing_area` VALUES ('410728', '长垣县', '410700', '11');
 INSERT INTO `cmswing_area` VALUES ('410781', '卫辉市', '410700', '12');
 INSERT INTO `cmswing_area` VALUES ('410782', '辉县市', '410700', '13');
+INSERT INTO `cmswing_area` VALUES ('410800', '焦作市', '410000', '8');
 INSERT INTO `cmswing_area` VALUES ('410801', '市辖区', '410800', '1');
 INSERT INTO `cmswing_area` VALUES ('410802', '解放区', '410800', '2');
 INSERT INTO `cmswing_area` VALUES ('410803', '中站区', '410800', '3');
@@ -2124,6 +1923,7 @@ INSERT INTO `cmswing_area` VALUES ('410825', '温　县', '410800', '9');
 INSERT INTO `cmswing_area` VALUES ('410881', '济源市', '410800', '10');
 INSERT INTO `cmswing_area` VALUES ('410882', '沁阳市', '410800', '11');
 INSERT INTO `cmswing_area` VALUES ('410883', '孟州市', '410800', '12');
+INSERT INTO `cmswing_area` VALUES ('410900', '濮阳市', '410000', '9');
 INSERT INTO `cmswing_area` VALUES ('410901', '市辖区', '410900', '1');
 INSERT INTO `cmswing_area` VALUES ('410902', '华龙区', '410900', '2');
 INSERT INTO `cmswing_area` VALUES ('410922', '清丰县', '410900', '3');
@@ -2131,6 +1931,7 @@ INSERT INTO `cmswing_area` VALUES ('410923', '南乐县', '410900', '4');
 INSERT INTO `cmswing_area` VALUES ('410926', '范　县', '410900', '5');
 INSERT INTO `cmswing_area` VALUES ('410927', '台前县', '410900', '6');
 INSERT INTO `cmswing_area` VALUES ('410928', '濮阳县', '410900', '7');
+INSERT INTO `cmswing_area` VALUES ('411000', '许昌市', '410000', '10');
 INSERT INTO `cmswing_area` VALUES ('411001', '市辖区', '411000', '1');
 INSERT INTO `cmswing_area` VALUES ('411002', '魏都区', '411000', '2');
 INSERT INTO `cmswing_area` VALUES ('411023', '许昌县', '411000', '3');
@@ -2138,12 +1939,14 @@ INSERT INTO `cmswing_area` VALUES ('411024', '鄢陵县', '411000', '4');
 INSERT INTO `cmswing_area` VALUES ('411025', '襄城县', '411000', '5');
 INSERT INTO `cmswing_area` VALUES ('411081', '禹州市', '411000', '6');
 INSERT INTO `cmswing_area` VALUES ('411082', '长葛市', '411000', '7');
+INSERT INTO `cmswing_area` VALUES ('411100', '漯河市', '410000', '11');
 INSERT INTO `cmswing_area` VALUES ('411101', '市辖区', '411100', '1');
 INSERT INTO `cmswing_area` VALUES ('411102', '源汇区', '411100', '2');
 INSERT INTO `cmswing_area` VALUES ('411103', '郾城区', '411100', '3');
 INSERT INTO `cmswing_area` VALUES ('411104', '召陵区', '411100', '4');
 INSERT INTO `cmswing_area` VALUES ('411121', '舞阳县', '411100', '5');
 INSERT INTO `cmswing_area` VALUES ('411122', '临颍县', '411100', '6');
+INSERT INTO `cmswing_area` VALUES ('411200', '三门峡市', '410000', '12');
 INSERT INTO `cmswing_area` VALUES ('411201', '市辖区', '411200', '1');
 INSERT INTO `cmswing_area` VALUES ('411202', '湖滨区', '411200', '2');
 INSERT INTO `cmswing_area` VALUES ('411221', '渑池县', '411200', '3');
@@ -2151,6 +1954,7 @@ INSERT INTO `cmswing_area` VALUES ('411222', '陕　县', '411200', '4');
 INSERT INTO `cmswing_area` VALUES ('411224', '卢氏县', '411200', '5');
 INSERT INTO `cmswing_area` VALUES ('411281', '义马市', '411200', '6');
 INSERT INTO `cmswing_area` VALUES ('411282', '灵宝市', '411200', '7');
+INSERT INTO `cmswing_area` VALUES ('411300', '南阳市', '410000', '13');
 INSERT INTO `cmswing_area` VALUES ('411301', '市辖区', '411300', '1');
 INSERT INTO `cmswing_area` VALUES ('411302', '宛城区', '411300', '2');
 INSERT INTO `cmswing_area` VALUES ('411303', '卧龙区', '411300', '3');
@@ -2165,6 +1969,7 @@ INSERT INTO `cmswing_area` VALUES ('411328', '唐河县', '411300', '11');
 INSERT INTO `cmswing_area` VALUES ('411329', '新野县', '411300', '12');
 INSERT INTO `cmswing_area` VALUES ('411330', '桐柏县', '411300', '13');
 INSERT INTO `cmswing_area` VALUES ('411381', '邓州市', '411300', '14');
+INSERT INTO `cmswing_area` VALUES ('411400', '商丘市', '410000', '14');
 INSERT INTO `cmswing_area` VALUES ('411401', '市辖区', '411400', '1');
 INSERT INTO `cmswing_area` VALUES ('411402', '梁园区', '411400', '2');
 INSERT INTO `cmswing_area` VALUES ('411403', '睢阳区', '411400', '3');
@@ -2175,6 +1980,7 @@ INSERT INTO `cmswing_area` VALUES ('411424', '柘城县', '411400', '7');
 INSERT INTO `cmswing_area` VALUES ('411425', '虞城县', '411400', '8');
 INSERT INTO `cmswing_area` VALUES ('411426', '夏邑县', '411400', '9');
 INSERT INTO `cmswing_area` VALUES ('411481', '永城市', '411400', '10');
+INSERT INTO `cmswing_area` VALUES ('411500', '信阳市', '410000', '15');
 INSERT INTO `cmswing_area` VALUES ('411501', '市辖区', '411500', '1');
 INSERT INTO `cmswing_area` VALUES ('411502', '师河区', '411500', '2');
 INSERT INTO `cmswing_area` VALUES ('411503', '平桥区', '411500', '3');
@@ -2186,6 +1992,7 @@ INSERT INTO `cmswing_area` VALUES ('411525', '固始县', '411500', '8');
 INSERT INTO `cmswing_area` VALUES ('411526', '潢川县', '411500', '9');
 INSERT INTO `cmswing_area` VALUES ('411527', '淮滨县', '411500', '10');
 INSERT INTO `cmswing_area` VALUES ('411528', '息　县', '411500', '11');
+INSERT INTO `cmswing_area` VALUES ('411600', '周口市', '410000', '16');
 INSERT INTO `cmswing_area` VALUES ('411601', '市辖区', '411600', '1');
 INSERT INTO `cmswing_area` VALUES ('411602', '川汇区', '411600', '2');
 INSERT INTO `cmswing_area` VALUES ('411621', '扶沟县', '411600', '3');
@@ -2197,6 +2004,7 @@ INSERT INTO `cmswing_area` VALUES ('411626', '淮阳县', '411600', '8');
 INSERT INTO `cmswing_area` VALUES ('411627', '太康县', '411600', '9');
 INSERT INTO `cmswing_area` VALUES ('411628', '鹿邑县', '411600', '10');
 INSERT INTO `cmswing_area` VALUES ('411681', '项城市', '411600', '11');
+INSERT INTO `cmswing_area` VALUES ('411700', '驻马店市', '410000', '17');
 INSERT INTO `cmswing_area` VALUES ('411701', '市辖区', '411700', '1');
 INSERT INTO `cmswing_area` VALUES ('411702', '驿城区', '411700', '2');
 INSERT INTO `cmswing_area` VALUES ('411721', '西平县', '411700', '3');
@@ -2208,6 +2016,8 @@ INSERT INTO `cmswing_area` VALUES ('411726', '泌阳县', '411700', '8');
 INSERT INTO `cmswing_area` VALUES ('411727', '汝南县', '411700', '9');
 INSERT INTO `cmswing_area` VALUES ('411728', '遂平县', '411700', '10');
 INSERT INTO `cmswing_area` VALUES ('411729', '新蔡县', '411700', '11');
+INSERT INTO `cmswing_area` VALUES ('420000', '湖北省', '0', '17');
+INSERT INTO `cmswing_area` VALUES ('420100', '武汉市', '420000', '1');
 INSERT INTO `cmswing_area` VALUES ('420101', '市辖区', '420100', '1');
 INSERT INTO `cmswing_area` VALUES ('420102', '江岸区', '420100', '2');
 INSERT INTO `cmswing_area` VALUES ('420103', '江汉区', '420100', '3');
@@ -2222,6 +2032,7 @@ INSERT INTO `cmswing_area` VALUES ('420114', '蔡甸区', '420100', '11');
 INSERT INTO `cmswing_area` VALUES ('420115', '江夏区', '420100', '12');
 INSERT INTO `cmswing_area` VALUES ('420116', '黄陂区', '420100', '13');
 INSERT INTO `cmswing_area` VALUES ('420117', '新洲区', '420100', '14');
+INSERT INTO `cmswing_area` VALUES ('420200', '黄石市', '420000', '2');
 INSERT INTO `cmswing_area` VALUES ('420201', '市辖区', '420200', '1');
 INSERT INTO `cmswing_area` VALUES ('420202', '黄石港区', '420200', '2');
 INSERT INTO `cmswing_area` VALUES ('420203', '西塞山区', '420200', '3');
@@ -2229,6 +2040,7 @@ INSERT INTO `cmswing_area` VALUES ('420204', '下陆区', '420200', '4');
 INSERT INTO `cmswing_area` VALUES ('420205', '铁山区', '420200', '5');
 INSERT INTO `cmswing_area` VALUES ('420222', '阳新县', '420200', '6');
 INSERT INTO `cmswing_area` VALUES ('420281', '大冶市', '420200', '7');
+INSERT INTO `cmswing_area` VALUES ('420300', '十堰市', '420000', '3');
 INSERT INTO `cmswing_area` VALUES ('420301', '市辖区', '420300', '1');
 INSERT INTO `cmswing_area` VALUES ('420302', '茅箭区', '420300', '2');
 INSERT INTO `cmswing_area` VALUES ('420303', '张湾区', '420300', '3');
@@ -2238,6 +2050,7 @@ INSERT INTO `cmswing_area` VALUES ('420323', '竹山县', '420300', '6');
 INSERT INTO `cmswing_area` VALUES ('420324', '竹溪县', '420300', '7');
 INSERT INTO `cmswing_area` VALUES ('420325', '房　县', '420300', '8');
 INSERT INTO `cmswing_area` VALUES ('420381', '丹江口市', '420300', '9');
+INSERT INTO `cmswing_area` VALUES ('420500', '宜昌市', '420000', '4');
 INSERT INTO `cmswing_area` VALUES ('420501', '市辖区', '420500', '1');
 INSERT INTO `cmswing_area` VALUES ('420502', '西陵区', '420500', '2');
 INSERT INTO `cmswing_area` VALUES ('420503', '伍家岗区', '420500', '3');
@@ -2252,6 +2065,7 @@ INSERT INTO `cmswing_area` VALUES ('420529', '五峰土家族自治县', '420500
 INSERT INTO `cmswing_area` VALUES ('420581', '宜都市', '420500', '12');
 INSERT INTO `cmswing_area` VALUES ('420582', '当阳市', '420500', '13');
 INSERT INTO `cmswing_area` VALUES ('420583', '枝江市', '420500', '14');
+INSERT INTO `cmswing_area` VALUES ('420600', '襄樊市', '420000', '5');
 INSERT INTO `cmswing_area` VALUES ('420601', '市辖区', '420600', '1');
 INSERT INTO `cmswing_area` VALUES ('420602', '襄城区', '420600', '2');
 INSERT INTO `cmswing_area` VALUES ('420606', '樊城区', '420600', '3');
@@ -2262,16 +2076,19 @@ INSERT INTO `cmswing_area` VALUES ('420626', '保康县', '420600', '7');
 INSERT INTO `cmswing_area` VALUES ('420682', '老河口市', '420600', '8');
 INSERT INTO `cmswing_area` VALUES ('420683', '枣阳市', '420600', '9');
 INSERT INTO `cmswing_area` VALUES ('420684', '宜城市', '420600', '10');
+INSERT INTO `cmswing_area` VALUES ('420700', '鄂州市', '420000', '6');
 INSERT INTO `cmswing_area` VALUES ('420701', '市辖区', '420700', '1');
 INSERT INTO `cmswing_area` VALUES ('420702', '梁子湖区', '420700', '2');
 INSERT INTO `cmswing_area` VALUES ('420703', '华容区', '420700', '3');
 INSERT INTO `cmswing_area` VALUES ('420704', '鄂城区', '420700', '4');
+INSERT INTO `cmswing_area` VALUES ('420800', '荆门市', '420000', '7');
 INSERT INTO `cmswing_area` VALUES ('420801', '市辖区', '420800', '1');
 INSERT INTO `cmswing_area` VALUES ('420802', '东宝区', '420800', '2');
 INSERT INTO `cmswing_area` VALUES ('420804', '掇刀区', '420800', '3');
 INSERT INTO `cmswing_area` VALUES ('420821', '京山县', '420800', '4');
 INSERT INTO `cmswing_area` VALUES ('420822', '沙洋县', '420800', '5');
 INSERT INTO `cmswing_area` VALUES ('420881', '钟祥市', '420800', '6');
+INSERT INTO `cmswing_area` VALUES ('420900', '孝感市', '420000', '8');
 INSERT INTO `cmswing_area` VALUES ('420901', '市辖区', '420900', '1');
 INSERT INTO `cmswing_area` VALUES ('420902', '孝南区', '420900', '2');
 INSERT INTO `cmswing_area` VALUES ('420921', '孝昌县', '420900', '3');
@@ -2280,6 +2097,7 @@ INSERT INTO `cmswing_area` VALUES ('420923', '云梦县', '420900', '5');
 INSERT INTO `cmswing_area` VALUES ('420981', '应城市', '420900', '6');
 INSERT INTO `cmswing_area` VALUES ('420982', '安陆市', '420900', '7');
 INSERT INTO `cmswing_area` VALUES ('420984', '汉川市', '420900', '8');
+INSERT INTO `cmswing_area` VALUES ('421000', '荆州市', '420000', '9');
 INSERT INTO `cmswing_area` VALUES ('421001', '市辖区', '421000', '1');
 INSERT INTO `cmswing_area` VALUES ('421002', '沙市区', '421000', '2');
 INSERT INTO `cmswing_area` VALUES ('421003', '荆州区', '421000', '3');
@@ -2289,6 +2107,7 @@ INSERT INTO `cmswing_area` VALUES ('421024', '江陵县', '421000', '6');
 INSERT INTO `cmswing_area` VALUES ('421081', '石首市', '421000', '7');
 INSERT INTO `cmswing_area` VALUES ('421083', '洪湖市', '421000', '8');
 INSERT INTO `cmswing_area` VALUES ('421087', '松滋市', '421000', '9');
+INSERT INTO `cmswing_area` VALUES ('421100', '黄冈市', '420000', '10');
 INSERT INTO `cmswing_area` VALUES ('421101', '市辖区', '421100', '1');
 INSERT INTO `cmswing_area` VALUES ('421102', '黄州区', '421100', '2');
 INSERT INTO `cmswing_area` VALUES ('421121', '团风县', '421100', '3');
@@ -2300,6 +2119,7 @@ INSERT INTO `cmswing_area` VALUES ('421126', '蕲春县', '421100', '8');
 INSERT INTO `cmswing_area` VALUES ('421127', '黄梅县', '421100', '9');
 INSERT INTO `cmswing_area` VALUES ('421181', '麻城市', '421100', '10');
 INSERT INTO `cmswing_area` VALUES ('421182', '武穴市', '421100', '11');
+INSERT INTO `cmswing_area` VALUES ('421200', '咸宁市', '420000', '11');
 INSERT INTO `cmswing_area` VALUES ('421201', '市辖区', '421200', '1');
 INSERT INTO `cmswing_area` VALUES ('421202', '咸安区', '421200', '2');
 INSERT INTO `cmswing_area` VALUES ('421221', '嘉鱼县', '421200', '3');
@@ -2307,9 +2127,11 @@ INSERT INTO `cmswing_area` VALUES ('421222', '通城县', '421200', '4');
 INSERT INTO `cmswing_area` VALUES ('421223', '崇阳县', '421200', '5');
 INSERT INTO `cmswing_area` VALUES ('421224', '通山县', '421200', '6');
 INSERT INTO `cmswing_area` VALUES ('421281', '赤壁市', '421200', '7');
+INSERT INTO `cmswing_area` VALUES ('421300', '随州市', '420000', '12');
 INSERT INTO `cmswing_area` VALUES ('421301', '市辖区', '421300', '1');
 INSERT INTO `cmswing_area` VALUES ('421302', '曾都区', '421300', '2');
 INSERT INTO `cmswing_area` VALUES ('421381', '广水市', '421300', '3');
+INSERT INTO `cmswing_area` VALUES ('422800', '恩施土家族苗族自治州', '420000', '13');
 INSERT INTO `cmswing_area` VALUES ('422801', '恩施市', '422800', '1');
 INSERT INTO `cmswing_area` VALUES ('422802', '利川市', '422800', '2');
 INSERT INTO `cmswing_area` VALUES ('422822', '建始县', '422800', '3');
@@ -2318,10 +2140,13 @@ INSERT INTO `cmswing_area` VALUES ('422825', '宣恩县', '422800', '5');
 INSERT INTO `cmswing_area` VALUES ('422826', '咸丰县', '422800', '6');
 INSERT INTO `cmswing_area` VALUES ('422827', '来凤县', '422800', '7');
 INSERT INTO `cmswing_area` VALUES ('422828', '鹤峰县', '422800', '8');
+INSERT INTO `cmswing_area` VALUES ('429000', '省直辖行政单位', '420000', '14');
 INSERT INTO `cmswing_area` VALUES ('429004', '仙桃市', '429000', '1');
 INSERT INTO `cmswing_area` VALUES ('429005', '潜江市', '429000', '2');
 INSERT INTO `cmswing_area` VALUES ('429006', '天门市', '429000', '3');
 INSERT INTO `cmswing_area` VALUES ('429021', '神农架林区', '429000', '4');
+INSERT INTO `cmswing_area` VALUES ('430000', '湖南省', '0', '18');
+INSERT INTO `cmswing_area` VALUES ('430100', '长沙市', '430000', '1');
 INSERT INTO `cmswing_area` VALUES ('430101', '市辖区', '430100', '1');
 INSERT INTO `cmswing_area` VALUES ('430102', '芙蓉区', '430100', '2');
 INSERT INTO `cmswing_area` VALUES ('430103', '天心区', '430100', '3');
@@ -2332,6 +2157,7 @@ INSERT INTO `cmswing_area` VALUES ('430121', '长沙县', '430100', '7');
 INSERT INTO `cmswing_area` VALUES ('430122', '望城县', '430100', '8');
 INSERT INTO `cmswing_area` VALUES ('430124', '宁乡县', '430100', '9');
 INSERT INTO `cmswing_area` VALUES ('430181', '浏阳市', '430100', '10');
+INSERT INTO `cmswing_area` VALUES ('430200', '株洲市', '430000', '2');
 INSERT INTO `cmswing_area` VALUES ('430201', '市辖区', '430200', '1');
 INSERT INTO `cmswing_area` VALUES ('430202', '荷塘区', '430200', '2');
 INSERT INTO `cmswing_area` VALUES ('430203', '芦淞区', '430200', '3');
@@ -2342,12 +2168,14 @@ INSERT INTO `cmswing_area` VALUES ('430223', '攸　县', '430200', '7');
 INSERT INTO `cmswing_area` VALUES ('430224', '茶陵县', '430200', '8');
 INSERT INTO `cmswing_area` VALUES ('430225', '炎陵县', '430200', '9');
 INSERT INTO `cmswing_area` VALUES ('430281', '醴陵市', '430200', '10');
+INSERT INTO `cmswing_area` VALUES ('430300', '湘潭市', '430000', '3');
 INSERT INTO `cmswing_area` VALUES ('430301', '市辖区', '430300', '1');
 INSERT INTO `cmswing_area` VALUES ('430302', '雨湖区', '430300', '2');
 INSERT INTO `cmswing_area` VALUES ('430304', '岳塘区', '430300', '3');
 INSERT INTO `cmswing_area` VALUES ('430321', '湘潭县', '430300', '4');
 INSERT INTO `cmswing_area` VALUES ('430381', '湘乡市', '430300', '5');
 INSERT INTO `cmswing_area` VALUES ('430382', '韶山市', '430300', '6');
+INSERT INTO `cmswing_area` VALUES ('430400', '衡阳市', '430000', '4');
 INSERT INTO `cmswing_area` VALUES ('430401', '市辖区', '430400', '1');
 INSERT INTO `cmswing_area` VALUES ('430405', '珠晖区', '430400', '2');
 INSERT INTO `cmswing_area` VALUES ('430406', '雁峰区', '430400', '3');
@@ -2361,6 +2189,7 @@ INSERT INTO `cmswing_area` VALUES ('430424', '衡东县', '430400', '10');
 INSERT INTO `cmswing_area` VALUES ('430426', '祁东县', '430400', '11');
 INSERT INTO `cmswing_area` VALUES ('430481', '耒阳市', '430400', '12');
 INSERT INTO `cmswing_area` VALUES ('430482', '常宁市', '430400', '13');
+INSERT INTO `cmswing_area` VALUES ('430500', '邵阳市', '430000', '5');
 INSERT INTO `cmswing_area` VALUES ('430501', '市辖区', '430500', '1');
 INSERT INTO `cmswing_area` VALUES ('430502', '双清区', '430500', '2');
 INSERT INTO `cmswing_area` VALUES ('430503', '大祥区', '430500', '3');
@@ -2374,6 +2203,7 @@ INSERT INTO `cmswing_area` VALUES ('430527', '绥宁县', '430500', '10');
 INSERT INTO `cmswing_area` VALUES ('430528', '新宁县', '430500', '11');
 INSERT INTO `cmswing_area` VALUES ('430529', '城步苗族自治县', '430500', '12');
 INSERT INTO `cmswing_area` VALUES ('430581', '武冈市', '430500', '13');
+INSERT INTO `cmswing_area` VALUES ('430600', '岳阳市', '430000', '6');
 INSERT INTO `cmswing_area` VALUES ('430601', '市辖区', '430600', '1');
 INSERT INTO `cmswing_area` VALUES ('430602', '岳阳楼区', '430600', '2');
 INSERT INTO `cmswing_area` VALUES ('430603', '云溪区', '430600', '3');
@@ -2384,6 +2214,7 @@ INSERT INTO `cmswing_area` VALUES ('430624', '湘阴县', '430600', '7');
 INSERT INTO `cmswing_area` VALUES ('430626', '平江县', '430600', '8');
 INSERT INTO `cmswing_area` VALUES ('430681', '汨罗市', '430600', '9');
 INSERT INTO `cmswing_area` VALUES ('430682', '临湘市', '430600', '10');
+INSERT INTO `cmswing_area` VALUES ('430700', '常德市', '430000', '7');
 INSERT INTO `cmswing_area` VALUES ('430701', '市辖区', '430700', '1');
 INSERT INTO `cmswing_area` VALUES ('430702', '武陵区', '430700', '2');
 INSERT INTO `cmswing_area` VALUES ('430703', '鼎城区', '430700', '3');
@@ -2394,11 +2225,13 @@ INSERT INTO `cmswing_area` VALUES ('430724', '临澧县', '430700', '7');
 INSERT INTO `cmswing_area` VALUES ('430725', '桃源县', '430700', '8');
 INSERT INTO `cmswing_area` VALUES ('430726', '石门县', '430700', '9');
 INSERT INTO `cmswing_area` VALUES ('430781', '津市市', '430700', '10');
+INSERT INTO `cmswing_area` VALUES ('430800', '张家界市', '430000', '8');
 INSERT INTO `cmswing_area` VALUES ('430801', '市辖区', '430800', '1');
 INSERT INTO `cmswing_area` VALUES ('430802', '永定区', '430800', '2');
 INSERT INTO `cmswing_area` VALUES ('430811', '武陵源区', '430800', '3');
 INSERT INTO `cmswing_area` VALUES ('430821', '慈利县', '430800', '4');
 INSERT INTO `cmswing_area` VALUES ('430822', '桑植县', '430800', '5');
+INSERT INTO `cmswing_area` VALUES ('430900', '益阳市', '430000', '9');
 INSERT INTO `cmswing_area` VALUES ('430901', '市辖区', '430900', '1');
 INSERT INTO `cmswing_area` VALUES ('430902', '资阳区', '430900', '2');
 INSERT INTO `cmswing_area` VALUES ('430903', '赫山区', '430900', '3');
@@ -2406,6 +2239,7 @@ INSERT INTO `cmswing_area` VALUES ('430921', '南　县', '430900', '4');
 INSERT INTO `cmswing_area` VALUES ('430922', '桃江县', '430900', '5');
 INSERT INTO `cmswing_area` VALUES ('430923', '安化县', '430900', '6');
 INSERT INTO `cmswing_area` VALUES ('430981', '沅江市', '430900', '7');
+INSERT INTO `cmswing_area` VALUES ('431000', '郴州市', '430000', '10');
 INSERT INTO `cmswing_area` VALUES ('431001', '市辖区', '431000', '1');
 INSERT INTO `cmswing_area` VALUES ('431002', '北湖区', '431000', '2');
 INSERT INTO `cmswing_area` VALUES ('431003', '苏仙区', '431000', '3');
@@ -2418,6 +2252,7 @@ INSERT INTO `cmswing_area` VALUES ('431026', '汝城县', '431000', '9');
 INSERT INTO `cmswing_area` VALUES ('431027', '桂东县', '431000', '10');
 INSERT INTO `cmswing_area` VALUES ('431028', '安仁县', '431000', '11');
 INSERT INTO `cmswing_area` VALUES ('431081', '资兴市', '431000', '12');
+INSERT INTO `cmswing_area` VALUES ('431100', '永州市', '430000', '11');
 INSERT INTO `cmswing_area` VALUES ('431101', '市辖区', '431100', '1');
 INSERT INTO `cmswing_area` VALUES ('431102', '芝山区', '431100', '2');
 INSERT INTO `cmswing_area` VALUES ('431103', '冷水滩区', '431100', '3');
@@ -2430,6 +2265,7 @@ INSERT INTO `cmswing_area` VALUES ('431126', '宁远县', '431100', '9');
 INSERT INTO `cmswing_area` VALUES ('431127', '蓝山县', '431100', '10');
 INSERT INTO `cmswing_area` VALUES ('431128', '新田县', '431100', '11');
 INSERT INTO `cmswing_area` VALUES ('431129', '江华瑶族自治县', '431100', '12');
+INSERT INTO `cmswing_area` VALUES ('431200', '怀化市', '430000', '12');
 INSERT INTO `cmswing_area` VALUES ('431201', '市辖区', '431200', '1');
 INSERT INTO `cmswing_area` VALUES ('431202', '鹤城区', '431200', '2');
 INSERT INTO `cmswing_area` VALUES ('431221', '中方县', '431200', '3');
@@ -2443,12 +2279,14 @@ INSERT INTO `cmswing_area` VALUES ('431228', '芷江侗族自治县', '431200', 
 INSERT INTO `cmswing_area` VALUES ('431229', '靖州苗族侗族自治县', '431200', '11');
 INSERT INTO `cmswing_area` VALUES ('431230', '通道侗族自治县', '431200', '12');
 INSERT INTO `cmswing_area` VALUES ('431281', '洪江市', '431200', '13');
+INSERT INTO `cmswing_area` VALUES ('431300', '娄底市', '430000', '13');
 INSERT INTO `cmswing_area` VALUES ('431301', '市辖区', '431300', '1');
 INSERT INTO `cmswing_area` VALUES ('431302', '娄星区', '431300', '2');
 INSERT INTO `cmswing_area` VALUES ('431321', '双峰县', '431300', '3');
 INSERT INTO `cmswing_area` VALUES ('431322', '新化县', '431300', '4');
 INSERT INTO `cmswing_area` VALUES ('431381', '冷水江市', '431300', '5');
 INSERT INTO `cmswing_area` VALUES ('431382', '涟源市', '431300', '6');
+INSERT INTO `cmswing_area` VALUES ('433100', '湘西土家族苗族自治州', '430000', '14');
 INSERT INTO `cmswing_area` VALUES ('433101', '吉首市', '433100', '1');
 INSERT INTO `cmswing_area` VALUES ('433122', '泸溪县', '433100', '2');
 INSERT INTO `cmswing_area` VALUES ('433123', '凤凰县', '433100', '3');
@@ -2457,6 +2295,8 @@ INSERT INTO `cmswing_area` VALUES ('433125', '保靖县', '433100', '5');
 INSERT INTO `cmswing_area` VALUES ('433126', '古丈县', '433100', '6');
 INSERT INTO `cmswing_area` VALUES ('433127', '永顺县', '433100', '7');
 INSERT INTO `cmswing_area` VALUES ('433130', '龙山县', '433100', '8');
+INSERT INTO `cmswing_area` VALUES ('440000', '广东省', '0', '19');
+INSERT INTO `cmswing_area` VALUES ('440100', '广州市', '440000', '1');
 INSERT INTO `cmswing_area` VALUES ('440101', '市辖区', '440100', '1');
 INSERT INTO `cmswing_area` VALUES ('440102', '东山区', '440100', '2');
 INSERT INTO `cmswing_area` VALUES ('440103', '荔湾区', '440100', '3');
@@ -2470,6 +2310,7 @@ INSERT INTO `cmswing_area` VALUES ('440113', '番禺区', '440100', '10');
 INSERT INTO `cmswing_area` VALUES ('440114', '花都区', '440100', '11');
 INSERT INTO `cmswing_area` VALUES ('440183', '增城市', '440100', '12');
 INSERT INTO `cmswing_area` VALUES ('440184', '从化市', '440100', '13');
+INSERT INTO `cmswing_area` VALUES ('440200', '韶关市', '440000', '2');
 INSERT INTO `cmswing_area` VALUES ('440201', '市辖区', '440200', '1');
 INSERT INTO `cmswing_area` VALUES ('440203', '武江区', '440200', '2');
 INSERT INTO `cmswing_area` VALUES ('440204', '浈江区', '440200', '3');
@@ -2481,6 +2322,7 @@ INSERT INTO `cmswing_area` VALUES ('440232', '乳源瑶族自治县', '440200', 
 INSERT INTO `cmswing_area` VALUES ('440233', '新丰县', '440200', '9');
 INSERT INTO `cmswing_area` VALUES ('440281', '乐昌市', '440200', '10');
 INSERT INTO `cmswing_area` VALUES ('440282', '南雄市', '440200', '11');
+INSERT INTO `cmswing_area` VALUES ('440300', '深圳市', '440000', '3');
 INSERT INTO `cmswing_area` VALUES ('440301', '市辖区', '440300', '1');
 INSERT INTO `cmswing_area` VALUES ('440303', '罗湖区', '440300', '2');
 INSERT INTO `cmswing_area` VALUES ('440304', '福田区', '440300', '3');
@@ -2488,10 +2330,12 @@ INSERT INTO `cmswing_area` VALUES ('440305', '南山区', '440300', '4');
 INSERT INTO `cmswing_area` VALUES ('440306', '宝安区', '440300', '5');
 INSERT INTO `cmswing_area` VALUES ('440307', '龙岗区', '440300', '6');
 INSERT INTO `cmswing_area` VALUES ('440308', '盐田区', '440300', '7');
+INSERT INTO `cmswing_area` VALUES ('440400', '珠海市', '440000', '4');
 INSERT INTO `cmswing_area` VALUES ('440401', '市辖区', '440400', '1');
 INSERT INTO `cmswing_area` VALUES ('440402', '香洲区', '440400', '2');
 INSERT INTO `cmswing_area` VALUES ('440403', '斗门区', '440400', '3');
 INSERT INTO `cmswing_area` VALUES ('440404', '金湾区', '440400', '4');
+INSERT INTO `cmswing_area` VALUES ('440500', '汕头市', '440000', '5');
 INSERT INTO `cmswing_area` VALUES ('440501', '市辖区', '440500', '1');
 INSERT INTO `cmswing_area` VALUES ('440507', '龙湖区', '440500', '2');
 INSERT INTO `cmswing_area` VALUES ('440511', '金平区', '440500', '3');
@@ -2500,12 +2344,14 @@ INSERT INTO `cmswing_area` VALUES ('440513', '潮阳区', '440500', '5');
 INSERT INTO `cmswing_area` VALUES ('440514', '潮南区', '440500', '6');
 INSERT INTO `cmswing_area` VALUES ('440515', '澄海区', '440500', '7');
 INSERT INTO `cmswing_area` VALUES ('440523', '南澳县', '440500', '8');
+INSERT INTO `cmswing_area` VALUES ('440600', '佛山市', '440000', '6');
 INSERT INTO `cmswing_area` VALUES ('440601', '市辖区', '440600', '1');
 INSERT INTO `cmswing_area` VALUES ('440604', '禅城区', '440600', '2');
 INSERT INTO `cmswing_area` VALUES ('440605', '南海区', '440600', '3');
 INSERT INTO `cmswing_area` VALUES ('440606', '顺德区', '440600', '4');
 INSERT INTO `cmswing_area` VALUES ('440607', '三水区', '440600', '5');
 INSERT INTO `cmswing_area` VALUES ('440608', '高明区', '440600', '6');
+INSERT INTO `cmswing_area` VALUES ('440700', '江门市', '440000', '7');
 INSERT INTO `cmswing_area` VALUES ('440701', '市辖区', '440700', '1');
 INSERT INTO `cmswing_area` VALUES ('440703', '蓬江区', '440700', '2');
 INSERT INTO `cmswing_area` VALUES ('440704', '江海区', '440700', '3');
@@ -2514,6 +2360,7 @@ INSERT INTO `cmswing_area` VALUES ('440781', '台山市', '440700', '5');
 INSERT INTO `cmswing_area` VALUES ('440783', '开平市', '440700', '6');
 INSERT INTO `cmswing_area` VALUES ('440784', '鹤山市', '440700', '7');
 INSERT INTO `cmswing_area` VALUES ('440785', '恩平市', '440700', '8');
+INSERT INTO `cmswing_area` VALUES ('440800', '湛江市', '440000', '8');
 INSERT INTO `cmswing_area` VALUES ('440801', '市辖区', '440800', '1');
 INSERT INTO `cmswing_area` VALUES ('440802', '赤坎区', '440800', '2');
 INSERT INTO `cmswing_area` VALUES ('440803', '霞山区', '440800', '3');
@@ -2524,6 +2371,7 @@ INSERT INTO `cmswing_area` VALUES ('440825', '徐闻县', '440800', '7');
 INSERT INTO `cmswing_area` VALUES ('440881', '廉江市', '440800', '8');
 INSERT INTO `cmswing_area` VALUES ('440882', '雷州市', '440800', '9');
 INSERT INTO `cmswing_area` VALUES ('440883', '吴川市', '440800', '10');
+INSERT INTO `cmswing_area` VALUES ('440900', '茂名市', '440000', '9');
 INSERT INTO `cmswing_area` VALUES ('440901', '市辖区', '440900', '1');
 INSERT INTO `cmswing_area` VALUES ('440902', '茂南区', '440900', '2');
 INSERT INTO `cmswing_area` VALUES ('440903', '茂港区', '440900', '3');
@@ -2531,6 +2379,7 @@ INSERT INTO `cmswing_area` VALUES ('440923', '电白县', '440900', '4');
 INSERT INTO `cmswing_area` VALUES ('440981', '高州市', '440900', '5');
 INSERT INTO `cmswing_area` VALUES ('440982', '化州市', '440900', '6');
 INSERT INTO `cmswing_area` VALUES ('440983', '信宜市', '440900', '7');
+INSERT INTO `cmswing_area` VALUES ('441200', '肇庆市', '440000', '10');
 INSERT INTO `cmswing_area` VALUES ('441201', '市辖区', '441200', '1');
 INSERT INTO `cmswing_area` VALUES ('441202', '端州区', '441200', '2');
 INSERT INTO `cmswing_area` VALUES ('441203', '鼎湖区', '441200', '3');
@@ -2540,12 +2389,14 @@ INSERT INTO `cmswing_area` VALUES ('441225', '封开县', '441200', '6');
 INSERT INTO `cmswing_area` VALUES ('441226', '德庆县', '441200', '7');
 INSERT INTO `cmswing_area` VALUES ('441283', '高要市', '441200', '8');
 INSERT INTO `cmswing_area` VALUES ('441284', '四会市', '441200', '9');
+INSERT INTO `cmswing_area` VALUES ('441300', '惠州市', '440000', '11');
 INSERT INTO `cmswing_area` VALUES ('441301', '市辖区', '441300', '1');
 INSERT INTO `cmswing_area` VALUES ('441302', '惠城区', '441300', '2');
 INSERT INTO `cmswing_area` VALUES ('441303', '惠阳区', '441300', '3');
 INSERT INTO `cmswing_area` VALUES ('441322', '博罗县', '441300', '4');
 INSERT INTO `cmswing_area` VALUES ('441323', '惠东县', '441300', '5');
 INSERT INTO `cmswing_area` VALUES ('441324', '龙门县', '441300', '6');
+INSERT INTO `cmswing_area` VALUES ('441400', '梅州市', '440000', '12');
 INSERT INTO `cmswing_area` VALUES ('441401', '市辖区', '441400', '1');
 INSERT INTO `cmswing_area` VALUES ('441402', '梅江区', '441400', '2');
 INSERT INTO `cmswing_area` VALUES ('441421', '梅　县', '441400', '3');
@@ -2555,11 +2406,13 @@ INSERT INTO `cmswing_area` VALUES ('441424', '五华县', '441400', '6');
 INSERT INTO `cmswing_area` VALUES ('441426', '平远县', '441400', '7');
 INSERT INTO `cmswing_area` VALUES ('441427', '蕉岭县', '441400', '8');
 INSERT INTO `cmswing_area` VALUES ('441481', '兴宁市', '441400', '9');
+INSERT INTO `cmswing_area` VALUES ('441500', '汕尾市', '440000', '13');
 INSERT INTO `cmswing_area` VALUES ('441501', '市辖区', '441500', '1');
 INSERT INTO `cmswing_area` VALUES ('441502', '城　区', '441500', '2');
 INSERT INTO `cmswing_area` VALUES ('441521', '海丰县', '441500', '3');
 INSERT INTO `cmswing_area` VALUES ('441523', '陆河县', '441500', '4');
 INSERT INTO `cmswing_area` VALUES ('441581', '陆丰市', '441500', '5');
+INSERT INTO `cmswing_area` VALUES ('441600', '河源市', '440000', '14');
 INSERT INTO `cmswing_area` VALUES ('441601', '市辖区', '441600', '1');
 INSERT INTO `cmswing_area` VALUES ('441602', '源城区', '441600', '2');
 INSERT INTO `cmswing_area` VALUES ('441621', '紫金县', '441600', '3');
@@ -2567,11 +2420,13 @@ INSERT INTO `cmswing_area` VALUES ('441622', '龙川县', '441600', '4');
 INSERT INTO `cmswing_area` VALUES ('441623', '连平县', '441600', '5');
 INSERT INTO `cmswing_area` VALUES ('441624', '和平县', '441600', '6');
 INSERT INTO `cmswing_area` VALUES ('441625', '东源县', '441600', '7');
+INSERT INTO `cmswing_area` VALUES ('441700', '阳江市', '440000', '15');
 INSERT INTO `cmswing_area` VALUES ('441701', '市辖区', '441700', '1');
 INSERT INTO `cmswing_area` VALUES ('441702', '江城区', '441700', '2');
 INSERT INTO `cmswing_area` VALUES ('441721', '阳西县', '441700', '3');
 INSERT INTO `cmswing_area` VALUES ('441723', '阳东县', '441700', '4');
 INSERT INTO `cmswing_area` VALUES ('441781', '阳春市', '441700', '5');
+INSERT INTO `cmswing_area` VALUES ('441800', '清远市', '440000', '16');
 INSERT INTO `cmswing_area` VALUES ('441801', '市辖区', '441800', '1');
 INSERT INTO `cmswing_area` VALUES ('441802', '清城区', '441800', '2');
 INSERT INTO `cmswing_area` VALUES ('441821', '佛冈县', '441800', '3');
@@ -2581,22 +2436,29 @@ INSERT INTO `cmswing_area` VALUES ('441826', '连南瑶族自治县', '441800', 
 INSERT INTO `cmswing_area` VALUES ('441827', '清新县', '441800', '7');
 INSERT INTO `cmswing_area` VALUES ('441881', '英德市', '441800', '8');
 INSERT INTO `cmswing_area` VALUES ('441882', '连州市', '441800', '9');
+INSERT INTO `cmswing_area` VALUES ('441900', '东莞市', '440000', '17');
+INSERT INTO `cmswing_area` VALUES ('442000', '中山市', '440000', '18');
+INSERT INTO `cmswing_area` VALUES ('445100', '潮州市', '440000', '19');
 INSERT INTO `cmswing_area` VALUES ('445101', '市辖区', '445100', '1');
 INSERT INTO `cmswing_area` VALUES ('445102', '湘桥区', '445100', '2');
 INSERT INTO `cmswing_area` VALUES ('445121', '潮安县', '445100', '3');
 INSERT INTO `cmswing_area` VALUES ('445122', '饶平县', '445100', '4');
+INSERT INTO `cmswing_area` VALUES ('445200', '揭阳市', '440000', '20');
 INSERT INTO `cmswing_area` VALUES ('445201', '市辖区', '445200', '1');
 INSERT INTO `cmswing_area` VALUES ('445202', '榕城区', '445200', '2');
 INSERT INTO `cmswing_area` VALUES ('445221', '揭东县', '445200', '3');
 INSERT INTO `cmswing_area` VALUES ('445222', '揭西县', '445200', '4');
 INSERT INTO `cmswing_area` VALUES ('445224', '惠来县', '445200', '5');
 INSERT INTO `cmswing_area` VALUES ('445281', '普宁市', '445200', '6');
+INSERT INTO `cmswing_area` VALUES ('445300', '云浮市', '440000', '21');
 INSERT INTO `cmswing_area` VALUES ('445301', '市辖区', '445300', '1');
 INSERT INTO `cmswing_area` VALUES ('445302', '云城区', '445300', '2');
 INSERT INTO `cmswing_area` VALUES ('445321', '新兴县', '445300', '3');
 INSERT INTO `cmswing_area` VALUES ('445322', '郁南县', '445300', '4');
 INSERT INTO `cmswing_area` VALUES ('445323', '云安县', '445300', '5');
 INSERT INTO `cmswing_area` VALUES ('445381', '罗定市', '445300', '6');
+INSERT INTO `cmswing_area` VALUES ('450000', '广西省', '0', '20');
+INSERT INTO `cmswing_area` VALUES ('450100', '南宁市', '450000', '1');
 INSERT INTO `cmswing_area` VALUES ('450101', '市辖区', '450100', '1');
 INSERT INTO `cmswing_area` VALUES ('450102', '兴宁区', '450100', '2');
 INSERT INTO `cmswing_area` VALUES ('450103', '青秀区', '450100', '3');
@@ -2610,6 +2472,7 @@ INSERT INTO `cmswing_area` VALUES ('450124', '马山县', '450100', '10');
 INSERT INTO `cmswing_area` VALUES ('450125', '上林县', '450100', '11');
 INSERT INTO `cmswing_area` VALUES ('450126', '宾阳县', '450100', '12');
 INSERT INTO `cmswing_area` VALUES ('450127', '横　县', '450100', '13');
+INSERT INTO `cmswing_area` VALUES ('450200', '柳州市', '450000', '2');
 INSERT INTO `cmswing_area` VALUES ('450201', '市辖区', '450200', '1');
 INSERT INTO `cmswing_area` VALUES ('450202', '城中区', '450200', '2');
 INSERT INTO `cmswing_area` VALUES ('450203', '鱼峰区', '450200', '3');
@@ -2621,6 +2484,7 @@ INSERT INTO `cmswing_area` VALUES ('450223', '鹿寨县', '450200', '8');
 INSERT INTO `cmswing_area` VALUES ('450224', '融安县', '450200', '9');
 INSERT INTO `cmswing_area` VALUES ('450225', '融水苗族自治县', '450200', '10');
 INSERT INTO `cmswing_area` VALUES ('450226', '三江侗族自治县', '450200', '11');
+INSERT INTO `cmswing_area` VALUES ('450300', '桂林市', '450000', '3');
 INSERT INTO `cmswing_area` VALUES ('450301', '市辖区', '450300', '1');
 INSERT INTO `cmswing_area` VALUES ('450302', '秀峰区', '450300', '2');
 INSERT INTO `cmswing_area` VALUES ('450303', '叠彩区', '450300', '3');
@@ -2639,6 +2503,7 @@ INSERT INTO `cmswing_area` VALUES ('450329', '资源县', '450300', '15');
 INSERT INTO `cmswing_area` VALUES ('450330', '平乐县', '450300', '16');
 INSERT INTO `cmswing_area` VALUES ('450331', '荔蒲县', '450300', '17');
 INSERT INTO `cmswing_area` VALUES ('450332', '恭城瑶族自治县', '450300', '18');
+INSERT INTO `cmswing_area` VALUES ('450400', '梧州市', '450000', '4');
 INSERT INTO `cmswing_area` VALUES ('450401', '市辖区', '450400', '1');
 INSERT INTO `cmswing_area` VALUES ('450403', '万秀区', '450400', '2');
 INSERT INTO `cmswing_area` VALUES ('450404', '蝶山区', '450400', '3');
@@ -2647,27 +2512,32 @@ INSERT INTO `cmswing_area` VALUES ('450421', '苍梧县', '450400', '5');
 INSERT INTO `cmswing_area` VALUES ('450422', '藤　县', '450400', '6');
 INSERT INTO `cmswing_area` VALUES ('450423', '蒙山县', '450400', '7');
 INSERT INTO `cmswing_area` VALUES ('450481', '岑溪市', '450400', '8');
+INSERT INTO `cmswing_area` VALUES ('450500', '北海市', '450000', '5');
 INSERT INTO `cmswing_area` VALUES ('450501', '市辖区', '450500', '1');
 INSERT INTO `cmswing_area` VALUES ('450502', '海城区', '450500', '2');
 INSERT INTO `cmswing_area` VALUES ('450503', '银海区', '450500', '3');
 INSERT INTO `cmswing_area` VALUES ('450512', '铁山港区', '450500', '4');
 INSERT INTO `cmswing_area` VALUES ('450521', '合浦县', '450500', '5');
+INSERT INTO `cmswing_area` VALUES ('450600', '防城港市', '450000', '6');
 INSERT INTO `cmswing_area` VALUES ('450601', '市辖区', '450600', '1');
 INSERT INTO `cmswing_area` VALUES ('450602', '港口区', '450600', '2');
 INSERT INTO `cmswing_area` VALUES ('450603', '防城区', '450600', '3');
 INSERT INTO `cmswing_area` VALUES ('450621', '上思县', '450600', '4');
 INSERT INTO `cmswing_area` VALUES ('450681', '东兴市', '450600', '5');
+INSERT INTO `cmswing_area` VALUES ('450700', '钦州市', '450000', '7');
 INSERT INTO `cmswing_area` VALUES ('450701', '市辖区', '450700', '1');
 INSERT INTO `cmswing_area` VALUES ('450702', '钦南区', '450700', '2');
 INSERT INTO `cmswing_area` VALUES ('450703', '钦北区', '450700', '3');
 INSERT INTO `cmswing_area` VALUES ('450721', '灵山县', '450700', '4');
 INSERT INTO `cmswing_area` VALUES ('450722', '浦北县', '450700', '5');
+INSERT INTO `cmswing_area` VALUES ('450800', '贵港市', '450000', '8');
 INSERT INTO `cmswing_area` VALUES ('450801', '市辖区', '450800', '1');
 INSERT INTO `cmswing_area` VALUES ('450802', '港北区', '450800', '2');
 INSERT INTO `cmswing_area` VALUES ('450803', '港南区', '450800', '3');
 INSERT INTO `cmswing_area` VALUES ('450804', '覃塘区', '450800', '4');
 INSERT INTO `cmswing_area` VALUES ('450821', '平南县', '450800', '5');
 INSERT INTO `cmswing_area` VALUES ('450881', '桂平市', '450800', '6');
+INSERT INTO `cmswing_area` VALUES ('450900', '玉林市', '450000', '9');
 INSERT INTO `cmswing_area` VALUES ('450901', '市辖区', '450900', '1');
 INSERT INTO `cmswing_area` VALUES ('450902', '玉州区', '450900', '2');
 INSERT INTO `cmswing_area` VALUES ('450921', '容　县', '450900', '3');
@@ -2675,6 +2545,7 @@ INSERT INTO `cmswing_area` VALUES ('450922', '陆川县', '450900', '4');
 INSERT INTO `cmswing_area` VALUES ('450923', '博白县', '450900', '5');
 INSERT INTO `cmswing_area` VALUES ('450924', '兴业县', '450900', '6');
 INSERT INTO `cmswing_area` VALUES ('450981', '北流市', '450900', '7');
+INSERT INTO `cmswing_area` VALUES ('451000', '百色市', '450000', '10');
 INSERT INTO `cmswing_area` VALUES ('451001', '市辖区', '451000', '1');
 INSERT INTO `cmswing_area` VALUES ('451002', '右江区', '451000', '2');
 INSERT INTO `cmswing_area` VALUES ('451021', '田阳县', '451000', '3');
@@ -2688,11 +2559,13 @@ INSERT INTO `cmswing_area` VALUES ('451028', '乐业县', '451000', '10');
 INSERT INTO `cmswing_area` VALUES ('451029', '田林县', '451000', '11');
 INSERT INTO `cmswing_area` VALUES ('451030', '西林县', '451000', '12');
 INSERT INTO `cmswing_area` VALUES ('451031', '隆林各族自治县', '451000', '13');
+INSERT INTO `cmswing_area` VALUES ('451100', '贺州市', '450000', '11');
 INSERT INTO `cmswing_area` VALUES ('451101', '市辖区', '451100', '1');
 INSERT INTO `cmswing_area` VALUES ('451102', '八步区', '451100', '2');
 INSERT INTO `cmswing_area` VALUES ('451121', '昭平县', '451100', '3');
 INSERT INTO `cmswing_area` VALUES ('451122', '钟山县', '451100', '4');
 INSERT INTO `cmswing_area` VALUES ('451123', '富川瑶族自治县', '451100', '5');
+INSERT INTO `cmswing_area` VALUES ('451200', '河池市', '450000', '12');
 INSERT INTO `cmswing_area` VALUES ('451201', '市辖区', '451200', '1');
 INSERT INTO `cmswing_area` VALUES ('451202', '金城江区', '451200', '2');
 INSERT INTO `cmswing_area` VALUES ('451221', '南丹县', '451200', '3');
@@ -2705,6 +2578,7 @@ INSERT INTO `cmswing_area` VALUES ('451227', '巴马瑶族自治县', '451200', 
 INSERT INTO `cmswing_area` VALUES ('451228', '都安瑶族自治县', '451200', '10');
 INSERT INTO `cmswing_area` VALUES ('451229', '大化瑶族自治县', '451200', '11');
 INSERT INTO `cmswing_area` VALUES ('451281', '宜州市', '451200', '12');
+INSERT INTO `cmswing_area` VALUES ('451300', '来宾市', '450000', '13');
 INSERT INTO `cmswing_area` VALUES ('451301', '市辖区', '451300', '1');
 INSERT INTO `cmswing_area` VALUES ('451302', '兴宾区', '451300', '2');
 INSERT INTO `cmswing_area` VALUES ('451321', '忻城县', '451300', '3');
@@ -2712,6 +2586,7 @@ INSERT INTO `cmswing_area` VALUES ('451322', '象州县', '451300', '4');
 INSERT INTO `cmswing_area` VALUES ('451323', '武宣县', '451300', '5');
 INSERT INTO `cmswing_area` VALUES ('451324', '金秀瑶族自治县', '451300', '6');
 INSERT INTO `cmswing_area` VALUES ('451381', '合山市', '451300', '7');
+INSERT INTO `cmswing_area` VALUES ('451400', '崇左市', '450000', '14');
 INSERT INTO `cmswing_area` VALUES ('451401', '市辖区', '451400', '1');
 INSERT INTO `cmswing_area` VALUES ('451402', '江洲区', '451400', '2');
 INSERT INTO `cmswing_area` VALUES ('451421', '扶绥县', '451400', '3');
@@ -2720,12 +2595,16 @@ INSERT INTO `cmswing_area` VALUES ('451423', '龙州县', '451400', '5');
 INSERT INTO `cmswing_area` VALUES ('451424', '大新县', '451400', '6');
 INSERT INTO `cmswing_area` VALUES ('451425', '天等县', '451400', '7');
 INSERT INTO `cmswing_area` VALUES ('451481', '凭祥市', '451400', '8');
+INSERT INTO `cmswing_area` VALUES ('460000', '海南省', '0', '21');
+INSERT INTO `cmswing_area` VALUES ('460100', '海口市', '460000', '1');
 INSERT INTO `cmswing_area` VALUES ('460101', '市辖区', '460100', '1');
 INSERT INTO `cmswing_area` VALUES ('460105', '秀英区', '460100', '2');
 INSERT INTO `cmswing_area` VALUES ('460106', '龙华区', '460100', '3');
 INSERT INTO `cmswing_area` VALUES ('460107', '琼山区', '460100', '4');
 INSERT INTO `cmswing_area` VALUES ('460108', '美兰区', '460100', '5');
+INSERT INTO `cmswing_area` VALUES ('460200', '三亚市', '460000', '2');
 INSERT INTO `cmswing_area` VALUES ('460201', '市辖区', '460200', '1');
+INSERT INTO `cmswing_area` VALUES ('469000', '省直辖县级行政单位', '460000', '3');
 INSERT INTO `cmswing_area` VALUES ('469001', '五指山市', '469000', '1');
 INSERT INTO `cmswing_area` VALUES ('469002', '琼海市', '469000', '2');
 INSERT INTO `cmswing_area` VALUES ('469003', '儋州市', '469000', '3');
@@ -2745,6 +2624,8 @@ INSERT INTO `cmswing_area` VALUES ('469036', '琼中黎族苗族自治县', '469
 INSERT INTO `cmswing_area` VALUES ('469037', '西沙群岛', '469000', '17');
 INSERT INTO `cmswing_area` VALUES ('469038', '南沙群岛', '469000', '18');
 INSERT INTO `cmswing_area` VALUES ('469039', '中沙群岛的岛礁及其海域', '469000', '19');
+INSERT INTO `cmswing_area` VALUES ('500000', '重庆市', '0', '22');
+INSERT INTO `cmswing_area` VALUES ('500100', '市辖区', '500000', '1');
 INSERT INTO `cmswing_area` VALUES ('500101', '万州区', '500100', '1');
 INSERT INTO `cmswing_area` VALUES ('500102', '涪陵区', '500100', '2');
 INSERT INTO `cmswing_area` VALUES ('500103', '渝中区', '500100', '3');
@@ -2760,6 +2641,7 @@ INSERT INTO `cmswing_area` VALUES ('500112', '渝北区', '500100', '12');
 INSERT INTO `cmswing_area` VALUES ('500113', '巴南区', '500100', '13');
 INSERT INTO `cmswing_area` VALUES ('500114', '黔江区', '500100', '14');
 INSERT INTO `cmswing_area` VALUES ('500115', '长寿区', '500100', '15');
+INSERT INTO `cmswing_area` VALUES ('500200', '县', '500000', '2');
 INSERT INTO `cmswing_area` VALUES ('500222', '綦江县', '500200', '1');
 INSERT INTO `cmswing_area` VALUES ('500223', '潼南县', '500200', '2');
 INSERT INTO `cmswing_area` VALUES ('500224', '铜梁县', '500200', '3');
@@ -2781,10 +2663,13 @@ INSERT INTO `cmswing_area` VALUES ('500240', '石柱土家族自治县', '500200
 INSERT INTO `cmswing_area` VALUES ('500241', '秀山土家族苗族自治县', '500200', '19');
 INSERT INTO `cmswing_area` VALUES ('500242', '酉阳土家族苗族自治县', '500200', '20');
 INSERT INTO `cmswing_area` VALUES ('500243', '彭水苗族土家族自治县', '500200', '21');
+INSERT INTO `cmswing_area` VALUES ('500300', '市', '500000', '3');
 INSERT INTO `cmswing_area` VALUES ('500381', '江津市', '500300', '1');
 INSERT INTO `cmswing_area` VALUES ('500382', '合川市', '500300', '2');
 INSERT INTO `cmswing_area` VALUES ('500383', '永川市', '500300', '3');
 INSERT INTO `cmswing_area` VALUES ('500384', '南川市', '500300', '4');
+INSERT INTO `cmswing_area` VALUES ('510000', '四川省', '0', '23');
+INSERT INTO `cmswing_area` VALUES ('510100', '成都市', '510000', '1');
 INSERT INTO `cmswing_area` VALUES ('510101', '市辖区', '510100', '1');
 INSERT INTO `cmswing_area` VALUES ('510104', '锦江区', '510100', '2');
 INSERT INTO `cmswing_area` VALUES ('510105', '青羊区', '510100', '3');
@@ -2805,6 +2690,7 @@ INSERT INTO `cmswing_area` VALUES ('510181', '都江堰市', '510100', '17');
 INSERT INTO `cmswing_area` VALUES ('510182', '彭州市', '510100', '18');
 INSERT INTO `cmswing_area` VALUES ('510183', '邛崃市', '510100', '19');
 INSERT INTO `cmswing_area` VALUES ('510184', '崇州市', '510100', '20');
+INSERT INTO `cmswing_area` VALUES ('510300', '自贡市', '510000', '2');
 INSERT INTO `cmswing_area` VALUES ('510301', '市辖区', '510300', '1');
 INSERT INTO `cmswing_area` VALUES ('510302', '自流井区', '510300', '2');
 INSERT INTO `cmswing_area` VALUES ('510303', '贡井区', '510300', '3');
@@ -2812,12 +2698,14 @@ INSERT INTO `cmswing_area` VALUES ('510304', '大安区', '510300', '4');
 INSERT INTO `cmswing_area` VALUES ('510311', '沿滩区', '510300', '5');
 INSERT INTO `cmswing_area` VALUES ('510321', '荣　县', '510300', '6');
 INSERT INTO `cmswing_area` VALUES ('510322', '富顺县', '510300', '7');
+INSERT INTO `cmswing_area` VALUES ('510400', '攀枝花市', '510000', '3');
 INSERT INTO `cmswing_area` VALUES ('510401', '市辖区', '510400', '1');
 INSERT INTO `cmswing_area` VALUES ('510402', '东　区', '510400', '2');
 INSERT INTO `cmswing_area` VALUES ('510403', '西　区', '510400', '3');
 INSERT INTO `cmswing_area` VALUES ('510411', '仁和区', '510400', '4');
 INSERT INTO `cmswing_area` VALUES ('510421', '米易县', '510400', '5');
 INSERT INTO `cmswing_area` VALUES ('510422', '盐边县', '510400', '6');
+INSERT INTO `cmswing_area` VALUES ('510500', '泸州市', '510000', '4');
 INSERT INTO `cmswing_area` VALUES ('510501', '市辖区', '510500', '1');
 INSERT INTO `cmswing_area` VALUES ('510502', '江阳区', '510500', '2');
 INSERT INTO `cmswing_area` VALUES ('510503', '纳溪区', '510500', '3');
@@ -2826,6 +2714,7 @@ INSERT INTO `cmswing_area` VALUES ('510521', '泸　县', '510500', '5');
 INSERT INTO `cmswing_area` VALUES ('510522', '合江县', '510500', '6');
 INSERT INTO `cmswing_area` VALUES ('510524', '叙永县', '510500', '7');
 INSERT INTO `cmswing_area` VALUES ('510525', '古蔺县', '510500', '8');
+INSERT INTO `cmswing_area` VALUES ('510600', '德阳市', '510000', '5');
 INSERT INTO `cmswing_area` VALUES ('510601', '市辖区', '510600', '1');
 INSERT INTO `cmswing_area` VALUES ('510603', '旌阳区', '510600', '2');
 INSERT INTO `cmswing_area` VALUES ('510623', '中江县', '510600', '3');
@@ -2833,6 +2722,7 @@ INSERT INTO `cmswing_area` VALUES ('510626', '罗江县', '510600', '4');
 INSERT INTO `cmswing_area` VALUES ('510681', '广汉市', '510600', '5');
 INSERT INTO `cmswing_area` VALUES ('510682', '什邡市', '510600', '6');
 INSERT INTO `cmswing_area` VALUES ('510683', '绵竹市', '510600', '7');
+INSERT INTO `cmswing_area` VALUES ('510700', '绵阳市', '510000', '6');
 INSERT INTO `cmswing_area` VALUES ('510701', '市辖区', '510700', '1');
 INSERT INTO `cmswing_area` VALUES ('510703', '涪城区', '510700', '2');
 INSERT INTO `cmswing_area` VALUES ('510704', '游仙区', '510700', '3');
@@ -2843,6 +2733,7 @@ INSERT INTO `cmswing_area` VALUES ('510725', '梓潼县', '510700', '7');
 INSERT INTO `cmswing_area` VALUES ('510726', '北川羌族自治县', '510700', '8');
 INSERT INTO `cmswing_area` VALUES ('510727', '平武县', '510700', '9');
 INSERT INTO `cmswing_area` VALUES ('510781', '江油市', '510700', '10');
+INSERT INTO `cmswing_area` VALUES ('510800', '广元市', '510000', '7');
 INSERT INTO `cmswing_area` VALUES ('510801', '市辖区', '510800', '1');
 INSERT INTO `cmswing_area` VALUES ('510802', '市中区', '510800', '2');
 INSERT INTO `cmswing_area` VALUES ('510811', '元坝区', '510800', '3');
@@ -2851,18 +2742,21 @@ INSERT INTO `cmswing_area` VALUES ('510821', '旺苍县', '510800', '5');
 INSERT INTO `cmswing_area` VALUES ('510822', '青川县', '510800', '6');
 INSERT INTO `cmswing_area` VALUES ('510823', '剑阁县', '510800', '7');
 INSERT INTO `cmswing_area` VALUES ('510824', '苍溪县', '510800', '8');
+INSERT INTO `cmswing_area` VALUES ('510900', '遂宁市', '510000', '8');
 INSERT INTO `cmswing_area` VALUES ('510901', '市辖区', '510900', '1');
 INSERT INTO `cmswing_area` VALUES ('510903', '船山区', '510900', '2');
 INSERT INTO `cmswing_area` VALUES ('510904', '安居区', '510900', '3');
 INSERT INTO `cmswing_area` VALUES ('510921', '蓬溪县', '510900', '4');
 INSERT INTO `cmswing_area` VALUES ('510922', '射洪县', '510900', '5');
 INSERT INTO `cmswing_area` VALUES ('510923', '大英县', '510900', '6');
+INSERT INTO `cmswing_area` VALUES ('511000', '内江市', '510000', '9');
 INSERT INTO `cmswing_area` VALUES ('511001', '市辖区', '511000', '1');
 INSERT INTO `cmswing_area` VALUES ('511002', '市中区', '511000', '2');
 INSERT INTO `cmswing_area` VALUES ('511011', '东兴区', '511000', '3');
 INSERT INTO `cmswing_area` VALUES ('511024', '威远县', '511000', '4');
 INSERT INTO `cmswing_area` VALUES ('511025', '资中县', '511000', '5');
 INSERT INTO `cmswing_area` VALUES ('511028', '隆昌县', '511000', '6');
+INSERT INTO `cmswing_area` VALUES ('511100', '乐山市', '510000', '10');
 INSERT INTO `cmswing_area` VALUES ('511101', '市辖区', '511100', '1');
 INSERT INTO `cmswing_area` VALUES ('511102', '市中区', '511100', '2');
 INSERT INTO `cmswing_area` VALUES ('511111', '沙湾区', '511100', '3');
@@ -2875,6 +2769,7 @@ INSERT INTO `cmswing_area` VALUES ('511129', '沐川县', '511100', '9');
 INSERT INTO `cmswing_area` VALUES ('511132', '峨边彝族自治县', '511100', '10');
 INSERT INTO `cmswing_area` VALUES ('511133', '马边彝族自治县', '511100', '11');
 INSERT INTO `cmswing_area` VALUES ('511181', '峨眉山市', '511100', '12');
+INSERT INTO `cmswing_area` VALUES ('511300', '南充市', '510000', '11');
 INSERT INTO `cmswing_area` VALUES ('511301', '市辖区', '511300', '1');
 INSERT INTO `cmswing_area` VALUES ('511302', '顺庆区', '511300', '2');
 INSERT INTO `cmswing_area` VALUES ('511303', '高坪区', '511300', '3');
@@ -2885,6 +2780,7 @@ INSERT INTO `cmswing_area` VALUES ('511323', '蓬安县', '511300', '7');
 INSERT INTO `cmswing_area` VALUES ('511324', '仪陇县', '511300', '8');
 INSERT INTO `cmswing_area` VALUES ('511325', '西充县', '511300', '9');
 INSERT INTO `cmswing_area` VALUES ('511381', '阆中市', '511300', '10');
+INSERT INTO `cmswing_area` VALUES ('511400', '眉山市', '510000', '12');
 INSERT INTO `cmswing_area` VALUES ('511401', '市辖区', '511400', '1');
 INSERT INTO `cmswing_area` VALUES ('511402', '东坡区', '511400', '2');
 INSERT INTO `cmswing_area` VALUES ('511421', '仁寿县', '511400', '3');
@@ -2892,6 +2788,7 @@ INSERT INTO `cmswing_area` VALUES ('511422', '彭山县', '511400', '4');
 INSERT INTO `cmswing_area` VALUES ('511423', '洪雅县', '511400', '5');
 INSERT INTO `cmswing_area` VALUES ('511424', '丹棱县', '511400', '6');
 INSERT INTO `cmswing_area` VALUES ('511425', '青神县', '511400', '7');
+INSERT INTO `cmswing_area` VALUES ('511500', '宜宾市', '510000', '13');
 INSERT INTO `cmswing_area` VALUES ('511501', '市辖区', '511500', '1');
 INSERT INTO `cmswing_area` VALUES ('511502', '翠屏区', '511500', '2');
 INSERT INTO `cmswing_area` VALUES ('511521', '宜宾县', '511500', '3');
@@ -2903,12 +2800,14 @@ INSERT INTO `cmswing_area` VALUES ('511526', '珙　县', '511500', '8');
 INSERT INTO `cmswing_area` VALUES ('511527', '筠连县', '511500', '9');
 INSERT INTO `cmswing_area` VALUES ('511528', '兴文县', '511500', '10');
 INSERT INTO `cmswing_area` VALUES ('511529', '屏山县', '511500', '11');
+INSERT INTO `cmswing_area` VALUES ('511600', '广安市', '510000', '14');
 INSERT INTO `cmswing_area` VALUES ('511601', '市辖区', '511600', '1');
 INSERT INTO `cmswing_area` VALUES ('511602', '广安区', '511600', '2');
 INSERT INTO `cmswing_area` VALUES ('511621', '岳池县', '511600', '3');
 INSERT INTO `cmswing_area` VALUES ('511622', '武胜县', '511600', '4');
 INSERT INTO `cmswing_area` VALUES ('511623', '邻水县', '511600', '5');
 INSERT INTO `cmswing_area` VALUES ('511681', '华莹市', '511600', '6');
+INSERT INTO `cmswing_area` VALUES ('511700', '达州市', '510000', '15');
 INSERT INTO `cmswing_area` VALUES ('511701', '市辖区', '511700', '1');
 INSERT INTO `cmswing_area` VALUES ('511702', '通川区', '511700', '2');
 INSERT INTO `cmswing_area` VALUES ('511721', '达　县', '511700', '3');
@@ -2917,6 +2816,7 @@ INSERT INTO `cmswing_area` VALUES ('511723', '开江县', '511700', '5');
 INSERT INTO `cmswing_area` VALUES ('511724', '大竹县', '511700', '6');
 INSERT INTO `cmswing_area` VALUES ('511725', '渠　县', '511700', '7');
 INSERT INTO `cmswing_area` VALUES ('511781', '万源市', '511700', '8');
+INSERT INTO `cmswing_area` VALUES ('511800', '雅安市', '510000', '16');
 INSERT INTO `cmswing_area` VALUES ('511801', '市辖区', '511800', '1');
 INSERT INTO `cmswing_area` VALUES ('511802', '雨城区', '511800', '2');
 INSERT INTO `cmswing_area` VALUES ('511821', '名山县', '511800', '3');
@@ -2926,16 +2826,19 @@ INSERT INTO `cmswing_area` VALUES ('511824', '石棉县', '511800', '6');
 INSERT INTO `cmswing_area` VALUES ('511825', '天全县', '511800', '7');
 INSERT INTO `cmswing_area` VALUES ('511826', '芦山县', '511800', '8');
 INSERT INTO `cmswing_area` VALUES ('511827', '宝兴县', '511800', '9');
+INSERT INTO `cmswing_area` VALUES ('511900', '巴中市', '510000', '17');
 INSERT INTO `cmswing_area` VALUES ('511901', '市辖区', '511900', '1');
 INSERT INTO `cmswing_area` VALUES ('511902', '巴州区', '511900', '2');
 INSERT INTO `cmswing_area` VALUES ('511921', '通江县', '511900', '3');
 INSERT INTO `cmswing_area` VALUES ('511922', '南江县', '511900', '4');
 INSERT INTO `cmswing_area` VALUES ('511923', '平昌县', '511900', '5');
+INSERT INTO `cmswing_area` VALUES ('512000', '资阳市', '510000', '18');
 INSERT INTO `cmswing_area` VALUES ('512001', '市辖区', '512000', '1');
 INSERT INTO `cmswing_area` VALUES ('512002', '雁江区', '512000', '2');
 INSERT INTO `cmswing_area` VALUES ('512021', '安岳县', '512000', '3');
 INSERT INTO `cmswing_area` VALUES ('512022', '乐至县', '512000', '4');
 INSERT INTO `cmswing_area` VALUES ('512081', '简阳市', '512000', '5');
+INSERT INTO `cmswing_area` VALUES ('513200', '阿坝藏族羌族自治州', '510000', '19');
 INSERT INTO `cmswing_area` VALUES ('513221', '汶川县', '513200', '1');
 INSERT INTO `cmswing_area` VALUES ('513222', '理　县', '513200', '2');
 INSERT INTO `cmswing_area` VALUES ('513223', '茂　县', '513200', '3');
@@ -2949,6 +2852,7 @@ INSERT INTO `cmswing_area` VALUES ('513230', '壤塘县', '513200', '10');
 INSERT INTO `cmswing_area` VALUES ('513231', '阿坝县', '513200', '11');
 INSERT INTO `cmswing_area` VALUES ('513232', '若尔盖县', '513200', '12');
 INSERT INTO `cmswing_area` VALUES ('513233', '红原县', '513200', '13');
+INSERT INTO `cmswing_area` VALUES ('513300', '甘孜藏族自治州', '510000', '20');
 INSERT INTO `cmswing_area` VALUES ('513321', '康定县', '513300', '1');
 INSERT INTO `cmswing_area` VALUES ('513322', '泸定县', '513300', '2');
 INSERT INTO `cmswing_area` VALUES ('513323', '丹巴县', '513300', '3');
@@ -2967,6 +2871,7 @@ INSERT INTO `cmswing_area` VALUES ('513335', '巴塘县', '513300', '15');
 INSERT INTO `cmswing_area` VALUES ('513336', '乡城县', '513300', '16');
 INSERT INTO `cmswing_area` VALUES ('513337', '稻城县', '513300', '17');
 INSERT INTO `cmswing_area` VALUES ('513338', '得荣县', '513300', '18');
+INSERT INTO `cmswing_area` VALUES ('513400', '凉山彝族自治州', '510000', '21');
 INSERT INTO `cmswing_area` VALUES ('513401', '西昌市', '513400', '1');
 INSERT INTO `cmswing_area` VALUES ('513422', '木里藏族自治县', '513400', '2');
 INSERT INTO `cmswing_area` VALUES ('513423', '盐源县', '513400', '3');
@@ -2984,6 +2889,8 @@ INSERT INTO `cmswing_area` VALUES ('513434', '越西县', '513400', '14');
 INSERT INTO `cmswing_area` VALUES ('513435', '甘洛县', '513400', '15');
 INSERT INTO `cmswing_area` VALUES ('513436', '美姑县', '513400', '16');
 INSERT INTO `cmswing_area` VALUES ('513437', '雷波县', '513400', '17');
+INSERT INTO `cmswing_area` VALUES ('520000', '贵州省', '0', '24');
+INSERT INTO `cmswing_area` VALUES ('520100', '贵阳市', '520000', '1');
 INSERT INTO `cmswing_area` VALUES ('520101', '市辖区', '520100', '1');
 INSERT INTO `cmswing_area` VALUES ('520102', '南明区', '520100', '2');
 INSERT INTO `cmswing_area` VALUES ('520103', '云岩区', '520100', '3');
@@ -2995,10 +2902,12 @@ INSERT INTO `cmswing_area` VALUES ('520121', '开阳县', '520100', '8');
 INSERT INTO `cmswing_area` VALUES ('520122', '息烽县', '520100', '9');
 INSERT INTO `cmswing_area` VALUES ('520123', '修文县', '520100', '10');
 INSERT INTO `cmswing_area` VALUES ('520181', '清镇市', '520100', '11');
+INSERT INTO `cmswing_area` VALUES ('520200', '六盘水市', '520000', '2');
 INSERT INTO `cmswing_area` VALUES ('520201', '钟山区', '520200', '1');
 INSERT INTO `cmswing_area` VALUES ('520203', '六枝特区', '520200', '2');
 INSERT INTO `cmswing_area` VALUES ('520221', '水城县', '520200', '3');
 INSERT INTO `cmswing_area` VALUES ('520222', '盘　县', '520200', '4');
+INSERT INTO `cmswing_area` VALUES ('520300', '遵义市', '520000', '3');
 INSERT INTO `cmswing_area` VALUES ('520301', '市辖区', '520300', '1');
 INSERT INTO `cmswing_area` VALUES ('520302', '红花岗区', '520300', '2');
 INSERT INTO `cmswing_area` VALUES ('520303', '汇川区', '520300', '3');
@@ -3014,6 +2923,7 @@ INSERT INTO `cmswing_area` VALUES ('520329', '余庆县', '520300', '12');
 INSERT INTO `cmswing_area` VALUES ('520330', '习水县', '520300', '13');
 INSERT INTO `cmswing_area` VALUES ('520381', '赤水市', '520300', '14');
 INSERT INTO `cmswing_area` VALUES ('520382', '仁怀市', '520300', '15');
+INSERT INTO `cmswing_area` VALUES ('520400', '安顺市', '520000', '4');
 INSERT INTO `cmswing_area` VALUES ('520401', '市辖区', '520400', '1');
 INSERT INTO `cmswing_area` VALUES ('520402', '西秀区', '520400', '2');
 INSERT INTO `cmswing_area` VALUES ('520421', '平坝县', '520400', '3');
@@ -3021,6 +2931,7 @@ INSERT INTO `cmswing_area` VALUES ('520422', '普定县', '520400', '4');
 INSERT INTO `cmswing_area` VALUES ('520423', '镇宁布依族苗族自治县', '520400', '5');
 INSERT INTO `cmswing_area` VALUES ('520424', '关岭布依族苗族自治县', '520400', '6');
 INSERT INTO `cmswing_area` VALUES ('520425', '紫云苗族布依族自治县', '520400', '7');
+INSERT INTO `cmswing_area` VALUES ('522200', '铜仁地区', '520000', '5');
 INSERT INTO `cmswing_area` VALUES ('522201', '铜仁市', '522200', '1');
 INSERT INTO `cmswing_area` VALUES ('522222', '江口县', '522200', '2');
 INSERT INTO `cmswing_area` VALUES ('522223', '玉屏侗族自治县', '522200', '3');
@@ -3031,6 +2942,7 @@ INSERT INTO `cmswing_area` VALUES ('522227', '德江县', '522200', '7');
 INSERT INTO `cmswing_area` VALUES ('522228', '沿河土家族自治县', '522200', '8');
 INSERT INTO `cmswing_area` VALUES ('522229', '松桃苗族自治县', '522200', '9');
 INSERT INTO `cmswing_area` VALUES ('522230', '万山特区', '522200', '10');
+INSERT INTO `cmswing_area` VALUES ('522300', '黔西南布依族苗族自治州', '520000', '6');
 INSERT INTO `cmswing_area` VALUES ('522301', '兴义市', '522300', '1');
 INSERT INTO `cmswing_area` VALUES ('522322', '兴仁县', '522300', '2');
 INSERT INTO `cmswing_area` VALUES ('522323', '普安县', '522300', '3');
@@ -3039,6 +2951,7 @@ INSERT INTO `cmswing_area` VALUES ('522325', '贞丰县', '522300', '5');
 INSERT INTO `cmswing_area` VALUES ('522326', '望谟县', '522300', '6');
 INSERT INTO `cmswing_area` VALUES ('522327', '册亨县', '522300', '7');
 INSERT INTO `cmswing_area` VALUES ('522328', '安龙县', '522300', '8');
+INSERT INTO `cmswing_area` VALUES ('522400', '毕节地区', '520000', '7');
 INSERT INTO `cmswing_area` VALUES ('522401', '毕节市', '522400', '1');
 INSERT INTO `cmswing_area` VALUES ('522422', '大方县', '522400', '2');
 INSERT INTO `cmswing_area` VALUES ('522423', '黔西县', '522400', '3');
@@ -3047,6 +2960,7 @@ INSERT INTO `cmswing_area` VALUES ('522425', '织金县', '522400', '5');
 INSERT INTO `cmswing_area` VALUES ('522426', '纳雍县', '522400', '6');
 INSERT INTO `cmswing_area` VALUES ('522427', '威宁彝族回族苗族自治县', '522400', '7');
 INSERT INTO `cmswing_area` VALUES ('522428', '赫章县', '522400', '8');
+INSERT INTO `cmswing_area` VALUES ('522600', '黔东南苗族侗族自治州', '520000', '8');
 INSERT INTO `cmswing_area` VALUES ('522601', '凯里市', '522600', '1');
 INSERT INTO `cmswing_area` VALUES ('522622', '黄平县', '522600', '2');
 INSERT INTO `cmswing_area` VALUES ('522623', '施秉县', '522600', '3');
@@ -3063,6 +2977,7 @@ INSERT INTO `cmswing_area` VALUES ('522633', '从江县', '522600', '13');
 INSERT INTO `cmswing_area` VALUES ('522634', '雷山县', '522600', '14');
 INSERT INTO `cmswing_area` VALUES ('522635', '麻江县', '522600', '15');
 INSERT INTO `cmswing_area` VALUES ('522636', '丹寨县', '522600', '16');
+INSERT INTO `cmswing_area` VALUES ('522700', '黔南布依族苗族自治州', '520000', '9');
 INSERT INTO `cmswing_area` VALUES ('522701', '都匀市', '522700', '1');
 INSERT INTO `cmswing_area` VALUES ('522702', '福泉市', '522700', '2');
 INSERT INTO `cmswing_area` VALUES ('522722', '荔波县', '522700', '3');
@@ -3075,6 +2990,8 @@ INSERT INTO `cmswing_area` VALUES ('522729', '长顺县', '522700', '9');
 INSERT INTO `cmswing_area` VALUES ('522730', '龙里县', '522700', '10');
 INSERT INTO `cmswing_area` VALUES ('522731', '惠水县', '522700', '11');
 INSERT INTO `cmswing_area` VALUES ('522732', '三都水族自治县', '522700', '12');
+INSERT INTO `cmswing_area` VALUES ('530000', '云南省', '0', '25');
+INSERT INTO `cmswing_area` VALUES ('530100', '昆明市', '530000', '1');
 INSERT INTO `cmswing_area` VALUES ('530101', '市辖区', '530100', '1');
 INSERT INTO `cmswing_area` VALUES ('530102', '五华区', '530100', '2');
 INSERT INTO `cmswing_area` VALUES ('530103', '盘龙区', '530100', '3');
@@ -3090,6 +3007,7 @@ INSERT INTO `cmswing_area` VALUES ('530127', '嵩明县', '530100', '12');
 INSERT INTO `cmswing_area` VALUES ('530128', '禄劝彝族苗族自治县', '530100', '13');
 INSERT INTO `cmswing_area` VALUES ('530129', '寻甸回族彝族自治县', '530100', '14');
 INSERT INTO `cmswing_area` VALUES ('530181', '安宁市', '530100', '15');
+INSERT INTO `cmswing_area` VALUES ('530300', '曲靖市', '530000', '2');
 INSERT INTO `cmswing_area` VALUES ('530301', '市辖区', '530300', '1');
 INSERT INTO `cmswing_area` VALUES ('530302', '麒麟区', '530300', '2');
 INSERT INTO `cmswing_area` VALUES ('530321', '马龙县', '530300', '3');
@@ -3100,6 +3018,7 @@ INSERT INTO `cmswing_area` VALUES ('530325', '富源县', '530300', '7');
 INSERT INTO `cmswing_area` VALUES ('530326', '会泽县', '530300', '8');
 INSERT INTO `cmswing_area` VALUES ('530328', '沾益县', '530300', '9');
 INSERT INTO `cmswing_area` VALUES ('530381', '宣威市', '530300', '10');
+INSERT INTO `cmswing_area` VALUES ('530400', '玉溪市', '530000', '3');
 INSERT INTO `cmswing_area` VALUES ('530401', '市辖区', '530400', '1');
 INSERT INTO `cmswing_area` VALUES ('530402', '红塔区', '530400', '2');
 INSERT INTO `cmswing_area` VALUES ('530421', '江川县', '530400', '3');
@@ -3110,12 +3029,14 @@ INSERT INTO `cmswing_area` VALUES ('530425', '易门县', '530400', '7');
 INSERT INTO `cmswing_area` VALUES ('530426', '峨山彝族自治县', '530400', '8');
 INSERT INTO `cmswing_area` VALUES ('530427', '新平彝族傣族自治县', '530400', '9');
 INSERT INTO `cmswing_area` VALUES ('530428', '元江哈尼族彝族傣族自治县', '530400', '10');
+INSERT INTO `cmswing_area` VALUES ('530500', '保山市', '530000', '4');
 INSERT INTO `cmswing_area` VALUES ('530501', '市辖区', '530500', '1');
 INSERT INTO `cmswing_area` VALUES ('530502', '隆阳区', '530500', '2');
 INSERT INTO `cmswing_area` VALUES ('530521', '施甸县', '530500', '3');
 INSERT INTO `cmswing_area` VALUES ('530522', '腾冲县', '530500', '4');
 INSERT INTO `cmswing_area` VALUES ('530523', '龙陵县', '530500', '5');
 INSERT INTO `cmswing_area` VALUES ('530524', '昌宁县', '530500', '6');
+INSERT INTO `cmswing_area` VALUES ('530600', '昭通市', '530000', '5');
 INSERT INTO `cmswing_area` VALUES ('530601', '市辖区', '530600', '1');
 INSERT INTO `cmswing_area` VALUES ('530602', '昭阳区', '530600', '2');
 INSERT INTO `cmswing_area` VALUES ('530621', '鲁甸县', '530600', '3');
@@ -3128,12 +3049,14 @@ INSERT INTO `cmswing_area` VALUES ('530627', '镇雄县', '530600', '9');
 INSERT INTO `cmswing_area` VALUES ('530628', '彝良县', '530600', '10');
 INSERT INTO `cmswing_area` VALUES ('530629', '威信县', '530600', '11');
 INSERT INTO `cmswing_area` VALUES ('530630', '水富县', '530600', '12');
+INSERT INTO `cmswing_area` VALUES ('530700', '丽江市', '530000', '6');
 INSERT INTO `cmswing_area` VALUES ('530701', '市辖区', '530700', '1');
 INSERT INTO `cmswing_area` VALUES ('530702', '古城区', '530700', '2');
 INSERT INTO `cmswing_area` VALUES ('530721', '玉龙纳西族自治县', '530700', '3');
 INSERT INTO `cmswing_area` VALUES ('530722', '永胜县', '530700', '4');
 INSERT INTO `cmswing_area` VALUES ('530723', '华坪县', '530700', '5');
 INSERT INTO `cmswing_area` VALUES ('530724', '宁蒗彝族自治县', '530700', '6');
+INSERT INTO `cmswing_area` VALUES ('530800', '思茅市', '530000', '7');
 INSERT INTO `cmswing_area` VALUES ('530801', '市辖区', '530800', '1');
 INSERT INTO `cmswing_area` VALUES ('530802', '翠云区', '530800', '2');
 INSERT INTO `cmswing_area` VALUES ('530821', '普洱哈尼族彝族自治县', '530800', '3');
@@ -3145,6 +3068,7 @@ INSERT INTO `cmswing_area` VALUES ('530826', '江城哈尼族彝族自治县', '
 INSERT INTO `cmswing_area` VALUES ('530827', '孟连傣族拉祜族佤族自治县', '530800', '9');
 INSERT INTO `cmswing_area` VALUES ('530828', '澜沧拉祜族自治县', '530800', '10');
 INSERT INTO `cmswing_area` VALUES ('530829', '西盟佤族自治县', '530800', '11');
+INSERT INTO `cmswing_area` VALUES ('530900', '临沧市', '530000', '8');
 INSERT INTO `cmswing_area` VALUES ('530901', '市辖区', '530900', '1');
 INSERT INTO `cmswing_area` VALUES ('530902', '临翔区', '530900', '2');
 INSERT INTO `cmswing_area` VALUES ('530921', '凤庆县', '530900', '3');
@@ -3154,6 +3078,7 @@ INSERT INTO `cmswing_area` VALUES ('530924', '镇康县', '530900', '6');
 INSERT INTO `cmswing_area` VALUES ('530925', '双江拉祜族佤族布朗族傣族自治县', '530900', '7');
 INSERT INTO `cmswing_area` VALUES ('530926', '耿马傣族佤族自治县', '530900', '8');
 INSERT INTO `cmswing_area` VALUES ('530927', '沧源佤族自治县', '530900', '9');
+INSERT INTO `cmswing_area` VALUES ('532300', '楚雄彝族自治州', '530000', '9');
 INSERT INTO `cmswing_area` VALUES ('532301', '楚雄市', '532300', '1');
 INSERT INTO `cmswing_area` VALUES ('532322', '双柏县', '532300', '2');
 INSERT INTO `cmswing_area` VALUES ('532323', '牟定县', '532300', '3');
@@ -3164,6 +3089,7 @@ INSERT INTO `cmswing_area` VALUES ('532327', '永仁县', '532300', '7');
 INSERT INTO `cmswing_area` VALUES ('532328', '元谋县', '532300', '8');
 INSERT INTO `cmswing_area` VALUES ('532329', '武定县', '532300', '9');
 INSERT INTO `cmswing_area` VALUES ('532331', '禄丰县', '532300', '10');
+INSERT INTO `cmswing_area` VALUES ('532500', '红河哈尼族彝族自治州', '530000', '10');
 INSERT INTO `cmswing_area` VALUES ('532501', '个旧市', '532500', '1');
 INSERT INTO `cmswing_area` VALUES ('532502', '开远市', '532500', '2');
 INSERT INTO `cmswing_area` VALUES ('532522', '蒙自县', '532500', '3');
@@ -3177,6 +3103,7 @@ INSERT INTO `cmswing_area` VALUES ('532529', '红河县', '532500', '10');
 INSERT INTO `cmswing_area` VALUES ('532530', '金平苗族瑶族傣族自治县', '532500', '11');
 INSERT INTO `cmswing_area` VALUES ('532531', '绿春县', '532500', '12');
 INSERT INTO `cmswing_area` VALUES ('532532', '河口瑶族自治县', '532500', '13');
+INSERT INTO `cmswing_area` VALUES ('532600', '文山壮族苗族自治州', '530000', '11');
 INSERT INTO `cmswing_area` VALUES ('532621', '文山县', '532600', '1');
 INSERT INTO `cmswing_area` VALUES ('532622', '砚山县', '532600', '2');
 INSERT INTO `cmswing_area` VALUES ('532623', '西畴县', '532600', '3');
@@ -3185,9 +3112,11 @@ INSERT INTO `cmswing_area` VALUES ('532625', '马关县', '532600', '5');
 INSERT INTO `cmswing_area` VALUES ('532626', '丘北县', '532600', '6');
 INSERT INTO `cmswing_area` VALUES ('532627', '广南县', '532600', '7');
 INSERT INTO `cmswing_area` VALUES ('532628', '富宁县', '532600', '8');
+INSERT INTO `cmswing_area` VALUES ('532800', '西双版纳傣族自治州', '530000', '12');
 INSERT INTO `cmswing_area` VALUES ('532801', '景洪市', '532800', '1');
 INSERT INTO `cmswing_area` VALUES ('532822', '勐海县', '532800', '2');
 INSERT INTO `cmswing_area` VALUES ('532823', '勐腊县', '532800', '3');
+INSERT INTO `cmswing_area` VALUES ('532900', '大理白族自治州', '530000', '13');
 INSERT INTO `cmswing_area` VALUES ('532901', '大理市', '532900', '1');
 INSERT INTO `cmswing_area` VALUES ('532922', '漾濞彝族自治县', '532900', '2');
 INSERT INTO `cmswing_area` VALUES ('532923', '祥云县', '532900', '3');
@@ -3200,18 +3129,23 @@ INSERT INTO `cmswing_area` VALUES ('532929', '云龙县', '532900', '9');
 INSERT INTO `cmswing_area` VALUES ('532930', '洱源县', '532900', '10');
 INSERT INTO `cmswing_area` VALUES ('532931', '剑川县', '532900', '11');
 INSERT INTO `cmswing_area` VALUES ('532932', '鹤庆县', '532900', '12');
+INSERT INTO `cmswing_area` VALUES ('533100', '德宏傣族景颇族自治州', '530000', '14');
 INSERT INTO `cmswing_area` VALUES ('533102', '瑞丽市', '533100', '1');
 INSERT INTO `cmswing_area` VALUES ('533103', '潞西市', '533100', '2');
 INSERT INTO `cmswing_area` VALUES ('533122', '梁河县', '533100', '3');
 INSERT INTO `cmswing_area` VALUES ('533123', '盈江县', '533100', '4');
 INSERT INTO `cmswing_area` VALUES ('533124', '陇川县', '533100', '5');
+INSERT INTO `cmswing_area` VALUES ('533300', '怒江傈僳族自治州', '530000', '15');
 INSERT INTO `cmswing_area` VALUES ('533321', '泸水县', '533300', '1');
 INSERT INTO `cmswing_area` VALUES ('533323', '福贡县', '533300', '2');
 INSERT INTO `cmswing_area` VALUES ('533324', '贡山独龙族怒族自治县', '533300', '3');
 INSERT INTO `cmswing_area` VALUES ('533325', '兰坪白族普米族自治县', '533300', '4');
+INSERT INTO `cmswing_area` VALUES ('533400', '迪庆藏族自治州', '530000', '16');
 INSERT INTO `cmswing_area` VALUES ('533421', '香格里拉县', '533400', '1');
 INSERT INTO `cmswing_area` VALUES ('533422', '德钦县', '533400', '2');
 INSERT INTO `cmswing_area` VALUES ('533423', '维西傈僳族自治县', '533400', '3');
+INSERT INTO `cmswing_area` VALUES ('540000', '西　藏', '0', '26');
+INSERT INTO `cmswing_area` VALUES ('540100', '拉萨市', '540000', '1');
 INSERT INTO `cmswing_area` VALUES ('540101', '市辖区', '540100', '1');
 INSERT INTO `cmswing_area` VALUES ('540102', '城关区', '540100', '2');
 INSERT INTO `cmswing_area` VALUES ('540121', '林周县', '540100', '3');
@@ -3221,6 +3155,7 @@ INSERT INTO `cmswing_area` VALUES ('540124', '曲水县', '540100', '6');
 INSERT INTO `cmswing_area` VALUES ('540125', '堆龙德庆县', '540100', '7');
 INSERT INTO `cmswing_area` VALUES ('540126', '达孜县', '540100', '8');
 INSERT INTO `cmswing_area` VALUES ('540127', '墨竹工卡县', '540100', '9');
+INSERT INTO `cmswing_area` VALUES ('542100', '昌都地区', '540000', '2');
 INSERT INTO `cmswing_area` VALUES ('542121', '昌都县', '542100', '1');
 INSERT INTO `cmswing_area` VALUES ('542122', '江达县', '542100', '2');
 INSERT INTO `cmswing_area` VALUES ('542123', '贡觉县', '542100', '3');
@@ -3232,6 +3167,7 @@ INSERT INTO `cmswing_area` VALUES ('542128', '左贡县', '542100', '8');
 INSERT INTO `cmswing_area` VALUES ('542129', '芒康县', '542100', '9');
 INSERT INTO `cmswing_area` VALUES ('542132', '洛隆县', '542100', '10');
 INSERT INTO `cmswing_area` VALUES ('542133', '边坝县', '542100', '11');
+INSERT INTO `cmswing_area` VALUES ('542200', '山南地区', '540000', '3');
 INSERT INTO `cmswing_area` VALUES ('542221', '乃东县', '542200', '1');
 INSERT INTO `cmswing_area` VALUES ('542222', '扎囊县', '542200', '2');
 INSERT INTO `cmswing_area` VALUES ('542223', '贡嘎县', '542200', '3');
@@ -3244,6 +3180,7 @@ INSERT INTO `cmswing_area` VALUES ('542229', '加查县', '542200', '9');
 INSERT INTO `cmswing_area` VALUES ('542231', '隆子县', '542200', '10');
 INSERT INTO `cmswing_area` VALUES ('542232', '错那县', '542200', '11');
 INSERT INTO `cmswing_area` VALUES ('542233', '浪卡子县', '542200', '12');
+INSERT INTO `cmswing_area` VALUES ('542300', '日喀则地区', '540000', '4');
 INSERT INTO `cmswing_area` VALUES ('542301', '日喀则市', '542300', '1');
 INSERT INTO `cmswing_area` VALUES ('542322', '南木林县', '542300', '2');
 INSERT INTO `cmswing_area` VALUES ('542323', '江孜县', '542300', '3');
@@ -3262,6 +3199,7 @@ INSERT INTO `cmswing_area` VALUES ('542335', '吉隆县', '542300', '15');
 INSERT INTO `cmswing_area` VALUES ('542336', '聂拉木县', '542300', '16');
 INSERT INTO `cmswing_area` VALUES ('542337', '萨嘎县', '542300', '17');
 INSERT INTO `cmswing_area` VALUES ('542338', '岗巴县', '542300', '18');
+INSERT INTO `cmswing_area` VALUES ('542400', '那曲地区', '540000', '5');
 INSERT INTO `cmswing_area` VALUES ('542421', '那曲县', '542400', '1');
 INSERT INTO `cmswing_area` VALUES ('542422', '嘉黎县', '542400', '2');
 INSERT INTO `cmswing_area` VALUES ('542423', '比如县', '542400', '3');
@@ -3272,6 +3210,7 @@ INSERT INTO `cmswing_area` VALUES ('542427', '索　县', '542400', '7');
 INSERT INTO `cmswing_area` VALUES ('542428', '班戈县', '542400', '8');
 INSERT INTO `cmswing_area` VALUES ('542429', '巴青县', '542400', '9');
 INSERT INTO `cmswing_area` VALUES ('542430', '尼玛县', '542400', '10');
+INSERT INTO `cmswing_area` VALUES ('542500', '阿里地区', '540000', '6');
 INSERT INTO `cmswing_area` VALUES ('542521', '普兰县', '542500', '1');
 INSERT INTO `cmswing_area` VALUES ('542522', '札达县', '542500', '2');
 INSERT INTO `cmswing_area` VALUES ('542523', '噶尔县', '542500', '3');
@@ -3279,6 +3218,7 @@ INSERT INTO `cmswing_area` VALUES ('542524', '日土县', '542500', '4');
 INSERT INTO `cmswing_area` VALUES ('542525', '革吉县', '542500', '5');
 INSERT INTO `cmswing_area` VALUES ('542526', '改则县', '542500', '6');
 INSERT INTO `cmswing_area` VALUES ('542527', '措勤县', '542500', '7');
+INSERT INTO `cmswing_area` VALUES ('542600', '林芝地区', '540000', '7');
 INSERT INTO `cmswing_area` VALUES ('542621', '林芝县', '542600', '1');
 INSERT INTO `cmswing_area` VALUES ('542622', '工布江达县', '542600', '2');
 INSERT INTO `cmswing_area` VALUES ('542623', '米林县', '542600', '3');
@@ -3286,6 +3226,8 @@ INSERT INTO `cmswing_area` VALUES ('542624', '墨脱县', '542600', '4');
 INSERT INTO `cmswing_area` VALUES ('542625', '波密县', '542600', '5');
 INSERT INTO `cmswing_area` VALUES ('542626', '察隅县', '542600', '6');
 INSERT INTO `cmswing_area` VALUES ('542627', '朗　县', '542600', '7');
+INSERT INTO `cmswing_area` VALUES ('610000', '陕西省', '0', '27');
+INSERT INTO `cmswing_area` VALUES ('610100', '西安市', '610000', '1');
 INSERT INTO `cmswing_area` VALUES ('610101', '市辖区', '610100', '1');
 INSERT INTO `cmswing_area` VALUES ('610102', '新城区', '610100', '2');
 INSERT INTO `cmswing_area` VALUES ('610103', '碑林区', '610100', '3');
@@ -3300,11 +3242,13 @@ INSERT INTO `cmswing_area` VALUES ('610122', '蓝田县', '610100', '11');
 INSERT INTO `cmswing_area` VALUES ('610124', '周至县', '610100', '12');
 INSERT INTO `cmswing_area` VALUES ('610125', '户　县', '610100', '13');
 INSERT INTO `cmswing_area` VALUES ('610126', '高陵县', '610100', '14');
+INSERT INTO `cmswing_area` VALUES ('610200', '铜川市', '610000', '2');
 INSERT INTO `cmswing_area` VALUES ('610201', '市辖区', '610200', '1');
 INSERT INTO `cmswing_area` VALUES ('610202', '王益区', '610200', '2');
 INSERT INTO `cmswing_area` VALUES ('610203', '印台区', '610200', '3');
 INSERT INTO `cmswing_area` VALUES ('610204', '耀州区', '610200', '4');
 INSERT INTO `cmswing_area` VALUES ('610222', '宜君县', '610200', '5');
+INSERT INTO `cmswing_area` VALUES ('610300', '宝鸡市', '610000', '3');
 INSERT INTO `cmswing_area` VALUES ('610301', '市辖区', '610300', '1');
 INSERT INTO `cmswing_area` VALUES ('610302', '渭滨区', '610300', '2');
 INSERT INTO `cmswing_area` VALUES ('610303', '金台区', '610300', '3');
@@ -3318,6 +3262,7 @@ INSERT INTO `cmswing_area` VALUES ('610328', '千阳县', '610300', '10');
 INSERT INTO `cmswing_area` VALUES ('610329', '麟游县', '610300', '11');
 INSERT INTO `cmswing_area` VALUES ('610330', '凤　县', '610300', '12');
 INSERT INTO `cmswing_area` VALUES ('610331', '太白县', '610300', '13');
+INSERT INTO `cmswing_area` VALUES ('610400', '咸阳市', '610000', '4');
 INSERT INTO `cmswing_area` VALUES ('610401', '市辖区', '610400', '1');
 INSERT INTO `cmswing_area` VALUES ('610402', '秦都区', '610400', '2');
 INSERT INTO `cmswing_area` VALUES ('610403', '杨凌区', '610400', '3');
@@ -3333,6 +3278,7 @@ INSERT INTO `cmswing_area` VALUES ('610429', '旬邑县', '610400', '12');
 INSERT INTO `cmswing_area` VALUES ('610430', '淳化县', '610400', '13');
 INSERT INTO `cmswing_area` VALUES ('610431', '武功县', '610400', '14');
 INSERT INTO `cmswing_area` VALUES ('610481', '兴平市', '610400', '15');
+INSERT INTO `cmswing_area` VALUES ('610500', '渭南市', '610000', '5');
 INSERT INTO `cmswing_area` VALUES ('610501', '市辖区', '610500', '1');
 INSERT INTO `cmswing_area` VALUES ('610502', '临渭区', '610500', '2');
 INSERT INTO `cmswing_area` VALUES ('610521', '华　县', '610500', '3');
@@ -3345,6 +3291,7 @@ INSERT INTO `cmswing_area` VALUES ('610527', '白水县', '610500', '9');
 INSERT INTO `cmswing_area` VALUES ('610528', '富平县', '610500', '10');
 INSERT INTO `cmswing_area` VALUES ('610581', '韩城市', '610500', '11');
 INSERT INTO `cmswing_area` VALUES ('610582', '华阴市', '610500', '12');
+INSERT INTO `cmswing_area` VALUES ('610600', '延安市', '610000', '6');
 INSERT INTO `cmswing_area` VALUES ('610601', '市辖区', '610600', '1');
 INSERT INTO `cmswing_area` VALUES ('610602', '宝塔区', '610600', '2');
 INSERT INTO `cmswing_area` VALUES ('610621', '延长县', '610600', '3');
@@ -3359,6 +3306,7 @@ INSERT INTO `cmswing_area` VALUES ('610629', '洛川县', '610600', '11');
 INSERT INTO `cmswing_area` VALUES ('610630', '宜川县', '610600', '12');
 INSERT INTO `cmswing_area` VALUES ('610631', '黄龙县', '610600', '13');
 INSERT INTO `cmswing_area` VALUES ('610632', '黄陵县', '610600', '14');
+INSERT INTO `cmswing_area` VALUES ('610700', '汉中市', '610000', '7');
 INSERT INTO `cmswing_area` VALUES ('610701', '市辖区', '610700', '1');
 INSERT INTO `cmswing_area` VALUES ('610702', '汉台区', '610700', '2');
 INSERT INTO `cmswing_area` VALUES ('610721', '南郑县', '610700', '3');
@@ -3371,6 +3319,7 @@ INSERT INTO `cmswing_area` VALUES ('610727', '略阳县', '610700', '9');
 INSERT INTO `cmswing_area` VALUES ('610728', '镇巴县', '610700', '10');
 INSERT INTO `cmswing_area` VALUES ('610729', '留坝县', '610700', '11');
 INSERT INTO `cmswing_area` VALUES ('610730', '佛坪县', '610700', '12');
+INSERT INTO `cmswing_area` VALUES ('610800', '榆林市', '610000', '8');
 INSERT INTO `cmswing_area` VALUES ('610801', '市辖区', '610800', '1');
 INSERT INTO `cmswing_area` VALUES ('610802', '榆阳区', '610800', '2');
 INSERT INTO `cmswing_area` VALUES ('610821', '神木县', '610800', '3');
@@ -3384,6 +3333,7 @@ INSERT INTO `cmswing_area` VALUES ('610828', '佳　县', '610800', '10');
 INSERT INTO `cmswing_area` VALUES ('610829', '吴堡县', '610800', '11');
 INSERT INTO `cmswing_area` VALUES ('610830', '清涧县', '610800', '12');
 INSERT INTO `cmswing_area` VALUES ('610831', '子洲县', '610800', '13');
+INSERT INTO `cmswing_area` VALUES ('610900', '安康市', '610000', '9');
 INSERT INTO `cmswing_area` VALUES ('610901', '市辖区', '610900', '1');
 INSERT INTO `cmswing_area` VALUES ('610902', '汉滨区', '610900', '2');
 INSERT INTO `cmswing_area` VALUES ('610921', '汉阴县', '610900', '3');
@@ -3395,6 +3345,7 @@ INSERT INTO `cmswing_area` VALUES ('610926', '平利县', '610900', '8');
 INSERT INTO `cmswing_area` VALUES ('610927', '镇坪县', '610900', '9');
 INSERT INTO `cmswing_area` VALUES ('610928', '旬阳县', '610900', '10');
 INSERT INTO `cmswing_area` VALUES ('610929', '白河县', '610900', '11');
+INSERT INTO `cmswing_area` VALUES ('611000', '商洛市', '610000', '10');
 INSERT INTO `cmswing_area` VALUES ('611001', '市辖区', '611000', '1');
 INSERT INTO `cmswing_area` VALUES ('611002', '商州区', '611000', '2');
 INSERT INTO `cmswing_area` VALUES ('611021', '洛南县', '611000', '3');
@@ -3403,6 +3354,8 @@ INSERT INTO `cmswing_area` VALUES ('611023', '商南县', '611000', '5');
 INSERT INTO `cmswing_area` VALUES ('611024', '山阳县', '611000', '6');
 INSERT INTO `cmswing_area` VALUES ('611025', '镇安县', '611000', '7');
 INSERT INTO `cmswing_area` VALUES ('611026', '柞水县', '611000', '8');
+INSERT INTO `cmswing_area` VALUES ('620000', '甘肃省', '0', '28');
+INSERT INTO `cmswing_area` VALUES ('620100', '兰州市', '620000', '1');
 INSERT INTO `cmswing_area` VALUES ('620101', '市辖区', '620100', '1');
 INSERT INTO `cmswing_area` VALUES ('620102', '城关区', '620100', '2');
 INSERT INTO `cmswing_area` VALUES ('620103', '七里河区', '620100', '3');
@@ -3412,16 +3365,20 @@ INSERT INTO `cmswing_area` VALUES ('620111', '红古区', '620100', '6');
 INSERT INTO `cmswing_area` VALUES ('620121', '永登县', '620100', '7');
 INSERT INTO `cmswing_area` VALUES ('620122', '皋兰县', '620100', '8');
 INSERT INTO `cmswing_area` VALUES ('620123', '榆中县', '620100', '9');
+INSERT INTO `cmswing_area` VALUES ('620200', '嘉峪关市', '620000', '2');
 INSERT INTO `cmswing_area` VALUES ('620201', '市辖区', '620200', '1');
+INSERT INTO `cmswing_area` VALUES ('620300', '金昌市', '620000', '3');
 INSERT INTO `cmswing_area` VALUES ('620301', '市辖区', '620300', '1');
 INSERT INTO `cmswing_area` VALUES ('620302', '金川区', '620300', '2');
 INSERT INTO `cmswing_area` VALUES ('620321', '永昌县', '620300', '3');
+INSERT INTO `cmswing_area` VALUES ('620400', '白银市', '620000', '4');
 INSERT INTO `cmswing_area` VALUES ('620401', '市辖区', '620400', '1');
 INSERT INTO `cmswing_area` VALUES ('620402', '白银区', '620400', '2');
 INSERT INTO `cmswing_area` VALUES ('620403', '平川区', '620400', '3');
 INSERT INTO `cmswing_area` VALUES ('620421', '靖远县', '620400', '4');
 INSERT INTO `cmswing_area` VALUES ('620422', '会宁县', '620400', '5');
 INSERT INTO `cmswing_area` VALUES ('620423', '景泰县', '620400', '6');
+INSERT INTO `cmswing_area` VALUES ('620500', '天水市', '620000', '5');
 INSERT INTO `cmswing_area` VALUES ('620501', '市辖区', '620500', '1');
 INSERT INTO `cmswing_area` VALUES ('620502', '秦城区', '620500', '2');
 INSERT INTO `cmswing_area` VALUES ('620503', '北道区', '620500', '3');
@@ -3430,11 +3387,13 @@ INSERT INTO `cmswing_area` VALUES ('620522', '秦安县', '620500', '5');
 INSERT INTO `cmswing_area` VALUES ('620523', '甘谷县', '620500', '6');
 INSERT INTO `cmswing_area` VALUES ('620524', '武山县', '620500', '7');
 INSERT INTO `cmswing_area` VALUES ('620525', '张家川回族自治县', '620500', '8');
+INSERT INTO `cmswing_area` VALUES ('620600', '武威市', '620000', '6');
 INSERT INTO `cmswing_area` VALUES ('620601', '市辖区', '620600', '1');
 INSERT INTO `cmswing_area` VALUES ('620602', '凉州区', '620600', '2');
 INSERT INTO `cmswing_area` VALUES ('620621', '民勤县', '620600', '3');
 INSERT INTO `cmswing_area` VALUES ('620622', '古浪县', '620600', '4');
 INSERT INTO `cmswing_area` VALUES ('620623', '天祝藏族自治县', '620600', '5');
+INSERT INTO `cmswing_area` VALUES ('620700', '张掖市', '620000', '7');
 INSERT INTO `cmswing_area` VALUES ('620701', '市辖区', '620700', '1');
 INSERT INTO `cmswing_area` VALUES ('620702', '甘州区', '620700', '2');
 INSERT INTO `cmswing_area` VALUES ('620721', '肃南裕固族自治县', '620700', '3');
@@ -3442,6 +3401,7 @@ INSERT INTO `cmswing_area` VALUES ('620722', '民乐县', '620700', '4');
 INSERT INTO `cmswing_area` VALUES ('620723', '临泽县', '620700', '5');
 INSERT INTO `cmswing_area` VALUES ('620724', '高台县', '620700', '6');
 INSERT INTO `cmswing_area` VALUES ('620725', '山丹县', '620700', '7');
+INSERT INTO `cmswing_area` VALUES ('620800', '平凉市', '620000', '8');
 INSERT INTO `cmswing_area` VALUES ('620801', '市辖区', '620800', '1');
 INSERT INTO `cmswing_area` VALUES ('620802', '崆峒区', '620800', '2');
 INSERT INTO `cmswing_area` VALUES ('620821', '泾川县', '620800', '3');
@@ -3450,6 +3410,7 @@ INSERT INTO `cmswing_area` VALUES ('620823', '崇信县', '620800', '5');
 INSERT INTO `cmswing_area` VALUES ('620824', '华亭县', '620800', '6');
 INSERT INTO `cmswing_area` VALUES ('620825', '庄浪县', '620800', '7');
 INSERT INTO `cmswing_area` VALUES ('620826', '静宁县', '620800', '8');
+INSERT INTO `cmswing_area` VALUES ('620900', '酒泉市', '620000', '9');
 INSERT INTO `cmswing_area` VALUES ('620901', '市辖区', '620900', '1');
 INSERT INTO `cmswing_area` VALUES ('620902', '肃州区', '620900', '2');
 INSERT INTO `cmswing_area` VALUES ('620921', '金塔县', '620900', '3');
@@ -3458,6 +3419,7 @@ INSERT INTO `cmswing_area` VALUES ('620923', '肃北蒙古族自治县', '620900
 INSERT INTO `cmswing_area` VALUES ('620924', '阿克塞哈萨克族自治县', '620900', '6');
 INSERT INTO `cmswing_area` VALUES ('620981', '玉门市', '620900', '7');
 INSERT INTO `cmswing_area` VALUES ('620982', '敦煌市', '620900', '8');
+INSERT INTO `cmswing_area` VALUES ('621000', '庆阳市', '620000', '10');
 INSERT INTO `cmswing_area` VALUES ('621001', '市辖区', '621000', '1');
 INSERT INTO `cmswing_area` VALUES ('621002', '西峰区', '621000', '2');
 INSERT INTO `cmswing_area` VALUES ('621021', '庆城县', '621000', '3');
@@ -3467,6 +3429,7 @@ INSERT INTO `cmswing_area` VALUES ('621024', '合水县', '621000', '6');
 INSERT INTO `cmswing_area` VALUES ('621025', '正宁县', '621000', '7');
 INSERT INTO `cmswing_area` VALUES ('621026', '宁　县', '621000', '8');
 INSERT INTO `cmswing_area` VALUES ('621027', '镇原县', '621000', '9');
+INSERT INTO `cmswing_area` VALUES ('621100', '定西市', '620000', '11');
 INSERT INTO `cmswing_area` VALUES ('621101', '市辖区', '621100', '1');
 INSERT INTO `cmswing_area` VALUES ('621102', '安定区', '621100', '2');
 INSERT INTO `cmswing_area` VALUES ('621121', '通渭县', '621100', '3');
@@ -3475,6 +3438,7 @@ INSERT INTO `cmswing_area` VALUES ('621123', '渭源县', '621100', '5');
 INSERT INTO `cmswing_area` VALUES ('621124', '临洮县', '621100', '6');
 INSERT INTO `cmswing_area` VALUES ('621125', '漳　县', '621100', '7');
 INSERT INTO `cmswing_area` VALUES ('621126', '岷　县', '621100', '8');
+INSERT INTO `cmswing_area` VALUES ('621200', '陇南市', '620000', '12');
 INSERT INTO `cmswing_area` VALUES ('621201', '市辖区', '621200', '1');
 INSERT INTO `cmswing_area` VALUES ('621202', '武都区', '621200', '2');
 INSERT INTO `cmswing_area` VALUES ('621221', '成　县', '621200', '3');
@@ -3485,6 +3449,7 @@ INSERT INTO `cmswing_area` VALUES ('621225', '西和县', '621200', '7');
 INSERT INTO `cmswing_area` VALUES ('621226', '礼　县', '621200', '8');
 INSERT INTO `cmswing_area` VALUES ('621227', '徽　县', '621200', '9');
 INSERT INTO `cmswing_area` VALUES ('621228', '两当县', '621200', '10');
+INSERT INTO `cmswing_area` VALUES ('622900', '临夏回族自治州', '620000', '13');
 INSERT INTO `cmswing_area` VALUES ('622901', '临夏市', '622900', '1');
 INSERT INTO `cmswing_area` VALUES ('622921', '临夏县', '622900', '2');
 INSERT INTO `cmswing_area` VALUES ('622922', '康乐县', '622900', '3');
@@ -3493,6 +3458,7 @@ INSERT INTO `cmswing_area` VALUES ('622924', '广河县', '622900', '5');
 INSERT INTO `cmswing_area` VALUES ('622925', '和政县', '622900', '6');
 INSERT INTO `cmswing_area` VALUES ('622926', '东乡族自治县', '622900', '7');
 INSERT INTO `cmswing_area` VALUES ('622927', '积石山保安族东乡族撒拉族自治县', '622900', '8');
+INSERT INTO `cmswing_area` VALUES ('623000', '甘南藏族自治州', '620000', '14');
 INSERT INTO `cmswing_area` VALUES ('623001', '合作市', '623000', '1');
 INSERT INTO `cmswing_area` VALUES ('623021', '临潭县', '623000', '2');
 INSERT INTO `cmswing_area` VALUES ('623022', '卓尼县', '623000', '3');
@@ -3501,6 +3467,8 @@ INSERT INTO `cmswing_area` VALUES ('623024', '迭部县', '623000', '5');
 INSERT INTO `cmswing_area` VALUES ('623025', '玛曲县', '623000', '6');
 INSERT INTO `cmswing_area` VALUES ('623026', '碌曲县', '623000', '7');
 INSERT INTO `cmswing_area` VALUES ('623027', '夏河县', '623000', '8');
+INSERT INTO `cmswing_area` VALUES ('630000', '青海省', '0', '29');
+INSERT INTO `cmswing_area` VALUES ('630100', '西宁市', '630000', '1');
 INSERT INTO `cmswing_area` VALUES ('630101', '市辖区', '630100', '1');
 INSERT INTO `cmswing_area` VALUES ('630102', '城东区', '630100', '2');
 INSERT INTO `cmswing_area` VALUES ('630103', '城中区', '630100', '3');
@@ -3509,42 +3477,51 @@ INSERT INTO `cmswing_area` VALUES ('630105', '城北区', '630100', '5');
 INSERT INTO `cmswing_area` VALUES ('630121', '大通回族土族自治县', '630100', '6');
 INSERT INTO `cmswing_area` VALUES ('630122', '湟中县', '630100', '7');
 INSERT INTO `cmswing_area` VALUES ('630123', '湟源县', '630100', '8');
+INSERT INTO `cmswing_area` VALUES ('632100', '海东地区', '630000', '2');
 INSERT INTO `cmswing_area` VALUES ('632121', '平安县', '632100', '1');
 INSERT INTO `cmswing_area` VALUES ('632122', '民和回族土族自治县', '632100', '2');
 INSERT INTO `cmswing_area` VALUES ('632123', '乐都县', '632100', '3');
 INSERT INTO `cmswing_area` VALUES ('632126', '互助土族自治县', '632100', '4');
 INSERT INTO `cmswing_area` VALUES ('632127', '化隆回族自治县', '632100', '5');
 INSERT INTO `cmswing_area` VALUES ('632128', '循化撒拉族自治县', '632100', '6');
+INSERT INTO `cmswing_area` VALUES ('632200', '海北藏族自治州', '630000', '3');
 INSERT INTO `cmswing_area` VALUES ('632221', '门源回族自治县', '632200', '1');
 INSERT INTO `cmswing_area` VALUES ('632222', '祁连县', '632200', '2');
 INSERT INTO `cmswing_area` VALUES ('632223', '海晏县', '632200', '3');
 INSERT INTO `cmswing_area` VALUES ('632224', '刚察县', '632200', '4');
+INSERT INTO `cmswing_area` VALUES ('632300', '黄南藏族自治州', '630000', '4');
 INSERT INTO `cmswing_area` VALUES ('632321', '同仁县', '632300', '1');
 INSERT INTO `cmswing_area` VALUES ('632322', '尖扎县', '632300', '2');
 INSERT INTO `cmswing_area` VALUES ('632323', '泽库县', '632300', '3');
 INSERT INTO `cmswing_area` VALUES ('632324', '河南蒙古族自治县', '632300', '4');
+INSERT INTO `cmswing_area` VALUES ('632500', '海南藏族自治州', '630000', '5');
 INSERT INTO `cmswing_area` VALUES ('632521', '共和县', '632500', '1');
 INSERT INTO `cmswing_area` VALUES ('632522', '同德县', '632500', '2');
 INSERT INTO `cmswing_area` VALUES ('632523', '贵德县', '632500', '3');
 INSERT INTO `cmswing_area` VALUES ('632524', '兴海县', '632500', '4');
 INSERT INTO `cmswing_area` VALUES ('632525', '贵南县', '632500', '5');
+INSERT INTO `cmswing_area` VALUES ('632600', '果洛藏族自治州', '630000', '6');
 INSERT INTO `cmswing_area` VALUES ('632621', '玛沁县', '632600', '1');
 INSERT INTO `cmswing_area` VALUES ('632622', '班玛县', '632600', '2');
 INSERT INTO `cmswing_area` VALUES ('632623', '甘德县', '632600', '3');
 INSERT INTO `cmswing_area` VALUES ('632624', '达日县', '632600', '4');
 INSERT INTO `cmswing_area` VALUES ('632625', '久治县', '632600', '5');
 INSERT INTO `cmswing_area` VALUES ('632626', '玛多县', '632600', '6');
+INSERT INTO `cmswing_area` VALUES ('632700', '玉树藏族自治州', '630000', '7');
 INSERT INTO `cmswing_area` VALUES ('632721', '玉树县', '632700', '1');
 INSERT INTO `cmswing_area` VALUES ('632722', '杂多县', '632700', '2');
 INSERT INTO `cmswing_area` VALUES ('632723', '称多县', '632700', '3');
 INSERT INTO `cmswing_area` VALUES ('632724', '治多县', '632700', '4');
 INSERT INTO `cmswing_area` VALUES ('632725', '囊谦县', '632700', '5');
 INSERT INTO `cmswing_area` VALUES ('632726', '曲麻莱县', '632700', '6');
+INSERT INTO `cmswing_area` VALUES ('632800', '海西蒙古族藏族自治州', '630000', '8');
 INSERT INTO `cmswing_area` VALUES ('632801', '格尔木市', '632800', '1');
 INSERT INTO `cmswing_area` VALUES ('632802', '德令哈市', '632800', '2');
 INSERT INTO `cmswing_area` VALUES ('632821', '乌兰县', '632800', '3');
 INSERT INTO `cmswing_area` VALUES ('632822', '都兰县', '632800', '4');
 INSERT INTO `cmswing_area` VALUES ('632823', '天峻县', '632800', '5');
+INSERT INTO `cmswing_area` VALUES ('640000', '宁　夏', '0', '30');
+INSERT INTO `cmswing_area` VALUES ('640100', '银川市', '640000', '1');
 INSERT INTO `cmswing_area` VALUES ('640101', '市辖区', '640100', '1');
 INSERT INTO `cmswing_area` VALUES ('640104', '兴庆区', '640100', '2');
 INSERT INTO `cmswing_area` VALUES ('640105', '西夏区', '640100', '3');
@@ -3552,25 +3529,31 @@ INSERT INTO `cmswing_area` VALUES ('640106', '金凤区', '640100', '4');
 INSERT INTO `cmswing_area` VALUES ('640121', '永宁县', '640100', '5');
 INSERT INTO `cmswing_area` VALUES ('640122', '贺兰县', '640100', '6');
 INSERT INTO `cmswing_area` VALUES ('640181', '灵武市', '640100', '7');
+INSERT INTO `cmswing_area` VALUES ('640200', '石嘴山市', '640000', '2');
 INSERT INTO `cmswing_area` VALUES ('640201', '市辖区', '640200', '1');
 INSERT INTO `cmswing_area` VALUES ('640202', '大武口区', '640200', '2');
 INSERT INTO `cmswing_area` VALUES ('640205', '惠农区', '640200', '3');
 INSERT INTO `cmswing_area` VALUES ('640221', '平罗县', '640200', '4');
+INSERT INTO `cmswing_area` VALUES ('640300', '吴忠市', '640000', '3');
 INSERT INTO `cmswing_area` VALUES ('640301', '市辖区', '640300', '1');
 INSERT INTO `cmswing_area` VALUES ('640302', '利通区', '640300', '2');
 INSERT INTO `cmswing_area` VALUES ('640323', '盐池县', '640300', '3');
 INSERT INTO `cmswing_area` VALUES ('640324', '同心县', '640300', '4');
 INSERT INTO `cmswing_area` VALUES ('640381', '青铜峡市', '640300', '5');
+INSERT INTO `cmswing_area` VALUES ('640400', '固原市', '640000', '4');
 INSERT INTO `cmswing_area` VALUES ('640401', '市辖区', '640400', '1');
 INSERT INTO `cmswing_area` VALUES ('640402', '原州区', '640400', '2');
 INSERT INTO `cmswing_area` VALUES ('640422', '西吉县', '640400', '3');
 INSERT INTO `cmswing_area` VALUES ('640423', '隆德县', '640400', '4');
 INSERT INTO `cmswing_area` VALUES ('640424', '泾源县', '640400', '5');
 INSERT INTO `cmswing_area` VALUES ('640425', '彭阳县', '640400', '6');
+INSERT INTO `cmswing_area` VALUES ('640500', '中卫市', '640000', '5');
 INSERT INTO `cmswing_area` VALUES ('640501', '市辖区', '640500', '1');
 INSERT INTO `cmswing_area` VALUES ('640502', '沙坡头区', '640500', '2');
 INSERT INTO `cmswing_area` VALUES ('640521', '中宁县', '640500', '3');
 INSERT INTO `cmswing_area` VALUES ('640522', '海原县', '640500', '4');
+INSERT INTO `cmswing_area` VALUES ('650000', '新　疆', '0', '31');
+INSERT INTO `cmswing_area` VALUES ('650100', '乌鲁木齐市', '650000', '1');
 INSERT INTO `cmswing_area` VALUES ('650101', '市辖区', '650100', '1');
 INSERT INTO `cmswing_area` VALUES ('650102', '天山区', '650100', '2');
 INSERT INTO `cmswing_area` VALUES ('650103', '沙依巴克区', '650100', '3');
@@ -3580,17 +3563,21 @@ INSERT INTO `cmswing_area` VALUES ('650106', '头屯河区', '650100', '6');
 INSERT INTO `cmswing_area` VALUES ('650107', '达坂城区', '650100', '7');
 INSERT INTO `cmswing_area` VALUES ('650108', '东山区', '650100', '8');
 INSERT INTO `cmswing_area` VALUES ('650121', '乌鲁木齐县', '650100', '9');
+INSERT INTO `cmswing_area` VALUES ('650200', '克拉玛依市', '650000', '2');
 INSERT INTO `cmswing_area` VALUES ('650201', '市辖区', '650200', '1');
 INSERT INTO `cmswing_area` VALUES ('650202', '独山子区', '650200', '2');
 INSERT INTO `cmswing_area` VALUES ('650203', '克拉玛依区', '650200', '3');
 INSERT INTO `cmswing_area` VALUES ('650204', '白碱滩区', '650200', '4');
 INSERT INTO `cmswing_area` VALUES ('650205', '乌尔禾区', '650200', '5');
+INSERT INTO `cmswing_area` VALUES ('652100', '吐鲁番地区', '650000', '3');
 INSERT INTO `cmswing_area` VALUES ('652101', '吐鲁番市', '652100', '1');
 INSERT INTO `cmswing_area` VALUES ('652122', '鄯善县', '652100', '2');
 INSERT INTO `cmswing_area` VALUES ('652123', '托克逊县', '652100', '3');
+INSERT INTO `cmswing_area` VALUES ('652200', '哈密地区', '650000', '4');
 INSERT INTO `cmswing_area` VALUES ('652201', '哈密市', '652200', '1');
 INSERT INTO `cmswing_area` VALUES ('652222', '巴里坤哈萨克自治县', '652200', '2');
 INSERT INTO `cmswing_area` VALUES ('652223', '伊吾县', '652200', '3');
+INSERT INTO `cmswing_area` VALUES ('652300', '昌吉回族自治州', '650000', '5');
 INSERT INTO `cmswing_area` VALUES ('652301', '昌吉市', '652300', '1');
 INSERT INTO `cmswing_area` VALUES ('652302', '阜康市', '652300', '2');
 INSERT INTO `cmswing_area` VALUES ('652303', '米泉市', '652300', '3');
@@ -3599,9 +3586,11 @@ INSERT INTO `cmswing_area` VALUES ('652324', '玛纳斯县', '652300', '5');
 INSERT INTO `cmswing_area` VALUES ('652325', '奇台县', '652300', '6');
 INSERT INTO `cmswing_area` VALUES ('652327', '吉木萨尔县', '652300', '7');
 INSERT INTO `cmswing_area` VALUES ('652328', '木垒哈萨克自治县', '652300', '8');
+INSERT INTO `cmswing_area` VALUES ('652700', '博尔塔拉蒙古自治州', '650000', '6');
 INSERT INTO `cmswing_area` VALUES ('652701', '博乐市', '652700', '1');
 INSERT INTO `cmswing_area` VALUES ('652722', '精河县', '652700', '2');
 INSERT INTO `cmswing_area` VALUES ('652723', '温泉县', '652700', '3');
+INSERT INTO `cmswing_area` VALUES ('652800', '巴音郭楞蒙古自治州', '650000', '7');
 INSERT INTO `cmswing_area` VALUES ('652801', '库尔勒市', '652800', '1');
 INSERT INTO `cmswing_area` VALUES ('652822', '轮台县', '652800', '2');
 INSERT INTO `cmswing_area` VALUES ('652823', '尉犁县', '652800', '3');
@@ -3611,6 +3600,7 @@ INSERT INTO `cmswing_area` VALUES ('652826', '焉耆回族自治县', '652800', 
 INSERT INTO `cmswing_area` VALUES ('652827', '和静县', '652800', '7');
 INSERT INTO `cmswing_area` VALUES ('652828', '和硕县', '652800', '8');
 INSERT INTO `cmswing_area` VALUES ('652829', '博湖县', '652800', '9');
+INSERT INTO `cmswing_area` VALUES ('652900', '阿克苏地区', '650000', '8');
 INSERT INTO `cmswing_area` VALUES ('652901', '阿克苏市', '652900', '1');
 INSERT INTO `cmswing_area` VALUES ('652922', '温宿县', '652900', '2');
 INSERT INTO `cmswing_area` VALUES ('652923', '库车县', '652900', '3');
@@ -3620,10 +3610,12 @@ INSERT INTO `cmswing_area` VALUES ('652926', '拜城县', '652900', '6');
 INSERT INTO `cmswing_area` VALUES ('652927', '乌什县', '652900', '7');
 INSERT INTO `cmswing_area` VALUES ('652928', '阿瓦提县', '652900', '8');
 INSERT INTO `cmswing_area` VALUES ('652929', '柯坪县', '652900', '9');
+INSERT INTO `cmswing_area` VALUES ('653000', '克孜勒苏柯尔克孜自治州', '650000', '9');
 INSERT INTO `cmswing_area` VALUES ('653001', '阿图什市', '653000', '1');
 INSERT INTO `cmswing_area` VALUES ('653022', '阿克陶县', '653000', '2');
 INSERT INTO `cmswing_area` VALUES ('653023', '阿合奇县', '653000', '3');
 INSERT INTO `cmswing_area` VALUES ('653024', '乌恰县', '653000', '4');
+INSERT INTO `cmswing_area` VALUES ('653100', '喀什地区', '650000', '10');
 INSERT INTO `cmswing_area` VALUES ('653101', '喀什市', '653100', '1');
 INSERT INTO `cmswing_area` VALUES ('653121', '疏附县', '653100', '2');
 INSERT INTO `cmswing_area` VALUES ('653122', '疏勒县', '653100', '3');
@@ -3636,6 +3628,7 @@ INSERT INTO `cmswing_area` VALUES ('653128', '岳普湖县', '653100', '9');
 INSERT INTO `cmswing_area` VALUES ('653129', '伽师县', '653100', '10');
 INSERT INTO `cmswing_area` VALUES ('653130', '巴楚县', '653100', '11');
 INSERT INTO `cmswing_area` VALUES ('653131', '塔什库尔干塔吉克自治县', '653100', '12');
+INSERT INTO `cmswing_area` VALUES ('653200', '和田地区', '650000', '11');
 INSERT INTO `cmswing_area` VALUES ('653201', '和田市', '653200', '1');
 INSERT INTO `cmswing_area` VALUES ('653221', '和田县', '653200', '2');
 INSERT INTO `cmswing_area` VALUES ('653222', '墨玉县', '653200', '3');
@@ -3644,6 +3637,7 @@ INSERT INTO `cmswing_area` VALUES ('653224', '洛浦县', '653200', '5');
 INSERT INTO `cmswing_area` VALUES ('653225', '策勒县', '653200', '6');
 INSERT INTO `cmswing_area` VALUES ('653226', '于田县', '653200', '7');
 INSERT INTO `cmswing_area` VALUES ('653227', '民丰县', '653200', '8');
+INSERT INTO `cmswing_area` VALUES ('654000', '伊犁哈萨克自治州', '650000', '12');
 INSERT INTO `cmswing_area` VALUES ('654002', '伊宁市', '654000', '1');
 INSERT INTO `cmswing_area` VALUES ('654003', '奎屯市', '654000', '2');
 INSERT INTO `cmswing_area` VALUES ('654021', '伊宁县', '654000', '3');
@@ -3654,6 +3648,7 @@ INSERT INTO `cmswing_area` VALUES ('654025', '新源县', '654000', '7');
 INSERT INTO `cmswing_area` VALUES ('654026', '昭苏县', '654000', '8');
 INSERT INTO `cmswing_area` VALUES ('654027', '特克斯县', '654000', '9');
 INSERT INTO `cmswing_area` VALUES ('654028', '尼勒克县', '654000', '10');
+INSERT INTO `cmswing_area` VALUES ('654200', '塔城地区', '650000', '13');
 INSERT INTO `cmswing_area` VALUES ('654201', '塔城市', '654200', '1');
 INSERT INTO `cmswing_area` VALUES ('654202', '乌苏市', '654200', '2');
 INSERT INTO `cmswing_area` VALUES ('654221', '额敏县', '654200', '3');
@@ -3661,6 +3656,7 @@ INSERT INTO `cmswing_area` VALUES ('654223', '沙湾县', '654200', '4');
 INSERT INTO `cmswing_area` VALUES ('654224', '托里县', '654200', '5');
 INSERT INTO `cmswing_area` VALUES ('654225', '裕民县', '654200', '6');
 INSERT INTO `cmswing_area` VALUES ('654226', '和布克赛尔蒙古自治县', '654200', '7');
+INSERT INTO `cmswing_area` VALUES ('654300', '阿勒泰地区', '650000', '14');
 INSERT INTO `cmswing_area` VALUES ('654301', '阿勒泰市', '654300', '1');
 INSERT INTO `cmswing_area` VALUES ('654321', '布尔津县', '654300', '2');
 INSERT INTO `cmswing_area` VALUES ('654322', '富蕴县', '654300', '3');
@@ -3668,10 +3664,17 @@ INSERT INTO `cmswing_area` VALUES ('654323', '福海县', '654300', '4');
 INSERT INTO `cmswing_area` VALUES ('654324', '哈巴河县', '654300', '5');
 INSERT INTO `cmswing_area` VALUES ('654325', '青河县', '654300', '6');
 INSERT INTO `cmswing_area` VALUES ('654326', '吉木乃县', '654300', '7');
+INSERT INTO `cmswing_area` VALUES ('659000', '省直辖行政单位', '650000', '15');
 INSERT INTO `cmswing_area` VALUES ('659001', '石河子市', '659000', '1');
 INSERT INTO `cmswing_area` VALUES ('659002', '阿拉尔市', '659000', '2');
 INSERT INTO `cmswing_area` VALUES ('659003', '图木舒克市', '659000', '3');
 INSERT INTO `cmswing_area` VALUES ('659004', '五家渠市', '659000', '4');
+INSERT INTO `cmswing_area` VALUES ('710000', '台湾省', '0', '32');
+INSERT INTO `cmswing_area` VALUES ('710001', '台北市', '710000', '1');
+INSERT INTO `cmswing_area` VALUES ('710002', '台北县', '710001', '1');
+INSERT INTO `cmswing_area` VALUES ('710003', '基隆市', '710000', '2');
+INSERT INTO `cmswing_area` VALUES ('710004', '花莲县', '710003', '1');
+INSERT INTO `cmswing_area` VALUES ('810000', '香　港', '0', '33');
 INSERT INTO `cmswing_area` VALUES ('810001', '香港', '810000', '1');
 INSERT INTO `cmswing_area` VALUES ('810002', '中西区', '810001', '1');
 INSERT INTO `cmswing_area` VALUES ('810003', '九龙城区', '810001', '2');
@@ -3691,13 +3694,10 @@ INSERT INTO `cmswing_area` VALUES ('810016', '北区', '810001', '15');
 INSERT INTO `cmswing_area` VALUES ('810017', '沙田区', '810001', '16');
 INSERT INTO `cmswing_area` VALUES ('810018', '大埔区', '810001', '17');
 INSERT INTO `cmswing_area` VALUES ('810019', '元朗区', '810001', '18');
+INSERT INTO `cmswing_area` VALUES ('820000', '澳　门', '0', '34');
 INSERT INTO `cmswing_area` VALUES ('820001', '澳门', '820000', '1');
 INSERT INTO `cmswing_area` VALUES ('820002', '澳门', '820001', '1');
-INSERT INTO `cmswing_area` VALUES ('710001', '台北市', '710000', '1');
-INSERT INTO `cmswing_area` VALUES ('710002', '台北县', '710001', '1');
-INSERT INTO `cmswing_area` VALUES ('710003', '基隆市', '710000', '2');
 INSERT INTO `cmswing_area` VALUES ('910005', '中山市', '442000', '1');
-INSERT INTO `cmswing_area` VALUES ('710004', '花莲县', '710003', '1');
 INSERT INTO `cmswing_area` VALUES ('910006', '东莞市', '441900', '1');
 INSERT INTO `cmswing_area` VALUES ('910010', '1111', '910007', '1');
 
@@ -3729,7 +3729,7 @@ CREATE TABLE `cmswing_attribute` (
   `auto_type` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
+) ENGINE=InnoDB AUTO_INCREMENT=141 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模型属性表';
 
 -- ----------------------------
 -- Records of cmswing_attribute
@@ -3768,10 +3768,10 @@ INSERT INTO `cmswing_attribute` VALUES ('31', 'download', '下载次数', 'int(1
 INSERT INTO `cmswing_attribute` VALUES ('32', 'size', '文件大小', 'bigint(20) unsigned NOT NULL ', 'num', '0', '单位bit', '1', '', '3', '0', '1', '1383896371', '1455692156629', '', '0', '', '', '', '0', '');
 INSERT INTO `cmswing_attribute` VALUES ('33', 'title', '标题', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '38', '0', '1', '1449654579', '1455692156629', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('34', 'user', 'user', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '38', '0', '1', '1449654738', '1455692156629', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('43', 'testtext', '测试文本框', 'text NOT NULL', 'textarea', '', '', '1', '', '40', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('37', 'aaaaa', '测试', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '38', '0', '0', '0', '0', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('44', 'testvarchar', '测试字符串', 'varchar(255) NOT NULL', 'string', '测试字符串默认值', '', '1', '', '40', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('40', 'username', '用户名称', 'varchar(255) NOT NULL', 'string', '', '', '1', '', '39', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('43', 'testtext', '测试文本框', 'text NOT NULL', 'textarea', '', '', '1', '', '40', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('44', 'testvarchar', '测试字符串', 'varchar(255) NOT NULL', 'string', '测试字符串默认值', '', '1', '', '40', '0', '1', '0', '4294967295', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('45', 'testdate', '测试日期', 'bigint(13) NOT NULL', 'date', '', '', '1', '', '40', '0', '1', '0', '1450412511553', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('46', 'testnun', '测试数字', 'int(10) UNSIGNED NOT NULL', 'num', '', '', '1', '', '40', '0', '1', '0', '1450412574764', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('47', 'testbool', '测试布尔', 'tinyint(2) NOT NULL', 'bool', '1', '', '1', '1:是\r\n2:否', '40', '0', '1', '0', '1450412802959', '', '3', '', 'regex', '', '3', 'function');
@@ -3825,9 +3825,9 @@ INSERT INTO `cmswing_attribute` VALUES ('118', 'unverified_modify', '未经证�
 INSERT INTO `cmswing_attribute` VALUES ('119', 'unverified_modify_count', '未经证实的修改数', 'int(10) unsigned NOT NULL', 'num', '0', '未经证实的修改数', '1', '', '8', '0', '1', '0', '1475700787052', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('120', 'ip', '发布者ip', 'bigint(13) NOT NULL', 'num', '', '发布者ip', '1', '', '8', '0', '1', '0', '1475700925390', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('121', 'last_answer', '最后回答 ID', 'int(10) unsigned NOT NULL', 'num', '0', '最后回答 ID', '1', '', '8', '0', '1', '0', '1475700956244', '', '3', '', 'regex', '', '3', 'function');
+INSERT INTO `cmswing_attribute` VALUES ('124', 'popular_value', '热度值', 'double NOT NULL', 'num', '0', '热度值', '1', '', '8', '0', '1', '0', '1475701398423', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('125', 'popular_value_update', '更新热度', 'int(10) unsigned NOT NULL', 'num', '0', '更新热度', '1', '', '8', '0', '1', '0', '1475701689039', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('126', 'lock', '是否锁定', 'tinyint(2) NOT NULL', 'bool', '0', '是否锁定', '1', '', '8', '0', '1', '0', '1475701765577', '', '3', '', 'regex', '', '3', 'function');
-INSERT INTO `cmswing_attribute` VALUES ('124', 'popular_value', '热度值', 'double NOT NULL', 'num', '0', '热度值', '1', '', '8', '0', '1', '0', '1475701398423', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('127', 'anonymous', '是否匿名', 'tinyint(2) NOT NULL', 'bool', '0', '是否匿名', '1', '', '8', '0', '1', '0', '1475701823020', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('128', 'thanks_count', '答谢数', 'int(10) unsigned NOT NULL', 'num', '0', '答谢数', '1', '', '8', '0', '1', '0', '1475701899705', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('129', 'question_content_fulltext', '问题内容全文', 'text NOT NULL', 'textarea', '', '问题内容全文', '1', '', '8', '0', '1', '0', '1475702073731', '', '3', '', 'regex', '', '3', 'function');
@@ -3840,44 +3840,6 @@ INSERT INTO `cmswing_attribute` VALUES ('136', 'showinfo', '展览介绍', 'text
 INSERT INTO `cmswing_attribute` VALUES ('137', 'chicun', '尺寸', 'varchar(255) NOT NULL', 'string', '', '如：60.0x80.0cm', '1', '', '4', '0', '1', '0', '1487316043846', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('138', 'fare', '运费模板', 'int(10) unsigned NOT NULL', 'relation', '', '1、如果店铺只使用一种运费模板规则，那么顾客下单计算时均按此规则收取运费。<br>\r\n 2、如果店铺使用了不同的运费模板规则，那么顾客下单时各运费模板规则先单独计算运费再叠加。<br>\r\n3、如果不选则使用同一默认的运费模板规则', '1', 'model:fare\r\nid:id\r\nval:name', '4', '0', '1', '0', '1498029163086', '', '3', '', 'regex', '', '3', 'function');
 INSERT INTO `cmswing_attribute` VALUES ('140', 'bbbb2', 'bbbbb2', 'text NOT NULL', 'textarea', '', '', '1', '', '9', '0', '1', '1500691537789', '1500691345928', '', '3', '', 'regex', '', '3', 'function');
-
--- ----------------------------
--- Table structure for cmswing_author
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_author`;
-CREATE TABLE `cmswing_author` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` char(80) NOT NULL COMMENT '标题',
-  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '栏目目录',
-  `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
-  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
-  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态0禁用，1启用，-1删除',
-  `sort_id` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `pinyin` char(80) NOT NULL COMMENT '姓名拼音',
-  `pin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '头像',
-  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览次数',
-  `focus_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '关注数',
-  `runge` float(10,2) DEFAULT '0.00',
-  `description` char(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '描述',
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '文章内容',
-  PRIMARY KEY (`id`),
-  KEY `category_id` (`category_id`),
-  KEY `group_id` (`group_id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_author
--- ----------------------------
-INSERT INTO `cmswing_author` VALUES ('3', '王西京', '129', '1', '9', '1486376457310', '1486457950606', '1', '17', 'wangxijing', '787', '130', '0', '0.00', '', '');
-INSERT INTO `cmswing_author` VALUES ('4', '杨晓阳', '129', '2', '9', '1486441452470', '1486448574498', '1', '17', 'yangxiaoyang', '788', '125', '0', '0.00', '', '');
-INSERT INTO `cmswing_author` VALUES ('5', '李壮平', '129', '3', '9', '1486456983148', '1486630400369', '1', '17', 'lizhuangping', '789', '213', '0', '10000.00', '李壮平，出生于1948年，目前是画院院长，艺术院校教授，潜心数十年，对国画和油画有深入研究，画画是他钟爱一生的事业。他想把自己的女儿也培养成一名画家。2008年，在经得李勤同意后，李壮平以女儿李勤做为女神的原型，和已经是青年画家的女儿李勤共同出油画册《中国写实派油画家李壮平 李勤东方神女山鬼系列油画作品集》。李壮平目前是中国用写实油画表现屈原的“山鬼”（人与自然，美女与野兽）第一人，作品深受海内外', 0x3C703EE59CA8E9BB84E6A1B7E59DAAE9A696E5B18A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE88A82E4B88AEFBC8CE4B880E5AFB9E4B893E7A88BE4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F373632372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59B9BE5B79D3C2F613EE59CB0E99C87E781BEE58CBAE28094E28094E5BEB7E998B3E8B5B6E69DA5E79A84E788B6E5A5B33C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373039352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAFE5AEB63C2F613EEFBC8CE6849FE58AA8E4BA86E69DA5E6B89DE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373039352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAFE5AEB63C2F613EE38081E7AD96E5B195E4BABAE5928CE7BE8EE69CAFE689B9E8AF84E5AEB6E38082E4BB96E4BBACE79A84E4B880E69CAC3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36313839312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBD3C2F613EE58699E5AE9EE6B4BE3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE5AEB6E3808AE4B89CE696B9E7A59EE5A5B3E5B1B1E9ACBCE7B3BBE58897E3808BE794BBE5868CEFBC8CE8AEA9E4BABAE99C87E692BCE4B88DE5B7B2EFBC9AE594AFE7BE8EE79A84E794BBE99DA2E4B88AEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34313235392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7BBB4E7BAB3E696AF3C2F613EE888ACE8A3B8E99CB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EEFBC8CE6A8A1E789B9E5B0B1E698AFE794BBE5AEB6E79A84E4BAB2E7949FE5A5B3E584BFE38082E8BF99E4BD8DE788B6E4BAB2E5908DE58FAB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3EFBC8CE4BB8A20E5B9B43631E5B281EFBC9BE5A5B3E584BFE5908DE58FAB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EEFBC8C3233E5B281E38082E2809CE8BF99E6ACA1E69DA5E9878DE5BA86E58F82E58AA03C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE88A82EFBC8CE6ADA3E698AFE586B2E79D80E5AFB9E9878DE5BA86E79A84E6849FE68385E69DA5E79A84E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5918AE8AF89E8AEB0E88085EFBC8CE4BB96E59CA8E9878DE5BA86E5B185E4BD8FE8BF87E585ABE4B99DE5B9B4EFBC8CE5A6BBE5AD90E698AFE9878DE5BA86E58D97E5B2B8E4BABAEFBC8CE5A5B3E584BFE4B99FE587BAE7949FE59CA8E58D97E5B2B8E380823133E5B9B4E5898DEFBC8CE4BB96E4BBACE4B880E5AEB6E5AE9AE5B185E5BEB7E998B3E38082E4BB96E8AFB4EFBC8CE4BB96E4B880E7949FE4B8ADE5BD93E8BF87E5869CE6B091E38081E5B7A5E4BABAE38081E5B9B2E983A8E38081E69599E5B888EFBC8CE4BD86E794BBE794BBE698AFE4BB96E9929FE788B1E4B880E7949FE79A84E4BA8BE4B89AE38082E4BB96E683B3E68A8AE887AAE5B7B1E79A84E5A5B3E584BFE4B99FE59FB9E585BBE68890E4B880E5908DE794BBE5AEB6E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5918AE8AF89E8AEB0E88085EFBC8CE4BB96E79A84E4BD9CE59381E4BBA53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313634362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B188E58E9F3C2F613EE7AC94E4B88BE79A84E2809CE5B1B1E9ACBCE2809DE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323032312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE983ADE6B2ABE88BA53C2F613EE79A8420E2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EE2809DE4B8BAE9A298E69D90E38082E2809CE68891E58F91E78EB0E8BAABE8BEB9E69C9DE5A495E79BB8E5A484E79A84E5A5B3E584BFE4B88EE5A5B3E7A59EE5BDA2E8B1A1E5BE88E8B4B4E8BF91E38082E59CA8E5BE81E5BE97E5A5B9E79A84E5908CE6848FE5908EEFBC8CE68891E4BEBFE5908CE5A5B3E584BFE4B880E98193E5BC80E5A78BE4BA86E5889BE4BD9CE38082E5A5B9E697A2E698AFE794BBE4B8ADE79A84E6A8A1E789B9E584BFEFBC8CE58F88E698AFE5908CE68891E4B880E8B5B7E5889BE4BD9CE79A84E794BBE5AEB6E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E8AFB4EFBC8CE3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808BE698AFE4BBA5E2809CE5A5B3E7A59EE2809DE4B8BAE4B8BBE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE4BD9CE59381E99B86EFBC8CE697A8E59CA8E8A1A83C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F302F3265366661373338366461653336646464343632323533623F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D22E69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323070783B206865696768743A2031373870783B223E3C696D6720636C6173733D2222207372633D22687474703A2F2F672E686970686F746F732E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D36366163653133643732306530636633613466373439663933613437663233642F613034346164333435393832623262373236356337356562333161646362656637373039396264612E6A70672220616C743D22E69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C22207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2032323070783B206865696768743A2031373870783B222F3E3C2F613E3C7370616E20636C6173733D226465736372697074696F6E22207374796C653D22646973706C61793A20626C6F636B3B20636F6C6F723A207267622838352C2038352C203835293B20666F6E742D73697A653A20313270783B20746578742D696E64656E743A203070783B20666F6E742D66616D696C793A20E5AE8BE4BD933B20776F72642D777261703A20627265616B2D776F72643B20776F72642D627265616B3A20627265616B2D616C6C3B206C696E652D6865696768743A20313570783B2070616464696E673A20387078203770783B206D696E2D6865696768743A20313270783B20626F726465722D746F702D77696474683A203170783B20626F726465722D746F702D7374796C653A20736F6C69643B20626F726465722D746F702D636F6C6F723A20726762283232342C203232342C20323234293B223EE69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C3C2F7370616E3E3C2F703E3C703EE8BEBEE2809CE4BABAE4BABAE983BDE78CAEE587BAE4B880E4BBBDE788B1EFBC8CE4BABAE4B88EE887AAE784B6E38081E4BABAE4B88EE58AA8E789A9E38081E4BABAE4B88EE4BABAE4B98BE997B4E5928CE79DA6E79BB8E5A484EFBC8CE4B896E7958CE5B0B1E4BC9AE58F98E5BE97E69BB4E7BE8EE5A5BDE38081E5928CE5B9B3E38081E887AAE794B1E38081E5B9B8E7A68FE38082E2809DE79A84E4B8BBE9A298E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE5928CE788B6E4BAB23C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E4B880E8B5B7E5889BE4BD9CE79A84E3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE4B880E7BB8F20E5B195E587BAEFBC8CE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE4B88AE5BC95E8B5B7E783ADE8AEAEE38082E69C89E4BABAE8AFB4E794BBE99DA2E79C9FE79A84E5BE88E7BE8EEFBC8CE697A0E6B395E8AEA9E4BABAE4BAA7E7949FE6B7ABE79A84E5BFB5E5A4B4EFBC8CE69C89E4BABAE794BBE8A3B8E4BD93E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36313839312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBD3C2F613EE5B7B2E7BB8FE698AFE4B88EE4BCA0E7BB9FE586B2E7BB9FE4BA86EFBC8CE5A5B3E584BFE5819AE788B6E4BAB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323134383932322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A3B8E6A8A13C2F613EE69BB4E698AFE8AEA9E4BABAE68EA5E58F97E4B88DE4BA86E38082E7BE8EE69CAFE689B9E8AF84E5AEB6E69E97E69CA8E69599E68E88E8AEA4E4B8BAEFBC8CE69D8EE5AEB6E788B6E5A5B3E4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE8BF99E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE696B9E5BC8FE68F90E4BE9BE4BA86E4B880E4B8AAE696B0E696B9E59091E5928CE6809DE88083EFBC8CE698AFE99D9EE5B8B8E58FAFE695ACE79A84E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE4B893E5AEB6E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639373532332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE58D9AE5A3ABE7949FE5AFBCE5B8883C2F613EE38081E99995E5B888E5A4A7E694BFE6B2BBE7BB8FE6B58EE5ADA6E999A2E589AFE999A2E995BF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE58899E8A1A8E7A4BAEFBC8CE4BB8EE4BCA6E79086E5ADA6E8A792E5BAA6E79C8BEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A84EFBC8CE5BC95E8B5B7E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE680A7E4BCA6E79086E69588E5BA94E698AFE79BB8E5AFB9E8B49FE99DA2E79A84E38082E5AFB9E6ADA4EFBC8C32303039E5B9B431E69C883139E697A5EFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E59B9EE5BA94E2809CE4B88DE7AEA1E588ABE4BABAE688B4E4BB80E4B988E9A29CE889B2E79A84E79CBCE9959CE79C8BE68891E4BBACEFBC8CE68891E4BBACE5BE88E59DA6E88DA1E38082E2809D3C2F703E3C703EE59084E696B9E58F8DE5BA943C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE794BBE5AEB6E788B6E5A5B3EFBC9AE68891E4BBACE5BE88E59DA6E784B63C2F7370616E3E3C2F703E3C703EE2809CE68891E5BD933C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE58FAAE883BDE698AFE59CA8E788B6E4BAB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE9878CEFBC8CE585B6E4BB96E6AF94E5A682E69184E5BDB1E7AD89E696B9E5BC8FEFBC8CE68891E68EA5E58F97E4B88DE4BA86E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE5918AE8AF89E8AEB0E88085EFBC8CE5A5B9E7ACACE4B880E6ACA1E79C8BE588B0E8A3B8E4BD93E6A8A1E789B9EFBC8CE983BDE8A789E5BE97E789B9E7B4A7E5BCA0E38082E4B99FE69C89E8AEB8E5A49AE5908CE5ADA6E8A789E5BE97E5A5B9E8BAABE69D90E5BE88E5A5BDEFBC8CE5BBBAE8AEAEE5A5B9E4B99FE5BD93E6A8A1E789B9EFBC8CE2809CE68891E593AAE69C89E982A3E58B87E6B094E59180EFBC81E68891E8A789E5BE97E982A3E5A4AAE6B2A1E5AE89E585A8E6849FE4BA86E38082E4BD86E5AFB9E4BA8EE5819AE788B6E4BAB2E79A84E6A8A1E789B9EFBC8CE5B0B1E7AE97E585A8E8A3B8EFBC8CE68891E4B89DE6AFABE6B2A1E69C89E78AB9E8B1ABE38082E788B6E4BAB2E4B880E79BB4E698AFE4B8AAE6ADA3E79BB4E79A84E4BABAEFBC8CE8AEA9E68891E69C89E5AE89E585A8E6849FE38082E68891E4B99FE698AFE4BB8EE4BA8B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE5889BE4BD9CE79A84EFBC8CE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EEFBC8CE5B0A4E585B6E698AFE4B8BAE788B6E4BAB2E79A84E889BAE69CAFE78CAEE8BAABE698AFE4B880E4BBB6E5BE88E7BAAFE6B481E79A84E4BA8BE38082E2809D3C2F703E3C703EE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79CBCE9878CEFBC8CE5A5B3E584BF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE7BE8EE4B8BDE38081E59684E889AFE38081E7BAAFE6B481E38082E6AF8FE4B880E4B8AAE8AEA4E8AF863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE79A84E4BABAEFBC8CE983BDE4B88DE4BC9AE69C89E982AAE5BFB5EFBC8CE58FAAE683B3E79D80E591B5E68AA4E5A5B9EFBC8CE5B0A4E585B6E698AFE4BD9CE4B8BAE788B6E4BAB2E79A84E4BB96E38082E4BB96E79A84E4BD9CE59381E4BBA53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313634362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B188E58E9F3C2F613EE7AC94E4B88BE79A84E2809CE5B1B1E9ACBCE2809DE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323032312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE983ADE6B2ABE88BA53C2F613EE79A84E2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EE2809DE4B8BAE9A298E69D90EFBC8CE59CA8E58F91E78EB0E5A5B3E584BFE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5BDA2E8B1A1E5BE88E8B4B4E8BF91E697B6EFBC8CE59CA8E5BE81E5BE97E788B1E4BABAE5928CE5A5B3E584BFE79A84E5908CE6848FE4B98BE5908EEFBC8CE5928CE5A5B3E584BFE4B880E8B5B7E8BF9BE8A18CE4BA86E5889BE4BD9CE38082E2809CE8AEA9E5A5B3E584BFE5BD93E887AAE5B7B1E79A84E8A3B8E4BD93E6A8A1E789B9EFBC8CE4BB8EE6B2A1E69C89E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE4B88AE8BF9BE8A18CE88083E89991E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E8A1A8E7A4BAEFBC8CE8BF9BE8A18CE5889BE4BD9CE697B6EFBC8CE4BB96E5928CE5A5B3E584BFE4BB8EE69DA5E5B0B1E6B2A1E8A789E5BE97E5B0B4E5B0ACEFBC8CE4B880E58887E5B0B1E5838FE5B08FE697B6E58099E4BB96E7BB99E5A5B3E584BFE6B497E6BEA1E4B880E6A0B7E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E788B1E4BABAE8A1A8E7A4BAEFBC8CE788B6E5A5B3E4BFA9E59CA8E5889BE4BD9CE697B6EFBC8CE5A5B9E7BB8FE5B8B8E59CA8E4B880E69781E6ACA3E8B58FE38082E5A5B9E585B6E5AE9EE8BF98E68CBAE7BEA1E68595E5A5B3E584BFE79A84EFBC8CE58FAFE4BBA5E794A8E8BF99E4B988E7BE8EE79A84E696B9E5BC8FE68A8AE887AAE5B7B1E79A84E99D92E698A5E79599E4B88BE69DA5E38082E5A5B9E4B99FE5B9B4E8BDBBE38081E6BC82E4BAAEE8BF87EFBC8CE58DB4E6B2A1E69C89E8BF99E6A0B7E79A84E69CBAE4BC9AEFBC8CE5BE88E98197E686BEE380823C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F32313439353131223E3C2F613E266E6273703B3C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE7BE8EE69CAFE689B9E8AF84E5AEB6EFBC9AE7BD91E58F8BE79A84E68C87E8B4A3E4B88DE585ACE5B9B33C2F7370616E3E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C696D6720636C6173733D22706963747572652220616C743D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E7898722207372633D22687474703A2F2F612E686970686F746F732E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D33326337376537303039323461623138653431366536333530356662653639612F663931393836313833363761646162343261346338303135386264346233316338363031653463632E6A706722207374796C653D22626F726465723A203070783B2077696474683A2032323070783B206865696768743A2031343270783B20706F736974696F6E3A206162736F6C7574653B20646973706C61793A20626C6F636B3B222F3E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223EE69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789873C7370616E20636C6173733D226E756D62657222207374796C653D22646973706C61793A20696E6C696E653B20636F6C6F723A20677261793B223E2836E5BCA0293C2F7370616E3E3C2F613E3C2F703E3C703EE8AEB8E5A49AE7BD91E58F8BE8AEA4E4B8BAEFBC8CE4BAB2E7949FE5A5B3E584BFE5819AE8A3B8E4BD93E6A8A1E789B9EFBC8CE590ACE8B5B7E69DA5E680AAE680AAE79A84EFBC8CE4BD86E5AE9EE99985E4B88A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE788B6E5A5B3E4BFA9E79A84E794BBE5BE88E7BE8EEFBC8CE4B99FE4B88DE4BC9AE8AEA9E4BABAE8A789E5BE973C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333333332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889B2E683853C2F613EE380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3134313531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B7ABE7A7BD3C2F613EE38082E7BD91E58F8BE5A4A7E78E8BE8AEA4E4B8BAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E794BBE5A5B3E584BFE697B6EFBC8CE59BA0E4B8BAE788B1E6809CEFBC8CE4BC9AE69C89E6848FE697A0E6848FE59CB0E59CA8E7BB86E88A82E4B88AE5819AE4B880E4BA9BE5A484E79086EFBC8CE6AF94E5A682E5AFB93C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE8BAABE4BD93E4B88AE79A84E4B880E4BA9BE6AF9BE58F91E79A84E5A484E79086EFBC88E4B880E888ACE794BBE5AEB6E698AFE4BC9AE4BBA5E6ADA4E7B1BBE7BB86E88A82E2809CE8AFB1E2809DE4BABAEFBC89EFBC8CE4B99FE697A0E4B88DE99B85E79A84E5A7BFE58ABFE38082E4BB96E697A0E8AEBAE698AFE4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE5889BE4BD9CE8BF98E698AFE980A0E58ABFE4B88AEFBC8CE983BDE5A0AAE7A7B0E68890E58A9FE380823C2F703E3C703E3C62722F3E3C2F703E3C703EE4B99FE69C89E7BD91E58F8BE8AEA4E4B8BAEFBC8CE4B88DE7AEA1E6808EE6A0B7EFBC8CE4B880E683B3E588B0E5A5B3E584BFE59CA8E788B6E4BAB2E99DA2E5898DE884B1E58589EFBC8CE5BF83E9878CE5B0B1E8A789E5BE97E4B88DE88892E69C8DE38082E8BF98E69C89E7BD91E58F8BE7949AE887B3E8AEA4E4B8BAEFBC8CE5A682E69E9CE4B88DE698AFE59BA0E4B8BAE794BBE9878CE79A84E8A3B8E4BD93E6A8A1E789B9E698AFE794BBE5AEB6E79A84E5A5B3E584BFEFBC8CE3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808BE4B88DE4BC9AE8BF99E4B988E5BFABE5B0B1E781ABE8B5B7E69DA5E380823C2F703E3C703EE89197E5908DE7BE8EE69CAFE689B9E8AF84E5AEB6E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F373632372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59B9BE5B79D3C2F613EE5A4A7E5ADA6E69599E68E88E69E97E69CA8E59CA8E8AF84E4BBB7E8BF99E4BBB6E4BA8BE697B6EFBC8CE794A8E4BA86E2809CE99D9EE5B8B8E58FAFE695ACE2809DE59B9BE4B8AAE5AD97E38082E8AEA4E4B8BAE69D8EE5AEB6E788B6E5A5B3E586B2E7A0B4E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE79A84E9878DE9878DE897A9E7AFB1EFBC8CE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE79A84E58F91E5B195E4BD9CE587BAE4BA86E5A589E78CAEE38082E69E97E69CA8E8A1A8E7A4BAEFBC8CE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE7958CEFBC8CE4BDBFE794A8E8A3B8E4BD93E6A8A1E789B9E4B88DE7A880E7BD95EFBC8CE4BD86E794A8E887AAE5B7B1E79A84E4BAB2E4BABAEFBC8CE6AF94E5A682E5A6BBE5AD90E5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E4B88DE5A49AEFBC8CE8AEA9E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E69BB4E698AFE7ACACE4B880E6ACA1EFBC8CE2809CE8BF98E69C89E4B880E4BA9BE4BABAEFBC8CE88081E68082E681BFE588ABE4BABAE884B1E8A1A3E69C8DEFBC8CE8AEA9E887AAE5B7B1E69DA5E794BBEFBC8CE789B9E588ABE4B88DE79C9FE8AF9AE38082E2809DE59CA8E69E97E69CA8E79C8BE69DA5EFBC8CE6AF94E8B5B7E982A3E4BA9BE4BABAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E788B6E5A5B3E5BE88E79C9FE8AF9AEFBC8CE4BB96E4BBACE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE8BF99E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE696B9E5BC8FE68F90E4BE9BE4BA86E4B880E4B8AAE696B0E696B9E59091E5928CE6809DE88083E3808220E2809CE8AEA9E588ABE4BABAE79A84E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E58FAFE4BBA5EFBC8CE8AEA9E887AAE5B7B1E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E4B88DE8A18CE595A6EFBC9FE2809DE99DA2E5AFB9E4B880E4BA9BE7BD91E58F8BE8AEA4E4B8BAE2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E788B6E5A5B3E69C89E8BF9D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE38081E4BCA6E5B8B8EFBC8CE8BF99E7BB84E794BBE8AEA9E4BABAE8A789E5BE97E5BF83E9878CE4B88DE88892E69C8DE2809DE79A84E68C87E8B4A3EFBC8CE69E97E69CA8E8AEA4E4B8BAE5BE883C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3534393931372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B88DE585ACE5B9B33C2F613EE380823C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE7A4BEE4BC9AE5ADA6E5AEB6EFBC9AE4BCA0E7BB9FE8A782E5BFB5E58F88E4BD9CE7A59FE4BA863C2F7370616E3E3C2F703E3C703EE89197E5908D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373138332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9AE5ADA6E5AEB63C2F613EE69D8EE993B6E6B2B3E8A1A8E7A4BAEFBC8CE8BF99E585B6E5AE9EE6B2A1E4BB80E4B988E38082E4B8BAE4BB80E4B988E4BC9AE69C89E4BABAE8A789E5BE97E4B88DE88892E69C8DEFBC8CE982A3E698AFE59BA0E4B8BAE4BCA0E7BB9FE8A782E5BFB5E58F88E4BD9CE7A59FE4BA86E38082E8AEB8E5A49AE4BABAE4B880E79C8BE588B0E788B6E4BAB2E38081E5A5B3E584BFE38081E8A3B8E4BD93E7AD89EFBC8CE7AB8BE58DB3E5B0B1E88194E683B3E588B0E4BA86E2809CE4B9B1E4BCA6E2809DEFBC8CE58FAFE5AE9EE99985E4B88AE999A4E4BA86E4B880E7BB84E6BC82E4BAAEE79A84E794BBEFBC8CE4BB80E4B988E983BDE6B2A1E58F91E7949FE38082E5A5B3E584BFE684BFE6848FE7BB99E788B6E4BAB2E5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E8A18CE4BA86EFBC8CE4BD95E5BF85E683B3E5A4AAE5A49AE380823C2F703E3C703EE69D8EE993B6E6B2B3E8AEA4E4B8BAEFBC8CE4B9B1E4BCA6E698AFE695B4E4B8AAE4BABAE7B1BB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE79A84E7A681E5BF8CEFBC8CE4B88DE883BDE4B9B1E4BCA6E4B99FE698AFE4B880E7A78DE6A0B9E6B7B1E89282E59BBAE79A84E4BCA0E7BB9FE6809DE683B3E38082E8BF99E6809DE683B3E69CACE8BAABE6B2A1E99499EFBC8CE4BD86E4B88DE883BDE58AA8E4B88DE58AA8E5B0B1E8AEA4E4B8BAE588ABE4BABAE4BC9AE4B9B1E4BCA6EFBC8CE4BD95E586B5E698AFE4B880E4B8AAE6A0B9E69CACE5B0B1E6B2A1E5AD98E59CA8E79A84E78EB0E5AE9EE38082E8BF99E5928CE8AEB8E5A49AE4BABAE4B880E79C8BE588B0E8A3B8E4BD93E6A8A1E789B9EFBC8CE5B0B1E683B3E588B0E680A7E698AFE4B880E4B8AAE98193E79086E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE698AFE4B880E4B8AAE6ADA3E584BFE585ABE7BB8FE79A84E8818CE4B89AEFBC8CE5AE83E698AFE4B880E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE8A1A8E78EB0E5BDA2E5BC8FEFBC8CE982A3E6A8A1E789B9E5928CE794BBE5AEB6E698AFE4B88DE698AFE788B6E5A5B3E585B3E7B3BBE58F88E69C89E4BB80E4B988E8A681E7B4A7E380823C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE4BCA6E79086E4B893E5AEB6EFBC9AE788B6E4BAB2E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A843C2F7370616E3E3C2F703E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE8AEA4E4B8BAEFBC8CE8BF99E4BBB6E4BA8BE698AFE69C89E4B8A4E99DA2E680A7E79A84EFBC8CE4B88DE883BDE4BB85E4BB85E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE8A792E5BAA6E69DA5E79C8BE38082E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE8A792E5BAA6E69DA5E79C8BEFBC8CE4B88DE5AD98E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE997AEE9A298E38082E59BA0E4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E698AFE794BBE5AEB6EFBC8CE5A5B3E584BFE4BB85E698AFE4B880E4B8AAE5AEA1E7BE8EE5AFB9E8B1A1E38082E8808CE4B8943C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE4B99FE8AEA4E4B8BAEFBC8CE887AAE5B7B1E59CA8E788B6E4BAB2E5BF83E79BAEE4B8ADE5BE88E59CA3E6B481E38082E8AFB4E6988EE788B6E5A5B3E4BFA9E79A84E8AEA4E8AF86E698AFE4B880E887B4E79A84EFBC8CE4B88DE8AEA4E4B8BAE8BF99E4B8AAE8A18CE4B8BAE698AFE69C89E4BCA4E9A38EE58C96E38081E4B88D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE79A84EFBC8CE2809CE4BD86E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE5ADA6E8A792E5BAA6E69DA5E79C8BEFBC8CE698AFE5BA94E4B88DE5BA94E8AFA5E38081E6ADA3E4B88DE6ADA3E5BD93E79A84E997AEE9A298E38082E59CA8E68891E79C8BE69DA5EFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A84E38082E2809D3C2F703E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE8A1A8E7A4BAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE698AFE788B6E5A5B3E585B3E7B3BBEFBC8CE4B88DE4BB85E4BB85E698AFE794BBE5AEB6E4B88EE6A8A1E789B9E79A84E585B3E7B3BBEFBC8CE4B99FE4B88DE6B689E58F8A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE79A84E58A9FE588A9E680A7E997AEE9A298EFBC8CE6ADA4E697B6E5B0B1E6B689E58F8AE588B03C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE7BAB2E5B8B8E79A84E997AEE9A298EFBC8CE8808CE8BF99E4B99FE698AFE4B880E4BA9BE4BABAE4B88DE883BDE68EA5E58F97E79A84E59CB0E696B9E38082E69D8EE5AEB6E788B6E5A5B3E79A84E8A18CE4B8BAE5B7B2E7BB8FE7AA81E7A0B4E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE7BAB2E5B8B8E38082E5A682E69E9CE69D8EE5AEB6E788B6E5A5B3E5889BE4BD9CE5A5BDE4B98BE5908EEFBC8CE4BB85E4BB85E698AFE694BEE59CA8E887AAE5B7B1E5AEB6E9878CE7A781E4BABAE6ACA3E8B58FEFBC8CE982A3E4B988E6ADA4E697B6E5B19EE4BA8EE7A781E4BABA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EEFBC8CE697A0E68980E8B093E59088E4B88DE59088E79086E38082E5BD93E8BF99E4BA9BE4BD9CE59381E698AFE58F82E58AA0E5B195E8A788E79A84EFBC8CE4BB8EE7A781E4BABAE88C83E59BB4E5BBB6E4BCB8E588B0E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE88C83E59BB4EFBC8CE5BC95E8B5B7E4BA86E7A4BEE4BC9AE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE8AF84E4BBB7EFBC8CE4B99FE5B0B1E4BAA7E7949FE4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE680A7E4BCA6E79086E69588E5BA94EFBC8CE2809CE68890E5B9B4E5A5B3E584BFE59CA8E788B6E4BAB2E99DA2E5898DE8A3B8E4BD93EFBC8CE8BF99E4B88DE7ACA6E59088E5A4A7E983A8E58886E4BABAE79A84E4BCA6E79086E7BAB2E5B8B83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36393830372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8AEA4E79FA53C2F613EEFBC8CE7BB93E69E9CE5B0B1E5B8A6E69DA5E4BA86E8B49FE99DA2E5BDB1E5938DE38082E8BF99E5B0B1E698AFE68891E8AFB4E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE4B88DE6ADA3E5BD93E79A84E59CB0E696B9E38082E2809D266E6273703B3C2F703E3C703E3C62722F3E3C2F703E);
-INSERT INTO `cmswing_author` VALUES ('6', '刘文西', '129', '4', '9', '1486483214047', '1486483214048', '1', '17', 'liuwenxi', '790', '127', '0', '0.00', '', '');
-INSERT INTO `cmswing_author` VALUES ('7', '郭全忠', '129', '1', '9', '1486483483674', '1486483483675', '1', '17', 'guoquanzhong', '791', '106', '0', '0.00', '', '');
-INSERT INTO `cmswing_author` VALUES ('8', '罗平安', '129', '0', '9', '1486542017230', '1486546089772', '1', '17', 'luopingan', '792', '178', '0', '3000.00', '罗平安，中共党员，画家。湖北黄陂人，1945年4月生于陕西西安，擅长中国画。1966年毕业于西安美术学院中专部，后师从方济众先生。 1981年任陕西国画院创研室副主任，陕西省美术家协会书记处书记。兼任陕西省榆林地区文化局副局长。现为中国美术家协会会员，西安美术学院客座教授，陕西省美术家协会常务理事、艺术委员会委员，国家一级美术师，陕西国画院画师，国务院授予的“突出贡献专家”。 作品有《雪霁》、《樊', 0x3C68313EE7949FE5B9B33C62722F3E3C2F68313E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7BD97E5B9B3E5AE89EFBC8C31393435E5B9B4E7949FE4BA8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F35353230372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE89E5B8823C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EEFBC8CE7A596E7B18D3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F353332352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B996E58C973C2F613E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F33363136362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9BB84E999823C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE3808231393636E5B9B4E6AF95E4B89AE4BA8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313037322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE4B893E983A8EFBC8CE5908EE5B888E4BB8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3139393733392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE696B9E6B58EE4BC973C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58588E7949FE38082E78EB0E4B8BA3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3131333632352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9A3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4BC9AE59198E38081E99995E8A5BFE79C81E7BE8EE69CAFE5AEB6E58D8FE4BC9AE9A1BEE997AEE38081E8A5BFE5AE89E4B8ADE59BBDE794BBE999A2E889BAE69CAFE9A1BEE997AEE38081E99995E8A5BFE79C81E59BBDE5AEB6E794BBE999A2E794BBE5B888E38081E4B880E7BAA7E7BE8EE69CAFE5B888E38081E59BBDE58AA1E999A2E68E88E4BA88E2809CE7AA81E587BAE8B4A1E78CAEE4B893E5AEB6E2809DE38082E4BA8EE58C97E4BAACE38081E58FB0E58C97E38081E4B88AE6B5B7E38081E8A5BFE5AE89E38081E99D92E5B29BE38081E6ADA6E6B189E7AD89E59CB0E4B8BEE58A9EE4B8AAE4BABAE794BBE5B1953134E6ACA1E38082E4BD9CE59381E69BBEE5A49AE6ACA1E58F82E58AA0E59BBDE58685E5A496E5A4A7E59E8BE88194E5B195EFBC8CE8A2AB3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3834323033342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58898E6B5B7E7B29FE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313636353936312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE59BBDE5AEB6E794BBE999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3632313536392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B19FE88B8FE79C81E7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE38081E7BE8EE59BBD3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303530342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE59388E4BD9BE5A4A7E5ADA63C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B89CE696B9E889BAE69CAFE58D9AE789A9E9A686E38081E99995E8A5BFE79C81E7BE8EE69CAFE9A686E7AD89E69CBAE69E84E694B6E8978FE38082E38080E7BD97E5B9B3E5AE89E698AFE5BD93E4BBA33C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE79A84E9A286E5869BE4BABAE789A9EFBC8CE697A9E59CA8E585ABE58D81E5B9B4E4BBA3E5B0B1E59BA0E585B6E8A5BFE58C97E4B9A1E59C9FE794BBE9A38EE5928CE78BACE789B9E79A84E6B0B4E5A2A8E68A80E5B7A7E8808CE4BAABE8AA89E794BBE59D9BE38082E4BB96E4B880E58F8DE4BCA0E7BB9F3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4BBA5E5A2A8E4B8BAE4B8BBE79A84E68A80E6B395EFBC8CE5A4A7E5A4A7E5BCBAE8B083E4BA86E889B2E5BDA9E79A84E9AD85E58A9BE5928CE695B4E4BD93E79A84E889B2E8B083EFBC8CE890BDE5A2A8E69E81E9878DEFBC8CE890BDE5BDA9E4B99FE69E81E9878DEFBC8CE9AAA8E6B395E794A8E7AC94EFBC8CE5A2A8E7BABFE79FADE4BF83E58A9BE581A5EFBC8CE5BDA9E7BABFE7B4A7E58AB2E5AF86E58C9DEFBC8CE79BB8E68EA5E79BB8E6B897EFBC8C2671756F743BE5A682E7BB87E994A6E888ACE794BBE587BAE4BA86E7A1ACE69C97E38081E59D9AE5AE9EE79A84E789A9E8B1A1E8B4A8E59CB0EFBC8CE4B99FE794BBE587BAE4BA86E6B593E98381E783ADE78388E79A84E7949FE591BDE6B4BBE58A9BE380822671756F743BE4B8ADE59BBDE7BE8EE69CAFE9A686E9A686E995BFE88C83E8BFAAE5AE89E692B0E69687E8B59EE98193EFBC8C2671756F743BE69BBEE7BB8FE4BBA5E88BA6E6B6A9E38081E88D92E58789E38081E8B4ABE798A0E4B8BAE789B9E782B9E79A84E8A5BFE58C97E5B1B1E6B0B4E6848FE5A283E59CA8E79A84E4BB96E7AC94E4B88BE68DA2E68890E4BA86E6B8A9E98687E38081E7BB9AE4B8BDE38081E8BE89E7858CE79A84E5B1B1E6B0B4E58D8EE7ABA0E380822671756F743B3C2F7370616E3E3C2F703E3C68313E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B20666F6E742D73697A653A20323470783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE794BBE5B1953C2F7370616E3E3C2F68313E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7BD97E5B9B3E5AE89EFBC8C3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9878DE8A681E794BBE5AEB6EFBC8CE4BD9CE59381E58F82E58AA0E7ACACE585ADE38081E4B883E38081E4B99DE5B18AE585A8E59BBDE7BE8EE5B195EFBC8CE3808AE6B591E3808BE88DA3E88EB7E7ACACE4B883E5B18AE585A8E59BBDE7BE8EE5B195E9939CE5A596EFBC8CE2809CE4B8ADE59BBDE689B9E8AF84E5AEB6E68F90E5908DE5B195E2809DEFBC8CE2809CE6B0B4E5A2A8E69CACE889B2E2809DE68F90E5908DE5B195EFBC8CE4B880E38081E4BA8CE5B18AE2809CE58C97E4BAACE59BBDE99985E6B0B4E5A2A8E794BBE5B195E2809DEFBC8CE2809CE5BD93E4BBA3E4B8ADE59BBDE5B1B1E6B0B4E794BBE6B2B9E794BBE9A38EE699AFE5B195E2809DEFBC8CE2809CE799BEE5B9B4E4B8ADE59BBDE794BBE5B195E2809DEFBC8CE2809CE4B89CE696B9E4B98BE99FB532303033E4B8ADE59BBDE6B0B4E5A2A8E5B195E2809DEFBC8CE4B880E38081E4BA8CE5B18AE2809CE585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B195E2809DEFBC8CE58F97E98280E58F82E58AA0E3808AE5BC80E694BEE79A84E697B6E4BBA3E7BAAAE5BFB5E4B8ADE59BBDE7BE8EE69CAFE9A686E5BBBAE9A6863430E591A8E5B9B4E3808BE5A4A7E59E8BE9A686E5BA86E5ADA6E69CAFE5B195E380822031393836E794B13C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3132353636362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE794BBE7A094E7A9B6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323632312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58C97E4BAAC3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BEE58A9EE2809CE7BD97E5B9B3E5AE89E794BBE5B195E2809DEFBC9B31393838E5B9B4E794B13C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3131333632352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9A3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3132353636362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE794BBE7A094E7A9B6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BBE58A9EE2809CE7BD97E5B9B3E5AE89E794BBE5B195E2809DE3808231393932E5B9B4E587BAE8AEBFE5BEB7E59BBDE58F82E58AA0E2809CE4B8ADE59BBDE6B0B4E5A2A8E794BBE4B883E4BABAE5B195E2809DEFBC9B31393934E5B9B4E58F82E58AA0E696B0E58AA0E59DA1E2809CE4B8ADE59BBDE6B0B4E5A2A8E794BBE58D81E5AEB6E2809DE794BBE5B195E38082E5BA94E98280E59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B88AE6B5B73C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F353332352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B996E58C973C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F343233332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE5B1B1E4B89C3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323230302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58FB0E6B9BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323135352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE893C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BEE58A9EE4B8AAE4BABAE794BBE5B195EFBC8CE5A49AE6ACA1E58F82E58AA0E585A8E59BBDE4B893E4B89AE7BE8EE69CAFE98280E8AFB7E5B195E38082E4BD9CE59381E58588E5908EE59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313535342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE697A5E69CAC3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323630372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9A699E6B8AF3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323737332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7919EE5A3AB3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363433312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8B9E9BAA63C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F737562766965772F31303137362F31303137362E68746D2220646174612D6C656D6D6169643D22323638383922207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE586B0E5B29B3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7AD89E59BBDE5AEB6E5928CE59CB0E58CBAE5B195E587BAEFBC8C31393835E5B9B434E69C88E587BAE8AEBFE697A5E69CAC3C2F7370616E3E3C2F7370616E3E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C62722F3E3C2F7370616E3E3C2F7370616E3E3C2F703E3C68313EE68890E5B0B13C2F68313E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31373439312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59BBDE58AA1E999A23C2F613EE68E88E4BA882671756F743BE7AA81E587BAE8B4A1E78CAEE4B893E5AEB62671756F743BE380823C2F703E3C703EE69BBEE587BAE78988E8BF87E3808AE4B8ADE59BBDE78EB0E4BBA3E7BE8EE69CAFE585A8E99B86E3808BEFBC9BE3808A3230E4B896E7BAAAE4B8ADE59BBDE7BE8EE69CAF2D2DE4B8ADE59BBDE7BE8EE69CAFE9A686E8978FE59381E7B2BEE98089E3808BEFBC9BE3808AE5BD93E4BBA3E4B8ADE59BBDE794BBE4BC98E7A780E4BD9CE59381E98089E3808BEFBC9BE3808AE4B8ADE59BBDE78EB0E4BBA3E5B1B1E6B0B4E794BBE585A8E99B86E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFE5AEB6E3808BEFBC9BE3808AE4B8ADE59BBDE799BEE5B9B4313030E5908DE794BBE5AEB6E3808BEFBC9BE3808AE78EB0E4BBA3E5B1B1E6B0B4E794BBE5BA93E3808B203BE3808AE78EB0E4BBA3E5B1B1E6B0B4E794BBE5BA93EFBC88E7BBADE7BC96EFBC89E3808B20EFBC9BE3808AE4B8ADE59BBDE794BBE696B0E799BEE5AEB6E3808BEFBC9BE3808AE4B8ADE59BBDE78EB0E4BBA3E6B0B4E5A2A8E794BBE3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFEFBC9A313937392D2D31393939E3808BEFBC9BE3808AE696B0E4B8ADE59BBDE7BE8EE69CAFE5B9B4E989B4E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFE59BBEE989B4E3808BEFBC9BE88BB1E59BBDE58991E6A1A5E3808AE4B896E7958CE5908DE4BABAE887AAE4BCA0E3808BEFBC9BE88BB1E59BBDE3808AE4B896E7958CE5908DE4BABAE5BD95E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E5908DE4BABAE5BD95E3808BE7AD89E380823C2F703E3C68313EE4B8AAE4BABAE5B9B4E989B43C2F68313E3C683320636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A203070783B20666F6E742D73697A653A20313870783B20666F6E742D7765696768743A203430303B223EE4B8BBE8A681E4B8AAE5B1953C2F68333E3C703E32303038E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E32303038E5B9B420E6A2A6E7AC94E5AEB6E5B1B13C2F703E3C703E32303035E5B9B420E5A2A8E889B2E794B0E59BAD3C2F703E3C703E32303031E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E32303030E5B9B420E7BD97E5B9B3E5AE8932303030E696B0E4BD9CE5B1953C2F703E3C703E31393939E5B9B420E7BD97E5B9B3E5AE89E88AB1E58D89E696B0E4BD9CE5B1953C2F703E3C703E31393938E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393938E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393934E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393932E5B9B420E782B9E79A84E5A4A7E58D83E4B896E7958C3C2F703E3C703E31393931E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393838E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393836E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22345F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313532393038355F345F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E4B8BBE8A681E88194E5B195223E3C2F613E3C2F703E3C683320636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A203070783B20666F6E742D73697A653A20313870783B20666F6E742D7765696768743A203430303B223EE4B8BBE8A681E88194E5B1953C2F68333E3C703E32303131E5B9B420E995BFE5AE89E7B2BEE7A59E2D2DE99995E8A5BFE5BD93E4BBA3E4B8ADE59BBDE794BBE5908DE5AEB6E4BD9CE59381E5B1953C2F703E3C703E32303037E5B9B420E5A2A8E7BC983130302D2DE4B8ADE59BBDE5AE8BE5BA84E7ACACE4BA8CE5B18AE5908DE5AEB6E98280E8AFB7E5B1953C2F703E3C703E32303036E5B9B420E4B8ADE59BBDE6B0B4E5A2A8E69687E78CAEE5B195313937362D323030363C2F703E3C703E32303033E5B9B420E5BC80E694BEE79A84E697B6E4BBA32D2DE7BAAAE5BFB53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613EE5BBBAE9A6863430E591A8E5B9B43C2F703E3C703E32303033E5B9B420E7ACACE4BA8CE5B18AE585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B1953C2F703E3C703E32303033E5B9B420E4B89CE696B9E4B98BE99FB52D32303033E4B8ADE59BBDE6B0B4E5A2A8E5B1953C2F703E3C703E32303031E5B9B420E59BBDE99985E4B8ADE59BBDE794BBE5B9B4E5B1953C2F703E3C703E32303031E5B9B420E585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B195E9A696E5B18AE4B8ADE59BBDE794BBE5B1953C2F703E3C703E32303031E5B9B420E799BEE5B9B4E4B8ADE59BBDE794BBE5B1953C2F703E3C703E32303031E5B9B420E6B0B4E5A2A8E69CACE889B23C2F703E3C703E31393939E5B9B420E7ACACE4B99DE5B18AE585A8E59BBDE7BE8EE5B1953C2F703E3C703E31393938E5B9B420E4B8ADE59BBDE59BBDE99985E7BE8EE69CAFE5B9B42D2DE5BD93E4BBA3E4B8ADE59BBD3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363938382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B1B1E6B0B4E794BB3C2F613EC2B73C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F737562766965772F363835322F31303233343237392E68746D2220646174612D6C656D6D6169643D22363835353822207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE9A38EE699AFE794BB3C2F703E3C703E31393938E5B9B420E7ACACE4B880E5B18AE6B7B1E59CB3E59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B9B4E5B1953C2F703E3C703E31393937E5B9B420E4B8ADE59BBDE794BB3131E5908DE5AEB6E789B9E588ABE98280E8AFB7E5B1953C2F703E3C703E31393937E5B9B420E4B8ADE59BBDE889BAE69CAFE5A4A7E5B195C2B7E4B8ADE59BBDE5BD93E4BBA3E6B0B4E5A2A8E794BBE889BAE69CAFE5B1953C2F703E3C703E31393934E5B9B420E4B8ADE59BBDE6B0B4E5A2A8E794BBE58D81E5AEB6E794BBE5B1953C2F703E3C703E31393933E5B9B420E4B8ADE59BBDE7BE8EE69CAF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323533303833372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE689B9E8AF84E5AEB63C2F613EE68F90E5908DE5B1953C2F703E3C703E31393932E5B9B420E4B8ADE59BBD3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE4B883E4BABAE5B1953C2F703E3C703E31393932E5B9B420E6B7B1E59CB3E59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B1953C2F703E3C703E31393838E5B9B420E7ACACE4B883E5B18AE585A8E59BBDE7BE8EE5B195E5B9B6E88EB7E9939CE5A5963C2F703E3C703E31393838E5B9B420E58C97E4BAACE59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B1953C2F703E3C703E31393837E5B9B420E9A696E5B18AE4B8ADE59BBDE889BAE69CAFE88A82E794BBE5B1953C2F703E3C703E31393837E5B9B4266E6273703B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3139373935392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7B4E5A19EE5B0943C2F613EE7ACAC3138E5B18AE59BBDE99985E889BAE69CAFE58D9AE8A788E4BC9A3C2F703E3C703E31393835E5B9B4266E6273703B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F343332383935372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE99995E8A5BFE59BBDE794BBE999A23C2F613EE4BD9CE59381E5B195266E6273703B3C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F31353239303835223E3C2F613E266E6273703B3C2F703E3C703E3C62722F3E3C2F703E);
-INSERT INTO `cmswing_author` VALUES ('9', '姜怡翔', '129', '0', '9', '1486543740410', '1486545503178', '1', '17', 'jiangyixiang', '793', '122', '0', '10000.00', '姜怡翔1962年生，山东海阳人。1981年考入西安美术学院，1985年毕业并留校任教。现任西安美院副院长、国画系花鸟工作室主任、教授、硕士生导师、博士生导师、省级教学名师。中国美术家协会会员、陕西省美术家协会理事、陕西省花鸟画研究会副会长。', 0x3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE4B8AAE4BABAE7AE80E4BB8B3C2F68323E3C703EE5A79CE680A1E7BF9431393632E5B9B4E7949FEFBC8CE5B1B1E4B89CE6B5B7E998B3E4BABAE3808231393831E5B9B4E88083E585A5E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2EFBC8C31393835E5B9B4E6AF95E4B89AE5B9B6E79599E6A0A1E4BBBBE695993C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F31313330313635223E3C2F613E266E6273703B266E6273703BE38082E78EB0E4BBBBE8A5BFE5AE89E7BE8EE999A2E589AFE999A2E995BFE38081E59BBDE794BBE7B3BBE88AB1E9B89FE5B7A5E4BD9CE5AEA4E4B8BBE4BBBBE38081E69599E68E88E38081E7A195E5A3ABE7949FE5AFBCE5B888E38081E58D9AE5A3ABE7949FE5AFBCE5B888E38081E79C81E7BAA7E69599E5ADA6E5908DE5B888E38082E4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9AE4BC9AE59198E38081E99995E8A5BFE79C81E7BE8EE69CAFE5AEB6E58D8FE4BC9AE79086E4BA8BE38081E99995E8A5BFE79C81E88AB1E9B89FE794BBE7A094E7A9B6E4BC9AE589AFE4BC9AE995BFE380823C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D2232223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313133303136355F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E889BAE69CAFE68890E5B0B1223E3C2F613E3C2F703E3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE889BAE69CAFE68890E5B0B13C2F68323E3C703EE4B8BBE8A681E4BD9CE59381E3808AE5AF86E5A484E4B99FE5AFBBE9A699E3808BE88EB7E7ACACE58D81E5B18AE585A8E59BBDE7BE8EE5B195E4BC98E7A780E5A596EFBC9BE3808AE69C89E4BAADE6B7B1E7ABB9E9878CE3808BE585A5E98089E99995E8A5BFE79C81E5BBBA3C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F366630363164393530613762303230383961353033306533363564396632643335373263633831333F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031333870783B206865696768743A2032323070783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D62623062396533643463666266626564643835393331376434386631663738652F366630363164393530613762303230383961353033306533363564396632643335373263633831332E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031333870783B206865696768743A2032323070783B222F3E3C2F613E3C2F703E3C703EE59BBDE4BA94E58D81E4BA94E591A8E5B9B4E7BE8EE5B195EFBC9BE3808AE997BBE9A38EE79FA5E5B281E7A78BE3808BE585A5E98089E3808AE5BDA9E5A2A8E7A9BAE997B4E3808BE5BD93E4BBA3E4B8ADE59BBDE794BBE5AEB6E68F90E5908DE5B195EFBC9BE3808AE4BD9CE59381E59B9BE5B985E3808BE585A5E98089E3808AE4BCA0E689BFE4B88EE89E8DE59088E3808BE5BD93E4BBA3E585A8E59BBDE4B8ADE99D92E5B9B4E59BBDE794BBE5AEB6E5ADA6E69CAFE98280E8AFB7E5B195EFBC9BE3808AE5AFBFE88085E5A49AE7A68FE3808BE8A2ABE8AF84E4B8BAE7BAAAE5BFB5E6AF9BE6B3BDE4B89CE5908CE5BF97E3808AE59CA8E5BBB6E5AE89E69687E889BAE5BAA7E8B088E4BC9AE4B88AE79A84E8AEB2E8AF9DE3808BE58F91E8A1A8E585ADE58D81E591A8E5B9B4E585A8E59BBDE7BE8EE69CAFE4BD9CE59381E4BC98E7A780E4BD9CE59381E5928CE99995E8A5BFE5B195E58CBAE2809CE4B880E7AD89E5A596E2809DE38082E3808AE58D8EE7A195E3808BE88EB7E7BAAAE5BFB5E4B8ADE59BBDE585B1E4BAA7E5859AE8AF9EE8BEB0E585ABE58D81E591A8E5B9B4E2809CE5BBB6E5AE89E9A282E2809DE7BE8EE69CAFE4BD9CE59381E2809CE4BA8CE7AD89E5A596E2809DE38082E3808AE8AFAFE590ACE9A38EE5A3B0E698AFE99BA8E5A3B0E3808BE585A5E98089E585A8E59BBDE7ACACE4BA8CE5B18AE4B8ADE59BBDE794BBE5B195EFBC9BE3808AE69C89E4BAADE6B7B1E7ABB9E9878CE3808BE88EB7E99995E8A5BFE79C81E9A696E5B18AE88AB1E9B89FE794BBE5B195E2809CE789B9E588ABE5A596E2809DE38082E3808AE69993E9A38EE68B82E5BDB1E3808BE585A5E98089E585A8E59BBDE7ACACE4B889E5B18AE4B8ADE59BBDE794BBE5B195E5B9B6E88EB7E2809C32303038E99D92E5B9B4E7BE8EE69CAFE5AEB6E68F90E5908DE5B195E2809DE59BBDE794BBE7BB84E2809CE4BC98E7A780E5A596E2809DE38082E3808AE887AAE79C8BE7968FE5AF86E7A78DE7A78BE7839FE3808BE88EB7E585A8E59BBDE7ACACE59B9BE5B18AE8A5BFE983A8E5A4A7E59CB0E68385EFBC8DE4B8ADE59BBDE794BBE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DE38082E3808AE697A0E6848FE4BA89E698A5E3808BE88DA3E88EB7E580A1E5AFBCE7BBBFE889B2E69E97E4B89AE585A8E59BBDE7BE8EE69CAFE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DEFBC8CE58F8AE99995E8A5BFE79C81E7BAAAE5BFB5E694B9E99DA9E5BC80E694BEE4B889E58D81E591A8E5B9B4E7BE8EE69CAFE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DE38082E3808AE78E89E6A091E993B6E88AB1E3808BE585A5E98089E7ACACE58D81E4B880E5B18AE585A8E59BBDE7BE8EE5B195E38082E3808AE6B7B1E8B0B7E7949FE7949FE3808BE585A5E98089E7ACACE58D81E4BA8CE5B18AE585A8E59BBDE7BE8EE5B195E5B9B6E585A5E59BB4E8BF9BE4BAACE4BD9CE59381E380823C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D2233223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313133303136355F33223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E889BAE69CAFE8AF84E4BBB7223E3C2F613E3C2F703E3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE889BAE69CAFE8AF84E4BBB73C2F68323E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE6BBA1E59BADE9A39EE88AB1E6B890E59188E4BDB3E5A2833C2F7370616E3E3C2F703E3C703EE28094E28094E8AFBBE5A79CE680A1E7BF94E79A84E4B8ADE59BBDE794BB3C2F703E3C703EE8B5B5E5869C3C2F703E3C703EE88AB1E5BC80E69C89E69C9FEFBC8CE5A283E7949FE697A0E6848FE380823C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C696D6720636C6173733D22706963747572652220616C743D22E5A79CE680A1E7BF94E4BD9CE5938122207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D36653735663032666430313337336630663133663638396439343065346238622F316533306539323462383939613930316633336533333632316339353061376230323038663535662E6A706722207374796C653D22626F726465723A203070783B2077696474683A2032323070783B206865696768743A2032313870783B20706F736974696F6E3A206162736F6C7574653B20646973706C61793A20626C6F636B3B222F3E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223EE5A79CE680A1E7BF94E4BD9CE593813C7370616E20636C6173733D226E756D62657222207374796C653D22646973706C61793A20696E6C696E653B20636F6C6F723A20677261793B223E2837E5BCA0293C2F7370616E3E3C2F613E3C2F703E3C703E3C2F703E3C703EE6988EE6B885E697B6E69C9FE4BBA5E69DA5E4B8ADE59BBDE7BB98E794BBE79A84E7ACACE4B880E6B581E5A4A7E5AEB6E587A0E4B98EE983BDE9809AE8BF87E88AB1E9B89FE794BBE5A4A7E5B195E8BAABE6898BEFBC8CE59BA0E8808CE78EB0E4BBA3E4B8ADE59BBDE88AB1E9B89FE794BBE5BC95E4BABAE79EA9E79BAEE79A84E68890E5B0B1EFBC8CE698AFE4BBA5E590B4E6988CE7A195E38081E9BD90E799BDE79FB3E38081E6BD98E5A4A9E5AFBFE38081E69D8EE88BA6E7A685E8AFB8E58588E8B4A4E79A84E7AC94E5A2A8E5AE9EE8B7B5EFBC8CE4B8BAE5908EE69DA5E79A84E794BBE4BABAE5A5A0E5AE9AE4BA86E59D9AE5AE9EE79A84E5ADA6E69CAFE59FBAE7A180E38082E995BFE5AE89E794BBE6B4BEE79A84E79FB3E9B281E59CA8E6999AE5B9B4E68980E5889BE980A0E79A84E696B0E69687E4BABAE794BBE9A38EE6A0BCE79A84E7AC94E5A2A8E8AFADE8A880EFBC8CE58F88E697A0E79691E4B8BAE7949FE6B4BBE59CA8E99995E8A5BFE79A84E794BBE5AEB6EFBC8CE68F90E4BE9BE4BA86E4B880E69DA1E696B0E79A84E889BAE69CAFE68EA2E7B4A2E6809DE8B7AFE38082E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E5A49AE5B9B4E69DA5E59CA8E58699E6848FE88AB1E9B89FE794BBE696B9E99DA2E79A84E889BAE69CAFE68890E5B0B1EFBC8CE4B99FE4B88DE696ADE5BC95E8B5B7E4BA86E7A4BEE4BC9AE59084E7958CE79A84E585B3E6B3A8E5928CE5A5BDE8AF84E38082E5A79CE680A1E7BF94E6ADA3E698AFE59CA8E8BF99E6A0B7E889BAE69CAFE8838CE699AFE4B8ADE68890E995BFE8B5B7E69DA5E79A84E69DB0E587BAE79A84E88AB1E9B89FE794BBE5AEB6E380823C2F703E3C703EE5BD93E4BBA3E7BE8EE69CAFE5ADA6E999A2E79A84E69599E5ADA6E698AFE4BBA5E58699E5AE9EE7BB98E794BBE4B8BAE88C83E69CACEFBC8CE9BC93E58AB1E5ADA6E7949FE8AEADE7BB83E68F90E9AB98E980A0E59E8BE5928CE69E84E59BBEE883BDE58A9BE38082E59BA0E6ADA4EFBC8CE4B88EE4BCA0E7BB9FE7BB98E794BBE79A84E5B888E5BE92E79BB8E68E88E696B9E5BC8FE69C89E79D80E6988EE698BEE59CB0E4B88DE5908CEFBC8CE4B88DE4BB85E4BB85E99C80E8A681E585B7E5A487E8A5BFE696B9E7BB98E794BBE79A84E889BAE69CAFE7BB8FE9AA8CEFBC8CE5908CE697B6E8BF98E8A681E58AA0E585A5E4BCA0E7BB9FE7AC94E5A2A8E79A84E980A0E5838FE696B9E6B395EFBC8CE4BAA6E58DB3E4B8ADE8A5BFE9809AE89E8DEFBC8CE58FA4E4BB8AE59088E4B880E38082E8BF99E7A78DE69687E58C96E79A84E7BB93E59088EFBC8CE5BE80E5BE80E698AFE5809FE58AA9E4BA8EE69E84E59BBEE79A84E5BDA2E5BC8FEFBC8CE68F90E4BE9BE5BD93E4BBA3E794BBE5AEB6E79A84E6B7B1E58887E6809DE88083E38082E8808CE5AFB9E4BA8EE58699E6848FE88AB1E9B89FE794BBE5AEB6E69DA5E8AFB4EFBC8CE8BF98E99C80E8A681E69BB4E5A49AE79A84E69687E58C96E4B8BBE4BD93E6848FE8AF86EFBC8CE4BBA5E5BDA2E68890E4B8AAE4BABAE7AC94E5A2A8E8AFADE8A880E79A84E9A38EE6A0BCE380823C2F703E3C703EE4B8ADE5ADA6E697B6E69C9FE79A84E5A79CE680A1E7BF94E5B0B1E69C89E5BF97E4BA8EE794BBE5ADA6EFBC8CE8999AE5BF83E6B182E69599EFBC8CE5BF83E8BFBDE6898BE691B9EFBC8CE7BB88E4BA8EE4BBA5E4BC98E5BC82E79A84E68890E7BBA9E88083E585A5E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E4B8ADE59BBDE794BBE7B3BBE38082E6ADA4E5908EEFBC8CE79599E6A0A1E4BBBBE69599E4BA8EE59BBDE794BBE7B3BBE88AB1E9B89FE4B893E4B89AEFBC8CE7A7AFE69E81E6B1B2E58F96E5898DE8B4A4E5908DE5B888E79A84E889BAE69CAFE890A5E585BBEFBC8CE689BFE4B88AE590AFE4B88BEFBC8CE58C96E58FA4E4B8BAE4BB8AEFBC8CE4B89AE7B2BEE4BA8EE58BA4E38082E5B0A4E585B6E698AFE68B85E4BBBBE59BBDE794BBE7B3BBE4B8BBE4BBBBE79A84E5A49AE5B9B4E4B8ADEFBC8CE4BA8BE697A0E5B7A8E7BB86EFBC8CE4BBBBE58AB3E4BBBBE680A8EFBC8CE6898DE8AF86E697A2E5A487EFBC8CE5BF83E58C96E5A283E7949FE38082E59BA0E6ADA4EFBC8CE8BF91E5B9B4E5A79CE680A1E7BF94E79A84E88AB1E9B89FE794BBEFBC8CE9A38EE6A0BCE5B7B2E698BEEFBC8CE6B890E585A5E4BDB3E5A283EFBC8CE585B6E8888DE5BDA2E8808CE6848FE6B182EFBC8CE58EBBE699BAE8808CE8B6A3E7949FE38082E7AC94E5A2A8E980A0E8AFA3E4BAA6E5A49AE69C89E887AAE5BE97EFBC8CE5B9B6E69C9DE79D80E5B9B3E5928CE38081E6B885E696B0E38081E585B8E99B85E79A84E7BE8EE6849FE696B9E59091E8BF88E8BF9BE380823C2F703E3C703EE5A79CE680A1E7BF94E5969CE4BBA5E6B7A1E5A2A8E6B9BFE7AC94E585A5E6898BEFBC8CE7949AE887B3E5809FE58AA9E5AEBFE5A2A8E79A84E6B897E69F93EFBC8CE8BFBDE6B182E69E84E59BBEE79A84E5A587E4B8BDE999A9E5B3BBEFBC8CE6B48BE6BAA2E587BAE58C96E999A9E4B8BAE5A4B7E79A84E794BBE99DA2E5B883E5B180EFBC8CE88EB7E5BE97E7AC94E5A2A8E5B9B3E5928CE6B8A9E6B6A6E79A84E69588E69E9CE38082E4BA8EE698AFE794BBE99DA2E58D8EE7BE8EE8808CE4B88DE59AA3E5BCA0EFBC8CE5AF8CE8B4B5E8808CE4B88DE5A696E5A886EFBC8CE6B885E9A38EE69C97E697A5EFBC8CE79498E6B7A1E887AAE79FA5EFBC8CE5AE9EE4B8BAE4B880E7A78DE5BF83E5A283E79A84E58699E785A7E38082E585B6E4B8ADE9A38EE5809FE88AB1E8889EEFBC8CE88AB1E5AF93E9A38EE68385EFBC8CE697B6E8A781E698A5E889B2E6BBA1E59BADEFBC8CE7BAA2E88AB1E7BBBFE58FB6EFBC8CE5A2A8E69F93E6B0B4E6B5B8EFBC8CE58D83E5A7BFE799BEE68081E38082E68896E69187E69BB3E9A1BEE79BBCEFBC8CE5AA9AE68081E887AAE6809CEFBC9BE68896E7AB9EE79BB8E591BCE5BA94EFBC8CE9A398E8889EE6A8AAE6969CEFBC9BE68896E4B880E69E9DE78BACE7A780EFBC8CE7A59EE68081E887AAE88BA5E38082E58FAAE8A781E5B9B2E6B9BFE6B593E6B7A1EFBC8CE8999AE5AE9EE8BF9CE8BF91EFBC8CE698AFE58C96E5A4A9E69CBAE4B8BAE4BABAE4BA8BEFBC8CE889B2E5A2A8E7BFBBE9A39EEFBC8CE794BBE5A283E5A4A9E784B6EFBC8CE4BAA6E69C89E79D80E2809CE698A5E9A38EE694BEE88386E69DA5E6A2B3E69FB3EFBC9BE5A49CE99BA8E79E92E4BABAE58EBBE6B6A6E88AB1E2809DE79A84E4BABAE7949FE99B85E6848FE380823C2F703E3C703EE4B8ADE59BBDE58FA4E585B8E593B2E5ADA6E79A84E59088E4BA8CE4B8BAE4B880E38081E4B880E58886E4B8BAE4BA8CE698AFE4B880E7A78DE69C89E69CBAE79A84E4BA92E89E8DEFBC8CE4BB8EE69E84E59BBEE696B9E99DA2E8808CE8A880EFBC8CE4B8ADE59BBDE794BBE8AEB2E79A84E698AFE2809CE5A4AAE69E81E59BBEE2809DE6B395E58899EFBC8CE585B6E4B8ADE79A84E998B4E998B3E38081E8999AE5AE9EE38081E6B0B4E5A2A8E983BDE698AFE59CA8E5B7A7E5A699E79A84E5AFB9E6AF94E4B8ADEFBC8CE69DA5E88EB7E5BE97E69E84E59BBEE79A84E5AD98E59CA8E6848FE4B989E38082E59BA0E8808CE4B880E4B8AAE5A2A8E782B9EFBC8CE4B880E69DA1E69EAFE7BABFEFBC8CE4B880E78987E6B0B4E69995EFBC8CE983BDE69C89E79D80E78BACE7AB8BE79A84E5AEA1E7BE8EE6848FE8B1A1E38082E7A0B4E38081E7A7AFE38081E6B3BCE38081E5AEBFEFBC8CE698AFE5B086E6B0B4E5A2A8E79A84E58886E38081E59088E38081E695A3E38081E8819AE79A84E58F98E58C96EFBC8CE69E84E68890E697A0E695B0E79A84E782B9E38081E7BABFE38081E99DA2E79A84E58886E589B2EFBC8CE5BDA2E68890E4B8ADE59BBDE794BBE7949FE591BDE4BBB7E580BCE79A84E5B195E7A4BAE38082E59BA0E6ADA4EFBC8CE69EAFE7AC94E4B88EE784A6E5A2A8E38081E6B6A6E7AC94E4B88EE6B7A1E5A2A8E79A84E4B88DE5908CE4BDBFE794A8EFBC8CE5AE9EE99985E4B88AE69BB4E5A49AE79A84E698AFE794BBE5AEB6E5BF83E5A283E5AEA1E7BE8EE79A84E98089E68BA9EFBC8CE4B88DE4BB85E4BB85E698AFE4B880E7A78DE68A80E5B7A7E79A84E8AEADE7BB83E380823C2F703E3C703EE5A79CE680A1E7BF94E4B893E4BA8BE88AB1E9B89FEFBC8CE69C80E5889DE58588E4BBA5E6B8B8E9B8ADE997BBE5908DEFBC8CE8BF91E5B9B4E585B6E7AC94E4B88BE79A84E88AA6E88AB1E9B8A1E587A0E68890E6A087E5BF97E38082E69BBEE4BA8EE5B1B1E4B9A1E6BCABE6B8B8EFBC8C3C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3931313338363232343663636661646464366361653235363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D39623031386631663061353562333139393866393835373737336138383238362F353632633131646661396563386131333537653539346665663730333931386661306563633033352E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C2F703E3C703EE794B0E59BADE9878EE9A38EEFBC8CE5969CE8A781E5869CE5AEB6E59C9FE9B8A1EFBC8CE686A8E68081E58FAFE68EACEFBC8CE4B89CE69187E8A5BFE69186EFBC8CE6848FE58FAFE585A5E794BBE38082E59BA0E8808CE7AC94E4B88BE79A84E88AA6E88AB1E9B8A1E88286E6848FE9AB98E4BAA2EFBC8CE8A18CE8B5B0E887AAE5A682EFBC8CE5809FE88AB1E4B8BAE4BCB4EFBC8CE4B88EE9B89FE7BB93E58F8BEFBC8CE5AE9EE69C89E99B85E4BF97E697A0E58886EFBC8CE9AB98E4B88BE4B88DE8BEA9E79A84E79086E8B6A3E38082E4BA8EE698AFE6B7A1E5A2A8E5A086E7A7AFEFBC8CE980A0E59E8BE7AB8BE69CACEFBC8CE6B593E5A2A8E68CA5E58699EFBC8CE782B9E79D9BE4BCA0E7A59EE38082E4BAA6E8A781E59BBEE794BBE4B8ADE7A78BE88B87E6A8AAE6969CEFBC8CE88AA6E88AB1E5A986E5A891EFBC8CE7A9BFE68F92E4B98BE997B4EFBC8CE4BEBFE8A18DE7949FE587BAE5B7A6E9A1BEE58FB3E79BBCEFBC8CE5A682E985A3E5A682E98689E4B98BE68081EFBC9BE88081E59C83E7A78BE5AEB9EFBC8CE9BB84E88AB1E6999AE88A82E4B98BE5A7BFE38082E5A79CE680A1E7BF94E5AFB9E4BA8EE4B880E69CA8E4B880E88D89E38081E4B880E899ABE4B880E7A6BDE79A84E7BB86E5BEAEE8A782E5AF9FEFBC8CE4BAA6E698AFE697A0E695B0E698BCE5A49CE6988FE699A8E79A84E58589E998B4E68980E7A7AFE7B4AFE7949FE68890E380823C2F703E3C703EE4B8ADE59BBDE794BBE79A84E5BDA2E8B1A1E698AFE5BBBAE7AB8BE59CA8E794BBE5AEB6E5BF83E8B1A1E79A84E59FBAE7A180E4B98BE4B88AEFBC8CE697A2E5BE97E6BA90E4BA8EE794BBE5AEB6E5A49AE5B9B4E5AFB9E7949FE6B4BBE8AEA4E8AF86E79A84E7A7AFE7B4AFEFBC8CE58F88E6BC94E58C96E4B8BAE4B8AAE4BABAE79A84E78BACE7AB8BE889BAE69CAFE8A781E8AF86E38082E794BBE5AEB6E5AFB9E5BDA2E8B1A1E79A84E68D95E68D89E5928CE8A1A8E78EB0EFBC8CE4BD93E78EB0E59CA8E4BD9CE59381E4B98BE4B8ADE5AE9EE4B8BAE794BBE5AEB6E58685E5BF83E4B896E7958CE79A84E5B195E7A4BAEFBC8CE5BF83E8B1A1E4BEBFE698AFE794BBE5AEB6E6BD9CE6848FE8AF86E79A84E6B581E99CB2E38082E697A0E8AEBAE4BBBBE4BD95E794BBE5AEB6EFBC8CE4B880E697A6E68980E8A1A8E78EB0E587BAE79A84E4BD9CE59381E5BDA2E8B1A1EFBC8CE5BF85E784B6E698AFE585B6E58685E5BF83E4B896E7958CE79A84E68A98E5B084E38082E4BA8EE698AFE5B0B1E69C89E6B395E697A0E5AE9AE6B395EFBC8CE79086E697A0E5B8B8E79086EFBC8CE99A8FE5BF83E68980E6ACB2EFBC8CE8808CE887AAE68890E4B880E4BD93E38082E8BF99E7A78DE5BBBAE69E84E79A84E59088E79086E680A7E698AFE4B8AAE4BABAE697A5E5B8B8E8A18CE4B8BAE4B88EE5BF83E79086E7A7AFE6B780E79A84E7BB93E69E9CEFBC8CE4BA8EE698AFE5AE8BE4BBA3E6ACA7E998B3E4BFAEE69BBEE8B58BE8AF97EFBC9AE2809CE58FA4E794BBE794BBE6848FE4B88DE794BBE5BDA2EFBC8CE6A285E8AF97E5928FE789A9E697A0E99A90E68385EFBC9BE5BF98E5BDA2E5BE97E6848FE79FA5E88085E5AFA1EFBC8CE4B88DE88BA5E8A781E8AF97E5A682E8A781E794BBE2809DEFBC8CE696AFE794BBE79086E69CBAE5B7A7E5A484EFBC8CE4BEBFE7BC98E4BA8EE6ADA4E380823C2F703E3C703EE59BA0E8808CE5A79CE680A1E7BF94E79A84E7BB98E794BBE4B8ADE68CA5E58699E5A2A8E7ABB9EFBC8CE5A49AE5B19EE7ABB9E69E97E7AF81E59C83EFBC8CE5A2A8E58886E4BA94E5BDA9EFBC8CE7AC94E8B5B0E585ABE696B9EFBC8CE4B9B1E4BA91E9A39EE6B8A1EFBC8CE997B2E9A38EE78B82E8889EEFBC8CE596A7E59AA3E4B8ADE8A781E5AE89E980B8EFBC8CE99D99E7A798E4B8ADE69C89E69D82E5BE8BEFBC8CE69BB4E8A789E794BBE5AEB6E6848FE591B3E79A84E697A0E5B0BDE38082E4BAA6E5B8B8E5B8B8E8A781E9AB98E5A3ABE7BAB3E58789EFBC8CE591B3E68B88E5A4A9E69CBAEFBC9BE690BAE5A3B6E4B9B0E98592EFBC8CE6988FE5A49CE98689E5BD92EFBC9BE4BCBAE69CBAE5BE85E99293EFBC8CE69C88E78999E9AB98E58D87EFBC9BE6B894E99A90E997B2E58DA7EFBC8CE789A9E68891E4B8A4E5BF98EFBC9BE99B85E4BABAE5AFBBE8AF97EFBC8CE69EAFE69E97E69DB3E99FB3EFBC9BE794BBE88085E58699E7949FEFBC8CE4B9B1E7ABB9E69187E69BB3EFBC9BE59BA0E585B6E7A78BE69E9DE997B2E99D99E79FA5E5B1B1E69E97E69AAEE889B2EFBC9BE88AADE89589E695A3E890BDE8A781E5BAADE88D89E7949FE6848FEFBC9BE5B995E5A4A9E5B8ADE59CB0EFBC8CE5B9BDE6B0B4E697A0E5A3B0EFBC9BE7A780E79FB3E997B2E7AB8BEFBC8CE591B3E5B0BDE695A3E980B8E38082E4BBA5E887B3E7A9BAE5B1B1E5AF82E99FB3EFBC8CE9A398E58FB6E7949FE5A3B0EFBC8CE698AFE8B093E2809CE5A5BDE9B89FE69E9DE5A4B4E4BAA6E69C8BE58F8BEFBC9BE890BDE88AB1E6B0B4E99DA2E58DB3E69687E7ABA0E2809DE380823C2F703E3C703EE5BDA2E8B1A1E79A84E78BACE789B9E680A7E698AFE794BBE5AEB6E5AEA1E7BE8EE883BDE58A9BE79A84E7A7AFE7B4AFEFBC8CE4BB8EE8808CE88EB7E5BE97E6B7B1E58E9AE79A84E889BAE69CAFE7BB8FE9AA8CE38082E4B880E4B8AAE68890E7869FE79A84E794BBE5AEB6E5BF85E784B6E69C89E79D80E887AAE5B7B1E78BACE588B0E79A84E8AFADE8A880EFBC8CE8BF99E698AFE7BB98E794BBE8AFADE8A880E68980E5A191E980A0E79A84E59FBAE69CACE5BDA2E8B1A1EFBC8CE4BEBFE698AFE9809AE8BF87E889B2E38081E7BABFE38081E5BDA2E68980E8A1A8E8BEBEE79A84E789A9E8B1A1E7BB93E69E84EFBC8CE58F8DE698A0E79D80E794BBE5AEB6E79A84E4B8BBE8A782E6848FE5BF97E38082E98391E69DBFE6A1A5E59CA8E3808AE9A298E794BBE3808BE4B8ADE69C89E2809CE6B19FE9A686E6B885E7A78BEFBC8CE699A8E8B5B7E79C8BE7ABB9EFBC8CE7839FE58589E38081E697A5E5BDB1E38081E99CB2E6B094EFBC8CE79A86E6B5AEE58AA8E4BA8EE7968FE69E9DE5AF86E58FB6E4B98BE997B4E38082E883B8E4B8ADE58B83E58B83EFBC8CE98182E69C89E794BBE6848FE38082E585B6E5AE9EEFBC8CE883B8E4B8ADE4B98BE7ABB9EFBC8CE5B9B6E4B88DE698AFE79CBCE4B8ADE4B98BE7ABB9E4B99FE38082E59BA0E8808CE7A3A8E5A2A8E38081E5B195E7BAB8E38081E890BDE7AC94EFBC8CE5808FE4BD9CE58F98E79BB8EFBC8CE6898BE4B8ADE4B98BE7ABB9EFBC8CE58F88E4B88DE698AFE883B8E4B8ADE4B98BE7ABB9E4B99FE2809DE79A84E58F99E8BFB0EFBC8CE698AFE4B880E7A78DE4B8AAE4BABAE889BAE69CAFE8AFADE8A880E79A84E68F90E782BCE38082E8BF99E9878CE69BB4E5A49AE59CB0E698AFE794BBE5AEB6E6BD9CE59CA8E79A84E5BF83E79086E7A7AFE6B780E4B88EE58F98E58C96EFBC8CE8808CE4BAA7E7949FE79A84E8A1A8E8BFB0E696B9E5BC8FE38082E98391E6B08FE79A84E2809CE79CBCE4B8ADE4B98BE7ABB9E2809DE38081E2809CE883B8E4B8ADE4B98BE7ABB9E2809DE38081E2809CE6898BE4B8ADE4B98BE7ABB9E2809DE698AFE7BB98E794BBE5889BE4BD9CE79A84E4B889E4B8AAE998B6E6AEB5E38082E2809CE79CBCE4B8ADE4B98BE7ABB9E2809DEFBC8CE698AFE69C80E5889DE5AFB9E7ABB9E5AD90E79A84E58DB0E8B1A1EFBC9BE8808CE2809CE883B8E4B8ADE4B98BE7ABB9E2809DE698AFE6B7B1E5BAA6E79086E8A7A3E5928CE69E84E6809DE994A4E782BCEFBC8CE5A682E5B8B8E8A880E8AFB4E79A84E2809CE883B8E69C89E68890E7ABB9E2809DEFBC9BE8808CE2809CE6898BE4B8ADE4B98BE7ABB9E2809DEFBC8CE698AFE5889BE980A0E587BAE5AE8CE695B4E79A84E7ABB9E5AD90E79A84E889BAE69CAFE5BDA2E8B1A1EFBC8CE5B7B2E4B88DE5868DE698AFE58E9FE7949FE68081E79A84E2809CE7BFA0E7ABB9E2809DEFBC8CE8BF99E9878CE6BC94E58F98E68890E889BAE69CAFE5BDA2E8B1A1E79A84E2809CE5A2A8E7ABB9E2809DE38082E8BF99E9878CE697A2E69C89E2809CE6909CE5B0BDE5A587E5B3B0E68993E88D89E7A8BFE2809DE79A84E5AFBBE8A785EFBC9BE2809CE5A496E5B888E980A0E58C96EFBC8CE4B8ADE5BE97E5BF83E6BA90E2809DE79A84E89E8DE59088EFBC9BE4B99FE69C89E2809CE590ABE98193E698A0E789A9E38081E6BE84E68080E591B3E5838FE2809DE79A84E6849FE69F93E380823C2F703E3C703EE5A79CE680A1E7BF94E79A84E7BB98E794BBE5BDA2E68890E4BA86E887AAE5B7B1E79A84E889BAE69CAFE789B9E782B9EFBC8CE4BBA5E6B7A1E5A2A8E980A0E585B6E58ABFEFBC8CE4BBA5E6B593E5A2A8E5BCBAE585B6E9AAA8EFBC8CE5BDA2E68890E4BA86E781B0E889B2E68385E8B083E8838CE699AFE4B8ADE79A84E7AC94E5A2A8E8A1A8E8BFB0EFBC8CE8BF99E7A78DE7BB98E794BBE8AFADE8A880E79A84E5B182E6ACA1E680A7EFBC8CE4BDBFE585B6E7BB98E794BBE4B8ADE69C89E79D80E590ABE89384E6B289E79D80E79A84E4B8B0E5AF8CE6848FE591B3E38082E5A49AE5B9B4E69DA5E58699E6848FE88AB1E9B89FE794BBE79A84E4BFAEE585BBEFBC8CE585B6E8A1A8E78EB0E8AFADE8A880E79A84E4B88DE696ADE6B7B1E585A5EFBC8CE5BE97E58A9BE4BA8EE794BBE5AEB6E79A84E58D83E994A4E799BEE782BCE38082E4BEA7E9948BE6A8AAE689ABEFBC8CE7AC94E5A2A8E6B890E587BAEFBC8CE5BDA2E4BD93E68E92E58897EFBC8CE7A9BAE997B4E68EA8E8BF9BEFBC8CE4BDBFE794BBE99DA2E7B981E5A48DE5A49AE58F98EFBC8CE5B182E6ACA1E58886E6988EE38082E8BF99E698AFE59BA0E4B8BAE4B880E4B8AAE889BAE69CAFE5A4A9E8B58BE5A5BDE79A84E4BABAE58FAFE4BBA5E59CA8E5B9B3E587A1E79A84E4BA8BE789A9E4B8ADEFBC8CE58F91E78EB0E8AEB8E5A49AE4B88EE889BAE69CAFE5BDA2E8B1A1E585B3E88194E79A84E7B4A0E69D90EFBC8CE585B6E5AEA1E8A786E79A84E58DB0E8B1A1E697A2E58FAFE4BBA5E58C96E88590E69CBDE4B8BAE7A59EE5A587EFBC8CE4B99FE58FAFE4BBA5E4BDBFE7BB9AE4B8BDE5BD92E4BA8EE5B9B3E5928CEFBC8CE4BB8EE8808CE5889BE980A0E79D80E4B8AAE4BABAE889BAE69CAFE79A84E99B85E6848FE380823C2F703E3C703EE4B8ADE59BBDE794BBE79A84E5BDA2E5BC8FE59CA8E4BA8EE7A88BE5BC8FE58C96E4B98BE4B8ADEFBC8CE5B9B6E99A8FE79D80E697B6E4BBA3E79A84E58F91E5B195E8808CE695B7E8A18DE587BAE696B0E7949FE79A84E6848FE4B989EFBC8CE585B6E4B88DE696ADE68B93E5B195E79D80E4B8ADE59BBDE794BBE79A84E5889BE980A0E58A9BE38082E5A79CE680A1E7BF94E79A84E88AB1E9B89FE794BBE5A49AE4BBA5E5A587E999A9E7949FE58F91EFBC8CE7A9BFE68F92E58F98E58C96EFBC8CE69C89E5A4A7E88386E890BDE5A2A8EFBC8CE5B08FE5BF83E694B6E68BBEE4B98BE6848FEFBC8CE69C89E697B6E5A2A8E5BDA9E59B9BE5B084EFBC8CE695A3E9948BE9A39EE8889EEFBC8CE694BEE7BAB5E9AB98E6AD8CEFBC8CE6848FE585B4E99891E78F8AEFBC8CE69C80E7BB88E698AFE5AF8CE4B8BDE5BD92E4BA8EE5B9B3E5928CEFBC8CE8BF99E7A78DE980A0E59E8BE6848FE8AF86EFBC8CE4B99FE5A49AE4B8BAE794BBE5AEB6E79A84E6BD9CE59CA8E5BF83E6809DE79A84E7A8A0E5AF86EFBC8CE4BAA6E4B88DE4BB85E4BB85E698AFE2809CE88AB1E5BC80E5AF8CE8B4B5EFBC9BE7ABB9E68AA5E5B9B3E5AE89E2809DE79A84E698BEE7A4BAE38082E59BA0E6ADA4EFBC8CE5A79CE680A1E7BF94E79A84E7BB98E794BBE4B8ADEFBC8CE6B48BE6BAA2E79D80E4B880E7A78DE69CBAE6958FE79A84E6B094E681AFEFBC8CE5B8B8E5B8B8E69C89E79D80E58C96E999A9E4B8BAE5A4B7E79A84E69E84E59BBEE696B9E5BC8FE38082E8BF99E7A78DE5BF83E699BAE5AFB9E4BA8EE794BBE99DA2E899BDE69C89E79D80E2809CE8AEA1E799BDE5BD93E9BB91E2809DE79A84E5B883E5B180E99C80E8A681EFBC8CE69C89E697B6E697A2E698AFE8BEB9E8A792E79A84E5A484E79086EFBC8CE4B99FE69C89E6848FE59CB0E8BDACE58C96E79D80E4B880E7A78DE6848FE591B3E38082E4BBA5E8999AE4B8BAE5AE9EEFBC8CE58C96E5BDA2E4BA8EE7A9BAEFBC8CE8B5B7E588B0E7A8B3E5AE9AE794BBE99DA2E79A84E69588E69E9CEFBC8CE4B99FE4BDBFE7BB98E794BBE587BAE78EB0E4BA86E6848FE5A496E4B98BE6848FE79A84E4BD9CE794A8EFBC8CE8BF99E698AFE4B880E7A78DE889BAE69CAFE7BB8FE9AA8CE4B88AE79A84E5B7A7E5809FEFBC8CE4B99FE698AFE4B880E7A78DE4B8AAE4BABAE7949FE5AD98E4B8ADE79A84E68A8AE68FA1E38082E4BA8EE698AFEFBC8CE782B9E58892E4B98BE997B4EFBC8CE5A2A8E889B2E4B98BE4B8ADEFBC8CE79BB4E689ABE7AB96E68AB9EFBC8CE6969CE79AB4E6A8AAE69F93EFBC8CE983BDE58C85E590ABE4BA86E4B880E7A78DE7B2BEE7A59EE79A84E7B981E5A48DEFBC8CE4B99FE5B8B8E5B8B8E5AF84E4BA88E79D80E2809CE587BAE696B0E6848FE4BA8EE6B395E5BAA6E4B98BE4B8ADEFBC8CE5AF84E5A699E79086E4BA8EE8B1AAE68385E4B98BE5A496E2809DEFBC88E88B8FE8BDBCE8AFADEFBC89E79A84E5BF83E5A283E380823C2F703E3C703EE5A79CE680A1E7BF94E4BAA6E5A49AE4BBA5E88DB7E88AB1E4B8BAE9A298E69D90EFBC8CE58F8DE5A48DE68EA8E695B2EFBC8CE585B6E88DB7E9A38EE98081E788BDEFBC8CE782B9E58892E68EA8E58DB7EFBC8CE889B2E99A8FE7AC94E8B5B0EFBC8CE6A8AAE6B682E7AB96E68AB9EFBC8CE6B9BFE5A2A8E6B7A1E587BAEFBC8CE7AC94E698BEE6848FE587BAEFBC8CE58583E6B094E6B78BE6BC93E38082E585B6E6B0B4E88EB2E8BF8EE9A38EEFBC8CE88AB1E6B094E8A2ADE4BABAEFBC8CE4BBA5E887B3E88DB7E88AB1E5BC80E59088EFBC8CE7A78BE6B0B4E697A0E6B3A5E38082E59CA8E585B6E9B89FE7A6BDE58699E6848FE79A84E4B8B0E5AF8CE58F98E58C96E79A84E6898BE6B395E4B8ADEFBC8CE4B88DE696ADE59CB0E5BCA0E689ACE79D80E794BBE5AEB6E79A84E5BF83E680A7E38082E8BF98E8A781E78CABE592AAE887AAE5BE97EFBC8CE68896E698AFE686A8E68081E887AAE6809CEFBC8CE9AB98E58DA7E9A1BDE79FB3EFBC9BE68896E698AFE69CBAE699BAE4BB8EE5AEB9EFBC8CE8B6A3E7949FE587A1E5B098E38082E4BA8EE698AFE7BEA4E9B8ADE6888FE6B0B4EFBC8CE6B8B8E69BB3E7AB9EE8B5B0EFBC8CE997B2E98082E887AAE5BE97EFBC8CE4BAA6E8A781E682A0E8BF9CE380823C2F703E3C703EE78EB0E5AE9EE79A84E8A5BFE5AE89E698AFE4B880E983A8E58FA4E9A38EE88DA1E6BCBEE79A84E69585E4BA8BE696B0E7BC96EFBC8CE591A8E7A7A6E6B189E59490E79A84E6B581E9A38EE98197E99FB5EFBC8CE5B8B8E5B8B8E698ADE7A4BAE79D80E4B8ADE59BBDE58FA4E585B8E889BAE69CAFE79A84E789B9E6AE8AE6848FE4B989E38082E5A79CE680A1E7BF94E7949FE4BA8EE696AFE995BFE4BA8EE696AFEFBC8CE6849FE69F93E79D80E887AAE8BAABE79A84E8AEB8E5A49AE59B9EE59088E79A84E4BABAE7949FE69585E4BA8BEFBC8CE698AFE4BCB4E99A8FE79D80E591A8E9BC8EE7A7A6E4BF91E38081E6B189E793A6E59490E588BBE8808CE993ADE8AEB0E4BA8EE5BF83EFBC8CE697A2E69C89E2809CE88AB1E99D9EE88AB1EFBC8CE99BBEE99D9EE99BBEE2809DE79A84E6848FE591B3EFBC8CE4B99FE69C89E2809CE5B1B1E8BF98E698AFE5B1B1EFBC8CE6B0B4E8BF98E698AFE6B0B4E2809DE79A84E6849FE6829FE38082E59BA0E8808CE69687E58C96E79A84E69E9CE5AE9EE4B99FE59CA8E4B88DE79FA5E4B88DE8A789E59CB0E68890E7869FEFBC8CE698BEE7A4BAE587BAE7B4AFE7B4AFE79A84E7A195E69E9CE38082E59B9EE9A696E5898DE79EBBEFBC8CE4BABAE7949FE4B8ADE5B9B4EFBC8CE5BF83E99B84E8A786E99894EFBC8CE68595E6B885E59381E887B3E585B0EFBC8CE79FA5E8999AE68080E5908CE7ABB9E38082E7BB88E4BC9AE8A194E889BAE4BA8BE4B98BE9A38EE6B581EFBC8CE7AB9EE4B9A6E794BBE4B98BE995BFE789A9E380823C2F703E3C703E32303036E5B9B437E69C88E4BA8EE9A38EE789A9E995BFE5AE9CE4B98BE8BDA93C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE4BB8EE4B88AE5B1B1E8998EE588B0E4B88BE5B1B1E78CAB3C2F7370616E3E3C2F703E3C703EE28094E28094E68891E8AFB4E5A79CE680A1E7BF943C2F703E3C703EE5BCA0E6B89D3C2F703E3C703EE680A1E7BF94E5BE88E5B091E794BBE8998EE38082E4BD86E698AFEFBC8CE4BB96E7949FE88296E5B19EE8998EEFBC8CE8808CE4B894EFBC8CE4B880E697A6E89384E58F91E79599E9A1BBEFBC8CE794BBE5AEB6E4B98BE4B8ADEFBC8CE883BDE5A682E4BB96E982A3E888ACE4BD93E6A0BCE9AD81E4BC9FEFBC8CE599A8E5AE87E8BDA9E69882EFBC8CE58588E5A4A9E5B0B1E69C89E2809CE4B88AE5B1B1E8998EE2809DE6B094E58ABFE88085EFBC8CE8BF98E79C9FE698AFE4B88DE5A49AE38082E5BD93E4B88DE59CA8E5B091E695B0E79A84E2809CE78CB4E5AD90E2809DE7BAA7E79A84E4BABAE789A9E983BDE68A8AE887AAE5B7B1E8A3853C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3537306638633538346263623435663039643832303435363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D22E5A79CE680A1E7BF94E58699E6848FE794BB22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D37333932633330346336356331303338323037656339633038323130393331632F636631623964313666646661616635313639316334326131386335343934656566303166376133352E6A70672220616C743D22E5A79CE680A1E7BF94E58699E6848FE794BB22207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C7370616E20636C6173733D226465736372697074696F6E22207374796C653D22646973706C61793A20626C6F636B3B20636F6C6F723A207267622838352C2038352C203835293B20666F6E742D73697A653A20313270783B20746578742D696E64656E743A203070783B20666F6E742D66616D696C793A20E5AE8BE4BD933B20776F72642D777261703A20627265616B2D776F72643B20776F72642D627265616B3A20627265616B2D616C6C3B206C696E652D6865696768743A20313570783B2070616464696E673A20387078203770783B206D696E2D6865696768743A20313270783B20626F726465722D746F702D77696474683A203170783B20626F726465722D746F702D7374796C653A20736F6C69643B20626F726465722D746F702D636F6C6F723A20726762283232342C203232342C20323234293B223EE5A79CE680A1E7BF94E58699E6848FE794BB3C2F7370616E3E3C2F703E3C703EE689AEE68890E2809CE4B88AE5B1B1E8998EE2809DE8BF9BE8808CE79B98E8B89EE4B880E4B8AAE5B1B1E5A4B4E697B6EFBC8CE5A79CE680A1E7BF94E58DB4E4B8BEE9878DE88BA5E8BDBBE59CB0E794BBE4BA86E4B880E58FAAE2809CE4B88BE5B1B1E78CABE2809DE380823C2F703E3C703EE4BA8BE5AE9EE4B88AEFBC8CE5A682E69E9CE79C9FE683B3E58DA0E5B1B1E4B8BAE78E8BEFBC8CE8BAABE4B8BAE8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E59BBDE794BBE7B3BBE4B8BBE4BBBBE79A84E5A79CE680A1E7BF94E4BCBCE4B98EE69BB4E5BE97E5A4A9E697B6E4B88EE59CB0E588A9E38082E784B6E8808CEFBC8CE4BB96E6B2A1E69C89E38082E4BB96E4B88DE4BD86E4B88DE2809CE4B88AE5B1B1E2809DEFBC8CE8808CE4B894E8BF98E58F8DE585B6E98193E8808CE8A18CE4B98BEFBC8CE2809CE4B88BE5B1B1E2809DE38082E5B9B6E4B894EFBC8CE4B88DE698AFE4BBA5E2809CE4B88BE5B1B1E8998EE2809DE79A84E587B6E78C9BEFBC8CE8808CE698AFE4BBA5E2809CE4B88BE5B1B1E78CABE2809DE79A84E781B5E6B094E38082E8BF99E5B0B1E88090E4BABAE5AFBBE591B3E4BA86E380823C2F703E3C703EE5B1B1E4B88BE69C89E6B2B3E6B581E4B88EE5A4A7E5B79DEFBC8CE4B9A1E59C9FE4B88EE58E9FE9878EE38082E5A79CE680A1E7BF94E7A9B6E7AB9FE8A681E4B88BE588B0E593AAE9878CEFBC9F3C2F703E3C703EE4B88BE588B0E7949FE6B4BBE4B8ADE58EBBE380823C2F703E3C703EE58FAFE698AFEFBC8CE7949FE6B4BBE7BAB7E7B981E5A49AE6A0B7EFBC8CE78CABE4B88BE8BAABE6AEB5E79A84E5A79CE680A1E7BF94E7A9B6E7AB9FE8A681E4B88BE588B0E4BB80E4B988E6A0B7E79A84E7949FE6B4BBE4B8ADE58EBBEFBC9FE698AFE4BA94E999B5E5B091E5B9B4EFBC9FE698AFE580AAE79392EFBC9FE698AFE585ABE5A4A7EFBC9FE698AFE590B4E6988CE7A195EFBC9FE698AFE9BD90E799BDE79FB3EFBC9F3C2F703E3C703EE68896E8AEB8E698AFEFBC8CE4B99FE68896E8AEB8E4B88DE698AFE38082E8BF99E696B9E99DA2EFBC8CE6B5B7E5BEB7E6A0BCE5B094E8AFB4E8BF87E4B880E58FA5E5BE88E5A5BDE79A84E8AF9DEFBC9AE8AF97E6848FE59CB0E6A096E5B185E38082E59FBAE4BA8EE6ADA4EFBC8CE8AF97E4BABAE6B49BE5A4ABE8AFB4EFBC9AE2809CE7949FE88296E5B19EE9BE99EFBC8CE4BA8EE4BB8AEFBC8CE8BF9EE58F98E4B880E69DA1E89B87E79A84E5A5A2E69C9BE983BDE6B7A1E4BA86E38082E2809DE58FAAE69C89E59CA8E4B896E4BF97E79A84E6ACB2E69C9BE6B7A1E58C96E38081E6B481E58780E4B98BE5908EEFBC8CE8AF97E6898DE69DA5EFBC8CE6848FE4B99FE6898DE69DA5EFBC8CE8AF97E6848FE59CB0E7949FE6B4BBE4B99FE6898DE882AFE8BF87E69DA5E38082E5BD93E98089E68BA9E4BA86E2809CE4B88BE5B1B1E2809DE79A84E5A79CE680A1E7BF94E59BBEE7BB98E79A84E4B88DE698AFE2809CE8998EE2809DE8808CE698AFE2809CE78CABE2809DE697B6EFBC8CE4BB96E4B88DE698AFE6B2A1E69C89E99B84E5BF83E5A3AEE5BF97EFBC8CE8808CE698AFE4BB96E79A84E2809CE99B84E5BF83E5A3AEE5BF97E2809DE59CA8E8AF97E6848FE79A84E5AEA1E7BE8EE4B8ADE8B685E8B68AE38081E8B68AE68BA8E4BA86E4B896E4BF97E79A84E5B182E6ACA1EFBC8CE8BF9BE8808CE68AB5E8BEBEE4BA86E8AF97E6848FE6A096E5B185E79A84E5A283E7958CE380823C2F703E3C703EE4B896E4B88AE6B2A1E69C89E799BDE59083E79A84E58D88E9A490E380823C2F703E3C703EE5A682E69E9CE6B2A1E69C89E8AF97E6848FE59CB0E7AD91E5B185EFBC8CE8AF97E6848FE59CB0E6A096E5B185E4BEBFE99ABEE5858DE7A9BAE4B8ADE6A5BCE99881E38082E4B8BAE6ADA4EFBC8CE68891E5BF85E9A1BBE4BB8EE5A79CE680A1E7BF94E79A84E2809CE7AD91E5B185E2809DE69DA5E585A5E6898BEFBC8CE8BF9BE8808CE88083E5AF9FE4BB96E79A84E2809CE6A096E5B185E2809DE380823C2F703E3C703EE6B885E4BABAE696B9E5A3ABE5BAB6E8AFB4EFBC9AE2809CE5B1B1E5B79DE88D89E69CA8EFBC8CE980A0E58C96E887AAE784B6EFBC8CE6ADA4E5AE9EE5A283E4B99FE38082E59BA0E5BF83E980A0E5A283EFBC8CE4BBA5E6898BE8BF90E5BF83EFBC8CE6ADA4E8999AE5A283E4B99FE38082E8999AE8808CE4B8BAE5AE9EEFBC8CE698AFE59CA8E7AC94E5A2A8E69C89E697A0E997B4E38082E69585E58FA4E4BABAE7AC94E5A2A8E585B7E6ADA4EFBC8CE5B1B1E88B8DE6B0B4E7A780EFBC8CE6B0B4E6B4BBE79FB3E6B6A6EFBC8CE4BA8EE5A4A9E59CB0E4B98BE5A496EFBC8CE588ABE69E84E4B880E7A78DE781B5E5A587E38082E68896E78E87E6848FE68CA5E6B492EFBC8CE4BAA6E79A86E782BCE98791E68890E6B6B2EFBC8CE5BC83E6BB93E5AD98E7B2BEEFBC8CE69BB2E5B0BDE8B988E8999AE69184E5BDB1E4B98BE5A699E38082E2809D3C2F703E3C703EE697A0E8AEBAE698AFE2809CE6B8B8E6B0B4E9B8ADE2809DEFBC8CE8BF98E698AFE2809CE4B88BE5B1B1E78CABE2809DEFBC8CE68A91E68896E2809CE88AA6E88AB1E9B8A1E2809DE7949AE887B3E585B6E4BB96E79A84E88AB1E9B89FE899ABE9B1BCEFBC8CE5A79CE680A1E7BF94E5A4A7E983BDE78E87E7ABA0E68CA5E6B492EFBC8CE69BB2E5B0BDE585B6E5A699E38082E4BB96E79A84E5A699E5A484E59CA8E7A59EE4B88DE59CA8E5BDA2EFBC8CE5B0BDE7AEA1E4BB96E79A84E5889BE4BD9CE4B880E79BB4E5BE88E69C89E2809CE5BDA2E2809DE38082E5A79CE680A1E7BF94E79A84E7AC94E4B88BEFBC8CE789A9E4B98BE2809CE5BDA2E2809DEFBC8CE4B88DE698AFE6B2A1E69C89EFBC8CE4B99FE4B88DE698AFE4B88DE9878DE8A681EFBC8CE8808CE698AFE4BB96E79A84E585B3E6B3A8E782B9E5B7B2E4B88DE59CA8E982A3E9878CE38082E4BB96E585B3E6B3A8E79A84E698AFE697A5E5B8B8E7949FE6B4BBE698AFE5A682E4BD95E68890E2809CE5BDA2E2809DE79A84E38082E59BA0E6ADA4EFBC8CE4BB96E79A84E7AC94E4B88BEFBC8CE593AAE68095E698AFE88AB1E9B89FE899ABE9B1BCEFBC8CE4B99FE4B880E5AE9AE58DB3E4BA8BE38081E58DB3E789A9E38081E58DB3E699AFE38081E58DB3E5BF83E380823C2F703E3C703EE8BF99E6A0B7E79A84E5A5BDE5A484E698AFE8B4B4E8BF91E7949FE6B4BBE38082E5B895E696AFE68DB7E5B094E7BAB3E5858BE8AFB4E8BF87EFBC8CE8AF97E4B88DE5BF85E588B0E5A4A9E4B88AE58EBBE689BEEFBC8CE8A681E59684E4BA8EE5BCAFE885B0EFBC8CE8AF97E698AFE59CA8E59CB0E4B88AE79A84E38082E4BD86E698AFEFBC8CE5A682E69E9CE8AF97E4BABAE4B88DE68A8AE887AAE5B7B1E5BCAFE885B0E689BEE588B0E79A84E8AF97E9878DE696B0E98081E588B0E5A4A9E4B88AEFBC8CE4BB96E5B0B1E4B88DE58FAFE883BDE68AB5E8BEBEE4BA8BE789A9E79A84E6B7B1E5A484E4BBA5E88EB7E5BE97E6848FE4B989E38082E5A79CE680A1E7BF94E79A84E4BD9CE59381E4B98BE68980E4BBA5E585B7E5A487E8AF97E79A84E5A283E7958CE4B88EE6848FE591B3EFBC8CE5B0B1E59CA8E4BA8EE4BB96E4B88DE4BB85E5BCAFE885B0EFBC8CE8808CE4B894E4BBB0E69C9BE6989FE7A9BAE380823C2F703E3C703EE997AEE9A298E698AFEFBC8CE4BBA5E4B88BE5B1B1E79A84E5A7BFE68081E4BBB0E69C9BE6989FE7A9BAE79A84E5A79CE680A1E7BF94E7A9B6E7AB9FE59CA8E593AAE6ADA4E696B9E99DA2E5AE8CE68890E4BA86E4BB96E79A84E2809CE8AF97E6848FE7AD91E5B185E2809DEFBC9F3C2F703E3C703EE980B8E380823C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3337336263346234346532666438356438616434623235363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D62646430336564326333636563336664386633656130373765363839643462362F663633366166633337393331306135356237646231646561623734353433613938323236313033342E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C2F703E3C703EE2809CE980B8E2809DE4B98BE4B880E6A0BCEFBC8CE5B9B6E99D9EE5A79CE680A1E7BF94E79A84E78BACE5889BE38082E58DB3E4BDBFE698AFE58583E6B094E6B78BE6BC93EFBC8CE7AC94E6B395E88B8DE7A780E79A84E7AC94E5A2A8E9A38EE6A0BCEFBC8CE4B99FE99D9EE4BB96E79A84E5889BE980A0E38082E891A3E585B6E6988CE5B0B1E69C89E6ADA4E6A0BCE38082E7A780E980B8E5A682E580AAE79392E38081E6B6A6E980B8E5A682E590B4E997A8E794BBE5AEB6E38081E78B82E980B8E5A682E5BE90E6B8ADEFBC8CE582B2E980B8E5A682E585ABE5A4A7E38082E980B8E79A84E5AEA1E7BE8EE7BBB4E5BAA6E4B88AEFBC8CE58FA4E4BABAE58F91E68CA5E79A84E6B78BE6BC93E5B0BDE887B4E38082E4BD9CE4B8BAE5908EE5ADA6EFBC8CE5A79CE680A1E7BF94E69C89E585B3E980B8E79A84E5AEA1E7BE8EE7BBB4E5BAA6E58F88E8AFA5E68C87E59091E593AAE9878CEFBC9F3C2F703E3C703EE9A696E58588EFBC8CE5A79CE680A1E7BF94E8AEA4E79C9FE7A094E4B9A0E58FA4E4BABAE69C89E585B3E2809CE980B8E2809DE79A84E7B2BEE9AB93E38082E5A682E6ADA4E5819AE6B395EFBC8CE4B99FE5B0B1E698AFE5898DE4BABAE68980E8AFB4E79A84E2809CE887B4E5B9BFE5A4A7E2809DE38082E59CA8E2809CE887B4E5B9BFE5A4A7E2809DE4B98BE5908EEFBC8CE4BB96E58F88E69C89E79D80E887AAE5B7B1E79A84E2809CE5B0BDE7B2BEE5BEAEE2809DE28094E28094E4BB96E98089E68BA9E4BA86E2809CE69EAFE980B8E2809DE380823C2F703E3C703EE4BB96E79A84E2809CE69EAFE980B8E2809DE4B88EE2809CE69EAFE5AF82E2809DE5928CE2809CE69EAFE6B7A1E2809DE4B8A4E4B8AAE7BE8EE5ADA6E6A682E5BFB5E69C89E585B3E380823C2F703E3C703EE68891E4BBACE79FA5E98193EFBC8CE2809CE69EAFE6B7A1E2809DE698AFE5AE8BE4BBA5E5908EE79A84E4B8ADE59BBDE69687E4BABAE68980E5818FE788B1E79A84E38082E88B8FE4B89CE59DA1E8AF84E99FA9E69FB3E8AF97EFBC8CE8A880E585B6E2809CE5A496E69EAFE8808CE4B8ADE8868FEFBC8CE4BCBCE6BEB9E8808CE5AE9EE7BE8EE2809DE38082E6ADA4E58FAFE4B8BAE2809CE69EAFE6B7A1E2809DE7BE8EE5ADA6E5BC80E5B1B1E4B98BE7BAB2E9A286E38082E8BF99E4B880E7BAB2E9A286E58F8AE585B6E8A18DE7949FE79A84E7BE8EE5ADA6E6A682E5BFB5EFBC8CE59CA8E7A685E8AF97E4B8ADE4B99FE4B88DE5B091E8A781E38082E4BD86E698AFEFBC8CE2809CE69EAFE5AF82E2809DE58899E4B88EE697A5E69CACE79A84E7BE8EE5ADA6E8BFBDE6B182E69C89E585B3E380823C2F703E3C703EE59CA8E789A9E59380E38081E5B9BDE78E84E4B98BE5A496EFBC8CE697A5E69CACE7BE8EE5ADA6E58F88E789B9E588ABE5BCBAE8B083E2809CE69EAFE5AF82E2809DE38082E59CA8E3808AE697A5E69CACE9A38EE99B85E3808BE4B880E4B9A6E4B8ADEFBC8CE8AF91E88085E78E8BE59091E8BF9CE58588E7949FE69BBEE680BBE7BB93E2809CE5AF82E2809DE8BF99E4B8AAE5AD97E38082E4BB96E8AFB4EFBC8CE2809CE5AF82E2809DE59CA8E5A496E5B182E5928CE5A496E8A782E4B88AEFBC8CE8A1A8E78EB0E4B88EE590ACE8A789E4B88AE79A84E2809CE58AA8E99D99E4B88DE4BA8CE2809DE79A84E2809CE5AF82E5A3B0E2809DEFBC9BE8A786E8A789E4B88AE4BBA5E58FA4E697A7E38081E7A3A8E68D9FE38081E7AE80E7B4A0E38081E9BBAFE6B7A1E4B8BAE5A496E983A8E789B9E5BE81E79A84E2809CE5AF82E889B2E2809DE38082E59CA8E58685E6B6B5E4B88AEFBC8CE2809CE5AF82E2809DE5BD93E4B8ADE58C85E590ABE4BA86E2809CE8999AE4B88EE5AE9EE2809DE38081E2809CE99B85E4B88EE4BF97E2809DE38081E2809CE88081E4B88EE5B091E2809DE38081E2809CE4B88DE69893E4B88EE6B581E8A18CE2809DE59B9BE5AFB9E5AD90E88C83E795B4EFBC8CE5AE83E4BBACE69E84E68890E4BA86E2809CE5AF82E5BF83E2809DE79A84E6A0B8E5BF83E58685E5AEB9E380823C2F703E3C703EE6ADA4E5A496EFBC8CE8BF98E69C89E2809CE5AF82E5A7BFE2809DE38082E5AE83E58C85E590ABE69E9DE68A98E38081E7BB86E69F94E7AD89E38082E5BD93E2809CE69EAFE5AF82E2809DE4B88EE2809CE69EAFE6B7A1E2809DE59088E8808CE4B8BAE4B880E697B6EFBC8CE5A79CE680A1E7BF94E79A84E5889BE4BD9CE4BEBFE980B8E587BAE4BA86E58FA4E4BABAE4BBA5E58F8AE5BD93E4B88BE697B6E4BABAE79A84E5AEA1E7BE8EE88C83E5BC8FEFBC8CE69C89E4BA86E887AAE5B7B1E79A84E889BAE69CAFE9A38EE6A0BCE380823C2F703E3C703EE585B6E5AE9EEFBC8CE2809CE980B8E2809DE5AD97E69C80E697A9E79A84E69CACE4B989E5B0B1E698AFE98083E884B1E38082E5BD93E5A79CE680A1E7BF94E5809FE58AA9E2809CE69EAFE980B8E2809DE98083E587BAE58FA4E4BABAE88C83E5BC8FE5B9B6E887AAE7AB8BE4B880E6A0BCE697B6EFBC8CE4BB96E79A84E2809CE69EAFE980B8E2809DE4B98BE68980E4BBA5E5B9B6E4B88DE4BDBFE4BABAE8A789E5BE97E7AA81E58580EFBC8CE5B0B1E59CA8E4BA8EE4BB96E79A84E2809CE69EAFE980B8E2809DE6A682E5BFB5E8BF98E69C89E5BE88E5A49AE8BF9CE4BAB2EFBC8CE6AF94E5A682E7BAB5E980B8E38081E7AE80E980B8E38081E88BB1E980B8E38081E9878EE980B8E7AD89E38082E4B99FE594AFE585B6E5A682E6ADA4EFBC8CE4BB96E79A84E2809CE69EAFE980B8E2809DE69C89E4BA86E2809CE98193E4B88DE5ADA4E2809DE79A84E59381E6A0BCE380823C2F703E3C703EE2809CE995BFE5AE89E794BBE6B4BEE2809DE4B98BE5908EEFBC8CE99995E8A5BFE79A84E794BBE5AEB6E5BE88E5B091E6B2A1E69C89E4B88DE58F97E585B6E5BDB1E5938DE79A84E38082E5A79CE680A1E7BF94E887AAE784B6E4B99FE4B88DE4BE8BE5A496EFBC8CE6AF94E5A682E59CA8E585B3E6B3A8E7949FE6B4BBE8BF99E4B880E7BBB4E5BAA6E4B88AE38082E4B88DE8BF87EFBC8CE2809DE995BFE5AE89E794BBE6B4BEE2809CE4B98BE5A496EFBC8CE4B896E7958CE794BBE59D9BE585B3E4BA8EE889BAE69CAFE4B88EE7949FE6B4BBE79A84E8A1A8E8BFB0E4BCBCE4B98EE69BB4E58AA0E8A781E8A180E38082E59CA8E69D9CE5B09AE982A3E9878CEFBC8CE4B880E4B8AAE5B08FE4BEBFE6B1A0E5B0B1E58FAFE4BBA5E5918AE8AF89E4BDA0EFBC8CE889BAE69CAFE5B0B1E698AFE7949FE6B4BBEFBC9BE8808CE59CA8E58D9AE4BC8AE6809DE982A3E9878CEFBC8CE889BAE69CAFE5B0B1E698AFE7A4BEE4BC9AE38082E6B2A1E69C89E4BABAE698AFE889BAE69CAFE5AEB6EFBC8CE4B99FE6B2A1E69C89E4BABAE4B88DE698AFE889BAE69CAFE5AEB6EFBC9BE8808CE59CA8E5AE89E8BFAAC2B7E6B283E99C8DE5B094E982A3E9878CEFBC8CE889BAE69CAFE5B0B1E68890E4BA86E4BCA0E692ADEFBC8CE5AE83E698AFE58FAFE4BCA0E692ADE79A84E4BA8BE4BBB6E380823C2F703E3C703EE5BF83E59091E2809CE69EAFE980B8E2809DE79A84E5A79CE680A1E7BF94E5B9B6E6B2A1E69C89E5838FE59BBDE5A496E5A4A7E4BB99E4BBACE8B5B0E5BE97E982A3E4B988E8BF9CEFBC8CE4BD86E4BB96E4BBACE5AFB9E4BA8EE889BAE69CAFE79A84E8A1A8E8BFB0E4B88EE5889BE4BD9CE4B99FE79A84E7A1AEE68896E5A49AE68896E5B091E59CB0E5BDB1E5938DE4BA86E4BB96E79A84E5889BE4BD9CEFBC8CE69585E6ADA4EFBC8CE5A79CE680A1E7BF94E79A84E2809DE69EAFE980B8E2809CE4B98BE4B8ADEFBC8CE58F88E5A49AE4BA86E4B880E782B9E782B9E682A0E997B2E38081E4B880E782B9E782B9E783ADE68385E38081E4B880E782B9E782B9E586B7E6BCA0E38081E4B880E782B9E782B9E5B9BDE9BB98E38081E4B880E782B9E782B9E6849FE4BCA4E38081E4B880E782B9E782B9E697A0E5A588E38081E4B880E782B9E782B9E6ACA2E5969CE38082E68980E69C89E79A84E8A681E7B4A0E983BDE698AFE982A3E4B988E4B880E782B9E782B9EFBC8CE4B88DE5A49AE4B99FE4B88DE5B091E38082E794A8E4BABAE4BBACE8AF84E8BFB0E6898DE68385E5928CE5B09AE88B8FE69BBCE6AE8AE79A84E8AF9DE8AFB4EFBC8CE4BEBFE698AFE2809DE4B88DE58FAFE697A0E4B880EFBC8CE4B88DE58FAFE69C89E4BA8CE38082E2809D3C2F703E3C703EE5928CE58FA4E4BABAE4B88DE5908CEFBC8CE5928CE4BB8AE4BABAE4B99FE4B88DE5908CE38082E4BD86E58F88E5A484E5A484E69C89E79D80E58FA4E4BABAE79A84E5BEAEE7AC91E4BBA5E58F8AE4BB8AE4BABAE79A84E6B8A9E69A96E38082E69EAFE980B8E4B98BE4B8ADEFBC8CE5A79CE680A1E7BF94E6B2A1E69C89E58FA4E4BD9BE99D92E781AFEFBC8CE4B99FE6B2A1E69C89E58DA0E5B1B1E4B8BAE78E8BEFBC8CE5BC84E4B8AAE2809CE4B88AE5B1B1E8998EE2809DE79A84E5A7BFE68081E698BEE69186E887AAE5B7B1E79A84E5A881E6ADA6E38082E4BB96E58FAAE698AFE78CABE4B88BE885B0E69DA5E2809CE6B7B1E585A5E7949FE6B4BBE2809DEFBC8CE784B6E5908EE58F88E8BF9CE8BF9CE59CB0E5AEA1E8A786E887AAE5B7B1E7AC94E4B88BE79A84E7949FE6B4BBE38082E8808CE8BF99E4B8AAE8978FE59CA8E2809CE69EAFE980B8E2809DE4B98BE4B8ADE79A84E2809CE8BF9CE2809DEFBC8CE68891E4B880E79BB4E6B2A1E69C89E8AFB4E7A0B4E38082E585B6E5AE9EEFBC8CE68980E8B093E79A84E2809CE8BF9CE2809DEFBC8CE59CA8E8AF97E5ADA6E4B98BE4B8ADEFBC8CE4B88DE698AFE68C87E7A9BAE997B4E8B79DE7A6BBEFBC8CE8808CE698AFE68C87E5BF83E79086E8B79DE7A6BBEFBC8CE698AFE68C87E889BAE69CAFE5AEB6E5AFB9E4BA8EE5A496E59CA8E4B896E7958CE79A84E4B880E7A78DE8BF9CE8BF9CE79A84E8A782E69C9BE38082E8AF97E4BABAE4BBACE680BBE698AFE59CA8E69BB4E4B8BAE5B9BFE99894E79A84E697B6E7A9BAE8838CE699AFE4B8ADE68A8AE68FA1E78EB0E5AE9EE38082E998AEE7B18DE8AFB4E79A84E2809CE8A880E59CA8E880B3E79BAEE4B98BE58685EFBC8CE68385E5AF84E585ABE88D92E4B98BE8A1A8E2809DE8AFB4E5BE97E5B0B1E698AFE8BF99E4B8AAE79086E380823C2F703E3C703EE4B88BE5B1B1E4B98BE5908EEFBC8CE5A4A9E59CB0E5AEBDE5B9BFE38082E698AFE8998EE698AFE78CABEFBC8CE983BDE4B88DE9878DE8A681EFBC8CE9878DE8A681E79A84E698AFE8AF97E6848FEFBC8CE4BBA5E58F8AE5A682E4BD95E8AF97E6848FE59CB0E68A8AE68FA1E887AAE5B7B1E38081E68A8AE68FA1E7949FE6B4BBE380823C2F703E3C703EE2809CE79BB8E8A781E697A0E69D82E8A880EFBC8CE4BD86E8AF9DE6A191E9BABBE995BFE38082E2809DE8BF99E698AFE999B6E6B88AE6988EE79A84E5908DE58FA5E38082E5A682E69E9CE4B88DE698AFE59BA0E4B8BAE8BF98E69C89E69BB4E4B8BAE4B8B0E6BBA1E79A84E7B2BEE7A59EE7949FE6B4BBE4BD9CE8838CE699AFEFBC8CE999B6E6B88AE6988EE79A84E8BF99E58FA5E8AF97E5B0B1E5928CE794B0E5A4B4E5869CE6B091E79A84E5AEB6E5B8B8E8AF9DE6B2A1E69C89E58CBAE588ABE38082E8808CE4B8ADE59BBDE69687E5ADA6E58FB2E4B98BE68980E4BBA5E9878DE8A786E999B6E6B88AE6988EE5A682E6ADA4E8AF97E6AD8CE8AFADE8A880EFBC8CE585B6E997B4E7A9B6E7AB9FEFBC8CE4B88DE8A880E887AAE6988EE38082E8808CE5A79CE680A1E7BF94E79A84E2809CE4B88BE5B1B1E78CABE2809DE681B0E58FAFE5A682E698AFE8A782E380823C2F703E3C703E3C62722F3E3C2F703E);
 
 -- ----------------------------
 -- Table structure for cmswing_auth_role
@@ -4183,6 +4145,44 @@ INSERT INTO `cmswing_auth_user_role` VALUES ('6', '92', '5');
 INSERT INTO `cmswing_auth_user_role` VALUES ('7', '93', '6');
 
 -- ----------------------------
+-- Table structure for cmswing_author
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_author`;
+CREATE TABLE `cmswing_author` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(80) NOT NULL COMMENT '标题',
+  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '栏目目录',
+  `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
+  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态0禁用，1启用，-1删除',
+  `sort_id` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `pinyin` char(80) NOT NULL COMMENT '姓名拼音',
+  `pin` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '头像',
+  `view` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `focus_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '关注数',
+  `runge` float(10,2) DEFAULT '0.00',
+  `description` char(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '描述',
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '文章内容',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  KEY `group_id` (`group_id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_author
+-- ----------------------------
+INSERT INTO `cmswing_author` VALUES ('3', '王西京', '129', '1', '9', '1486376457310', '1486457950606', '1', '17', 'wangxijing', '787', '130', '0', '0.00', '', '');
+INSERT INTO `cmswing_author` VALUES ('4', '杨晓阳', '129', '2', '9', '1486441452470', '1486448574498', '1', '17', 'yangxiaoyang', '788', '125', '0', '0.00', '', '');
+INSERT INTO `cmswing_author` VALUES ('5', '李壮平', '129', '3', '9', '1486456983148', '1486630400369', '1', '17', 'lizhuangping', '789', '213', '0', '10000.00', '李壮平，出生于1948年，目前是画院院长，艺术院校教授，潜心数十年，对国画和油画有深入研究，画画是他钟爱一生的事业。他想把自己的女儿也培养成一名画家。2008年，在经得李勤同意后，李壮平以女儿李勤做为女神的原型，和已经是青年画家的女儿李勤共同出油画册《中国写实派油画家李壮平 李勤东方神女山鬼系列油画作品集》。李壮平目前是中国用写实油画表现屈原的“山鬼”（人与自然，美女与野兽）第一人，作品深受海内外', 0x3C703EE59CA8E9BB84E6A1B7E59DAAE9A696E5B18A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE88A82E4B88AEFBC8CE4B880E5AFB9E4B893E7A88BE4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F373632372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59B9BE5B79D3C2F613EE59CB0E99C87E781BEE58CBAE28094E28094E5BEB7E998B3E8B5B6E69DA5E79A84E788B6E5A5B33C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373039352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAFE5AEB63C2F613EEFBC8CE6849FE58AA8E4BA86E69DA5E6B89DE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373039352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAFE5AEB63C2F613EE38081E7AD96E5B195E4BABAE5928CE7BE8EE69CAFE689B9E8AF84E5AEB6E38082E4BB96E4BBACE79A84E4B880E69CAC3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36313839312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBD3C2F613EE58699E5AE9EE6B4BE3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE5AEB6E3808AE4B89CE696B9E7A59EE5A5B3E5B1B1E9ACBCE7B3BBE58897E3808BE794BBE5868CEFBC8CE8AEA9E4BABAE99C87E692BCE4B88DE5B7B2EFBC9AE594AFE7BE8EE79A84E794BBE99DA2E4B88AEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34313235392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7BBB4E7BAB3E696AF3C2F613EE888ACE8A3B8E99CB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EEFBC8CE6A8A1E789B9E5B0B1E698AFE794BBE5AEB6E79A84E4BAB2E7949FE5A5B3E584BFE38082E8BF99E4BD8DE788B6E4BAB2E5908DE58FAB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3EFBC8CE4BB8A20E5B9B43631E5B281EFBC9BE5A5B3E584BFE5908DE58FAB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EEFBC8C3233E5B281E38082E2809CE8BF99E6ACA1E69DA5E9878DE5BA86E58F82E58AA03C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE88A82EFBC8CE6ADA3E698AFE586B2E79D80E5AFB9E9878DE5BA86E79A84E6849FE68385E69DA5E79A84E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5918AE8AF89E8AEB0E88085EFBC8CE4BB96E59CA8E9878DE5BA86E5B185E4BD8FE8BF87E585ABE4B99DE5B9B4EFBC8CE5A6BBE5AD90E698AFE9878DE5BA86E58D97E5B2B8E4BABAEFBC8CE5A5B3E584BFE4B99FE587BAE7949FE59CA8E58D97E5B2B8E380823133E5B9B4E5898DEFBC8CE4BB96E4BBACE4B880E5AEB6E5AE9AE5B185E5BEB7E998B3E38082E4BB96E8AFB4EFBC8CE4BB96E4B880E7949FE4B8ADE5BD93E8BF87E5869CE6B091E38081E5B7A5E4BABAE38081E5B9B2E983A8E38081E69599E5B888EFBC8CE4BD86E794BBE794BBE698AFE4BB96E9929FE788B1E4B880E7949FE79A84E4BA8BE4B89AE38082E4BB96E683B3E68A8AE887AAE5B7B1E79A84E5A5B3E584BFE4B99FE59FB9E585BBE68890E4B880E5908DE794BBE5AEB6E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5918AE8AF89E8AEB0E88085EFBC8CE4BB96E79A84E4BD9CE59381E4BBA53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313634362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B188E58E9F3C2F613EE7AC94E4B88BE79A84E2809CE5B1B1E9ACBCE2809DE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323032312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE983ADE6B2ABE88BA53C2F613EE79A8420E2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EE2809DE4B8BAE9A298E69D90E38082E2809CE68891E58F91E78EB0E8BAABE8BEB9E69C9DE5A495E79BB8E5A484E79A84E5A5B3E584BFE4B88EE5A5B3E7A59EE5BDA2E8B1A1E5BE88E8B4B4E8BF91E38082E59CA8E5BE81E5BE97E5A5B9E79A84E5908CE6848FE5908EEFBC8CE68891E4BEBFE5908CE5A5B3E584BFE4B880E98193E5BC80E5A78BE4BA86E5889BE4BD9CE38082E5A5B9E697A2E698AFE794BBE4B8ADE79A84E6A8A1E789B9E584BFEFBC8CE58F88E698AFE5908CE68891E4B880E8B5B7E5889BE4BD9CE79A84E794BBE5AEB6E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E8AFB4EFBC8CE3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808BE698AFE4BBA5E2809CE5A5B3E7A59EE2809DE4B8BAE4B8BBE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE4BD9CE59381E99B86EFBC8CE697A8E59CA8E8A1A83C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F302F3265366661373338366461653336646464343632323533623F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D22E69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323070783B206865696768743A2031373870783B223E3C696D6720636C6173733D2222207372633D22687474703A2F2F672E686970686F746F732E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D36366163653133643732306530636633613466373439663933613437663233642F613034346164333435393832623262373236356337356562333161646362656637373039396264612E6A70672220616C743D22E69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C22207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2032323070783B206865696768743A2031373870783B222F3E3C2F613E3C7370616E20636C6173733D226465736372697074696F6E22207374796C653D22646973706C61793A20626C6F636B3B20636F6C6F723A207267622838352C2038352C203835293B20666F6E742D73697A653A20313270783B20746578742D696E64656E743A203070783B20666F6E742D66616D696C793A20E5AE8BE4BD933B20776F72642D777261703A20627265616B2D776F72643B20776F72642D627265616B3A20627265616B2D616C6C3B206C696E652D6865696768743A20313570783B2070616464696E673A20387078203770783B206D696E2D6865696768743A20313270783B20626F726465722D746F702D77696474683A203170783B20626F726465722D746F702D7374796C653A20736F6C69643B20626F726465722D746F702D636F6C6F723A20726762283232342C203232342C20323234293B223EE69D8EE5A3AEE5B9B3E788B6E5A5B3E59088E4BD9CE794BBE4BD9C3C2F7370616E3E3C2F703E3C703EE8BEBEE2809CE4BABAE4BABAE983BDE78CAEE587BAE4B880E4BBBDE788B1EFBC8CE4BABAE4B88EE887AAE784B6E38081E4BABAE4B88EE58AA8E789A9E38081E4BABAE4B88EE4BABAE4B98BE997B4E5928CE79DA6E79BB8E5A484EFBC8CE4B896E7958CE5B0B1E4BC9AE58F98E5BE97E69BB4E7BE8EE5A5BDE38081E5928CE5B9B3E38081E887AAE794B1E38081E5B9B8E7A68FE38082E2809DE79A84E4B8BBE9A298E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE5928CE788B6E4BAB23C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E4B880E8B5B7E5889BE4BD9CE79A84E3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE4B880E7BB8F20E5B195E587BAEFBC8CE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE4B88AE5BC95E8B5B7E783ADE8AEAEE38082E69C89E4BABAE8AFB4E794BBE99DA2E79C9FE79A84E5BE88E7BE8EEFBC8CE697A0E6B395E8AEA9E4BABAE4BAA7E7949FE6B7ABE79A84E5BFB5E5A4B4EFBC8CE69C89E4BABAE794BBE8A3B8E4BD93E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36313839312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBD3C2F613EE5B7B2E7BB8FE698AFE4B88EE4BCA0E7BB9FE586B2E7BB9FE4BA86EFBC8CE5A5B3E584BFE5819AE788B6E4BAB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323134383932322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A3B8E6A8A13C2F613EE69BB4E698AFE8AEA9E4BABAE68EA5E58F97E4B88DE4BA86E38082E7BE8EE69CAFE689B9E8AF84E5AEB6E69E97E69CA8E69599E68E88E8AEA4E4B8BAEFBC8CE69D8EE5AEB6E788B6E5A5B3E4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE8BF99E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE696B9E5BC8FE68F90E4BE9BE4BA86E4B880E4B8AAE696B0E696B9E59091E5928CE6809DE88083EFBC8CE698AFE99D9EE5B8B8E58FAFE695ACE79A84E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE4B893E5AEB6E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639373532332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE58D9AE5A3ABE7949FE5AFBCE5B8883C2F613EE38081E99995E5B888E5A4A7E694BFE6B2BBE7BB8FE6B58EE5ADA6E999A2E589AFE999A2E995BF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE58899E8A1A8E7A4BAEFBC8CE4BB8EE4BCA6E79086E5ADA6E8A792E5BAA6E79C8BEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A84EFBC8CE5BC95E8B5B7E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE680A7E4BCA6E79086E69588E5BA94E698AFE79BB8E5AFB9E8B49FE99DA2E79A84E38082E5AFB9E6ADA4EFBC8C32303039E5B9B431E69C883139E697A5EFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E59B9EE5BA94E2809CE4B88DE7AEA1E588ABE4BABAE688B4E4BB80E4B988E9A29CE889B2E79A84E79CBCE9959CE79C8BE68891E4BBACEFBC8CE68891E4BBACE5BE88E59DA6E88DA1E38082E2809D3C2F703E3C703EE59084E696B9E58F8DE5BA943C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE794BBE5AEB6E788B6E5A5B3EFBC9AE68891E4BBACE5BE88E59DA6E784B63C2F7370616E3E3C2F703E3C703EE2809CE68891E5BD933C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE58FAAE883BDE698AFE59CA8E788B6E4BAB2E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE9878CEFBC8CE585B6E4BB96E6AF94E5A682E69184E5BDB1E7AD89E696B9E5BC8FEFBC8CE68891E68EA5E58F97E4B88DE4BA86E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE5918AE8AF89E8AEB0E88085EFBC8CE5A5B9E7ACACE4B880E6ACA1E79C8BE588B0E8A3B8E4BD93E6A8A1E789B9EFBC8CE983BDE8A789E5BE97E789B9E7B4A7E5BCA0E38082E4B99FE69C89E8AEB8E5A49AE5908CE5ADA6E8A789E5BE97E5A5B9E8BAABE69D90E5BE88E5A5BDEFBC8CE5BBBAE8AEAEE5A5B9E4B99FE5BD93E6A8A1E789B9EFBC8CE2809CE68891E593AAE69C89E982A3E58B87E6B094E59180EFBC81E68891E8A789E5BE97E982A3E5A4AAE6B2A1E5AE89E585A8E6849FE4BA86E38082E4BD86E5AFB9E4BA8EE5819AE788B6E4BAB2E79A84E6A8A1E789B9EFBC8CE5B0B1E7AE97E585A8E8A3B8EFBC8CE68891E4B89DE6AFABE6B2A1E69C89E78AB9E8B1ABE38082E788B6E4BAB2E4B880E79BB4E698AFE4B8AAE6ADA3E79BB4E79A84E4BABAEFBC8CE8AEA9E68891E69C89E5AE89E585A8E6849FE38082E68891E4B99FE698AFE4BB8EE4BA8B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363835322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE5889BE4BD9CE79A84EFBC8CE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EEFBC8CE5B0A4E585B6E698AFE4B8BAE788B6E4BAB2E79A84E889BAE69CAFE78CAEE8BAABE698AFE4B880E4BBB6E5BE88E7BAAFE6B481E79A84E4BA8BE38082E2809D3C2F703E3C703EE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79CBCE9878CEFBC8CE5A5B3E584BF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE7BE8EE4B8BDE38081E59684E889AFE38081E7BAAFE6B481E38082E6AF8FE4B880E4B8AAE8AEA4E8AF863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE79A84E4BABAEFBC8CE983BDE4B88DE4BC9AE69C89E982AAE5BFB5EFBC8CE58FAAE683B3E79D80E591B5E68AA4E5A5B9EFBC8CE5B0A4E585B6E698AFE4BD9CE4B8BAE788B6E4BAB2E79A84E4BB96E38082E4BB96E79A84E4BD9CE59381E4BBA53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313634362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B188E58E9F3C2F613EE7AC94E4B88BE79A84E2809CE5B1B1E9ACBCE2809DE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323032312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE983ADE6B2ABE88BA53C2F613EE79A84E2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F32393531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7ABE5B1B1E7A59EE5A5B33C2F613EE2809DE4B8BAE9A298E69D90EFBC8CE59CA8E58F91E78EB0E5A5B3E584BFE5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5BDA2E8B1A1E5BE88E8B4B4E8BF91E697B6EFBC8CE59CA8E5BE81E5BE97E788B1E4BABAE5928CE5A5B3E584BFE79A84E5908CE6848FE4B98BE5908EEFBC8CE5928CE5A5B3E584BFE4B880E8B5B7E8BF9BE8A18CE4BA86E5889BE4BD9CE38082E2809CE8AEA9E5A5B3E584BFE5BD93E887AAE5B7B1E79A84E8A3B8E4BD93E6A8A1E789B9EFBC8CE4BB8EE6B2A1E69C89E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE4B88AE8BF9BE8A18CE88083E89991E38082E2809D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E8A1A8E7A4BAEFBC8CE8BF9BE8A18CE5889BE4BD9CE697B6EFBC8CE4BB96E5928CE5A5B3E584BFE4BB8EE69DA5E5B0B1E6B2A1E8A789E5BE97E5B0B4E5B0ACEFBC8CE4B880E58887E5B0B1E5838FE5B08FE697B6E58099E4BB96E7BB99E5A5B3E584BFE6B497E6BEA1E4B880E6A0B7E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E788B1E4BABAE8A1A8E7A4BAEFBC8CE788B6E5A5B3E4BFA9E59CA8E5889BE4BD9CE697B6EFBC8CE5A5B9E7BB8FE5B8B8E59CA8E4B880E69781E6ACA3E8B58FE38082E5A5B9E585B6E5AE9EE8BF98E68CBAE7BEA1E68595E5A5B3E584BFE79A84EFBC8CE58FAFE4BBA5E794A8E8BF99E4B988E7BE8EE79A84E696B9E5BC8FE68A8AE887AAE5B7B1E79A84E99D92E698A5E79599E4B88BE69DA5E38082E5A5B9E4B99FE5B9B4E8BDBBE38081E6BC82E4BAAEE8BF87EFBC8CE58DB4E6B2A1E69C89E8BF99E6A0B7E79A84E69CBAE4BC9AEFBC8CE5BE88E98197E686BEE380823C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F32313439353131223E3C2F613E266E6273703B3C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE7BE8EE69CAFE689B9E8AF84E5AEB6EFBC9AE7BD91E58F8BE79A84E68C87E8B4A3E4B88DE585ACE5B9B33C2F7370616E3E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C696D6720636C6173733D22706963747572652220616C743D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E7898722207372633D22687474703A2F2F612E686970686F746F732E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D33326337376537303039323461623138653431366536333530356662653639612F663931393836313833363761646162343261346338303135386264346233316338363031653463632E6A706722207374796C653D22626F726465723A203070783B2077696474683A2032323070783B206865696768743A2031343270783B20706F736974696F6E3A206162736F6C7574653B20646973706C61793A20626C6F636B3B222F3E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789872220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545362539442538452545352541332541452545352542392542332F3737343834372F3939313534332F3062336131633038316235356134623736336439383632643F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223EE69D8EE5A3AEE5B9B3E4B88EE5A5B3E584BFE7949FE6B4BBE785A7E789873C7370616E20636C6173733D226E756D62657222207374796C653D22646973706C61793A20696E6C696E653B20636F6C6F723A20677261793B223E2836E5BCA0293C2F7370616E3E3C2F613E3C2F703E3C703EE8AEB8E5A49AE7BD91E58F8BE8AEA4E4B8BAEFBC8CE4BAB2E7949FE5A5B3E584BFE5819AE8A3B8E4BD93E6A8A1E789B9EFBC8CE590ACE8B5B7E69DA5E680AAE680AAE79A84EFBC8CE4BD86E5AE9EE99985E4B88A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE788B6E5A5B3E4BFA9E79A84E794BBE5BE88E7BE8EEFBC8CE4B99FE4B88DE4BC9AE8AEA9E4BABAE8A789E5BE973C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333333332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889B2E683853C2F613EE380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3134313531382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B7ABE7A7BD3C2F613EE38082E7BD91E58F8BE5A4A7E78E8BE8AEA4E4B8BAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E794BBE5A5B3E584BFE697B6EFBC8CE59BA0E4B8BAE788B1E6809CEFBC8CE4BC9AE69C89E6848FE697A0E6848FE59CB0E59CA8E7BB86E88A82E4B88AE5819AE4B880E4BA9BE5A484E79086EFBC8CE6AF94E5A682E5AFB93C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE8BAABE4BD93E4B88AE79A84E4B880E4BA9BE6AF9BE58F91E79A84E5A484E79086EFBC88E4B880E888ACE794BBE5AEB6E698AFE4BC9AE4BBA5E6ADA4E7B1BBE7BB86E88A82E2809CE8AFB1E2809DE4BABAEFBC89EFBC8CE4B99FE697A0E4B88DE99B85E79A84E5A7BFE58ABFE38082E4BB96E697A0E8AEBAE698AFE4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE5889BE4BD9CE8BF98E698AFE980A0E58ABFE4B88AEFBC8CE983BDE5A0AAE7A7B0E68890E58A9FE380823C2F703E3C703E3C62722F3E3C2F703E3C703EE4B99FE69C89E7BD91E58F8BE8AEA4E4B8BAEFBC8CE4B88DE7AEA1E6808EE6A0B7EFBC8CE4B880E683B3E588B0E5A5B3E584BFE59CA8E788B6E4BAB2E99DA2E5898DE884B1E58589EFBC8CE5BF83E9878CE5B0B1E8A789E5BE97E4B88DE88892E69C8DE38082E8BF98E69C89E7BD91E58F8BE7949AE887B3E8AEA4E4B8BAEFBC8CE5A682E69E9CE4B88DE698AFE59BA0E4B8BAE794BBE9878CE79A84E8A3B8E4BD93E6A8A1E789B9E698AFE794BBE5AEB6E79A84E5A5B3E584BFEFBC8CE3808A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333637303733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B89CE696B9E7A59EE5A5B33C2F613EE5B1B1E9ACBCE7B3BBE58897E3808BE4B88DE4BC9AE8BF99E4B988E5BFABE5B0B1E781ABE8B5B7E69DA5E380823C2F703E3C703EE89197E5908DE7BE8EE69CAFE689B9E8AF84E5AEB6E380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F373632372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59B9BE5B79D3C2F613EE5A4A7E5ADA6E69599E68E88E69E97E69CA8E59CA8E8AF84E4BBB7E8BF99E4BBB6E4BA8BE697B6EFBC8CE794A8E4BA86E2809CE99D9EE5B8B8E58FAFE695ACE2809DE59B9BE4B8AAE5AD97E38082E8AEA4E4B8BAE69D8EE5AEB6E788B6E5A5B3E586B2E7A0B4E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE380813C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE79A84E9878DE9878DE897A9E7AFB1EFBC8CE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE79A84E58F91E5B195E4BD9CE587BAE4BA86E5A589E78CAEE38082E69E97E69CA8E8A1A8E7A4BAEFBC8CE59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE7958CEFBC8CE4BDBFE794A8E8A3B8E4BD93E6A8A1E789B9E4B88DE7A880E7BD95EFBC8CE4BD86E794A8E887AAE5B7B1E79A84E4BAB2E4BABAEFBC8CE6AF94E5A682E5A6BBE5AD90E5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E4B88DE5A49AEFBC8CE8AEA9E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E69BB4E698AFE7ACACE4B880E6ACA1EFBC8CE2809CE8BF98E69C89E4B880E4BA9BE4BABAEFBC8CE88081E68082E681BFE588ABE4BABAE884B1E8A1A3E69C8DEFBC8CE8AEA9E887AAE5B7B1E69DA5E794BBEFBC8CE789B9E588ABE4B88DE79C9FE8AF9AE38082E2809DE59CA8E69E97E69CA8E79C8BE69DA5EFBC8CE6AF94E8B5B7E982A3E4BA9BE4BABAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E788B6E5A5B3E5BE88E79C9FE8AF9AEFBC8CE4BB96E4BBACE4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE8BF99E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE696B9E5BC8FE68F90E4BE9BE4BA86E4B880E4B8AAE696B0E696B9E59091E5928CE6809DE88083E3808220E2809CE8AEA9E588ABE4BABAE79A84E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E58FAFE4BBA5EFBC8CE8AEA9E887AAE5B7B1E5A5B3E584BFE5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E4B88DE8A18CE595A6EFBC9FE2809DE99DA2E5AFB9E4B880E4BA9BE7BD91E58F8BE8AEA4E4B8BAE2809C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E788B6E5A5B3E69C89E8BF9D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE38081E4BCA6E5B8B8EFBC8CE8BF99E7BB84E794BBE8AEA9E4BABAE8A789E5BE97E5BF83E9878CE4B88DE88892E69C8DE2809DE79A84E68C87E8B4A3EFBC8CE69E97E69CA8E8AEA4E4B8BAE5BE883C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3534393931372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B88DE585ACE5B9B33C2F613EE380823C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE7A4BEE4BC9AE5ADA6E5AEB6EFBC9AE4BCA0E7BB9FE8A782E5BFB5E58F88E4BD9CE7A59FE4BA863C2F7370616E3E3C2F703E3C703EE89197E5908D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36373138332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9AE5ADA6E5AEB63C2F613EE69D8EE993B6E6B2B3E8A1A8E7A4BAEFBC8CE8BF99E585B6E5AE9EE6B2A1E4BB80E4B988E38082E4B8BAE4BB80E4B988E4BC9AE69C89E4BABAE8A789E5BE97E4B88DE88892E69C8DEFBC8CE982A3E698AFE59BA0E4B8BAE4BCA0E7BB9FE8A782E5BFB5E58F88E4BD9CE7A59FE4BA86E38082E8AEB8E5A49AE4BABAE4B880E79C8BE588B0E788B6E4BAB2E38081E5A5B3E584BFE38081E8A3B8E4BD93E7AD89EFBC8CE7AB8BE58DB3E5B0B1E88194E683B3E588B0E4BA86E2809CE4B9B1E4BCA6E2809DEFBC8CE58FAFE5AE9EE99985E4B88AE999A4E4BA86E4B880E7BB84E6BC82E4BAAEE79A84E794BBEFBC8CE4BB80E4B988E983BDE6B2A1E58F91E7949FE38082E5A5B3E584BFE684BFE6848FE7BB99E788B6E4BAB2E5BD93E8A3B8E4BD93E6A8A1E789B9E5B0B1E8A18CE4BA86EFBC8CE4BD95E5BF85E683B3E5A4AAE5A49AE380823C2F703E3C703EE69D8EE993B6E6B2B3E8AEA4E4B8BAEFBC8CE4B9B1E4BCA6E698AFE695B4E4B8AAE4BABAE7B1BB3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE79A84E7A681E5BF8CEFBC8CE4B88DE883BDE4B9B1E4BCA6E4B99FE698AFE4B880E7A78DE6A0B9E6B7B1E89282E59BBAE79A84E4BCA0E7BB9FE6809DE683B3E38082E8BF99E6809DE683B3E69CACE8BAABE6B2A1E99499EFBC8CE4BD86E4B88DE883BDE58AA8E4B88DE58AA8E5B0B1E8AEA4E4B8BAE588ABE4BABAE4BC9AE4B9B1E4BCA6EFBC8CE4BD95E586B5E698AFE4B880E4B8AAE6A0B9E69CACE5B0B1E6B2A1E5AD98E59CA8E79A84E78EB0E5AE9EE38082E8BF99E5928CE8AEB8E5A49AE4BABAE4B880E79C8BE588B0E8A3B8E4BD93E6A8A1E789B9EFBC8CE5B0B1E683B3E588B0E680A7E698AFE4B880E4B8AAE98193E79086E380823C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE698AFE4B880E4B8AAE6ADA3E584BFE585ABE7BB8FE79A84E8818CE4B89AEFBC8CE5AE83E698AFE4B880E7A78D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE8A1A8E78EB0E5BDA2E5BC8FEFBC8CE982A3E6A8A1E789B9E5928CE794BBE5AEB6E698AFE4B88DE698AFE788B6E5A5B3E585B3E7B3BBE58F88E69C89E4BB80E4B988E8A681E7B4A7E380823C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE4BCA6E79086E4B893E5AEB6EFBC9AE788B6E4BAB2E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A843C2F7370616E3E3C2F703E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE8AEA4E4B8BAEFBC8CE8BF99E4BBB6E4BA8BE698AFE69C89E4B8A4E99DA2E680A7E79A84EFBC8CE4B88DE883BDE4BB85E4BB85E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE8A792E5BAA6E69DA5E79C8BE38082E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3537362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE889BAE69CAF3C2F613EE8A792E5BAA6E69DA5E79C8BEFBC8CE4B88DE5AD98E59CA83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE997AEE9A298E38082E59BA0E4B8BA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E698AFE794BBE5AEB6EFBC8CE5A5B3E584BFE4BB85E698AFE4B880E4B8AAE5AEA1E7BE8EE5AFB9E8B1A1E38082E8808CE4B8943C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE4B99FE8AEA4E4B8BAEFBC8CE887AAE5B7B1E59CA8E788B6E4BAB2E5BF83E79BAEE4B8ADE5BE88E59CA3E6B481E38082E8AFB4E6988EE788B6E5A5B3E4BFA9E79A84E8AEA4E8AF86E698AFE4B880E887B4E79A84EFBC8CE4B88DE8AEA4E4B8BAE8BF99E4B8AAE8A18CE4B8BAE698AFE69C89E4BCA4E9A38EE58C96E38081E4B88D3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303135332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE98193E5BEB73C2F613EE79A84EFBC8CE2809CE4BD86E4BB8E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE5ADA6E8A792E5BAA6E69DA5E79C8BEFBC8CE698AFE5BA94E4B88DE5BA94E8AFA5E38081E6ADA3E4B88DE6ADA3E5BD93E79A84E997AEE9A298E38082E59CA8E68891E79C8BE69DA5EFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE698AFE4B88DE5BD93E79A84E38082E2809D3C2F703E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F333838313534352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8A281E7A596E7A4BE3C2F613EE8A1A8E7A4BAEFBC8C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E5928C3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313333393039302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE58BA43C2F613EE698AFE788B6E5A5B3E585B3E7B3BBEFBC8CE4B88DE4BB85E4BB85E698AFE794BBE5AEB6E4B88EE6A8A1E789B9E79A84E585B3E7B3BBEFBC8CE4B99FE4B88DE6B689E58F8A3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3936353532382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BABAE4BD93E6A8A1E789B93C2F613EE79A84E58A9FE588A9E680A7E997AEE9A298EFBC8CE6ADA4E697B6E5B0B1E6B689E58F8AE588B03C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE7BAB2E5B8B8E79A84E997AEE9A298EFBC8CE8808CE8BF99E4B99FE698AFE4B880E4BA9BE4BABAE4B88DE883BDE68EA5E58F97E79A84E59CB0E696B9E38082E69D8EE5AEB6E788B6E5A5B3E79A84E8A18CE4B8BAE5B7B2E7BB8FE7AA81E7A0B4E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE7BAB2E5B8B8E38082E5A682E69E9CE69D8EE5AEB6E788B6E5A5B3E5889BE4BD9CE5A5BDE4B98BE5908EEFBC8CE4BB85E4BB85E698AFE694BEE59CA8E887AAE5B7B1E5AEB6E9878CE7A781E4BABAE6ACA3E8B58FEFBC8CE982A3E4B988E6ADA4E697B6E5B19EE4BA8EE7A781E4BABA3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EEFBC8CE697A0E68980E8B093E59088E4B88DE59088E79086E38082E5BD93E8BF99E4BA9BE4BD9CE59381E698AFE58F82E58AA0E5B195E8A788E79A84EFBC8CE4BB8EE7A781E4BABAE88C83E59BB4E5BBB6E4BCB8E588B0E4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE88C83E59BB4EFBC8CE5BC95E8B5B7E4BA86E7A4BEE4BC9AE79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3236363633352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4BCA6E790863C2F613EE8AF84E4BBB7EFBC8CE4B99FE5B0B1E4BAA7E7949FE4BA863C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313137352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE7A4BEE4BC9A3C2F613EE680A7E4BCA6E79086E69588E5BA94EFBC8CE2809CE68890E5B9B4E5A5B3E584BFE59CA8E788B6E4BAB2E99DA2E5898DE8A3B8E4BD93EFBC8CE8BF99E4B88DE7ACA6E59088E5A4A7E983A8E58886E4BABAE79A84E4BCA6E79086E7BAB2E5B8B83C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F36393830372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE8AEA4E79FA53C2F613EEFBC8CE7BB93E69E9CE5B0B1E5B8A6E69DA5E4BA86E8B49FE99DA2E5BDB1E5938DE38082E8BF99E5B0B1E698AFE68891E8AFB4E79A843C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3639353931322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE69D8EE5A3AE3C2F613EE5B9B3E79A84E8A18CE4B8BAE4B88DE6ADA3E5BD93E79A84E59CB0E696B9E38082E2809D266E6273703B3C2F703E3C703E3C62722F3E3C2F703E);
+INSERT INTO `cmswing_author` VALUES ('6', '刘文西', '129', '4', '9', '1486483214047', '1486483214048', '1', '17', 'liuwenxi', '790', '127', '0', '0.00', '', '');
+INSERT INTO `cmswing_author` VALUES ('7', '郭全忠', '129', '1', '9', '1486483483674', '1486483483675', '1', '17', 'guoquanzhong', '791', '106', '0', '0.00', '', '');
+INSERT INTO `cmswing_author` VALUES ('8', '罗平安', '129', '0', '9', '1486542017230', '1486546089772', '1', '17', 'luopingan', '792', '178', '0', '3000.00', '罗平安，中共党员，画家。湖北黄陂人，1945年4月生于陕西西安，擅长中国画。1966年毕业于西安美术学院中专部，后师从方济众先生。 1981年任陕西国画院创研室副主任，陕西省美术家协会书记处书记。兼任陕西省榆林地区文化局副局长。现为中国美术家协会会员，西安美术学院客座教授，陕西省美术家协会常务理事、艺术委员会委员，国家一级美术师，陕西国画院画师，国务院授予的“突出贡献专家”。 作品有《雪霁》、《樊', 0x3C68313EE7949FE5B9B33C62722F3E3C2F68313E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7BD97E5B9B3E5AE89EFBC8C31393435E5B9B4E7949FE4BA8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F35353230372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE89E5B8823C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EEFBC8CE7A596E7B18D3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F353332352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B996E58C973C2F613E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F33363136362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9BB84E999823C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE3808231393636E5B9B4E6AF95E4B89AE4BA8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31313037322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE4B893E983A8EFBC8CE5908EE5B888E4BB8E3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3139393733392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE696B9E6B58EE4BC973C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58588E7949FE38082E78EB0E4B8BA3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3131333632352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9A3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4BC9AE59198E38081E99995E8A5BFE79C81E7BE8EE69CAFE5AEB6E58D8FE4BC9AE9A1BEE997AEE38081E8A5BFE5AE89E4B8ADE59BBDE794BBE999A2E889BAE69CAFE9A1BEE997AEE38081E99995E8A5BFE79C81E59BBDE5AEB6E794BBE999A2E794BBE5B888E38081E4B880E7BAA7E7BE8EE69CAFE5B888E38081E59BBDE58AA1E999A2E68E88E4BA88E2809CE7AA81E587BAE8B4A1E78CAEE4B893E5AEB6E2809DE38082E4BA8EE58C97E4BAACE38081E58FB0E58C97E38081E4B88AE6B5B7E38081E8A5BFE5AE89E38081E99D92E5B29BE38081E6ADA6E6B189E7AD89E59CB0E4B8BEE58A9EE4B8AAE4BABAE794BBE5B1953134E6ACA1E38082E4BD9CE59381E69BBEE5A49AE6ACA1E58F82E58AA0E59BBDE58685E5A496E5A4A7E59E8BE88194E5B195EFBC8CE8A2AB3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3834323033342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58898E6B5B7E7B29FE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313636353936312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE59BBDE5AEB6E794BBE999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3632313536392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B19FE88B8FE79C81E7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE38081E7BE8EE59BBD3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31303530342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE59388E4BD9BE5A4A7E5ADA63C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B89CE696B9E889BAE69CAFE58D9AE789A9E9A686E38081E99995E8A5BFE79C81E7BE8EE69CAFE9A686E7AD89E69CBAE69E84E694B6E8978FE38082E38080E7BD97E5B9B3E5AE89E698AFE5BD93E4BBA33C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE79A84E9A286E5869BE4BABAE789A9EFBC8CE697A9E59CA8E585ABE58D81E5B9B4E4BBA3E5B0B1E59BA0E585B6E8A5BFE58C97E4B9A1E59C9FE794BBE9A38EE5928CE78BACE789B9E79A84E6B0B4E5A2A8E68A80E5B7A7E8808CE4BAABE8AA89E794BBE59D9BE38082E4BB96E4B880E58F8DE4BCA0E7BB9F3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4BBA5E5A2A8E4B8BAE4B8BBE79A84E68A80E6B395EFBC8CE5A4A7E5A4A7E5BCBAE8B083E4BA86E889B2E5BDA9E79A84E9AD85E58A9BE5928CE695B4E4BD93E79A84E889B2E8B083EFBC8CE890BDE5A2A8E69E81E9878DEFBC8CE890BDE5BDA9E4B99FE69E81E9878DEFBC8CE9AAA8E6B395E794A8E7AC94EFBC8CE5A2A8E7BABFE79FADE4BF83E58A9BE581A5EFBC8CE5BDA9E7BABFE7B4A7E58AB2E5AF86E58C9DEFBC8CE79BB8E68EA5E79BB8E6B897EFBC8C2671756F743BE5A682E7BB87E994A6E888ACE794BBE587BAE4BA86E7A1ACE69C97E38081E59D9AE5AE9EE79A84E789A9E8B1A1E8B4A8E59CB0EFBC8CE4B99FE794BBE587BAE4BA86E6B593E98381E783ADE78388E79A84E7949FE591BDE6B4BBE58A9BE380822671756F743BE4B8ADE59BBDE7BE8EE69CAFE9A686E9A686E995BFE88C83E8BFAAE5AE89E692B0E69687E8B59EE98193EFBC8C2671756F743BE69BBEE7BB8FE4BBA5E88BA6E6B6A9E38081E88D92E58789E38081E8B4ABE798A0E4B8BAE789B9E782B9E79A84E8A5BFE58C97E5B1B1E6B0B4E6848FE5A283E59CA8E79A84E4BB96E7AC94E4B88BE68DA2E68890E4BA86E6B8A9E98687E38081E7BB9AE4B8BDE38081E8BE89E7858CE79A84E5B1B1E6B0B4E58D8EE7ABA0E380822671756F743B3C2F7370616E3E3C2F703E3C68313E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B20666F6E742D73697A653A20323470783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE794BBE5B1953C2F7370616E3E3C2F68313E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7BD97E5B9B3E5AE89EFBC8C3C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3130343938362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE995BFE5AE89E794BBE6B4BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9878DE8A681E794BBE5AEB6EFBC8CE4BD9CE59381E58F82E58AA0E7ACACE585ADE38081E4B883E38081E4B99DE5B18AE585A8E59BBDE7BE8EE5B195EFBC8CE3808AE6B591E3808BE88DA3E88EB7E7ACACE4B883E5B18AE585A8E59BBDE7BE8EE5B195E9939CE5A596EFBC8CE2809CE4B8ADE59BBDE689B9E8AF84E5AEB6E68F90E5908DE5B195E2809DEFBC8CE2809CE6B0B4E5A2A8E69CACE889B2E2809DE68F90E5908DE5B195EFBC8CE4B880E38081E4BA8CE5B18AE2809CE58C97E4BAACE59BBDE99985E6B0B4E5A2A8E794BBE5B195E2809DEFBC8CE2809CE5BD93E4BBA3E4B8ADE59BBDE5B1B1E6B0B4E794BBE6B2B9E794BBE9A38EE699AFE5B195E2809DEFBC8CE2809CE799BEE5B9B4E4B8ADE59BBDE794BBE5B195E2809DEFBC8CE2809CE4B89CE696B9E4B98BE99FB532303033E4B8ADE59BBDE6B0B4E5A2A8E5B195E2809DEFBC8CE4B880E38081E4BA8CE5B18AE2809CE585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B195E2809DEFBC8CE58F97E98280E58F82E58AA0E3808AE5BC80E694BEE79A84E697B6E4BBA3E7BAAAE5BFB5E4B8ADE59BBDE7BE8EE69CAFE9A686E5BBBAE9A6863430E591A8E5B9B4E3808BE5A4A7E59E8BE9A686E5BA86E5ADA6E69CAFE5B195E380822031393836E794B13C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3132353636362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE794BBE7A094E7A9B6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323632312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58C97E4BAAC3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BEE58A9EE2809CE7BD97E5B9B3E5AE89E794BBE5B195E2809DEFBC9B31393838E5B9B4E794B13C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3131333632352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9A3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3132353636362E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE794BBE7A094E7A9B6E999A23C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BBE58A9EE2809CE7BD97E5B9B3E5AE89E794BBE5B195E2809DE3808231393932E5B9B4E587BAE8AEBFE5BEB7E59BBDE58F82E58AA0E2809CE4B8ADE59BBDE6B0B4E5A2A8E794BBE4B883E4BABAE5B195E2809DEFBC9B31393934E5B9B4E58F82E58AA0E696B0E58AA0E59DA1E2809CE4B8ADE59BBDE6B0B4E5A2A8E794BBE58D81E5AEB6E2809DE794BBE5B195E38082E5BA94E98280E59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313733352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B88AE6B5B73C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F353332352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE6B996E58C973C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F343233332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE5B1B1E4B89C3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323230302E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE58FB0E6B9BE3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323135352E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE8A5BFE5AE893C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8BEE58A9EE4B8AAE4BABAE794BBE5B195EFBC8CE5A49AE6ACA1E58F82E58AA0E585A8E59BBDE4B893E4B89AE7BE8EE69CAFE98280E8AFB7E5B195E38082E4BD9CE59381E58588E5908EE59CA83C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F313535342E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE697A5E69CAC3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323630372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE9A699E6B8AF3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323737332E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7919EE5A3AB3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363433312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE4B8B9E9BAA63C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE380813C2F7370616E3E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F737562766965772F31303137362F31303137362E68746D2220646174612D6C656D6D6169643D22323638383922207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B2077686974652D73706163653A206E6F726D616C3B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE586B0E5B29B3C2F613E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223EE7AD89E59BBDE5AEB6E5928CE59CB0E58CBAE5B195E587BAEFBC8C31393835E5B9B434E69C88E587BAE8AEBFE697A5E69CAC3C2F7370616E3E3C2F7370616E3E3C2F703E3C703E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C7370616E207374796C653D22636F6C6F723A207267622835312C2035312C203531293B20666F6E742D66616D696C793A20617269616C2C20E5AE8BE4BD932C2073616E732D73657269663B20666F6E742D73697A653A20313470783B206C696E652D6865696768743A20323470783B20746578742D696E64656E743A20323870783B206261636B67726F756E642D636F6C6F723A20726762283235352C203235352C20323535293B223E3C62722F3E3C2F7370616E3E3C2F7370616E3E3C2F703E3C68313EE68890E5B0B13C2F68313E3C703E3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F31373439312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE59BBDE58AA1E999A23C2F613EE68E88E4BA882671756F743BE7AA81E587BAE8B4A1E78CAEE4B893E5AEB62671756F743BE380823C2F703E3C703EE69BBEE587BAE78988E8BF87E3808AE4B8ADE59BBDE78EB0E4BBA3E7BE8EE69CAFE585A8E99B86E3808BEFBC9BE3808A3230E4B896E7BAAAE4B8ADE59BBDE7BE8EE69CAF2D2DE4B8ADE59BBDE7BE8EE69CAFE9A686E8978FE59381E7B2BEE98089E3808BEFBC9BE3808AE5BD93E4BBA3E4B8ADE59BBDE794BBE4BC98E7A780E4BD9CE59381E98089E3808BEFBC9BE3808AE4B8ADE59BBDE78EB0E4BBA3E5B1B1E6B0B4E794BBE585A8E99B86E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFE5AEB6E3808BEFBC9BE3808AE4B8ADE59BBDE799BEE5B9B4313030E5908DE794BBE5AEB6E3808BEFBC9BE3808AE78EB0E4BBA3E5B1B1E6B0B4E794BBE5BA93E3808B203BE3808AE78EB0E4BBA3E5B1B1E6B0B4E794BBE5BA93EFBC88E7BBADE7BC96EFBC89E3808B20EFBC9BE3808AE4B8ADE59BBDE794BBE696B0E799BEE5AEB6E3808BEFBC9BE3808AE4B8ADE59BBDE78EB0E4BBA3E6B0B4E5A2A8E794BBE3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFEFBC9A313937392D2D31393939E3808BEFBC9BE3808AE696B0E4B8ADE59BBDE7BE8EE69CAFE5B9B4E989B4E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E7BE8EE69CAFE59BBEE989B4E3808BEFBC9BE88BB1E59BBDE58991E6A1A5E3808AE4B896E7958CE5908DE4BABAE887AAE4BCA0E3808BEFBC9BE88BB1E59BBDE3808AE4B896E7958CE5908DE4BABAE5BD95E3808BEFBC9BE3808AE4B8ADE59BBDE5BD93E4BBA3E5908DE4BABAE5BD95E3808BE7AD89E380823C2F703E3C68313EE4B8AAE4BABAE5B9B4E989B43C2F68313E3C683320636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A203070783B20666F6E742D73697A653A20313870783B20666F6E742D7765696768743A203430303B223EE4B8BBE8A681E4B8AAE5B1953C2F68333E3C703E32303038E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E32303038E5B9B420E6A2A6E7AC94E5AEB6E5B1B13C2F703E3C703E32303035E5B9B420E5A2A8E889B2E794B0E59BAD3C2F703E3C703E32303031E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E32303030E5B9B420E7BD97E5B9B3E5AE8932303030E696B0E4BD9CE5B1953C2F703E3C703E31393939E5B9B420E7BD97E5B9B3E5AE89E88AB1E58D89E696B0E4BD9CE5B1953C2F703E3C703E31393938E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393938E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393934E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393932E5B9B420E782B9E79A84E5A4A7E58D83E4B896E7958C3C2F703E3C703E31393931E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393838E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E31393836E5B9B420E7BD97E5B9B3E5AE89E794BBE5B1953C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22345F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313532393038355F345F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E4B8BBE8A681E88194E5B195223E3C2F613E3C2F703E3C683320636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A203070783B20666F6E742D73697A653A20313870783B20666F6E742D7765696768743A203430303B223EE4B8BBE8A681E88194E5B1953C2F68333E3C703E32303131E5B9B420E995BFE5AE89E7B2BEE7A59E2D2DE99995E8A5BFE5BD93E4BBA3E4B8ADE59BBDE794BBE5908DE5AEB6E4BD9CE59381E5B1953C2F703E3C703E32303037E5B9B420E5A2A8E7BC983130302D2DE4B8ADE59BBDE5AE8BE5BA84E7ACACE4BA8CE5B18AE5908DE5AEB6E98280E8AFB7E5B1953C2F703E3C703E32303036E5B9B420E4B8ADE59BBDE6B0B4E5A2A8E69687E78CAEE5B195313937362D323030363C2F703E3C703E32303033E5B9B420E5BC80E694BEE79A84E697B6E4BBA32D2DE7BAAAE5BFB53C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F34333735312E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE4B8ADE59BBDE7BE8EE69CAFE9A6863C2F613EE5BBBAE9A6863430E591A8E5B9B43C2F703E3C703E32303033E5B9B420E7ACACE4BA8CE5B18AE585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B1953C2F703E3C703E32303033E5B9B420E4B89CE696B9E4B98BE99FB52D32303033E4B8ADE59BBDE6B0B4E5A2A8E5B1953C2F703E3C703E32303031E5B9B420E59BBDE99985E4B8ADE59BBDE794BBE5B9B4E5B1953C2F703E3C703E32303031E5B9B420E585A8E59BBDE794BBE999A2E58F8CE5B9B4E5B195E9A696E5B18AE4B8ADE59BBDE794BBE5B1953C2F703E3C703E32303031E5B9B420E799BEE5B9B4E4B8ADE59BBDE794BBE5B1953C2F703E3C703E32303031E5B9B420E6B0B4E5A2A8E69CACE889B23C2F703E3C703E31393939E5B9B420E7ACACE4B99DE5B18AE585A8E59BBDE7BE8EE5B1953C2F703E3C703E31393938E5B9B420E4B8ADE59BBDE59BBDE99985E7BE8EE69CAFE5B9B42D2DE5BD93E4BBA3E4B8ADE59BBD3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363938382E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B1B1E6B0B4E794BB3C2F613EC2B73C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F737562766965772F363835322F31303233343237392E68746D2220646174612D6C656D6D6169643D22363835353822207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B2B9E794BB3C2F613EE9A38EE699AFE794BB3C2F703E3C703E31393938E5B9B420E7ACACE4B880E5B18AE6B7B1E59CB3E59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B9B4E5B1953C2F703E3C703E31393937E5B9B420E4B8ADE59BBDE794BB3131E5908DE5AEB6E789B9E588ABE98280E8AFB7E5B1953C2F703E3C703E31393937E5B9B420E4B8ADE59BBDE889BAE69CAFE5A4A7E5B195C2B7E4B8ADE59BBDE5BD93E4BBA3E6B0B4E5A2A8E794BBE889BAE69CAFE5B1953C2F703E3C703E31393934E5B9B420E4B8ADE59BBDE6B0B4E5A2A8E794BBE58D81E5AEB6E794BBE5B1953C2F703E3C703E31393933E5B9B420E4B8ADE59BBDE7BE8EE69CAF3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F323533303833372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE689B9E8AF84E5AEB63C2F613EE68F90E5908DE5B1953C2F703E3C703E31393932E5B9B420E4B8ADE59BBD3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE4B883E4BABAE5B1953C2F703E3C703E31393932E5B9B420E6B7B1E59CB3E59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B1953C2F703E3C703E31393838E5B9B420E7ACACE4B883E5B18AE585A8E59BBDE7BE8EE5B195E5B9B6E88EB7E9939CE5A5963C2F703E3C703E31393838E5B9B420E58C97E4BAACE59BBDE999853C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F363934322E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE6B0B4E5A2A8E794BB3C2F613EE5B1953C2F703E3C703E31393837E5B9B420E9A696E5B18AE4B8ADE59BBDE889BAE69CAFE88A82E794BBE5B1953C2F703E3C703E31393837E5B9B4266E6273703B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F3139373935392E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE5B7B4E5A19EE5B0943C2F613EE7ACAC3138E5B18AE59BBDE99985E889BAE69CAFE58D9AE8A788E4BC9A3C2F703E3C703E31393835E5B9B4266E6273703B3C61207461726765743D225F626C616E6B2220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F766965772F343332383935372E68746D22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B223EE99995E8A5BFE59BBDE794BBE999A23C2F613EE4BD9CE59381E5B195266E6273703B3C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F31353239303835223E3C2F613E266E6273703B3C2F703E3C703E3C62722F3E3C2F703E);
+INSERT INTO `cmswing_author` VALUES ('9', '姜怡翔', '129', '0', '9', '1486543740410', '1486545503178', '1', '17', 'jiangyixiang', '793', '122', '0', '10000.00', '姜怡翔1962年生，山东海阳人。1981年考入西安美术学院，1985年毕业并留校任教。现任西安美院副院长、国画系花鸟工作室主任、教授、硕士生导师、博士生导师、省级教学名师。中国美术家协会会员、陕西省美术家协会理事、陕西省花鸟画研究会副会长。', 0x3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE4B8AAE4BABAE7AE80E4BB8B3C2F68323E3C703EE5A79CE680A1E7BF9431393632E5B9B4E7949FEFBC8CE5B1B1E4B89CE6B5B7E998B3E4BABAE3808231393831E5B9B4E88083E585A5E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2EFBC8C31393835E5B9B4E6AF95E4B89AE5B9B6E79599E6A0A1E4BBBBE695993C7370616E207374796C653D22666F6E742D73697A653A20313270783B206C696E652D6865696768743A20303B20706F736974696F6E3A2072656C61746976653B20766572746963616C2D616C69676E3A20626173656C696E653B20746F703A202D302E35656D3B206D617267696E2D6C6566743A203270783B20636F6C6F723A207267622835312C203130322C20323034293B20637572736F723A2064656661756C743B2070616464696E673A20307078203270783B223E5B315D3C2F7370616E3E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A2072656C61746976653B20746F703A202D353070783B20666F6E742D73697A653A203070783B206C696E652D6865696768743A20303B22206E616D653D227265665F5B315D5F31313330313635223E3C2F613E266E6273703B266E6273703BE38082E78EB0E4BBBBE8A5BFE5AE89E7BE8EE999A2E589AFE999A2E995BFE38081E59BBDE794BBE7B3BBE88AB1E9B89FE5B7A5E4BD9CE5AEA4E4B8BBE4BBBBE38081E69599E68E88E38081E7A195E5A3ABE7949FE5AFBCE5B888E38081E58D9AE5A3ABE7949FE5AFBCE5B888E38081E79C81E7BAA7E69599E5ADA6E5908DE5B888E38082E4B8ADE59BBDE7BE8EE69CAFE5AEB6E58D8FE4BC9AE4BC9AE59198E38081E99995E8A5BFE79C81E7BE8EE69CAFE5AEB6E58D8FE4BC9AE79086E4BA8BE38081E99995E8A5BFE79C81E88AB1E9B89FE794BBE7A094E7A9B6E4BC9AE589AFE4BC9AE995BFE380823C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D2232223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313133303136355F32223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E889BAE69CAFE68890E5B0B1223E3C2F613E3C2F703E3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE889BAE69CAFE68890E5B0B13C2F68323E3C703EE4B8BBE8A681E4BD9CE59381E3808AE5AF86E5A484E4B99FE5AFBBE9A699E3808BE88EB7E7ACACE58D81E5B18AE585A8E59BBDE7BE8EE5B195E4BC98E7A780E5A596EFBC9BE3808AE69C89E4BAADE6B7B1E7ABB9E9878CE3808BE585A5E98089E99995E8A5BFE79C81E5BBBA3C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F366630363164393530613762303230383961353033306533363564396632643335373263633831333F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031333870783B206865696768743A2032323070783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D62623062396533643463666266626564643835393331376434386631663738652F366630363164393530613762303230383961353033306533363564396632643335373263633831332E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031333870783B206865696768743A2032323070783B222F3E3C2F613E3C2F703E3C703EE59BBDE4BA94E58D81E4BA94E591A8E5B9B4E7BE8EE5B195EFBC9BE3808AE997BBE9A38EE79FA5E5B281E7A78BE3808BE585A5E98089E3808AE5BDA9E5A2A8E7A9BAE997B4E3808BE5BD93E4BBA3E4B8ADE59BBDE794BBE5AEB6E68F90E5908DE5B195EFBC9BE3808AE4BD9CE59381E59B9BE5B985E3808BE585A5E98089E3808AE4BCA0E689BFE4B88EE89E8DE59088E3808BE5BD93E4BBA3E585A8E59BBDE4B8ADE99D92E5B9B4E59BBDE794BBE5AEB6E5ADA6E69CAFE98280E8AFB7E5B195EFBC9BE3808AE5AFBFE88085E5A49AE7A68FE3808BE8A2ABE8AF84E4B8BAE7BAAAE5BFB5E6AF9BE6B3BDE4B89CE5908CE5BF97E3808AE59CA8E5BBB6E5AE89E69687E889BAE5BAA7E8B088E4BC9AE4B88AE79A84E8AEB2E8AF9DE3808BE58F91E8A1A8E585ADE58D81E591A8E5B9B4E585A8E59BBDE7BE8EE69CAFE4BD9CE59381E4BC98E7A780E4BD9CE59381E5928CE99995E8A5BFE5B195E58CBAE2809CE4B880E7AD89E5A596E2809DE38082E3808AE58D8EE7A195E3808BE88EB7E7BAAAE5BFB5E4B8ADE59BBDE585B1E4BAA7E5859AE8AF9EE8BEB0E585ABE58D81E591A8E5B9B4E2809CE5BBB6E5AE89E9A282E2809DE7BE8EE69CAFE4BD9CE59381E2809CE4BA8CE7AD89E5A596E2809DE38082E3808AE8AFAFE590ACE9A38EE5A3B0E698AFE99BA8E5A3B0E3808BE585A5E98089E585A8E59BBDE7ACACE4BA8CE5B18AE4B8ADE59BBDE794BBE5B195EFBC9BE3808AE69C89E4BAADE6B7B1E7ABB9E9878CE3808BE88EB7E99995E8A5BFE79C81E9A696E5B18AE88AB1E9B89FE794BBE5B195E2809CE789B9E588ABE5A596E2809DE38082E3808AE69993E9A38EE68B82E5BDB1E3808BE585A5E98089E585A8E59BBDE7ACACE4B889E5B18AE4B8ADE59BBDE794BBE5B195E5B9B6E88EB7E2809C32303038E99D92E5B9B4E7BE8EE69CAFE5AEB6E68F90E5908DE5B195E2809DE59BBDE794BBE7BB84E2809CE4BC98E7A780E5A596E2809DE38082E3808AE887AAE79C8BE7968FE5AF86E7A78DE7A78BE7839FE3808BE88EB7E585A8E59BBDE7ACACE59B9BE5B18AE8A5BFE983A8E5A4A7E59CB0E68385EFBC8DE4B8ADE59BBDE794BBE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DE38082E3808AE697A0E6848FE4BA89E698A5E3808BE88DA3E88EB7E580A1E5AFBCE7BBBFE889B2E69E97E4B89AE585A8E59BBDE7BE8EE69CAFE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DEFBC8CE58F8AE99995E8A5BFE79C81E7BAAAE5BFB5E694B9E99DA9E5BC80E694BEE4B889E58D81E591A8E5B9B4E7BE8EE69CAFE4BD9CE59381E5B195E2809CE4BC98E7A780E5A596E2809DE38082E3808AE78E89E6A091E993B6E88AB1E3808BE585A5E98089E7ACACE58D81E4B880E5B18AE585A8E59BBDE7BE8EE5B195E38082E3808AE6B7B1E8B0B7E7949FE7949FE3808BE585A5E98089E7ACACE58D81E4BA8CE5B18AE585A8E59BBDE7BE8EE5B195E5B9B6E585A5E59BB4E8BF9BE4BAACE4BD9CE59381E380823C2F703E3C703E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D2233223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22737562313133303136355F33223E3C2F613E3C61207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20706F736974696F6E3A206162736F6C7574653B20746F703A202D353070783B22206E616D653D22E889BAE69CAFE8AF84E4BBB7223E3C2F613E3C2F703E3C683220636C6173733D227469746C652D7465787422207374796C653D226D617267696E3A203070783B2070616464696E673A20307078203870782030707820313870783B20666F6E742D73697A653A20323270783B20636F6C6F723A2072676228302C20302C2030293B20666C6F61743A206C6566743B20666F6E742D7765696768743A203430303B206261636B67726F756E642D696D6167653A20696E697469616C3B206261636B67726F756E642D6174746163686D656E743A20696E697469616C3B206261636B67726F756E642D73697A653A20696E697469616C3B206261636B67726F756E642D6F726967696E3A20696E697469616C3B206261636B67726F756E642D636C69703A20696E697469616C3B206261636B67726F756E642D706F736974696F6E3A20696E697469616C3B206261636B67726F756E642D7265706561743A20696E697469616C3B223EE889BAE69CAFE8AF84E4BBB73C2F68323E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE6BBA1E59BADE9A39EE88AB1E6B890E59188E4BDB3E5A2833C2F7370616E3E3C2F703E3C703EE28094E28094E8AFBBE5A79CE680A1E7BF94E79A84E4B8ADE59BBDE794BB3C2F703E3C703EE8B5B5E5869C3C2F703E3C703EE88AB1E5BC80E69C89E69C9FEFBC8CE5A283E7949FE697A0E6848FE380823C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223E3C696D6720636C6173733D22706963747572652220616C743D22E5A79CE680A1E7BF94E4BD9CE5938122207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D36653735663032666430313337336630663133663638396439343065346238622F316533306539323462383939613930316633336533333632316339353061376230323038663535662E6A706722207374796C653D22626F726465723A203070783B2077696474683A2032323070783B206865696768743A2032313870783B20706F736974696F6E3A206162736F6C7574653B20646973706C61793A20626C6F636B3B222F3E3C2F613E3C2F703E3C703E3C6120636C6173733D226C656D6D612D616C62756D206C61796F75742D7269676874206E736C6F673A313030303032303622207469746C653D22E5A79CE680A1E7BF94E4BD9CE593812220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F333431363335332F316533306539323462383939613930316633336533333632316339353061376230323038663535663F66723D6C656D6D612663743D636F76657222207461726765743D225F626C616E6B22206E736C6F672D747970653D22313030303032303622207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2032323270783B20626F726465722D626F74746F6D2D77696474683A203070783B206D617267696E3A2031307078203070783B20706F736974696F6E3A2072656C61746976653B20666C6F61743A2072696768743B20636C6561723A2072696768743B223EE5A79CE680A1E7BF94E4BD9CE593813C7370616E20636C6173733D226E756D62657222207374796C653D22646973706C61793A20696E6C696E653B20636F6C6F723A20677261793B223E2837E5BCA0293C2F7370616E3E3C2F613E3C2F703E3C703E3C2F703E3C703EE6988EE6B885E697B6E69C9FE4BBA5E69DA5E4B8ADE59BBDE7BB98E794BBE79A84E7ACACE4B880E6B581E5A4A7E5AEB6E587A0E4B98EE983BDE9809AE8BF87E88AB1E9B89FE794BBE5A4A7E5B195E8BAABE6898BEFBC8CE59BA0E8808CE78EB0E4BBA3E4B8ADE59BBDE88AB1E9B89FE794BBE5BC95E4BABAE79EA9E79BAEE79A84E68890E5B0B1EFBC8CE698AFE4BBA5E590B4E6988CE7A195E38081E9BD90E799BDE79FB3E38081E6BD98E5A4A9E5AFBFE38081E69D8EE88BA6E7A685E8AFB8E58588E8B4A4E79A84E7AC94E5A2A8E5AE9EE8B7B5EFBC8CE4B8BAE5908EE69DA5E79A84E794BBE4BABAE5A5A0E5AE9AE4BA86E59D9AE5AE9EE79A84E5ADA6E69CAFE59FBAE7A180E38082E995BFE5AE89E794BBE6B4BEE79A84E79FB3E9B281E59CA8E6999AE5B9B4E68980E5889BE980A0E79A84E696B0E69687E4BABAE794BBE9A38EE6A0BCE79A84E7AC94E5A2A8E8AFADE8A880EFBC8CE58F88E697A0E79691E4B8BAE7949FE6B4BBE59CA8E99995E8A5BFE79A84E794BBE5AEB6EFBC8CE68F90E4BE9BE4BA86E4B880E69DA1E696B0E79A84E889BAE69CAFE68EA2E7B4A2E6809DE8B7AFE38082E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E5A49AE5B9B4E69DA5E59CA8E58699E6848FE88AB1E9B89FE794BBE696B9E99DA2E79A84E889BAE69CAFE68890E5B0B1EFBC8CE4B99FE4B88DE696ADE5BC95E8B5B7E4BA86E7A4BEE4BC9AE59084E7958CE79A84E585B3E6B3A8E5928CE5A5BDE8AF84E38082E5A79CE680A1E7BF94E6ADA3E698AFE59CA8E8BF99E6A0B7E889BAE69CAFE8838CE699AFE4B8ADE68890E995BFE8B5B7E69DA5E79A84E69DB0E587BAE79A84E88AB1E9B89FE794BBE5AEB6E380823C2F703E3C703EE5BD93E4BBA3E7BE8EE69CAFE5ADA6E999A2E79A84E69599E5ADA6E698AFE4BBA5E58699E5AE9EE7BB98E794BBE4B8BAE88C83E69CACEFBC8CE9BC93E58AB1E5ADA6E7949FE8AEADE7BB83E68F90E9AB98E980A0E59E8BE5928CE69E84E59BBEE883BDE58A9BE38082E59BA0E6ADA4EFBC8CE4B88EE4BCA0E7BB9FE7BB98E794BBE79A84E5B888E5BE92E79BB8E68E88E696B9E5BC8FE69C89E79D80E6988EE698BEE59CB0E4B88DE5908CEFBC8CE4B88DE4BB85E4BB85E99C80E8A681E585B7E5A487E8A5BFE696B9E7BB98E794BBE79A84E889BAE69CAFE7BB8FE9AA8CEFBC8CE5908CE697B6E8BF98E8A681E58AA0E585A5E4BCA0E7BB9FE7AC94E5A2A8E79A84E980A0E5838FE696B9E6B395EFBC8CE4BAA6E58DB3E4B8ADE8A5BFE9809AE89E8DEFBC8CE58FA4E4BB8AE59088E4B880E38082E8BF99E7A78DE69687E58C96E79A84E7BB93E59088EFBC8CE5BE80E5BE80E698AFE5809FE58AA9E4BA8EE69E84E59BBEE79A84E5BDA2E5BC8FEFBC8CE68F90E4BE9BE5BD93E4BBA3E794BBE5AEB6E79A84E6B7B1E58887E6809DE88083E38082E8808CE5AFB9E4BA8EE58699E6848FE88AB1E9B89FE794BBE5AEB6E69DA5E8AFB4EFBC8CE8BF98E99C80E8A681E69BB4E5A49AE79A84E69687E58C96E4B8BBE4BD93E6848FE8AF86EFBC8CE4BBA5E5BDA2E68890E4B8AAE4BABAE7AC94E5A2A8E8AFADE8A880E79A84E9A38EE6A0BCE380823C2F703E3C703EE4B8ADE5ADA6E697B6E69C9FE79A84E5A79CE680A1E7BF94E5B0B1E69C89E5BF97E4BA8EE794BBE5ADA6EFBC8CE8999AE5BF83E6B182E69599EFBC8CE5BF83E8BFBDE6898BE691B9EFBC8CE7BB88E4BA8EE4BBA5E4BC98E5BC82E79A84E68890E7BBA9E88083E585A5E8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E4B8ADE59BBDE794BBE7B3BBE38082E6ADA4E5908EEFBC8CE79599E6A0A1E4BBBBE69599E4BA8EE59BBDE794BBE7B3BBE88AB1E9B89FE4B893E4B89AEFBC8CE7A7AFE69E81E6B1B2E58F96E5898DE8B4A4E5908DE5B888E79A84E889BAE69CAFE890A5E585BBEFBC8CE689BFE4B88AE590AFE4B88BEFBC8CE58C96E58FA4E4B8BAE4BB8AEFBC8CE4B89AE7B2BEE4BA8EE58BA4E38082E5B0A4E585B6E698AFE68B85E4BBBBE59BBDE794BBE7B3BBE4B8BBE4BBBBE79A84E5A49AE5B9B4E4B8ADEFBC8CE4BA8BE697A0E5B7A8E7BB86EFBC8CE4BBBBE58AB3E4BBBBE680A8EFBC8CE6898DE8AF86E697A2E5A487EFBC8CE5BF83E58C96E5A283E7949FE38082E59BA0E6ADA4EFBC8CE8BF91E5B9B4E5A79CE680A1E7BF94E79A84E88AB1E9B89FE794BBEFBC8CE9A38EE6A0BCE5B7B2E698BEEFBC8CE6B890E585A5E4BDB3E5A283EFBC8CE585B6E8888DE5BDA2E8808CE6848FE6B182EFBC8CE58EBBE699BAE8808CE8B6A3E7949FE38082E7AC94E5A2A8E980A0E8AFA3E4BAA6E5A49AE69C89E887AAE5BE97EFBC8CE5B9B6E69C9DE79D80E5B9B3E5928CE38081E6B885E696B0E38081E585B8E99B85E79A84E7BE8EE6849FE696B9E59091E8BF88E8BF9BE380823C2F703E3C703EE5A79CE680A1E7BF94E5969CE4BBA5E6B7A1E5A2A8E6B9BFE7AC94E585A5E6898BEFBC8CE7949AE887B3E5809FE58AA9E5AEBFE5A2A8E79A84E6B897E69F93EFBC8CE8BFBDE6B182E69E84E59BBEE79A84E5A587E4B8BDE999A9E5B3BBEFBC8CE6B48BE6BAA2E587BAE58C96E999A9E4B8BAE5A4B7E79A84E794BBE99DA2E5B883E5B180EFBC8CE88EB7E5BE97E7AC94E5A2A8E5B9B3E5928CE6B8A9E6B6A6E79A84E69588E69E9CE38082E4BA8EE698AFE794BBE99DA2E58D8EE7BE8EE8808CE4B88DE59AA3E5BCA0EFBC8CE5AF8CE8B4B5E8808CE4B88DE5A696E5A886EFBC8CE6B885E9A38EE69C97E697A5EFBC8CE79498E6B7A1E887AAE79FA5EFBC8CE5AE9EE4B8BAE4B880E7A78DE5BF83E5A283E79A84E58699E785A7E38082E585B6E4B8ADE9A38EE5809FE88AB1E8889EEFBC8CE88AB1E5AF93E9A38EE68385EFBC8CE697B6E8A781E698A5E889B2E6BBA1E59BADEFBC8CE7BAA2E88AB1E7BBBFE58FB6EFBC8CE5A2A8E69F93E6B0B4E6B5B8EFBC8CE58D83E5A7BFE799BEE68081E38082E68896E69187E69BB3E9A1BEE79BBCEFBC8CE5AA9AE68081E887AAE6809CEFBC9BE68896E7AB9EE79BB8E591BCE5BA94EFBC8CE9A398E8889EE6A8AAE6969CEFBC9BE68896E4B880E69E9DE78BACE7A780EFBC8CE7A59EE68081E887AAE88BA5E38082E58FAAE8A781E5B9B2E6B9BFE6B593E6B7A1EFBC8CE8999AE5AE9EE8BF9CE8BF91EFBC8CE698AFE58C96E5A4A9E69CBAE4B8BAE4BABAE4BA8BEFBC8CE889B2E5A2A8E7BFBBE9A39EEFBC8CE794BBE5A283E5A4A9E784B6EFBC8CE4BAA6E69C89E79D80E2809CE698A5E9A38EE694BEE88386E69DA5E6A2B3E69FB3EFBC9BE5A49CE99BA8E79E92E4BABAE58EBBE6B6A6E88AB1E2809DE79A84E4BABAE7949FE99B85E6848FE380823C2F703E3C703EE4B8ADE59BBDE58FA4E585B8E593B2E5ADA6E79A84E59088E4BA8CE4B8BAE4B880E38081E4B880E58886E4B8BAE4BA8CE698AFE4B880E7A78DE69C89E69CBAE79A84E4BA92E89E8DEFBC8CE4BB8EE69E84E59BBEE696B9E99DA2E8808CE8A880EFBC8CE4B8ADE59BBDE794BBE8AEB2E79A84E698AFE2809CE5A4AAE69E81E59BBEE2809DE6B395E58899EFBC8CE585B6E4B8ADE79A84E998B4E998B3E38081E8999AE5AE9EE38081E6B0B4E5A2A8E983BDE698AFE59CA8E5B7A7E5A699E79A84E5AFB9E6AF94E4B8ADEFBC8CE69DA5E88EB7E5BE97E69E84E59BBEE79A84E5AD98E59CA8E6848FE4B989E38082E59BA0E8808CE4B880E4B8AAE5A2A8E782B9EFBC8CE4B880E69DA1E69EAFE7BABFEFBC8CE4B880E78987E6B0B4E69995EFBC8CE983BDE69C89E79D80E78BACE7AB8BE79A84E5AEA1E7BE8EE6848FE8B1A1E38082E7A0B4E38081E7A7AFE38081E6B3BCE38081E5AEBFEFBC8CE698AFE5B086E6B0B4E5A2A8E79A84E58886E38081E59088E38081E695A3E38081E8819AE79A84E58F98E58C96EFBC8CE69E84E68890E697A0E695B0E79A84E782B9E38081E7BABFE38081E99DA2E79A84E58886E589B2EFBC8CE5BDA2E68890E4B8ADE59BBDE794BBE7949FE591BDE4BBB7E580BCE79A84E5B195E7A4BAE38082E59BA0E6ADA4EFBC8CE69EAFE7AC94E4B88EE784A6E5A2A8E38081E6B6A6E7AC94E4B88EE6B7A1E5A2A8E79A84E4B88DE5908CE4BDBFE794A8EFBC8CE5AE9EE99985E4B88AE69BB4E5A49AE79A84E698AFE794BBE5AEB6E5BF83E5A283E5AEA1E7BE8EE79A84E98089E68BA9EFBC8CE4B88DE4BB85E4BB85E698AFE4B880E7A78DE68A80E5B7A7E79A84E8AEADE7BB83E380823C2F703E3C703EE5A79CE680A1E7BF94E4B893E4BA8BE88AB1E9B89FEFBC8CE69C80E5889DE58588E4BBA5E6B8B8E9B8ADE997BBE5908DEFBC8CE8BF91E5B9B4E585B6E7AC94E4B88BE79A84E88AA6E88AB1E9B8A1E587A0E68890E6A087E5BF97E38082E69BBEE4BA8EE5B1B1E4B9A1E6BCABE6B8B8EFBC8C3C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3931313338363232343663636661646464366361653235363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D39623031386631663061353562333139393866393835373737336138383238362F353632633131646661396563386131333537653539346665663730333931386661306563633033352E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C2F703E3C703EE794B0E59BADE9878EE9A38EEFBC8CE5969CE8A781E5869CE5AEB6E59C9FE9B8A1EFBC8CE686A8E68081E58FAFE68EACEFBC8CE4B89CE69187E8A5BFE69186EFBC8CE6848FE58FAFE585A5E794BBE38082E59BA0E8808CE7AC94E4B88BE79A84E88AA6E88AB1E9B8A1E88286E6848FE9AB98E4BAA2EFBC8CE8A18CE8B5B0E887AAE5A682EFBC8CE5809FE88AB1E4B8BAE4BCB4EFBC8CE4B88EE9B89FE7BB93E58F8BEFBC8CE5AE9EE69C89E99B85E4BF97E697A0E58886EFBC8CE9AB98E4B88BE4B88DE8BEA9E79A84E79086E8B6A3E38082E4BA8EE698AFE6B7A1E5A2A8E5A086E7A7AFEFBC8CE980A0E59E8BE7AB8BE69CACEFBC8CE6B593E5A2A8E68CA5E58699EFBC8CE782B9E79D9BE4BCA0E7A59EE38082E4BAA6E8A781E59BBEE794BBE4B8ADE7A78BE88B87E6A8AAE6969CEFBC8CE88AA6E88AB1E5A986E5A891EFBC8CE7A9BFE68F92E4B98BE997B4EFBC8CE4BEBFE8A18DE7949FE587BAE5B7A6E9A1BEE58FB3E79BBCEFBC8CE5A682E985A3E5A682E98689E4B98BE68081EFBC9BE88081E59C83E7A78BE5AEB9EFBC8CE9BB84E88AB1E6999AE88A82E4B98BE5A7BFE38082E5A79CE680A1E7BF94E5AFB9E4BA8EE4B880E69CA8E4B880E88D89E38081E4B880E899ABE4B880E7A6BDE79A84E7BB86E5BEAEE8A782E5AF9FEFBC8CE4BAA6E698AFE697A0E695B0E698BCE5A49CE6988FE699A8E79A84E58589E998B4E68980E7A7AFE7B4AFE7949FE68890E380823C2F703E3C703EE4B8ADE59BBDE794BBE79A84E5BDA2E8B1A1E698AFE5BBBAE7AB8BE59CA8E794BBE5AEB6E5BF83E8B1A1E79A84E59FBAE7A180E4B98BE4B88AEFBC8CE697A2E5BE97E6BA90E4BA8EE794BBE5AEB6E5A49AE5B9B4E5AFB9E7949FE6B4BBE8AEA4E8AF86E79A84E7A7AFE7B4AFEFBC8CE58F88E6BC94E58C96E4B8BAE4B8AAE4BABAE79A84E78BACE7AB8BE889BAE69CAFE8A781E8AF86E38082E794BBE5AEB6E5AFB9E5BDA2E8B1A1E79A84E68D95E68D89E5928CE8A1A8E78EB0EFBC8CE4BD93E78EB0E59CA8E4BD9CE59381E4B98BE4B8ADE5AE9EE4B8BAE794BBE5AEB6E58685E5BF83E4B896E7958CE79A84E5B195E7A4BAEFBC8CE5BF83E8B1A1E4BEBFE698AFE794BBE5AEB6E6BD9CE6848FE8AF86E79A84E6B581E99CB2E38082E697A0E8AEBAE4BBBBE4BD95E794BBE5AEB6EFBC8CE4B880E697A6E68980E8A1A8E78EB0E587BAE79A84E4BD9CE59381E5BDA2E8B1A1EFBC8CE5BF85E784B6E698AFE585B6E58685E5BF83E4B896E7958CE79A84E68A98E5B084E38082E4BA8EE698AFE5B0B1E69C89E6B395E697A0E5AE9AE6B395EFBC8CE79086E697A0E5B8B8E79086EFBC8CE99A8FE5BF83E68980E6ACB2EFBC8CE8808CE887AAE68890E4B880E4BD93E38082E8BF99E7A78DE5BBBAE69E84E79A84E59088E79086E680A7E698AFE4B8AAE4BABAE697A5E5B8B8E8A18CE4B8BAE4B88EE5BF83E79086E7A7AFE6B780E79A84E7BB93E69E9CEFBC8CE4BA8EE698AFE5AE8BE4BBA3E6ACA7E998B3E4BFAEE69BBEE8B58BE8AF97EFBC9AE2809CE58FA4E794BBE794BBE6848FE4B88DE794BBE5BDA2EFBC8CE6A285E8AF97E5928FE789A9E697A0E99A90E68385EFBC9BE5BF98E5BDA2E5BE97E6848FE79FA5E88085E5AFA1EFBC8CE4B88DE88BA5E8A781E8AF97E5A682E8A781E794BBE2809DEFBC8CE696AFE794BBE79086E69CBAE5B7A7E5A484EFBC8CE4BEBFE7BC98E4BA8EE6ADA4E380823C2F703E3C703EE59BA0E8808CE5A79CE680A1E7BF94E79A84E7BB98E794BBE4B8ADE68CA5E58699E5A2A8E7ABB9EFBC8CE5A49AE5B19EE7ABB9E69E97E7AF81E59C83EFBC8CE5A2A8E58886E4BA94E5BDA9EFBC8CE7AC94E8B5B0E585ABE696B9EFBC8CE4B9B1E4BA91E9A39EE6B8A1EFBC8CE997B2E9A38EE78B82E8889EEFBC8CE596A7E59AA3E4B8ADE8A781E5AE89E980B8EFBC8CE99D99E7A798E4B8ADE69C89E69D82E5BE8BEFBC8CE69BB4E8A789E794BBE5AEB6E6848FE591B3E79A84E697A0E5B0BDE38082E4BAA6E5B8B8E5B8B8E8A781E9AB98E5A3ABE7BAB3E58789EFBC8CE591B3E68B88E5A4A9E69CBAEFBC9BE690BAE5A3B6E4B9B0E98592EFBC8CE6988FE5A49CE98689E5BD92EFBC9BE4BCBAE69CBAE5BE85E99293EFBC8CE69C88E78999E9AB98E58D87EFBC9BE6B894E99A90E997B2E58DA7EFBC8CE789A9E68891E4B8A4E5BF98EFBC9BE99B85E4BABAE5AFBBE8AF97EFBC8CE69EAFE69E97E69DB3E99FB3EFBC9BE794BBE88085E58699E7949FEFBC8CE4B9B1E7ABB9E69187E69BB3EFBC9BE59BA0E585B6E7A78BE69E9DE997B2E99D99E79FA5E5B1B1E69E97E69AAEE889B2EFBC9BE88AADE89589E695A3E890BDE8A781E5BAADE88D89E7949FE6848FEFBC9BE5B995E5A4A9E5B8ADE59CB0EFBC8CE5B9BDE6B0B4E697A0E5A3B0EFBC9BE7A780E79FB3E997B2E7AB8BEFBC8CE591B3E5B0BDE695A3E980B8E38082E4BBA5E887B3E7A9BAE5B1B1E5AF82E99FB3EFBC8CE9A398E58FB6E7949FE5A3B0EFBC8CE698AFE8B093E2809CE5A5BDE9B89FE69E9DE5A4B4E4BAA6E69C8BE58F8BEFBC9BE890BDE88AB1E6B0B4E99DA2E58DB3E69687E7ABA0E2809DE380823C2F703E3C703EE5BDA2E8B1A1E79A84E78BACE789B9E680A7E698AFE794BBE5AEB6E5AEA1E7BE8EE883BDE58A9BE79A84E7A7AFE7B4AFEFBC8CE4BB8EE8808CE88EB7E5BE97E6B7B1E58E9AE79A84E889BAE69CAFE7BB8FE9AA8CE38082E4B880E4B8AAE68890E7869FE79A84E794BBE5AEB6E5BF85E784B6E69C89E79D80E887AAE5B7B1E78BACE588B0E79A84E8AFADE8A880EFBC8CE8BF99E698AFE7BB98E794BBE8AFADE8A880E68980E5A191E980A0E79A84E59FBAE69CACE5BDA2E8B1A1EFBC8CE4BEBFE698AFE9809AE8BF87E889B2E38081E7BABFE38081E5BDA2E68980E8A1A8E8BEBEE79A84E789A9E8B1A1E7BB93E69E84EFBC8CE58F8DE698A0E79D80E794BBE5AEB6E79A84E4B8BBE8A782E6848FE5BF97E38082E98391E69DBFE6A1A5E59CA8E3808AE9A298E794BBE3808BE4B8ADE69C89E2809CE6B19FE9A686E6B885E7A78BEFBC8CE699A8E8B5B7E79C8BE7ABB9EFBC8CE7839FE58589E38081E697A5E5BDB1E38081E99CB2E6B094EFBC8CE79A86E6B5AEE58AA8E4BA8EE7968FE69E9DE5AF86E58FB6E4B98BE997B4E38082E883B8E4B8ADE58B83E58B83EFBC8CE98182E69C89E794BBE6848FE38082E585B6E5AE9EEFBC8CE883B8E4B8ADE4B98BE7ABB9EFBC8CE5B9B6E4B88DE698AFE79CBCE4B8ADE4B98BE7ABB9E4B99FE38082E59BA0E8808CE7A3A8E5A2A8E38081E5B195E7BAB8E38081E890BDE7AC94EFBC8CE5808FE4BD9CE58F98E79BB8EFBC8CE6898BE4B8ADE4B98BE7ABB9EFBC8CE58F88E4B88DE698AFE883B8E4B8ADE4B98BE7ABB9E4B99FE2809DE79A84E58F99E8BFB0EFBC8CE698AFE4B880E7A78DE4B8AAE4BABAE889BAE69CAFE8AFADE8A880E79A84E68F90E782BCE38082E8BF99E9878CE69BB4E5A49AE59CB0E698AFE794BBE5AEB6E6BD9CE59CA8E79A84E5BF83E79086E7A7AFE6B780E4B88EE58F98E58C96EFBC8CE8808CE4BAA7E7949FE79A84E8A1A8E8BFB0E696B9E5BC8FE38082E98391E6B08FE79A84E2809CE79CBCE4B8ADE4B98BE7ABB9E2809DE38081E2809CE883B8E4B8ADE4B98BE7ABB9E2809DE38081E2809CE6898BE4B8ADE4B98BE7ABB9E2809DE698AFE7BB98E794BBE5889BE4BD9CE79A84E4B889E4B8AAE998B6E6AEB5E38082E2809CE79CBCE4B8ADE4B98BE7ABB9E2809DEFBC8CE698AFE69C80E5889DE5AFB9E7ABB9E5AD90E79A84E58DB0E8B1A1EFBC9BE8808CE2809CE883B8E4B8ADE4B98BE7ABB9E2809DE698AFE6B7B1E5BAA6E79086E8A7A3E5928CE69E84E6809DE994A4E782BCEFBC8CE5A682E5B8B8E8A880E8AFB4E79A84E2809CE883B8E69C89E68890E7ABB9E2809DEFBC9BE8808CE2809CE6898BE4B8ADE4B98BE7ABB9E2809DEFBC8CE698AFE5889BE980A0E587BAE5AE8CE695B4E79A84E7ABB9E5AD90E79A84E889BAE69CAFE5BDA2E8B1A1EFBC8CE5B7B2E4B88DE5868DE698AFE58E9FE7949FE68081E79A84E2809CE7BFA0E7ABB9E2809DEFBC8CE8BF99E9878CE6BC94E58F98E68890E889BAE69CAFE5BDA2E8B1A1E79A84E2809CE5A2A8E7ABB9E2809DE38082E8BF99E9878CE697A2E69C89E2809CE6909CE5B0BDE5A587E5B3B0E68993E88D89E7A8BFE2809DE79A84E5AFBBE8A785EFBC9BE2809CE5A496E5B888E980A0E58C96EFBC8CE4B8ADE5BE97E5BF83E6BA90E2809DE79A84E89E8DE59088EFBC9BE4B99FE69C89E2809CE590ABE98193E698A0E789A9E38081E6BE84E68080E591B3E5838FE2809DE79A84E6849FE69F93E380823C2F703E3C703EE5A79CE680A1E7BF94E79A84E7BB98E794BBE5BDA2E68890E4BA86E887AAE5B7B1E79A84E889BAE69CAFE789B9E782B9EFBC8CE4BBA5E6B7A1E5A2A8E980A0E585B6E58ABFEFBC8CE4BBA5E6B593E5A2A8E5BCBAE585B6E9AAA8EFBC8CE5BDA2E68890E4BA86E781B0E889B2E68385E8B083E8838CE699AFE4B8ADE79A84E7AC94E5A2A8E8A1A8E8BFB0EFBC8CE8BF99E7A78DE7BB98E794BBE8AFADE8A880E79A84E5B182E6ACA1E680A7EFBC8CE4BDBFE585B6E7BB98E794BBE4B8ADE69C89E79D80E590ABE89384E6B289E79D80E79A84E4B8B0E5AF8CE6848FE591B3E38082E5A49AE5B9B4E69DA5E58699E6848FE88AB1E9B89FE794BBE79A84E4BFAEE585BBEFBC8CE585B6E8A1A8E78EB0E8AFADE8A880E79A84E4B88DE696ADE6B7B1E585A5EFBC8CE5BE97E58A9BE4BA8EE794BBE5AEB6E79A84E58D83E994A4E799BEE782BCE38082E4BEA7E9948BE6A8AAE689ABEFBC8CE7AC94E5A2A8E6B890E587BAEFBC8CE5BDA2E4BD93E68E92E58897EFBC8CE7A9BAE997B4E68EA8E8BF9BEFBC8CE4BDBFE794BBE99DA2E7B981E5A48DE5A49AE58F98EFBC8CE5B182E6ACA1E58886E6988EE38082E8BF99E698AFE59BA0E4B8BAE4B880E4B8AAE889BAE69CAFE5A4A9E8B58BE5A5BDE79A84E4BABAE58FAFE4BBA5E59CA8E5B9B3E587A1E79A84E4BA8BE789A9E4B8ADEFBC8CE58F91E78EB0E8AEB8E5A49AE4B88EE889BAE69CAFE5BDA2E8B1A1E585B3E88194E79A84E7B4A0E69D90EFBC8CE585B6E5AEA1E8A786E79A84E58DB0E8B1A1E697A2E58FAFE4BBA5E58C96E88590E69CBDE4B8BAE7A59EE5A587EFBC8CE4B99FE58FAFE4BBA5E4BDBFE7BB9AE4B8BDE5BD92E4BA8EE5B9B3E5928CEFBC8CE4BB8EE8808CE5889BE980A0E79D80E4B8AAE4BABAE889BAE69CAFE79A84E99B85E6848FE380823C2F703E3C703EE4B8ADE59BBDE794BBE79A84E5BDA2E5BC8FE59CA8E4BA8EE7A88BE5BC8FE58C96E4B98BE4B8ADEFBC8CE5B9B6E99A8FE79D80E697B6E4BBA3E79A84E58F91E5B195E8808CE695B7E8A18DE587BAE696B0E7949FE79A84E6848FE4B989EFBC8CE585B6E4B88DE696ADE68B93E5B195E79D80E4B8ADE59BBDE794BBE79A84E5889BE980A0E58A9BE38082E5A79CE680A1E7BF94E79A84E88AB1E9B89FE794BBE5A49AE4BBA5E5A587E999A9E7949FE58F91EFBC8CE7A9BFE68F92E58F98E58C96EFBC8CE69C89E5A4A7E88386E890BDE5A2A8EFBC8CE5B08FE5BF83E694B6E68BBEE4B98BE6848FEFBC8CE69C89E697B6E5A2A8E5BDA9E59B9BE5B084EFBC8CE695A3E9948BE9A39EE8889EEFBC8CE694BEE7BAB5E9AB98E6AD8CEFBC8CE6848FE585B4E99891E78F8AEFBC8CE69C80E7BB88E698AFE5AF8CE4B8BDE5BD92E4BA8EE5B9B3E5928CEFBC8CE8BF99E7A78DE980A0E59E8BE6848FE8AF86EFBC8CE4B99FE5A49AE4B8BAE794BBE5AEB6E79A84E6BD9CE59CA8E5BF83E6809DE79A84E7A8A0E5AF86EFBC8CE4BAA6E4B88DE4BB85E4BB85E698AFE2809CE88AB1E5BC80E5AF8CE8B4B5EFBC9BE7ABB9E68AA5E5B9B3E5AE89E2809DE79A84E698BEE7A4BAE38082E59BA0E6ADA4EFBC8CE5A79CE680A1E7BF94E79A84E7BB98E794BBE4B8ADEFBC8CE6B48BE6BAA2E79D80E4B880E7A78DE69CBAE6958FE79A84E6B094E681AFEFBC8CE5B8B8E5B8B8E69C89E79D80E58C96E999A9E4B8BAE5A4B7E79A84E69E84E59BBEE696B9E5BC8FE38082E8BF99E7A78DE5BF83E699BAE5AFB9E4BA8EE794BBE99DA2E899BDE69C89E79D80E2809CE8AEA1E799BDE5BD93E9BB91E2809DE79A84E5B883E5B180E99C80E8A681EFBC8CE69C89E697B6E697A2E698AFE8BEB9E8A792E79A84E5A484E79086EFBC8CE4B99FE69C89E6848FE59CB0E8BDACE58C96E79D80E4B880E7A78DE6848FE591B3E38082E4BBA5E8999AE4B8BAE5AE9EEFBC8CE58C96E5BDA2E4BA8EE7A9BAEFBC8CE8B5B7E588B0E7A8B3E5AE9AE794BBE99DA2E79A84E69588E69E9CEFBC8CE4B99FE4BDBFE7BB98E794BBE587BAE78EB0E4BA86E6848FE5A496E4B98BE6848FE79A84E4BD9CE794A8EFBC8CE8BF99E698AFE4B880E7A78DE889BAE69CAFE7BB8FE9AA8CE4B88AE79A84E5B7A7E5809FEFBC8CE4B99FE698AFE4B880E7A78DE4B8AAE4BABAE7949FE5AD98E4B8ADE79A84E68A8AE68FA1E38082E4BA8EE698AFEFBC8CE782B9E58892E4B98BE997B4EFBC8CE5A2A8E889B2E4B98BE4B8ADEFBC8CE79BB4E689ABE7AB96E68AB9EFBC8CE6969CE79AB4E6A8AAE69F93EFBC8CE983BDE58C85E590ABE4BA86E4B880E7A78DE7B2BEE7A59EE79A84E7B981E5A48DEFBC8CE4B99FE5B8B8E5B8B8E5AF84E4BA88E79D80E2809CE587BAE696B0E6848FE4BA8EE6B395E5BAA6E4B98BE4B8ADEFBC8CE5AF84E5A699E79086E4BA8EE8B1AAE68385E4B98BE5A496E2809DEFBC88E88B8FE8BDBCE8AFADEFBC89E79A84E5BF83E5A283E380823C2F703E3C703EE5A79CE680A1E7BF94E4BAA6E5A49AE4BBA5E88DB7E88AB1E4B8BAE9A298E69D90EFBC8CE58F8DE5A48DE68EA8E695B2EFBC8CE585B6E88DB7E9A38EE98081E788BDEFBC8CE782B9E58892E68EA8E58DB7EFBC8CE889B2E99A8FE7AC94E8B5B0EFBC8CE6A8AAE6B682E7AB96E68AB9EFBC8CE6B9BFE5A2A8E6B7A1E587BAEFBC8CE7AC94E698BEE6848FE587BAEFBC8CE58583E6B094E6B78BE6BC93E38082E585B6E6B0B4E88EB2E8BF8EE9A38EEFBC8CE88AB1E6B094E8A2ADE4BABAEFBC8CE4BBA5E887B3E88DB7E88AB1E5BC80E59088EFBC8CE7A78BE6B0B4E697A0E6B3A5E38082E59CA8E585B6E9B89FE7A6BDE58699E6848FE79A84E4B8B0E5AF8CE58F98E58C96E79A84E6898BE6B395E4B8ADEFBC8CE4B88DE696ADE59CB0E5BCA0E689ACE79D80E794BBE5AEB6E79A84E5BF83E680A7E38082E8BF98E8A781E78CABE592AAE887AAE5BE97EFBC8CE68896E698AFE686A8E68081E887AAE6809CEFBC8CE9AB98E58DA7E9A1BDE79FB3EFBC9BE68896E698AFE69CBAE699BAE4BB8EE5AEB9EFBC8CE8B6A3E7949FE587A1E5B098E38082E4BA8EE698AFE7BEA4E9B8ADE6888FE6B0B4EFBC8CE6B8B8E69BB3E7AB9EE8B5B0EFBC8CE997B2E98082E887AAE5BE97EFBC8CE4BAA6E8A781E682A0E8BF9CE380823C2F703E3C703EE78EB0E5AE9EE79A84E8A5BFE5AE89E698AFE4B880E983A8E58FA4E9A38EE88DA1E6BCBEE79A84E69585E4BA8BE696B0E7BC96EFBC8CE591A8E7A7A6E6B189E59490E79A84E6B581E9A38EE98197E99FB5EFBC8CE5B8B8E5B8B8E698ADE7A4BAE79D80E4B8ADE59BBDE58FA4E585B8E889BAE69CAFE79A84E789B9E6AE8AE6848FE4B989E38082E5A79CE680A1E7BF94E7949FE4BA8EE696AFE995BFE4BA8EE696AFEFBC8CE6849FE69F93E79D80E887AAE8BAABE79A84E8AEB8E5A49AE59B9EE59088E79A84E4BABAE7949FE69585E4BA8BEFBC8CE698AFE4BCB4E99A8FE79D80E591A8E9BC8EE7A7A6E4BF91E38081E6B189E793A6E59490E588BBE8808CE993ADE8AEB0E4BA8EE5BF83EFBC8CE697A2E69C89E2809CE88AB1E99D9EE88AB1EFBC8CE99BBEE99D9EE99BBEE2809DE79A84E6848FE591B3EFBC8CE4B99FE69C89E2809CE5B1B1E8BF98E698AFE5B1B1EFBC8CE6B0B4E8BF98E698AFE6B0B4E2809DE79A84E6849FE6829FE38082E59BA0E8808CE69687E58C96E79A84E69E9CE5AE9EE4B99FE59CA8E4B88DE79FA5E4B88DE8A789E59CB0E68890E7869FEFBC8CE698BEE7A4BAE587BAE7B4AFE7B4AFE79A84E7A195E69E9CE38082E59B9EE9A696E5898DE79EBBEFBC8CE4BABAE7949FE4B8ADE5B9B4EFBC8CE5BF83E99B84E8A786E99894EFBC8CE68595E6B885E59381E887B3E585B0EFBC8CE79FA5E8999AE68080E5908CE7ABB9E38082E7BB88E4BC9AE8A194E889BAE4BA8BE4B98BE9A38EE6B581EFBC8CE7AB9EE4B9A6E794BBE4B98BE995BFE789A9E380823C2F703E3C703E32303036E5B9B437E69C88E4BA8EE9A38EE789A9E995BFE5AE9CE4B98BE8BDA93C2F703E3C703E3C7370616E207374796C653D22666F6E742D7765696768743A203730303B223EE4BB8EE4B88AE5B1B1E8998EE588B0E4B88BE5B1B1E78CAB3C2F7370616E3E3C2F703E3C703EE28094E28094E68891E8AFB4E5A79CE680A1E7BF943C2F703E3C703EE5BCA0E6B89D3C2F703E3C703EE680A1E7BF94E5BE88E5B091E794BBE8998EE38082E4BD86E698AFEFBC8CE4BB96E7949FE88296E5B19EE8998EEFBC8CE8808CE4B894EFBC8CE4B880E697A6E89384E58F91E79599E9A1BBEFBC8CE794BBE5AEB6E4B98BE4B8ADEFBC8CE883BDE5A682E4BB96E982A3E888ACE4BD93E6A0BCE9AD81E4BC9FEFBC8CE599A8E5AE87E8BDA9E69882EFBC8CE58588E5A4A9E5B0B1E69C89E2809CE4B88AE5B1B1E8998EE2809DE6B094E58ABFE88085EFBC8CE8BF98E79C9FE698AFE4B88DE5A49AE38082E5BD93E4B88DE59CA8E5B091E695B0E79A84E2809CE78CB4E5AD90E2809DE7BAA7E79A84E4BABAE789A9E983BDE68A8AE887AAE5B7B1E8A3853C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3537306638633538346263623435663039643832303435363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D22E5A79CE680A1E7BF94E58699E6848FE794BB22207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D37333932633330346336356331303338323037656339633038323130393331632F636631623964313666646661616635313639316334326131386335343934656566303166376133352E6A70672220616C743D22E5A79CE680A1E7BF94E58699E6848FE794BB22207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C7370616E20636C6173733D226465736372697074696F6E22207374796C653D22646973706C61793A20626C6F636B3B20636F6C6F723A207267622838352C2038352C203835293B20666F6E742D73697A653A20313270783B20746578742D696E64656E743A203070783B20666F6E742D66616D696C793A20E5AE8BE4BD933B20776F72642D777261703A20627265616B2D776F72643B20776F72642D627265616B3A20627265616B2D616C6C3B206C696E652D6865696768743A20313570783B2070616464696E673A20387078203770783B206D696E2D6865696768743A20313270783B20626F726465722D746F702D77696474683A203170783B20626F726465722D746F702D7374796C653A20736F6C69643B20626F726465722D746F702D636F6C6F723A20726762283232342C203232342C20323234293B223EE5A79CE680A1E7BF94E58699E6848FE794BB3C2F7370616E3E3C2F703E3C703EE689AEE68890E2809CE4B88AE5B1B1E8998EE2809DE8BF9BE8808CE79B98E8B89EE4B880E4B8AAE5B1B1E5A4B4E697B6EFBC8CE5A79CE680A1E7BF94E58DB4E4B8BEE9878DE88BA5E8BDBBE59CB0E794BBE4BA86E4B880E58FAAE2809CE4B88BE5B1B1E78CABE2809DE380823C2F703E3C703EE4BA8BE5AE9EE4B88AEFBC8CE5A682E69E9CE79C9FE683B3E58DA0E5B1B1E4B8BAE78E8BEFBC8CE8BAABE4B8BAE8A5BFE5AE89E7BE8EE69CAFE5ADA6E999A2E59BBDE794BBE7B3BBE4B8BBE4BBBBE79A84E5A79CE680A1E7BF94E4BCBCE4B98EE69BB4E5BE97E5A4A9E697B6E4B88EE59CB0E588A9E38082E784B6E8808CEFBC8CE4BB96E6B2A1E69C89E38082E4BB96E4B88DE4BD86E4B88DE2809CE4B88AE5B1B1E2809DEFBC8CE8808CE4B894E8BF98E58F8DE585B6E98193E8808CE8A18CE4B98BEFBC8CE2809CE4B88BE5B1B1E2809DE38082E5B9B6E4B894EFBC8CE4B88DE698AFE4BBA5E2809CE4B88BE5B1B1E8998EE2809DE79A84E587B6E78C9BEFBC8CE8808CE698AFE4BBA5E2809CE4B88BE5B1B1E78CABE2809DE79A84E781B5E6B094E38082E8BF99E5B0B1E88090E4BABAE5AFBBE591B3E4BA86E380823C2F703E3C703EE5B1B1E4B88BE69C89E6B2B3E6B581E4B88EE5A4A7E5B79DEFBC8CE4B9A1E59C9FE4B88EE58E9FE9878EE38082E5A79CE680A1E7BF94E7A9B6E7AB9FE8A681E4B88BE588B0E593AAE9878CEFBC9F3C2F703E3C703EE4B88BE588B0E7949FE6B4BBE4B8ADE58EBBE380823C2F703E3C703EE58FAFE698AFEFBC8CE7949FE6B4BBE7BAB7E7B981E5A49AE6A0B7EFBC8CE78CABE4B88BE8BAABE6AEB5E79A84E5A79CE680A1E7BF94E7A9B6E7AB9FE8A681E4B88BE588B0E4BB80E4B988E6A0B7E79A84E7949FE6B4BBE4B8ADE58EBBEFBC9FE698AFE4BA94E999B5E5B091E5B9B4EFBC9FE698AFE580AAE79392EFBC9FE698AFE585ABE5A4A7EFBC9FE698AFE590B4E6988CE7A195EFBC9FE698AFE9BD90E799BDE79FB3EFBC9F3C2F703E3C703EE68896E8AEB8E698AFEFBC8CE4B99FE68896E8AEB8E4B88DE698AFE38082E8BF99E696B9E99DA2EFBC8CE6B5B7E5BEB7E6A0BCE5B094E8AFB4E8BF87E4B880E58FA5E5BE88E5A5BDE79A84E8AF9DEFBC9AE8AF97E6848FE59CB0E6A096E5B185E38082E59FBAE4BA8EE6ADA4EFBC8CE8AF97E4BABAE6B49BE5A4ABE8AFB4EFBC9AE2809CE7949FE88296E5B19EE9BE99EFBC8CE4BA8EE4BB8AEFBC8CE8BF9EE58F98E4B880E69DA1E89B87E79A84E5A5A2E69C9BE983BDE6B7A1E4BA86E38082E2809DE58FAAE69C89E59CA8E4B896E4BF97E79A84E6ACB2E69C9BE6B7A1E58C96E38081E6B481E58780E4B98BE5908EEFBC8CE8AF97E6898DE69DA5EFBC8CE6848FE4B99FE6898DE69DA5EFBC8CE8AF97E6848FE59CB0E7949FE6B4BBE4B99FE6898DE882AFE8BF87E69DA5E38082E5BD93E98089E68BA9E4BA86E2809CE4B88BE5B1B1E2809DE79A84E5A79CE680A1E7BF94E59BBEE7BB98E79A84E4B88DE698AFE2809CE8998EE2809DE8808CE698AFE2809CE78CABE2809DE697B6EFBC8CE4BB96E4B88DE698AFE6B2A1E69C89E99B84E5BF83E5A3AEE5BF97EFBC8CE8808CE698AFE4BB96E79A84E2809CE99B84E5BF83E5A3AEE5BF97E2809DE59CA8E8AF97E6848FE79A84E5AEA1E7BE8EE4B8ADE8B685E8B68AE38081E8B68AE68BA8E4BA86E4B896E4BF97E79A84E5B182E6ACA1EFBC8CE8BF9BE8808CE68AB5E8BEBEE4BA86E8AF97E6848FE6A096E5B185E79A84E5A283E7958CE380823C2F703E3C703EE4B896E4B88AE6B2A1E69C89E799BDE59083E79A84E58D88E9A490E380823C2F703E3C703EE5A682E69E9CE6B2A1E69C89E8AF97E6848FE59CB0E7AD91E5B185EFBC8CE8AF97E6848FE59CB0E6A096E5B185E4BEBFE99ABEE5858DE7A9BAE4B8ADE6A5BCE99881E38082E4B8BAE6ADA4EFBC8CE68891E5BF85E9A1BBE4BB8EE5A79CE680A1E7BF94E79A84E2809CE7AD91E5B185E2809DE69DA5E585A5E6898BEFBC8CE8BF9BE8808CE88083E5AF9FE4BB96E79A84E2809CE6A096E5B185E2809DE380823C2F703E3C703EE6B885E4BABAE696B9E5A3ABE5BAB6E8AFB4EFBC9AE2809CE5B1B1E5B79DE88D89E69CA8EFBC8CE980A0E58C96E887AAE784B6EFBC8CE6ADA4E5AE9EE5A283E4B99FE38082E59BA0E5BF83E980A0E5A283EFBC8CE4BBA5E6898BE8BF90E5BF83EFBC8CE6ADA4E8999AE5A283E4B99FE38082E8999AE8808CE4B8BAE5AE9EEFBC8CE698AFE59CA8E7AC94E5A2A8E69C89E697A0E997B4E38082E69585E58FA4E4BABAE7AC94E5A2A8E585B7E6ADA4EFBC8CE5B1B1E88B8DE6B0B4E7A780EFBC8CE6B0B4E6B4BBE79FB3E6B6A6EFBC8CE4BA8EE5A4A9E59CB0E4B98BE5A496EFBC8CE588ABE69E84E4B880E7A78DE781B5E5A587E38082E68896E78E87E6848FE68CA5E6B492EFBC8CE4BAA6E79A86E782BCE98791E68890E6B6B2EFBC8CE5BC83E6BB93E5AD98E7B2BEEFBC8CE69BB2E5B0BDE8B988E8999AE69184E5BDB1E4B98BE5A699E38082E2809D3C2F703E3C703EE697A0E8AEBAE698AFE2809CE6B8B8E6B0B4E9B8ADE2809DEFBC8CE8BF98E698AFE2809CE4B88BE5B1B1E78CABE2809DEFBC8CE68A91E68896E2809CE88AA6E88AB1E9B8A1E2809DE7949AE887B3E585B6E4BB96E79A84E88AB1E9B89FE899ABE9B1BCEFBC8CE5A79CE680A1E7BF94E5A4A7E983BDE78E87E7ABA0E68CA5E6B492EFBC8CE69BB2E5B0BDE585B6E5A699E38082E4BB96E79A84E5A699E5A484E59CA8E7A59EE4B88DE59CA8E5BDA2EFBC8CE5B0BDE7AEA1E4BB96E79A84E5889BE4BD9CE4B880E79BB4E5BE88E69C89E2809CE5BDA2E2809DE38082E5A79CE680A1E7BF94E79A84E7AC94E4B88BEFBC8CE789A9E4B98BE2809CE5BDA2E2809DEFBC8CE4B88DE698AFE6B2A1E69C89EFBC8CE4B99FE4B88DE698AFE4B88DE9878DE8A681EFBC8CE8808CE698AFE4BB96E79A84E585B3E6B3A8E782B9E5B7B2E4B88DE59CA8E982A3E9878CE38082E4BB96E585B3E6B3A8E79A84E698AFE697A5E5B8B8E7949FE6B4BBE698AFE5A682E4BD95E68890E2809CE5BDA2E2809DE79A84E38082E59BA0E6ADA4EFBC8CE4BB96E79A84E7AC94E4B88BEFBC8CE593AAE68095E698AFE88AB1E9B89FE899ABE9B1BCEFBC8CE4B99FE4B880E5AE9AE58DB3E4BA8BE38081E58DB3E789A9E38081E58DB3E699AFE38081E58DB3E5BF83E380823C2F703E3C703EE8BF99E6A0B7E79A84E5A5BDE5A484E698AFE8B4B4E8BF91E7949FE6B4BBE38082E5B895E696AFE68DB7E5B094E7BAB3E5858BE8AFB4E8BF87EFBC8CE8AF97E4B88DE5BF85E588B0E5A4A9E4B88AE58EBBE689BEEFBC8CE8A681E59684E4BA8EE5BCAFE885B0EFBC8CE8AF97E698AFE59CA8E59CB0E4B88AE79A84E38082E4BD86E698AFEFBC8CE5A682E69E9CE8AF97E4BABAE4B88DE68A8AE887AAE5B7B1E5BCAFE885B0E689BEE588B0E79A84E8AF97E9878DE696B0E98081E588B0E5A4A9E4B88AEFBC8CE4BB96E5B0B1E4B88DE58FAFE883BDE68AB5E8BEBEE4BA8BE789A9E79A84E6B7B1E5A484E4BBA5E88EB7E5BE97E6848FE4B989E38082E5A79CE680A1E7BF94E79A84E4BD9CE59381E4B98BE68980E4BBA5E585B7E5A487E8AF97E79A84E5A283E7958CE4B88EE6848FE591B3EFBC8CE5B0B1E59CA8E4BA8EE4BB96E4B88DE4BB85E5BCAFE885B0EFBC8CE8808CE4B894E4BBB0E69C9BE6989FE7A9BAE380823C2F703E3C703EE997AEE9A298E698AFEFBC8CE4BBA5E4B88BE5B1B1E79A84E5A7BFE68081E4BBB0E69C9BE6989FE7A9BAE79A84E5A79CE680A1E7BF94E7A9B6E7AB9FE59CA8E593AAE6ADA4E696B9E99DA2E5AE8CE68890E4BA86E4BB96E79A84E2809CE8AF97E6848FE7AD91E5B185E2809DEFBC9F3C2F703E3C703EE980B8E380823C2F703E3C703E3C6120636C6173733D22696D6167652D6C696E6B22206E736C6F672D747970653D22393331372220687265663D22687474703A2F2F6261696B652E62616964752E636F6D2F7069632F2545352541372539432545362538302541312545372542462539342F373230343038372F302F3337336263346234346532666438356438616434623235363F66723D6C656D6D612663743D73696E676C6522207461726765743D225F626C616E6B22207469746C653D2222207374796C653D22636F6C6F723A207267622831392C203131302C20313934293B20746578742D6465636F726174696F6E3A206E6F6E653B20646973706C61793A20626C6F636B3B2077696474683A2031353870783B206865696768743A2031353870783B223E3C696D6720636C6173733D2222207372633D2268747470733A2F2F696D6773612E62616964752E636F6D2F6261696B652F732533443232302F7369676E3D62646430336564326333636563336664386633656130373765363839643462362F663633366166633337393331306135356237646231646561623734353433613938323236313033342E6A70672220616C743D2222207374796C653D22626F726465723A203070783B20646973706C61793A20626C6F636B3B206D617267696E3A20307078206175746F3B2077696474683A2031353870783B206865696768743A2031353870783B222F3E3C2F613E3C2F703E3C703EE2809CE980B8E2809DE4B98BE4B880E6A0BCEFBC8CE5B9B6E99D9EE5A79CE680A1E7BF94E79A84E78BACE5889BE38082E58DB3E4BDBFE698AFE58583E6B094E6B78BE6BC93EFBC8CE7AC94E6B395E88B8DE7A780E79A84E7AC94E5A2A8E9A38EE6A0BCEFBC8CE4B99FE99D9EE4BB96E79A84E5889BE980A0E38082E891A3E585B6E6988CE5B0B1E69C89E6ADA4E6A0BCE38082E7A780E980B8E5A682E580AAE79392E38081E6B6A6E980B8E5A682E590B4E997A8E794BBE5AEB6E38081E78B82E980B8E5A682E5BE90E6B8ADEFBC8CE582B2E980B8E5A682E585ABE5A4A7E38082E980B8E79A84E5AEA1E7BE8EE7BBB4E5BAA6E4B88AEFBC8CE58FA4E4BABAE58F91E68CA5E79A84E6B78BE6BC93E5B0BDE887B4E38082E4BD9CE4B8BAE5908EE5ADA6EFBC8CE5A79CE680A1E7BF94E69C89E585B3E980B8E79A84E5AEA1E7BE8EE7BBB4E5BAA6E58F88E8AFA5E68C87E59091E593AAE9878CEFBC9F3C2F703E3C703EE9A696E58588EFBC8CE5A79CE680A1E7BF94E8AEA4E79C9FE7A094E4B9A0E58FA4E4BABAE69C89E585B3E2809CE980B8E2809DE79A84E7B2BEE9AB93E38082E5A682E6ADA4E5819AE6B395EFBC8CE4B99FE5B0B1E698AFE5898DE4BABAE68980E8AFB4E79A84E2809CE887B4E5B9BFE5A4A7E2809DE38082E59CA8E2809CE887B4E5B9BFE5A4A7E2809DE4B98BE5908EEFBC8CE4BB96E58F88E69C89E79D80E887AAE5B7B1E79A84E2809CE5B0BDE7B2BEE5BEAEE2809DE28094E28094E4BB96E98089E68BA9E4BA86E2809CE69EAFE980B8E2809DE380823C2F703E3C703EE4BB96E79A84E2809CE69EAFE980B8E2809DE4B88EE2809CE69EAFE5AF82E2809DE5928CE2809CE69EAFE6B7A1E2809DE4B8A4E4B8AAE7BE8EE5ADA6E6A682E5BFB5E69C89E585B3E380823C2F703E3C703EE68891E4BBACE79FA5E98193EFBC8CE2809CE69EAFE6B7A1E2809DE698AFE5AE8BE4BBA5E5908EE79A84E4B8ADE59BBDE69687E4BABAE68980E5818FE788B1E79A84E38082E88B8FE4B89CE59DA1E8AF84E99FA9E69FB3E8AF97EFBC8CE8A880E585B6E2809CE5A496E69EAFE8808CE4B8ADE8868FEFBC8CE4BCBCE6BEB9E8808CE5AE9EE7BE8EE2809DE38082E6ADA4E58FAFE4B8BAE2809CE69EAFE6B7A1E2809DE7BE8EE5ADA6E5BC80E5B1B1E4B98BE7BAB2E9A286E38082E8BF99E4B880E7BAB2E9A286E58F8AE585B6E8A18DE7949FE79A84E7BE8EE5ADA6E6A682E5BFB5EFBC8CE59CA8E7A685E8AF97E4B8ADE4B99FE4B88DE5B091E8A781E38082E4BD86E698AFEFBC8CE2809CE69EAFE5AF82E2809DE58899E4B88EE697A5E69CACE79A84E7BE8EE5ADA6E8BFBDE6B182E69C89E585B3E380823C2F703E3C703EE59CA8E789A9E59380E38081E5B9BDE78E84E4B98BE5A496EFBC8CE697A5E69CACE7BE8EE5ADA6E58F88E789B9E588ABE5BCBAE8B083E2809CE69EAFE5AF82E2809DE38082E59CA8E3808AE697A5E69CACE9A38EE99B85E3808BE4B880E4B9A6E4B8ADEFBC8CE8AF91E88085E78E8BE59091E8BF9CE58588E7949FE69BBEE680BBE7BB93E2809CE5AF82E2809DE8BF99E4B8AAE5AD97E38082E4BB96E8AFB4EFBC8CE2809CE5AF82E2809DE59CA8E5A496E5B182E5928CE5A496E8A782E4B88AEFBC8CE8A1A8E78EB0E4B88EE590ACE8A789E4B88AE79A84E2809CE58AA8E99D99E4B88DE4BA8CE2809DE79A84E2809CE5AF82E5A3B0E2809DEFBC9BE8A786E8A789E4B88AE4BBA5E58FA4E697A7E38081E7A3A8E68D9FE38081E7AE80E7B4A0E38081E9BBAFE6B7A1E4B8BAE5A496E983A8E789B9E5BE81E79A84E2809CE5AF82E889B2E2809DE38082E59CA8E58685E6B6B5E4B88AEFBC8CE2809CE5AF82E2809DE5BD93E4B8ADE58C85E590ABE4BA86E2809CE8999AE4B88EE5AE9EE2809DE38081E2809CE99B85E4B88EE4BF97E2809DE38081E2809CE88081E4B88EE5B091E2809DE38081E2809CE4B88DE69893E4B88EE6B581E8A18CE2809DE59B9BE5AFB9E5AD90E88C83E795B4EFBC8CE5AE83E4BBACE69E84E68890E4BA86E2809CE5AF82E5BF83E2809DE79A84E6A0B8E5BF83E58685E5AEB9E380823C2F703E3C703EE6ADA4E5A496EFBC8CE8BF98E69C89E2809CE5AF82E5A7BFE2809DE38082E5AE83E58C85E590ABE69E9DE68A98E38081E7BB86E69F94E7AD89E38082E5BD93E2809CE69EAFE5AF82E2809DE4B88EE2809CE69EAFE6B7A1E2809DE59088E8808CE4B8BAE4B880E697B6EFBC8CE5A79CE680A1E7BF94E79A84E5889BE4BD9CE4BEBFE980B8E587BAE4BA86E58FA4E4BABAE4BBA5E58F8AE5BD93E4B88BE697B6E4BABAE79A84E5AEA1E7BE8EE88C83E5BC8FEFBC8CE69C89E4BA86E887AAE5B7B1E79A84E889BAE69CAFE9A38EE6A0BCE380823C2F703E3C703EE585B6E5AE9EEFBC8CE2809CE980B8E2809DE5AD97E69C80E697A9E79A84E69CACE4B989E5B0B1E698AFE98083E884B1E38082E5BD93E5A79CE680A1E7BF94E5809FE58AA9E2809CE69EAFE980B8E2809DE98083E587BAE58FA4E4BABAE88C83E5BC8FE5B9B6E887AAE7AB8BE4B880E6A0BCE697B6EFBC8CE4BB96E79A84E2809CE69EAFE980B8E2809DE4B98BE68980E4BBA5E5B9B6E4B88DE4BDBFE4BABAE8A789E5BE97E7AA81E58580EFBC8CE5B0B1E59CA8E4BA8EE4BB96E79A84E2809CE69EAFE980B8E2809DE6A682E5BFB5E8BF98E69C89E5BE88E5A49AE8BF9CE4BAB2EFBC8CE6AF94E5A682E7BAB5E980B8E38081E7AE80E980B8E38081E88BB1E980B8E38081E9878EE980B8E7AD89E38082E4B99FE594AFE585B6E5A682E6ADA4EFBC8CE4BB96E79A84E2809CE69EAFE980B8E2809DE69C89E4BA86E2809CE98193E4B88DE5ADA4E2809DE79A84E59381E6A0BCE380823C2F703E3C703EE2809CE995BFE5AE89E794BBE6B4BEE2809DE4B98BE5908EEFBC8CE99995E8A5BFE79A84E794BBE5AEB6E5BE88E5B091E6B2A1E69C89E4B88DE58F97E585B6E5BDB1E5938DE79A84E38082E5A79CE680A1E7BF94E887AAE784B6E4B99FE4B88DE4BE8BE5A496EFBC8CE6AF94E5A682E59CA8E585B3E6B3A8E7949FE6B4BBE8BF99E4B880E7BBB4E5BAA6E4B88AE38082E4B88DE8BF87EFBC8CE2809DE995BFE5AE89E794BBE6B4BEE2809CE4B98BE5A496EFBC8CE4B896E7958CE794BBE59D9BE585B3E4BA8EE889BAE69CAFE4B88EE7949FE6B4BBE79A84E8A1A8E8BFB0E4BCBCE4B98EE69BB4E58AA0E8A781E8A180E38082E59CA8E69D9CE5B09AE982A3E9878CEFBC8CE4B880E4B8AAE5B08FE4BEBFE6B1A0E5B0B1E58FAFE4BBA5E5918AE8AF89E4BDA0EFBC8CE889BAE69CAFE5B0B1E698AFE7949FE6B4BBEFBC9BE8808CE59CA8E58D9AE4BC8AE6809DE982A3E9878CEFBC8CE889BAE69CAFE5B0B1E698AFE7A4BEE4BC9AE38082E6B2A1E69C89E4BABAE698AFE889BAE69CAFE5AEB6EFBC8CE4B99FE6B2A1E69C89E4BABAE4B88DE698AFE889BAE69CAFE5AEB6EFBC9BE8808CE59CA8E5AE89E8BFAAC2B7E6B283E99C8DE5B094E982A3E9878CEFBC8CE889BAE69CAFE5B0B1E68890E4BA86E4BCA0E692ADEFBC8CE5AE83E698AFE58FAFE4BCA0E692ADE79A84E4BA8BE4BBB6E380823C2F703E3C703EE5BF83E59091E2809CE69EAFE980B8E2809DE79A84E5A79CE680A1E7BF94E5B9B6E6B2A1E69C89E5838FE59BBDE5A496E5A4A7E4BB99E4BBACE8B5B0E5BE97E982A3E4B988E8BF9CEFBC8CE4BD86E4BB96E4BBACE5AFB9E4BA8EE889BAE69CAFE79A84E8A1A8E8BFB0E4B88EE5889BE4BD9CE4B99FE79A84E7A1AEE68896E5A49AE68896E5B091E59CB0E5BDB1E5938DE4BA86E4BB96E79A84E5889BE4BD9CEFBC8CE69585E6ADA4EFBC8CE5A79CE680A1E7BF94E79A84E2809DE69EAFE980B8E2809CE4B98BE4B8ADEFBC8CE58F88E5A49AE4BA86E4B880E782B9E782B9E682A0E997B2E38081E4B880E782B9E782B9E783ADE68385E38081E4B880E782B9E782B9E586B7E6BCA0E38081E4B880E782B9E782B9E5B9BDE9BB98E38081E4B880E782B9E782B9E6849FE4BCA4E38081E4B880E782B9E782B9E697A0E5A588E38081E4B880E782B9E782B9E6ACA2E5969CE38082E68980E69C89E79A84E8A681E7B4A0E983BDE698AFE982A3E4B988E4B880E782B9E782B9EFBC8CE4B88DE5A49AE4B99FE4B88DE5B091E38082E794A8E4BABAE4BBACE8AF84E8BFB0E6898DE68385E5928CE5B09AE88B8FE69BBCE6AE8AE79A84E8AF9DE8AFB4EFBC8CE4BEBFE698AFE2809DE4B88DE58FAFE697A0E4B880EFBC8CE4B88DE58FAFE69C89E4BA8CE38082E2809D3C2F703E3C703EE5928CE58FA4E4BABAE4B88DE5908CEFBC8CE5928CE4BB8AE4BABAE4B99FE4B88DE5908CE38082E4BD86E58F88E5A484E5A484E69C89E79D80E58FA4E4BABAE79A84E5BEAEE7AC91E4BBA5E58F8AE4BB8AE4BABAE79A84E6B8A9E69A96E38082E69EAFE980B8E4B98BE4B8ADEFBC8CE5A79CE680A1E7BF94E6B2A1E69C89E58FA4E4BD9BE99D92E781AFEFBC8CE4B99FE6B2A1E69C89E58DA0E5B1B1E4B8BAE78E8BEFBC8CE5BC84E4B8AAE2809CE4B88AE5B1B1E8998EE2809DE79A84E5A7BFE68081E698BEE69186E887AAE5B7B1E79A84E5A881E6ADA6E38082E4BB96E58FAAE698AFE78CABE4B88BE885B0E69DA5E2809CE6B7B1E585A5E7949FE6B4BBE2809DEFBC8CE784B6E5908EE58F88E8BF9CE8BF9CE59CB0E5AEA1E8A786E887AAE5B7B1E7AC94E4B88BE79A84E7949FE6B4BBE38082E8808CE8BF99E4B8AAE8978FE59CA8E2809CE69EAFE980B8E2809DE4B98BE4B8ADE79A84E2809CE8BF9CE2809DEFBC8CE68891E4B880E79BB4E6B2A1E69C89E8AFB4E7A0B4E38082E585B6E5AE9EEFBC8CE68980E8B093E79A84E2809CE8BF9CE2809DEFBC8CE59CA8E8AF97E5ADA6E4B98BE4B8ADEFBC8CE4B88DE698AFE68C87E7A9BAE997B4E8B79DE7A6BBEFBC8CE8808CE698AFE68C87E5BF83E79086E8B79DE7A6BBEFBC8CE698AFE68C87E889BAE69CAFE5AEB6E5AFB9E4BA8EE5A496E59CA8E4B896E7958CE79A84E4B880E7A78DE8BF9CE8BF9CE79A84E8A782E69C9BE38082E8AF97E4BABAE4BBACE680BBE698AFE59CA8E69BB4E4B8BAE5B9BFE99894E79A84E697B6E7A9BAE8838CE699AFE4B8ADE68A8AE68FA1E78EB0E5AE9EE38082E998AEE7B18DE8AFB4E79A84E2809CE8A880E59CA8E880B3E79BAEE4B98BE58685EFBC8CE68385E5AF84E585ABE88D92E4B98BE8A1A8E2809DE8AFB4E5BE97E5B0B1E698AFE8BF99E4B8AAE79086E380823C2F703E3C703EE4B88BE5B1B1E4B98BE5908EEFBC8CE5A4A9E59CB0E5AEBDE5B9BFE38082E698AFE8998EE698AFE78CABEFBC8CE983BDE4B88DE9878DE8A681EFBC8CE9878DE8A681E79A84E698AFE8AF97E6848FEFBC8CE4BBA5E58F8AE5A682E4BD95E8AF97E6848FE59CB0E68A8AE68FA1E887AAE5B7B1E38081E68A8AE68FA1E7949FE6B4BBE380823C2F703E3C703EE2809CE79BB8E8A781E697A0E69D82E8A880EFBC8CE4BD86E8AF9DE6A191E9BABBE995BFE38082E2809DE8BF99E698AFE999B6E6B88AE6988EE79A84E5908DE58FA5E38082E5A682E69E9CE4B88DE698AFE59BA0E4B8BAE8BF98E69C89E69BB4E4B8BAE4B8B0E6BBA1E79A84E7B2BEE7A59EE7949FE6B4BBE4BD9CE8838CE699AFEFBC8CE999B6E6B88AE6988EE79A84E8BF99E58FA5E8AF97E5B0B1E5928CE794B0E5A4B4E5869CE6B091E79A84E5AEB6E5B8B8E8AF9DE6B2A1E69C89E58CBAE588ABE38082E8808CE4B8ADE59BBDE69687E5ADA6E58FB2E4B98BE68980E4BBA5E9878DE8A786E999B6E6B88AE6988EE5A682E6ADA4E8AF97E6AD8CE8AFADE8A880EFBC8CE585B6E997B4E7A9B6E7AB9FEFBC8CE4B88DE8A880E887AAE6988EE38082E8808CE5A79CE680A1E7BF94E79A84E2809CE4B88BE5B1B1E78CABE2809DE681B0E58FAFE5A682E698AFE8A782E380823C2F703E3C703E3C62722F3E3C2F703E);
+
+-- ----------------------------
 -- Table structure for cmswing_balance_log
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_balance_log`;
@@ -4196,16 +4196,11 @@ CREATE TABLE `cmswing_balance_log` (
   `amount_log` float(10,2) NOT NULL,
   `note` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_balance_log
 -- ----------------------------
-INSERT INTO `cmswing_balance_log` VALUES ('22', '1', '2', '2', '1459613929073', '1.00', '801.00', '管理员（admin）为您充值，充值的金额为：1 元');
-INSERT INTO `cmswing_balance_log` VALUES ('23', '1', '2', '2', '1459614714987', '1.00', '802.00', '管理员（admin）为您充值，充值的金额为：1 元');
-INSERT INTO `cmswing_balance_log` VALUES ('24', '1', '2', '2', '1459614719886', '1.00', '803.00', '管理员（admin）为您充值，充值的金额为：1 元');
-INSERT INTO `cmswing_balance_log` VALUES ('25', '1', '2', '2', '1459614723994', '1.00', '804.00', '管理员（admin）为您充值，充值的金额为：1 元');
-INSERT INTO `cmswing_balance_log` VALUES ('26', '1', '2', '2', '1459614740104', '2.00', '806.00', '管理员（admin）为您充值，充值的金额为：2 元');
 INSERT INTO `cmswing_balance_log` VALUES ('10', '1', '1', '2', '1458381526021', '1.00', '98925.73', null);
 INSERT INTO `cmswing_balance_log` VALUES ('11', '1', '1', '2', '1458381626851', '1.00', '98926.73', '管理员（admin）为您充值，充值的金额为：1 元');
 INSERT INTO `cmswing_balance_log` VALUES ('12', '1', '1', '2', '1458383085852', '33.00', '98959.73', '管理员（admin）为您充值，充值的金额为：33 元');
@@ -4218,6 +4213,11 @@ INSERT INTO `cmswing_balance_log` VALUES ('18', '1', '2', '2', '1458989966829', 
 INSERT INTO `cmswing_balance_log` VALUES ('19', '1', '2', '2', '1459072703341', '1000.00', '1010.00', '管理员（admin）为您充值，充值的金额为：1000 元');
 INSERT INTO `cmswing_balance_log` VALUES ('20', '0', '2', '2', '1459072709499', '-105.00', '905.00', 'cmswing 通过余额支付方式进行商品购买,订单编号：1459071640873');
 INSERT INTO `cmswing_balance_log` VALUES ('21', '0', '2', '2', '1459270332518', '-105.00', '800.00', 'cmswing 通过余额支付方式进行商品购买,订单编号：d21459269259683');
+INSERT INTO `cmswing_balance_log` VALUES ('22', '1', '2', '2', '1459613929073', '1.00', '801.00', '管理员（admin）为您充值，充值的金额为：1 元');
+INSERT INTO `cmswing_balance_log` VALUES ('23', '1', '2', '2', '1459614714987', '1.00', '802.00', '管理员（admin）为您充值，充值的金额为：1 元');
+INSERT INTO `cmswing_balance_log` VALUES ('24', '1', '2', '2', '1459614719886', '1.00', '803.00', '管理员（admin）为您充值，充值的金额为：1 元');
+INSERT INTO `cmswing_balance_log` VALUES ('25', '1', '2', '2', '1459614723994', '1.00', '804.00', '管理员（admin）为您充值，充值的金额为：1 元');
+INSERT INTO `cmswing_balance_log` VALUES ('26', '1', '2', '2', '1459614740104', '2.00', '806.00', '管理员（admin）为您充值，充值的金额为：2 元');
 INSERT INTO `cmswing_balance_log` VALUES ('27', '1', '2', '2', '1459614745280', '3.00', '809.00', '管理员（admin）为您充值，充值的金额为：3 元');
 INSERT INTO `cmswing_balance_log` VALUES ('28', '1', '2', '2', '1459614749889', '4.00', '813.00', '管理员（admin）为您充值，充值的金额为：4 元');
 INSERT INTO `cmswing_balance_log` VALUES ('29', '0', '2', '2', '1459663848688', '312.00', '1125.00', 'cmswing 通过[支付宝 PC 网页支付]支付方式进行充值,订单编号：c21459660400589');
@@ -4335,7 +4335,7 @@ CREATE TABLE `cmswing_category` (
 -- Records of cmswing_category
 -- ----------------------------
 INSERT INTO `cmswing_category` VALUES ('1', 'wenzhangceshi', '文章测试', '0', '1', '0', '', 'fsf,犯得上发射点,', 'fdsfdsafdsafas', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '1', '', '1379474947', '1503723049473', '1', '0', '1:人物\r\n2: 电商\r\n3: 投创\r\n4:智能硬件\r\n5:互联网＋\r\n6:巨头', '', '0', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('40', 'tupianceshi', '图片测试', '0', '2', '0', '', '', '', '', '', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '1', null, '4294967295', '1503754132276', '1', '0', '1:妹子\r\n2:宠物\r\n3:家装', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('40', 'tupianceshi', '图片测试', '0', '2', '12', '', '', '', '', 'picture', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '1', null, '4294967295', '1503817263349', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('45', 'shangchengceshi', '商城测试', '0', '5', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1474864776665', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('50', '', '我要服务', '45', '7', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1474140160549', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":\"1\",\"defaultshow\":\"15\",\"types\":[{\"enable\":\"15\",\"name\":\"服务搜索内容\",\"description\":\"服务搜索内容\",\"show\":0}]}', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('51', '', '笔记本', '45', '1', '0', '', '', '', '', 'shop.html', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1472729381488', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":0,\"defaultshow\":\"9\",\"types\":[{\"enable\":\"9\",\"name\":\"笔记本搜索内容\",\"description\":\"笔记本搜索内容\",\"show\":\"1\"}]}', '0', '1', '', '', '');
@@ -4363,7 +4363,7 @@ INSERT INTO `cmswing_category` VALUES ('77', 'wangluoyingyong', '网络应用', 
 INSERT INTO `cmswing_category` VALUES ('78', 'zhutibizhi', '主题壁纸', '62', '16', '0', '', '', '', '', 'download.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464187057608', '1464187075120', '1', '0', '1:缤纷壁纸\r\n2:多彩主题\r\n3:美化软件', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('79', 'bianchengkaifa', '编程开发', '62', '17', '0', '', '', '', '', 'download.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464187397418', '1464187554842', '1', '0', '1:开发平台\r\n2:辅助工具\r\n3:运行库', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('80', 'qitaruanjian', '其他软件', '62', '18', '0', '', '', '', '', 'download.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464187506676', '0', '1', '0', '1:天文地理\r\n2:电子帐本\r\n3:日历闹钟\r\n4:出行查询\r\n5:超极本', '', '0', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('81', 'chengwu', '宠物', '40', '0', '15', '', '', '', '', '', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464849879517', '1500298283903', '1', '0', '1:宠物猫\r\n2:宠物动漫\r\n3:宠物松鼠\r\n4:宠物狐狸\r\n5:小宠物', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('81', 'chengwu', '宠物', '40', '0', '15', '', '', '', '', 'picture', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464849879517', '1503813071111', '1', '0', '1:宠物猫\r\n2:宠物动漫\r\n3:宠物松鼠\r\n4:宠物狐狸\r\n5:小宠物', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('82', 'meizi', '妹子', '40', '0', '15', '', '', '', '', 'picture.html', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464850079360', '1464861418170', '1', '0', '1:性感妹子\r\n2:日本妹子\r\n3:台湾妹子\r\n4:清纯妹子\r\n5:妹子自拍', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('83', 'jiazhuang', '家装', '40', '0', '15', '', '', '', '', 'picture.html', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464850190267', '1473065173760', '1', '0', '1:现代简约家装\r\n2:小户型家装样板间\r\n3:田园风格家装效果图', '{\"required\":\"1\",\"prefix\":\"1\",\"default\":\"1\",\"defaultshow\":\"7\",\"types\":[{\"enable\":\"7\",\"name\":\"装修效果图\",\"description\":\"这是一个测试\",\"show\":\"1\"},{\"enable\":\"1\",\"name\":\"发的撒发\",\"description\":\"31312\",\"show\":\"1\"}]}', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('84', 'qiniuceshi', '七牛', '85', '1', '10', '', '', '', '', 'video.html', '', '', '6', '6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1465285144196', '1465714936639', '1', '0', '', '', '0', '1', '', '', '');
@@ -4699,6 +4699,285 @@ INSERT INTO `cmswing_cy_user` VALUES ('28', 'isv_login_cb', '阿特', '//www.cms
 INSERT INTO `cmswing_cy_user` VALUES ('29', 'isv_login_cb', 'Loge', 'http://sucimg.itc.cn/avatarimg/514918552_1476508108555_c55', '', null, '3a+FndWq9Am63frx1Se7fApFasg=', null, '514918552');
 
 -- ----------------------------
+-- Table structure for cmswing_doc_invoice
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_invoice`;
+CREATE TABLE `cmswing_doc_invoice` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `invoice_no` varchar(50) DEFAULT NULL,
+  `order_id` bigint(20) NOT NULL,
+  `order_no` varchar(50) NOT NULL,
+  `admin` varchar(20) DEFAULT NULL,
+  `accept_name` varchar(50) DEFAULT NULL,
+  `province` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `county` bigint(20) DEFAULT NULL,
+  `zip` varchar(6) DEFAULT NULL,
+  `addr` varchar(250) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `express_no` varchar(50) DEFAULT NULL,
+  `express_company_id` bigint(20) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_doc_invoice
+-- ----------------------------
+INSERT INTO `cmswing_doc_invoice` VALUES ('4', '1458819404550', '63', '1458798049251', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458819404550', '6546546546546546456', '1', '65465465465464');
+INSERT INTO `cmswing_doc_invoice` VALUES ('5', '1458820752241', '49', '1458722260981', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458820752241', '888888888888888888', '1', '888888888888888888888');
+INSERT INTO `cmswing_doc_invoice` VALUES ('6', 'k1459078679114', '72', 'd21459078464821', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1459078679114', '34324324', '1', '343');
+INSERT INTO `cmswing_doc_invoice` VALUES ('7', 'k1459271089325', '74', 'd21459269259683', 'admin', '郭德纲', '120000', '120100', '120102', '710065', 'fdsafasfdsfsdfdsf', '', '12345678901', '1459271089325', '242342', '1', 'dsfs');
+INSERT INTO `cmswing_doc_invoice` VALUES ('8', 'k1460179857198', '66', '1459070488150', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460179857198', '46456456456', '1', '5646');
+INSERT INTO `cmswing_doc_invoice` VALUES ('9', 'k1460180109814', '67', '1459071640873', 'admin', '郭德纲', '120000', '120100', '120102', '710065', 'fdsafasfdsfsdfdsf', '', '12345678901', '1460180109814', '4645654', '1', '54645');
+INSERT INTO `cmswing_doc_invoice` VALUES ('10', 'k1460180351375', '68', '1459074816900', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460180351375', '5646', '1', '5644');
+INSERT INTO `cmswing_doc_invoice` VALUES ('11', 'k1460438828025', '107', 'd21460438684186', 'admin', '郭德纲', '110000', '110100', '110102', '10001', '北京德云社吗一路金子一号', '', '18688888888', '1460438828025', '565464654', '1', '54545646');
+INSERT INTO `cmswing_doc_invoice` VALUES ('12', 'k1482982939864', '188', '201611240000047', 'arterli', '测试是', '110000', '110200', '110229', '123456', 'hgfdgfdsgdfsgfdsgfsdg', '', '1234567890', '1482982939864', '22111', '1', '11111');
+INSERT INTO `cmswing_doc_invoice` VALUES ('13', 'k1500433081520', '189', '201706260000085', 'admin', '测试是', '110000', '110200', '110229', '123456', 'hgfdgfdsgdfsgfdsgfsdg', '', '1234567890', '1500433081520', 'dsadas', '1', 'dsad');
+
+-- ----------------------------
+-- Table structure for cmswing_doc_receiving
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_receiving`;
+CREATE TABLE `cmswing_doc_receiving` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `admin_id` bigint(20) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT '0.00',
+  `create_time` bigint(13) DEFAULT NULL,
+  `payment_time` bigint(13) DEFAULT NULL,
+  `doc_type` tinyint(1) DEFAULT NULL,
+  `payment_id` bigint(20) DEFAULT NULL,
+  `pay_status` tinyint(1) DEFAULT NULL,
+  `note` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_doc_receiving
+-- ----------------------------
+INSERT INTO `cmswing_doc_receiving` VALUES ('9', '67', '2', null, '105.00', '1459072709489', '1459072709489', '0', '100', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('10', '68', '2', null, '90.00', '1459074833031', '1459074833031', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('12', '69', '2', null, '120.00', '1459075829735', '1459075829735', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('13', '70', '2', null, '120.00', '1459076018652', '1459076030000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('14', '72', '2', null, '230.00', '1459078479743', '1459078482000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('15', '74', '2', null, '105.00', '1459270332491', '1459270332491', '0', '100', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('16', '76', '2', null, '414.00', '1459370535566', '1459370533000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('17', '78', '2', null, '556.00', '1459399111186', '1459399111186', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('18', '83', '2', null, '10.00', '1459656646547', '1459664651000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('19', '84', '2', null, '10.00', '1459656649045', '1459666088000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('20', '85', '2', null, '1.00', '1459656748575', '1459664619000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('21', '86', '2', null, '1.00', '1459656748577', '1459656748577', '1', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('22', '87', '2', null, '1.00', '1459656845703', '1459664360000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('23', '88', '2', null, '1.00', '1459656845706', '1459664542000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('24', '89', '2', null, '10.00', '1459656932743', '1459664323000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('25', '90', '2', null, '312.00', '1459660400861', '1459663839000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('26', '90', '2', null, '312.00', '1459663845643', '1459663839000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('27', '91', '2', null, '3.00', '1459664055481', '1459664048000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('28', '92', '2', null, '3.00', '1459664055721', '1459664055721', '1', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('29', '92', '2', null, '3.00', '1459664276954', '1459664276954', '0', '4', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('30', '89', '2', null, '10.00', '1459664330586', '1459664323000', '0', '4', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('31', '87', '2', null, '1.00', '1459664367079', '1459664360000', '0', '4', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('32', '88', '2', null, '1.00', '1459664549179', '1459664542000', '0', '4', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('33', '85', '2', null, '1.00', '1459664627107', '1459664619000', '0', '4', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('34', '83', '2', null, '10.00', '1459664658870', '1459664651000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('35', '86', '2', null, '1.00', '1459664937988', '1459664937988', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('36', '84', '2', null, '10.00', '1459666095277', '1459666088000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('37', '93', '2', null, '10.00', '1459666119462', '1459666111000', '1', '4', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('38', '94', '2', null, '30.00', '1459666207211', '1459666207211', '1', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('39', '95', '2', null, '100.00', '1459667056942', '1459667096000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('40', '95', '2', null, '100.00', '1459667103641', '1459667096000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('41', '96', '2', null, '145.00', '1459667126580', '1459667126580', '1', '4', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('42', '97', '2', null, '14403.00', '1459668482348', '1459668480000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('43', '96', '2', null, '145.00', '1459940211430', '1459940211430', '0', '4', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('44', '96', '2', null, '145.00', '1459940222158', '1459940222158', '0', '4', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('45', '96', '2', null, '145.00', '1459940228882', '1459940228882', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('46', '96', '2', null, '145.00', '1459940238402', '1459940238402', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('47', '96', '2', null, '145.00', '1459940246886', '1459940246886', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('48', '98', '2', null, '1.00', '1459940262544', '1459940253000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('49', '99', '2', null, '1.00', '1459940290920', '1459940292000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('50', '99', '2', null, '1.00', '1459940301931', '1459940292000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('51', '100', '2', null, '7229.00', '1459960118576', '1459960109000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('52', '102', '2', null, '10046.00', '1460184252813', '1460184513000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('53', '101', '2', null, '17144.00', '1460184312028', '1460184581000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('54', '103', '2', null, '110.00', '1460184429755', '1460184690000', '0', '8', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('55', '104', '2', null, '110.00', '1460184510098', '1460184510098', '0', '100', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('56', '107', '2', null, '110.00', '1460438716584', '1460438977000', '0', '8', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('57', '112', '2', null, '110.00', '1460730104613', '1460730099000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('58', '113', '2', null, '1.00', '1460912902954', '1460912901000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('59', '114', '2', null, '1.00', '1460912931269', '1460912931269', '1', '8', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('60', '115', '2', null, '1.00', '1460912942221', '1460912933000', '1', '8', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('61', '116', '2', null, '1.00', '1460914188448', '1460914188448', '1', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('62', '117', '2', null, '1.00', '1460916318237', '1460916318237', '1', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('63', '118', '2', null, '1.00', '1461059950354', '1461059939000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('64', '119', '2', null, '130.00', '1463383164618', '1463383166000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('65', '121', '2', null, '230.00', '1463659420398', '1463659423000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('66', '122', '2', null, '7229.00', '1463820649883', '1463820651000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('67', '123', '2', null, '130.00', '1463820740046', '1463820740000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('68', '125', '48', null, '205.00', '1464920191676', '1464920208000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('69', '125', '48', null, '205.00', '1464920204962', '1464920208000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('70', '126', '48', null, '7204.00', '1464920924682', '1464920929000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('71', '127', '1', null, '460.00', '1464924533597', '1464924540000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('72', '128', '2', null, '31.00', '1466583465610', '1466583480000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('73', '128', '2', null, '31.00', '1466583465606', '1466583480000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('74', '128', '2', null, '31.00', '1466583465610', '1466583480000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('75', '128', '2', null, '31.00', '1466583465609', '1466583480000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('76', '128', '2', null, '31.00', '1466583465608', '1466583480000', '0', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('77', '129', '2', null, '31.00', '1466583637161', '1466583637161', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('78', '129', '2', null, '31.00', '1466583728000', '1466583728000', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('79', '129', '2', null, '31.00', '1466583798166', '1466583798166', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('80', '129', '2', null, '31.00', '1466583898613', '1466583898613', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('81', '130', '2', null, '1.00', '1466584040159', '1466584040159', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('82', '130', '2', null, '1.00', '1466584135620', '1466584135620', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('83', '130', '2', null, '1.00', '1466584143101', '1466584143101', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('84', '130', '2', null, '1.00', '1466584254578', '1466584254578', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('85', '130', '2', null, '1.00', '1466584258919', '1466584258919', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('86', '131', '2', null, '1.00', '1466584505444', '1466584505444', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('87', '131', '2', null, '1.00', '1466584572570', '1466584572570', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('88', '131', '2', null, '1.00', '1466584582853', '1466584582853', '0', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('89', '131', '2', null, '1.00', '1466584586962', '1466584586962', '0', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('90', '131', '2', null, '1.00', '1466584596729', '1466584596729', '0', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('91', '133', '2', null, '1.00', '1466584926817', '1466584926817', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('92', '134', '2', null, '1.00', '1466585001792', '1466585001792', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('93', '135', '2', null, '1.00', '1466585004960', '1466585004960', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('94', '136', '2', null, '1.00', '1466585009067', '1466585009067', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('95', '137', '2', null, '1.00', '1466585012720', '1466585012720', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('96', '138', '2', null, '1.00', '1466585015540', '1466585015540', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('97', '139', '2', null, '1.00', '1466585154685', '1466585154685', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('98', '140', '2', null, '1.00', '1466585158944', '1466585158944', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('99', '141', '2', null, '1.00', '1466585181879', '1466585181879', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('100', '142', '2', null, '1.00', '1466585185506', '1466585185506', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('101', '143', '2', null, '1.00', '1466585272457', '1466585272457', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('102', '144', '2', null, '1.00', '1466585276582', '1466585276582', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('103', '145', '2', null, '1.00', '1466585293150', '1466585293150', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('104', '146', '2', null, '1.00', '1466585295785', '1466585295785', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('105', '147', '2', null, '1.00', '1466585304554', '1466585304554', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('106', '148', '2', null, '1.00', '1466585307512', '1466585307512', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('107', '149', '2', null, '1.00', '1466585312986', '1466585312986', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('108', '150', '2', null, '1.00', '1466585316632', '1466585316632', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('109', '151', '2', null, '1.00', '1466585330052', '1466585330052', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('110', '152', '2', null, '1.00', '1466585330283', '1466585330283', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('111', '153', '2', null, '1.00', '1466585377176', '1466585377176', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('112', '154', '2', null, '1.00', '1466585392417', '1466585392417', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('113', '155', '2', null, '1.00', '1466585395706', '1466585395706', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('114', '156', '2', null, '1.00', '1466585406298', '1466585406298', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('115', '157', '2', null, '1.00', '1466585417186', '1466585417186', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('116', '158', '2', null, '1.00', '1466585422708', '1466585422708', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('117', '159', '2', null, '1.00', '1466585440362', '1466585440362', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('118', '160', '2', null, '1.00', '1466585461988', '1466585461988', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('119', '161', '2', null, '1.00', '1466585585079', '1466585585079', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('120', '162', '2', null, '1.00', '1466585797775', '1466585797775', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('121', '163', '2', null, '1.00', '1466585799817', '1466585799817', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('122', '164', '2', null, '1.00', '1466585903376', '1466585903376', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('123', '165', '2', null, '1.00', '1466585960046', '1466585960046', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('124', '166', '2', null, '1.00', '1466585988222', '1466585988222', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('125', '167', '2', null, '1.00', '1466586005855', '1466586005855', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('126', '168', '2', null, '1.00', '1466586319709', '1466586319709', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('127', '169', '2', null, '1.00', '1466586590539', '1466586590539', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('128', '170', '2', null, '1.00', '1466586591665', '1466586596000', '1', '5', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('129', '171', '2', null, '1.00', '1466586776117', '1466586776117', '1', '5', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('130', '172', '1', null, '6899.10', '1471515432322', '1471515432322', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('131', '172', '1', null, '6899.10', '1471515441528', '1471515441528', '0', '3', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('132', '173', '1', null, '5499.09', '1471516800195', '1471516802000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('133', '174', '2', null, '7199.09', '1473610516829', '1473614118000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('134', '174', '2', null, '7199.09', '1473614100426', '1473614118000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('135', '174', '2', null, '7199.09', '1473614109523', '1473614118000', '0', '7', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('136', '174', '2', null, '7199.09', '1473614115427', '1473614118000', '0', '8', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('137', '175', '2', null, '8999.10', '1473614269969', '1473614274000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('138', '176', '2', null, '14995.27', '1473794937826', '1473794948000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('139', '176', '2', null, '14995.27', '1473794946698', '1473794948000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('140', '177', '2', null, '111.00', '1473945576049', '1474667952000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('141', '178', '2', null, '2.00', '1473945597127', '1473945595000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('142', '179', '2', null, '3.00', '1473945610411', '1474668957000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('143', '180', '2', null, '4.00', '1473945662055', '1474672307000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('144', '181', '2', null, '5.00', '1473945672947', '1474717593000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('145', '182', '2', null, '6.00', '1473945683542', '1474717809000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('146', '183', '2', null, '0.01', '1473946028741', '1474722449000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('147', '184', '2', null, '111.00', '1473948788723', '1473948790000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('148', '178', '2', null, '7199.09', '1474667833010', '1474667833010', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('149', '178', '2', null, '7199.09', '1474667929125', '1474667929125', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('150', '178', '2', null, '7199.09', '1474667937931', '1474667937931', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('151', '177', '2', null, '12398.19', '1474667951937', '1474667952000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('152', '178', '2', null, '7199.09', '1474668861801', '1474668861801', '0', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('153', '179', '2', null, '7199.09', '1474668956963', '1474668957000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('154', '180', '2', null, '1.00', '1474672306279', '1474672307000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('155', '181', '2', null, '1.00', '1474717593030', '1474717593000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('156', '182', '2', null, '1.00', '1474717810262', '1474717809000', '1', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('157', '183', '2', null, '5899.09', '1474722446849', '1474722449000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('158', '184', '2', null, '1.00', '1476006725925', '1476006725925', '1', '1', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('159', '188', '2', null, '10.50', '1479735469475', '1479959316000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('160', '188', '2', null, '2.09', '1479959323440', '1479959316000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('161', '190', '2', null, '6899.01', '1501950290059', '1501950290059', '0', '6', '0', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('162', '191', '2', null, '1.00', '1501950380769', '1501950375000', '0', '6', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('163', '192', '2', null, '1.00', '1502191979679', '1502191983000', '0', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('164', '193', '2', null, '1.00', '1502207686206', '1502207690000', '1', '1', '1', null);
+INSERT INTO `cmswing_doc_receiving` VALUES ('165', '194', '2', null, '2.00', '1502208238056', '1502208241000', '1', '6', '1', null);
+
+-- ----------------------------
+-- Table structure for cmswing_doc_refund
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_refund`;
+CREATE TABLE `cmswing_doc_refund` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_no` varchar(20) NOT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `refund_type` tinyint(3) DEFAULT '0',
+  `account_bank` varchar(100) DEFAULT NULL,
+  `account_name` varchar(30) DEFAULT NULL,
+  `refund_account` varchar(50) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `pay_status` tinyint(3) DEFAULT '0',
+  `content` text,
+  `handling_idea` text,
+  `handling_time` bigint(13) DEFAULT NULL,
+  `channel` varchar(50) DEFAULT NULL,
+  `bank_account` varchar(255) DEFAULT NULL,
+  `amount` float(10,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_doc_refund
+-- ----------------------------
+INSERT INTO `cmswing_doc_refund` VALUES ('1', '7', '2', '20160305132711904858', '20160308153110', '0', '', '', '', null, '0', 'fdsfdsfdsfdsfsdf', null, null, null, null, '0.00');
+
+-- ----------------------------
+-- Table structure for cmswing_doc_returns
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_doc_returns`;
+CREATE TABLE `cmswing_doc_returns` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `admin_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `order_no` varchar(50) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `province` bigint(20) DEFAULT NULL,
+  `city` bigint(20) DEFAULT NULL,
+  `county` binary(1) DEFAULT NULL,
+  `zip` varchar(6) DEFAULT NULL,
+  `addr` varchar(250) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `mobile` varchar(20) DEFAULT NULL,
+  `create_time` bigint(13) DEFAULT NULL,
+  `express_no` varchar(255) DEFAULT NULL,
+  `express` varchar(255) DEFAULT NULL,
+  `handling_idea` varchar(255) DEFAULT NULL,
+  `status` tinyint(3) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_doc_returns
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for cmswing_document
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_document`;
@@ -4887,7 +5166,7 @@ INSERT INTO `cmswing_document` VALUES ('178', '1', '', '小萝莉大诱惑,性�
 INSERT INTO `cmswing_document` VALUES ('179', '1', '', '日本清纯美女亚里沙清凉写真', '82', '5', '日本清纯美女亚里沙清凉写真', '0', '0', '0', '5', '2', '0', '0', '514', '1', '0', '0', '17', '0', '0', '0', '1464862793879', '1464862793879', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('180', '1', '', '胸大到撑爆制服 日本女护士大尺度出镜令人血脉喷张', '82', '5', '胸大到撑爆制服 日本女护士大尺度出镜令人血脉喷张', '0', '0', '0', '5', '2', '0', '0', '523', '1', '0', '0', '15', '0', '0', '0', '1464862961550', '1464862961550', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('181', '1', '', '天生丽质魔鬼身材 Beautyleg 美腿写真 No.2026 Dennise', '82', '3', '天生丽质魔鬼身材 Beautyleg 美腿写真 No.2026 Dennise', '0', '0', '0', '5', '2', '2', '0', '532', '1', '1970', '0', '39', '0', '0', '0', '1464863280000', '1464930455950', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('182', '1', '', '清纯妹子琳琳ailin性感大片风情万种', '82', '3', '清纯妹子琳琳ailin性感大片风情万种', '0', '0', '0', '5', '2', '4', '0', '575', '1', '0', '0', '115', '0', '0', '0', '1464867420000', '1489224582752', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('182', '1', '', '清纯妹子琳琳ailin性感大片风情万种', '82', '3', '清纯妹子琳琳ailin性感大片风情万种', '0', '0', '0', '5', '2', '4', '0', '575', '1', '0', '0', '128', '0', '0', '0', '1464867420000', '1489224582752', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('183', '1', '', 'ThinkJS视频教程', '84', '0', 'ThinkJS视频教程ThinkJS视频教程ThinkJS视频教程ThinkJS视频教程ThinkJS视频教程ThinkJS视频教程ThinkJS视频教程', '0', '0', '0', '6', '1', '0', '0', '588', '1', '0', '0', '119', '0', '0', '0', '1465382896500', '1465382896495', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('184', '1', '', '项目结构介绍', '84', '0', '项目结构介绍', '0', '0', '183', '6', '2', '0', '0', '0', '1', '0', '0', '76', '0', '0', '1', '1465383084973', '1465383084965', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('185', '1', '', '路由介绍', '84', '0', '路由介绍路由介绍', '0', '0', '183', '6', '2', '0', '0', '0', '1', '0', '0', '162', '0', '0', '3', '1465383226580', '1465383226577', '1', '', '', '0', '0');
@@ -5244,285 +5523,6 @@ INSERT INTO `cmswing_document_video` VALUES ('213', '0', '0', 'http://www.tudou.
 INSERT INTO `cmswing_document_video` VALUES ('321', '98', '0', '0');
 
 -- ----------------------------
--- Table structure for cmswing_doc_invoice
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_doc_invoice`;
-CREATE TABLE `cmswing_doc_invoice` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `invoice_no` varchar(50) DEFAULT NULL,
-  `order_id` bigint(20) NOT NULL,
-  `order_no` varchar(50) NOT NULL,
-  `admin` varchar(20) DEFAULT NULL,
-  `accept_name` varchar(50) DEFAULT NULL,
-  `province` bigint(20) DEFAULT NULL,
-  `city` bigint(20) DEFAULT NULL,
-  `county` bigint(20) DEFAULT NULL,
-  `zip` varchar(6) DEFAULT NULL,
-  `addr` varchar(250) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `mobile` varchar(20) DEFAULT NULL,
-  `create_time` bigint(13) DEFAULT NULL,
-  `express_no` varchar(50) DEFAULT NULL,
-  `express_company_id` bigint(20) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_doc_invoice
--- ----------------------------
-INSERT INTO `cmswing_doc_invoice` VALUES ('4', '1458819404550', '63', '1458798049251', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458819404550', '6546546546546546456', '1', '65465465465464');
-INSERT INTO `cmswing_doc_invoice` VALUES ('5', '1458820752241', '49', '1458722260981', 'admin', '晓飞 宁', '370000', '370100', '370102', '250000', '山东省ddddddd', '13589100475', '13589100333', '1458820752241', '888888888888888888', '1', '888888888888888888888');
-INSERT INTO `cmswing_doc_invoice` VALUES ('6', 'k1459078679114', '72', 'd21459078464821', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1459078679114', '34324324', '1', '343');
-INSERT INTO `cmswing_doc_invoice` VALUES ('7', 'k1459271089325', '74', 'd21459269259683', 'admin', '郭德纲', '120000', '120100', '120102', '710065', 'fdsafasfdsfsdfdsf', '', '12345678901', '1459271089325', '242342', '1', 'dsfs');
-INSERT INTO `cmswing_doc_invoice` VALUES ('8', 'k1460179857198', '66', '1459070488150', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460179857198', '46456456456', '1', '5646');
-INSERT INTO `cmswing_doc_invoice` VALUES ('9', 'k1460180109814', '67', '1459071640873', 'admin', '郭德纲', '120000', '120100', '120102', '710065', 'fdsafasfdsfsdfdsf', '', '12345678901', '1460180109814', '4645654', '1', '54645');
-INSERT INTO `cmswing_doc_invoice` VALUES ('10', 'k1460180351375', '68', '1459074816900', 'admin', '多啦A梦', '610000', '610100', '610113', '710065', '高新路王座国际3号楼8单元 308号', '0298888888', '18681841347', '1460180351375', '5646', '1', '5644');
-INSERT INTO `cmswing_doc_invoice` VALUES ('11', 'k1460438828025', '107', 'd21460438684186', 'admin', '郭德纲', '110000', '110100', '110102', '10001', '北京德云社吗一路金子一号', '', '18688888888', '1460438828025', '565464654', '1', '54545646');
-INSERT INTO `cmswing_doc_invoice` VALUES ('12', 'k1482982939864', '188', '201611240000047', 'arterli', '测试是', '110000', '110200', '110229', '123456', 'hgfdgfdsgdfsgfdsgfsdg', '', '1234567890', '1482982939864', '22111', '1', '11111');
-INSERT INTO `cmswing_doc_invoice` VALUES ('13', 'k1500433081520', '189', '201706260000085', 'admin', '测试是', '110000', '110200', '110229', '123456', 'hgfdgfdsgdfsgfdsgfsdg', '', '1234567890', '1500433081520', 'dsadas', '1', 'dsad');
-
--- ----------------------------
--- Table structure for cmswing_doc_receiving
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_doc_receiving`;
-CREATE TABLE `cmswing_doc_receiving` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
-  `admin_id` bigint(20) DEFAULT NULL,
-  `amount` float(10,2) DEFAULT '0.00',
-  `create_time` bigint(13) DEFAULT NULL,
-  `payment_time` bigint(13) DEFAULT NULL,
-  `doc_type` tinyint(1) DEFAULT NULL,
-  `payment_id` bigint(20) DEFAULT NULL,
-  `pay_status` tinyint(1) DEFAULT NULL,
-  `note` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=166 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_doc_receiving
--- ----------------------------
-INSERT INTO `cmswing_doc_receiving` VALUES ('9', '67', '2', null, '105.00', '1459072709489', '1459072709489', '0', '100', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('10', '68', '2', null, '90.00', '1459074833031', '1459074833031', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('12', '69', '2', null, '120.00', '1459075829735', '1459075829735', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('13', '70', '2', null, '120.00', '1459076018652', '1459076030000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('14', '72', '2', null, '230.00', '1459078479743', '1459078482000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('15', '74', '2', null, '105.00', '1459270332491', '1459270332491', '0', '100', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('16', '76', '2', null, '414.00', '1459370535566', '1459370533000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('17', '78', '2', null, '556.00', '1459399111186', '1459399111186', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('18', '83', '2', null, '10.00', '1459656646547', '1459664651000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('19', '84', '2', null, '10.00', '1459656649045', '1459666088000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('20', '85', '2', null, '1.00', '1459656748575', '1459664619000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('21', '86', '2', null, '1.00', '1459656748577', '1459656748577', '1', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('22', '87', '2', null, '1.00', '1459656845703', '1459664360000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('23', '88', '2', null, '1.00', '1459656845706', '1459664542000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('24', '89', '2', null, '10.00', '1459656932743', '1459664323000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('25', '90', '2', null, '312.00', '1459660400861', '1459663839000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('26', '90', '2', null, '312.00', '1459663845643', '1459663839000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('27', '91', '2', null, '3.00', '1459664055481', '1459664048000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('28', '92', '2', null, '3.00', '1459664055721', '1459664055721', '1', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('29', '92', '2', null, '3.00', '1459664276954', '1459664276954', '0', '4', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('30', '89', '2', null, '10.00', '1459664330586', '1459664323000', '0', '4', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('31', '87', '2', null, '1.00', '1459664367079', '1459664360000', '0', '4', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('32', '88', '2', null, '1.00', '1459664549179', '1459664542000', '0', '4', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('33', '85', '2', null, '1.00', '1459664627107', '1459664619000', '0', '4', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('34', '83', '2', null, '10.00', '1459664658870', '1459664651000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('35', '86', '2', null, '1.00', '1459664937988', '1459664937988', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('36', '84', '2', null, '10.00', '1459666095277', '1459666088000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('37', '93', '2', null, '10.00', '1459666119462', '1459666111000', '1', '4', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('38', '94', '2', null, '30.00', '1459666207211', '1459666207211', '1', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('39', '95', '2', null, '100.00', '1459667056942', '1459667096000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('40', '95', '2', null, '100.00', '1459667103641', '1459667096000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('41', '96', '2', null, '145.00', '1459667126580', '1459667126580', '1', '4', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('42', '97', '2', null, '14403.00', '1459668482348', '1459668480000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('43', '96', '2', null, '145.00', '1459940211430', '1459940211430', '0', '4', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('44', '96', '2', null, '145.00', '1459940222158', '1459940222158', '0', '4', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('45', '96', '2', null, '145.00', '1459940228882', '1459940228882', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('46', '96', '2', null, '145.00', '1459940238402', '1459940238402', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('47', '96', '2', null, '145.00', '1459940246886', '1459940246886', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('48', '98', '2', null, '1.00', '1459940262544', '1459940253000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('49', '99', '2', null, '1.00', '1459940290920', '1459940292000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('50', '99', '2', null, '1.00', '1459940301931', '1459940292000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('51', '100', '2', null, '7229.00', '1459960118576', '1459960109000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('52', '102', '2', null, '10046.00', '1460184252813', '1460184513000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('53', '101', '2', null, '17144.00', '1460184312028', '1460184581000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('54', '103', '2', null, '110.00', '1460184429755', '1460184690000', '0', '8', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('55', '104', '2', null, '110.00', '1460184510098', '1460184510098', '0', '100', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('56', '107', '2', null, '110.00', '1460438716584', '1460438977000', '0', '8', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('57', '112', '2', null, '110.00', '1460730104613', '1460730099000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('58', '113', '2', null, '1.00', '1460912902954', '1460912901000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('59', '114', '2', null, '1.00', '1460912931269', '1460912931269', '1', '8', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('60', '115', '2', null, '1.00', '1460912942221', '1460912933000', '1', '8', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('61', '116', '2', null, '1.00', '1460914188448', '1460914188448', '1', '6', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('62', '117', '2', null, '1.00', '1460916318237', '1460916318237', '1', '6', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('63', '118', '2', null, '1.00', '1461059950354', '1461059939000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('64', '119', '2', null, '130.00', '1463383164618', '1463383166000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('65', '121', '2', null, '230.00', '1463659420398', '1463659423000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('66', '122', '2', null, '7229.00', '1463820649883', '1463820651000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('67', '123', '2', null, '130.00', '1463820740046', '1463820740000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('68', '125', '48', null, '205.00', '1464920191676', '1464920208000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('69', '125', '48', null, '205.00', '1464920204962', '1464920208000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('70', '126', '48', null, '7204.00', '1464920924682', '1464920929000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('71', '127', '1', null, '460.00', '1464924533597', '1464924540000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('72', '128', '2', null, '31.00', '1466583465610', '1466583480000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('73', '128', '2', null, '31.00', '1466583465606', '1466583480000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('74', '128', '2', null, '31.00', '1466583465610', '1466583480000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('75', '128', '2', null, '31.00', '1466583465609', '1466583480000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('76', '128', '2', null, '31.00', '1466583465608', '1466583480000', '0', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('77', '129', '2', null, '31.00', '1466583637161', '1466583637161', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('78', '129', '2', null, '31.00', '1466583728000', '1466583728000', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('79', '129', '2', null, '31.00', '1466583798166', '1466583798166', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('80', '129', '2', null, '31.00', '1466583898613', '1466583898613', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('81', '130', '2', null, '1.00', '1466584040159', '1466584040159', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('82', '130', '2', null, '1.00', '1466584135620', '1466584135620', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('83', '130', '2', null, '1.00', '1466584143101', '1466584143101', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('84', '130', '2', null, '1.00', '1466584254578', '1466584254578', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('85', '130', '2', null, '1.00', '1466584258919', '1466584258919', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('86', '131', '2', null, '1.00', '1466584505444', '1466584505444', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('87', '131', '2', null, '1.00', '1466584572570', '1466584572570', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('88', '131', '2', null, '1.00', '1466584582853', '1466584582853', '0', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('89', '131', '2', null, '1.00', '1466584586962', '1466584586962', '0', '6', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('90', '131', '2', null, '1.00', '1466584596729', '1466584596729', '0', '6', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('91', '133', '2', null, '1.00', '1466584926817', '1466584926817', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('92', '134', '2', null, '1.00', '1466585001792', '1466585001792', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('93', '135', '2', null, '1.00', '1466585004960', '1466585004960', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('94', '136', '2', null, '1.00', '1466585009067', '1466585009067', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('95', '137', '2', null, '1.00', '1466585012720', '1466585012720', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('96', '138', '2', null, '1.00', '1466585015540', '1466585015540', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('97', '139', '2', null, '1.00', '1466585154685', '1466585154685', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('98', '140', '2', null, '1.00', '1466585158944', '1466585158944', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('99', '141', '2', null, '1.00', '1466585181879', '1466585181879', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('100', '142', '2', null, '1.00', '1466585185506', '1466585185506', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('101', '143', '2', null, '1.00', '1466585272457', '1466585272457', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('102', '144', '2', null, '1.00', '1466585276582', '1466585276582', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('103', '145', '2', null, '1.00', '1466585293150', '1466585293150', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('104', '146', '2', null, '1.00', '1466585295785', '1466585295785', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('105', '147', '2', null, '1.00', '1466585304554', '1466585304554', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('106', '148', '2', null, '1.00', '1466585307512', '1466585307512', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('107', '149', '2', null, '1.00', '1466585312986', '1466585312986', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('108', '150', '2', null, '1.00', '1466585316632', '1466585316632', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('109', '151', '2', null, '1.00', '1466585330052', '1466585330052', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('110', '152', '2', null, '1.00', '1466585330283', '1466585330283', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('111', '153', '2', null, '1.00', '1466585377176', '1466585377176', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('112', '154', '2', null, '1.00', '1466585392417', '1466585392417', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('113', '155', '2', null, '1.00', '1466585395706', '1466585395706', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('114', '156', '2', null, '1.00', '1466585406298', '1466585406298', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('115', '157', '2', null, '1.00', '1466585417186', '1466585417186', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('116', '158', '2', null, '1.00', '1466585422708', '1466585422708', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('117', '159', '2', null, '1.00', '1466585440362', '1466585440362', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('118', '160', '2', null, '1.00', '1466585461988', '1466585461988', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('119', '161', '2', null, '1.00', '1466585585079', '1466585585079', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('120', '162', '2', null, '1.00', '1466585797775', '1466585797775', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('121', '163', '2', null, '1.00', '1466585799817', '1466585799817', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('122', '164', '2', null, '1.00', '1466585903376', '1466585903376', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('123', '165', '2', null, '1.00', '1466585960046', '1466585960046', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('124', '166', '2', null, '1.00', '1466585988222', '1466585988222', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('125', '167', '2', null, '1.00', '1466586005855', '1466586005855', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('126', '168', '2', null, '1.00', '1466586319709', '1466586319709', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('127', '169', '2', null, '1.00', '1466586590539', '1466586590539', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('128', '170', '2', null, '1.00', '1466586591665', '1466586596000', '1', '5', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('129', '171', '2', null, '1.00', '1466586776117', '1466586776117', '1', '5', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('130', '172', '1', null, '6899.10', '1471515432322', '1471515432322', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('131', '172', '1', null, '6899.10', '1471515441528', '1471515441528', '0', '3', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('132', '173', '1', null, '5499.09', '1471516800195', '1471516802000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('133', '174', '2', null, '7199.09', '1473610516829', '1473614118000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('134', '174', '2', null, '7199.09', '1473614100426', '1473614118000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('135', '174', '2', null, '7199.09', '1473614109523', '1473614118000', '0', '7', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('136', '174', '2', null, '7199.09', '1473614115427', '1473614118000', '0', '8', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('137', '175', '2', null, '8999.10', '1473614269969', '1473614274000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('138', '176', '2', null, '14995.27', '1473794937826', '1473794948000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('139', '176', '2', null, '14995.27', '1473794946698', '1473794948000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('140', '177', '2', null, '111.00', '1473945576049', '1474667952000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('141', '178', '2', null, '2.00', '1473945597127', '1473945595000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('142', '179', '2', null, '3.00', '1473945610411', '1474668957000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('143', '180', '2', null, '4.00', '1473945662055', '1474672307000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('144', '181', '2', null, '5.00', '1473945672947', '1474717593000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('145', '182', '2', null, '6.00', '1473945683542', '1474717809000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('146', '183', '2', null, '0.01', '1473946028741', '1474722449000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('147', '184', '2', null, '111.00', '1473948788723', '1473948790000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('148', '178', '2', null, '7199.09', '1474667833010', '1474667833010', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('149', '178', '2', null, '7199.09', '1474667929125', '1474667929125', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('150', '178', '2', null, '7199.09', '1474667937931', '1474667937931', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('151', '177', '2', null, '12398.19', '1474667951937', '1474667952000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('152', '178', '2', null, '7199.09', '1474668861801', '1474668861801', '0', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('153', '179', '2', null, '7199.09', '1474668956963', '1474668957000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('154', '180', '2', null, '1.00', '1474672306279', '1474672307000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('155', '181', '2', null, '1.00', '1474717593030', '1474717593000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('156', '182', '2', null, '1.00', '1474717810262', '1474717809000', '1', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('157', '183', '2', null, '5899.09', '1474722446849', '1474722449000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('158', '184', '2', null, '1.00', '1476006725925', '1476006725925', '1', '1', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('159', '188', '2', null, '10.50', '1479735469475', '1479959316000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('160', '188', '2', null, '2.09', '1479959323440', '1479959316000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('161', '190', '2', null, '6899.01', '1501950290059', '1501950290059', '0', '6', '0', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('162', '191', '2', null, '1.00', '1501950380769', '1501950375000', '0', '6', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('163', '192', '2', null, '1.00', '1502191979679', '1502191983000', '0', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('164', '193', '2', null, '1.00', '1502207686206', '1502207690000', '1', '1', '1', null);
-INSERT INTO `cmswing_doc_receiving` VALUES ('165', '194', '2', null, '2.00', '1502208238056', '1502208241000', '1', '6', '1', null);
-
--- ----------------------------
--- Table structure for cmswing_doc_refund
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_doc_refund`;
-CREATE TABLE `cmswing_doc_refund` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `order_no` varchar(20) NOT NULL,
-  `create_time` bigint(13) DEFAULT NULL,
-  `refund_type` tinyint(3) DEFAULT '0',
-  `account_bank` varchar(100) DEFAULT NULL,
-  `account_name` varchar(30) DEFAULT NULL,
-  `refund_account` varchar(50) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `pay_status` tinyint(3) DEFAULT '0',
-  `content` text,
-  `handling_idea` text,
-  `handling_time` bigint(13) DEFAULT NULL,
-  `channel` varchar(50) DEFAULT NULL,
-  `bank_account` varchar(255) DEFAULT NULL,
-  `amount` float(10,2) DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_doc_refund
--- ----------------------------
-INSERT INTO `cmswing_doc_refund` VALUES ('1', '7', '2', '20160305132711904858', '20160308153110', '0', '', '', '', null, '0', 'fdsfdsfdsfdsfsdf', null, null, null, null, '0.00');
-
--- ----------------------------
--- Table structure for cmswing_doc_returns
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_doc_returns`;
-CREATE TABLE `cmswing_doc_returns` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `admin_id` int(11) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `order_no` varchar(50) NOT NULL,
-  `reason` varchar(255) DEFAULT NULL,
-  `province` bigint(20) DEFAULT NULL,
-  `city` bigint(20) DEFAULT NULL,
-  `county` binary(1) DEFAULT NULL,
-  `zip` varchar(6) DEFAULT NULL,
-  `addr` varchar(250) DEFAULT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `mobile` varchar(20) DEFAULT NULL,
-  `create_time` bigint(13) DEFAULT NULL,
-  `express_no` varchar(255) DEFAULT NULL,
-  `express` varchar(255) DEFAULT NULL,
-  `handling_idea` varchar(255) DEFAULT NULL,
-  `status` tinyint(3) DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_doc_returns
--- ----------------------------
-
--- ----------------------------
 -- Table structure for cmswing_express
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_express`;
@@ -5661,19 +5661,19 @@ CREATE TABLE `cmswing_ext_ad` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '0：禁用，1：启用',
   PRIMARY KEY (`id`),
   KEY `spaceid` (`spaceid`,`status`,`sort`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_ext_ad
 -- ----------------------------
-INSERT INTO `cmswing_ext_ad` VALUES ('24', '代码1', '15', 'code', '[{\"code\":\"<div class=\\\"box-flip box-icon box-icon-center box-icon-round box-icon-large text-center\\\">\\r\\n\\t\\t\\t<div class=\\\"front\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box1\\\">\\r\\n\\t\\t\\t\\t\\t<div class=\\\"box-icon-title\\\">\\r\\n\\t\\t\\t\\t\\t\\t<i class=\\\"fa fa-check\\\"></i>\\r\\n\\t\\t\\t\\t\\t\\t<h2>Full Width</h2>\\r\\n\\t\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t\\t\\t<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\r\\n\\t\\t\\t<div class=\\\"back\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box2\\\">\\r\\n\\t\\t\\t\\t\\t<h4>BACK SIDE</h4>\\r\\n\\t\\t\\t\\t\\t<hr />\\r\\n\\t\\t\\t\\t\\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\"}]', '1489167480000', '1490895480000', '1489167627733', '0', '0', '0', '1');
-INSERT INTO `cmswing_ext_ad` VALUES ('21', '文字广告三', '14', 'text', '[{\"alt\":\"支持自定义用户行为\",\"info\":\"为您的运营决策提供有效参考数据\",\"ico\":\"fa-group\"}]', '1489113480000', '1490927880000', '1489113600600', '0', '0', '3', '1');
-INSERT INTO `cmswing_ext_ad` VALUES ('19', '文字广告一', '14', 'text', '[{\"alt\":\"全新的架构和模块化开发机制\",\"info\":\"便于灵活扩展和二次开发\",\"ico\":\"fa-cubes\"}]', '1489108320000', '1490922720000', '1489108510299', '0', '0', '1', '1');
-INSERT INTO `cmswing_ext_ad` VALUES ('20', '文字广告二', '14', 'text', '[{\"alt\":\"模型/栏目/分类信息体系\",\"info\":\"轻松实现差异化的功能\",\"ico\":\"fa-tasks\"}]', '1489109400000', '1490923800000', '1489109589707', '0', '0', '2', '1');
+INSERT INTO `cmswing_ext_ad` VALUES ('16', 'cmswing图片广告', '11', 'images', '[{\"url\":\"http://www.cmswing.com\",\"alt\":\"fdsafdsafdsaf\",\"att\":\"817\"}]', '1488935640000', '1490836440000', '1488937997050', '0', '0', '0', '1');
 INSERT INTO `cmswing_ext_ad` VALUES ('17', '轮播广告第一个', '13', 'images', '[{\"url\":\"http://www.sina.com\",\"alt\":\"轮播第一个\",\"att\":\"818\"}]', '1489052460000', '1490953260000', '1489052709516', '0', '0', '0', '1');
 INSERT INTO `cmswing_ext_ad` VALUES ('18', '轮播广告第二个', '13', 'images', '[{\"url\":\"http://www.baidu.com\",\"alt\":\"第二个\",\"att\":\"819\"}]', '1489052760000', '1490953560000', '1489052916332', '0', '0', '0', '1');
+INSERT INTO `cmswing_ext_ad` VALUES ('19', '文字广告一', '14', 'text', '[{\"alt\":\"全新的架构和模块化开发机制\",\"info\":\"便于灵活扩展和二次开发\",\"ico\":\"fa-cubes\"}]', '1489108320000', '1490922720000', '1489108510299', '0', '0', '1', '1');
+INSERT INTO `cmswing_ext_ad` VALUES ('20', '文字广告二', '14', 'text', '[{\"alt\":\"模型/栏目/分类信息体系\",\"info\":\"轻松实现差异化的功能\",\"ico\":\"fa-tasks\"}]', '1489109400000', '1490923800000', '1489109589707', '0', '0', '2', '1');
+INSERT INTO `cmswing_ext_ad` VALUES ('21', '文字广告三', '14', 'text', '[{\"alt\":\"支持自定义用户行为\",\"info\":\"为您的运营决策提供有效参考数据\",\"ico\":\"fa-group\"}]', '1489113480000', '1490927880000', '1489113600600', '0', '0', '3', '1');
 INSERT INTO `cmswing_ext_ad` VALUES ('22', '文字广告四', '14', 'text', '[{\"alt\":\"云存储、云安全等服务\",\"info\":\"更多贴心的服务让您的网站更安心\",\"ico\":\"fa-soundcloud\"}]', '1489113780000', '1490928180000', '1489113849154', '0', '0', '4', '1');
-INSERT INTO `cmswing_ext_ad` VALUES ('16', 'cmswing图片广告', '11', 'images', '[{\"url\":\"http://www.cmswing.com\",\"alt\":\"fdsafdsafdsaf\",\"att\":\"817\"}]', '1488935640000', '1490836440000', '1488937997050', '0', '0', '0', '1');
+INSERT INTO `cmswing_ext_ad` VALUES ('24', '代码1', '15', 'code', '[{\"code\":\"<div class=\\\"box-flip box-icon box-icon-center box-icon-round box-icon-large text-center\\\">\\r\\n\\t\\t\\t<div class=\\\"front\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box1\\\">\\r\\n\\t\\t\\t\\t\\t<div class=\\\"box-icon-title\\\">\\r\\n\\t\\t\\t\\t\\t\\t<i class=\\\"fa fa-check\\\"></i>\\r\\n\\t\\t\\t\\t\\t\\t<h2>Full Width</h2>\\r\\n\\t\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t\\t\\t<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\r\\n\\t\\t\\t<div class=\\\"back\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box2\\\">\\r\\n\\t\\t\\t\\t\\t<h4>BACK SIDE</h4>\\r\\n\\t\\t\\t\\t\\t<hr />\\r\\n\\t\\t\\t\\t\\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\"}]', '1489167480000', '1490895480000', '1489167627733', '0', '0', '0', '1');
 INSERT INTO `cmswing_ext_ad` VALUES ('25', '测试广告', '16', 'images', '[{\"url\":\"http://www.baidu.com\",\"alt\":\"fdsfdsa\"}]', '1493281686040', '1495873686040', '1493281686040', '0', '0', '0', '1');
 
 -- ----------------------------
@@ -5695,14 +5695,14 @@ CREATE TABLE `cmswing_ext_ad_space` (
   `json` text,
   PRIMARY KEY (`spaceid`),
   KEY `disabled` (`status`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_ext_ad_space
 -- ----------------------------
-INSERT INTO `cmswing_ext_ad_space` VALUES ('14', '文字广告', 'text', '', '0', '0', '', '文字广告一排四个', '4', '0', '<div class=\"info-bar info-bar-clean info-bar-bordered nomargin\">\r\n		<div class=\"container\">\r\n			<div class=\"row\">\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-cubes\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">全新的架构和模块化开发机制</a></h3>\r\n					<p>便于灵活扩展和二次开发</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-tasks\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">模型/栏目/分类信息体系</a></h3>\r\n					<p>轻松实现差异化的功能</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-group\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">支持自定义用户行为</a></h3>\r\n					<p>为您的运营决策提供有效参考数据</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-soundcloud\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">云存储、云安全等服务</a></h3>\r\n					<p>更多贴心的服务让您的网站更安心</p>\r\n				</div>\r\n\r\n			</div>\r\n		</div>\r\n	</div>', '[{\"alt\":\"全新的架构和模块化开发机制\",\"info\":\"便于灵活扩展和二次开发\",\"ico\":\"fa-cubes\",\"width\":0,\"height\":0},{\"alt\":\"模型/栏目/分类信息体系\",\"info\":\"轻松实现差异化的功能\",\"ico\":\"fa-tasks\",\"width\":0,\"height\":0},{\"alt\":\"支持自定义用户行为\",\"info\":\"为您的运营决策提供有效参考数据\",\"ico\":\"fa-group\",\"width\":0,\"height\":0},{\"alt\":\"云存储、云安全等服务\",\"info\":\"更多贴心的服务让您的网站更安心\",\"ico\":\"fa-soundcloud\",\"width\":0,\"height\":0}]');
 INSERT INTO `cmswing_ext_ad_space` VALUES ('11', '首页通栏横幅', 'banner', '', '1140', '120', '', '首页通栏横幅', '1', '0', '<a class=\"margin-bottom-20 block thumbnail\" href=\"http://www.cmswing.com\" target = \"_blank\" title = \"fdsafdsafdsaf\" >\r\n<img class=\"img-responsive\" src=\"//odhs9iog7.qnssl.com/JPwL5tlUW298XZ_cx_KN3xue.jpg\" alt=\"fdsafdsafdsaf\" style=\"height:120px;width:100%\">\r\n</a>', '{\"url\":\"http://www.cmswing.com\",\"alt\":\"fdsafdsafdsaf\",\"att\":\"817\",\"width\":1140,\"height\":120}');
 INSERT INTO `cmswing_ext_ad_space` VALUES ('13', '小侧栏轮换广告', 'imagechange', '', '270', '350', '', '小侧栏轮换广告', '2', '0', '<!-- BANNER ROTATOR -->\r\n<div class=\"owl-carousel buttons-autohide controlls-over margin-bottom-20 text-center\" data-plugin-options=\'{\"singleItem\": true, \"autoPlay\": 4000, \"navigation\": true, \"pagination\": true, \"transitionStyle\":\"goDown\"}\'>\r\n\r\n<a href=\"http://www.baidu.com\">\r\n<img class=\"img-responsive\" src=\"//odhs9iog7.qnssl.com/Slvp5DCKoEPngTPvBnCBrEDU.png\" width=\"270\" height=\"350\" alt=\"第二个\">\r\n</a>\r\n\r\n<a href=\"http://www.sina.com\">\r\n<img class=\"img-responsive\" src=\"//odhs9iog7.qnssl.com/K13Q_mJEocdF9QZKsY-HnPVr.png\" width=\"270\" height=\"350\" alt=\"轮播第一个\">\r\n</a>\r\n\r\n</div>\r\n<!-- /BANNER ROTATOR -->', '[{\"url\":\"http://www.baidu.com\",\"alt\":\"第二个\",\"att\":\"819\",\"width\":270,\"height\":350},{\"url\":\"http://www.sina.com\",\"alt\":\"轮播第一个\",\"att\":\"818\",\"width\":270,\"height\":350}]');
+INSERT INTO `cmswing_ext_ad_space` VALUES ('14', '文字广告', 'text', '', '0', '0', '', '文字广告一排四个', '4', '0', '<div class=\"info-bar info-bar-clean info-bar-bordered nomargin\">\r\n		<div class=\"container\">\r\n			<div class=\"row\">\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-cubes\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">全新的架构和模块化开发机制</a></h3>\r\n					<p>便于灵活扩展和二次开发</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-tasks\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">模型/栏目/分类信息体系</a></h3>\r\n					<p>轻松实现差异化的功能</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-group\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">支持自定义用户行为</a></h3>\r\n					<p>为您的运营决策提供有效参考数据</p>\r\n				</div>\r\n\r\n				<div class=\"col-sm-3\">\r\n					<i class=\"fa fa-soundcloud\"></i>\r\n					<h3><a herf=\"javascript:void(0)\">云存储、云安全等服务</a></h3>\r\n					<p>更多贴心的服务让您的网站更安心</p>\r\n				</div>\r\n\r\n			</div>\r\n		</div>\r\n	</div>', '[{\"alt\":\"全新的架构和模块化开发机制\",\"info\":\"便于灵活扩展和二次开发\",\"ico\":\"fa-cubes\",\"width\":0,\"height\":0},{\"alt\":\"模型/栏目/分类信息体系\",\"info\":\"轻松实现差异化的功能\",\"ico\":\"fa-tasks\",\"width\":0,\"height\":0},{\"alt\":\"支持自定义用户行为\",\"info\":\"为您的运营决策提供有效参考数据\",\"ico\":\"fa-group\",\"width\":0,\"height\":0},{\"alt\":\"云存储、云安全等服务\",\"info\":\"更多贴心的服务让您的网站更安心\",\"ico\":\"fa-soundcloud\",\"width\":0,\"height\":0}]');
 INSERT INTO `cmswing_ext_ad_space` VALUES ('15', '代码广告', 'code', '', '0', '0', '', '代码广告', '1', '0', '<div class=\"box-flip box-icon box-icon-center box-icon-round box-icon-large text-center\">\r\n			<div class=\"front\">\r\n				<div class=\"box1\">\r\n					<div class=\"box-icon-title\">\r\n						<i class=\"fa fa-check\"></i>\r\n						<h2>Full Width</h2>\r\n					</div>\r\n					<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>\r\n				</div>\r\n			</div>\r\n\r\n			<div class=\"back\">\r\n				<div class=\"box2\">\r\n					<h4>BACK SIDE</h4>\r\n					<hr />\r\n					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>\r\n				</div>\r\n			</div>\r\n		</div>', '{\"code\":\"<div class=\\\"box-flip box-icon box-icon-center box-icon-round box-icon-large text-center\\\">\\r\\n\\t\\t\\t<div class=\\\"front\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box1\\\">\\r\\n\\t\\t\\t\\t\\t<div class=\\\"box-icon-title\\\">\\r\\n\\t\\t\\t\\t\\t\\t<i class=\\\"fa fa-check\\\"></i>\\r\\n\\t\\t\\t\\t\\t\\t<h2>Full Width</h2>\\r\\n\\t\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t\\t\\t<p>Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\r\\n\\t\\t\\t<div class=\\\"back\\\">\\r\\n\\t\\t\\t\\t<div class=\\\"box2\\\">\\r\\n\\t\\t\\t\\t\\t<h4>BACK SIDE</h4>\\r\\n\\t\\t\\t\\t\\t<hr />\\r\\n\\t\\t\\t\\t\\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>\\r\\n\\t\\t\\t\\t</div>\\r\\n\\t\\t\\t</div>\\r\\n\\t\\t</div>\",\"width\":0,\"height\":0}');
 INSERT INTO `cmswing_ext_ad_space` VALUES ('16', '测试广告位', 'banner', '', '100', '100', '', '111', '1', '0', '<a class=\"margin-bottom-20 block thumbnail\" href=\"http://www.baidu.com\" target = \"_blank\" title = \"fdsfdsa\" >\r\n<img class=\"img-responsive\" src=\"/static/noimg.jpg\" alt=\"fdsfdsa\" style=\"height:100px;width:100%\">\r\n</a>', '{\"url\":\"http://www.baidu.com\",\"alt\":\"fdsfdsa\",\"width\":100,\"height\":100}');
 
@@ -5974,7 +5974,7 @@ CREATE TABLE `cmswing_keyword` (
   `add_time` bigint(13) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `keyname` (`keyname`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_keyword
@@ -6026,7 +6026,7 @@ CREATE TABLE `cmswing_keyword_focus` (
   KEY `uid` (`uid`),
   KEY `key_id` (`key_id`),
   KEY `doc_uid` (`key_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='话题关注表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='话题关注表';
 
 -- ----------------------------
 -- Records of cmswing_keyword_focus
@@ -6046,7 +6046,7 @@ CREATE TABLE `cmswing_keyword_merge` (
   KEY `source_id` (`source_id`),
   KEY `target_id` (`target_id`),
   KEY `uid` (`uid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_keyword_merge
@@ -6097,7 +6097,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2361', 'arterli@qq.com', '1633', '', '1452513965683', '0', '1503652500870', '2130706433', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2361', 'arterli@qq.com', '1634', '', '1452513965683', '0', '1503812923319', '2130706433', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '87', 'cmswing@cmswing.com', '284', '13571883578', '1458989485616', '0', '1502851326136', '2130706433', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '4', '', '1458990106486', '0', '1463734028394', '2099753746', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
@@ -7419,6 +7419,31 @@ INSERT INTO `cmswing_order_seq` VALUES ('20170806', '39');
 INSERT INTO `cmswing_order_seq` VALUES ('20170808', '63');
 
 -- ----------------------------
+-- Table structure for cmswing_pay_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_pay_plugin`;
+CREATE TABLE `cmswing_pay_plugin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `class_name` varchar(30) NOT NULL,
+  `description` text,
+  `logo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_pay_plugin
+-- ----------------------------
+INSERT INTO `cmswing_pay_plugin` VALUES ('1', '预存款支付', 'balance', '预存款是客户在您网站上的虚拟资金帐户。', '/static/admin/img/payments/logos/pay_deposit.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('2', '支付宝[担保交易]', 'alipaytrad', '淘宝买家最熟悉的付款方式：买家先将交易资金存入支付宝并通知卖家发货，买家确认收货后资金自动进入卖家支付宝账户，完成交易 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373121\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipaytrad.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('3', '支付宝[双向接口]', 'alipay', '买家付款时，可选择担保交易或即时到账中的任一支付方式进行付款，完成交易。<a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111300373136\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('4', '支付宝[即时到帐]', 'alipaydirect', '网上交易时，买家的交易资金直接打入卖家支付宝账户，快速回笼交易资金。 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373124\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('5', '腾讯财付通', 'tenpay', '费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a>', '/static/admin/img/payments/logos/pay_tenpay.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('6', 'PayPal', 'paypal', 'PayPal 是全球最大的在线支付平台，同时也是目前全球贸易网上支付标准。', '/static/admin/img//payments/logos/pay_paypal.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('7', '货到付款', 'received', '客户收到商品时，再进行付款，让客户更放心。', '/static/admin/img//payments/logos/pay_received.gif');
+INSERT INTO `cmswing_pay_plugin` VALUES ('8', '支付宝[银行支付]', 'alipaygateway', null, '/static/admin/img//payments/logos/pay_alipay.gif');
+
+-- ----------------------------
 -- Table structure for cmswing_payment
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_payment`;
@@ -7444,31 +7469,6 @@ INSERT INTO `cmswing_payment` VALUES ('1', '1', '预存款支付', '{\"partner_i
 INSERT INTO `cmswing_payment` VALUES ('5', '5', '腾讯财付通', '{\"partner_id\":\"635645645\",\"partner_key\":\"64565464564\"}', '2', '<p>费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a></p>', '<p>111215855<br/></p>', '15.00', '1', '3', '1');
 INSERT INTO `cmswing_payment` VALUES ('7', '7', '货到付款', '{\"partner_id\":\"1115555\",\"partner_key\":\"22224445\"}', '0', '<p>客户收到商品时，再进行付款，让客户更放心。</p>', '<p>2121321<br/></p>', '0.00', '1', '0', '1');
 INSERT INTO `cmswing_payment` VALUES ('8', '5', '腾讯财付通8888', '{\"partner_id\":\"56546\",\"partner_key\":\"5465465466\"}', '0', '<p>费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a></p>', '<p>6546546</p>', '0.00', '1', '0', '1');
-
--- ----------------------------
--- Table structure for cmswing_pay_plugin
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_pay_plugin`;
-CREATE TABLE `cmswing_pay_plugin` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `class_name` varchar(30) NOT NULL,
-  `description` text,
-  `logo` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_pay_plugin
--- ----------------------------
-INSERT INTO `cmswing_pay_plugin` VALUES ('1', '预存款支付', 'balance', '预存款是客户在您网站上的虚拟资金帐户。', '/static/admin/img/payments/logos/pay_deposit.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('2', '支付宝[担保交易]', 'alipaytrad', '淘宝买家最熟悉的付款方式：买家先将交易资金存入支付宝并通知卖家发货，买家确认收货后资金自动进入卖家支付宝账户，完成交易 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373121\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipaytrad.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('3', '支付宝[双向接口]', 'alipay', '买家付款时，可选择担保交易或即时到账中的任一支付方式进行付款，完成交易。<a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111300373136\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('4', '支付宝[即时到帐]', 'alipaydirect', '网上交易时，买家的交易资金直接打入卖家支付宝账户，快速回笼交易资金。 <a style=\"color:blue\" href=\"https://b.alipay.com/order/productDetail.htm?productId=2012111200373124\" target=\"_blank\">立即申请</a>', '/static/admin/img//payments/logos/pay_alipay.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('5', '腾讯财付通', 'tenpay', '费率最低至<span style=\"color: #FF0000;font-weight: bold;\">0.61%</span>，并赠送价值千元企业QQ <a style=\"color:blue\" href=\"http://union.tenpay.com/mch/mch_register.shtml\" target=\"_blank\">立即申请</a>', '/static/admin/img/payments/logos/pay_tenpay.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('6', 'PayPal', 'paypal', 'PayPal 是全球最大的在线支付平台，同时也是目前全球贸易网上支付标准。', '/static/admin/img//payments/logos/pay_paypal.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('7', '货到付款', 'received', '客户收到商品时，再进行付款，让客户更放心。', '/static/admin/img//payments/logos/pay_received.gif');
-INSERT INTO `cmswing_pay_plugin` VALUES ('8', '支付宝[银行支付]', 'alipaygateway', null, '/static/admin/img//payments/logos/pay_alipay.gif');
 
 -- ----------------------------
 -- Table structure for cmswing_picture
@@ -8583,7 +8583,7 @@ CREATE TABLE `cmswing_question_answer` (
   KEY `force_fold` (`force_fold`),
   KEY `anonymous` (`anonymous`),
   KEY `publich_source` (`publish_source`)
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='回答';
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='回答';
 
 -- ----------------------------
 -- Records of cmswing_question_answer
@@ -8617,7 +8617,7 @@ CREATE TABLE `cmswing_question_answer_comments` (
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`),
   KEY `time` (`time`)
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question_answer_comments
@@ -8640,7 +8640,7 @@ CREATE TABLE `cmswing_question_answer_thanks` (
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question_answer_thanks
@@ -8658,7 +8658,7 @@ CREATE TABLE `cmswing_question_answer_uninterested` (
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question_answer_uninterested
@@ -8679,7 +8679,7 @@ CREATE TABLE `cmswing_question_answer_vote` (
   PRIMARY KEY (`voter_id`),
   KEY `answer_id` (`answer_id`),
   KEY `vote_value` (`vote_value`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question_answer_vote
@@ -8698,7 +8698,7 @@ CREATE TABLE `cmswing_question_focus` (
   PRIMARY KEY (`focus_id`),
   KEY `question_id` (`question_id`),
   KEY `question_uid` (`question_id`,`uid`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='问题关注表';
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='问题关注表';
 
 -- ----------------------------
 -- Records of cmswing_question_focus
@@ -8744,10 +8744,6 @@ INSERT INTO `cmswing_question_focus` VALUES ('44', '41', '149', '1485229319849')
 INSERT INTO `cmswing_question_focus` VALUES ('45', '40', '2', '1485404014339');
 INSERT INTO `cmswing_question_focus` VALUES ('46', '42', '1', '1487231629139');
 INSERT INTO `cmswing_question_focus` VALUES ('47', '10', '1', '1487673254332');
-INSERT INTO `cmswing_question_focus` VALUES ('48', '43', '2', '1502216249669');
-INSERT INTO `cmswing_question_focus` VALUES ('49', '44', '2', '1502216303827');
-INSERT INTO `cmswing_question_focus` VALUES ('50', '45', '2', '1502216327103');
-INSERT INTO `cmswing_question_focus` VALUES ('51', '46', '2', '1502216374295');
 
 -- ----------------------------
 -- Table structure for cmswing_question_user
@@ -8771,7 +8767,7 @@ CREATE TABLE `cmswing_question_user` (
 -- Records of cmswing_question_user
 -- ----------------------------
 INSERT INTO `cmswing_question_user` VALUES ('1', '0', '0', '2', '6', '0', '0', '0', '0', '8');
-INSERT INTO `cmswing_question_user` VALUES ('2', '0', '0', '18', '12', '0', '0', '0', '0', '2');
+INSERT INTO `cmswing_question_user` VALUES ('2', '0', '0', '14', '11', '0', '0', '0', '0', '2');
 INSERT INTO `cmswing_question_user` VALUES ('3', '0', '0', '1', '1', '0', '0', '0', '0', '103');
 INSERT INTO `cmswing_question_user` VALUES ('4', '0', '0', '1', '0', '0', '0', '0', '0', '131');
 INSERT INTO `cmswing_question_user` VALUES ('5', '0', '0', '1', '0', '0', '0', '0', '0', '149');
@@ -8807,7 +8803,7 @@ CREATE TABLE `cmswing_search` (
   PRIMARY KEY (`search_id`),
   KEY `m_id` (`m_id`,`d_id`),
   FULLTEXT KEY `data` (`data`)
-) ENGINE=MyISAM AUTO_INCREMENT=3019 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3009 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_search
@@ -8846,9 +8842,9 @@ INSERT INTO `cmswing_search` VALUES ('2855', '2', '100', '1463389561670', '他�
 INSERT INTO `cmswing_search` VALUES ('2856', '2', '101', '1463393721507', '特稿│百度科学家眼中的复杂中国 0');
 INSERT INTO `cmswing_search` VALUES ('2857', '2', '102', '1463394000000', '为什么富二代们都跟着王思聪玩电竞？ 0');
 INSERT INTO `cmswing_search` VALUES ('2858', '2', '103', '1463725920000', '百合营业套路深，萌豚纷纷平流层 0');
-INSERT INTO `cmswing_search` VALUES ('2859', '2', '104', '1463726580000', '苹果10亿美金投滴滴 各界表情包是这样的！ 插件开发 苹果 10 亿 美金 投 滴滴 各界 表情 包 是 这样 的 插件 开发');
+INSERT INTO `cmswing_search` VALUES ('2859', '2', '104', '1463726580000', '苹果10亿美金投滴滴 各界表情包是这样的！ 0');
 INSERT INTO `cmswing_search` VALUES ('2860', '2', '105', '1463733240000', '你看不懂的Cos、ACG，是他攻占二次元的第一座城池 0');
-INSERT INTO `cmswing_search` VALUES ('2861', '2', '202', '1465809360000', '这是文章内容分页的一个测试！！！ 0');
+INSERT INTO `cmswing_search` VALUES ('2861', '2', '202', '1465809360000', '这是文章内容分页的一个测试！！！ 0 这是 文章内容 分页 的 一个 测试 0');
 INSERT INTO `cmswing_search` VALUES ('2862', '2', '245', '1471324440000', '投稿测试投稿测试投稿测试2121 0');
 INSERT INTO `cmswing_search` VALUES ('2863', '2', '251', '1474672440000', 'fdsafdasfadsf 33333');
 INSERT INTO `cmswing_search` VALUES ('2864', '2', '316', '1500178668115', '测试时尚似乎死 ');
@@ -8964,8 +8960,9 @@ INSERT INTO `cmswing_search` VALUES ('2973', '5', '207', '1466497154172', '百�
 INSERT INTO `cmswing_search` VALUES ('2974', '5', '208', '1466497304929', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩 0');
 INSERT INTO `cmswing_search` VALUES ('2975', '5', '209', '1466497716678', '英男童与狗狗形影不离亲似兄弟 0');
 INSERT INTO `cmswing_search` VALUES ('2976', '5', '223', '1467799875267', '简约室内客厅电视背景墙图片大全 0');
-INSERT INTO `cmswing_search` VALUES ('3014', '5', '225', '1467800485779', '主卧室吊顶装修效果图大全 0 主 卧室 吊顶 装修 效果图 大全 0');
-INSERT INTO `cmswing_search` VALUES ('3013', '5', '224', '1467800228012', '主卧室吊顶装修效果图大全 0 主 卧室 吊顶 装修 效果图 大全 0');
+INSERT INTO `cmswing_search` VALUES ('2977', '5', '224', '1467800228012', '主卧室吊顶装修效果图大全 0');
+INSERT INTO `cmswing_search` VALUES ('2978', '5', '225', '1467800485779', '主卧室吊顶装修效果图大全 0');
+INSERT INTO `cmswing_search` VALUES ('2979', '5', '226', '1467801000000', '简约卧室吊顶装修效果图大全 0');
 INSERT INTO `cmswing_search` VALUES ('2980', '6', '183', '1465382896500', 'ThinkJS视频教程 0');
 INSERT INTO `cmswing_search` VALUES ('2981', '6', '184', '1465383084973', '项目结构介绍 0');
 INSERT INTO `cmswing_search` VALUES ('2982', '6', '185', '1465383226580', '路由介绍 0');
@@ -8986,7 +8983,7 @@ INSERT INTO `cmswing_search` VALUES ('2996', '6', '199', '1465718940000', '龙�
 INSERT INTO `cmswing_search` VALUES ('2997', '6', '200', '1465719088410', '第1集 和平的报酬 1亿元花落谁家? 0');
 INSERT INTO `cmswing_search` VALUES ('2998', '6', '201', '1465719227222', '第2集 约定的假期 贝吉塔的家庭旅行!? 0');
 INSERT INTO `cmswing_search` VALUES ('2999', '6', '213', '1466569380000', '老笠 0');
-INSERT INTO `cmswing_search` VALUES ('3000', '8', '10', '1476195674831', '很多图片上传分组三测试333 很多 图片 上传 分组 三 测试 333');
+INSERT INTO `cmswing_search` VALUES ('3000', '8', '10', '1476195674831', '很多图片上传分组三测试');
 INSERT INTO `cmswing_search` VALUES ('3001', '8', '11', '1476201079243', '分组二测试');
 INSERT INTO `cmswing_search` VALUES ('3002', '8', '12', '1476202235196', '关注测试');
 INSERT INTO `cmswing_search` VALUES ('3003', '8', '33', '1477908334481', '手机发布测试');
@@ -8994,10 +8991,7 @@ INSERT INTO `cmswing_search` VALUES ('3004', '8', '39', '1484333489627', '每次
 INSERT INTO `cmswing_search` VALUES ('3005', '8', '40', '1485229307267', '检测到有一个重建任务正在执行，请稍后再试！');
 INSERT INTO `cmswing_search` VALUES ('3006', '8', '41', '1485229319846', '测试');
 INSERT INTO `cmswing_search` VALUES ('3007', '8', '42', '1487231629134', '34543');
-INSERT INTO `cmswing_search` VALUES ('3010', '8', '44', '1502216303443', 'ffsfs ffsfs');
-INSERT INTO `cmswing_search` VALUES ('3011', '8', '45', '1502216327059', 'gfdgsd gfdgsd');
-INSERT INTO `cmswing_search` VALUES ('3015', '5', '226', '1467801000000', '简约卧室吊顶装修效果图大全 0 简约 卧室 吊顶 装修 效果图 大全 0');
-INSERT INTO `cmswing_search` VALUES ('3018', '6', '321', '1503652750968', '视频教程  视频教程');
+INSERT INTO `cmswing_search` VALUES ('3008', '3', '318', '1501613517299', 'vvsfdsfdsfs  vvsfdsfdsfs');
 
 -- ----------------------------
 -- Table structure for cmswing_search_model
@@ -9116,10 +9110,10 @@ INSERT INTO `cmswing_setup` VALUES ('68', 'PINGXX_APP_ID', '1', 'Ping++ ID(APP_I
 INSERT INTO `cmswing_setup` VALUES ('69', 'PINGXX_LIVE_SECRET_KEY', '1', 'Live Secret Key', '0', '', '', '0', '1458704598345', '1', 'sk_test_10unXHm9WPeD54OaT8Cubz9K', '0');
 INSERT INTO `cmswing_setup` VALUES ('70', 'COD', '4', '货到付款', '5', '0:支持货到付款\r\n1:不支持货到付款', '货到付款只针对实物商品', '0', '1458706395582', '1', '0', '0');
 INSERT INTO `cmswing_setup` VALUES ('71', 'PREPAID', '4', '预付款消费', '5', '0:支持预付款消费\r\n1:不支持预付款消费', '网站是否支持预付款消费，默认支持。', '1458707195813', '1458706636445', '1', '0', '0');
-INSERT INTO `cmswing_setup` VALUES ('72', 'wx_AppID', '1', 'AppID(应用ID)', '6', '', 'AppID(应用ID)</br>\r\nURL(服务器地址):<code>http://或https://你的域名/home/wechat</code>', '1501742204602', '1460919119581', '1', 'wxadce60f0c68b9b58', '3');
-INSERT INTO `cmswing_setup` VALUES ('73', 'wx_AppSecret', '1', 'AppSecret(应用密钥)', '6', '', 'AppSecret(应用密钥)', '1501742120749', '1460919187704', '1', '41318d0bc30d292f278a720758d14833', '4');
-INSERT INTO `cmswing_setup` VALUES ('74', 'wx_Token', '1', 'Token(令牌)', '6', '', 'Token(令牌)', '1501742108324', '1460919336290', '1', 'cmswing', '5');
-INSERT INTO `cmswing_setup` VALUES ('75', 'IS_QQ_LOGIN', '4', '是否开启QQ登陆', '7', '0:关闭\r\n1:开启', '开启后请配置下面的APP ID和APP KEY ，<a href=\"http://connect.qq.com/\" class = \"text-info\" target=\"_blank\">APP ID和APP KEY申请</a><br>\r\n回调地址：<code>http://www.abc.com/center/qq/index</code></br>\r\n申请接口的是时候需要填写回调地址，你把www.abc.com替换成你网站的域名 如：http://www.cmswing.com/center/qq/index', '1503368339969', '1461067751607', '1', '1', '1');
+INSERT INTO `cmswing_setup` VALUES ('72', 'wx_AppID', '1', 'AppID(应用ID)', '6', '', 'AppID(应用ID)</br>\r\nURL(服务器地址):<code>http://你的域名/uc/wechat</code></br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483601879208', '1460919119581', '1', 'wxadce60f0c68b9b58', '3');
+INSERT INTO `cmswing_setup` VALUES ('73', 'wx_AppSecret', '1', 'AppSecret(应用密钥)', '6', '', 'AppSecret(应用密钥)</br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483601985777', '1460919187704', '1', '41318d0bc30d292f278a720758d14833', '4');
+INSERT INTO `cmswing_setup` VALUES ('74', 'wx_Token', '1', 'Token(令牌)', '6', '', 'Token(令牌)</br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483602109838', '1460919336290', '1', 'cmswing', '5');
+INSERT INTO `cmswing_setup` VALUES ('75', 'IS_QQ_LOGIN', '4', '是否开启QQ登陆', '7', '0:关闭\r\n1:开启', '开启后请配置下面的APP ID和APP KEY ，<a href=\"http://connect.qq.com/\" class = \"text-info\" target=\"_blank\">APP ID和APP KEY申请</a><br>\r\n回调地址：<code>http://www.abc.com/uc/qq/index</code></br>\r\n申请接口的是时候需要填写回调地址，你把www.abc.com替换成你网站的域名 如：http://www.cmswing.com/uc/qq/index', '1474784802951', '1461067751607', '1', '1', '1');
 INSERT INTO `cmswing_setup` VALUES ('76', 'QQ_APPID', '1', 'QQ  APP ID', '7', '', '在QQ互联申请到的 APP ID ,填写到此处。', '1461072196964', '1461067916788', '1', '101309492', '2');
 INSERT INTO `cmswing_setup` VALUES ('77', 'QQ_APPKEY', '1', 'QQ APP KEY', '7', '', '在QQ互联申请到的 APP KEY ,填写到此处。', '1461072212437', '1461068049281', '1', '98c05261f58f2fe30478bb168d143113', '2');
 INSERT INTO `cmswing_setup` VALUES ('78', 'QQ_VALIDATION', '1', 'QQ验证码', '7', '', '申请QQ登录应用的时候，会提供给你一段代码进行网站验证,请填写到此处。', '1461078426145', '1461078345202', '1', '<meta property=\"qc:admins\" content=\"1271366777635371676375\" />', '4');
@@ -9128,12 +9122,12 @@ INSERT INTO `cmswing_setup` VALUES ('80', 'QINIU_AK', '1', '七牛 AK', '8', '',
 INSERT INTO `cmswing_setup` VALUES ('81', 'QINIU_SK', '1', '七牛 SK', '8', '', '七牛云储存 SK', '0', '1461171443001', '1', '_Dmewmycq994GcYxG4N3WvOX0ED-5eUeeXvoOYcE', '2');
 INSERT INTO `cmswing_setup` VALUES ('82', 'QINIU_BUCKET', '1', '空间名', '8', '', '在七牛后台创建的对象储存名称', '0', '1461171792507', '1', 'cmswing', '4');
 INSERT INTO `cmswing_setup` VALUES ('83', 'QINIU_DOMAIN_NAME', '1', '七牛空间域名', '8', '', '七牛空间域名如：	7xt6v5.com1.z0.glb.clouddn.com 不带http://', '0', '1461175719237', '1', 'odhs9iog7.qnssl.com', '5');
-INSERT INTO `cmswing_setup` VALUES ('84', 'CY_APPID', '1', 'APP ID', '9', '', ' 畅言APP ID  <a href=\"http://changyan.kuaizhan.com/\" target=\"_blank\" class=\"text-info\">点击申请</a>', '1503369025435', '1463639695026', '1', 'cysYegnR2', '0');
-INSERT INTO `cmswing_setup` VALUES ('85', 'CY_APPKEY', '1', 'APP KEY', '9', '', ' 畅言 APP KEY  <a href=\"http://changyan.kuaizhan.com/\" target=\"_blank\" class=\"text-info\">点击申请</a>\r\n <h4>PC端单点登录配置参数</h4>\r\n        <p>\r\n        登录行为(打开新页面登录):<code>http或https://网站域名/center/changyan/signin</code>\r\n        </p>\r\n        <p>\r\n            获取用户信息接口URL:<code>http或https://网站域名/center/changyan/getuserinfo</code>\r\n        </p>\r\n        <p>\r\n            用户退出接口URL:<code>http或https://网站域名/center/public/logout</code>\r\n        </p>\r\n<h4>WAP版设置</h4>\r\n   <p>\r\n          wap登陆页地址:<code>http或https://网站域名/center/public/login</code>\r\n        </p>\r\n   <p>\r\n            获取用户信息接口URL:<code>http或https://网站域名/center/changyan/getuserinfo</code>\r\n        </p>\r\n  <p>\r\n            用户退出接口URL:<code>http或https://网站域名/center/public/logou</code>\r\n        </p>', '1502254404993', '1463639950200', '1', 'b28eb67a3a8364878ee67d33c3febdce', '1');
+INSERT INTO `cmswing_setup` VALUES ('84', 'CY_APPID', '1', 'APP ID', '9', '', ' 畅言APP ID  <a href=\"http://changyan.kuaizhan.com/\" target=\"_blank\" class=\"text-info\">点击申请</a>', '1463639830539', '1463639695026', '1', 'cysYegnR2', '0');
+INSERT INTO `cmswing_setup` VALUES ('85', 'CY_APPKEY', '1', 'APP KEY', '9', '', ' 畅言 APP KEY  <a href=\"http://changyan.kuaizhan.com/\" target=\"_blank\" class=\"text-info\">点击申请</a>\r\n <h4>PC端单点登录配置参数</h4>\r\n        <p>\r\n        登录行为(打开新页面登录):<code>http://网站域名/uc/changyan/signin 或 https://网站域名/uc/changyan/signin</code>\r\n        </p>\r\n        <p>\r\n            获取用户信息接口URL:<code>http://网站域名/uc/changyan/getuserinfo 或 https://网站域名/uc/changyan/getuserinfo</code>\r\n        </p>\r\n        <p>\r\n            用户退出接口URL:<code>http://网站域名/uc/public/logout 或 https://网站域名/uc/public/logout</code>\r\n        </p>\r\n<h4>WAP版设置</h4>\r\n   <p>\r\n          wap登陆页地址:<code>http://网站域名/uc/public/login 或 https://网站域名/uc/public/login</code>\r\n        </p>\r\n   <p>\r\n            获取用户信息接口URL:<code>http://网站域名/uc/changyan/getuserinfo 或 https://网站域名/uc/changyan/getuserinfo</code>\r\n        </p>\r\n  <p>\r\n            用户退出接口URL:<code>http://网站域名/uc/public/logout 或 https://网站域名/uc/public/logout</code>\r\n        </p>', '1493446390652', '1463639950200', '1', 'b28eb67a3a8364878ee67d33c3febdce', '1');
 INSERT INTO `cmswing_setup` VALUES ('86', 'WEB_TONGJI', '2', '统计代码', '1', '', '统计代码', '1464687748400', '1464687707759', '1', '<script>\r\nvar _hmt = _hmt || [];\r\n(function() {\r\n  var hm = document.createElement(\"script\");\r\n  hm.src = \"//hm.baidu.com/hm.js?db1838bfd0b81ebff469f5ef62a0621a\";\r\n  var s = document.getElementsByTagName(\"script\")[0]; \r\n  s.parentNode.insertBefore(hm, s);\r\n})();\r\n</script>', '10');
-INSERT INTO `cmswing_setup` VALUES ('87', 'GEETEST_ID', '1', 'ID', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的ID (网页端)', '1501895113906', '1468474179391', '1', 'fd61fa71e361666fce9f142c647fa05b', '1');
-INSERT INTO `cmswing_setup` VALUES ('88', 'GEETEST_KEY', '1', 'KEY ', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的KEY (网页端)', '1501895125284', '1468474373867', '1', 'e94ef95986653f7c5d4d23939075408d', '2');
-INSERT INTO `cmswing_setup` VALUES ('89', 'GEETEST_IS_LOGIN', '4', '前台登录验证', '10', '0:关闭\r\n1:开启', '是否开启、关闭前台登录验证码，默认关闭', '1501895189037', '1468475188387', '1', '1', '5');
+INSERT INTO `cmswing_setup` VALUES ('87', 'GEETEST_ID', '1', 'ID (网页端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的ID (网页端)', '1473017424630', '1468474179391', '1', 'fd61fa71e361666fce9f142c647fa05b', '1');
+INSERT INTO `cmswing_setup` VALUES ('88', 'GEETEST_KEY', '1', 'KEY (网页端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的KEY (网页端)', '1473017439964', '1468474373867', '1', 'e94ef95986653f7c5d4d23939075408d', '2');
+INSERT INTO `cmswing_setup` VALUES ('89', 'GEETEST_IS_LOGIN', '4', '前台登录验证', '10', '0:关闭\r\n1:开启', '是否开启、关闭前台登录验证码，默认关闭，开启此选项必须 移动端和网页端的ID和KEY都要填入。请在极验后台分别创建。', '1473017807773', '1468475188387', '1', '1', '5');
 INSERT INTO `cmswing_setup` VALUES ('90', 'GEETEST_IS_ADMLOGIN', '4', '后台登录验证', '10', '0:关闭\r\n1:开启', '是否开启、关闭后台登录验证码，默认关闭', '1473017608058', '1468475293815', '1', '1', '6');
 INSERT INTO `cmswing_setup` VALUES ('91', 'USER_ALLOW_SMSREGISTER', '4', '注册方式', '3', '0:传统注册\r\n1:短信注册', '短信注册，网站必须开启短信功能。', '1468487539814', '1468487490603', '1', '0', '1');
 INSERT INTO `cmswing_setup` VALUES ('92', 'VIDEOJJ_appkey', '1', 'APPKey', '11', '', '必填，请在控制台查看应用标识  <a href=\"http://videojj.com/\" target=\"_blank\" class=\"text-info\">videojj申请地址</a>', '1468514535175', '1468514516660', '1', 'VJa72yR7W', '1');
@@ -9150,10 +9144,12 @@ INSERT INTO `cmswing_setup` VALUES ('102', 'VIDEOJJ_tagTrack', '4', '热点默�
 INSERT INTO `cmswing_setup` VALUES ('103', 'VIDEOJJ_tagDuration', '0', '热点显示时间', '11', '', '云链显示时间，默认为5秒', '0', '1468516792249', '1', '5', '14');
 INSERT INTO `cmswing_setup` VALUES ('104', 'VIDEOJJ_tagFontSize', '4', '热点字号', '11', '12:12px\r\n14:14px\r\n16:16px\r\n18:18px\r\n20:20px\r\n22:22px\r\n24:24px\r\n26:26px\r\n28:28px', '云链文字大小，默认为16像素', '0', '1468517052143', '1', '16', '13');
 INSERT INTO `cmswing_setup` VALUES ('105', 'SMS_TYPE', '4', '短信通道', '12', '1:阿里大鱼', '阿里大鱼 <a href=\"http://www.alidayu.com/\" target=\"_blank\" class=\"text-info\">申请地址</a>  ≤4.5分/条', '0', '1468557817087', '1', '1', '1');
-INSERT INTO `cmswing_setup` VALUES ('106', 'SMS_Key', '1', 'APP证书', '12', '', '在相应的短信通道后台获取。<br>\r\n阿里大鱼:App Key|App Secret', '1468580594000', '1468558104133', '1', '23381127|115e5c8900a4f29f15df438809cbff5252', '2');
+INSERT INTO `cmswing_setup` VALUES ('106', 'SMS_Key', '1', 'APP证书', '12', '', '在相应的短信通道后台获取。<br>\r\n阿里大鱼:App Key|App Secret', '1468580594000', '1468558104133', '1', '23381127|3bb09aa73066dc1c469d6e7a9d909731', '2');
 INSERT INTO `cmswing_setup` VALUES ('107', 'SMS_qianming', '1', '短信签名', '12', '', '在相应的短信后台获取</br>\r\n短信示例：【阿里大鱼】 验证码${number}，您正进行支付宝的身份验证，打死不告诉别人！ </br>\r\n短信签名：阿里大鱼 </br>\r\n短信模板: 验证码${number}，您正进行支付宝的身份验证，打死不告诉别人！', '1468581953656', '1468558176158', '1', '酷翼cms', '3');
 INSERT INTO `cmswing_setup` VALUES ('108', 'SMS_zhuce', '1', '用户注册验证码模版ID', '12', '', '在短信渠道后台申请</br>\r\n实例：验证码${code}，您正在注册成为${product}用户，感谢您的支持！', '1468583238487', '1468582222696', '1', 'SMS_10281005', '5');
 INSERT INTO `cmswing_setup` VALUES ('109', 'SMS_product', '1', '变量${product}', '12', '', '设置模版的时候填入的值，会替换${product}', '0', '1468583227214', '1', 'CmsWing', '4');
+INSERT INTO `cmswing_setup` VALUES ('110', 'GEETEST_ID_M', '1', 'ID (移动端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的ID (移动端)', '0', '1473017565745', '1', '61844714815758b8ea27c74681c3eb06', '3');
+INSERT INTO `cmswing_setup` VALUES ('111', 'GEETEST_KEY_M', '1', 'KEY (移动端)', '10', '', '从<a class=\"text-info\" href=\"http://user.geetest.com/\" target=\"_blank\">验证后台</a> 注册账号,添加验证，可以获取一组当前验证的KEY (移动端)', '1473017708120', '1473017680238', '1', 'b8bbf948f416c2c43927334f31075c76', '4');
 INSERT INTO `cmswing_setup` VALUES ('112', 'IS_SINA_LOGIN', '4', '是否开启新浪微博登陆', '7', '0:关闭\r\n1:开启', '开启后请配置下面的APP ID和APP KEY ，<a href=\"http://open.weibo.com/\" class = \"text-info\" target=\"_blank\">APP ID和APP KEY申请</a><br>\r\n回调地址：<code>http://www.abc.com/uc/sina/index</code></br>\r\n申请接口的是时候需要填写回调地址，你把www.abc.com替换成你网站的域名 如：http://www.cmswing.com/uc/sina/index', '0', '1481700902627', '1', '1', '5');
 INSERT INTO `cmswing_setup` VALUES ('113', 'SINA_APPKEY', '1', 'SINA App Key', '7', '', '在微博开放平台申请到的 App Key ,填写到此处。', '0', '1481701099061', '1', '3868482864', '6');
 INSERT INTO `cmswing_setup` VALUES ('114', 'SINA_APPSECRET', '1', 'SINA App Secret', '7', '', '在微博开放平台申请到的 App Secret ,填写到此处。', '0', '1481701308499', '1', 'ec0c3346d244d91c6e0189b4448fb326', '7');
@@ -9219,7 +9215,7 @@ CREATE TABLE `cmswing_sms_log` (
   `create_time` bigint(13) NOT NULL,
   `code` char(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of cmswing_sms_log
@@ -9227,9 +9223,6 @@ CREATE TABLE `cmswing_sms_log` (
 INSERT INTO `cmswing_sms_log` VALUES ('1', '18681851637', '1', '1468583519204', '433593');
 INSERT INTO `cmswing_sms_log` VALUES ('2', '18681851637', '1', '1468584869137', '214229');
 INSERT INTO `cmswing_sms_log` VALUES ('3', '18681851637', '1', '1468584997256', '083770');
-INSERT INTO `cmswing_sms_log` VALUES ('4', '18681851637', '1', '1502542674858', '483603');
-INSERT INTO `cmswing_sms_log` VALUES ('5', '18681851637', '1', '1502543023074', '235005');
-INSERT INTO `cmswing_sms_log` VALUES ('6', '18681851637', '1', '1503300458747', '971477');
 
 -- ----------------------------
 -- Table structure for cmswing_tags
@@ -9417,6 +9410,289 @@ INSERT INTO `cmswing_type` VALUES ('12', '0', '0', '智能电视搜索内容', '
 INSERT INTO `cmswing_type` VALUES ('13', '0', '0', '打印机搜索内容', '打印机搜索内容', '', '0', '0', '0', null, null, null, null);
 INSERT INTO `cmswing_type` VALUES ('14', '0', '0', '智能数码搜索内容', '智能数码搜索内容', '', '0', '0', '0', null, null, null, null);
 INSERT INTO `cmswing_type` VALUES ('15', '0', '0', '服务搜索内容', '服务搜索内容', '', '0', '0', '0', null, null, null, null);
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue1
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue1`;
+CREATE TABLE `cmswing_type_optionvalue1` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `aaa` mediumtext CHARACTER SET utf8,
+  `bbb` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `ccc` int(10) unsigned NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `bbb` (`bbb`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue1
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue10
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue10`;
+CREATE TABLE `cmswing_type_optionvalue10` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `txilie` varchar(50) NOT NULL DEFAULT '0',
+  `bjiage` int(10) unsigned NOT NULL DEFAULT '0',
+  `dnleixing` varchar(50) NOT NULL DEFAULT '0',
+  `cpu` varchar(50) NOT NULL DEFAULT '0',
+  `neicun` varchar(50) NOT NULL DEFAULT '0',
+  `xianka` varchar(50) NOT NULL DEFAULT '0',
+  `tpmingchichun` varchar(50) NOT NULL DEFAULT '0',
+  `caozuoxitong` varchar(50) NOT NULL DEFAULT '0',
+  `tshiyingchangjiang` varchar(50) NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `txilie` (`txilie`),
+  KEY `dnleixing` (`dnleixing`),
+  KEY `cpu` (`cpu`),
+  KEY `neicun` (`neicun`),
+  KEY `xianka` (`xianka`),
+  KEY `tpmingchichun` (`tpmingchichun`),
+  KEY `caozuoxitong` (`caozuoxitong`),
+  KEY `tshiyingchangjiang` (`tshiyingchangjiang`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue10
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue11
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue11`;
+CREATE TABLE `cmswing_type_optionvalue11` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `pxilie` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `pjiage` int(10) unsigned NOT NULL DEFAULT '0',
+  `ppingmuchichun` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `pchucun` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `pchaozuoxitong` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  `gongnengpeizhi` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `pxilie` (`pxilie`),
+  KEY `ppingmuchichun` (`ppingmuchichun`),
+  KEY `pchucun` (`pchucun`),
+  KEY `pchaozuoxitong` (`pchaozuoxitong`),
+  KEY `gongnengpeizhi` (`gongnengpeizhi`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue11
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue12
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue12`;
+CREATE TABLE `cmswing_type_optionvalue12` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `dianshixilie` varchar(50) NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `dianshixilie` (`dianshixilie`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue12
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue13
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue13`;
+CREATE TABLE `cmswing_type_optionvalue13` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `dayinjileixing` varchar(50) NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `dayinjileixing` (`dayinjileixing`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue13
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue14
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue14`;
+CREATE TABLE `cmswing_type_optionvalue14` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `diannaopeijian` varchar(50) NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `diannaopeijian` (`diannaopeijian`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue14
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue15
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue15`;
+CREATE TABLE `cmswing_type_optionvalue15` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `shojipeijian` varchar(50) NOT NULL DEFAULT '0',
+  `fuwujiage` int(10) unsigned NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `shojipeijian` (`shojipeijian`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue15
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue16
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue16`;
+CREATE TABLE `cmswing_type_optionvalue16` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `bbb` varchar(50) NOT NULL DEFAULT '0',
+  `aaa` mediumtext,
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `bbb` (`bbb`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue16
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue7
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue7`;
+CREATE TABLE `cmswing_type_optionvalue7` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `shuzi` int(10) unsigned NOT NULL DEFAULT '0',
+  `kongjian` varchar(50) NOT NULL DEFAULT '0',
+  `jubu` varchar(50) NOT NULL DEFAULT '0',
+  `fengge` varchar(50) NOT NULL DEFAULT '0',
+  `wenben` mediumtext,
+  `xuanze` varchar(50) NOT NULL DEFAULT '0',
+  `bbb` varchar(50) NOT NULL DEFAULT '0',
+  `zichuan` mediumtext,
+  `danxuan` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `duoxuan` mediumtext,
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `kongjian` (`kongjian`),
+  KEY `jubu` (`jubu`),
+  KEY `fengge` (`fengge`),
+  KEY `xuanze` (`xuanze`),
+  KEY `bbb` (`bbb`),
+  KEY `danxuan` (`danxuan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue7
+-- ----------------------------
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('221', '83', '0', '0', '0', '2', '5', '6', '0', '0', '0', null, '0', null);
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('222', '83', '0', '0', '0', '3', '3', '6', null, '0', '0', null, '0', null);
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('223', '83', '0', '0', '0', '1', '1', '1', null, '0', '0', null, '0', null);
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('224', '83', '0', '0', '0', '2', '2', '1', null, '0', '0', null, '0', null);
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('225', '83', '0', '0', '0', '3', '3', '4', null, '0', '0', null, '0', null);
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('226', '83', '0', '0', '12', '2', '4', '5', 'sfdfdgdfgdfg', '4.1.2', '0', 'sdada', '1', '[\"1\",\"2\"]');
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('227', '83', '0', '0', '0', '2', '3', '4', '', '1.2.1', '0', '', '1', '0');
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('299', '83', '0', '0', '12', '', '', '', 'sfdfdgdfgdfg', '1', '0', 'sdada', '0', '0');
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue8
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue8`;
+CREATE TABLE `cmswing_type_optionvalue8` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `aaa` mediumtext NOT NULL,
+  `bbb` varchar(50) NOT NULL,
+  `kongjian` varchar(50) NOT NULL,
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `bbb` (`bbb`),
+  KEY `kongjian` (`kongjian`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue8
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for cmswing_type_optionvalue9
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_type_optionvalue9`;
+CREATE TABLE `cmswing_type_optionvalue9` (
+  `tid` int(10) unsigned NOT NULL DEFAULT '0',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
+  `bxilie` varchar(50) NOT NULL DEFAULT '0',
+  `bjiage` int(10) unsigned NOT NULL DEFAULT '0',
+  `cpu` varchar(50) NOT NULL DEFAULT '0',
+  `neicun` varchar(50) NOT NULL DEFAULT '0',
+  `yingpan` varchar(50) NOT NULL DEFAULT '0',
+  `caozuoxitong` varchar(50) NOT NULL DEFAULT '0',
+  `bjbpmcc` varchar(50) NOT NULL DEFAULT '0',
+  `wulifenbianl` varchar(50) NOT NULL DEFAULT '0',
+  `bchangjing` varchar(50) NOT NULL DEFAULT '0',
+  KEY `fid` (`fid`),
+  KEY `dateline` (`dateline`),
+  KEY `bxilie` (`bxilie`),
+  KEY `cpu` (`cpu`),
+  KEY `neicun` (`neicun`),
+  KEY `yingpan` (`yingpan`),
+  KEY `caozuoxitong` (`caozuoxitong`),
+  KEY `bjbpmcc` (`bjbpmcc`),
+  KEY `wulifenbianl` (`wulifenbianl`),
+  KEY `bchangjing` (`bchangjing`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_type_optionvalue9
+-- ----------------------------
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('211', '51', '0', '0', '1', '2148', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('210', '51', '0', '0', '2', '1588', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('87', '51', '0', '0', '4', '4399', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('243', '51', '0', '0', '1', '5499', '3', '2', '1', '1', '4', '2', '3');
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('244', '51', '0', '0', '2', '6899', '2', '2', '1', '1', '4', '2', '1');
+INSERT INTO `cmswing_type_optionvalue9` VALUES ('250', '51', '0', '0', '1', '0', '1', ' ', ' ', ' ', ' ', ' ', ' ');
 
 -- ----------------------------
 -- Table structure for cmswing_typeoption
@@ -9678,287 +9954,29 @@ INSERT INTO `cmswing_typevar` VALUES ('16', '8', '1', '1', '0', '0', '0', '1');
 INSERT INTO `cmswing_typevar` VALUES ('17', '8', '1', '1', '0', '0', '0', '1');
 
 -- ----------------------------
--- Table structure for cmswing_type_optionvalue1
+-- Table structure for cmswing_wupin
 -- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue1`;
-CREATE TABLE `cmswing_type_optionvalue1` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `aaa` mediumtext CHARACTER SET utf8,
-  `bbb` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `ccc` int(10) unsigned NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `bbb` (`bbb`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue1
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue10
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue10`;
-CREATE TABLE `cmswing_type_optionvalue10` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `txilie` varchar(50) NOT NULL DEFAULT '0',
-  `bjiage` int(10) unsigned NOT NULL DEFAULT '0',
-  `dnleixing` varchar(50) NOT NULL DEFAULT '0',
-  `cpu` varchar(50) NOT NULL DEFAULT '0',
-  `neicun` varchar(50) NOT NULL DEFAULT '0',
-  `xianka` varchar(50) NOT NULL DEFAULT '0',
-  `tpmingchichun` varchar(50) NOT NULL DEFAULT '0',
-  `caozuoxitong` varchar(50) NOT NULL DEFAULT '0',
-  `tshiyingchangjiang` varchar(50) NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `txilie` (`txilie`),
-  KEY `dnleixing` (`dnleixing`),
-  KEY `cpu` (`cpu`),
-  KEY `neicun` (`neicun`),
-  KEY `xianka` (`xianka`),
-  KEY `tpmingchichun` (`tpmingchichun`),
-  KEY `caozuoxitong` (`caozuoxitong`),
-  KEY `tshiyingchangjiang` (`tshiyingchangjiang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue10
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue11
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue11`;
-CREATE TABLE `cmswing_type_optionvalue11` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `pxilie` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `pjiage` int(10) unsigned NOT NULL DEFAULT '0',
-  `ppingmuchichun` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `pchucun` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `pchaozuoxitong` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  `gongnengpeizhi` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `pxilie` (`pxilie`),
-  KEY `ppingmuchichun` (`ppingmuchichun`),
-  KEY `pchucun` (`pchucun`),
-  KEY `pchaozuoxitong` (`pchaozuoxitong`),
-  KEY `gongnengpeizhi` (`gongnengpeizhi`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue11
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue12
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue12`;
-CREATE TABLE `cmswing_type_optionvalue12` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `dianshixilie` varchar(50) NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `dianshixilie` (`dianshixilie`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue12
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue13
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue13`;
-CREATE TABLE `cmswing_type_optionvalue13` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `dayinjileixing` varchar(50) NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `dayinjileixing` (`dayinjileixing`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue13
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue14
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue14`;
-CREATE TABLE `cmswing_type_optionvalue14` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `diannaopeijian` varchar(50) NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `diannaopeijian` (`diannaopeijian`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue14
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue15
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue15`;
-CREATE TABLE `cmswing_type_optionvalue15` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `shojipeijian` varchar(50) NOT NULL DEFAULT '0',
-  `fuwujiage` int(10) unsigned NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `shojipeijian` (`shojipeijian`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue15
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue16
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue16`;
-CREATE TABLE `cmswing_type_optionvalue16` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `bbb` varchar(50) NOT NULL DEFAULT '0',
-  `aaa` mediumtext,
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `bbb` (`bbb`)
+DROP TABLE IF EXISTS `cmswing_wupin`;
+CREATE TABLE `cmswing_wupin` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(80) NOT NULL COMMENT '标题',
+  `category_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '栏目目录',
+  `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
+  `model_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型ID',
+  `create_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` bigint(13) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态0禁用，1启用，-1删除',
+  `sort_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '分类信息关联id',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  KEY `group_id` (`group_id`),
+  KEY `status` (`status`),
+  KEY `sort_id` (`sort_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
--- Records of cmswing_type_optionvalue16
+-- Records of cmswing_wupin
 -- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue7
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue7`;
-CREATE TABLE `cmswing_type_optionvalue7` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `shuzi` int(10) unsigned NOT NULL DEFAULT '0',
-  `kongjian` varchar(50) NOT NULL DEFAULT '0',
-  `jubu` varchar(50) NOT NULL DEFAULT '0',
-  `fengge` varchar(50) NOT NULL DEFAULT '0',
-  `wenben` mediumtext,
-  `xuanze` varchar(50) NOT NULL DEFAULT '0',
-  `bbb` varchar(50) NOT NULL DEFAULT '0',
-  `zichuan` mediumtext,
-  `danxuan` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `duoxuan` mediumtext,
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `kongjian` (`kongjian`),
-  KEY `jubu` (`jubu`),
-  KEY `fengge` (`fengge`),
-  KEY `xuanze` (`xuanze`),
-  KEY `bbb` (`bbb`),
-  KEY `danxuan` (`danxuan`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue7
--- ----------------------------
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('221', '83', '0', '0', '0', '2', '5', '6', '0', '0', '0', null, '0', null);
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('222', '83', '0', '0', '0', '3', '3', '6', null, '0', '0', null, '0', null);
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('223', '83', '0', '0', '0', '1', '1', '1', null, '0', '0', null, '0', null);
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('224', '83', '0', '0', '0', '2', '2', '1', null, '0', '0', null, '0', null);
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('225', '83', '0', '0', '0', '3', '3', '4', null, '0', '0', null, '0', null);
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('226', '83', '0', '0', '12', '2', '4', '5', 'sfdfdgdfgdfg', '4.1.2', '0', 'sdada', '1', '[\"1\",\"2\"]');
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('227', '83', '0', '0', '0', '2', '3', '4', '', '1.2.1', '0', '', '1', '0');
-INSERT INTO `cmswing_type_optionvalue7` VALUES ('299', '83', '0', '0', '12', '', '', '', 'sfdfdgdfgdfg', '1', '0', 'sdada', '0', '0');
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue8
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue8`;
-CREATE TABLE `cmswing_type_optionvalue8` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `aaa` mediumtext NOT NULL,
-  `bbb` varchar(50) NOT NULL,
-  `kongjian` varchar(50) NOT NULL,
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `bbb` (`bbb`),
-  KEY `kongjian` (`kongjian`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue8
--- ----------------------------
-
--- ----------------------------
--- Table structure for cmswing_type_optionvalue9
--- ----------------------------
-DROP TABLE IF EXISTS `cmswing_type_optionvalue9`;
-CREATE TABLE `cmswing_type_optionvalue9` (
-  `tid` int(10) unsigned NOT NULL DEFAULT '0',
-  `fid` int(10) unsigned NOT NULL DEFAULT '0',
-  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
-  `expiration` int(10) unsigned NOT NULL DEFAULT '0',
-  `bxilie` varchar(50) NOT NULL DEFAULT '0',
-  `bjiage` int(10) unsigned NOT NULL DEFAULT '0',
-  `cpu` varchar(50) NOT NULL DEFAULT '0',
-  `neicun` varchar(50) NOT NULL DEFAULT '0',
-  `yingpan` varchar(50) NOT NULL DEFAULT '0',
-  `caozuoxitong` varchar(50) NOT NULL DEFAULT '0',
-  `bjbpmcc` varchar(50) NOT NULL DEFAULT '0',
-  `wulifenbianl` varchar(50) NOT NULL DEFAULT '0',
-  `bchangjing` varchar(50) NOT NULL DEFAULT '0',
-  KEY `fid` (`fid`),
-  KEY `dateline` (`dateline`),
-  KEY `bxilie` (`bxilie`),
-  KEY `cpu` (`cpu`),
-  KEY `neicun` (`neicun`),
-  KEY `yingpan` (`yingpan`),
-  KEY `caozuoxitong` (`caozuoxitong`),
-  KEY `bjbpmcc` (`bjbpmcc`),
-  KEY `wulifenbianl` (`wulifenbianl`),
-  KEY `bchangjing` (`bchangjing`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of cmswing_type_optionvalue9
--- ----------------------------
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('211', '51', '0', '0', '1', '2148', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('210', '51', '0', '0', '2', '1588', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('87', '51', '0', '0', '4', '4399', '0', '0', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('243', '51', '0', '0', '1', '5499', '3', '2', '1', '1', '4', '2', '3');
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('244', '51', '0', '0', '2', '6899', '2', '2', '1', '1', '4', '2', '1');
-INSERT INTO `cmswing_type_optionvalue9` VALUES ('250', '51', '0', '0', '1', '0', '1', ' ', ' ', ' ', ' ', ' ', ' ');
 
 -- ----------------------------
 -- Table structure for cmswing_wx_custom_menu
@@ -10086,7 +10104,7 @@ CREATE TABLE `cmswing_wx_menu` (
   `media_id` varchar(50) DEFAULT NULL COMMENT '永久素材ID',
   `key` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_wx_menu
@@ -10198,27 +10216,3 @@ INSERT INTO `cmswing_zoning` VALUES ('16', '东北', '210000,220000,230000');
 INSERT INTO `cmswing_zoning` VALUES ('17', '西北', '610000,620000,630000,640000,650000');
 INSERT INTO `cmswing_zoning` VALUES ('18', '西南', '500000,510000,520000,530000,540000');
 INSERT INTO `cmswing_zoning` VALUES ('20', '港澳台', '710000,810000,820000');
-
--- ----------------------------
--- Procedure structure for seq_no
--- ----------------------------
-DROP PROCEDURE IF EXISTS `seq_no`;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `seq_no`(IN `seq_no` varchar(255))
-BEGIN
-	#Routine body goes here...
-DECLARE v_cnt INT;
-DECLARE v_timestr INT;
-DECLARE rowcount BIGINT;
-SET v_timestr=DATE_FORMAT(NOW(),'%Y%m%d');
-SELECT ROUND(RAND()*100,0)+1 INTO v_cnt;
-START TRANSACTION;
-UPDATE cmswing_order_seq SET order_sn=order_sn+v_cnt WHERE timestr = v_timestr;
-IF ROW_COUNT()=0 THEN
-INSERT INTO cmswing_order_seq(timestr,order_sn) VALUES(v_timestr,v_cnt);
-END IF;
-SELECT CONCAT(v_timestr,LPAD(order_sn,7,0)) AS order_sn FROM cmswing_order_seq WHERE timestr=v_timestr;
-COMMIT;
-END
-;;
-DELIMITER ;

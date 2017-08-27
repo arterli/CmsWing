@@ -123,7 +123,7 @@
 							{%model data="authorlist",table="document",order="view DESC,create_time DESC",limit="10"%}
 							{% for val in authorlist %}
 							<li>
-								<span {%if loop.index < 4 %}class="topRank"{%endif%}>{{loop.index}}</span><a target="_blank" href="{{val.name|get_url(val.id)}}">{{val.title}}</a>
+								<span {%if loop.index < 4 %}class="topRank"{%endif%}>{{loop.index}}</span><a target="_blank" href="{{val.name|get_url(val.id)}} " >{{val.title}}</a>
 							</li>
 							{%endfor%}
 							</ol>

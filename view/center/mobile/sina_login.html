@@ -326,7 +326,7 @@
     var formorganizing = document.getElementById("form-organizing");
     formorganizing.addEventListener('tap',function (event) {
         var data = $(".form-organizing").serialize();
-        mui.ajax('/uc/sina/organizing',{
+        mui.ajax('/center/sina/organizing',{
             data:data,
             dataType:'json',//服务器返回json格式数据
             type:'post',//HTTP请求类型

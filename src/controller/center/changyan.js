@@ -59,7 +59,7 @@ module.exports = class extends Center {
            await  this.model("cy_user").add(get);
        }
        let uid = await this.model("cy_user").where({cy_user_id:get.cy_user_id}).getField('uid', true);
-       // console.log(uid);
+       console.log(uid);
        // return false;
         let ret;
        if(!this.is_login){
