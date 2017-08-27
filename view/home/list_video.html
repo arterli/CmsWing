@@ -1,0 +1,318 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+{%if category.pid !=0%}
+{%column data="column",pid=category.pid%}
+{%else%}
+{%column data="column",cid=category.id%}
+{%endif%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+        {%if column|length>0%}
+        <h1>{{category.title}}</h1>
+        {%endif%}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb {%if column|length==0%} breadcrumb-inverse {%endif%}">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        {%if column|length>0%}
+        <ul class="page-header-tabs list-inline">
+
+            <li {%if breadcrumb[0].id == category.id %}class="active"{%endif%}><a href="{{breadcrumb[0].url}}">全部</a></li>
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+
+<section >
+    <div class="container">
+        <!--分类信息-->
+        {% include "./inc_sort.html" %}
+        <!--/分类信息-->
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-left">
+                            <ul class="nav nav-pills mix-filter">
+
+                                <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}">全部</a></li>
+                                {% groups data="groups",cid=category.id%}
+                                {%for v in groups%}
+                                <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}">{{v.name}}</a></li>
+                                {%endfor%}
+                            </ul>
+                            <!--投稿按钮-->
+                            <div class="btn-group btn-group-sm pull-right">
+                                <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
+                                    dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
+                                    == 1 %} href="/center/publish/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
+                                    ><span class="fa fa-pencil-square-o"></span> 投稿 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</a>
+                                {%if model|length > 1 %}
+                                <ul class="dropdown-menu">
+
+                                    {% for val in modellist%}
+                                    <li> <a href="/center/publish/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
+                                            class="text-info">添加{{val.title}}</a></li>
+                                    {% endfor %}
+
+                                    <!--<li class="divider"></li>-->
+                                    <!--<li><a href="#">添加内容</a></li>-->
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <!--//投稿按钮-->
+                            <div class="btn-group btn-group-sm pull-right">
+                                <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
+                                <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
+                            </div>
+                            <div class="divider divider-circle divider-center nomargin"><!-- divider -->
+                                <a href="#"><i class="fa fa-rss"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="portfolio" class="row">
+                {% for val in list %}
+
+                <div class="col-md-4 col-sm-4 "><!-- item -->
+
+                    <div class="item-box margin-bottom-20">
+                        <div class="panel panel-default" style="margin-bottom: 0">
+
+                            <div class="panel-body padding-10">
+                                <figure>
+										<span class="item-hover">
+											<span class="overlay dark-5"></span>
+											<span class="inner">
+                                                <!-- details -->
+												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}" target="_blank">
+													<span class="fa fa-play-circle fa-3x"></span>
+												</a>
+
+											</span>
+										</span>
+                                    <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=300,h=200')}}" width="600" height="399" alt="" style="height: 160px">
+                                </figure>
+
+                                <div class="item-box-desc" style="padding-left: 0;padding-right: 0; padding-top: 10px; padding-bottom: 0;margin-bottom: 0">
+                                    <ul class="list-inline categories nomargin">
+                                        <li><a href="#"><i class="fa fa-eye"></i> {{val.view}}</a></li>
+                                        <li><a href="#"><i class="fa fa-user"></i> {{val.uid|get_nickname}}</a></li>
+                                        <li><a href="#"><i class="fa fa-calendar"></i> {{val.update_time|moment('YYYY-MM-DD HH:mm')}}</a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-footer padding-10 size-14 elipsis" >
+                                {{val.title}}
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div><!-- /item -->
+
+                {%endfor%}
+                </div>
+
+
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading text-right">
+
+                        <!-- PAGINATION -->
+                        <!-- Pagination Default -->
+                        {{pagination | safe}}
+                        <!-- /Pagination Default -->
+                        <!-- /PAGINATION -->
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+                <!-- side navigation -->
+                {%column data="cates",cid=category.id,isnum="0"%}
+                {%if cates==null%}
+                <div class="side-nav margin-bottom-20 margin-top-20">
+                    <div class="side-nav-head">
+                        <button class="fa fa-bars"></button>
+                        <h4>{{category.title}} 子分类</h4>
+                    </div>
+                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                        {%for val in cates%}
+                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
+                        {%endfor%}
+                    </ul>
+                    <!-- /side navigation -->
+                </div>
+                {%endif%}
+
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading">
+                        <!-- tabs -->
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">
+                                    最热
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">
+                                    最新
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!-- /post -->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+                    </div>
+                </div>
+                <!-- TAGS -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-danger btn-xs pull-right">更多</a>
+                        <h2 class="panel-title">话题</h2>
+                    </div>
+                    <div class="panel-body">
+                        {% keywords data ="kws",type="hot"%}
+                        {%for key in kws%}
+                        <a class="tag" href="{{key.url}}">
+                            <span class="txt">{{key.keyname}}</span>
+                            <span class="num">{{key.videonum}}</span>
+                        </a>
+                        {%endfor%}
+                    </div>
+                    <div class="panel-footer panel-footer-transparent clearfix">
+                        <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+
+                        <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
+
+                        <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                            <i class="icon-gplus"></i>
+                            <i class="icon-gplus"></i>
+                        </a>
+
+                        <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                            <i class="icon-linkedin"></i>
+                            <i class="icon-linkedin"></i>
+                        </a>
+
+                        <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                            <i class="icon-rss"></i>
+                            <i class="icon-rss"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
