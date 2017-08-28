@@ -5066,7 +5066,7 @@ content: ' ';
 /** 25. Icon Boxes
 *************************************************** **/
 .box-icon {
-	margin:30px 0;
+	margin:20px 0;
 }
 .box-icon>a,
 .box-icon .box-icon-title {
@@ -5212,6 +5212,10 @@ section.dark .box-icon a.box-icon-more {
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+}
+.bg-grey .box-icon.box-icon-content {
+	background-color:#fff;
+
 }
 	section.dark .box-icon.box-icon-content {
 		background-color:rgba(0,0,0,0.1);

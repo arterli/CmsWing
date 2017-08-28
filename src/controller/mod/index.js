@@ -14,7 +14,6 @@ module.exports = class extends Index {
      */
     async __before() {
         await super.__before();//继承父类before
-        console.log(this.get('category'));
         let getCategory = this.get('category')?this.get('category').split("-")[0]:false;
         if(this.get('category')||this.get("cid")){
            //获取当前模型栏目id
@@ -112,10 +111,14 @@ module.exports = class extends Index {
             roleid = await this.model("member").where({id:this.is_login}).getField('groupid', true);
         }
         let priv = await this.model("category_priv").priv(cid,roleid,ac);
-        if(!priv){
-            this.http.error = new Error(info);
-            return think.statusAction(702, this.http);
-        }
+        // if(!priv){
+        //     // this.http.error = new Error(info);
+        //     // return think.statusAction(702, this.http);
+        //     //return this.body="ddd"
+        //     const error = this.controller('common/error');
+        //     return error.noAction('您所在的用户组,禁止访问本栏目！');
+        // }
+        return priv;
     }
 
     /**

@@ -56,11 +56,11 @@ div.tagsinput {
 	height: auto !important;
 }
 .box-icon.active{
-	border: #1087dd 1px dotted;
+	border: #1087dd 1px solid;
 }
-.bg-grey .box-icon.active{
-	border: #F07057 1px dotted;
-}
+/*.bg-grey .box-icon.active{*/
+	/*border: #F07057 1px solid;*/
+/*}*/
 .box-icon.box-icon-transparent.active .box-icon-title>i{
 	border: #1087dd 1px dotted;
 }

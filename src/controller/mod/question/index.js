@@ -40,7 +40,10 @@ module.exports =  class extends Index {
       cate = think.extend({}, cate);
 
       //栏目权限验证
-    await this.c_verify("visit");
+      if(!await this.c_verify("visit")){
+          const error = this.controller('common/error');
+          return error.noAction('您所在的用户组,禁止访问本栏目！');
+      }
 
     // 获取当前栏目的模型
     let model = this.mod;
@@ -135,20 +138,24 @@ module.exports =  class extends Index {
       let id =this.get("id");
       //判断请求参数是否合法。
       if(!think.isNumberString(id)){
-          this.http.error = new Error("请求参数不合法！");
-          return think.statusAction(702, this.http);
+          const error = this.controller('common/error');
+          return error.noAction('请求参数不合法！');
       }
       //获取详情信息
       let info = await this.model("question").find(id);
       //判断信息是否存在
       if(think.isEmpty(info)){
-              this.http.error = new Error("信息不存在！");
-              return think.statusAction(702, this.http);
+          const error = this.controller('common/error');
+          return error.noAction('信息不存在！');
       }
       //TODO
       //访问控制
-      await this.c_verify("visit",info.category_id);
 
+      //栏目权限验证
+      if(!await this.c_verify("visit",info.category_id)){
+          const error = this.controller('common/error');
+          return error.noAction('您所在的用户组,禁止访问本栏目！');
+      }
       this.assign("info",info);
 
       //seo

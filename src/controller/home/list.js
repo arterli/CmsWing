@@ -93,7 +93,7 @@ module.exports = class extends Home{
         order = Number(order);
         switch (order){
             case 1:
-                o.update_time = 'ASC';
+                o.create_time = 'ASC';
                 break;
             case 2:
                 o.view = 'DESC';
@@ -103,23 +103,23 @@ module.exports = class extends Home{
                 break;
             case 4:
                 map.create_time = {">": new Date(GetDateStr(0)+" "+"00:00:00").getTime(), "<": new Date(GetDateStr(0)+" "+"23:59:59").getTime()}
-                o.update_time = 'DESC';
+                o.create_time = 'DESC';
                 break;
             case 5:
                 map.create_time = {">": new Date(GetDateStr(1)+" "+"00:00:00").getTime(), "<": new Date(GetDateStr(5)+" "+"23:59:59").getTime()}
-                o.update_time = 'DESC';
+                o.create_time = 'DESC';
                 break;
             case 6:
                 map.create_time = {"<": new Date().getTime()}
                 map.deadline = {">": new Date().getTime()}
-                o.update_time = 'DESC';
+                o.create_time = 'DESC';
                 break;
             case 7:
                 map.deadline = {"<": new Date().getTime()}
-                o.update_time = 'DESC';
+                o.create_time = 'DESC';
                 break;
             default:
-                o.update_time = 'DESC';
+                o.create_time = 'DESC';
         }
         this.assign('order',order);
         // 获取分类信息
@@ -306,7 +306,7 @@ module.exports = class extends Home{
                     }
                     v.uid = await get_nickname(v.uid);
                     v.url = get_url(v.name,v.id);
-                    v.update_time = this.moment(v.update_time).fromNow()
+                    v.update_time = this.moment(v.create_time).fromNow()
                 }
                 return this.json(data);
             }

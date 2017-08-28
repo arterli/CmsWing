@@ -85,7 +85,7 @@
 									 data-elementdelay="0.1"
 									 data-endelementdelay="0.1"
 									 data-endspeed="300" >
-									{{val.update_time|dateformat('Y-m-d H:i')}}
+									{{val.create_time|moment('YYYY-MM-DD HH:mm')}}
 								</div>
 
 								<div class="tp-caption small_light_white lfl start"
@@ -155,7 +155,7 @@
 					#}
 				</ul>
 				<div class="panel panel-default" style="margin-top: -5px">
-					<div class="panel-body">
+					<div class="panel-body padding-10">
 
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="new">
@@ -180,7 +180,7 @@
 									<li>
 										<a href="#">
 											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+											<span class="font-lato">{{val.create_time|dateformat('Y-m-d H:i')}}</span>
 										</a>
 									</li>
 									<li>
@@ -236,7 +236,7 @@
 									<li>
 										<a href="#">
 											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
 										</a>
 									</li>
 									<li>
@@ -261,7 +261,7 @@
 								</ul>
 
 								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
-									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|moment('YYYY-MM-DD') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
 								</div>
 
 							</div>
@@ -285,7 +285,7 @@
 									<li>
 										<a href="#">
 											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
 										</a>
 									</li>
 									<li>
@@ -320,7 +320,7 @@
 					<div class="tab-pane fade" id="wenda">
 						<div class="timeline" style="margin-top: -25px">
 							<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
-							{%model data="list",table="question",order="update_time DESC",limit="10"%}
+							{%model data="list",table="question",order="create_time DESC",limit="10"%}
 							{% for val in list %}
 							{% set categoryname = val.category_id|get_cate %}
 							{% set imgs= val.detail|img_text_view(200,120)%}
@@ -370,7 +370,7 @@
 											<span class="font-lato">{{val.view}} 次浏览</span>
 										</li>
 										<li>
-											<span class="font-lato"> {{val.update_time|moment}}</span>
+											<span class="font-lato"> {{val.create_time|moment}}</span>
 										</li>
 
 									</ul>
@@ -429,7 +429,7 @@
 						<a class="btn btn-primary btn-xs pull-right" href="/topic" >更多</a>
 						<h2 class="panel-title">热门话题</h2>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body padding-10">
 						{% keywords data ="topic",type="hot",limit="5" %}
 						{%for k in topic%}
 						<div class="clearfix margin-bottom-10"><!-- discussion item -->
@@ -458,7 +458,7 @@
 						<a class="btn btn-primary btn-xs pull-right">更多</a>
 						<h2 class="panel-title">热门用户</h2>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body padding-10">
 						{%for user in data%}
 						<div class="clearfix margin-bottom-10"><!-- squared item -->
 							<img class="thumbnail pull-left rounded" src="/u/avatar/{{user.uid}}" width="40" height="40" alt="" />
@@ -484,7 +484,7 @@
 				<a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a> <a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>
 				<h2 class="panel-title">友情链接</h2>
 			</div>
-			<div class="panel-body link">
+			<div class="panel-body link padding-10">
 				<!--
 controlls-over		= navigation buttons over the image
 buttons-autohide 	= navigation buttons visible on mouse hover only

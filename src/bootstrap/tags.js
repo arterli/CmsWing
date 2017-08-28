@@ -253,7 +253,7 @@ global.topic = function(){
         if( !think.isEmpty(args.group)){
             where = think.extend(where,{'group_id':['IN',args.group]});
         }
-        let type='update_time DESC';
+        let type='create_time DESC';
         if(!think.isEmpty(args.type)){
             if(args.type=="hot"){
                 type="view DESC"

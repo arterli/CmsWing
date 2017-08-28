@@ -165,7 +165,7 @@ CLASSES:
                     <div class="panel-body">
                         <ul class="portfolio-detail-list list-unstyled nomargin">
                             <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> {{info.uid|get_nickname}}</li>
-                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{ info.update_time|dateformat('Y-m-d H:i') }}</li>
+                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{info.create_time|moment('YYYY-MM-DD HH:mm')}}</li>
                             <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span>{%set nn = 1%} {%for val in breadcrumb %}{%if nn != 1%} /{%endif%} <a href="{{val.url}}">{{val.title}}</a>{%set nn = nn+1%}{% endfor %}</li>
                         </ul>
 
@@ -205,7 +205,7 @@ CLASSES:
                                 {%endif%}
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
                                 </div>
                             </div><!-- /post -->
                             {%endfor%}
@@ -228,7 +228,7 @@ CLASSES:
                                 {%endif%}
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
                                 </div>
                             </div><!-- /post -->
                             {%endfor%}

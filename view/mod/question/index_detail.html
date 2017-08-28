@@ -246,23 +246,20 @@ CLASSES:
             <!-- RIGHT -->
 
             <div class="col-md-3 col-sm-3">
-                <div class="box-inner nopadding">
-                    <h3>
-                        发起人
-                    </h3>
-                    <div class="" >
-
-                        <div class="clearfix margin-bottom-20"><!-- discussion item -->
-                            <img class="thumbnail pull-left" src="/u/avatar/{{info.uid}}" width="60" height="60" alt="">
-                            <h4 class="size-15 nomargin noborder nopadding bold"><a href="#">{{info.uid|get_nickname}}</a></h4>
-                            <span class="size-13 text-muted">
-													Lorem ipsum dolor sit amet<br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">发起人</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        <img class="thumbnail pull-left" src="/u/avatar/{{info.uid}}" width="60" height="60" alt="">
+                        <h4 class="size-15 nomargin noborder nopadding bold"><a href="#">{{info.uid|get_nickname}}</a></h4>
+                        <span class="size-13 text-muted">
+													cmswing<br>
 													<span class="text-success size-11">1 month ago</span>
 												</span>
-                        </div>
-
                     </div>
                 </div>
+
                 {% if controller.is_login %}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     今天，你遇到了什么问题呢？
@@ -272,78 +269,76 @@ CLASSES:
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     你好! 你还没有登录，请先登录.
                     <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/center/public/login" data-toggle="ajaxModal">
-                        <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+                        <i class="fa fa-sign-in"></i> 登录{{config.setup.WEB_SITE_TITLE}}
                     </a>
                 </div>
                 {%endif%}
 
                 {%if rq.length>0%}
-                <div class="box-inner nopadding margin-bottom-20">
-                    <h3>
-                        相关问题
-                    </h3>
-                    <div class="" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">相关问题</h2>
+                    </div>
+                    <div class="panel-body">
                         {%for r in rq%}
                         <div class="tab-post"><!-- post -->
-                                <a href="/q/{{r.id}}" class="tab-post-link">{{r.title}}</a>
-                                <small>{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}</small>
+                            <a href="/q/{{r.id}}" class="tab-post-link">{{r.title}}</a>
+                            <small>{{val.update_time|moment('YYYY-MM-DD HH:mm:ss')}}</small>
                         </div>
                         {%endfor%}
-
                     </div>
                 </div>
                 {%endif%}
-                <div class="box-light margin-bottom-30"><!-- .box-light OR .box-light -->
-                    <div class="row margin-bottom-20">
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
-                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.update_time|moment}}</h2>
-                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">最近活动</h3>
-                        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row ">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                                <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.update_time|moment}}</h2>
+                                <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">最近活动</h3>
+                            </div>
 
-                        <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
-                            <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.view}}</h2>
-                            <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">浏览次数</h3>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-center bold">
+                                <h2 class="size-18 margin-top-10 margin-bottom-0 ">{{info.view}}</h2>
+                                <h3 class="size-12 margin-top-0 margin-bottom-10 text-info">浏览次数</h3>
+                            </div>
                         </div>
                     </div>
-                    <!-- /info -->
-
-                    <div class="text-muted">
-                        <h2 class="size-16 text-muted margin-bottom-6">关注者: {{info.focus_count}} 人</h2>
-                        <ul class="list-unstyled nomargin row">
-                            {%for u in focususer%}
-                            <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/u/avatar/{{u}}" width="40" height="40" alt=""></a></li>
-                           {%endfor%}
-                        </ul>
+                    <div class="panel-body padding-10">
+                        <div class="text-muted">
+                            <h2 class="size-14 text-muted margin-bottom-6">关注者: {{info.focus_count}} 人</h2>
+                            <ul class="list-unstyled nomargin row">
+                                {%for u in focususer%}
+                                <li class="col-md-2  nopadding"><a href="#"><img class="thumbnail noradius nomargin" src="/u/avatar/{{u}}" width="40" height="40" alt=""></a></li>
+                                {%endfor%}
+                            </ul>
+                        </div>
                     </div>
+                    <div class="panel-footer clearfix">
+                        <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
 
-                </div>
+                        <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
 
-                <!-- SOCIAL ICONS -->
-                <div class="hidden-xs margin-top-30 margin-bottom-60">
-                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                        <i class="icon-facebook"></i>
-                        <i class="icon-facebook"></i>
-                    </a>
+                        <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                            <i class="icon-gplus"></i>
+                            <i class="icon-gplus"></i>
+                        </a>
 
-                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                        <i class="icon-twitter"></i>
-                        <i class="icon-twitter"></i>
-                    </a>
+                        <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                            <i class="icon-linkedin"></i>
+                            <i class="icon-linkedin"></i>
+                        </a>
 
-                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                        <i class="icon-gplus"></i>
-                        <i class="icon-gplus"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                        <i class="icon-linkedin"></i>
-                        <i class="icon-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                        <i class="icon-rss"></i>
-                        <i class="icon-rss"></i>
-                    </a>
+                        <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
+                            <i class="icon-rss"></i>
+                            <i class="icon-rss"></i>
+                        </a>
+                    </div>
                 </div>
 
             </div>
