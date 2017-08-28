@@ -152,7 +152,7 @@ module.exports = class extends Home{
                     if(!think.isEmpty(val.option.rules)){
                         val.option.rules = JSON.parse(val.option.rules);
                         val.rules=parse_type_attr(val.option.rules.choices);
-                        console.log(val.rules);
+                        //console.log(val.rules);
                         for(let v of val.rules){
                             v.id = "l>"+v.id
                         }
@@ -285,7 +285,7 @@ module.exports = class extends Home{
         //console.log(111)
         if(this.isMobile){
             if(this.isAjax("get")){
-                console.log("ssdfsdf");
+                //console.log("ssdfsdf");
                 for(let v of data.data){
                     if(!think.isEmpty(v.pics)){
                         let arr = []
