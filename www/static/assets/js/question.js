@@ -79,7 +79,7 @@ $(function () {
                             '<p>'+v.message+'</p>'+
                             '</div>';
                                 if(res.is_login){
-                                    rhtml+=  '<ul class="list-inline size-11 margin-top-10">'+
+                                    rhtml+=  '<ul class="list-inline size-11">'+
                             '<li>'+
                             '<a href="#" class="text-info commentreyplay" data-name="@'+v.username+':" data-id="'+id+'"><i class="fa fa-reply"></i> 回复</a>'+
                             '</li>';

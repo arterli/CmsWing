@@ -10470,7 +10470,7 @@ ul.testimonial-dotted>li:after {
 	top: auto;
 	left: 0;
 	bottom: -1px;
-	border-bottom: 1px dashed rgba(0,0,0,0.3);
+	border-bottom: 1px solid #ddd;
 }
 ul.testimonial-dotted>li:before {
 	content: '';
@@ -10478,7 +10478,7 @@ ul.testimonial-dotted>li:before {
 	height: 100%;
 	top: 0;
 	left: -1px;
-	border-left: 1px dashed rgba(0,0,0,0.3);
+	border-left: 1px solid #ddd;
 }
 
 	section.dark ul.testimonial-dotted>li:after {

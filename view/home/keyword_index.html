@@ -47,37 +47,36 @@ CLASSES:
 <!-- -->
 <section >
     <div class="container">
-            <ul class="row clearfix testimonial-dotted list-unstyled">
-                {%for k in list.data%}
-                <li class="col-md-4">
-                    <div class="testimonial" style="height: 70px;overflow: hidden">
-                        <figure class="pull-left">
-                         {%if k.pic%}
-                            <img class="radius-3" src="{{k.pic|get_pic('m=1,w=65,h=65')}}" alt="" />
-                            {%else%}
-                            <i class="ico-light ico-65 ico-hover et-chat" style="z-index: 10;position: relative"></i>
-                   {%endif%}
-                        </figure>
-                        <div class="testimonial-content" style="padding-top: 5px">
-                            <cite class="font-style-normal">
-                                <a href="/t/{{k.keyname|urlencode}}" class="label label-primary ">{{k.keyname}}</a>
-                                <span class="margin-top-6">{{k.videonum}} 个内容 {{k.focus_count}} 个关注</span>
-                            </cite>
-                            <p>7 天新增 {{k.discuss_count_last_week}} 个内容, 30 天新增 {{k.discuss_count_last_month}} 个内容</p>
+        <div class="panel panel-default">
+            <div class="panel-body" style="padding: 0 10px">
+                <ul class="row clearfix testimonial-dotted list-unstyled">
+                    {%for k in list.data%}
+                    <li class="col-md-4">
+                        <div class="testimonial" style="height: 70px;overflow: hidden">
+                            <figure class="pull-left">
+                                {%if k.pic%}
+                                <img class="radius-3" src="{{k.pic|get_pic('m=1,w=65,h=65')}}" alt="" />
+                                {%else%}
+                                <i class="ico-light ico-65 ico-hover et-chat" style="z-index: 10;position: relative"></i>
+                                {%endif%}
+                            </figure>
+                            <div class="testimonial-content" style="padding-top: 5px">
+                                <cite class="font-style-normal">
+                                    <a href="/t/{{k.keyname|urlencode}}" class="label label-primary ">{{k.keyname}}</a>
+                                    <span class="margin-top-6">{{k.videonum}} 个内容 {{k.focus_count}} 个关注</span>
+                                </cite>
+                                <p>7 天新增 {{k.discuss_count_last_week}} 个内容, 30 天新增 {{k.discuss_count_last_month}} 个内容</p>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                {%endfor%}
+                    </li>
+                    {%endfor%}
 
-            </ul>
-
-        <!-- PAGINATION -->
-        <div class="text-center">
-            <!-- Pagination Default -->
-            {{pagination | safe}}
-            <!-- /Pagination Default -->
+                </ul>
+            </div>
+            <div class="panel-footer text-center">
+                {{pagination | safe}}
+            </div>
         </div>
-        <!-- /PAGINATION -->
 
     </div>
 </section>
