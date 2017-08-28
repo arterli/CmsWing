@@ -47,7 +47,8 @@ CLASSES:
         <!-- page tabs -->
         {%if column|length >0%}
         <ul class="page-header-tabs list-inline">
-            {%for val in cate%}
+            <li {%if breadcrumb[0].id == category.id %}class="active"{%endif%}><a href="{{breadcrumb[0].url}}">全部</a></li>
+            {%for val in column%}
             <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
             {%endfor%}
         </ul>
@@ -185,7 +186,7 @@ CLASSES:
                         <!-- /TAGS -->
                     </div>
                     {%endif%}
-                    <div class="panel-footer panel-footer-transparent">
+                    <div class="panel-footer">
                         <ul class="pager nomargin">
                             {%if previous.id%}
                             <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
@@ -216,143 +217,7 @@ CLASSES:
 
             </div>
             <!-- RIGHT -->
-            <div class="col-md-3 col-sm-3">
-
-                <!-- INLINE SEARCH -->
-                <div class="inline-search clearfix margin-bottom-20">
-                    <form action="/search" method="get" class="widget_search" target="_blank">
-                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
-                        <button type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
-                </div>
-                <!-- /INLINE SEARCH -->
-                <!-- side navigation -->
-                {% column data="cate",cid=category.id %}
-                {% if cate|length >0 %}
-                <div class="side-nav margin-bottom-20 margin-top-20">
-                    <div class="side-nav-head">
-                        <button class="fa fa-bars"></button>
-                        <h4>CATEGORIES</h4>
-                    </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                        {%for val in cate%}
-                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">(12)</span> {{val.name}}</a></li>
-                        {%endfor%}
-                    </ul>
-                    <!-- /side navigation -->
-                </div>
-                {%endif%}
-                <div class="panel panel-default tabs">
-                    <div class="panel-heading">
-                        <!-- tabs -->
-                        <ul class="nav nav-tabs nav-justified">
-                            <li class="active">
-                                <a href="#tab_1" data-toggle="tab">
-                                    最热
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#tab_2" data-toggle="tab">
-                                    最新
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="panel-body tab-content">
-                        <!-- POPULAR -->
-                        <div id="tab_1" class="tab-pane active">
-                            <!-- /post -->
-                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
-                            {%for v in hotlist%}
-                            <div class="row tab-post"><!-- post -->
-                                {%if v.cover_id%}
-                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                    <a href="{{v.name|get_url(v.id)}}">
-                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
-                                    </a>
-                                </div>
-                                {%endif%}
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
-                                </div>
-                            </div><!-- /post -->
-                            {%endfor%}
-
-                        </div>
-                        <!-- /POPULAR -->
-
-
-                        <!-- RECENT -->
-                        <div id="tab_2" class="tab-pane">
-                            {% topic data = "newlist",limit= "5",cid=category.id%}
-                            {%for v in newlist%}
-                            <div class="row tab-post"><!-- post -->
-                                {%if v.cover_id%}
-                                <div class="col-md-3 col-sm-3 col-xs-3">
-                                    <a href="{{v.name|get_url(v.id)}}">
-                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
-                                    </a>
-                                </div>
-                                {%endif%}
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
-                                    <small>{{v.update_time|dateformat('Y-m-d H:i')}}</small>
-                                </div>
-                            </div><!-- /post -->
-                            {%endfor%}
-                            <!-- /post -->
-                        </div>
-                        <!-- /RECENT -->
-                    </div>
-                </div>
-
-                <!-- TAGS -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <a class="btn btn-danger btn-xs pull-right">更多</a>
-                        <h2 class="panel-title">话题</h2>
-                    </div>
-                    <div class="panel-body">
-                        {% keywords data ="kws",type="hot"%}
-                        {%for key in kws%}
-                        <a class="tag" href="{{key.url}}">
-                            <span class="txt">{{key.keyname}}</span>
-                            <span class="num">{{key.videonum}}</span>
-                        </a>
-                        {%endfor%}
-                    </div>
-                    <div class="panel-footer panel-footer-transparent clearfix">
-                        <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                            <i class="icon-facebook"></i>
-                            <i class="icon-facebook"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                            <i class="icon-twitter"></i>
-                            <i class="icon-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                            <i class="icon-gplus"></i>
-                            <i class="icon-gplus"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                            <i class="icon-linkedin"></i>
-                            <i class="icon-linkedin"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                            <i class="icon-rss"></i>
-                            <i class="icon-rss"></i>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
+            {% include "./inc_right.html"%}
 
         </div>
 

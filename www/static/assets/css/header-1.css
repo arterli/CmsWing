@@ -59,7 +59,7 @@
 
 #topMain.nav-pills>li.active>.aline {
 	display: block;
-	height: 1px;
+	height: 2px;
 	background-color: #179BD7;
 	position: absolute;
 	bottom: -1px;

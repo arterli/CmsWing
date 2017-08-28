@@ -819,3 +819,10 @@ button.product-color-dd>.tag {
 	margin:0 15px 30px 0 !important;
 	font-weight:300;
 }
+
+
+.hotgoods .owl-controls{
+	position: absolute;
+	top: -48px;
+	right: 0px;
+}

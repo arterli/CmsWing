@@ -202,8 +202,7 @@ module.exports = class extends Home {
                 //七牛下载
                 // dlink = await get_file(file_id,"savename",true);
                 let qiniu = think.service("qiniu");
-                let instance = new qiniu();
-                dlink = await instance.download(d.savename);
+                dlink = await qiniu.download(d.savename);
             }else {
                 // 本地下载
                 dlink = d.savepath+d.savename+"?attname="
