@@ -428,13 +428,13 @@ global.model = function () {
         let limit = think.isEmpty(args.limit) ? false : args.limit;
         let where = think.isEmpty(args.where) ? false : JSON.parse(args.where);
         let order = think.isEmpty(args.order) ? false : args.order;
-        let cache = think.isEmpty(args.cache) ? false : Number(args.cache);
+        let cache = think.isEmpty(args.cache) ? false : Number(args.cache)*1000;
         let field = think.isEmpty(args.field) ? false : args.field;
         let model =  think.model(table);
         //console.log(cache);
         //缓存
         if(cache){
-            model.cache(1000);
+            model.cache(cache);
         }
         //表别名
         if(alias){

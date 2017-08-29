@@ -25,6 +25,7 @@ node_modules/
 
 # IDE config
 .idea
+.vscode
 
 # output
 output/
@@ -43,3 +44,5 @@ app/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+/.vscode/

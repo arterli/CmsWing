@@ -120,8 +120,8 @@
 					</div>
 					<div class="panel-body con " style="height: 354px">
 						<ol class="current">
-							{%model data="authorlist",table="document",order="view DESC,create_time DESC",limit="10"%}
-							{% for val in authorlist %}
+							{%model data="hotnews",table="document",order="view DESC,create_time DESC",limit="10",cache="1000"%}
+							{% for val in hotnews %}
 							<li>
 								<span {%if loop.index < 4 %}class="topRank"{%endif%}>{{loop.index}}</span><a target="_blank" href="{{val.name|get_url(val.id)}} " >{{val.title}}</a>
 							</li>
