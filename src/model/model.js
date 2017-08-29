@@ -1,4 +1,8 @@
 module.exports = class extends think.Model {
+    //获取表结构
+    async getSchema(){
+        return await this.db().getSchema()
+    }
     /**
      * 删除数据
      */

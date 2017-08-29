@@ -43,10 +43,9 @@ module.exports = class extends Base {
     async extAction(){
         let model_id = this.get('model_id');
         let model = await this.model("model").find(model_id);
-        let table = think.config('model.mysql.prefix') + model.name;
-        let db = think.model('mysql', think.config('db'));
-        let result = await db.getSchema(table);
-        console.log(result);
+        let table = this.config('model.mysql.prefix') + model.name;
+        let db = this.model('model');
+        let result = await db.getSchema();
         this.meta_title="字段列表";
         this.active = "admin/model/index";
         this.assign("table",table);

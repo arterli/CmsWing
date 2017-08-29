@@ -275,23 +275,29 @@ global.topic = function(){
         }
 
         //console.log(where);
-        let topic
+        let model = think.model('document');
+        let cache = think.isEmpty(args.cache) ? false : Number(args.cache)*1000;
+        //缓存
+        if(cache){
+            model.cache(cache);
+        }
         if(args.tid &&!think.isEmpty(args.tval)){
             //console.log();
             for(let v in JSON.parse(args.tval)){
                 where["t."+v]=JSON.parse(args.tval)[v]
             }
             //console.log(where);
-            topic = await think.model('document').join({
+           model.join({
                 table: "type_optionvalue"+args.tid,
                 join: "left", // 有 left,right,inner 3 个值
                 as: "t",
                 on: ["id", "tid"]
 
-            }).where(where).limit(limit).order(type).select();
-        }else {
-            topic = await think.model('document').where(where).limit(limit).order(type).select();
+            });
         }
+
+            let topic = await model.where(where).limit(limit).order(type).select();
+
         //副表数据
         if(args.isstu == 1){
             let topicarr = [];

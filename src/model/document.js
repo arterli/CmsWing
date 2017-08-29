@@ -6,6 +6,10 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Model {
+    //获取表结构
+    async getSchema(){
+       return await this.db().getSchema()
+    }
     async detail(id){
         //获取基础数据
         let map;

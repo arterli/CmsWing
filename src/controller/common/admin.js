@@ -65,6 +65,7 @@ module.exports = class extends think.Controller {
             "bg": "bg-black",
             "notifications":notifications
         })
+
     }
 
     /**

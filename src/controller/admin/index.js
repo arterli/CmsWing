@@ -17,12 +17,14 @@ module.exports = class extends Base {
         //console.log(think.config('model.mysql.prefix'));
        // let pa = JSON.parse(fs.readFileSync(think.ROOT_PATH+"/package.json",'utf-8'));
 
+
         console.log(this.config('setup.WEB_SITE_TITLE'));
         //console.log(process);
 
         //服务器信息
         this.meta_title='首页';
         let mysqlv=await this.model('mysql').query("select version()");
+
         let node = process.versions;
         this.assign({
             'version':1.1,
@@ -31,7 +33,8 @@ module.exports = class extends Base {
             'thinkjs':think.version,
             'mysqlv':mysqlv[0]['version()']
         })
-
+        //console.log(mysqlv);
+        //return this.body=mysqlv[0]['version()'];
         //用户统计
         let user_count = await this.model("member").count('id');
         //行为
@@ -39,11 +42,11 @@ module.exports = class extends Base {
         //栏目
         let cate_count = await this.model("category").count("id");
         //模型
-        let model_count = await this.model("model").count("id");
+        let model_count = await this.model("model").count('id');
         //插件
-        let ext_count = await this.model("ext").count();
+        let ext_count = await this.model("ext").count('ext');
         //分类信息
-        let type_count = await this.model("type").count();
+        let type_count = await this.model("type").count('typeid');
         this.assign({
             user_count:user_count,
             action_count:action_count,

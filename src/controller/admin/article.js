@@ -293,13 +293,6 @@ module.exports = class extends Base {
             //return
             if (think.isArray(field) && array_diff(tablefields, field)) {
                 let modelName = await this.model('model').where({id: model_id}).getField('name');
-                //console.log('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
-                // let sql = Document.parseSql(sql)
-                //console.log(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
-                // return
-                //Document.join('__DOCUMENT_'+modelName[0].toUpperCase()+'__ '+modelName[0]+' ON DOCUMENT.id='+modelName[0]+'.id');
-                //Document.alias('DOCUMENT').join(`${this.config('db.prefix')}document_${modelName[0]} ${modelName[0]} ON DOCUMENT.id=${modelName[0]}.id`);
-                //console.log(3333333333);
                 Document.alias('DOCUMENT').join({
                     table: `document_${modelName[0]}`,
                     join: "inner",

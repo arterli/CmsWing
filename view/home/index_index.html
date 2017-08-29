@@ -451,7 +451,7 @@
 					</div>
 				</div>
 
-				{%model data="data",table="question_user",order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+				{%model data="data",table="question_user",order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}',cache="1000"%}
 				{%if data.length>0%}
 				<div class="panel panel-default">
 					<div class="panel-heading">

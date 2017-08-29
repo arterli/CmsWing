@@ -40,7 +40,9 @@
                     <tr>
                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
                         {%for index,val in list.create_time%}
+                        {%if index != 'unsigned'%}
                         <th>{{index}}</th>
+                        {%endif%}
                         {%endfor%}
                         <th >操作</th>
                     </tr>
@@ -50,13 +52,16 @@
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                         {%for i,v in val%}
-                        <td>{{v}}</td>
+                        {%if i != 'unsigned'%}
+                        <td>{{v|dump}}</td>
+                        {%endif%}
                         {%endfor%}
                         <td>
-                            {#
-                            <a href="/admin/attribute/edit?id={{item.id}}" class="text-info">编辑</a>
-                            <a href="/admin/attribute/del?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
-                        #}
+
+                            <a href="#" class="text-info todo">编辑</a>
+                            <a href="#" class=" text-info todo">删除</a>
+                            </td>
+
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">
