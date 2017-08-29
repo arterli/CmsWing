@@ -11,23 +11,23 @@ module.exports = class extends think.Model {
         let model =await this.field('name,extend').find(id);
         console.log(model);
         if(model.extend == 0){
-            table_name =think.config("model").prefix+model.name.toLowerCase();
+            table_name =think.config('model.mysql.prefix')+model.name.toLowerCase();
         }else if(model.extend == 1){
-            table_name =think.config("model").prefix+'document_'+model.name.toLowerCase();
+            table_name =think.config('model.mysql.prefix')+'document_'+model.name.toLowerCase();
         }else {
             //think.fail("只支持删除文档模型和独立模型");
             return false;
         }
-        //console.log(table_name);
+        console.log(table_name);
         //删除属性数据
-        // this.model('attribute').where({model_id:id}).delete();
+        await this.model('attribute').where({model_id:id}).delete();
         //删除模型数据
-        this.delete(id);
+        await this.delete(id);
         let sql =`SHOW TABLES LIKE '${table_name}'`;
-        let istable =  await think.model('mysql',think.config('model')).query(sql);
+        let istable =  await this.model('mysql').query(sql);
         if(!think.isEmpty(istable)){
             sql = `DROP TABLE ${table_name}`;
-            let res = await think.model('mysql', think.config('model')).execute(sql);
+            let res = await this.model('mysql').execute(sql);
         }
 
         return true;

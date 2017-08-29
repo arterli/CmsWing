@@ -203,10 +203,10 @@ module.exports = class extends Base {
           }else if(val.isdel == 1){
               let table_name = this.config('model.mysql.prefix') + 'type_optionvalue'+val.typeid;
               let sql =`SHOW TABLES LIKE '${table_name}'`;
-              let istable =  await this.model('mysql',this.config('db')).query(sql);
+              let istable =  await this.model('mysql').query(sql);
               if(!think.isEmpty(istable)){
                   sql = `DROP TABLE ${table_name}`;
-                 await this.model('mysql', this.config('db')).execute(sql);
+                 await this.model('mysql').execute(sql);
               }
               await this.model('type').delete({
                   where: {typeid: val.typeid}

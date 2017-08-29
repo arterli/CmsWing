@@ -18,7 +18,7 @@ module.exports = class extends think.Model {
     async checkTableExist(typeid) {
         this.table_name = think.config('model.mysql.prefix') + 'type_optionvalue'+typeid;
         //console.log(this.table_name);
-        let res = await think.model('mysql', think.config("db")).query(`SHOW TABLES LIKE '${this.table_name}'`)
+        let res = await this.model('mysql').query(`SHOW TABLES LIKE '${this.table_name}'`)
         return res.length;
     }
 
@@ -46,15 +46,15 @@ module.exports = class extends think.Model {
                  )
                  ENGINE=InnoDB DEFAULT CHARSET=utf8`
                 //console.log(sql);
-                let res = await think.model('mysql', think.config("db")).execute(sql);
+                let res = await this.model('mysql').execute(sql);
                 //console.log(res);
             }
             let fieldinfo = await this.getfieldsinfo(v.optionid);
             //console.log(v.optionid);
-            let result = await think.model('mysql', think.config("db")).query(`show columns from \`${this.table_name}\` like '${fieldinfo.name}'`);
+            let result = await this.model('mysql').query(`show columns from \`${this.table_name}\` like '${fieldinfo.name}'`);
             if(think.isEmpty(result)){//添加字段
                 sql = `ALTER TABLE \`${this.table_name}\` ${fieldinfo.sql};`
-                let res = await think.model('mysql', think.config("db")).execute(sql);
+                let res = await this.model('mysql').execute(sql);
                 console.log(sql);
             }else {//更新字段 TODO
 

@@ -41,4 +41,35 @@ module.exports= class extends think.Controller{
         let m = new Date().getTime().toString();
         return this.body = think._.padEnd('1', 10, '0')+m.substr(8);
     }
+    async addAction(){
+        let data = { group_id: '0',
+            name: '',
+            title: 'fdsafsafa',
+            description: '',
+            type: '2',
+            cover_id: '0',
+            keyname: '',
+            link_id: '0',
+            display: '1',
+            'date|||deadline': '',
+            view: '0',
+            comment: '0',
+            level: '0',
+            'date|||create_time': '',
+            bookmark: '0',
+            template: '',
+            pid: '0',
+            topid: '0',
+            model_id: '2',
+            category_id: '1',
+            uid: '1',
+            content: '<p>请填写内容...</p>',
+            position: 0,
+            deadline: 0,
+            create_time: 1504000783284,
+            update_time: 1504000783284,
+            status: 1,
+            id: 251 }
+        return await this.model("document_ttt").add(data);
+    }
 }

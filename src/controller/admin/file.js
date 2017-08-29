@@ -88,7 +88,7 @@ module.exports = class extends think.Controller {
 
     }
       //console.log(data);
-      var res = await this.model("file").data(data).add();
+      var res = await this.model("file").add(data);
     return this.json({id:res,size:file.size});
   }
 
@@ -115,7 +115,7 @@ module.exports = class extends think.Controller {
                 path:uppic.key
 
             };
-           res = await this.model("picture").data(data).add();
+           res = await this.model("picture").add(data);
         }
     } else {
         let uploadPath = think.resource + '/upload/picture/'+dateformat("Y-m-d",new Date().getTime());
@@ -133,7 +133,7 @@ module.exports = class extends think.Controller {
                 status:1,
 
             }
-             res = await this.model("picture").data(data).add();
+             res = await this.model("picture").add(data);
         }else{
             console.log('not exist')
         }
@@ -182,7 +182,7 @@ module.exports = class extends think.Controller {
         create_time:new Date().getTime(),
         status:1
       }
-      let res = await this.model("picture").data(data).add();
+      let res = await this.model("picture").add(data);
       if(res)
       {
         data.id = res;
@@ -225,7 +225,7 @@ module.exports = class extends think.Controller {
             md5:think.md5(post.id)
         }
         //console.log(data);
-        let res = await this.model("file").data(data).add();
+        let res = await this.model("file").add(data);
         return this.json(res);
     }
     //删除七牛资源

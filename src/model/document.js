@@ -57,6 +57,7 @@ module.exports = class extends think.Model {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
     async updates(data,time=new Date().getTime()){
+        let id;
         data.position = data.position||0;
 
         for(let v in data){
@@ -86,8 +87,9 @@ module.exports = class extends think.Model {
             }
             data.update_time=new Date().getTime();
             data.status= await this.getStatus(data.id,data.category_id);
-            var id = await this.add(data);//添加基础数据
-            //console.log(id);
+            console.log(data);
+             id = await this.add(data);//添加基础数据
+            console.log(id);
             //let id = 100;
             if(!id){
                 this.error = '新增基础内容出错！';
@@ -141,7 +143,7 @@ module.exports = class extends think.Model {
             }
             //更新关键词
             await this.model("keyword").updatekey(data.keyname,data.id,data.userid,data.model_id,0);
-            let status = this.update(data);
+            let status =await this.update(data);
             if(!status){
                 this.error = '更新基础内容出错！';
                 return false;
@@ -174,9 +176,9 @@ module.exports = class extends think.Model {
                     }else {
                         await this.model("type_optionvalue"+data.sort_id).add(sortdata);
                     }
-                    this.model("typeoptionvar").where({tid:data.id}).delete();
+                   await this.model("typeoptionvar").where({tid:data.id}).delete();
                     //添加分类
-                    this.model("typeoptionvar").addMany(sortarr);
+                   await this.model("typeoptionvar").addMany(sortarr);
                 }
             }
 
@@ -195,18 +197,18 @@ module.exports = class extends think.Model {
         }else {
             model = modelinfo.name;
         }
-
+        console.log(model);
         if (think.isEmpty(data.id)) {//新增数据
             data.id=id;
-            let ids =  this.model(model).add(data);
+            let ids = await this.model(model).add(data);
             data.id=null;
             if (!ids) {
-                this.delete(id);
+               await this.delete(id);
                 this.error = '新增数据失败！';
                 return false;
             }
         } else { //更新数据
-            let status =  this.model(model).update(data);
+            let status = await this.model(model).update(data);
             if(!status){
                 this.error = '更新数据失败！';
                 return false;

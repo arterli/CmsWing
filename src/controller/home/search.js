@@ -14,8 +14,8 @@ module.exports = class extends Home{
    */
   async indexAction(){
     //auto render template file index_index.html
-      let q = decodeURI(this.get("q"));
-      console.log(q);
+      let qq = this.get("q");
+      let q = decodeURI(qq);
       this.meta_title="搜索";
       if(think.isEmpty(q)){
           if(this.isMobile){
@@ -27,7 +27,6 @@ module.exports = class extends Home{
       }else {
           let time = this.get("d");
           let search_time,sql_time,sql;
-          let q = decodeURI( this.get('q'));
           let m_id = this.get('m')||0;
           //按时间搜索
           if(time=='day'){
@@ -83,31 +82,28 @@ module.exports = class extends Home{
               if(search_time !=0){
                   sql += sql_time
               }
-              console.log(q+"dddddddddd");
           }
-          console.log(sql);
+
           let numsPerPage =10;
           let currentPage = Number(this.get("page"))||1;
           let count = await this.model("mysql").query(`SELECT count(search_id) FROM __SEARCH__ WHERE ${sql}`)
           let res = await this.model("mysql").query(`SELECT * FROM __SEARCH__ WHERE ${sql} order by search_id DESC LIMIT ${(currentPage-1)*numsPerPage},${numsPerPage}`);
           let hs = this.cookie("cmswing_historical_search");
+          let ehs = decodeURI(hs)
           let hss = [];
           if(!think.isEmpty(hs)){
-              hss = hs.split("|").reverse()
+              hss = ehs.split("|").reverse()
           }
           this.assign("hs",hss);
           //搜索记录
           if(count[0]['count(search_id)']>0){
-
-
               let hsq;
               if(think.isEmpty(hs)){
-                  this.cookie("cmswing_historical_search", q);
+                  this.cookie("cmswing_historical_search", encodeURI(q));
               }else {
-                  if(!in_array(q,hs.split("|"))){
-                      hsq = hs+'|'+q;
-                      console.log(hsq);
-                      this.cookie("cmswing_historical_search", hsq);
+                  if(!in_array(q,ehs.split("|"))){
+                      hsq = ehs+'|'+q;
+                      this.cookie("cmswing_historical_search", encodeURI(hsq));
                   }
 
               }
