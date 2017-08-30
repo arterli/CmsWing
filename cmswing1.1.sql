@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-08-30 19:17:50
+Date: 2017-08-30 23:11:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4287,7 +4287,7 @@ INSERT INTO `cmswing_category` VALUES ('79', 'bianchengkaifa', '编程开发', '
 INSERT INTO `cmswing_category` VALUES ('80', 'qitaruanjian', '其他软件', '62', '18', '0', '', '', '', '', 'download.html', '', '', '3', '3', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464187506676', '0', '1', '0', '1:天文地理\r\n2:电子帐本\r\n3:日历闹钟\r\n4:出行查询\r\n5:超极本', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('81', 'chengwu', '宠物', '40', '0', '15', '', '', '', '', 'picture', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464849879517', '1503813071111', '1', '0', '1:宠物猫\r\n2:宠物动漫\r\n3:宠物松鼠\r\n4:宠物狐狸\r\n5:小宠物', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('82', 'meizi', '妹子', '40', '0', '15', '', '', '', '', 'picture.html', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464850079360', '1464861418170', '1', '0', '1:性感妹子\r\n2:日本妹子\r\n3:台湾妹子\r\n4:清纯妹子\r\n5:妹子自拍', '', '0', '1', '', '', '');
-INSERT INTO `cmswing_category` VALUES ('83', 'jiazhuang', '家装', '40', '0', '15', '', '', '', '', 'picture.html', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464850190267', '1473065173760', '1', '0', '1:现代简约家装\r\n2:小户型家装样板间\r\n3:田园风格家装效果图', '{\"required\":\"1\",\"prefix\":\"1\",\"default\":\"1\",\"defaultshow\":\"7\",\"types\":[{\"enable\":\"7\",\"name\":\"装修效果图\",\"description\":\"这是一个测试\",\"show\":\"1\"},{\"enable\":\"1\",\"name\":\"发的撒发\",\"description\":\"31312\",\"show\":\"1\"}]}', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('83', 'jiazhuang', '家装', '40', '0', '15', '', '', '', '', '', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '', null, '1464850190267', '1504105262570', '1', '0', '1:现代简约家装\r\n2:小户型家装样板间\r\n3:田园风格家装效果图', '{\"required\":\"1\",\"prefix\":\"1\",\"default\":\"1\",\"defaultshow\":\"7\",\"types\":[{\"enable\":\"7\",\"name\":\"装修效果图\",\"description\":\"这是一个测试\",\"show\":\"1\"},{\"enable\":\"1\",\"name\":\"第二个分类\",\"description\":\"31312\",\"show\":\"1\"}]}', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('85', 'shipinceshi', '视频测试', '0', '4', '10', '', '', '', '', 'video', '', '', '6', '6', '1,2,3', '0', '1', '1', '0', '0', '', null, '1465711576410', '1503830529974', '1', '0', '1:电影\r\n2:电视剧\r\n3:动漫\r\n4:娱乐\r\n5:新闻', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('112', 'introduce', '网站介绍', '0', '6', '10', '', '', '', 'cwsp.html', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475486503369', '1475488825769', '1', '0', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('113', 'about', '关于我们', '112', '1', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475487163235', '1504084205750', '1', '0', '', null, '2', '1', '', '', '');
@@ -4687,7 +4687,7 @@ INSERT INTO `cmswing_document` VALUES ('224', '1', '', '主卧室吊顶装修效
 INSERT INTO `cmswing_document` VALUES ('225', '1', '', '主卧室吊顶装修效果图大全', '83', '0', '主卧室吊顶装修效果图大全', '0', '0', '0', '5', '2', '0', '0', '688', '1', '0', '0', '17', '0', '0', '0', '1467800485779', '1467800485779', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('226', '1', '', '简约卧室吊顶装修效果图大全', '83', '0', '简约卧室吊顶装修效果图大全简约卧室吊顶装修效果图大全简约卧室吊顶装修效果图大全', '0', '0', '0', '5', '2', '0', '0', '697', '1', '1970', '0', '30', '0', '0', '0', '1467801000000', '1467968706920', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('243', '1', '', 'ThinkPad S5 20B3A03VCD', '51', '0', 'i5-4210U Windows 8.1中文版 4GB 500GB+8GB SSHD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '26', '0', '0', '0', '1469008981003', '1498031516708', '1', '698,699,700', '{\"present_price\":\"5499\",\"discount_price\":\"0\"}', '9', '0');
-INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '156', '0', '0', '0', '1471515221084', '1498036128553', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
+INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD11', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '156', '0', '0', '0', '1471515221084', '1504097597246', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('245', '1', '', '谁说AR没有未来？它的未来就在汽车上', '1', '0', 'VR 和 AR，即虚拟现实和增强现实，在过去的几年里几乎为人们展示了什么叫“风口”，什么叫“泡沫”。但是，直到现在，我们都还没有见到任何真正意义上的 AR 和 VR 产品。而且，在未来的 10 年里，真正的 AR 几乎无法走入大众的生活当中，除了一个领域之外：汽车。', '0', '0', '0', '2', '2', '0', '0', '848', '1', '0', '0', '1', '0', '0', '0', '1504009609191', '1504009609191', '1', '', '', '0', '');
 
 -- ----------------------------
@@ -4896,7 +4896,7 @@ INSERT INTO `cmswing_document_shop` VALUES ('95', '{\"type\":[\"颜色\"],\"data
 INSERT INTO `cmswing_document_shop` VALUES ('210', '', '', '9', '0', '1', '0', '0', '<p><img src=\"http://data.cmswing.com/u4MGhVjSrBzAgYbOrzylkG4m.jpg\" style=\"\" title=\"FhfolS6xTZqXjsZqxbGRVvrim8dD\"/></p><p><img src=\"http://data.cmswing.com/ZS4OF23yJoyBqNh3FoWqfqBC.jpg\" style=\"\" title=\"FiiOhn3cgt9jj_GBDdudB7Iiefvu\"/></p><p><img src=\"http://data.cmswing.com/4Dr3U-lOqI7fY5rrXqwhd6My.jpg\" style=\"\" title=\"FiNfpPi10RiH7dUxz_542ZNKdogz\"/></p><p><img src=\"http://data.cmswing.com/U_Yuo3OtzF8bGydDGxUtXcyB.jpg\" style=\"\" title=\"FsJpjJWBpBBmlS-PK3IicU7xFas5\"/></p><p><img src=\"http://data.cmswing.com/B7LwUffTGwINrVcEHmRH8Frg.jpg\" style=\"\" title=\"FsOho_I_MaBw5KEYcDmDeNirRveU\"/></p><p><img src=\"http://data.cmswing.com/lipGu2U61uI1sEUz-hv_7k0W.jpg\" style=\"\" title=\"FlJhLNcrf4qLG929EoCx2dJtn1M9\"/></p><p><img src=\"http://data.cmswing.com/fkE2KICw6ZJlnSpPJByF6sTs.jpg\" style=\"\" title=\"Ft06JxAHMRp3mbRoxNbeBONOLBpe\"/></p><p><img src=\"http://data.cmswing.com/F5KSE9gVTWcjxlVKzmqrEFyD.jpg\" style=\"\" title=\"Fn6zukcOwdNX3Fs7F2xBpWbHzk-q\"/></p><p><img src=\"http://data.cmswing.com/ZlUNmvIdOYT6r_INDd60jnlg.jpg\" style=\"\" title=\"Fighl1jvUbnfrza9oktnssR-aCaI\"/></p><p><br/></p>', '', '1000', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('211', '{\"type\":[\"选择颜色\",\"选择版本\",\"选择版本\"],\"data\":[{\"name\":\"深空灰色\",\"type\":\"选择颜色\",\"pic\":\"661\",\"ch\":[{\"name\":\"16G\",\"type\":\"选择版本\",\"ch\":[{\"name\":\"壳膜超值套装版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2138.90\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"普通版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2148\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"32G\",\"type\":\"选择版本\",\"ch\":[{\"name\":\"壳膜超值套装版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2138.90\",\"sku_stock\":9,\"sku_code\":\"\"},{\"name\":\"普通版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2148\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]},{\"name\":\"银色\",\"type\":\"选择颜色\",\"pic\":\"662\",\"ch\":[{\"name\":\"16G\",\"type\":\"选择版本\",\"ch\":[{\"name\":\"壳膜超值套装版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2138.90\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"普通版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2148\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]},{\"name\":\"32G\",\"type\":\"选择版本\",\"ch\":[{\"name\":\"壳膜超值套装版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2138.90\",\"sku_stock\":\"10\",\"sku_code\":\"\"},{\"name\":\"普通版\",\"type\":\"选择版本\",\"sku_weight\":\"1000\",\"sku_price\":\"2148\",\"sku_stock\":\"10\",\"sku_code\":\"\"}]}]}],\"is_pic\":\"1\"}', '', '78', '0', '1', '0', '0', '<p>1</p><p><img src=\"http://data.cmswing.com/Et0m_oetp6tH6MkIynkeuo4S.jpg\" style=\"\" title=\"FmSHnG5qSOANcFYHnstlATEYOPFV\"/></p><p><img src=\"http://data.cmswing.com/6F32Jodun8aCnBViMPtA_7O8.jpg\" style=\"\" title=\"Fo1HgkoCR6cCasfZI58cyuCpYJf5\"/></p><p><img src=\"http://data.cmswing.com/FuQvu7wJPrpsQ7hBtp8hIByN.jpg\" style=\"\" title=\"Fs1-LvwVlulJ21IHplduSD1fTV1T\"/></p><p><img src=\"http://data.cmswing.com/HR22mOSwvJks-LKUKodEYrhw.jpg\" style=\"\" title=\"FqpwhtLktBRVTdb6yW-D7SmC-USW\"/></p><p><br/></p>', '', '0', '0');
 INSERT INTO `cmswing_document_shop` VALUES ('243', '', '', '8', '0', '1', '0', '0', '<p><img src=\"http://data.cmswing.com/eSYF-7lty2RYClvN3SKmNKcD.jpg\" style=\"\" title=\"Fppq2c2JeE94F3-t9u_fJHOCyr-v\"/></p><p><img src=\"http://data.cmswing.com/n4qUflOl622i3r1Qgea0evoY.jpg\" style=\"\" title=\"FtPvPT-W6cF6tsz2mj3yOUoQCgRw\"/></p><p><img src=\"http://data.cmswing.com/TQWZ_PnyQ0D7hiUEz8MhdAqO.jpg\" style=\"\" title=\"FtgoLbSxwoYCbXNDd0QIT8lVGTMZ\"/></p><p><img src=\"http://data.cmswing.com/A7f4yVtYws8xUzP6h1YoMOX3.jpg\" style=\"\" title=\"Fvs-6zBwnwp91dp-DvyI128HFkCQ\"/></p><p><img src=\"http://data.cmswing.com/x6g6nPJ4KBlE6DHskgsRQe9P.jpg\" style=\"\" title=\"FuuO4_-BKddB0N4nJy3yU_zEJtMH\"/></p><p><img src=\"http://data.cmswing.com/5rodLgcf91dGCpkaNH-MD9nF.jpg\" style=\"\" title=\"FmbN3zaRMR9DJ-etThQaY7ZFXUSr\"/></p><p><img src=\"http://data.cmswing.com/7RONcpi9e4r68-5nknbD4SHY.jpg\" style=\"\" title=\"Fvs-6zBwnwp91dp-DvyI128HFkCQ\"/></p><p><img src=\"http://data.cmswing.com/UcjwOHBrsElF_KOCoyZgQVB8.jpg\" style=\"\" title=\"FvPqjvUfyWxUoKYUCPUUZbN7XmyC\"/></p><p><img src=\"http://data.cmswing.com/4OSfUVBBssjoeMz9UZDVdL7L.jpg\" style=\"\" title=\"FpRE9MUc0Dbdreu1ilKUMY7Y_hAQ\"/></p><p><img src=\"http://data.cmswing.com/HJw1FCXgjVXEtuUL1IrqCwHi.jpg\" style=\"\" title=\"Fjj4eSTDxa_NL0IhxcRhmvFSaeyQ\"/></p><p><img src=\"http://data.cmswing.com/2C5CRTFXuhvVXlTg5Ghc2aE9.jpg\" style=\"\" title=\"FjBa3Viv-aDA06xJR2yzpOFfOuio\"/></p><p><img src=\"http://data.cmswing.com/fgpP0sO8YHqDEMaOIWfFWVRC.jpg\" style=\"\" title=\"FhT7MWRKy3TqaU5QKnBY5mnA04pc\"/></p><p><img src=\"http://data.cmswing.com/qhhZpICFxYyAi0i6s0l8lEWh.jpg\" style=\"\" title=\"FqLwSY-JigweaCGy8rPepABv7b1d\"/></p><p><img src=\"http://data.cmswing.com/054Fl-03iuHkLLqqcN2lQo_S.jpg\" style=\"\" title=\"FiCGBXKGEc1hTtEHebvu1Y9itPQq\"/></p><p><br/></p>', '', '1000', '3');
-INSERT INTO `cmswing_document_shop` VALUES ('244', '{\"type\":[\"选择版本\"],\"data\":[{\"name\":\"i5 4GB 500GB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"6899.01\",\"sku_stock\":8,\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 4GB 192GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"7399.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 8GB 256GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"8999.01\",\"sku_stock\":8,\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i7 8GB 1TB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"9999.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i7 8GB 256GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"11399.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 8GB 500GB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"7299.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}],\"is_pic\":0}', 'JS_20FNA03YCD', '56', '0', '1', '0', '0', '<p><img src=\"http://data.cmswing.com/B0PzBD74gpLAmzHG2GIRpYjM.jpg\" title=\"FuNxjEfFvJTh4QhWsAYO5WZEYIce\" alt=\"ThinkPad-T460-Landing-Page-完稿750_01_2.jpg\"/><img src=\"http://data.cmswing.com/WQ6Kz9OakX1Vq6yFllDMN5PE.jpg\" title=\"FraHFJsRPNg7MCePTOfOl7Q-HMUd\" alt=\"ThinkPad-T460-Landing-Page-完稿750_02_2.jpg\"/><img src=\"http://data.cmswing.com/za4WbnwICrlS5KW9hNxfARod.jpg\" title=\"FhlPFqesHY5xK2FCo6yL4spmYRV1\" alt=\"ThinkPad-T460-Landing-Page-完稿750_03_2.jpg\"/><img src=\"http://data.cmswing.com/OD8eCJQibXzASM0wVYTuumx9.jpg\" title=\"FmORHCnl2rP_abZgZP1MKffvxg5R\" alt=\"ThinkPad-T460-Landing-Page-完稿750_04_2.jpg\"/><img src=\"http://data.cmswing.com/cbbOMX3rxjw9MAob6JJGzcfH.jpg\" title=\"FihZ5WqsI9p-FFs5N4tYGZ-90pVV\" alt=\"ThinkPad-T460-Landing-Page-完稿750_05_2.jpg\"/><img src=\"http://data.cmswing.com/NRGlP0M-IynM6cdw8ZAfCY-X.jpg\" title=\"FtgbKvf1ZrIFEoQj08AaDRPWf_O0\" alt=\"ThinkPad-T460-Landing-Page-完稿750_06_2.jpg\"/><img src=\"http://data.cmswing.com/q_UE4tZqb2c59bYzTdOzfYzJ.jpg\" title=\"FhRzrwe3zT7nPjG3WubcR0pErrzV\" alt=\"ThinkPad-T460-Landing-Page-完稿750_07_2.jpg\"/><img src=\"http://data.cmswing.com/laDdTQ90upUalEvgZF9Eu1qK.jpg\" title=\"Fvm4TM13GarSnvdH6ts3EsCFuoiU\" alt=\"ThinkPad-T460-Landing-Page-完稿750_08_2.jpg\"/><img src=\"http://data.cmswing.com/qZAPJzJOA6-PqbreKeDqab5t.jpg\" title=\"FgQQkS7upj0yCZ8bCNqL7LXI1ILx\" alt=\"ThinkPad-T460-Landing-Page-完稿750_09_2.jpg\"/><img src=\"http://data.cmswing.com/BM8VFE7nbjtKduyvBVYlYx8N.jpg\" title=\"FnLb7b3HuJdKpbURiKnb2C03xSFc\" alt=\"ThinkPad-T460-Landing-Page-完稿750_10_1.jpg\"/><img src=\"http://data.cmswing.com/3VVUi4oAMZqUnsJSH_8WQLaR.jpg\" title=\"FkOhVl-AcAdLzRHnuwEMO55JgofD\" alt=\"ThinkPad-T460-Landing-Page-完稿750_11_1.jpg\"/></p>', '', '0', '6');
+INSERT INTO `cmswing_document_shop` VALUES ('244', '{\"type\":[\"选择版本\"],\"data\":[{\"name\":\"i5 4GB 500GB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"6899.01\",\"sku_stock\":\"8\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 4GB 192GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"7399.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 8GB 256GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"8999.01\",\"sku_stock\":\"8\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i7 8GB 1TB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"9999.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i7 8GB 256GB固态 定制版\",\"type\":\"选择版本\",\"sku_price\":\"11399.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"},{\"name\":\"i5 8GB 500GB机械 定制版\",\"type\":\"选择版本\",\"sku_price\":\"7299.01\",\"sku_stock\":\"10\",\"sku_weight\":\"1000\",\"sku_code\":\"\"}],\"is_pic\":0}', 'JS_20FNA03YCD', '56', '0', '1', '0', '0', '<p><img src=\"http://data.cmswing.com/B0PzBD74gpLAmzHG2GIRpYjM.jpg\" title=\"FuNxjEfFvJTh4QhWsAYO5WZEYIce\" alt=\"ThinkPad-T460-Landing-Page-完稿750_01_2.jpg\"/><img src=\"http://data.cmswing.com/WQ6Kz9OakX1Vq6yFllDMN5PE.jpg\" title=\"FraHFJsRPNg7MCePTOfOl7Q-HMUd\" alt=\"ThinkPad-T460-Landing-Page-完稿750_02_2.jpg\"/><img src=\"http://data.cmswing.com/za4WbnwICrlS5KW9hNxfARod.jpg\" title=\"FhlPFqesHY5xK2FCo6yL4spmYRV1\" alt=\"ThinkPad-T460-Landing-Page-完稿750_03_2.jpg\"/><img src=\"http://data.cmswing.com/OD8eCJQibXzASM0wVYTuumx9.jpg\" title=\"FmORHCnl2rP_abZgZP1MKffvxg5R\" alt=\"ThinkPad-T460-Landing-Page-完稿750_04_2.jpg\"/><img src=\"http://data.cmswing.com/cbbOMX3rxjw9MAob6JJGzcfH.jpg\" title=\"FihZ5WqsI9p-FFs5N4tYGZ-90pVV\" alt=\"ThinkPad-T460-Landing-Page-完稿750_05_2.jpg\"/><img src=\"http://data.cmswing.com/NRGlP0M-IynM6cdw8ZAfCY-X.jpg\" title=\"FtgbKvf1ZrIFEoQj08AaDRPWf_O0\" alt=\"ThinkPad-T460-Landing-Page-完稿750_06_2.jpg\"/><img src=\"http://data.cmswing.com/q_UE4tZqb2c59bYzTdOzfYzJ.jpg\" title=\"FhRzrwe3zT7nPjG3WubcR0pErrzV\" alt=\"ThinkPad-T460-Landing-Page-完稿750_07_2.jpg\"/><img src=\"http://data.cmswing.com/laDdTQ90upUalEvgZF9Eu1qK.jpg\" title=\"Fvm4TM13GarSnvdH6ts3EsCFuoiU\" alt=\"ThinkPad-T460-Landing-Page-完稿750_08_2.jpg\"/><img src=\"http://data.cmswing.com/qZAPJzJOA6-PqbreKeDqab5t.jpg\" title=\"FgQQkS7upj0yCZ8bCNqL7LXI1ILx\" alt=\"ThinkPad-T460-Landing-Page-完稿750_09_2.jpg\"/><img src=\"http://data.cmswing.com/BM8VFE7nbjtKduyvBVYlYx8N.jpg\" title=\"FnLb7b3HuJdKpbURiKnb2C03xSFc\" alt=\"ThinkPad-T460-Landing-Page-完稿750_10_1.jpg\"/><img src=\"http://data.cmswing.com/3VVUi4oAMZqUnsJSH_8WQLaR.jpg\" title=\"FkOhVl-AcAdLzRHnuwEMO55JgofD\" alt=\"ThinkPad-T460-Landing-Page-完稿750_11_1.jpg\"/></p>', '', '0', '6');
 
 -- ----------------------------
 -- Table structure for cmswing_document_test
@@ -8134,7 +8134,7 @@ INSERT INTO `cmswing_search` VALUES ('3287', '4', '95', '1464919407400', '七牛
 INSERT INTO `cmswing_search` VALUES ('3288', '4', '210', '1468920727338', 'ACA/北美电器 AB-3CN03面包机家用全自动多功能智能酸奶蛋糕和面 0 ACA 北美 电器 AB 3 CN 03 面包机 家用 全自动 多功能 智能 酸奶 蛋糕 和面 0');
 INSERT INTO `cmswing_search` VALUES ('3289', '4', '211', '1468920668893', 'Apple iPad mini 2 平板电脑 7.9英寸（16G WLAN版/A7芯片/Retina显示屏 ME279CH） 0 Apple iPad mini 2 平板 电脑 7.9英寸 16 G WLAN 版 A 7 芯片 Retina 显示屏 ME 279 CH 0');
 INSERT INTO `cmswing_search` VALUES ('3290', '4', '243', '1469008981003', 'ThinkPad S5 20B3A03VCD 0 ThinkPad S 5 20 B 3 A 03 VCD 0');
-INSERT INTO `cmswing_search` VALUES ('3291', '4', '244', '1471515221084', 'ThinkPad T460 20FNA01VCD 0 ThinkPad T 460 20 FNA 01 VCD 0');
+INSERT INTO `cmswing_search` VALUES ('3291', '4', '244', '1471515221084', 'ThinkPad T460 20FNA01VCD11  ThinkPad T 460 20 FNA 01 VCD 11');
 INSERT INTO `cmswing_search` VALUES ('3292', '5', '166', '1464585840000', '时尚家装现代卧室设计 0 时尚 家装 现代 卧室 设计 0');
 INSERT INTO `cmswing_search` VALUES ('3293', '5', '167', '1464850620000', '清新女神八宝透明湿身 0 清新 女神 八宝 透明 湿身 0');
 INSERT INTO `cmswing_search` VALUES ('3294', '5', '168', '1464852240000', '性感熟女沈佳熹真空湿身露豪乳 气质优雅娇艳欲滴 0 性感 熟 女 沈佳 熹 真空 湿身露 豪乳 气质 优雅 娇艳 欲滴 0');
@@ -8589,7 +8589,7 @@ CREATE TABLE `cmswing_type` (
 -- ----------------------------
 -- Records of cmswing_type
 -- ----------------------------
-INSERT INTO `cmswing_type` VALUES ('1', '0', '1', '发的撒发', '31312', '', '1', '0', '0', 0x313233310D0A333231330D0A3132333231330D0A313233310D0A33323133310D0A333231330D0A323133, '', '', '');
+INSERT INTO `cmswing_type` VALUES ('1', '0', '1', '第二个分类', '31312', '', '1', '0', '0', 0x313233310D0A333231330D0A3132333231330D0A313233310D0A33323133310D0A333231330D0A323133, '', '', '');
 INSERT INTO `cmswing_type` VALUES ('7', '0', '0', '装修效果图', '这是一个测试', '', '0', '0', '0', null, null, null, null);
 INSERT INTO `cmswing_type` VALUES ('9', '0', '0', '笔记本搜索内容', '笔记本搜索内容', '', '0', '0', '0', null, null, null, null);
 INSERT INTO `cmswing_type` VALUES ('10', '0', '0', '台式机搜索内容', '台式机搜索内容', '', '0', '0', '0', null, null, null, null);
@@ -8629,7 +8629,6 @@ INSERT INTO `cmswing_typeoption` VALUES ('3', '0', '0', '0', '', '分类C', '', 
 INSERT INTO `cmswing_typeoption` VALUES ('4', '0', '0', '0', '', '分类D', '', '', '', '', '', '');
 INSERT INTO `cmswing_typeoption` VALUES ('5', '0', '0', '0', '', '分类E', '', '', '', '', '', '');
 INSERT INTO `cmswing_typeoption` VALUES ('6', '0', '0', '0', '', '分类F', '', '', '', '', '', '');
-INSERT INTO `cmswing_typeoption` VALUES ('9', '1', '0', '0', 'a:3:{s:6:\"status\";s:1:\"0\";s:9:\"usergroup\";s:0:\"\";s:6:\"verify\";s:0:\"\";}', '4444', '', 'ccc', 'number', '', '', '');
 INSERT INTO `cmswing_typeoption` VALUES ('12', '3', '0', '0', '', '数字测试', '', 'shuzi', 'number', '', '{\"maxnum\":\"100\",\"minnum\":\"1\",\"inputsize\":\"50\",\"defaultvalue\":\"12\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('13', '3', '0', '0', '', '字串测试', '', 'zichuan', 'text', '', '{\"maxlength\":\"200\",\"inputsize\":\"50\",\"profile\":\"zodiac\",\"defaultvalue\":\"sdada\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('14', '3', '0', '0', '', '文本测试', '', 'wenben', 'textarea', '', '{\"maxlength\":\"5001\",\"colsize\":\"100\",\"rowsize\":\"5\",\"defaultvalue\":\"sfdfdgdfgdfg\"}', null);
@@ -8644,7 +8643,7 @@ INSERT INTO `cmswing_typeoption` VALUES ('22', '3', '0', '0', '', '范围测试'
 INSERT INTO `cmswing_typeoption` VALUES ('23', '6', '0', '0', '', '空间', '', 'kongjian', 'select', '', '{\"choices\":\"1:客厅\\n2:卧室\\n3:餐厅\\n4:厨房 \\n5:卫生间 \\n6:阳台 \\n7:书房 \\n8:玄关 \\n9:儿童房 \\n10:衣帽间 \\n11:花园\",\"inputsize\":\"\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('24', '6', '0', '0', '', '局部', '', 'jubu', 'select', '', '{\"choices\":\"1:背景墙 \\n2:吊顶 \\n3:隔断 \\n4:窗帘 \\n5:飘窗 \\n6:榻榻米 \\n7:橱柜 \\n8:博古架 \\n9:阁楼 \\n10:隐形门 \\n11:吧台 \\n12:酒柜 \\n13:鞋柜 \\n14:衣柜 \\n15:窗户 \\n16:相片墙 \\n17:楼梯 \\n18:其它\",\"inputsize\":\"\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('25', '6', '0', '0', '', '风格', '', 'fengge', 'select', '', '{\"choices\":\"1:简约 \\n2:现代 \\n3:中式 \\n4:欧式 \\n5:美式 \\n6:田园 \\n7:新古典 \\n8:混搭 \\n9:地中海 \\n10:东南亚 \\n11:日式 \\n13:宜家 \\n14:北欧 \\n15:简欧\",\"inputsize\":\"\"}', null);
-INSERT INTO `cmswing_typeoption` VALUES ('26', '1', '0', '0', '', '系列', '', 'bxilie', 'select', '系列', '{\"choices\":\"1:X\\n2:T\\n3:E\\n4:X1\\n5:S\\n6:W\\n7:Helix\",\"inputsize\":\"\"}', null);
+INSERT INTO `cmswing_typeoption` VALUES ('26', '1', '0', '0', '', '系列1', '', 'bxilie', 'select', '系列', '{\"choices\":\"1:X\\n2:T\\n3:E\\n4:X1\\n5:S\\n6:W\\n7:Helix\",\"inputsize\":\"\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('27', '1', '0', '0', '', '价格', '', 'bjiage', 'range', '元', '{\"maxnum\":\"\",\"minnum\":\"\",\"inputsize\":\"\",\"searchtxt\":\"4000,6000,8000,10000,13000,16000,20000\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('28', '1', '0', '0', '', 'CPU型号', '', 'cpu', 'select', '', '{\"choices\":\"1:intel i3\\n2:intel i5\\n3:intel i7\\n4:intel 其它\\n5:AMD\",\"inputsize\":\"\"}', null);
 INSERT INTO `cmswing_typeoption` VALUES ('29', '1', '0', '0', '', '内存容量', '', 'neicun', 'select', 'G', '{\"choices\":\"1:2\\n2:4\\n3:8\\n4:16\",\"inputsize\":\"\"}', null);
@@ -8689,9 +8688,6 @@ CREATE TABLE `cmswing_typeoptionvar` (
 -- ----------------------------
 -- Records of cmswing_typeoptionvar
 -- ----------------------------
-INSERT INTO `cmswing_typeoptionvar` VALUES ('1', '1', '2', '8', '0', '1');
-INSERT INTO `cmswing_typeoptionvar` VALUES ('1', '1', '2', '7', '0', '1');
-INSERT INTO `cmswing_typeoptionvar` VALUES ('1', '1', '2', '9', '0', 'fsdafdsa');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '214', '83', '23', '0', '1');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '214', '83', '24', '0', '3');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '214', '83', '25', '0', '3');
@@ -8809,16 +8805,18 @@ CREATE TABLE `cmswing_typevar` (
 -- ----------------------------
 -- Records of cmswing_typevar
 -- ----------------------------
-INSERT INTO `cmswing_typevar` VALUES ('1', '7', '1', '0', '0', '2', '0', '1');
-INSERT INTO `cmswing_typevar` VALUES ('1', '8', '1', '0', '0', '2', '0', '1');
-INSERT INTO `cmswing_typevar` VALUES ('1', '9', '1', '0', '0', '2', '0', '1');
+INSERT INTO `cmswing_typevar` VALUES ('1', '12', '1', '0', '0', '0', '0', '1');
+INSERT INTO `cmswing_typevar` VALUES ('1', '13', '1', '0', '0', '0', '0', '1');
+INSERT INTO `cmswing_typevar` VALUES ('1', '14', '1', '0', '0', '0', '0', '1');
+INSERT INTO `cmswing_typevar` VALUES ('1', '15', '1', '0', '0', '2', '0', '1');
+INSERT INTO `cmswing_typevar` VALUES ('1', '16', '1', '0', '0', '2', '0', '1');
 INSERT INTO `cmswing_typevar` VALUES ('3', '7', '1', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '12', '1', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '13', '1', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '14', '1', '0', '0', '0', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '15', '1', '0', '0', '2', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '16', '1', '0', '0', '2', '0', '0');
-INSERT INTO `cmswing_typevar` VALUES ('7', '17', '1', '1', '0', '2', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '12', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '13', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '14', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '15', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '16', '0', '0', '0', '0', '0', '0');
+INSERT INTO `cmswing_typevar` VALUES ('7', '17', '0', '0', '0', '0', '0', '0');
 INSERT INTO `cmswing_typevar` VALUES ('7', '23', '1', '1', '0', '3', '0', '0');
 INSERT INTO `cmswing_typevar` VALUES ('7', '24', '1', '0', '0', '2', '0', '0');
 INSERT INTO `cmswing_typevar` VALUES ('7', '25', '1', '0', '0', '2', '0', '0');
@@ -8870,9 +8868,17 @@ CREATE TABLE `cmswing_type_optionvalue1` (
   `aaa` mediumtext CHARACTER SET utf8,
   `bbb` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `ccc` int(10) unsigned NOT NULL DEFAULT '0',
+  `shuzi` int(10) unsigned NOT NULL DEFAULT '0',
+  `zichuan` mediumtext,
+  `wenben` mediumtext,
+  `danxuan` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `duoxuan` mediumtext,
+  `xuanze` varchar(50) NOT NULL DEFAULT '0',
   KEY `fid` (`fid`),
   KEY `dateline` (`dateline`),
-  KEY `bbb` (`bbb`)
+  KEY `bbb` (`bbb`),
+  KEY `danxuan` (`danxuan`),
+  KEY `xuanze` (`xuanze`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
