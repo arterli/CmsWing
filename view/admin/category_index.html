@@ -26,10 +26,10 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
                         <div class="btn-group">
-                            <a {%if ctx.param("mold")=="" %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm
-                            {%if ctx.param('mold')=='' %}dropdown-toggle{% endif %} " {%if ctx.param("mold") !='' %} href="/admin/category/add/?mold={{ctx.param('mold')}}"{%endif%}"
-                                > 添加栏目 {%if ctx.param("mold")=="" %}<span class="caret"></span>{% endif %}</a>
-                            {%if ctx.param("mold")=="" %}
+                            <a {%if ctx.param("mold")==null %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm
+                            {%if ctx.param('mold')==null %}dropdown-toggle{% endif %} " {%if ctx.param("mold") !='' %} href="/admin/category/add/?mold={{ctx.param('mold')}}"{%endif%}"
+                                > 添加栏目 {%if ctx.param("mold")==null %}<span class="caret"></span>{% endif %}</a>
+                            {%if ctx.param("mold")==null %}
                             <ul class="dropdown-menu">
 
                                 <li> <a href="/admin/category/add/?mold=0"
