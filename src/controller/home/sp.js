@@ -42,7 +42,7 @@ module.exports = class extends Home{
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);
     let temp;
-    console.log(sp);
+    //console.log(sp);
     //判断浏览客户端
     if(this.isMobile){
       switch (cate.ismt){

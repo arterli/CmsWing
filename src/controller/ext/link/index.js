@@ -34,6 +34,7 @@ module.exports =  class extends Index {
   }
 
  async applyAction(){
+
    if(this.setting.ispost==0){
      const error = this.controller('common/error');
      return error.noAction('已关闭申请，请在后台插件设置开启！');
@@ -53,6 +54,7 @@ module.exports =  class extends Index {
         return this.fail("添加失败！")
       }
     }else {
+        this.meta_title = "申请友情链接";
       //获取当前分类
       this.assign("type",await this.gettype());
       return this.display()

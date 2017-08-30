@@ -114,7 +114,7 @@ CLASSES:
 
             <div class="col-md-9 col-sm-9">
                 <div class="panel panel-default">
-                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id,cache="1000"%}
                     {%if tags%}
                     <div class="panel-heading panel-heading-transparent">
                         <!-- TAGS -->
@@ -193,7 +193,7 @@ CLASSES:
                         <!-- POPULAR -->
                         <div id="tab_1" class="tab-pane active">
                             <!-- /post -->
-                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",cache="1000"%}
                             {%for v in hotlist%}
                             <div class="row tab-post"><!-- post -->
                                 {%if v.cover_id%}
@@ -216,7 +216,7 @@ CLASSES:
 
                         <!-- RECENT -->
                         <div id="tab_2" class="tab-pane">
-                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {% topic data = "newlist",limit= "5",cid=category.id,cache="1000"%}
                             {%for v in newlist%}
                             <div class="row tab-post"><!-- post -->
                                 {%if v.cover_id%}
@@ -244,7 +244,7 @@ CLASSES:
                         <h2 class="panel-title">话题</h2>
                     </div>
                     <div class="panel-body padding-10">
-                        {% keywords data ="kws",type="hot"%}
+                        {% keywords data ="kws",type="hot",cache="1000"%}
                         {%for key in kws%}
                         <a class="tag" href="{{key.url}}">
                             <span class="txt">{{key.keyname}}</span>

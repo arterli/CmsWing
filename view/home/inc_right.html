@@ -11,6 +11,7 @@
                 </div>
                 <!-- /INLINE SEARCH -->
                 <!-- side navigation -->
+    {#
                 {%column data="cates",cid=category.id,isnum="0"%}
                 {%if cates==null%}
                 <div class="side-nav margin-bottom-20 margin-top-20">
@@ -26,7 +27,7 @@
                     <!-- /side navigation -->
                 </div>
                 {%endif%}
-
+#}
                 <div class="panel panel-default tabs">
                     <div class="panel-heading">
                         <!-- tabs -->
@@ -47,7 +48,7 @@
                         <!-- POPULAR -->
                         <div id="tab_1" class="tab-pane active">
                             <!-- /post -->
-                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",cache="1000"%}
                             {%for v in hotlist%}
                             <div class="row tab-post"><!-- post -->
                                 {%if v.cover_id%}
@@ -70,7 +71,7 @@
 
                         <!-- RECENT -->
                         <div id="tab_2" class="tab-pane">
-                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {% topic data = "newlist",limit= "5",cid=category.id,cache="1000"%}
                             {%for v in newlist%}
                             <div class="row tab-post"><!-- post -->
                                 {%if v.cover_id%}
@@ -98,7 +99,7 @@
                         <h2 class="panel-title">话题</h2>
                     </div>
                     <div class="panel-body padding-10">
-                        {% keywords data ="kws",type="hot"%}
+                        {% keywords data ="kws",type="hot",cache="1000"%}
                         {%for key in kws%}
                         <a class="tag" href="{{key.url}}">
                             <span class="txt">{{key.keyname}}</span>

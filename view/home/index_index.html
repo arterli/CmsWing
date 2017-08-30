@@ -180,7 +180,7 @@
 									<li>
 										<a href="#">
 											<i class="fa fa-clock-o"></i>
-											<span class="font-lato">{{val.create_time|dateformat('Y-m-d H:i')}}</span>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
 										</a>
 									</li>
 									<li>
@@ -320,7 +320,7 @@
 					<div class="tab-pane fade" id="wenda">
 						<div class="timeline" style="margin-top: -25px">
 							<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
-							{%model data="list",table="question",order="create_time DESC",limit="10"%}
+							{%model data="list",table="question",order="create_time DESC",limit="10",cache="1000"%}
 							{% for val in list %}
 							{% set categoryname = val.category_id|get_cate %}
 							{% set imgs= val.detail|img_text_view(200,120)%}
@@ -430,7 +430,7 @@
 						<h2 class="panel-title">热门话题</h2>
 					</div>
 					<div class="panel-body padding-10">
-						{% keywords data ="topic",type="hot",limit="5" %}
+						{% keywords data ="topic",type="hot",limit="5",cache="1000"%}
 						{%for k in topic%}
 						<div class="clearfix margin-bottom-10"><!-- discussion item -->
 							{%if k.pic==0%}
@@ -479,7 +479,7 @@
 
 	</div>
 	<div class="container">
-		<div class="panel panel-default">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a> <a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>
 				<h2 class="panel-title">友情链接</h2>
@@ -496,7 +496,7 @@ data-plugin-options:
 "pagination": true
 -->
 				<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-					{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC"%}
+					{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC",cache="1000"%}
 					{%for l in link%}
 					{%if l.linktype==0%}
 					<div class="linkbox alternate">

@@ -79,7 +79,7 @@ const Admin = require('../common/admin');
 
      //独立模型display方法封装
      modtemp(action,moblie=false){
-         console.log(this.ctx.controller);
+         //console.log(this.ctx.controller);
          if(this.ctx.controller=='mod/admin'){
              if(!moblie){
                  return this.display(`mod/${this.mod.name}/admin_${action}`);

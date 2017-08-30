@@ -71,7 +71,7 @@ module.exports = class extends Index {
   }
   //独立模型display方法封装
   modtemp(action,moblie=false){
-      console.log(this.ctx.controller);
+     // console.log(this.ctx.controller);
     if(this.ctx.controller=='home/route'){
       if(!moblie){
               return this.display(`mod/${this.mod.name}/index_${action}`);
@@ -135,7 +135,7 @@ module.exports = class extends Index {
                 num = pagenum;
             }
         }else {
-            num =this.config("db.nums_per_page");
+            num =10;
         }
         if(this.isMobile){
             num=10;

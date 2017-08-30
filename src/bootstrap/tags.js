@@ -215,6 +215,7 @@ global.groups = function(){
  * where:查询条件''
  * tid ;分类信息id
  * tval;分类信息条件
+ * cache {Number} 缓存有效时间，单位为秒,建议1000秒
  */
 global.topic = function(){
     this.tags = ['topic'];
@@ -327,6 +328,7 @@ global.topic = function(){
  * data:接受返回数据的变量名称，例: data = "data"
  * limit: 设置查询结果的条数，例: limit="10",limit="3,10"
  * type: hot
+ * cache {Number} 缓存有效时间，单位为秒,建议1000秒
  */
 
 global.keywords = function(){
@@ -348,10 +350,16 @@ global.keywords = function(){
                 type="videonum DESC"
             }
         }
-        let keywrod = await think.model('keyword').where(where).limit(limit).order(type).select();
+        let model = think.model('keyword');
+        let cache = think.isEmpty(args.cache) ? false : Number(args.cache)*1000;
+        //缓存
+        if(cache){
+            model.cache(cache);
+        }
+        let keywrod = await model.where(where).limit(limit).order(type).select();
         //console.log(channel);
         for(let k of keywrod){
-            k.url=`/t/${k.keyname}`+mod;
+            k.url=`/t/${k.keyname}${mod}`;
         }
         context.ctx[data] = keywrod;
         return callback(null,'');

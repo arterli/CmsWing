@@ -306,7 +306,7 @@ CLASSES:
                     <div class="panel-heading">
                         <h2 class="panel-title">热卖</h2>
                     </div>
-                    {%topic data="hotgoods",limit="9",cid=category.id,type="hot"%}
+                    {%topic data="hotgoods",limit="9",cid=category.id,type="hot",cache="1000"%}
                     <div class="panel-body padding-10" >
                         <div class="owl-carousel featured nomargin" data-plugin-options='{"singleItem": true, "stopOnHover":false, "autoPlay":false, "autoHeight": false, "navigation": true, "pagination": false}'>
                             {%- for items in hotgoods | slice(3) %}
