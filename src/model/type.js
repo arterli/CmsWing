@@ -29,9 +29,11 @@ module.exports = class extends think.Model {
      * @author
      */
     async addField(_filed) {
+        // console.log(_filed);
         let sql;
         //检查表是否存在
         let table_exist = await this.checkTableExist(_filed.id);
+
         //console.log(this.table_name);
         for(let v of _filed.datarr){
             if(!table_exist){
@@ -50,7 +52,7 @@ module.exports = class extends think.Model {
                 //console.log(res);
             }
             let fieldinfo = await this.getfieldsinfo(v.optionid);
-            //console.log(v.optionid);
+           // console.log(v.optionid);
             let result = await this.model('mysql').query(`show columns from \`${this.table_name}\` like '${fieldinfo.name}'`);
             if(think.isEmpty(result)){//添加字段
                 sql = `ALTER TABLE \`${this.table_name}\` ${fieldinfo.sql};`
@@ -60,7 +62,7 @@ module.exports = class extends think.Model {
 
             }
 
-            console.log(result);
+            //console.log(result);
         }
         //return false;
         // var def;
@@ -118,8 +120,8 @@ module.exports = class extends think.Model {
 
     }
    async getfieldsinfo(id){
-        let filed = await this.model("typeoption").find(id);
-        console.log(filed);
+        let filed = await this.model("typeoption").where({optionid:id}).find();
+       // console.log(filed);
        let data={};
       switch (filed.type){
           case "number":

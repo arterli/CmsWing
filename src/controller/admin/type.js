@@ -96,7 +96,7 @@ module.exports = class extends Base {
     async updatetypevarAction(){
         let data = this.post('data');
         data = JSON.parse(data);
-        //console.log(data);
+        // console.log(data);
         //return false;
        let del= await this.model('typevar').delete({
             where: {sortid: data.id}
@@ -112,9 +112,9 @@ module.exports = class extends Base {
         let add= await this.model('typevar').addMany(datas);
         if(!think.isEmpty(add)){
             //添加字段
-            this.model("type").addField(data);
+           await this.model("type").addField(data);
            
-    return this.success({name:"操作成功"})
+        return this.success({name:"操作成功"})
 }
     }
   /**
@@ -193,13 +193,13 @@ module.exports = class extends Base {
  async updateAction(){
    let data = this.post("data");
       data = JSON.parse(data);
-      //console.log(data);
+      console.log(data);
       for(let val of data){
           //添加
           if(val.isdel==0 && val.name != 0 && val.typeid ==0){//添加
-             this.model('type').add(val);
+             await this.model('type').add(val);
           }else if(val.isdel==0 && val.name != 0 && val.typeid !=0){//更新
-              this.model('type').update(val,{typeid:val.typeid});
+             await this.model('type').where({typeid:val.typeid}).update(val);
           }else if(val.isdel == 1){
               let table_name = this.config('model.mysql.prefix') + 'type_optionvalue'+val.typeid;
               let sql =`SHOW TABLES LIKE '${table_name}'`;

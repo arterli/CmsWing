@@ -88,7 +88,7 @@ module.exports = class extends think.Model {
         //TODO 缓存处理后续
         let name;
         // 设置缓存 key 为 username，有效期为 2 个小时
-        let info = await this.field("username").cache('username', {timeout: 2 * 3600 * 1000}).find(uid);
+        let info = await this.field("username").cache({timeout: 2 * 3600 * 1000}).find(uid);
         //console.log(info);
         name = info.username;
         return name;

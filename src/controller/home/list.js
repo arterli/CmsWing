@@ -137,6 +137,7 @@ module.exports = class extends Home{
                 sortid=sort.defaultshow;
             }
             let typevar = await this.model("typevar").where({sortid:sortid}).order('displayorder ASC').select();
+           // console.log(typevar);
             for (let val of typevar){
 
                 val.option= await this.model("typeoption").where({optionid:val.optionid}).find();
@@ -195,7 +196,7 @@ module.exports = class extends Home{
                     }
                 }
             }
-            // console.log(typevar);
+            //console.log(typevar);
             this.assign("typevar",typevar);
         }
         // console.log(sortarr);

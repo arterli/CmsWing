@@ -1,4 +1,7 @@
 module.exports = class extends think.Model {
+    get pk() {
+        return 'spaceid';
+    }
     /**
      * 更新广告
      *
