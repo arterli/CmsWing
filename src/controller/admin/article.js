@@ -283,15 +283,13 @@ module.exports = class extends Base {
             delete map.category_id;
         }
 
-        //console.log(array_diff(tablefields,field));
         if (!think.isEmpty(model_id)) {
             map.model_id = model_id;
             await Document.select();
             let tablefields = Object.keys(await Document.getSchema());
-            //console.log(array_diff(tablefields,field));
-            // console.log(field);
+            let df = think._.difference(field,tablefields);
             //return
-            if (think.isArray(field) && array_diff(tablefields, field)) {
+            if (think.isArray(field) && !think.isEmpty(df)) {
                 let modelName = await this.model('model').where({id: model_id}).getField('name');
                 Document.alias('DOCUMENT').join({
                     table: `document_${modelName[0]}`,
@@ -299,15 +297,21 @@ module.exports = class extends Base {
                     as: modelName[0],
                     on: ["id", "id"]
                 })
-                let key = array_search(field, 'id');
-                //console.log(key)
-                if (false !== key) {
+                for(let d of df){
+                    let key = think._.indexOf(field, d);
+                    if (-1 !== key) {
+                        delete field[key];
+                        field[key] = `${modelName[0]}.${d}`;
+                    }
+                }
+                let key = think._.indexOf(field, 'id');
+                if (-1 !== key) {
                     delete field[key];
                     field[key] = 'DOCUMENT.id';
                 }
             }
         }
-        //console.log(field);
+        console.log(field);
         //console.log(1111111);
         if (!think.isEmpty(position)) {
             map['position'] = position;
@@ -352,6 +356,7 @@ module.exports = class extends Base {
             // console.log(map);
         }
         //console.log(map);
+        console.log(field);
         let list;
         if(!think.isEmpty(sortval)){
             list = await Document.alias('DOCUMENT').join({
@@ -362,7 +367,7 @@ module.exports = class extends Base {
 
             }).where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }else {
-            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page")||1,20).countSelect();
+            list = await Document.alias('DOCUMENT').where(map).order('level DESC,DOCUMENT.id DESC').field(field.join(",")).page(this.get("page"),20).countSelect();
         }
         //let list=await this.model('document').where(map).order('level DESC').field(field.join(",")).page(this.get("page")).countSelect();
         let html = this.pagination(list);
