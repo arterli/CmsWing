@@ -104,7 +104,9 @@
                             <p>{{val.description|truncate(120, true, "...")}}</p>
                         </div><!-- /item -->
                         {%else%}
-                        没有结果哦!
+                        <div class="alert alert-warning margin-bottom-30"><!-- WARNING -->
+                            <strong>提示!</strong> 没有搜索到您想要的结果！
+                        </div>
                         {%endfor%}
                     </div>
                     <div class="panel-footer text-center">
