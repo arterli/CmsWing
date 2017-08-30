@@ -2983,7 +2983,7 @@ section.dark.page-header ul.page-options a {
 	*/
 	#topBar {
 		display:block;
-		background-color: rgba(0,0,0,0.05);
+		background-color: #fff;
 		border-bottom:rgba(0,0,0,0.05) 1px solid;
 	}
 	#topBar>.border-bottom {
