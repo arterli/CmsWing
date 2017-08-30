@@ -1,6 +1,6 @@
 ## 特别提示
 ```
-本项目已升级到ThinkJS 3.0 ,项目运行的 Node 版本大于 7.6.0（推荐使用 8.x.x LTS 版本）;
+本项目已升级到ThinkJS 3.0 ,项目运行的 Node 版本大于 7.6.0（推荐使用 8.x.x 版本）;
 ```
 ## git
 > github地址：[https://github.com/arterli/CmsWing](https://github.com/arterli/CmsWing)
@@ -19,7 +19,7 @@
 ![iphone](http://www.cmswing.com/static/dome/iphone.png)
 
 ## QQ 交流群: 49757468
-有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
+有问题可以到QQ群 进行交流.
 
 ## install dependencies
 ```
@@ -35,7 +35,7 @@ npm start
 use pm2 to deploy app on production envrioment.
 
 ```
-pm2 startOrGracefulReload pm2.json
+可以在项目根目录下执行 pm2 start pm2.json 来启动项目
 ```
 
 ## 后台账号密码1
