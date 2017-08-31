@@ -1,42 +1,9 @@
-{% extends "./inc/base.html" %} {% block content %}
-<!-- 
-				PAGE HEADER 
-				
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
-
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-  <div class="container">
-    <!-- breadcrumbs -->
-    <ol class="breadcrumb breadcrumb-inverse">
-      <li><a href="#">首页</a></li>
-      <li><a href="#">用户</a></li>
-      <li class="active">用户中心</li>
-    </ol>
-    <!-- /breadcrumbs -->
-
-  </div>
-</section>
-<!-- /PAGE HEADER -->
-
-
-
-
+{% extends "./inc/base.html" %}
+{% block content %}
 <!-- -->
-<section>
+<section >
   <div class="container">
-    <div class="row">
+    <div class="row bg1x1">
       <!-- LEFT -->
       {% include "./inc/user_left.html" %}
       <!-- RIGHT -->
@@ -63,7 +30,7 @@
           </div>
         </div>
         <!-- /FLIP BOX -->
-        <div class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
+        <div class="box-light margin-top-20 nopadding"><!-- .box-light OR .box-dark -->
           <div class="box-inner">
             <ul class="row clearfix testimonial-dotted list-unstyled">
               <li class="col-md-4">

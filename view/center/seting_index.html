@@ -1,35 +1,4 @@
 {% extends "./inc/base.html" %} {% block content %}
-<!-- 
-				PAGE HEADER 
-				
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
-
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-    <div class="container">
-
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户</a></li>
-            <li class="active">用户设置</li>
-        </ol>
-        <!-- /breadcrumbs -->
-
-    </div>
-</section>
-<!-- /PAGE HEADER -->
 
 
 
@@ -37,13 +6,13 @@
 			<!-- -->
 			<section>
 				<div class="container">
-                 
+                 <div class="row bg1x1">
 					<!-- LEFT -->
 					{% include "./inc/user_left.html" %}
 					<!-- RIGHT -->
 					<div class="col-lg-10 col-md-10 col-sm-8">
 
-						<ul class="nav nav-tabs nav-top-border">
+						<ul class="nav nav-tabs nav-bottom-border">
 							<li class="active"><a href="#info" data-toggle="tab">个人资料</a></li>
 							<li><a href="#avatar" data-toggle="tab">头像</a></li>
 							<li><a href="#password" data-toggle="tab">修改密码</a></li>
@@ -302,7 +271,7 @@
 						</div>
 
 					</div>
-
+				 </div>
 					
 					
 				</div>

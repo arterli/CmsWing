@@ -1,34 +1,4 @@
 {% extends "./inc/base.html" %} {% block content %}
-<!-- 
-				PAGE HEADER 
-				
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
-
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-    <div class="container">
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户</a></li>
-            <li class="active">{{controller.meta_title}}</li>
-        </ol>
-        <!-- /breadcrumbs -->
-
-    </div>
-</section>
-<!-- /PAGE HEADER -->
 
 
 
@@ -36,7 +6,7 @@
 <!-- -->
 			<section>
 				<div class="container">
-					<div class="row">
+					<div class="row bg1x1">
 					<!-- LEFT -->
 					{% include "./inc/user_left.html" %}
 					<!-- RIGHT -->
@@ -50,7 +20,7 @@
 								账户余额：￥<span class="text-danger size-25">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</span>
 							</div>
 						</div>
-						<ul class="nav nav-tabs nav-top-border">
+						<ul class="nav nav-tabs nav-bottom-border">
 							<li {%if type == null%}class="active"{%endif%}><a href="/center/account">
 								交易记录</a></li>
 							<li {% if type == 2%}class="active"{%endif%}><a href="/center/account/index/?type=2" ><span class="badge badge-red btn-xs badge-corner">{{unpaid}}</span>未付款的充值订单</a></li>

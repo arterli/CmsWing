@@ -1,40 +1,11 @@
 {% extends "./inc/base.html" %} {% block content %}
-<!-- 
-				PAGE HEADER 
-				
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
 
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-    <div class="container">
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户</a></li>
-            <li class="active">{{controller.meta_title}}</li>
-        </ol>
-        <!-- /breadcrumbs -->
-
-    </div>
-</section>
-<!-- /PAGE HEADER -->
 
 
 <!-- -->
 <section>
     <div class="container">
-<div class="row">
+<div class="row bg1x1">
         <!-- LEFT -->
         {% include "./inc/user_left.html" %}
         <!-- RIGHT -->
@@ -43,7 +14,7 @@
             <h4 class="page-header margin-top-0"><i class="fa fa-reorder fa-lg text-default"></i>
                 {{controller.meta_title}}</h4>
 
-            <ul class="nav nav-tabs nav-top-border">
+            <ul class="nav nav-tabs nav-bottom-border">
                 <li {%if status == null%}class="active"{%endif%}><a href="/center/order">全部订单</a></li>
                 <li {% if status == 0%}class="active"{%endif%}><a href="/center/order/index/?status=0" ><span class="badge badge-red btn-xs badge-corner">{{nopaid}}</span>待付款</a></li>
                 <li {% if status == 1%}class="active"{%endif%}><a href="/center/order/index/?status=1"><span class="badge badge-red btn-xs badge-corner">{{receipt}}</span>待收货</a></li>

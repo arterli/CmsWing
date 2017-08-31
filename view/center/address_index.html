@@ -1,34 +1,4 @@
 {% extends "./inc/base.html" %} {% block content %}
-<!-- 
-				PAGE HEADER 
-				
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
-
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-    <div class="container">
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="#">首页</a></li>
-            <li><a href="#">用户</a></li>
-            <li class="active">收货地址</li>
-        </ol>
-        <!-- /breadcrumbs -->
-
-    </div>
-</section>
-<!-- /PAGE HEADER -->
 
 
 
@@ -36,15 +6,15 @@
 <!-- -->
 			<section>
 				<div class="container">
-					<div class="row">
+					<div class="row bg1x1">
 					<!-- LEFT -->
 					{% include "./inc/user_left.html" %}
 					<!-- RIGHT -->
 					<div class="col-lg-10 col-md-10 col-sm-8">
 						<h4 class="page-header margin-top-0"><i class="fa fa-reorder fa-lg text-default"></i>
-							{{controller.meta_title}}<button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target=".add-addr-dialog">添加新地址</button></h4>
+							{{controller.meta_title}}<button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target=".add-addr-dialog">添加新地址</button></h4>
 						<div class="table-responsive">
-							<table class="table table-bordered table-striped table-vertical-middle">
+							<table class="table  table-striped table-vertical-middle">
 								<thead>
 								<tr>
 									<th >收货人</th>

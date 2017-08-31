@@ -16,4 +16,7 @@ module.exports = class extends BaseRest {
         data = await this.modelInstance.get_all_category();
         return this.success(arr_to_tree(data,0));
     }
+    async postAction(){
+        return this.success(this.post())
+    }
 };

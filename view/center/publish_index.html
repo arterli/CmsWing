@@ -4,37 +4,7 @@
 <link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
 {% endblock%}
 {% block content %}
-<!--
-				PAGE HEADER
 
-				CLASSES:
-					.page-header-xs	= 20px margins
-					.page-header-md	= 50px margins
-					.page-header-lg	= 80px margins
-					.page-header-xlg= 130px margins
-					.dark			= dark page header
-
-					.shadow-before-1 	= shadow 1 header top
-					.shadow-after-1 	= shadow 1 header bottom
-					.shadow-before-2 	= shadow 2 header top
-					.shadow-after-2 	= shadow 2 header bottom
-					.shadow-before-3 	= shadow 3 header top
-					.shadow-after-3 	= shadow 3 header bottom
-			-->
-<section class="page-header page-header-xs">
-    <div class="container">
-
-        <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
-            <li><a href="/index.html">首页</a></li>
-            <li><a href="/center/index">用户</a></li>
-            <li class="active">在线投稿</li>
-        </ol>
-        <!-- /breadcrumbs -->
-
-    </div>
-</section>
-<!-- /PAGE HEADER -->
 
 <!-- -->
 <section>
@@ -46,21 +16,7 @@
     #}
         <!-- RIGHT -->
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <ul class="breadcrumb">
-                <li><a href="/center/index"><i class="fa fa-user"></i> 用户中心</a></li>
-                <li><a href="#"><i class="fa fa-newspaper-o"></i> 内容管理</a></li>
 
-                <li><a href="/center/publish"><i class="fa fa-pencil-square-o"></i> 在线投稿</a></li>
-
-                {% for nav in breadcrumb%} {% if cate_id == nav.id %}
-                <li class="active">{{nav.title}} <span class="badge bg-info">{{_total}}</span> {% if allow == 0 %}<span class="label btn-warning">（该分类不允许发布内容）</span>{%
-                    endif %}</li>
-                {%else%}
-                <li><a href="/center/publish/index/?cate_id={{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
-                {% endif %} {% endfor %} {%if article.id >0 %}
-                <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
-
-            </ul>
             <div class="row">
                 <div class="col-lg-2 col-md-2 col-sm-4">
                     <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto ">
@@ -77,6 +33,21 @@
 
                 </div></div>
                 <div class="col-lg-10 col-md-10 col-sm-8">
+                    <ul class="breadcrumb">
+                        <li><a href="/center/index"><i class="fa fa-user"></i> 用户中心</a></li>
+                        <li><a href="#"><i class="fa fa-newspaper-o"></i> 内容管理</a></li>
+
+                        <li><a href="/center/publish"><i class="fa fa-pencil-square-o"></i> 在线投稿</a></li>
+
+                        {% for nav in breadcrumb%} {% if cate_id == nav.id %}
+                        <li class="active">{{nav.title}} <span class="badge bg-info">{{_total}}</span> {% if allow == 0 %}<span class="label btn-warning">（该分类不允许发布内容）</span>{%
+                            endif %}</li>
+                        {%else%}
+                        <li><a href="/center/publish/index/?cate_id={{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                        {% endif %} {% endfor %} {%if article.id >0 %}
+                        <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
+
+                    </ul>
                     {%if sort%}
 
                             <ul class="nav nav-tabs ">

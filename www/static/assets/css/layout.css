@@ -7214,8 +7214,8 @@ ul.search-history {
 }
 
 #footer>.copyright {
-	background-color:rgba(0,0,0,0.2);
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+	background-color:rgba(0,0,0,0.1);
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
 	padding:15px 0;
 	font-size:13px;
 	display:block;
@@ -8729,4 +8729,16 @@ i.ico-60 {
 .panel-body .blog-post-item:last-child{
 	border-bottom: none;
 	margin-bottom: 0 !important;
+}
+.bg1x1{
+	background-image: url("../images/bg1x1.png");
+	background-position: 180px 0px;
+	background-repeat: repeat-y;
+	margin-top: -20px;
+	padding-top: 20px;
+	margin-bottom: -20px;
+	padding-bottom: 20px;
+}
+.bg1x1 .list-group-item{
+	border: none;
 }
