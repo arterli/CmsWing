@@ -27,7 +27,7 @@
         <a class="navbar-brand block" href="index.html"><span class="h1 font-bold">CmsWing</span></a>
         <section class="m-b-lg">
             <header class="wrapper text-center">
-                <strong>管理员登陆{{controller.config("http_")}}</strong>
+                <strong>管理员登陆</strong>
             </header>
             <form action="#" method="post" >
                 <div class="form-group">
@@ -172,58 +172,60 @@
         }
     });
 </script>
-{#
+{%else%}
 <script>
-    $(function () {
-        var handlerEmbed = function (captchaObj) {
+    toastr.options = {
+        "positionClass": "toast-top-full-width",
+        "timeOut": "1500",
 
-            $("#validate-submit").click(function (e) {
-                var validate = captchaObj.getValidate();
-                if (!validate) {
-                    $("#notice").addClass("show").removeClass("hide");
-                    setTimeout(function () {
-                        $("#notice").addClass("hide").removeClass("show");
-                    }, 2000);
-                    e.preventDefault();
-                }
+    }
+    $('#validate-submit').click(function () {
+        var self = this;
+        $(self).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+        $.ajax({
+            url: '/admin/public/signin',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val(),
+            },
+            success: function (data) {
+                if (data.errno==0) {
+                    if (data.data.url) {
 
-            });
-
-            // 将验证码加到id为captcha的元素里
-            captchaObj.appendTo("#captcha");
-
-            captchaObj.onReady(function () {
-                $("#wait")[0].className = "hide";
-            });
-
-            // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
-        };
-
-                $.ajax({
-                    // 获取id，challenge，success（是否启用failback）
-                    url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
-                    type: "get",
-                    dataType: "json",
-                    success: function (data) {
-
-                        // 使用initGeetest接口
-                        // 参数1：配置参数
-                        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-                        initGeetest({
-                            gt: data.gt,
-                            challenge: data.challenge,
-                            product: "float", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
-                            offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-                        }, handlerEmbed);
+                        toastr.success(data.data.name + ' 页面即将自动跳转~');
+                    }else{
+                        toastr.success(data.data.name);
                     }
-                });
+                    setTimeout(function(){
+                        $(self).removeClass('disabled').prop('disabled',false);
+                        if (data.data.url) {
+                            location.href=data.data.url;
+                        }else if( $(this).hasClass('no-refresh')){
+                            toastr.clear()
+                        }else{
+                            location.reload();
+                        }
+                    },1500);
+                }else{
+                    toastr.error(data.errmsg);
 
-
-
-
+                    //console.log(data);
+                    setTimeout(function(){
+                        $(self).removeClass('disabled').prop('disabled',false);
+                        if (data.data) {
+                            location.href=data.data;
+                        }else{
+                            toastr.clear()
+                        }
+                    },1500);
+                }
+            }
+        });
+        return false;
     })
 </script>
-#}
 {%endif%}
 </body>
 </html>
