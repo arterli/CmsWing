@@ -93,7 +93,7 @@ module.exports =  class extends think.Service {
     async backup(table, start) {
         //数据库对象
         //console.log(think.config('db'))
-        let db = think.model('mysql', think.config('model'));
+        let db = think.model('mysql');
         //备份表结构
         if (0 == start) {
             let result = await db.query("SHOW CREATE TABLE " + table);

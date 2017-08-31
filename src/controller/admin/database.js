@@ -8,7 +8,6 @@
 
 const Base = require('../common/admin');
 const fs  = require('fs');
-const path = require('path');
 const targz = require('tar.gz');
 const http = require('http');
 module.exports = class extends Base {
@@ -26,7 +25,7 @@ module.exports = class extends Base {
         //auto render template file index_index.html
         //let DB = think.adapter('db', this.config.type || 'mysql');
         //this._db = new DB(this.config);
-        let list = await this.model().query('SHOW TABLE STATUS');
+        let list = await this.model('mysql').query('SHOW TABLE STATUS');
         // console.log(list)
         this.meta_title='备份数据库';
         this.assign("list", list);
@@ -44,7 +43,7 @@ module.exports = class extends Base {
         if (this.isPost) {
             let tables = this.post('tables');
             if (tables) {
-                list = await this.model().query("OPTIMIZE TABLE " + tables);
+                list = await this.model('mysql').query("OPTIMIZE TABLE " + tables);
                 return this.json(list);
             } else {
                 return this.fail(88, "请指定要修复的表！")
@@ -64,7 +63,7 @@ module.exports = class extends Base {
         if (this.isPost) {
             let tables = this.post("tables");
             if (tables) {
-                list = await this.model().query('REPAIR TABLE ' + tables)
+                list = await this.model('mysql').query('REPAIR TABLE ' + tables)
                 return this.json(list);
             } else {
                 return this.fail(88, "请指定要修复的表！")
