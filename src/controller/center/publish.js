@@ -7,13 +7,29 @@
 // +----------------------------------------------------------------------
 const Home = require('../common/home');
 module.exports = class extends Home {
+    async __before() {
+      await super.__before();
+        //判断是否登陆
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
+    }
   /**
    * index action
    * @return {Promise} []
    */
   //在线投稿
   async indexAction(){
-    await this.weblogin();
+    //await this.weblogin();
+
     let cate_id = this.get('cate_id') || null;
     //console.log(cate_id);
     //权限控制
@@ -226,7 +242,7 @@ module.exports = class extends Home {
    * 新增投稿
    */
   async addAction() {
-    await this.weblogin();
+
     let cate_id = this.get("cate_id") || 0;
     //权限控制
     let priv = await this.priv(cate_id);
@@ -319,7 +335,7 @@ module.exports = class extends Home {
 
   //编辑文档
   async editAction() {
-    await this.weblogin();
+
     let id = this.get('id') || "";
     let sortid = this.get('sortid')||0;
     if (think.isEmpty(id)) {
@@ -414,7 +430,7 @@ module.exports = class extends Home {
    * 更新或者添加数据
    */
   async updateAction() {
-    await this.weblogin();
+
     let data = this.post();
     //绑定发布者id
     data.uid=this.user.uid;

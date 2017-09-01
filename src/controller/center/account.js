@@ -8,13 +8,27 @@
 const Home = require('../common/home');
 const Jimp = require('jimp')
 module.exports = class extends Home {
+    async __before() {
+        await super.__before();
+        //判断是否登陆
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
+    }
   /**
    * 账户金额管理
    * @returns {PreventPromise}
    */
   async indexAction() {
-    //判断是否登陆
-    await this.weblogin();
+
     let type = this.get("type") || null;
     let data;
     if (think.isEmpty(type)) {
@@ -75,8 +89,7 @@ module.exports = class extends Home {
    * 充值
    */
   async rechargeAction() {
-    //判断是否登陆
-    await this.weblogin();
+
     if (this.isAjax("POST")) {
       let data = this.post();
       if (think.isEmpty(data.order_amount)) {

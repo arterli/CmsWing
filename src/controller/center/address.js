@@ -10,13 +10,27 @@ module.exports = class extends Home {
     constructor(ctx){
         super(ctx);
     }
+    async __before() {
+        await super.__before();
+        //判断是否登陆
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
+    }
     /**
      * 收货地址管理
      * @returns {PreventPromise}
      */
     async indexAction() {
         //判断是否登陆
-        await this.weblogin();
         let data = await this.model("address").where({user_id: this.user.uid}).page(this.get('page')).order("is_default DESC,id DESC").countSelect();
         let html = this.pagination(data);
         this.assign('pagination', html);
@@ -49,7 +63,6 @@ module.exports = class extends Home {
     }
     //选择收货地址（仅手机端用）
     async selectaddrAction(){
-        await this.weblogin();
         let get = this.get();
         let data = await this.model("address").where({user_id: this.user.uid}).order("is_default DESC,id DESC").select();
         if (!think.isEmpty(data)) {
@@ -74,7 +87,7 @@ module.exports = class extends Home {
     }
     //添加或者更新联系人地址
     async addaddrAction(){
-        await this.weblogin();
+
 
         let data = this.post();
         data.user_id = this.user.uid;
@@ -135,7 +148,7 @@ module.exports = class extends Home {
 
     //联系人设置为默认
     async addrisdefaultAction(){
-        await this.weblogin();
+
         let id = this.get("id");
         let find = await this.model("address").where({user_id:this.user.uid}).order("is_default ASC").select();
         for(let val of find){
@@ -154,7 +167,7 @@ module.exports = class extends Home {
     }
     //获取当前选择的地址
     async getaddrAction(){
-        await this.weblogin();
+
         let id = this.get("id");
         let addr = await this.model("address").where({user_id:this.user.uid}).find(id);
         addr.province = await this.model("area").where({id:addr.province}).getField("name",true);
@@ -164,7 +177,6 @@ module.exports = class extends Home {
     }
     //删除地址
     async deladdrAction(){
-        await this.weblogin();
         let id = this.para("id");
         let res = await this.model("address").where({user_id:this.user.uid,id:id}).delete();
         if(res){
@@ -188,7 +200,6 @@ module.exports = class extends Home {
     }
 //编辑地址
     async editaddrmodalAction(){
-        await this.weblogin();
         let id = this.get("id");
         if(!think.isEmpty(id)){
 

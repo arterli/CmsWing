@@ -203,7 +203,16 @@ module.exports = class extends Home {
   async getorderinfoAction(){
     //判断是否登陆
     //!this.is_login || this.fail('您木有登陆');
-    await this.weblogin();
+      if(!this.is_login){
+          //判断浏览客户端
+          if (this.isMobile) {
+              //手机端直接跳转到登录页面
+              return this.redirect('/center/public/login')
+          } else {
+              return this.redirect('/common/error/login')
+          }
+
+      }
     let post = this.para("ids");
     let addrid = this.get("addrid");
     if(think.isEmpty(post)){
@@ -402,7 +411,16 @@ module.exports = class extends Home {
 
 //创建订单
   async createorderAction(){
-    await this.weblogin();
+      if(!this.is_login){
+          //判断浏览客户端
+          if (this.isMobile) {
+              //手机端直接跳转到登录页面
+              return this.redirect('/center/public/login')
+          } else {
+              return this.redirect('/common/error/login')
+          }
+
+      }
     let data = this.post();
     // console.log(data);
     // return false;

@@ -19,9 +19,17 @@ module.exports = class extends Home {
   }
   //支付
   async  payAction(){
-    console.log(this.post());
     //判断是否登录
-    await this.weblogin();
+      if(!this.is_login){
+          //判断浏览客户端
+          if (this.isMobile) {
+              //手机端直接跳转到登录页面
+              return this.redirect('/center/public/login')
+          } else {
+              return this.redirect('/common/error/login')
+          }
+
+      }
     if(this.isAjax("post")){
       let payment;
       let pay;

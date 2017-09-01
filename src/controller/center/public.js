@@ -255,7 +255,7 @@ module.exports = class extends Center {
             return this.display()
 
         } else {
-            this.redirect("/index");
+           return this.redirect("/index");
         }
     }
 

@@ -19,7 +19,17 @@ module.exports = class extends Home {
         //     return think.statusAction(700, this.http);
         // }
         //判断是否登陆
-        await this.weblogin();
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
         // this.http.error = new Error('成功信息！');
         // return think.statusAction(701, this.http);
         // this.http.error = new Error('错误信息！');

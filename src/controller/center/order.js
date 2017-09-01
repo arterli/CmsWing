@@ -7,10 +7,24 @@
 // +----------------------------------------------------------------------
 const Home = require('../common/home');
 module.exports = class extends Home {
+    async __before() {
+        await super.__before();
+        //判断是否登陆
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
+    }
   //我的订单
   async indexAction() {
-    //判断是否登陆
-    await this.weblogin();
+
     let status = this.para("status") || null;
     //console.log(status);
     let map;
@@ -138,8 +152,6 @@ module.exports = class extends Home {
 
   //删除订单
   async delorderAction() {
-    //判断是否登陆
-    await this.weblogin();
 
     let res;
     let type = this.get("type") || null;
@@ -163,8 +175,7 @@ module.exports = class extends Home {
 
   //确认收货
   async confirmreceiptAction() {
-    //判断是否登陆
-    await this.weblogin();
+
     let map = {
       id: this.get("id"),
       user_id: this.user.uid,

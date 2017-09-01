@@ -89,10 +89,6 @@ module.exports = class extends think.Controller {
                 //手机端直接跳转到登录页面
                 return this.redirect('/center/public/login')
             } else {
-                //pc端跳转到错误页面
-                // const error = this.controller("common/error");
-                // return error.loginAction();
-                //return this.action('common/error','login');
                 return this.redirect('/common/error/login')
             }
 

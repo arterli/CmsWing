@@ -8,6 +8,21 @@
 const Home = require('../common/home');
 const Jimp = require('jimp')
 module.exports = class extends Home {
+    async __before() {
+        await super.__before();
+        //判断是否登陆
+        // await this.weblogin();
+        if(!this.is_login){
+            //判断浏览客户端
+            if (this.isMobile) {
+                //手机端直接跳转到登录页面
+                return this.redirect('/center/public/login')
+            } else {
+                return this.redirect('/common/error/login')
+            }
+
+        }
+    }
   /**
    * index action
    * @return {Promise} []
