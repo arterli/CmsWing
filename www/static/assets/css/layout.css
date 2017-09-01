@@ -8742,3 +8742,8 @@ i.ico-60 {
 .bg1x1 .list-group-item{
 	border: none;
 }
+.blog-post-item .list-inline{
+ margin-left:0;
+	height:auto;
+	font-size: 12px;
+}
