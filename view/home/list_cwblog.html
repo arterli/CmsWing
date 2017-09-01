@@ -23,7 +23,7 @@ CLASSES:
 .shadow-before-3 	= shadow 3 header top
 .shadow-after-3 	= shadow 3 header bottom
 -->
-<section class="page-header page-header-xs" >
+<section class="page-header page-header-xs " >
     <div class="container">
         {%if column|length>0%}
         <h1>{{category.title}}</h1>
@@ -56,12 +56,10 @@ CLASSES:
 </section>
 <!-- /PAGE HEADER -->
 <!-- -->
-
 <section >
     <div class="container">
         <!--分类信息-->
         {% include "./inc_sort.html" %}
-        <!--/分类信息-->
         <div class="row">
 
             <!-- LEFT -->
@@ -97,8 +95,8 @@ CLASSES:
                                 </ul>
                                 {% endif %}
                             </div>
-                            {%endif%}
                             <!--//投稿按钮-->
+                            {%endif%}
                             <div class="btn-group btn-group-sm pull-right">
                                 <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
                                 <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
@@ -109,53 +107,64 @@ CLASSES:
                         </div>
                     </div>
                 </div>
-                <div id="portfolio" class="row">
-                {% for val in list %}
+                <div class="timeline">
+                    <div class="timeline-hline"><!-- horizontal line --></div>
+                    {% for val in list %}
+                    {% set categoryname = val.category_id|get_cate %}
+                    <!-- POST ITEM -->
 
-                <div class="col-md-4 col-sm-4 "><!-- item -->
+                    <div class="blog-post-item padding-bottom-0 margin-bottom-20">
+                        <div class="timeline-entry" style="height: 77px"><!-- .rounded = entry -->
+                           <a href="#"><img src="/u/avatar/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a><span style="text-transform: none;overflow: hidden">{{val.uid|get_nickname}}</span>
+                            <div class="timeline-vline"><!-- vertical line --></div>
+                        </div>
+                        <!-- IMAGE -->
 
-                    <div class="item-box margin-bottom-20">
-                        <div class="panel panel-default" style="margin-bottom: 0">
-
+                        <div class="panel panel-default ">
                             <div class="panel-body padding-10">
-                                <figure>
-										<span class="item-hover">
-											<span class="overlay dark-5"></span>
-											<span class="inner">
-                                                <!-- details -->
-												<a class="ico-rounded" href="{{val.name|get_url(val.id)}}" target="_blank">
-													<span class="fa fa-play-circle fa-3x"></span>
-												</a>
-
-											</span>
-										</span>
-                                    <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=300,h=200')}}" width="600" height="399" alt="" style="height: 160px">
+                                {% if val.cover_id>0 %}
+                                <figure class="blog-item-small-image margin-bottom-0">
+                                    <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
                                 </figure>
-
-                                <div class="item-box-desc" style="padding-left: 0;padding-right: 0; padding-top: 10px; padding-bottom: 0;margin-bottom: 0">
-                                    <ul class="list-inline categories nomargin">
-                                        <li><a href="#"><i class="fa fa-eye"></i> {{val.view}}</a></li>
-                                        <li><a href="#"><i class="fa fa-user"></i> {{val.uid|get_nickname}}</a></li>
-                                        <li><a href="#"><i class="fa fa-calendar"></i> {{val.create_time|moment('YYYY-MM-DD HH:mm')}}</a></li>
-
-                                    </ul>
+                                {% endif %}
+                                <div class="blog-item-small-content">
+                                    <h2 class="nomargin"><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+                                    <div class="divider nomargin"><!-- divider --></div>
+                                    <p>{{val.description|truncate(90, true, "...")}}</p>
                                 </div>
                             </div>
-                            <div class="panel-footer padding-10 size-14 elipsis" >
-                                {{val.title}}
+                            <div class="panel-footer padding-3">
+                                <ul class="blog-post-info list-inline noborder nopadding nomargin">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-clock-o"></i>
+                                            <span class="font-lato">{{val.update_time|dateformat('Y-m-d H:i')}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-comment-o"></i>
+                                            <span class="font-lato">{{val.view}}</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-folder-open-o"></i>
+
+                                        <a class="category" href="{{categoryname.url}}">
+                                            <span class="font-lato">{{categoryname.name}}</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </div>
-
                         </div>
-
-
 
                     </div>
 
-                </div><!-- /item -->
+                    <!-- /POST ITEM -->
+                    {%endfor%}
 
-                {%endfor%}
                 </div>
-
                 {%if pagination%}
                 <div class="panel panel-default" >
                     <div class="panel-heading text-right">
@@ -172,6 +181,7 @@ CLASSES:
 
             <!-- RIGHT -->
             {% include "./inc_right.html"%}
+
         </div>
 
     </div>

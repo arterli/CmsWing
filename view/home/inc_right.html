@@ -10,24 +10,36 @@
                     </form>
                 </div>
                 <!-- /INLINE SEARCH -->
-                <!-- side navigation -->
-    {#
-                {%column data="cates",cid=category.id,isnum="0"%}
-                {%if cates==null%}
-                <div class="side-nav margin-bottom-20 margin-top-20">
-                    <div class="side-nav-head">
-                        <button class="fa fa-bars"></button>
-                        <h4>{{category.title}} 子分类</h4>
-                    </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                        {%for val in cates%}
-                        <li class="list-group-item"><a href="{{val.url}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
+
+         {% column data="clist",tree=breadcrumb[0].id %}
+                {%if clist%}
+    <div class="panel panel-info side-nav">
+        <div class="panel-heading">
+            <h2 class="panel-title">{{breadcrumb[0].title}}分类</h2>
+        </div>
+        <div class="panel-body" style="padding: 10px 0 0 10px">
+            <ul class="list-group list-group-bordered  uppercase">
+                <!--{{breadcrumb[1].id}}-->
+
+                {% for val in clist %}
+                <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
+                <li class="list-group-item {%if breadcrumb[1].id == val.id%}active {%endif%} ">
+                    <a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.url}}">{{val.name}}</a>
+                    {% if val.children %}
+                    <ul >
+                        {% for _val in val.children %}
+                        <li class="{%if breadcrumb[2].id == _val.id%}active {%endif%}"><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
                         {%endfor%}
+
                     </ul>
-                    <!-- /side navigation -->
-                </div>
+                    {%endif%}
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
                 {%endif%}
-#}
+
                 <div class="panel panel-default tabs">
                     <div class="panel-heading">
                         <!-- tabs -->

@@ -281,7 +281,6 @@ CLASSES:
                         <ul class="list-group list-group-bordered  uppercase nomargin">
                             <!--{{breadcrumb[1].id}}-->
                             {% column data="clist",tree=breadcrumb[0].id %}
-                            {% column data="clist",tree=breadcrumb[0].id %}
                             {% for val in clist %}
                             <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
                             <li class="list-group-item {%if breadcrumb[1].id == val.id%}active {%endif%} ">

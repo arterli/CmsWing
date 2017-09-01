@@ -30,7 +30,7 @@
     "think-view": "^1.0.10",
     "think-view-nunjucks": "^1.0.7",
     "think-wechat": "^1.1.0",
-    "thinkjs": "^3.0.0"
+    "thinkjs": "^3.1.0"
   },
   "devDependencies": {
     "think-watcher": "^3.0.3"

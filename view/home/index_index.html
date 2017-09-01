@@ -3,147 +3,149 @@
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 {% block content %}
-<section>
+<!-- SLIDER -->
+<section id="slider" class="" style="background:url('/static/assets/images/36-min.jpg');height: 500px;background-position: center center">
+	<span class="overlay dark-5"><!-- dark overlay [0 to 9 opacity] --></span>
+
+	<div class="display-table">
+		<div class="display-table-cell vertical-align-middle">
+
+			<div class="container text-center">
+
+				<h1 class="nomargin wow fadeInUp" data-wow-delay="0.4s">
+					WE ARE
+					<!--
+                        TEXT ROTATOR
+                        data-animation="fade|flip|flipCube|flipUp|spin"
+                    -->
+					<span class="rotate " data-animation="fade" data-speed="1500">
+									CMSWING, MULTIPURPOSE, POWERFUL
+								</span>
+				</h1>
+
+				<p class="lead size-20 wow fadeInUp" data-wow-delay="0.7s">
+					一款基于ThinkJS的功能强大的（PC端,手机端和微信公众平台）电子商务平台及CMS建站系统
+					<!--Over <span class="countTo" data-speed="4000">550</span> html files!-->
+					<!--<span class="theme-color weight-400 font-style-italic">Admin included</span> &amp; MLT-->
+				</p>
+
+				<a class="btn btn-default btn-lg" href="/documentation">Getting Started</a>
+			</div>
+
+		</div>
+	</div>
+
+</section>
+<!-- /SLIDER -->
+<!-- INFO BAR -->
+<section class="info-bar info-bar-clean ">
 	<div class="container">
-		{{11|show_ad("code")|safe}}
 		<div class="row">
 
-			<div class="col-md-9">
-				<!-- REVOLUTION SLIDER -->
-				<div class="slider fullwidthbanner-container roundedcorners margin-bottom-0">
-					<!--
-                        Navigation Styles:
-
-                            data-navigationStyle="" theme default navigation
-
-                            data-navigationStyle="preview1"
-                            data-navigationStyle="preview2"
-                            data-navigationStyle="preview3"
-                            data-navigationStyle="preview4"
-
-                        Bottom Shadows
-                            data-shadow="1"
-                            data-shadow="2"
-                            data-shadow="3"
-
-                        Slider Height (do not use on fullscreen mode)
-                            data-height="300"
-                            data-height="350"
-                            data-height="400"
-                            data-height="450"
-                            data-height="500"
-                            data-height="550"
-                            data-height="600"
-                            data-height="650"
-                            data-height="700"
-                            data-height="750"
-                            data-height="800"
-                    -->
-					<div class="fullwidthbanner" data-height="550" data-shadow="" data-navigationStyle="">
-						<ul class="hide">
-							{% topic data = "slider",limit= "10",position='2',issub="1"%}
-							{%for val in slider%}
-							{%if val.model_id==4%} {% set pic = val.pics|strToArray%}{%else%}{%set pic = val.cover_id%}{%endif%}
-							<!-- SLIDE  -->
-							<li data-transition="fade" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
-								<img src="/static/assets/images/1x1.png" data-lazyload="{{pic|get_pic('m=2,w=848,h=400')}}" alt="" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat" />
-
-								<div class="tp-caption lft start"
-									 data-x="0"
-									 data-y="0"
-									 data-speed="750"
-									 data-start="750"
-									 data-easing="easeOutExpo"
-									 data-elementdelay="0.1"
-									 data-endelementdelay="0.1"
-									 data-endspeed="300">
-									<img src="/static/assets/images/1x1.png" alt="" data-lazyload="/static/assets/images/caption_bg.png">
-								</div>
-
-								<a class="tp-caption medium_light_white lfb start" href="{{val.name|get_url(val.id)}}" target="_blank"
-								   data-x="left" data-hoffset="70"
-								   data-y="96"
-								   data-speed="300"
-								   data-start="1200"
-								   data-easing="easeOutExpo"
-								   data-splitin="none"
-								   data-splitout="none"
-								   data-elementdelay="0.1"
-								   data-endelementdelay="0.1"
-								   data-endspeed="300">
-									{{val.title|truncate(20, true, "")|insert_flg("<br>",10)|safe}}
-								</a>
-
-								<div class="tp-caption block_black lfl start"
-									 data-x="left" data-hoffset="70"
-									 data-y="195"
-									 data-speed="300"
-									 data-start="1500"
-									 data-easing="easeOutExpo"
-									 data-splitin="none"
-									 data-splitout="none"
-									 data-elementdelay="0.1"
-									 data-endelementdelay="0.1"
-									 data-endspeed="300" >
-									{{val.create_time|moment('YYYY-MM-DD HH:mm')}}
-								</div>
-
-								<div class="tp-caption small_light_white lfl start"
-									 data-x="left" data-hoffset="70"
-									 data-y="250"
-									 data-speed="1000"
-									 data-start="1800"
-									 data-easing="easeOutExpo"
-									 data-splitin="none"
-									 data-splitout="none"
-									 data-elementdelay="0.1"
-									 data-endelementdelay="0.1"
-									 data-endspeed="300" >
-									{{val.description|truncate(90, true, "...")|insert_flg("<br>",20)|safe}}
-								</div>
-							</li>
-							{%endfor%}
-
-
-						</ul>
-
-						<div class="tp-bannertimer"><!-- progress bar --></div>
-					</div>
-				</div>
-				<!-- /REVOLUTION SLIDER -->
+			<div class="col-sm-3 padding-top-0 padding-bottom-0">
+				<i><img src="http://git.oschina.net/logo.gif" style="width:32px; margin-top: -2px"></i>
+				<h3>码云主页</h3>
+				<p>去 <a href="http://git.oschina.net/arterli/CmsWing" target="_blank">码云</a> 查看最新的开发进度</p>
 			</div>
-			<div class="col-md-3">
-				<div class="panel panel-default margin-bottom-0">
-					<div class="panel-heading">
-						<a class="btn btn-primary btn-xs pull-right"><i class="fa fa-fire"></i></a>
-						<h2 class="panel-title">热点</h2>
-					</div>
-					<div class="panel-body con " style="height: 354px">
-						<ol class="current">
-							{%model data="hotnews",table="document",order="view DESC,create_time DESC",limit="10",cache="1000"%}
-							{% for val in hotnews %}
+
+			<div class="col-sm-3 padding-top-0 padding-bottom-0">
+				<i class="glyphicon glyphicon-download-alt"></i>
+				<h3>下载CmsWing</h3>
+				{% topic data = "lastd",limit= "1",cid="111",position="1",isstu="1",issub="2",group="1"%}
+				{%set vv = lastd[0].title|strToArray("@")%}
+				<p><a href="/download">下载最新版本</a> {{vv[1]}} 下载次数:{{lastd[0].download}}</p>
+			</div>
+
+			<div class="col-sm-3 padding-top-0 padding-bottom-0">
+				<i><img src="/static/logo_32x32.png" style="width:32px; margin-top: -2px"></i>
+				<h3>交流学习</h3>
+				<p><a href="/question">社区</a> QQ群:49757468</p>
+			</div>
+			<div class="col-sm-3 padding-top-0 padding-bottom-0">
+				<i><img src="/static/thinkjslogo_32.png" style="width:32px; margin-top: -2px"></i>
+				<h3>ThinkJS</h3>
+				<p><a href="https://thinkjs.org" target="_blank">官方网站</a> QQ群:339337680</p>
+			</div>
+
+		</div>
+
+	</div>
+</section>
+<!-- /INFO BAR -->
+<!-- RECENT NEWS -->
+<section class="alternate">
+	<div class="container">
+		<!--
+    controlls-over		= navigation buttons over the image
+    buttons-autohide 	= navigation buttons visible on mouse hover only
+
+    data-plugin-options:
+    "singleItem": true
+    "autoPlay": true (or ms. eg: 4000)
+    "navigation": true
+    "pagination": true
+    "items": "4"
+
+    owl-carousel item paddings
+    .owl-padding-0
+    .owl-padding-3
+    .owl-padding-6
+    .owl-padding-10
+    .owl-padding-15
+    .owl-padding-20
+    -->
+		<div class="panel panel-info nomargin">
+			<div class="panel-heading">
+				<a class="btn btn-primary btn-xs pull-right" href="/tutorial">更多>></a>
+				<h2 class="panel-title" >示例/教程</h2>
+			</div>
+			<div class="panel-body padding-10">
+				<div class="owl-carousel owl-padding-10 buttons-autohide controlls-over nomargin" data-plugin-options='{"singleItem": false, "items":"4", "autoPlay": 4000, "navigation": true, "pagination": false}'>
+					{% topic data = "indexnew",cid="46",limit="12",ispic="1",cache="1000"%}
+					{%for v in indexnew%}
+					<div class="img-hover">
+						<a href="{{v.name|get_url(v.id)}}" target="_blank">
+							<img class="img-responsive" src="{{v.cover_id|get_pic('m=1,w=256,h=126')}}" alt="">
+						</a>
+						<h5 class="text-left margin-top-10 margin-bottom-2"><a href="{{v.name|get_url(v.id)}}" target="_blank">{{v.title|truncate(20, true, "...")}}</a></h5>
+						<p class="text-left" style="height: 42px;overflow:hidden;">{{v.description}}</p>
+						<ul class="text-left size-12 list-inline list-separator">
 							<li>
-								<span {%if loop.index < 4 %}class="topRank"{%endif%}>{{loop.index}}</span><a target="_blank" href="{{val.name|get_url(val.id)}} " >{{val.title}}</a>
+								<i class="fa fa-calendar"></i>{{v.update_time|moment}}
 							</li>
-							{%endfor%}
-							</ol>
+							<li>
+								<a href="{{v.name|get_url(v.id)}}#comments">
+									<i class="fa fa-comments"></i>
+									{{v.view}}
+								</a>
+							</li>
+						</ul>
 					</div>
+					{%endfor%}
+
 				</div>
 
 			</div>
-			{%if 14|show_ad('code') %}
-			<!-- INFO BAR -->
-			<div class="margin-top-20 col-md-12 ">
-				{{14|show_ad('code')|safe}}
-			</div>
-			<!-- /INFO BAR -->
-			{%endif%}
-			<!-- RIGHT -->
-			<div class="col-sm-9 margin-top-20">
+		</div>
 
+
+
+	</div>
+</section>
+<!-- /RECENT NEWS -->
+
+<section>
+	<div class="container">
+
+		<div class="row">
+
+			<!-- RIGHT -->
+			<div class="col-sm-9">
 				<ul class="nav nav-tabs nav-justified" style="position: inherit;background-color: #f1f2f7">
-					<li class="active"><a href="#new" data-toggle="tab" class="size-18">最新</a></li>
-					<li><a href="#wenda" data-toggle="tab" class="size-18">问答</a></li>
+					<li class="active"><a href="#new" data-toggle="tab">最新</a></li>
+					<li ><a href="#blog" data-toggle="tab">博客</a></li>
+					<li><a href="#wenda" data-toggle="tab">问答</a></li>
+					<li ><a href="#hot" data-toggle="tab">最热</a></li>
 					{#
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
@@ -154,12 +156,11 @@
 					</li>
 					#}
 				</ul>
-				<div class="panel panel-default" style="margin-top: -5px">
+				<div class="panel panel-default nomargin-bottom" style="margin-top: -5px">
 					<div class="panel-body padding-10">
-
 				<div class="tab-content">
 					<div class="tab-pane fade in active" id="new">
-						{% topic data = "newlist",limit="10"%}
+						{% topic data = "newlist",limit="10",cache="1000"%}
 						{% for val in newlist %}
 						{% set categoryname = val.category_id|get_cate %}
 						{%if val.model_id==4%}
@@ -261,7 +262,7 @@
 								</ul>
 
 								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
-									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|moment('YYYY-MM-DD') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
 								</div>
 
 							</div>
@@ -317,10 +318,328 @@
 						{%endif%}
 						{%endfor%}
 					</div>
+					<div class="tab-pane fade" id="hot">
+						{% topic data = "hotlist",limit="10",type="hot",cache="1000"%}
+						{% for val in hotlist %}
+						{% set categoryname = val.category_id|get_cate %}
+						{%if val.model_id==4%}
+						{% set pic = val.pics|strToArray%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if pic[0]>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p><div class="shop-item-price" style="font-size: 20px;margin-top: 6px;font-weight: bold; float: left">
+								{% if val.price|get_price_format('2') %}<span class="line-through" style="color: #999;font-size: 15px;display: inline-block;padding: 0 10px;font-weight: 400;">¥{{val.price|get_price_format('2')}}</span>{%endif%}
+								¥{{val.price|get_price_format('1')}}
+							</div><div class="shop-item-buttons" style="float: left;margin-left: 15px">
+								<a class="btn btn-default" href="{{val.name|get_url(val.id)}}" target="_blank"><i class="fa fa-cart-plus"></i> 立即购买</a>
+								<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+								<a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+								<a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+							</div></p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%elif val.model_id === 10 %}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+							<div class="ribbon">
+								<div class="ribbon-inner">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</div>
+							</div>
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+								</div>
+
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%else%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p>{{val.description|truncate(90, true, "...")}}</p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%endif%}
+						{%endfor%}
+					</div>
+					<div class="tab-pane fade" id="blog">
+						{% topic data = "bloglist",limit="10",cid='117',cache="1000"%}
+						{% for val in bloglist %}
+						{% set categoryname = val.category_id|get_cate %}
+						{%if val.model_id==4%}
+						{% set pic = val.pics|strToArray%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if pic[0]>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{pic[0]|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p><div class="shop-item-price" style="font-size: 20px;margin-top: 6px;font-weight: bold; float: left">
+								{% if val.price|get_price_format('2') %}<span class="line-through" style="color: #999;font-size: 15px;display: inline-block;padding: 0 10px;font-weight: 400;">¥{{val.price|get_price_format('2')}}</span>{%endif%}
+								¥{{val.price|get_price_format('1')}}
+							</div><div class="shop-item-buttons" style="float: left;margin-left: 15px">
+								<a class="btn btn-default" href="{{val.name|get_url(val.id)}}" target="_blank"><i class="fa fa-cart-plus"></i> 立即购买</a>
+								<!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+								<a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+								<a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+							</div></p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%elif val.model_id === 10 %}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+							<div class="ribbon">
+								<div class="ribbon-inner">{% if null|getnow < val.create_time %}未开幕{%elif (null|getnow > val.create_time) and (null|getnow < val.deadline)%}展览中{%elif null|getnow > val.deadline%}已结束{%endif%}</div>
+							</div>
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<div class="alert alert-mini alert-success "><!-- SUCCESS -->
+									<strong></strong> <span style="width: 60px"><i class="fa fa-calendar-check-o"></i> 开始:</span> {{ val.create_time|dateformat('Y-m-d') }} <span style="width: 60px"><i class="fa fa-calendar-times-o"></i> 结束:</span> {{val.deadline|dateformat('Y-m-d')}} <span style="width: 60px"><i class="fa fa-map-marker"></i> 地点:</span> {{val.id|getmodelfield(val.model_id,'addr')}}
+								</div>
+
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%else%}
+						<!-- POST ITEM -->
+						<div class="blog-post-item padding-bottom-20 margin-bottom-20 clearfix">
+
+							<!-- IMAGE -->
+							{% if val.cover_id>0 %}
+							<figure class="blog-item-small-image margin-bottom-0">
+								<img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+							</figure>
+							{% endif %}
+							<div class="blog-item-small-content">
+								<h2><a href="{{val.name|get_url(val.id)}}" target="_blank" title="{{val.title}}">{{val.title}}</a></h2>
+
+								<ul class="blog-post-info list-inline padding-bottom-10">
+									<li>
+										<a href="#">
+											<i class="fa fa-clock-o"></i>
+											<span class="font-lato">{{val.create_time|moment('YYYY-MM-DD HH:mm')}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-comment-o"></i>
+											<span class="font-lato">{{val.view}}</span>
+										</a>
+									</li>
+									<li>
+										<i class="fa fa-folder-open-o"></i>
+
+										<a class="category" href="{{categoryname.url}}">
+											<span class="font-lato">{{categoryname.name}}</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<i class="fa fa-user"></i>
+											<span class="font-lato">{{val.uid|get_nickname}}</span>
+										</a>
+									</li>
+								</ul>
+
+								<p>{{val.description|truncate(90, true, "...")}}</p>
+							</div>
+
+						</div>
+						<!-- /POST ITEM -->
+						{%endif%}
+						{%endfor%}
+					</div>
 					<div class="tab-pane fade" id="wenda">
-						<div class="timeline" style="margin-top: -25px">
+						<div class="timeline">
 							<div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
-							{%model data="list",table="question",order="create_time DESC",limit="10",cache="1000"%}
+							{%model data="list",table="question",order="update_time DESC",limit="10",cache="1000"%}
 							{% for val in list %}
 							{% set categoryname = val.category_id|get_cate %}
 							{% set imgs= val.detail|img_text_view(200,120)%}
@@ -337,7 +656,7 @@
 								</figure>
 								{% endif %}
 								<div class="blog-item-small-content">
-									<h2><a href="/q/{{val.id}}.html" title="{{val.title}}">{{val.title}}</a></h2>
+									<h2><a href="/mod/q/{{val.id}}" title="{{val.title}}">{{val.title}}</a></h2>
 									<ul class="blog-post-info list-inline padding-bottom-10">
 										<li>
 
@@ -370,7 +689,7 @@
 											<span class="font-lato">{{val.view}} 次浏览</span>
 										</li>
 										<li>
-											<span class="font-lato"> {{val.create_time|moment}}</span>
+											<span class="font-lato"> {{val.update_time|moment}}</span>
 										</li>
 
 									</ul>
@@ -402,14 +721,12 @@
 						</a>
 						<!-- /PAGINATION -->
 					</div>
-
-
 				</div>
 					</div>
 				</div>
 			</div>
 			<!-- LEFT -->
-			<div class="col-md-3 col-sm-3 margin-top-20">
+			<div class="col-md-3 col-sm-3">
 
 				{% if controller.is_login %}
 				<div class="alert alert-info margin-bottom-20 box-shadow-4"><!-- INFO -->
@@ -424,6 +741,7 @@
 					</a>
 				</div>
 				{%endif%}
+
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<a class="btn btn-primary btn-xs pull-right" href="/topic" >更多</a>
@@ -469,8 +787,54 @@
 					</div>
 				</div>
 				{%endif%}
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<a class="btn btn-warning btn-xs pull-right">更多</a>
+						<h2 class="panel-title">捐赠墙</h2>
+					</div>
+					<div class="panel-body padding-0">
+						<div class="margin-top-20 padding-bottom-10" >
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 5px;padding-right: 5px">
+													<i class="fa fa-rmb"></i>5.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">仁伟</b>: 支付宝-转账</span>
+							</div>
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>1500.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">伴猪看斜阳</b>: 支付宝-转账</span>
+							</div>
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>500.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">张轶军</b>: 微信-转账</span>
+							</div>
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>50.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">koala</b>:QQ红包-转账</span>
+							</div>
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>50.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
+							</div>
+							<div class="clearfix margin-bottom-10"><!-- notification item -->
+								<span class="label label-success label-square pull-left" style="width: auto;padding-left: 10px;padding-right: 10px">
+													<i class="fa fa-rmb"></i>666.00
+												</span>
+								<span class="size-14 text-muted"><b class="weight-500 text-warning">dancingalone</b>:oschina-捐助</span>
+							</div>
+						</div>
+					</div>
+				</div>
 
-				{{13|show_ad('code')|safe}}
+
 			</div>
 
 
@@ -478,14 +842,16 @@
 
 
 	</div>
-	<div class="container">
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a> <a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>
-				<h2 class="panel-title">友情链接</h2>
-			</div>
-			<div class="panel-body link padding-10">
-				<!--
+</section>
+<section>
+<div class="container">
+	<div class="panel panel-info nomargin">
+		<div class="panel-heading">
+			<a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a> <a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>
+			<h2 class="panel-title">友情链接</h2>
+		</div>
+		<div class="panel-body link padding-10">
+			<!--
 controlls-over		= navigation buttons over the image
 buttons-autohide 	= navigation buttons visible on mouse hover only
 
@@ -495,25 +861,25 @@ data-plugin-options:
 "navigation": true
 "pagination": true
 -->
-				<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
-					{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC",cache="1000"%}
-					{%for l in link%}
-					{%if l.linktype==0%}
-					<div class="linkbox alternate">
-						<a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
-					</div>
-					{%else%}
-					<div class="linkbox alternate">
-						<a href="{{l.url}}" target="_blank" title="{{l.name}}">
-							<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
-						</a>
-					</div>
-					{%endif%}
-					{%endfor%}
+			<div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
+				{% model data ="link",table="ext_link",where='{"passed":1}',limit="24",order="sort ASC",cache="1000"%}
+				{%for l in link%}
+				{%if l.linktype==0%}
+				<div class="linkbox alternate">
+					<a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
 				</div>
+				{%else%}
+				<div class="linkbox alternate">
+					<a href="{{l.url}}" target="_blank" title="{{l.name}}">
+						<img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
+					</a>
+				</div>
+				{%endif%}
+				{%endfor%}
 			</div>
 		</div>
 	</div>
+</div>
 </section>
 {% endblock %}
 {%block script%}
