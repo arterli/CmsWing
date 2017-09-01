@@ -202,11 +202,7 @@ module.exports = class extends think.Model {
             data.id=id;
             let ids = await this.model(model).add(data);
             data.id=null;
-            if (!ids) {
-               await this.delete(id);
-                this.error = '新增数据失败！';
-                return false;
-            }
+
         } else { //更新数据
             let status = await this.model(model).update(data);
             if(!status){
