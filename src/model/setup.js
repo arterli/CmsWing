@@ -7,7 +7,6 @@ module.exports = class extends think.Model {
         let value = await think.cache("setup", () => {
             return this.lists();
         }, {timeout: 365 * 24 * 3600});
-
         return value;
     }
 
