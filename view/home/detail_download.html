@@ -1,6 +1,7 @@
 {% extends "./inc_base.html" %}
 {% block style %}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}
 {% block content %}
 <!--
@@ -145,7 +146,7 @@ CLASSES:
                         </div>
                         <!-- /article content -->
                     </div>
-                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id,cache="1000"%}
                     {%if tags%}
                     <div class="panel-footer panel-footer-transparent">
                         <!-- TAGS -->
@@ -159,6 +160,9 @@ CLASSES:
                         <!-- /TAGS -->
                     </div>
                     {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
                     <div class="panel-footer">
                         <ul class="pager nomargin">
                             {%if previous.id%}
@@ -200,6 +204,7 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.setup.CY_APPID}}"></script>
 <script>

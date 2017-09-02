@@ -6,6 +6,7 @@
 {%column data="column",cid=category.id%}
 {%endif%}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 <style>
     .active > .text{
         display: block !important;
@@ -186,6 +187,9 @@ CLASSES:
                         <!-- /TAGS -->
                     </div>
                     {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                    <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
                     <div class="panel-footer">
                         <ul class="pager nomargin">
                             {%if previous.id%}
@@ -228,6 +232,7 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.setup.CY_APPID}}"></script>
 <script>

@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
 <link rel="stylesheet"
       href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 <style>
     .active > .text{
         display: block !important;
@@ -66,7 +67,7 @@ CLASSES:
                 <!-- /INLINE SEARCH -->
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h2 class="panel-title">目录</h2>
+                        <h2 class="panel-title"><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></h2>
                     </div>
                     <div class="panel-body nopadding">
                         <ul class="list-group list-group-bordered list-group-noicon uppercase">
@@ -89,7 +90,7 @@ CLASSES:
             <!-- RIGHT -->
             <div class="col-md-9 col-sm-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading panel-heading-transparent">
+                    <div class="panel-heading ">
                         <h2 class="panel-title">{{info.title}}</h2>
                     </div>
 
@@ -135,6 +136,9 @@ CLASSES:
                         <!-- /TAGS -->
                     </div>
                     {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
                     <div class="panel-footer">
                         <ul class="pager nomargin">
                             {%if previous.id%}
@@ -177,8 +181,10 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid={{config.setup.CY_APPID}}"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.setup.CY_APPID}}"></script>
 <script>
     $(function () {
         $("#category").treetable({ expandable: true });

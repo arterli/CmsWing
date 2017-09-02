@@ -2,6 +2,7 @@
 {% block style %}
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
@@ -120,6 +121,9 @@ CLASSES:
                             </div>
                         </div>
                     </div>
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
                     <div class="panel-footer">
                         <div class="meta">
                             <span class="text-color-999 margin-right-15">{{info.create_time|moment}}</span>
@@ -132,20 +136,8 @@ CLASSES:
                             {%endif%}
                             <!--<a class="tex-888 margin-right-15"><i class="fa fa-link"></i> 相关链接</a>-->
                             <div class="pull-right">
-                        <span class="dropdown margin-right-15">
-                            <a  data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-share-alt"></i> 分享
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                <li><a ><i class="icon icon-weibo"></i> 微博</a></li>
-                                <li><a ><i class="icon icon-qzone"></i> QZONE</a></li>
-                                <li><a ><i class="icon icon-wechat"></i> 微信</a></li>
-                            </ul>
-                        </span>
-
-
-                                <a href="javascript:;" class="text-color-999"><i class="fa fa-get-pocket"></i> 举报</a>								</div>
+                                <a href="javascript:;" class="text-color-999"><i class="fa fa-get-pocket"></i> 举报</a>
+                            </div>
 
                         </div>
                     </div>
@@ -318,32 +310,7 @@ CLASSES:
                             </ul>
                         </div>
                     </div>
-                    <div class="panel-footer clearfix">
-                        <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                            <i class="icon-facebook"></i>
-                            <i class="icon-facebook"></i>
-                        </a>
 
-                        <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                            <i class="icon-twitter"></i>
-                            <i class="icon-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                            <i class="icon-gplus"></i>
-                            <i class="icon-gplus"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                            <i class="icon-linkedin"></i>
-                            <i class="icon-linkedin"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                            <i class="icon-rss"></i>
-                            <i class="icon-rss"></i>
-                        </a>
-                    </div>
                 </div>
 
             </div>
@@ -355,6 +322,7 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script src="/static/assets/plugins/insertContent.js"></script>
 <script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>

@@ -2,6 +2,7 @@
 {% block style %}
 <link rel="stylesheet" href="/static/assets/plugins/jquery-zsylbt/css/pgwslideshow.min.css">
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}
 {% block content %}
 <!--
@@ -128,7 +129,10 @@ CLASSES:
                         <!-- /TAGS -->
                     </div>
                     {%endif%}
-                    <div class="panel-body">
+                    <div class="panel-body ">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    <div class=" panel-footer panel-footer-transparent">
 
                         <!-- COMMENTS -->
                         <div id="comments" >
@@ -252,32 +256,7 @@ CLASSES:
                         </a>
                         {%endfor%}
                     </div>
-                    <div class="panel-footer panel-footer-transparent clearfix">
-                        <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                            <i class="icon-facebook"></i>
-                            <i class="icon-facebook"></i>
-                        </a>
 
-                        <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                            <i class="icon-twitter"></i>
-                            <i class="icon-twitter"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                            <i class="icon-gplus"></i>
-                            <i class="icon-gplus"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                            <i class="icon-linkedin"></i>
-                            <i class="icon-linkedin"></i>
-                        </a>
-
-                        <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                            <i class="icon-rss"></i>
-                            <i class="icon-rss"></i>
-                        </a>
-                    </div>
                 </div>
 
             </div>
@@ -291,6 +270,7 @@ CLASSES:
 {% endblock %}
 
 {% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script type="text/javascript" src="/static/assets/plugins/jquery-zsylbt/js/pgwslideshow.min.js"> </script>
 <script>
     $(document).ready(function() {
