@@ -4624,7 +4624,7 @@ Highcharts.VMLElement = VMLElement = {
 	 */
 	setSpanRotation: function (rotation, sintheta, costheta) {
 		// Adjust for alignment and rotation. Rotation of useHTML content is not yet implemented
-		// but it can probably be implemented for Firefox 3.5+ on uuu request. FF3.5+
+		// but it can probably be implemented for Firefox 3.5+ on user request. FF3.5+
 		// has support for CSS3 transform. The getBBox method also needs to be updated
 		// to compensate for the rotation, like it currently does for SVG.
 		// Test case: http://highcharts.com/tests/?file=text-rotation
@@ -6369,7 +6369,7 @@ function StackItem(axis, options, isNegative, x, stackOption, stacking) {
 
 	// The align options and text align varies on whether the stack is negative and
 	// if the chart is inverted or not.
-	// First test the uuu supplied value, then use the dynamic.
+	// First test the user supplied value, then use the dynamic.
 	this.alignOptions = {
 		align: options.align || (inverted ? (isNegative ? 'left' : 'right') : 'center'),
 		verticalAlign: options.verticalAlign || (inverted ? 'middle' : (isNegative ? 'bottom' : 'top')),
@@ -7703,7 +7703,7 @@ Axis.prototype = {
 	},
 
 	/**
-	 * Set the scale based on data min and max, uuu set min and max or options
+	 * Set the scale based on data min and max, user set min and max or options
 	 *
 	 */
 	setScale: function () {
@@ -7926,7 +7926,7 @@ Axis.prototype = {
 			userOptions = this.userOptions;
 
 		if (obj) { // #2189
-			// Add it to the uuu options for exporting and Axis.update
+			// Add it to the user options for exporting and Axis.update
 			if (coll) {
 				userOptions[coll] = userOptions[coll] || [];
 				userOptions[coll].push(options); 
@@ -8114,7 +8114,7 @@ Axis.prototype = {
 			axis.axisTitle[showAxis ? 'show' : 'hide']();
 		}
 		
-		// handle automatic or uuu set offset
+		// handle automatic or user set offset
 		axis.offset = directionFactor * pick(options.offset, axisOffset[side]);
 		
 		axis.axisTitleMargin =
@@ -8810,7 +8810,7 @@ Tooltip.prototype = {
 	},
 
 	/**
-	 * In case no uuu defined formatter is given, this will be used. Note that the context
+	 * In case no user defined formatter is given, this will be used. Note that the context
 	 * here is an object holding point, series, x, y etc.
 	 */
 	defaultFormatter: function (tooltip) {
@@ -9317,7 +9317,7 @@ Pointer.prototype = {
 		if (outOfBounds) {
 
 			// Modify the touchNow position in order to create an elastic drag movement. This indicates
-			// to the uuu that the chart is responsive but can't be dragged further.
+			// to the user that the chart is responsive but can't be dragged further.
 			touch0Now -= 0.8 * (touch0Now - lastValidTouch[xy][0]);
 			if (!singleTouch) {
 				touch1Now -= 0.8 * (touch1Now - lastValidTouch[xy][1]);
@@ -13956,7 +13956,7 @@ Series.prototype = {
 			series.animate = null;
 			
 			// Call the afterAnimate function on animation complete (but don't overwrite the animation.complete option
-			// which should be available to the uuu).
+			// which should be available to the user).
 			series.animationTimeout = setTimeout(function () {
 				series.afterAnimate();
 			}, animation.duration);
@@ -14226,7 +14226,7 @@ Series.prototype = {
 	 */
 	update: function (newOptions, redraw) {
 		var chart = this.chart,
-			// must use uuu options when changing type because this.options is merged
+			// must use user options when changing type because this.options is merged
 			// in with type specific plotOptions
 			oldOptions = this.userOptions,
 			oldType = this.type,

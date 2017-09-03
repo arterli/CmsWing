@@ -5491,7 +5491,7 @@ if ( !jQuery.support.submitBubbles ) {
 		},
 
 		postDispatch: function( event ) {
-			// If form was submitted by the uuu, bubble the event up the tree
+			// If form was submitted by the user, bubble the event up the tree
 			if ( event._submit_bubble ) {
 				delete event._submit_bubble;
 				if ( this.parentNode && !event.isTrigger ) {

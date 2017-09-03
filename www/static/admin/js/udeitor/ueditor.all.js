@@ -1,7 +1,7 @@
 /*!
  * UEditor
  * version: ueditor
- * build: Tue Aug 25 2015 15:23:01 GMT+0800 (CST)
+ * build: Wed Aug 10 2016 11:06:02 GMT+0800 (CST)
  */
 
 (function(){
@@ -766,6 +766,24 @@ var utils = UE.utils = {
 
         }) : '';
     },
+    /**
+     * 将url中的html字符转义， 仅转义  ', ", <, > 四个字符
+     * @param  { String } str 需要转义的字符串
+     * @param  { RegExp } reg 自定义的正则
+     * @return { String }     转义后的字符串
+     */
+    unhtmlForUrl:function (str, reg) {
+        return str ? str.replace(reg || /[<">']/g, function (a) {
+            return {
+                '<':'&lt;',
+                '&':'&amp;',
+                '"':'&quot;',
+                '>':'&gt;',
+                "'":'&#39;'
+            }[a]
+
+        }) : '';
+    },
 
     /**
      * 将str中的转义字符还原成html字符
@@ -1482,6 +1500,7 @@ utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Date']
         return Object.prototype.toString.apply(obj) == '[object ' + v + ']';
     }
 });
+
 
 // core/EventBase.js
 /**
@@ -9948,7 +9967,7 @@ var LocalStorage = UE.LocalStorage = (function () {
 UE.plugins['defaultfilter'] = function () {
     var me = this;
     me.setOpt({
-        'allowDivTransToP':false,
+        'allowDivTransToP':true,
         'disabledTableInTable':true
     });
     //默认的过滤处理
@@ -11102,6 +11121,29 @@ UE.commands['insertimage'] = {
             return;
         }
 
+        function unhtmlData(imgCi) {
+
+            utils.each('width,height,border,hspace,vspace'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = parseInt(imgCi[item], 10) || 0;
+                }
+            });
+
+            utils.each('src,_src'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = utils.unhtmlForUrl(imgCi[item]);
+                }
+            });
+            utils.each('title,alt'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = utils.unhtml(imgCi[item]);
+                }
+            });
+        }
+
         if (img && /img/i.test(img.tagName) && (img.className != "edui-faked-video" || img.className.indexOf("edui-upload-video")!=-1) && !img.getAttribute("word_img")) {
             var first = opt.shift();
             var floatStyle = first['floatStyle'];
@@ -11120,6 +11162,8 @@ UE.commands['insertimage'] = {
             var html = [], str = '', ci;
             ci = opt[0];
             if (opt.length == 1) {
+                unhtmlData(ci);
+
                 str = '<img src="' + ci.src + '" ' + (ci._src ? ' _src="' + ci._src + '" ' : '') +
                     (ci.width ? 'width="' + ci.width + '" ' : '') +
                     (ci.height ? ' height="' + ci.height + '" ' : '') +
@@ -11136,6 +11180,7 @@ UE.commands['insertimage'] = {
 
             } else {
                 for (var i = 0; ci = opt[i++];) {
+                    unhtmlData(ci);
                     str = '<p ' + (ci['floatStyle'] == 'center' ? 'style="text-align: center" ' : '') + '><img src="' + ci.src + '" ' +
                         (ci.width ? 'width="' + ci.width + '" ' : '') + (ci._src ? ' _src="' + ci._src + '" ' : '') +
                         (ci.height ? ' height="' + ci.height + '" ' : '') +
@@ -11152,6 +11197,7 @@ UE.commands['insertimage'] = {
         me.fireEvent('afterinsertimage', opt)
     }
 };
+
 
 // plugins/justify.js
 /**
@@ -13856,7 +13902,7 @@ UE.plugins['pagebreak'] = function () {
     me.addInputRule(function(root){
         root.traversal(function(node){
             if(node.type == 'text' && node.data == me.options.pageBreakTag){
-                var hr = UE.uNode.createElement('<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-uuu-select: none;">');
+                var hr = UE.uNode.createElement('<hr class="pagebreak" noshade="noshade" size="5" style="-webkit-user-select: none;">');
                 node.parentNode.insertBefore(hr,node);
                 node.parentNode.removeChild(node)
             }
@@ -15231,7 +15277,7 @@ UE.plugins['list'] = function () {
 
     //调整索引标签
     me.addListener('contentchange',function(){
-        //adjustListStyle(me.document)
+        adjustListStyle(me.document)
     });
 
     function adjustListStyle(doc,ignore){
@@ -15266,7 +15312,7 @@ UE.plugins['list'] = function () {
             style && (node.style.cssText = 'list-style-type:' + style);
             node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/,'')) + ' list-paddingleft-' + type;
             utils.each(domUtils.getElementsByTagName(node,'li'),function(li){
-                //li.style.cssText && (li.style.cssText = '');
+                li.style.cssText && (li.style.cssText = '');
                 if(!li.firstChild){
                     domUtils.remove(li);
                     return;
@@ -17596,6 +17642,14 @@ UE.plugins['video'] = function (){
      * @param addParagraph  是否需要添加P 标签
      */
     function creatInsertStr(url,width,height,id,align,classname,type){
+
+        url = utils.unhtmlForUrl(url);
+        align = utils.unhtml(align);
+        classname = utils.unhtml(classname);
+
+        width = parseInt(width, 10) || 0;
+        height = parseInt(height, 10) || 0;
+
         var str;
         switch (type){
             case 'image':
@@ -17730,6 +17784,7 @@ UE.plugins['video'] = function (){
         }
     };
 };
+
 
 // plugins/table.core.js
 /**
@@ -23378,7 +23433,7 @@ UE.commands['insertparagraph'] = {
 
 
 
-// plugins/mobile.js
+// plugins/webapp.js
 /**
  * 百度应用
  * @file
@@ -23388,7 +23443,7 @@ UE.commands['insertparagraph'] = {
 
 /**
  * 插入百度应用
- * @command mobile
+ * @command webapp
  * @method execCommand
  * @remind 需要百度APPKey
  * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
@@ -23398,7 +23453,7 @@ UE.commands['insertparagraph'] = {
  * ```javascript
  * //editor是编辑器实例
  * //在编辑器里插入一个“植物大战僵尸”的APP
- * editor.execCommand( 'mobile' , {
+ * editor.execCommand( 'webapp' , {
  *     title: '植物大战僵尸',
  *     width: 560,
  *     height: 465,
@@ -23408,22 +23463,22 @@ UE.commands['insertparagraph'] = {
  * ```
  */
 
-//UE.plugins['mobile'] = function () {
+//UE.plugins['webapp'] = function () {
 //    var me = this;
 //    function createInsertStr( obj, toIframe, addParagraph ) {
 //        return !toIframe ?
 //                (addParagraph ? '<p>' : '') + '<img title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"' +
-//                        ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" style="background:url(' + obj.logo+') no-repeat center center; border:1px solid gray;" class="edui-faked-mobile" _url="' + obj.url + '" />' +
+//                        ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" style="background:url(' + obj.logo+') no-repeat center center; border:1px solid gray;" class="edui-faked-webapp" _url="' + obj.url + '" />' +
 //                        (addParagraph ? '</p>' : '')
 //                :
-//                '<iframe class="edui-faked-mobile" title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = '+obj.logo+'></iframe>';
+//                '<iframe class="edui-faked-webapp" title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = '+obj.logo+'></iframe>';
 //    }
 //
 //    function switchImgAndIframe( img2frame ) {
 //        var tmpdiv,
 //                nodes = domUtils.getElementsByTagName( me.document, !img2frame ? "iframe" : "img" );
 //        for ( var i = 0, node; node = nodes[i++]; ) {
-//            if ( node.className != "edui-faked-mobile" ){
+//            if ( node.className != "edui-faked-webapp" ){
 //                continue;
 //            }
 //            tmpdiv = me.document.createElement( "div" );
@@ -23445,7 +23500,7 @@ UE.commands['insertparagraph'] = {
 //        switchImgAndIframe( false );
 //    } );
 //
-//    me.commands['mobile'] = {
+//    me.commands['webapp'] = {
 //        execCommand:function ( cmd, obj ) {
 //            me.execCommand( "inserthtml", createInsertStr( obj, false,true ) );
 //        }
@@ -23458,12 +23513,12 @@ UE.plugin.register('webapp', function (){
         return  !toEmbed ?
             '<img title="'+obj.title+'" width="' + obj.width + '" height="' + obj.height + '"' +
                 ' src="' + me.options.UEDITOR_HOME_URL + 'themes/default/images/spacer.gif" _logo_url="'+obj.logo+'" style="background:url(' + obj.logo
-                +') no-repeat center center; border:1px solid gray;" class="edui-faked-mobile" _url="' + obj.url + '" ' +
+                +') no-repeat center center; border:1px solid gray;" class="edui-faked-webapp" _url="' + obj.url + '" ' +
                 (obj.align && !obj.cssfloat? 'align="' + obj.align + '"' : '') +
                 (obj.cssfloat ? 'style="float:' + obj.cssfloat + '"' : '') +
                 '/>'
             :
-            '<iframe class="edui-faked-mobile" title="'+obj.title+'" ' +
+            '<iframe class="edui-faked-webapp" title="'+obj.title+'" ' +
                 (obj.align && !obj.cssfloat? 'align="' + obj.align + '"' : '') +
                 (obj.cssfloat ? 'style="float:' + obj.cssfloat + '"' : '') +
                 'width="' + obj.width + '" height="' + obj.height + '"  scrolling="no" frameborder="0" src="' + obj.url + '" logo_url = "'+obj.logo+'"></iframe>'
@@ -23473,7 +23528,7 @@ UE.plugin.register('webapp', function (){
         outputRule: function(root){
             utils.each(root.getNodesByTagName('img'),function(node){
                 var html;
-                if(node.getAttr('class') == 'edui-faked-mobile'){
+                if(node.getAttr('class') == 'edui-faked-webapp'){
                     html =  createInsertStr({
                         title:node.getAttr('title'),
                         'width':node.getAttr('width'),
@@ -23490,7 +23545,7 @@ UE.plugin.register('webapp', function (){
         },
         inputRule:function(root){
             utils.each(root.getNodesByTagName('iframe'),function(node){
-                if(node.getAttr('class') == 'edui-faked-mobile'){
+                if(node.getAttr('class') == 'edui-faked-webapp'){
                     var img = UE.uNode.createElement(createInsertStr({
                         title:node.getAttr('title'),
                         'width':node.getAttr('width'),
@@ -23508,7 +23563,7 @@ UE.plugin.register('webapp', function (){
         commands:{
             /**
              * 插入百度应用
-             * @command mobile
+             * @command webapp
              * @method execCommand
              * @remind 需要百度APPKey
              * @remind 百度应用主页： <a href="http://app.baidu.com/" target="_blank">http://app.baidu.com/</a>
@@ -23518,7 +23573,7 @@ UE.plugin.register('webapp', function (){
              * ```javascript
              * //editor是编辑器实例
              * //在编辑器里插入一个“植物大战僵尸”的APP
-             * editor.execCommand( 'mobile' , {
+             * editor.execCommand( 'webapp' , {
              *     title: '植物大战僵尸',
              *     width: 560,
              *     height: 465,
@@ -23539,7 +23594,7 @@ UE.plugin.register('webapp', function (){
                 queryCommandState:function () {
                     var me = this,
                         img = me.selection.getRange().getClosedNode(),
-                        flag = img && (img.className == "edui-faked-mobile");
+                        flag = img && (img.className == "edui-faked-webapp");
                     return flag ? 1 : 0;
                 }
             }
@@ -24751,6 +24806,88 @@ UE.plugin.register('insertfile', function (){
 });
 
 
+
+
+// plugins/xssFilter.js
+/**
+ * @file xssFilter.js
+ * @desc xss过滤器
+ * @author robbenmu
+ */
+
+UE.plugins.xssFilter = function() {
+
+	var config = UEDITOR_CONFIG;
+	var whitList = config.whitList;
+
+	function filter(node) {
+
+		var tagName = node.tagName;
+		var attrs = node.attrs;
+
+		if (!whitList.hasOwnProperty(tagName)) {
+			node.parentNode.removeChild(node);
+			return false;
+		}
+
+		UE.utils.each(attrs, function (val, key) {
+
+			if (whitList[tagName].indexOf(key) === -1) {
+				node.setAttr(key);
+			}
+		});
+	}
+
+	// 添加inserthtml\paste等操作用的过滤规则
+	if (whitList && config.xssFilterRules) {
+		this.options.filterRules = function () {
+
+			var result = {};
+
+			UE.utils.each(whitList, function(val, key) {
+				result[key] = function (node) {
+					return filter(node);
+				};
+			});
+
+			return result;
+		}();
+	}
+
+	var tagList = [];
+
+	UE.utils.each(whitList, function (val, key) {
+		tagList.push(key);
+	});
+
+	// 添加input过滤规则
+	//
+	if (whitList && config.inputXssFilter) {
+		this.addInputRule(function (root) {
+
+			root.traversal(function(node) {
+				if (node.type !== 'element') {
+					return false;
+				}
+				filter(node);
+			});
+		});
+	}
+	// 添加output过滤规则
+	//
+	if (whitList && config.outputXssFilter) {
+		this.addOutputRule(function (root) {
+
+			root.traversal(function(node) {
+				if (node.type !== 'element') {
+					return false;
+				}
+				filter(node);
+			});
+		});
+	}
+
+};
 
 
 // ui/ui.js
@@ -27680,7 +27817,7 @@ UE.ui = baidu.editor.ui = {};
         'edittip':'~/dialogs/table/edittip.html',
         'edittable':'~/dialogs/table/edittable.html',
         'edittd':'~/dialogs/table/edittd.html',
-        'webapp':'~/dialogs/mobile/mobile.html',
+        'webapp':'~/dialogs/webapp/webapp.html',
         'snapscreen':'~/dialogs/snapscreen/snapscreen.html',
         'scrawl':'~/dialogs/scrawl/scrawl.html',
         'music':'~/dialogs/music/music.html',
@@ -28743,7 +28880,7 @@ UE.ui = baidu.editor.ui = {};
                         if (img.className.indexOf("edui-faked-video") != -1 || img.className.indexOf("edui-upload-video") != -1) {
                             dialogName = "insertvideoDialog"
                         }
-                        if (img.className.indexOf("edui-faked-mobile") != -1) {
+                        if (img.className.indexOf("edui-faked-webapp") != -1) {
                             dialogName = "webappDialog"
                         }
                         if (img.src.indexOf("http://api.map.baidu.com") != -1) {

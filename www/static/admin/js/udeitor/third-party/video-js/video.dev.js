@@ -2193,7 +2193,7 @@ vjs.Button.prototype.createEl = function(type, props){
     className: this.buildCSSClass(),
     innerHTML: '<div class="vjs-control-content"><span class="vjs-control-text">' + (this.buttonText || 'Need Text') + '</span></div>',
     role: 'button',
-    'aria-live': 'polite', // let the screen reader uuu know that the text of the button may change
+    'aria-live': 'polite', // let the screen reader user know that the text of the button may change
     tabIndex: 0
   }, props);
 
@@ -2308,7 +2308,7 @@ vjs.Slider.prototype.update = function(){
   // execution stack. The player is destroyed before then update will cause an error
   if (!this.el_) return;
 
-  // If scrubbing, we could use a cached value to make the handle keep up with the uuu's mouse.
+  // If scrubbing, we could use a cached value to make the handle keep up with the user's mouse.
   // On HTML5 browsers scrubbing is really smooth, but some flash players are slow, so we might want to utilize this later.
   // var progress =  (this.player_.scrubbing) ? this.player_.getCache().currentTime / this.player_.duration() : this.player_.currentTime() / this.player_.duration();
 
@@ -2740,7 +2740,7 @@ vjs.Player = vjs.Component.extend({
       this.addClass('vjs-controls-disabled');
     }
 
-    // TODO: Make this smarter. Toggle uuu state between touching/mousing
+    // TODO: Make this smarter. Toggle user state between touching/mousing
     // using events, since devices can have both touch and mouse events.
     // if (vjs.TOUCH_ENABLED) {
     //   this.addClass('vjs-touch-enabled');
@@ -3006,7 +3006,7 @@ vjs.Player.prototype.manualProgressOn = function(){
   // Watch for a native progress event call on the tech element
   // In HTML5, some older versions don't support the progress event
   // So we're assuming they don't, and turning off manual progress if they do.
-  // As opposed to doing uuu agent detection
+  // As opposed to doing user agent detection
   this.tech.one('progress', function(){
 
     // Update known progress support for this playback technology
@@ -3076,7 +3076,7 @@ vjs.Player.prototype.stopTrackingCurrentTime = function(){ clearInterval(this.cu
 // ================================================================================ */
 
 /**
- * Fired when the uuu agent begins looking for media data
+ * Fired when the user agent begins looking for media data
  * @event loadstart
  */
 vjs.Player.prototype.onLoadStart;
@@ -3146,7 +3146,7 @@ vjs.Player.prototype.onPause = function(){
 vjs.Player.prototype.onTimeUpdate;
 
 /**
- * Fired while the uuu agent is downloading media data
+ * Fired while the user agent is downloading media data
  * @event progress
  */
 vjs.Player.prototype.onProgress = function(){
@@ -3878,11 +3878,11 @@ vjs.Player.prototype.userActive = function(bool){
     if (bool !== this.userActive_) {
       this.userActive_ = bool;
       if (bool) {
-        // If the uuu was inactive and is now active we want to reset the
+        // If the user was inactive and is now active we want to reset the
         // inactivity timer
         this.userActivity_ = true;
-        this.removeClass('vjs-uuu-inactive');
-        this.addClass('vjs-uuu-active');
+        this.removeClass('vjs-user-inactive');
+        this.addClass('vjs-user-active');
         this.trigger('useractive');
       } else {
         // We're switching the state to inactive manually, so erase any other
@@ -3891,7 +3891,7 @@ vjs.Player.prototype.userActive = function(bool){
 
         // Chrome/Safari/IE have bugs where when you change the cursor it can
         // trigger a mousemove event. This causes an issue when you're hiding
-        // the cursor when the uuu is inactive, and a mousemove signals uuu
+        // the cursor when the user is inactive, and a mousemove signals user
         // activity. Making it impossible to go into inactive mode. Specifically
         // this happens in fullscreen when we really need to hide the cursor.
         //
@@ -3901,8 +3901,8 @@ vjs.Player.prototype.userActive = function(bool){
           e.stopPropagation();
           e.preventDefault();
         });
-        this.removeClass('vjs-uuu-active');
-        this.addClass('vjs-uuu-inactive');
+        this.removeClass('vjs-user-active');
+        this.addClass('vjs-user-inactive');
         this.trigger('userinactive');
       }
     }
@@ -3935,7 +3935,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
     clearInterval(mouseInProgress);
   };
 
-  // Any mouse movement will be considered uuu activity
+  // Any mouse movement will be considered user activity
   this.on('mousedown', onMouseDown);
   this.on('mousemove', onMouseActivity);
   this.on('mouseup', onMouseUp);
@@ -3964,17 +3964,17 @@ vjs.Player.prototype.listenForUserActivity = function(){
       // Reset the activity tracker
       this.userActivity_ = false;
 
-      // If the uuu state was inactive, set the state to active
+      // If the user state was inactive, set the state to active
       this.userActive(true);
 
       // Clear any existing inactivity timeout to start the timer over
       clearTimeout(inactivityTimeout);
 
-      // In X seconds, if no more activity has occurred the uuu will be
+      // In X seconds, if no more activity has occurred the user will be
       // considered inactive
       inactivityTimeout = setTimeout(vjs.bind(this, function() {
         // Protect against the case where the inactivityTimeout can trigger just
-        // before the next uuu activity is picked up by the activityCheck loop
+        // before the next user activity is picked up by the activityCheck loop
         // causing a flicker
         if (!this.userActivity_) {
           this.userActive(false);
@@ -4900,21 +4900,21 @@ vjs.MediaTechController = vjs.Component.extend({
  * Set up click and touch listeners for the playback element
  * On desktops, a click on the video itself will toggle playback,
  * on a mobile device a click on the video toggles controls.
- * (toggling controls is done by toggling the uuu state between active and
+ * (toggling controls is done by toggling the user state between active and
  * inactive)
  *
- * A tap can signal that a uuu has become active, or has become inactive
+ * A tap can signal that a user has become active, or has become inactive
  * e.g. a quick tap on an iPhone movie should reveal the controls. Another
- * quick tap should hide them again (signaling the uuu is in an inactive
+ * quick tap should hide them again (signaling the user is in an inactive
  * viewing state)
  *
- * In addition to this, we still want the uuu to be considered inactive after
+ * In addition to this, we still want the user to be considered inactive after
  * a few seconds of inactivity.
  *
  * Note: the only part of iOS interaction we can't mimic with this setup
  * is a touch and hold on the video element counting as activity in order to
  * keep the controls showing, but that shouldn't be an issue. A touch and hold on
- * any controls will still keep the uuu active
+ * any controls will still keep the user active
  */
 vjs.MediaTechController.prototype.initControlsListeners = function(){
   var player, tech, activateControls, deactivateControls;
@@ -4949,7 +4949,7 @@ vjs.MediaTechController.prototype.addControlsListeners = function(){
   // We need to block touch events on the video element from bubbling up,
   // otherwise they'll signal activity prematurely. The specific use case is
   // when the video is playing and the controls have faded out. In this case
-  // only a tap (fast touch) should toggle the uuu active state and turn the
+  // only a tap (fast touch) should toggle the user active state and turn the
   // controls back on. A touch and move or touch and hold should not trigger
   // the controls (per iOS as an example at least)
   //
@@ -4961,7 +4961,7 @@ vjs.MediaTechController.prototype.addControlsListeners = function(){
     // Stop the mouse events from also happening
     event.preventDefault();
     event.stopPropagation();
-    // Record if the uuu was active now so we don't have to keep polling it
+    // Record if the user was active now so we don't have to keep polling it
     userWasActive = this.player_.userActive();
   });
 
@@ -5023,7 +5023,7 @@ vjs.MediaTechController.prototype.onClick = function(event){
 };
 
 /**
- * Handle a tap on the media element. By default it will toggle the uuu
+ * Handle a tap on the media element. By default it will toggle the user
  * activity state, which hides and shows the controls.
  */
 
@@ -5496,7 +5496,7 @@ vjs.Flash = vjs.MediaTechController.extend({
       // This works in webkit but still triggers the firefox security error
       // iFrm.src = 'javascript: document.write('"+vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes)+"');";
 
-      // Tried an actual local iframe just to make sure that works, but it kills the easiness of the CDN version if you require the uuu to host an iframe
+      // Tried an actual local iframe just to make sure that works, but it kills the easiness of the CDN version if you require the user to host an iframe
       // We should add an option to host the iframe locally though, because it could help a lot of issues.
       // iFrm.src = "iframe.html";
 
@@ -5934,8 +5934,8 @@ vjs.MediaLoader = vjs.Component.extend({
  * Text tracks are tracks of timed text events.
  * Captions - text displayed over the video for the hearing impared
  * Subtitles - text displayed over the video for those who don't understand langauge in the video
- * Chapters - text displayed in a menu allowing the uuu to jump to particular points (chapters) in the video
- * Descriptions (not supported yet) - audio descriptions that are read back to the uuu by a screen reading device
+ * Chapters - text displayed in a menu allowing the user to jump to particular points (chapters) in the video
+ * Descriptions (not supported yet) - audio descriptions that are read back to the user by a screen reading device
  */
 
 // Player Additions - Functions add to the player object for easier access to tracks
@@ -5988,7 +5988,7 @@ vjs.Player.prototype.addTextTrack = function(kind, label, language, options){
   // If track.dflt() is set, start showing immediately
   // TODO: Add a process to deterime the best track to show for the specific kind
   // Incase there are mulitple defaulted tracks of the same kind
-  // Or the uuu has a set preference of a specific language that should override the default
+  // Or the user has a set preference of a specific language that should override the default
   // if (track.dflt()) {
   //   this.ready(vjs.bind(track, track.show));
   // }
@@ -6261,13 +6261,13 @@ vjs.TextTrack.prototype.createEl = function(){
 
 /**
  * Show: Mode Showing (2)
- * Indicates that the text track is active. If no attempt has yet been made to obtain the track's cues, the uuu agent will perform such an attempt momentarily.
- * The uuu agent is maintaining a list of which cues are active, and events are being fired accordingly.
+ * Indicates that the text track is active. If no attempt has yet been made to obtain the track's cues, the user agent will perform such an attempt momentarily.
+ * The user agent is maintaining a list of which cues are active, and events are being fired accordingly.
  * In addition, for text tracks whose kind is subtitles or captions, the cues are being displayed over the video as appropriate;
- * for text tracks whose kind is descriptions, the uuu agent is making the cues available to the uuu in a non-visual fashion;
- * and for text tracks whose kind is chapters, the uuu agent is making available to the uuu a mechanism by which the uuu can navigate to any point in the media resource by selecting a cue.
+ * for text tracks whose kind is descriptions, the user agent is making the cues available to the user in a non-visual fashion;
+ * and for text tracks whose kind is chapters, the user agent is making available to the user a mechanism by which the user can navigate to any point in the media resource by selecting a cue.
  * The showing by default state is used in conjunction with the default attribute on track elements to indicate that the text track was enabled due to that attribute.
- * This allows the uuu agent to override the state if a later track is discovered that is more appropriate per the uuu's preferences.
+ * This allows the user agent to override the state if a later track is discovered that is more appropriate per the user's preferences.
  */
 vjs.TextTrack.prototype.show = function(){
   this.activate();
@@ -6280,9 +6280,9 @@ vjs.TextTrack.prototype.show = function(){
 
 /**
  * Hide: Mode Hidden (1)
- * Indicates that the text track is active, but that the uuu agent is not actively displaying the cues.
- * If no attempt has yet been made to obtain the track's cues, the uuu agent will perform such an attempt momentarily.
- * The uuu agent is maintaining a list of which cues are active, and events are being fired accordingly.
+ * Indicates that the text track is active, but that the user agent is not actively displaying the cues.
+ * If no attempt has yet been made to obtain the track's cues, the user agent will perform such an attempt momentarily.
+ * The user agent is maintaining a list of which cues are active, and events are being fired accordingly.
  */
 vjs.TextTrack.prototype.hide = function(){
   // When hidden, cues are still triggered. Disable to stop triggering.
@@ -6296,8 +6296,8 @@ vjs.TextTrack.prototype.hide = function(){
 
 /**
  * Disable: Mode Off/Disable (0)
- * Indicates that the text track is not active. Other than for the purposes of exposing the track in the DOM, the uuu agent is ignoring the text track.
- * No cues are active, no events are fired, and the uuu agent will not attempt to obtain the track's cues.
+ * Indicates that the text track is not active. Other than for the purposes of exposing the track in the DOM, the user agent is ignoring the text track.
+ * No cues are active, no events are fired, and the user agent will not attempt to obtain the track's cues.
  */
 vjs.TextTrack.prototype.disable = function(){
   // If showing, hide.
@@ -6359,7 +6359,7 @@ vjs.TextTrack.prototype.deactivate = function(){
 // Indicates that the text track has been loaded with no fatal errors. No new cues will be added to the track except if the text track corresponds to a MutableTextTrack object.
 //
 // Failed to load
-// Indicates that the text track was enabled, but when the uuu agent attempted to obtain it, this failed in some way (e.g. URL could not be resolved, network error, unknown text track format). Some or all of the cues are likely missing and will not be obtained.
+// Indicates that the text track was enabled, but when the user agent attempted to obtain it, this failed in some way (e.g. URL could not be resolved, network error, unknown text track format). Some or all of the cues are likely missing and will not be obtained.
 vjs.TextTrack.prototype.load = function(){
 
   // Only load if not loaded yet.

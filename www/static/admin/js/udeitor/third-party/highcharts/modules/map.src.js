@@ -986,7 +986,7 @@
 			xAxis: hiddenAxis,
 			yAxis: merge(hiddenAxis, { reversed: true })	
 		},
-		options, // uuu's options
+		options, // user's options
 	
 		{ // forced options
 			chart: {
