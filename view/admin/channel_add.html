@@ -103,7 +103,9 @@
                         </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
+                                    {%if info.id%}
                                     <input type="hidden" name="id" value="{{info.id|default("")}}">
+                                    {%endif%}
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
                                 </div>

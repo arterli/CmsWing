@@ -63,7 +63,7 @@ module.exports = class extends Base {
     //更新或者新增导航
    async updatesAction(){
       let data = this.post();
-      let res = await this.model("channel").updates(data);
+       let res = await this.model("channel").updates(data);
       switch (res.err) {
         case 1:
           await this.model("action").log("update_channel","channel",res.id,this.user.uid,this.ip,this.ctx.url);//记录行为

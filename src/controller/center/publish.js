@@ -297,8 +297,10 @@ module.exports = class extends Home {
     //检查该分类是否允许发布
     let allow_publish = await this.model("category").check_category(cate_id);
     //console.log(allow_publish);
-    !allow_publish && this.fail("该分类不允许发布内容");
-
+      if(!allow_publish){
+          const error = this.controller("common/error");
+          return error.noAction('本栏目不允许发布内容！')
+      }
     //获取当先的模型信息
     let model = await this.model("model").get_document_model(model_id);
 

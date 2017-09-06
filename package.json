@@ -22,7 +22,7 @@
     "think-email": "^1.0.2",
     "think-fetch": "^1.1.0",
     "think-loader": "^1.0.18",
-    "think-model": "^1.0.5",
+    "think-model": "^1.0.6",
     "think-model-mysql": "^1.0.4",
     "think-pagination": "^2.0.0",
     "think-session": "^1.0.2",
@@ -33,6 +33,8 @@
     "thinkjs": "^3.1.0"
   },
   "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-think": "^1.0.2",
     "think-watcher": "^3.0.3"
   },
   "repository": "",

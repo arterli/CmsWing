@@ -86,7 +86,7 @@ module.exports = class extends think.Model {
         /* 添加或更新数据 */
         if(think.isEmpty(data.id)){
             data.create_time=new Date().getTime();
-            res = this.add(data);
+            res =await this.add(data);
             if(res){
                 obj={id:res,err:1};//添加成功
             }else {
@@ -94,7 +94,7 @@ module.exports = class extends think.Model {
             }
         }else{
             data.update_time=new Date().getTime();
-            res = this.update(data);
+            res = await this.update(data);
             if(res){
                 obj={id:res,err:3};//更新成功
             }else {
