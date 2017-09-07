@@ -69,7 +69,6 @@ module.exports = class extends Base {
                 let addtable = await this.model("attribute").addtable(res);
                 //console.log(addtable);
                 update_cache("model")//更新模型缓存
-                return this.fail("添加失败!")
                 return this.success({name: "添加成功", url: "/admin/model/index"});
             }else {
                 return this.fail("添加失败!")
