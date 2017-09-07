@@ -187,7 +187,7 @@ module.exports = class extends Home {
      * 下载
      */
     async downloadgetidAction(){
-        let id = decodeURI(this.get("id")).split("||");
+        let id = decodeURIComponent(this.get("id")).split("||");
         let db = this.model('document_download');
         let info =await db.find(id[0]);
         //console.log(info);
