@@ -72,4 +72,7 @@ module.exports= class extends think.Controller{
             id: 251 }
         return await this.model("document_ttt").add(data);
     }
+    ipAction(){
+        return this.body = this.ip;
+    }
 }

@@ -119,10 +119,10 @@ module.exports = class extends Base {
           }
              data.password = encryptPassword(data.password);
              data.reg_time = new Date().getTime();
-             if(data.vip==1){
-                 data.overduedate=new Date(data.overduedate).getTime();
+             if(data.vip == 1){
+                 data.overduedate = new Date(data.overduedate).getTime();
              }else {
-                 data.overduedate = think.isEmpty(data.overduedate)?0:data.overduedate;
+                 data.overduedate = think.isEmpty(data.overduedate) ? 0 : data.overduedate;
              }
            console.log(data);
            // return this.fail("ddd")

@@ -156,7 +156,7 @@
                                         </div>
                                         {%elif val.option.type == "image"%}
                                         <div class="col-sm-10">
-                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}"/>
+                                            <input type="hidden" name="sortid_{{val.option.identifier}}" id="sortid_{{val.option.identifier}}" value="0"/>
                                             <div id="fileList_sortid_{{val.option.identifier}}" class="uploader-list"></div>
                                             <div id="filePicker_sortid_{{val.option.identifier}}">选择图片</div>
                                             <script type="text/javascript">
@@ -1259,7 +1259,7 @@
                                         </div>
                                         {% elif field.type == "picture" %}
                                         <div class="col-sm-10">
-                                            <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}"/>
+                                            <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}" value="0"/>
                                             <div id="fileList_{{field.name}}" class="uploader-list"></div>
                                             <div id="filePicker_{{field.name}}">选择图片</div>
 
@@ -1536,7 +1536,6 @@
                         <div class="col-sm-4 col-sm-offset-2">
                             <button class="btn btn-primary btn-s-md " type="submit" >确定</button>
                             <button class="btn btn-default" onclick="javascript:history.back(-1);return false;" type="submit">返回</button>
-                            <input type="hidden" name="id" value="{{info.id}}"/>
                             <input type="hidden" name="pid" value="{{info.pid}}"/>
                             <input type="hidden" name="model_id" value="{{info.model_id}}"/>
                             <input type="hidden" name="category_id" value="{{info.category_id}}">
