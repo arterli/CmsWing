@@ -6,7 +6,33 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Model {
+    /**
+     * 获取分类信息
+     * @param sort_id
+     * @param id
+     * @param category_id
+     * @returns {Promise.<{}>}
+     */
+    async get_type(sort_id,id,category_id){
+        //sort 调用
 
+        let tt = `type_optionvalue${sort_id}`;
+        let to = await this.model(tt).where({tid:id,fid:category_id}).fieldReverse(["tid","fid","dateline","expiration"]).find();
+        // for(let v of to){
+        //     console.log(v);
+        // }
+        let tv={},r;
+        for(let v in to){
+            let vv = await this.model("typeoption").where({identifier:v}).find();
+            switch (vv.type){
+                case 'select':
+                    r =parse_config_attr(JSON.parse(vv.rules).choices);
+                    break;
+            }
+            tv[v]=r[to[v]];
+        }
+        return tv;
+    }
 
 
     /**

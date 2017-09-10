@@ -398,6 +398,17 @@ module.exports={
                 callback(null,isp);
             },true);
 
+            env.addFilter('get_type',async(sort_id,id,category_id,callback)=>{
+                let type = await think.model("type").get_type(sort_id,id,category_id);
+                callback(null,type);
+            },true);
+            /**
+             * 获取地区
+             */
+            env.addFilter('get_area',async (id,callback)=>{
+                let data = await think.model("area").get_area(id);
+                callback(null,data);
+            },true);
             env.addExtension('tagtest', new mytags(), true);
             /**
              * 获取分类标签

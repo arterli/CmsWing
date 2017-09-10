@@ -8747,3 +8747,57 @@ i.ico-60 {
 	height:auto;
 	font-size: 12px;
 }
+
+/*qrcode*/
+.right-qrcode-wrapper {
+	background-color: #f7f7f7;
+	padding: 10px 10px 10px 10px;
+}
+.right-qrcode-wrapper .right-qrcode-container .img-container {
+	float: left;
+	width: 100px;
+}
+.right-qrcode-wrapper .right-qrcode-container .img-container img {
+	width: 100%;
+	height: 100%;
+}
+.right-qrcode-wrapper  .right {
+	float: right;
+	width: 140px;
+}
+.right-qrcode-wrapper .item-container .title {
+	font-size: 16px;
+	font-weight: 400;
+	margin-bottom: 5px;
+}
+.right-qrcode-wrapper .item-container ul {
+	margin-left: -20px;
+}
+.right-qrcode-wrapper .item-container ul li {
+	list-style: disc;
+	color: #666;
+	font-size: 14px;
+	line-height: 1.7;
+}
+ul.slimscroll{
+	padding: 0;
+}
+ul.slimscroll li{
+	line-height: 25px;
+}
+ul.slimscroll li a{
+	display: block;
+	padding:0 15px;
+}
+ul.slimscroll li.active{
+	background-color:#ecf0f1;
+}
+.bb{
+	border: #eee 1px solid;
+}
+.blog-post-item .blog-item-small-image {
+	width: 200px;
+	float: left;
+	height: 120px;
+	overflow: hidden;
+}
