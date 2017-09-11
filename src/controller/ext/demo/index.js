@@ -14,20 +14,20 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 const Index = require('../index');
-module.exports =  class extends Index {
+module.exports = class extends Index {
   /**
    * index action
    *
    * @return {Promise} []
    */
 
-  async indexAction(){
-    //获取插件目录名
-    //this.ext.ext;
-    //获取当前分类
-      //await this.gettype()
-    //获取友情链接
-   //渲染模版
+  async indexAction() {
+    // 获取插件目录名
+    // this.ext.ext;
+    // 获取当前分类
+    // await this.gettype()
+    // 获取友情链接
+    // 渲染模版
     return this.display();
   }
-}
+};

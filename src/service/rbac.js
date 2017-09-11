@@ -41,7 +41,7 @@
 
  * @type {Class}
  */
-module.exports = class extends think.Service{
+module.exports = class extends think.Service {
   /**
    * init
    * @param  {Number} userId []
@@ -49,7 +49,7 @@ module.exports = class extends think.Service{
    * @param  {Object} http   []
    * @return {}        []
    */
-  constructor(userId, config, http){
+  constructor(userId, config, http) {
     super(http);
     if (think.isObject(userId)) {
       config = userId;
@@ -57,14 +57,14 @@ module.exports = class extends think.Service{
     }
     this.userId = userId;
     this.config = think.extend({
-      type: 1, //auth type, 2 is session auth
-      user: 'member', //user info table
-      role: 'auth_role', //role table
-      rule: 'auth_rule', //rule table
-      user_role: 'auth_user_role', //user - role relation table
+      type: 1, // auth type, 2 is session auth
+      user: 'member', // user info table
+      role: 'auth_role', // role table
+      rule: 'auth_rule', // rule table
+      user_role: 'auth_user_role', // user - role relation table
       userInfo: null
     }, config);
-    this.http= http;
+    this.http = http;
   }
   /**
    * check auth
@@ -72,33 +72,32 @@ module.exports = class extends think.Service{
    * @param  {Boolean} and  [condition]
    * @return {Promise}      []
    */
-  async check(name, and){
-
+  async check(name, and) {
     if (think.isString(name)) {
       name = name.split(',');
     }
-    let authList =await this.getAuthList();
+    const authList = await this.getAuthList();
 
     if (name.length === 1) {
       return authList.indexOf(name[0]) > -1;
     }
 
-    let logic = and ? 'every' : 'some';
+    const logic = and ? 'every' : 'some';
 
     return name[logic](item => {
       return authList.indexOf(item) > -1;
     });
   }
-  async _getAuthList(){
+  async _getAuthList() {
     let data;
     if (this.config.type === 1) {
       data = await this.flushAuthList();
-    }else{
-      let http = this.http;
-      let key = this.config('auth_key');
+    } else {
+      const http = this.http;
+      const key = this.config('auth_key');
       think.session(this.http);
       let data = await http.session.get(key);
-      if(think.isEmpty(data)){
+      if (think.isEmpty(data)) {
         data = await this.flushAuthList();
         await http.session.set(key, data);
       }
@@ -109,21 +108,21 @@ module.exports = class extends think.Service{
    * get auth list
    * @return {Promise} []
    */
-  async getAuthList(){
-    let data = await Promise.all([this._getAuthList(), this.getUserInfo()]);
+  async getAuthList() {
+    const data = await Promise.all([this._getAuthList(), this.getUserInfo()]);
 
-    let authList = data[0];
-    let userInfo = data[1];
-    let result = [];
+    const authList = data[0];
+    const userInfo = data[1];
+    const result = [];
 
     authList.forEach(item => {
       if (!item.condition) {
         result.push(item.name);
-      }else{
-        let condition = item.condition.replace(/\w+/, a => `userInfo.${a}`);
-        /*jslint evil: true */
-        let fn = new Function('userInfo', `return ${condition}`);
-        let flag = fn(userInfo);
+      } else {
+        const condition = item.condition.replace(/\w+/, a => `userInfo.${a}`);
+        /* jslint evil: true */
+        const fn = new Function('userInfo', `return ${condition}`);
+        const flag = fn(userInfo);
         if (flag) {
           result.push(item.name);
         }
@@ -135,20 +134,20 @@ module.exports = class extends think.Service{
    * flush auth list
    * @return {Promise} []
    */
-  async flushAuthList(){
-    let ids = await this.getRuleIds();
-    let model = think.model(this.config.rule,think.config('db'));
+  async flushAuthList() {
+    const ids = await this.getRuleIds();
+    const model = think.model(this.config.rule, think.config('db'));
     return model.field('name,condition').where({id: ['IN', ids], status: 1}).select();
   }
   /**
    * get user info
    * @return {Promise} []
    */
-  async getUserInfo(){
+  async getUserInfo() {
     if (!think.isEmpty(this.config.userInfo)) {
       return this.config.userInfo;
     }
-    let data = await think.model(this.config.user,think.config('db')).where({id: this.userId}).find();
+    const data = await think.model(this.config.user, think.config('db')).where({id: this.userId}).find();
     this.config.userInfo = data;
     return data;
   }
@@ -156,12 +155,12 @@ module.exports = class extends think.Service{
    * get rule ids
    * @return {Promise} []
    */
-  async getRuleIds(){
-    let data = await this.getRoles();
-      //console.log(data);
-      let ids = [];
+  async getRuleIds() {
+    const data = await this.getRoles();
+    // console.log(data);
+    let ids = [];
     data.forEach(item => {
-      let ruleIds = (item.rule_ids || '').split(',');
+      const ruleIds = (item.rule_ids || '').split(',');
       ids = ids.concat(ruleIds);
     });
     return ids;
@@ -170,8 +169,8 @@ module.exports = class extends think.Service{
    * get roles
    * @return {Promise} []
    */
-  getRoles(){
-    return think.model(this.config.user_role,think.config('db')).alias('a').join({
+  getRoles() {
+    return think.model(this.config.user_role, think.config('db')).alias('a').join({
       table: this.config.role,
       as: 'b',
       on: ['role_id', 'id']
@@ -180,4 +179,4 @@ module.exports = class extends think.Service{
       'b.status': 1
     }).select();
   }
-}
+};

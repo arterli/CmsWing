@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Model {
-    /**
+  /**
      * 添加审核
      * @param model
      * @param uid
@@ -14,8 +14,8 @@ module.exports = class extends think.Model {
      * @param data
      * @returns {Promise}
      */
-  async adds(model,uid,title,data){
-      let res = await this.add({model:model,uid:uid,title:title,data:JSON.stringify(data),time:new Date().getTime()});
-      return res;
+  async adds(model, uid, title, data) {
+    const res = await this.add({model: model, uid: uid, title: title, data: JSON.stringify(data), time: new Date().getTime()});
+    return res;
   }
-}
+};

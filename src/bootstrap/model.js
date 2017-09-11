@@ -31,24 +31,23 @@
  * @author arterli <arterli@qq.com>
  */
 /* global getmodelfield */
-global.getmodelfield = async(model_id,id,field)=>{
-     let res;
-     let table = await think.model('model',think.config('model')).get_table_name(model_id);
-     let modelinfo = await think.model(table,think.config('model')).find(id);
-     if(!think.isEmpty(field)){
-         res = modelinfo[field]
-     }else{
-         res = modelinfo;
-     }
-     return res;
-}
+global.getmodelfield = async(model_id, id, field) => {
+  let res;
+  const table = await think.model('model', think.config('model')).get_table_name(model_id);
+  const modelinfo = await think.model(table, think.config('model')).find(id);
+  if (!think.isEmpty(field)) {
+    res = modelinfo[field];
+  } else {
+    res = modelinfo;
+  }
+  return res;
+};
 /**
  * 获取模型字段
  * @param model_id
  * @param field
  * @returns {*}
  */
-global.get_model= async(model_id,field)=>{
-    return await think.model('model',think.config('model')).get_model(model_id,field);
-
-}
+global.get_model = async(model_id, field) => {
+  return await think.model('model', think.config('model')).get_model(model_id, field);
+};

@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Model {
-    /**
+  /**
      * 获取运费
      * @param {obj} cart_godds 购物车内的宝贝列表
      * @param {number} addr_id null-默认地址，number-配送地址id
@@ -19,44 +19,41 @@ module.exports = class extends think.Model {
      *TODO
      * @returns {*}
      */
-    async getfare(cart_godds,addr_id,uid){
-        let real_freight;
-        let fare;
-        let address;
-        if(!think.isEmpty(addr_id)){
-            address =await this.model("address").find(addr_id);
-        }else {
-            address =await this.model("address").where({is_default:1,user_id:uid}).find();
+  async getfare(cart_godds, addr_id, uid) {
+    let real_freight;
+    let fare;
+    let address;
+    if (!think.isEmpty(addr_id)) {
+      address = await this.model('address').find(addr_id);
+    } else {
+      address = await this.model('address').where({is_default: 1, user_id: uid}).find();
+    }
+    // console.log(address);
+    const warr = [];
+    for (const val of cart_godds) {
+      warr.push(val.weight * val.qty);
+    }
+    const goods_weight = eval(warr.join('+'));
+    // console.log(goods_weight);
+    const area = address.province + '_' + address.city + '_' + address.county;
+    fare = await this.where({is_default: 1}).find();
+
+    const zoning = JSON.parse(fare.zoning);
+    if (think.isEmpty(zoning) || think.isEmpty(address)) {
+      real_freight = fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
+    } else {
+      for (const val of zoning) {
+        // console.log(area)
+        // console.log(val.area);
+        if (in_array(area, JSON.parse(val.area))) {
+          // console.log(Number(val.f_weight)+Number(val.s_weight));
+          real_freight = Number(val.f_price) + Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
+        } else {
+          real_freight = fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
         }
-        //console.log(address);
-        let warr = [];
-        for(let val of cart_godds){
-            warr.push(val.weight*val.qty);
-        }
-        let goods_weight = eval(warr.join('+'));
-        //console.log(goods_weight);
-        let area = address.province+"_"+address.city+"_"+address.county;
-            fare = await this.where({is_default:1}).find();
-
-
-        let zoning = JSON.parse(fare.zoning)
-        if(think.isEmpty(zoning)||think.isEmpty(address)){
-            real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
-
-        }else{
-
-            for(let val of zoning){
-                //console.log(area)
-                // console.log(val.area);
-                if(in_array(area,JSON.parse(val.area))){
-                    //console.log(Number(val.f_weight)+Number(val.s_weight));
-                    real_freight =Number(val.f_price)+Math.max(Math.ceil((goods_weight - Number(val.f_weight)) / Number(val.s_weight)), 0) * Number(val.s_price);
-                }else {
-                    real_freight =fare.first_price + Math.max(Math.ceil((goods_weight - fare.first_weight) / fare.second_weight), 0) * fare.second_price;
-                }
-            }
-            //real_freight = 8;
-        }
+      }
+      // real_freight = 8;
+    }
     return real_freight;
-}
-}
+  }
+};
