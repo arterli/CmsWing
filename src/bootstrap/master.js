@@ -1,2 +1,2 @@
-//invoked in master
-//require('./global.js');
+// invoked in master
+// require('./global.js');

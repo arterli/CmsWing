@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.Model {
-   async get_area(id){
-       return await this.where({id:id}).getField('name',true);
-   }
-}
+  async get_area(id) {
+    return await this.where({id: id}).getField('name', true);
+  }
+};
