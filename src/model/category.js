@@ -108,7 +108,7 @@ module.exports = class extends think.Model {
         let breadcrumb = []
         while (id!=0)
         {
-            let nav = await this.where({'id':id,'status':1}).field("id,title,pid,allow_publish,name,mold").find();
+            let nav = await this.where({'id':id}).field("id,title,pid,allow_publish,name,mold").find();
             if(url){
                 if (!think.isEmpty(nav.name)) {
                     nav.url = `/${nav.name}`
