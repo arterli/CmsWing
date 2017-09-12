@@ -23,6 +23,7 @@
     "think-fetch": "^1.1.0",
     "think-loader": "^1.0.18",
     "think-model": "^1.0.7",
+    "think-model-abstract": "^1.0.8",
     "think-model-mysql": "^1.0.4",
     "think-pagination": "^2.0.0",
     "think-session": "^1.0.2",
