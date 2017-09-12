@@ -107,7 +107,8 @@ module.exports = class extends Home {
           // 调用ping++ 服务端
           payment = think.service('payment', this.ctx);
           // 传入 channel,order_no,order_amount,this.ip()
-          charges = await payment.pingxx(channel, order.order_no, order.order_amount, this.ip, open_id);
+          // charges = await payment.pingxx(channel, order.order_no, order.order_amount, this.ip, open_id);
+          charges = await payment.pingxx(channel, order.order_no, order.order_amount, this.ctx.header['x-real-ip'], open_id);
           // 把pingxx_id存到订单
           await this.model('order').where({id: post.order_id}).update({pingxx_id: charges.id});
         } else {
