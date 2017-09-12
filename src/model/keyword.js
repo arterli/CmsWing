@@ -15,7 +15,13 @@ module.exports = class extends think.Model {
      * @param mod_id "模型id"
      * @param mod_type "模型类型 0独立模型，1系统模型"
      */
-  async addkey(keyname, id, uid, mod_id, mod_type = 1) {
+  async addkey(keyname, id, uid, mod_id, mod_type = 1, db = false) {
+    let keyword_data;
+    if (!db) {
+      keyword_data = this.model('keyword_data');
+    } else {
+      keyword_data = this.model('keyword_data').db(db);
+    }
     // 添加关键词
     if (!think.isEmpty(keyname)) {
       let keywrods;
@@ -30,7 +36,7 @@ module.exports = class extends think.Model {
           await this.where({id: add.id}).update({discuss_count_update: new Date().getTime()});
           await this.where({id: add.id}).increment('videonum', 1);
         }
-        await this.model('keyword_data').add({tagid: add.id, docid: id, add_time: new Date().getTime(), uid: uid, mod_type: mod_type, mod_id: mod_id});
+        await keyword_data.add({tagid: add.id, docid: id, add_time: new Date().getTime(), uid: uid, mod_type: mod_type, mod_id: mod_id});
       }
     }
   }
@@ -53,13 +59,19 @@ module.exports = class extends think.Model {
      * @param mod_id "模型id"
      * @param mod_type "模型类型 0独立模型，1系统模型"
      */
-  async updatekey(keyname, id, uid, mod_id, mod_type = 0) {
+  async updatekey(keyname, id, uid, mod_id, mod_type = 0, db = false) {
+    let keyword_data;
+    if (!db) {
+      keyword_data = this.model('keyword_data');
+    } else {
+      keyword_data = this.model('keyword_data').db(db);
+    }
     const where = {};
     where.docid = id;
     where.mod_type = mod_type;
     where.mod_id = mod_id;
     let keyword;
-    const topicid = await this.model('keyword_data').where(where).getField('tagid');
+    const topicid = await keyword_data.where(where).getField('tagid');
     if (!think.isEmpty(topicid)) {
       keyword = await this.where({id: ['IN', topicid]}).getField('keyname');
     }
@@ -90,7 +102,7 @@ module.exports = class extends think.Model {
     if (!think.isEmpty(dkn)) {
       const did = await this.where({keyname: ['IN', dkn]}).getField('id');
       where.tagid = ['in', did];
-      await this.model('keyword_data').where(where).delete();
+      await keyword_data.where(where).delete();
       await this.where({keyname: ['IN', dkn]}).decrement('videonum', 1);
     }
     await this.addkey(nkn, id, uid, mod_id, mod_type);

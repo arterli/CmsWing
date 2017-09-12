@@ -90,19 +90,7 @@ module.exports = class extends Admin {
     // 获取友情链接
     const data = await this.model('ext_type').where({ext: this.ext.ext}).page(this.get('page')).order('sort ASC').countSelect();
     // console.log(data);
-    const Page = this.service('pagination');
-    const page = new Page();
-    const html = page.page(data, this.ctx, {
-      desc: true, // show description
-      pageNum: 2,
-      url: '', // page url, when not set, it will auto generated
-      class: 'nomargin', // pagenation extra class
-      text: {
-        next: '下一页',
-        prev: '上一页',
-        total: '总数: ${count} , 页数: ${pages}'
-      }
-    });
+    const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
     return this.display();

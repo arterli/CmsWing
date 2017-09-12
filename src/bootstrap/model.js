@@ -33,8 +33,8 @@
 /* global getmodelfield */
 global.getmodelfield = async(model_id, id, field) => {
   let res;
-  const table = await think.model('model', think.config('model')).get_table_name(model_id);
-  const modelinfo = await think.model(table, think.config('model')).find(id);
+  const table = await think.model('model').get_table_name(model_id);
+  const modelinfo = await think.model(table).find(id);
   if (!think.isEmpty(field)) {
     res = modelinfo[field];
   } else {
@@ -49,5 +49,5 @@ global.getmodelfield = async(model_id, id, field) => {
  * @returns {*}
  */
 global.get_model = async(model_id, field) => {
-  return await think.model('model', think.config('model')).get_model(model_id, field);
+  return await think.model('model').get_model(model_id, field);
 };

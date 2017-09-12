@@ -48,7 +48,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control  " name="name"
-                                                           value="{{info.name}}" data-required="true" data-Remote="/admin/model/checkname/id/{{info.id}}">
+                                                           value="{{info.name}}" data-required="true" data-Remote="/admin/model/checkname/?id={{info.id}}">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入文档模型标识</span>
@@ -140,7 +140,7 @@
                                             <div class=" m-b-xs">
                                                 <div class="btn-group ">
                                                     <a href="/admin/attribute/add?model_id={{info.id}}" class="btn btn-info btn-xs "><i class="fa  fa-plus"></i> 新增字段</a>
-                                                    <a href="/admin/attribute/index/model_id/{{info.id}}" class="btn btn-dark btn-xs"><i class="fa fa-cogs"></i> 管理字段</a>
+                                                    <a href="/admin/attribute/index/?model_id={{info.id}}" class="btn btn-dark btn-xs"><i class="fa fa-cogs"></i> 管理字段</a>
 
                                                 </div>
                                             </div>
@@ -453,7 +453,7 @@
         $(".chosen-select").chosen({
             placeholder_text: "选择字段"
         }).change(function (e) {
-            var ids = $('[name = "attribute_list" ]').val()
+            var ids = $('[name = "attribute_list" ]').val();
             var arr = $("#nestable-output").val()
 
             arr = JSON.parse(arr);
@@ -463,7 +463,8 @@
                     narr.push(m)
                 })
             })
-            if (ids) {
+          console.log(ids);
+          if (ids) {
                 if (ids.length > narr.length) {
                     $.each(ids, function (k, v) {
                         if ($.inArray(v, narr) == -1) {

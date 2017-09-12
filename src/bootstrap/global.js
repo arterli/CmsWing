@@ -1138,8 +1138,13 @@ global.get_file = async(file_id, field, key = false) => {
     return false;
   }
   const file = await think.model('file').find(file_id);
-  if (file.location == 1 && key) {
-    file.savename = `http://${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`;
+  if (file.location == 1 && key && key !=1) {
+    file.savename = `//${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`;
+  }
+  if (file.location == 1 && key == 1) {
+    file.savename = `//${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`;
+  } else {
+    file.savename = `${file.savepath}/${file.savename}`;
   }
   return think.isEmpty(field) ? file : file[field];
 };

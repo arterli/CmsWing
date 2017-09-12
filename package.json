@@ -22,8 +22,8 @@
     "think-email": "^1.0.2",
     "think-fetch": "^1.1.0",
     "think-loader": "^1.0.18",
-    "think-model": "^1.0.7",
-    "think-model-abstract": "^1.0.8",
+    "think-model": "^1.1.0",
+    "think-model-abstract": "^1.1.1",
     "think-model-mysql": "^1.0.4",
     "think-pagination": "^2.0.0",
     "think-session": "^1.0.2",
@@ -31,7 +31,7 @@
     "think-view": "^1.0.10",
     "think-view-nunjucks": "^1.0.7",
     "think-wechat": "^1.1.0",
-    "thinkjs": "^3.1.1"
+    "thinkjs": "^3.1.2"
   },
   "devDependencies": {
     "eslint": "^4.6.1",
