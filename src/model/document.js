@@ -10,8 +10,8 @@ module.exports = class extends think.Model {
   async getSchema() {
     return await this.db().getSchema();
   }
+  // 获取基础数据
   async detail(id) {
-    // 获取基础数据
     let map;
     if (think.isNumberString(id)) {
       map = {id: id};
@@ -57,14 +57,16 @@ module.exports = class extends think.Model {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
   async updates(data, time = new Date().getTime()) {
-    let id;
     data.position = data.position || 0;
+    // 获取子表的表明
+    const model = await this.modelinfo(data.model_id);
+    // console.log(model);
 
     for (const v in data) {
       const vs = v.split('|||');
 
       if (vs.length > 1) {
-        console.log(data[v]);
+        // console.log(data[v]);
         data[vs[1]] = (think.isEmpty(data[v]) || data[v] == 0) ? 0 : new Date(data[v]).getTime();
       };
     }
@@ -78,23 +80,22 @@ module.exports = class extends think.Model {
       this.error = res.errmsg;
       return false;
     }
+    data.update_time = new Date().getTime();
+    // console.log(data);
+    // return false;
     // 添加或者新增基础内容
-    if (think.isEmpty(data.id)) { // 新增数据
-      if (think.isEmpty(data.create_time)) {
-        data.create_time = time;
-      } else {
-        data.create_time = data.create_time != 0 ? new Date(data.create_time).valueOf() : time;
-      }
-      data.update_time = new Date().getTime();
-      data.status = await this.getStatus(data.id, data.category_id);
-      console.log(data);
-      id = await this.add(data);// 添加基础数据
-      console.log(id);
-      // let id = 100;
-      if (!id) {
-        this.error = '新增基础内容出错！';
-        return false;
-      } else {
+    if (think.isEmpty(data.id)) {
+      const result = await this.transaction(async() => {
+        // 新增数据
+        if (think.isEmpty(data.create_time)) {
+          data.create_time = time;
+        } else {
+          data.create_time = data.create_time != 0 ? new Date(data.create_time).valueOf() : time;
+        }
+        // 获取状态
+        const check = await this.model('category').db(this.db()).where({id: data.category_id}).getField('check', true);
+        data.status = check ? 2 : 1;
+        const id = await this.add(data);// 添加基础数据
         // 添加分类信息
         if (data.sort_id != 0 && !think.isEmpty(data.sort_id)) {
           const sortarr = [];
@@ -104,7 +105,7 @@ module.exports = class extends think.Model {
             if (arr[0] == 'sortid' && !think.isEmpty(arr[1])) {
               const obj = {};
               obj.value = think.isArray(data[k]) ? JSON.stringify(data[k]) : data[k];
-              obj.optionid = await this.model('typeoption').where({identifier: arr[1]}).getField('optionid', true);
+              obj.optionid = await this.model('typeoption').db(this.db()).where({identifier: arr[1]}).getField('optionid', true);
               obj.sortid = data.sort_id;
               obj.fid = data.category_id;
               obj.tid = id;
@@ -114,42 +115,45 @@ module.exports = class extends think.Model {
               sortdata.fid = data.category_id;
             }
           }
-          // console.log(sortarr);
-          // console.log(sortdata);
-          // return false;
           // 添加分类
-          this.model('typeoptionvar').addMany(sortarr);
-          this.model('type_optionvalue' + data.sort_id).add(sortdata);
+          await this.model('typeoptionvar').db(this.db()).addMany(sortarr);
+          await this.model('type_optionvalue' + data.sort_id).db(this.db()).add(sortdata);
         }
         // 添加关键词
-        // 添加关键词
         /**
-                 * 添加话题
-                 * @param keyname "话题1,话题2.话题3"
-                 * @param id  "主题id"
-                 * @param uid "用户id"
-                 * @param mod_id "模型id"
-                 * @param mod_type "模型类型 0系统模型，1独立模型"
-                 */
-        await this.model('keyword').addkey(data.keyname, id, data.uid, data.model_id, 0);
+         * 添加话题
+         * @param keyname "话题1,话题2.话题3"
+         * @param id  "主题id"
+         * @param uid "用户id"
+         * @param mod_id "模型id"
+         * @param mod_type "模型类型 0系统模型，1独立模型"
+         */
+        await this.model('keyword').db(this.db()).addkey(data.keyname, id, data.uid, data.model_id, 0, this.db());
         // 添加到搜索
-        await this.model('search').addsearch(data.model_id, id, data);
+        await this.model('search').db(this.db()).addsearch(data.model_id, id, data, this.db());
+        data.id = id;
+        await this.model(model).db(this.db()).add(data);
+        data.id = null;
+        return id;
+      });
+      // console.log(result);
+      if (result) {
+        return {data: data, id: result};
+      } else {
+        return false;
       }
     } else { // 更新内容
-      data.update_time = new Date().getTime();
-      data.status = await this.getStatus(data.id, data.category_id);
-      if (!think.isEmpty(data.create_time)) {
-        data.create_time = data.create_time != 0 ? new Date(data.create_time).valueOf() : new Date().getTime();
-      }
-      // 更新关键词
-      await this.model('keyword').updatekey(data.keyname, data.id, data.userid, data.model_id, 0);
-      const status = await this.update(data);
-      if (!status) {
-        this.error = '更新基础内容出错！';
-        return false;
-      } else {
+      const result = await this.transaction(async() => {
+        data.status = await this.getStatus(data.id, data.category_id);
+        if (!think.isEmpty(data.create_time)) {
+          data.create_time = data.create_time != 0 ? new Date(data.create_time).valueOf() : new Date().getTime();
+        }
+        // 更新关键词
+        await this.model('keyword').db(this.db()).updatekey(data.keyname, data.id, data.userid, data.model_id, 0, this.db());
+        const status = await this.update(data);
+
         // 更新搜索
-        await this.model('search').updatesearch(data.model_id, data);
+        await this.model('search').db(this.db()).updatesearch(data.model_id, data, this.db());
         if (data.sort_id != 0 && !think.isEmpty(data.sort_id)) {
           const sortdata = {};
           const sortarr = [];
@@ -158,7 +162,7 @@ module.exports = class extends think.Model {
             if (arr[0] == 'sortid' && !think.isEmpty(arr[1])) {
               const obj = {};
               obj.value = think.isArray(data[k]) ? JSON.stringify(data[k]) : data[k];
-              obj.optionid = await this.model('typeoption').where({identifier: arr[1]}).getField('optionid', true);
+              obj.optionid = await this.model('typeoption').db(this.db()).where({identifier: arr[1]}).getField('optionid', true);
               obj.sortid = data.sort_id;
               obj.fid = data.category_id;
               obj.tid = data.id;
@@ -170,46 +174,42 @@ module.exports = class extends think.Model {
           }
           // console.log(sortarr);
           // console.log(sortdata);
-          const cou = await this.model('type_optionvalue' + data.sort_id).where({tid: data.id}).count('tid');
+          const cou = await this.model('type_optionvalue' + data.sort_id).db(this.db()).where({tid: data.id}).count('tid');
           if (cou > 0) {
-            await this.model('type_optionvalue' + data.sort_id).where({tid: data.id}).update(sortdata);
+            await this.model('type_optionvalue' + data.sort_id).db(this.db()).where({tid: data.id}).update(sortdata);
           } else {
-            await this.model('type_optionvalue' + data.sort_id).add(sortdata);
+            await this.model('type_optionvalue' + data.sort_id).db(this.db()).add(sortdata);
           }
-          await this.model('typeoptionvar').where({tid: data.id}).delete();
+          await this.model('typeoptionvar').db(this.db()).where({tid: data.id}).delete();
           // 添加分类
-          await this.model('typeoptionvar').addMany(sortarr);
+          await this.model('typeoptionvar').db(this.db()).addMany(sortarr);
         }
+
+        await this.model(model).db(this.db()).update(data);
+        return status;
+      });
+      if (!result) {
+        return false;
+      } else {
+        return {data: data, id: false};
       }
     }
-
-    /**
-         * 添加或者新增扩展内容
-         * 获取当前扩模型表名字
-         * @type {array}
-         */
-    const modelinfo = await this.model('model').get_document_model(data.model_id);
+  }
+  /**
+   * 添加或者新增扩展内容
+   * 获取当前扩模型表名字
+   * @type {array}
+   */
+  async modelinfo(mdoelid) {
+    const modelinfo = await this.model('model').get_document_model(mdoelid);
     let model;
     if (modelinfo.extend == 1) {
       model = `document_${modelinfo.name}`;
     } else {
       model = modelinfo.name;
     }
-    console.log(model);
-    if (think.isEmpty(data.id)) { // 新增数据
-      data.id = id;
-      const ids = await this.model(model).add(data);
-      data.id = null;
-    } else { // 更新数据
-      const status = await this.model(model).update(data);
-      if (!status) {
-        this.error = '更新数据失败！';
-        return false;
-      }
-    }
-    return {data: data, id: id};
+    return model;
   }
-
   /**
      * 检擦指定文档下面自文档的类型
      * @param type 子文档的类型
@@ -269,10 +269,10 @@ module.exports = class extends think.Model {
   async getStatus(id, cid) {
     id = id || null;
     let status;
-    if (think.isEmpty(id)) {	// 新增
-      const check 	=	await this.model('category').where({id: cid}).getField('check', true);
-      status = 	check ? 2 : 1;
-    } else {				// 更新
+    if (think.isEmpty(id)) { // 新增
+      const check =	await this.model('category').where({id: cid}).getField('check', true);
+      status = check ? 2 : 1;
+    } else { // 更新
       status = await this.where({id: id}).getField('status', true);
       // 编辑草稿改变状态
       if (status == 3) {

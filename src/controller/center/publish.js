@@ -766,6 +766,7 @@ module.exports = class extends Home {
     for (const val of cate) {
       val.url = `/center/publish/index/?cate_id=${val.id}`;
       val.target = '_self';
+      delete val.icon;
       const priv = await this.model('category_priv').priv(val.id, roleid, 'add');
       val.priv = priv;
       if (priv == 1 && val.pid != 0) {

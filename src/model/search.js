@@ -15,8 +15,14 @@ module.exports = class extends think.Model {
      * @param data
      * @returns {Promise.<void>}
      */
-  async addsearch(m_id, d_id, data) {
-    const search_model = await this.model('search_model').where({mod: m_id}).find();
+  async addsearch(m_id, d_id, data, db = false) {
+    let smodel;
+    if (!db) {
+      smodel = this.model('search_model');
+    } else {
+      smodel = this.model('search_model').db(db);
+    }
+    const search_model = await smodel.where({mod: m_id}).find();
     if (!think.isEmpty(search_model)) {
       const obj = {};
       obj.m_id = m_id;
@@ -47,8 +53,14 @@ module.exports = class extends think.Model {
      * @param data
      * @returns {Promise.<void>}
      */
-  async updatesearch(m_id, data) {
-    const search_model = await this.model('search_model').where({mod: m_id}).find();
+  async updatesearch(m_id, data, db = false) {
+    let smodel;
+    if (!db) {
+      smodel = this.model('search_model');
+    } else {
+      smodel = this.model('search_model').db(db);
+    }
+    const search_model = await smodel.where({mod: m_id}).find();
     if (!think.isEmpty(search_model)) {
       const obj = {};
       obj.m_id = m_id;
