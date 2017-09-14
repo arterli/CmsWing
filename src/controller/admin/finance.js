@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
@@ -31,7 +31,7 @@ module.exports = class extends Base {
     const html = this.pagination(list);
     this.assign('pagerData', html);
     for (const itme of list.data) {
-      itme.user_id = await this.model('member').get_nickname(itme.user_id);
+      itme.user_id = await this.model('cmswing/member').get_nickname(itme.user_id);
       itme.admin_id = await get_nickname(itme.admin_id);
     }
     this.assign('list', list.data);

@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 const crypto = require('crypto');
 const fs = require('fs');
 module.exports = class extends Home {
@@ -26,7 +26,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
     if (this.isAjax('post')) {
@@ -105,7 +105,7 @@ module.exports = class extends Home {
             open_id = await this.session('wx_openid');
           }
           // 调用ping++ 服务端
-          payment = think.service('payment', this.ctx);
+          payment = think.service('cmswing/payment', this.ctx);
           // 传入 channel,order_no,order_amount,this.ip()
           charges = await payment.pingxx(channel, order.order_no, order.order_amount, this.ip, open_id);
           // 把pingxx_id存到订单
@@ -113,7 +113,7 @@ module.exports = class extends Home {
         } else {
           // console.log(33333333);
           // 调用ping++ 服务端
-          payment = think.service('payment', this.ctx);
+          payment = think.service('cmswing/payment', this.ctx);
           charges = await payment.charge(order.pingxx_id);
         }
         // console.log(charges);
@@ -253,7 +253,7 @@ module.exports = class extends Home {
       // 支付接口回掉
       const order = await this.model('order').where({order_no: code.out_trade_no || code.orderId || code.order_no}).find();
       // 调用ping++ 服务端
-      const payment = think.service('payment', this.ctx);
+      const payment = think.service('cmswing/payment', this.ctx);
       const charges = await payment.charge(order.pingxx_id);
 
       if (charges.paid && order.pay_status == 0) {

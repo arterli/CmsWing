@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <!--是否开启验证码-->
-                        {%if config.setup.GEETEST_IS_LOGIN ==1%}
+                        {%if config.ext.geetest.isl ==1%}
                         <div class="form-group">
                             <div id="captcha">
                                 <p id="wait" class="">正在加载验证码......</p>
@@ -59,8 +59,8 @@
                     <h4>还没有账号?</h4>
                     <p>你可以在<a href="/center/public/register" class="text-info">这里</a>创建一个帐户 </p>
                     <p>或者</p>
-                    {%if config.setup.IS_QQ_LOGIN == 1%}
-                    <a href="/center/qq/" class="btn btn-block btn-social btn-twitter margin-bottom-10">
+                    {%if config.ext.qq.is == 1%}
+                    <a href="/ext/qq/index" class="btn btn-block btn-social btn-twitter margin-bottom-10">
                         <i class="fa fa-qq"></i> 使用QQ账号登录
                     </a>
                     {%endif%}
@@ -69,9 +69,9 @@
                                     <i class="fa fa-weixin"></i> 使用微信账号登录
                                 </a>
                     {%endif%}
-                    {%if config.setup.IS_SINA_LOGIN == 1%}
-                                <a href="/center/sina/" class="btn btn-block btn-social btn-google margin-bottom-10">
-                                    <i class="fa fa-weibo"></i> 使用新浪微博账号登录 {{controller.setup.GEETEST_IS_LOGIN}}
+                    {%if config.ext.weibo.is == 1%}
+                                <a href="/ext/weibo/index" class="btn btn-block btn-social btn-google margin-bottom-10">
+                                    <i class="fa fa-weibo"></i> 使用新浪微博账号登录
                                 </a>
                     {%endif%}
                 </div>
@@ -81,7 +81,7 @@
     <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-{%if config.setup.GEETEST_IS_LOGIN ==1%}
+{%if config.ext.geetest.isl ==1%}
 <!-- 引入封装了failback的接口--initGeetest -->
 <script src="/static/admin/js/gt.js"></script>
 <script>
@@ -125,7 +125,7 @@
 
 
     $.ajax({
-        url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        url: "/ext/geetest/index/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
         type: "get",
         dataType: "json",
         success: function (data) {
@@ -147,81 +147,6 @@
         }
     });
 </script>
-{#
-<script>
-
-    $(function () {
-        var handlerEmbed = function (captchaObj) {
-            var success = false;
-            $("#validate-submit").click(function () {
-                var validate = captchaObj.getValidate();
-                if (!validate) {
-                    _toastr("请先完成验证!","top-right","error",false);
-                    return false;
-                }
-                $.ajax({
-                    url: "/center/public/login", // 进行二次验证
-                    type: "post",
-                    dataType: "json",
-                    data: {
-                        // 二次验证所需的三个值
-                        geetest_challenge: validate.geetest_challenge,
-                        geetest_validate: validate.geetest_validate,
-                        geetest_seccode: validate.geetest_seccode,
-                        username:$("input[name='username']").val(),
-                        password:$("input[name='password']").val()
-                    },
-                    success: function (data) {
-
-                        if (data && (data.errno < 0)) {
-
-                            _toastr(data.errmsg,"top-right","error",false);
-                            captchaObj.refresh();
-
-                        } else {
-                            location.reload();
-                        }
-                    }
-                });
-  return false;
-            });
-
-            // 将验证码加到id为captcha的元素里
-            captchaObj.appendTo("#captcha");
-
-            captchaObj.onReady(function () {
-                $("#wait")[0].className = "hide";
-            });
-
-            // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
-        };
-        $("#captcha").ready(function(){
-            setTimeout(function(){
-                $.ajax({
-                    // 获取id，challenge，success（是否启用failback）
-                    url: "/admin/public/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
-                    type: "get",
-                    dataType: "json",
-                    success: function (data) {
-
-                        // 使用initGeetest接口
-                        // 参数1：配置参数
-                        // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
-                        initGeetest({
-                            gt: data.gt,
-                            challenge: data.challenge,
-                            product: "float", // 产品形式，包括：float，embed，popup。注意只对PC版验证码有效
-                            offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
-                        }, handlerEmbed);
-                    }
-                });
-
-            },1000);
-        });
-    })
-
-</script>
-#}
 {%else%}
 <script>
     _login();

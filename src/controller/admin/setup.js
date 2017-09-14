@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   /**
      * index action
@@ -21,11 +21,11 @@ module.exports = class extends Base {
   // 加载配置
   async loadsetup() {
     const fs = require('fs');
-    const setup = await this.model('setup').lists();
+    const setup = await this.model('cmswing/setup').lists();
     const path1 = think.getPath('common', 'config');
     if (think.isDir(think.ROOT_PATH + '/src')) {
       const data = 'export default' + JSON.stringify(setup);
-      fs.writeFileSync(think.ROOT_PATH + '/src/common/config/setup.js', data);
+      fs.writeFileSync(think.ROOT_PATH + '/src/cmswing/config/setup.js', data);
     }
     const data1 = 'exports.__esModule = true;exports.default =' + JSON.stringify(setup);
     fs.writeFileSync(path1 + '/setup.js', data1);
@@ -189,10 +189,10 @@ module.exports = class extends Base {
 
   async aabbAction() {
     // obj = "export default "+JSON.stringify(obj)
-    // let filename = think.getPath("common", "model");
+    // let filename = think.getPath("cmswing", "model");
     // this.config("setup",{"aa":"bbb"})
 
-    const value = await this.model('menu').getallmenu();
+    const value = await this.model('cmswing/menu').getallmenu();
     this.end(value);
     // fs.writeFileSync(filename, obj, [options])
   }

@@ -249,7 +249,9 @@
             {%endfor%}
         </article>
     </div>
+    {%if config.ext.changyan.is ==1%}
     <div id="SOHUCS" sid="{{info.id}}"></div>
+    {%endif%}
 
 </div>
 {% endblock%}
@@ -257,10 +259,12 @@
 {% block script %}
 <script src="/static/mobile/js/mui.zoom.js"></script>
 <script src="/static/mobile/js/mui.previewimage.js"></script>
+{%if config.ext.changyan.is ==1%}
 <script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.setup.CY_APPID}}&conf={{config.setup.CY_APPKEY}}">
+        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.ext.changyan.appid}}&conf={{config.ext.changyan.appkey}}">
 </script>
 <script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+{%endif%}
 <script type="text/javascript">
     mui.previewImage();
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");

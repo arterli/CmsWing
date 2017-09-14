@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
@@ -28,7 +28,7 @@ module.exports = class extends Base {
     const html = this.pagination(list);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', list);
-    const modlist = await this.model('model').get_model(null, null, {is_approval: 1});
+    const modlist = await this.model('cmswing/model').get_model(null, null, {is_approval: 1});
     for (const val of modlist) {
       val.count = await this.db.where({model: val.id}).count();
     }
@@ -63,35 +63,33 @@ module.exports = class extends Base {
     const datalist = await this.db.where({id: ['IN', ids]}).select();
     // console.log(datalist);
     for (const v of datalist) {
-      const table = await this.model('model').get_table_name(v.model, true);
+      const table = await this.model('cmswing/model').get_table_name(v.model, true);
       let res = null;
       switch (table.extend) {
         case 0:
           // console.log(table);
-          res = await this.model(table.table).updates(JSON.parse(v.data), v.time);
+          res = await this.model(`mod/${table.table}`).updates(JSON.parse(v.data), v.time);
           if (res) {
             // 添加操作日志，可根据需求后台设置日志类型。
-            await this.model('action').log('addquestion', 'question', res.id, res.data.uid, this.ip, this.ctx.url);
+            await this.model('cmswing/action').log('addquestion', 'question', res.id, res.data.uid, this.ip, this.ctx.url);
             // 审核成功后删掉审核表中内容
             await this.db.where({id: v.id}).delete();
             return this.success({name: '审核成功'});
           } else {
             return this.fail('操作失败！');
           }
-          break;
         case 1:
           // todo
-          res = await this.model('document').updates(JSON.parse(v.data), v.time);
+          res = await this.model('cmswing/document').updates(JSON.parse(v.data), v.time);
           if (res) {
             // 添加操作日志，可根据需求后台设置日志类型。
-            // await this.model("action").log("addquestion", "question", res.id, res.data.uid, this.ip(), this.http.url);
+            // await this.model("cmswing/action").log("addquestion", "question", res.id, res.data.uid, this.ip, this.ctx.url);
             // 审核成功后删掉审核表中内容
             await this.db.where({id: v.id}).delete();
             return this.success({name: '审核成功'});
           } else {
             return this.fail('操作失败！');
           }
-          break;
       }
     }
   }

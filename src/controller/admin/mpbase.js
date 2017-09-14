@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const API = require('co-wechat-api');
 const fs = require('fs');
 const superagent = require('superagent');
@@ -47,7 +47,7 @@ module.exports = class extends Base {
     this.assign('pagerData', page); // 分页展示使用
     this.assign('list', data.data);
     for (const val of data.data) {
-      val.uid = await this.model('member').get_nickname(val.uid);
+      val.uid = await this.model('cmswing/member').get_nickname(val.uid);
     }
     this.assign({'navxs': true});
     this.meta_title = '公共账号管理';

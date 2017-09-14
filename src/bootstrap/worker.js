@@ -3,6 +3,10 @@ require('./global');
 require('./model');
 require('./tags');
 think.beforeStartServer(async() => {
-  const config = await think.model('setup').getset();
-  think.config('setup', config); // 从数据库中将配置读取出来，然后设置
+  // 加载网站配置
+  const webconfig = await think.model('cmswing/setup').getset();
+  think.config('setup', webconfig);
+  // 加载扩展配置
+  const extconfig = await think.model('cmswing/ext').getset();
+  think.config('ext', extconfig);
 });

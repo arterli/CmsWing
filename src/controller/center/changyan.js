@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Center = require('../common/center');
+const Center = require('../cmswing/center');
 const crypto = require('crypto');
 const fs = require('fs');
 const superagent = require('superagent');
@@ -74,7 +74,7 @@ module.exports = class extends Center {
       } else {
         // 已绑定用户直接登录/uc
         const userinfo = await this.model('member').find(uid);
-        await this.model('member').autoLogin({id: userinfo.id}, this.ip);// 更新用户登录信息，自动登陆
+        await this.model('cmswing/member').autoLogin({id: userinfo.id}, this.ip);// 更新用户登录信息，自动登陆
         const cy_userInfo = {
           'uid': userinfo.id,
           'username': userinfo.username,
@@ -157,7 +157,7 @@ module.exports = class extends Center {
       }
     }
     console.log(data);
-    await this.model('member').autoLogin({id: reg}, this.ip);// 更新用户登录信息，自动登陆
+    await this.model('cmswing/member').autoLogin({id: reg}, this.ip);// 更新用户登录信息，自动登陆
     const wx_userInfo = {
       'uid': reg,
       'username': data.username,
@@ -175,7 +175,7 @@ module.exports = class extends Center {
     password = encryptPassword(password);
     console.log(data);
     const resurl = this.cookie('changyanurl');
-    const res = await this.model('member').signin(username, password, this.ip, 5, 0);
+    const res = await this.model('cmswing/member').signin(username, password, this.ip, 5, 0);
     if (res.uid > 0) {
       // 记录用户登录行为
       // await this.model("action", {}, "admin").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
@@ -214,7 +214,7 @@ module.exports = class extends Center {
       const username = this.post('username');
       let password = this.post('password');
       password = encryptPassword(password);
-      const res = await this.model('member').signin(username, password, this.ip, 5, 0);
+      const res = await this.model('cmswing/member').signin(username, password, this.ip, 5, 0);
       if (res.uid > 0) {
         // 记录用户登录行为
         // await this.model("action").log("user_login","member",res.uid,res.uid,this.ip,this.ctx.url);

@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   // 列表页[核心]
   async indexAction() {
@@ -34,13 +34,13 @@ module.exports = class extends Home {
     if (this.is_login) {
       roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
     }
-    const priv = await this.model('category_priv').priv(cate.id, roleid, 'visit');
+    const priv = await this.model('cmswing/category_priv').priv(cate.id, roleid, 'visit');
     if (!priv) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('您所在的用户组,禁止访问本栏目！');
     }
     // 获取当前栏目的模型
-    const models = await this.model('category').get_category(cate.id, 'model');
+    const models = await this.model('cmswing/category').get_category(cate.id, 'model');
     // 获取模型信息
     let modellist = [];
     // console.log(111111111)
@@ -50,7 +50,7 @@ module.exports = class extends Home {
       for (const val of models.split(',')) {
         const modelobj = {};
         modelobj.id = val;
-        modelobj.title = await this.model('model').get_model(val, 'title');
+        modelobj.title = await this.model('cmswing/model').get_model(val, 'title');
         modellist.push(modelobj);
       }
     }
@@ -58,7 +58,7 @@ module.exports = class extends Home {
     this.assign('model', models.split(','));
     // console.log(cate);
     // 获取当前分类的所有子栏目
-    const subcate = await this.model('category').get_sub_category(cate.id);
+    const subcate = await this.model('cmswing/category').get_sub_category(cate.id);
     // console.log(subcate);
     subcate.push(cate.id);
     // 获取模型列表数据个数
@@ -67,7 +67,7 @@ module.exports = class extends Home {
     if (cate.list_row > 0) {
       num = cate.list_row;
     } else if (cate.model.split(',').length == 1) {
-      const pagenum = await this.model('model').get_model(cate.model, 'list_row');
+      const pagenum = await this.model('cmswing/model').get_model(cate.model, 'list_row');
       if (pagenum != 0) {
         num = pagenum;
       }
@@ -127,7 +127,7 @@ module.exports = class extends Home {
     }
     let sortarr = query[4] ? decodeURI(query[4]) : null;
     let nsobj = {};
-    let sort = await this.model('category').get_category(cate.id, 'documentsorts');
+    let sort = await this.model('cmswing/category').get_category(cate.id, 'documentsorts');
     if (sort) {
       this.assign('sorturl', get.split('-')[4]);
       sort = JSON.parse(sort);
@@ -262,7 +262,7 @@ module.exports = class extends Home {
     this.description = cate.description ? cate.description : ''; // seo描述
 
     // 获取面包屑信息
-    const breadcrumb = await this.model('category').get_parent_category(cate.id, true);
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cate.id, true);
     this.assign('breadcrumb', breadcrumb);
     // console.log(breadcrumb)
 

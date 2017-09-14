@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 const Jimp = require('jimp');
 module.exports = class extends Home {
   async __before() {
@@ -18,7 +18,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
   }
@@ -119,7 +119,7 @@ module.exports = class extends Home {
         open_id = await this.session('wx_openid');
       }
       // 调用ping++ 服务端
-      const payment = this.service('payment', this.ctx);
+      const payment = this.service('cmswing/payment', this.ctx);
       // 传入 channel,order_no,order_amount,this.ip()
       const charges = await payment.pingxx(channel, data.order_no, data.order_amount, this.ip, open_id);
       // console.log(charges);

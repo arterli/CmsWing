@@ -6,12 +6,12 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.db = this.model('ext');
+    this.db = this.model('cmswing/ext');
     this.tactive = 'ext';
   }
   /**
@@ -20,7 +20,7 @@ module.exports = class extends Base {
    */
   async indexAction() {
     // auto render template file index_index.html
-    const data = await this.db.page(this.get('page')).countSelect();
+    const data = await this.db.page(this.get('page')).order('sort DESC, updatetime DESC').countSelect();
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
@@ -47,7 +47,7 @@ module.exports = class extends Base {
         data.updatetime = new Date(data.updatetime).valueOf();
       }
       const res = await this.model('ext').add(data);
-      if (res) {
+      if (res === 0) {
         return this.success({name: '添加插件成功！', url: '/admin/ext/index'});
       } else {
         return this.fail('添加失败！');
@@ -100,5 +100,11 @@ module.exports = class extends Base {
     } else {
       return this.json(1);
     }
+  }
+  /**
+   * 排序
+   */
+  async sortAction() {
+    await super.sortAction('cmswing/ext', 'ext');
   }
 };

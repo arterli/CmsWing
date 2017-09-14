@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const fs = require('fs');
 module.exports = class extends Base {
   constructor(ctx) {

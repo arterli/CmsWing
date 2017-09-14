@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   constructor(ctx) {
     super(ctx);
@@ -51,11 +51,11 @@ module.exports = class extends Home {
     // console.log(q);
 
     // 获取所有的模型
-    const models = await this.model('model').get_model(null, null, {key_show: 1});
+    const models = await this.model('cmswing/model').get_model(null, null, {key_show: 1});
     // console.log(models);
     this.assign('models', models);
     // 获取当前模型
-    const mod = await this.model('model').get_model(q[1]);
+    const mod = await this.model('cmswing/model').get_model(q[1]);
     // console.log(mod);
     this.assign('mod', mod);
 

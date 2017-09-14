@@ -21,6 +21,9 @@
                                         <a class="btn btn-sm btn-info " href="/admin/ext/add">
                                             新增插件
                                         </a>
+                                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
+                                            排序
+                                        </a>
                                         <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/?status=1&pk=ext"  target-form="ids">
                                             启用
                                         </a>
@@ -46,6 +49,7 @@
                                     <thead>
                                     <tr>
                                         <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th style="width:80px;">排序</th>
                                         <th style="">插件名称</th>
                                         <th class="">插件目录</th>
                                         <th class="">版本号</th>
@@ -59,6 +63,7 @@
                                     {% for item in list %}
                                     <tr>
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.ext}}" ><i></i></label></td>
+                                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.ext}}"/></td>
                                         <td>{{item.name}}</td>
                                         <td>{{item.ext}}</td>
                                         <td>{{item.version}}</td>

@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   constructor(ctx) {
     super(ctx);
@@ -39,7 +39,7 @@ module.exports = class extends Home {
     console.log(data);
     const ids = data.ids.split('||');
     // 检查库存
-    const stock = await this.model('order').getstock(ids[0], ids[1]);
+    const stock = await this.model('cmswing/order').getstock(ids[0], ids[1]);
     // think.log(stock);
     if (data.qty > stock) {
       return this.fail('无货');
@@ -93,7 +93,7 @@ module.exports = class extends Home {
     let data = this.post();
     data = think.extend({}, data);
     // 添加购物车前判断是否有库存
-    const stock = await this.model('order').getstock(data.product_id, data.type);
+    const stock = await this.model('cmswing/order').getstock(data.product_id, data.type);
     // think.log(stock);
     if (data.qty > stock) {
       return this.json(false);
@@ -141,7 +141,7 @@ module.exports = class extends Home {
     for (const val of arr) {
       const dataobj = {};
       let goods = await this.model('document').find(val.product_id);
-      const table = await this.model('model').get_table_name(goods.model_id);
+      const table = await this.model('cmswing/model').get_table_name(goods.model_id);
       const info = await this.model(table).find(val.product_id);
       goods = think.extend(goods, info);
       dataobj.title = goods.title;
@@ -205,7 +205,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
     let post = this.para('ids');
@@ -351,7 +351,7 @@ module.exports = class extends Home {
     // 计算运费模板
     const rarr = [];
     for (const r of cgarr) {
-      const rf = await this.model('fare').getfare(r.cg, null, this.user.uid, r.id);
+      const rf = await this.model('cmswing/fare').getfare(r.cg, null, this.user.uid, r.id);
       rarr.push(rf);
     }
     // console.log(rarr);
@@ -392,7 +392,7 @@ module.exports = class extends Home {
     }
     // console.log(parr);
     const real_amount = eval(parr.join('+'));
-    const real_freight = await this.model('fare').getfare(cart_goods, this.get('id'), this.user.uid);
+    const real_freight = await this.model('cmswing/fare').getfare(cart_goods, this.get('id'), this.user.uid);
     const order_amount = Number(real_amount) + Number(real_freight);
     const res = {
       real_freight: real_freight,
@@ -410,7 +410,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
     let data = this.post();
@@ -427,7 +427,7 @@ module.exports = class extends Home {
     const goodsarr = [];
     for (const goods of goodslist) {
       // 检查购物车内的宝贝是否有库存
-      const stock = await this.model('order').getstock(goods.product_id, goods.type);
+      const stock = await this.model('cmswing/order').getstock(goods.product_id, goods.type);
       // think.log(stock);
       if (goods.qty > stock) {
         return this.fail('购物车内有已经售罄的商品，请返回购物车重新编辑！');
@@ -450,7 +450,7 @@ module.exports = class extends Home {
     // let nowtime = new Date().valueOf();
     // let oid =["d",this.user.uid,nowtime]
     // data.order_no = oid.join("");
-    data.order_no = await this.model('order').orderid(this.user.uid);
+    data.order_no = await this.model('cmswing/order').orderid(this.user.uid);
     // 添加送货地址
     const address = await this.model('address').fieldReverse('id,user_id,is_default').find(data.address);
     console.log(address);
@@ -473,7 +473,7 @@ module.exports = class extends Home {
     // TODO
     // 计算商品的总重量
 
-    data.real_freight = await this.model('fare').getfare(isgoods, data.address, this.user.uid); ;
+    data.real_freight = await this.model('cmswing/fare').getfare(isgoods, data.address, this.user.uid); ;
 
     // 支付状态 pay_stayus 0:未付款 ,1:已付款
     data.pay_status = 0;
@@ -509,14 +509,14 @@ module.exports = class extends Home {
     await this.model('order_goods').addMany(ngoods);
     console.log(data);
     // 减少订单中商品的库存
-    await this.model('order').stock(order_id, true);
+    await this.model('cmswing/order').stock(order_id, true);
 
     return this.success({name: '订单创建成功，正在跳转支付页面！', url: `/center/pay/pay?order=${order_id}&setp=3`});
   }
   // 实时查询商品库存
   async getstockAction() {
     const data = this.get();
-    const stock = await this.model('order').getstock(data.id, data.type);
+    const stock = await this.model('cmswing/order').getstock(data.id, data.type);
     return this.json(stock);
   }
 };

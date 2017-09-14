@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Index = require('../index');
-module.exports = class extends Index {
+module.exports = class extends think.cmswing.ModIndex {
   /**
    * index action
    * @return {Promise} []
@@ -41,7 +40,7 @@ module.exports = class extends Index {
 
     // 栏目权限验证
     if (!await this.c_verify('visit')) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('您所在的用户组,禁止访问本栏目！');
     }
 
@@ -50,14 +49,14 @@ module.exports = class extends Index {
     this.assign('model', model);
 
     // 获取当前分类的所有子栏目
-    const subcate = await this.model('category').get_sub_category(cate.id);
+    const subcate = await this.model('cmswing/category').get_sub_category(cate.id);
     subcate.push(cate.id);
 
     // 当前栏目列表每页行数
     const num = this.page_num();
 
     // 获取面包屑信息
-    const breadcrumb = await this.model('category').get_parent_category(cate.id, true);
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cate.id, true);
 
     // 获取列表数据
     // 条件
@@ -135,16 +134,15 @@ module.exports = class extends Index {
   async detailAction() {
     // 获取详情id
     const id = this.get('id');
+    const error = this.controller('cmswing/error');
     // 判断请求参数是否合法。
     if (!think.isNumberString(id)) {
-      const error = this.controller('common/error');
       return error.noAction('请求参数不合法！');
     }
     // 获取详情信息
     const info = await this.model('question').find(id);
     // 判断信息是否存在
     if (think.isEmpty(info)) {
-      const error = this.controller('common/error');
       return error.noAction('信息不存在！');
     }
     // TODO
@@ -152,7 +150,6 @@ module.exports = class extends Index {
 
     // 栏目权限验证
     if (!await this.c_verify('visit', info.category_id)) {
-      const error = this.controller('common/error');
       return error.noAction('您所在的用户组,禁止访问本栏目！');
     }
     this.assign('info', info);
@@ -163,7 +160,7 @@ module.exports = class extends Index {
     this.description = info.description ? info.description : ''; // seo描述
 
     // 获取面包屑信息
-    const breadcrumb = await this.model('category').get_parent_category(info.category_id, true);
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(info.category_id, true);
     this.assign('breadcrumb', breadcrumb);
     // 获取栏目信息
     const cate = await this.category(info.category_id);
@@ -222,7 +219,7 @@ module.exports = class extends Index {
         for (const v of data.data) {
           v.nickname = await get_nickname(v.uid);
           v.create_time = this.moment(v.create_time).fromNow();
-          v.catename = await this.model('category').get_category(v.category_id, 'title');
+          v.catename = await this.model('cmswing/category').get_category(v.category_id, 'title');
           v.detail = (v.detail).replace(/<[^>]+>/g, '');
           v.answer_username = await get_nickname(v.answer_users);
           v.update_time = moment(v.update_time).fromNow();

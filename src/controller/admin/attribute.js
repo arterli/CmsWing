@@ -6,13 +6,13 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
     this.tactive = 'setup';
-    this.db = this.model('attribute');
+    this.db = this.model('cmswing/attribute');
   }
   /**
      * 字段列表
@@ -44,7 +44,7 @@ module.exports = class extends Base {
     const model_id = this.get('model_id');
     const model = await this.model('model').find(model_id);
     const table = this.config('model.mysql.prefix') + model.name;
-    const db = this.model('model');
+    const db = this.model('cmswing/model');
     const result = await db.getSchema();
     this.meta_title = '字段列表';
     this.active = 'admin/model/index';

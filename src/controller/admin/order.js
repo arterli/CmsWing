@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
@@ -101,7 +101,7 @@ module.exports = class extends Base {
       const voids = true;
       if (voids) {
         // 释放库存
-        await this.model('order').stock(id, false);
+        await this.model('cmswing/order').stock(id, false);
         return this.success({name: '操作成功！', url: this.referer()});
       } else {
         return this.fail('操作失败！');
@@ -234,7 +234,7 @@ module.exports = class extends Base {
           log = `修改了订单，订单编号：${order.order_no}，并调整订单金额 ${data.adjust_amount} 元，原订单金额：${olde_order_amount} 元，调整后订单金额：${data.order_amount} 元`;
         }
 
-        await this.model('action').log('order', 'order', log, this.user.uid, this.ip, this.ctx.url);
+        await this.model('cmswing/action').log('order', 'order', log, this.user.uid, this.ip, this.ctx.url);
         return this.success({name: '编辑成功！'});
       } else {
         return this.fail('编辑失败！');

@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 const Jimp = require('jimp');
 module.exports = class extends Home {
   async __before() {
@@ -18,7 +18,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
   }

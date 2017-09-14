@@ -1,0 +1,64 @@
+{% extends "../../admin/inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class="active"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                    <li ><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
+                </ul>
+            </header>
+
+            <div class="table-responsive">
+
+                    <div class="caption wrapper-lg">
+                        <h3 >Video++ 配置说明</h3>
+                        <div class="line line-lg"></div>
+                        <h4>申请地址</h4>
+                        <pre>http://videojj.com</pre>
+                        <div class="post-sum">
+                            <p>申请完成后会得到 APP Key，对应填写到插件配置中，播放器 可以在“控制台->项目看板->应用管理->播放器设置” >进行设置。</p>
+                        </div>
+                        <div class="line line-lg"></div>
+                        <h3>在模板中使用</h3>
+                        <h4>1. 引入JS SDK：</h4>
+                        <pre>{{'<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>'}}</pre>
+                        <h4>2. 新建一个div作为视频播放的窗口，建议div的宽高在640px*480px以上。</h4>
+                        <pre>{{'<div id="video-box" style="width: 860px; height: 484px">'}}</pre>
+                        <h4>2. 在网页合适位置写入如下代码，即可创建互动视频实例：</h4>
+                        <pre>{{"var ivaInstance = new Iva(
+ 'video-box',//新建一个div作为视频播放的窗口，建议div的宽高在640px*480px以上；
+ {
+   appkey: '{{config.ext.videojj.appkey}}',//必填，请在控制台查看应用标识
+   video: '{%if info.video_id != 0%}{{info.video_id|get_file('savename',1)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（例如：http://v.youku.com/v_show/id_XMTY5NDg2MzY5Ng==.html）
+   title: '{{info.title}}',//选填，建议填写方便后台数据统计
+   cover: '{{info.cover_id|get_pic('')}}',//选填，视频封面url
+   vnewsEnable: {%if config.ext.videojj.vnewsEnable==0%}false{%else%}true{%endif%},//是否开启新闻推送功能，默认为true
+   playerUrl: '', //选填，第三方播放器与Video++互动层的桥接文件，由Video++官方定制提供，默认为空
+   videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
+   videoEndPrefixSeconds: 0,//选填，跳过片尾，默认为0
+ }
+);"}}</pre>
+                        <div class="line line-lg"></div>
+                        <div class="text-muted">
+                            <i class="fa fa-user icon-muted"></i> by <a href="#" class="m-r-sm">阿特</a>
+                            <i class="fa fa-clock-o icon-muted"></i> 2017年9月13日
+                        </div>
+                    </div>
+
+            </div>
+
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

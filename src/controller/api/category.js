@@ -1,4 +1,4 @@
-const BaseRest = require('../common/rest');
+const BaseRest = require('../cmswing/rest');
 module.exports = class extends BaseRest {
   /**
      * 获取分类信息

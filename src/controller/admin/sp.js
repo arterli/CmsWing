@@ -6,13 +6,13 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
     this.tactive = 'article';
-    this.db = this.model('category_sp');
+    this.db = this.model('cmswing/category_sp');
   }
   /**
    * index action
@@ -21,14 +21,14 @@ module.exports = class extends Base {
   async indexAction() {
     const cate_id = this.get('cate_id') || null;
     if (think.isEmpty(cate_id)) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('该栏目不存在！');
     }
     // 权限验证
     await this.admin_priv('init', cate_id, '您没有权限查看本栏目！');
-    const name = await this.model('category').get_category(cate_id, 'name') || cate_id;
+    const name = await this.model('cmswing/category').get_category(cate_id, 'name') || cate_id;
     // 获取面包屑信息
-    const nav = await this.model('category').get_parent_category(cate_id);
+    const nav = await this.model('cmswing/category').get_parent_category(cate_id);
     this.assign('breadcrumb', nav);
     // 获取内容
     // console.log(cate_id);

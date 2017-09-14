@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
-{%if controller.setup.IS_QINIU == 1%}
+{%if controller.ext.qiniu.is == 1%}
 <link rel="stylesheet" href="/static/admin/js/qiniu/main.css" type="text/css">
 {%endif%}
 <!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
@@ -1993,7 +1993,7 @@ table tr td{
 
     <div class="col-md-10">
         <input id="pickfilesid" type="hidden" name="{{field.name}}" value="{{data[field['name']]}}"/>
-        {%if controller.setup.IS_QINIU == 1%}
+        {%if controller.ext.qiniu.is == 1%}
 
         <div id="container" style="{%if data[field['name']]%}display:none{%else%}display: block{%endif%}">
             <a class="btn btn-default " id="pickfiles" href="#" >
@@ -2027,7 +2027,7 @@ table tr td{
                 </tbody>
             </table>
         </div>
-        {%if controller.setup.IS_QINIU == 1%}
+        {%if controller.ext.qiniu.is == 1%}
         <!--七牛-->
         <script type="text/javascript" src="/static/admin/js/qiniu/plupload.full.min.js"></script>
         <script type="text/javascript" src="/static/admin/js/qiniu/zh_CN.js"></script>
@@ -2200,8 +2200,8 @@ table tr td{
 
     </div>
 </section>
-{%if config.setup.IS_QINIU == 1%}
-<input type="hidden" id="domain" value="http://{{config.setup.QINIU_DOMAIN_NAME}}/">
+{%if config.ext.qiniu.is == 1%}
+<input type="hidden" id="domain" value="http://{{config.ext.qiniu.domain}}/">
 {%endif%}
 
 {% endblock %}

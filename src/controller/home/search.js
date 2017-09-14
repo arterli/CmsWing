@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 const Segment = require('segment');
 module.exports = class extends Home {
   /**
@@ -111,11 +111,11 @@ module.exports = class extends Home {
       // console.log(modlist);
       const data = [];
       for (const v of res) {
-        const extend = await this.model('model').get_model(v.m_id, 'extend');
+        const extend = await this.model('cmswing/model').get_model(v.m_id, 'extend');
         v.m_type = extend;
         let table;
         if (extend == 0) {
-          table = await this.model('model').get_model(v.m_id, 'name');
+          table = await this.model('cmswing/model').get_model(v.m_id, 'name');
         } else {
           table = 'document';
         }
@@ -141,13 +141,13 @@ module.exports = class extends Home {
       if (this.isMobile) {
         if (this.isAjax('get')) {
           for (const v of list.data) {
-            v.model = await this.model('model').get_model(v.m_id, 'title');
+            v.model = await this.model('cmswing/model').get_model(v.m_id, 'title');
             if (v.m_type == 1) {
               v.url = get_url(v.name, v.id);
             } else {
-              v.url = `/mod/${await this.model('model').get_model(v.m_id, 'name')}/index/detail/id/${v.d_id}`;
+              v.url = `/mod/${await this.model('cmswing/model').get_model(v.m_id, 'name')}/index/detail/id/${v.d_id}`;
             }
-            v.categoryname = await this.model('category').get_category(v.category_id, 'title');
+            v.categoryname = await this.model('cmswing/category').get_category(v.category_id, 'title');
             v.add_time = this.moment(v.add_time).format('YYYY-MM-DD HH:mm');
           }
           return this.json(list);

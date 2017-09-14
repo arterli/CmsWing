@@ -225,7 +225,7 @@ module.exports = {
       env.addFilter('get_relation', async(id, model, pk, val, callback) => {
         const map = {};
         map[pk] = id;
-        const data = await think.model(model, think.config('db')).where(map).getField(val, true);
+        const data = await think.model(model).where(map).getField(val, true);
         callback(null, data);
       }, true);
       /**
@@ -356,7 +356,7 @@ module.exports = {
 			 * 获取用户组
 			 */
       env.addFilter('get_member_group', async(groupid, callback) => {
-        const data = await think.model('member_group', think.config('db')).getgroup({groupid: groupid});
+        const data = await think.model('cmswing/member_group', think.config('db')).getgroup({groupid: groupid});
         callback(null, data[0]);
       }, true);
       /**
@@ -383,14 +383,14 @@ module.exports = {
       }, true);
 
       env.addFilter('get_type', async(sort_id, id, category_id, callback) => {
-        const type = await think.model('type').get_type(sort_id, id, category_id);
+        const type = await think.model('cmswing/type').get_type(sort_id, id, category_id);
         callback(null, type);
       }, true);
       /**
 			 * 获取地区
 			 */
       env.addFilter('get_area', async(id, callback) => {
-        const data = await think.model('area').get_area(id);
+        const data = await think.model('cmswing/area').get_area(id);
         callback(null, data);
       }, true);
       env.addExtension('tagtest', new mytags(), true);
@@ -428,7 +428,7 @@ module.exports = {
 			 * {%endfor%}
 			 */
       env.addFilter('show_ad', async(spaceid, type, callback) => {
-        const data = await think.model('ext_ad_space').showad(spaceid);
+        const data = await think.model('ext/ext_ad_space').showad(spaceid);
         let res = '';
         if (!think.isEmpty(data)) {
           if (type === 'code') {

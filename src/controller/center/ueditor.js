@@ -227,18 +227,18 @@ module.exports = class extends think.Controller {
         break;
     }
     // 加入七牛接口
-    if (think.config('setup.IS_QINIU') == 1 && base64 == 'upload') {
+    if (Number(this.config('ext.qiniu.is')) === 1 && base64 === 'upload') {
       const file = think.extend({}, this.file(fieldName));
       // console.log(file);
       const filepath = file.path;
       const extname = path.extname(file.name);
       const basename = path.basename(filepath) + extname;
-      const qiniu = this.service('qiniu');
+      const qiniu = this.service('ext/qiniu');
       const uppic = await qiniu.uploadpic(filepath, basename);
       if (!think.isEmpty(uppic)) {
         return {
           'state': 'SUCCESS',
-          'url': `//${think.config('setup.QINIU_DOMAIN_NAME')}/${uppic.key}`,
+          'url': `//${think.config('ext.qiniu.domain')}/${uppic.key}`,
           'title': uppic.hash,
           'original': file.name,
           'type': extname,
@@ -271,7 +271,7 @@ module.exports = class extends think.Controller {
     }
     const list = [];
     for (const imgUrl of source) {
-      const up = this.service('ueditor', imgUrl, config, 'remote'); // 加载名为 ueditor 的 editor Adapter
+      const up = this.service('cmswing/ueditor', imgUrl, config, 'remote'); // 加载名为 ueditor 的 editor Adapter
       const info = await up.saveRemote();
       // console.log(info);
       list.push({'state': 'SUCCESS', 'url': info.url, 'size': 431521, 'title': info.title, 'original': info.original, 'source': imgUrl});

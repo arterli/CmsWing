@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Admin = require('../admin');
-module.exports = class extends Admin {
+module.exports = class extends think.cmswing.ModAdmin {
   init(http) {
     super.init(http);
     this.tactive = 'article';
@@ -23,9 +22,9 @@ module.exports = class extends Admin {
       this.http.error = new Error('该栏目不存在！');
       return think.statusAction(702, this.http);
     }
-    const name = await this.model('category').get_category(cate_id, 'name') || cate_id;
+    const name = await this.model('cmswing/category').get_category(cate_id, 'name') || cate_id;
     // 获取面包屑信息
-    const nav = await this.model('category').get_parent_category(cate_id);
+    const nav = await this.model('cmswing/category').get_parent_category(cate_id);
     this.assign('breadcrumb', nav);
     // 获取内容
     // 构建列表数据
@@ -33,7 +32,7 @@ module.exports = class extends Admin {
     const map = {};
     if (cate_id) {
       // 获取当前分类的所有子栏目
-      const subcate = await this.model('category').get_sub_category(cate_id);
+      const subcate = await this.model('cmswing/category').get_sub_category(cate_id);
       // console.log(subcate);
       subcate.push(cate_id);
       map.category_id = ['IN', subcate];
@@ -43,7 +42,7 @@ module.exports = class extends Admin {
     }
 
     // 获取分组
-    let groups = await this.model('category').get_category(cate_id, 'groups');
+    let groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
     if (groups) {
       groups = parse_config_attr(groups);
     }
@@ -85,14 +84,14 @@ module.exports = class extends Admin {
     // 删除搜索
     if (think.isArray(ids)) {
       for (const id of ids) {
-        await this.model('search').delsearch(8, id);
+        await this.model('cmswing/search').delsearch(8, id);
         // 删除话题
-        await this.model('keyword').delkey(id, 8);
+        await this.model('cmswing/keyword').delkey(id, 8);
       }
     } else {
-      await this.model('search').delsearch(8, ids);
+      await this.model('cmswing/search').delsearch(8, ids);
       // 话题
-      await this.model('keyword').delkey(ids, 8);
+      await this.model('cmswing/keyword').delkey(ids, 8);
     }
     // 删除相关的
     return this.success({name: '删除成功！'});

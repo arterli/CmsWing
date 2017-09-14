@@ -1,4 +1,5 @@
 {% extends "../../admin/inc/base.html" %}
+{% import "../../cmswing/forms.html" as forms %}
 {% block content %}
                 <section class="vbox">
                     <header class="header bg-light dk">
@@ -22,38 +23,9 @@
                                     <form action="/{{ctx.controller}}/setting" class="form-horizontal" method="post"
                                           data-validate="parsley">
                                             <!--自定义配置开始-->
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">是否允许申请</label>
-                                                    <div class="col-sm-10">
-                                                        <div class="row">
-                                                            <div class="col-md-10">
-                                                                <label class="radio-inline i-checks">
-                                                                    <input type="radio" value="1" name="ispost" {%if setting.ispost== 1 %}checked {%endif%}><i></i> 是
-                                                                </label>
-                                                                <label class="radio-inline i-checks">
-                                                                    <input type="radio" value="0" name="ispost" {%if setting.ispost== 0 %}checked {%endif%}><i></i> 否
-                                                                </label>
-                                                            </div>
+                                        {{forms.radio(setting,label='是否允许申请', name='ispost', value={"1":'是',"0":'否'},html='')}}
+                                        {{forms.radio(setting,label='是否开启验证码', name='enablecheckcode', value={"1":'是',"0":'否'},html='')}}
 
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">是否开启验证码</label>
-                                            <div class="col-sm-10">
-                                                <div class="row">
-                                                    <div class="col-md-10">
-                                                        <label class="radio-inline i-checks">
-                                                            <input type="radio" value="1" name="enablecheckcode" {%if setting.enablecheckcode== 1 %}checked {%endif%}><i></i> 是
-                                                        </label>
-                                                        <label class="radio-inline i-checks">
-                                                            <input type="radio" value="0" name="enablecheckcode" {%if setting.enablecheckcode== 0 %}checked {%endif%}><i></i> 否
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
                                           <!--自定义配置结束-->
                                         <div class="form-group form-submit">
                                             <div class="col-sm-4 col-sm-offset-2">

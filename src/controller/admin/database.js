@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const fs = require('fs');
 const targz = require('tar.gz');
 const http = require('http');
@@ -120,7 +120,7 @@ module.exports = class extends Base {
       await this.session('backup_tables', tables);
 
       // 创建备份文件
-      const db = this.service('mysql', file, config, 'export', this.ctx);
+      const db = this.service('cmswing/mysql', file, config, 'export', this.ctx);
       if (db.create() !== false) {
         const tab = {'id': 0, 'start': 0};
         return this.json({
@@ -141,7 +141,7 @@ module.exports = class extends Base {
       const backup_file = await this.session('backup_file');
       // console.log(backup_file);
       const backup_config = await this.session('backup_config');
-      const db = this.service('mysql', backup_file, backup_config, 'export', this.ctx);
+      const db = this.service('cmswing/mysql', backup_file, backup_config, 'export', this.ctx);
       start = await db.backup(table[id], start);
       if (start === false) {
         return this.fail('备份出错！');
