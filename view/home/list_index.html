@@ -77,18 +77,18 @@ CLASSES:
                                 <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}">{{v.name}}</a></li>
                                 {%endfor%}
                             </ul>
-                            {%if category.id|priv(controller.user.roleid,'add',0,false)%}
+
                             <!--投稿按钮-->
                             <div class="btn-group btn-group-sm pull-right">
                                 <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
                                     dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
-                                    == 1 %} href="/center/publish/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
+                                    == 1 %} href="/center/publish/add/?model_id={{modellist[0].id}}&pid=0&cate_id={{cate.id}}&group_id={{group_id}}&sortid={{sortid}}"{%endif%}
                                     ><span class="fa fa-pencil-square-o"></span> 投稿 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</a>
                                 {%if model|length > 1 %}
                                 <ul class="dropdown-menu">
 
                                     {% for val in modellist%}
-                                    <li> <a href="/center/publish/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
+                                    <li> <a href="/center/publish/add/?model_id={{val.id}}&pid=0&cate_id={{cate.id}}&group_id={{group_id}}&sortid={{sortid}}"
                                             class="text-info">添加{{val.title}}</a></li>
                                     {% endfor %}
 

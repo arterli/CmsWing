@@ -33,6 +33,7 @@ module.exports = class extends Home {
     // console.log(cate_id);
     // 权限控制
     const priv = await this.priv(cate_id);
+    console.log(priv);
     if (priv) {
       const error = this.controller('cmswing/error');
       return error.noAction('网站禁止投稿！');
@@ -658,11 +659,11 @@ module.exports = class extends Home {
   }
   // 权限验证
   async priv(cate_id) {
-    const cate = cate_id || await this.model('cmswing/category').get_all_category();
+    const cate = cate_id || await this.model('cmswing/category').get_all_category({mold: 0});
     const roleid = await this.model('member').where({id: this.user.uid}).getField('groupid', true);
     let cates = [];
     if (cate_id) {
-      const priv = await this.model('cmswing/category_priv').priv(cate_id, roleid, 'add');
+      const priv = await this.model('cmswing/category_priv').priv(cate_id, roleid, 'add', 0, false);
       if (priv == 1) {
         cates.push(priv);
       }
@@ -673,30 +674,30 @@ module.exports = class extends Home {
       // TODO 权限控制(管理员)
       const parr = [];
       for (const val of cate) {
-        const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add');
+        const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add', 0, false);
         val.priv = priv;
-        if (priv == 1 && val.pid != 0) {
+        if (priv == 1 ) {
           parr.push(val.pid);
         }
       }
-
-      if (think.isEmpty(parr)) {
-        cates = cate;
-      } else {
-        for (const val of cate) {
-          if (in_array(val.id, parr)) {
-            val.priv = 1;
-          }
-        }
-
-        for (const val of cate) {
-          if (val.priv == 1) {
-            cates.push(val);
-          }
-        }
-      }
+      cates = parr;
+      // if (think.isEmpty(parr)) {
+      //   cates = parr;
+      // } else {
+      //   for (const val of cate) {
+      //     if (in_array(val.id, parr)) {
+      //       val.priv = 1;
+      //     }
+      //   }
+      //
+      //   for (const val of cate) {
+      //     if (val.priv == 1) {
+      //       cates.push(val);
+      //     }
+      //   }
+      // }
     }
-
+    console.log(cates);
     return think.isEmpty(cates);
   }
 
@@ -757,7 +758,7 @@ module.exports = class extends Home {
   async getmenuAction() {
     const cate = await this.model('cmswing/category').get_all_category({mold: 0});
     const roleid = await this.model('member').where({id: this.user.uid}).getField('groupid', true);
-    console.log(roleid);
+    // console.log(roleid);
     // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
     // console.log(priv);
     // 前台投稿分类
@@ -767,7 +768,7 @@ module.exports = class extends Home {
       val.url = `/center/publish/index/?cate_id=${val.id}`;
       val.target = '_self';
       delete val.icon;
-      const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add');
+      const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add', 0, false);
       val.priv = priv;
       if (priv == 1 && val.pid != 0) {
         parr.push(val.pid);
