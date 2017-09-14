@@ -77,7 +77,7 @@ CLASSES:
                                 <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}">{{v.name}}</a></li>
                                 {%endfor%}
                             </ul>
-
+                            {%if category.id|priv(controller.user.roleid,'add',0,false)%}
                             <!--投稿按钮-->
                             <div class="btn-group btn-group-sm pull-right">
                                 <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
