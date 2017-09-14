@@ -7,6 +7,9 @@ module.exports = class extends think.Controller {
     // res.body.pipe(dest);
     return this.body = 'ccc';
   }
+  async donatesAction() {
+    return this.body = 'donates';
+  }
   async emailAction() {
     const transport = {
       service: 'qq',
@@ -74,5 +77,9 @@ module.exports = class extends think.Controller {
   }
   ipAction() {
     return this.body = this.ip;
+  }
+
+  async extAction() {
+    return this.body = this.config('ext.qq.appkey');
   }
 };

@@ -5,8 +5,8 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Admin = require('../admin');
-module.exports = class extends Admin {
+
+module.exports = class extends think.cmswing.ExtAdmin {
   /**
    * index action
    * 插件管理入口
@@ -15,7 +15,7 @@ module.exports = class extends Admin {
    */
   async indexAction() {
     // 获取广告位置列表
-    const data = await this.model('ext_ad_space').page(this.get('page')).order('spaceid DESC').countSelect();
+    const data = await this.model('ext/ext_ad_space').page(this.get('page')).order('spaceid DESC').countSelect();
     // console.log(data);
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
@@ -117,7 +117,7 @@ module.exports = class extends Admin {
     // 获取所有广告位
     const space = await this.model('ext_ad_space').order('spaceid DESC').select();
     for (const v of space) {
-      await this.model('ext_ad_space').upad(v.spaceid);
+      await this.model('ext/ext_ad_space').upad(v.spaceid);
     }
     return this.success({name: '更新广告缓存成功!'});
   }
@@ -174,7 +174,7 @@ module.exports = class extends Admin {
       // let res =1;
       if (res) {
         // 更新广告位
-        await this.model('ext_ad_space').upad(data.spaceid);
+        await this.model('ext/ext_ad_space').upad(data.spaceid);
         // return this.fail(1)
         return this.success({name: '添加成功!', url: '/ext/ad/admin/adlist/?spaceid=' + data.spaceid});
       } else {
@@ -208,7 +208,7 @@ module.exports = class extends Admin {
       // let res =1;
       if (res) {
         // 更新广告位
-        await this.model('ext_ad_space').upad(data.spaceid);
+        await this.model('ext/ext_ad_space').upad(data.spaceid);
         // return this.fail(1)
         return this.success({name: '编辑成功!', url: '/ext/ad/admin/adlist/?spaceid=' + data.spaceid});
       } else {
@@ -252,7 +252,7 @@ module.exports = class extends Admin {
      */
   async tempAction() {
     // 获取广告位置列表
-    const data = await this.model('ext_ad_temp').page(this.get('page')).countSelect();
+    const data = await this.model('ext/ext_ad_temp').page(this.get('page')).countSelect();
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);

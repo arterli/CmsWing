@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Center = require('../common/center');
+const Center = require('../cmswing/center');
 const pingpp = require('pingpp');
 const API = require('co-wechat-api');
 const fs = require('fs');
@@ -198,7 +198,7 @@ module.exports = class extends Center {
       await this.spiderImage(data.headimgurl, filePath + '/avatar.png');
     }
     console.log(data);
-    await this.model('member').autoLogin({id: reg}, this.ip);// 更新用户登录信息，自动登陆
+    await this.model('cmswing/member').autoLogin({id: reg}, this.ip);// 更新用户登录信息，自动登陆
     const wx_userInfo = {
       'uid': reg,
       'username': data.username,
@@ -218,7 +218,7 @@ module.exports = class extends Center {
     password = encryptPassword(password);
     console.log(data);
 
-    const res = await this.model('member').signin(username, password, this.ip, 5, 0);
+    const res = await this.model('cmswing/member').signin(username, password, this.ip, 5, 0);
     if (res.uid > 0) {
       // 记录用户登录行为
       // await this.model("action",).log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);

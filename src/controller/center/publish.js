@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   async __before() {
     await super.__before();
@@ -17,7 +17,7 @@ module.exports = class extends Home {
         // 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
-        return this.redirect('/common/error/login');
+        return this.redirect('/cmswing/error/login');
       }
     }
   }
@@ -34,7 +34,7 @@ module.exports = class extends Home {
     // 权限控制
     const priv = await this.priv(cate_id);
     if (priv) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('网站禁止投稿！');
     }
 
@@ -51,7 +51,7 @@ module.exports = class extends Home {
     // let _model;
     if (!think.isEmpty(cate_id)) {
       // 获取分类信息
-      let sort = await this.model('category').get_category(cate_id, 'documentsorts');
+      let sort = await this.model('cmswing/category').get_category(cate_id, 'documentsorts');
       if (sort) {
         sort = JSON.parse(sort);
         if (sortid == 0) {
@@ -117,17 +117,17 @@ module.exports = class extends Home {
       const pid = this.get('pid') || 0;
       // 获取列表绑定的模型
       if (pid == 0) {
-        models = await this.model('category').get_category(cate_id, 'model');
+        models = await this.model('cmswing/category').get_category(cate_id, 'model');
         // 获取分组定义
-        groups = await this.model('category').get_category(cate_id, 'groups');
+        groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
         if (groups) {
           groups = parse_config_attr(groups);
         }
       } else { // 子文档列表
-        models = await this.model('category').get_category(cate_id, 'model_sub');
+        models = await this.model('cmswing/category').get_category(cate_id, 'model_sub');
       }
       // 获取面包屑信息
-      const nav = await this.model('category').get_parent_category(cate_id || 0);
+      const nav = await this.model('cmswing/category').get_parent_category(cate_id || 0);
       this.assign('breadcrumb', nav);
       if (think.isEmpty(model_id) && !think.isNumberString(models)) {
         // 绑定多个模型 取基础模型的列表定义
@@ -211,7 +211,7 @@ module.exports = class extends Home {
       for (const val of _model) {
         const modelobj = {};
         modelobj.id = val;
-        modelobj.title = await this.model('model').get_document_model(val, 'title');
+        modelobj.title = await this.model('cmswing/model').get_document_model(val, 'title');
         modellist.push(modelobj);
       }
     }
@@ -236,7 +236,7 @@ module.exports = class extends Home {
     // 权限控制
     const priv = await this.priv(cate_id);
     if (priv) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('您所在的会员组,禁止在本栏目投稿！');
     }
     const model_id = this.get('model_id') || 0;
@@ -245,12 +245,12 @@ module.exports = class extends Home {
     think.isEmpty(cate_id) && this.fail('参数不能为空');
     think.isEmpty(model_id) && this.fail('该分类未绑定模型');
     // 获取分组定义
-    let groups = await this.model('category').get_category(cate_id, 'groups');
+    let groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
     if (groups) {
       groups = parse_config_attr(groups);
     }
     // 获取分类信息
-    let sort = await this.model('category').get_category(cate_id, 'documentsorts');
+    let sort = await this.model('cmswing/category').get_category(cate_id, 'documentsorts');
     if (sort) {
       sort = JSON.parse(sort);
       if (sortid == 0) {
@@ -282,14 +282,14 @@ module.exports = class extends Home {
     // console.log(sort);
     this.assign('sort', sort);
     // 检查该分类是否允许发布
-    const allow_publish = await this.model('category').check_category(cate_id);
+    const allow_publish = await this.model('cmswing/category').check_category(cate_id);
     // console.log(allow_publish);
     if (!allow_publish) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('本栏目不允许发布内容！');
     }
     // 获取当先的模型信息
-    const model = await this.model('model').get_document_model(model_id);
+    const model = await this.model('cmswing/model').get_document_model(model_id);
 
     // 处理结果
     const info = {};
@@ -303,13 +303,13 @@ module.exports = class extends Home {
       this.assign('article', article);
     }
     // 获取表单字段排序
-    const fields = await this.model('attribute').get_model_attribute(model.id, true);
+    const fields = await this.model('cmswing/attribute').get_model_attribute(model.id, true);
     // think.log(fields);
     // 获取当前分类文档的类型
-    const type_list = await this.model('category').get_type_bycate(cate_id);
+    const type_list = await this.model('cmswing/category').get_type_bycate(cate_id);
     // console.log(type_list);
     // 获取面包屑信息
-    const nav = await this.model('category').get_parent_category(cate_id);
+    const nav = await this.model('cmswing/category').get_parent_category(cate_id);
     // console.log(model);
     this.assign('groups', groups);
     this.assign('breadcrumb', nav);
@@ -330,29 +330,29 @@ module.exports = class extends Home {
       return this.fail('参数不能为空');
     }
     // 获取详细数据；
-    const document = this.model('document');
+    const document = this.model('cmswing/document');
     const data = await document.details(id);
     // 安全验证
     if (data.uid != this.user.uid) {
       this.http.error = new Error('只能编辑自己的稿件哦(*^_^*)!');
       return think.statusAction(702, this.http);
     }
-    // let model =  this.model("model").getmodel(2);
+    // let model =  this.model("cmswing/model").getmodel(2);
     if (data.pid != 0) {
       // 获取上级文档
       const article = document.field('id,title,type').find(data.pid);
       this.assign('article', article);
     }
-    const model = await this.model('model').get_document_model(data.model_id);
+    const model = await this.model('cmswing/model').get_document_model(data.model_id);
 
     // 获取分组定义
-    let groups = await this.model('category').get_category(data.category_id, 'groups');
+    let groups = await this.model('cmswing/category').get_category(data.category_id, 'groups');
     if (groups) {
       groups = parse_config_attr(groups);
     }
     this.assign('groups', groups);
     // 获取分类信息
-    let sort = await this.model('category').get_category(data.category_id, 'documentsorts');
+    let sort = await this.model('cmswing/category').get_category(data.category_id, 'documentsorts');
     if (sort) {
       sort = JSON.parse(sort);
       if (sortid != 0) {
@@ -388,15 +388,15 @@ module.exports = class extends Home {
     // console.log(sort);
     this.assign('sort', sort);
     // 获取表单字段排序
-    const fields = await this.model('attribute').get_model_attribute(model.id, true);
+    const fields = await this.model('cmswing/attribute').get_model_attribute(model.id, true);
     this.assign('fields', fields);
     // 获取当前分类文档的类型
-    const type_list = await this.model('category').get_type_bycate(data.category_id);
+    const type_list = await this.model('cmswing/category').get_type_bycate(data.category_id);
     // 获取suk tags
     const tags = await this.model('tags').where({model_id: data.model_id}).select();
     this.assign('tags', tags);
     // 获取面包屑信息
-    const nav = await this.model('category').get_parent_category(data.category_id);
+    const nav = await this.model('cmswing/category').get_parent_category(data.category_id);
     // console.log(model);
     this.assign('breadcrumb', nav);
     // console.log(model);
@@ -429,9 +429,9 @@ module.exports = class extends Home {
       data.ip = this.ip;
       // 检查本栏目发布是否需要审核
       const roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
-      const addexa = await this.model('category_priv').priv(data.category_id, roleid, 'addexa');
+      const addexa = await this.model('cmswing/category_priv').priv(data.category_id, roleid, 'addexa');
       if (addexa) {
-        const addp = await this.model('approval').adds(data.model_id, this.user.uid, data.title, data);
+        const addp = await this.model('cmswing/approval').adds(data.model_id, this.user.uid, data.title, data);
         if (addp) {
           return this.success({name: '发布成功, 请等待管理员审核...', url: '/center/publish/index/?cate_id=' + data.category_id});
         } else {
@@ -443,9 +443,9 @@ module.exports = class extends Home {
       data.ip = this.ip;
       // 检查本栏目编辑是否需要审核
       const roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
-      const addexa = await this.model('category_priv').priv(data.category_id, roleid, 'editexa');
+      const addexa = await this.model('cmswing/category_priv').priv(data.category_id, roleid, 'editexa');
       if (addexa) {
-        const addp = await this.model('approval').adds(data.model_id, this.user.uid, data.title, data);
+        const addp = await this.model('cmswing/approval').adds(data.model_id, this.user.uid, data.title, data);
         if (addp) {
           return this.success({name: '编辑成功, 请等待管理员审核...', url: '/center/publish/index/?cate_id=' + data.category_id});
         } else {
@@ -455,7 +455,7 @@ module.exports = class extends Home {
     }
     // console.log(data);
     // return false;
-    const res = await this.model('document').updates(data);
+    const res = await this.model('cmswing/document').updates(data);
     // let res ={ data:
     // { name: '',
     //     title: '1111',
@@ -532,11 +532,11 @@ module.exports = class extends Home {
     }
 
     // 构建列表数据
-    const Document = this.model('document');
+    const Document = this.model('cmswing/document');
 
     if (cate_id) {
       // 获取当前分类的所有子栏目
-      const subcate = await this.model('category').get_sub_category(cate_id);
+      const subcate = await this.model('cmswing/category').get_sub_category(cate_id);
       // console.log(subcate);
       subcate.push(cate_id);
       map.category_id = ['IN', subcate];
@@ -645,7 +645,7 @@ module.exports = class extends Home {
     }
 
     // 检查该分类是否允许发布内容
-    const allow_publish = await this.model('category').get_category(cate_id, 'allow_publish');
+    const allow_publish = await this.model('cmswing/category').get_category(cate_id, 'allow_publish');
     this.assign('nsobj', nsobj);
     this.assign('_total', list.count);// 该分类下的文档总数
     this.assign('pagerData', page); // 分页展示使用
@@ -658,11 +658,11 @@ module.exports = class extends Home {
   }
   // 权限验证
   async priv(cate_id) {
-    const cate = cate_id || await this.model('category').get_all_category();
+    const cate = cate_id || await this.model('cmswing/category').get_all_category();
     const roleid = await this.model('member').where({id: this.user.uid}).getField('groupid', true);
     let cates = [];
     if (cate_id) {
-      const priv = await this.model('category_priv').priv(cate_id, roleid, 'add');
+      const priv = await this.model('cmswing/category_priv').priv(cate_id, roleid, 'add');
       if (priv == 1) {
         cates.push(priv);
       }
@@ -673,7 +673,7 @@ module.exports = class extends Home {
       // TODO 权限控制(管理员)
       const parr = [];
       for (const val of cate) {
-        const priv = await this.model('category_priv').priv(val.id, roleid, 'add');
+        const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add');
         val.priv = priv;
         if (priv == 1 && val.pid != 0) {
           parr.push(val.pid);
@@ -714,7 +714,7 @@ module.exports = class extends Home {
     const page = this.pagination(list);
     this.assign('pagerData', page); // 分页展示使用
     this.assign('list', list);
-    const modlist = await this.model('model').get_model(null, null, {is_approval: 1});
+    const modlist = await this.model('cmswing/model').get_model(null, null, {is_approval: 1});
     for (const val of modlist) {
       val.count = await this.model('approval').where({model: val.id}).count();
     }
@@ -755,7 +755,7 @@ module.exports = class extends Home {
    */
 
   async getmenuAction() {
-    const cate = await this.model('category').get_all_category({mold: 0});
+    const cate = await this.model('cmswing/category').get_all_category({mold: 0});
     const roleid = await this.model('member').where({id: this.user.uid}).getField('groupid', true);
     console.log(roleid);
     // let priv = await this.model("category_priv").where({catid:39,is_admin:0,roleid:2,action:'add'}).select();
@@ -767,7 +767,7 @@ module.exports = class extends Home {
       val.url = `/center/publish/index/?cate_id=${val.id}`;
       val.target = '_self';
       delete val.icon;
-      const priv = await this.model('category_priv').priv(val.id, roleid, 'add');
+      const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add');
       val.priv = priv;
       if (priv == 1 && val.pid != 0) {
         parr.push(val.pid);

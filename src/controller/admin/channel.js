@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   /**
      * index action
@@ -15,7 +15,7 @@ module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.db = this.model('channel');
+    this.db = this.model('cmswing/channel');
     this.tactive = 'setup';
   }
 
@@ -72,7 +72,7 @@ module.exports = class extends Base {
         return this.fail('新增失败！');
         break;
       case 3:
-        await this.model('action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
+        await this.model('cmswing/action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
         return this.success({name: '更新成功！', url: '/admin/channel/index'});
         break;
       default:
@@ -90,8 +90,8 @@ module.exports = class extends Base {
     const map = {id: ['IN', id]};
     const res = await this.model('channel').where(map).delete();
     if (res) {
-      await this.model('action').log('update_channel', 'channel', id, this.user.uid, this.ip, this.ctx.url);// 记录行为
-      think.cache('get_channel_cache', null);// 更新频道缓存信息
+      await this.model('cmswingaction').log('update_channel', 'channel', id, this.user.uid, this.ip, this.ctx.url);// 记录行为
+      this.cache('get_channel_cache', null);// 更新频道缓存信息
       return this.success({name: '删除成功！'});
     } else {
       return this.fail('删除失败！');

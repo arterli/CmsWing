@@ -19,7 +19,7 @@ module.exports = class extends think.Controller {
     // 订单在规定时间为付款自动作废执行方法
     // 禁止 URL 访问该 Action
     if (!this.isCli) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('only invoked in cli mode！');
     }
 

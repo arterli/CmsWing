@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   /**
      * index action
@@ -376,7 +376,7 @@ module.exports = class extends Base {
       think.cache('all_priv', null);// 栏目权限缓存
       return this.success({name: '修改成功！'});
     } else {
-      const tree = await this.model('category').gettree(0, 'id,name,title,sort,pid,allow_publish,status,model,mold,isapp');
+      const tree = await this.model('cmswing/category').gettree(0, 'id,name,title,sort,pid,allow_publish,status,model,mold,isapp');
       this.assign({
         'tactive': '/admin/user',
         'tree': tree

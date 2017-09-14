@@ -6,12 +6,12 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.db = this.model('model');
+    this.db = this.model('cmswing/model');
     this.tactive = 'setup';
   }
 
@@ -66,7 +66,7 @@ module.exports = class extends Base {
       const res = await this.db.add(data);
       if (res) {
         // 初始化表结构
-        const addtable = await this.model('attribute').addtable(res);
+        const addtable = await this.model('cmswing/attribute').addtable(res);
         // console.log(addtable);
         update_cache('model');// 更新模型缓存
         return this.success({name: '添加成功', url: '/admin/model/index'});

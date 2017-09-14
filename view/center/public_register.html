@@ -50,9 +50,9 @@
 							-->
                 <!-- /ALERT -->
 {%if config.setup.USER_ALLOW_REGISTER ==1%}
-				{%if config.setup.USER_ALLOW_SMSREGISTER == 1%}
+				{%if config.ext.dayu.islogin == 1%}
                 <!-- register form 短信注册-->
-                <form class="nomargin sky-form boxed registerpost" action="/center/public/smsreg" method="post">
+                <form class="nomargin sky-form boxed registerpost" action="/ext/dayu/index/smsreg" method="post">
                     <header>
                         <i class="fa fa-users"></i> {{controller.meta_title}}
                     </header>
@@ -172,18 +172,18 @@
                         <div class="row">
 
                             <div class="col-md-8 col-md-offset-2">
-								{%if controller.setup.IS_WEIXIN_LOGIN == 1%}
+								{%if config.ext.qq.is == 1000%}
                                 <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
                                     <i class="fa fa-weixin"></i> 使用微信账号登录
                                 </a>
 								{%endif%}
-								{%if controller.setup.IS_QQ_LOGIN == 1%}
-                                <a href="/center/qq" class="btn btn-block btn-social btn-twitter margin-bottom-10">
+								{%if config.ext.qq.is == 1%}
+                                <a href="/ext/qq/index" class="btn btn-block btn-social btn-twitter margin-bottom-10">
                                     <i class="fa fa-qq"></i> 使用QQ账号登录
                                 </a>
                                 {%endif%}
-								{%if controller.setup.IS_SINA_LOGIN == 1%}
-                                <a href="/center/sina/" class="btn btn-block btn-social btn-google margin-bottom-10">
+								{%if config.ext.weibo.is == 1%}
+                                <a href="/ext/weibo/index" class="btn btn-block btn-social btn-google margin-bottom-10">
                                     <i class="fa fa-weibo"></i> 使用新浪微博账号登录
                                 </a>
 								{%endif%}
@@ -366,7 +366,7 @@
 {% block script %}
 <!-- PAGE LEVEL SCRIPTS -->
 		<script type="text/javascript">
-			{% if config.setup.USER_ALLOW_SMSREGISTER == 1 %}
+			{% if config.ext.dayu.islogin == 1 %}
        $("#verifycodesend").click(function () {
 		   var that = this;
 		   var mobile = $("input[name='mobile']").val();
@@ -380,7 +380,7 @@
 		   $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
 		   $.ajax({
 			   type:"post",
-			   url:"/center/public/verifycodesend",
+			   url:"/ext/dayu/index/verifycodesend",
 			   data:{mobile:mobile,type:type,check:1},
 			   success:function (data) {
 				   if(data.err_code==0){

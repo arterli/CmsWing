@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // +----------------------------------------------------------------------
 // | CmsWing [ 网站内容管理框架 ]
 // +----------------------------------------------------------------------
@@ -7,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const fs = require('fs');
 module.exports = class extends Base {
   /**
@@ -17,7 +16,7 @@ module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.db = this.model('member');
+    this.db = this.model('cmswing/member');
     this.tactive = 'user';
   }
 
@@ -112,12 +111,12 @@ module.exports = class extends Base {
   async adduserAction() {
     if (this.isPost) {
       const data = this.post();
-      if (data.password !== data.repassword) {
+      if (data.password != data.repassword) {
         return this.fail('两次填入的密码不一致');
       }
       data.password = encryptPassword(data.password);
       data.reg_time = new Date().getTime();
-      if (Number(data.vip) === 1) {
+      if (data.vip == 1) {
         data.overduedate = new Date(data.overduedate).getTime();
       } else {
         data.overduedate = think.isEmpty(data.overduedate) ? 0 : data.overduedate;
@@ -125,38 +124,16 @@ module.exports = class extends Base {
       console.log(data);
       // return this.fail("ddd")
       data.status = 1;
+      const self = this;
       let res;
-      // async updateData(data){
-      //   const result = await this.transaction(async () => {
-      //     const insertId = await this.add(data);
-      //     // 通过 db 方法让 user_cate 模型复用当前模型的数据库连接
-      //     const userCate = this.model('user_cate').db(this.db());
-      //     let result = await userCate.add({user_id: insertId, cate_id: 100});
-      //     return result;
-      //   })
-      // }
-      if (Number(data.is_admin) === 1) {
-        const usermodel = this.model('member');
-        // res = await usermodel.transaction(async() => {
-        //   const userId = await usermodel.add(data);
-        //   console.log(userId);
-        //   return await this.model('auth_user_role').db(usermodel.db()).add({
-        //     user_id: userId,
-        //     role_id: data.role_id
-        //   });
-        // });
-        try {
-          await usermodel.startTrans();
-          const userId = await usermodel.add(data);
-          const result = await this.model('auth_user_role').db(usermodel.db()).add({
+      if (data.is_admin == 1) {
+        res = await this.db.transaction(async() => {
+          const userId = await self.db.add(data);
+          return await self.model('auth_user_role').db(self.db.db()).add({
             user_id: userId,
             role_id: data.role_id
           });
-          await usermodel.commit();
-          res = result;
-        } catch (e) {
-          await usermodel.rollback();
-        }
+        });
       } else {
         res = await this.db.add(data);
       }
@@ -228,7 +205,7 @@ module.exports = class extends Base {
       // 不能修改超级管理员的信息
       if (!this.is_admin) {
         if (in_array(id, this.config('user_administrator'))) {
-          const error = this.controller('common/error');
+          const error = this.controller('cmswing/error');
           return error.noAction('您无权操作！');
         }
       }

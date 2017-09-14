@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Index = require('../index');
-module.exports = class extends Index {
+module.exports = class extends think.cmswing.ModIndex {
   /**
      * index action
      * @return {Promise} []
@@ -26,7 +25,7 @@ module.exports = class extends Index {
      */
   async getgroupsAction() {
     const cid = this.get('cid');
-    let groups = await this.model('category').get_groups(cid);
+    let groups = await this.model('cmswing/category').get_groups(cid);
     if (think.isEmpty(groups)) {
       groups = false;
     }

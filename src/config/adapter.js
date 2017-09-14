@@ -10,7 +10,7 @@ const isDev = think.env === 'development';
 exports.cache = {
   type: 'file',
   common: {
-    timeout: 24 * 60 * 60 * 1000, // millisecond
+    timeout: 24 * 60 * 60 * 1000 // millisecond
   },
   file: {
     handle: fileCache,

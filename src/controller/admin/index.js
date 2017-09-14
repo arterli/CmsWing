@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const Os = require('os');
 // const fs = require('fs');
 module.exports = class extends Base {
@@ -16,8 +16,8 @@ module.exports = class extends Base {
     // await this.model("action").log("testaction","member","sdffds",this.user.uid,this.ip,this.ctx.url);//测试日志行为
     // console.log(think.config('model.mysql.prefix'));
     // let pa = JSON.parse(fs.readFileSync(think.ROOT_PATH+"/package.json",'utf-8'));
-
-    console.log(this.config('setup.WEB_SITE_TITLE'));
+    // console.log(cmswing);
+    // console.log(this.config('setup.WEB_SITE_TITLE'));
     // console.log(process);
 
     // 服务器信息
@@ -26,7 +26,7 @@ module.exports = class extends Base {
 
     const node = process.versions;
     this.assign({
-      'version': 1.1,
+      'version': think.cmswing.info.version,
       'OS': Os.type(),
       'nodejs_v': node.node,
       'thinkjs': think.version,

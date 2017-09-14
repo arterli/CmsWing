@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Admin = require('../admin');
-module.exports = class extends Admin {
+module.exports = class extends think.cmswing.ExtAdmin {
   /**
    * index action
    * 插件管理入口

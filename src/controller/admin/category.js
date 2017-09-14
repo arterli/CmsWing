@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   /**
      * index action
@@ -16,7 +16,7 @@ module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.db = this.model('category');
+    this.db = this.model('cmswing/category');
     this.tactive = 'article';
   }
   async indexAction() {
@@ -67,7 +67,7 @@ module.exports = class extends Base {
           return this.fail('同节点下,栏目标示不能重复');
         }
       }
-      const res = await this.model('category').updates(data);
+      const res = await this.model('cmswing/category').updates(data);
       if (res) {
         this.success({name: '新增成功！', url: '/admin/category/index/mold/' + data.mold});
       } else {
@@ -100,11 +100,11 @@ module.exports = class extends Base {
       this.active = 'admin/category/index';
       this.action = '/admin/category/add';
       // 获取模版列表（pc）
-      const temp_pc = await this.model('temp').gettemp(1);
+      const temp_pc = await this.model('cmswing/temp').gettemp(1);
       console.log(temp_pc);
       this.assign('temp_pc', temp_pc);
       // 获取手机端模版
-      const temp_m = await this.model('temp').gettemp(2);
+      const temp_m = await this.model('cmswing/temp').gettemp(2);
       console.log(temp_m);
       this.assign('temp_m', temp_m);
       // template_lists
@@ -148,7 +148,7 @@ module.exports = class extends Base {
           return this.fail('同节点下,栏目标示不能重复');
         }
       }
-      const res = await this.model('category').updates(data);
+      const res = await this.model('cmswing/category').updates(data);
       if (res) {
         this.success({name: '更新成功！', url: '/admin/category/index'});
       } else {
@@ -183,15 +183,15 @@ module.exports = class extends Base {
       // 获取模型信息；
       let model;
       if (info.mold == 0) {
-        model = await this.model('model').get_model(null, null, {extend: 1});
+        model = await this.model('cmswing/model').get_model(null, null, {extend: 1});
       } else if (info.mold == 1) {
-        model = await this.model('model').get_model(null, null, {extend: 0});
+        model = await this.model('cmswing/model').get_model(null, null, {extend: 0});
       }
 
       // console.log(obj_values(model));
       this.assign('models', model);
       if (info.mold == 1) {
-        const mod = await this.model('model').get_model(info.model);
+        const mod = await this.model('cmswing/model').get_model(info.model);
         console.log(mod);
         this.assign('mod', mod);
       } else {
@@ -205,11 +205,11 @@ module.exports = class extends Base {
       this.meta_title = '编辑栏目';
       // 获取模版列表
       // 获取模版列表（pc）
-      const temp_pc = await this.model('temp').gettemp(1);
+      const temp_pc = await this.model('cmswing/temp').gettemp(1);
       // console.log(temp_pc);
       this.assign('temp_pc', temp_pc);
       // 获取手机端模版
-      const temp_m = await this.model('temp').gettemp(2);
+      const temp_m = await this.model('cmswing/temp').gettemp(2);
       // console.log(temp_m);
       this.assign('temp_m', temp_m);
       // template_lists
@@ -263,7 +263,7 @@ module.exports = class extends Base {
     const type = this.get('type');
     if (confirm == 1) {
       // 查询该栏目是否包含子栏目
-      const pid = await this.model('category').get_sub_category(id);
+      const pid = await this.model('cmswing/category').get_sub_category(id);
       // console.log(pid);
 
       const l = pid.length;
@@ -286,7 +286,7 @@ module.exports = class extends Base {
       await this.delcate(id);
       return this.json({ok: 0, info: '删除成功!'});
     } else if (type == 'all') {
-      const pid = await this.model('category').get_sub_category(id);
+      const pid = await this.model('cmswing/category').get_sub_category(id);
       // console.log(pid);
 
       for (const v of pid) {
@@ -303,16 +303,16 @@ module.exports = class extends Base {
     const ids = await this.model('document').where({category_id: id}).getField('id');
     if (!think.isEmpty(ids)) {
       // 查出该栏目的管理的模型
-      const model_id = await this.model('category').get_category(id, 'model');
+      const model_id = await this.model('cmswing/category').get_category(id, 'model');
       for (const v of model_id.split(',')) {
         // 获取该模型的表明
-        const table = await this.model('model').get_table_name(v);
+        const table = await this.model('cmswing/model').get_table_name(v);
         // 删除模型内容
         await this.model(table).where({id: ['IN', ids]}).delete();
       }
     }
     // 删除分类信息
-    const sort = await this.model('category').get_category(id, 'documentsorts');
+    const sort = await this.model('cmswing/category').get_category(id, 'documentsorts');
     if (!think.isEmpty(sort)) {
       await this.model('typeoptionvar').where({fid: id}).delete();
       if (!think.isEmpty(JSON.parse(sort).types)) {
@@ -336,7 +336,7 @@ module.exports = class extends Base {
       console.log(data);
       // return false;
       // 检查要移动的栏目是否包含子栏目
-      const pid = await this.model('category').get_sub_category(data.source);
+      const pid = await this.model('cmswing/category').get_sub_category(data.source);
       // console.log(pid);
       const l = pid.length;
       if (l > 0) {

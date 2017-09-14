@@ -48,7 +48,7 @@ global.mytags = function() {
           model_id = maps.mid;
           delete maps.mid;
         }
-        const model = await think.model('model').get_table_name(model_id);
+        const model = await think.model('cmswing/model').get_table_name(model_id);
         // console.log(model);
         // limit
         let offset, length;
@@ -112,7 +112,7 @@ global.column = function() {
     const isapp = !think.isEmpty(args.isapp) ? args.isapp : false;
     const isindex = !think.isEmpty(args.isindex) ? args.isindex : false;
 
-    const column = await think.model('category').get_all_category();
+    const column = await think.model('cmswing/category').get_all_category();
     if (args.isnum == 1) {
       for (const v of column) {
         v.doc_num = await think.model('document').where({category_id: v.id, status: ['>', 0]}).count('id');
@@ -165,7 +165,7 @@ global.channel = function() {
   };
   this.run = async function(context, args, callback) {
     const data = think.isEmpty(args.data) ? 'data' : args.data;
-    let channel = await think.model('channel').get_channel_cache();
+    let channel = await think.model('cmswing/channel').get_channel_cache();
     channel = arr_to_tree(channel, 0);
     // console.log(channel);
     context.ctx[data] = channel;
@@ -187,7 +187,7 @@ global.groups = function() {
   };
   this.run = async function(context, args, callback) {
     const data = think.isEmpty(args.data) ? 'data' : args.data;
-    context.ctx[data] = await think.model('category').get_groups(args.cid);
+    context.ctx[data] = await think.model('cmswing/category').get_groups(args.cid);
     return callback(null, '');
   };
 };
@@ -231,7 +231,7 @@ global.topic = function() {
         const cids = `${args.cid}`;
         let cidarr = [];
         for (const v of cids.split(',')) {
-          const subcate = await think.model('category').get_sub_category(v);
+          const subcate = await think.model('cmswing/category').get_sub_category(v);
           cidarr = cidarr.concat(subcate);
           cidarr.push(Number(v));
         }
@@ -300,7 +300,7 @@ global.topic = function() {
       let stuwhere = {};
 
       for (const v of topic) {
-        const table = await think.model('model').get_table_name(v.model_id);
+        const table = await think.model('cmswing/model').get_table_name(v.model_id);
         const details = await think.model(table).find(v.id);
         topicarr.push(think.extend({}, v, details));
       }

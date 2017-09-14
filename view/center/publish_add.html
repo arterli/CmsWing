@@ -123,7 +123,7 @@
                                         </div>
                                         {% elif val.option.type == 'number' or val.option.type == 'range' %}
                                         <div class="col-md-2">
-                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}" data-type="number"  {% if val.required == 1 %}data-required="true"{%endif%}>
+                                            <input type="number" class="form-control " name="sortid_{{val.option.identifier}}" value="{{val.option.rules.defaultvalue}}0" data-type="number"  {% if val.required == 1 %}data-required="true"{%endif%}>
                                         </div>
                                         {% elif val.option.type == 'textarea' %}
                                         <div class="col-md-8">
@@ -1553,7 +1553,7 @@
     </div>
 </section>
 {%if config.setup.IS_QINIU == 1%}
-<input type="hidden" id="domain" value="http://{{config.setup.QINIU_DOMAIN_NAME}}/">
+<input type="hidden" id="domain" value="//{{config.ext.qiniu.domain}}/">
 {%endif%}
 <!-- / -->
 {% endblock %}

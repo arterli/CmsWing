@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   /**
      * index action
@@ -29,10 +29,10 @@ module.exports = class extends Home {
     if (this.is_login) {
       roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
     }
-    const priv = await this.model('category_priv').priv(cate.id, roleid, 'visit');
+    const priv = await this.model('cmswing/category_priv').priv(cate.id, roleid, 'visit');
     if (!priv) {
-      this.http.error = new Error('您所在的用户组,禁止访问本栏目！');
-      return think.statusAction(702, this.http);
+      const error = this.controller('cmswing/error');
+      return error.noAction('您所在的用户组,禁止访问本栏目！');
     }
     this.meta_title = cate.meta_title ? cate.meta_title : cate.title; // 标题
     this.keywords = cate.keywords ? cate.keywords : ''; // seo关键词
@@ -40,7 +40,7 @@ module.exports = class extends Home {
     // 频道页只显示模板，默认不读取任何内容
     // 内容可以通过模板标签自行定制
     // 获取面包屑信息
-    const breadcrumb = await this.model('category').get_parent_category(cate.id, true);
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cate.id, true);
     this.assign('breadcrumb', breadcrumb);
     /* 模板赋值并渲染模板 */
     this.assign('category', cate);

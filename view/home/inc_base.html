@@ -12,16 +12,6 @@
 	<meta name="keywords" content="{{controller.keywords}}" />
 	<meta name="description" content="{{controller.description}}" />
 	<meta name="Author" content="Arterli [www.cmswing.com]" />
-	{%if config.setup.QQ_VALIDATION%}
-	<!--qq互联网站验证-->
-	{{config.setup.QQ_VALIDATION|safe}}
-	<!--qq互联网站验证结束-->
-	{%endif%}
-	{%if config.setup.SINA_VALIDATION%}
-	<!--新浪微博网站验证-->
-	{{config.setup.SINA_VALIDATION|safe}}
-	<!--新浪微博网站验证结束-->
-	{%endif%}
 	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 	<!-- mobile settings -->
 	<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
@@ -219,7 +209,7 @@
 						<li><a href="#">隐私</a></li>
 					</ul>
 					&copy; 2015 - <script>document.write(new Date().getFullYear())</script> cmswing.com  版权所有 <!--{{config.setup.WEB_SITE_TITLE}}--> <a href="http://www.miitbeian.gov.cn/" target="_blank">{{config.setup.WEB_SITE_ICP}}</a>
-
+					<code> Powered by <strong><a href="https://www.cmswing.com" target="_blank">{{ctx.cmswing.name}}</a></strong> {{ctx.cmswing.version}}</code>
 				</div>
 			</div>
 		</footer>
@@ -227,7 +217,6 @@
 
 	</div>
 	<!-- /wrapper -->
-
 
 	<!--
 			SIDE PANEL

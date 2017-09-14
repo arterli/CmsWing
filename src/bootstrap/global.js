@@ -452,7 +452,7 @@ global.get_attribute_type = function(type) {
     'price': ['价格', 'varchar(255) NOT NULL'],
     'freight': ['运费', 'varchar(255) NOT NULL'],
     'keyword': ['关键词', 'varchar(255) NOT NULL'],
-    'relation': ['关联', 'int(10) unsigned NOT NULL']
+    'relation': ['关联', 'varchar(100) NOT NULL']
   };
   return type ? _type[type][0] : _type;
 };
@@ -650,7 +650,7 @@ global.call_user_func = function(cb, params) {
 global.get_nickname = async(uid) => {
   // console.log(uid);
   // let data = await think.model('member', think.config("model")).cache(1000).get_nickname(uid);
-  const data = await think.model('member').get_nickname(uid);
+  const data = await think.model('cmswing/member').get_nickname(uid);
   return data;
 };
 // 时间格式
@@ -770,7 +770,7 @@ global.get_pic = async(id, m = null, w = null, h = null) => {
       q = `?imageView2${m}${w}${h}`;
     }
 
-    return `//${think.config('setup.QINIU_DOMAIN_NAME')}/${picture.path}${q}`;
+    return `//${think.config('ext.qiniu.domain')}/${picture.path}${q}`;
   } else {
     return picture.path;
   }
@@ -1139,10 +1139,10 @@ global.get_file = async(file_id, field, key = false) => {
   }
   const file = await think.model('file').find(file_id);
   if (file.location == 1 && key && key !=1) {
-    file.savename = `//${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`;
+    file.savename = `//${think.config('ext.qiniu.domain')}/${file.savename}?download/${file.savename}`;
   }
   if (file.location == 1 && key == 1) {
-    file.savename = `//${think.config('setup.QINIU_DOMAIN_NAME')}/${file.savename}?download/${file.savename}`;
+    file.savename = `//${think.config('ext.qiniu.domain')}/${file.savename}`;
   } else {
     file.savename = `${file.savepath}/${file.savename}`;
   }
@@ -1155,7 +1155,7 @@ global.get_file = async(file_id, field, key = false) => {
  * @returns {*}
  */
 global.get_cate = async(cid) => {
-  const column = await think.model('category').get_all_category();
+  const column = await think.model('cmswing/category').get_all_category();
   for (const v of column) {
     if (v.id == cid) {
       // console.log(v)
@@ -1250,7 +1250,7 @@ global.update_cache = (type) => {
  * @returns {bool} 返回flase 或true false:没权限，true:有权限。
  */
 global.priv = async(catid, roleid, action, is_admin = 0, type = true) => {
-  const priv = await think.model('category_priv').priv(catid, roleid, action, is_admin, type);
+  const priv = await think.model('cmswing/category_priv').priv(catid, roleid, action, is_admin, type);
   // console.log(priv);
   if (!priv) {
     return false;

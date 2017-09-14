@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 module.exports = class extends Base {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
@@ -111,7 +111,7 @@ module.exports = class extends Base {
     const add = await this.model('typevar').addMany(datas);
     if (!think.isEmpty(add)) {
       // 添加字段
-      await this.model('type').addField(data);
+      await this.model('cmswing/type').addField(data);
 
       return this.success({name: '操作成功'});
     }

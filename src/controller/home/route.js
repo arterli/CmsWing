@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   /**
      * 解析路由，判断是频道页面还是列表页面
@@ -23,7 +23,7 @@ module.exports = class extends Home {
     switch (type) {
       case 0:
         if (Number(cate.mold) === 1) {
-          await this.action('mod/index', 'index');
+          await this.action('cmswing/modindexbase', 'index');
         } else {
           await this.action('home/cover', 'index');
         }
@@ -31,7 +31,7 @@ module.exports = class extends Home {
       case 1:
       case 2:
         if (Number(cate.mold) === 1) {
-          await this.action('mod/index', 'list');
+          await this.action('cmswing/modindexbase', 'list');
         } else {
           await this.action('home/list', 'index');
         }

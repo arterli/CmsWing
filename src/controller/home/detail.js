@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../common/home');
+const Home = require('../cmswing/home');
 module.exports = class extends Home {
   // 详情页[核心]
   async indexAction() {
@@ -17,10 +17,10 @@ module.exports = class extends Home {
     //    this.fail('文档ID错误！');
     // }
     /* 获取详细信息 */
-    const document = this.model('document');
+    const document = this.model('cmswing/document');
     let info = await document.detail(id);
     if (info.errno == 702) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction(info.errmsg);
     }
     /* 页码检测 */
@@ -30,9 +30,9 @@ module.exports = class extends Home {
     if (this.is_login) {
       roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
     }
-    const priv = await this.model('category_priv').priv(info.category_id, roleid, 'visit');
+    const priv = await this.model('cmswing/category_priv').priv(info.category_id, roleid, 'visit');
     if (!priv) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('您所在的用户组,禁止访问本栏目！');
     }
 
@@ -71,7 +71,7 @@ module.exports = class extends Home {
       return this.redirect(info.link_id);
     }
     // 获取面包屑信息
-    const breadcrumb = await this.model('category').get_parent_category(cate.id, true);
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cate.id, true);
     this.assign('breadcrumb', breadcrumb);
 
     // 上一篇
@@ -83,7 +83,7 @@ module.exports = class extends Home {
 
     // 获取模板
     let temp;
-    const model = await this.model('model').get_model(info.model_id, 'name');
+    const model = await this.model('cmswing/model').get_model(info.model_id, 'name');
 
     // 详情模版 TODO
     // 手机版模版
@@ -136,7 +136,7 @@ module.exports = class extends Home {
         // console.log(111111);
         const model_id = plist[0].model_id;
         const p_id = plist[0].id;
-        const table = await this.model('model').get_table_name(model_id);
+        const table = await this.model('cmswing/model').get_table_name(model_id);
         const p_info = await this.model(table).find(p_id);
         info = think.extend(info, p_info);
       }
@@ -188,14 +188,14 @@ module.exports = class extends Home {
     const file_id = info.file_id;
     // console.log(file_id);
     let dlink;
-    if (id[1] == 1) {
+    if (Number(id[1]) === 1) {
       const location = await this.model('file').where({id: file_id}).getField('location', true);
       // console.log(location);
       const d = await get_file(file_id);
-      if (this.config('setup.IS_QINIU') == 1 && location == 1) {
+      if (Number(this.config('ext.qiniu.is')) === 1 && Number(location) === 1) {
         // 七牛下载
         // dlink = await get_file(file_id,"savename",true);
-        const qiniu = think.service('qiniu');
+        const qiniu = think.service('ext/qiniu');
         dlink = await qiniu.download(d.savename);
       } else {
         // 本地下载

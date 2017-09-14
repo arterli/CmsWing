@@ -6,7 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../common/admin');
+const Base = require('../cmswing/admin');
 const fs = require('fs');
 const Segment = require('segment');
 module.exports = class extends Base {
@@ -38,7 +38,7 @@ module.exports = class extends Base {
   async addAction() {
     if (this.isPost) {
       const data = this.post();
-      const extend = await this.model('model').get_model(data.mod, 'extend');
+      const extend = await this.model('cmswing/model').get_model(data.mod, 'extend');
       data.extend = extend;
       const add = await this.model('search_model').add(data);
       if (add) {
@@ -62,7 +62,7 @@ module.exports = class extends Base {
   async editAction() {
     if (this.isPost) {
       const data = this.post();
-      const extend = await this.model('model').get_model(data.mod, 'extend');
+      const extend = await this.model('cmswing/model').get_model(data.mod, 'extend');
       data.extend = extend;
       const up = await this.model('search_model').update(data);
       if (up) {
@@ -113,7 +113,7 @@ module.exports = class extends Base {
       const tables = await this.model('search_model').select();
       for (const v of tables) {
         if (v.extend == 0) {
-          v.table = await this.model('model').get_model(v.mod, 'name');
+          v.table = await this.model('cmswing/model').get_model(v.mod, 'name');
         } else {
           v.table = 'document';
         }

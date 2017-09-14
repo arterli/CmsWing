@@ -17,12 +17,12 @@ module.exports = class extends think.Controller {
       // console.log(this.isAjax());
       // console.log(this.post());
       // 验证码
-      if (this.config('setup.GEETEST_IS_ADMLOGIN') == 1) {
-        const geetest = this.service('geetest');
+      if (Number(this.config('ext.geetest.isa')) === 1) {
+        const geetest = this.service('ext/geetest');
         const res = await geetest.validate(this.ctx, this.post());
-        // console.log(res);
+        console.log(res);
         if (res.status != 'success') {
-          const error = this.controller('common/error');
+          const error = this.controller('cmswing/error');
           return error.noAction('验证码不正确');
         }
       }
@@ -30,10 +30,10 @@ module.exports = class extends think.Controller {
       const username = this.post('username');
       let password = this.post('password');
       password = encryptPassword(password);
-      const res = await this.model('member').signin(username, password, this.ip, 1, 1);
+      const res = await this.model('cmswing/member').signin(username, password, this.ip, 1, 1);
       if (res.uid > 0) {
         // 记录用户登录行为
-        // await this.model("action").log("user_login","member",res.uid,res.uid,this.ip,this.ctx.url);
+        // await this.model("cmswing/action").log("user_login","member",res.uid,res.uid,this.ip,this.ctx.url);
         // console.log(11111111111111);
         await this.session('userInfo', res);
         // TODO 用户密钥
@@ -54,7 +54,7 @@ module.exports = class extends think.Controller {
           default:
             fail = '未知错误'; // 0-接口参数错误（调试阶段使用）
         }
-        const error = this.controller('common/error');
+        const error = this.controller('cmswing/error');
         return error.noAction(fail);
       }
     } else {
@@ -111,53 +111,17 @@ module.exports = class extends think.Controller {
 
   // 获取分类
   async getmenuAction() {
-    const cate = await this.model('category').get_all_category();
+    const cate = await this.model('cmswing/category').get_all_category();
     // console.log(cate);
     // 生成菜单
 
     for (const val of cate) {
       const id = think.isEmpty(val.title) ? val.id : val.title;
       val.url = `/${id}`;
+      delete val.icon;
     }
     // think.log(cate);
     return this.json(arr_to_tree(cate, 0));
-  }
-
-  // 验证码
-  async geetestAction() {
-    const geetest = this.service('geetest'); // 加载 commoon 模块下的 geetset service
-    if (this.isPost) {
-      const post = this.post();
-      // console.log(post);
-      const res = await geetest.validate(this.ctx, post);
-      return this.json(res);
-    } else {
-      const res = await geetest.register(this.ctx);
-      // console.log(res);
-      return this.json(res);
-    }
-  }
-
-  async validate(data) {
-    const deferred = think.defer();
-    geetest.validate({
-
-      challenge: data.geetest_challenge,
-      validate: data.geetest_validate,
-      seccode: data.geetest_seccode
-
-    }, function(err, result) {
-      console.log(result);
-      var data = {status: 'success'};
-
-      if (err || !result) {
-        console.log(err);
-        data.status = 'fail';
-      }
-
-      deferred.resolve(data);
-    });
-    return deferred.promise;
   }
 
   /**
@@ -181,7 +145,9 @@ module.exports = class extends think.Controller {
     const map = {};
     map[val] = ['like', '%' + key + '%'];
     const data = await this.model(model).where(map).field(`${id} as id, ${val} as data`).select();
-    return this.end(data);
+    console.log(data);
+    this.header('Content-Type', 'text/html');
+    return this.body=JSON.stringify(data);
   }
 
   /**
