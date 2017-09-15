@@ -66,16 +66,13 @@ module.exports = class extends Base {
     const res = await this.model('cmswing/channel').updates(data);
     switch (res.err) {
       case 1:
-        await this.model('action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
+        await this.model('cmswing/action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
         return this.success({name: '新增成功！', url: '/admin/channel/index'});
-        break;
       case 2:
         return this.fail('新增失败！');
-        break;
       case 3:
         await this.model('cmswing/action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
         return this.success({name: '更新成功！', url: '/admin/channel/index'});
-        break;
       default:
         return this.fail('更新失败！');
     }
