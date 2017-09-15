@@ -69,9 +69,9 @@ module.exports = class extends Base {
       }
       const res = await this.model('cmswing/category').updates(data);
       if (res) {
-        this.success({name: '新增成功！', url: '/admin/category/index/mold/' + data.mold});
+        return this.success({name: '新增成功！', url: '/admin/category/index/mold/' + data.mold});
       } else {
-        this.fail('更新失败！');
+        return this.fail('更新失败！');
       }
     } else {
       const mold = this.get('mold');
@@ -88,11 +88,11 @@ module.exports = class extends Base {
       // 获取模型信息；
       let model;
       if (mold == 0) {
-        model = await this.model('model').get_model(null, null, {extend: 1});
+        model = await this.model('cmswing/model').get_model(null, null, {extend: 1});
       } else if (mold == 1) {
-        model = await this.model('model').get_model(null, null, {extend: 0});
+        model = await this.model('cmswing/model').get_model(null, null, {extend: 0});
       }
-      console.log(model);
+      // console.log(model);
       // console.log(obj_values(model));
       this.assign('models', model);
 
@@ -101,11 +101,11 @@ module.exports = class extends Base {
       this.action = '/admin/category/add';
       // 获取模版列表（pc）
       const temp_pc = await this.model('cmswing/temp').gettemp(1);
-      console.log(temp_pc);
+      // console.log(temp_pc);
       this.assign('temp_pc', temp_pc);
       // 获取手机端模版
       const temp_m = await this.model('cmswing/temp').gettemp(2);
-      console.log(temp_m);
+      // console.log(temp_m);
       this.assign('temp_m', temp_m);
       // template_lists
       // 会员组
@@ -136,7 +136,7 @@ module.exports = class extends Base {
      *
      */
   async editAction() {
-    const category = this.model('category');
+    const category = this.model('cmswing/category');
     if (this.isPost) {
       const data = this.post();
       data.status = 1;
@@ -150,9 +150,9 @@ module.exports = class extends Base {
       }
       const res = await this.model('cmswing/category').updates(data);
       if (res) {
-        this.success({name: '更新成功！', url: '/admin/category/index'});
+        return this.success({name: '更新成功！', url: '/admin/category/index'});
       } else {
-        this.fail('更新失败！');
+        return this.fail('更新失败！');
       }
     } else {
       const id = this.get('cid');
@@ -333,7 +333,7 @@ module.exports = class extends Base {
   async moveAction() {
     if (this.isPost) {
       const data = this.post();
-      console.log(data);
+      // console.log(data);
       // return false;
       // 检查要移动的栏目是否包含子栏目
       const pid = await this.model('cmswing/category').get_sub_category(data.source);
@@ -352,7 +352,7 @@ module.exports = class extends Base {
       const source = await this.model('category').find(data.source);
       const target = await this.model('category').find(data.target);
       // 获取栏目模型信息
-      console.log(target);
+      // console.log(target);
       let s_model_id = [];
       if (!think.isEmpty(source.model)) {
         s_model_id = source.model.split(',');
@@ -444,11 +444,11 @@ module.exports = class extends Base {
   async moveinfoAction() {
     if (this.isPost) {
       const data = this.post();
-      console.log(data);
+      // console.log(data);
       // return false;
       const source = await this.model('category').find(data.source_id);
       const ntarget = await this.session('ntarget');
-      console.log(source);
+      // console.log(source);
       if (data.option == 2) {
         const arr = [];
         for (const v of JSON.parse(data.data)) {
@@ -496,8 +496,8 @@ module.exports = class extends Base {
         target_name: target.title,
         source_id: source.id
       });
-      console.log(parse_type_attr(source.groups));
-      console.log(target);
+      // console.log(parse_type_attr(source.groups));
+      // console.log(target);
       this.active = 'admin/category/index';
 
       if (data.merge == 1) {
