@@ -52,7 +52,8 @@ module.exports = class extends Base {
     const id = this.get('cid');
     const info = await this.model('channel').find(id);
     if (think.isEmpty(info)) {
-      this.fail('获取配置信息错误');
+      const error = this.controller('cmswing/error');
+      return error.noAction('参数错误！');
     }
     this.assign('info', info);
     this.meta_title = '编辑导航';
@@ -62,7 +63,7 @@ module.exports = class extends Base {
   // 更新或者新增导航
   async updatesAction() {
     const data = this.post();
-    const res = await this.model('channel').updates(data);
+    const res = await this.model('cmswing/channel').updates(data);
     switch (res.err) {
       case 1:
         await this.model('action').log('update_channel', 'channel', res.id, this.user.uid, this.ip, this.ctx.url);// 记录行为
