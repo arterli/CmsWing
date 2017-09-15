@@ -88,7 +88,7 @@ module.exports = class extends Base {
     const map = {id: ['IN', id]};
     const res = await this.model('channel').where(map).delete();
     if (res) {
-      await this.model('cmswingaction').log('update_channel', 'channel', id, this.user.uid, this.ip, this.ctx.url);// 记录行为
+      await this.model('cmswing/action').log('update_channel', 'channel', id, this.user.uid, this.ip, this.ctx.url);// 记录行为
       this.cache('get_channel_cache', null);// 更新频道缓存信息
       return this.success({name: '删除成功！'});
     } else {
