@@ -77,9 +77,9 @@ module.exports = class extends think.cmswing.ModIndex {
     where.mod_type = 1;
     where.mod_id = cate.model;
     let keyword;
-    const topicid = await think.model('keyword_data', think.config('db')).where(where).getField('tagid');
+    const topicid = await this.model('keyword_data').where(where).getField('tagid');
     if (!think.isEmpty(topicid)) {
-      keyword = await think.model('keyword', think.config('db')).where({id: ['IN', topicid]}).getField('keyname');
+      keyword = await this.model('keyword').where({id: ['IN', topicid]}).getField('keyname');
       if (!think.isEmpty(keyword)) {
         this.assign('keyword', keyword.join(','));
       }
@@ -100,7 +100,7 @@ module.exports = class extends think.cmswing.ModIndex {
       const roleid = await this.model('member').where({id: this.is_login}).getField('groupid', true);
       const addexa = await this.model('cmswing/category_priv').priv(data.category_id, roleid, 'addexa');
       if (addexa) {
-        const addp = await this.model('approval').adds(data.mod_id, this.user.uid, data.title, data);
+        const addp = await this.model('cmswing/approval').adds(data.mod_id, this.user.uid, data.title, data);
         if (addp) {
           return this.success({name: '发布成功, 请等待管理员审核...', url: '/' + data.category_id});
         } else {
