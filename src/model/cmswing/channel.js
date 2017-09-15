@@ -81,6 +81,7 @@ module.exports = class extends think.Model {
     let obj;
     /* 添加或更新数据 */
     if (think.isEmpty(data.id)) {
+      data.status = 1;// 新增默认开启
       data.create_time = new Date().getTime();
       res = await this.add(data);
       if (res) {
