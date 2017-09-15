@@ -136,7 +136,7 @@ module.exports = class extends think.Service {
    */
   async flushAuthList() {
     const ids = await this.getRuleIds();
-    const model = think.model(this.config.rule, think.config('db'));
+    const model = think.model(this.config.rule);
     return model.field('name,condition').where({id: ['IN', ids], status: 1}).select();
   }
   /**
@@ -147,7 +147,7 @@ module.exports = class extends think.Service {
     if (!think.isEmpty(this.config.userInfo)) {
       return this.config.userInfo;
     }
-    const data = await think.model(this.config.user, think.config('db')).where({id: this.userId}).find();
+    const data = await think.model(this.config.user).where({id: this.userId}).find();
     this.config.userInfo = data;
     return data;
   }
@@ -170,7 +170,7 @@ module.exports = class extends think.Service {
    * @return {Promise} []
    */
   getRoles() {
-    return think.model(this.config.user_role, think.config('db')).alias('a').join({
+    return think.model(this.config.user_role).alias('a').join({
       table: this.config.role,
       as: 'b',
       on: ['role_id', 'id']

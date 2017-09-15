@@ -31,7 +31,7 @@ module.exports = class extends think.Model {
         // 验证权限，根据权限进行显示控制
         if (!is_admin) {
           for (const m of menu) {
-            const auth = think.service('rbac', uid);
+            const auth = think.service('cmswing/rbac', uid);
             const res = await auth.check(m.url);
             // console.log(res);
             if (res) {
