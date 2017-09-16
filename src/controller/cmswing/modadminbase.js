@@ -47,7 +47,7 @@ module.exports = class extends Admin {
       // this.fail('没有指定数据分类！');
       return error.noAction('没有指定数据分类！');
     }
-    const cate = await this.model('category').info(id, field);
+    const cate = await this.model('cmswing/category').info(id, field);
     // console.log(cate);
     if (cate && cate.status == 1) {
       switch (cate.display) {
@@ -68,12 +68,10 @@ module.exports = class extends Admin {
 
   // 独立模型display方法封装
   modtemp(action, moblie = false) {
-    // console.log(this.ctx.controller);
-    if (this.ctx.controller == 'mod/admin') {
+    if (this.ctx.controller === 'cmswing/modadminbase') {
       if (!moblie) {
         return this.display(`mod/${this.mod.name}/admin_${action}`);
       } else {
-        console.log(`mod/${this.mod.name}/mobile/index_${action}`);
         return this.display(`mod/${this.mod.name}/mobile/admin_${action}`);
       }
     } else {

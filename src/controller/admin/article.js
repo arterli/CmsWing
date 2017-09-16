@@ -395,7 +395,7 @@ module.exports = class extends think.cmswing.admin {
       for (const val of cate) {
         switch (val.mold) {
           case 1:
-            val.url = `/mod/admin/index?cate_id=${val.id}`;
+            val.url = `/admin/mod/${val.id}`;
             break;
           case 2:
             val.url = `/admin/sp/index?cate_id=${val.id}`;
@@ -435,7 +435,7 @@ module.exports = class extends think.cmswing.admin {
       for (const val of cate) {
         switch (val.mold) {
           case 1:
-            val.url = `/mod/admin/index?cate_id=${val.id}`;
+            val.url = `/admin/mod/${val.id}`;
             break;
           case 2:
             val.url = `/admin/sp/index?cate_id=${val.id}`;
