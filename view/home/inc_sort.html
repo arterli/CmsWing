@@ -24,13 +24,13 @@
                     {%if 0 == nsobj[val.option.identifier] or null == nsobj[val.option.identifier]%}
                     <span class="btn btn-danger btn-xs relative">全部</span>
                     {%else%}
-                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >全部</a>
+                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{0|sort_url(val.option.identifier,typevar,nsobj)| urlencode}}" class="btn btn-clean btn-xs relative" >全部</a>
                     {%endif%}
                     {%for v in val.rules %}
                     {%if v.id|sort_act(nsobj[val.option.identifier])%}
                     <span class="btn btn-danger btn-xs relative" >{{v.name}}{{val.option.unit}}</span>
                     {%else%}
-                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
+                    <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v.id|sort_url(val.option.identifier,typevar,nsobj)| urlencode}}" class="btn btn-clean btn-xs relative" >{{v.name}}{{val.option.unit}}</a>
                     {%endif%}
                     {%endfor%}
                     <!--子栏目-->
@@ -43,7 +43,7 @@
                         {%if v_.id|sort_act(nsobj[val.option.identifier])%}
                         <span class="btn btn-danger btn-xs relative" >{{v_.name}}{{val.option.unit}}</span>
                         {%else%}
-                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v_.id|sort_url(val.option.identifier,typevar,nsobj)| urlencode}}" class="btn btn-clean btn-xs relative">{{v_.name}}{{val.option.unit}}</a>
                         {%endif%}
                         {% endfor %}
                     </div>
@@ -65,7 +65,7 @@
 
                         <span class="btn btn-danger btn-xs relative" >{{v__.name}}{{val.option.unit}}</span>
                         {%else%}
-                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
+                        <a href="{{cate.url}}-{{order}}-{{group_id}}-{{sortid}}-{{v__.id|sort_url(val.option.identifier,typevar,nsobj)| urlencode}}" class="btn btn-clean btn-xs relative" >{{v__.name}}{{val.option.unit}}</a>
 
                         {%endif%}
                         {%endfor%}

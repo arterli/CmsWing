@@ -124,7 +124,7 @@ module.exports = class extends think.cmswing.center {
     if (!think.isEmpty(sortid)) {
       map.sort_id = sortid;
     }
-    let sortarr = query[4] ? decodeURI(query[4]) : null;
+    let sortarr = query[4] ? decodeURIComponent(query[4]) : null;
     let nsobj = {};
     let sort = await this.model('cmswing/category').get_category(cate.id, 'documentsorts');
     if (sort) {
