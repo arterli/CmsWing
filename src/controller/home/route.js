@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   /**
      * 解析路由，判断是频道页面还是列表页面
      */

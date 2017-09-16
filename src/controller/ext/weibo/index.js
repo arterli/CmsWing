@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 const fs = require('fs');
 const superagent = require('superagent');
-module.exports = class extends think.cmswing.ExtIndex {
+module.exports = class extends think.cmswing.extIndex {
   /**
    * 新浪授权回掉地址
    * index action

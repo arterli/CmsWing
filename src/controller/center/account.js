@@ -5,9 +5,8 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
 const Jimp = require('jimp');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   async __before() {
     await super.__before();
     // 判断是否登陆

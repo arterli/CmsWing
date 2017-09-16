@@ -7,7 +7,7 @@
 // +----------------------------------------------------------------------
 const fs = require('fs');
 const superagent = require('superagent');
-module.exports = class extends think.cmswing.ExtIndex {
+module.exports = class extends think.cmswing.extIndex {
   /**
    * index action
    * @return {Promise} []

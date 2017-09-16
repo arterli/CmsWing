@@ -6,8 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../cmswing/admin');
-module.exports = class extends Base {
+module.exports = class extends think.cmswing.admin {
   /**
      * index action
      * @return {Promise} []

@@ -6,9 +6,8 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../cmswing/admin');
 const fs = require('fs');
-module.exports = class extends Base {
+module.exports = class extends think.cmswing.admin {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     this.tactive = 'template';

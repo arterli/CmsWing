@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   constructor(ctx) {
     super(ctx);
   }

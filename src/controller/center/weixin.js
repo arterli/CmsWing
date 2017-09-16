@@ -5,12 +5,11 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Center = require('../cmswing/center');
 const pingpp = require('pingpp');
 const API = require('co-wechat-api');
 const fs = require('fs');
 const superagent = require('superagent');
-module.exports = class extends Center {
+module.exports = class extends think.cmswing.center {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作

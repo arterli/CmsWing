@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-module.exports = class extends think.cmswing.ExtAdmin {
+module.exports = class extends think.cmswing.extAdmin {
   /**
    * index action
    * 插件管理入口

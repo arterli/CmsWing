@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-module.exports = class extends think.cmswing.ModAdmin {
+module.exports = class extends think.cmswing.modAdmin {
   init(http) {
     super.init(http);
     this.tactive = 'article';

@@ -1,5 +1,4 @@
-const BaseRest = require('../cmswing/rest');
-module.exports = class extends BaseRest {
+module.exports = class extends think.cmswing.rest {
   /**
      * 默认最新列表
      * "/api/document/1" 调用id为1的文章
@@ -13,10 +12,11 @@ module.exports = class extends BaseRest {
   async getAction() {
     let data;
     if (this.id) {
+      const category = this.model('cmswing/category');
       // let pk = await this.modelInstance.getPk();
       data = await this.modelInstance.detail(this.id);
       // data.content=html_encode(data.content);
-      data.catename = await this.model('category').get_category(data.category_id, 'title');
+      data.catename = await category.get_category(data.category_id, 'title');
       data.uid = await get_nickname(data.uid);
       data.update_time = this.moment(data.update_time).fromNow();
       return this.success(data);
@@ -27,7 +27,7 @@ module.exports = class extends BaseRest {
     const order = this.get('order');
     if (cid != 0 && think.isNumberString(cid)) {
       // 获取当前分类的所有子栏目
-      const subcate = await this.model('category').get_sub_category(cid);
+      const subcate = await category.get_sub_category(cid);
       // console.log(subcate);
       subcate.push(cid);
       map.category_id = ['IN', subcate];
@@ -68,7 +68,7 @@ module.exports = class extends BaseRest {
         }
       }
       v.imgurl = imgarr;
-      v.catename = await this.model('category').get_category(v.category_id, 'title');
+      v.catename = await category.get_category(v.category_id, 'title');
       v.uid = await get_nickname(v.uid);
       v.update_time = this.moment(v.update_time).fromNow();
     }

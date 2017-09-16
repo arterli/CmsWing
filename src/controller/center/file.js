@@ -5,10 +5,9 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
 const path = require('path');
 const fs = require('fs');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   async __before() {
     await super.__before();
     // 判断是否登陆

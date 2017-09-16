@@ -13,7 +13,7 @@
  * 单表：表前缀_ext_插件目录名
  * 多表：表前缀_ext_插件目录名，表前缀_ext_插件目录名_分表1，表前缀_ext_插件目录名_分表2...
  */
-module.exports = class extends think.cmswing.ExtIndex {
+module.exports = class extends think.cmswing.extIndex {
   /**
    * index action
    *

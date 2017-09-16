@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-module.exports = class extends think.cmswing.ModIndex {
+module.exports = class extends think.cmswing.modIndex {
   /**
      * index action
      * @return {Promise} []

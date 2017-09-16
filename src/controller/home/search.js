@@ -5,9 +5,8 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
 const Segment = require('segment');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   /**
    * index action import Segment from 'segment';
    * @return {Promise} []

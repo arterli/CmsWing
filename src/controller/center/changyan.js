@@ -5,11 +5,10 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Center = require('../cmswing/center');
 const crypto = require('crypto');
 const fs = require('fs');
 const superagent = require('superagent');
-module.exports = class extends Center {
+module.exports = class extends think.cmswing.center {
   /**
    * index action
    * @return {Promise} []

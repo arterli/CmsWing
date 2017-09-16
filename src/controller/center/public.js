@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Center = require('../cmswing/center');
-module.exports = class extends Center {
+module.exports = class extends think.cmswing.center {
   /**
      * 注册页面
      */

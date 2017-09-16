@@ -5,8 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const Home = require('../cmswing/home');
-module.exports = class extends Home {
+module.exports = class extends think.cmswing.center {
   // 详情页[核心]
   async indexAction() {
     /* 标识正确性检测 */

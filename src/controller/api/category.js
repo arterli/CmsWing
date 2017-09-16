@@ -1,5 +1,4 @@
-const BaseRest = require('../cmswing/rest');
-module.exports = class extends BaseRest {
+module.exports = class extends think.cmswing.rest {
   /**
      * 获取分类信息
      * /api/category 获取全部栏目（树结构）
@@ -9,7 +8,7 @@ module.exports = class extends BaseRest {
   async getAction() {
     let data;
     if (this.id) {
-      const pk = await this.modelInstance.getPk();
+      const pk = await this.modelInstance.Pk;
       data = await this.modelInstance.where({[pk]: this.id}).find();
       return this.success(data);
     }

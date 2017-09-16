@@ -6,10 +6,9 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 
-const Base = require('../cmswing/admin');
 const Os = require('os');
 // const fs = require('fs');
-module.exports = class extends Base {
+module.exports = class extends think.cmswing.admin {
   async indexAction() {
     // auto render template file index_index.html
     // console.log(think.parseConfig(true,think.config("db")).prefix);

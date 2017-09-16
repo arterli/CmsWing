@@ -8,9 +8,13 @@ module.exports = {
   resource: path.join(think.ROOT_PATH, 'www'),
   cmswing: {
     info: require(path.join(think.ROOT_PATH, 'package.json')),
-    ModIndex: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'modindexbase')),
-    ModAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'modadminbase')),
-    ExtIndex: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extindexbase')),
-    ExtAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extadminbase'))
+    admin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'admin')),
+    home: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'home')),
+    center: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'center')),
+    modIndex: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'modindexbase')),
+    modAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'modadminbase')),
+    extIndex: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extindexbase')),
+    extAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extadminbase')),
+    rest: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'rest'))
   }
 };

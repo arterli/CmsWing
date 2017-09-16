@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-module.exports = class extends think.cmswing.ExtIndex {
+module.exports = class extends think.cmswing.extIndex {
 
   // 验证码
   async geetestAction() {
