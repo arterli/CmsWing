@@ -1,20 +1,21 @@
 module.exports = class extends think.cmswing.rest {
   /**
-     * 默认最新列表
-     * "/api/document/1" 调用id为1的文章
-     * "/api/document/?cid=1" 调用栏目id为1的列表
-     * "/api/document/?cid=0" 调用全部栏目列表
-     * cid:栏目id
-     * order: new:默认最新，hot:热点,
-     * @returns {Promise<PreventPromise>}
-     */
+   * 默认最新列表
+   * "/api/document/1" 调用id为1的文章
+   * "/api/document/?cid=1" 调用栏目id为1的列表
+   * "/api/document/?cid=0" 调用全部栏目列表
+   * cid:栏目id
+   * order: new:默认最新，hot:热点,
+   * @returns {Promise<PreventPromise>}
+   */
 
   async getAction() {
     let data;
+    const document = this.model('cmswing/document');
+    const category = this.model('cmswing/category');
     if (this.id) {
-      const category = this.model('cmswing/category');
       // let pk = await this.modelInstance.getPk();
-      data = await this.modelInstance.detail(this.id);
+      data = await document.detail(this.id);
       // data.content=html_encode(data.content);
       data.catename = await category.get_category(data.category_id, 'title');
       data.uid = await get_nickname(data.uid);
@@ -41,7 +42,7 @@ module.exports = class extends think.cmswing.rest {
     } else {
       o.update_time = 'DESC';
     }
-    data = await this.modelInstance.where(map).page(this.get('page')).order(o).countSelect();
+    data = await document.where(map).page(this.get('page')).order(o).countSelect();
     const http_ = this.config('http_') == 1 ? 'http' : 'https';
     let http__;
     for (const v of data.data) {
