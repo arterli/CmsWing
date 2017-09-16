@@ -8,7 +8,7 @@ module.exports = class extends think.cmswing.rest {
   async getAction() {
     let data;
     if (this.id) {
-      const pk = await this.modelInstance.Pk;
+      const pk = await this.modelInstance.pk;
       data = await this.modelInstance.where({[pk]: this.id}).find();
       return this.success(data);
     }
