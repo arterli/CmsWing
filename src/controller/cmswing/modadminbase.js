@@ -5,6 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
+const assert = require('assert');
 const Admin = require('./admin');
 module.exports = class extends Admin {
   /**
@@ -33,9 +34,7 @@ module.exports = class extends Admin {
     try {
       return this.action('mod/' + this.mod.name + '/admin', 'index');
     } catch (err) {
-      think.logger.error(err);
-      this.assign('err', err);
-      return this.action('cmswing/modindexbase', 'moderror');
+      assert(!think.isError(err), err);
     }
   }
 

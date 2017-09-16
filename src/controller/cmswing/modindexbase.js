@@ -5,6 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
+const assert = require('assert');
 const Index = require('./home');
 module.exports = class extends Index {
   /**
@@ -36,9 +37,7 @@ module.exports = class extends Index {
     try {
       await this.action('mod/' + this.mod.name + '/index', 'index');
     } catch (err) {
-      think.logger.error(err);
-      this.assign('err', err);
-      return this.action('cmswing/modindexbase', 'moderror');
+      assert(!think.isError(err), err);
     }
   }
 
@@ -50,9 +49,7 @@ module.exports = class extends Index {
     try {
       await this.action('mod/' + this.mod.name + '/index', 'list');
     } catch (err) {
-      think.logger.error(err);
-      this.assign('err', err);
-      return this.action('cmswing/modindexbase', 'moderror');
+      assert(!think.isError(err), err);
     }
     //
   }
