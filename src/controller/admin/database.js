@@ -271,7 +271,7 @@ module.exports = class extends think.cmswing.admin {
       if (!think.isFile(tar)) {
         const targ = await targz().compress(dir, tar);
         if (!targ) {
-          return this.success({'name': 'tar', 'url': self.get('dir')});
+          return this.success({'name': 'tar', 'url': this.get('dir')});
         }
       } else {
         return this.success({'name': 'download', 'url': this.get('dir')});

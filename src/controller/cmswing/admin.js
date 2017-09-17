@@ -376,4 +376,150 @@ module.exports = class extends think.Controller {
       }
     }
   }
+  // 获取分类信息
+  /**
+   * 获取分类信息
+   * await this.sort();
+   * @param cate_id
+   * @param sortid
+   * @returns {Promise.<void>}
+   */
+  async sort(cate_id = this.get('cate_id'), sortid) {
+    if (think.isEmpty(sortid)) {
+      sortid = this.get('sortid') || 0;
+    }
+    let sort = await this.model('cmswing/category').get_category(cate_id, 'documentsorts');
+    if (sort) {
+      sort = JSON.parse(sort);
+      if (sortid == 0) {
+        sortid = sort.defaultshow;
+      }
+      const typevar = await this.model('typevar').where({sortid: sortid}).select();
+      for (const val of typevar) {
+        val.option = await this.model('typeoption').where({optionid: val.optionid}).find();
+        if (val.option.type == 'select' || val.option.type == 'radio') {
+          if (!think.isEmpty(val.option.rules)) {
+            val.option.rules = JSON.parse(val.option.rules);
+            val.rules = parse_type_attr(val.option.rules.choices);
+            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+          }
+        } else if (val.option.type == 'checkbox') {
+          if (!think.isEmpty(val.option.rules)) {
+            val.option.rules = JSON.parse(val.option.rules);
+            val.rules = parse_type_attr(val.option.rules.choices);
+            console.log(val.rules);
+            for (const v of val.rules) {
+              v.id = 'l>' + v.id;
+            }
+            val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+            // console.log(val.rules);
+          }
+        } else if (val.option.type == 'range') {
+          if (!think.isEmpty(val.option.rules)) {
+            const searchtxt = JSON.parse(val.option.rules).searchtxt;
+            const searcharr = [];
+            if (!think.isEmpty(searchtxt)) {
+              const arr = searchtxt.split(',');
+              const len = arr.length;
+              for (var i = 0; i < len; i++) {
+                const obj = {};
+                if (!think.isEmpty(arr[i - 1])) {
+                  if (i == 1) {
+                    obj.id = 'd>' + arr[i];
+                    obj.name = '低于' + arr[i] + val.option.unit;
+                    obj.pid = 0;
+                    searcharr.push(obj);
+                  } else {
+                    obj.id = arr[i - 1] + '>' + arr[i];
+                    obj.name = arr[i - 1] + '-' + arr[i] + val.option.unit;
+                    obj.pid = 0;
+                    searcharr.push(obj);
+                  }
+                }
+              }
+              searcharr.push({
+                id: 'u>' + arr[len - 1],
+                name: '高于' + arr[len - 1] + val.option.unit,
+                pid: 0
+              });
+            }
+            // console.log(searcharr);
+            val.option.rules = JSON.parse(val.option.rules);
+            val.rules = searcharr;
+            // val.option.rules.choices = parse_config_attr(val.option.rules.choices);
+          }
+        }
+      }
+      // console.log(typevar);
+      this.assign('typevar', typevar);
+    }
+    // console.log(sort);
+    this.assign('sort', sort);
+    this.assign('sortid', sortid);
+  }
+
+  // 分类信息条件
+  /**
+   * 分类信息条件
+   * this.mapsort(map)
+   * @param map
+   */
+  mapsort(map) {
+    let nsobj = {};
+    if (!think.isEmpty(this.get('sortval'))) {
+      const sortval = this.get('sortval').split('|');
+      nsobj = {};
+      for (const v of sortval) {
+        const qarr = v.split('_');
+        nsobj[qarr[0]] = qarr[1];
+        if (qarr[1] != 0) {
+          const vv = qarr[1].split('>');
+          // console.log(vv);
+          if (vv[0] == 'd' && !think.isEmpty(vv[1])) {
+            map['t.' + qarr[0]] = ['<', vv[1]];
+          } else if (vv[0] == 'u' && !think.isEmpty(vv[1])) {
+            map['t.' + qarr[0]] = ['>', vv[1]];
+          } else if (vv[0] == 'l' && !think.isEmpty(vv[1])) {
+            map['t.' + qarr[0]] = ['like', `%"${vv[1]}"%`];
+          } else if (!think.isEmpty(vv[0]) && !think.isEmpty(vv[1])) {
+            map['t.' + qarr[0]] = ['BETWEEN', Number(vv[0]), Number(vv[1])];
+          } else {
+            map['t.' + qarr[0]] = qarr[1];
+          }
+        }
+      }
+    }
+    this.assign('nsobj', nsobj);
+  }
+
+  /**
+   * 分组
+   * await this.groups()
+   * @param cate_id
+   * @returns {Promise.<void>}
+   */
+  async groups(cate_id = this.get('cate_id'), group_id) {
+    if (think.isEmpty(group_id)) {
+      group_id = this.get('group_id') || 0;
+    }
+    // 获取分组
+    let groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
+    if (groups) {
+      groups = parse_config_attr(groups);
+    }
+    this.assign('groups', groups);
+    this.assign('group_id', group_id);
+  }
+
+  /**
+   * 获取面包屑信息
+   * await this.breadcrumb()
+   * @param cate_id
+   * @returns {Promise.<void>}
+   */
+  async breadcrumb(cate_id = this.get('cate_id')) {
+    // 获取面包屑信息
+    const nav = await this.model('cmswing/category').get_parent_category(cate_id);
+    this.assign('breadcrumb', nav);
+  }
 };

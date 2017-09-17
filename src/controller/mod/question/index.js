@@ -16,7 +16,7 @@ module.exports = class extends think.cmswing.modIndex {
     // auto render template file index_index.html
 
     return this.body = '封面入口';
-    return this.display();
+    //return this.display();
   }
 
   /**
@@ -24,15 +24,6 @@ module.exports = class extends think.cmswing.modIndex {
    * @returns {*}
    */
   async listAction() {
-    // 跨域
-    const method = this.ctx.method.toLowerCase();
-    if (method === 'options') {
-      this.setCorsHeader();
-      this.end();
-      return;
-    }
-    this.setCorsHeader();
-
     // 获取栏目信息
     let cate = this.m_cate;
 

@@ -28,6 +28,7 @@ module.exports = class extends think.cmswing.center {
      * @returns {PreventPromise}
      */
   async indexAction() {
+    this.tactive = 'user';
     // 判断是否登陆
     const data = await this.model('address').where({user_id: this.user.uid}).page(this.get('page')).order('is_default DESC,id DESC').countSelect();
     const html = this.pagination(data);

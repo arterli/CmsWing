@@ -27,6 +27,7 @@ module.exports = class extends think.cmswing.center {
    */
   //   用户设置
   async indexAction() {
+    this.tactive = 'user';
     // 判断是否登陆
     await this.weblogin();
     // 获取用户信息

@@ -152,6 +152,8 @@ module.exports = class extends think.cmswing.center {
         };
         if (!this.isweixin) {
           map.channel = ['!=', 'wx_pub'];
+        } else {
+          map.channel = ['!=', 'alipay_wap'];
         }
       } else {
         map = {

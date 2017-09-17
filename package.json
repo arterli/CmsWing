@@ -1,7 +1,7 @@
 {
   "name": "CMSWing",
   "description": "application created by thinkjs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "scripts": {
     "start": "node development.js",
     "lint": "eslint src/",

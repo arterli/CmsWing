@@ -36,20 +36,19 @@
 			</li>
 			#}
 			{%endif%}
-			<li class="list-group-item list-toggle
-			 {% if (ctx.controller == 'center/seting' or ctx.controller =='center/address' or ctx.controller =='center/account' ) %}active{%endif%}" >   <!-- NOTE: "active" to be open on page load -->
+			<li class="list-group-item list-toggle {{ 'active' if (controller.tactive === 'user')}}" >   <!-- NOTE: "active" to be open on page load -->
 				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3">
 					<i class="fa fa-user"></i> 账户管理</a>
 				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
 					<li>
-						<a href="/center/seting" class="{% if ctx.controller == 'center/seting' %}text-primary{%endif%}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
+						<a href="/center/seting" class="{{'text-primary' if (ctx.url =='/center/seting')}}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
 					<li>
-						<a href="/center/address" class="{% if ctx.controller == 'center/address' %}text-primary{%endif%}"><i class="fa fa-angle-right"></i> 收货地址</a>
+						<a href="/center/address" class="{{'text-primary' if (ctx.url =='/center/address')}}"><i class="fa fa-angle-right"></i> 收货地址</a>
 					</li>
 					{#
 					<li><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
 					#}
-					<li><a href="/center/account" class="{% if ctx.controller == 'center/account' %}text-primary{%endif%}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
+					<li><a href="/center/account" class="{{'text-primary' if (ctx.url =='/center/account')}}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
 					{#<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>#}
 				</ul>
 			</li>

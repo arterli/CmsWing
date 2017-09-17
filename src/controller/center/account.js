@@ -26,6 +26,7 @@ module.exports = class extends think.cmswing.center {
    * @returns {PreventPromise}
    */
   async indexAction() {
+    this.tactive = 'user';
     const type = this.get('type') || null;
     let data;
     if (think.isEmpty(type)) {

@@ -309,13 +309,17 @@ module.exports = class extends think.cmswing.center {
      **/
     // ping++ 支付渠道 pc网页
     // 根据不同的客户端调用不同的支付方式
-    let type;
+    const where = {status: 1};
     if (this.isMobile) {
-      type = 2;
+      where.type = 2;
     } else {
-      type = 1;
+      where.type = 1;
     }
-    const paylist = await this.model('pingxx').where({type: type, status: 1}).order('sort ASC').select();
+    // 微信下隐藏支付宝支付
+    if (this.isweixin) {
+      where.channel = ['!=', 'alipay_wap'];
+    }
+    const paylist = await this.model('pingxx').where(where).order('sort ASC').select();
     this.assign('paylist', paylist);
 
     // 运费计算

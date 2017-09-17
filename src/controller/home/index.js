@@ -25,14 +25,6 @@ module.exports = class extends think.cmswing.center {
     // debugger;
     // 判断浏览客户端
     if (this.isMobile) {
-      // 跨域
-      const method = this.method.toLowerCase();
-      if (method === 'options') {
-        this.setCorsHeader();
-        this.end();
-        return;
-      }
-      this.setCorsHeader();
       const map = {
         'pid': 0,
         'status': 1

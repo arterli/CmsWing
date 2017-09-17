@@ -11,14 +11,6 @@ module.exports = class extends think.cmswing.center {
     // console.log(this.moment(1499788799000).fromNow());
     // console.log(GetDateStr(5)+" "+"00:00:00");
     // console.log(new Date(GetDateStr(0)+" "+"23:59:59").getTime());
-    // 跨域
-    const method = this.method.toLowerCase();
-    if (method === 'options') {
-      this.setCorsHeader();
-      this.end();
-      return;
-    }
-    this.setCorsHeader();
     const get = this.get('category') || 0;
     let id = 0;
     const query = get.split('-');
