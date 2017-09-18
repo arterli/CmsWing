@@ -20,7 +20,7 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <header class="panel-heading text-right bg-light  clearfix">
-                        {%if http.get('mold')==2%}
+                        {%if controller.get('mold')==2%}
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
                             <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
@@ -31,7 +31,7 @@
                         <ul class="nav nav-tabs pull-left">
                             <li class="active"><a data-toggle="tab" href="#tab1">基础选项</a></li>
                             <li class=""><a data-toggle="tab" href="#tab3">SEO设置</a></li>
-                            {%if http.get('mold')!=1%}
+                            {%if controller.get('mold')!=1%}
                             <li class=""><a data-toggle="tab" href="#tab2">模板设置</a></li>
                             <li class=""><a data-toggle="tab" href="#tab4">栏目分组</a></li>
                             <li class=""><a data-toggle="tab" href="#tab5">分类信息</a></li>
@@ -43,7 +43,7 @@
                         <span class="hidden-sm">Left</span>
                     </header>
                     <div class="panel-body">
-                        {%if http.get('mold')==2%}
+                        {%if controller.get('mold')==2%}
                         <form action="{{controller.action}}" class="form-horizontal" method="post"  data-validate="parsley">
                         <div class="tab-content">
 
@@ -92,7 +92,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                             <div class="col-sm-10">
-                                            <input type="hidden" name="icon" id="cover_id_{{field.name}}"/>
+                                            <input type="hidden" name="icon" id="cover_id_{{field.name}}" value="0"/>
                                             <div id="fileList_{{field.name}}" class="uploader-list"></div>
                                             <div id="filePicker_{{field.name}}">选择图片</div>
 
@@ -247,23 +247,23 @@
                                             <div class="col-md-5">
                                                 <select style="width:260px" name="template_index" class="chosen-select">
                                                     <optgroup label="默认">
-                                                        <option value="">默认频道模版</option>
+                                                        <option value="">默认单页模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
                                                         {% for v in temp_pc.template_sp%}
-                                                        {%if v.action != 'index.html'%}
+                                                        {%if v.action != 'index'%}
                                                         <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
                                                         {%endif%}
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
-                                                        <option data-url="/admin/template/channel" class="addtemp">添加频道模版</option>
+                                                        <option data-url="/admin/template/sp" class="addtemp">添加单页模板</option>
                                                     </optgroup>
 
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目的首页模板</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 栏目单页PC端模板</span>
                                             </div>
                                         </div>
                                     </div>
@@ -276,23 +276,23 @@
                                             <div class="col-md-5">
                                                 <select style="width:260px" name="template_m_index" class="chosen-select">
                                                     <optgroup label="默认">
-                                                        <option value="">默认手机频道模版</option>
+                                                        <option value="">默认手机单页模版</option>
                                                     </optgroup>
                                                     <optgroup label="自定义模版">
                                                         {% for v in temp_m.template_sp%}
-                                                        {%if v.action != 'index.html'%}
-                                                        <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                        {%if v.action != 'index'%}
+                                                        <option value="{{v.action}}" >{{v.name}}[{{v.action}}]</option>
                                                         {%endif%}
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
-                                                        <option data-url="/admin/template/channel/type/2" class="addtemp">添加手机频道模版</option>
+                                                        <option data-url="/admin/template/sp/?type=2" class="addtemp">添加手机单页模板</option>
                                                     </optgroup>
 
                                                 </select>
                                             </div>
                                             <div class="col-md-12">
-                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 手机端栏目的首页模板</span>
+                                                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 手机端单页模板</span>
                                             </div>
                                         </div>
                                     </div>
@@ -305,7 +305,7 @@
                                     <label class="col-sm-2 control-label">META Title（栏目标题）</label>
                                     <div class="col-sm-10">
                                         <div class="row">
-                                            <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                            <div class="col-md-5"><input name="meta_title"  type="text" class="form-control" name=""></div>
                                             <div class="col-md-12">
                                                 <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
                                             </div>
@@ -350,7 +350,7 @@
                                                 <thead>
                                                 <tr class="bg-light">
                                                     <th>角色名称</th>
-                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                    {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                     <th>{{items}}</th>
                                                     {% endfor%}
                                                 </tr>
@@ -361,7 +361,7 @@
                                                     <td>
                                                         {{val.desc}}
                                                     </td>
-                                                    {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                    {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                     <td>
                                                         <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                     </td>
@@ -431,8 +431,8 @@
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     {% for list in models %}
-                                                    <label class="{%if http.get('mold')==1%}radio-inline{%else%}checkbox-inline{%endif%} i-checks">
-                                                        <input type="{%if http.get('mold')==1%}radio{%else%}checkbox{%endif%}" value="{{list.id}}" name="model"><i></i> {{list.title}}
+                                                    <label class="{%if controller.get('mold')==1%}radio-inline{%else%}checkbox-inline{%endif%} i-checks">
+                                                        <input type="{%if controller.get('mold')==1%}radio{%else%}checkbox{%endif%}" value="{{list.id}}" name="model"><i></i> {{list.title}}
                                                     </label>
                                                     {% endfor %}
                                                 </div>
@@ -505,31 +505,31 @@
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">是否审核</label>
+                                        <label class="col-sm-2 control-label">入库前是否审核</label>
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-10">
                                                     <label class="radio-inline i-checks">
-                                                        <input type="radio"  value="0" name="check"><i></i> 不需要
+                                                        <input type="radio"  value="0" name="check" checked><i></i> 不需要
                                                     </label>
                                                     <label class="radio-inline i-checks">
                                                         <input type="radio"  value="1" name="check"><i></i> 需要
                                                     </label>
                                                 </div>
-                                                <div class="col-md-12 hide">
-                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  是否允许发布内容</span>
+                                                <div class="col-md-12 ">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 这个审核是信息入库前最后的审核，一般默认 不需要 即可。</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {%if http.get('mold')!=1%}
+                                    {%if controller.get('mold')!=1%}
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"><i class="fa fa-asterisk text-danger"></i> 允许文档类型</label>
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-md-10">
-                                                    {% for key , val in http.config("document_model_type") %}
+                                                    {% for key , val in controller.config("document_model_type") %}
                                                     <label class="checkbox-inline i-checks">
                                                         <input type="checkbox"  value="{{key}}" name="type" ><i></i> {{val}}
                                                     </label>
@@ -567,7 +567,7 @@
                                         <div class="col-sm-10">
                                             <div class="row">
                                                 <div class="col-sm-10">
-                                                    <input type="hidden" name="icon" id="cover_id_{{field.name}}"/>
+                                                    <input type="hidden" name="icon" id="cover_id_{{field.name}}" value="0"/>
                                                     <div id="fileList_{{field.name}}" class="uploader-list"></div>
                                                     <div id="filePicker_{{field.name}}">选择图片</div>
 
@@ -720,7 +720,7 @@
                                         <label class="col-sm-2 control-label">META Title（栏目标题）</label>
                                         <div class="col-sm-10">
                                             <div class="row">
-                                                <div class="col-md-5"><input name="meta_title"  type="text" class="form-control"></div>
+                                                <div class="col-md-5"><input name="meta_title"  type="text" class="form-control" value=""></div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 针对搜索引擎设置的标题</span>
                                                 </div>
@@ -756,7 +756,7 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                 </div>
-                                {%if http.get('mold')!=1%}
+                                {%if controller.get('mold')!=1%}
                                 <div id="tab2" class="tab-pane fade ">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">频道模板</label>
@@ -1089,7 +1089,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>角色名称</th>
-                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SYS_PRIV_ROLE %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
                                                     </tr>
@@ -1100,7 +1100,7 @@
                                                         <td>
                                                             {{val.desc}}
                                                         </td>
-                                                        {% for index, items in controller.setup.SYS_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SYS_PRIV_ROLE %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" ><i></i></label>
                                                         </td>
@@ -1125,7 +1125,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>会员组名称</th>
-                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
+                                                        {% for index, items in config.setup.SYS_PRIV_GROUP %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
 
@@ -1137,7 +1137,7 @@
                                                         <td>
                                                             <span style="color:{{val.usernamecolor}}">{{val.name}}</span>
                                                         </td>
-                                                        {% for index, items in controller.setup.SYS_PRIV_GROUP %}
+                                                        {% for index, items in config.setup.SYS_PRIV_GROUP %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_groupid" value="{{index}},{{val.groupid}}" ><i></i></label>
                                                         </td>
@@ -1161,7 +1161,7 @@
                             </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <input type="hidden" name="mold" value="{{http.get('mold')}}">
+                                    <input type="hidden" name="mold" value="{{controller.get('mold')}}">
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
                                 </div>
@@ -1246,7 +1246,7 @@ $('input[name="documentsorts[status]"]').click(function () {
             var html = [];
             var size = nodes.length;
             var left = null;
-            var pid ="{{http.get('pid')}}";
+            var pid ="{{controller.get('pid')}}";
             html.push('<option value="0" selected="selected">一级菜单</option>');
             for (var i = 0; i < size; i++) {
                 left = nodes[i];

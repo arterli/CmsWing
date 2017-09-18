@@ -46,7 +46,7 @@ function initTable() {
             {
                 "mRender": function (data, type, row) {
                     var url1 = "/admin/auth/roleedit/id/" + data;
-                    //var url2 = "/admin/user/roledel/id/"+data;
+                    //var url2 = "/admin/uuu/roledel/id/"+data;
                     return '<a class="btn btn-default btn-xs" data-bjax="" data-target="#bjax-target"  href=' + url1 + ' onclick="_editBn()">编辑</a> ' +
                         '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';
                 }, "bSortable": false, "aTargets": [5]

@@ -13,7 +13,7 @@
       multiSelect: false, //allow select multiple row
       showIndex: false, //show row index
       showCheckbox: false, //show checkbox for select
-      showEmptyInfo: false, //when that is not data in table, show a info to notify user
+      showEmptyInfo: false, //when that is not data in table, show a info to notify uuu
       emptyInfo: '<p class="text-center text-warning">No Data</p>',
       pagination: {
         "page-size": 20,

@@ -17,7 +17,7 @@
                             {% for nav in breadcrumb%} {% if cate_id == nav.id %}
                             <li class="active">{{nav.title}}  </li>
                             {%else%}
-                            <li><a href="/admin/sp/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            <li><a href="/admin/sp/index/?cate_id={{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
                             {% endif %} {% endfor %} {%if article.id >0 %}
                             <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                         </ul>
@@ -25,10 +25,10 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class=""><a  href="/admin/sp/index/cate_id/{{http.get('cate_id')}}">PC单页内容</a></li>
-                                    <li class="active"><a  href="/admin/sp/mobile/cate_id/{{http.get('cate_id')}}">手机单页内容</a></li>
+                                    <li class=""><a  href="/admin/sp/index/?cate_id={{controller.get('cate_id')}}">PC单页内容</a></li>
+                                    <li class="active"><a  href="/admin/sp/mobile/?cate_id={{controller.get('cate_id')}}">手机单页内容</a></li>
                                 </ul>
-                                <span class="hidden-sm"><a href="/admin/category/index/mold/2" class="text-info" target="_blank">栏目管理</a> | <a href="/sp/{{name}}" class="text-info" target="_blank">预览</a></span>
+                                <span class="hidden-sm"><a href="/admin/category/index/?mold=2" class="text-info" target="_blank">栏目管理</a> | <a href="/sp/{{name}}" class="text-info" target="_blank">预览</a></span>
                             </header>
                             <div class="panel-body">
                         <form action="/admin/sp/update" class="form-horizontal" method="post"  data-validate="parsley">
@@ -86,7 +86,7 @@
                             </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <input type="hidden" name="cid" value="{{http.get('cate_id')}}">
+                                    <input type="hidden" name="cid" value="{{controller.get('cate_id')}}">
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
                                 </div>

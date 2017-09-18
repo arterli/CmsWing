@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+
 # Runtime data
 pids
 *.pid
@@ -25,16 +26,14 @@ node_modules/
 # IDE config
 .idea
 .vscode
+
 # output
 output/
 output.tar.gz
 
-#typings
-typings/
-
-#app
-app/
 runtime/
+app/
+
 # OS generated files #
 ######################
 .DS_Store
@@ -45,3 +44,9 @@ runtime/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+/.vscode/
+/package-lock.json
+
+# private/pingpp/cmswing_rsa_private_key.pem
+# private/pingpp/pingpp_rsa_public_key.pem

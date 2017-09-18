@@ -10,9 +10,9 @@
         <section class="panel panel-default">
             <header class="panel-heading clearfix">
                 <ul class="nav nav-tabs pull-left">
-                    <li class="{{http.get('model')|default('active', true)}}"><a  href="/admin/approval/index"> 全部 <span class="badge bg-info">{{count}}</span></a></li>
+                    <li class="{{controller.get('model')|default('active', true)}}"><a  href="/admin/approval/index"> 全部 <span class="badge bg-info">{{count}}</span></a></li>
                     {%for m in model%}
-                    <li class="{%if http.get('model')==m.id%}active{%endif%}"><a  href="/admin/approval/index/model/{{m.id}}">{{m.title}} {%if m.count > 0%}<span class="badge bg-info">{{m.count}}</span>{%endif%}</a>
+                    <li class="{%if controller.get('model')==m.id%}active{%endif%}"><a  href="/admin/approval/index/?model={{m.id}}">{{m.title}} {%if m.count > 0%}<span class="badge bg-info">{{m.count}}</span>{%endif%}</a>
                    {%endfor%}
                     </li>
                 </ul>
@@ -23,10 +23,10 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
 
-                        <a class="btn btn-sm btn-success ajax-post" target-form="ids" href="/{{http.module}}/{{http.controller}}/adopta">
+                        <a class="btn btn-sm btn-success ajax-post" target-form="ids" href="/{{ctx.controller}}/adopta">
                             通过审核
                         </a>
-                        <a class="btn btn-sm btn-danger ajax-post" target-form="ids" href="/{{http.module}}/{{http.controller}}/refuse">
+                        <a class="btn btn-sm btn-danger ajax-post" target-form="ids" href="/{{ctx.controller}}/refuse">
                             拒绝审核
                         </a>
                     </div>
@@ -49,16 +49,16 @@
                     {% for item in list.data %}
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                        <td><a href="/admin/user/showuser/id/{{item.uid}}" class="text-info" data-toggle="ajaxModal">{{item.uid|get_nickname}}</a></td>
-                        <td><a href="/admin/approval/details/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
+                        <td><a href="/admin/user/showuser/?id={{item.uid}}" class="text-info" data-toggle="ajaxModal">{{item.uid|get_nickname}}</a></td>
+                        <td><a href="/admin/approval/details/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
                         <td>{{item.time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
 
 
                         <td>
                             <a href="/admin/approval/details/id/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="ajaxModal" title=""><i class="fa fa-search-plus"></i></a>
                             <a href="#" class="btn btn-rounded btn-xs btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil-square-o"></i></a>
-                            <a href="/{{http.module}}/{{http.controller}}/adopta/ids/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-success ajax-get" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过审核"><i class="fa fa-check"></i></a>
-                            <a href="/{{http.module}}/{{http.controller}}/refuse/ids/{{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-danger ajax-get" data-toggle="tooltip" data-placement="top" title="" data-original-title="拒绝审核"><i class="fa fa-minus-circle"></i></a>
+                            <a href="/{{ctx.controller}}/adopta/?ids={{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-success ajax-get" data-toggle="tooltip" data-placement="top" title="" data-original-title="通过审核"><i class="fa fa-check"></i></a>
+                            <a href="/{{ctx.controller}}/refuse/?ids={{item.id}}" class="btn btn-rounded btn-xs btn-icon btn-danger ajax-get" data-toggle="tooltip" data-placement="top" title="" data-original-title="拒绝审核"><i class="fa fa-minus-circle"></i></a>
                         </td>
                     </tr>
                     {% else %}

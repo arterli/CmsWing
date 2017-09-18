@@ -178,7 +178,7 @@
          $.ajax({
              url:"/admin/category/moveinfo",
              type:"post",
-             data:{data:data,source_id:'{{source_id}}',option:option,merge:"{{http.get('merge')}}"},
+             data:{data:data,source_id:'{{source_id}}',option:option,merge:"{{controller.get('merge')}}"},
              success:function (data) {
                  if (data.data.url) {
 

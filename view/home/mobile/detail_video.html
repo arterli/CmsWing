@@ -1,0 +1,129 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+
+<header id="header" class="mui-bar mui-bar-transparent">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <!--<span class="mui-icon iconfont icon-cart"><span class="mui-badge">9</span></span>-->
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+    <span class="mui-icon iconfont icon-search mui-pull-right"></span>
+</header>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-action-back" >
+        <span class="mui-icon iconfont icon-back"></span>
+        <span class="mui-tab-label">返回</span>
+    </a>
+    <a class="mui-tab-item" href="#SOHUCS">
+        <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
+        <span class="mui-tab-label">评论</span>
+    </a>
+    <a class="mui-tab-item" href="#shoucang">
+        <span class="mui-icon iconfont icon-favor"></span>
+        <span class="mui-tab-label">收藏</span>
+    </a>
+    <a class="mui-tab-item" href="#fenxiang">
+        <span class="mui-icon iconfont icon-share"></span>
+        <span class="mui-tab-label">分享</span>
+    </a>
+
+    {% if controller.is_login %}
+    <a class="mui-tab-item" href="/center/index">
+        <span class="mui-icon iconfont icon-my"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+    {%else%}
+    <a class="mui-tab-item" href="/center/public/login">
+        <span class="mui-icon iconfont icon-myfill"></span>
+        <span class="mui-tab-label">登录</span>
+    </a>
+    {%endif%}
+
+    <a class="mui-tab-item" href="#top">
+        <span class="mui-icon iconfont icon-top"></span>
+        <span class="mui-tab-label">顶部</span>
+    </a>
+
+</nav>
+<div class="mui-content detail" >
+    <div id="video-box" style="width:100%; height: 200px">
+
+    </div>
+    <ul id="list" class="mui-table-view mui-table-view-chevron">
+        <li class="mui-table-view-cell ">
+
+            {{pinfo.title}}
+            <span class="mui-badge">更新至 <em class="text-danger">{{lastlevel.level}}</em> 集</span>
+        </li>
+        <li class="mui-table-view-divider">正在播放:{%if info.level== 0%} {{lastlevel.title}} {%else%} {{info.title}}{%endif%}</li>
+        <li class="mui-table-view-cell mui-collapse">
+            <a class="mui-navigate-right" href="#">
+                播放列表
+            </a>
+            <ul class="mui-table-view mui-table-view-chevron">
+                {%for val in plist%}
+                <li class="mui-table-view-cell mui-media mui-media-icon">
+                    <a class="mui-navigate-right"  href="{{val.name|get_url(val.id)}}">
+                        <div class="mui-media-object mui-pull-left"><span class="mui-icon iconfont {%if info.id == val.id%}icon-videofill{%else%}icon-video{%endif%}"></span>
+                        </div>
+                        <div class="mui-media-body">
+                            {{val.title}}
+                            <span class="mui-badge">{{val.level}}</span>
+                        </div>
+                    </a>
+                </li>
+                {%endfor%}
+            </ul>
+        </li>
+    </ul>
+    {%if config.ext.changyan.is ==1%}
+    <div id="SOHUCS" sid="{{info.id}}"></div>
+    {%endif%}
+
+</div>
+{% endblock%}
+
+{% block script %}
+{%if config.ext.changyan.is ==1%}
+<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
+        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.ext.changyan.appid}}&conf={{config.ext.changyan.appkey}}">
+</script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+{%endif%}
+<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+<script type="text/javascript">
+    mui.init();
+    var ivaInstance = new Iva(
+        'video-box',//新建一个div作为视频播放的窗口，建议div的宽高在640px*480px以上；
+        {
+          appkey: '{{config.ext.videojj.appkey}}',//必填，请在控制台查看应用标识
+          video: '{%if info.video_id != 0%}{{info.video_id|get_file('savename',1)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（例如：http://v.youku.com/v_show/id_XMTY5NDg2MzY5Ng==.html）
+          title: '{{info.title}}',//选填，建议填写方便后台数据统计
+          cover: '{{info.cover_id|get_pic('')}}',//选填，视频封面url
+          vnewsEnable: {%if config.ext.videojj.vnewsEnable==0%}false{%else%}true{%endif%},//是否开启新闻推送功能，默认为true
+    playerUrl: '', //选填，第三方播放器与Video++互动层的桥接文件，由Video++官方定制提供，默认为空
+        videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
+        videoEndPrefixSeconds: 0//选填，跳过片尾，默认为0
+    }
+    );
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

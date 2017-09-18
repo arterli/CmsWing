@@ -1,0 +1,55 @@
+{% extends "../../admin/inc/base.html" %}
+{% import "../../cmswing/forms.html" as forms %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class=""><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                    <li class="active"><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
+                    <li class=""><a  href="/{{ctx.controller}}/userlist">QQ用户</a></li>
+                </ul>
+                <span class="hidden-sm hide"><a href="/{{ctx.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
+            </header>
+
+            <div class="row wrapper" style="padding-bottom: 0">
+                <div class="panel-body">
+                    <form action="/{{ctx.controller}}/setting" class="form-horizontal" method="post" data-validate="parsley">
+                            <!--自定义配置开始-->
+                        <!--单选，是否开启QQ登录-->
+                        {{forms.radio(setting,label='是否开启QQ登录', name='is', value={"1":'是',"0":'否'},html='')}}
+                        <!--文本框-->
+                        {{forms.input(setting,label= 'appid', name= 'appid', value='101309492', html= '在QQ互联申请到的 APP ID ,填写到此处。')}}
+                        <!--文本框-->
+                        {{forms.input(setting,label= 'appkey', name= 'appkey', value='98c05261f58f2fe30478bb168d143113', html= '在QQ互联申请到的 APP ID ,填写到此处。')}}
+                          <!--自定义配置结束-->
+                        <div class="form-group form-submit">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <input type="hidden" name="ext" value="{{controller.ext.ext}}"/>
+                                <button type="submit" target-form="form-horizontal"
+                                        class="btn btn-primary ajax-post">保存
+                                </button>
+                                <button type="submit" class="btn btn-default"
+                                        onclick="javascript:history.back(-1);return false;">返回
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

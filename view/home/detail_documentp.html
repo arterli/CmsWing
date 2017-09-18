@@ -1,0 +1,269 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet"
+      href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+
+<style>
+    .active > .text{
+        display: block !important;
+    }
+    .temp-info{
+        border-right: 1px solid #d4d4d4;
+        background-color: #f0f0f0;
+        color: #444;
+        z-index: 10;
+        box-shadow: 4px 4px 4px #ccc;
+        -webkit-box-shadow: 4px 4px 4px #ccc;
+        -moz-box-shadow: 4px 4px 4px #ccc;
+    }
+    .temp-img{
+        background-color: #fff;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-right: 1px solid #d4d4d4;
+    }
+    .temp-detail{
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-color: #f0f0f0;
+    }
+
+
+</style>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header  page-header-xs" >
+    <div class="container">
+
+        <div class="container temp-info ">
+
+
+            <div class="row ">
+
+                <!-- IMAGE -->
+                <div class="col-lg-3 col-sm-3 temp-img">
+
+                    <div class=" relative margin-bottom-3 ">
+
+
+                        <!--
+                        IMAGE ZOOM
+
+                        data-mode="mouseover|grab|click|toggle"
+                        -->
+                        <figure  style="position: relative; overflow: hidden;">
+                            <img class="img-responsive" src="{{info.cover_id|get_pic('m=1,w=265,h=360')}}" alt="This is the product title" data-bd-imgshare-binded="1">
+                           </figure>
+
+                    </div>
+
+                    <!-- Thumbnails (required height:100px) -->
+
+                    <!-- /Thumbnails -->
+
+                </div>
+                <!-- /IMAGE -->
+
+                <!-- ITEM DESC -->
+                <div class="col-lg-9 col-sm-9 temp-detail">
+
+
+                    <!-- buttons -->
+                    <div class="pull-right">
+                        <!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                        <a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+                        <a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="" data-original-title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+                    </div>
+                    <!-- /buttons -->
+
+                    <!-- price -->
+                    <div class="shop-item-price">
+                        <h1 class="blog-post-title">{{info.title}}</h1>
+                    </div>
+                    <!-- /price -->
+                    <hr>
+                    <div class="clearfix margin-bottom-10 size-14 tex-888">
+                        <span>最后更新时间:</span> {{lastinfo.update_time|moment('lll')}}
+                    </div>
+                    <div class="clearfix margin-bottom-10 size-14 tex-888">
+                        <span>阅读:</span> {{info.view}}  <span>关注:</span> {{info.view}}  <span>评论:</span> {{info.view}}
+                    </div>
+                    <div class="clearfix margin-bottom-10 size-16">
+                        <a class="tag bg-white" href="#">
+                            <span class="txt">CmsWing</span>
+                            <span class="num">12</span>
+                        </a><a class="tag bg-white" href="#">
+                        <span class="txt">ThinkJS</span>
+                        <span class="num">12</span>
+                    </a><a class="tag bg-white" href="#">
+                        <span class="txt">js</span>
+                        <span class="num">12</span>
+                    </a>
+                    </div>
+                    <div class="clearfix margin-bottom-10 size-14">
+                        <div style="float: left;margin-right: 10px; padding-top: 9px">分享:</div>  <div style="float: left" class="bdsharebuttonbox bdshare-button-style0-24" data-bd-bind="1474896802958"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+                    </div>
+                    <hr>
+                    <!-- /FORM -->
+                    <div class="clearfix">
+                        <a href="{{ptree[0].name|get_url(ptree[0].id)}}" class="btn btn-info"><i class="fa fa-file-text"></i>阅读</a> <a href="#" class="btn btn-warning"><i class="fa fa-heart"></i>关注</a> <a href="#" class="btn btn-danger"><i class="fa fa-smile-o"></i>打赏</a>
+                    </div>
+
+                </div>
+                <!-- /ITEM DESC -->
+
+
+            </div>
+
+        </div>
+        <!-- page tabs -->
+            <ul class="page-header-tabs list-inline ">
+
+                <li class="active"><a href="#tab1" data-toggle="tab">概要</a></li>
+                <li class=""><a href="#tab2" data-toggle="tab">目录</a></li>
+                <li class=""><a href="#tab3" data-toggle="tab">评论(<span id="changyan_count_unit">0</span>)</a></li>
+
+            </ul>
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="tab-content nopadding">
+                            <div class="tab-pane fade in active" id="tab1">
+                                <!-- article content -->
+                                <div id="contentcmswing">
+
+                                    <div class="tab-content">
+                                        {%set p = 1%}
+                                        {%for val in info.content%}
+                                        <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
+                                            {{val|safe}}
+                                        </div>
+                                        {% set p = p+1%}
+                                        {%endfor%}
+                                    </div>
+                                    {%if info.content|length >1%}
+                                    <!-- Pagination Default -->
+                                    <div class="text-center">
+                                        <ul class="pagination">
+                                            {%set o = 1%}
+                                            {%for val in info.content%}
+                                            <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
+                                            {% set o = o+1%}
+                                            {%endfor%}
+                                        </ul>
+                                    </div>
+                                    {%endif%}
+                                </div>
+                                <!-- /article content -->
+                            </div>
+                            <div class="tab-pane fade" id="tab2">
+                                <table class="table table-hover treetable" id="category">
+                                    <tbody>
+                                    {%for val in ptree%}
+                                    <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%else%}class="active1" {%endif%}>
+                                        <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+                                    </tr>
+                                    {%endfor%}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="tab3">
+                                <!-- COMMENTS -->
+                                <div id="comments" class="comments margin-top-0">
+                                    <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                                    <div id="SOHUCS" sid="{{info.id}}"></div>
+                                    <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                                    <script type="text/javascript">
+                                        window._config = { showScore: true };
+                                        window.changyan.api.config({
+                                            appid: '{{config.setup.CY_APPID}}',
+                                            conf: '{{config.setup.CY_APPKEY}}'
+                                        });
+                                    </script>
+                                </div>
+                                <!-- /COMMENTS -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <ul class="pager hide">
+                    {%if previous.id%}
+                    <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
+                    {%endif%}
+                    {%if next.id%}
+                    <li class="next"><a class="noborder" href="{{next.name|get_url(next.id)}}" title="{{next.title}}">下一篇:{{next.title|block(20)}} &rarr;</a></li>
+                    {%endif%}
+                </ul>
+
+
+
+
+
+            </div>
+            <!-- RIGHT -->
+            {% include "./inc_right.html"%}
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.setup.CY_APPID}}"></script>
+<script>
+    $(function () {
+        $("#category").treetable({ expandable: true });
+        $("#category").treetable("expandAll")
+    })
+
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

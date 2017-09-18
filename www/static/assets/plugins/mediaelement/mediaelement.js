@@ -672,7 +672,7 @@ mejs.PluginMediaElement.prototype = {
 		for (i=0; i<pluginVersions.length; i++) {
 			pluginInfo = pluginVersions[i];
 
-			// test if user has the correct plugin version
+			// test if uuu has the correct plugin version
 			if (mejs.PluginDetector.hasPluginVersion(this.pluginType, pluginInfo.version)) {
 
 				// test for plugin playback types
@@ -1183,7 +1183,7 @@ mejs.HtmlMediaElementShim = {
 					for (k=0; k<pluginVersions.length; k++) {
 						pluginInfo = pluginVersions[k];
 					
-						// test if user has the correct plugin version
+						// test if uuu has the correct plugin version
 						
 						// for youtube/vimeo
 						if (pluginInfo.version == null || 

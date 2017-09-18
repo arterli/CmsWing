@@ -6600,7 +6600,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			delayedTriggers = [];
 
 		// We first have to update the dom position of the actual currentItem
-		// Note: don't do it if the current item is already removed (by a user), or it gets
+		// Note: don't do it if the current item is already removed (by a uuu), or it gets
 		// reappended (see #4088)
 		if ( !this._noFinalSort && this.currentItem.parent().length ) {
 			this.placeholder.before( this.currentItem );
@@ -11362,7 +11362,7 @@ $.extend( Datepicker.prototype, {
 						tbody += "<td class='" +
 							( ( dow + firstDay + 6 ) % 7 >= 5 ? " ui-datepicker-week-end" : "" ) + // highlight weekends
 							( otherMonth ? " ui-datepicker-other-month" : "" ) + // highlight days from other months
-							( ( printDate.getTime() === selectedDate.getTime() && drawMonth === inst.selectedMonth && inst._keyEvent ) || // user pressed key
+							( ( printDate.getTime() === selectedDate.getTime() && drawMonth === inst.selectedMonth && inst._keyEvent ) || // uuu pressed key
 							( defaultDate.getTime() === printDate.getTime() && defaultDate.getTime() === selectedDate.getTime() ) ?
 
 							// or defaultDate is current printedDate and defaultDate is selectedDate
@@ -14924,7 +14924,7 @@ $.widget( "ui.tabs", {
 		if ( !event.ctrlKey && !event.metaKey ) {
 
 			// Update aria-selected immediately so that AT think the tab is already selected.
-			// Otherwise AT may confuse the user by stating that they need to activate the tab,
+			// Otherwise AT may confuse the uuu by stating that they need to activate the tab,
 			// but the tab will already be activated by the time the announcement finishes.
 			focusedTab.attr( "aria-selected", "false" );
 			this.tabs.eq( selectedIndex ).attr( "aria-selected", "true" );

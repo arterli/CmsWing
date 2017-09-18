@@ -1,10 +1,11 @@
+## 特别提示
+```
+本项目已升级到ThinkJS 3.0 ,项目运行的 Node 版本大于 7.6.0（推荐使用 8.x.x 版本）;
+```
 ## git
-
 > github地址：[https://github.com/arterli/CmsWing](https://github.com/arterli/CmsWing)
 
 > 码云地址：[http://git.oschina.net/arterli/CmsWing](http://git.oschina.net/arterli/CmsWing)
-
->coding.net:[https://coding.net/u/arterli/p/CmsWing/git](https://coding.net/u/arterli/p/CmsWing/git)
 
 > **简介:**
 > - 模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。
@@ -18,7 +19,7 @@
 ![iphone](http://www.cmswing.com/static/dome/iphone.png)
 
 ## QQ 交流群: 49757468
-有问题可以到QQ群或者社区 [http://wenda.thinkjs.org/?/topic/CmsWing](http://wenda.thinkjs.org/?/topic/CmsWing) 进行交流.
+有问题可以到QQ群 进行交流.
 
 ## install dependencies
 ```
@@ -34,13 +35,8 @@ npm start
 use pm2 to deploy app on production envrioment.
 
 ```
-pm2 startOrGracefulReload pm2.json
+可以在项目根目录下执行 pm2 start pm2.json 来启动项目
 ```
-
-## 使用 Docker 容器部署 cmswing
-
-- [使用 docker 部署 cmswing 文档](./docker/readme.md)
-
 
 ## 后台账号密码1
 ```

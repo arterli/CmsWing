@@ -11,7 +11,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> 字段管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu text-left">
                     {% for val in typeoption %}
-                    <li><a href="/admin/type/typeoption/classid/{{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    <li><a href="/admin/type/typeoption/?classid={{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
                     {%endfor%}
                 </ul>
             </li>
@@ -115,7 +115,7 @@
                             <td><label class="checkbox m-n i-checks"><input type="checkbox" name="search_font" value="2" {%if val.search ==2 or val.search==3%}checked{%endif%}><i></i></label></td>
                             <td><label class="checkbox m-n i-checks"><input type="checkbox" name="subjectshow" value="1" {%if val.subjectshow ==1%}checked{%endif%}><i></i></label></td>
 
-                            <td><a href="/admin/type/edittype/optionid/{{val.optionid}}" class="text-info"> 编辑</a></td>
+                            <td><a href="/admin/type/edittype/?optionid={{val.optionid}}" class="text-info"> 编辑</a></td>
                         </tr>
                         {%endfor%}
 
@@ -189,7 +189,7 @@
             //console.log(datas);
 
             $.ajax({
-                url:"/{{http.module}}/{{http.controller}}/updatetypevar",
+                url:"/{{ctx.controller}}/updatetypevar",
                 data:{data:JSON.stringify(datas)},
                 type:"post",
                 success:function (res) {

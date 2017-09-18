@@ -1,0 +1,132 @@
+
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<style>
+	.m-user-pro{
+		margin-top: -1px;
+		background-color: #686F78;
+		border-top: solid #c8c7cc 1px;
+	}
+	.m-user-pro .item {
+		display: block;
+		text-align: center;
+		font-size: 13px;
+		border-right: 1px solid rgba(255,255,255,.15);
+		color: #fff;
+		padding-top: .45rem;
+		padding-bottom: .5rem;
+	}
+	.m-user-pro .item strong {
+		display: block;
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 1.2;
+	}
+	.mui-table-view {
+		margin-top: 20px;
+	}
+	.mui-table-view:last-child {
+		margin-bottom: 50px;
+	}
+	.mui-table-view span.mui-pull-right {
+		color: #999;
+	}
+	.mui-table-view-divider {
+		background-color: #efeff4;
+		font-size: 14px;
+	}
+	.mui-table-view-divider:before,
+	.mui-table-view-divider:after {
+		height: 0;
+	}
+	i.info {
+		font-style: normal;
+		color: #999999;
+		margin-right: -25px;
+		font-size: 15px;
+	}
+</style>
+{%endblock%}
+{% block content%}
+<header class="mui-bar mui-bar-nav">
+	<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+	<a href="/center/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+	<h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+	<a class="mui-icon iconfont icon-search mui-pull-right"></a>
+</header>
+{% include "./inc/barnav.html" %}
+<div class="mui-content">
+	<ul class="mui-table-view mui-table-view-chevron">
+		<li class="mui-table-view-cell mui-media">
+			<a class="mui-navigate-right" href="/center/seting">
+				<img class="mui-media-object mui-pull-left head-img" id="head-img" src="/u/avatar">
+				<div class="mui-media-body">
+					{{controller.user.username}}
+					<p class='mui-ellipsis'>手机:{{userInfo.mobile}}</p>
+				</div>
+			</a>
+		</li>
+		<li class="mui-row mui-media m-user-pro">
+			<div class="mui-col-xs-4 mui-col-sm-4"><a href="javascript:;" class="item">
+				<strong>{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</strong>订单交易总金额
+			</a></div>
+			<div class="mui-col-xs-4 mui-col-sm-4"><a href="javascript:;" class="item">
+
+				<strong>{{onOrder}}</strong>进行中的订单
+			</a></div>
+			<div class="mui-col-xs-4 mui-col-sm-4"><a href="javascript:;" class="item b-r-n">
+				<strong>{%if userInfo.score %}{{userInfo.score}}{%else%}0{%endif%}</strong>我的积分
+			</a></div>
+		</li>
+		<li class="mui-table-view-cell">
+			<a href="/center/account" class="mui-navigate-right"><span class="mui-icon iconfont icon-pay size-18 text-muted"></span> 钱包 <i class="mui-pull-right info text-danger"><span class="mui-icon iconfont icon-recharge"></span> {%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</i></a>
+		</li>
+	</ul>
+	<ul class="mui-table-view mui-table-view-chevron">
+		<li class="mui-table-view-cell">
+			<a href="/center/order" class="mui-navigate-right"><span class="mui-icon iconfont icon-order size-18 text-muted"></span> 我的订单 <i class="mui-pull-right info ">{{onOrder}}</i></a>
+		</li>
+		{#
+		<li class="mui-table-view-cell">
+			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-refund size-18 text-muted"></span> 退款/售后 </a>
+		</li>
+		#}
+	</ul>
+	<ul class="mui-table-view mui-table-view-chevron">
+		{#
+		<li class="mui-table-view-cell">
+			<a href="#" class="mui-navigate-right"><span class="mui-icon iconfont icon-ticket size-18 text-muted"></span> 优惠券 <i class="mui-pull-right info ">5</i></a>
+		</li>
+		#}
+		<li class="mui-table-view-cell">
+			<a href="/center/address" class="mui-navigate-right"><span class="mui-icon iconfont icon-addressbook size-18 text-muted"></span> 收货地址 </a>
+		</li>
+	</ul>
+	{% if controller.isweixin != true %}
+	<ul class="mui-table-view ">
+		<li class="mui-table-view-cell" style="text-align: center;">
+			<a href="/center/public/logout" > 退出登录 </a>
+		</li>
+
+	</ul>
+	{%endif%}
+</div>
+{% endblock %}
+{%block script%}
+<script type="text/javascript">
+	var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+	for(var i = 0;i<btn.length;i++){
+		btn[i].addEventListener("tap",function () {
+			var href = this.getAttribute("href");
+			if(href=="#wait"){
+				//todo
+				mui.toast("功能开发中。。。")
+				return
+			}
+			mui.openWindow({url: href})
+
+		})
+	}
+
+</script>
+{%endblock%}

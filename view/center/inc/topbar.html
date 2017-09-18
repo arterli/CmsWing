@@ -1,0 +1,46 @@
+<div id="topBar" >
+	<div class="container">
+
+		<!-- right -->
+		<ul class="top-links list-inline pull-right">
+			{% if controller.is_login %}
+			<li class="text-welcome ">您好, <strong>{{controller.user.username}}</strong></li>
+			<li>
+				<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><i class="fa fa-user hidden-xs"></i> 会员中心</a>
+				<ul class="dropdown-menu pull-right">
+					<li><a tabindex="-1" href="/center/index"><i class="fa fa-bank"></i>我的中心</a></li>
+					<li class="divider"></li>
+					{#
+					<li><a tabindex="-1" href="/center/order"><i class="fa fa fa-reorder"></i> 我的订单</a></li>
+					<li><a tabindex="-1" href="#"><i class="fa fa-bookmark"></i> 我的关注</a></li>
+					<li><a tabindex="-1" href="/center/account"><i class="fa fa-cny"></i> 账号金额</a></li>
+					<li><a tabindex="-1" href="#"><i class="fa fa-money"></i> 优惠券</a></li>
+					#}
+					<li><a tabindex="-1" href="/center/seting"><i class="fa fa-gear"></i> 个人设置</a></li>
+					<li class="divider"></li>
+					<li><a tabindex="-1" href="/center/public/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+				</ul>
+			</li>
+			{% else %}
+			<li><a href="/center/public/login" data-toggle="ajaxModal"><i class="fa fa-sign-in"></i> 登录</a></li>
+			<li><a href="/center/public/register"><i class="fa fa-thumbs-o-up"></i> 注册</a></li>
+			{% endif %}
+		</ul>
+
+		<!-- left -->
+		<ul class="top-links list-inline pull-left">
+			<li class="hidden-xs"><a href="/about.html">联系我们</a></li>
+			<li>
+				<a class="dropdown-toggle no-text-underline" data-toggle="dropdown" href="#"><img class="flag-lang" src="/static/assets/images/flags/cn.png" width="16" height="11" alt="lang" /> 简体中文</a>
+				<ul class="dropdown-langs dropdown-menu">
+					<li><a tabindex="-1" href="#"><img class="flag-lang" src="/static/assets/images/flags/us.png" width="16" height="11" alt="lang" /> ENGLISH</a></li>
+					<li class="divider"></li>
+
+
+				</ul>
+			</li>
+
+		</ul>
+
+	</div>
+</div>

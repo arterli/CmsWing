@@ -268,17 +268,17 @@
                                                 <div class="col-md-5">
                                                     <select style="width:260px" name="template_index" class="chosen-select">
                                                         <optgroup label="默认">
-                                                            <option value="">默认频道模版</option>
+                                                            <option value="">默认单页模版</option>
                                                         </optgroup>
                                                         <optgroup label="自定义模版">
                                                             {% for v in temp_pc.template_sp%}
-                                                            {%if v.action != 'index.html'%}
-                                                            <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                            {%if v.action != 'index'%}
+                                                            <option value="{{v.action}}" {%if info.template_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
                                                             {%endif%}
                                                             {% endfor%}
                                                         </optgroup>
                                                         <optgroup label="管理">
-                                                            <option data-url="/admin/template/channel" class="addtemp">添加频道模版</option>
+                                                            <option data-url="/admin/template/sp" class="addtemp">添加单页模版</option>
                                                         </optgroup>
 
                                                     </select>
@@ -297,17 +297,17 @@
                                                 <div class="col-md-5">
                                                     <select style="width:260px" name="template_m_index" class="chosen-select">
                                                         <optgroup label="默认">
-                                                            <option value="">默认手机频道模版</option>
+                                                            <option value="">默认手机单页模版</option>
                                                         </optgroup>
                                                         <optgroup label="自定义模版">
                                                             {% for v in temp_m.template_sp%}
-                                                            {%if v.action != 'index.html'%}
-                                                            <option value="{{v.action}}">{{v.name}}[{{v.action}}]</option>
+                                                            {%if v.action != 'index'%}
+                                                            <option value="{{v.action}}" {%if info.template_m_index==v.action%}selected="selected"{%endif%}>{{v.name}}[{{v.action}}]</option>
                                                             {%endif%}
                                                             {% endfor%}
                                                         </optgroup>
                                                         <optgroup label="管理">
-                                                            <option data-url="/admin/template/channel/type/2" class="addtemp">添加手机频道模版</option>
+                                                            <option data-url="/admin/template/sp/?type=2" class="addtemp">添加手机单页模版</option>
                                                         </optgroup>
 
                                                     </select>
@@ -371,7 +371,7 @@
                                                     <thead>
                                                     <tr class="bg-light">
                                                         <th>角色名称</th>
-                                                        {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                         <th>{{items}}</th>
                                                         {% endfor%}
                                                     </tr>
@@ -382,7 +382,7 @@
                                                         <td>
                                                             {{val.desc}}
                                                         </td>
-                                                        {% for index, items in controller.setup.SP_PRIV_ROLE %}
+                                                        {% for index, items in config.setup.SP_PRIV_ROLE %}
                                                         <td>
                                                             <label class="checkbox m-n i-checks"><input  type="checkbox" name="priv_roleid" value="{{index}},{{val.id}}" {%if index|in_Array(priv_roleid[val.id])%}checked{%endif%}><i></i></label>
                                                         </td>
@@ -529,7 +529,7 @@
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
                                 <div class="form-group">
-                                <label class="col-sm-2 control-label">是否审核</label>
+                                <label class="col-sm-2 control-label">入库前是否审核</label>
                                 <div class="col-sm-10">
                                     <div class="row">
                                     <div class="col-md-10">
@@ -540,9 +540,9 @@
                                             <input type="radio" {% if 1 == info.check %} checked="checked" {% endif %} value="1" name="check"><i></i> 需要
                                         </label>
                                     </div>
-                                        <div class="col-md-12 hide">
-                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  是否允许发布内容</span>
-                                    </div>
+                                        <div class="col-md-12 ">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 这个审核是信息入库前最后的审核，一般默认 不需要 即可。</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -553,7 +553,7 @@
                                     <div class="col-sm-10">
                                         <div class="row">
                                         <div class="col-md-10">
-                                            {% for key , val in http.config("document_model_type") %}
+                                            {% for key , val in controller.config("document_model_type") %}
                                             <label class="checkbox-inline i-checks">
                                                 <input type="checkbox" {% if key| in_Array(info.type) %} checked="checked" {% endif %} value="{{key}}" name="type"><i></i> {{val}}
                                             </label>
@@ -851,7 +851,7 @@
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
-                                                        <option data-url="/admin/template/channel/type/2" class="addtemp">添加手机频道模版</option>
+                                                        <option data-url="/admin/template/channel/?type=2" class="addtemp">添加手机频道模版</option>
                                                     </optgroup>
 
                                                 </select>
@@ -878,7 +878,7 @@
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
-                                                        <option data-url="/admin/template/column/type/2" class="addtemp">添加列表模版</option>
+                                                        <option data-url="/admin/template/column/?type=2" class="addtemp">添加列表模版</option>
                                                     </optgroup>
 
                                                 </select>
@@ -904,7 +904,7 @@
                                                         {% endfor%}
                                                     </optgroup>
                                                     <optgroup label="管理">
-                                                        <option data-url="/admin/template/detail/type/2" class="addtemp">添加手机详情模版</option>
+                                                        <option data-url="/admin/template/detail/?type=2" class="addtemp">添加手机详情模版</option>
                                                     </optgroup>
 
                                                 </select>
@@ -1126,8 +1126,8 @@
                             {%endif%}
                             {%if mod.priv_show ==1%}
                             {%if info.mold==0%}
-                            {%set roleid = controller.setup.SYS_PRIV_ROLE%}
-                            {%set groupid = controller.setup.SYS_PRIV_GROUP%}
+                            {%set roleid = config.setup.SYS_PRIV_ROLE%}
+                            {%set groupid = config.setup.SYS_PRIV_GROUP%}
                             {%elif info.mold==1%}
                             {%set roleid = mod.priv_roleid|parse_config_attr %}
                             {%set groupid = mod.priv_groupid|parse_config_attr%}

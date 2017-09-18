@@ -93,7 +93,7 @@
 
 					touch:{
 						touchenabled:"off",						// Enable Swipe Function : on/off
-						swipe_treshold : 75,					// The number of pixels that the user must move their finger by before it is considered a swipe.
+						swipe_treshold : 75,					// The number of pixels that the uuu must move their finger by before it is considered a swipe.
 						swipe_min_touches : 1,					// Min Finger (touch) used for swipe							
 						drag_block_vertical:false,				// Prevent Vertical Scroll during Swipe
 						swipe_direction:"horizontal"

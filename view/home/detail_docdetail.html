@@ -1,0 +1,201 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet"
+      href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+<style>
+    .active > .text{
+        display: block !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header  page-header-xs">
+
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse ">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endfor %}
+            <li><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></li>
+            <li>{{info.title}}</li>
+        </ol><!-- /breadcrumbs -->
+
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title"><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></h2>
+                    </div>
+                    <div class="panel-body nopadding">
+                        <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                            <table class="table table-hover  treetable" id="category">
+                                <tbody>
+                                {%for val in ptree%}
+                                <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%endif%} {%if val.id == controller.get("id")%}class="active" {%endif%}>
+                                <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
+                                </tr>
+                                {%endfor%}
+
+
+                                </tbody>
+                            </table>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading ">
+                        <h2 class="panel-title">{{info.title}}</h2>
+                    </div>
+
+                    <div class="panel-body">
+                        <!-- article content -->
+                        <div id="contentcmswing">
+
+                            <div class="tab-content">
+                                {%set p = 1%}
+                                {%for val in info.content%}
+                                <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
+                                    {{val|safe}}
+                                </div>
+                                {% set p = p+1%}
+                                {%endfor%}
+                            </div>
+                            {%if info.content|length >1%}
+                            <!-- Pagination Default -->
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {%set o = 1%}
+                                    {%for val in info.content%}
+                                    <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
+                                    {% set o = o+1%}
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                            {%endif%}
+                        </div>
+                        <!-- /article content -->
+                    </div>
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
+                    {%if tags%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- TAGS -->
+
+                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                        {%for k in tags%}
+                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                            {{k.keyname}}
+                        </a>
+                        {%endfor%}
+                        <!-- /TAGS -->
+                    </div>
+                    {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    <div class="panel-footer">
+                        <ul class="pager nomargin">
+                            {%if previous.id%}
+                            <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
+                            {%endif%}
+                            {%if next.id%}
+                            <li class="next"><a class="noborder" href="{{next.name|get_url(next.id)}}" title="{{next.title}}">下一篇:{{next.title|block(20)}} &rarr;</a></li>
+                            {%endif%}
+                        </ul>
+                    </div>
+                    {%if config.ext.changyan.is ==1%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- COMMENTS -->
+                        <div id="comments" >
+                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                            <div id="SOHUCS" sid="{{info.id}}"></div>
+                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                            <script type="text/javascript">
+                              window._config = { showScore: true };
+                              window.changyan.api.config({
+                                appid: '{{config.ext.changyan.appid}}',
+                                conf: '{{config.ext.changyan.appkey}}'
+                              });
+                            </script>
+                        </div>
+                        <!-- /COMMENTS -->
+                    </div>
+                    {%endif%}
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+{%if config.ext.changyan.is ==1%}
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
+{%endif%}
+<script>
+    $(function () {
+        $("#category").treetable({ expandable: true });
+        $("#category").treetable("expandAll")
+    })
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

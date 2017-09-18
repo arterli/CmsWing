@@ -14,9 +14,9 @@
             <header class="panel-heading clearfix">
                 <ul class="nav nav-tabs pull-left">
                     <li class="{{active|default('active', true)}}"><a  href="/admin/category/index"> 全部 </a></li>
-                    <li class="{%if active==0%}active{%endif%}"><a  href="/admin/category/index/mold/0">系统</a>
-                    <li class="{%if active==1%}active{%endif%}"><a  href="/admin/category/index/mold/1">独立</a>
-                    <li class="{%if active==2%}active{%endif%}"><a  href="/admin/category/index/mold/2">单页</a>
+                    <li class="{%if active==0%}active{%endif%}"><a  href="/admin/category/index/?mold=0">系统</a>
+                    <li class="{%if active==1%}active{%endif%}"><a  href="/admin/category/index/?mold=1">独立</a>
+                    <li class="{%if active==2%}active{%endif%}"><a  href="/admin/category/index/?mold=2">单页</a>
                     </li>
                 </ul>
                 <i title="" data-original-title="" class="fa fa-info-sign text-muted pull-right"  data-toggle="tooltip" data-placement="bottom" data-title=""><i class="fa fa-question-circle"></i></i>
@@ -26,17 +26,17 @@
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
                         <div class="btn-group">
-                            <a {%if http.get("mold")=="" %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm
-                            {%if http.get('mold')=='' %}dropdown-toggle{% endif %} " {%if http.get("mold") !='' %} href="/admin/category/add/mold/{{http.get('mold')}}"{%endif%}"
-                                > 添加栏目 {%if http.get("mold")=="" %}<span class="caret"></span>{% endif %}</a>
-                            {%if http.get("mold")=="" %}
+                            <a {%if ctx.param("mold")==null %} data-toggle="dropdown" {% endif %} class="btn btn-info btn-sm
+                            {%if ctx.param('mold')==null %}dropdown-toggle{% endif %} " {%if ctx.param("mold") !='' %} href="/admin/category/add/?mold={{ctx.param('mold')}}"{%endif%}"
+                                > 添加栏目 {%if ctx.param("mold")==null %}<span class="caret"></span>{% endif %}</a>
+                            {%if ctx.param("mold")==null %}
                             <ul class="dropdown-menu">
 
-                                <li> <a href="/admin/category/add/mold/0"
+                                <li> <a href="/admin/category/add/?mold=0"
                                         class="text-info">添加系统栏目</a></li>
-                                <li> <a href="/admin/category/add/mold/1"
+                                <li> <a href="/admin/category/add/?mold=1"
                                         class="text-info">添加独立栏目</a></li>
-                                <li> <a href="/admin/category/add/mold/2"
+                                <li> <a href="/admin/category/add/?mold=2"
                                         class="text-info">添加单页栏目</a></li>
                                 <!--<li class="divider"></li>-->
                                 <!--<li><a href="#">添加内容</a></li>-->
@@ -44,10 +44,10 @@
                             {% endif %}
                         </div>
 
-                        <a class="btn btn-sm btn-default ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort">
+                        <a class="btn btn-sm btn-default ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
                             排序
                         </a>
-                        <a class="btn btn-sm btn-default ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/puliccache">
+                        <a class="btn btn-sm btn-default ajax-post" target-form="sort" href="/{{ctx.controller}}/puliccache">
                             更新栏目缓存
                         </a>
                         <div class="btn-group">
@@ -82,7 +82,7 @@
                     <tbody>
       {%for val in list%}
 <tr data-tt-id="{{val.id}}" {%if val.pid != 0 %} data-tt-parent-id="{{val.pid}}"{%else%}class="active" {%endif%}>
-<td><span class='folder ui-draggable'>{{val.title}}</span> <a href="/admin/category/add/pid/{{val.id}}/mold/{{val.mold}}" class="text-info"> <i class="glyphicon glyphicon-plus"></i></a> </td>
+<td><span class='folder ui-draggable'>{{val.title}}</span> <a href="/admin/category/add/?pid={{val.id}}&mold={{val.mold}}" class="text-info"> <i class="glyphicon glyphicon-plus"></i></a> </td>
     <td>{{val.id}}</td>
 <td><input class="form-control form-control-text sort" value="{{val.sort}}" name="sort" data-id="{{val.id}}"/></td>
 <td>{{val.name}}</td>
@@ -95,19 +95,19 @@
 <td>
 {%if val.allow_publish == 0 %}封面{% elif val.allow_publish==1%}列表{%endif%}
 </td>
-<td> <a href="/admin/category/setstatus/ids/{{val.id}}/status/{{1-val.status}}" class="active ajax-get" data-toggle="class">
+<td> <a href="/admin/category/setstatus/?ids={{val.id}}&status={{1-val.status}}" class="active ajax-get" data-toggle="class">
 <i class="fa fa-check text-success {%if val.status %}text-active{%else%}text{%endif%}"></i>
 <i class="fa fa-times text-danger {%if val.status %}text{%else%}text-active{%endif%}"></i>
 </a></td>
-    <td><a href="/admin/category/isapp/ids/{{val.id}}/isapp/{{1-val.isapp}}" class="active ajax-get" data-toggle="class">
+    <td><a href="/admin/category/isapp/?ids={{val.id}}&isapp={{1-val.isapp}}" class="active ajax-get" data-toggle="class">
         <i class="fa fa-check text-success {%if val.isapp %}text-active{%else%}text{%endif%}"></i>
         <i class="fa fa-times text-danger {%if val.isapp %}text{%else%}text-active{%endif%}"></i>
     </a></td>
-<td><a class="text-info" href="/admin/category/edit/cid/{{val.id}}">编辑</a>
+<td><a class="text-info" href="/admin/category/edit/?cid={{val.id}}">编辑</a>
 <a class="text-info delcate" href="javascript:void(0)" data-id="{{val.id}}">删除</a>
     {%if val.mold!=2%}
-<a class="text-info" href="/admin/category/move/from/{{val.id}}">移动</a>
-<a class="text-info" href="/admin/category/move/merge/1/from/{{val.id}}">合并</a></td>
+<a class="text-info" href="/admin/category/move/?from={{val.id}}">移动</a>
+<a class="text-info" href="/admin/category/move/?merge=1&from={{val.id}}">合并</a></td>
     {%endif%}
 </tr>
 {%endfor%}
@@ -150,7 +150,7 @@
               cancelButtonText:"算了",
               closeOnConfirm: false }, function(){
               $.ajax({
-                  url: "/admin/category/del/confirm/1/id/" + id,
+                  url: "/admin/category/del/?confirm=1&id=" + id,
                   success: function (data) {
                       if(data.ok == 0){
                           swal({title:data.info, text:"", type:"success"},function () {
@@ -169,7 +169,7 @@
                               cancelButtonText:"算了",
                               closeOnConfirm: false }, function(){
                               $.ajax({
-                                  url: "/admin/category/del/type/one/id/" + id,
+                                  url: "/admin/category/del/?type=one&id=" + id,
                                   success: function (data) {
                                       if(data.ok == 0){
                                           swal({title:data.info, text:"", type:"success"},function () {
@@ -194,7 +194,7 @@
                               cancelButtonText:"算了",
                               closeOnConfirm: false }, function(){
                               $.ajax({
-                                  url: "/admin/category/del/type/all/id/" + id,
+                                  url: "/admin/category/del/?type=all&id=" + id,
                                   success: function (data) {
                                       if(data.ok == 0){
                                           swal({title:data.info, text:"", type:"success"},function () {

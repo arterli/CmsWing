@@ -1,0 +1,180 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs " >
+    <div class="container">
+{#
+        <h1>{{category.title}}</h1>
+#}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+        {%column data="column",pid=category.id%}
+        {%if column%}
+        <ul class="page-header-tabs list-inline">
+
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section >
+    <div class="container">
+
+        <!--分类信息-->
+        {% include "./inc_sort.html" %}
+        <!--/分类信息-->
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading clearfix">
+
+                            <ul class="nav nav-tabs pull-left">
+
+                                <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}">全部</a></li>
+                                {% groups data="groups",cid=category.id%}
+                                {%for v in groups%}
+                                <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}">{{v.name}}</a></li>
+                                {%endfor%}
+                            </ul>
+                        <div class="text-left pull-right" style="margin-bottom: -5px">
+                            <div class="btn-group btn-group-xs">
+                                <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
+                                <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
+                            </div>
+                            <!--投稿按钮-->
+                            {%if category.id|priv(controller.user.roleid,'add',0,false)%}
+
+                            <div class="btn-group btn-group-xs ">
+                                <a {%if model|length> 1 %} data-toggle="dropdown" {% endif %} class="btn btn-primary btn-sm document_add
+                                    dropdown-toggle {% if allow == 0 %}disabled{% endif %}" {%if model|length
+                                    == 1 %} href="/center/publish/add/model_id/{{modellist[0].id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"{%endif%}
+                                    ><span class="fa fa-pencil-square-o"></span> 投稿 {%if model|length > 1 %}<span class="caret"></span>{% endif %}</a>
+                                {%if model|length > 1 %}
+                                <ul class="dropdown-menu">
+
+                                    {% for val in modellist%}
+                                    <li> <a href="/center/publish/add/model_id/{{val.id}}/pid/0/cate_id/{{cate.id}}/group_id/{{group_id}}/sortid/{{sortid}}"
+                                            class="text-info">添加{{val.title}}</a></li>
+                                    {% endfor %}
+
+                                    <!--<li class="divider"></li>-->
+                                    <!--<li><a href="#">添加内容</a></li>-->
+                                </ul>
+                                {% endif %}
+                            </div>
+
+                            {%endif%}
+                            <!--//投稿按钮-->
+
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="divider divider-circle divider-center margin-top-0"><!-- divider -->
+                            <a href="#"><i class="fa fa-rss"></i></a>
+                        </div>
+                        <ul class="shop-item-list row list-inline nomargin">
+                            {% for val in list %}
+                            {% set categoryname = val.category_id|get_cate %}
+
+                            <!-- ITEM -->
+                            <li class="col-lg-3 col-sm-3">
+
+                                <div class="shop-item">
+
+                                    <div class="thumbnail">
+                                        <!-- product image(s) -->
+                                        <a class="shop-item-image" href="{{val.name|get_url(val.id)}}" target="_blank">
+                                            <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=265,h=360')}}" alt="shop first image" />
+                                        </a>
+                                        <!-- /product image(s) -->
+
+                                        <!-- hover buttons -->
+                                        <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                                            <a class="btn btn-default add-wishlist" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+                                            <a class="btn btn-default add-compare" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+                                        </div>
+                                        <!-- /hover buttons -->
+                                    </div>
+
+                                    <div class="shop-item-summary text-center">
+                                        <h2>{{val.title}}</h2>
+
+                                        <!-- rating -->
+                                        <div class="shop-item-rating-line">
+                                            <div class="rating rating-5 size-13"><!-- rating-0 ... rating-5 --></div>
+                                        </div>
+                                        <!-- /rating -->
+
+                                        <!-- price -->
+                                        <div class=" size-12">
+                                            {{val.update_time|dateformat('Y-m-d H:i')}}
+                                        </div>
+                                        <!-- /price -->
+                                    </div>
+
+                                </div>
+
+                            </li>
+                            <!-- /ITEM -->
+
+                            {%endfor%}
+                        </ul>
+                    </div>
+                    <div class="panel-footer text-left">
+                        {{pagination | safe}}
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <!-- RIGHT -->
+
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block style %}
+<link href="/static/assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+{% endblock %}

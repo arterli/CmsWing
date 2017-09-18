@@ -1,7 +1,7 @@
 /*!
  * UEditor
  * version: ueditor
- * build: Tue Aug 25 2015 15:23:01 GMT+0800 (CST)
+ * build: Wed Aug 10 2016 11:06:02 GMT+0800 (CST)
  */
 
 (function(){
@@ -766,6 +766,24 @@ var utils = UE.utils = {
 
         }) : '';
     },
+    /**
+     * 将url中的html字符转义， 仅转义  ', ", <, > 四个字符
+     * @param  { String } str 需要转义的字符串
+     * @param  { RegExp } reg 自定义的正则
+     * @return { String }     转义后的字符串
+     */
+    unhtmlForUrl:function (str, reg) {
+        return str ? str.replace(reg || /[<">']/g, function (a) {
+            return {
+                '<':'&lt;',
+                '&':'&amp;',
+                '"':'&quot;',
+                '>':'&gt;',
+                "'":'&#39;'
+            }[a]
+
+        }) : '';
+    },
 
     /**
      * 将str中的转义字符还原成html字符
@@ -1482,6 +1500,7 @@ utils.each(['String', 'Function', 'Array', 'Number', 'RegExp', 'Object', 'Date']
         return Object.prototype.toString.apply(obj) == '[object ' + v + ']';
     }
 });
+
 
 // core/EventBase.js
 /**
@@ -9948,7 +9967,7 @@ var LocalStorage = UE.LocalStorage = (function () {
 UE.plugins['defaultfilter'] = function () {
     var me = this;
     me.setOpt({
-        'allowDivTransToP':false,
+        'allowDivTransToP':true,
         'disabledTableInTable':true
     });
     //默认的过滤处理
@@ -11102,6 +11121,29 @@ UE.commands['insertimage'] = {
             return;
         }
 
+        function unhtmlData(imgCi) {
+
+            utils.each('width,height,border,hspace,vspace'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = parseInt(imgCi[item], 10) || 0;
+                }
+            });
+
+            utils.each('src,_src'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = utils.unhtmlForUrl(imgCi[item]);
+                }
+            });
+            utils.each('title,alt'.split(','), function (item) {
+
+                if (imgCi[item]) {
+                    imgCi[item] = utils.unhtml(imgCi[item]);
+                }
+            });
+        }
+
         if (img && /img/i.test(img.tagName) && (img.className != "edui-faked-video" || img.className.indexOf("edui-upload-video")!=-1) && !img.getAttribute("word_img")) {
             var first = opt.shift();
             var floatStyle = first['floatStyle'];
@@ -11120,6 +11162,8 @@ UE.commands['insertimage'] = {
             var html = [], str = '', ci;
             ci = opt[0];
             if (opt.length == 1) {
+                unhtmlData(ci);
+
                 str = '<img src="' + ci.src + '" ' + (ci._src ? ' _src="' + ci._src + '" ' : '') +
                     (ci.width ? 'width="' + ci.width + '" ' : '') +
                     (ci.height ? ' height="' + ci.height + '" ' : '') +
@@ -11136,6 +11180,7 @@ UE.commands['insertimage'] = {
 
             } else {
                 for (var i = 0; ci = opt[i++];) {
+                    unhtmlData(ci);
                     str = '<p ' + (ci['floatStyle'] == 'center' ? 'style="text-align: center" ' : '') + '><img src="' + ci.src + '" ' +
                         (ci.width ? 'width="' + ci.width + '" ' : '') + (ci._src ? ' _src="' + ci._src + '" ' : '') +
                         (ci.height ? ' height="' + ci.height + '" ' : '') +
@@ -11152,6 +11197,7 @@ UE.commands['insertimage'] = {
         me.fireEvent('afterinsertimage', opt)
     }
 };
+
 
 // plugins/justify.js
 /**
@@ -15231,7 +15277,7 @@ UE.plugins['list'] = function () {
 
     //调整索引标签
     me.addListener('contentchange',function(){
-        //adjustListStyle(me.document)
+        adjustListStyle(me.document)
     });
 
     function adjustListStyle(doc,ignore){
@@ -15266,7 +15312,7 @@ UE.plugins['list'] = function () {
             style && (node.style.cssText = 'list-style-type:' + style);
             node.className = utils.trim(node.className.replace(/list-paddingleft-\w+/,'')) + ' list-paddingleft-' + type;
             utils.each(domUtils.getElementsByTagName(node,'li'),function(li){
-                //li.style.cssText && (li.style.cssText = '');
+                li.style.cssText && (li.style.cssText = '');
                 if(!li.firstChild){
                     domUtils.remove(li);
                     return;
@@ -17596,6 +17642,14 @@ UE.plugins['video'] = function (){
      * @param addParagraph  是否需要添加P 标签
      */
     function creatInsertStr(url,width,height,id,align,classname,type){
+
+        url = utils.unhtmlForUrl(url);
+        align = utils.unhtml(align);
+        classname = utils.unhtml(classname);
+
+        width = parseInt(width, 10) || 0;
+        height = parseInt(height, 10) || 0;
+
         var str;
         switch (type){
             case 'image':
@@ -17730,6 +17784,7 @@ UE.plugins['video'] = function (){
         }
     };
 };
+
 
 // plugins/table.core.js
 /**
@@ -24751,6 +24806,88 @@ UE.plugin.register('insertfile', function (){
 });
 
 
+
+
+// plugins/xssFilter.js
+/**
+ * @file xssFilter.js
+ * @desc xss过滤器
+ * @author robbenmu
+ */
+
+UE.plugins.xssFilter = function() {
+
+	var config = UEDITOR_CONFIG;
+	var whitList = config.whitList;
+
+	function filter(node) {
+
+		var tagName = node.tagName;
+		var attrs = node.attrs;
+
+		if (!whitList.hasOwnProperty(tagName)) {
+			node.parentNode.removeChild(node);
+			return false;
+		}
+
+		UE.utils.each(attrs, function (val, key) {
+
+			if (whitList[tagName].indexOf(key) === -1) {
+				node.setAttr(key);
+			}
+		});
+	}
+
+	// 添加inserthtml\paste等操作用的过滤规则
+	if (whitList && config.xssFilterRules) {
+		this.options.filterRules = function () {
+
+			var result = {};
+
+			UE.utils.each(whitList, function(val, key) {
+				result[key] = function (node) {
+					return filter(node);
+				};
+			});
+
+			return result;
+		}();
+	}
+
+	var tagList = [];
+
+	UE.utils.each(whitList, function (val, key) {
+		tagList.push(key);
+	});
+
+	// 添加input过滤规则
+	//
+	if (whitList && config.inputXssFilter) {
+		this.addInputRule(function (root) {
+
+			root.traversal(function(node) {
+				if (node.type !== 'element') {
+					return false;
+				}
+				filter(node);
+			});
+		});
+	}
+	// 添加output过滤规则
+	//
+	if (whitList && config.outputXssFilter) {
+		this.addOutputRule(function (root) {
+
+			root.traversal(function(node) {
+				if (node.type !== 'element') {
+					return false;
+				}
+				filter(node);
+			});
+		});
+	}
+
+};
 
 
 // ui/ui.js

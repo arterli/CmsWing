@@ -11,9 +11,9 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/inc"><i class="icon-screen-desktop text-muted"></i>
+                            <li {%if controller.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/inc"><i class="icon-screen-desktop text-muted"></i>
                             PC端模板 </a></li>
-                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/inc/type/2"><i
+                            <li {%if controller.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/inc/?type=2"><i
                                 class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
                             </li>
                         </ul>
@@ -29,8 +29,8 @@
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
 
-                                        <a class="btn btn-sm btn-info" href="/admin/template/add/temptype/inc/type/{%if http.get('type')==2%}2{%else%}1{%endif%}">
-                                            添加{%if http.get('type')==2%}移动端{%else%}PC端{%endif%}公共模板
+                                        <a class="btn btn-sm btn-info" href="/admin/template/add/?temptype=inc&type={%if controller.get('type')==2%}2{%else%}1{%endif%}">
+                                            添加{%if controller.get('type')==2%}移动端{%else%}PC端{%endif%}公共模板
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="#">
                                             管理分类
@@ -40,7 +40,7 @@
                                 <div class="col-sm-3">
                                     <div class="input-group pull-right search-form">
                                         <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
+                                               value="{{controller.get('title')}}">
                                         <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/cms/list/model/{{model.name}}">搜索</button>
                       </span>
@@ -64,13 +64,13 @@
                                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
-                                        <td>view/{{item.module}}/{%if http.get("type")==2%}mobile/{%endif%}{{item.controller}}/{{item.action}}{{think.config('view.file_ext')}}</td>
+                                        <td>view/{{item.module}}/{%if controller.get("type")==2%}mobile/{%endif%}{{item.controller}}{{ctx.config("view.nunjucks.sep")}}{{item.action}}{{ctx.config('view.nunjucks.extname')}}</td>
 
 
-                                        <td><a href="/admin/template/edit/id/{{item.id}}" class="text-info">修改</a>
+                                        <td><a href="/admin/template/edit/?id={{item.id}}" class="text-info">修改</a>
                                             <a href="#" class="text-info">复制</a>
                                             {%if item.action != "index"%}
-                                            <a href="/admin/template/del/id/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                            <a href="/admin/template/del/?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                                         {%endif%}
                                     </tr>
                                     {% else %}

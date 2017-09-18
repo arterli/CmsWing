@@ -1,4 +1,4 @@
-{% extends "../../topic/inc/base.html" %}
+{% extends "../../home/inc_base.html" %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
 <!--
@@ -44,34 +44,42 @@ CLASSES:
 </section>
 <!-- -->
 <section>
-    <div class="container">
-
-        <ul id="portfolio_filter" class="nav nav-pills margin-bottom-10">
-            <li class="filter active"><a data-filter="*" href="#">全部</a></li>
-            {%for t in type%}
-            <li class="filter"><a data-filter=".t_{{t.typeid}}" href="#">{{t.name}}</a></li>
-            {%endfor%}
-        </ul>
-
-        <div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-6">
-
-            {%for link in list%}
-            {%if link.linktype == 0%}
-            <div class="linkbox alternate portfolio-item t_{{link.typeid}}">
-                <a href="{{link.url}}" target="_blank" title="{{link.name}}">{{link.name}}</a>
+    <div class="container tabs">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <ul id="portfolio_filter" class="nav nav-tabs">
+                    <li class="filter active"><a data-filter="*" href="#">全部</a></li>
+                    {%for t in type%}
+                    <li class="filter"><a data-filter=".t_{{t.typeid}}" href="#">{{t.name}}</a></li>
+                    {%endfor%}
+                </ul>
             </div>
-            {%else%}
-            <div class="linkbox alternate portfolio-item t_{{link.typeid}}"><!-- item -->
+            <div class="panel-body">
+                <div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-6">
 
-                <a href="{{link.url}}" target="_blank" title="{{link.name}}">
-                    <img class="img-responsive" src="{{link.logo}}" alt="{{link.name}}">
+                    {%for link in list%}
+                    {%if link.linktype == 0%}
+                    <div class="linkbox alternate portfolio-item t_{{link.typeid}}">
+                        <a href="{{link.url}}" target="_blank" title="{{link.name}}">{{link.name}}</a>
+                    </div>
+                    {%else%}
+                    <div class="linkbox alternate portfolio-item t_{{link.typeid}}"><!-- item -->
 
-                </a>
+                        <a href="{{link.url}}" target="_blank" title="{{link.name}}">
+                            <img class="img-responsive" src="{{link.logo}}" alt="{{link.name}}">
 
-            </div><!-- /item -->
-            {%endif%}
-            {%endfor%}
+                        </a>
+
+                    </div><!-- /item -->
+                    {%endif%}
+                    {%endfor%}
+                </div>
+            </div>
+
         </div>
+
+
+
 
     </div>
 </section>

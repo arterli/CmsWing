@@ -642,7 +642,7 @@ KeyTable = function ( oInit )
 	 */
 	function _fnKey ( e )
 	{
-		/* If user or system has blocked KeyTable from doing anything, just ignore this event */
+		/* If uuu or system has blocked KeyTable from doing anything, just ignore this event */
 		if ( _that.block || !_bKeyCapture )
 		{
 			return true;

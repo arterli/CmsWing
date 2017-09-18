@@ -59,7 +59,7 @@
                                             <td>{{art.title}}</td>
                                             <td>
                                                 <a class="text-info" href="javascript:void(0)" onclick="kkk({{item.id}})">编辑</a>
-                                                <a class="text-info ajax-get confirm" href="/admin/mpbase/deletefodder/id/{{item.id}}">删除</a>
+                                                <a class="text-info ajax-get confirm" href="/admin/mpbase/deletefodder/?id={{item.id}}">删除</a>
                                             </td>
                                         </tr>
                                         {% endfor %}
@@ -86,7 +86,7 @@
 <script>
     function kkk(id){
         if(true){//confirm("可以预览，但编辑仍在开发中，是否继续？")
-            window.location.href = "/admin/mpbase/fodderedit/id/"+id;
+            window.location.href = "/admin/mpbase/fodderedit/?id="+id;
         }
     }
     

@@ -8,8 +8,8 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            <li ><a href="/{{http.module}}/{{http.controller}}"  class="grouplist"> 广告</a></li>
-            <li ><a href="/{{http.module}}/{{http.controller}}/adlist/spaceid/{{space.spaceid}}"  class="grouplist"> {{space.name}}</a></li>
+            <li ><a href="/{{ctx.controller}}"  class="grouplist"> 广告</a></li>
+            <li ><a href="/{{ctx.controller}}/adlist/?spaceid={{space.spaceid}}"  class="grouplist"> {{space.name}}</a></li>
             <li class="active"><a href="javascript:void(0)"  class="grouplist"> {{controller.meta_title}}</a></li>
         </ul>
     </header>
@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <section class="panel panel-default">
                     <div class="panel-body">
-                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{http.module}}/{{http.controller}}/addad" data-validate="parsley">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/addad" data-validate="parsley">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">广告标题</label>
 
@@ -26,7 +26,7 @@
 
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <input type="text" class="form-control" name="name" value="" data-required="true" data-Remote="/admin/public/remote/table/ext_ad_temp">
+                                            <input type="text" class="form-control" name="name" value="" data-required="true" data-Remote="/admin/public/remote/?table=ext_ad_temp">
                                         </div>
                                         <div class="col-md-12">
                                             <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 广告名称至少三个汉字以上</span>

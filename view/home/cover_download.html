@@ -1,0 +1,387 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+<!--
+           PAGE HEADER
+
+           CLASSES:
+               .page-header-xs	= 20px margins
+               .page-header-md	= 50px margins
+               .page-header-lg	= 80px margins
+               .page-header-xlg= 130px margins
+               .dark			= dark page header
+
+               .shadow-before-1 	= shadow 1 header top
+               .shadow-after-1 	= shadow 1 header bottom
+               .shadow-before-2 	= shadow 2 header top
+               .shadow-after-2 	= shadow 2 header bottom
+               .shadow-before-3 	= shadow 3 header top
+               .shadow-after-3 	= shadow 3 header bottom
+       -->
+<section class="page-header page-header-xs">
+
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页 </a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!--中间-->
+            <div class=" col-md-9 col-sm-9">
+                <div class="row">
+                    <div class="col-md-9 col-sm-9">
+
+                        <!-- REVOLUTION SLIDER -->
+                        <div class="slider fullwidthbanner-container roundedcorners margin-bottom-20">
+                            <!--
+                                Navigation Styles:
+
+                                    data-navigationStyle="" theme default navigation
+
+                                    data-navigationStyle="preview1"
+                                    data-navigationStyle="preview2"
+                                    data-navigationStyle="preview3"
+                                    data-navigationStyle="preview4"
+
+                                Bottom Shadows
+                                    data-shadow="1"
+                                    data-shadow="2"
+                                    data-shadow="3"
+
+                                Slider Height (do not use on fullscreen mode)
+                                    data-height="300"
+                                    data-height="350"
+                                    data-height="400"
+                                    data-height="450"
+                                    data-height="500"
+                                    data-height="550"
+                                    data-height="600"
+                                    data-height="650"
+                                    data-height="700"
+                                    data-height="750"
+                                    data-height="800"
+                            -->
+                            <div class="fullwidthbanner" data-height="500" data-shadow="0" data-navigationStyle="">
+                                <ul class="hide">
+                                    {% topic data = "slider",limit=
+                                    "5",cid=category.id,position='2',issub="1",ispic="1",isstu="1"%}
+                                    {% for v in slider%}
+                                    {% set pic = v.fileimgs|strToArray%}
+                                    <!-- SLIDE  -->
+                                    <li data-transition="fade" data-slotamount="7" data-masterspeed="300"
+                                        data-saveperformance="off">
+                                        <img src="/static/assets/images/1x1.png"
+                                             data-lazyload="{{pic[0]|get_pic('m=1,w=555,h=237')}}" alt=""
+                                             data-bgfit="cover" data-bgposition="center center"
+                                             data-bgrepeat="no-repeat"/>
+
+                                        <div class="tp-caption lft start"
+                                             data-x="0"
+                                             data-y="0"
+                                             data-speed="750"
+                                             data-start="750"
+                                             data-easing="easeOutExpo"
+                                             data-elementdelay="0.1"
+                                             data-endelementdelay="0.1"
+                                             data-endspeed="300">
+                                            <img src="/static/assets/images/1x1.png" alt=""
+                                                 data-lazyload="/static/assets/images/caption_bg.png">
+                                        </div>
+
+                                        <div class="tp-caption medium_light_white lfb start"
+                                             data-x="left" data-hoffset="40"
+                                             data-y="96"
+                                             data-speed="300"
+                                             data-start="1200"
+                                             data-easing="easeOutExpo"
+                                             data-splitin="none"
+                                             data-splitout="none"
+                                             data-elementdelay="0.1"
+                                             data-endelementdelay="0.1"
+                                             data-endspeed="300">
+                                            {{v.title|insert_flg("<br>",12)|safe}}
+                                        </div>
+
+                                        <div class="tp-caption block_black lfl start"
+                                             data-x="left" data-hoffset="180"
+                                             data-y="195"
+                                             data-speed="300"
+                                             data-start="1500"
+                                             data-easing="easeOutExpo"
+                                             data-splitin="none"
+                                             data-splitout="none"
+                                             data-elementdelay="0.1"
+                                             data-endelementdelay="0.1"
+                                             data-endspeed="300">
+                                            <a href="{{v.name|get_url(v.id)}}">查看详情</a>
+                                        </div>
+                                        {#
+                                        <div class="tp-caption small_light_white lfl start"
+                                             data-x="left" data-hoffset="40"
+                                             data-y="250"
+                                             data-speed="1000"
+                                             data-start="1800"
+                                             data-easing="easeOutExpo"
+                                             data-splitin="none"
+                                             data-splitout="none"
+                                             data-elementdelay="0.1"
+                                             data-endelementdelay="0.1"
+                                             data-endspeed="300">
+                                            {{v.description|insert_flg("<br>",20)|safe}}
+                                        </div>
+                                        #}
+                                    </li>
+                                    {%endfor%}
+
+
+                                </ul>
+
+                                <div class="tp-bannertimer"><!-- progress bar --></div>
+                            </div>
+                        </div>
+                        <div class="box-light clearfix margin-bottom-20" style="padding: 1px">
+                            <!-- POPULAR POSTS -->
+
+                            <div class="box-inner">
+                                <h3>
+                                    <a class="pull-right size-11 text-warning" href="#">VIEW ALL</a>
+
+                                    热门软件
+                                </h3>
+                                <div class=" slimscroll row" style="height: 412px" data-always-visible="true"
+                                     data-size="5px" data-position="right" data-opacity="0.4"
+                                     disable-body-scroll="true">
+                                    {% topic data = "hotdown",limit=
+                                    "20",cid=category.id,issub="1",ispic="1",isstu="2",type="hot"%}
+                                    {%for val in hotdown%}
+                                    <div class="margin-bottom-10 col-sm-6"><!-- post item -->
+                                        <img class="thumbnail pull-left" src="{{val.cover_id|get_pic('m=1,w=60,h=60')}}"
+                                             width="60" height="60" alt=""/>
+                                        <h4 class="size-13 nomargin noborder nopadding" style="height: 40px"><a
+                                                href="{{val.name|get_url(val.id)}}">{{val.title}}</a></h4>
+                                        <span class="size-11 text-muted"><a href="{{val.name|get_url(val.id)}}"
+                                                                            class="btn btn-3d btn-xs btn-reveal btn-white">
+									<i class="fa fa-download"></i>
+									<span>立即下载</span>
+								</a></span>
+                                    </div><!-- /post item -->
+                                    {%endfor%}
+
+
+                                </div>
+
+
+                            </div>
+                            <!-- /POPULAR POSTS -->
+                        </div>
+
+
+                    </div>
+                    <!--中间-->
+                    <!--右边-->
+                    <div class="col-md-3 col-sm-3 hiddex-xs">
+                        <div class="panel panel-default">
+                            <div class="panel-body padding-6" style="height: 270px">
+                                <div class=" margin-bottom-6">
+                                    <a href="#"><img class="img-responsive" src="//odhs9iog7.qnssl.com/2016022317481056cc2ada3247a.jpg" style="height: 100px"></a>
+                                </div>
+                                <div class=" margin-bottom-0">
+                                    <a href="#"><img class="img-responsive" src="//odhs9iog7.qnssl.com/20150325144205551258bd5416c.jpg" style="height: 100px"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">软件推荐</h2>
+                            </div>
+                            <div class="panel-body padding-10">
+                                <!--topic tags test-->
+                                {% topic data = "hotlist",limit= "6",cid=category.id,type="hot",position='1'%}
+                                <!--返回数据赋值给变量data,遍历data-->
+                                {%for v in hotlist%}
+                                <div class="row tab-post"><!-- post -->
+                                    {%if v.cover_id%}
+                                    <div class="col-md-3 col-sm-3 col-xs-3 padding-0">
+                                        <a href="{{v.name|get_url(v.id)}}">
+                                            <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt=""/>
+                                        </a>
+                                    </div>
+                                    {%endif%}
+                                    <div class="col-md-9 col-sm-9 col-xs-9" >
+                                        <a href="{{v.name|get_url(v.id)}}" style="overflow: hidden; height: 16px ; display: block" class="tab-post-link margin-bottom-10">{{v.title}}</a>
+                                        <small><a href="{{v.name|get_url(v.id)}}"
+                                                  class="btn btn-3d btn-xs btn-reveal btn-white">
+                                            <i class="fa fa-download"></i>
+                                            <span>立即下载</span>
+                                        </a></small>
+                                    </div>
+                                </div><!-- /post -->
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                    <!--右边-->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <a class="btn btn-danger btn-xs pull-right">Header Button</a>
+                                <h2 class="panel-title">常用软件</h2>
+                            </div>
+                            <div class="panel-body padding-top-0 padding-bottom-0">
+                                <div class="boxTab row" style="margin-right: -16px">
+                                    {%column data="cates",cid=category.id%}
+                                    {%for val in cates%}
+                                    <ul class="col-md-2">
+                                        <p>{{val.name}}</p>
+                                        {% topic data ="list",limit="3",cid=val.id,type="level"%}
+                                        {% for v in list %}
+                                        <li class="mix"><a href="#" target="_blank" class="rank-img"> <img
+                                                src="{{v.cover_id|get_pic('m=0,w=50,h=50')}}"
+                                                alt="{{v.title}}"> </a> <a href="{{v.name|get_url(v.id)}}"
+                                                                           target="_blank" class="rank-name">{{v.title}}</a><a href="{{v.name|get_url(v.id)}}"
+                                                                                                                               class="btn btn-3d btn-xs btn-reveal btn-white rank-dl">
+                                            <i class="fa fa-download"></i>
+                                            <span>立即下载</span>
+                                        </a></li>
+                                        {%endfor%}
+
+                                    </ul>
+                                    {%endfor%}
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--左边-->
+            <div class="col-md-3 col-sm-3">
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+
+                <!-- side navigation -->
+                {%column data="cate",cid=category.id,isnum="1"%}
+                {%if cate%}
+                <div class="panel panel-default side-nav">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">{{category.title}}分类</h2>
+                    </div>
+                    <div class="panel-body" style="padding: 10px 0 0 10px">
+                        <ul class="list-group list-group-bordered  uppercase">
+                            {%for val in cate%}
+                            <li class="list-group-item"><a href="{{val.url}}"><span class="badge badge-light pull-right">{{val.doc_num}}</span>
+                                {{val.name}}</a></li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                </div>
+                {%endif%}
+
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading">
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">
+                                    最热
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">
+                                    最新
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!--topic tags test-->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot"%}
+                            <!--返回数据赋值给变量data,遍历data-->
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt=""/>
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small><a href="{{v.name|get_url(v.id)}}"
+                                              class="btn btn-3d btn-xs btn-reveal btn-white">
+                                        <i class="fa fa-download"></i>
+                                        <span>立即下载</span>
+                                    </a></small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+
+                            {% topic data = "newlist",limit= "5",cid=category.id%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt=""/>
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small><a href="{{val.name|get_url(val.id)}}"
+                                              class="btn btn-3d btn-xs btn-reveal btn-white">
+                                        <i class="fa fa-download"></i>
+                                        <span>立即下载</span>
+                                    </a></small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+                    </div>
+                </div>
+            </div>
+            <!-- 左边 -->
+
+        </div>
+</section>
+<!-- / -->
+{% endblock %}

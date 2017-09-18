@@ -1,0 +1,247 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+{%if category.pid !=0%}
+{%column data="column",pid=category.pid%}
+{%else%}
+{%column data="column",cid=category.id%}
+{%endif%}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+<style>
+    .active > .text{
+        display: block !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs">
+    <div class="container">
+        {%if column|length>0%}
+        <h1>{{category.title}}</h1>
+        {%endif%}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb {%if column|length==0%} breadcrumb-inverse {%endif%}">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {%if column|length==0%} <li>{{info.title}} </li>{%endif%}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+        <!-- page tabs -->
+        {%if column|length >0%}
+        <ul class="page-header-tabs list-inline">
+            <li {%if breadcrumb[0].id == category.id %}class="active"{%endif%}><a href="{{breadcrumb[0].url}}">全部</a></li>
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}<!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1 class="blog-post-title margin-bottom-10">{{info.title}}</h1>
+                        <ul class="blog-post-info list-inline">
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-clock-o"></i>
+                                    <span class="font-lato">{{ info.create_time|moment('YYYY-MM-DD HH:mm') }}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fa fa-eye"></i>
+
+                                <a class="category" href="javascript:void(0)">
+                                    <span class="font-lato">{{info.view}}</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="#comments">
+                                    <i class="fa fa-comment-o"></i>
+                                    <span class="font-lato"><span id="changyan_count_unit">0</span></span>
+                                </a>
+                            </li>
+                            <li>
+                                <i class="fa fa-folder-open-o"></i>
+
+                                <a class="category" href="javascript:void(0)">
+                                    <span class="font-lato">{{category.title}}</span>
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-user"></i>
+                                    <span class="font-lato">{{info.uid|get_nickname}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    来源：
+                                    <span class="font-lato">{{info.form|d('本站',true)}}</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- OWL SLIDER -->
+                        <!--
+                        <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 4500, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
+                        <a class="lightbox" href="assets/images/demo/1200x800/10-min.jpg" data-plugin-options='{"type":"image"}'>
+                        <img class="img-responsive" src="assets/images/demo/content_slider/10-min.jpg" alt="" />
+                        </a>
+                        <a class="lightbox" href="assets/images/demo/1200x800/3-min.jpg" data-plugin-options='{"type":"image"}'>
+                        <img class="img-responsive" src="assets/images/demo/content_slider/3-min.jpg" alt="" />
+                        </a>
+                        <a class="lightbox" href="assets/images/demo/1200x800/21-min.jpg" data-plugin-options='{"type":"image"}'>
+                        <img class="img-responsive" src="assets/images/demo/content_slider/21-min.jpg" alt="" />
+                        </a>
+                        </div>
+                        -->
+                        <!-- /OWL SLIDER -->
+
+                        <!-- IMAGE -->
+
+                        {% if info.cover_id>0 %}
+                        <figure class="margin-bottom-20">
+                            <img class="img-responsive" src="{{info.cover_id|get_pic('m=2,w=847')}}" alt="{{info.title}}">
+                        </figure>
+                        {% endif %}
+
+                        <!-- /IMAGE -->
+
+                        <!-- VIDEO -->
+                        <!--
+                        <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
+                        </div>
+                        -->
+                        <!-- /VIDEO -->
+
+
+                        <!-- article content -->
+                        <div id="contentcmswing">
+
+                            <div class="tab-content">
+                                {%set p = 1%}
+                                {%for val in info.content%}
+                                <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
+                                    {{val|safe}}
+                                </div>
+                                {% set p = p+1%}
+                                {%endfor%}
+                            </div>
+                            {%if info.content|length >1%}
+                            <!-- Pagination Default -->
+                            <div class="text-center">
+                                <ul class="pagination">
+                                    {%set o = 1%}
+                                    {%for val in info.content%}
+                                    <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
+                                    {% set o = o+1%}
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                            {%endif%}
+                        </div>
+                    </div>
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
+                    {%if tags%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- TAGS -->
+
+                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                        {%for k in tags%}
+                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                            {{k.keyname}}
+                        </a>
+                        {%endfor%}
+                        <!-- /TAGS -->
+                    </div>
+                    {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                    <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    <div class="panel-footer">
+                        <ul class="pager nomargin">
+                            {%if previous.id%}
+                            <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
+                            {%endif%}
+                            {%if next.id%}
+                            <li class="next"><a class="noborder" href="{{next.name|get_url(next.id)}}" title="{{next.title}}">下一篇:{{next.title|block(20)}} &rarr;</a></li>
+                            {%endif%}
+                        </ul>
+                    </div>
+                    {%if config.ext.changyan.is ==1%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- COMMENTS -->
+                        <div id="comments" >
+                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                            <div id="SOHUCS" sid="{{info.id}}"></div>
+                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                            <script type="text/javascript">
+                                window._config = { showScore: true };
+                                window.changyan.api.config({
+                                    appid: '{{config.ext.changyan.appid}}',
+                                    conf: '{{config.ext.changyan.appkey}}'
+                                });
+                            </script>
+                        </div>
+                        <!-- /COMMENTS -->
+                    </div>
+                    {%endif%}
+                </div>
+
+
+            </div>
+            <!-- RIGHT -->
+            {% include "./inc_right.html"%}
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+{%if config.ext.changyan.is ==1%}
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
+{%endif%}
+<script>
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% endblock %}

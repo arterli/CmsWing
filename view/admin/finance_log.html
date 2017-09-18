@@ -49,7 +49,7 @@
                     {% for item in list %}
                     <tr>
                         <td>{{item.id}}</td>
-                        <td>{{item.time|dateformat("Y-m-d H:i:s")}}</td>
+                        <td>{{item.time|moment("YYYY-MM-DD HH:mm")}}</td>
                         <td>{{item.amount|formatCurrency}}</td>
                         <td>{{item.amount_log|formatCurrency}}</td>
                         <td >{{item.user_id}}</td>

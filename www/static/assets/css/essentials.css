@@ -5066,7 +5066,7 @@ content: ' ';
 /** 25. Icon Boxes
 *************************************************** **/
 .box-icon {
-	margin:30px 0;
+	margin:20px 0;
 }
 .box-icon>a,
 .box-icon .box-icon-title {
@@ -5212,6 +5212,10 @@ section.dark .box-icon a.box-icon-more {
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
+}
+.bg-grey .box-icon.box-icon-content {
+	background-color:#fff;
+
 }
 	section.dark .box-icon.box-icon-content {
 		background-color:rgba(0,0,0,0.1);
@@ -6039,7 +6043,7 @@ span.badge-dark,
 /** 28. Panels
 *************************************************** **/
 .panel {
-	margin-bottom:30px;
+	/*margin-bottom:30px;*/
 }
 section.dark .panel-default>.panel-heading {
 	border-color:#666;
@@ -10466,7 +10470,7 @@ ul.testimonial-dotted>li:after {
 	top: auto;
 	left: 0;
 	bottom: -1px;
-	border-bottom: 1px dashed rgba(0,0,0,0.3);
+	border-bottom: 1px solid #ddd;
 }
 ul.testimonial-dotted>li:before {
 	content: '';
@@ -10474,7 +10478,7 @@ ul.testimonial-dotted>li:before {
 	height: 100%;
 	top: 0;
 	left: -1px;
-	border-left: 1px dashed rgba(0,0,0,0.3);
+	border-left: 1px solid #ddd;
 }
 
 	section.dark ul.testimonial-dotted>li:after {

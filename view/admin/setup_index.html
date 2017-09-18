@@ -8,7 +8,7 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            {% for ingredient, amount in setup.CONFIG_GROUP_LIST %}
+            {% for ingredient, amount in config.setup.CONFIG_GROUP_LIST %}
             {%if ingredient != ism%}
             <li {%if id == ingredient %}class="active"{% endif %} ><a href="/admin/setup/index?id={{ ingredient }}"  data-groupid="{{ ingredient }}" class="grouplist"> {{ amount }}</a></li>
             {%endif%}
@@ -55,7 +55,8 @@
                                   </div>
                         {% endif %}
                               <div class="col-md-12">
-                                  <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{item.remark|safe}}</span>
+                                  <code>this.config('setup.{{item.name}}')</code>
+                                  <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  {{item.remark|safe}}</span>
                               </div>
                           </div>
                       </div>

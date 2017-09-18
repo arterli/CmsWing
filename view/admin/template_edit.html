@@ -48,13 +48,41 @@
                                     <div class="input-group pull-right search-form">
                                         <input type="text" class="input-sm form-control"
                                                name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
+                                               value="{{controller.get('title')}}">
                                         <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button" id="search"
                                 url="/admin/cms/list/model/{{model.name}}">搜索</button>
                       </span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row wrapper">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模板中文名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="name" value="{{temp.name}}" placeholder="模板名称">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">模板路径</label>
+                                        <div class="col-sm-10">
+                                            <div class="row">
+
+                                                <div class="col-md-10">
+                                                    <input type="text" class="form-control" name="action" value="view/{{temp.module}}/{%if temp.type==2%}mobile/{%endif%}{{temp.controller}}{{ctx.config("view.nunjucks.sep")}}{{temp.action}}{{ctx.config('view.nunjucks.extname')}}" placeholder="index" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <div id="layout">
                                 <header class="hide">
@@ -81,7 +109,7 @@
                                     <div class="col-sm-4 col-sm-offset-2">
                                         <button class="btn btn-primary btn-s-md ajax_post_temp">修改</button>
                                         <button class="btn btn-default">重置</button>
-                                        <a class="btn btn-default" href="/admin/template/tempbak/module/{{temp.module}}/controller/{{temp.controller}}/action/{{temp.action}}/type/{{temp.type}}/pid/{{temp.id}}" data-toggle="ajaxModal">修改记录</a>
+                                        <a class="btn btn-default" href="/admin/template/tempbak/?module={{temp.module}}&controller={{temp.controller}}&action={{temp.action}}&type={{temp.type}}&pid={{temp.id}}" data-toggle="ajaxModal">修改记录</a>
                                     </div>
                                 </div>
                             </footer>
@@ -124,11 +152,13 @@
         });
         //提交表单
         $(".ajax_post_temp").click(function (e) {
+            var name=$("[name='name']").val();
             $.ajax({
                 url: "/admin/template/edit",
                 data: {
                     html: testEditor.getValue(),
-                    id:'{{temp.id}}'
+                    id:'{{temp.id}}',
+                    name:name
                 },
                 type: "post",
                 success: function (res) {

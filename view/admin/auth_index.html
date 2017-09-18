@@ -4,8 +4,8 @@
 
     <header class="header bg-light dk">
         <ul class="nav nav-tabs pull-left">
-            <li class="{% if http.action == 'index'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/index"><i class="fa fa-user text-muted"></i> 会员组 </a></li>
-            <li class="{% if http.action == 'admin'%}active{%endif%}" ><a href="/{{http.module}}/{{http.controller}}/admin"><i class="fa fa-user text-muted"></i> 管理员角色</a></li>
+            <li class="{% if ctx.action == 'index'%}active{%endif%}" ><a href="/{{ctx.controller}}/index"><i class="fa fa-user text-muted"></i> 会员组 </a></li>
+            <li class="{% if ctx.action == 'admin'%}active{%endif%}" ><a href="/{{ctx.controller}}/admin"><i class="fa fa-user text-muted"></i> 管理员角色</a></li>
         </ul>
     </header>
     <section class="scrollable wrapper">
@@ -19,13 +19,13 @@
 
                 <div class="col-sm-9 m-b-xs">
                     <div class="">
-                        <a class="btn btn-sm btn-info " href="/{{http.module}}/{{http.controller}}/adduser">
+                        <a class="btn btn-sm btn-info " href="/{{ctx.controller}}/adduser">
                             添加会员组
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{http.module}}/{{http.controller}}/deluser" target-form="ids">
+                        <a class="btn btn-sm btn-info ajax-post confirm"  href="/{{ctx.controller}}/deluser" target-form="ids">
                             删除
                         </a>
-                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{http.module}}/{{http.controller}}/sort/type/1">
+                        <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort/?type=1">
                             排序
                         </a>
                     </div>

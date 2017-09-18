@@ -1,4 +1,4 @@
-{% extends "../../topic/inc/base.html" %}
+{% extends "../../home/inc_base.html" %}
 {% block style %}
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
 {% endblock %}
@@ -62,7 +62,7 @@ CLASSES:
             {%for val in column%}
             <div class="col-md-3">
 
-                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}{{http.config('view.file_ext')}}" style="padding-top: 35px">
+                <a class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content {%if val.id == category.id %}active{%endif%}" href="{{val.url}}" style="padding-top: 35px">
                     <div class="box-icon-title">
                         {%if val.icon%}<i><img class="thumbnail rounded" src="{{val.icon|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -1px"></i>{%else%}<i class="et-chat"></i>{%endif%}
                         <h4 class="nomargin">{{val.name}}</h4>
@@ -86,102 +86,109 @@ CLASSES:
 
             <!-- LEFT -->
             <div class="col-md-9 col-sm-9">
-                <ul class="nav nav-tabs nav-bottom-border">
-                    <li class="{%if order ==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}" >最新的</a></li>
-                    <li class="{%if order ==1%}active{%endif%}"><a href="{{cate.url}}-1{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >最热的</a></li>
-                    <li class="{%if order ==2%}active{%endif%}"><a href="{{cate.url}}-2{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >推荐的</a></li>
-                    <li class="{%if order ==3%}active{%endif%}"><a href="{{cate.url}}-3{%if group_id%}-{{group_id}}{%endif%}{{http.config('view.file_ext')}}" >等待回复</a></li>
-                </ul>
-                {% groups data="groups",cid=category.id%}
-                {%if groups|length >0%}
-                <ul class="nav nav-pills mix-filter group clearfix">
-                    <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}{{http.config('view.file_ext')}}">全部</a></li>
-                    {%for v in groups%}
-                    <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}{{http.config('view.file_ext')}}">{{v.name}}</a></li>
-                    {%endfor%}
-                </ul>
-                {%endif%}
-                <div class="timeline">
-                    <div class="timeline-hline"><!-- horizontal line --></div>
-                    {% for val in list %}
-                    {% set categoryname = val.category_id|get_cate %}
-                    <!-- POST ITEM -->
-                    <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
-                        <div class="timeline-entry" ><!-- .rounded = entry -->
-                            <a href="#"><img src="/uc/index/avatar/uid/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
-                            <div class="timeline-vline"><!-- vertical line --></div>
-                        </div>
-                        <!-- IMAGE -->
-                        {% if val.imgs|length==1 %}
-                        <figure class="blog-item-small-image margin-bottom-0">
-                            <img class="img-responsive" src="{{val.imgs[0]}}" alt="">
-                        </figure>
-                        {% endif %}
-                        <div class="blog-item-small-content">
-                            <h2><a href="/mod/question/{{val.id}}{{http.config('view.file_ext')}}" title="{{val.title}}">{{val.title}}</a></h2>
-                            <ul class="blog-post-info list-inline padding-bottom-10">
-                                <li>
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading ">
+                        <ul class="nav nav-tabs ">
+                            <li class="{%if order ==0%}active{%endif%}"><a href="{{cate.url}}" >最新的</a></li>
+                            <li class="{%if order ==1%}active{%endif%}"><a href="{{cate.url}}-1{%if group_id%}-{{group_id}}{%endif%}" >最热的</a></li>
+                            <li class="{%if order ==2%}active{%endif%}"><a href="{{cate.url}}-2{%if group_id%}-{{group_id}}{%endif%}" >推荐的</a></li>
+                            <li class="{%if order ==3%}active{%endif%}"><a href="{{cate.url}}-3{%if group_id%}-{{group_id}}{%endif%}" >等待回复</a></li>
+                        </ul>
+                    </div>
+                    {% groups data="groups",cid=category.id%}
+                    {%if groups|length >0%}
+                    <div class="panel-heading panel-heading-transparent" style="padding: 0px">
+                        <ul class="nav nav-pills mix-filter clearfix" style="background-color: #fff;margin: 10px 15px 0px 15px">
+                            <li class="filter {%if group_id==0%}active{%endif%}"><a href="{{cate.url}}">全部</a></li>
+                            {%for v in groups%}
+                            <li class="filter {%if group_id==v.id%}active{%endif%}"><a href="{{cate.url}}-{{order}}-{{v.id}}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}">{{v.name}}</a></li>
+                            {%endfor%}
+                        </ul>
+                    </div>
 
-                                    <a class="" href="{{categoryname.url}}">
-                                        <span class="label label-light">{{categoryname.name}}</span>
-                                    </a>
-                                </li>
-                                <li>{%if val.answer_users>0%}
-                                    <a href="#">
-                                        <span class="font-lato">{{val.answer_users|get_nickname}}</span>
-                                    </a>
-                                    <span class="font-lato"> 回复了问题</span>
-                                    {%else%}
-                                    <a href="#">
-                                        <span class="font-lato">{{val.uid|get_nickname}}</span>
-                                    </a>
-                                    <span class="font-lato"> 发起了问题</span>
-                                    {%endif%}
-                                </li>
-                                <li>
+                    {%endif%}
+                    <div class="panel-body" style="padding: 0 10px">
+                        <div class="timeline">
+                            <div class="timeline-hline"><!-- horizontal line --></div>
+                            {% for val in list %}
+                            {% set categoryname = val.category_id|get_cate %}
+                            <!-- POST ITEM -->
+                            <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+                                <div class="timeline-entry" ><!-- .rounded = entry -->
+                                    <a href="#"><img src="/u/avatar/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+                                    <div class="timeline-vline"><!-- vertical line --></div>
+                                </div>
+                                <!-- IMAGE -->
+                                {% if val.imgs|length==1 %}
+                                <figure class="blog-item-small-image margin-bottom-0">
+                                    <img class="img-responsive" src="{{val.imgs[0]}}" alt="">
+                                </figure>
+                                {% endif %}
+                                <div class="blog-item-small-content">
+                                    <h2><a href="/q/{{val.id}}" title="{{val.title}}">{{val.title}}</a></h2>
+                                    <ul class="blog-post-info list-inline padding-bottom-10">
+                                        <li>
+
+                                            <a class="" href="{{categoryname.url}}">
+                                                <span class="label label-light">{{categoryname.name}}</span>
+                                            </a>
+                                        </li>
+                                        <li>{%if val.answer_users>0%}
+                                            <a href="#">
+                                                <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+                                            </a>
+                                            <span class="font-lato"> 回复了问题</span>
+                                            {%else%}
+                                            <a href="#">
+                                                <span class="font-lato">{{val.uid|get_nickname}}</span>
+                                            </a>
+                                            <span class="font-lato"> 发起了问题</span>
+                                            {%endif%}
+                                        </li>
+                                        <li>
                                 <span class="font-lato">
                                 {{val.focus_count}} 人关注
                                     </span>
-                                </li>
-                                <li>
-                                    <span class="font-lato">{{val.answer_count}} 个回复</span>
+                                        </li>
+                                        <li>
+                                            <span class="font-lato">{{val.answer_count}} 个回复</span>
 
-                                </li>
-                                <li>
-                                    <span class="font-lato">{{val.view}} 次浏览</span>
-                                </li>
-                                <li>
-                                    <span class="font-lato"> {{val.update_time|moment}}</span>
-                                </li>
+                                        </li>
+                                        <li>
+                                            <span class="font-lato">{{val.view}} 次浏览</span>
+                                        </li>
+                                        <li>
+                                            <span class="font-lato"> {{val.update_time|moment}}</span>
+                                        </li>
 
-                            </ul>
-                            {% if val.imgs|length>1 %}
-                            <div class="row margin-bottom-10">
-                                {%set i = 0%}
-                                {%for img in val.imgs%}
-                                {%if i< 4 %}
-                                <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
-                                {%endif%}
-                                {%set i=i+1%}
-                                {%endfor%}
+                                    </ul>
+                                    {% if val.imgs|length>1 %}
+                                    <div class="row margin-bottom-10">
+                                        {%set i = 0%}
+                                        {%for img in val.imgs%}
+                                        {%if i< 4 %}
+                                        <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+                                        {%endif%}
+                                        {%set i=i+1%}
+                                        {%endfor%}
+                                    </div>
+                                    {%endif%}
+                                    <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                                </div>
+
                             </div>
-                            {%endif%}
-                            <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+                            <!-- /POST ITEM -->
+                            {%endfor%}
+
                         </div>
-
                     </div>
-                    <!-- /POST ITEM -->
-                    {%endfor%}
 
+                    <div class="panel-footer text-left padding-10">
+                        <!-- Pagination Default -->
+                        {{pagination | safe}}
+                        <!-- /Pagination Default -->
+                    </div>
                 </div>
-                <!-- PAGINATION -->
-                <div class="text-left margin-top-20">
-                    <!-- Pagination Default -->
-                    {{pagination | safe}}
-                    <!-- /Pagination Default -->
-                </div>
-                <!-- /PAGINATION -->
-
             </div>
 
             <!-- RIGHT -->
@@ -190,50 +197,33 @@ CLASSES:
                 {% if controller.is_login %}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     今天，你遇到了什么问题呢？
-                    <a href="/mod/question/sys/add/cid/{{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
+                    <a href="/mod/question/sys/add/?cid={{category.id}}" class="btn btn-primary btn-3d btn-block margin-top-10">提问</a>
                 </div>
                 {%else%}
                 <div class="alert alert-info margin-bottom-20"><!-- INFO -->
                     你好! 你还没有登录，请先登录.
-                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/uc/public/login" data-toggle="ajaxModal">
-                        <i class="fa fa-sign-in"></i> 登录{{controller.setup.WEB_SITE_TITLE}}
+                    <a class="btn btn-block btn-social btn-dropbox margin-top-10  " href="/center/public/login" data-toggle="ajaxModal">
+                        <i class="fa fa-sign-in"></i> 登录{{config.setup.WEB_SITE_TITLE}}
                     </a>
                 </div>
                 {%endif%}
                 <!-- INLINE SEARCH -->
                 <div class="inline-search clearfix margin-bottom-20">
-                    <form action="" method="get" class="widget_search">
-                        <input type="search" placeholder="Start Searching..." id="s" name="s" class="serch-input">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
                         <button type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </form>
                 </div>
                 <!-- /INLINE SEARCH -->
-
-                <!-- side navigation -->
-                {%column data="cates",cid=category.id,isnum="0"%}
-                {%if cates==null%}
-                <div class="side-nav margin-bottom-20 margin-top-20">
-                    <div class="side-nav-head">
-                        <button class="fa fa-bars"></button>
-                        <h4>{{category.title}} 子分类</h4>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-primary btn-xs pull-right" href="/topic">更多</a>
+                        <h2 class="panel-title">热门话题</h2>
                     </div>
-                    <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                        {%for val in cates%}
-                        <li class="list-group-item"><a href="{{val.url}}{{http.config('view.file_ext')}}"><span class="size-11 text-muted pull-right">({{val.doc_num}})</span> {{val.name}}</a></li>
-                        {%endfor%}
-                    </ul>
-                    <!-- /side navigation -->
-                </div>
-                {%endif%}
-                <div class="box-inner nopadding">
-                    <h3>
-                        <a class="pull-right size-11 text-warning" href="/topic">更多</a>
-                        热门话题
-                    </h3>
-                    <div class="" >
-                        {% keywords data ="topic",type="hot",limit="5",mod=model.id %}
+                    <div class="panel-body padding-10">
+                        {% keywords data ="topic",type="hot",limit="5",mod=model.id,cache="1000"%}
                         {%for k in topic%}
                         <div class="clearfix margin-bottom-10"><!-- discussion item -->
                             {%if k.pic==0%}
@@ -250,59 +240,29 @@ CLASSES:
                                 {{k.videonum}} 个主题, {{k.focus_count}} 人关注
 												</span>
                         </div><!-- /discussion item -->
-                          {%endfor%}
-
-
+                        {%endfor%}
                     </div>
                 </div>
-                <hr />
-                {%model data="data",table="question_user",cache='1000',order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}'%}
+                {%model data="data",table="question_user",order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}',cache="1000"%}
                 {%if data.length>0%}
-                <div class="box-inner nopadding">
-                    <h3>
-                        <a class="pull-right size-11 text-warning" href="#">更多</a>
-                        热门用户
-                    </h3>
-                    <div class="" >
-                       {%for user in data%}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-primary btn-xs pull-right" href="#">更多</a>
+                        <h2 class="panel-title">热门用户</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        {%for user in data%}
                         <div class="clearfix margin-bottom-10"><!-- squared item -->
-                            <img class="thumbnail pull-left rounded" src="/uc/index/avatar/uid/{{user.uid}}" width="40" height="40" alt="" />
+                            <img class="thumbnail pull-left rounded" src="/u/avatar/{{user.uid}}" width="40" height="40" alt="" />
                             <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
                             <span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
                         </div><!-- /squared item -->
-                       {%endfor%}
-
+                        {%endfor%}
                     </div>
+
                 </div>
-                <hr />
                 {%endif%}
-                <!-- SOCIAL ICONS -->
-                <div class="hidden-xs margin-top-30 margin-bottom-60">
-                    <a href="#" class="social-icon social-icon-border social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                        <i class="icon-facebook"></i>
-                        <i class="icon-facebook"></i>
-                    </a>
 
-                    <a href="#" class="social-icon social-icon-border social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                        <i class="icon-twitter"></i>
-                        <i class="icon-twitter"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                        <i class="icon-gplus"></i>
-                        <i class="icon-gplus"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                        <i class="icon-linkedin"></i>
-                        <i class="icon-linkedin"></i>
-                    </a>
-
-                    <a href="#" class="social-icon social-icon-border social-rss pull-left" data-toggle="tooltip" data-placement="top" title="Rss">
-                        <i class="icon-rss"></i>
-                        <i class="icon-rss"></i>
-                    </a>
-                </div>
 
             </div>
         </div>

@@ -33,7 +33,7 @@
             });
 
            This would listen for the 'footable_initialized' event and when called check if the plugin is enabled
-           and if it is alert 'Hello World' to the user.
+           and if it is alert 'Hello World' to the uuu.
         */
       });
     };

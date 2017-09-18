@@ -24,10 +24,10 @@
                                         <a class="btn btn-sm btn-info {%if status == null %}active{%endif%}" href="/admin/order/list">
                                            全部订单
                                         </a>
-                                        <a class="btn btn-sm btn-info {%if status == 2 %}active{%endif%}" href="/admin/order/list/status/2">
+                                        <a class="btn btn-sm btn-info {%if status == 2 %}active{%endif%}" href="/admin/order/list/?status=2">
                                            未审核
                                         </a>
-                                        <a class="btn btn-sm btn-info {%if status == 3 %}active{%endif%}" href="/admin/order/list/status/3">
+                                        <a class="btn btn-sm btn-info {%if status == 3 %}active{%endif%}" href="/admin/order/list/?status=3">
                                            执行中
                                         </a>
                                     </div>
@@ -79,21 +79,21 @@
                                         <td><div class="btn-group">
 		                  <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><i class="fa fa-cog"></i> 处理 <span class="caret"></span></button>
 		                  <ul class="dropdown-menu dropdown-menu-right">
-		                    <li><a href="/admin/order/see/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-eye"></i> 查看</a></li>
-		                   {%if item.pay_status !=1 and item.status != 3 and item.delivery_status != 1 and item.status != 4%} <li><a href="/admin/order/edit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-edit"></i> 编辑</a></li>{%endif%}
-                              {%if item.status ==2 %} <li><a href="/admin/order/audit/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-check-square-o"></i> 审核</a></li>
-                              {%elif item.status ==3 and item.delivery_status == 0%} <li><a href="/admin/order/ship/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-truck"></i> 发货</a></li>
+		                    <li><a href="/admin/order/see/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-eye"></i> 查看</a></li>
+		                   {%if item.pay_status !=1 and item.status != 3 and item.delivery_status != 1 and item.status != 4%} <li><a href="/admin/order/edit/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-edit"></i> 编辑</a></li>{%endif%}
+                              {%if item.status ==2 %} <li><a href="/admin/order/audit/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-check-square-o"></i> 审核</a></li>
+                              {%elif item.status ==3 and item.delivery_status == 0%} <li><a href="/admin/order/ship/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-truck"></i> 发货</a></li>
                               {%endif%}
                               {%if item.status != 6 and item.delivery_status != 2 and item.status ==3%}
-                              <li><a href="/admin/order/finish/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-smile-o"></i> 完成</a></li>
+                              <li><a href="/admin/order/finish/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-smile-o"></i> 完成</a></li>
                               {%endif%}
                               {%if item.status != 6%}
-		                    <li><a href="/admin/order/void/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-trash-o"></i> 作废</a></li>
+		                    <li><a href="/admin/order/void/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-trash-o"></i> 作废</a></li>
                               {%endif%}
                               {%if item.status == 6%}
-                              <li><a href="/admin/order/del/id/{{item.id}}" class="confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a></li>
+                              <li><a href="/admin/order/del/?id={{item.id}}" class="confirm ajax-get"><i class="fa fa-trash-o"></i> 删除</a></li>
                               {%endif%}
-                              <li><a href="/admin/order/remark/id/{{item.id}}" data-toggle="ajaxModal"><i class="fa fa-paperclip"></i> 备注</a></li>
+                              <li><a href="/admin/order/remark/?id={{item.id}}" data-toggle="ajaxModal"><i class="fa fa-paperclip"></i> 备注</a></li>
 		                  </ul>
 		                </div></td>
                                         <td><div class="btn-group dropleft">

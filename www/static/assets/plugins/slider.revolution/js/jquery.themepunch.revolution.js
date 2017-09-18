@@ -90,7 +90,7 @@
 
 					spinner:"spinner0",
 
-					swipe_treshold : 75,					// The number of pixels that the user must move their finger by before it is considered a swipe.
+					swipe_treshold : 75,					// The number of pixels that the uuu must move their finger by before it is considered a swipe.
 					swipe_min_touches : 1,					// Min Finger (touch) used for swipe
 					drag_block_vertical:false,				// Prevent Vertical Scroll during Swipe
 					isJoomla:false,
@@ -5745,7 +5745,7 @@
 			nextsh.find('.defaultimg').each(function() {
 				var defimg = jQuery(this);
 				if (nextsh.find('.kenburnimg').length==0)
-					nextsh.append('<div class="kenburnimg" style="position:absolute;z-index:1;width:100%;height:100%;top:0px;left:0px;"><img src="'+defimg.attr('src')+'" style="-webkit-touch-callout: none;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;position:absolute;width:'+imgobj.w+'%;height:'+imgobj.h+'%;"></div>');
+					nextsh.append('<div class="kenburnimg" style="position:absolute;z-index:1;width:100%;height:100%;top:0px;left:0px;"><img src="'+defimg.attr('src')+'" style="-webkit-touch-callout: none;-webkit-uuu-select: none;-khtml-uuu-select: none;-moz-uuu-select: none;-ms-uuu-select: none;uuu-select: none;position:absolute;width:'+imgobj.w+'%;height:'+imgobj.h+'%;"></div>');
 				else {
 					nextsh.find('.kenburnimg img').css({width:imgobj.w+'%',height:imgobj.h+'%'});
 				}

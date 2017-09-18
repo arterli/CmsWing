@@ -23,10 +23,10 @@
                             <a href="/admin/user/adduser" class="btn btn-sm btn-info " data-toggle="ajaxModal">
                                 添加用户
                             </a>
-                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/status/1/model/member"  target-form="ids">
+                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/?status=1&model=member"  target-form="ids">
                                 启用
                             </a>
-                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/status/0/model/member" target-form="ids">
+                            <a class="btn btn-sm btn-info ajax-post" href="/admin/user/setstatus/?status=0&model=member" target-form="ids">
                                 禁用
                             </a>
                             <a class="btn btn-sm btn-info ajax-post confirm" href="/admin/user/userdel" target-form="ids">
@@ -37,7 +37,7 @@
                     <div class="col-sm-3">
                         <div class="input-group pull-right search-form">
                             <input type="text" class="input-sm form-control" name="username" placeholder="请输入用户名"
-                                   value="{{http.get('username')}}">
+                                   value="{{controller.get('username')}}">
                             <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/user/index">搜索</button>
                       </span>
@@ -67,7 +67,7 @@
                         <tr>
                             <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}{{item.id}}{%endif%}" {%if item.id|in_Array(controller.config('user_administrator'))%}disabled="true"{%endif%}><i></i></label></td>
                             <td>{{item.id}}</td>
-                            <td><a href="/admin/user/showuser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.username}} <i class="fa fa-search-plus"></i> </a> </td>
+                            <td><a href="/admin/user/showuser/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.username}} <i class="fa fa-search-plus"></i> </a> </td>
                             <td>{{item.email}}</td>
                             <td>{{group.name}}</td>
                             <td>{{item.reg_ip|int2ip}}</td>
@@ -76,7 +76,7 @@
                             <td>{{item.score}}</td>
                             <td>
                                 {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
-                                <a href="/admin/user/setstatus/ids/{{item.id}}/status/{{1-item.status}}/model/member" class="active ajax-get" data-toggle="class">
+                                <a href="/admin/user/setstatus/?ids={{item.id}}&status={{1-item.status}}&model=member" class="active ajax-get" data-toggle="class">
                                     <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
                                     <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
                                 </a>
@@ -84,10 +84,10 @@
                             </td>
 
                             <td>
-                                <a href="/admin/user/edituser/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
-                                <a href="/admin/user/recharge/ids/{{item.id}}" class="text-info" data-toggle="ajaxModal">充值</a>
+                                <a href="/admin/user/edituser/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
+                                <a href="/admin/user/recharge/?ids={{item.id}}" class="text-info" data-toggle="ajaxModal">充值</a>
                                 {%if item.id|in_Array(controller.config('user_administrator'))%}{%else%}
-                                <a href="/admin/user/userdel?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
+                                <a href="/admin/user/userdel/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
                                 {%endif%}
                             </td>
                         </tr>

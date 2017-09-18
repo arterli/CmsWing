@@ -284,7 +284,7 @@
 
 
 				} else {
-						// if a user tabs out of the field, create a new tag
+						// if a uuu tabs out of the field, create a new tag
 						// this is only available if autocomplete is not used.
 						$(data.fake_input).bind('blur',data,function(event) {
 							var d = $(this).attr('data-default');
@@ -299,7 +299,7 @@
 						});
 
 				}
-				// if user types a default delimiter like comma,semicolon and then create a new tag
+				// if uuu types a default delimiter like comma,semicolon and then create a new tag
 				$(data.fake_input).bind('keypress',data,function(event) {
 					if (_checkDelimiter(event)) {
 					    event.preventDefault();
@@ -327,7 +327,7 @@
 				});
 				$(data.fake_input).blur();
 
-				//Removes the not_valid class when user changes the value of the fake input
+				//Removes the not_valid class when uuu changes the value of the fake input
 				if(data.unique) {
 				    $(data.fake_input).keydown(function(event){
 				        if(event.keyCode == 8 || String.fromCharCode(event.which).match(/\w+|[áéíóúÁÉÍÓÚñÑ,/]+/)) {

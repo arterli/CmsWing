@@ -1,0 +1,220 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs ">
+    <div class="container">
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="ppanel-body padding-15">
+                        <div class="row">
+                            <!--img-->
+                            <div class="col-lg-5 col-sm-5">
+                                <!-- OWL SLIDER -->
+                                {%set pics = info.fileimgs|strToArray%}
+                                {% if pics|length > 1 %}
+                                <div class="owl-carousel buttons-autohide controlls-over" data-plugin-options='{"items": 1, "autoPlay": 3000, "autoHeight": false, "navigation": true, "pagination": true, "transitionStyle":"fadeUp", "progressBar":"false"}'>
+
+                                    {%for v in pics %}
+                                    <div>
+                                        <img class="img-responsive" src=" {{v|get_pic('m=1,w=336,h=336')}}" alt="">
+                                    </div>
+                                    {%endfor%}
+
+                                </div>
+                                {%else%}
+                                <div>
+                                    <img class="img-responsive" src=" {{pics[0]|get_pic('m=1,w=336,h=336')}}" alt="">
+                                </div>
+                                {%endif%}
+                                <!-- /OWL SLIDER -->
+                            </div>
+                            <div class="col-log-7 col-sm-7">
+                                <!-- buttons -->
+                                <div class="pull-right">
+                                    <!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
+                                    <a class="btn btn-default add-wishlist" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
+                                    <a class="btn btn-default add-compare" href="#" data-item-id="1" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
+                                </div>
+                                <!-- /buttons -->
+
+                                <!-- price -->
+                                <div class="shop-item-price text-danger">
+                                    <h1 class="blog-post-title">{{info.title}}</h1>
+                                </div>
+                                <!-- /price -->
+                                <div class="divider margin-top-10 margin-bottom-10"><!-- divider --></div>
+                                <div class="row">
+                                    <div class="clearfix margin-bottom-10 col-md-6" >
+
+                                        <strong>大小:</strong> {{info.size|format_bytes()}}
+                                    </div>
+                                    <div class="clearfix margin-bottom-10 col-md-6" >
+
+                                        <strong>更新:</strong> {{info.create_time|moment('YYYY-MM-DD HH:mm')}}
+                                    </div>
+                                    <div class="clearfix margin-bottom-10 col-md-6" >
+
+                                        <strong>下载:</strong> {{info.download}}
+                                    </div>
+                                    <div class="clearfix margin-bottom-10 col-md-6" >
+
+                                        <strong>评论:</strong> <a href="#SOHUCS" id="changyan_count_unit"></a>
+                                    </div>
+                                </div>
+                                <div class="divider margin-top-10 margin-bottom-10"><!-- divider --></div>
+                                {% if info.description !=null %}
+                                <!-- short description -->
+                                <small class="text-muted">{{info.description}}</small>
+                                <div class="divider margin-top-10 margin-bottom-10"><!-- divider --></div>
+                                <!-- /short description -->
+                                {% endif %}
+                                {%if info.file_id >0%}
+                                <a href="/dlink/{{info.id}}||1" target="_blank" class="btn btn-3d btn-reveal btn-blue lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>
+                                    <i class="fa fa-download"></i>
+                                    <span>极速下载</span>
+                                </a>
+                                {%endif%}
+                                {%if info.panurl%}
+                                {%set panurl = info.panurl|strToArray("\r\n")%}
+                                {%for url in panurl%}
+                                {%set pu = url|strToArray("|")%}
+                                {%if pu[2]%}
+                                <!-- Modal Ajax Lightbox >-->
+                                <a class="btn btn-3d btn-reveal btn-dirtygreen lightbox" href="/dlink/{{info.id}}||3||{{pu[1]|trim|urlencode}}" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'> {{pu[0]}}</a>
+
+                                {%else%}
+                                <a href="/dlink/{{info.id}}||2||{{pu[1]|trim|urlencode}}" class="btn btn-3d btn-reveal btn-dirtygreen" target="_blank">
+                                    <i class="et-download"></i>
+                                    <span>{{pu[0]}}</span>
+                                </a>
+
+                                {%endif%}
+                                {%endfor%}
+                                {%endif%}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="heading-title heading-dotted text-center margin-bottom-10">
+                            <h4><span>[详细信息]</span></h4>
+                        </div>
+                        <!-- article content -->
+                        <div id="content">
+                            {{info.content[0]|safe}}
+                        </div>
+                        <!-- /article content -->
+                    </div>
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id,cache="1000"%}
+                    {%if tags%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- TAGS -->
+
+                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                        {%for k in tags%}
+                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                            {{k.keyname}}
+                        </a>
+                        {%endfor%}
+                        <!-- /TAGS -->
+                    </div>
+                    {%endif%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    <div class="panel-footer">
+                        <ul class="pager nomargin">
+                            {%if previous.id%}
+                            <li class="previous"><a class="noborder" href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}">&larr; 上一篇:{{previous.title|block(20)}}</a></li>
+                            {%endif%}
+                            {%if next.id%}
+                            <li class="next"><a class="noborder" href="{{next.name|get_url(next.id)}}" title="{{next.title}}">下一篇:{{next.title|block(20)}} &rarr;</a></li>
+                            {%endif%}
+                        </ul>
+                    </div>
+                    {%if config.ext.changyan.is ==1%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- COMMENTS -->
+                        <div id="comments" >
+                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                            <div id="SOHUCS" sid="{{info.id}}"></div>
+                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                            <script type="text/javascript">
+                              window._config = { showScore: true };
+                              window.changyan.api.config({
+                                appid: '{{config.ext.changyan.appid}}',
+                                conf: '{{config.ext.changyan.appkey}}'
+                              });
+                            </script>
+                        </div>
+                        <!-- /COMMENTS -->
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+            <!-- RIGHT -->
+            {% include "./inc_right.html"%}
+
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+{%if config.ext.changyan.is ==1%}
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
+{%endif%}
+<script>
+    uParse('#content', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+
+</script>
+{% endblock %}

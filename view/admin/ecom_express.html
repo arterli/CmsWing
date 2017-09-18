@@ -55,8 +55,8 @@
                         <td>{{item.code}}</td>
                         <td><a data-id="{{item.id}}" href="{{item.url}}" class="text-info" target="_blank">{{item.url}}</a></td>
                         <td>
-                            <a href="/admin/ecom/editexpress/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
-                            <a href="/admin/ecom/delexpress/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                            <a href="/admin/ecom/editexpress/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">编辑</a>
+                            <a href="/admin/ecom/delexpress/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
                     </tr>
                     {% else %}
                     <tr><td colspan="7"><div class="alert alert-warning alert-block">

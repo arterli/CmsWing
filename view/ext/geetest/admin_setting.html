@@ -1,0 +1,57 @@
+{% extends "../../admin/inc/base.html" %}
+{% import "../../cmswing/forms.html" as forms %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class=""><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                    <li class="active"><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
+                </ul>
+                <span class="hidden-sm hide"><a href="/{{ctx.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
+            </header>
+
+            <div class="row wrapper" style="padding-bottom: 0">
+                <div class="panel-body">
+                    <form action="/{{ctx.controller}}/setting" class="form-horizontal" method="post" data-validate="parsley">
+                            <!--自定义配置开始-->
+
+                        <!--文本框-->
+                        {{forms.input(setting,label= 'ID', name= 'id', value='a0ccb2093b56b13431205fcd98bf2e77', html= '在极验申请到的 ID ,填写到此处')}}
+                        <!--文本框-->
+                        {{forms.input(setting,label= 'KEY', name= 'key', value='80f1eea5c0fae877fc8270c946b6fb66', html= '在极验申请到的 KEY ,填写到此处。')}}
+                        <!--单选，是否开启QQ登录-->
+                        {{forms.radio(setting,label='前台登录验证', name='isl', value={"1":'开启',"0":'关闭'},html='是否开启、关闭前台登录验证码。')}}
+                        <!--单选，是否开启QQ登录-->
+                        {{forms.radio(setting,label='后台登录验证', name='isa', value={"1":'开启',"0":'关闭'},html='是否开启、关闭后台登录验证码。')}}
+                          <!--自定义配置结束-->
+                        <div class="form-group form-submit">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <input type="hidden" name="ext" value="{{controller.ext.ext}}"/>
+                                <button type="submit" target-form="form-horizontal"
+                                        class="btn btn-primary ajax-post">保存
+                                </button>
+                                <button type="submit" class="btn btn-default"
+                                        onclick="javascript:history.back(-1);return false;">返回
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

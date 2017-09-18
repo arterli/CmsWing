@@ -9,23 +9,23 @@
                         <section class="panel panel-default">
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/apply">审核申请</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/setting">插件配置</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/type">分类管理</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class="active"><a  href="/{{ctx.controller}}/apply">审核申请</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/setting">插件配置</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/type">分类管理</a></li>
                                 </ul>
-                                <span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
+                                <span class="hidden-sm"><a href="/{{ctx.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>
                             </header>
                             {#
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
                                     <div class="btn-group" >
-                                        <a href="/{{http.module}}/{{http.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
+                                        <a href="/{{ctx.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
                                              全部
                                         </a>
                                        {%for t in type%}
-                                        <a href="/{{http.module}}/{{http.controller}}/index/typeid/{{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
+                                        <a href="/{{ctx.controller}}/index/?typeid={{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
                                             {{t.name}}
                                         </a>
                                         {%endfor%}
@@ -53,8 +53,8 @@
                                         <td>{{item.logo}}</td>
                                         <td>
 
-                                            <a href="/{{http.module}}/{{http.controller}}/ajaxedit/id/{{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/del/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                                            <a href="/{{ctx.controller}}/ajaxedit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                                            <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
 
                                     </tr>
                                     {% else %}
@@ -74,8 +74,8 @@
 
                                     <div class="col-sm-6 text-center-xs">
                                         <div class="btn-group">
-                                            <a href="/{{http.module}}/{{http.controller}}/apply" class="btn btn-default ajax-post" target-form="ids">审核</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
+                                            <a href="/{{ctx.controller}}/apply" class="btn btn-default ajax-post" target-form="ids">审核</a>
+                                            <a href="/{{ctx.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
                                         </div>
                                     </div>
 

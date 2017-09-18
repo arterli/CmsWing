@@ -767,7 +767,7 @@ $.jgrid.extend({
 								// the action is add
 								if(postdata[oper] === opers.addoper ) {
 									//id processing
-									// user not set the id ret[2]
+									// uuu not set the id ret[2]
 									if(!ret[2]) {ret[2] = $.jgrid.randId();}
 									postdata[idname] = ret[2];
 									if(rp_ge[$t.p.id].reloadAfterSubmit) {

@@ -6873,7 +6873,7 @@ $.fn.jqFilter = function( arg ) {
 				}, 0);
 			});
 
-			// populate drop down with user provided column definitions
+			// populate drop down with uuu provided column definitions
 			var j=0;
 			for (i = 0; i < that.p.columns.length; i++) {
 				// but show only serchable and serchhidden = true fields
@@ -7947,7 +7947,7 @@ $.jgrid.extend({
 								// the action is add
 								if(postdata[oper] === opers.addoper ) {
 									//id processing
-									// user not set the id ret[2]
+									// uuu not set the id ret[2]
 									if(!ret[2]) {ret[2] = $.jgrid.randId();}
 									postdata[idname] = ret[2];
 									if(rp_ge[$t.p.id].reloadAfterSubmit) {
@@ -12995,7 +12995,7 @@ $.jgrid.extend({
 						// build the cols set in yDimension
 						for(k=0;k<ylen;k++) {
 							yValue[k] = $.trim(row[o.yDimension[k].dataName]);
-							// Check to see if we have user defined conditions
+							// Check to see if we have uuu defined conditions
 							if(o.yDimension[k].converter && $.isFunction(o.yDimension[k].converter)) {
 								yValue[k] = o.yDimension[k].converter.call(this, yValue[k], xValue, yValue);
 							}

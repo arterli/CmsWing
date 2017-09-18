@@ -1,0 +1,59 @@
+<div class="col-lg-2 col-md-2 col-sm-4">
+
+
+		<!-- SIDE NAV -->
+		<ul class="side-nav list-group margin-bottom-60" id="sidebar-nav">
+			<li class="list-group-item {% if ctx.action == 'index' and ctx.controller == 'center/index' %}active{%endif%}"><a href="/center/index"><i class="fa fa-home"></i> 用户主页</a></li>
+			<li class="list-group-item list-toggle {% if ctx.controller == 'center/publish' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-0"><i class="fa fa-newspaper-o"></i> 内容管理</a>
+				<ul id="collapse-0" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
+					<li><a href="/center/publish" ><i class="fa fa-angle-right"></i> 在线投稿</a></li>
+					<li><a href="/center/publish/approval" class="{% if ctx.action == 'approval' %}text-primary{%endif%}" ><i class="fa fa-angle-right"></i> 待审稿件</a></li>
+				</ul>
+			</li>
+			{% if 4|getmode('')|length>0 %}
+			<li class="list-group-item list-toggle {% if ctx.controller == 'center/order' %}active{%endif%}">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-1"><i class="fa fa-shopping-cart"></i> 交易管理</a>
+				<ul id="collapse-1" class="collapse in" ><!-- NOTE: "collapse in" to be open on page load -->
+					<li><a href="/center/order" class="{% if ctx.action == 'index' and ctx.controller == 'center/order'%}text-primary{%endif%}" ><i class="fa fa-angle-right"></i> 我的订单</a></li>
+					{#
+					<li><a href="#"><i class="fa fa-angle-right"></i> 退款申请</a></li>
+					<li><a href="#"><i class="fa fa-angle-right"></i> 我的关注</a></li>
+					#}
+				</ul>
+			</li>
+			{#
+			<li class="list-group-item list-toggle">   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-2" ><i class="fa fa-server"></i> 客户服务</a>
+				<ul id="collapse-2" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
+					<li class="{% if http.action == 'order' %}active{%endif%}"><a href="#"><i class="fa fa-angle-right"></i> 商品咨询</a></li>
+					<li>
+						<a href="#" ><i class="fa fa-angle-right"></i> 商品评价</a>
+					</li>
+					<li class="active"><a href="#"><i class="fa fa-angle-right"></i> 我的消息</a></li>
+
+				</ul>
+			</li>
+			#}
+			{%endif%}
+			<li class="list-group-item list-toggle {{ 'active' if (controller.tactive === 'user')}}" >   <!-- NOTE: "active" to be open on page load -->
+				<a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-3">
+					<i class="fa fa-user"></i> 账户管理</a>
+				<ul id="collapse-3" class="collapse in"><!-- NOTE: "collapse in" to be open on page load -->
+					<li>
+						<a href="/center/seting" class="{{'text-primary' if (ctx.url =='/center/seting')}}"><i class="fa fa-angle-right"></i> 个人设置</a></li>
+					<li>
+						<a href="/center/address" class="{{'text-primary' if (ctx.url =='/center/address')}}"><i class="fa fa-angle-right"></i> 收货地址</a>
+					</li>
+					{#
+					<li><a href="#"><i class="fa fa-angle-right"></i> 我的优惠券</a></li>
+					#}
+					<li><a href="/center/account" class="{{'text-primary' if (ctx.url =='/center/account')}}"><i class="fa fa-angle-right"></i> 账户金额</a></li>
+					{#<li><a href="#"><i class="fa fa-angle-right"></i> 我的积分</a></li>#}
+				</ul>
+			</li>
+			<li class="list-group-item"><a href="/center/public/logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+		</ul>
+		<!-- /SIDE NAV -->
+
+	</div>

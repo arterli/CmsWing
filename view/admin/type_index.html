@@ -11,7 +11,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog text-muted"></i> 字段管理 <b class="caret"></b></a>
                 <ul class="dropdown-menu text-left">
                  {% for val in typeoption %}
-                    <li><a href="/admin/type/typeoption/classid/{{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
+                    <li><a href="/admin/type/typeoption/?classid={{val.optionid}}" style="padding-top: 5px;padding-bottom: 5px">{{val.title}}</a></li>
                     {%endfor%}
                 </ul>
             </li>
@@ -51,14 +51,14 @@
                         <td>
                             {%set i = 1%}
                             {% for v in val.cate%}
-                           {%if i !=1%}, {%endif%}<a href="/admin/category/edit/cid/{{v.id}}" class="text-info">{{v.title}}</a>
+                           {%if i !=1%}, {%endif%}<a href="/admin/category/edit/?cid={{v.id}}" class="text-info">{{v.title}}</a>
                             {% set i = i+1%}
                             {%else%}
                             <span class="text-muted">无关联</span>
                             {%endfor%}
                         </td>
 
-                        <td><a href="/admin/type/typeview/typeid/{{val.typeid}}" class="text-info"> 详情</a> <a href="#" class="text-info"> 模版</a> <a href="#" class="text-info"> 导出</a></td>
+                        <td><a href="/admin/type/typeview/?typeid={{val.typeid}}" class="text-info"> 详情</a> <a href="#" class="text-info"> 模版</a> <a href="#" class="text-info"> 导出</a></td>
                     </tr>
                     {%endfor%}
 

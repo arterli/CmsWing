@@ -11,9 +11,9 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li {%if http.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/home"><i class="icon-screen-desktop text-muted"></i>
+                            <li {%if controller.get('type')!=2%}class="active"{%endif%}><a  href="/admin/template/home"><i class="icon-screen-desktop text-muted"></i>
                                 PC端模板 </a></li>
-                            <li {%if http.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/home/type/2"><i
+                            <li {%if controller.get('type')==2%}class="active"{%endif%}><a  href="/admin/template/home/?type=2"><i
                                     class="icon-screen-smartphone text-muted"></i> 移动端模板</a>
                             </li>
                         </ul>
@@ -57,11 +57,11 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-3 hide">
                                     <div class="input-group pull-right search-form">
                                         <input type="text" class="input-sm form-control"
                                                name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
+                                               value="{{controller.get('title')}}">
                                         <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button" id="search"
                                 url="/admin/cms/list/model/{{model.name}}">搜索</button>
@@ -94,7 +94,7 @@
                                     <div class="col-sm-4 col-sm-offset-2">
                                         <button class="btn btn-primary btn-s-md ajax_post_temp">修改</button>
                                         <button class="btn btn-default">重置</button>
-                                        <a class="btn btn-default" href="/admin/template/tempbak/module/{{temp.module}}/controller/{{temp.controller}}/action/{{temp.action}}/type/{{temp.type}}/pid/{{temp.id}}" data-toggle="ajaxModal">修改记录</a>
+                                        <a class="btn btn-default" href="/admin/template/tempbak/?module={{temp.module}}&controller={{temp.controller}}&action={{temp.action}}&type={{temp.type}}&pid={{temp.id}}" data-toggle="ajaxModal">修改记录</a>
                                     </div>
                                 </div>
                             </footer>

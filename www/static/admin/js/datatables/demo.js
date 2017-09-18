@@ -22,7 +22,7 @@ function initTable() {
         "bProcessing": true,
         "serverSide": true,
         //"ajax": "/static/js/datatables/datatable.json",
-        "ajax": "/admin/user/userlist",
+        "ajax": "/admin/uuu/userlist",
         "sDom": "<'row'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
         "sPaginationType": "full_numbers",
         "bSort": false,
@@ -41,7 +41,7 @@ function initTable() {
             {
                 "mRender": function (data, type, row) {
 
-                    return '<a data-toggle="ajaxModal" class="btn btn-info btn-xs" href="/admin/user/recharge/ids/' + data + '">充值</a> <a class="btn btn-info btn-xs" href="#' + data + '">编辑</a> ' +
+                    return '<a data-toggle="ajaxModal" class="btn btn-info btn-xs" href="/admin/uuu/recharge/ids/' + data + '">充值</a> <a class="btn btn-info btn-xs" href="#' + data + '">编辑</a> ' +
                         ' <a class="btn btn-info btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';
                 }, "bSortable": false, "aTargets": [11]
             },
@@ -178,7 +178,7 @@ $(document).on('click', ".recharge", function (e) {
         closeOnConfirm: false
     }, function () {
         $.ajax({
-            url:"/admin/user/recharge",
+            url:"/admin/uuu/recharge",
             data:{balance:balance,id:id},
             type:"POST",
             success:function (res) {
@@ -207,7 +207,7 @@ function _addFun() {
         swal("请选择用户组!");
     }
     $.ajax({
-        url: "/admin/user/adduser",
+        url: "/admin/uuu/adduser",
         data: jsonData,
         type: "post",
         success: function (backdata) {
@@ -256,7 +256,7 @@ function isPriceNumber(_keyword){
  */
 function _chsta(status, id) {
     $.ajax({
-        url: "/admin/user/chsta",
+        url: "/admin/uuu/chsta",
         data: {status: status, id: id},
         success: function (res) {
             if (res) {
@@ -287,7 +287,7 @@ function _deleteFun(id) {
         },
         function () {
             $.ajax({
-                url: "/admin/user/userdel",
+                url: "/admin/uuu/userdel",
                 data: {"id": id},
                 type: "post",
                 success: function (backdata) {

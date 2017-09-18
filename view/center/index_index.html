@@ -1,0 +1,120 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<!-- -->
+<section >
+  <div class="container">
+    <div class="row bg1x1">
+      <!-- LEFT -->
+      {% include "./inc/user_left.html" %}
+      <!-- RIGHT -->
+      <div class="col-lg-10 col-md-10 col-sm-8">
+
+        <!-- FLIP BOX -->
+        <div class="box-flip box-icon box-icon-center box-icon-round box-icon-large text-center nomargin">
+          <div class="front1">
+            <div class="box1 noradius">
+              <div class="box-icon-title text-center">
+                <img src="/u/avatar"  class=" rounded" alt="{{controller.user.username}}" style="width: 65px" />
+                <h2>尊敬的会员 <span class="text-danger">{{controller.user.username}}</span>  ，欢迎您！</h2>
+              </div>
+              <p>最后一次登录：{{controller.user.last_login_time|dateformat('Y-m-d H:i:s')}}</p>
+            </div>
+          </div>
+
+          <div class="back hide">
+            <div class="box2 noradius">
+              <h4>WHO AM I?</h4>
+              <hr />
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque. Ut enim massa, sodales tempor convallis et, iaculis ac massa. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc. Nam et lacus neque.</p>
+            </div>
+          </div>
+        </div>
+        <!-- /FLIP BOX -->
+        <div class="box-light margin-top-20 nopadding"><!-- .box-light OR .box-dark -->
+          <div class="box-inner">
+            <ul class="row clearfix testimonial-dotted list-unstyled">
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover fa fa-star-half-full "></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">会员级别： </h5>
+                    <span class="text-danger">{{userInfo.name}}</span>
+                  </div>
+                </div>
+              </li>
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover icon-wallet"></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">账户余额： </h5>
+                    ￥<span class="text-danger">{%if userInfo.amount %}{{userInfo.amount|formatCurrency}}{%else%}0.00{%endif%}</span>
+                  </div>
+                </div>
+              </li>
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover icon-diamond"></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">我的积分： </h5>
+                    <span class="text-danger">{%if userInfo.score %}{{userInfo.score}}{%else%}0{%endif%}</span>
+
+                  </div>
+                </div>
+              </li>
+              {% if 4|getmode('')|length>0 %}
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover et-calendar"></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">订单交易总金额： </h5>
+                    ￥<span class="text-danger">{%if orderTotal %}{{orderTotal|formatCurrency}}{%else%}0.00{%endif%}</span>
+                  </div>
+                </div>
+              </li>
+
+
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover fa fa-hourglass-half"></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">进行中的订单： </h5>
+                    <span class="text-danger">{{onOrder}}</span> 笔
+                  </div>
+                </div>
+              </li>
+              <li class="col-md-4">
+                <div class="testimonial">
+                  <figure class="pull-left">
+                    <i class="ico-light ico-rounded ico-hover fa fa-balance-scale"></i>
+                  </figure>
+                  <div class="testimonial-content">
+                    <h5 class="margin-bottom-8">待评价的商品： </h5>
+                    0
+
+                  </div>
+                </div>
+              </li>
+              {%endif%}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+
+{% endblock %}

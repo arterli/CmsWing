@@ -1,0 +1,302 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/jquery-zsylbt/css/pgwslideshow.min.css">
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header  page-header-xs" >
+    <div class="container">
+{#
+        <h1>{{category.title}}</h1>
+#}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+{#
+        <!-- page tabs -->
+        {%column data="cate",pid=category.pid%}
+        {%if cate%}
+        <ul class="page-header-tabs list-inline">
+
+            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            {%for val in cate%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}<!-- /page tabs -->
+        #}
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+<!-- -->
+<section class="padding-0 " style=" background-color:#fff">
+    <div class="container">
+        <!-- OWL SLIDER -->
+
+        <ul class="pgwSlideshow">
+            {%set picurls = info.pictureurls|strToArray%}
+            {%set i =0%}
+            {%for v in picurls%}
+            <li><img src="{{v|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v|get_pic('m=0,w=847,h=640')}}" alt="" data-description="{{info.content[i]|delhtmltags}}"></li>
+            {%set i=i+1%}
+            {%endfor%}
+        </ul>
+
+
+        <!-- /OWL SLIDER -->
+    </div>
+</section>
+<!-- / -->
+<!--
+				PAGE HEADER
+
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header  page-header-xs ">
+    <div class="container">
+
+        <h1 class="blog-post-title size-18">{{info.title}}</h1>
+        <ul class="page-options list-inline">
+            {%if previous.id%}
+            <li><a href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}" class="glyphicon glyphicon-menu-left"></a></li>
+            {%endif%}
+            {%set backcate = info.category_id|get_cate%}
+            <li><a href="{{backcate.url}}" class="glyphicon glyphicon-th-large"></a></li>
+            {%if next.id%}
+            <li><a href="{{next.name|get_url(next.id)}}" title="{{next.title}}" class="glyphicon glyphicon-menu-right"></a></li>
+            {%endif%}
+        </ul>
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id,cache="1000"%}
+                    {%if tags%}
+                    <div class="panel-heading panel-heading-transparent">
+                        <!-- TAGS -->
+
+                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                        {%for k in tags%}
+                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                            {{k.keyname}}
+                        </a>
+                        {%endfor%}
+                        <!-- /TAGS -->
+                    </div>
+                    {%endif%}
+                    <div class="panel-body ">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    {%if config.ext.changyan.is ==1%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- COMMENTS -->
+                        <div id="comments" >
+                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                            <div id="SOHUCS" sid="{{info.id}}"></div>
+                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                            <script type="text/javascript">
+                              window._config = { showScore: true };
+                              window.changyan.api.config({
+                                appid: '{{config.ext.changyan.appid}}',
+                                conf: '{{config.ext.changyan.appkey}}'
+                              });
+                            </script>
+                        </div>
+                        <!-- /COMMENTS -->
+                    </div>
+                    {%endif%}
+
+                </div>
+            </div>
+            <!-- RIGHT -->
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="portfolio-detail-list list-unstyled nomargin">
+                            <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> {{info.uid|get_nickname}}</li>
+                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{info.create_time|moment('YYYY-MM-DD HH:mm')}}</li>
+                            <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span>{%set nn = 1%} {%for val in breadcrumb %}{%if nn != 1%} /{%endif%} <a href="{{val.url}}">{{val.title}}</a>{%set nn = nn+1%}{% endfor %}</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading">
+                        <!-- tabs -->
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">
+                                    最热
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">
+                                    最新
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!-- /post -->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",cache="1000"%}
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+                            {% topic data = "newlist",limit= "5",cid=category.id,cache="1000"%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+                    </div>
+                </div>
+                <!-- TAGS -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-primary btn-xs pull-right">更多</a>
+                        <h2 class="panel-title">话题</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        {% keywords data ="kws",type="hot",cache="1000"%}
+                        {%for key in kws%}
+                        <a class="tag" href="{{key.url}}">
+                            <span class="txt">{{key.keyname}}</span>
+                            <span class="num">{{key.videonum}}</span>
+                        </a>
+                        {%endfor%}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+<script type="text/javascript" src="/static/assets/plugins/jquery-zsylbt/js/pgwslideshow.min.js"> </script>
+<script>
+    $(document).ready(function() {
+        $('.pgwSlideshow').pgwSlideshow( {
+            mainClassName : 'pgwSlideshow',
+            transitionEffect : 'sliding',
+            displayList : true,
+            displayControls : true,
+            touchControls : true,
+            autoSlide : false,
+            beforeSlide : false,
+            afterSlide : false,
+            //maxHeight : 700,
+            adaptiveDuration : 200,
+            transitionDuration : 500,
+            intervalDuration : 3000
+        });
+
+    });
+    uParse('#content', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{%if config.ext.changyan.is ==1%}
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
+{%endif%}
+{% endblock %}

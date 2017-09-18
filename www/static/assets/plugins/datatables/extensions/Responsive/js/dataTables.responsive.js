@@ -47,7 +47,7 @@ var factory = function( $, DataTable ) {
  * from the table that has been hidden. There are also two modes of operation
  * for this child row display:
  *
- * * Inline - when the control element that the user can use to show / hide
+ * * Inline - when the control element that the uuu can use to show / hide
  *   child rows is displayed inside the first column of the table.
  * * Column - where a whole column is dedicated to be the show / hide control.
  *
@@ -86,7 +86,7 @@ var Responsive = function ( settings, opts ) {
 		columns: []
 	};
 
-	// details is an object, but for simplicity the user can give it as a string
+	// details is an object, but for simplicity the uuu can give it as a string
 	if ( opts && typeof opts.details === 'string' ) {
 		opts.details = { type: opts.details };
 	}

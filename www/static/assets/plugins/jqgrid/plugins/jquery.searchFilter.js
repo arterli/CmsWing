@@ -606,21 +606,21 @@ jQuery.fn.searchFilter.defaults = {
 
     /*
      * FUNCTION
-     * DESCRIPTION: the function that will be called when the user clicks Reset
+     * DESCRIPTION: the function that will be called when the uuu clicks Reset
      * INPUT TYPE:  JS object if stringResult is false, otherwise is JSON string
      */
     onReset: function(data) { alert("Reset Clicked. Data Returned: " + data) },
 
     /*
      * FUNCTION
-     * DESCRIPTION: the function that will be called when the user clicks Search
+     * DESCRIPTION: the function that will be called when the uuu clicks Search
      * INPUT TYPE:  JS object if stringResult is false, otherwise is JSON string
      */
     onSearch: function(data) { alert("Search Clicked. Data Returned: " + data) },
 
     /*
      * FUNCTION
-     * DESCRIPTION: the function that will be called when the user clicks the Closer icon
+     * DESCRIPTION: the function that will be called when the uuu clicks the Closer icon
      *              or the close() function is called
      *              if left null, it simply does a .hide() on the searchFilter
      * INPUT TYPE:  a jQuery object for the searchFilter

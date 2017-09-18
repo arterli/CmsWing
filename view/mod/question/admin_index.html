@@ -18,7 +18,7 @@
                             {% for nav in breadcrumb%} {% if controller.m_cate.id == nav.id %}
                             <li class="active">{{nav.title}}  </li>
                             {%else%}
-                            <li><a href="/mod/admin/index/cate_id/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            <li><a href="/admin/mod/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
                             {% endif %} {% endfor %} {%if article.id >0 %}
                             <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
                         </ul>
@@ -45,9 +45,9 @@
                                 <div class="col-sm-3">
                                     <div class="input-group pull-right search-form">
                                         <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
-                                               value="{{http.get('title')}}">
+                                               value="{{controller.get('title')}}">
                                         <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button" id="search" url="/mod/admin/index/cate_id/{{http.get('cate_id')}}">搜索</button>
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/mod/{{controller.get('cate_id')}}">搜索</button>
                       </span>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                             {% if groups %}
                             <header class="panel-heading">
                                 <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
-                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/mod/admin/index/cate_id/{{http.get('cate_id')}}/group_id/{{key}}"  class="text-info">{{val}}</a>{%
+                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/admin/mod/{{controller.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/mod/{{controller.get('cate_id')}}/?group_id={{key}}"  class="text-info">{{val}}</a>{%
                                 else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]
                             </header>
                             {% endif %}
@@ -86,14 +86,14 @@
                                                 <input class="ids" type="checkbox" name="ids" value="{{data.id}}"><i></i></label>
                                         </td>
 
-                                        <td><a href="/mod/question/{{data.id}}" target="_blank" class="text-info">{{data.title}}</a></td>
+                                        <td><a href="/q/{{data.id}}" target="_blank" class="text-info">{{data.title}}</a></td>
                                         <td>{{data.answer_count}}</td>
                                         <td>{{data.focus_count}}</td>
                                         <td>{{data.view}}</td>
                                         <td><a href="#" class="text-info">{{data.uid|get_nickname}}</a></td>
                                         <td>{{data.create_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
                                         <td>{{data.update_time|moment("YYYY-MM-DD HH:mm:ss")}}</td>
-                                        <td><a href="/mod/question/sys/edit/id/{{data.id}}" target="_blank" class="text-info">编辑</a></td>
+                                        <td><a href="/mod/question/sys/edit/?id={{data.id}}" target="_blank" class="text-info">编辑</a></td>
                                     </tr>
                                     {% else %}
                                     <tr>

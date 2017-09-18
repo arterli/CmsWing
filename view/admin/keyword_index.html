@@ -13,8 +13,8 @@
         <section class="panel panel-default">
             <header class="panel-heading clearfix">
                 <ul class="nav nav-tabs pull-left">
-                    <li class="{{http.get('type')|default('active', true)}}"><a  href="/admin/keyword/index"> 话题列表 </a></li>
-                    <li class="{%if http.get('type')=='parent'%}active{%endif%}"><a  href="/admin/keyword/index/type/parent">根话题</a>
+                    <li class="{{controller.get('type')|default('active', true)}}"><a  href="/admin/keyword/index"> 话题列表 </a></li>
+                    <li class="{%if controller.get('type')=='parent'%}active{%endif%}"><a  href="/admin/keyword/index/?type=parent">根话题</a>
                     <li ><a class="todo"  href="/admin/keyword/search">搜索</a>
                     <li ><a class="todo" href="/admin/keyword/today">今日话题</a>
                     </li>
@@ -25,13 +25,13 @@
                 <div class="col-sm-9 m-b-xs">
                     <a href="/admin/keyword/add" class="btn  btn-info" >新建话题</a>
                     <a class="btn btn-info ajax-post confirm" target-form="ids" href="/admin/keyword/del">删除话题</a>
-                    <a class="btn  btn-info ajax-post" target-form="ids" href="/admin/keyword/lock/lock/1" >锁定话题</a>
+                    <a class="btn  btn-info ajax-post" target-form="ids" href="/admin/keyword/lock/?lock=1" >锁定话题</a>
 
                 </div>
                 <div class="col-sm-3">
                     <div class="input-group pull-right search-form">
                         <input type="text" class="input-sm form-control" name="keyname" placeholder="请输入关键字"
-                               value="{{http.get('keyname')}}">
+                               value="{{controller.get('keyname')}}">
                         <span class="input-group-btn">
                         <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/keyword/index">搜索</button>
                       </span>
@@ -64,7 +64,7 @@
                         <td>{{ item.videonum }}</td>
                         <td>{{ item.focus_count}}</td>
                         <td>{%if item.merged_id==0%}否{%else%}是{%endif%}</td>
-                        <td> <a href="/admin/keyword/lock/ids/{{item.id}}/lock/{{1-item.lock}}" class="active ajax-get" data-toggle="class">
+                        <td> <a href="/admin/keyword/lock/?ids={{item.id}}&lock={{1-item.lock}}" class="active ajax-get" data-toggle="class">
                             <i class="fa fa-lock text-danger {%if item.lock %}text-active{%else%}text{%endif%}"></i>
                             <i class="fa fa-unlock text-success {%if item.lock %}text{%else%}text-active{%endif%}"></i>
                         </a></td>
@@ -73,8 +73,8 @@
                             {{item.add_time|moment('YYYY-MM-DD HH:mm:ss')}}
                         </td>
                         <td>
-                            <a href="/admin/keyword/edit/id/{{item.id}}" class="text-info">编辑</a>
-                            <a href="/admin/keyword/del/ids/{{item.id}}" class="text-info ajax-get confirm" >删除</a>
+                            <a href="/admin/keyword/edit/?id={{item.id}}" class="text-info">编辑</a>
+                            <a href="/admin/keyword/del/?ids={{item.id}}" class="text-info ajax-get confirm" >删除</a>
                         </td>
                     </tr>
                     {% endfor %}

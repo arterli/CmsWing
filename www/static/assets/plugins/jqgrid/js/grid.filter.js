@@ -402,7 +402,7 @@ $.fn.jqFilter = function( arg ) {
 				}, 0);
 			});
 
-			// populate drop down with user provided column definitions
+			// populate drop down with uuu provided column definitions
 			var j=0;
 			for (i = 0; i < that.p.columns.length; i++) {
 				// but show only serchable and serchhidden = true fields

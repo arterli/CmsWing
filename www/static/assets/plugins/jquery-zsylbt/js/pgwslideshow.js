@@ -48,7 +48,7 @@
         // Init
         var init = function() {
 
-            // Merge user options with the default configuration
+            // Merge uuu options with the default configuration
             pgwSlideshow.config = $.extend({}, defaults, options);
 
             // Setup

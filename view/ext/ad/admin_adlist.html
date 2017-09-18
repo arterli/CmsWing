@@ -3,7 +3,7 @@
                 <section class="vbox">
                     <header class="header bg-light dk">
                         <ul class="nav nav-tabs pull-left">
-                            <li ><a href="/{{http.module}}/{{http.controller}}"  class="grouplist"> {{controller.meta_title}}</a></li>
+                            <li ><a href="/{{ctx.controller}}/index"  class="grouplist"> {{controller.meta_title}}</a></li>
                             <li class="active"><a href="javascript:void(0)"  class="grouplist"> {{space.name}}</a></li>
                         </ul>
                     </header>
@@ -13,9 +13,9 @@
                             {#
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="active"><a  href="/{{http.module}}/{{http.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/temp">模板设置</a></li>
-                                    <li class=""><a  href="/{{http.module}}/{{http.controller}}/type">插件配置</a></li>
+                                    <li class="active"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/temp">模板设置</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/type">插件配置</a></li>
                                 </ul>
                                 <!--<span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>-->
                             </header>
@@ -23,8 +23,8 @@
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
-                                    <a href="/{{http.module}}/{{http.controller}}/addad/spaceid/{{space.spaceid}}" class="btn btn-s-md btn-primary" >添加广告</a>
-                                    <a href="/{{http.module}}/{{http.controller}}/adcache" class="btn btn-s-md btn-dark ajax-get">更新广告缓存</a>
+                                    <a href="/{{ctx.controller}}/addad/?spaceid={{space.spaceid}}" class="btn btn-s-md btn-primary" >添加广告</a>
+                                    <a href="/{{ctx.controller}}/adcache" class="btn btn-s-md btn-dark ajax-get">更新广告缓存</a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -65,9 +65,9 @@
                                         <td>{{item.addtime|moment('YYYY-MM-DD HH:mm:ss')}}</td>
                                         <td>
 
-                                            <a href="/{{http.module}}/{{http.controller}}/editad/id/{{item.id}}" class="text-info" >修改</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/delad/ids/{{item.id}}" class="confirm ajax-get text-info">删除</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/tj" class="confirm ajax-get text-info">统计</a>
+                                            <a href="/{{ctx.controller}}/editad/?id={{item.id}}" class="text-info" >修改</a>
+                                            <a href="/{{ctx.controller}}/delad/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
+                                            {#<a href="/{{ctx.controller}}/tj" class="confirm ajax-get text-info">统计</a>#}
 
                                         </td>
 
@@ -90,10 +90,10 @@
 
                                     <div class="col-sm-6 text-center-xs">
                                         <div class="btn-group">
-                                            <a href="/{{http.module}}/{{http.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/setstatus/model/ext_ad/status/1" class="btn btn-default ajax-post" target-form="ids">启用</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/setstatus/model/ext_ad/status/0" class="btn btn-default ajax-post" target-form="ids">停用</a>
-                                            <a href="/{{http.module}}/{{http.controller}}/delad" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
+                                            <a href="/{{ctx.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>
+                                            <a href="/{{ctx.controller}}/setstatus/?model=ext_ad&status=1" class="btn btn-default ajax-post" target-form="ids">启用</a>
+                                            <a href="/{{ctx.controller}}/setstatus/?model=ext_ad&status=0" class="btn btn-default ajax-post" target-form="ids">停用</a>
+                                            <a href="/{{ctx.controller}}/delad" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
                                         </div>
                                     </div>
 

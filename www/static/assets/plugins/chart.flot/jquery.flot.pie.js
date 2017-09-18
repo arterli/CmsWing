@@ -179,7 +179,7 @@ More detail and specific examples can be found in the included HTML file.
 
 				// Note how we use the original array, rather than creating a
 				// new one; this is more efficient and preserves any extra data
-				// that the user may have stored in higher indexes.
+				// that the uuu may have stored in higher indexes.
 
 				if ($.isArray(value) && value.length == 1) {
     				value = value[0];

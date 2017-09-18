@@ -1,0 +1,372 @@
+{% extends "./inc_base.html" %}
+{% block style %}
+{%if category.pid !=0%}
+{%column data="column",pid=category.pid%}
+{%else%}
+{%column data="column",cid=category.id%}
+{%endif%}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+{% endblock %}
+{% block content %}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs">
+    <div class="container">
+        {%if column|length>0%}
+        <h1>{{category.title}}</h1>
+        {%endif%}
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb {%if column|length==0%} breadcrumb-inverse {%endif%}">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {%if column|length==0%} <li>{{info.title}} </li>{%endif%}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+        <!-- page tabs -->
+        {%if column|length >0%}
+        <ul class="page-header-tabs list-inline">
+            <li {%if breadcrumb[0].id == category.id %}class="active"{%endif%}><a href="{{breadcrumb[0].url}}">全部</a></li>
+            {%for val in column%}
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
+            {%endfor%}
+        </ul>
+        {%endif%}<!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section class="container padding-top-15 padding-bottom-15">
+    <!-- OWL SLIDER -->
+    <div class="video_bg">
+        <div id="video-box" style="width: 860px; height: 484px">
+
+        </div>
+        {% if plist%}
+        <div class="listbox" id="player_sidebar">
+
+            <ul class="nav nav-tabs nav-justified">
+                <li class="active"><a href="#home" data-toggle="tab" class="size-16">选集</a></li>
+                <li></li>
+                {# <li><a href="#profile" data-toggle="tab">会员</a></li>#}
+            </ul>
+
+            <div class="tab-content slim-scroll" data-height="440px" data-size="10px">
+                <div class="tab-pane fade in active " id="home">
+                    <div class="subscribe hide">
+                        <span class="m_img"><a href="#" target="_blank" charset="hz-4009164-1000705"><img src="{{pinfo.cover_id|get_pic('m=1,w=50,h=50')}}" alt="{{pinfo.title}}"></a></span>
+                        <span class="m_title" id="subnamelistarea"><a href="#" data-from="hz-4009165-1000705" charset="hz-4009165-1000705" target="_blank">{{pinfo.title}}</a><a href="#" target="_blank" title="道长等级：12"><i class="lvl12"></i></a></span>
+                        <span class="m_action" id="officiallistfollow">
+				<div class="sub_action " id="user_follow_info_official"><div class="btn btn-info btn-sm" id="subscribe_official" subname="" subimg="" data-stat-role="ck"><span class="form_btn_text">订&nbsp;&nbsp;阅</span></div></div>
+		    	<div class="sub_state" style="display: block;"><span class="num" id="user_fans_num_official">186.2万</span><b class="arrow"><em class="arrow_bg">◆</em><em class="arrow_co">◆</em></b></div>
+		    </span>
+                    </div>
+                    <div class="tvinfo ">
+
+                        <a class="iku_share" id="iku_share" style="display:none"><i></i>放到桌面</a>
+                        <p class="tvintro">
+                            更新至<em>{{lastlevel.level}}</em>集  <em></em>
+                            <a href="javascript:" class="showinfo_btn" id="dropdown">
+                                节目信息	<span class="caret"></span>
+                            </a>
+                        </p>
+                        <p class="tvintro_panel" id="tvintro_panel" style="display: none;">
+                            {{pinfo.description}}...<a target="_blank" href="#">详情</a>
+                        </p>
+                    </div>
+
+                    <div class="showlists">
+                        {%for val in plist%}
+                        <div class="item item-close" >
+                            <div class="inner1">
+                                <div class="program" title="{{val.title}}" >
+                                    <a href="{{val.name|get_url(val.id)}}" class="A {%if info.id == val.id%}current{%endif%}" >
+                                        <div class="serial"><label>{{val.level}}</label><span class="playing fa fa-youtube-play"></span></div>
+                                        <div class="headline">{{val.title}}</div>
+                                        <div class="time"><label>更新:</label><span>{{val.create_time|dateformat('Y-m-d')}}</span> </div>
+                                        <div class="statplay"><i class="fa fa-play-circle-o" title="播放"></i> {{val.view}}</div>
+                                    </a>
+                                </div>
+                                <div class="" ></div>
+                                <div class="handle" ><a href="javascript:;" class="A"><i class="fa fa-map-signs"></i></a></div>
+                            </div>
+                        </div>
+                        {%endfor%}
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile">
+                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                </div>
+            </div>
+
+        </div>
+        {%endif%}
+    </div>
+    <!-- /OWL SLIDER -->
+
+</section>
+<!-- / -->
+<!--
+				PAGE HEADER
+
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs shadow-after-3">
+    <div class="container">
+
+        <h1 class="blog-post-title size-18">{{info.title}}</h1>
+        <ul class="page-options list-inline">
+            {%if previous.id%}
+            <li><a href="{{previous.name|get_url(previous.id)}}" title="{{previous.title}}" class="glyphicon glyphicon-menu-left"></a></li>
+            {%endif%}
+            {%set backcate = info.category_id|get_cate%}
+            <li><a href="{{backcate.url}}" class="glyphicon glyphicon-th-large"></a></li>
+            {%if next.id%}
+            <li><a href="{{next.name|get_url(next.id)}}" title="{{next.title}}" class="glyphicon glyphicon-menu-right"></a></li>
+            {%endif%}
+        </ul>
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+
+            <div class="col-md-9 col-sm-9">
+                <div class="panel panel-default">
+                    {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id,cache="1000"%}
+                    {%if tags%}
+                    <div class="panel-heading panel-heading-transparent">
+                        <!-- TAGS -->
+
+                        {%set color = ["btn-primary","btn-success","btn-info","btn-warning","btn-danger"]%}
+                        {%for k in tags%}
+                        <a href="{{k.url}}" class="btn {{color|random}} btn-xs relative">
+                            {{k.keyname}}
+                        </a>
+                        {%endfor%}
+                        <!-- /TAGS -->
+                    </div>
+                    {%endif%}
+                    <div class="panel-body">
+                        <div class="social-share" data-disabled="google,twitter,facebook,diandian" ></div>
+                    </div>
+                    {%if config.ext.changyan.is ==1%}
+                    <div class="panel-footer panel-footer-transparent">
+                        <!-- COMMENTS -->
+                        <div id="comments" >
+                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+                            <div id="SOHUCS" sid="{{info.id}}"></div>
+                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+                            <script type="text/javascript">
+                              window._config = { showScore: true };
+                              window.changyan.api.config({
+                                appid: '{{config.ext.changyan.appid}}',
+                                conf: '{{config.ext.changyan.appkey}}'
+                              });
+                            </script>
+                        </div>
+                        <!-- /COMMENTS -->
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+            <!-- RIGHT -->
+            <div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="portfolio-detail-list list-unstyled nomargin">
+                            <li><span style="width: 60px"><i class="fa fa-user"></i>作者:</span> {{info.uid|get_nickname}}</li>
+                            <li><span style="width: 60px"><i class="fa fa-calendar"></i>时间:</span>{{info.create_time|moment('YYYY-MM-DD HH:mm')}}</li>
+                            <li><span style="width: 60px"><i class="fa fa-lightbulb-o"></i>分类:</span>{%set nn = 1%} {%for val in breadcrumb %}{%if nn != 1%} /{%endif%} <a href="{{val.url}}">{{val.title}}</a>{%set nn = nn+1%}{% endfor %}</li>
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading">
+                        <!-- tabs -->
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">
+                                    最热
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">
+                                    最新
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!-- /post -->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",cache="1000"%}
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+                            {% topic data = "newlist",limit= "5",cid=category.id,cache="1000"%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+                    </div>
+                </div>
+                <!-- TAGS -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-primary btn-xs pull-right">更多</a>
+                        <h2 class="panel-title">话题</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        {% keywords data ="kws",type="hot",cache="1000"%}
+                        {%for key in kws%}
+                        <a class="tag" href="{{key.url}}">
+                            <span class="txt">{{key.keyname}}</span>
+                            <span class="num">{{key.videonum}}</span>
+                        </a>
+                        {%endfor%}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+<!-- / -->
+{% endblock %}
+
+{% block script %}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+<script src="/static/admin/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+<script>
+  var ivaInstance = new Iva(
+      'video-box',//新建一个div作为视频播放的窗口，建议div的宽高在640px*480px以上；
+      {
+        appkey: '{{config.ext.videojj.appkey}}',//必填，请在控制台查看应用标识
+        video: '{%if info.video_id != 0%}{{info.video_id|get_file('savename',1)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（例如：http://v.youku.com/v_show/id_XMTY5NDg2MzY5Ng==.html）
+        title: '{{info.title}}',//选填，建议填写方便后台数据统计
+        cover: '{{info.cover_id|get_pic('')}}',//选填，视频封面url
+        vnewsEnable: {%if config.ext.videojj.vnewsEnable==0%}false{%else%}true{%endif%},//是否开启新闻推送功能，默认为true
+       playerUrl: '', //选填，第三方播放器与Video++互动层的桥接文件，由Video++官方定制提供，默认为空
+      videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
+      videoEndPrefixSeconds: 0//选填，跳过片尾，默认为0
+  }
+  );
+
+    uParse('#content', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+    $(function () {
+
+        $('.slim-scroll').each(function(){
+            var $self = $(this), $data = $self.data(), $slimResize;
+            $self.slimScroll($data);
+            $(window).resize(function(e) {
+                clearTimeout($slimResize);
+                $slimResize = setTimeout(function(){$self.slimScroll($data);}, 500);
+            });
+            $(document).on('updateNav', function(){
+                $self.slimScroll($data);
+            });
+        });
+
+        $('#dropdown').click(function () {
+            $("#tvintro_panel").toggle();
+        })
+
+    })
+</script>
+{%if config.ext.changyan.is ==1%}
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
+{%endif%}
+{% endblock %}

@@ -163,9 +163,9 @@ function ajaxpost(){
         }
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
-            //alert(JSON.stringify(data))
+            // alert(JSON.stringify(data))
             //console.log(data)
-            //return false;
+             //return false;
             if (data.errno==0) {
                 if (data.data.url) {
 
@@ -184,18 +184,18 @@ function ajaxpost(){
                     }
                 },1500);
             }else{
-                if(data.errno==1001){
-                    $.each(data.errmsg,function(i,n){
+                if(data.errmsg=='validate error'){
+                    $.each(data.data,function(i,n){
                         toastr.error(n);
                     })
+                    // return false;
                 }else {
                     toastr.error(data.errmsg);
                 }
-                console.log(data);
 
                 setTimeout(function(){
                     $(that).removeClass('disabled').prop('disabled',false);
-                    if (data.data) {
+                    if (!$.isPlainObject(data.data) && data.data) {
                         location.href=data.data;
                     }else{
                         toastr.clear()

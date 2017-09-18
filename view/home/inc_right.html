@@ -1,0 +1,125 @@
+<div class="col-md-3 col-sm-3">
+
+                <!-- INLINE SEARCH -->
+                <div class="inline-search clearfix margin-bottom-20">
+                    <form action="/search" method="get" class="widget_search" target="_blank">
+                        <input type="search" placeholder="请输入关键词..." id="q" name="q" class="serch-input">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <!-- /INLINE SEARCH -->
+
+         {% column data="clist",tree=breadcrumb[0].id %}
+                {%if clist%}
+    <div class="panel panel-info side-nav">
+        <div class="panel-heading">
+            <h2 class="panel-title">{{breadcrumb[0].title}}分类</h2>
+        </div>
+        <div class="panel-body" style="padding: 10px 0 0 10px">
+            <ul class="list-group list-group-bordered  uppercase">
+                <!--{{breadcrumb[1].id}}-->
+
+                {% for val in clist %}
+                <!--{%if breadcrumb[1].id == val.id%} active {%endif%}-->
+                <li class="list-group-item {%if breadcrumb[1].id == val.id%}active {%endif%} ">
+                    <a  {% if val.children %}class="dropdown-toggle "{%endif%} href="{{val.url}}">{{val.name}}</a>
+                    {% if val.children %}
+                    <ul >
+                        {% for _val in val.children %}
+                        <li class="{%if breadcrumb[2].id == _val.id%}active {%endif%}"><a href="{{_val.url}}"><span class="size-11 text-muted pull-right">(123)</span> {{_val.name}}</a></li>
+                        {%endfor%}
+
+                    </ul>
+                    {%endif%}
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+                {%endif%}
+
+                <div class="panel panel-default tabs">
+                    <div class="panel-heading">
+                        <!-- tabs -->
+                        <ul class="nav nav-tabs nav-justified">
+                            <li class="active">
+                                <a href="#tab_1" data-toggle="tab">
+                                    最热
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#tab_2" data-toggle="tab">
+                                    最新
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body tab-content">
+                        <!-- POPULAR -->
+                        <div id="tab_1" class="tab-pane active">
+                            <!-- /post -->
+                            {% topic data = "hotlist",limit= "5",cid=category.id,type="hot",cache="1000"%}
+                            {%for v in hotlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+
+                        </div>
+                        <!-- /POPULAR -->
+
+
+                        <!-- RECENT -->
+                        <div id="tab_2" class="tab-pane">
+                            {% topic data = "newlist",limit= "5",cid=category.id,cache="1000"%}
+                            {%for v in newlist%}
+                            <div class="row tab-post"><!-- post -->
+                                {%if v.cover_id%}
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <a href="{{v.name|get_url(v.id)}}">
+                                        <img src="{{v.cover_id|get_pic('m=1,w=50,h=50')}}" width="50" alt="" />
+                                    </a>
+                                </div>
+                                {%endif%}
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <a href="{{v.name|get_url(v.id)}}" class="tab-post-link">{{v.title}}</a>
+                                    <small>{{v.create_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                                </div>
+                            </div><!-- /post -->
+                            {%endfor%}
+                            <!-- /post -->
+                        </div>
+                        <!-- /RECENT -->
+                    </div>
+                </div>
+                <!-- TAGS -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a class="btn btn-primary btn-xs pull-right">更多</a>
+                        <h2 class="panel-title">话题</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        {% keywords data ="kws",type="hot",cache="1000"%}
+                        {%for key in kws%}
+                        <a class="tag" href="{{key.url}}">
+                            <span class="txt">{{key.keyname}}</span>
+                            <span class="num">{{key.videonum}}</span>
+                        </a>
+                        {%endfor%}
+                    </div>
+
+                </div>
+
+            </div>

@@ -30,7 +30,7 @@
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted">
                                                         <i class="fa fa-info-circle text-info"></i>
-                                                        源栏目的内容全部转入目标栏目，同时<code>{%if http.get('merge')==1%}删除{%else%}保留{%endif%}</code>源栏目<br>
+                                                        源栏目的内容全部转入目标栏目，同时<code>{%if controller.get('merge')==1%}删除{%else%}保留{%endif%}</code>源栏目<br>
                                                         如果源栏目跟目标栏目存在不同的模型会先<code>合并模型</code><br>
                                                         如果源栏目存在不同的分组息会提示相关操作。
                                                     </span>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group form-submit">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <input type="hidden" value="{{http.get('merge')}}" name="merge">
+                                    <input type="hidden" value="{{controller.get('merge')}}" name="merge">
                                     <button type="submit" target-form="form-horizontal" class="btn btn-primary ajax-post">保存</button>
                                     <button type="submit" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返回</button>
                                 </div>

@@ -64,8 +64,8 @@ function initTable() {
             },
             {
                 "mRender": function (data, type, row) {
-                    var url1 = "/admin/menu/edit/id/" + data;
-                    //var url2 = "/admin/user/roledel/id/"+data;
+                    var url1 = "/admin/menu/edit/?id=" + data;
+                    //var url2 = "/admin/uuu/roledel/id/"+data;
                     return '<a class="btn btn-default btn-xs" data-bjax="" data-target="#bjax-target"  href=' + url1 + ' onclick="_editBn()">编辑</a> ' +
                         '<a class="btn btn-default btn-xs roledel" href="javascript:void(0);" onclick="_deleteFun(' + data + ')">删除</a>';
                 }, "bSortable": false, "aTargets": [9]
@@ -123,7 +123,7 @@ function initTable() {
  * 获取子菜单
  */
 function _getlist(pid){
-    oTable.ajax.url( '/admin/menu/getlist/pid/'+pid ).load(function(e){
+    oTable.ajax.url( '/admin/menu/getlist/?pid='+pid ).load(function(e){
         if(e.breadcrumb){
             var nav = []
             var html;

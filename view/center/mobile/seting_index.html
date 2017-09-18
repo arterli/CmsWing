@@ -1,0 +1,919 @@
+
+{% extends "./inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" href="/static/mobile/libs/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/mobile/css/mui.picker.min.css" />
+<link href="/static/mobile/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+    .mui-views,
+    .mui-view,
+    .mui-pages,
+    .mui-page,
+    .mui-page-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #efeff4;
+    }
+    .mui-pages {
+        top: 46px;
+        height: auto;
+    }
+    .mui-scroll-wrapper,
+    .mui-scroll {
+        background-color: #efeff4;
+    }
+    .mui-page.mui-transitioning {
+        -webkit-transition: -webkit-transform 300ms ease;
+        transition: transform 300ms ease;
+    }
+    .mui-page-left {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .mui-ios .mui-page-left {
+        -webkit-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .mui-navbar {
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        height: 44px;
+        background-color: #f7f7f8;
+    }
+    .mui-navbar .mui-bar {
+        position: absolute;
+        background: transparent;
+        text-align: center;
+    }
+    .mui-android .mui-navbar-inner.mui-navbar-left {
+        opacity: 0;
+    }
+    .mui-ios .mui-navbar-left .mui-left,
+    .mui-ios .mui-navbar-left .mui-center,
+    .mui-ios .mui-navbar-left .mui-right {
+        opacity: 0;
+    }
+    .mui-navbar .mui-btn-nav {
+        -webkit-transition: none;
+        transition: none;
+        -webkit-transition-duration: .0s;
+        transition-duration: .0s;
+    }
+    .mui-navbar .mui-bar .mui-title {
+        display: inline-block;
+        width: auto;
+    }
+    .mui-page-shadow {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 16px;
+        height: 100%;
+        z-index: -1;
+        content: '';
+    }
+    .mui-page-shadow {
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+    }
+    .mui-navbar-inner.mui-transitioning,
+    .mui-navbar-inner .mui-transitioning {
+        -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+        transition: opacity 300ms ease, transform 300ms ease;
+    }
+    .mui-page {
+        display: none;
+    }
+    .mui-pages .mui-page {
+        display: block;
+    }
+    .mui-page .mui-table-view:first-child {
+        margin-top: 15px;
+    }
+    .mui-page .mui-table-view:last-child {
+        margin-bottom: 30px;
+    }
+    .mui-table-view {
+        margin-top: 20px;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view-divider {
+        background-color: #efeff4;
+        font-size: 14px;
+    }
+    .mui-table-view-divider:before,
+    .mui-table-view-divider:after {
+        height: 0;
+    }
+    .head {
+        height: 40px;
+    }
+    #head {
+        line-height: 40px;
+    }
+    .head-img {
+        width: 40px;
+        height: 40px;
+    }
+    #head-img1 {
+        position: absolute;
+        bottom: 10px;
+        right: 40px;
+        width: 40px;
+        height: 40px;
+    }
+    .m-user-pro{
+        margin-top: -1px;
+        background-color: #686F78;
+        border-top: solid #c8c7cc 1px;
+    }
+    .m-user-pro .item {
+        display: block;
+        text-align: center;
+        font-size: 13px;
+        border-right: 1px solid rgba(255,255,255,.15);
+        color: #fff;
+        padding-top: .45rem;
+        padding-bottom: .5rem;
+    }
+    .m-user-pro .item strong {
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+    .mui-table-view {
+        margin-top: 20px;
+    }
+    .mui-table-view:last-child {
+        margin-bottom: 50px;
+    }
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view-divider {
+        background-color: #efeff4;
+        font-size: 14px;
+    }
+    .mui-table-view-divider:before,
+    .mui-table-view-divider:after {
+        height: 0;
+    }
+    i.info {
+        font-style: normal;
+        color: #999999;
+        margin-right: -25px;
+        font-size: 15px;
+    }
+</style>
+{%endblock%}
+{%block bodyattr%} class="mui-fullscreen"{%endblock%}
+{% block content%}
+<!--页面主结构开始-->
+<div id="app" class="mui-views">
+    <div class="mui-view">
+        <div class="mui-navbar">
+        </div>
+        <div class="mui-pages">
+        </div>
+    </div>
+</div>
+<!--页面主结构结束-->
+<!--单页面开始-->
+<div id="setting" class="mui-page">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>
+        </button>
+        <h1 class="mui-center mui-title">设置</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a id="head" class="mui-navigate-right" >头像
+                            <span class="mui-pull-right head">
+									<img class="head-img mui-action-preview" id="head-img1" src="/u/avatar"/>
+								</span>
+                        </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#account" class="mui-navigate-right" >个人资料<i class="mui-pull-right info">{{controller.user.username}} </i></a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#privacy" class="mui-navigate-right" >修改密码</a>
+                    </li>
+                    {#
+                    <li class="mui-table-view-cell">
+                        <a href="#notifications" class="mui-navigate-right" >隐私设置</a>
+                    </li>
+                    #}
+                </ul>
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a href="/center/address" class="mui-navigate-right" >收货地址</a>
+                    </li>
+
+                </ul>
+                {% if ctx.userAgent|is_weixin != true %}
+                <ul class="mui-table-view ">
+                    <li class="mui-table-view-cell" style="text-align: center;">
+                        <a href="/center/public/logout" > 退出登录 </a>
+                    </li>
+
+                </ul>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    <!--页面主内容区结束-->
+
+</div>
+<!--单页面结束-->
+<div id="account" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>设置
+        </button>
+        <h1 class="mui-center mui-title">个人资料</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="account-btn">保存</button>
+    </div>
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <form class="mui-input-group" id="accountform">
+
+                    <div class="mui-input-row">
+                        <label>会员账号</label>
+                        <input type="text" class="mui-input-clear" placeholder="会员账号" value="{{userInfo.username}}" name="username" disabled="disabled" >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>会员级别</label>
+                        <input type="text"  class="mui-input-clear" placeholder="会员级别" value="{{userInfo.group_id}}" name="group_id" disabled="disabled" >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>邮箱</label>
+                        <input type="email"  class="mui-input-clear" placeholder="邮箱" name="email" value="{{userInfo.email}}">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>真实姓名</label>
+                        <input type="text" class="mui-input-clear" placeholder="真实姓名" name="real_name" value="{{userInfo.real_name}}">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>性别</label>
+                        <select name="sex" >
+                            <option value="1" {%if userInfo.sex == 1 %} selected {%endif%} >男</option>
+                            <option value="2" {%if userInfo.sex == 2 %} selected {%endif%}>女</option>
+                        </select>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>生日</label>
+                        <input id='birthday' name="birthday" type="text"  class="" value="{{userInfo.birthday|dateformat('Y-m-d')}}">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>手机号码</label>
+                        <input type="number" class="mui-input-clear" placeholder="手机号码" name="mobile" value="{{userInfo.mobile}}">
+                    </div>
+                    <div class="mui-input-row">
+                        <label>所在地区</label>
+                        <input id="city-picker" type="text" placeholder="选择地区" name="city_picke" value="{{province}} {{city}} {{county}}" >
+                    </div>
+                    <div class="mui-input-row" style="height: auto">
+                        <label>街道地址</label>
+                        <textarea name="addr" rows="5"  placeholder="不需要重复填写省市区，必须大于5个字符，小于120个字符">{{userInfo.addr}}</textarea>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="privacy" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>设置
+        </button>
+        <h1 class="mui-center mui-title">修改密码</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="privacy-btn">保存</button>
+    </div>
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <form class="mui-input-group" id="privacyform">
+
+                    <div class="mui-input-row">
+                        <label>旧密码</label>
+                        <input type="password" class="mui-input-clear" placeholder="输入旧密码" value="" name="oldpassword"  >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>新密码</label>
+                        <input type="password"  class="mui-input-clear" placeholder="密码长度6-20个字符" value="" name="password"  >
+                    </div>
+                    <div class="mui-input-row">
+                        <label>确认密码</label>
+                        <input type="password"  class="mui-input-clear" placeholder="确认密码" name="repassword" value="">
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="notifications" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>设置
+        </button>
+        <h1 class="mui-center mui-title">隐私设置</h1>
+    </div>
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        通知显示消息详情
+                        <div class="mui-switch mui-active mui-switch-mini">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>若关闭，当收到新消息时，通知提示将不显示发信人和内容摘要</p>
+                </div>
+
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a href="#notifications_disturb" class="mui-navigate-right">功能消息免打扰</a>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>设置系统功能消息提示声音和震动的时段</p>
+                </div>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        声音
+                        <div class="mui-switch mui-active mui-switch-mini">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        震动
+                        <div class="mui-switch mui-active mui-switch-mini">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>当HelloMUI在运行时，你可以设置是否需要声音或者震动</p>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{%block script%}
+<script src="/static/mobile/js/mui.view.js "></script>
+<script src='/static/mobile/libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
+<script type="text/javascript" src="/static/mobile/libs/webuploader/webuploader.min.js"></script>
+<script src="/static/mobile/js/mui.picker.min.js"></script>
+<script src="/static/mobile/js/mui.poppicker.js"></script>
+<script src="/static/mobile/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+    mui.init();
+    //初始化单页view
+    var viewApi = mui('#app').view({
+        defaultPage: '#setting'
+    });
+    var view = viewApi.view;
+    //处理view的后退与webview后退
+    var oldBack = mui.back;
+    mui.back = function() {
+        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+            viewApi.back();
+        } else { //执行webview后退
+            oldBack();
+        }
+    };
+    //初始化单页的区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+    //上传头像
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 自动上传。
+        auto: true,
+        // swf文件路径
+        swf: 'Uploader.swf',
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#head',
+        // 只允许选择文件，可选。
+        server: '/center/seting/updateavatar',
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    uploader.on( 'uploadSuccess', function( file ) {
+        uploader.makeThumb( file, function( error, src ) {
+            if ( error ) {
+                mui.toast("上传出错");
+                return;
+            }
+            $("#head-img1").attr( 'src', src );
+        }, 50, 50 );
+        mui.toast("上传成功");
+    });
+    uploader.on( 'uploadError', function( file ) {
+        mui.toast("上传出错");
+    });
+    var birthday = document.getElementById("birthday");
+    //时间选择器
+    birthday.addEventListener('tap', function() {
+       // var optionsJson = this.getAttribute('data-options') || '{}';
+        var options = {"value":"{{userInfo.birthday|dateformat('Y-m-d')}}", "type":"date","beginYear":1900,"endYear":new Date().getFullYear()};
+        var id = this.getAttribute('id');
+        /*
+         * 首次显示时实例化组件
+         * 示例为了简洁，将 options 放在了按钮的 dom 上
+         * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+         */
+        var self = this;
+        var picker = new mui.DtPicker(options);
+        picker.show(function(rs) {
+            /*
+             * rs.value 拼合后的 value
+             * rs.text 拼合后的 text
+             * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+             * rs.m 月，用法同年
+             * rs.d 日，用法同年
+             * rs.h 时，用法同年
+             * rs.i 分（minutes 的第二个字母），用法同年
+             */
+          $(self).val(rs.text);
+            /*
+             * 返回 false 可以阻止选择框的关闭
+             * return false;
+             */
+            /*
+             * 释放组件资源，释放后将将不能再操作组件
+             * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+             * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+             * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+             */
+            picker.dispose();
+        });
+    }, false);
+
+    //-----------------------------------------
+    //					//级联示例
+    var cityPicker3 = new mui.PopPicker({
+        layer: 3
+    });
+    cityPicker3.setData(cityData3);
+    var showCityPickerButton = document.getElementById('city-picker');
+    cityPicker3.pickers[0].setSelectedValue('{{userInfo.province}}', 200);
+    //cityPicker3.pickers[1].setSelectedIndex(6,200)
+    cityPicker3.pickers[1].setSelectedValue('{{userInfo.city}}', 200);
+    cityPicker3.pickers[2].setSelectedValue('{{userInfo.county}}', 200);
+    showCityPickerButton.addEventListener('tap', function(event) {
+        cityPicker3.show(function(items) {
+            //alert("你选择的城市是:" + (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text) ;
+            showCityPickerButton.value= (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+            //返回 false 可以阻止选择框的关闭
+            //return false;
+        });
+    }, false);
+    //保存个人资料
+    var accountbtn = document.getElementById("account-btn");
+    accountbtn.addEventListener('tap',function (event) {
+        var data = $("#accountform").serialize();
+        mui.ajax('/center/seting/updateinfo',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    mui.toast(data.data.name);
+                    mui.back();
+
+                }else {
+                    mui.toast(data.errmsg);
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
+    //修改密码
+    var privacybtn = document.getElementById("privacy-btn");
+    privacybtn.addEventListener('tap',function (event) {
+        var data = $("#privacyform").serialize();
+        mui.ajax('/center/seting/updatepassword',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    mui.toast(data.data.name);
+                    mui.back();
+
+                }else {
+                    if(data.errno==1001){
+                        $.each(data.errmsg,function(i,n){
+                            mui.toast(n);
+                        })
+                    }else {
+                        mui.toast(data.errmsg);
+
+                    }
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
+  //  var shares = {};
+
+//    mui.plusReady(function() {
+//        plus.share.getServices(function(s) {
+//            if (s && s.length > 0) {
+//                for (var i = 0; i < s.length; i++) {
+//                    var t = s[i];
+//                    shares[t.id] = t;
+//                }
+//            }
+//        }, function() {
+//            console.log("获取分享服务列表失败");
+//        });
+//    });
+//
+//    setTimeout(function () {
+//        defaultImg();
+//        setTimeout(function() {
+//            initImgPreview();
+//        }, 300);
+//    },500);
+
+    //分享链接点击事件
+//    document.getElementById("share").addEventListener('tap', function() {
+//        var ids = [{
+//                    id: "weixin",
+//                    ex: "WXSceneSession"
+//                }, {
+//                    id: "weixin",
+//                    ex: "WXSceneTimeline"
+//                }, {
+//                    id: "sinaweibo"
+//                }, {
+//                    id: "tencentweibo"
+//                }, {
+//                    id: "qq"
+//                }],
+//                bts = [{
+//                    title: "发送给微信好友"
+//                }, {
+//                    title: "分享到微信朋友圈"
+//                }, {
+//                    title: "分享到新浪微博"
+//                }, {
+//                    title: "分享到腾讯微博"
+//                }, {
+//                    title: "分享到QQ"
+//                }];
+//        plus.nativeUI.actionSheet({
+//            cancel: "取消",
+//            buttons: bts
+//        }, function(e) {
+//            var i = e.index;
+//            if (i > 0) {
+//                var s_id = ids[i - 1].id;
+//                var share = shares[s_id];
+//                if (share) {
+//                    if (share.authenticated) {
+//                        shareMessage(share, ids[i - 1].ex);
+//                    } else {
+//                       share.authorize(function() {
+//                            shareMessage(share, ids[i - 1].ex);
+//                        }, function(e) {
+//                            console.log("认证授权失败：" + e.code + " - " + e.message);
+//                        });
+//                    }
+//                } else {
+//                    mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+//                }
+//            }
+//        });
+//    });
+
+    function shareMessage(share, ex) {
+        var msg = {
+            extra: {
+                scene: ex
+            }
+        };
+        msg.href = "http://www.dcloud.io/hellomui/";
+        msg.title = "最接近原生APP体验的高性能前端框架";
+        msg.content = "我正在体验HelloMUI，果然很流畅，基本看不出和原生App的差距";
+        if (~share.id.indexOf('weibo')) {
+            msg.content += "；体验地址：http://www.dcloud.io/hellomui/";
+        }
+        msg.thumbs = ["_www/images/logo.png"];
+        share.send(msg, function() {
+            console.log("分享到\"" + share.description + "\"成功！ ");
+        }, function(e) {
+            console.log("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+        });
+    }
+    //去评分
+//    document.getElementById("rate").addEventListener('tap', function() {
+//        if (mui.os.ios) {
+//            location.href = 'https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=682211190&pageNumber=0&sortOrdering=2&type=&mt=8';
+//        } else if (mui.os.android) {
+//            plus.runtime.openURL("market://details?id=io.dcloud.HelloMUI", function(e) {
+//                plus.runtime.openURL("market://details?id=io.dcloud.HelloMUI", function(e) {
+//                    mui.alert("360手机助手和应用宝，你一个都没装，暂时无法评分，感谢支持");
+//                }, "com.qihoo.appstore");
+//            }, "com.tencent.android.qqdownloader");
+//        }
+//    });
+    //客服电话
+//    document.getElementById("tel").addEventListener('tap', function() {
+//        if(mui.os.plus){
+//            plus.device.dial("114");
+//        }else{
+//            location.href = 'tel:114';
+//        }
+//
+//    });
+    //		//意见反馈
+    //		document.getElementById("quest").addEventListener('tap', function() {
+    //
+    //		});
+    //
+    //检查更新
+//    document.getElementById("update").addEventListener('tap', function() {
+//        var server = "http://www.dcloud.io/check/update"; //获取升级描述文件服务器地址
+//        mui.getJSON(server, {
+//            "appid": plus.runtime.appid,
+//            "version": plus.runtime.version,
+//            "imei": plus.device.imei
+//        }, function(data) {
+//            if (data.status) {
+//                plus.ui.confirm(data.note, function(i) {
+//                    if (0 == i) {
+//                        plus.runtime.openURL(data.url);
+//                    }
+//                }, data.title, ["立即更新", "取　　消"]);
+//            } else {
+//                mui.toast('Hello MUI 已是最新版本~')
+//            }
+//        });
+//    });document.getElementById("update").addEventListener('tap', function() {
+//        var server = "http://www.dcloud.io/check/update"; //获取升级描述文件服务器地址
+//        mui.getJSON(server, {
+//            "appid": plus.runtime.appid,
+//            "version": plus.runtime.version,
+//            "imei": plus.device.imei
+//        }, function(data) {
+//            if (data.status) {
+//                plus.ui.confirm(data.note, function(i) {
+//                    if (0 == i) {
+//                        plus.runtime.openURL(data.url);
+//                    }
+//                }, data.title, ["立即更新", "取　　消"]);
+//            } else {
+//                mui.toast('Hello MUI 已是最新版本~')
+//            }
+//        });
+//    });
+
+    (function($) {
+
+        //监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
+        //第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
+        view.addEventListener('pageBeforeShow', function(e) {
+            //				console.log(e.detail.page.id + ' beforeShow');
+        });
+        view.addEventListener('pageShow', function(e) {
+            //				console.log(e.detail.page.id + ' show');
+        });
+        view.addEventListener('pageBeforeBack', function(e) {
+            //				console.log(e.detail.page.id + ' beforeBack');
+        });
+        view.addEventListener('pageBack', function(e) {
+            //				console.log(e.detail.page.id + ' back');
+        });
+    })(mui);
+    //更换头像
+//    mui(".mui-table-view-cell").on("tap", "#head", function(e) {
+//        if(mui.os.plus){
+//            var a = [{
+//                title: "拍照"
+//            }, {
+//                title: "从手机相册选择"
+//            }];
+//            plus.nativeUI.actionSheet({
+//                title: "修改头像",
+//                cancel: "取消",
+//                buttons: a
+//            }, function(b) {
+//                switch (b.index) {
+//                    case 0:
+//                        break;
+//                    case 1:
+//                        getImage();
+//                        break;
+//                    case 2:
+//                        galleryImg();
+//                        break;
+//                    default:
+//                        break
+//                }
+//            })
+//        }
+//
+//    });
+
+    function getImage() {
+        var c = plus.camera.getCamera();
+        c.captureImage(function(e) {
+            plus.io.resolveLocalFileSystemURL(e, function(entry) {
+                var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+                console.log(s);
+                document.getElementById("head-img").src = s;
+                document.getElementById("head-img1").src = s;
+                //变更大图预览的src
+                //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+                document.querySelector("#__mui-imageview__group .mui-slider-item img").src = s + "?version=" + new Date().getTime();;;
+            }, function(e) {
+                console.log("读取拍照文件错误：" + e.message);
+            });
+        }, function(s) {
+            console.log("error" + s);
+        }, {
+            filename: "_doc/head.jpg"
+        })
+    }
+
+    function galleryImg() {
+        plus.gallery.pick(function(a) {
+            plus.io.resolveLocalFileSystemURL(a, function(entry) {
+                plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+                    root.getFile("head.jpg", {}, function(file) {
+                        //文件已存在
+                        file.remove(function() {
+                            console.log("file remove success");
+                            entry.copyTo(root, 'head.jpg', function(e) {
+                                        var e = e.fullPath + "?version=" + new Date().getTime();
+                                        document.getElementById("head-img").src = e;
+                                        document.getElementById("head-img1").src = e;
+                                        //变更大图预览的src
+                                        //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+                                        document.querySelector("#__mui-imageview__group .mui-slider-item img").src = e + "?version=" + new Date().getTime();;
+                                    },
+                                    function(e) {
+                                        console.log('copy image fail:' + e.message);
+                                    });
+                        }, function() {
+                            console.log("delete image fail:" + e.message);
+                        });
+                    }, function() {
+                        //文件不存在
+                        entry.copyTo(root, 'head.jpg', function(e) {
+                                    var path = e.fullPath + "?version=" + new Date().getTime();
+                                    document.getElementById("head-img").src = path;
+                                    document.getElementById("head-img1").src = path;
+                                    //变更大图预览的src
+                                    //目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+                                    document.querySelector("#__mui-imageview__group .mui-slider-item img").src = path;
+                                },
+                                function(e) {
+                                    console.log('copy image fail:' + e.message);
+                                });
+                    });
+                }, function(e) {
+                    console.log("get _www folder fail");
+                })
+            }, function(e) {
+                console.log("读取拍照文件错误：" + e.message);
+            });
+        }, function(a) {}, {
+            filter: "image"
+        })
+    };
+
+    function defaultImg() {
+        if(mui.os.plus){
+            plus.io.resolveLocalFileSystemURL("_doc/head.jpg", function(entry) {
+                var s = entry.fullPath + "?version=" + new Date().getTime();;
+                document.getElementById("head-img").src = s;
+                document.getElementById("head-img1").src = s;
+            }, function(e) {
+                document.getElementById("head-img").src = '../images/logo.png';
+                document.getElementById("head-img1").src = '../images/logo.png';
+            })
+        }else{
+            document.getElementById("head-img").src = '../images/logo.png';
+            document.getElementById("head-img1").src = '../images/logo.png';
+        }
+
+    }
+//    document.getElementById("head-img1").addEventListener('tap', function(e) {
+//        e.stopPropagation();
+//    });
+//    document.getElementById("welcome").addEventListener('tap', function(e) {
+//        //显示启动导航
+//        mui.openWindow({
+//            id: 'guide',
+//            url: 'guide.html',
+//            show: {
+//                aniShow: 'fade-in',
+//                duration: 300
+//            },
+//            waiting: {
+//                autoShow: false
+//            }
+//        });
+//    });
+
+    function initImgPreview() {
+        var imgs = document.querySelectorAll("img.mui-action-preview");
+        imgs = mui.slice.call(imgs);
+        if (imgs && imgs.length > 0) {
+            var slider = document.createElement("div");
+            slider.setAttribute("id", "__mui-imageview__");
+            slider.classList.add("mui-slider");
+            slider.classList.add("mui-fullscreen");
+            slider.style.display = "none";
+            slider.addEventListener("tap", function() {
+                slider.style.display = "none";
+            });
+            slider.addEventListener("touchmove", function(event) {
+                event.preventDefault();
+            })
+            var slider_group = document.createElement("div");
+            slider_group.setAttribute("id", "__mui-imageview__group");
+            slider_group.classList.add("mui-slider-group");
+            imgs.forEach(function(value, index, array) {
+                //给图片添加点击事件，触发预览显示；
+                value.addEventListener('tap', function() {
+                    slider.style.display = "block";
+                    _slider.refresh();
+                    _slider.gotoItem(index, 0);
+                })
+                var item = document.createElement("div");
+                item.classList.add("mui-slider-item");
+                var a = document.createElement("a");
+                var img = document.createElement("img");
+                img.setAttribute("src", value.src);
+                a.appendChild(img)
+                item.appendChild(a);
+                slider_group.appendChild(item);
+            });
+            slider.appendChild(slider_group);
+            document.body.appendChild(slider);
+            var _slider = mui(slider).slider();
+        }
+    }
+</script>
+{%endblock%}

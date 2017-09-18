@@ -1,0 +1,127 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+<!-- -->
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <!-- SEARCH -->
+        <form method="get" action="/search" class="clearfix well well-sm search-big nomargin">
+            <div class="input-group">
+
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default input-lg dropdown-toggle noborder-right" data-toggle="dropdown">
+                        {%if controller.get('d')==null%} 全部时间{%else%}{%if controller.get('d')=='day'%}一天内{%elif controller.get('d')=='week'%}一周内{%elif controller.get('d')=='month'%}一月内{%elif controller.get('d')=='year'%}一年内{%endif%}{%endif%} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li {%if controller.get('d')==null%} class="active" {%endif%}>
+                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}">{%if controller.get('d')==null%}<i class="fa fa-check"></i>{%endif%} 全部时间</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li {%if controller.get('d')=='day'%} class="active" {%endif%}>
+
+                        <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}&d=day">  {%if controller.get('d')=='day'%}<i class="fa fa-check"></i>{%endif%} 一天内</a>
+                        </li>
+                        <li {%if controller.get('d')=='week'%} class="active" {%endif%}>
+
+                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}&d=week">{%if controller.get('d')=='week'%}<i class="fa fa-check"></i>{%endif%} 一周内</a>
+                        </li>
+                        <li {%if controller.get('d')=='month'%} class="active" {%endif%}>
+
+                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}&d=month">{%if controller.get('d')=='month'%}<i class="fa fa-check"></i>{%endif%} 一月内</a>
+                        </li>
+                        <li {%if controller.get('d')=='year'%} class="active" {%endif%}>
+
+                            <a href="/search?q={{controller.get('q')}}{%if controller.get('m')%}&m={{controller.get('m')}}{%endif%}&d=year">{%if controller.get('d')=='year'%}<i class="fa fa-check"></i>{%endif%} 一年内</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <input name="q" class="form-control input-lg" type="text" value="{{controller.get('q')}}" placeholder="Search...">
+                {%if controller.get('d')%}<input name="d" type="hidden" value="{{controller.get('d')}}">  {%endif%}
+                {%if controller.get('m')%}<input name="m" type="hidden" value="{{controller.get('m')}}">  {%endif%}
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default input-lg noborder-left">
+                        <i class="fa fa-search fa-lg nopadding"></i>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+        <!-- /SEARCH -->
+        {#
+        <h6 class=" text-muted size-11 margin-top-8 margin-bottom-0">
+            约获得 {{list.count}} 条结果 <span>(0.01 seconds)</span>
+        </h6>
+#}
+        <ul class="page-header-tabs list-inline">
+
+            <li class="filter {%if controller.get('m')==null%}active{%endif%}"><a href="/search?q={{controller.get('q')}}{%if controller.get('d')%}&d={{controller.get('d')}}{%endif%}">全部</a></li>
+
+            {%for v in modlist%}
+            <li class="filter {%if controller.get('m')==v.mod%}active{%endif%}"><a href="/search?q={{controller.get('q')}}&m={{v.mod}}{%if controller.get('d')%}&d={{controller.get('d')}}{%endif%}">{{v.name}}</a></li>
+            {%endfor%}
+        </ul>
+
+    </div>
+</section>
+<!-- / -->
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-2 col-sm-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">搜索历史</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        <ul class="list-unstyled nomargin">
+                            {%for q in hs%}
+                            <li><a href="/search?q={{q|urlencode}}">{{q}}</a></li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="col-md-10 col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title"> 约获得 <span class="label label-light">{{list.count}}</span> 条结果 </h2>
+                    </div>
+                    <div class="panel-body">
+                        <!-- SEARCH RESULTS -->
+                        {%for val in list.data%}
+                        {% set categoryname = val.category_id|get_cate %}
+                        <div class="clearfix search-result"><!-- item -->
+                            <h4 class="margin-bottom-0"><a href="{%if val.m_type ==1%} {{val.name|get_url(val.d_id)}}{%else%}/mod/{{val.m_id|getmode('name')}}/index/detail/?id={{val.d_id}}{%endif%}">{{val.title}}</a></h4>
+                            <small class="text-success">{{val.m_id|getmode('title')}} / {{categoryname.name}} / {{val.add_time|moment('YYYY-MM-DD HH:mm')}}</small>
+                            <p>{{val.description|truncate(120, true, "...")}}</p>
+                        </div><!-- /item -->
+                        {%else%}
+                        <div class="alert alert-warning margin-bottom-30"><!-- WARNING -->
+                            <strong>提示!</strong> 没有搜索到您想要的结果！
+                        </div>
+                        {%endfor%}
+                    </div>
+                    <div class="panel-footer text-center">
+                        {{pagination | safe}}
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+
+{% endblock %}
