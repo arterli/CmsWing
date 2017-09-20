@@ -8607,6 +8607,7 @@ ul.search-history {
 #upload-img-wrap .uploader-list{
 	overflow: inherit;
 }
+/*文档样式*/
 #contentcmswing {
 	font-size: 1.5rem;
 	color: #555;
@@ -8620,10 +8621,19 @@ ul.search-history {
 	margin: 10px 0;
 }
 #contentcmswing h1{
-	margin-bottom: 10px;
+	font-size: 28px;
+	margin-bottom: 5px;
 }
 #contentcmswing h2{
-	margin-bottom: 7px;
+	margin-bottom: 5px;
+}
+#contentcmswing h3 {
+	font-size: 18px;
+	letter-spacing: normal;
+	margin-bottom: 5px;
+}
+#contentcmswing hr{
+	margin: 0;
 }
 i.ico-65 {
 	width: 65px;
@@ -8800,4 +8810,14 @@ ul.slimscroll li.active{
 	float: left;
 	height: 120px;
 	overflow: hidden;
+}
+
+.logo-svg{
+	background-image: url(/static/assets/images/logo.svg);
+    width: 160px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.logo-svg>img{
+	display: none !important;
 }
