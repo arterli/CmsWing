@@ -44,7 +44,7 @@ module.exports = class extends think.cmswing.center {
     // console.log(sp);
     // 判断浏览客户端
     if (this.isMobile) {
-      switch (cate.ismt) {
+      switch (Number(cate.ismt)) {
         case 0:
           // 系统模版
           temp = cate.template_m_index ? cate.template_m_index : 'index';
@@ -57,12 +57,11 @@ module.exports = class extends think.cmswing.center {
         case 2:
           // 转跳 http://www.xxxx.com
           temp = cate.m_url;
-          this.redirect(temp);
-          break;
+          return this.redirect(temp);
       }
       return this.display(temp);
     } else {
-      switch (cate.ispct) {
+      switch (Number(cate.ispct)) {
         case 0:
           // 系统模版
           temp = cate.template_index ? cate.template_index : 'index';
@@ -75,8 +74,7 @@ module.exports = class extends think.cmswing.center {
         case 2:
           // 转跳 http://www.xxxx.com
           temp = cate.pc_url;
-          this.redirect(temp);
-          break;
+          return this.redirect(temp);
       }
 
       return this.display(temp);
