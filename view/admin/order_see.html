@@ -214,7 +214,7 @@
                         <td colspan="3"> 	<div class="form-group m-b-none" id="areas">
                             <div class="col-md-3 col-sm-12">
 
-                                <select class="form-control pointer " id="province1" name="province" data-required="true">
+                                <select class="form-control pointer " id="province1" name="province" data-required="true" disabled="disabled">
                                     <option value="">--- 省份/直辖市 ---</option>
                                     {% for val in province %}
                                     <option value="{{val.id}}" {% if order.province == val.id %} selected {% endif%}>{{val.name}}</option>
@@ -223,7 +223,7 @@
                             </div>
                             <div class="col-md-3 col-sm-12">
 
-                                <select class="form-control pointer " id="city1" name="city" data-required="true">
+                                <select class="form-control pointer " id="city1" name="city" data-required="true" disabled="disabled">
                                     {% for val in city %}
                                     <option value="{{val.id}}" {% if order.city == val.id %} selected {% endif%}>{{val.name}}</option>
                                     {% endfor %}
@@ -231,7 +231,7 @@
                             </div>
                             <div class="col-md-3 col-sm-12">
 
-                                <select class="form-control pointer " id="county1" name="county" data-required="true">
+                                <select class="form-control pointer " id="county1" name="county" data-required="true" disabled="disabled">
                                     {% for val in county %}
                                     <option value="{{val.id}}" {% if order.county == val.id %} selected {% endif%}>{{val.name}}</option>
                                     {% endfor %}
