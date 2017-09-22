@@ -208,7 +208,7 @@
         $(document).on( "change","#province1",function (e) {
             var pid = $("#province1 option:selected").val();
             $.ajax({
-                url: "/cart/getarea",
+                url: "/center/address/getarea",
                 data: {"pid":pid},
                 success: function(msg){
                     var province_arr = ['<option value="">--- 市 ---</option>']
@@ -224,7 +224,7 @@
         $(document).on( "change","#city1",function (e) {
             var pid = $("#city1 option:selected").val();
             $.ajax({
-                url: "/cart/getarea",
+                url: "/center/address/getarea",
                 data: {"pid":pid},
                 success: function(msg){
                     var province_arr = ['<option value="">--- 县/区 ---</option>']

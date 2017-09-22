@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 // +----------------------------------------------------------------------
 // | CmsWing [ 网站内容管理框架 ]
 // +----------------------------------------------------------------------
@@ -42,7 +43,7 @@ module.exports = class extends think.Model {
     }
 
     if (think.isEmpty(user_id)) {
-      const user = await this.session('userInfo');
+      const user = await think.session('userInfo');
       const id = user.id;
       user_id = id;
     }
@@ -107,7 +108,9 @@ module.exports = class extends think.Model {
       // 未定义日志规则,记录操作URL
       data.remark = '操作url:' + url;
     }
-    // console.log(data);
+    if (!think.isNumber(record_id)) {
+      data.record_id = 0;
+    }
     await this.model('action_log').add(data);
 
     if (!think.isEmpty(action_info.rule)) {
