@@ -35,11 +35,11 @@ module.exports = class extends think.Controller {
       for (const v of order) {
         await this.model('order').where({id: v.id}).update({status: 6, admin_remark: '规定时间未付款系统自动作废'});
         // 释放库存
-        await this.model('order').stock(v.id, false);
+        await this.model('cmswing/order').stock(v.id, false);
       }
     }
 
-    think.logger.debug(new Date(), '订单作废任务执行时间');
+    // think.logger.debug(new Date(), '订单作废任务执行时间');
     // this.end();
     return this.body = '';
   }
