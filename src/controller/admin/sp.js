@@ -55,9 +55,9 @@ module.exports = class extends think.cmswing.admin {
     }
     // 权限验证
     await this.admin_priv('init', cate_id, '您没有权限查看本栏目！');
-    const name = await this.model('category').get_category(cate_id, 'name') || cate_id;
+    const name = await this.model('cmswing/category').get_category(cate_id, 'name') || cate_id;
     // 获取面包屑信息
-    const nav = await this.model('category').get_parent_category(cate_id);
+    const nav = await this.model('cmswing/category').get_parent_category(cate_id);
     this.assign('breadcrumb', nav);
     // auto render template file index_index.html
     const info = await this.db.find({where: {cid: cate_id}});
@@ -73,7 +73,7 @@ module.exports = class extends think.cmswing.admin {
   // 编辑
   async updateAction() {
     const data = this.post();
-    console.log(data);
+    //console.log(data);
     // 权限验证
     await this.admin_priv('edit', data.cid);
     const isup = await this.db.thenAdd(data, {cid: data.cid});
