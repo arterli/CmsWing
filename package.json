@@ -24,7 +24,7 @@
     "think-fetch": "^1.1.0",
     "think-logger3": "^1.0.0",
     "think-model": "^1.1.1",
-    "think-model-mysql": "^1.0.4",
+    "think-model-mysql": "^1.0.5",
     "think-pagination": "^2.0.0",
     "think-session": "^1.0.2",
     "think-session-file": "^1.0.5",
