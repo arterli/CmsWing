@@ -14,11 +14,6 @@
                             <div class="row wrapper">
 
                                 <div class="col-sm-9 m-b-xs">
-                                    {#
-                                    <a class="btn btn-sm btn-info " href="/admin/model/add">
-                                        删除
-                                    </a>
-                                    #}
                                     <div class="btn-group">
 
                                         <a class="btn btn-sm btn-info {%if status == null %}active{%endif%}" href="/admin/order/list">
@@ -33,10 +28,11 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
-                                    <div class="input-group pull-right">
-                                        <input type="text" class="input-sm form-control" placeholder="Search">
-                      <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="q" placeholder="订单号|会员ID|收货人|收货人电话"
+                                               value="{{controller.get('q')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/order/list/{%if status %}?status=2{% endif %}">搜索</button>
                       </span>
                                     </div>
                                 </div>
@@ -135,5 +131,29 @@
 {% block script%}
 <script src="/static/admin/js/parsley/parsley.min.js"></script>
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script>
+    $(function () {
+      //搜索功能
+      $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+          url += '&' + query;
+        }else{
+          url += '?' + query;
+        }
+        window.location.href = url;
+      });
 
+      //回车自动提交
+      $('.search-form').find('input').keyup(function(event){
+        if(event.keyCode===13){
+          $("#search").click();
+        }
+      });
+
+    })
+</script>
 {% endblock%}

@@ -105,10 +105,7 @@ module.exports = class extends think.cmswing.admin {
         return this.json(0);
       }
     } else {
-      this.assign({
-        'action': '/admin/setup/add'
-      });
-      this.active = 'admin/model/index';
+      this.active = 'admin/setup/group';
       this.meta_title = '新增配置';
       return this.display();
     }
@@ -134,10 +131,7 @@ module.exports = class extends think.cmswing.admin {
       map.id = this.get('id');
       const info = await this.db.where(map).find();
       this.assign('info', info);
-      this.assign({
-        'action': '/admin/setup/edit'
-      });
-      this.active = 'admin/model/index';
+      this.active = 'admin/setup/group';
       this.meta_title = '编辑新增';
       return this.display();
     }

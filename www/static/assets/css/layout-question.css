@@ -58,15 +58,22 @@ div.tagsinput {
 .wangEditor-drop-panel select{
 	height: auto !important;
 }
+.box-icon{
+	border: #ddd 1px solid;
+}
 .box-icon.active{
 	border: #1087dd 1px solid;
 }
 /*.bg-grey .box-icon.active{*/
 	/*border: #F07057 1px solid;*/
 /*}*/
-.box-icon.box-icon-transparent.active .box-icon-title>i{
-	border: #1087dd 1px dotted;
+.box-icon.box-icon-transparent .box-icon-title>i{
+	border: #ddd 2px solid;
 }
+.box-icon.box-icon-transparent.active .box-icon-title>i{
+	border: #1087dd 2px solid;
+}
+
 #group >button{
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;

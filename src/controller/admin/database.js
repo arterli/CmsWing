@@ -221,9 +221,9 @@ module.exports = class extends think.cmswing.admin {
         }
       }
     }
-
+    let filesList = [];
     const paths = think.resource + '/backup/';
-    const filesList = geFileList(paths);
+    if (think.isExist(paths)) filesList = geFileList(paths);
     this.assign({
       'fileslist': filesList
     });
