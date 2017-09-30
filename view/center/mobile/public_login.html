@@ -112,14 +112,24 @@
     .hide {
         display: none;
     }
+    .logos{
+        text-align: center;
+        height: 70px;
+        line-height: 70px;
+    }
+    .logos > .iconfont{
+        font-size: 60px !important;
+        color: #007aff;
+    }
 </style>
 {%endblock%}
 {% block content%}
 <header class="mui-bar mui-bar-nav">
     <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
-    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
 </header>
 <div class="mui-content">
+    <div class="logos hide"><i class="iconfont icon-cmswing-o"></i></div>
     <form id='login-form' class="mui-input-group">
         <div class="mui-input-row">
             <label>账号</label>
@@ -143,7 +153,7 @@
     <div class="mui-content-padded">
 
         <button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-        <div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+        <div class="link-area"><a id='reg' href="/center/public/register">注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
         </div>
     </div>
     {%if config.ext.geetest.isl ==1%}

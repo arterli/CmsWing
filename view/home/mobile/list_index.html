@@ -1,8 +1,11 @@
 {% extends "./inc_base.html" %}
 {% block content %}
 <header class="mui-bar mui-bar-nav">
-    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
-    <a href="/uc/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+    {% if 4 != category.model %}
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    {%else%}
+    <a href="/center/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+    {%endif%}
     <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
     <a class="mui-icon iconfont icon-search mui-pull-right" href="/search"></a>
 </header>
@@ -70,6 +73,9 @@
             <li class="mui-table-view-cell mui-media">
                 <a href="{{v.name|get_url(v.id)}}">
                     <h4 class="dotdot line2 margin-bottom-6">{{v.title}}</h4>
+                    <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                        <em pri="{{v.price}}" style="font-size: 10px;font-style: normal;" >¥ <span style="font-weight: 400;font-size: 18px;">{{v.price|get_price_format('1')}}</span></em>
+                    </p>
                     <div class="mui-row">
                         <div class="mui-col-sm-4 mui-col-xs-4">
                             <img class="list_img_holder" src="{{pics[0]|get_pic('m=1,w=123,h=82')}}">
@@ -82,15 +88,6 @@
 
                         </div>
                     </div>
-                    <p class="item_info">
-
-                        <span class="src space">{{v.uid|get_nickname}}</span>
-                        <span class="cmt space">评论&nbsp;2323</span>
-
-                        <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
-
-                    </p>
-
                 </a>
             </li>
             {%else%}
@@ -99,13 +96,9 @@
                     <div class="mui-row">
                         <div class="mui-col-sm-8 mui-col-xs-8">
 
-                            <h4 class="dotdot line2 ">{{v.title}}</h4>
-                            <p class="item_info">
-                                <span class="src space">{{v.uid|get_nickname}}</span>
-                                <span class="cmt space">评论&nbsp;2323</span>
-
-                                <span class="time" title="2016-08-30 11:06">{{v.update_time|moment}}</span>
-
+                            <h4 class="dotdot line2 margin-bottom-10">{{v.title}}</h4>
+                            <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                                <em pri="{{v.price}}" style="font-size: 10px;font-style: normal;" >¥ <span style="font-weight: 400;font-size: 18px;">{{v.price|get_price_format('1')}}</span></em>
                             </p>
                         </div>
                         <div class="mui-col-sm-4 mui-col-xs-4 ">
@@ -197,6 +190,9 @@
     <li class="mui-table-view-cell mui-media">
         <a href="<%=v.url%>">
             <h4 class="dotdot line2 margin-bottom-6"><%=v.title%></h4>
+            <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                <em pri="<%=v.price%>" style="font-size: 10px;font-style: normal;">¥ <span style="font-weight: 400;font-size: 18px;"><%=v.price%></span></em>
+            </p>
             <div class="mui-row">
                 <div class="mui-col-sm-4 mui-col-xs-4">
                     <img class="list_img_holder" src="<%=v.pics[0]%>">
@@ -209,14 +205,7 @@
 
                 </div>
             </div>
-            <p class="item_info">
 
-                <span class="src space"><%=v.uid%></span>
-                <span class="cmt space">评论&nbsp;2323</span>
-
-                <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-            </p>
 
         </a>
     </li>
@@ -224,21 +213,18 @@
     <li class="mui-table-view-cell mui-media">
         <a href="<%=v.url%>" >
             <div class="mui-row">
-                <div class="mui-col-sm-8 mui-col-xs-8">
-
-                    <h4 class="dotdot line2 "><%=v.title%></h4>
-                    <p class="item_info">
-                        <span class="src space"><%=v.uid%></span>
-                        <span class="cmt space">评论&nbsp;2323</span>
-
-                        <span class="time" title="2016-08-30 11:06"><%=v.update_time%></span>
-
-                    </p>
-                </div>
                 <div class="mui-col-sm-4 mui-col-xs-4 ">
                     <img class="list_img_holder" src="<%=v.pics[0]%>" >
 
                 </div>
+                <div class="mui-col-sm-8 mui-col-xs-8">
+
+                    <h4 class="dotdot line2 margin-bottom-10"><%=v.title%></h4>
+                    <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                        <em pri="<%=v.price%>" style="font-size: 10px;font-style: normal;">¥ <span style="font-weight: 400;font-size: 18px;"><%=v.price%></span></em>
+                    </p>
+                </div>
+
             </div>
         </a>
     </li>
@@ -290,7 +276,7 @@
             url: url
         });
     })
-    var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))||0;
+    var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))>0?0:parseInt(sessionStorage.getItem("{{ctx.url}}_top"));
     var size=parseInt(sessionStorage.getItem("{{ctx.url}}_size"))||0;
     //记录位置
     document.getElementById("pullrefresh").onscroll = function () {
@@ -315,17 +301,9 @@
      */
     function pulldownRefresh() {
         setTimeout(function() {
-            var table = document.body.querySelector('.mui-table-view');
-            var cells = document.body.querySelectorAll('.mui-table-view-cell');
-            for (var i = cells.length, len = i + 3; i < len; i++) {
-                var li = document.createElement('li');
-                li.className = 'mui-table-view-cell';
-                li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
-                //下拉刷新，新纪录插到最前面；
-                table.insertBefore(li, table.firstChild);
-            }
             mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
-        }, 1500);
+            window.location.reload();
+        }, 1000);
     }
 
     /**

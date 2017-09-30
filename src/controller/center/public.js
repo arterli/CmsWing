@@ -65,7 +65,8 @@ module.exports = class extends think.cmswing.center {
       return this.success({name: '注册成功,登录中!', url: '/center/index'});
     } else {
       this.meta_title = '用户注册';
-      return this.display();
+      return this.isMobile ? this.display(this.mtpl()) : this.display();
+
     }
   }
   //   登陆页面

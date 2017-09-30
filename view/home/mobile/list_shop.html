@@ -1,0 +1,186 @@
+{% extends "./inc_base.html" %}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+    <a href="/center/cart/index" class="mui-icon iconfont icon-cart"><span class="mui-badge">{% if controller.cart.num %}{{controller.cart.num}}{%else%}0{%endif%}</span></a>
+    <h1 class="mui-title"><img src="/static/mobile/img/logo.png" ></h1>
+    <a class="mui-icon iconfont icon-search mui-pull-right" href="/search"></a>
+</header>
+{% include "./inc_nav.html" %}
+{% include "./inc_sliderbar.html" %}
+<!--下拉刷新容器-->
+<div id="pullrefresh" class="mui-content mui-scroll-wrapper list-content">
+    <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view ">
+
+            <div class="mui-content">
+                <div class="mui-row">
+                    {%for v in list%}
+                    {% set pics = v.pics|strToArray%}
+                    <div class="mui-col-sm-6 mui-col-xs-6">
+                        <div class="mui-card" style="margin: 0 0 10px 0;border-radius:0" data-url="{{v.name|get_url(v.id)}}">
+                            <div class="mui-card-header mui-card-media" style="height:50vw;background-image:url({{pics[0]|get_pic('m=1,w=200,h=200')}})"></div>
+                            <div class="mui-card-content">
+                                <div class="mui-card-content-inner">
+                                    <h4 class="mui-ellipsis-2" style="height: 41px;margin-bottom: 10px">{{v.title}}</h4>
+                                    <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                                            <em pri="{{v.price}}" style="font-size: 10px;font-style: normal;" >¥ <span style="font-weight: 400;font-size: 18px;">{{v.price|get_price_format('1')}}</span></em>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+
+        </ul>
+    </div>
+</div>
+<script type="text/template" id="tpl">
+    {% raw %}
+    <%_.forEach(data,function(v,k){ %>
+    <div class="mui-col-sm-6 mui-col-xs-6">
+        <div class="mui-card" style="margin: 0 0 10px 0;border-radius:0" data-url="<%=v.url%>">
+            <div class="mui-card-header mui-card-media" style="height:50vw;background-image:url(<%=v.pics[0]%>)"></div>
+            <div class="mui-card-content">
+                <div class="mui-card-content-inner">
+                    <h4 class="mui-ellipsis-2" style="height: 41px;margin-bottom: 10px"><%=v.title%></h4>
+                    <p style="color: #e93b3d;min-width: 40px;margin-bottom: 0" class="mui-ellipsis">
+                        <em pri="<%=v.price%>" style="font-size: 10px;font-style: normal;">¥ <span style="font-weight: 400;font-size: 18px;"><%=v.price%></span></em>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%})%>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script>
+  var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+  mui.init({
+    pullRefresh: {
+      container: '#pullrefresh',
+      down: {
+        callback: pulldownRefresh
+      },
+      up: {
+        contentrefresh: '正在加载...',
+        callback: pullupRefresh
+      }
+    }
+  });
+
+  mui("#pullrefresh .mui-table-view").on("tap",".mui-card",function(){
+    var url = this.getAttribute("data-url");
+    //打开关于页面
+    // alert(url)
+    mui.openWindow({
+      url: url
+    });
+  })
+  var tops=parseInt(sessionStorage.getItem("{{ctx.url}}_top"))>0?0:parseInt(sessionStorage.getItem("{{ctx.url}}_top"));
+  var size=parseInt(sessionStorage.getItem("{{ctx.url}}_size"))||0;
+  //记录位置
+  document.getElementById("pullrefresh").onscroll = function () {
+
+    var patt1 = /\(.*?\)/;
+    var srtY = document.querySelector('#pullrefresh .mui-scroll').style.transform || document.querySelector('#pullrefresh .mui-scroll').style["-webkit-transform"];
+    if (srtY) {
+      var Y = parseInt(srtY.match(patt1)[0].split(",")[1])
+    } else {
+      var Y = 0;
+    }
+    console.log(Y)
+    var S = document.querySelector('#pullrefresh .mui-table-view').querySelectorAll('li.mui-table-view-cell').length;
+    console.log(Y);
+    if (window.sessionStorage) {
+      sessionStorage.setItem("{{ctx.url}}_top", Y);
+      sessionStorage.setItem("{{ctx.url}}_size", S);
+    }
+  }
+  /**
+   * 下拉刷新具体业务实现
+   */
+  function pulldownRefresh() {
+    setTimeout(function() {
+      mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+     window.location.reload();
+    }, 1000);
+  }
+
+  /**
+   * 上拉加载具体业务实现
+   */
+  function pullupRefresh() {
+    setTimeout(function() {
+      var cells = document.body.querySelectorAll('#pullrefresh .mui-card');
+      console.log(cells);
+      var count = "{{count}}";
+      if(parseInt(cells.length) < parseInt(count)){
+        createFragment(10)
+        mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+      }else {
+        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+      }
+
+    }, 1000);
+  }
+  var createFragment = function(count, page) {
+    //无限加载
+    var table = document.body.querySelector('#pullrefresh .mui-table-view');
+    var lastIndex = table.querySelectorAll('mui-card').length;
+    console.log(lastIndex);
+    var pages = page || Math.ceil((lastIndex+count)/count);
+    console.log(pages);
+    mui.ajax("{{ctx.url}}",{
+      data:{
+        page:pages
+      },
+      dataType:'json',//服务器返回json格式数据
+      type:'get',//HTTP请求类型
+      success:function(data){
+        $('#pullrefresh .mui-table-view .mui-content .mui-row').append(tplRender(data));
+      }
+    });
+
+  };
+  //alert(mui.os.plus)
+
+
+  mui.ready(function() {
+
+    //mui('#pullrefresh').pullRefresh().pullupLoading();
+
+    var page = Math.ceil(size/10);
+    if(page>1 ){
+      for (var i = 1; i < (page+1); i++) {
+        createFragment(10,(i+1))
+      }
+    }
+    mui('#pullrefresh').pullRefresh().scrollTo(0,tops);
+    //alert(1)
+    document.querySelector('header h1').addEventListener('tap',function () {
+      //内容区滚动到顶部
+      mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+    });
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+      btn[i].addEventListener("tap",function () {
+        var href = this.getAttribute("href");
+        if(href=="#wait"){
+          //todo
+          mui.toast("功能开发中。。。")
+          return
+        }
+        mui.openWindow({url: href})
+
+      })
+    }
+  });
+</script>
+{% endblock %}

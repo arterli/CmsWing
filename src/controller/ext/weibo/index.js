@@ -84,7 +84,7 @@ module.exports = class extends think.cmswing.extIndex {
     const id = this.get('id');
     const sina_user = await this.model('ext_weibo').find(id);
     // console.log(sina_user);
-    this.assign('sina_user', sina_user);
+    this.assign('ext_weibo', sina_user);
     this.meta_title = '账号绑定';
     if (this.isMobile) {
       return this.display(this.mtpl());

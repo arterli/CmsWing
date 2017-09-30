@@ -57,7 +57,7 @@ module.exports = class extends think.cmswing.center {
           if (!think.isEmpty(v.pics)) {
             const arr = [];
             for (const i of v.pics.split(',')) {
-              arr.push(await get_pic(i, 1, 300, 169));
+              arr.push(await get_pic(i, 1, 300, 300));
             }
             v.pics = arr;
           }

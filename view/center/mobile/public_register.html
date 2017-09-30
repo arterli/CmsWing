@@ -1,0 +1,190 @@
+
+{% extends "./inc/appbase.html" %}
+{% block style%}
+<style>
+    .area {
+        margin: 20px auto 0px auto;
+    }
+
+    .mui-input-group {
+        margin-top: 10px;
+    }
+
+    .mui-input-group:first-child {
+        margin-top: 20px;
+    }
+
+    .mui-input-group label {
+        width: 22%;
+    }
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+        width: 78%;
+    }
+
+    .mui-checkbox input[type=checkbox],
+    .mui-radio input[type=radio] {
+        top: 6px;
+    }
+
+    .mui-content-padded {
+        margin-top: 25px;
+    }
+
+    .mui-btn {
+        padding: 10px;
+    }
+
+    .link-area {
+        display: block;
+        margin-top: 25px;
+        text-align: center;
+    }
+
+    .spliter {
+        color: #bbb;
+        padding: 0px 8px;
+    }
+
+    .oauth-area {
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .oauth-area .oauth-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: 30px 30px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin: 0px 20px;
+        /*-webkit-filter: grayscale(100%); */
+        border: solid 1px #ddd;
+        border-radius: 25px;
+    }
+
+    .oauth-area .oauth-btn:active {
+        border: solid 1px #aaa;
+    }
+
+    .oauth-area .oauth-btn.disabled {
+        background-color: #ddd;
+    }
+
+</style>
+{%endblock%}
+{% block content%}
+<header class="mui-bar mui-bar-nav">
+    <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+
+</header>
+<div class="mui-content">
+    <form id='login-form' class="mui-input-group">
+        <div class="mui-input-row">
+            <label>账号</label>
+            <input id='account' type="text" value="" name="username" class="mui-input-clear mui-input" placeholder="字母，数字等，用户名唯一">
+        </div>
+        <div class="mui-input-row">
+            <label>邮箱</label>
+            <input id='email' type="email" value="" name="email" class="mui-input-clear mui-input" placeholder="电子邮箱">
+        </div>
+        <div class="mui-input-row">
+            <label>手机</label>
+            <input id='mobile' type="number" value="" name="mobile" class="mui-input-clear mui-input" placeholder="手机号码">
+        </div>
+        <div class="mui-input-row">
+            <label>密码</label>
+            <input id='password' type="password" value="" name="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+        </div>
+        <div class="mui-input-row">
+            <label>确认</label>
+            <input id='password2' type="password" value="" name="password2" class="mui-input-clear mui-input" placeholder="确认密码">
+        </div>
+    </form>
+    <form class="mui-input-group">
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell">
+                我同意 网站服务条款
+                <div id="autoLogin" class="mui-switch">
+                    <div class="mui-switch-handle"></div>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <div class="mui-content-padded">
+
+        <button id='login' class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+        <div class="link-area">我已经有一个帐户 <a id='forgetPassword' href="/center/public/login">立即登录!</a></div>
+    </div>
+    <div class="mui-content-padded oauth-area" style="display: none">
+        <a  href="/ext/qq/index" class="oauth-btn" style="background: url('/static/mobile/img/qq.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+        <div class="oauth-btn weixin" style="background: url('/static/mobile/img/weixin.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></div>
+        <a href="/ext/weibo/index" class="oauth-btn" style="background: url('/static/mobile/img/sinaweibo.png');background-size:40px 40px; background-repeat:no-repeat; background-position: center;"></a>
+    </div>
+</div>
+
+{% endblock %}
+{% block script %}
+
+<script>
+    var btn = document.getElementById("login"),
+        account = document.getElementById("account"),
+        password = document.getElementById("password"),
+        email = document.getElementById('email'),
+        mobile = document.getElementById('mobile'),
+        password2 = document.getElementById('password2');
+    btn.addEventListener("tap", function () {
+        if(!account.value){
+            mui.toast("账号不能为空");
+            return;
+        }
+        if(!password.value){
+            mui.toast("密码不能为空");
+            return;
+        }
+        if(!email.value){
+          mui.toast('邮箱不能为空');
+          return;
+        }
+        if(!mobile.value){
+          mui.toast('手机不能为空');
+          return;
+        }
+        if(!password2.value){
+          mui.toast('确认密码不能为空');
+          return;
+        }
+        mui.post('/center/public/register',{
+          username:account.value,
+          email:email.value,
+          mobile:mobile.value,
+          password:password.value,
+          password2:password2.value,
+          clause:'on'
+                },function(msg){
+                    //服务器返回响应，根据响应结果，分析是否登录成功；
+            if(msg.errno === 1000){
+                mui.toast(msg.errmsg);
+            }else{
+                mui.toast(msg.data.name);
+                setTimeout(function(){
+                    mui.openWindow({url: msg.data.url})
+
+                },1500);
+            }
+                },'json'
+        );
+
+    });
+</script>
+
+{% endblock %}
