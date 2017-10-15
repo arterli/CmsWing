@@ -33,7 +33,7 @@ module.exports = class extends think.cmswing.extIndex {
       return this.fail('发送过于频发请24小时后，再尝试。');
     }
 
-    const dayu = this.service('ext/dayu/client');
+    const dayu = this.extService('client');
     const qianming = this.config('ext.dayu.qianming');
     let temp_code;
     if (data.type == 1) {
@@ -43,7 +43,7 @@ module.exports = class extends think.cmswing.extIndex {
       'extend': data.mobile,
       'sms_type': 'normal',
       'sms_free_sign_name': qianming,
-      'sms_param': `{"code":"${code}","product":"${this.config('setup.SMS_product')}"}`,
+      'sms_param': `{"code":"${code}","product":"${this.config('ext.dayu.product')}"}`,
       'rec_num': data.mobile,
       'sms_template_code': temp_code
     };

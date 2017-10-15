@@ -15,12 +15,11 @@ module.exports = class extends think.cmswing.extAdmin {
    */
   async indexAction() {
     // 获取广告位置列表
-    const data = await this.model('ext/ext_ad_space').page(this.get('page')).order('spaceid DESC').countSelect();
-    // console.log(data);
+    const data = await this.extModel('ad_space').page(this.get('page')).order('spaceid DESC').countSelect();
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
-    return this.display();
+    return this.extDisplay();
   }
 
   /**
@@ -40,7 +39,7 @@ module.exports = class extends think.cmswing.extAdmin {
       // console.log(temp);
       this.assign('temp', temp);
       this.meta_title = '添加广告位';
-      return this.display();
+      return this.extDisplay();
     }
   }
 
@@ -65,7 +64,7 @@ module.exports = class extends think.cmswing.extAdmin {
       const space = await this.model('ext_ad_space').find({where: {spaceid: spaceid}});
       this.assign('space', space);
       this.meta_title = '添加广告位';
-      return this.display();
+      return this.extDisplay();
     }
   }
   /**
@@ -76,7 +75,7 @@ module.exports = class extends think.cmswing.extAdmin {
     const spaceid = this.get('spaceid');
     const space = await this.model('ext_ad_space').find({where: {spaceid: spaceid}});
     this.assign('space', space);
-    return this.display();
+    return this.extDisplay();
   }
 
   /**
@@ -87,7 +86,7 @@ module.exports = class extends think.cmswing.extAdmin {
     const spaceid = this.get('spaceid');
     const ad = await this.model('ext_ad_space').find({where: {spaceid: spaceid}});
     this.assign('ad', ad);
-    return this.display();
+    return this.extDisplay();
   }
   /**
      * 删除广告
@@ -117,7 +116,7 @@ module.exports = class extends think.cmswing.extAdmin {
     // 获取所有广告位
     const space = await this.model('ext_ad_space').order('spaceid DESC').select();
     for (const v of space) {
-      await this.model('ext/ext_ad_space').upad(v.spaceid);
+      await this.extModel('ad_space').upad(v.spaceid);
     }
     return this.success({name: '更新广告缓存成功!'});
   }
@@ -148,7 +147,7 @@ module.exports = class extends think.cmswing.extAdmin {
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
-    return this.display();
+    return this.extDisplay();
   }
 
   /**
@@ -174,7 +173,7 @@ module.exports = class extends think.cmswing.extAdmin {
       // let res =1;
       if (res) {
         // 更新广告位
-        await this.model('ext/ext_ad_space').upad(data.spaceid);
+        await this.extModel('ad_space').upad(data.spaceid);
         // return this.fail(1)
         return this.success({name: '添加成功!', url: '/ext/ad/admin/adlist/?spaceid=' + data.spaceid});
       } else {
@@ -189,7 +188,7 @@ module.exports = class extends think.cmswing.extAdmin {
       this.assign('space', space);
       this.assign('temp', temp);
       this.meta_title = '添加广告';
-      return this.display();
+      return this.extDisplay();
     }
   }
   /**
@@ -208,7 +207,7 @@ module.exports = class extends think.cmswing.extAdmin {
       // let res =1;
       if (res) {
         // 更新广告位
-        await this.model('ext/ext_ad_space').upad(data.spaceid);
+        await this.extModel('ad_space').upad(data.spaceid);
         // return this.fail(1)
         return this.success({name: '编辑成功!', url: '/ext/ad/admin/adlist/?spaceid=' + data.spaceid});
       } else {
@@ -226,7 +225,7 @@ module.exports = class extends think.cmswing.extAdmin {
       this.assign('space', space);
       this.assign('temp', temp);
       this.meta_title = '编辑广告';
-      return this.display();
+      return this.extDisplay();
     }
   }
   /**
@@ -252,11 +251,11 @@ module.exports = class extends think.cmswing.extAdmin {
      */
   async tempAction() {
     // 获取广告位置列表
-    const data = await this.model('ext/ext_ad_temp').page(this.get('page')).countSelect();
+    const data = await this.extModel('ad_temp').page(this.get('page')).countSelect();
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
-    return this.display();
+    return this.extDisplay();
   }
 
   /**
@@ -286,7 +285,7 @@ module.exports = class extends think.cmswing.extAdmin {
       }
     } else {
       this.meta_title = '添加广告模板';
-      return this.display();
+      return this.extDisplay();
     }
   }
 
@@ -320,7 +319,7 @@ module.exports = class extends think.cmswing.extAdmin {
       const temp = await this.model('ext_ad_temp').find({where: {tempid: tempid}});
       this.assign('temp', temp);
       this.meta_title = '添加广告模板';
-      return this.display();
+      return this.extDisplay();
     }
   }
 

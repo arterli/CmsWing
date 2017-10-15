@@ -1,0 +1,172 @@
+{% extends "view/home/inc_base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css"/>
+<link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+<link href="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+            <li class="active"><a href="#"><i class="et-pencil"></i> 发布</a></li>
+            <li class=""><a href="{{breadcrumb[0].url}}"><i class="et-target"></i> 发现</a></li>
+            <!--<li class=""><a href="#"><i class="et-chat"></i> 话题</a></li>-->
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section >
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+                <form role="form" class="validate" action="/mod/question/sys/update" method="post" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading padding-10">
+                            <h2 class="panel-title">问题标题:</h2>
+                        </div>
+
+                        <div class="panel-body nopadding">
+                            <div class="form-group" style="margin: -1px">
+                                <div class="input-group">
+                                    <div class=" input-group-btn">
+                                        <div class="input-group-btn question_select">
+                                            <input type="hidden" value="{%if category.allow_publish==0%}0{%else%}{{category.id}}{%endif%}" name="category_id">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="name">{%if category.allow_publish==0%}选择分类{%else%}{{category.title}}{%endif%}</span> <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                {%column data="column",pid=breadcrumb[0].id%}
+                                                {%if breadcrumb[0].allow_publish==1%}
+                                                <li data-value="{{breadcrumb[0].id}}"><a href="javascript:;">{{breadcrumb[0].title}}</a></li>
+                                                {%endif%}
+                                                {%if column%}
+                                                {%for val in column%}
+                                                <li data-value="{{val.id}}"><a href="javascript:;">{{val.name}}</a></li>
+                                                {%endfor%}
+                                                {%endif%}
+                                            </ul>
+                                        </div><!-- /btn-group -->
+                                        {% groups data="groups",cid=category.id%}
+
+                                        <div class="input-group-btn question_select {%if groups|length == 0%}hide{%endif%}" id="group">
+                                            <input type="hidden" value="0" name="group_id">
+                                            <button type="button" class="btn btn-default dropdown-toggle radius" data-toggle="dropdown"><span class="name">选择分组</span> <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li data-value="0"><a href="javascript:;">不分组</a></li>
+                                                {%for v in groups%}
+                                                <li data-value="{{v.id}}"><a href="javascript:;">{{v.name}}</a></li>
+                                                {%endfor%}
+                                            </ul>
+                                        </div><!-- /btn-group -->
+
+                                    </div>
+                                    <input type="text" class="form-control noradius required" name="title" id="title">
+                                </div><!-- /input-group -->
+                            </div>
+                        </div>
+
+                        <div class="panel-footer padding-10">
+                            问题补充 (选填):
+                        </div>
+                        <div class="panel-footer panel-footer-transparent nopadding">
+                            <textarea name="detail" id="detail" style="height:400px;max-height:500px;display: none"></textarea>
+                        </div>
+                        <div class="panel-footer padding-10">
+                            添加话题: 当一个话题输入完成后，按 <code>回车键</code> 确认
+                        </div>
+                        <div class="panel-footer panel-footer-transparent nopadding">
+                            <input type="text" class="form-control" id="keywords" name="keyname" value="" >
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <!-- primary -->
+                                    <label class="switch switch-primary margin-top-20">
+                                        <input type="checkbox" checked="" name="anonymous" value="0">
+                                        <span class="switch-label" data-on="不匿" data-off="匿名"></span>
+                                    </label>
+
+                                </div>
+
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                    <input type="hidden" name="backurl" value="{{ctx.referrer()}}" >
+                                    <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
+                                    <button class="btn btn-primary btn-lg" >确认发布</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">问题发起指南</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        <p class="margin-bottom-20"><b>• 问题标题:</b> 请用准确的语言描述您发布的问题思想</p>
+                        <p class="margin-bottom-20"><b>• 问题补充:</b> 详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想</p>
+                        <p class="margin-bottom-20"><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script src="/static/assets/js/question.js"></script>
+<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
+<script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+<script src="/static/admin/js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+{%endblock%}

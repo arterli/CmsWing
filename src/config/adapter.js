@@ -24,7 +24,7 @@ exports.cache = {
  * model adapter config
  * @type {Object}
  */
-exports.model = require('./adapter/model');
+exports.model = require('./model');
 
 /**
  * session adapter config
@@ -49,7 +49,7 @@ exports.session = {
  * view adapter config
  * @type {Object}
  */
-exports.view = require('./adapter/view');
+exports.view = require('./view');
 
 /**
  * logger adapter config

@@ -29,7 +29,7 @@ module.exports = class extends think.cmswing.extIndex {
     const data = await this.model(table).where({passed: 1}).order('sort ASC').select();
     // console.log(data);
     this.assign('list', data);
-    return this.display();
+    return this.extDisplay();
   }
 
   async applyAction() {
@@ -55,7 +55,7 @@ module.exports = class extends think.cmswing.extIndex {
       this.meta_title = '申请友情链接';
       // 获取当前分类
       this.assign('type', await this.gettype());
-      return this.display();
+      return this.extDisplay();
     }
   }
 };

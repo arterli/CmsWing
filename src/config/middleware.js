@@ -49,6 +49,7 @@ module.exports = [
       optimizeHomepageRouter: false
     }
   },
-  'logic',
+  'cwlogic',
+  // 'logic',
   'controller'
 ];

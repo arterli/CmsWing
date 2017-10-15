@@ -1,0 +1,173 @@
+{% extends "view/center/inc/base.html" %} {% block content %}
+<!-- 
+				PAGE HEADER 
+				
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户</a></li>
+            <li class="active">{{controller.meta_title}}</li>
+        </ol>
+        <!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+
+
+
+<!-- -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LOGIN -->
+            <div class="col-md-7 col-sm-7">
+
+                <!-- ALERT -->
+                <!--
+							<div class="alert alert-mini alert-danger margin-bottom-30">
+								<strong>Oh snap!</strong> Login Incorrect!
+							</div>
+							-->
+                <!-- /ALERT -->
+
+                <!-- register form -->
+                <form class="nomargin sky-form boxed form-organizing" action="/center/changyan/organizing" method="post">
+                    <header>
+						<i class="fa fa-users"></i> 完善个人资料
+						<div class="clearfix margin-top-10"><!-- post item -->
+							<img width="60" height="60" alt="" src="{{data.img_url}}" class="thumbnail pull-left">
+							<h4 class="size-14 nomargin noborder padding-top-10">{{data.nickname}}</h4>
+							<span class="size-12 text-muted">{{data.cy_user_id}}</span>
+						</div>
+
+                    </header>
+
+                    <fieldset class="nomargin">
+                        <label class="input margin-bottom-10">
+                            <i class="ico-append fa fa fa-user"></i>
+                            <input type="text" placeholder="用户名" name="username" value="{{data.nickname}}">
+                            <b class="tooltip tooltip-bottom-right">字母，数字,汉字等，用户名唯一</b>
+                        </label>
+                        <label class="input margin-bottom-10">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="email" placeholder="电子邮件" name="email">
+                            <b class="tooltip tooltip-bottom-right">user@cmswing.com</b>
+                        </label>
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-mobile"></i>
+							<input type="text" placeholder="手机号码" name="mobile">
+							<b class="tooltip tooltip-bottom-right">13588888888</b>
+						</label>
+                        <label class="input margin-bottom-10">
+                            <i class="ico-append fa fa-lock"></i>
+                            <input type="password" placeholder="密码" name="password">
+                            <b class="tooltip tooltip-bottom-right">不少于6位</b>
+                        </label>
+
+                        <label class="input margin-bottom-10">
+                            <i class="ico-append fa fa-lock"></i>
+                            <input type="password" placeholder="确认密码" name="password2">
+                            <b class="tooltip tooltip-bottom-right">确认密码</b>
+                        </label>
+
+                    </fieldset>
+
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-12">
+                            <input type="hidden" name="openid" value="{{data.sign}}">
+							<input type="hidden" name="headimgurl" value="{{data.img_url}}" >
+                            <input type="hidden" name="cy_user_id" value="{{data.cy_user_id}}" >
+                            <button type="submit" class="btn btn-primary ajax-post" target-form="form-organizing"><i class="fa fa-check"></i> 绑定</button>
+                        </div>
+                    </div>
+
+                </form>
+                <!-- /register form -->
+
+            </div>
+            <!-- /LOGIN -->
+
+            <!-- SOCIAL LOGIN -->
+            <div class="col-md-5 col-sm-5">
+                <form action="/center/changyan/logonbinding" method="post" class="sky-form boxed form-logonbinding">
+
+                    <header class="size-18 margin-bottom-20">
+						绑定到已有账号
+                    </header>
+					<fieldset class="nomargin">
+						<div class="form-group">
+							<label>账号</label>
+
+							<input type="text" required="" placeholder="邮箱/手机号/昵称" class="form-control" name="username">
+
+						</div>
+						<div class="form-group">
+							<label>密码</label>
+
+							<input type="password" required="" placeholder="密码" class="form-control" name="password">
+							<div class="clearfix note">
+								<a class="pull-right" href="#">忘记密码?</a>
+							</div>
+						</div>
+						<div class="form-group hide"> <div id="captcha"></div>
+							<p class="show" id="wait">正在加载验证码......</p>
+							<p class="hide" id="notice">请先拖动验证码到相应位置</p></div>
+						<div id="alert"></div>
+						<div class="row">
+
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<label class="checkbox weight-300 margin-top-10">
+									<input type="checkbox" name="checkbox-inline">
+									<i></i> 记住我
+								</label>
+
+							</div>
+
+							<div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                <input type="hidden" name="openid" value="{{data.sign}}">
+                                <input type="hidden" name="headimgurl" value="{{data.img_url}}" >
+                                <input type="hidden" name="cy_user_id" value="{{data.cy_user_id}}" >
+								<button class="btn btn-primary ajax-post" type="submit" target-form="form-logonbinding">登录</button>
+
+							</div>
+
+						</div>
+</fieldset>
+
+                </form>
+
+            </div>
+            <!-- /SOCIAL LOGIN -->
+
+        </div>
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+<!-- PAGE LEVEL SCRIPTS -->
+
+        {% endblock %}

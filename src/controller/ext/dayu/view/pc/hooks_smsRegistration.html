@@ -1,0 +1,89 @@
+<!-- register form 短信注册-->
+<form class="nomargin sky-form boxed registerpost" action="/ext/dayu/index/smsreg" method="post">
+    <header>
+        <i class="fa fa-users"></i> {{controller.meta_title}}
+    </header>
+    <fieldset class="nomargin">
+        <label class="input margin-bottom-10">
+            <i class="ico-append fa fa-mobile"></i>
+            <input type="text" placeholder="请输入中国大陆手机号" name="mobile">
+            <b class="tooltip tooltip-bottom-right">请输入中国大陆手机号</b>
+        </label>
+        <label class="input margin-bottom-10">
+            <i class="ico-append fa fa-lock"></i>
+            <input type="password" placeholder="密码" name="password">
+            <b class="tooltip tooltip-bottom-right">长度不少于6位字符,不允许有空格</b>
+        </label>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label class="input margin-bottom-10">
+                    <i class="ico-append fa fa-barcode"></i>
+                    <input type="text" placeholder="验证码" name="verifycode">
+                    <b class="tooltip tooltip-bottom-right">点击右侧按钮获取验证码</b>
+                </label>
+            </div>
+            <div class="col-md-6"><a href="#" class="btn btn-3d btn-sm btn-reveal btn-white" style="margin-left: -15px" id="verifycodesend" data-type="1">
+                <i class="fa fa-send-o"></i>
+                <span class="qian">获取短信验证码</span>
+                <span class="hou" style="display: none"><m id="wait" class="">60</m>秒后重新获取激活码</span>
+            </a></div>
+        </div>
+
+        <div class="margin-top-30">
+            <label class="checkbox nomargin">
+                <input type="hidden" name="sms_type" value="1">
+                <input class="checked-agree" type="checkbox" name="clause" checked><i></i>我同意 <a href="#" data-toggle="modal" data-target="#termsModal">网站服务条款</a></label>
+            <label class="checkbox nomargin">
+                <input type="checkbox" name="info"><i></i>我想接收新闻和特别优惠信息！</label>
+        </div>
+    </fieldset>
+
+    <div class="row margin-bottom-20">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary ajax-post" target-form="registerpost" ><i class="fa fa-check"></i> 立即注册</button>
+        </div>
+    </div>
+
+</form>
+<script>
+  $("#verifycodesend").click(function () {
+    var that = this;
+    var mobile = $("input[name='mobile']").val();
+    var type = $(this).attr("data-type");
+    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    if(!myreg.test(mobile))
+    {
+      _toastr('请输入有效的手机号码!',"top-right","error",false);
+      return false;
+    }
+    $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+    $.ajax({
+      type:"post",
+      url:"/ext/dayu/index/verifycodesend",
+      data:{mobile:mobile,type:type,check:1},
+      success:function (data) {
+        if(data.err_code==0){
+          $(".qian").hide();
+          $(".hou").show();
+          var wait = document.getElementById('wait')
+          var interval = setInterval(function(){
+            var time = --wait.innerHTML;
+            if(time <= 0) {
+              $(".qian").show();
+              $(".hou").hide();
+              $(that).removeClass('disabled').prop('disabled',false);
+              $("#wait").text('60');
+              clearInterval(interval);
+            };
+          }, 1000);
+        }else {
+          if(1000 == data.errno){
+            $(that).removeClass('disabled').prop('disabled',false);
+            _toastr(data.errmsg,"top-right","error",false);
+          }
+        }
+      }
+    })
+  })
+</script>

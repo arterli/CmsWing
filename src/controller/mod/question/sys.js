@@ -27,16 +27,14 @@ module.exports = class extends think.cmswing.modIndex {
     // 获取面包屑信息
     const breadcrumb = await this.model('cmswing/category').get_parent_category(cid, true);
     this.assign('breadcrumb', breadcrumb);
-    console.log(breadcrumb);
+    //console.log(breadcrumb);
     this.assign('category', this.m_cate);
     this.meta_title = '发布';
     if (this.isMobile) {
       // 手机端模版
-      return this.modtemp('question', 'mobile');
+      return this.modDisplay('m');
     } else {
-      // console.log(temp);
-      // return this.display(temp);
-      return this.modtemp();
+      return this.modDisplay();
     }
   }
   async testAction() {
@@ -86,7 +84,7 @@ module.exports = class extends think.cmswing.modIndex {
     }
     // seo
     this.meta_title = '编辑'; // 标题
-    return this.display();
+    return this.modDisplay();
   }
   // 添加或编辑主题
   async updateAction() {
@@ -113,7 +111,7 @@ module.exports = class extends think.cmswing.modIndex {
     data.anonymous = data.anonymous || 1;
     // console.log(data);
     // return this.fail(data);
-    const res = await this.model('mod/question').updates(data);
+    const res = await this.modModel('question').updates(data);
     if (res) {
       // 行为记录
       if (!res.data.id) {
@@ -138,7 +136,7 @@ module.exports = class extends think.cmswing.modIndex {
       data.anonymous = data.anonymous || 1;
     }
     // console.log(data);
-    const res = await this.model('mod/question_answer').updates(data);
+    const res = await this.modModel('question_answer').updates(data);
     if (res) {
       // 行为记录
       if (!res.data.answer_id) {

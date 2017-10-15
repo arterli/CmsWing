@@ -6,6 +6,7 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 const Index = require('./home');
+const path = require('path');
 module.exports = class extends Index {
   /**
    * index action
@@ -30,5 +31,17 @@ module.exports = class extends Index {
   async gettype() {
     const data = await this.model('ext_type').where({ext: this.ext.ext}).order('sort ASC').select();
     return data;
+  }
+  // 获取钩子模板方法
+  async hookRender(p = this.ctx.action, ext = '', m = '') {
+    // console.log(this.ctx.controller);
+    if (p === 'm' || !think.isEmpty(m)) {
+      if (p === 'm') p = this.ctx.action;
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'ext', ext, 'view', 'mobile', 'hooks');
+      return await this.render(`${pp}_${p}`);
+    } else {
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'ext', ext, 'view', 'pc', 'hooks');
+      return await this.render(`${pp}_${p}`);
+    }
   }
 };

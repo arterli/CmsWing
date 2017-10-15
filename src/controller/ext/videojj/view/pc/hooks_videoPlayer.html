@@ -1,0 +1,19 @@
+<div id="video-box" style="width: 860px; height: 484px">
+
+</div>
+<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+<script>
+  var ivaInstance = new Iva(
+      'video-box',//新建一个div作为视频播放的窗口，建议div的宽高在640px*480px以上；
+      {
+        appkey: '{{config.ext.videojj.appkey}}',//必填，请在控制台查看应用标识
+        video: '{%if info.video_id != 0%}{{info.video_id|get_file('savename',1)}}{%else%}{{info.videourl}}{%endif%}',//必填，播放地址（例如：http://v.youku.com/v_show/id_XMTY5NDg2MzY5Ng==.html）
+        title: '{{info.title}}',//选填，建议填写方便后台数据统计
+        cover: '{{info.cover_id|get_pic('')}}',//选填，视频封面url
+        vnewsEnable: {%if config.ext.videojj.vnewsEnable==0%}false{%else%}true{%endif%},//是否开启新闻推送功能，默认为true
+  playerUrl: '', //选填，第三方播放器与Video++互动层的桥接文件，由Video++官方定制提供，默认为空
+      videoStartPrefixSeconds: 0,//选填，跳过片头，默认为0
+      videoEndPrefixSeconds: 0//选填，跳过片尾，默认为0
+  }
+  );
+</script>

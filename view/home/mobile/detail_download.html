@@ -311,9 +311,7 @@
 
     </div>
     <div id="item2" class="mui-control-content">
-        {%if config.ext.changyan.is ==1%}
-        <div id="SOHUCS" sid="{{info.id}}"></div>
-        {%endif%}
+        {{HOOK@documentDetailAfter|safe}}
     </div>
     <div id="item3" class="mui-control-content">
         <ul class="mui-table-view">
@@ -406,10 +404,4 @@
     }
 
 </script>
-{%if config.ext.changyan.is ==1%}
-<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.ext.changyan.appid}}&conf={{config.ext.changyan.appkey}}">
-</script>
-<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
-{%endif%}
 {% endblock %}

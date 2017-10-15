@@ -13,28 +13,10 @@ module.exports = class extends think.cmswing.extAdmin {
    * @return {Promise} []
    */
   async indexAction() {
-    // 分页列表实例
-
-    // let data = await this.model("ext_表名").page(this.get('page')).countSelect();
-    // let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-    // let pages = new Pages(this.http); //实例化 Adapter
-    // let page = pages.pages(data);
-    // this.assign('pagerData', page); //分页展示使用
-    // this.assign('list', data.data);
-
-    // 获取当前插件的分类,插件如有分类的需求，直接调用。
-
-    // await this.gettype()
-
-    // 入口模版渲染
-    return this.display();
-  }
-  // qq用户
-  async userlistAction() {
     const userlist = await this.model('ext_changyan').page(this.get('page'), 20).order('id DESC').countSelect();
     const html = this.pagination(userlist);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list',userlist.data)
-    return this.display();
+    return this.extDisplay();
   }
 };

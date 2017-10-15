@@ -99,7 +99,7 @@ module.exports = class extends think.cmswing.extIndex {
     this.cookie('changyanurl', this.referrer());
     this.meta_title = '畅言用户绑定';
     this.assign('data', data);
-    return this.display();
+    return this.extDisplay();
   }
 
   /** 完善资料绑定 */

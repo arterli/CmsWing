@@ -1,0 +1,407 @@
+
+{% extends "view/center/mobile/inc/appbase.html" %}
+{%block style%}
+<link rel="stylesheet" href="/static/mobile/libs/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="/static/mobile/css/mui.picker.min.css" />
+<link href="/static/mobile/css/mui.poppicker.css" rel="stylesheet" />
+<style>
+    .mui-views,
+    .mui-view,
+    .mui-pages,
+    .mui-page,
+    .mui-page-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #efeff4;
+    }
+    .mui-pages {
+        top: 46px;
+        height: auto;
+    }
+    .mui-scroll-wrapper,
+    .mui-scroll {
+        background-color: #efeff4;
+    }
+    .mui-page.mui-transitioning {
+        -webkit-transition: -webkit-transform 300ms ease;
+        transition: transform 300ms ease;
+    }
+    .mui-page-left {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .mui-ios .mui-page-left {
+        -webkit-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .mui-navbar {
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        height: 44px;
+        background-color: #f7f7f8;
+    }
+    .mui-navbar .mui-bar {
+        position: absolute;
+        background: transparent;
+        text-align: center;
+    }
+    .mui-android .mui-navbar-inner.mui-navbar-left {
+        opacity: 0;
+    }
+    .mui-ios .mui-navbar-left .mui-left,
+    .mui-ios .mui-navbar-left .mui-center,
+    .mui-ios .mui-navbar-left .mui-right {
+        opacity: 0;
+    }
+    .mui-navbar .mui-btn-nav {
+        -webkit-transition: none;
+        transition: none;
+        -webkit-transition-duration: .0s;
+        transition-duration: .0s;
+    }
+    .mui-navbar .mui-bar .mui-title {
+        display: inline-block;
+        width: auto;
+    }
+    .mui-page-shadow {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 16px;
+        height: 100%;
+        z-index: -1;
+        content: '';
+    }
+    .mui-page-shadow {
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+    }
+    .mui-navbar-inner.mui-transitioning,
+    .mui-navbar-inner .mui-transitioning {
+        -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+        transition: opacity 300ms ease, transform 300ms ease;
+    }
+    .mui-page {
+        display: none;
+    }
+    .mui-pages .mui-page {
+        display: block;
+    }
+    .mui-page .mui-table-view:first-child {
+        margin-top: 15px;
+    }
+    .mui-page .mui-table-view:last-child {
+        margin-bottom: 30px;
+    }
+    .mui-table-view {
+        margin-top: 20px;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view-divider {
+        background-color: #efeff4;
+        font-size: 14px;
+    }
+    .mui-table-view-divider:before,
+    .mui-table-view-divider:after {
+        height: 0;
+    }
+    .head {
+        height: 40px;
+    }
+
+    .head-img {
+        width: 40px;
+        height: 40px;
+    }
+    #head-img1 {
+        position: absolute;
+        bottom: 10px;
+        right: 40px;
+        width: 40px;
+        height: 40px;
+    }
+    .m-user-pro{
+        margin-top: -1px;
+        background-color: #686F78;
+        border-top: solid #c8c7cc 1px;
+    }
+    .m-user-pro .item {
+        display: block;
+        text-align: center;
+        font-size: 13px;
+        border-right: 1px solid rgba(255,255,255,.15);
+        color: #fff;
+        padding-top: .45rem;
+        padding-bottom: .5rem;
+    }
+    .m-user-pro .item strong {
+        display: block;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+    .mui-table-view {
+        margin-top: 20px;
+    }
+    .mui-table-view:last-child {
+        margin-bottom: 50px;
+    }
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view-divider {
+        background-color: #efeff4;
+        font-size: 14px;
+    }
+    .mui-table-view-divider:before,
+    .mui-table-view-divider:after {
+        height: 0;
+    }
+    i.info {
+        font-style: normal;
+        color: #999999;
+        margin-right: -25px;
+        font-size: 15px;
+    }
+</style>
+{%endblock%}
+{%block bodyattr%} class="mui-fullscreen"{%endblock%}
+{% block content%}
+<!--页面主结构开始-->
+<div id="app" class="mui-views">
+    <div class="mui-view">
+        <div class="mui-navbar">
+        </div>
+        <div class="mui-pages">
+        </div>
+    </div>
+</div>
+<!--页面主结构结束-->
+<!--单页面开始-->
+<div id="setting" class="mui-page">
+    <!--页面标题栏开始-->
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>
+        </button>
+        <h1 class="mui-center mui-title">设置</h1>
+    </div>
+    <!--页面标题栏结束-->
+    <!--页面主内容区开始-->
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view ">
+                    <li class="mui-table-view-cell" style="line-height: 40px">
+                        {{sina_user.screen_name}}
+                        <span class="mui-pull-right head">
+									<img class="head-img mui-action-preview"  src="{%if sina_user.avatar_large%}{{sina_user.avatar_large}}{%else%}{{sina_user.profile_image_url}}{%endif%}"/>
+								</span>
+
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#account" class="mui-navigate-right" >已有PC端账号，点击登录绑定。</i></a>
+                    </li>
+                    <form method="post" action="/ext/weibo/index/organizing" class="mui-input-group form-organizing">
+                        <li class="mui-table-view-divider">这是您登录PC端网站的凭证，请认真填写!</li>
+                        <div class="mui-input-row">
+                            <label>用户昵称</label>
+                            <input type="text" placeholder="Your name" name="username" value="{{sina_user.screen_name}}" required="required">
+                        </div>
+                        <div class="mui-input-row">
+                            <label>电子邮件</label>
+                            <input type="email" placeholder="E-mail" name="email" required="required">>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>手机号码</label>
+                            <input type="number" name="mobile" placeholder="输入手机号码"  min="10000000000" max="99999999999" required="required"/>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>登录密码</label>
+                            <input type="password" placeholder="输入密码" name="password" class="" required="required">
+                        </div>
+                        <div class="mui-input-row">
+                            <label>确认密码</label>
+                            <input type="password" placeholder="确认密码" class=""name="password2" required="required">
+                        </div>
+                        <input type="hidden" name="openid" value="{{sina_user.id}}">
+                        <input type="hidden" name="headimgurl" value="{%if sina_user.avatar_large%}{{sina_user.avatar_large}}{%else%}{{sina_user.profile_image_url}}{%endif%}" >
+
+                    </form>
+                </ul>
+                <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+                    <a href="javascript:;"  class="mui-btn mui-btn-primary mui-btn-block margin-top-20" id="form-organizing" >确定</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--页面主内容区结束-->
+
+</div>
+<!--单页面结束-->
+<div id="account" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>完善资料
+        </button>
+        <h1 class="mui-center mui-title">登录</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="account-btn">保存</button>
+    </div>
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view ">
+                    <li class="mui-table-view-cell" style="line-height: 40px">
+                        {{sina_user.screen_name}}
+                        <span class="mui-pull-right head">
+									<img class="head-img mui-action-preview"  src="{%if sina_user.avatar_large%}{{sina_user.avatar_large}}{%else%}{{sina_user.profile_image_url}}{%endif%}"/>
+								</span>
+
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a href="#setting" class="mui-navigate-right" >没有账号,完善资料。</i></a>
+                    </li>
+                    <li class="mui-table-view-divider">绑定到已有账号</li>
+                    <form role="form" class="mui-input-group form-logonbinding" action="/center/sina/logonbinding" method="post">
+
+                        <div class="mui-input-row">
+                            <label>账号</label>
+                            <input type="text" placeholder="邮箱/手机号/昵称" name="username">
+                        </div>
+                        <div class="mui-input-row">
+                            <label>密码</label>
+                            <input type="password" class="" placeholder="输入你的登录密码" name="password">
+                        </div>
+
+                        <input type="hidden" name="openid" value="{{sina_user.id}}">
+                        <input type="hidden" name="headimgurl" value="{%if sina_user.avatar_large%}{{sina_user.avatar_large}}{%else%}{{sina_user.profile_image_url}}{%endif%}" >
+                    </form>
+                </ul>
+                <div class="mui-content-padded" style="margin-top: 20px; margin-bottom: 50px">
+                    <a href="javascript:;"  class="mui-btn mui-btn-primary mui-btn-block margin-top-20" id="form-logonbinding" >绑定</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{%block script%}
+<script src="/static/mobile/js/mui.view.js "></script>
+<script>
+    mui.init();
+    //初始化单页view
+    var viewApi = mui('#app').view({
+        defaultPage: '#setting'
+    });
+    var view = viewApi.view;
+    //处理view的后退与webview后退
+    var oldBack = mui.back;
+    mui.back = function() {
+        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+            viewApi.back();
+        } else { //执行webview后退
+            oldBack();
+        }
+    };
+    //初始化单页的区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+    //上传头像
+
+
+
+    //完善资料
+    var formorganizing = document.getElementById("form-organizing");
+    formorganizing.addEventListener('tap',function (event) {
+        var data = $(".form-organizing").serialize();
+        mui.ajax('/ext/weibo/index/organizing',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    if (data.data.url) {
+                        mui.toast(data.data.name + ' 即将跳转~');
+                    }else if(data.data.data){
+                        mui.toast(data.data.name);
+                    }
+                    setTimeout(function(){
+                        if (data.data.url) {
+                            mui.openWindow({url: data.data.url})
+                        }
+                    },1500);
+
+                }else {
+                    if(data.errno==1001){
+                        $.each(data.errmsg,function(i,n){
+                            mui.toast(n);
+                        })
+                    }else {
+                        mui.toast(data.errmsg);
+
+                    }
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
+    //绑定用户
+    var formlogonbinding = document.getElementById("form-logonbinding");
+    formlogonbinding.addEventListener('tap',function (event) {
+        var data = $(".form-logonbinding").serialize();
+        mui.ajax('/ext/weibo/index/logonbinding',{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    if (data.data.url) {
+                        mui.toast(data.data.name + ' 即将跳转~');
+                    }else if(data.data.data){
+                        mui.toast(data.data.name);
+                    }
+                    setTimeout(function(){
+                        if (data.data.url) {
+                            mui.openWindow({url: data.data.url})
+                        }
+                    },1500);
+                }else {
+                    if(data.errno==1001){
+                        $.each(data.errmsg,function(i,n){
+                            mui.toast(n);
+                        })
+                    }else {
+                        mui.toast(data.errmsg);
+
+                    }
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+    })
+
+
+</script>
+{%endblock%}

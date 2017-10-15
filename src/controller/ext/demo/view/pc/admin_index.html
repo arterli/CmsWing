@@ -1,0 +1,102 @@
+{% extends "view/admin/inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    <li class="{{'active' if controller.get('demo')==null}}"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+                    <li class="{{'active' if controller.get('demo')==2}}"><a  href="/{{ctx.controller}}/index/?demo=2">其他</a></li>
+
+                </ul>
+                <span class="hidden-sm"><a href="/{{ctx.controller}}/add" class="text-info " data-toggle="ajaxModal">操作按钮不需要可以删除</a></span>
+            </header>
+            <div class="row wrapper">
+              <!--按钮操作区 不需要可以删除-->
+                <div class="col-sm-12 m-b-xs">
+                    <div class="btn-group" >
+                        <a href="/{{ctx.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
+                            全部
+                        </a>
+                        {%for t in type%}
+                        <a href="/{{ctx.controller}}/index/?typeid={{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
+                            {{t.name}}
+                        </a>
+                        {%endfor%}
+                    </div>
+                </div>
+                <!--//按钮操作区 不需要可以删除-->
+            </div>
+            <!--列表，可以根据自己的实际业务，些内容-->
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                    <thead>
+                    <tr>
+                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                        <th style="width:80px;">排序</th>
+                        <th style="">网站名称</th>
+                        <th class="">网站logo</th>
+                        <th class="">分类</th>
+                        <th class="">链接类型</th>
+                        <th class="">状态</th>
+                        <th >操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in list %}
+                    <tr>
+                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                        <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.id}}"/></td>
+                        <td>{{item.name}}</td>
+                        <td>{%if item.logo%}<img src="{{item.logo}}" style="height: 31px;width: 88px">{%else%}无{%endif%}</td>
+                        <td>{{item.version}}</td>
+                        <td>{%if item.linktype ==1%}logo链接{%else%}文字链接{%endif%}</td>
+                        <td>{%if item.passed ==1%}已通过{%else%}待审核{%endif%}</td>
+                        <td>
+
+                            <a href="/{{ctx.controller}}/ajaxedit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                            <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>这是后台插件模板的一个例子！</p>
+                    </div></td></tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <!--列表，可以根据自己的实际业务，些内容-->
+            <!--分页底部导航-->
+            <footer class="panel-footer">
+                <div class="row">
+
+                    <div class="col-sm-6 text-center-xs">
+                        <div class="btn-group">
+                            <a href="/{{ctx.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>
+                            <a href="/{{ctx.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 text-right text-center-xs">
+                        {{pagerData | safe}}
+                    </div>
+                </div>
+            </footer>
+            <!--分页底部导航-->
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

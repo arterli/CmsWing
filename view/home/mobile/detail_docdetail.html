@@ -67,9 +67,7 @@
 
         </article>
     </div>
-    {%if config.ext.changyan.is ==1%}
-    <div id="SOHUCS" sid="{{info.id}}"></div>
-    {%endif%}
+    {{HOOK@documentDetailAfter|safe}}
 
 </div>
 <div id="mulu" class="mui-modal">
@@ -99,12 +97,7 @@
 {% block script %}
     <script src="/static/admin/js/jquery.min.js"></script>
     <script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
-{%if config.ext.changyan.is ==1%}
-<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.ext.changyan.appid}}&conf={{config.ext.changyan.appkey}}">
-</script>
-<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
-{%endif%}
+
 <script type="text/javascript">
     mui.init()
     mui('.mui-scroll-wrapper').scroll();

@@ -16,5 +16,31 @@ module.exports = {
     extIndex: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extindexbase')),
     extAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extadminbase')),
     rest: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'rest'))
-  }
+  },
+  extModel(modelName = '', extName='', config = think.config('model.mysql'), prefix = 'ext_') {
+    try {
+      const Cls = think.app.controllers[`ext/${extName}/model/${modelName}`];
+      return new Cls(`${prefix}${modelName}`, config);
+    } catch (e) {
+      return think.model(`${prefix}${modelName}`);
+    }
+  },
+  extService(name = '', ser='', ...args){
+    const Cls = think.app.controllers[`ext/${ser}/service/${name}`];
+    if (think.isFunction(Cls)) return new Cls(...args);
+    return Cls;
+  },
+  modModel(modelName = '', extName = '', config = think.config('model.mysql'), prefix = '') {
+    try {
+      const Cls = think.app.controllers[`mod/${extName}/model/${modelName}`];
+      return new Cls(`${prefix}${modelName}`, config);
+    } catch (e) {
+      return think.model(`${prefix}${modelName}`);
+    }
+  },
+  modService(name = '', ser = '', ...args){
+    const Cls = think.app.controllers[`mod/${ser}/service/${name}`];
+    if (think.isFunction(Cls)) return new Cls(...args);
+    return Cls;
+  },
 };

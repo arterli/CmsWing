@@ -1,0 +1,33 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <a class="btn btn-primary btn-xs pull-right" href="/ext/link/index">更多&gt;&gt;</a>{% if config.ext.link.ispost ==1 %}<a class="btn btn-info btn-xs pull-right" href="/ext/link/index/apply" style="margin-right: 15px">申请友情链接</a>{%endif%}
+        <h2 class="panel-title">{{config.ext.link.title}}</h2>
+    </div>
+    <div class="panel-body link padding-10">
+        <!--
+controlls-over		= navigation buttons over the image
+buttons-autohide 	= navigation buttons visible on mouse hover only
+
+data-plugin-options:
+"singleItem": true
+"autoPlay": true (or ms. eg: 4000)
+"navigation": true
+"pagination": true
+-->
+        <div class="owl-carousel nomargin" data-plugin-options='{"items":6, "singleItem": false, "autoPlay": true}'>
+            {%for l in link%}
+            {%if l.linktype==0%}
+            <div class="linkbox alternate">
+                <a href="{{l.url}}" target="_blank" title="{{l.name}}">{{l.name}}</a>
+            </div>
+            {%else%}
+            <div class="linkbox alternate">
+                <a href="{{l.url}}" target="_blank" title="{{l.name}}">
+                    <img class="img-responsive" src="{{l.logo}}" alt="{{l.name}}">
+                </a>
+            </div>
+            {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+</div>

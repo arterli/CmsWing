@@ -1,0 +1,91 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+{%endblock%}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left ">
+                                    <li class="active"><a  href="/{{ctx.controller}}/index">钩子管理</a></li>
+                                </ul>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info " href="/{{ctx.controller}}/add">
+                                            新增钩子
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:80px;">ID</th>
+                                        <th style="">名称</th>
+                                        <th class="">描述</th>
+                                        <th class="">类型</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td>{{item.id}}</td>
+                                        <td><a href="/{{ctx.controller}}/edit/?id={{item.id}}" class="text-info">{{item.name}}</a></td>
+                                        <td>{{item.description}}</td>
+                                        <td>{{'视图' if item.type==1 else '控制器'}}</td>
+                                        <td>
+                                            <a href="/{{ctx.controller}}/edit/?id={{item.id}}" class="text-info">编辑</a>
+                                            <a href="/{{ctx.controller}}/del/?id={{item.id}}" class="text-info ajax-get confirm">删除</a>
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+
+{% endblock%}

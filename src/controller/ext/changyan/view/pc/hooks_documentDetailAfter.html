@@ -1,0 +1,18 @@
+<div class="panel-footer panel-footer-transparent">
+    <!-- COMMENTS -->
+    <div id="comments" >
+        <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
+        <div id="SOHUCS" sid="{{sid}}"></div>
+        <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
+        <script type="text/javascript">
+          window._config = { showScore: true };
+          window.changyan.api.config({
+            appid: '{{config.ext.changyan.appid}}',
+            conf: '{{config.ext.changyan.appkey}}'
+          });
+        </script>
+    </div>
+    <!-- /COMMENTS -->
+</div>
+<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>

@@ -36,7 +36,7 @@ module.exports = class extends think.cmswing.extIndex {
       return this.redirect('/center/index');
     }
     const res = this.get();
-    const qq = this.service('ext/qq', res.access_token, res.openid);
+    const qq = this.extService('qq', res.access_token, res.openid);
     const userinfo = await qq.get_user_info();
     const qq_user = await this.model('ext_qq').where({openid: res.openid}).find();
     if (think.isEmpty(qq_user)) {
@@ -84,11 +84,7 @@ module.exports = class extends think.cmswing.extIndex {
     const qq_user = await this.model('ext_qq').where({openid: openid}).find();
     this.assign('qq_user', qq_user);
     this.meta_title = '账号绑定';
-    if (this.isMobile) {
-      return this.display(this.mtpl());
-    } else {
-      return this.display();
-    }
+    return this.isMobile ? this.extDisplay('m') : this.extDisplay();
   }
   /** 完善资料绑定 */
   async organizingAction() {

@@ -15,5 +15,5 @@ module.exports = [
   [/\/api\/category(?:\/(\d+))?/, 'api/category?id=:1', 'rest'], // rest
   [/\/api\/document(?:\/(\d+))?/, 'api/document?id=:1', 'rest'], // rest
   // [/^(?!\/admin\/|\/home\/|\/center\/|\/api\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
-  ['/:category', 'home/route/index', 'get']
+  ['/:category', 'cmswing/route/index', 'get']
 ];

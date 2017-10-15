@@ -1,0 +1,107 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                独立模型表列表
+                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info " href="/admin/model/addext">
+                                            新增独立模型
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/?status=1"  target-form="ids">
+                                           启用
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/?status=0" target-form="ids">
+                                        禁用
+                                    </a>
+                                        <a class="btn btn-sm btn-info" href="/admin/model/generate">
+                                            生成
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right">
+                                        <input type="text" class="input-sm form-control" placeholder="Search">
+                      <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                                        <th style="width:80px;">ID</th>
+                                        <th class="">目录/标识</th>
+                                        <th class="">名称</th>
+                                        <th class="">创建时间</th>
+                                        <th class="">类型</th>
+                                        <th class="">状态</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{%if item.id !=1%}{{item.id}}{%endif%}" {%if item.id==1%}disabled="true"{%endif%}><i></i></label></td>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td><a data-id="{{item.id}}" href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">{{item.title}}</a></td>
+                                        <td>{{item.create_time | format_time(1)}}</td>
+                                        <td>{%if item.extend==0%}{%if item.id==1%}系统{%else%}独立模型{%endif%}{%else%}系统模型{%endif%}</td>
+                                        <td>
+                                            <a href="/admin/model/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
+                                                <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
+                                                <i class="fa fa-times text-danger {%if item.status %}text{%else%}text-active{%endif%}"></i>
+                                            </a>
+                                        </td>
+                                        
+                                        <td>{#<a href="/admin/cms/list/?model={{item.name}}" class="text-info">数据</a>#}
+                                            <a href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">编辑</a>
+                                            {%if item.extend==1 or item.id==1%}
+                                            <a href="/admin/attribute/index/?model_id={{item.id}}" class="text-info">字段</a>
+                                            {%else%}
+                                            <a href="/admin/attribute/ext/?model_id={{item.id}}" class="text-info">字段</a>
+                                            {%endif%}
+                                            {%if item.id !=1%}
+                                            <a href="/admin/model/unext?id={{item.id}}" class="confirm ajax-get text-info">卸载</a></td>
+                                            {%endif%}
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>This would display if the 'item' collection were empty</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}

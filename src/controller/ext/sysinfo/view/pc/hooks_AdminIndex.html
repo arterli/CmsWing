@@ -1,0 +1,26 @@
+<div class="col-md-{{12/controller.config('ext.sysinfo.width')}}">
+    <section class="panel panel-info ">
+        <header class="panel-heading">
+
+            系统信息
+        </header>
+        <div class="list-group bg-white">
+            <div class="list-group-item">
+                <i class="fa fa-fw fa-info-circle"></i> CmsWing版本 : <span class=" text-muted">{{version}}</span>
+            </div>
+            <div class="list-group-item">
+                <i class="fa fa-fw fa-info-circle"></i> 服务器操作系统 : <span class=" text-muted">{{OS}}</span>
+            </div>
+            <div class="list-group-item">
+                <i class="fa fa-fw fa-info-circle"></i> nodejs版本 : <span class=" text-muted">{{ nodejs_v }}</span>
+            </div>
+            <div class="list-group-item">
+                <i class="fa fa-fw fa-info-circle"></i> MYSQL版本 ：<span class=" text-muted">{{mysqlv}}</span>
+            </div>
+            <div class="list-group-item">
+                <i class="fa fa-fw fa-info-circle"></i> ThinkJS ：<span class="text-muted">{{thinkjs}} [The Web framework beyond your dreams] <a href="https://thinkjs.org/doc.html" target="_blank">Getting Started</a> </span>
+            </div>
+
+        </div>
+    </section>
+</div>

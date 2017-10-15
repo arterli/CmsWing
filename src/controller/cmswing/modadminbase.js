@@ -7,6 +7,7 @@
 // +----------------------------------------------------------------------
 const assert = require('assert');
 const Admin = require('./admin');
+const path = require('path');
 module.exports = class extends Admin {
   /**
    * 模型公共参数
@@ -65,7 +66,25 @@ module.exports = class extends Admin {
       return error.noAction('该分类禁止显示！');
     }
   }
-
+  modDisplay(p = this.ctx.action, m = '') {
+    let c = this.ctx.controller.split('/');
+    if (this.ctx.controller === 'cmswing/modadminbase') {
+      c = `mod/${this.mod.name}/admin`.split('/');
+    }
+    if (p === 'm' || !think.isEmpty(m)) {
+      if (p === 'm') {
+        p = this.ctx.action;
+        if (this.ctx.controller === 'cmswing/modadminbase') {
+          p = 'index';
+        }
+      }
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', c[1], 'view', 'mobile', c[2]);
+      return this.display(`${pp}_${p}`);
+    } else {
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', c[1], 'view', 'pc', c[2]);
+      return this.display(`${pp}_${p}`);
+    }
+  }
   // 独立模型display方法封装
   modtemp(action, moblie = false) {
     if (this.ctx.controller === 'cmswing/modadminbase') {

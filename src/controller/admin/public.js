@@ -16,15 +16,11 @@ module.exports = class extends think.Controller {
     if (this.isAjax()) {
       // console.log(this.isAjax());
       // console.log(this.post());
-      // 验证码
-      if (Number(this.config('ext.geetest.isa')) === 1) {
-        const geetest = this.service('ext/geetest');
-        const res = await geetest.validate(this.ctx, this.post());
-        console.log(res);
-        if (res.status != 'success') {
-          const error = this.controller('cmswing/error');
-          return error.noAction('验证码不正确');
-        }
+      // 验证码 钩子
+      const signinBefore = await this.hook('signinBefore');
+      if (signinBefore === 'no') {
+        const error = this.controller('cmswing/error');
+        return error.noAction('验证码不正确');
       }
 
       const username = this.post('username');
@@ -59,8 +55,9 @@ module.exports = class extends think.Controller {
       }
     } else {
       if (is_login) {
-        this.redirect('/admin/index');
+        return this.redirect('/admin/index');
       } else {
+        await this.hook('signinView');
         return this.display();
       }
     }

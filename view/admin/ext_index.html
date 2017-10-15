@@ -10,16 +10,18 @@
                     <section class="scrollable wrapper">
 
                         <section class="panel panel-default">
-                            <header class="panel-heading">
-                                插件列表
-                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left ">
+                                    <li class="active"><a  href="/{{ctx.controller}}/index">已安装的插件</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/uninstall">未安装的插件</a></li>
+                                </ul>
                             </header>
                             <div class="row wrapper">
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
                                         <a class="btn btn-sm btn-info " href="/admin/ext/add">
-                                            新增插件
+                                            快速创建插件
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post" target-form="sort" href="/{{ctx.controller}}/sort">
                                             排序
@@ -29,9 +31,6 @@
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-post" href="/admin/ext/setstatus/?status=0&pk=ext" target-form="ids">
                                             禁用
-                                        </a>
-                                        <a class="btn btn-sm btn-info todo" href="">
-                                            生成
                                         </a>
                                     </div>
                                 </div>
@@ -52,9 +51,10 @@
                                         <th style="width:80px;">排序</th>
                                         <th style="">插件名称</th>
                                         <th class="">插件目录</th>
+                                        <!--<th class="">描述</th>-->
                                         <th class="">版本号</th>
+                                        <th class="">作者</th>
                                         <th class="">安装时间</th>
-                                        <th class="">更新时间</th>
                                         <th class="">状态</th>
                                         <th >操作</th>
                                     </tr>
@@ -66,9 +66,10 @@
                                         <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.ext}}"/></td>
                                         <td>{{item.name}}</td>
                                         <td>{{item.ext}}</td>
+                                        <!--<td>{{item.description}}</td>-->
                                         <td>{{item.version}}</td>
+                                        <td>{{item.author}}</td>
                                         <td>{{item.installtime | moment('YYYY-MM-DD HH:mm')}}</td>
-                                        <td>{{item.updatetime | moment('YYYY-MM-DD HH:mm')}}</td>
                                         <td>
                                             <a href="/admin/ext/setstatus/?ids={{item.ext}}&status={{1-item.status}}&pk=ext" class="active ajax-get" data-toggle="class">
                                                 <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
@@ -77,12 +78,20 @@
                                         </td>
                                         
                                         <td>
+                                            {%if item.isindex==1%}
+                                            <a href="/ext/{{item.ext}}/index/index" target="_blank" class="text-info">访问</a>
+                                            {%endif%}
                                            {%if item.isadm==1%}
                                             <a href="/ext/{{item.ext}}/admin/index" class="text-info">管理</a>
                                             {%endif%}
-                                            <a href="/admin/ext/edit/?ids={{item.ext}}" class="text-info" data-toggle="ajaxModal">更新</a>
-
-                                            <a href="#" class="confirm todo text-info">卸载</a></td>
+                                            {%if item.setting|strToJson|length >0 %}
+                                            <a href="/ext/{{item.ext}}/admin/setting" class="text-info">设置</a>
+                                            {%endif%}
+                                            {%if item.ext != 'demo'%}
+                                            <a href="/ext/{{item.ext}}/admin/reload/?ext={{item.ext}}" class="confirm ajax-get text-info">重载</a>
+                                            <a href="/ext/{{item.ext}}/admin/uninstall/?ext={{item.ext}}" class="confirm ajax-get text-info">卸载</a>
+                                            {%endif%}
+                                        </td>
 
                                     </tr>
                                     {% else %}

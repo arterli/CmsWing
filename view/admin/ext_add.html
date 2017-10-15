@@ -1,5 +1,6 @@
 {% extends "./inc/base.html" %}
 {% block style%}
+<link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css"/>
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 {%endblock%}
 {% block content %}
@@ -23,7 +24,7 @@
                                                             <input type="text" class="form-control" name="ext" value="" data-required="true" data-Remote="/admin/ext/checkext">
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母，不能重复</span>
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 英文字母，不能重复，创建后不能修改</span>
 
                                                         </div>
                                                     </div>
@@ -48,20 +49,15 @@
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">是否有后台管理</label>
+                                                <label class="col-sm-2 control-label">插件简介</label>
 
                                                 <div class="col-sm-10">
                                                     <div class="row">
-                                                        <div class="col-md-4 ">
-                                                            <label class="radio-inline i-checks">
-                                                                <input type="radio" value="1" name="isadm" checked><i></i> 有
-                                                            </label>
-                                                            <label class="radio-inline i-checks">
-                                                                <input type="radio" value="0" name="isadm" ><i></i> 木有
-                                                            </label>
+                                                        <div class="col-md-4">
+                                                            <textarea type="text" name="description" class="form-control" ></textarea>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择有会生成后台管理入口</span>
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 最多120个字</span>
 
                                                         </div>
 
@@ -88,15 +84,16 @@
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">安装时间</label>
+                                                <label class="col-sm-2 control-label">作者</label>
 
                                                 <div class="col-sm-10">
                                                     <div class="row">
                                                         <div class="col-md-4">
-                                                            <input type="text" name="installtime" class="form-control time" value="" placeholder="请选择时间" />
+                                                            <input type="text" class="form-control  " name="author" value=""
+                                                                   data-required="true" >
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认为当前时间</span>
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 插件作者</span>
 
                                                         </div>
 
@@ -105,71 +102,67 @@
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">更新时间</label>
-
-                                                <div class="col-sm-10">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <input type="text" name="updatetime" class="form-control time" value="" placeholder="请选择时间" />
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 默认为当前时间</span>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">排序</label>
-
-                                                <div class="col-sm-10">
-                                                    <div class="row">
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="sort" class="form-control" value="0" placeholder="" />
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 越小越靠前</span>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">插件简介</label>
-
-                                                <div class="col-sm-10">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <textarea type="text" name="description" class="form-control" ></textarea>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 最多120个字</span>
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label">是否启用</label>
+                                                <label class="col-sm-2 control-label">是否需要前台访问</label>
 
                                                 <div class="col-sm-10">
                                                     <div class="row">
                                                         <div class="col-md-4 ">
                                                             <label class="radio-inline i-checks">
-                                                                <input type="radio" value="1" name="status" checked><i></i> 是
+                                                                <input type="radio" value="1" name="isindex" checked><i></i> 需要
                                                             </label>
                                                             <label class="radio-inline i-checks">
-                                                                <input type="radio" value="0" name="status" ><i></i> 否
+                                                                <input type="radio" value="0" name="isindex" ><i></i> 不需要
                                                             </label>
                                                         </div>
                                                         <div class="col-md-12">
-                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 启用插件</span>
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择需要会生成前台访问入口控制器</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">是否有后台管理</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="1" name="isadm" checked><i></i> 有
+                                                            </label>
+                                                            <label class="radio-inline i-checks">
+                                                                <input type="radio" value="0" name="isadm" ><i></i> 木有
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 选择有会生成后台管理入口控制器</span>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">实现的钩子方法</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="row">
+                                                        <div class="col-md-4 ">
+
+                                                            <select style="width:100%" name="hooks" class="chosen-select" multiple>
+                                                                {% for type, items in hooks | groupby("type") %}
+                                                                <optgroup label="{{'视图' if type==1 else '控制器'}}">
+                                                                    {% for item in items %}
+                                                                    <option value="{{ item.name }}"> {{ item.name }}</option>
+                                                                    {% endfor %}
+                                                                </optgroup>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 实现的钩子方法</span>
 
                                                         </div>
 
@@ -201,6 +194,7 @@
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
 <script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+<script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $('.time').datetimepicker({

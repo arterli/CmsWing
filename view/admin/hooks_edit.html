@@ -1,0 +1,155 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/edit" data-validate="parsley">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子名称</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" name="name" value="{{info.name}}" data-required="true" >
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none"><i class="fa fa-info-circle text-info"></i> 英文必填，插件会根据此名称生成钩子方法，需要在程序中先添加钩子，否则无效</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子描述</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-5 ">
+                                            <textarea class="form-control" name="description" style="height: 100px">{{info.description}}</textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 钩子的描述信息</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-10 ">
+                                            <label class="radio-inline i-checks">
+                                                <input type="radio" value="1" name="type" {{'checked' if info.type == 1}}><i></i> 视图
+                                            </label>
+                                            <label class="radio-inline i-checks">
+                                                <input type="radio" value="2" name="type" {{'checked' if info.type == 2}}><i></i> 控制器
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 区分钩子的主要用途</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">插件排序</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-5 ">
+                                            <input type="hidden" value="{{info.ext}}" name="ext">
+                                            {%if info.ext%}
+                                            {%set extlist = info.ext|strToArray%}
+                                            <ul class="list-group gutter list-group-xs list-group-sp sortext">
+                                                {%for v in extlist%}
+                                                <li class="list-group-item bg-info" data-ext="{{v}}">
+                    <span class="pull-right" >
+                      <a href="#" class="del"><i class="fa fa-times fa-fw"></i></a>
+                    </span>
+                                                    <span class="pull-left"><i class="fa fa-sort text-muted fa m-r-sm"></i></span>
+                                                    <div class="clear text-white">
+                                                        {{v}}
+                                                    </div>
+                                                </li>
+{%endfor%}
+                                            </ul>
+                                            {%else%}
+                                            <div class="alert alert-success">
+                                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                                <i class="fa fa-ok-sign"></i>暂无插件, 无法排序.
+                                            </div>
+                                            {%endif%}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 钩子挂载的插件排序（拖动后保存顺序，影响同一个钩子挂载的插件执行先后顺序）</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{{info.id}}">
+                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/sortable/jquery.sortable.js"></script>
+<script>
+    $(function () {
+      //排序
+      $('.sortext').sortable().bind('sortupdate', function() {
+        //Triggered when the user stopped sorting and the DOM position has changed.
+        var arr = []
+        $.each($(this).find('li'),function (i,n) {
+          arr.push($(n).data('ext'));
+          $('input[name="ext"]').val(arr.join(','));
+        })
+      });
+     $("a.del").click(function () {
+       var par = $(this).parents('li');
+       var v = par.data('ext');
+       console.log(par.data('ext'));
+       var extarr = ($('input[name="ext"]').val()).split(',');
+       console.log(extarr);
+      var vv =  $.grep( extarr, function(n,i){
+         return n == v;
+       }, true);
+       $('input[name="ext"]').val(vv.join(','));
+       //删除元素
+       par.remove();
+     })
+    })
+</script>
+{% endblock%}

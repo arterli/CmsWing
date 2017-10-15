@@ -22,6 +22,12 @@ module.exports = class extends think.cmswing.center {
     this.keywords = this.config('setup.WEB_SITE_KEYWORD') ? this.config('setup.WEB_SITE_KEYWORD') : '';// seo关键词
     this.description = this.config('setup.WEB_SITE_DESCRIPTION') ? this.config('setup.WEB_SITE_DESCRIPTION') : '';// seo描述
     this.active = ['/', '/index', '/index.html'];
+    // 首页内容钩子
+    await this.hook('mod_hometitle');
+    await this.hook('mod_homelist');
+    // 右边的钩子
+    await this.hook('mod_homeright');
+    await this.hook('homeright');
     // debugger;
     // 判断浏览客户端
     if (this.isMobile) {
@@ -80,7 +86,9 @@ module.exports = class extends think.cmswing.center {
     } else {
       // debugger;
       // console.log(think.datetime(new Date(), "YYYY-MM-DD"));
+      await this.hook('homeEnd');
       return this.display();
     }
   }
+
 };
