@@ -23,7 +23,7 @@ module.exports = {
           'label': 'appkey:',
           'type': 'text',
           'value': '98c05261f58f2fe30478bb168d143113',
-          'html':`<h4>申请地址</h4>
+          'html': `<h4>申请地址</h4>
                         <pre>https://connect.qq.com/index.html</pre>
                         <div class="post-sum">
                             <p>申请完成后会得到 APP ID 和 APP Key，对应填写到插件配置中。</p>

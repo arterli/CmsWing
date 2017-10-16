@@ -7,7 +7,7 @@ module.exports = class extends think.cmswing.extIndex {
    */
   async videoPlayer(info) {
     // 钩子业务处理
-    this.assign('info',info);
+    this.assign('info', info);
     let html;
     if (this.isMobile) {
       html = await this.hookRender('videoPlayer', 'videojj', 'm');
@@ -16,4 +16,4 @@ module.exports = class extends think.cmswing.extIndex {
     }
     return html;
   }
-}
+};

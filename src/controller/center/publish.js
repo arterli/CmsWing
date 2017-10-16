@@ -675,7 +675,7 @@ module.exports = class extends think.cmswing.center {
       for (const val of cate) {
         const priv = await this.model('cmswing/category_priv').priv(val.id, roleid, 'add', 0, false);
         val.priv = priv;
-        if (priv == 1 ) {
+        if (priv == 1) {
           parr.push(val.pid);
         }
       }

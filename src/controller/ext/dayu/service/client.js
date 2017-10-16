@@ -16,7 +16,7 @@ module.exports = class extends think.Service {
   }
   async send(info) {
     const appkey = think.config('ext.dayu.appkey');
-    const appsecret = think.config('ext.dayu.appsecre')
+    const appsecret = think.config('ext.dayu.appsecre');
     const client = new TopClient({
       'appkey': appkey,
       'appsecret': appsecret,

@@ -24,7 +24,7 @@ module.exports = {
           'label': 'App Secre:',
           'type': 'text',
           'value': 'ec0c3346d244d91c6e0189b4448fb326',
-          'html':`在微博开放平台申请到的 App Secret ,填写到此处
+          'html': `在微博开放平台申请到的 App Secret ,填写到此处
                         <div class="line line-lg"></div>
                         <h4>申请地址</h4>
                         <pre>http://open.weibo.com/</pre>

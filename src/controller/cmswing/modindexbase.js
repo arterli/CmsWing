@@ -62,7 +62,7 @@ module.exports = class extends Index {
   // 独立模型display方法封装
   modDisplay(p = this.ctx.action, m = '') {
     let c = this.ctx.controller.split('/');
-    if(this.ctx.controller === 'cmswing/route'){
+    if (this.ctx.controller === 'cmswing/route') {
       c = `mod/${this.mod.name}/index`.split('/');
       if (Number(this.m_cate.allow_publish) === 1 && p === 'index') {
         p = 'list';
@@ -71,7 +71,7 @@ module.exports = class extends Index {
       }
     }
     if (p === 'm' || !think.isEmpty(m)) {
-      if (p === 'm' ) {
+      if (p === 'm') {
         p = this.ctx.action;
         if (this.ctx.controller === 'cmswing/route') {
           p = Number(this.m_cate.allow_publish) === 1 ? 'list' : 'index';

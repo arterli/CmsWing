@@ -82,13 +82,12 @@ module.exports = class extends think.Controller {
   async extAction() {
     return this.body = this.config('ext.qq.appkey');
   }
- async hooksAction(){
-   let res = await this.hook('signinBefore');
-   if(res ==='no'){
-     const error = this.controller('cmswing/error');
-     return error.noAction('验证码不正确');
-   }
-   return this.body="ddd";
-   }
-
+  async hooksAction() {
+    const res = await this.hook('signinBefore');
+    if (res === 'no') {
+      const error = this.controller('cmswing/error');
+      return error.noAction('验证码不正确');
+    }
+    return this.body = 'ddd';
+  }
 };

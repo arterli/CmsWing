@@ -233,7 +233,7 @@ module.exports = class extends think.Controller {
       const filepath = file.path;
       const extname = path.extname(file.name);
       const basename = path.basename(filepath) + extname;
-      const qiniu = this.extService('qiniu','qiniu');
+      const qiniu = this.extService('qiniu', 'qiniu');
       const uppic = await qiniu.uploadpic(filepath, basename);
       if (!think.isEmpty(uppic)) {
         return {

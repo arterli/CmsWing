@@ -7,9 +7,11 @@
                     <section class="scrollable wrapper">
 
                         <section class="panel panel-default">
-                            <header class="panel-heading">
-                                独立模型表列表
-                                <i data-title="只有新增了字段，数据库表才会真正建立" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left ">
+                                    <li class="active"><a  href="/{{ctx.controller}}/ext">已安装的模型</a></li>
+                                    <li class=""><a  href="/{{ctx.controller}}/extun">未安装的模型</a></li>
+                                </ul>
                             </header>
                             <div class="row wrapper">
 
@@ -46,8 +48,9 @@
                                         <th style="width:80px;">ID</th>
                                         <th class="">目录/标识</th>
                                         <th class="">名称</th>
-                                        <th class="">创建时间</th>
-                                        <th class="">类型</th>
+                                        <th class="">版本号</th>
+                                        <th class="">作者</th>
+                                        <th class="">安装时间</th>
                                         <th class="">状态</th>
                                         <th >操作</th>
                                     </tr>
@@ -59,8 +62,9 @@
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
                                         <td><a data-id="{{item.id}}" href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">{{item.title}}</a></td>
-                                        <td>{{item.create_time | format_time(1)}}</td>
-                                        <td>{%if item.extend==0%}{%if item.id==1%}系统{%else%}独立模型{%endif%}{%else%}系统模型{%endif%}</td>
+                                        <td>{{item.version}}</td>
+                                        <td>{{item.author}}</td>
+                                        <td>{{item.create_time | moment('YYYY-MM-DD HH:mm')}}</td>
                                         <td>
                                             <a href="/admin/model/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
                                                 <i class="fa fa-check text-success {%if item.status %}text-active{%else%}text{%endif%}"></i>
@@ -80,7 +84,7 @@
                                             {%endif%}
                                     </tr>
                                     {% else %}
-                                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
+                                    <tr><td colspan="9"><div class="alert alert-warning alert-block">
                                         <button data-dismiss="alert" class="close" type="button">×</button>
                                         <p>This would display if the 'item' collection were empty</p>
                                     </div></td></tr>

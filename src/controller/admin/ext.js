@@ -20,7 +20,7 @@ module.exports = class extends think.cmswing.admin {
    */
   async indexAction() {
     // auto render template file index_index.html
-    const data = await this.db.page(this.get('page'),20).order('sort DESC, installtime DESC').countSelect();
+    const data = await this.db.page(this.get('page'), 20).order('sort DESC, installtime DESC').countSelect();
     const html = this.pagination(data);
     this.assign('pagerData', html); // 分页展示使用
     this.assign('list', data.data);
@@ -56,7 +56,7 @@ module.exports = class extends think.cmswing.admin {
     console.log(unilist);
     this.assign('list', unilist);
     this.meta_title = '未安装的插件';
-    this.active = 'admin/ext/index'
+    this.active = 'admin/ext/index';
     return this.display();
   }
   /**
@@ -144,7 +144,7 @@ module.exports = class extends think.cmswing.admin {
       fs.writeFileSync(`${extpath}/config.js`, strConfig);
 
       // 创建钩子控制器
-      const hookaction = []
+      const hookaction = [];
       if (!think.isArray(data.hooks)) {
         data.hooks = data.hooks.split(',');
       }
@@ -169,7 +169,7 @@ module.exports = class extends think.cmswing.admin {
   }`);
         }
       }
-      const hookhtml = hookaction.join(';\n  ')
+      const hookhtml = hookaction.join(';\n  ');
       const hooksstr = `// hooks
 module.exports = class extends think.cmswing.extIndex {
   ${hookhtml}
@@ -186,7 +186,7 @@ module.exports = class extends think.cmswing.extIndex {
       this.copy(`${extdir}/demo/admin.js`, `${extpath}/admin.js`);
       // 创建插件前台访问控制器
       this.copy(`${extdir}/demo/index.js`, `${extpath}/index.js`);
-      //return this.fail('ddd');
+      // return this.fail('ddd');
       // data.setting = '{}';
       // const res = await this.model('ext').add(data);
       // if (res === 0) {
@@ -205,7 +205,7 @@ module.exports = class extends think.cmswing.extIndex {
       // } else {
       //   return this.fail('添加失败！');
       // }
-      return this.success({name:'插件已经生成，请到 [未安装的插件] 进行安装！',url:'/admin/ext/uninstall'});
+      return this.success({name: '插件已经生成，请到 [未安装的插件] 进行安装！', url: '/admin/ext/uninstall'});
     } else {
       this.active = 'admin/ext/index';
       this.meta_title = '创建插件向导';

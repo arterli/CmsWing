@@ -23,4 +23,4 @@ module.exports = class extends think.cmswing.extIndex {
     const html = await this.hookRender('AdminIndex', 'sysinfo');
     return html;
   }
-}
+};

@@ -198,7 +198,7 @@ module.exports = class extends think.cmswing.center {
       if (Number(this.config('ext.qiniu.is')) === 1 && Number(location) === 1) {
         // 七牛下载
         // dlink = await get_file(file_id,"savename",true);
-        const qiniu = this.extService('qiniu','qiniu');
+        const qiniu = this.extService('qiniu', 'qiniu');
         dlink = await qiniu.download(d.savename);
       } else {
         // 本地下载

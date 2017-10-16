@@ -70,7 +70,6 @@ module.exports = class extends think.cmswing.center {
       // 第三方登录钩子
       await this.hook('logins');
       return this.isMobile ? this.display(this.mtpl()) : this.display();
-
     }
   }
   //   登陆页面

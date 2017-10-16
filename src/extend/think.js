@@ -17,7 +17,7 @@ module.exports = {
     extAdmin: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'extadminbase')),
     rest: require(path.join(think.ROOT_PATH, 'src', 'controller', 'cmswing', 'rest'))
   },
-  extModel(modelName = '', extName='', config = think.config('model.mysql'), prefix = 'ext_') {
+  extModel(modelName = '', extName = '', config = think.config('model.mysql'), prefix = 'ext_') {
     try {
       const Cls = think.app.controllers[`ext/${extName}/model/${modelName}`];
       return new Cls(`${prefix}${modelName}`, config);
@@ -25,7 +25,7 @@ module.exports = {
       return think.model(`${prefix}${modelName}`);
     }
   },
-  extService(name = '', ser='', ...args){
+  extService(name = '', ser = '', ...args) {
     const Cls = think.app.controllers[`ext/${ser}/service/${name}`];
     if (think.isFunction(Cls)) return new Cls(...args);
     return Cls;
@@ -38,9 +38,9 @@ module.exports = {
       return think.model(`${prefix}${modelName}`);
     }
   },
-  modService(name = '', ser = '', ...args){
+  modService(name = '', ser = '', ...args) {
     const Cls = think.app.controllers[`mod/${ser}/service/${name}`];
     if (think.isFunction(Cls)) return new Cls(...args);
     return Cls;
-  },
+  }
 };

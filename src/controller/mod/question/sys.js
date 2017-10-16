@@ -27,7 +27,7 @@ module.exports = class extends think.cmswing.modIndex {
     // 获取面包屑信息
     const breadcrumb = await this.model('cmswing/category').get_parent_category(cid, true);
     this.assign('breadcrumb', breadcrumb);
-    //console.log(breadcrumb);
+    // console.log(breadcrumb);
     this.assign('category', this.m_cate);
     this.meta_title = '发布';
     if (this.isMobile) {

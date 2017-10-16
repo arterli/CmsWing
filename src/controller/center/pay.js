@@ -105,8 +105,9 @@ module.exports = class extends think.cmswing.center {
           }
           // 调用ping++ 服务端
           payment = think.service('cmswing/payment', this.ctx);
-          // 传入 channel,order_no,order_amount,this.ip()
-          charges = await payment.pingxx(channel, order.order_no, order.order_amount, this.ip, open_id);
+          // 传入 channel,order_no,order_amount,this.ip
+          const ip = think.env === 'development' ? '127.0.0.1' : this.ip;
+          charges = await payment.pingxx(channel, order.order_no, order.order_amount, ip, open_id);
           // 把pingxx_id存到订单
           await this.model('order').where({id: post.order_id}).update({pingxx_id: charges.id});
         } else {
@@ -130,7 +131,7 @@ module.exports = class extends think.cmswing.center {
       // 订单信息
       const order = await this.model('order').where({pay_status: 0, user_id: this.user.uid}).find(order_id);
       if (think.isEmpty(order)) {
-        const error = this.controller('common/error');
+        const error = this.controller('cmswing/error');
         return error.noAction('订单不存在或者已经支付！');
       }
       order.end_time = date_from(order.create_time + (Number(this.config('setup.ORDER_DELAY')) * 60000));

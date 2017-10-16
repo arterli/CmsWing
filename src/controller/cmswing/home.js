@@ -204,5 +204,4 @@ module.exports = class extends think.Controller {
     this.header('Access-Control-Request-Method', 'GET,POST,PUT,DELETE');
     this.header('Access-Control-Allow-Credentials', 'true');
   }
-
 };

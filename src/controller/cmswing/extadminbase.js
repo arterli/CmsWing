@@ -223,12 +223,12 @@ module.exports = class extends Admin {
     // 导入数据库文件
     const sqlpath = !think.isEmpty(data.sql) ? path.join(this.extPath, `${data.sql}`) : path.join(this.extPath, `${ext}.sql`);
     if (think.isFile(sqlpath)) {
-      let content = fs.readFileSync(sqlpath, 'utf8');
+      const sqlfile = fs.readFileSync(sqlpath, 'utf8');
       // todo 自动适配表名
       // 导入数据库
-      content = content.split(/(?:\r\n|\r|\n)/g).filter(item => {
+      let content = sqlfile.split(/(?:\r\n|\r|\n)/g).filter(item => {
         item = item.trim();
-        const ignoreList = ['--', 'SET', '#', 'LOCK', 'UNLOCK'];
+        const ignoreList = ['--', 'SET', '#', 'LOCK', 'UNLOCK', 'INSERT'];
         for (const it of ignoreList) {
           if (item.indexOf(it) === 0) {
             return false;
@@ -236,21 +236,25 @@ module.exports = class extends Admin {
         }
         return true;
       }).join('');
-      content = content.replace(/\/\*.*?\*\//g, '').replace(/cmswing_/g, this.config('model.mysql.prefix') || '');
-      content = content.trim();
-      content = content.replace(/\s\s+/g, ' ').trim();
+      content = content.replace(/\/\*.*?\*\//g, '');
       content = content.substring(0, content.length - 1);
+      // console.log(content);
       const arr = content.split(';');
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i].toUpperCase().indexOf('INSERT') !== 0 && arr[i].toUpperCase().indexOf('DROP') !== 0 && arr[i].toUpperCase().indexOf('CREATE')) {
-          arr[i - 1] += arr[i];
-          arr.splice(i, 1);
+      // console.log(arr);
+      const insert = sqlfile.split(/(?:\r\n|\r|\n)/g).filter(item => {
+        item = item.trim();
+        if (item.indexOf('INSERT') === 0) {
+          return true;
         }
-      }
+        return false;
+      });
+        // console.log(insert);
+      const sqlarr = arr.concat(insert);
       try {
-        for (let item of arr) {
+        for (let item of sqlarr) {
           item = item.trim();
           if (item) {
+            item = item.replace(/cmswing_/g, this.config('model.mysql.prefix') || '');
             think.logger.info(item);
             await this.model('mysql').execute(item);
           }

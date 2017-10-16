@@ -51,7 +51,7 @@ module.exports = class extends think.cmswing.admin {
           val.channel = '货到付款';
           break;
         case 1002:
-          val.channel = "银行汇款";
+          val.channel = '银行汇款';
           break;
         default:
           val.channel = await this.model('pingxx').where({id: val.payment}).getField('title', true);
@@ -166,7 +166,7 @@ module.exports = class extends think.cmswing.admin {
      */
   async seeAction() {
     const id = this.get('id');
-    //console.log(id);
+    // console.log(id);
     this.meta_title = '查看订单';
     // 获取订单信息
     const order = await this.model('order').find(id);

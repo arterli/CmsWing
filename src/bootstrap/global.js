@@ -1138,7 +1138,7 @@ global.get_file = async(file_id, field, key = false) => {
     return false;
   }
   const file = await think.model('file').find(file_id);
-  if (file.location == 1 && key && key !=1) {
+  if (file.location == 1 && key && key != 1) {
     file.savename = `//${think.config('ext.qiniu.domain')}/${file.savename}?download/${file.savename}`;
   }
   if (file.location == 1 && key == 1) {

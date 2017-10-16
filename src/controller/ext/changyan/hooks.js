@@ -7,7 +7,7 @@ module.exports = class extends think.cmswing.extIndex {
    */
   async documentDetailAfter(info) {
     // 钩子业务处理
-    this.assign('sid',info.id);
+    this.assign('sid', info.id);
     let html;
     if (this.isMobile) {
       html = await this.hookRender('documentDetailAfter', 'changyan', 'm');

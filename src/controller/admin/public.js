@@ -144,7 +144,7 @@ module.exports = class extends think.Controller {
     const data = await this.model(model).where(map).field(`${id} as id, ${val} as data`).select();
     console.log(data);
     this.header('Content-Type', 'text/html');
-    return this.body=JSON.stringify(data);
+    return this.body = JSON.stringify(data);
   }
 
   /**

@@ -481,4 +481,3 @@ global.model = function() {
     return callback(null, '');
   };
 };
-

@@ -90,5 +90,4 @@ module.exports = class extends think.cmswing.center {
       return this.display();
     }
   }
-
 };

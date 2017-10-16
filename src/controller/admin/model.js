@@ -150,7 +150,92 @@ module.exports = class extends think.cmswing.admin {
     this.tactive = 'ext';
     return this.display();
   }
-
+  // 未安装的独立模型
+  async extunAction() {
+    const dir = think.getdirFiles(`${think.APP_PATH}/controller/mod`);
+    console.log(dir);
+    const modarr = [];
+    for (const v of dir) {
+      modarr.push(think._.head(think._.split(v, path.sep, 1)));
+    }
+    console.log(modarr);
+    // 找出未安装的插件
+    const uniarr = [];
+    for (const d of think._.uniq(modarr)) {
+      const map = {'status': ['>', -1], 'ismod': 1};
+      map.name = d;
+      const ism = await this.db.where(map).find();
+      if (think.isEmpty(ism)) {
+        uniarr.push(d);
+      }
+    }
+    // 找出未安装插件的配置
+    const unilist = [];
+    for (const modName of uniarr) {
+      unilist.push(think.app.controllers[`mod/${modName}/config`]);
+    }
+    console.log(unilist);
+    this.assign('list', unilist);
+    this.meta_title = '未安装的模型';
+    this.tactive = 'ext';
+    this.active = 'admin/model/ext';
+    return this.display();
+  }
+  // 安装插件
+  async installextAction() {
+    const mod = this.get('mod');
+    const modconfig = think.app.controllers[`mod/${mod}/config`];
+    // 导入数据库文件
+    const sqlpath = path.join(`${think.APP_PATH}/controller/mod/${mod}`, `${mod}.sql`);
+    if (think.isFile(sqlpath)) {
+      const sqlfile = fs.readFileSync(sqlpath, 'utf8');
+      // todo 自动适配表名
+      // 导入数据库
+      let content = sqlfile.split(/(?:\r\n|\r|\n)/g).filter(item => {
+        item = item.trim();
+        const ignoreList = ['--', 'SET', '#', 'LOCK', 'UNLOCK', 'INSERT'];
+        for (const it of ignoreList) {
+          if (item.indexOf(it) === 0) {
+            return false;
+          }
+        }
+        return true;
+      }).join('');
+      content = content.replace(/\/\*.*?\*\//g, '');
+      content = content.substring(0, content.length - 1);
+      // console.log(content);
+      const arr = content.split(';');
+      // console.log(arr);
+      const insert = sqlfile.split(/(?:\r\n|\r|\n)/g).filter(item => {
+        item = item.trim();
+        if (item.indexOf('INSERT') === 0) {
+          return true;
+        }
+        return false;
+      });
+      // console.log(insert);
+      const sqlarr = arr.concat(insert);
+      try {
+        for (let item of sqlarr) {
+          item = item.trim();
+          if (item) {
+            item = item.replace(/cmswing_/g, this.config('model.mysql.prefix') || '');
+            think.logger.info(item);
+            await this.model('mysql').execute(item);
+          }
+        }
+      } catch (e) {
+        think.logger.error(e);
+        return this.fail('数据表导入失败，请在控制台下查看具体的错误信息，并在 GitHub 上发 issue。');
+      }
+    }
+    // 添加模型数据
+    modconfig.create_time = new Date().getTime();
+    await this.model('model').add(modconfig);
+    update_cache('model');// 更新模型缓存
+    process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
+    return this.success({name: '安装成功!'});
+  }
   /**
    * 新建独立模型
    * @returns {*}
@@ -326,14 +411,27 @@ module.exports = class extends think.cmswing.admin {
     }
     // 删除该模型的分类
     const cats = await this.model('category').where({model: m.id}).getField('id');
-    console.log(cats);
-    // await this.model('category').where({id:['IN',cats]}).delete();
-    console.log('删除分类');
-    // 清理 分类权数据
-    // await this.model('category_priv').where({catid:['IN',cats]}).delete();
-    console.log('清除分类权限');
-    // 清除
-    return this.fail('ddd');
+    if (!think.isEmpty(cats)) {
+      await this.model('category').where({id: ['IN', cats]}).delete();
+      console.log('删除分类');
+      // 清理 分类权数据
+      await this.model('category_priv').where({catid: ['IN', cats]}).delete();
+      console.log('清除分类权限');
+    }
+    // 清除 搜索索引
+    await this.model('search').where({m_id: m.id}).delete();
+    console.log('清除 搜索索引');
+    // 清清除 搜索配置
+    await this.model('search_model').where({mod: m.id}).delete();
+    // 清除 话题数据
+    if (m.key_show === 1) {
+      await this.model('keyword_data').where({mod_id: m.id}).delete();
+      console.log('清除 话题数据');
+    }
+    // 删除模型
+    await this.model('model').where({id: m.id}).delete();
+    update_cache('model');// 更新模型缓存
+    return this.success({name: '卸载成功，移动到未安装！'});
   }
 
   // 删除表
@@ -344,17 +442,18 @@ module.exports = class extends think.cmswing.admin {
       for (const t of tables) {
         if (t.indexOf(name) === 0) {
           const table = prefix + t;
-          const sql = `SHOW TABLES LIKE '${table}'`;
+          let sql = `SHOW TABLES LIKE '${table}'`;
           const istable = await this.model('mysql').query(sql);
           console.log(istable);
-        // if (!think.isEmpty(istable)) {
-        //   sql = `DROP TABLE ${table}`;
-        //   await this.model('mysql').execute(sql);
-        // }
+          if (!think.isEmpty(istable)) {
+            sql = `DROP TABLE ${table}`;
+            await this.model('mysql').execute(sql);
+          }
         }
       }
     }
   }
+
   /**
      * 生成模型
      * @returns {*}

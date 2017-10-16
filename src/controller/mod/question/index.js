@@ -16,7 +16,7 @@ module.exports = class extends think.cmswing.modIndex {
     // auto render template file index_index.html
 
     return this.body = '封面入口';
-    //return this.display();
+    // return this.display();
   }
 
   /**

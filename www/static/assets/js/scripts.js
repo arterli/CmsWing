@@ -3572,7 +3572,7 @@ function _pingpp(){
 	var _container = $(".pingpp_pay");
 
 	if(_container.length > 0){
-		loadScript(plugin_path + 'pingpp/pingpp-pc.js',function () {
+		loadScript(plugin_path + 'pingpp/pingpp.js',function () {
 			_container.click(function (e) {
 				var order_id = $("input[name='order_id']").val()
 
@@ -3592,7 +3592,7 @@ function _pingpp(){
 						} else if(res.data.data){
 							_toastr(res.data.name,"top-right","success",false);
 
-								pingppPc.createPayment(res.data.data, function(result, err) {
+								pingpp.createPayment(res.data.data, function(result, err) {
 									console.log(result);
 									console.log(err);
 								});
@@ -3839,7 +3839,7 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
 	 var _container = $("#recharge");
 
 	 if(_container.length > 0){
-		 loadScript(plugin_path + 'pingpp/pingpp-pc.js',function () {
+		 loadScript(plugin_path + 'pingpp/pingpp.js',function () {
 			 $(document).on('submit','form.recharge',function(e){
 				 var data=$(this).serialize()
 				
@@ -3857,7 +3857,7 @@ jQuery.easing.jswing=jQuery.easing.swing;jQuery.extend(jQuery.easing,{def:"easeO
 						 } else if(res.data.data){
 							 _toastr(res.data.name,"top-right","success",false);
 
-							 pingppPc.createPayment(res.data.data, function(result, err) {
+							 pingpp.createPayment(res.data.data, function(result, err) {
 								 console.log(result);
 								 console.log(err);
 							 });

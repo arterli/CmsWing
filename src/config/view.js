@@ -360,7 +360,6 @@ module.exports = {
 			 * 获取用户组
 			 */
       env.addFilter('get_member_group', async(groupid, callback) => {
-
         const data = await think.model('cmswing/member_group', think.config('db')).getgroup({groupid: groupid});
         callback(null, data[0]);
       }, true);
@@ -444,7 +443,7 @@ module.exports = {
             }
           }
         } catch (e) {
-          think.logger.error(e)
+          think.logger.error(e);
         }
         callback(null, res);
       }, true);
