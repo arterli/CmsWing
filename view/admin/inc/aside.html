@@ -34,7 +34,7 @@
                         {%else%}
                         {%set ism = 0%}
                         {%endif%}
-                        {% for i, v in config.setup.MENU_GROUP%}
+                        {% for i, v in controller.MenuGroup%}
                         {% if i!= 0 and i != 99  and i !=ism%}
 
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
