@@ -335,6 +335,9 @@ module.exports = class extends think.cmswing.admin {
       // console.log(data);
       // return false;
       // 检查要移动的栏目是否包含子栏目
+      if (data.target == 0) {
+        return this.fail('请选择目标栏目！');
+      }
       const pid = await this.model('cmswing/category').get_sub_category(data.source);
       // console.log(pid);
       const l = pid.length;
@@ -345,9 +348,7 @@ module.exports = class extends think.cmswing.admin {
       if (data.source == data.target) {
         return this.fail('源栏目不能与目标栏目重复！');
       }
-      if (data.target == 0) {
-        return this.fail('请选择目标栏目！');
-      }
+
       const source = await this.model('category').find(data.source);
       const target = await this.model('category').find(data.target);
       // 获取栏目模型信息
