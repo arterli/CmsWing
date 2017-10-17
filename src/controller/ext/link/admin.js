@@ -28,7 +28,7 @@ module.exports = class extends think.cmswing.extAdmin {
     this.assign('list', data.data);
     // 获取当前插件的分类
     this.assign('type', await this.gettype());
-    return this.display();
+    return this.extDisplay();
   }
 
   /**
@@ -53,7 +53,7 @@ module.exports = class extends think.cmswing.extAdmin {
       // 获取当前插件的分类
       this.assign('type', await this.gettype());
       this.meta_title = '添加友情链接';
-      return this.display();
+      return this.extDisplay();
     }
   }
 
@@ -82,7 +82,7 @@ module.exports = class extends think.cmswing.extAdmin {
       // 获取当前插件的分类
       this.assign('type', await this.gettype());
       this.meta_title = '添加友情链接';
-      return this.display();
+      return this.extDisplay();
     }
   }
   async delAction() {
@@ -116,7 +116,7 @@ module.exports = class extends think.cmswing.extAdmin {
       const html = this.pagination(data);
       this.assign('pagerData', html); // 分页展示使用
       this.assign('list', data.data);
-      return this.display();
+      return this.extDisplay();
     }
   }
 };

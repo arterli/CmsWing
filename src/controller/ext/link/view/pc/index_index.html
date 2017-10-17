@@ -1,0 +1,88 @@
+{% extends "view/home/inc_base.html" %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>友情链接</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li class="active">友情链接</li>
+
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+
+            <li class="active"><a href="/ext/link/index"><i class="fa fa-link"></i> 友情链接</a></li>
+            <li class=""><a href="/ext/link/index/apply"><i class="fa fa-venus-double"></i> 申请友情链接</a></li>
+            <!--<li class=""><a href="#"><i class="et-refresh"></i> 动态</a></li>-->
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- -->
+<section>
+    <div class="container tabs">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <ul id="portfolio_filter" class="nav nav-tabs">
+                    <li class="filter active"><a data-filter="*" href="#">全部</a></li>
+                    {%for t in type%}
+                    <li class="filter"><a data-filter=".t_{{t.typeid}}" href="#">{{t.name}}</a></li>
+                    {%endfor%}
+                </ul>
+            </div>
+            <div class="panel-body">
+                <div id="portfolio" class="clearfix portfolio-isotope portfolio-isotope-6">
+
+                    {%for link in list%}
+                    {%if link.linktype == 0%}
+                    <div class="linkbox alternate portfolio-item t_{{link.typeid}}">
+                        <a href="{{link.url}}" target="_blank" title="{{link.name}}">{{link.name}}</a>
+                    </div>
+                    {%else%}
+                    <div class="linkbox alternate portfolio-item t_{{link.typeid}}"><!-- item -->
+
+                        <a href="{{link.url}}" target="_blank" title="{{link.name}}">
+                            <img class="img-responsive" src="{{link.logo}}" alt="{{link.name}}">
+
+                        </a>
+
+                    </div><!-- /item -->
+                    {%endif%}
+                    {%endfor%}
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+

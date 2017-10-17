@@ -1,0 +1,89 @@
+{% extends "./inc/base.html" %}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="ajaxForm" method="post" class="form-horizontal" action="/{{ctx.controller}}/add" data-validate="parsley">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子名称</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control" name="name" value="" data-required="true" data-Remote="/{{ctx.controller}}/checkext">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none"><i class="fa fa-info-circle text-info"></i> 英文必填，插件会根据此名称生成钩子方法，需要在程序中先添加钩子，否则无效</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子描述</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-5 ">
+                                            <textarea class="form-control" name="description" style="height: 100px"></textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none">钩子的描述信息</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钩子类型</label>
+
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-md-10 ">
+                                            <label class="radio-inline i-checks">
+                                                <input type="radio" value="1" name="type" checked><i></i> 视图
+                                            </label>
+                                            <label class="radio-inline i-checks">
+                                                <input type="radio" value="2" name="type" ><i></i> 控制器
+                                            </label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 区分钩子的主要用途</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group form-submit">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary btn-s-md ajax-post" type="submit" target-form="form-horizontal">确定</button>
+                                    <button class="btn btn-default" onclick="javascript:history.back(-1);return false;"
+                                            type="submit">返回
+                                    </button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </section>
+</section>
+
+{% endblock%}
+
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

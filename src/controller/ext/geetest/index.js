@@ -6,10 +6,9 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.cmswing.extIndex {
-
   // 验证码
   async geetestAction() {
-    const geetest = this.service('ext/geetest'); // 加载 commoon 模块下的 geetset service
+    const geetest = this.extService('geetest'); // 加载 commoon 模块下的 geetset service
     if (this.isPost) {
       const post = this.post();
       // console.log(post);

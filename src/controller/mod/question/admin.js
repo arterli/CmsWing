@@ -62,7 +62,7 @@ module.exports = class extends think.cmswing.modAdmin {
       'name': name
     });
     this.assign('group_id', group_id);
-    return this.modtemp('index');
+    return this.modDisplay();
   }
   // 删除
   async delAction() {

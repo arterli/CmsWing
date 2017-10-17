@@ -44,10 +44,15 @@ module.exports = class extends think.Model {
   /**
      * 删除话题
      */
-  async delkey(docid, mod_id) {
-    const tagid = await this.model('keyword_data').where({docid: docid, mod_id: mod_id}).getField('tagid', true);
+  async delkey(docid, mod_id, db = false) {
+    if (!db) {
+      keyword_data = this.model('keyword_data');
+    } else {
+      keyword_data = this.model('keyword_data').db(db);
+    }
+    const tagid = await keyword_data.where({docid: docid, mod_id: mod_id}).getField('tagid', true);
     if (tagid) {
-      await this.model('keyword_data').where({docid: docid, mod_id: mod_id}).delete();
+      await keyword_data.where({docid: docid, mod_id: mod_id}).delete();
       await this.where({id: tagid}).decrement('videonum');
     }
   }
@@ -60,6 +65,7 @@ module.exports = class extends think.Model {
      * @param mod_type "模型类型 0独立模型，1系统模型"
      */
   async updatekey(keyname, id, uid, mod_id, mod_type = 0, db = false) {
+    // console.log(111111);
     let keyword_data;
     if (!db) {
       keyword_data = this.model('keyword_data');
@@ -72,6 +78,8 @@ module.exports = class extends think.Model {
     where.mod_id = mod_id;
     let keyword;
     const topicid = await keyword_data.where(where).getField('tagid');
+    // console.log(topicid);
+
     if (!think.isEmpty(topicid)) {
       keyword = await this.where({id: ['IN', topicid]}).getField('keyname');
     }
@@ -105,6 +113,7 @@ module.exports = class extends think.Model {
       await keyword_data.where(where).delete();
       await this.where({keyname: ['IN', dkn]}).decrement('videonum', 1);
     }
-    await this.addkey(nkn, id, uid, mod_id, mod_type);
+
+    await this.addkey(nkn, id, uid, mod_id, mod_type, db);
   }
 };

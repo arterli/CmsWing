@@ -121,7 +121,8 @@ module.exports = class extends think.cmswing.center {
       // 调用ping++ 服务端
       const payment = this.service('cmswing/payment', this.ctx);
       // 传入 channel,order_no,order_amount,this.ip()
-      const charges = await payment.pingxx(channel, data.order_no, data.order_amount, this.ip, open_id);
+      const ip = think.env === 'development' ? '127.0.0.1' : this.ip;
+      const charges = await payment.pingxx(channel, data.order_no, data.order_amount, ip, open_id);
       // console.log(charges);
       if (charges) {
         // 把pingxx_id存到订单

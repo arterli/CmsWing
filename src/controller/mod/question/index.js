@@ -16,7 +16,7 @@ module.exports = class extends think.cmswing.modIndex {
     // auto render template file index_index.html
 
     return this.body = '封面入口';
-    //return this.display();
+    // return this.display();
   }
 
   /**
@@ -26,9 +26,19 @@ module.exports = class extends think.cmswing.modIndex {
   async listAction() {
     // 获取栏目信息
     let cate = this.m_cate;
-
+    // service 调用测试
+    // -- ext service
+    // 无参数类的实例化
+    // const Ser1 = this.modService('demo');
+    // const Ser1 = think.modService('demo','demo');
+    // const ser1 = Ser1.bbb('bbb');
+    // console.log(ser1);
+    // 有参数类的实例化
+    // const Ser2 = this.modService('demo','demo','aaa','bbb');
+    // const Ser2 = think.modService('demo','demo','aaa','bbb');
+    // const ser2 = Ser2.aaa();
+    // console.log(ser2);
     cate = think.extend({}, cate);
-
     // 栏目权限验证
     if (!await this.c_verify('visit')) {
       const error = this.controller('cmswing/error');
@@ -94,6 +104,8 @@ module.exports = class extends think.cmswing.modIndex {
     this.assign('list', data.data);
     this.assign('count', data.count);
     this.assign('breadcrumb', breadcrumb);
+    console.log(this.ctx.controller);
+    console.log(this.ctx.action);
 
     // 跨屏
     if (this.isMobile) {
@@ -110,11 +122,10 @@ module.exports = class extends think.cmswing.modIndex {
         return this.json(data);
       }
       // console.log(this.mod.name);
-      console.log(this.ctx.controller);
       // 手机端模版
-      return this.modtemp('list', 'm');
+      return this.modDisplay('m');
     } else {
-      return this.modtemp('list');
+      return this.modDisplay();
     }
   }
 
@@ -218,9 +229,9 @@ module.exports = class extends think.cmswing.modIndex {
         return this.json(data);
       }
       // 手机端模版
-      return this.modtemp('question', 'mobile');
+      return this.modDisplay('m');
     } else {
-      return this.modtemp();
+      return this.modDisplay();
     }
   }
 };

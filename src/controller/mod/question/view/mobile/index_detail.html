@@ -1,0 +1,484 @@
+
+{% extends "view/home/mobile/inc_base.html" %}
+{% block style %}
+<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
+<link rel="stylesheet" href="/static/mobile/libs/deitor.wang/css/wangEditor-mobile.css">
+<style>
+    *{
+        -webkit-user-select:text;
+    }
+    html,
+    body {
+        background-color: #efeff4;
+    }
+    .mui-views,
+    .mui-view,
+    .mui-pages,
+    .mui-page,
+    .mui-page-content {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #efeff4;
+    }
+    .mui-pages {
+        top: 46px;
+        height: auto;
+    }
+    .mui-scroll-wrapper,
+    .mui-scroll {
+        background-color: #efeff4;
+    }
+    .mui-page.mui-transitioning {
+        -webkit-transition: -webkit-transform 300ms ease;
+        transition: transform 300ms ease;
+    }
+    .mui-page-left {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .mui-ios .mui-page-left {
+        -webkit-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .mui-navbar {
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        height: 44px;
+        background-color: #f7f7f8;
+    }
+    .mui-navbar .mui-bar {
+        position: absolute;
+        background: transparent;
+        text-align: center;
+    }
+    .mui-android .mui-navbar-inner.mui-navbar-left {
+        opacity: 0;
+    }
+    .mui-ios .mui-navbar-left .mui-left,
+    .mui-ios .mui-navbar-left .mui-center,
+    .mui-ios .mui-navbar-left .mui-right {
+        opacity: 0;
+    }
+    .mui-navbar .mui-btn-nav {
+        -webkit-transition: none;
+        transition: none;
+        -webkit-transition-duration: .0s;
+        transition-duration: .0s;
+    }
+    .mui-navbar .mui-bar .mui-title {
+        display: inline-block;
+        width: auto;
+    }
+    .mui-page-shadow {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 16px;
+        height: 100%;
+        z-index: -1;
+        content: '';
+    }
+    .mui-page-shadow {
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+    }
+    .mui-navbar-inner.mui-transitioning,
+    .mui-navbar-inner .mui-transitioning {
+        -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+        transition: opacity 300ms ease, transform 300ms ease;
+    }
+    .mui-page {
+        display: none;
+    }
+    .mui-pages .mui-page {
+        display: block;
+    }
+    .mui-page .mui-table-view:first-child {
+        margin-top: 15px;
+    }
+    .mui-page .mui-table-view:last-child {
+        margin-bottom: 30px;
+    }
+    .mui-table-view {
+        margin-top: 20px;
+    }
+
+    .mui-table-view span.mui-pull-right {
+        color: #999;
+    }
+    .mui-table-view-divider {
+        background-color: #efeff4;
+        font-size: 14px;
+    }
+    .mui-table-view-divider:before,
+    .mui-table-view-divider:after {
+        height: 0;
+    }
+    .head {
+        height: 40px;
+    }
+    #head {
+        line-height: 40px;
+    }
+    .head-img {
+        width: 40px;
+        height: 40px;
+    }
+    #head-img1 {
+        position: absolute;
+        bottom: 10px;
+        right: 40px;
+        width: 40px;
+        height: 40px;
+    }
+    .update {
+        font-style: normal;
+        color: #999999;
+        margin-right: -25px;
+        font-size: 15px
+    }
+    .mui-fullscreen {
+        position: fixed;
+        z-index: 20;
+        background-color: #000;
+    }
+    .mui-ios .mui-navbar .mui-bar .mui-title {
+        position: static;
+    }
+    /*问题反馈在setting页面单独的css*/
+    #feedback .mui-popover{
+        position: fixed;
+    }
+    #feedback .mui-table-view:last-child {
+        margin-bottom: 0px;
+    }
+    #feedback .mui-table-view:first-child {
+        margin-top: 0px;
+    }
+    /*问题反馈在setting页面单独的css==end*/
+
+</style>
+{% endblock %}
+{%block bodyattr%} class="mui-fullscreen"{%endblock%}
+{% block content %}
+
+
+<!--页面主结构开始-->
+<div id="app" class="mui-views ">
+    <div class="mui-view">
+        <div class="mui-navbar">
+        </div>
+        <div class="mui-pages">
+        </div>
+    </div>
+</div>
+<!--页面主结构结束-->
+<div class="mui-page" id="index">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+        <!--<a href="#answer" data-toggle="tab" class="mui-icon iconfont icon-forward"><span class="mui-badge">9</span></a>-->
+        <!--<h1 class="mui-title"><img src="/static/webapp/img/logo.png" ></h1>-->
+        <!--<span class="mui-icon iconfont icon-post mui-pull-right"></span>-->
+        <!--<a href="#answer" data-toggle="tab" class="mui-left  mui-btn  mui-btn-link mui-btn-nav mui-pull-left">-->
+            <!--<span class="mui-icon iconfont icon-forward"></span>-->
+        <!--</a>-->
+        <!--<h1 class="mui-title">dfdsf</h1>-->
+        {%if controller.is_login%}
+        <a  href="#answer" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link mui-btn-nav mui-pull-left">
+
+            <span class="mui-icon iconfont icon-forward"> <span class="mui-badge">9</span></span>
+                <!--回复-->
+
+        </a>
+        {%endif%}
+        <h1 class="mui-center mui-title">{{info.title}}</h1>
+        <a  href="/mod/question/sys/add/?cid={{category.id}}" data-toggle="tab" type="button" class="mui-left mui-btn mui-btn-link  mui-pull-right">
+            <span class="mui-icon  iconfont icon-post"></span>
+            <!--发布-->
+        </a>
+    </div>
+    {% include "view/home/mobile/inc_nav.html" %}
+    <div class="mui-page-content detail" >
+            <div class="mui-scroll-wrapper">
+                <div class="mui-scroll">
+        <div class="mui-content-padded"  style="background-color: #fff; padding: 10px;margin: 0">
+            <!-- 文章标题 -->
+            <h1 class="title">{{info.title}}</h1>
+            <div class="article-header">
+
+                <div class="pgc-bar-top mui-clearfix" >
+                    <a href="#" ga_category="toutiaohao" ga_label="" ga_event="click" class="avatar-link vwo-media-profile">
+                        <div class="avatar">
+                            <img src="/u/avatar/{{info.uid}}" class="avatar">
+                        </div>
+                    </a>
+                    <div class="subtitle">
+                        <p class="name"><a href="#" class="screen-name vwo-media-profile">
+                            <span id="mediaName" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">{{info.uid|get_nickname}}</span>
+                            <img src="/static/mobile/img/logo.png" >
+                        </a></p>
+                        <a href="#" class="time vwo-media-profile" >
+
+                            <span class="original original-fix">原创</span>
+
+                            <span>{{ info.update_time|dateformat('Y-m-d H:i') }}</span>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="favor-wrapper">
+                    <button type="button" class="mui-btn mui-btn-primary mui-btn-outlined">关注</button>
+                </div>
+            </div>
+
+            <article class="wangEditor-container cmswing-container margin-top-20" >
+
+                <div class="wangEditor-txt nopadding">
+                    {{info.detail|safe}}
+                </div>
+
+            </article>
+            <div class="mui-content-padded">
+                {% rkeywords data ="tags",type="1",mod_id="8",id=info.id%}
+                {%set color = ["btn-primary","mui-badge-primary","mui-badge-success","mui-badge-warning","mui-badge-danger","mui-badge-purple"]%}
+                {%for k in tags%}
+                <a href="{{k.url}}" class="mui-badge {{color|random}}">
+                    {{k.keyname}}
+                </a>
+                {%endfor%}
+
+            </div>
+        </div>
+        <ul class="mui-table-view question_card" style="margin-bottom: 10px">
+            {%for val in answer%}
+            <div class="mui-card" id="a{{val.answer_id}}">
+                <div class="mui-card-header mui-card-media">
+                    <img src="/u/avatar/{{val.uid}}">
+                    <div class="mui-media-body">
+                        {{val.uid|get_nickname}}
+                        <p>发表于 {{val.add_time|moment}}</p>
+                    </div>
+                </div>
+                <div class="mui-card-content">
+                    <div class="mui-card-content-inner padding-top-0 padding-bottom-0" >
+                        <div class="wangEditor-container cmswing-container">
+                            <div class="wangEditor-txt nopadding">
+                                {{val.answer_content|safe}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mui-card-footer">
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i>{{val.focus_count}}</a>
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i>{{val.answer_count}}</a>
+                    <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i>{{val.view}}</a>
+                </div>
+            </div>
+
+            {%endfor%}
+            </ul>
+                    <ul class="mui-table-view " style="margin-bottom: 60px">
+                        <li class="mui-table-view-cell" style="text-align: center;">
+                            {%if controller.is_login%}
+                            <a href="#answer"><span class="mui-icon iconfont icon-forward"></span> 回复 </a>
+                            {%else%}
+                            <a href="/center/public/login"> 要回复问题请先 登录 或 注册 </a>
+                            {%endif%}
+                        </li>
+
+                    </ul>
+    </div>
+
+                </div>
+            </div>
+
+</div>
+<div id="answer" class="mui-page">
+    <div class="mui-navbar-inner mui-bar mui-bar-nav">
+        <button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+            <span class="mui-icon mui-icon-left-nav"></span>返回
+        </button>
+        <h1 class="mui-center mui-title">回复</h1>
+        <button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="answer_post">保存</button>
+    </div>
+    <div class="mui-page-content">
+        <form role="form" class="validate" action="/mod/question/sys/updateanswer" method="post" >
+
+            <div class="mui-content-padded">
+                <div class="mui-inline">回复:{{info.title}}</div>
+            </div>
+            <div class="mui-input-row" style="height: 250px">
+        <textarea id='detail' name="answer_content" class="question" placeholder="请详细描述你的问题..." style="height: 100%;width: 100%">
+            <p>请输入内容...</p>
+        </textarea>
+            </div>
+            <ul class="mui-table-view">
+
+                <li class="mui-table-view-cell">
+                    <span>fdsfsd</span>
+                    <div class="mui-switch mui-switch-blue">
+                        <div class="mui-switch-handle"></div>
+                    </div>
+                </li>
+            </ul>
+            <br />
+            <input type="hidden" checked="" name="anonymous" value="0">
+            <input type="hidden" name="question_id" value="{{info.id}}">
+            <input type="hidden" name="category_id" value="{{info.category_id}}">
+            <input type="hidden" name="backurl" value="{{ctx.url}}">
+        </form>
+
+    </div>
+</div>
+<script type="text/template" id="tpl">
+    {% raw %}
+    <div class="mui-card" id="a<%=data.id%>">
+        <div class="mui-card-header mui-card-media">
+            <img src="/u/avatar/<%=data.data.uid%>">
+            <div class="mui-media-body">
+                <%=data.data.uid%>
+                <p>发表于 <%=data.data.add_time%></p>
+            </div>
+        </div>
+        <div class="mui-card-content">
+            <div class="mui-card-content-inner padding-top-0 padding-bottom-0" >
+                <div class="wangEditor-container cmswing-container">
+                    <div class="wangEditor-txt nopadding">
+                        <%=data.data.answer_content%>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mui-card-footer">
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-focus"></i>0</a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-comment"></i>0</a>
+            <a class="mui-card-link"><i class="mui-icon iconfont icon-attentionfavor"></i>0</a>
+        </div>
+    </div>
+    {% endraw %}
+</script>
+{% endblock%}
+
+{% block script %}
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/lib/zepto.touch.js"></script>
+<script src="/static/mobile/libs/deitor.wang/js/wangEditor-mobile.js"></script>
+<script src="/static/mobile/js/mui.view.js "></script>
+<script type="text/javascript">
+
+    mui.init();
+    //初始化单页view
+    var viewApi = mui('#app').view({
+        defaultPage: '#index'
+    });
+    var view = viewApi.view;
+    //处理view的后退与webview后退
+    var oldBack = mui.back;
+    mui.back = function() {
+        if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
+            viewApi.back();
+        } else { //执行webview后退
+            oldBack();
+        }
+    };
+    $(function () {
+        // ___E 三个下划线
+        var editor = new ___E('detail');
+        // 上传图片
+        editor.config.uploadImgUrl = '/center/file/uploadpic/?type=path';
+        editor.init();
+    });
+    //初始化单页的区域滚动
+    mui('.mui-scroll-wrapper').scroll();
+
+    //匿名
+    mui('#answer .mui-switch').each(function() { //循环所有toggle
+        //toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+        this.parentNode.querySelector('span').innerText = '匿名：' + (this.classList.contains('mui-active') ? '是' : '否');
+        /**
+         * toggle 事件监听
+         */
+
+        this.addEventListener('toggle', function(event) {
+            //event.detail.isActive 可直接获取当前状态
+            this.parentNode.querySelector('span').innerText = '匿名：' + (event.detail.isActive ? '是' : '否');
+            if(event.detail.isActive){
+                $("input[name='anonymous']").val(1)
+            }else {
+                $("input[name='anonymous']").val(0)
+            }
+        });
+    });
+    //回复
+    var url = $(".validate").attr("action");
+    // feedback.newPlaceholder();
+    document.getElementById('answer_post').addEventListener('click', function(event) {
+        if ($("#detail").text() == '') {
+            return mui.toast('信息填写不符合规范');
+        }
+        var data = $(".validate").serialize();
+        mui.ajax(url,{
+            data:data,
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.errno == 0){
+                    // mui.toast(data.data.name);
+                    // mui.back();
+                    //console.log(data.data.data.id);
+                    mui.alert("回复成功，点击确定关闭","提示","确定",function () {
+                        //location.href="/mod/question/{{info.id}}#a"+data.data.id;
+                        //location.replace("/mod/question/{{info.id}}#a"+data.data.data.id)
+                        //location.replace(location.href);
+                        mui.back();
+                        location.reload()
+//                        mui.back();
+//                        var tplRender =  _.template(document.getElementById("tpl").innerHTML);
+//                        $('ul.question_card').append(tplRender(data.data));
+//                        mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+                    });
+                }else {
+                    mui.toast(data.errmsg);
+                }
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+
+    })
+
+    var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");
+    for(var i = 0;i<btn.length;i++){
+        btn[i].addEventListener("tap",function () {
+            var href = this.getAttribute("href");
+            if(href=="#top"){
+                mui.scrollTo(0,500);
+            }else if(href=="#shoucang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else if(href=="#fenxiang"){
+                //todo
+                mui.toast("功能开发中。。。")
+                return
+            }else {
+                mui.openWindow({url: href})
+            }
+
+        })
+    }
+
+</script>
+{% endblock %}

@@ -104,7 +104,7 @@ module.exports = class extends think.cmswing.modIndex {
     }
     this.assign('answer', answer);
     // pc
-    return this.modtemp();
+    return this.modDisplay();
   }
   async delanswerAction() {
     // 前端登录验证

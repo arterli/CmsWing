@@ -29,12 +29,4 @@ module.exports = class extends think.cmswing.extAdmin {
     // 入口模版渲染
     return this.display();
   }
-  // qq用户
-  async userlistAction() {
-    const userlist = await this.model('ext_qq').page(this.get('page'), 20).order('id DESC').countSelect();
-    const html = this.pagination(userlist);
-    this.assign('pagerData', html); // 分页展示使用
-    this.assign('list',userlist.data)
-    return this.display();
-  }
 };

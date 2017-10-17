@@ -12,8 +12,7 @@ module.exports = [
   ['/t/:key', 'home/keyword/list', 'get'],
   ['/admin/mod/:cate_id', 'cmswing/modadminbase/index', 'get'],
   ['/q/:id', 'mod/question/index/detail', 'get'],
-  [/\/api\/category(?:\/(\d+))?/, 'api/category?id=:1', 'rest'], // rest
-  [/\/api\/document(?:\/(\d+))?/, 'api/document?id=:1', 'rest'], // rest
+  [/\/api\/(\w+)(?:\/(\d+))?/, 'api/:1?id=:2', 'rest'],
   // [/^(?!\/admin\/|\/home\/|\/center\/|\/api\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
-  ['/:category', 'home/route/index', 'get']
+  ['/:category', 'cmswing/route/index', 'get']
 ];

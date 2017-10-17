@@ -7,6 +7,7 @@
 // +----------------------------------------------------------------------
 const assert = require('assert');
 const Index = require('./home');
+const path = require('path');
 module.exports = class extends Index {
   /**
      * 模型公共参数
@@ -59,25 +60,43 @@ module.exports = class extends Index {
     return this.display('cmswing/moderror');
   }
   // 独立模型display方法封装
-  modtemp(action, moblie = false) {
-    // console.log(this.ctx.controller);
-    if (this.ctx.controller == 'home/route') {
-      if (!moblie) {
-        return this.display(`mod/${this.mod.name}/index_${action}`);
-      } else {
-        console.log(`mod/${this.mod.name}/mobile/index_${action}`);
-        return this.display(`mod/${this.mod.name}/mobile/index_${action}`);
-      }
-    } else {
-      const c = this.ctx.controller.split('/');
-      c.splice((this.ctx.controller.split('/').length - 1), 0, 'mobile');
-      if (action === 'm' || moblie) {
-        return this.display(`${c.join('/')}_${this.ctx.action}`);
-      } else {
-        return this.display();
+  modDisplay(p = this.ctx.action, m = '') {
+    let c = this.ctx.controller.split('/');
+    if (this.ctx.controller === 'cmswing/route') {
+      c = `mod/${this.mod.name}/index`.split('/');
+      if (Number(this.m_cate.allow_publish) === 1 && p === 'index') {
+        p = 'list';
+      } else if (think.isEmpty(p)) {
+        p = 'index';
       }
     }
+    if (p === 'm' || !think.isEmpty(m)) {
+      if (p === 'm') {
+        p = this.ctx.action;
+        if (this.ctx.controller === 'cmswing/route') {
+          p = Number(this.m_cate.allow_publish) === 1 ? 'list' : 'index';
+        }
+      }
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', c[1], 'view', 'mobile', c[2]);
+      return this.display(`${pp}_${p}`);
+    } else {
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', c[1], 'view', 'pc', c[2]);
+      return this.display(`${pp}_${p}`);
+    }
   }
+  // 获取钩子模板方法
+  async hookRender(p = this.ctx.action, mod = '', m = '') {
+    // console.log(this.ctx.controller);
+    if (p === 'm' || !think.isEmpty(m)) {
+      if (p === 'm') p = this.ctx.action;
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', mod, 'view', 'mobile', 'hooks');
+      return await this.render(`${pp}_${p}`);
+    } else {
+      const pp = path.join(think.ROOT_PATH, 'src', 'controller', 'mod', mod, 'view', 'pc', 'hooks');
+      return await this.render(`${pp}_${p}`);
+    }
+  }
+
   // 独立模型get方法封装,只针对index入口action,其他的请用 this.get()方法。
   modget(n) {
     const get = this.get('category') || 0;

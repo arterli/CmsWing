@@ -1,0 +1,112 @@
+<form action="#" method="post" >
+    <div class="form-group">
+        <input id="username" type="username" name="username" placeholder="用户名" class="form-control rounded input-lg text-center no-border">
+    </div>
+    <div class="form-group">
+        <input id="password" type="password" name="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
+    </div>
+    <div class="form-group">
+        <div class="">
+            <div id="captcha">
+                <p id="wait" class=" text-center">正在加载验证码......</p>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger hide" id="notice">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <i class="fa fa-ban-circle"></i>请先拖动验证码到相应位置.
+    </div>
+    <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded" id="validate-submit">
+        <i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">登录</span></button>
+    <div class="text-center m-t m-b"><a href="#"><small>忘记密码?</small></a></div>
+</form>
+<script src="/static/admin/js/gt.js"></script>
+<script>
+  var handler = function (captchaObj) {
+    captchaObj.appendTo('#captcha');
+    captchaObj.onReady(function () {
+      $("#wait").hide();
+    });
+    $('#validate-submit').click(function () {
+
+      var result = captchaObj.getValidate();
+      if (!result) {
+        toastr.error('请完成验证');
+        return false;
+      }
+      var self = this;
+      $(self).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
+      $.ajax({
+        url: '/admin/public/signin',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          username: $('#username').val(),
+          password: $('#password').val(),
+          geetest_challenge: result.geetest_challenge,
+          geetest_validate: result.geetest_validate,
+          geetest_seccode: result.geetest_seccode
+        },
+        success: function (data) {
+          if (data.errno==0) {
+            if (data.data.url) {
+
+              toastr.success(data.data.name + ' 页面即将自动跳转~');
+            }else{
+              toastr.success(data.data.name);
+            }
+            setTimeout(function(){
+              $(self).removeClass('disabled').prop('disabled',false);
+              if (data.data.url) {
+                location.href=data.data.url;
+              }else if( $(this).hasClass('no-refresh')){
+                toastr.clear()
+              }else{
+                location.reload();
+              }
+            },1500);
+          }else{
+            toastr.error(data.errmsg);
+
+            //console.log(data);
+            setTimeout(function(){
+              $(self).removeClass('disabled').prop('disabled',false);
+              captchaObj.reset();
+              if (data.data) {
+                location.href=data.data;
+              }else{
+                toastr.clear()
+              }
+            },1500);
+          }
+        }
+      });
+      return false;
+    })
+    // 更多接口说明请参见：http://docs.geetest.com/install/client/web-front/
+  };
+
+
+  $.ajax({
+    url: "/ext/geetest/index/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
+    type: "get",
+    dataType: "json",
+    success: function (data) {
+
+      // 调用 initGeetest 进行初始化
+      // 参数1：配置参数
+      // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+      initGeetest({
+        // 以下 4 个配置参数为必须，不能缺少
+        gt: data.gt,
+        challenge: data.challenge,
+        offline: !data.success, // 表示用户后台检测极验服务器是否宕机
+        new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+
+        product: "float", // 产品形式，包括：float，popup
+        width: "100%"
+        // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
+      }, handler);
+    }
+  });
+</script>

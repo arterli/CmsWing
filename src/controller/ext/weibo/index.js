@@ -35,7 +35,7 @@ module.exports = class extends think.cmswing.extIndex {
       return this.redirect(`https://api.weibo.com/oauth2/authorize?client_id=${this.config('ext.weibo.appkey')}&redirect_uri=${redirectURI}&response_type=code`);
     } else {
       const code = this.get('code');
-      const weibo = this.service('ext/weibo', code, redirectURI);
+      const weibo = this.extService('weibo', code, redirectURI);
       const token = await weibo.gettoken();
       // console.log(token);
       const userinfo = await weibo.getuserinfo(token.access_token, token.uid);
@@ -45,7 +45,7 @@ module.exports = class extends think.cmswing.extIndex {
         await this.model('ext_weibo').add(userinfo);
         return this.redirect(`/ext/weibo/index/login/?id=${userinfo.id}`);
       } else {
-        await this.model('sina_user').where({id: userinfo.id}).update(userinfo);
+        await this.model('ext_weibo').where({id: userinfo.id}).update(userinfo);
         // 检查微博号是否跟网站会员绑定
         if (think.isEmpty(sina_user.uid) || sina_user.uid == 0) {
           // 没绑定跳转绑定页面
@@ -86,11 +86,7 @@ module.exports = class extends think.cmswing.extIndex {
     // console.log(sina_user);
     this.assign('ext_weibo', sina_user);
     this.meta_title = '账号绑定';
-    if (this.isMobile) {
-      return this.display(this.mtpl());
-    } else {
-      return this.display();
-    }
+    return this.isMobile ? this.extDisplay('m') : this.extDisplay();
   }
   /** 完善资料绑定 */
   async organizingAction() {

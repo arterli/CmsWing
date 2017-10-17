@@ -210,11 +210,11 @@ module.exports = class extends think.cmswing.center {
     let post = this.para('ids');
     const addrid = this.get('addrid');
     if (think.isEmpty(post)) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('木有选项要结算的宝贝');
     }
     if (think.isEmpty(this.cart.data)) {
-      const error = this.controller('common/error');
+      const error = this.controller('cmswing/error');
       return error.noAction('木有宝贝提交啥订单呢!');
     }
 

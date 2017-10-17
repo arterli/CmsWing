@@ -63,11 +63,12 @@ module.exports = class extends think.cmswing.admin {
     // console.log(datalist);
     for (const v of datalist) {
       const table = await this.model('cmswing/model').get_table_name(v.model, true);
+      console.log(table);
       let res = null;
       switch (table.extend) {
         case 0:
           // console.log(table);
-          res = await this.model(`mod/${table.table}`).updates(JSON.parse(v.data), v.time);
+          res = await this.modModel(table.table, table.table).updates(JSON.parse(v.data), v.time);
           if (res) {
             // 添加操作日志，可根据需求后台设置日志类型。
             await this.model('cmswing/action').log('addquestion', 'question', res.id, res.data.uid, this.ip, this.ctx.url);

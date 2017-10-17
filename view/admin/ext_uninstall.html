@@ -1,0 +1,94 @@
+{% extends "./inc/base.html" %}
+{% block style%}
+<link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
+{%endblock%}
+{% block content %}
+                <section class="vbox">
+                    <header class="header bg-light dk">
+                        <p>{{controller.meta_title}}</p>
+                    </header>
+                    <section class="scrollable wrapper">
+
+                        <section class="panel panel-default">
+                            <header class="panel-heading clearfix">
+                                <ul class="nav nav-tabs pull-left ">
+                                    <li class=""><a  href="/{{ctx.controller}}/index">已安装的插件</a></li>
+                                    <li class="active"><a  href="/{{ctx.controller}}/uninstall">未安装的插件</a></li>
+                                </ul>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+                                        <a class="btn btn-sm btn-info " href="/admin/ext/add">
+                                            新增插件
+                                        </a>
+                                        <a class="btn btn-sm btn-info ajax-get" href="/{{ctx.controller}}/load">
+                                            加载插件
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="">插件名称</th>
+                                        <th class="">插件目录</th>
+                                        <th class="">描述</th>
+                                        <th class="">版本号</th>
+                                        <th>作者</th>
+                                        <th >操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for item in list %}
+                                    <tr>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.ext}}</td>
+                                        <td>{{item.description}}</td>
+                                        <td>{{item.version}}</td>
+                                        <td>{{item.author}}</td>
+                                        <td>
+                                            <a href="/ext/{{item.ext}}/admin/install/?ext={{item.ext}}" class="confirm ajax-get text-info">安装</a>
+                                            <a href="/ext/{{item.ext}}/admin/delext/?ext={{item.ext}}" class="confirm ajax-get text-info">删除</a>
+                                        </td>
+
+                                    </tr>
+                                    {% else %}
+                                    <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                                        <button data-dismiss="alert" class="close" type="button">×</button>
+                                        <p>未检测到未安装的插件！</p>
+                                    </div></td></tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+
+
+                                    <div class="col-sm-12 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+
+{% endblock%}

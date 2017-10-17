@@ -2,16 +2,6 @@
 {% block style %}
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css"/>
 <link rel="stylesheet" href="/static/admin/js/nestable/nestable.css" type="text/css"/>
-<style>
-    .chzn-container-multi .chzn-choices .search-choice {
-        margin: 3px 5px;
-        display: block;
-    }
-
-    .chzn-container-multi .chzn-choices li {
-        float: none;
-    }
-</style>
 {%endblock%}
 {% block content %}
 <section class="vbox">
@@ -50,7 +40,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <input type="text" class="form-control  " name="name"
-                                                           value="{{info.name}}" data-required="true" data-Remote="/admin/model/checkname/id/{{info.id}}">
+                                                           value="{{info.name}}" data-required="true" disabled>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 请输入文档模型标识</span>
@@ -77,6 +67,36 @@
 
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">版本</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="version" value="{{info.version}}"
+                                                           data-required="true" >
+                                                </div>
+                                                <div class="col-md-12 hide">
+                                                    <span class="help-block m-b-none">请输入模型的名称</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">作者</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control  " name="author" value="{{info.author}}" data-required="true" >
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">模型类型</label>
@@ -235,7 +255,48 @@
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">包含数据表</label>
 
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="text" class="form-control " name="table" value="{{info.table}}" >
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none">多个用','隔开，必填。</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">实现的钩子方法</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ">
+
+                                                    <select style="width:100%" name="hooks" class="chosen-select" multiple>
+                                                        {% for type, items in hooks | groupby("type") %}
+                                                        <optgroup label="{{'视图' if type==1 else '控制器'}}">
+                                                            {% for item in items %}
+                                                            <option value="{{ item.name }}" {%if item.name|in_Array(info.hooks)%} selected="selected"{%endif%}> {{ item.name }}</option>
+                                                            {% endfor %}
+                                                        </optgroup>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> 实现的钩子方法</span>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </div>
                                 {#
                                 <div id="tab-2" class="tab-pane fade">
@@ -563,68 +624,68 @@
 //            group: 1
 //        });
 
-        $(".chosen-select").chosen({
-            placeholder_text: "选择字段"
-        }).change(function (e) {
-            var ids = $('[name = "attribute_list" ]').val()
-            var arr = $("#nestable-output").val()
-
-            arr = JSON.parse(arr);
-            var narr = []
-            $.each(arr, function (k, v) {
-                $.each(v, function (n, m) {
-                    narr.push(m)
-                })
-            })
-            if (ids) {
-                if (ids.length > narr.length) {
-                    $.each(ids, function (k, v) {
-                        if ($.inArray(v, narr) == -1) {
-                            var text = $("[name='attribute_list']").find('option[value=' + v + ']').text();
-                            var textarr = text.split(":")
-                            //console.log(textarr);
-                            var htm = '<li class="dd-item" data-id="' + v + '"><div class="dd-handle"> ' + textarr[0] + ' <span class="label bg-light">' + textarr[1] + '</span></div></li>'
-                            if ($(".nestable").eq(0).find(".dd-list").length) {
-                                $(".nestable").eq(0).find(".dd-list").append(htm)
-                            } else {
-                                $(".nestable").eq(0).empty();
-                                $(".nestable").eq(0).html('<ol class="dd-list">' + htm + '</ol>')
-                            }
-
-                            $.each($(".dd"), function (key, val) {
-                                updateOutput($(val).data('output', $('#nestable-output')));
-                            })
-                            // $("p").append("<b>Hello</b>");
-                        }
-
-                    })
-                } else if (ids.length < narr.length) {
-                    $.each(narr, function (k, v) {
-                        if ($.inArray(v, ids) == -1) {
-                            var clas = '[data-id=' + v + ']'
-
-                            $.each($(".dd"), function (key, val) {
-                                $(val).find(".dd-list > li" + clas).remove();
-                                if ($(val).find(".dd-list > li").length == 0) {
-                                    $(val).html('<div class="dd-empty"></div>');
-                                }
-                                updateOutput($(val).data('output', $('#nestable-output')));
-                            })
-                            // $("p").append("<b>Hello</b>");
-                        }
-
-                    })
-                }
-            } else {
-                $.each($(".dd"), function (key, val) {
-                    $(val).html('<div class="dd-empty"></div>');
-                    updateOutput($(val).data('output', $('#nestable-output')));
-                })
-            }
-
-            // console.log(ids)
-            // console.log(narr)
-        });
+//        $(".chosen-select").chosen({
+//            placeholder_text: "选择字段"
+//        }).change(function (e) {
+//            var ids = $('[name = "attribute_list" ]').val()
+//            var arr = $("#nestable-output").val()
+//
+//            arr = JSON.parse(arr);
+//            var narr = []
+//            $.each(arr, function (k, v) {
+//                $.each(v, function (n, m) {
+//                    narr.push(m)
+//                })
+//            })
+//            if (ids) {
+//                if (ids.length > narr.length) {
+//                    $.each(ids, function (k, v) {
+//                        if ($.inArray(v, narr) == -1) {
+//                            var text = $("[name='attribute_list']").find('option[value=' + v + ']').text();
+//                            var textarr = text.split(":")
+//                            //console.log(textarr);
+//                            var htm = '<li class="dd-item" data-id="' + v + '"><div class="dd-handle"> ' + textarr[0] + ' <span class="label bg-light">' + textarr[1] + '</span></div></li>'
+//                            if ($(".nestable").eq(0).find(".dd-list").length) {
+//                                $(".nestable").eq(0).find(".dd-list").append(htm)
+//                            } else {
+//                                $(".nestable").eq(0).empty();
+//                                $(".nestable").eq(0).html('<ol class="dd-list">' + htm + '</ol>')
+//                            }
+//
+//                            $.each($(".dd"), function (key, val) {
+//                                updateOutput($(val).data('output', $('#nestable-output')));
+//                            })
+//                            // $("p").append("<b>Hello</b>");
+//                        }
+//
+//                    })
+//                } else if (ids.length < narr.length) {
+//                    $.each(narr, function (k, v) {
+//                        if ($.inArray(v, ids) == -1) {
+//                            var clas = '[data-id=' + v + ']'
+//
+//                            $.each($(".dd"), function (key, val) {
+//                                $(val).find(".dd-list > li" + clas).remove();
+//                                if ($(val).find(".dd-list > li").length == 0) {
+//                                    $(val).html('<div class="dd-empty"></div>');
+//                                }
+//                                updateOutput($(val).data('output', $('#nestable-output')));
+//                            })
+//                            // $("p").append("<b>Hello</b>");
+//                        }
+//
+//                    })
+//                }
+//            } else {
+//                $.each($(".dd"), function (key, val) {
+//                    $(val).html('<div class="dd-empty"></div>');
+//                    updateOutput($(val).data('output', $('#nestable-output')));
+//                })
+//            }
+//
+//            // console.log(ids)
+//            // console.log(narr)
+//        });
 
     });
 

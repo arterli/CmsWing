@@ -149,24 +149,7 @@ CLASSES:
                             {%endif%}
                         </ul>
                     </div>
-                    {%if config.ext.changyan.is ==1%}
-                    <div class="panel-footer panel-footer-transparent">
-                        <!-- COMMENTS -->
-                        <div id="comments" >
-                            <!--打分版，用户可以对当前新闻、游戏或者应用等进行1-5级的评分-->
-                            <div id="SOHUCS" sid="{{info.id}}"></div>
-                            <script charset="utf-8" type="text/javascript" src="//changyan.sohu.com/upload/changyan.js" ></script>
-                            <script type="text/javascript">
-                              window._config = { showScore: true };
-                              window.changyan.api.config({
-                                appid: '{{config.ext.changyan.appid}}',
-                                conf: '{{config.ext.changyan.appkey}}'
-                              });
-                            </script>
-                        </div>
-                        <!-- /COMMENTS -->
-                    </div>
-                    {%endif%}
+                    {{HOOK@documentDetailAfter|safe}}
                 </div>
 
 
@@ -185,10 +168,6 @@ CLASSES:
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
-{%if config.ext.changyan.is ==1%}
-<script type="text/javascript" charset="utf-8" src="//changyan.itc.cn/js/lib/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="//changyan.sohu.com/js/changyan.labs.https.js?appid={{config.ext.changyan.appid}}"></script>
-{%endif%}
 <script>
     $(function () {
         $("#category").treetable({ expandable: true });

@@ -227,13 +227,13 @@ module.exports = class extends think.Controller {
         break;
     }
     // 加入七牛接口
-    if (Number(this.config('ext.qiniu.is')) === 1 && base64 === 'upload') {
+    if (Number(think.config('ext.qiniu.is')) === 1 && base64 === 'upload') {
       const file = think.extend({}, this.file(fieldName));
       // console.log(file);
       const filepath = file.path;
       const extname = path.extname(file.name);
       const basename = path.basename(filepath) + extname;
-      const qiniu = this.service('ext/qiniu');
+      const qiniu = this.extService('qiniu', 'qiniu');
       const uppic = await qiniu.uploadpic(filepath, basename);
       if (!think.isEmpty(uppic)) {
         return {

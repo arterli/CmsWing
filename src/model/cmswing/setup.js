@@ -23,7 +23,7 @@ module.exports = class extends think.Model {
     list.forEach(v => {
       if (v.value.search(/\r\n/ig) > -1 && Number(v.type) !== 2) {
         v.value = v.value.split('\r\n');
-        const obj = {}
+        const obj = {};
         v.value.forEach(n => {
           n = n.split(':');
           obj[n[0]] = n[1];
@@ -31,7 +31,7 @@ module.exports = class extends think.Model {
         v.value = obj;
       }
       obj[v.name] = v.value;
-    })
+    });
     return obj;
   }
 };

@@ -303,7 +303,7 @@ module.exports = class extends think.cmswing.admin {
         }
       }
     }
-    //console.log(field);
+    // console.log(field);
     // console.log(1111111);
     if (!think.isEmpty(position)) {
       map['position'] = position;
@@ -320,7 +320,7 @@ module.exports = class extends think.cmswing.admin {
       nsobj = {};
       const optionidarr = [];
       const valuearr = [];
-      for (let v of sortval) {
+      for (const v of sortval) {
         const qarr = v.split('_');
         nsobj[qarr[0]] = qarr[1];
         if (qarr[1] != 0) {

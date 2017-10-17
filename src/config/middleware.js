@@ -40,7 +40,7 @@ module.exports = [
   {
     handle: 'payload',
     options: {
-      uploadDir: path.join(think.ROOT_PATH, 'runtime/data'),
+      uploadDir: path.join(think.ROOT_PATH, 'runtime/data')
     }
   },
   {
@@ -49,6 +49,7 @@ module.exports = [
       optimizeHomepageRouter: false
     }
   },
-  'logic',
+  'cwlogic',
+  // 'logic',
   'controller'
 ];

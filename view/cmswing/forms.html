@@ -16,15 +16,15 @@
 <!--label 表单 label-->
 <!--name 表单 name-->
 <!--value 如 {"1":'是',"0":'否'}-->
-{%macro radio(setting, label, name, value= {},html='')%}
+{%macro radio(setting, label, name, value= '', options={},html='')%}
 <div class="form-group">
     <label class="col-sm-2 control-label">{{label}}</label>
     <div class="col-sm-10">
         <div class="row">
             <div class="col-md-10">
-                {%for k,v in value%}
+                {%for k,v in options%}
                 <label class="radio-inline i-checks">
-                    <input type="radio" value="{{k}}" name="{{name}}" {%if setting[name]== k %}checked {%endif%}><i></i> {{v}}
+                    <input type="radio" value="{{k}}" name="{{name}}" {%if setting[name]== k %}checked{%elif value==k and not setting[name]%} checked{%endif%}><i></i> {{v}}
                 </label>
                 {%endfor%}
 
@@ -40,8 +40,8 @@
 </div>
 {% endmacro %}
 
-<!--input-->
-{%macro input(setting, label, name, value= '',html= '')%}
+<!--text-->
+{%macro text(setting, label, name, value= '',html= '')%}
 <div class="form-group">
     <label class="col-sm-2 control-label">{{label}}</label>
     <div class="col-sm-10">
@@ -49,6 +49,31 @@
 
             <div class="col-md-10">
                 <input type="text" class="form-control" name="{{name}}" value="{% if setting[name] %}{{setting[name]}}{%else%}{{value}}{%endif%}">
+            </div>
+
+            <div class="col-md-12">
+                <span class="help-block m-b-none text-muted"><i class="fa fa-code"></i> <code>this.config('ext.{{setting.ext}}.{{name}}')</code></span>
+                {%if html%}
+                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  {{html|safe}}</span>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+<!--text-->
+{%macro select(setting, label, name, value= '', options={},html= '')%}
+<div class="form-group">
+    <label class="col-sm-2 control-label">{{label}}</label>
+    <div class="col-sm-10">
+        <div class="row">
+
+            <div class="col-md-10 m-b-n">
+                <select name="{{name}}" class="form-control m-b">
+                    {%for k,v in options%}
+                    <option value="{{k}}" {%if setting[name]== k %}selected{%elif value==k and not setting[name]%} selected{%endif%}>{{v}}</option>
+                    {%endfor%}
+                </select>
             </div>
 
             <div class="col-md-12">

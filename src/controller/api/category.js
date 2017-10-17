@@ -9,7 +9,6 @@ module.exports = class extends think.cmswing.rest {
     let data;
     const model = this.model('cmswing/category');
     if (this.id) {
-
       data = await model.where({id: this.id}).find();
       return this.success(data);
     }

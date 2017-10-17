@@ -1,0 +1,69 @@
+{% extends "../admin/inc/base.html" %}
+{% import "../cmswing/forms.html" as forms %}
+{%set extConfig = controller.extConfig%}
+{% block content %}
+<section class="vbox">
+    <header class="header bg-light dk">
+        <p>{{controller.meta_title}}</p>
+    </header>
+    <section class="scrollable wrapper">
+
+        <section class="panel panel-default">
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    {%for v in extConfig.setting%}
+                    {%set index = loop.index%}
+                    {% for ingredient, amount in v %}
+                    <li class="{{'active' if index==1}}"><a  href="#setting{{index}}" data-toggle="tab"><i class="fa fa-cog text-muted"></i> {{ingredient}}</a></li>
+                    {% endfor %}
+                    {%endfor%}
+                </ul>
+                <span class="hidden-sm"><a href="/{{ctx.controller}}/index" class="text-info " data-toggle="ajaxModal">自定义按钮</a></span>
+            </header>
+
+
+                <div class="panel-body">
+                    <form action="/{{ctx.controller}}/setting" class="form-horizontal" method="post" data-validate="parsley">
+                        <div class="tab-content">
+                            {%for v in extConfig.setting%}
+                            {%set index = loop.index%}
+                            {% for ingredient, amount in v %}
+                            <div class="tab-pane fade {{'active in' if index==1}}" id="setting{{index}}">
+                                {%for input in amount%}
+                                {%if input.type == 'text'%}
+                                {{forms.text(setting,label= input.label, name= input.name, value=input.value, html= input.html)}}
+                                {%elif input.type == 'radio'%}
+                                {{forms.radio(setting,label=input.label, name=input.name, value=input.value, options=input.options,html=input.html)}}
+                                {%elif input.type == 'select'%}
+                                {{forms.select(setting,label=input.label, name= input.name, value=input.value, options=input.options,html=input.html)}}
+                                {%endif%}
+                                {%endfor%}
+                            </div>
+                            {% endfor %}
+                            {%endfor%}
+                        </div>
+                        <div class="form-group form-submit">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <input type="hidden" name="ext" value="{{controller.ext.ext}}"/>
+                                <button type="submit" target-form="form-horizontal"
+                                        class="btn btn-primary ajax-post">保存
+                                </button>
+                                <button type="submit" class="btn btn-default"
+                                        onclick="javascript:history.back(-1);return false;">返回
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
+
+        </section>
+    </section>
+</section>
+
+{% endblock %}
+{% block script%}
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+{% endblock%}

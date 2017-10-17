@@ -142,6 +142,10 @@ module.exports = class extends think.cmswing.center {
     }
     // console.log(info);
     this.assign('info', info);
+    // 文档内容底部钩子钩子
+    await this.hook('documentDetailAfter', info);
+    // 视频播放器钩子
+    await this.hook('videoPlayer', info);
     // 判断浏览客户端
     if (this.isMobile) {
       // 手机模版
@@ -194,7 +198,7 @@ module.exports = class extends think.cmswing.center {
       if (Number(this.config('ext.qiniu.is')) === 1 && Number(location) === 1) {
         // 七牛下载
         // dlink = await get_file(file_id,"savename",true);
-        const qiniu = think.service('ext/qiniu');
+        const qiniu = this.extService('qiniu', 'qiniu');
         dlink = await qiniu.download(d.savename);
       } else {
         // 本地下载

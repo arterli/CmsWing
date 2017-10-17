@@ -13,7 +13,7 @@
         <span class="mui-tab-label">返回</span>
     </a>
     <a class="mui-tab-item" href="#SOHUCS">
-        <span class="mui-icon iconfont icon-comment"><span class="mui-badge" id="changyan_count_unit">0</span></span>
+        <span class="mui-icon iconfont icon-comment"></span>
         <span class="mui-tab-label">评论</span>
     </a>
     <a class="mui-tab-item" href="#shoucang">
@@ -84,19 +84,11 @@
             {%endfor%}
         </article>
     </div>
-    {%if config.ext.changyan.is ==1%}
-    <div id="SOHUCS" sid="{{info.id}}"></div>
-    {%endif%}
+    {{HOOK@documentDetailAfter|safe}}
 </div>
 {% endblock%}
 
 {% block script %}
-{%if config.ext.changyan.is ==1%}
-<script id="changyan_mobile_js" charset="utf-8" type="text/javascript"
-        src="//changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id={{config.ext.changyan.appid}}&conf={{config.ext.changyan.appkey}}">
-</script>
-<script type="text/javascript" src="//assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
-{%endif%}
 <script type="text/javascript">
     mui.init()
     var btn = document.querySelectorAll(".mui-bar-tab a.mui-tab-item");

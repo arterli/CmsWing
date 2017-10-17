@@ -1,0 +1,125 @@
+{% extends "view/home/inc_base.html" %}
+{% block style %}
+<link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
+<!--
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
+-->
+<section class="page-header page-header-xs" >
+    <div class="container">
+
+        <h1>友情链接</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            <li class="active">友情链接</li>
+
+        </ol><!-- /breadcrumbs -->
+        <!-- page tabs -->
+
+        <ul class="page-header-tabs list-inline">
+
+            <li class=""><a href="/ext/link/index"><i class="fa fa-link"></i> 友情链接</a></li>
+            <li class="active"><a href="/ext/link/index/apply"><i class="fa fa-venus-double"></i> 申请友情链接</a></li>
+
+        </ul>
+
+        <!-- /page tabs -->
+    </div>
+</section>
+<!-- -->
+<section >
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-8 col-sm-8">
+                <form role="form" class="validate" action="/ext/link/index/apply" method="post" >
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>链接类型:</label>
+                                <div style="margin-top: -15px">
+                                    <label class="radio">
+                                        <input type="radio" name="linktype" value="1" onclick="$('#logolink').show()" checked="checked">
+                                        <i></i>  Logo链接
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="linktype" value="0" onclick="$('#logolink').hide()" >
+                                        <i></i> 文字链接
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>所属分类:</label>
+                                <select class="form-control select2" name="typeid">
+                                    <option value="0">默认分类</option>
+                                    {%for t in type%}
+                                    <option value="{{t.typeid}}">{{t.name}}</option>
+                                    {%endfor%}
+                                </select>
+                            </div><!-- /input-group -->
+                            <div class="form-group">
+                                <label>网站名称:</label>
+                                <input type="text" class="form-control  required" name="name" >
+                            </div><!-- /input-group -->
+                            <div class="form-group">
+                                <label>网站地址:</label>
+                                <input type="text" class="form-control  required" name="url" >
+                            </div><!-- /input-group -->
+                            <div class="form-group" id="logolink">
+                                <label>Logo地址:</label>
+                                <input type="text" class="form-control" name="logo" >
+                            </div><!-- /input-group -->
+                        </div>
+                        <div class="panel-footer text-center">
+                            <input type="hidden" name="mod_id" value="{{controller.mod.id}}">
+                            <button class="btn btn-primary btn-lg" >申请</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-4 col-sm-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">说明</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="mod-body">
+                            <p class="margin-bottom-20"><b>• 本站LOGO:</b> <br>111</p>
+                            <p class="margin-bottom-20"><b>• 合作联系方式:</b> <br>222</p>
+                            <p class="margin-bottom-20"><b>• 链接要求:</b> <br>333</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+

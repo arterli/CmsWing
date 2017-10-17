@@ -16,4 +16,8 @@ module.exports = class extends think.cmswing.extAdmin {
     // 入口模版渲染
     return this.display();
   }
+  // 禁止删除
+  uninstallAction() {
+    return this.fail('禁止卸载！');
+  }
 };

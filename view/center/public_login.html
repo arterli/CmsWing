@@ -9,39 +9,32 @@
                 <div class="col-sm-7 b-r">
                     <!--<h3 class="m-t-none m-b">已有账号</h3>
                     <p>Sign in to meet your friends.</p>-->
+                    {%if HOOK@loginView %}
+                    {{HOOK@loginView|safe}}
+                    {%else%}
                     <form role="form" class="sky-form" id="login" method="post">
-                        
-                           <div class="form-group">
+
+                        <div class="form-group">
                             <label>账号</label>
-                          
+
                             <input type="text" name="username" class="form-control" placeholder="邮箱/手机号/昵称" required="">
-                            
+
                         </div>
                         <div class="form-group">
                             <label>密码</label>
-                            
+
                             <input type="password" name="password" class="form-control" placeholder="密码" required="">
                             <div class="clearfix note">
                                 <a href="#" class="pull-right">忘记密码?</a>
                             </div>
                         </div>
-                        <!--是否开启验证码-->
-                        {%if config.ext.geetest.isl ==1%}
-                        <div class="form-group">
-                            <div id="captcha">
-                                <p id="wait" class="">正在加载验证码......</p>
-                            </div>
-                        </div>
-                        {%endif%}
-
-                            <div id="alert"></div>
                         <div class="row">
 
                             <div class="col-md-6 col-sm-6 col-xs-6">
-<label class="checkbox weight-300 margin-top-10">
-										<input type="checkbox" name="checkbox-inline">
-										<i></i> 记住我
-									</label>
+                                <label class="checkbox weight-300 margin-top-10">
+                                    <input type="checkbox" name="checkbox-inline">
+                                    <i></i> 记住我
+                                </label>
 
                             </div>
 
@@ -54,26 +47,17 @@
                         </div>
 
                     </form>
+                    <script>
+                      _login();
+                    </script>
+                    {%endif%}
+
                 </div>
                 <div class="col-sm-5">
                     <h4>还没有账号?</h4>
                     <p>你可以在<a href="/center/public/register" class="text-info">这里</a>创建一个帐户 </p>
                     <p>或者</p>
-                    {%if config.ext.qq.is == 1%}
-                    <a href="/ext/qq/index" class="btn btn-block btn-social btn-twitter margin-bottom-10">
-                        <i class="fa fa-qq"></i> 使用QQ账号登录
-                    </a>
-                    {%endif%}
-                    {%if config.setup.IS_WEIXIN_LOGIN == 1%}
-                    <a class="btn btn-block btn-social btn-facebook margin-bottom-10">
-                                    <i class="fa fa-weixin"></i> 使用微信账号登录
-                                </a>
-                    {%endif%}
-                    {%if config.ext.weibo.is == 1%}
-                                <a href="/ext/weibo/index" class="btn btn-block btn-social btn-google margin-bottom-10">
-                                    <i class="fa fa-weibo"></i> 使用新浪微博账号登录
-                                </a>
-                    {%endif%}
+                    {{HOOK@logins|safe}}
                 </div>
             </div>
         </div>
@@ -81,74 +65,3 @@
     <!-- /.modal-content -->
 </div>
 <!-- /.modal-dialog -->
-{%if config.ext.geetest.isl ==1%}
-<!-- 引入封装了failback的接口--initGeetest -->
-<script src="/static/admin/js/gt.js"></script>
-<script>
-    var handler = function (captchaObj) {
-        captchaObj.appendTo('#captcha');
-        captchaObj.onReady(function () {
-            $("#wait").hide();
-        });
-        $('#validate-submit').click(function () {
-            var result = captchaObj.getValidate();
-            if (!result) {
-                _toastr("请先完成验证!","top-right","error",false);
-                return false;
-            }
-            $.ajax({
-                url: '/center/public/login',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    username: $("input[name='username']").val(),
-                    password: $("input[name='password']").val(),
-                    geetest_challenge: result.geetest_challenge,
-                    geetest_validate: result.geetest_validate,
-                    geetest_seccode: result.geetest_seccode
-                },
-                success: function (data) {
-                    if (data && (data.errno < 0)) {
-                        _toastr(data.errmsg,"top-right","error",false);
-                        captchaObj.reset();
-
-                    } else {
-                        location.reload();
-                    }
-
-                }
-            });
-            return false;
-        })
-        // 更多接口说明请参见：http://docs.geetest.com/install/client/web-front/
-    };
-
-
-    $.ajax({
-        url: "/ext/geetest/index/geetest?t=" + (new Date()).getTime(), // 加随机数防止缓存
-        type: "get",
-        dataType: "json",
-        success: function (data) {
-
-            // 调用 initGeetest 进行初始化
-            // 参数1：配置参数
-            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
-            initGeetest({
-                // 以下 4 个配置参数为必须，不能缺少
-                gt: data.gt,
-                challenge: data.challenge,
-                offline: !data.success, // 表示用户后台检测极验服务器是否宕机
-                new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
-
-                product: "float", // 产品形式，包括：float，popup
-                width: "100%"
-                // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
-            }, handler);
-        }
-    });
-</script>
-{%else%}
-<script>
-    _login();
-</script>
-{%endif%}

@@ -1,0 +1,18 @@
+{%model data="data",table="question_user",order="question_count DESC",alias="a",limit="10",join='{"member": {"join": "left","as":"b","on": ["a.uid", "b.id"]}}',cache="1000"%}
+{%if data.length>0%}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="btn btn-primary btn-xs pull-right">更多</a>
+        <h2 class="panel-title">热门用户</h2>
+    </div>
+    <div class="panel-body padding-10">
+        {%for user in data%}
+        <div class="clearfix margin-bottom-10"><!-- squared item -->
+            <img class="thumbnail pull-left rounded" src="/u/avatar/{{user.uid}}" width="40" height="40" alt="" />
+            <h4 class="size-14 nomargin noborder nopadding bold"><a href="#">{{user.username}}</a></h4>
+            <span class="size-12 text-muted">{{user.question_count}} 个问题, {{user.agree_count}} 次赞同</span>
+        </div><!-- /squared item -->
+        {%endfor%}
+    </div>
+</div>
+{%endif%}

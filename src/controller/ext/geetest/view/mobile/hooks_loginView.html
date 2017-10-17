@@ -1,0 +1,90 @@
+<!-- 引入封装了failback的接口--initGeetest -->
+<div id="mask" class="hide"></div>
+<div id="popup-captcha-mobile" class="hide"></div>
+<script src="/static/admin/js/gt.js"></script>
+<script>
+  var btn = document.getElementById("login"),account = document.getElementById("account"),password = document.getElementById("password");
+  var href = "{{ctx.referrer()}}"==""?"/center/public/login":"{{ctx.referrer()}}";
+  var pop=document.getElementById("popup-captcha-mobile"),
+      mask=document.getElementById("mask");
+  var show = function (ele) {
+    ele.className = ele.className.replace("hide", "show");
+  };
+  var hide = function (ele) {
+    ele.className = ele.className.replace("show", "hide");
+  };
+  mask.addEventListener("tap", function () {
+    hide(mask);
+    hide(pop);
+  });
+  btn.addEventListener("tap", function () {
+    if(!account.value){
+      mui.toast("账号不能为空");
+      return;
+    }
+    if(!password.value){
+      mui.toast("密码不能为空");
+      return;
+    }
+    show(pop);
+    show(mask);
+  });
+  var handlerPopupMobile = function (captchaObj) {
+
+    // 将验证码加到id为captcha的元素里
+    captchaObj.appendTo("#popup-captcha-mobile");
+    //拖动验证成功后两秒(可自行设置时间)自动发生跳转等行为
+    captchaObj.onSuccess(function () {
+      var validate = captchaObj.getValidate();
+
+      mui.ajax({
+        url: "/center/public/login", // 进行二次验证
+        type: "post",
+        dataType: "json",
+        data: {
+          // 二次验证所需的三个值
+          username:account.value,
+          password:password.value,
+          geetest_challenge: validate.geetest_challenge,
+          geetest_validate: validate.geetest_validate,
+          geetest_seccode: validate.geetest_seccode
+        },
+        success: function (data) {
+          if (data && (data.errno < 0)) {
+            mui.toast(data.errmsg);
+            if(data.errno !=  -3){
+              hide(mask);
+              hide(pop);
+            }
+            captchaObj.refresh();
+          } else {
+            hide(mask);
+            hide(pop);
+            mui.toast(data.data.name);
+            setTimeout(function(){
+              mui.openWindow({url: href})
+
+            },1500);
+          }
+        }
+      });
+    });
+    // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+  };
+  mui.ajax({
+    // 获取id，challenge，success（是否启用failback）
+    url: "/ext/geetest/index/geetest/?type=mobile?t=" + (new Date()).getTime(), // 加随机数防止缓存
+    type: "get",
+    dataType: "json",
+    success: function (data) {
+      // 使用initGeetest接口
+      // 参数1：配置参数
+      // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它做appendTo之类的事件
+      initGeetest({
+        gt: data.gt,
+        challenge: data.challenge,
+        offline: !data.success // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+        // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+      }, handlerPopupMobile);
+    }
+  });</script>

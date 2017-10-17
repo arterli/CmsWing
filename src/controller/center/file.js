@@ -40,7 +40,7 @@ module.exports = class extends think.cmswing.center {
     let data;
     // 强势插入七牛
     if (Number(think.config('ext.qiniu.is')) === 1) {
-      const qiniu = this.service('ext/qiniu');
+      const qiniu = this.extService('qiniu', 'qiniu');
       const uppic = await qiniu.uploadpic(filepath, basename);
       // console.log(uppic);
       // { fieldName: 'file',
@@ -98,7 +98,7 @@ module.exports = class extends think.cmswing.center {
     let res;
     // 加入七牛接口
     if (Number(this.config('ext.qiniu.is')) === 1) {
-      const qiniu = this.service('ext/qiniu');
+      const qiniu = this.extService('qiniu', 'qiniu');
       const uppic = await qiniu.uploadpic(filepath, basename);
       if (!think.isEmpty(uppic)) {
         const data = {
@@ -142,7 +142,7 @@ module.exports = class extends think.cmswing.center {
 
   // 获取七牛token
   async getqiniuuptokenAction() {
-    const qiniu = this.service('ext/qiniu');
+    const qiniu = this.extService('qiniu', 'qiniu');
     const key = think.uuid();
     const uptoken = await qiniu.uploadpic(null, key, true);
     this.json({
@@ -170,7 +170,7 @@ module.exports = class extends think.cmswing.center {
   async delqiniufileAction() {
     const id = this.get('id');
     const file = await this.model('file').find(id);
-    const qiniu = this.service('ext/qiniu');
+    const qiniu = this.extService('qiniu', 'qiniu');
     const res = await qiniu.remove(file.savename);
     if (res) {
       this.model('file').where({id: id}).delete();

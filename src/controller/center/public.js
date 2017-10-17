@@ -65,8 +65,11 @@ module.exports = class extends think.cmswing.center {
       return this.success({name: '注册成功,登录中!', url: '/center/index'});
     } else {
       this.meta_title = '用户注册';
+      // 短信注册视图钩子
+      await this.hook('smsRegistration');
+      // 第三方登录钩子
+      await this.hook('logins');
       return this.isMobile ? this.display(this.mtpl()) : this.display();
-
     }
   }
   //   登陆页面
@@ -76,22 +79,17 @@ module.exports = class extends think.cmswing.center {
       await this.action('center/weixin', 'oauth');
     }
     if (this.isAjax('post')) {
-      // 验证码
-      if (Number(this.config('ext.geetest.isl')) === 1) {
-        const geetest = think.service('ext/geetest'); // 加载 commoon 模块下的 geetset service
-        const res = await geetest.validate(this.ctx, this.post());
-        console.log(res);
-        if (res.status != 'success') {
-          // this.http.error = new Error("验证码不正确");
-          // return think.statusAction(702, this.http);
-          return this.fail(-3, '验证码不正确!');
-        }
+      // 验证码 钩子
+      const signinBefore = await this.hook('loginBefore');
+      if (signinBefore === 'no') {
+        return this.fail(-3, '验证码不正确!');
       }
       // 用户账号密码验证
       const username = this.post('username');
       let password = this.post('password');
       password = encryptPassword(password);
       const res = await this.model('cmswing/member').signin(username, password, this.ip, 5, 0);
+      // 钩子
       if (res.uid > 0) {
         // 记录用户登录行为
         // await this.model("action").log("user_login", "member", res.uid, res.uid, this.ip(), this.http.url);
@@ -118,13 +116,16 @@ module.exports = class extends think.cmswing.center {
     } else {
       // 如果已经登陆直接跳转到用户中心
       if (this.is_login) {
-        this.redirect('/center/index');
+        return this.redirect('/center/index');
       }
       this.meta_title = '用户登录';
+      // 第三方登录钩子
+      await this.hook('logins');
+      // 登录验证视图钩子
+      await this.hook('loginView');
       // 判断浏览客户端
       if (this.isMobile) {
         this.active = 'center/index';
-        console.log(this.mtpl());
         return this.display(this.mtpl());
       } else {
         return this.display();

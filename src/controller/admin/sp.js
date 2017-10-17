@@ -73,7 +73,7 @@ module.exports = class extends think.cmswing.admin {
   // 编辑
   async updateAction() {
     const data = this.post();
-    //console.log(data);
+    // console.log(data);
     // 权限验证
     await this.admin_priv('edit', data.cid);
     const isup = await this.db.thenAdd(data, {cid: data.cid});

@@ -1,0 +1,85 @@
+<div class="tab-pane fade" id="question">
+    <div class="timeline" style="margin-top: -25px">
+        <div class="timeline-hline"><!-- horizontal line cache='1000'--></div>
+        {%model data="list",table="question",order="create_time DESC",limit="10",cache="1000"%}
+        {% for val in list %}
+        {% set categoryname = val.category_id|get_cate %}
+        {% set imgs= val.detail|img_text_view(200,120)%}
+        <!-- POST ITEM -->
+        <div class="blog-post-item blog-post-item-inverse padding-top-20 padding-bottom-20 margin-bottom-0 clearfix">
+            <div class="timeline-entry" ><!-- .rounded = entry -->
+                <a href="#"><img src="/u/avatar/{{val.uid}}" style="width: 58px;height: 58px; margin-top: -10px"></a>
+                <div class="timeline-vline"><!-- vertical line --></div>
+            </div>
+            <!-- IMAGE -->
+            {% if imgs|length==1 %}
+            <figure class="blog-item-small-image margin-bottom-0">
+                <img class="img-responsive" src="{{imgs[0]}}" alt="">
+            </figure>
+            {% endif %}
+            <div class="blog-item-small-content">
+                <h2><a href="/q/{{val.id}}.html" title="{{val.title}}">{{val.title}}</a></h2>
+                <ul class="blog-post-info list-inline padding-bottom-10">
+                    <li>
+
+                        <a class="" href="{{categoryname.url}}">
+                            <span class="label label-light">{{categoryname.name}}</span>
+                        </a>
+                    </li>
+                    <li>{%if val.answer_users>0%}
+                        <a href="#">
+                            <span class="font-lato">{{val.answer_users|get_nickname}}</span>
+                        </a>
+                        <span class="font-lato"> 回复了问题</span>
+                        {%else%}
+                        <a href="#">
+                            <span class="font-lato">{{val.uid|get_nickname}}</span>
+                        </a>
+                        <span class="font-lato"> 发起了问题</span>
+                        {%endif%}
+                    </li>
+                    <li>
+                                <span class="font-lato">
+                                {{val.focus_count}} 人关注
+                                    </span>
+                    </li>
+                    <li>
+                        <span class="font-lato">{{val.answer_count}} 个回复</span>
+
+                    </li>
+                    <li>
+                        <span class="font-lato">{{val.view}} 次浏览</span>
+                    </li>
+                    <li>
+                        <span class="font-lato"> {{val.create_time|moment}}</span>
+                    </li>
+
+                </ul>
+                {% if imgs|length>1 %}
+                <div class="row margin-bottom-10">
+                    {%set i = 0%}
+                    {%for img in imgs%}
+                    {%if i< 4 %}
+                    <div class="col-md-3"><img class="img-responsive" src="{{img}}" alt=""></div>
+                    {%endif%}
+                    {%set i=i+1%}
+                    {%endfor%}
+                </div>
+                {%endif%}
+                <p>{{val.detail|delhtmltags|truncate(90, true, "...")|safe}}</p>
+            </div>
+
+        </div>
+        <!-- /POST ITEM -->
+        {%endfor%}
+
+    </div>
+
+    <!-- PAGINATION -->
+
+    <a class="btn btn-featured btn-default btn-inverse" href="/question.html" >
+        <span>今天，你遇到了什么问题呢？进入社区寻求答案！</span>
+        <i class="et-happy"></i>
+    </a>
+    <!-- /PAGINATION -->
+</div>
