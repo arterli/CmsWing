@@ -24,18 +24,14 @@ module.exports = class extends think.Controller {
     this.is_admin = await this.isadmin();
     // 后台菜单
     this.adminmenu = await this.model('cmswing/menu').getallmenu(this.user.uid, this.is_admin);
-    let allmenu = this.config('setup.MENU_GROUP');
+    const allmenu = this.config('setup.MENU_GROUP');
     this.MenuGroup = {}
-    for (let key in this.adminmenu) {
-        this.MenuGroup[key] = allmenu[key];
+    for (const key in this.adminmenu) {
+      this.MenuGroup[key] = allmenu[key];
     }
-    // console.log(this.adminmenu);
-    // this.assign("setup", this.setup);
-    // 菜单当前状态
-
-    /**
-         * 权限验证超级管理员
-         */
+    /** 菜单当前状态
+     *  权限验证超级管理员
+     */
     const url = `${this.ctx.controller}/${this.ctx.action}`;
     // console.log(url);
     if (!this.is_admin) {
@@ -46,12 +42,7 @@ module.exports = class extends think.Controller {
         return error.noAction('未授权访问!');
       }
     }
-
-    // console.log(this.uuu.uid);
-    // this.active = this.http.url.slice(1),
-    // console.log(this.active);
     this.active = this.ctx.controller + '/' + this.ctx.action;
-    // think.log(this.active);
     // 后台提示
     // 审核提示
     const notifications = {};
