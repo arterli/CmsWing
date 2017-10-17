@@ -23,6 +23,10 @@ module.exports = class extends Admin {
       }
       // 当前模型信息
       this.mod = await this.model('cmswing/model').get_model(this.m_cate.model);
+      if (think.isEmpty(this.mod)) {
+        const error = this.controller('cmswing/error');
+        return error.noAction('模型不存在或被禁用!');
+      }
     }
   }
 
@@ -55,10 +59,8 @@ module.exports = class extends Admin {
         case 0:
           // this.fail('该分类禁止显示')
           return error.noAction('该分类禁止显示！');
-          break;
           // TODO:更多分类显示状态判断
         default:
-
           return cate;
       }
     } else {
@@ -66,6 +68,13 @@ module.exports = class extends Admin {
       return error.noAction('该分类禁止显示！');
     }
   }
+
+  /**
+   * 独立模型模版渲染
+   * @param p action
+   * @param m pc||移动
+   * @returns {*}
+   */
   modDisplay(p = this.ctx.action, m = '') {
     let c = this.ctx.controller.split('/');
     if (this.ctx.controller === 'cmswing/modadminbase') {
@@ -85,22 +94,26 @@ module.exports = class extends Admin {
       return this.display(`${pp}_${p}`);
     }
   }
-  // 独立模型display方法封装
-  modtemp(action, moblie = false) {
-    if (this.ctx.controller === 'cmswing/modadminbase') {
-      if (!moblie) {
-        return this.display(`mod/${this.mod.name}/admin_${action}`);
-      } else {
-        return this.display(`mod/${this.mod.name}/mobile/admin_${action}`);
-      }
-    } else {
-      const c = this.ctx.controller.split('/');
-      c.splice((this.ctx.controller.split('/').length - 1), 0, 'mobile');
-      if (action === 'm' || moblie) {
-        return this.display(`${c.join('/')}_${this.ctx.action}`);
-      } else {
-        return this.display();
-      }
+  /**
+   * 面包屑
+   * @param cid 栏目id
+   * @returns {Promise.<void>}
+   */
+  async breadcrumb(cid = this.m_cate.id) {
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cid);
+    this.assign('breadcrumb', breadcrumb);
+  }
+
+  /**
+   * 获取分组
+   * @param cid
+   * @returns {Promise.<void>}
+   */
+  async groups(cid = this.m_cate.id) {
+    let groups = await this.model('cmswing/category').get_category(cid, 'groups');
+    if (groups) {
+      groups = parse_config_attr(groups);
     }
+    this.assign('groups', groups);
   }
 };

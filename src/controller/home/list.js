@@ -57,9 +57,9 @@ module.exports = class extends think.cmswing.center {
     let num;
     if (cate.list_row > 0) {
       num = cate.list_row;
-    } else if (cate.model.split(',').length == 1) {
+    } else if (cate.model.split(',').length === 1) {
       const pagenum = await this.model('cmswing/model').get_model(cate.model, 'list_row');
-      if (pagenum != 0) {
+      if (pagenum !== 0) {
         num = pagenum;
       }
     } else {

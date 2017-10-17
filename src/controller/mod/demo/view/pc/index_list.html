@@ -1,0 +1,69 @@
+{% extends "view/home/inc_base.html" %}
+{%set cate = category.id|get_cate()%}
+{% block content %}
+<!--
+				PAGE HEADER
+
+				CLASSES:
+					.page-header-xs	= 20px margins
+					.page-header-md	= 50px margins
+					.page-header-lg	= 80px margins
+					.page-header-xlg= 130px margins
+					.dark			= dark page header
+
+					.shadow-before-1 	= shadow 1 header top
+					.shadow-after-1 	= shadow 1 header bottom
+					.shadow-before-2 	= shadow 2 header top
+					.shadow-after-2 	= shadow 2 header bottom
+					.shadow-before-3 	= shadow 3 header top
+					.shadow-after-3 	= shadow 3 header bottom
+			-->
+<section class="page-header page-header-xs">
+    <div class="container">
+
+        <h1>{{category.title}}</h1>
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="/">首页</a></li>
+            {%for val in breadcrumb %}
+            {% if val.id == category.id %}
+            <li class="active">{{val.title}}</li>
+            {% else %}
+            <li><a href="{{val.url}}">{{val.title}}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+
+<!-- -->
+<section>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Content Here...
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="heading-title heading-dotted text-center margin-bottom-20"><h4>Model<span>information</span></h4></div>
+                <pre> {{model|dump(2)}}</pre></div>
+            <div class="col-md-6">
+                <div class="heading-title heading-dotted text-center margin-bottom-20"><h4>Column<span>information</span></h4></div>
+                <pre> {{category|dump(2)}}</pre></div>
+        </div>
+    </div>
+</section>
+<!-- / -->
+
+{% endblock %}
+{% block style %}
+<!--这里引入自己的css-->
+{% endblock %}
+{% block script %}
+<!--这里引入自己的js-->
+{%endblock%}

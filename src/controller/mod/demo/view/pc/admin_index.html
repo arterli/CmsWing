@@ -1,0 +1,196 @@
+{% extends "view/admin/inc/base.html" %} {% block style %}
+<!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
+<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
+
+{% endblock%} {% block content %}
+<section class="vbox">
+    <section id="bjax-target">
+        <section class="hbox stretch">
+            <!-- side content -->
+            {% include "view/admin/inc/article_side.html" %}
+            <!-- / side content -->
+            <section>
+                <section class="vbox">
+                    <section class="scrollable wrapper">
+                        <!-- .breadcrumb -->
+                        <ul class="breadcrumb">
+                            <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
+                            {% for nav in breadcrumb%} {% if controller.m_cate.id == nav.id %}
+                            <li class="active">{{nav.title}}  </li>
+                            {%else%}
+                            <li><a href="/admin/mod/{{nav.id}}"><i class="fa fa-list-ul"></i> {{nav.title}}</a></li>
+                            {% endif %} {% endfor %} {%if article.id >0 %}
+                            <li> <i class="fa fa-list-ul"></i> {{article.title}} </li>{% endif %}
+                        </ul>
+                        <!-- / .breadcrumb -->
+                        <section class="panel panel-default">
+                            <header class="panel-heading text-right bg-light  clearfix">
+                                <ul class="nav nav-tabs pull-left">
+                                    <li class="active"><a  href="#">{{controller.meta_title}}列表</a></li>
+                                    <!--<li class=""><a  href="#">tab2</a></li>-->
+                                </ul>
+                                <span class="hidden-sm"><a href="#" class="text-info todo" target="_blank">管理</a></span>
+                            </header>
+                            <div class="row wrapper">
+
+                                <div class="col-sm-9 m-b-xs">
+                                    <div class="">
+
+                                        <a class="btn btn-sm btn-info ajax-post confirm" target-form="ids" href="/mod/{{model.name}}/admin/del">
+                                            删除
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="input-group pull-right search-form">
+                                        <input type="text" class="input-sm form-control" name="{{model.search_key|default('title', true)}}" placeholder="请输入关键字"
+                                               value="{{controller.get('title')}}">
+                                        <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button" id="search" url="/admin/mod/{{controller.get('cate_id')}}">搜索</button>
+                      </span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if groups %}
+                            <header class="panel-heading">
+                                <!--<i data-title="" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>-->
+                                [ 分组：{%if group_id ==0 %}<strong style="margin-right: 5px">全部</strong> {%else%} <a href="/admin/mod/{{controller.get('cate_id')}}"  class="text-info" style="margin-right: 5px">全部</a> {%endif%} {%for key ,val in groups %} {% if group_id != key %}<a href="/admin/mod/{{controller.get('cate_id')}}/?group_id={{key}}"  class="text-info">{{val}}</a>{%
+                                else %}<strong>{{val}}</strong>{% endif %}&nbsp; {% endfor %} ]
+                            </header>
+                            {% endif %}
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;">
+                                            <label class="checkbox m-n i-checks">
+                                                <input type="checkbox"><i></i></label>
+                                        </th>
+
+                                        <th>1</th>
+                                        <th>2	</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>7</th>
+                                        <th>8</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for data in list %}
+
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="9">
+                                            <div class="alert alert-warning alert-block">
+                                                <button data-dismiss="alert" class="close" type="button">×</button>
+                                                <p>This would display if the 'item' collection were empty</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                微信图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                高级图文
+                                            </a>
+                                            <a class="btn btn-sm btn-default todo" target-form="ids" href="#">
+                                                推送
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-9 text-right text-center-xs">
+                                        {{pagerData | safe}}
+                                    </div>
+                                </div>
+                            </footer>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+
+</section>
+
+
+{% endblock %} {% block script %}
+<script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+<script src="/static/admin/js/parsley/parsley.min.js"></script>
+<script src="/static/admin/js/parsley/parsley.extend.js"></script>
+<script type="text/javascript">
+    <!--
+    var setting = {
+        async: {
+            enable: true,
+            url: "/admin/article/getmenu",
+        },
+        view: {
+            showLine: true,
+            selectedMulti: false,
+        },
+        callback: {
+            onAsyncSuccess: zTreeOnAsyncSuccess
+
+        }
+    };
+
+    function zTreeOnAsyncSuccess(event, treeId, treeNode, msg) {
+        // console.log(treeNode)
+        var treeObj = $.fn.zTree.getZTreeObj(treeId);
+        treeObj.expandAll(true);
+        var id= $("#"+treeId).attr("data-cate");
+        console.log(id);
+        curMenu = treeObj.getNodeByParam("id", id, null);
+        console.log(treeId)
+        treeObj.selectNode(curMenu);
+    };
+    function expandNode(e) {
+        var zTree = $.fn.zTree.getZTreeObj("tree"),
+            type = e.data.type,
+            nodes = zTree.getSelectedNodes();
+        if (type == "expandAll") {
+            zTree.expandAll(true);
+        } else if (type == "collapseAll") {
+            zTree.expandAll(false);
+        }
+    }
+
+
+    //-->
+    $(function(){
+        //左边菜单
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting).expandAll(true);
+        $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+        $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+        //搜索功能
+        $("#search").click(function(){
+            var url = $(this).attr('url');
+            var query  = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if( url.indexOf('?')>0 ){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+    })
+</script>
+{% endblock %}}

@@ -20,8 +20,8 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info " href="/admin/ext/add">
-                                            新增插件
+                                        <a class="btn btn-sm btn-info " href="/{{ctx.controller}}/addext">
+                                            新增独立模型
                                         </a>
                                         <a class="btn btn-sm btn-info ajax-get" href="/{{ctx.controller}}/load">
                                             加载插件
@@ -55,7 +55,9 @@
                                         <td>{{item.author}}</td>
                                         <td>
                                             <a href="/{{ctx.controller}}/installext/?mod={{item.name}}" class="confirm ajax-get text-info">安装</a>
+                                            {% if item.name != 'demo'%}
                                             <a href="/{{ctx.controller}}/delext/?mod={{item.name}}" class="confirm ajax-get text-info">删除</a>
+                                            {% endif %}
                                         </td>
 
                                     </tr>

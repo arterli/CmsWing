@@ -1,3 +1,4 @@
+// 自动生成的实例文件，不需要可删除
 module.exports = class extends think.Logic {
   // indexAction() {
   //   this.rules = {

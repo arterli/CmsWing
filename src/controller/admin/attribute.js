@@ -42,13 +42,20 @@ module.exports = class extends think.cmswing.admin {
   async extAction() {
     const model_id = this.get('model_id');
     const model = await this.model('model').find(model_id);
-    const table = this.config('model.mysql.prefix') + model.name;
-    const db = this.model('cmswing/model');
-    const result = await db.getSchema();
+    const marr = [];
+    if (!think.isEmpty(model.table)) {
+      for (const m of model.table.split(',')) {
+        const table = this.config('model.mysql.prefix') + m;
+        const db = this.model(table);
+        const result = await db.query('SHOW CREATE TABLE ' + table);
+        marr.push(result[0]);
+      }
+    }
+
     this.meta_title = '字段列表';
-    this.active = 'admin/model/index';
-    this.assign('table', table);
-    this.assign('list', result);
+    this.tactive = 'ext';
+    this.active = 'admin/model/ext';
+    this.assign('list', marr);
     return this.display();
   }
   /**

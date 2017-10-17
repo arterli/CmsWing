@@ -22,7 +22,10 @@ module.exports = class extends Index {
 
       // 当前模型信息
       this.mod = await this.model('cmswing/model').get_model(this.m_cate.model);
-
+      if (think.isEmpty(this.mod)) {
+        const error = this.controller('cmswing/error');
+        return error.noAction('模型不存在或被禁用!');
+      }
       // seo
       this.meta_title = this.m_cate.meta_title ? this.m_cate.meta_title : this.m_cate.title; // 标题
       this.keywords = this.m_cate.keywords ? this.m_cate.keywords : ''; // seo关键词
@@ -148,5 +151,15 @@ module.exports = class extends Index {
       num = 10;
     }
     return num;
+  }
+
+  /**
+   * 面包屑
+   * @param cid 栏目id
+   * @returns {Promise.<void>}
+   */
+  async breadcrumb(cid = this.m_cate.id) {
+    const breadcrumb = await this.model('cmswing/category').get_parent_category(cid, true);
+    this.assign('breadcrumb', breadcrumb);
   }
 };

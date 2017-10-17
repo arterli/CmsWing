@@ -17,16 +17,16 @@
 
                                 <div class="col-sm-9 m-b-xs">
                                     <div class="">
-                                        <a class="btn btn-sm btn-info " href="/admin/model/addext">
+                                        <a class="btn btn-sm btn-info " href="/{{ctx.controller}}/addext">
                                             新增独立模型
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/?status=1"  target-form="ids">
+                                        <a class="btn btn-sm btn-info ajax-post" href="/{{ctx.controller}}/setstatus/?status=1"  target-form="ids">
                                            启用
                                         </a>
-                                        <a class="btn btn-sm btn-info ajax-post" href="/admin/model/setstatus/?status=0" target-form="ids">
+                                        <a class="btn btn-sm btn-info ajax-post" href="/{{ctx.controller}}/setstatus/?status=0" target-form="ids">
                                         禁用
                                     </a>
-                                        <a class="btn btn-sm btn-info" href="/admin/model/generate">
+                                        <a class="btn btn-sm btn-info" href="/{{ctx.controller}}/generate">
                                             生成
                                         </a>
                                     </div>

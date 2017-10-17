@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-
+// 本文件不能删除
 module.exports = class extends think.cmswing.extAdmin {
   /**
    * index action

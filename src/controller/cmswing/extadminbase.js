@@ -336,6 +336,7 @@ module.exports = class extends Admin {
    */
   async delextAction() {
     const ext = this.get('ext');
+    if (ext === 'demo') return this.fail('不允许删除');
     const extpath = `${think.ROOT_PATH}/src/controller/ext/${ext}`;
     const data = this.extConfig;
     // 删除数据库，表

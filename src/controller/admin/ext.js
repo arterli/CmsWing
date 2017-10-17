@@ -162,6 +162,11 @@ module.exports = class extends think.cmswing.admin {
     const html = await this.hookRender('${v}', '${data.ext}');
     return html;
   }`);
+          const mvp = `${extpath}/view`;
+          think.mkdir(`${mvp}/pc`);
+          fs.writeFileSync(`${mvp}/pc/hooks_${v},html`, `${data.ext}`);
+          think.mkdir(`${mvp}/mobile`);
+          fs.writeFileSync(`${mvp}/mobile/hooks_${v},html`, `${data.ext}`);
         } else {
           hookaction.push(` // 实现的${v}钩子方法
   ${v}() {
@@ -182,6 +187,8 @@ module.exports = class extends think.cmswing.extIndex {
       this.copy(`${extdir}/demo/model`, `${extpath}/model`, this.copy);
       // 创建插件service 目录
       this.copy(`${extdir}/demo/service`, `${extpath}/service`, this.copy);
+      // 创建插件service 目录
+      this.copy(`${extdir}/demo/logic`, `${extpath}/logic`, this.copy);
       // 创建插件后台管理控制器
       this.copy(`${extdir}/demo/admin.js`, `${extpath}/admin.js`);
       // 创建插件前台访问控制器

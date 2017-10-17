@@ -57,7 +57,7 @@ module.exports = class extends think.cmswing.modIndex {
     const num = this.page_num();
 
     // 获取面包屑信息
-    const breadcrumb = await this.model('cmswing/category').get_parent_category(cate.id, true);
+    await this.breadcrumb();
 
     // 获取列表数据
     // 条件
@@ -103,7 +103,6 @@ module.exports = class extends think.cmswing.modIndex {
     this.assign('category', cate);
     this.assign('list', data.data);
     this.assign('count', data.count);
-    this.assign('breadcrumb', breadcrumb);
     console.log(this.ctx.controller);
     console.log(this.ctx.action);
 
