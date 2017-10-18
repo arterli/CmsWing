@@ -310,7 +310,7 @@ module.exports = class extends think.cmswing.admin {
       const templateFile = `${temppath}${data.controller}${this.config('view.nunjucks.sep')}${data.action}${this.config('view.nunjucks.extname')}`;
       // console.log(templateFile);
       let model = this.model('temp');
-      return await model.transaction(async()=>{
+      return model.transaction(async()=>{
           let res = await model.add(data);
           if (!think.isEmpty(res)) {
             try{
