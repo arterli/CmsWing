@@ -310,6 +310,17 @@ module.exports = class extends think.cmswing.admin {
       const templateFile = `${temppath}${data.controller}${this.config('view.nunjucks.sep')}${data.action}${this.config('view.nunjucks.extname')}`;
       // console.log(templateFile);
       let model = this.model('temp');
+
+      // 检查是否重复
+      let cond ={};
+      think.extend(cond,data);
+      delete  cond.html;
+      delete  cond.temptype;
+      delete  cond.name;
+      let empty = await model.where(cond).find();
+      if(!think.isEmpty(empty)){
+          return this.fail('模板已存在!');
+      }
       return model.transaction(async()=>{
           let res = await model.add(data);
           if (!think.isEmpty(res)) {
@@ -319,7 +330,7 @@ module.exports = class extends think.cmswing.admin {
                 await model.rollback();
                 return this.fail('模板创建失败!');
             }
-            return this.success({name: '添加成功!'});
+            return this.success({name: '添加成功!',id:res});
           }
       });
     } else {
@@ -366,7 +377,7 @@ module.exports = class extends think.cmswing.admin {
     } else {
       temppath = `${think.ROOT_PATH}/view/${temp.module}/`;
     }
-    const templateFile = `${temppath}${temp.controller}${think.config('view', undefined, 'topic').file_depr}${temp.action}${this.config('view.file_ext')}`;
+    const templateFile = `${temppath}${temp.controller}${this.config('view.nunjucks.sep')}${temp.action}${this.config('view.nunjucks.extname')}`;
     // console.log(templateFile);
     if (think.isFile(templateFile)) {
       fs.unlinkSync(templateFile);

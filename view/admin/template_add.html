@@ -149,7 +149,7 @@
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "OK",
                         }, function () {
-                            location.reload();
+                            location.href= "/admin/template/edit?id="+res.data.id;
                         });
                     }else {
                         swal(res.errmsg,"",'warning')
