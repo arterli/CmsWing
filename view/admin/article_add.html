@@ -1290,11 +1290,11 @@
                                     </div>
     {% elif field.type == "price" %}
     <div class="col-md-5">
-    <input type="hidden" name="{{field.name}}" id="price" value='{"present_price":"0","discount_price":"0"}'>
+    <input type="hidden" name="{{field.name}}" id="price" value=''>
     <div class="row">
     <div class="col-md-6">   <div class="input-group ">
     <span class="input-group-addon">￥</span>
-    <input type="text" class="form-control" id="present_price">
+    <input type="text" class="form-control" id="present_price" data-required="true">
     </div>  </div>
     <div class="col-md-6">  <input type="text" placeholder="原价：¥99.99"  class="form-control" id="discount_price">  </div>  
     </div>         

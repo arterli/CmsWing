@@ -6,8 +6,8 @@
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
 module.exports = class extends think.cmswing.modAdmin {
-  init(http) {
-    super.init(http);
+  constructor(ctx) {
+    super(ctx);
     this.tactive = 'article';
   }
   /**
@@ -19,8 +19,8 @@ module.exports = class extends think.cmswing.modAdmin {
     const cate_id = this.get('cate_id') || null;
     const group_id = this.get('group_id') || 0;
     if (think.isEmpty(cate_id)) {
-      this.http.error = new Error('该栏目不存在！');
-      return think.statusAction(702, this.http);
+      const error = this.controller('cmswing/error');
+      return error.noAction('该栏目不存在！');
     }
     const name = await this.model('cmswing/category').get_category(cate_id, 'name') || cate_id;
     // 获取面包屑信息
@@ -42,11 +42,7 @@ module.exports = class extends think.cmswing.modAdmin {
     }
 
     // 获取分组
-    let groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
-    if (groups) {
-      groups = parse_config_attr(groups);
-    }
-    this.assign('groups', groups);
+    await this.groups();
     // 搜索
     if (this.get('title')) {
       map.title = ['like', '%' + this.get('title') + '%'];

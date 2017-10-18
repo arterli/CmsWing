@@ -7,73 +7,24 @@
     </header>
     <section class="scrollable wrapper">
         <section class="panel panel-default">
-            <header class="panel-heading">
-                {{table}}
-                <i data-title="不含继承属性" data-placement="bottom" data-toggle="tooltip" class="fa fa-info-sign text-muted" data-original-title="" title=""><i class="fa fa-question-circle"></i></i>
+            <header class="panel-heading text-right bg-light  clearfix">
+                <ul class="nav nav-tabs pull-left">
+                    {%for v in list%}
+                    {%set index = loop.index%}
+                    <li class="{{'active' if index==1}}"><a  href="#table{{index}}" data-toggle="tab"><i class="fa fa-list-alt text-muted"></i> {{v.Table}}</a></li>
+                    {%endfor%}
+                </ul>
             </header>
-            <div class="row wrapper">
 
-                <div class="col-sm-9 m-b-xs">
-                    {#
-                    <div class="">
-                        <a class="btn btn-sm btn-info " href="/admin/attribute/add?model_id={{model_id}}">
-                            新增字段
-                        </a>
-                        <a class="btn btn-sm btn-success " href="/admin/model/edit?id={{model_id}}">
-                            设计模型
-                        </a>
-                    </div>
-                    #}
+            <div class="wrapper">
+            <div class="tab-content">
+                {%for v in list%}
+                {%set index = loop.index%}
+                <div class="tab-pane fade {{'active in' if index==1}}" id="table{{index}}">
+                   <pre>{{v['Create Table']| nl2br | safe}}</pre>
                 </div>
-                <div class="col-sm-3">
-                    <div class="input-group pull-right">
-                        <input type="text" class="input-sm form-control" placeholder="Search">
-                      <span class="input-group-btn">
-                        <button class="btn btn-sm btn-default" type="button">Go!</button>
-                      </span>
-                    </div>
-                </div>
+                 {%endfor%}
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped b-t b-light">
-                    <thead>
-                    <tr>
-                        <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                        {%for index,val in list.create_time%}
-                        {%if index != 'unsigned'%}
-                        <th>{{index}}</th>
-                        {%endif%}
-                        {%endfor%}
-                        <th >操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for index,val in list %}
-                    <tr>
-                        <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                        {%for i,v in val%}
-                        {%if i != 'unsigned'%}
-                        <td>{{v|dump}}</td>
-                        {%endif%}
-                        {%endfor%}
-                        <td>
-
-                            <a href="#" class="text-info todo">编辑</a>
-                            <a href="#" class=" text-info todo">删除</a>
-                            </td>
-
-                    </tr>
-                    {% else %}
-                    <tr><td colspan="7"><div class="alert alert-warning alert-block">
-                        <button data-dismiss="alert" class="close" type="button">×</button>
-                        <p>This would display if the 'item' collection were empty</p>
-                    </div></td></tr>
-
-                    {% endfor %}
-
-
-                    </tbody>
-                </table>
             </div>
             <footer class="panel-footer">
                 <div class="row">

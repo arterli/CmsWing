@@ -1,7 +1,7 @@
 {
   "name": "CMSWing",
-  "description": "application created by thinkjs",
-  "version": "1.2.0",
+  "description": "基于ThinkJS(Node.js MVC)和MySQL的功能强大的电子商务平台及CMS建站系统",
+  "version": "1.2.1",
   "scripts": {
     "start": "node development.js",
     "lint": "eslint src/",
