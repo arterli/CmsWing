@@ -309,11 +309,19 @@ module.exports = class extends think.cmswing.admin {
       }
       const templateFile = `${temppath}${data.controller}${this.config('view.nunjucks.sep')}${data.action}${this.config('view.nunjucks.extname')}`;
       // console.log(templateFile);
-      const res = await this.model('temp').add(data);
-      if (!think.isEmpty(res)) {
-        fs.writeFileSync(templateFile, data.html);
-        return this.success({name: '添加成功!'});
-      }
+      let model = this.model('temp');
+      return await model.transaction(async()=>{
+          let res = await model.add(data);
+          if (!think.isEmpty(res)) {
+            try{
+                fs.writeFileSync(templateFile, data.html);
+            }catch (e){
+                await model.rollback();
+                return this.fail('模板创建失败!');
+            }
+            return this.success({name: '添加成功!'});
+          }
+      });
     } else {
       const type = this.get('type');
       const temptype = this.get('temptype');
