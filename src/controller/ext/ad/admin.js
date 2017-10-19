@@ -200,7 +200,13 @@ module.exports = class extends think.cmswing.extAdmin {
       const data = this.post();
       data.startdate = think.isEmpty(data.startdate) ? new Date().getTime() : new Date(data.startdate).valueOf();
       data.enddate = think.isEmpty(data.enddate) ? new Date(data.startdate).getTime() + (86400000 * 30) : new Date(data.enddate).valueOf();
-
+      if (!think.isEmpty(data.code)) {
+        const arr = [];
+        const obj = {};
+        obj.code = data.code[data.code.length-1];
+        arr.push(obj);
+        data.setting = JSON.stringify(arr);
+      }
       // console.log(data);
       // return this.fail(1);
       const res = await this.model('ext_ad').where({id: data.id}).update(data);
