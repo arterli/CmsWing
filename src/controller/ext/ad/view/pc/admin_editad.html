@@ -219,7 +219,26 @@
 
                             </div>
                             {%else%}
-                            代码
+                            <div id="layout " class="form-group" style="margin-bottom: 0;display: block">
+                                <section class="panel panel-default margin-0" style="margin-bottom: 0">
+                                    <header class="panel-heading font-bold">代码设置</header>
+                                    <div class="row wrapper">
+                                        <div class="col-md-12">直接填入html代码</div>
+                                    </div>
+                                    {% for i in range(0, temp.num) -%}
+                                    <div class="panel-body" style="padding: 0">
+                                        <div id="codes" class="hide">
+                                            <textarea id="html-code" name="code">{{setting[i].code}}</textarea>
+                                        </div>
+                                        <div id="test-editormd" style="margin: 0">
+                                            <textarea style="display:none;" name="code"></textarea>
+                                        </div>
+                                    </div>
+                                    {%- endfor %}
+                                </section>
+
+
+                            </div>
                             {%endif%}
                             {%endif%}
                             {%endfor%}
