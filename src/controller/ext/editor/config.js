@@ -17,7 +17,7 @@ module.exports = {
           'label': '编辑器类型:', // 表单的文字
           'type': 'select', // 表单的类型：text、radio、select
           'options': {'1': '普通文本', '2': '富文本', '3': 'Markdown'},
-          'value': '1' // 表单的默认值
+          'value': '2' // 表单的默认值
         },
         {
           'name': 'wysiwyg',
