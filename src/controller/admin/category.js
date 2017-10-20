@@ -33,7 +33,17 @@ module.exports = class extends think.cmswing.admin {
     return this.display();
   }
   async gettreeAction() {
-    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status');
+    // 添加,编辑,移动合并
+    let mold = 0;
+    if(!think.isEmpty(this.get('mold'))){
+      mold = this.get('mold');
+    }else{
+      const cid = this.get('from')||this.get('cid')||0;
+      const res = await this.model('category').field('mold').find(cid);
+      if(!think.isEmpty(res))
+        mold = res.mold;
+    }
+    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status',{mold:mold});
     return this.json(tree);
   }
 
