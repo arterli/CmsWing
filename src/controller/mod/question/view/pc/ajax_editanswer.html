@@ -1,39 +1,95 @@
+
+
+{% extends "view/home/inc_base.html" %}
+{% block style %}
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+{% endblock %}
+{% block content %}
+{%set cate = category.id|get_cate()%}
 <!--
-	Used By:
-		shortcode-lightbox.html
+PAGE HEADER
+
+CLASSES:
+.page-header-xs	= 20px margins
+.page-header-md	= 50px margins
+.page-header-lg	= 80px margins
+.page-header-xlg= 130px margins
+.dark			= dark page header
+
+.shadow-before-1 	= shadow 1 header top
+.shadow-after-1 	= shadow 1 header bottom
+.shadow-before-2 	= shadow 2 header top
+.shadow-after-2 	= shadow 2 header bottom
+.shadow-before-3 	= shadow 3 header top
+.shadow-after-3 	= shadow 3 header bottom
 -->
-<div class="lightbox-ajax" style="max-width: 860px">
+<section class="page-header page-header-xs" >
+    <div class="container">
 
-    <!-- title -->
-    <h4>编辑回复</h4>
+        <h1>{{category.title}}</h1>
 
-    <!-- body -->
-    <div class="lightbox-ajax-body clearfix" >
-        <form method="post" action="/mod/question/sys/updateanswer" class="box-light padding-0 validate"><!-- .box-light OR .box-dark -->
-            <div class="box-inner padding-0">
-                <textarea id="detail" name="answer_content"  class="form-control required" style="height: 280px"  placeholder="Type your message here...">{{answer.answer_content|safe}}</textarea>
+        <ul class="page-header-tabs list-inline">
+            <li class="active"><a href="#"><i class="et-pencil"></i> 编辑</a></li>
+            <li class=""><a href="/q/{{answer.question_id}}"><i class="et-target"></i> 返回</a></li>
 
-                <input type="hidden" name="answer_id" value="{{answer.answer_id}}">
-                <input type="hidden" name="backurl" value="{{http.url}}">
-                <button type="submit" class="btn btn-primary pull-right margin-top-20"><i class="fa fa-check"></i> 回复</button>
-            </div>
-        </form>
+        </ul>
+
+        <!-- /page tabs -->
     </div>
-    <script>
-        $(function () {
-            _form();
-            if($("#detail").length>0){
-                //载入编辑器
-                var editor = new wangEditor('detail');
-                // 上传图片
-                editor.config.uploadImgUrl = '/uc/file/uploadpic/type/path';
-                editor.config.uploadImgFileName = 'file';
-                editor.create();
-                if(($("#detail").html()).length==0){
-                    editor.clear();
-                }
-            }
-        })
-    </script>
-    <!-- /body -->
-</div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section >
+    <div class="container">
+
+        <div class="row">
+
+            <!-- LEFT -->
+            <div class="col-md-9 col-sm-9">
+                <form method="post" action="/mod/question/sys/updateanswer" class="validate">
+                    <div class="panel panel-default">
+                        <div class="panel-heading padding-10">
+                            <h2 class="panel-title">编辑回复:</h2>
+                        </div>
+                        <div class="panel-footer panel-footer-transparent nopadding">
+                            {{HOOKS@homeEdit@2_2_300['answer_content']|safe}}
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                    <input type="hidden" name="answer_id" value="{{answer.answer_id}}">
+                                    <input type="hidden" name="question_id" value="{{answer.question_id}}">
+                                    <button class="btn btn-primary btn-lg" >确认编辑</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+
+            <div class="col-md-3 col-sm-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">问题发起指南</h2>
+                    </div>
+                    <div class="panel-body padding-10">
+                        <p class="margin-bottom-20"><b>• 问题标题:</b> 请用准确的语言描述您发布的问题思想</p>
+                        <p class="margin-bottom-20"><b>• 问题补充:</b> 详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想</p>
+                        <p class="margin-bottom-20"><b>• 选择话题:</b> 选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- / -->
+{% endblock %}
+{% block script %}
+<script src="/static/assets/js/question.js"></script>
+{%endblock%}

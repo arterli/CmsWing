@@ -24,9 +24,9 @@ module.exports = class extends think.Service {
     this.type = type;
     // console.log(fileField);
     // console.log(http);
-    if (type == 'remote') {
+    if (type === 'remote') {
       this.saveRemote();
-    } else if (type == 'base64') {
+    } else if (type === 'base64') {
       this.upBase64();
     } else {
       this.upFile();
@@ -79,7 +79,7 @@ module.exports = class extends think.Service {
     const http = this.http;
     const base64Data = http.post(this.fileField);
     // console.log(base64Data);
-    const img = new Buffer(base64Data, 'base64');
+    const img = Buffer.from(base64Data, 'base64');
     // console.log(img);
     this.oriName = this.config['oriName'];
     // console.log(this.oriName);

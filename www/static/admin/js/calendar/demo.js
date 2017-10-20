@@ -21,7 +21,7 @@ $(document).ready( function(){
       ],
       [
         "17/"+month+"/"+year, 
-        'Milestone release', 
+        'Milestone wangEditor',
         '#', 
         '#fcc633', 
         'Contents here'

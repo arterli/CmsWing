@@ -1,0 +1,48 @@
+{%if setting.type ==1%}
+<!-- 文本编辑器 -->
+{%elif setting.type == 2%}
+
+{% if setting.wysiwyg == 1%}
+<script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+<script>
+    uParse('#contentcmswing', {
+        rootPath: '/static/admin/js/udeitor/'
+    })
+</script>
+{% elif setting.wysiwyg == 2%}
+<!-- wang编辑器 -->
+{% endif %}
+{%elif setting.type == 3%}
+<script src="/static/admin/editormd/lib/marked.min.js"></script>
+<script src="/static/admin/editormd/lib/prettify.min.js"></script>
+<script src="/static/admin/editormd/lib/raphael.min.js"></script>
+<script src="/static/admin/editormd/lib/underscore.min.js"></script>
+<script src="/static/admin/editormd/lib/sequence-diagram.min.js"></script>
+<script src="/static/admin/editormd/lib/flowchart.min.js"></script>
+<script src="/static/admin/editormd/lib/jquery.flowchart.min.js"></script>
+<script src="/static/admin/editormd/editormd.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        var testEditormdView, testEditormdView2;
+
+            testEditormdView = editormd.markdownToHTML("editormd-view-{{name}}", {
+                //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+                htmlDecode      : "style,script,iframe",  // you can filter tags decode
+                //toc             : false,
+                tocm            : true,    // Using [TOCM]
+//                tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+                //gfm             : false,
+                tocDropdown     : true,
+                // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+                emoji           : true,
+                taskList        : true,
+                tex             : true,  // 默认不解析
+//                flowChart       : true,  // 默认不解析
+//                sequenceDiagram : true,  // 默认不解析
+            });
+
+
+        });
+
+</script>
+{%endif%}

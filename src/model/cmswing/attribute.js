@@ -38,15 +38,9 @@ module.exports = class extends think.Model {
       if (create) {
         // 更新表字段
         const res = await this.updateField(data);
-        if (!res) {
-          return false;
-        }
       }
       data.update_time = new Date().valueOf();
       const status = await this.update(data);
-      if (!status) {
-        return false;
-      }
     }
     return data;
   }

@@ -309,29 +309,29 @@ module.exports = class extends think.cmswing.admin {
       }
       const templateFile = `${temppath}${data.controller}${this.config('view.nunjucks.sep')}${data.action}${this.config('view.nunjucks.extname')}`;
       // console.log(templateFile);
-      let model = this.model('temp');
+      const model = this.model('temp');
 
       // 检查是否重复
-      let cond ={};
-      think.extend(cond,data);
-      delete  cond.html;
-      delete  cond.temptype;
-      delete  cond.name;
-      let empty = await model.where(cond).find();
-      if(!think.isEmpty(empty)){
-          return this.fail('模板已存在!');
+      const cond = {};
+      think.extend(cond, data);
+      delete cond.html;
+      delete cond.temptype;
+      delete cond.name;
+      const empty = await model.where(cond).find();
+      if (!think.isEmpty(empty)) {
+        return this.fail('模板已存在!');
       }
-      return model.transaction(async()=>{
-          let res = await model.add(data);
-          if (!think.isEmpty(res)) {
-            try{
-                fs.writeFileSync(templateFile, data.html);
-            }catch (e){
-                await model.rollback();
-                return this.fail('模板创建失败!');
-            }
-            return this.success({name: '添加成功!',id:res});
+      return model.transaction(async() => {
+        const res = await model.add(data);
+        if (!think.isEmpty(res)) {
+          try {
+            fs.writeFileSync(templateFile, data.html);
+          } catch (e) {
+            await model.rollback();
+            return this.fail('模板创建失败!');
           }
+          return this.success({name: '添加成功!', id: res});
+        }
       });
     } else {
       const type = this.get('type');

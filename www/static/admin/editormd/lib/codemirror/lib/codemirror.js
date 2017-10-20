@@ -54,7 +54,7 @@
   // EDITOR CONSTRUCTOR
 
   // A CodeMirror instance represents an editor. This is the object
-  // that uuu code is usually dealing with.
+  // that user code is usually dealing with.
 
   function CodeMirror(place, options) {
     if (!(this instanceof CodeMirror)) return new CodeMirror(place, options);
@@ -1454,7 +1454,7 @@
         te.style.cssText = oldCSS;
         if (ie && ie_version < 9) display.scrollbars.setScrollTop(display.scroller.scrollTop = scrollPos);
 
-        // Try to detect the uuu choosing select-all
+        // Try to detect the user choosing select-all
         if (te.selectionStart != null) {
           if (!ie || (ie && ie_version < 9)) prepareSelectAllHack();
           var i = 0, poll = function() {

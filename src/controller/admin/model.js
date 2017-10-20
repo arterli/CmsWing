@@ -299,9 +299,9 @@ module.exports = class extends think.cmswing.admin {
   }`);
             const mvp = `${modpath}/view`;
             think.mkdir(`${mvp}/pc`);
-            fs.writeFileSync(`${mvp}/pc/hooks_${v},html`, `${data.name}`);
+            fs.writeFileSync(`${mvp}/pc/hooks_${v}.html`, `${data.name}`);
             think.mkdir(`${mvp}/mobile`);
-            fs.writeFileSync(`${mvp}/mobile/hooks_${v},html`, `${data.name}`);
+            fs.writeFileSync(`${mvp}/mobile/hooks_${v}.html`, `${data.name}`);
           } else {
             hookaction.push(` // 实现的${v}钩子方法
   ${v}() {

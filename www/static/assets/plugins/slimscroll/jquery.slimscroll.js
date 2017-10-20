@@ -409,7 +409,7 @@
           // when bar reached top or bottom
           if (percentScroll == ~~percentScroll)
           {
-            //release wheel
+            //wangEditor wheel
             releaseScroll = o.allowPageScroll;
 
             // publish approporiate event

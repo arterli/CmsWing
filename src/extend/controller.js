@@ -129,10 +129,34 @@ module.exports = {
             }
           }
         }
+        const type = think._.last(args);
+        if (think.isObject(type) && !think.isEmpty(type.$hook_key) && !think.isEmpty(type.$hook_type)) {
+          const cachehook = await think.cache(`hooks_${hooks}${type.$hook_type}${this.cookie('thinkjs')}`);
+          const hookobj = think.isEmpty(cachehook) ? {} : cachehook;
+          if (!think.isEmpty(hookarr)) {
+            hookobj[type.$hook_key] = hookarr.join('');
+          }
+          await think.cache(`hooks_${hooks}${type.$hook_type}${this.cookie('thinkjs')}`, hookobj);
+          return this.assign(`HOOKS@${hooks}@${type.$hook_type}`, await think.cache(`hooks_${hooks}${type.$hook_type}${this.cookie('thinkjs')}`));
+        }
+        if (think.isObject(type) && !think.isEmpty(type.$hook_type)) {
+          return this.assign(`HOOK@${hooks}@${type.$hook_type}`, hookarr.join(''));
+        }
+        if (think.isObject(type) && !think.isEmpty(type.$hook_key)) {
+          const hookobj = think.isEmpty(await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`)) ? {} : await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`);
+          if (!think.isEmpty(hookarr)) {
+            hookobj[type.$hook_key] = hookarr.join('');
+          }
+          await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`, hookobj);
+          return this.assign(`HOOKS@${hooks}`, await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`));
+        }
         this.assign(`HOOK@${hooks}`, hookarr.join(''));
       }
     } catch (e) {
       think.logger.error(e);
     }
+  },
+  async extConfig(extname) {
+    return await this.model('cmswing/ext').getset(extname);
   }
 };

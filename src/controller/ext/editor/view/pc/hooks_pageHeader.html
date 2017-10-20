@@ -1,0 +1,18 @@
+{%if setting.type ==1%}
+<!-- 文本编辑器 -->
+{%elif setting.type == 2%}
+
+{% if setting.wysiwyg == 1%}
+<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+<style>
+    .active > .text{
+        display: block !important;
+    }
+</style>
+{% elif setting.wysiwyg == 2%}
+
+{% endif %}
+{%elif setting.type == 3%}
+<!-- Editor.md编辑器 -->
+<link rel="stylesheet" href="/static/admin/editormd/editormd.preview.min.css" />
+{%endif%}

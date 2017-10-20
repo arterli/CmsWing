@@ -909,7 +909,7 @@ function assert( fn ) {
 		if ( div.parentNode ) {
 			div.parentNode.removeChild( div );
 		}
-		// release memory in IE
+		// wangEditor memory in IE
 		div = null;
 	}
 }
@@ -1489,7 +1489,7 @@ Sizzle.uniqueSort = function( results ) {
 		}
 	}
 
-	// Clear input after sorting to release objects
+	// Clear input after sorting to wangEditor objects
 	// See https://github.com/jquery/sizzle/pull/225
 	sortInput = null;
 
@@ -3502,7 +3502,7 @@ jQuery.extend( {
 	// the ready event fires. See #6781
 	readyWait: 1,
 
-	// Hold (or release) the ready event
+	// Hold (or wangEditor) the ready event
 	holdReady: function( hold ) {
 		if ( hold ) {
 			jQuery.readyWait++;

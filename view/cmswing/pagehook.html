@@ -1,0 +1,17 @@
+{% macro header(pagehook) %}
+{{pagehook|dump}}
+{%for field in pagehook.fields%}
+{%if pagehook.editor == '1'%}
+{{HOOKS@pageHeader@1[field.name]|safe}}
+{%elif pagehook.editor == '2_1'%}
+{{HOOKS@pageHeader@2_1[field.name]|safe}}
+{%elif pagehook.editor == '2_2'%}
+{{HOOKS@pageHeader@2_2[field.name]|safe}}
+{%elif pagehook.editor == '3'%}
+{{3333}}
+{{HOOKS@pageHeader@3[field.name]|safe}}
+{%else%}
+{{HOOKS@pageHeader[field.name]|safe}}
+{%endif%}
+{%endfor%}
+{% endmacro %}

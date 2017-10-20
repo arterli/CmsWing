@@ -203,7 +203,7 @@ module.exports = class extends think.cmswing.extAdmin {
       if (!think.isEmpty(data.code)) {
         const arr = [];
         const obj = {};
-        obj.code = data.code[data.code.length-1];
+        obj.code = data.code[data.code.length - 1];
         arr.push(obj);
         data.setting = JSON.stringify(arr);
       }

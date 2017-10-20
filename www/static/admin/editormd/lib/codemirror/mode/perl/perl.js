@@ -306,7 +306,7 @@ CodeMirror.defineMode("perl",function(){
                 formline                        :1,     // - internal function used for formats
                 getc                            :1,     // - get the next character from the filehandle
                 getgrent                        :1,     // - get next group record
-                getgrgid                        :1,     // - get group record given group uuu ID
+                getgrgid                        :1,     // - get group record given group user ID
                 getgrnam                        :1,     // - get group record given group name
                 gethostbyaddr                   :1,     // - get host record given its address
                 gethostbyname                   :1,     // - get host record given name
@@ -323,8 +323,8 @@ CodeMirror.defineMode("perl",function(){
                 getprotobynumber                :1,     // - get protocol record numeric protocol
                 getprotoent                     :1,     // - get next protocols record
                 getpwent                        :1,     // - get next passwd record
-                getpwnam                        :1,     // - get passwd record given uuu login name
-                getpwuid                        :1,     // - get passwd record given uuu ID
+                getpwnam                        :1,     // - get passwd record given user login name
+                getpwuid                        :1,     // - get passwd record given user ID
                 getservbyname                   :1,     // - get services record given its name
                 getservbyport                   :1,     // - get services record given numeric port
                 getservent                      :1,     // - get next services record

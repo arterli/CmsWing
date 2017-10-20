@@ -83,8 +83,7 @@ module.exports = class extends think.cmswing.center {
     // 获取模板
     let temp;
     const model = await this.model('cmswing/model').get_model(info.model_id, 'name');
-
-    // 详情模版 TODO
+      // 详情模版 TODO
     // 手机版模版
 
     this.assign('category', cate);
@@ -146,6 +145,31 @@ module.exports = class extends think.cmswing.center {
     await this.hook('documentDetailAfter', info);
     // 视频播放器钩子
     await this.hook('videoPlayer', info);
+    // 加载页面头部底部钩子
+      const editor = !think.isEmpty(info.editor) ? info.editor : await this.model('cmswing/model').get_model(info.model_id, 'editor');
+      const field_group = await this.model('cmswing/model').get_model(info.model_id, 'field_group');
+      const fields = await this.model('cmswing/attribute').get_model_attribute(info.model_id, true);
+      const fg = parse_config_attr(field_group);
+      const farr = [];
+      for (const key in fg) {
+          for (const f of fields[key]) {
+              if (f.type === 'editor') {
+                  console.log(f);
+                  farr.push(f);
+                  // 添加编辑器钩子
+                  if (editor === '0') {
+                      await this.hook('pageHeader', f.name, f.value, {$hook_key: f.name});
+                      await this.hook('pageFooter', f.name, f.value, {$hook_key: f.name});
+                      await this.hook('pageContent', f.name, info[f.name], {$hook_key: f.name});
+                  } else {
+                      await this.hook('pageHeader', f.name, f.value, {$hook_key: f.name, $hook_type: editor});
+                      await this.hook('pageFooter', f.name, f.value, {$hook_key: f.name, $hook_type: editor});
+                      await this.hook('pageContent', f.name, info[f.name], {$hook_key: f.name, $hook_type: editor});
+                  }
+              };
+          };
+      };
+      this.assign('pagehook',{editor:editor,fields:farr});
     // 判断浏览客户端
     if (this.isMobile) {
       // 手机模版
@@ -158,9 +182,9 @@ module.exports = class extends think.cmswing.center {
       }
       // console.log(temp);
       // 内容分页
-      if (!think.isEmpty(info.content)) {
-        info.content = info.content.split('_ueditor_page_break_tag_');
-      }
+      // if (!think.isEmpty(info.content)) {
+      //   info.content = info.content.split('_ueditor_page_break_tag_');
+      // }
       return this.display(this.mtpl(temp));
     } else {
       if (!think.isEmpty(info.template) && info.template != 0) {
@@ -173,9 +197,9 @@ module.exports = class extends think.cmswing.center {
       // console.log(temp);
       // console.log(info);
       // 内容分页
-      if (!think.isEmpty(info.content)) {
-        info.content = info.content.split('_ueditor_page_break_tag_');
-      }
+      // if (!think.isEmpty(info.content)) {
+      //   info.content = info.content.split('_ueditor_page_break_tag_');
+      // }
       return this.display(`home/detail_${temp}`);
     }
   }

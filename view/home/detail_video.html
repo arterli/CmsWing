@@ -1,10 +1,10 @@
 {% extends "./inc_base.html" %}
-{% block style %}
 {%if category.pid !=0%}
 {%column data="column",pid=category.pid%}
 {%else%}
 {%column data="column",cid=category.id%}
 {%endif%}
+{% block style %}
 <script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}

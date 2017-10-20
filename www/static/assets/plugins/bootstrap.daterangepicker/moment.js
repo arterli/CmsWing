@@ -3030,7 +3030,7 @@
     } else if (typeof define === 'function' && define.amd) {
         define(function (require, exports, module) {
             if (module.config && module.config() && module.config().noGlobal === true) {
-                // release the global variable
+                // wangEditor the global variable
                 globalScope.moment = oldGlobalMoment;
             }
 

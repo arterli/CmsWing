@@ -375,6 +375,40 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">绑定内容编辑器</label>
+
+                                        <div class="col-sm-10">
+                                            <div class="row">
+                                                    {%set ev = info.editor|strToArray('_')%}
+                                                    <input type="hidden" name="editor" value="{{info.editor}}">
+
+                                                        <div class="col-md-3">
+
+                                                    <select id="editor" name="" class="form-control m-b">
+                                                        <option value="0" {{'selected' if ev[0]=='0'}}>默认</option>
+                                                        <option value="1" {{'selected' if ev[0]=='1'}}>普通文本</option>
+                                                        <option value="2" {{'selected' if ev[0]=='2'}}>富文本</option>
+                                                        <option value="3" {{'selected' if ev[0]=='3'}}>Markdown</option>
+                                                    </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                    <select id="wysiwyg" name="" class="form-control m-b" style="display: {{'display' if ev[1] else 'none'}}">
+                                                        <option value="2_1" {{'selected' if info.editor=='2_1'}}>Ueditor(百度编辑器)</option>
+                                                        <option value="2_2" {{'selected' if info.editor=='2_2'}}>wangEditor</option>
+                                                    </select>
+                                                        </div>
+
+
+                                                <div class="col-md-12">
+                                                    <span class="help-block m-b-none text-muted">
+                                                        <i class="fa fa-info-circle text-info"></i>
+                                                        如果选择默认，会遵循编辑器插件的配置，一旦绑定不要轻易修改，否则会影响已有内容的前台渲染。</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -410,6 +444,22 @@
 <script>
     $(document).ready(function () {
 
+        //选择编辑器
+        var editorinput = $('input[name = "editor"]'), editor = $("#editor"), wysiwyg= $("#wysiwyg");
+        editor.change(function(){
+            var v = $(this).val()
+            if(v == 2){
+                wysiwyg.show();
+                v=wysiwyg.val();
+            }else {
+                wysiwyg.hide();
+            }
+            editorinput.val(v)
+        });
+        wysiwyg.change(function(){
+            var v = $(this).val();
+            editorinput.val(v)
+        });
         var obj = {}
         var updateOutput = function (e) {
             var list = e.length ? e : $(e.target),

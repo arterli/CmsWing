@@ -1244,18 +1244,17 @@
                                         </div>
                                         {% elif field.type == "editor" %}
                                         <div class="col-sm-12">
-                                            <!-- 加载编辑器的容器 -->
-                                            <script id="Editor_{{field.name}}" name="{{field.name}}" style="width: 100%; height: 500px" type="text/plain">
-
-                                            </script>
-                                            <!-- 实例化编辑器 -->
-                                            <script type="text/javascript">
-                                                UE.getEditor('Editor_{{field.name}}', {
-                                                    theme:"default", //皮肤
-                                                    lang:'zh-cn', //语言
-                                                    serverUrl: '/center/ueditor/index'
-                                                });
-                                            </script>
+                                            {%if model.editor == '1'%}
+                                            {{HOOKS@homeEdit@1[field.name]|safe}}
+                                            {%elif model.editor == '2_1'%}
+                                            {{HOOKS@homeEdit@2_1[field.name]|safe}}
+                                            {%elif model.editor == '2_2'%}
+                                            {{HOOKS@homeEdit@2_2[field.name]|safe}}
+                                            {%elif model.editor == '3'%}
+                                            {{HOOKS@homeEdit@3[field.name]|safe}}
+                                            {%else%}
+                                            {{HOOKS@homeEdit[field.name]|safe}}
+                                            {%endif%}
                                         </div>
                                         {% elif field.type == "picture" %}
                                         <div class="col-sm-10">

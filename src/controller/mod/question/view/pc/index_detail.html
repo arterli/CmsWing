@@ -1,8 +1,8 @@
 {% extends "view/home/inc_base.html" %}
 {% block style %}
 <link href="/static/assets/css/layout-question.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+<script type="text/javascript" src="/static/assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 {% endblock %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
@@ -115,8 +115,8 @@ CLASSES:
 
                         </div>
                         <div class="divider divider-dotted nomargin"></div>
-                        <div class="wangEditor-container cmswing-container" style="border: none">
-                            <div class="wangEditor-txt nopadding">
+                        <div class="cmswing-container" style="border: none">
+                            <div class="">
                                 {{info.detail|safe}}
                             </div>
                         </div>
@@ -167,7 +167,7 @@ CLASSES:
                                         <small class="text-muted pull-right">{{a.add_time|moment}} </small>
                                         <span>{{a.uid|get_nickname}}</span>
                                     </a>
-                                    <div class="wangEditor-container cmswing-container" style="position: relative;z-index: 9;border: none; top: -10px">
+                                    <div class="cmswing-container padding-bottom-10" style="position: relative;z-index: 9;border: none; ">
                                         <div class="wangEditor-txt nopadding">
                                             {{a.answer_content|safe}}
                                         </div>
@@ -189,7 +189,7 @@ CLASSES:
                                         <a href="/mod/question/ajax/delanswer/?qid={{info.id}}&id={{a.answer_id}}" class="text-danger confirm ajax-get">删除</a>
                                     </li>
                                     <li class="pull-right">
-                                        <a href="/mod/question/ajax/editanswer/?id={{a.answer_id}}" class="text-primary lightbox" data-lightbox="iframe" data-plugin-options='{"type":"ajax", "closeOnBgClick":false}'>编辑</a>
+                                        <a href="/mod/question/ajax/editanswer/?id={{a.answer_id}}" class="text-primary " >编辑</a>
                                     </li>
                                     {%endif%}
                                 </ul>
@@ -222,7 +222,7 @@ CLASSES:
                         </div>
 
                         <div class="panel-body nopadding">
-                            <textarea id="detail" name="answer_content"  class="form-control required" style="height: 280px"  placeholder="Type your message here..."></textarea>
+                            {{HOOKS@homeEdit@2_2_200['answer_content']|safe}}
                         </div>
 
                         <div class="panel-footer clearfix">
@@ -324,7 +324,6 @@ CLASSES:
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
 <script src="/static/assets/plugins/insertContent.js"></script>
-<script src="/static/assets/plugins/wangEditor/js/wangEditor.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 <script src="/static/assets/js/question.js"></script>
 {%endblock%}

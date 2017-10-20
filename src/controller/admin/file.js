@@ -91,8 +91,13 @@ module.exports = class extends think.Controller {
 
   // 上传图片
   async uploadpicAction() {
-    const file = think.extend({}, this.file('file'));
-    // console.log(file);
+    const type = this.get('type');
+    let name = 'file';
+    if (type === 'editormd') {
+      name = 'editormd-image-file';
+    }
+
+    const file = think.extend({}, this.file(name));
     const filepath = file.path;
     const extname = path.extname(file.name);
     const basename = path.basename(filepath) + extname;
@@ -135,8 +140,21 @@ module.exports = class extends think.Controller {
         console.log('not exist');
       }
     }
-
-    this.json(res);
+    switch (type) {
+      case 'path':
+        return this.json({
+          errno: 0,
+          data: [await get_pic(res)]
+        });
+      case 'editormd':
+        return this.json({
+          success: 1,
+          message: '上传成功',
+          url: await get_pic(res)
+        });
+      default:
+        return this.json(res);
+    }
   }
   // 获取七牛token
   async getqiniuuptokenAction() {

@@ -323,7 +323,7 @@ jQuery.tableDnD = {
         if (jQuery.tableDnD.currentTable && jQuery.tableDnD.dragObject) {
             var droppedRow = jQuery.tableDnD.dragObject;
             var config = jQuery.tableDnD.currentTable.tableDnDConfig;
-            // If we have a dragObject, then we need to release it,
+            // If we have a dragObject, then we need to wangEditor it,
             // The row will already have been moved to the right place so we just reset stuff
 			if (config.onDragClass) {
 	            jQuery(droppedRow).removeClass(config.onDragClass);

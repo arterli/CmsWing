@@ -532,7 +532,7 @@ AutoFill.prototype = {
 
 
 	/**
-	 * Mouse release handler - end the drag and take action to update the cells with the needed values
+	 * Mouse wangEditor handler - end the drag and take action to update the cells with the needed values
 	 *  @method  _fnFillerFinish
 	 *  @param   {Object} e Event object
 	 *  @returns void

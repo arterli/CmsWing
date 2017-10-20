@@ -34,6 +34,24 @@
 	<!-- PAGE LEVEL SCRIPTS -->
 	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
 	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
+	<!--页面头部css钩子加载-->
+	{% if pagehook%}
+	{%for field in pagehook.fields%}
+	{%if pagehook.editor == '1'%}
+	{{HOOKS@pageHeader@1[field.name]|safe}}
+	{%elif pagehook.editor == '2_1'%}
+	{{HOOKS@pageHeader@2_1[field.name]|safe}}
+	{%elif pagehook.editor == '2_2'%}
+	{{HOOKS@pageHeader@2_2[field.name]|safe}}
+	{%elif pagehook.editor == '3'%}
+	{{HOOKS@pageHeader@3[field.name]|safe}}
+	{%else%}
+	{{HOOKS@pageHeader[field.name]|safe}}
+	{%endif%}
+	{%endfor%}
+	{%endif%}
+	<!--/页面头部css钩子加载结束-->
+
 	{% block style %}{% endblock %}
 	{%if config.setup.WEB_TONGJI%}
 	<!--统计代码-->
@@ -338,6 +356,23 @@
 	<script type="text/javascript" src="/static/assets/plugins/slider.revolution/js/jquery.themepunch.revolution.min.js"></script>
 	<script type="text/javascript" src="/static/assets/js/view/demo.revolution_slider.js"></script>
 	{% block script %}{% endblock %}
+	<!--页面footer钩子，一般用于加载插件JS文件和JS代码-->
+	{% if pagehook%}
+	{%for field in pagehook.fields%}
+	{%if pagehook.editor == '1'%}
+	{{HOOKS@pageFooter@1[field.name]|safe}}
+	{%elif pagehook.editor == '2_1'%}
+	{{HOOKS@pageFooter@2_1[field.name]|safe}}
+	{%elif pagehook.editor == '2_2'%}
+	{{HOOKS@pageFooter@2_2[field.name]|safe}}
+	{%elif pagehook.editor == '3'%}
+	{{HOOKS@pageFooter@3[field.name]|safe}}
+	{%else%}
+	{{HOOKS@pageFooter[field.name]|safe}}
+	{%endif%}
+	{%endfor%}
+	{%endif%}
+	<!--/页面footer钩子，一般用于加载插件JS文件和JS代码-->
     <!--[if lte IE 9]>
     <script src="/static/assets/plugins/jquery-fly/requestAnimationFrame.js"></script>
     <![endif]-->

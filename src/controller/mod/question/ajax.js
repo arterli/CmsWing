@@ -93,6 +93,7 @@ module.exports = class extends think.cmswing.modIndex {
     await this.weblogin();
     const answer_id = this.get('id');
     const answer = await this.model('question_answer').where({answer_id: answer_id}).find();
+
     // 后台管理员跳过验证
     if (!in_array(Number(this.user.uid), this.config('user_administrator'))) {
       // await this.c_verify("edit");
@@ -104,6 +105,8 @@ module.exports = class extends think.cmswing.modIndex {
     }
     this.assign('answer', answer);
     // pc
+    await this.hook('homeEdit', 'answer_content', answer.answer_content, {$hook_key: 'answer_content', $hook_type: '2_2_300'});
+    this.meta_title='编辑回复'
     return this.modDisplay();
   }
   async delanswerAction() {

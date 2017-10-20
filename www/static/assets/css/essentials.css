@@ -151,13 +151,6 @@ audio, canvas, img, video {
 	vertical-align: middle;
 }
 
-p {
-	display: block;
-	-webkit-margin-before: 0.1em;
-	 -webkit-margin-after: 0.1em;
-	 -webkit-margin-start: 0px;
-	   -webkit-margin-end: 0px;
-}
 
 a {
 	-webkit-transition: all .300s;

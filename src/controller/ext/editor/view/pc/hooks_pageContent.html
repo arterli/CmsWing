@@ -1,0 +1,40 @@
+{%if setting.type ==1%}
+<div id="contentcmswing">
+    {{value|safe}}
+</div>
+{%elif setting.type == 2%}
+{% if setting.wysiwyg == 1%}
+<div id="contentcmswing">
+    <div class="tab-content">
+        {%set p = 1%}
+        {%for val in value%}
+        <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
+            {{val|safe}}
+        </div>
+        {% set p = p+1%}
+        {%endfor%}
+    </div>
+    {%if value|length >1%}
+    <!-- Pagination Default -->
+    <div class="text-center">
+        <ul class="pagination">
+            {%set o = 1%}
+            {%for val in value%}
+            <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
+            {% set o = o+1%}
+            {%endfor%}
+        </ul>
+    </div>
+    {%endif%}
+</div>
+{% elif setting.wysiwyg == 2%}
+<div id="contentcmswing">
+    {{value|safe}}
+</div>
+{% endif %}
+{%elif setting.type == 3%}
+<div id="editormd-view-{{name}}">
+    <textarea style="display:none;" name="editormd-markdown-doc-{{name}}">{{value|safe}}</textarea>
+</div>
+
+{%endif%}

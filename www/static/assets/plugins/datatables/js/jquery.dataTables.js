@@ -9224,7 +9224,7 @@
 	/**
 	 * Version string for plug-ins to check compatibility. Allowed format is
 	 * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
-	 * only for non-release builds. See http://semver.org/ for more information.
+	 * only for non-wangEditor builds. See http://semver.org/ for more information.
 	 *  @member
 	 *  @type string
 	 *  @default Version number

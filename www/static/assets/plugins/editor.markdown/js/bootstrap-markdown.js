@@ -25,7 +25,7 @@
    * ========================== */
 
   var Markdown = function (element, options) {
-    // @TODO : remove this BC on next major release
+    // @TODO : remove this BC on next major wangEditor
     // @see : https://github.com/toopay/bootstrap-markdown/issues/109
     var opts = ['autofocus', 'savable', 'hideable', 'width', 
       'height', 'resize', 'iconlibrary', 'language', 

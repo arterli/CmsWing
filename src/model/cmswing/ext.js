@@ -3,8 +3,8 @@ module.exports = class extends think.Model {
     return 'ext';
   }
   // 获取插件配置
-  async getset() {
-    const ext = await this.model('ext').select();
+  async getset(extname = false) {
+    const ext = await this.select();
     const extset = {};
     let sets = {};
     for (const v of ext) {
@@ -15,6 +15,6 @@ module.exports = class extends think.Model {
       }
       extset[v.ext] = sets;
     }
-    return extset;
+    return extname ? extset[extname] : extset;
   }
 };

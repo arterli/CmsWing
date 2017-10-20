@@ -4495,7 +4495,7 @@ SVGRenderer.prototype = {
 				return wrapper;
 			},
 			/**
-			 * Destroy and release memory.
+			 * Destroy and wangEditor memory.
 			 */
 			destroy: function () {
 				removeEvent(wrapper, 'add', getSizeAfterAdd);

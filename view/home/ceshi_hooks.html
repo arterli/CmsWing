@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--带 $hook_type 参数的 视图钩子调用，HOOK+@钩子名+@$hook_type-->
+{{HOOK@adminArticleEdit@1|safe}} <hr>
+<!--带 $hook_key 参数 视图钩子调用, HOOKS+@钩子名[$hook_key]-->
+{{HOOKS@adminArticleEdit['aaaa']|safe}}<hr>
+{{HOOKS@adminArticleEdit['bbbb']|safe}}<hr>
+<!--带 $hook_type 和 $hook.key 参数 视图钩子调用, HOOKS+@钩子名[$hook_type]+@$hook_type-->
+{{HOOKS@adminArticleEdit@2['bbbb']|safe}}<br>
+<!--默认调用 HOOK+@钩子名-->
+{{HOOK@adminArticleEdit|safe}}
+
+</body>
+</html>

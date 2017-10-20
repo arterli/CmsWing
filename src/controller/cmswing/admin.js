@@ -25,7 +25,7 @@ module.exports = class extends think.Controller {
     // 后台菜单
     this.adminmenu = await this.model('cmswing/menu').getallmenu(this.user.uid, this.is_admin);
     const allmenu = this.config('setup.MENU_GROUP');
-    this.MenuGroup = {}
+    this.MenuGroup = {};
     for (const key in this.adminmenu) {
       this.MenuGroup[key] = allmenu[key];
     }

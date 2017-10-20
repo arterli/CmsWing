@@ -1,17 +1,11 @@
 {% extends "./inc_base.html" %}
-{% block style %}
 {%if category.pid !=0%}
 {%column data="column",pid=category.pid%}
 {%else%}
 {%column data="column",cid=category.id%}
 {%endif%}
-<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
+{% block style %}
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
-<style>
-    .active > .text{
-        display: block !important;
-    }
-</style>
 {% endblock %}
 {% block content %}
 <!--
@@ -138,40 +132,26 @@ CLASSES:
 #}
                         <!-- /IMAGE -->
 
-                        <!-- VIDEO -->
-                        <!--
-                        <div class="margin-bottom-20 embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="http://player.youku.com/embed/XMTQ0ODQ2Nzg4OA==" width="800" height="450"></iframe>
-                        </div>
-                        -->
-                        <!-- /VIDEO -->
-
+                        <!--内容钩子加载-->
+                        {% if pagehook%}
+                        {%for field in pagehook.fields%}
+                        {%if pagehook.editor == '1'%}
+                        {{HOOKS@pageContent@1[field.name]|safe}}
+                        {%elif pagehook.editor == '2_1'%}
+                        {{HOOKS@pageContent@2_1[field.name]|safe}}
+                        {%elif pagehook.editor == '2_2'%}
+                        {{HOOKS@pageContent@2_2[field.name]|safe}}
+                        {%elif pagehook.editor == '3'%}
+                        {{HOOKS@pageContent@3[field.name]|safe}}
+                        {%else%}
+                        {{HOOKS@pageContent[field.name]|safe}}
+                        {%endif%}
+                        {%endfor%}
+                        {%endif%}
+                        <!--/内容钩子加载结束-->
 
                         <!-- article content -->
-                        <div id="contentcmswing">
 
-                            <div class="tab-content">
-                                {%set p = 1%}
-                                {%for val in info.content%}
-                                <div class="tab-pane fade {% if p ==1 %} in active{%endif%}" id="page{{p}}">
-                                    {{val|safe}}
-                                </div>
-                                {% set p = p+1%}
-                                {%endfor%}
-                            </div>
-                            {%if info.content|length >1%}
-                            <!-- Pagination Default -->
-                            <div class="text-center">
-                                <ul class="pagination">
-                                    {%set o = 1%}
-                                    {%for val in info.content%}
-                                    <li {%if o == 1 %}class="active"{%endif%}><a href="#page{{o}}" data-toggle="tab">{{o}}</a></li>
-                                    {% set o = o+1%}
-                                    {%endfor%}
-                                </ul>
-                            </div>
-                            {%endif%}
-                        </div>
                     </div>
                     {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
                     {%if tags%}
@@ -218,9 +198,4 @@ CLASSES:
 
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
-<script>
-    uParse('#contentcmswing', {
-        rootPath: '/static/admin/js/udeitor/'
-    })
-</script>
 {% endblock %}

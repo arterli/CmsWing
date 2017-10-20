@@ -215,6 +215,7 @@ module.exports = class extends think.cmswing.modIndex {
       }
       info.detail = img;
     }
+    await this.hook('homeEdit', 'answer_content', '', {$hook_key: 'answer_content', $hook_type: '2_2_200'});
     if (this.isMobile) {
       if (this.isAjax('get')) {
         for (const v of data.data) {

@@ -247,7 +247,7 @@ module.exports = class extends think.Controller {
       }
     } else {
       // return self.uploader(fieldName, config, oriName, size, path, base64);
-      const up = this.service('cmswing/ueditor', fieldName, config, base64, this.ctx); // 加载名为 ueditor 的 editor Adapter
+      const up = this.extService('ueditor', 'editor', fieldName, config, base64, this.ctx); // 加载名为 ueditor 的 editor Adapter
       // console.log("ddddddd"+upload.getFileInfo);
       return up.getFileInfo;
     }
@@ -271,7 +271,7 @@ module.exports = class extends think.Controller {
     }
     const list = [];
     for (const imgUrl of source) {
-      const up = this.service('cmswing/ueditor', imgUrl, config, 'remote'); // 加载名为 ueditor 的 editor Adapter
+      const up = this.extService('ueditor', 'editor', imgUrl, config, 'remote'); // 加载名为 ueditor 的 editor Adapter
       const info = await up.saveRemote();
       // console.log(info);
       list.push({'state': 'SUCCESS', 'url': info.url, 'size': 431521, 'title': info.title, 'original': info.original, 'source': imgUrl});

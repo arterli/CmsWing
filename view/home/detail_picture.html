@@ -1,7 +1,6 @@
 {% extends "./inc_base.html" %}
 {% block style %}
 <link rel="stylesheet" href="/static/assets/plugins/jquery-zsylbt/css/pgwslideshow.min.css">
-<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}
 {% block content %}
@@ -60,7 +59,7 @@ CLASSES:
             {%set picurls = info.pictureurls|strToArray%}
             {%set i =0%}
             {%for v in picurls%}
-            <li><img src="{{v|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v|get_pic('m=0,w=847,h=640')}}" alt="" data-description="{{info.content[i]|delhtmltags}}"></li>
+            <li><img src="{{v|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v|get_pic('m=0,w=847,h=640')}}" alt="" data-description="{{info.content|delhtmltags}}"></li>
             {%set i=i+1%}
             {%endfor%}
         </ul>
@@ -274,8 +273,6 @@ CLASSES:
         });
 
     });
-    uParse('#content', {
-        rootPath: '/static/admin/js/udeitor/'
-    })
+
 </script>
 {% endblock %}

@@ -8,20 +8,20 @@
 const path = require('path');
 const fs = require('fs');
 module.exports = class extends think.cmswing.center {
-  async __before() {
-    await super.__before();
-    // 判断是否登陆
-    // await this.weblogin();
-    if (!this.is_login) {
-      // 判断浏览客户端
-      if (this.isMobile) {
-        // 手机端直接跳转到登录页面
-        return this.redirect('/center/public/login');
-      } else {
-        return this.redirect('/cmswing/error/login');
-      }
-    }
-  }
+  // async __before() {
+  //   await super.__before();
+  //   // 判断是否登陆
+  //   // await this.weblogin();
+  //   if (!this.is_login) {
+  //     // 判断浏览客户端
+  //     if (this.isMobile) {
+  //       // 手机端直接跳转到登录页面
+  //       return this.redirect('/center/public/login');
+  //     } else {
+  //       return this.redirect('/cmswing/error/login');
+  //     }
+  //   }
+  // }
   /**
      * index action
      * @return {Promise} []
@@ -88,7 +88,11 @@ module.exports = class extends think.cmswing.center {
   // 上传图片
   async uploadpicAction() {
     const type = this.get('type');
-    const file = think.extend({}, this.file('file'));
+    let name = 'file';
+    if (type === 'editormd') {
+      name = 'editormd-image-file';
+    }
+    const file = think.extend({}, this.file(name));
     // console.log(file);
     const filepath = file.path;
     const extname = path.extname(file.name);
@@ -132,11 +136,20 @@ module.exports = class extends think.cmswing.center {
         console.log('not exist');
       }
     }
-
-    if (type == 'path') {
-      return this.json(await get_pic(res));
-    } else {
-      return this.json(res);
+    switch (type) {
+      case 'path':
+        return this.json({
+          errno: 0,
+          data: [await get_pic(res)]
+        });
+      case 'editormd':
+        return this.json({
+          success: 1,
+          message: '上传成功',
+          url: await get_pic(res)
+        });
+      default:
+        return this.json(res);
     }
   }
 

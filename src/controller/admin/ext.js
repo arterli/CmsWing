@@ -164,9 +164,9 @@ module.exports = class extends think.cmswing.admin {
   }`);
           const mvp = `${extpath}/view`;
           think.mkdir(`${mvp}/pc`);
-          fs.writeFileSync(`${mvp}/pc/hooks_${v},html`, `${data.ext}`);
+          fs.writeFileSync(`${mvp}/pc/hooks_${v}.html`, `${data.ext}`);
           think.mkdir(`${mvp}/mobile`);
-          fs.writeFileSync(`${mvp}/mobile/hooks_${v},html`, `${data.ext}`);
+          fs.writeFileSync(`${mvp}/mobile/hooks_${v}.html`, `${data.ext}`);
         } else {
           hookaction.push(` // 实现的${v}钩子方法
   ${v}() {

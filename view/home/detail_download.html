@@ -1,6 +1,5 @@
 {% extends "./inc_base.html" %}
 {% block style %}
-<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
 {% endblock %}
 {% block content %}
@@ -142,7 +141,23 @@ CLASSES:
                         </div>
                         <!-- article content -->
                         <div id="content">
-                            {{info.content[0]|safe}}
+                            <!--页面内容钩子加载-->
+                            {% if pagehook%}
+                            {%for field in pagehook.fields%}
+                            {%if pagehook.editor == '1'%}
+                            {{HOOKS@pageContent@1[field.name]|safe}}
+                            {%elif pagehook.editor == '2_1'%}
+                            {{HOOKS@pageContent@2_1[field.name]|safe}}
+                            {%elif pagehook.editor == '2_2'%}
+                            {{HOOKS@pageContent@2_2[field.name]|safe}}
+                            {%elif pagehook.editor == '3'%}
+                            {{HOOKS@pageContent@3[field.name]|safe}}
+                            {%else%}
+                            {{HOOKS@pageContent[field.name]|safe}}
+                            {%endif%}
+                            {%endfor%}
+                            {%endif%}
+                            <!--/页面内容钩子加载结束-->
                         </div>
                         <!-- /article content -->
                     </div>
@@ -190,10 +205,4 @@ CLASSES:
 
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
-<script>
-    uParse('#content', {
-        rootPath: '/static/admin/js/udeitor/'
-    })
-
-</script>
 {% endblock %}

@@ -84,14 +84,13 @@ module.exports = class extends think.cmswing.admin {
     if (think.isEmpty(id)) {
       this.fail('请选择要操作的数据！');
     }
-    let channel = this.model('channel');
+    const channel = this.model('channel');
     let loca = 0;
-    do{
-      let list = await channel.where({pid:id[loca]}).field('id').select();
-      for(let _id of list)
-          id.push(_id.id);
+    do {
+      const list = await channel.where({pid: id[loca]}).field('id').select();
+      for (const _id of list) { id.push(_id.id) }
       loca++;
-    }while (loca < id.length);
+    } while (loca < id.length);
     // 开始删除
     const map = {id: ['IN', id]};
     const res = await channel.where(map).delete();

@@ -399,7 +399,7 @@ jQuery.extend({
 	// the ready event fires. See #6781
 	readyWait: 1,
 
-	// Hold (or release) the ready event
+	// Hold (or wangEditor) the ready event
 	holdReady: function( hold ) {
 		if ( hold ) {
 			jQuery.readyWait++;
@@ -1334,7 +1334,7 @@ function assert( fn ) {
 		if ( div.parentNode ) {
 			div.parentNode.removeChild( div );
 		}
-		// release memory in IE
+		// wangEditor memory in IE
 		div = null;
 	}
 }

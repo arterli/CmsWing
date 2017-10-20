@@ -2,19 +2,12 @@
  * Created by Arterli on 2016/10/10.
  */
 $(function () {
-    if($("#detail").length>0){
-        //载入编辑器
-        var editor = new wangEditor('detail');
-        // 上传图片
-        editor.config.uploadImgUrl = '/center/file/uploadpic/?type=path';
-        editor.config.uploadImgFileName = 'file';
-        editor.create();
-        if(($("#detail").html()).length==0){
-            editor.clear();
-        }
-    }
 
+    $('div.w-e-text-container').css({border:'none','z-index':10});
+    $('div.w-e-toolbar').css({border:'none'});
+    $('div.w-e-menu').css({'z-index':20})
     //tags
+    if($('#keywords').length>0){
     $('#keywords').tagsInput({
         autocomplete_url:'/admin/public/getkeyword',
         autocomplete:{selectFirst:true,autoFill:true},
@@ -22,6 +15,7 @@ $(function () {
         height:'43px',
         defaultText:'add a tag',
     });
+    }
     //下啦组件改造
     var question_select = $(".question_select");
      var ul = $(".question_select .dropdown-menu")
