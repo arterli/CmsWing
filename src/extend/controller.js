@@ -95,8 +95,6 @@ module.exports = {
     } else {
       hook = hooks;
     }
-    console.log(hook);
-    console.log(hooks);
     try {
       const h = await this.model('hooks').where({name: hook}).find();
       if (!think.isEmpty(h.ext)) {
