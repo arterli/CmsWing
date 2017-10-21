@@ -1,25 +1,17 @@
-{% extends "view/admin/inc/base.html" %}
-{% block content %}
-                <section class="vbox">
-                    <header class="header bg-light dk">
-                        <ul class="nav nav-tabs pull-left">
-                            <li ><a href="/{{ctx.controller}}/index"  class="grouplist"> {{controller.meta_title}}</a></li>
-                            <li class="active"><a href="javascript:void(0)"  class="grouplist"> {{space.name}}</a></li>
-                        </ul>
-                    </header>
-                    <section class="scrollable wrapper">
+{% extends "view/admin/ext_admin.html" %}
+{% block extadmin %}
+
+
 
                         <section class="panel panel-default">
-                            {#
+
                             <header class="panel-heading text-right bg-light  clearfix">
                                 <ul class="nav nav-tabs pull-left">
-                                    <li class="active"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
-                                    <li class=""><a  href="/{{ctx.controller}}/temp">模板设置</a></li>
-                                    <li class=""><a  href="/{{ctx.controller}}/type">插件配置</a></li>
+                                    <li ><a href="/{{ctx.controller}}/index"  class="grouplist"> {{controller.meta_title}}</a></li>
+                                    <li class="active"><a href="javascript:void(0)"  class="grouplist"> {{space.name}}</a></li>
                                 </ul>
-                                <!--<span class="hidden-sm"><a href="/{{http.module}}/{{http.controller}}/ajaxadd" class="text-info " data-toggle="ajaxModal">添加友情链接</a></span>-->
                             </header>
-                            #}
+
                             <div class="row wrapper">
 
                                 <div class="col-sm-12 m-b-xs">
@@ -103,11 +95,6 @@
                                 </div>
                             </footer>
                         </section>
-                    </section>
-                </section>
+
 
 {% endblock %}
-{% block script%}
-<script src="/static/admin/js/parsley/parsley.min.js"></script>
-<script src="/static/admin/js/parsley/parsley.extend.js"></script>
-{% endblock%}

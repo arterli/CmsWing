@@ -34,6 +34,8 @@ module.exports = class extends think.cmswing.admin {
     const info = await this.db.find({where: {cid: cate_id}});
     // console.log(info);
     // auto render template file index_index.html
+    // 编辑器钩子
+    await this.hook('adminEdit', 'sp_html_pc', info.sp_html_pc, {$hook_key: 'sp_html_pc', $hook_type: '2_1'});
     this.meta_title = 'PC单页内容';
     this.assign({
       'navxs': true,
@@ -61,6 +63,7 @@ module.exports = class extends think.cmswing.admin {
     this.assign('breadcrumb', nav);
     // auto render template file index_index.html
     const info = await this.db.find({where: {cid: cate_id}});
+    await this.hook('adminEdit', 'sp_html_m', info.sp_html_m, {$hook_key: 'sp_html_m', $hook_type: '2_1'});
     this.meta_title = '手机单页内容';
     this.assign({
       'navxs': true,

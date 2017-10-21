@@ -1,0 +1,75 @@
+<aside class="aside bg-light dk" id="sidebar">
+    <section class="panel panel-success m-b-none" >
+        <header class="panel-heading" style="height: 47px">
+            <a href="/admin/ext/admin" class=" " style="line-height: 26px">
+                已安装插件后台
+            </a>
+        </header>
+    </section>
+    <section class="vbox animated fadeInUp">
+        <section class="scrollable hover">
+            <div class="list-group no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+                {%for v in extadminleftlist%}
+               <a href="/ext/{{v.ext}}/admin/index" class="list-group-item {{'active' if controller.ext.ext == v.ext}}">
+                   {{v.name}}
+               </a>
+                {%endfor%}
+                <!--
+               <a href="genres.html" class="list-group-item">
+                   country
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   electronic
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   emo
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   folk
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   hardcore
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   hip hop
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   indie
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   jazz
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   latin
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   metal
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   pop
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   pop punk
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   punk
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   reggae
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   rnb
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   rock
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   soul
+               </a>
+               <a href="genres.html" class="list-group-item">
+                   world
+               </a>-->
+            </div>
+        </section>
+    </section>
+</aside>

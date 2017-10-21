@@ -301,11 +301,9 @@
             <div class="mui-table-view-divider">详情</div>
 
             <article class="article-content" style="background-color: #fff;padding: 10px">
-                {%for val in info.content%}
-
-                {{val|safe}}
-
-                {%endfor%}
+                <!--内容钩子加载-->
+                {{content(pagehook)}}
+                <!--/内容钩子加载结束-->
             </article>
         </div>
 

@@ -1,55 +1,6 @@
 {% extends "./inc/base.html" %} {% block style %}
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
 <link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
-<style>
-    #directionContainer ul {
-        margin: 0px;
-        padding: 0px 0px 0px 20px;
-    }
-    .directionTitle{
-        font-weight: bold;
-        font-size: 14px;
-        padding-bottom:3px;
-        border-bottom: 1px dashed #ccc;
-    }
-    .sectionItem{
-        height:20px;
-        padding: 4px;
-    }
-    .sectionItem span{
-        *zoom:1;
-        display:inline-block;
-    }
-    .itemTitle{
-        _float:left;
-    }
-    .selectIcon,.deleteIcon,.moveUp,.moveDown{
-        float:right;
-        color:red;
-        font-size:0px;
-        line-height: 20px;
-        height:20px;
-        text-align: center;
-        cursor: pointer;
-    }
-    .selectIcon,.moveUp,.moveDown{
-        width:14px;
-        font-size:10px;
-    }
-    .selectIcon:hover,.moveUp:hover,.moveDown:hover{
-        text-decoration: underline;
-    }
-    .deleteIcon{
-        width:20px;
-        margin-left:3px;
-        background: url(../themes/default/images/icons-all.gif) 0 -89px;
-    }
-    .fixTop{
-        position: fixed;
-        top: -1px;
-    }
-
-</style>
 
  {% endblock%} {% block content %}
 <section class="vbox">
@@ -78,7 +29,7 @@
                                     <li class="active"><a  href="/admin/sp/index/?cate_id={{controller.get('cate_id')}}">PC单页内容</a></li>
                                     <li class=""><a  href="/admin/sp/mobile/?cate_id={{controller.get('cate_id')}}">手机单页内容</a></li>
                                 </ul>
-                                <span class="hidden-sm"><a href="/admin/category/index?mold=2" class="text-info" target="_blank">栏目管理</a> | <a href="/{{name}}" class="text-info" target="_blank">预览</a></span>
+                                <span class="hidden-sm"></span>
                             </header>
                             <div class="panel-body">
                         <form action="/admin/sp/update" class="form-horizontal" method="post"  data-validate="parsley">
@@ -114,8 +65,7 @@
                                         </div>
                                         #}
                                         <div class="col-sm-12 ">
-                                            <!-- 加载编辑器的容器 -->
-                                            <script id="Editor_sp_html_pc" name="sp_html_pc" style="width: 100%; height: 500px" type="text/plain">{{info.sp_html_pc|safe}}</script>
+                                            {{HOOKS@adminEdit@2_1.sp_html_pc|safe}}
                                         </div>
                                     </div>
                                     <div class="form-group sp_temp_pc" style="{%if info.ispct ==1%}display: block{%else%}display: none{%endif%}">
@@ -163,14 +113,8 @@
 
 {% endblock %} {% block script %}
 <script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.config.js"></script>
-<!--<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.all.js"> </script>-->
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.all.min.js"> </script>
 <script src="/static/admin/js/parsley/parsley.min.js"></script>
 <script src="/static/admin/js/parsley/parsley.extend.js"></script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
     <!--
     var zTree;
@@ -257,94 +201,6 @@
 
         })
 
-        var ue =  UE.getEditor('Editor_sp_html_pc', {
-            theme:"default", //皮肤
-            lang:'zh-cn', //语言
-            //serverUrl: '/admin/ueditor/index',
-            //iframeCssUrl:'/static/assets/plugins/bootstrap/css/bootstrap.min.css'
-        });
-        ue.ready(function(){
-            ue.addListener('updateSections', resetHandler);
-        });
-
-        var resetHandler = function(){
-            var dirmap = {}, dir = ue.execCommand('getsections');
-
-            // 更新目录树
-            $('#directionContainer').html(traversal(dir) || null);
-            // 删除章节按钮
-            $('.deleteIcon').click(function(e){
-                var $target = $(this),
-                        address = $target.parent().attr('data-address');
-                ue.execCommand('deletesection', dirmap[address]);
-            });
-            // 选中章节按钮
-            $('.selectIcon').click(function(e){
-                var $target = $(this),
-                        address = $target.parent().attr('data-address');
-                ue.execCommand('selectsection', dirmap[address], true);
-            });
-            // 章节上移
-            $('.moveUp,.moveDown').click(function(e){
-                var $target = $(this),
-                        address = $target.parent().attr('data-address'),
-                        moveUp = $target.hasClass('moveUp') ? true:false;
-                if($target.hasClass('moveUp')) {
-                    ue.execCommand('movesection', dirmap[address], dirmap[address].previousSection);
-                } else {
-                    ue.execCommand('movesection', dirmap[address], dirmap[address].nextSection, true);
-                }
-            });
-            // 页面网上滚动时，让目录固定在顶部
-            $(window).scroll(function(e) {
-                if($('.left').offset().top < (document.body.scrollTop||document.documentElement.scrollTop)) {
-                    $('#directionWrapper').addClass('fixTop');
-                } else {
-                    $('#directionWrapper').removeClass('fixTop');
-                }
-            });
-
-            function traversal(section) {
-                var $list, $item, $itemContent, child, childList;
-                if(section.children.length) {
-                    $list = $('<ul>');
-                    for(var i = 0; i< section.children.length; i++) {
-                        child = section.children[i];
-                        //设置目录节点内容标签
-                        var title = getSubStr(child['title'], 18);
-                        $itemContent = $('<div class="sectionItem"></div>').html($('<span class="itemTitle">' + title + '</span>'));
-                        $itemContent.attr('data-address', child['startAddress'].join(','));
-                        $itemContent.append($('<span class="deleteIcon">删</span>' +
-                                '<span class="selectIcon">选</span>' +
-                                '<span class="moveUp">↑</span>' +
-                                '<span class="moveDown">↓</span>'));
-                        dirmap[child['startAddress'].join(',')] = child;
-                        //设置目录节点容器标签
-                        $item = $('<li>');
-                        $item.append($itemContent);
-                        //继续遍历子节点
-                        if($item.children.length) {
-                            childList = traversal(child);
-                            childList && $item.append(childList);
-                        }
-                        $list.append($item);
-                    }
-                }
-                return $list;
-            }
-        }
-
-        function getSubStr(s,l){
-            var i=0,len=0;
-            for(i;i<s.length;i++){
-                if(s.charAt(i).match(/[^\x00-\xff]/g)!=null){
-                    len+=2;
-                }else{
-                    len++;
-                }
-                if(len>l){ break; }
-            }return s.substr(0,i);
-        };
 
     })
 </script>

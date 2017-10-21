@@ -34,6 +34,7 @@
 	<!-- PAGE LEVEL SCRIPTS -->
 	<link href="/static/assets/css/header-1.css" rel="stylesheet" type="text/css" />
 	<link href="/static/assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
+	{% block style %}{% endblock %}
 	<!--页面头部css钩子加载-->
 	{% if pagehook%}
 	{%for field in pagehook.fields%}
@@ -51,8 +52,25 @@
 	{%endfor%}
 	{%endif%}
 	<!--/页面头部css钩子加载结束-->
-
-	{% block style %}{% endblock %}
+	{% macro content(pagehook) %}
+	<!--内容钩子加载-->
+	{% if pagehook%}
+	{%for field in pagehook.fields%}
+	{%if pagehook.editor == '1'%}
+	{{HOOKS@pageContent@1[field.name]|safe}}
+	{%elif pagehook.editor == '2_1'%}
+	{{HOOKS@pageContent@2_1[field.name]|safe}}
+	{%elif pagehook.editor == '2_2'%}
+	{{HOOKS@pageContent@2_2[field.name]|safe}}
+	{%elif pagehook.editor == '3'%}
+	{{HOOKS@pageContent@3[field.name]|safe}}
+	{%else%}
+	{{HOOKS@pageContent[field.name]|safe}}
+	{%endif%}
+	{%endfor%}
+	{%endif%}
+	<!--/内容钩子加载结束-->
+	{% endmacro %}
 	{%if config.setup.WEB_TONGJI%}
 	<!--统计代码-->
 	{{config.setup.WEB_TONGJI|safe}}

@@ -27,6 +27,10 @@ module.exports = class extends Admin {
     const c = this.ctx.controller.split('/');
     this.extConfig = think.app.controllers[`ext/${c[1]}/config`];
     this.extPath = `${think.ROOT_PATH}/src/controller/ext/${c[1]}`;
+    const extadminleftlist = await this.model('ext').where({status: 1, isadm: 1}).order('sort DESC, installtime DESC').select();
+    this.assign('extadminleftlist', extadminleftlist);
+    this.tactive = 'article';
+    this.assign({'navxs': true});
   }
 
   /**

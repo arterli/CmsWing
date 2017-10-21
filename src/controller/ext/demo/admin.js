@@ -27,8 +27,8 @@ module.exports = class extends think.cmswing.extAdmin {
     // await this.gettype()
     // const list = await this.extModel('demo').select();
     // console.log(list);
-    // 入口模版渲染
-    return this.extDisplay();
+      // 入口模版渲染
+   return this.extDisplay();
   }
 
   /**

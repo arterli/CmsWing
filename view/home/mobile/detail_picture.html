@@ -231,22 +231,15 @@
     </div>
     <div class="mui-content-padded">
         {%set picurls = info.pictureurls|strToArray%}
-        {%set i =0%}
         {%for v in picurls%}
-        <p><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="{{info.content[i]|delhtmltags}}" data-preview-src="" data-preview-group="1"></p>
-        {%if info.content[i]%}
-        <p>{{info.content[i]|safe}}</p>
-        {%endif%}
-        {%set i=i+1%}
+        <p><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="" data-preview-src="" data-preview-group="1"></p>
         {%endfor%}
     </div>
     <div class="mui-content-padded">
         <article class="article-content">
-            {%for val in info.content%}
-
-            {{val|safe}}
-
-            {%endfor%}
+            <!--内容钩子加载-->
+            {{content(pagehook)}}
+            <!--/内容钩子加载结束-->
         </article>
     </div>
     {{HOOK@documentDetailAfter|safe}}

@@ -29,6 +29,17 @@ module.exports = class extends think.cmswing.admin {
   }
 
   /**
+     * 已安装插件后台管理
+     */
+  async adminAction(){
+      const extadminleftlist = await this.db.where({status:1,isadm:1}).order('sort DESC, installtime DESC').select();
+      this.assign('extadminleftlist', extadminleftlist);
+      this.tactive = 'article';
+    this.assign({'navxs': true});
+    this.meta_title = '已安装插件后台';
+    return this.display()
+  }
+  /**
    *  未安装的插件
    */
   async uninstallAction() {

@@ -1,6 +1,5 @@
 {% extends "./inc_base.html" %}
 {% block style%}
-<link rel="stylesheet" href="/static/assets/plugins/wangEditor/css/wangEditor.min.css" type="text/css"/>
 <link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
 <link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
 {%endblock%}
@@ -58,11 +57,23 @@
         <h1 class="title">{{info.title}}</h1>
         <article class="article-content wangEditor-container cmswing-container" >
             <div class="wangEditor-txt nopadding">
-                {%for val in info.content%}
-
-                {{val|safe}}
-
+                <!--内容钩子加载-->
+                {% if pagehook%}
+                {%for field in pagehook.fields%}
+                {%if pagehook.editor == '1'%}
+                {{HOOKS@pageContent@1[field.name]|safe}}
+                {%elif pagehook.editor == '2_1'%}
+                {{HOOKS@pageContent@2_1[field.name]|safe}}
+                {%elif pagehook.editor == '2_2'%}
+                {{HOOKS@pageContent@2_2[field.name]|safe}}
+                {%elif pagehook.editor == '3'%}
+                {{HOOKS@pageContent@3[field.name]|safe}}
+                {%else%}
+                {{HOOKS@pageContent[field.name]|safe}}
+                {%endif%}
                 {%endfor%}
+                {%endif%}
+                <!--/内容钩子加载结束-->
             </div>
 
         </article>

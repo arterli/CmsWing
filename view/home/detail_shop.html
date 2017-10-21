@@ -314,21 +314,7 @@ CLASSES:
                         <!-- DESCRIPTION -->
                         <div role="tabpanel" class="tab-pane fade in active" id="description">
                             <!--页面内容钩子加载-->
-                            {% if pagehook%}
-                            {%for field in pagehook.fields%}
-                            {%if pagehook.editor == '1'%}
-                            {{HOOKS@pageContent@1[field.name]|safe}}
-                            {%elif pagehook.editor == '2_1'%}
-                            {{HOOKS@pageContent@2_1[field.name]|safe}}
-                            {%elif pagehook.editor == '2_2'%}
-                            {{HOOKS@pageContent@2_2[field.name]|safe}}
-                            {%elif pagehook.editor == '3'%}
-                            {{HOOKS@pageContent@3[field.name]|safe}}
-                            {%else%}
-                            {{HOOKS@pageContent[field.name]|safe}}
-                            {%endif%}
-                            {%endfor%}
-                            {%endif%}
+                            {{content(pagehook)}}
                             <!--/页面内容钩子加载结束-->
                         </div>
                        {#
