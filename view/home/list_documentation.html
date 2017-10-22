@@ -1,6 +1,11 @@
 {% extends "./inc_base.html" %}
 {% block content %}
 {%set cate = category.id|get_cate()%}
+{%if category.pid !=0%}
+{%column data="column",pid=category.pid%}
+{%else%}
+{%column data="column",cid=category.id%}
+{%endif%}
 <!--
 PAGE HEADER
 
@@ -20,11 +25,11 @@ CLASSES:
 -->
 <section class="page-header page-header-xs " >
     <div class="container">
-{#
+        {%if column|length>0%}
         <h1>{{category.title}}</h1>
-#}
+        {%endif%}
         <!-- breadcrumbs -->
-        <ol class="breadcrumb breadcrumb-inverse">
+        <ol class="breadcrumb {%if column|length==0%} breadcrumb-inverse {%endif%}">
             <li><a href="/">首页</a></li>
             {%for val in breadcrumb %}
             {% if val.id == category.id %}
@@ -36,13 +41,13 @@ CLASSES:
             {% endfor %}
         </ol><!-- /breadcrumbs -->
         <!-- page tabs -->
-        {%column data="column",pid=category.id%}
-        {%if column%}
+
+        {%if column|length>0%}
         <ul class="page-header-tabs list-inline">
 
-            <!--<li class="active"><a href="portfolio-masonry-3-columns.html">With Gutter</a></li>-->
+            <li {%if breadcrumb[0].id == category.id %}class="active"{%endif%}><a href="{{breadcrumb[0].url}}">全部</a></li>
             {%for val in column%}
-            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}{{http.config('view.file_ext')}}">{{val.name}}</a></li>
+            <li  {%if val.id == category.id %}class="active"{%endif%}><a href="{{val.url}}">{{val.name}}</a></li>
             {%endfor%}
         </ul>
         {%endif%}

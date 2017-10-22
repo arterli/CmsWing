@@ -35,15 +35,14 @@ module.exports = class extends think.cmswing.admin {
   async gettreeAction() {
     // 添加,编辑,移动合并
     let mold = 0;
-    if(!think.isEmpty(this.get('mold'))){
+    if (!think.isEmpty(this.get('mold'))) {
       mold = this.get('mold');
-    }else{
-      const cid = this.get('from')||this.get('cid')||0;
+    } else {
+      const cid = this.get('from') || this.get('cid') || 0;
       const res = await this.model('category').field('mold').find(cid);
-      if(!think.isEmpty(res))
-        mold = res.mold;
+      if (!think.isEmpty(res)) { mold = res.mold }
     }
-    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status',{mold:mold});
+    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status', {mold: mold});
     return this.json(tree);
   }
 
@@ -136,7 +135,7 @@ module.exports = class extends think.cmswing.admin {
         default:
           this.meta_title = '添加栏目';
       }
-
+      await this.hook('adminUpPic', 'icon', 0, {$hook_key: 'icon'});
       return this.display();
     }
   }
@@ -262,6 +261,7 @@ module.exports = class extends think.cmswing.admin {
       // console.log(priv_roleid);
       this.assign('priv_groupid', priv_groupid);
       this.assign('priv_roleid', priv_roleid);
+      await this.hook('adminUpPic', 'icon', info.icon, {$hook_key: 'icon'});
       return this.display();
     }
   }

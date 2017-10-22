@@ -1,24 +1,11 @@
 {% extends "./inc/base.html" %}
 {% block style %}
 <!--<link rel="stylesheet" href="/static/admin/js/zTree/metroStyle/metroStyle.css" type="text/css">-->
-<link rel="stylesheet" href="/static/admin/js/zTree/zTreeStyle/zTreeStyle.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/datepicker/bootstrap-datetimepicker.min.css" type="text/css">
 <link rel="stylesheet" href="/static/admin/js/chosen/chosen.css" type="text/css" />
 <link rel="stylesheet" href="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.css" type="text/css" />
-<!--<link rel="stylesheet" href="/static/admin/js/uploadify/uploadify.css" type="text/css">-->
 <script src="/static/admin/js/jquery.min.js"></script>
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
-<!--<script src="/static/admin/js/uploadify/jquery.uploadify.min.js"></script>-->
-<link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
-{%if config.setup.IS_QINIU == 1%}
-<link rel="stylesheet" href="/static/admin/js/qiniu/main.css" type="text/css">
-{%endif%}
-<script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/ueditor.all.min.js"> </script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="utf-8" src="/static/admin/js/udeitor/lang/zh-cn/zh-cn.js"></script>
 
 <style type="text/css">
     .tab-content > .tab-pane{
@@ -38,9 +25,6 @@
         vertical-align: middle !important;
     }
 </style>
-<script>
-    module = 'center';
-</script>
 {% endblock%}
 {% block content %}
 
@@ -1187,28 +1171,7 @@
                                         </div>
                                         {% elif field.type == "pics" %}
                                         <div class="col-md-10">
-                                            <input type="hidden" name="{{field.name}}" class="form-control" value="" id="{{field.name}}" />
-                                            <div id="uploader" class="wu-example">
-                                                <div class="queueList">
-                                                    <div id="dndArea" class="placeholder">
-                                                        <div id="filePicker"></div>
-                                                        <p>或将照片拖到这里，单次最多可选300张</p>
-                                                    </div>
-                                                </div>
-                                                <div class="statusBar" style="display:none;">
-                                                    <div class="progress">
-                                                        <span class="text">0%</span>
-                                                        <span class="percentage"></span>
-                                                    </div><div class="info"></div>
-                                                    <div class="btns">
-                                                        <div id="filePicker2"></div><div class="uploadBtn">开始上传</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <script>
-                                                var pics_ids = "{{field.name}}";
-                                            </script>
-                                            <script src="/static/admin/js/webuploader/pics.js" type="text/javascript"></script>
+                                            {{HOOKS@homeUpPics[field.name]|safe}}
                                         </div>
                                         {% elif field.type == "bool" %}
                                         <div class="col-md-4">
@@ -1257,258 +1220,11 @@
                                             {%endif%}
                                         </div>
                                         {% elif field.type == "picture" %}
-                                        <div class="col-sm-10">
-                                            <input type="hidden" name="{{field.name}}" id="cover_id_{{field.name}}" value="0"/>
-                                            <div id="fileList_{{field.name}}" class="uploader-list"></div>
-                                            <div id="filePicker_{{field.name}}">选择图片</div>
-
-                                            <script type="text/javascript">
-                                                $list_{{field.name}} = $('#fileList_{{field.name}}'),
-                                                        // 优化retina, 在retina下这个值是2
-                                                        ratio_{{field.name}} = window.devicePixelRatio || 1,
-
-                                                        // 缩略图大小
-                                                        thumbnailWidth_{{field.name}} = 100 * ratio_{{field.name}},
-                                                thumbnailHeight_{{field.name}} = 100 * ratio_{{field.name}},
-
-                                                // Web Uploader实例
-                                                uploader_{{field.name}};
-
-                                                // 初始化Web Uploader
-                                                // 初始化Web Uploader
-                                                var uploader_{{field.name}} = WebUploader.create({
-                                                    // 选完文件后，是否自动上传。
-                                                    auto: true,
-                                                    // swf文件路径
-                                                    swf: '/static/admin/js/webuploader/Uploader.swf',
-                                                    // 文件接收服务端。
-                                                    server: '/center/file/uploadpic',
-                                                    // 选择文件的按钮。可选。
-                                                    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                                                    pick: {
-                                                        id:'#filePicker_{{field.name}}',
-                                                        multiple: false
-                                                    },
-                                                    // 只允许选择图片文件。
-                                                    accept: {
-                                                        title: 'Images',
-                                                        extensions: 'gif,jpg,jpeg,bmp,png',
-                                                        mimeTypes: 'image/*'
-                                                    }
-                                                });
-                                                // 当有文件添加进来的时候
-                                                uploader_{{field.name}}.on( 'fileQueued', function( file ) {
-                                                    var $li = $(
-                                                                    '<div id="' + file.id + '" class="file-item thumbnail">' +
-                                                                    '<img>' +
-                                                                    '<div class="info">' + file.name + '</div>' +
-                                                                    '</div>'
-                                                            ),
-                                                            $img = $li.find('img');
-
-                                                    $list_{{field.name}}.html( $li );
-
-                                                    // 创建缩略图
-                                                    uploader_{{field.name}}.makeThumb( file, function( error, src ) {
-                                                        if ( error ) {
-                                                            $img.replaceWith('<span>不能预览</span>');
-                                                            return;
-                                                        }
-
-                                                        $img.attr( 'src', src );
-                                                    }, thumbnailWidth_{{field.name}}, thumbnailHeight_{{field.name}} );
-                                                });
-
-                                                // 文件上传过程中创建进度条实时显示。
-                                                uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
-
-                                                    var $li = $( '#'+file.id ),
-                                                            $percent = $li.find('.progress span');
-
-                                                    // 避免重复创建
-                                                    if ( !$percent.length ) {
-                                                        $percent = $('<p class="progress"><span></span></p>')
-                                                                .appendTo( $li )
-                                                                .find('span');
-                                                    }
-
-                                                    $percent.css( 'width', percentage * 100 + '%' );
-                                                });
-
-                                                // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-                                                uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
-                                                    $( '#'+file.id ).addClass('upload-state-done');
-                                                    $("#cover_id_{{field.name}}").val(res);
-                                                });
-
-                                                // 文件上传失败，现实上传出错。
-                                                uploader_{{field.name}}.on( 'uploadError', function( file ) {
-                                                    var $li = $( '#'+file.id ),
-                                                            $error = $li.find('div.error');
-
-                                                    // 避免重复创建
-                                                    if ( !$error.length ) {
-                                                        $error = $('<div class="error"></div>').appendTo( $li );
-                                                    }
-
-                                                    $error.text('上传失败');
-                                                });
-
-                                                // 完成上传完了，成功或者失败，先删除进度条。
-                                                uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
-                                                    $( '#'+file.id ).find('.progress').remove();
-                                                });
-                                            </script>
+                                        <div class="col-md-10">
+                                            {{HOOKS@homeUpPic[field.name]|safe}}
                                         </div>
                                         {% elif field.type == "file" %}
-
-                                        <div class="col-md-10">
-                                            <!--用来存放文件信息-->
-                                            <input id="pickfilesid" type="hidden" name="{{field.name}}" value="0"/>
-                                            {%if controller.setup.IS_QINIU == 1%}
-
-                                            <div id="container">
-                                                <a class="btn btn-default " id="pickfiles" href="#" >
-                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                    <span>选择文件</span>
-                                                </a>
-                                            </div>
-                                            <div style="display:none" id="success" >
-                                                <div class="alert-success">
-                                                    队列全部文件处理完毕
-                                                </div>
-                                            </div>
-                                            <div >
-                                                <table id="filetable" class="table table-striped table-hover text-left" data-id=""   style="margin-top:10px;display:none">
-                                                    <thead>
-                                                    <tr>
-                                                        <th class="col-md-4">文件</th>
-                                                        <th class="col-md-2">大小</th>
-                                                        <th class="col-md-6">详情 <a href="#" class="text-info pull-right" id="delfile">删除</a> </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody id="fsUploadProgress">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <!--七牛-->
-                                            <script type="text/javascript" src="/static/admin/js/qiniu/plupload.full.min.js"></script>
-                                            <script type="text/javascript" src="/static/admin/js/qiniu/zh_CN.js"></script>
-                                            <script type="text/javascript" src="/static/admin/js/qiniu/qiniu.min.js"></script>
-                                            <script type="text/javascript" src="/static/admin/js/qiniu/ui.js"></script>
-                                            <script type="text/javascript" src="/static/admin/js/qiniu/main.js"></script>
-                                            <!--七牛-->
-                                            {%else%}
-                                            <div id="thelist_{{field.name}}" class="uploader-list"></div>
-                                            <div class="btns">
-                                                <div id="picker_{{field.name}}" class="picker">选择文件</div>
-                                                <a id="ctlBtn_{{field.name}}" class="btn btn-default">开始上传</a>
-                                            </div>
-                                            <script type="text/javascript">
-                                                jQuery(function() {
-                                                    var $ = jQuery,
-                                                            $list_{{field.name}} = $('#thelist_{{field.name}}'),
-                                                            $btn_{{field.name}} = $('#ctlBtn_{{field.name}}'),
-                                                            state = 'pending',
-                                                            uploader_{{field.name}};
-
-                                                    uploader_{{field.name}} = WebUploader.create({
-
-                                                        // 不压缩image
-                                                        resize: false,
-
-                                                        // swf文件路径
-                                                        swf:'/static/admin/js/webuploader/Uploader.swf',
-
-                                                        // 文件接收服务端。
-                                                        server: '/center/file/upload',
-
-                                                        // 选择文件的按钮。可选。
-                                                        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                                                        pick: {
-                                                            id:'#picker_{{field.name}}',
-                                                            multiple: false
-                                                        },
-                                                        fileNumLimit:1
-                                                    });
-
-                                                    // 当有文件添加进来的时候
-                                                    uploader_{{field.name}}.on( 'fileQueued', function( file ) {
-
-                                                        $list_{{field.name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
-                                                                ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
-                                                                '<h4 class="info">' + file.name + '</h4>' +
-                                                                '<p class="state">等待上传...</p>' +
-                                                                '</div>' );
-                                                        var $li_{{field.name}} = $( '#'+file.id );
-                                                        $li_{{field.name}}.on('click', '.remove-this', function() {
-                                                            uploader_{{field.name}}.removeFile( file.id );
-//                                                                                 $list_{{field.name}}.html("");
-                                                        })
-
-                                                    });
-
-                                                    // 文件上传过程中创建进度条实时显示。
-                                                    uploader_{{field.name}}.on( 'uploadProgress', function( file, percentage ) {
-                                                        var $li_{{field.name}} = $( '#'+file.id ),
-                                                                $percent_{{field.name}} = $li_{{field.name}}.find('.progress .progress-bar');
-
-                                                        // 避免重复创建
-                                                        if ( !$percent_{{field.name}}.length ) {
-                                                            $percent_{{field.name}} = $('<div class="progress progress-striped active">' +
-                                                                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                                                                    '</div>' +
-                                                                    '</div>').appendTo( $li_{{field.name}} ).find('.progress-bar');
-                                                        }
-
-                                                        $li_{{field.name}}.find('p.state').text('上传中');
-
-                                                        $percent_{{field.name}}.css( 'width', percentage * 100 + '%' );
-                                                    });
-
-                                                    uploader_{{field.name}}.on( 'uploadSuccess', function( file,res ) {
-                                                        var name = "{{field.name}}";
-                                                        $("input[name="+name+"]").val(res.id);
-                                                        $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
-                                                    });
-
-                                                    uploader_{{field.name}}.on( 'uploadError', function( file ) {
-                                                        $( '#'+file.id ).find('p.state').text('上传出错');
-                                                    });
-
-                                                    uploader_{{field.name}}.on( 'uploadComplete', function( file ) {
-                                                        $( '#'+file.id ).find('.progress').fadeOut();
-                                                    });
-
-                                                    uploader_{{field.name}}.on( 'all', function( type ) {
-                                                        if ( type === 'startUpload' ) {
-                                                            state = 'uploading';
-                                                        } else if ( type === 'stopUpload' ) {
-                                                            state = 'paused';
-                                                        } else if ( type === 'uploadFinished' ) {
-                                                            state = 'done';
-                                                        }
-
-                                                        if ( state === 'uploading' ) {
-                                                            $btn_{{field.name}}.text('暂停上传');
-                                                        } else {
-                                                            $btn_{{field.name}}.text('开始上传');
-                                                        }
-                                                    });
-
-                                                    $btn_{{field.name}}.on( 'click', function() {
-                                                        if ( state === 'uploading' ) {
-                                                            uploader_{{field.name}}.stop();
-                                                        } else {
-                                                            uploader_{{field.name}}.upload();
-                                                        }
-                                                    });
-                                                });
-
-                                            </script>
-                                            {%endif%}
-                                        </div>
+                                        <div class="col-md-10">{{HOOKS@homeUpFile[field.name]|safe}}</div>
                                         {% else %}
                                         <div class="col-md-2">
                                             <input type="text" class="form-control {%if field.is_must ==1%}required{%endif%}" name="{{field.name}}" value="{{data[field['name']]}}"  >
@@ -1551,18 +1267,11 @@
 
     </div>
 </section>
-{%if config.setup.IS_QINIU == 1%}
-<input type="hidden" id="domain" value="//{{config.ext.qiniu.domain}}/">
-{%endif%}
 <!-- / -->
 {% endblock %}
 {% block script %}
-<script src="/static/admin/js/zTree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <script src="/static/admin/js/datepicker/locales/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
-{%if config.setup.IS_QINIU == 1%}
-
-{%endif%}
 <script src="/static/admin/js/chosen/chosen.jquery.min.js"></script>
 <script src="/static/admin/js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
 <script type="text/javascript">

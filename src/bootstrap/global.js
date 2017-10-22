@@ -312,7 +312,7 @@ global.trim = function(str) {
  * @returns {*}
  */
 /* global parse_config_attr */
-global.parse_config_attr = function(str) {
+global.parse_config_attr = function(str, sep = ':') {
   let strs;
   if (str.search(/\r\n/ig) > -1) {
     strs = str.split('\r\n');
@@ -326,7 +326,7 @@ global.parse_config_attr = function(str) {
   if (think.isArray(strs)) {
     const obj = {};
     strs.forEach(n => {
-      n = n.split(':');
+      n = n.split(sep);
       obj[n[0]] = n[1];
     });
     return obj;
@@ -706,6 +706,9 @@ global.get_url = (name, id) => {
     return `/p/${id}.html`;
   }
 };
+global.get_pdq = (id) => {
+  return parse_config_attr(think.config('ext.attachment.pdn'),'@')[id];
+}
 /**
  * 获取文档封面图片
  * @param int cover_id
@@ -745,7 +748,7 @@ global.get_pic = async(id, m = null, w = null, h = null) => {
   } else {
     map.path = id;
   }
-  const picture = await think.model('picture').where(map).cache(1000 * 1000).find();
+  const picture = await think.model('ext_attachment_pic').where(map).cache(1000 * 1000).find();
   if (think.isEmpty(picture)) {
     return '/static/noimg.jpg';
   }
@@ -770,7 +773,7 @@ global.get_pic = async(id, m = null, w = null, h = null) => {
       q = `?imageView2${m}${w}${h}`;
     }
 
-    return `//${think.config('ext.qiniu.domain')}/${picture.path}${q}`;
+    return `${get_pdq(picture.type)}/${picture.path}${q}`;
   } else {
     return picture.path;
   }
@@ -1137,12 +1140,13 @@ global.get_file = async(file_id, field, key = false) => {
   if (think.isEmpty(file_id)) {
     return false;
   }
-  const file = await think.model('file').find(file_id);
-  if (file.location == 1 && key && key != 1) {
-    file.savename = `//${think.config('ext.qiniu.domain')}/${file.savename}?download/${file.savename}`;
-  }
-  if (file.location == 1 && key == 1) {
-    file.savename = `//${think.config('ext.qiniu.domain')}/${file.savename}`;
+  const file = await think.model('ext_attachment_file').find(file_id);
+    console.log(file);
+    if (file.type > 0 && key && key !== 1) {
+      console.log('fdsafsad');
+      file.savename = `//${get_pdq(file.type)}/${file.savename}?download/${file.savename}`;
+  } else if (file.type > 0 && key === 1) {
+    file.savename = `//${get_pdq(file.type)}/${file.savename}`;
   } else {
     file.savename = `${file.savepath}/${file.savename}`;
   }

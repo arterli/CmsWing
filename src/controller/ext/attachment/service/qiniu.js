@@ -7,6 +7,13 @@
 // +----------------------------------------------------------------------
 const qiniu = require('qiniu');
 module.exports = class extends think.Service {
+  constructor() {
+    super();
+    this.accessKey = think.config('ext.attachment.qn_ak');
+    this.secretKey = think.config('ext.attachment.qn_sk');
+    this.bucket = think.config('ext.attachment.qn_bucket');
+    this.loactionurl = parse_config_attr(think.config('ext.attachment.pdn'),'@')[2];
+  }
   /**
      * 七牛上传
      * @param filePath 要上传文件的本地路径
@@ -14,25 +21,22 @@ module.exports = class extends think.Service {
      * @returns {*}
      */
   async uploadpic(filePath, key, istoken = false) {
-    const accessKey = think.config('ext.qiniu.ak');
-    const secretKey = think.config('ext.qiniu.sk');
-    const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-    const bucket = think.config('ext.qiniu.bucket');
+    const mac = new qiniu.auth.digest.Mac(this.accessKey, this.secretKey);
     // console.log(mac);
     const options = {
-      scope: bucket + ':' + key
+      scope: this.bucket + ':' + key
     };
     // console.log(options);
     const putPolicy = new qiniu.rs.PutPolicy(options);
     // 用于前端直传直接返回 token
     if (istoken && filePath == null) {
-      const putPolicy = new qiniu.rs.PutPolicy({scope: bucket });
+      const putPolicy = new qiniu.rs.PutPolicy({scope: this.bucket });
       // console.log(putPolicy.uploadToken(mac));
       return putPolicy.uploadToken(mac);
     }
     const uploadToken = putPolicy.uploadToken(mac);
-
-    const config = new qiniu.conf.Config();
+      console.log(uploadToken);
+      const config = new qiniu.conf.Config();
     // config.zone = qiniu.zone.Zone_z0;
     const formUploader = new qiniu.form_up.FormUploader(config);
     const putExtra = new qiniu.form_up.PutExtra();
@@ -43,13 +47,9 @@ module.exports = class extends think.Service {
         if (respErr) {
           throw respErr;
         }
-
         if (respInfo.statusCode == 200) {
-          console.log(respBody);
           deferred.resolve(respBody);
         } else {
-          console.log(respInfo.statusCode);
-          console.log(respBody);
           deferred.resolve(false);
         }
       });
@@ -59,37 +59,30 @@ module.exports = class extends think.Service {
   }
   // 删除资源
   async remove(key) {
-    const accessKey = think.config('ext.qiniu.ak');
-    const secretKey = think.config('ext.qiniu.sk');
-    const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+    const mac = new qiniu.auth.digest.Mac(this.accessKey, this.secretKey);
     const config = new qiniu.conf.Config();
     // config.useHttpsDomain = true;
     config.zone = qiniu.zone.Zone_z0;
     const bucketManager = new qiniu.rs.BucketManager(mac, config);
-    const bucket = think.config('ext.qiniu.bucket');
     const delfile = (bucket, key) => {
       const deferred = think.defer();
       bucketManager.delete(bucket, key, function(err, respBody, respInfo) {
         if (err) {
-          console.log(err);
           // throw err;
           deferred.resolve(false);
         } else {
-          console.log(respInfo.statusCode);
-          console.log(respBody);
           deferred.resolve(true);
         }
       });
       return deferred.promise;
     };
-    return await delfile(bucket, key);
+    return await delfile(this.bucket, key);
   }
   // 获取文件信息
   async stat(key) {
-    qiniu.conf.ACCESS_KEY = think.config('ext.qiniu.ak');
-    qiniu.conf.SECRET_KEY = think.config('ext.qiniu.sk');
-    const bucket = think.config('ext.qiniu.bucket');
-
+    qiniu.conf.ACCESS_KEY = this.accessKey;
+    qiniu.conf.SECRET_KEY = this.secretKey;
+    const bucket = this.bucket;
     function stat() {
       const deferred = think.defer();
       // 构建bucketmanager对象
@@ -110,11 +103,11 @@ module.exports = class extends think.Service {
   }
   // 音视频转码
   async pfop() {
-    qiniu.conf.ACCESS_KEY = think.config('ext.qiniu.ak');
-    qiniu.conf.SECRET_KEY = think.config('ext.qiniu.sk');
+    qiniu.conf.ACCESS_KEY = this.accessKey;
+    qiniu.conf.SECRET_KEY = this.secretKey;
 
     // 要转码的文件所在的空间和文件名
-    const bucket = think.config('ext.qiniu.bucket');
+    const bucket = this.bucket;
     const key = 'thinkjs-create-project.mp4';
 
     // 转码所使用的队列名称。
@@ -143,17 +136,14 @@ module.exports = class extends think.Service {
     });
   }
   async download(key) {
-    const accessKey = think.config('ext.qiniu.ak');
-    const secretKey = think.config('ext.qiniu.sk');
-    const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+    qiniu.conf.ACCESS_KEY = this.accessKey;
+    qiniu.conf.SECRET_KEY = this.secretKey;
+    const mac = new qiniu.auth.digest.Mac(this.accessKey, this.secretKey);
     const config = new qiniu.conf.Config();
     const bucketManager = new qiniu.rs.BucketManager(mac, config);
-    const http_ = think.config('http_') == 1 ? 'http' : 'https';
-    const publicBucketDomain = `${http_}://${think.config('ext.qiniu.domain')}`;
-
+    const publicBucketDomain = this.loactionurl;
     // 公开空间访问链接
     const publicDownloadUrl = bucketManager.publicDownloadUrl(publicBucketDomain, key);
-    console.log(publicDownloadUrl);
     return publicDownloadUrl;
   }
 };

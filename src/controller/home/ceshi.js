@@ -80,7 +80,8 @@ module.exports = class extends think.Controller {
   }
 
   async extAction() {
-    return this.body = this.config('ext.qq.appkey');
+      console.log(parse_config_attr(think.config('ext.attachment.loactionurl'),'@')[1]);
+      return this.body = this.config('ext.qq.appkey');
   }
   async hooksAction() {
     // 带 $hook_type 参数的 视图钩子调用， 参数1，参数2，...{'$hook_type':1},如果由多个参数，{'$hook_type':1} 放最后一个。

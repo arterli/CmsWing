@@ -30,6 +30,8 @@
                     {{forms.radio(setting,label=input.label, name=input.name, value=input.value, options=input.options,html=input.html)}}
                     {%elif input.type == 'select'%}
                     {{forms.select(setting,label=input.label, name= input.name, value=input.value, options=input.options,html=input.html)}}
+                    {%elif input.type == 'textarea'%}
+                    {{forms.textarea(setting,label= input.label, name= input.name, value=input.value, html= input.html)}}
                     {%endif%}
                     {%endfor%}
                 </div>

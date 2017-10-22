@@ -22,7 +22,7 @@
                     <section class="scrollable wrapper">
                         {% block extadmin %}
                         <section class="panel panel-default">
-                    <header class="panel-heading text-right bg-light">
+                    <header class="panel-heading text-right bg-light clearfix">
                       <ul class="nav nav-tabs pull-left">
                         <li class="active"><a data-toggle="tab" href="#messages-2"><i class="fa fa-weixin text-muted"></i> {{controller.meta_title}}</a></li>
                           {#
@@ -36,7 +36,9 @@
                         </li>
                           #}
                       </ul>
+                        {#
                       <span class="hidden-sm"><a href="/admin/setup/index?id=6" class="text-info" target="_blank">修改</a> </span>
+                        #}
                     </header>
                     <div class="panel-body">
                       <div class="tab-content">              

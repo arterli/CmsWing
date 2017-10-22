@@ -36,7 +36,7 @@
     var E = window.wangEditor
     var editor = new E('#Editor_{{name}}')
     // 或者 var editor = new E( document.getElementById('#editor') )
-    editor.customConfig.uploadImgServer = '/center/file/uploadpic?type=path';
+    editor.customConfig.uploadImgServer = '/ext/attachment/homefile/uploadpic?type=wangEditor';
     editor.customConfig.uploadFileName = 'file';
     editor.customConfig.uploadImgMaxLength = 1;
     editor.customConfig.onchange = function (html) {
@@ -80,7 +80,7 @@
                 //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
                 imageUpload : true,
                 imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                imageUploadURL : "/center/file/uploadpic?type=editormd",
+                imageUploadURL : "/ext/attachment/homefile/uploadpic?type=editormd",
                 {%if setting.markdownpreview ==0%}
                 watch : false,                // 关闭实时预览
                 {%endif%}

@@ -51,10 +51,8 @@ module.exports = class extends Admin {
    */
   async sortAction(table, id = 'id') {
     table = table || 'ext_' + this.ctx.controller.split('/')[1];
-    console.log(table);
     const param = this.para('sort');
     const sort = JSON.parse(param);
-    console.log(sort);
     const data = [];
     for (const v of sort) {
       const map = {};
@@ -62,12 +60,8 @@ module.exports = class extends Admin {
       map.sort = v.sort;
       data.push(map);
     }
-    const res = await this.model(table).updateMany(data);
-    if (res > 0) {
-      return this.success({ name: '更新排序成功！'});
-    } else {
-      return this.fail('排序失败！');
-    }
+    await this.model(table).updateMany(data);
+    return this.success({ name: '更新排序成功！'});
   }
 
   /**

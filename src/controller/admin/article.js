@@ -562,6 +562,12 @@ module.exports = class extends think.cmswing.admin {
           } else {
             await this.hook('adminEdit', f.name, f.value, {$hook_key: f.name, $hook_type: model.editor});
           }
+        } else if (f.type === 'picture') {
+          await this.hook('adminUpPic', f.name, 0, {$hook_key: f.name});
+        } else if (f.type === 'pics') {
+          await this.hook('adminUpPics', f.name, '', {$hook_key: f.name});
+        } else if (f.type === 'file') {
+          await this.hook('adminUpFile', f.name, 0, {$hook_key: f.name});
         };
       };
     };
@@ -669,21 +675,26 @@ module.exports = class extends think.cmswing.admin {
     this.assign('data', data);
     this.assign('model_id', data.model_id);
     this.assign('model', model);
-     const editor = !think.isEmpty(data.editor) ? data.editor : await this.model('cmswing/model').get_model(data.model_id, 'editor');
-      for (const key in parse_config_attr(model.field_group)) {
+    const editor = !think.isEmpty(data.editor) ? data.editor : await this.model('cmswing/model').get_model(data.model_id, 'editor');
+    for (const key in parse_config_attr(model.field_group)) {
       for (const f of fields[key]) {
         if (f.type === 'editor') {
           // 添加编辑器钩子
           if (editor === '0') {
             await this.hook('adminEdit', f.name, data[f.name], {$hook_key: f.name});
           } else {
-              console.log('的地方撒风撒地方撒的发顺丰的撒风的撒风 ');
-              await this.hook('adminEdit', f.name, data[f.name], {$hook_key: f.name, $hook_type: editor});
+            await this.hook('adminEdit', f.name, data[f.name], {$hook_key: f.name, $hook_type: editor});
           }
+        } else if (f.type === 'picture') {
+          await this.hook('adminUpPic', f.name, data[f.name], {$hook_key: f.name});
+        } else if (f.type === 'pics') {
+          await this.hook('adminUpPics', f.name, data[f.name], {$hook_key: f.name});
+        } else if (f.type === 'file') {
+          await this.hook('adminUpFile', f.name, data[f.name], {$hook_key: f.name});
         };
       };
     };
-      this.assign('editor',editor)
+    this.assign('editor', editor);
     return this.display();
   }
 

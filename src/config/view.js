@@ -447,6 +447,10 @@ module.exports = {
         }
         callback(null, res);
       }, true);
+      // 获取外部储存前缀域名
+      env.addFilter('get_pdq', (id) => {
+        return get_pdq(id);
+      });
     }
   }
 };

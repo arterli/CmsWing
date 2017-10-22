@@ -16,6 +16,11 @@ module.exports = class extends think.Controller {
       return this.fail('非法操作!');
     }
   }
+  constructor(ctx) {
+    super(ctx);
+    this.pdb = this.model('ext_attachment_pic');
+    this.fdb = this.model('ext_attachment_file');
+  }
   /**
      * 判断是否登录
      * @returns {boolean}
@@ -43,8 +48,8 @@ module.exports = class extends think.Controller {
     const basename = path.basename(filepath) + extname;
     let data;
     // 强势插入七牛
-    if (Number(this.config('ext.qiniu.is')) === 1) {
-      const qiniu = this.extService('qiniu', 'qiniu');
+    if (Number(this.config('ext.attachment.type')) === 2) {
+      const qiniu = this.extService('qiniu', 'attachment');
       const uppic = await qiniu.uploadpic(filepath, basename);
       // console.log(uppic);
       // { fieldName: 'file',
@@ -61,7 +66,7 @@ module.exports = class extends think.Controller {
           savename: basename,
           mime: file.type,
           size: file.size,
-          location: 1,
+          type: 2,
           sha1: uppic.hash,
           md5: think.md5(basename)
         };
@@ -85,7 +90,7 @@ module.exports = class extends think.Controller {
       }
     }
     // console.log(data);
-    var res = await this.model('file').add(data);
+    const res = await this.fdb.add(data);
     return this.json({id: res, size: file.size});
   }
 
@@ -93,8 +98,13 @@ module.exports = class extends think.Controller {
   async uploadpicAction() {
     const type = this.get('type');
     let name = 'file';
-    if (type === 'editormd') {
-      name = 'editormd-image-file';
+    let att = {};
+    if (!think.isEmpty(type)) {
+      const atts = await this.extModel('attachment').where({dis: type, type: 0}).find();
+      att = think.extend(att, atts);
+    }
+    if (!think.isEmpty(att) && !think.isEmpty(att.name)) {
+      name = att.name;
     }
 
     const file = think.extend({}, this.file(name));
@@ -103,13 +113,13 @@ module.exports = class extends think.Controller {
     const basename = path.basename(filepath) + extname;
     // console.log(basename);
     const ret = {'status': 1, 'info': '上传成功', 'data': ''};
-    let res;
+    let data;
     // 加入七牛接口
-    if (Number(this.config('ext.qiniu.is')) === 1) {
-      const qiniu = this.extService('qiniu', 'qiniu');
+    if (Number(this.config('ext.attachment.type')) === 2) {
+      const qiniu = this.extService('qiniu', 'attachment');
       const uppic = await qiniu.uploadpic(filepath, basename);
       if (!think.isEmpty(uppic)) {
-        const data = {
+        data = {
           create_time: new Date().getTime(),
           status: 1,
           type: 2,
@@ -117,7 +127,6 @@ module.exports = class extends think.Controller {
           path: uppic.key
 
         };
-        res = await this.model('picture').add(data);
       }
     } else {
       const uploadPath = think.resource + '/upload/picture/' + dateformat('Y-m-d', new Date().getTime());
@@ -129,36 +138,39 @@ module.exports = class extends think.Controller {
       }
       file.path = uploadPath + '/' + basename;
       if (think.isFile(file.path)) {
-        const data = {
+        data = {
           path: '/upload/picture/' + dateformat('Y-m-d', new Date().getTime()) + '/' + basename,
           create_time: new Date().getTime(),
           status: 1
 
         };
-        res = await this.model('picture').add(data);
       } else {
         console.log('not exist');
       }
     }
-    switch (type) {
-      case 'path':
-        return this.json({
-          errno: 0,
-          data: [await get_pic(res)]
-        });
-      case 'editormd':
-        return this.json({
-          success: 1,
-          message: '上传成功',
-          url: await get_pic(res)
-        });
-      default:
-        return this.json(res);
+    const res = await this.pdb.add(data);
+    const r = {id: res, url: await get_pic(res)};
+    let rr = {};
+    if (!think.isEmpty(att) && !think.isEmpty(att.rule)) {
+      const match = att.rule.match(/\${(\S+?)\}/g);
+      console.log(match);
+      const replace = [];
+      for (let val of match) {
+        val = val.replace(/(^\${)|(\}$)/g, '');
+        replace.push(r[val]);
+      }
+      console.log(replace);
+      rr = str_replace(match, replace, att.rule);
+      console.log(rr);
+      if (att.rule.indexOf('{') === 0) {
+        rr = JSON.parse(rr);
+      }
     }
+    return think.isEmpty(rr) ? this.json(res) : this.json(rr);
   }
   // 获取七牛token
   async getqiniuuptokenAction() {
-    const qiniu = this.extService('qiniu', 'qiniu');
+    const qiniu = this.extService('qiniu', 'attachment');
     const key = think.uuid();
     const uptoken = await qiniu.uploadpic(null, key, true);
     this.json({
@@ -174,19 +186,19 @@ module.exports = class extends think.Controller {
       savename: post.key,
       mime: post.mime,
       size: post.size,
-      location: 1,
+      type: 2,
       sha1: post.hash,
       md5: think.md5(post.id)
     };
     // console.log(data);
-    const res = await this.model('file').add(data);
+    const res = await this.fdb.add(data);
     return this.json(res);
   }
   // 删除七牛资源
   async delqiniufileAction() {
     const id = this.get('id');
     const file = await this.model('file').find(id);
-    const qiniu = this.service('ext/qiniu');
+    const qiniu = this.extService('qiniu', 'attachment');
     const res = await qiniu.remove(file.savename);
     if (res) {
       this.model('file').where({id: id}).delete();

@@ -14,7 +14,7 @@ $(function() {
     dragdrop: true,
     chunk_size: '4mb',
     multi_selection: !(mOxie.Env.OS.toLowerCase() === 'ios'),
-    uptoken_url: '/' + module + '/file/getqiniuuptoken',
+    uptoken_url: '/ext/attachment/'+module+'/getqiniuuptoken',
     // uptoken_func: function(){
     //     var ajax = new XMLHttpRequest();
     //     ajax.open('GET', $('#uptoken_url').val(), false);
@@ -79,7 +79,7 @@ $(function() {
         data.id = file.id;
         $.ajax({
           type: 'post',
-          url: '/admin/file/qiniuadd',
+          url: '/ext/attachment/' + module + '/qiniuadd',
           data: data,
           success: function(res) {
             $('#pickfilesid').val(res);
@@ -117,7 +117,7 @@ $(function() {
       closeOnConfirm: false
     }, function() {
       $.ajax({
-        url: '/' + module + '/file/delqiniufile/?id=' + id,
+        url: '/ext/attachment/'+module+'/delqiniufile/?id=' + id,
         success: function(res) {
           if (res.errno == 0) {
             $('#fsUploadProgress').html('');

@@ -61,6 +61,7 @@ module.exports = class extends think.cmswing.admin {
       this.active = 'admin/keyword/index';
       const parent = await this.model('keyword').where({is_parent: 1}).select();
       this.assign('parent', parent);
+      await this.hook('adminUpPic', 'pic', 0, {$hook_key: 'pic'});
       return this.display();
     }
   }
@@ -89,6 +90,7 @@ module.exports = class extends think.cmswing.admin {
       const parent = await this.model('keyword').where({is_parent: 1}).select();
       this.assign('parent', parent);
       this.assign('info', info);
+      await this.hook('adminUpPic', 'pic', info.pic, {$hook_key: 'pic'});
       return this.display();
     }
   }
