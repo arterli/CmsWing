@@ -19,6 +19,7 @@ module.exports = class extends think.Model {
         data = data[key];
       }
     }
+
     return data;
   }
 };
