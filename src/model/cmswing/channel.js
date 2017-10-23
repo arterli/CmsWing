@@ -98,7 +98,7 @@ module.exports = class extends think.Model {
         obj = {err: 4};// 更新失败
       }
     }
-    think.cache('get_channel_cache', null);// 更新频道缓存信息
+    await update_cache('channel');// 更新频道缓存信息
     return obj;
   }
 };

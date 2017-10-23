@@ -40,7 +40,6 @@ module.exports = class extends think.Model {
 
     // 获取所有分类
     const map = think.extend({'status': {'>': -1}}, where);
-    console.log(map);
     let list = await this.field(field).where(map).order('sort ASC').select();
     for (const v of list) {
       if (!think.isEmpty(v.name)) {
@@ -291,9 +290,7 @@ module.exports = class extends think.Model {
       }
     }
     // 清除缓存
-    think.cache('sys_category_list', null); // 栏目缓存
-    think.cache('all_category', null); // 栏目缓存
-    think.cache('all_priv', null);// 栏目权限缓存
+    await update_cache('category');
     return res;
   }
 

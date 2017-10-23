@@ -475,8 +475,41 @@ module.exports = class extends think.cmswing.center {
     //    4、如果店铺同时使用统一运费和不同的运费模板规则，那么顾客下单时统一运费单独计算运费，不同的运费模板
     // TODO
     // 计算商品的总重量
+// 拿到运费模板
+    let farr = [];
+    for (const cg of isgoods) {
+      cg.fare = await this.model('document_shop').where({id: cg.product_id}).getField('fare', true);
+      console.log(cg.fare);
+      if (Number(cg.fare) !== 0) {
+        const isd = await this.model('fare').where({id: cg.fare}).getField('is_default', true);
+        if (isd === 1) {
+          cg.fare = 0;
+        }
+      }
+      farr.push(cg.fare);
+    }
+    // 去重
+    farr = think._.uniq(farr);
+    console.log(farr);
+    const cgarr = [];
+    for (const fa of farr) {
+      const fobj = {};
+      fobj.id = fa;
+      fobj.cg = think._.filter(isgoods, ['fare', fa]);
+      cgarr.push(fobj);
+    }
+    think.logger.info(cgarr[0].cg);
+    // 计算运费模板
+    const rarr = [];
+    for (const r of cgarr) {
+      const rf = await this.model('cmswing/fare').getfare(r.cg, data.address, this.user.uid, r.id);
+      console.log(rf);
+      rarr.push(rf);
+    }
+    console.log(rarr);
+    data.real_freight = think._.sum(rarr);
 
-    data.real_freight = await this.model('cmswing/fare').getfare(isgoods, data.address, this.user.uid); ;
+    //data.real_freight = await this.model('cmswing/fare').getfare(isgoods, data.address, this.user.uid); ;
 
     // 支付状态 pay_stayus 0:未付款 ,1:已付款
     data.pay_status = 0;

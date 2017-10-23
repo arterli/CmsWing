@@ -283,9 +283,7 @@ module.exports = class extends think.cmswing.admin {
       if (count == 0) {
         await this.model('category').delete({where: {id: id}});
         // 删除分类权限
-        await this.model('category_priv').delete({where: {catid: id}});
-        think.cache('sys_category_list', null);
-        think.cache('all_category', null);
+        await update_cache('category');
         return this.json({ok: 0, info: '删除成功!'});
       } else {
         return this.json({ok: 1, info: `该栏目含有${count}条内容`});
@@ -335,7 +333,7 @@ module.exports = class extends think.cmswing.admin {
     // 删除分类权限
     await this.model('category_priv').delete({where: {catid: id}});
     await this.model('document').delete({where: {category_id: id}});
-    update_cache('category');// 更新栏目缓存
+    await update_cache('category');// 更新栏目缓存
     // 查处要删除的该栏目内容的id
   }
   // 移动/合并栏目
@@ -435,7 +433,7 @@ module.exports = class extends think.cmswing.admin {
         if (data.merge == 1) { // 如果合并删除源栏目
           await this.model('category').delete({where: {id: data.source}});
         }
-        update_cache('category');// 更新栏目缓存
+       await update_cache('category');// 更新栏目缓存
         return this.success({name: '成功！', url: '/admin/category/index'});
       }
     } else {
@@ -491,7 +489,7 @@ module.exports = class extends think.cmswing.admin {
       if (data.merge == 1) { // 如果合并删除源栏目
         await this.model('category').delete({where: {id: data.source_id}});
       }
-      update_cache('category');// 更新栏目缓存
+     await update_cache('category');// 更新栏目缓存
       return this.success({name: '成功！', url: '/admin/category/index'});
     } else {
       const data = this.get();
@@ -523,7 +521,7 @@ module.exports = class extends think.cmswing.admin {
   async isappAction() {
     const up = await this.model('category').where({id: this.get('ids')}).update({isapp: this.get('isapp')});
     if (up) {
-      update_cache('category');// 更新栏目缓存
+     await update_cache('category');// 更新栏目缓存
       return this.success({name: '操作成功!'});
     } else {
       return this.fail('操作失败!');

@@ -39,7 +39,8 @@ module.exports = class extends think.cmswing.admin {
       // console.log(data);
       const res = await this.db.add(data);
       if (res) {
-        update_cache('model');// 更新模型缓存
+        //更新缓存
+        await update_cache('model');
         return this.success({name: '添加成功', url: '/admin/model/index'});
       } else {
         return this.fail('添加模型失败!');
@@ -65,7 +66,8 @@ module.exports = class extends think.cmswing.admin {
 
       const res = await this.db.update(post);
       if (res) {
-        update_cache('model');// 更新模型缓存
+        //更新缓存
+        await update_cache('model');
         return this.success({name: '更新模型成功!', url: '/admin/model/index'});
       }
     } else {
@@ -232,7 +234,8 @@ module.exports = class extends think.cmswing.admin {
     // 添加模型数据
     modconfig.create_time = new Date().getTime();
     await this.model('model').add(modconfig);
-    update_cache('model');// 更新模型缓存
+    //更新缓存
+    await update_cache('model');
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
     return this.success({name: '安装成功!'});
   }
@@ -328,7 +331,8 @@ module.exports = class extends think.cmswing.modIndex {
         // 创建插件前台访问控制器
         this.copy(`${moddir}/demo/index.js`, `${modpath}/index.js`);
         // console.log(addtable);
-        update_cache('model');// 更新模型缓存
+        //更新缓存
+        await update_cache('model');
         return this.success({name: '添加成功', url: '/admin/model/ext'});
       } else {
         return this.fail('添加失败!');
@@ -379,8 +383,8 @@ module.exports = class extends think.cmswing.modIndex {
         const modpath = `${moddir}/${configs.name}`;
         fs.writeFileSync(`${modpath}/config.js`, `module.exports = ${JSON.stringify(configs)}`);
         // return this.fail('ddd');
-        this.cache('get_document_model', null);// 清除模型缓存
-        this.cache('get_model', null);// 清除模型缓存
+        //更新缓存
+        await update_cache('model');
         return this.success({name: '更新模型成功!', url: '/admin/model/ext'});
       }
     } else {
@@ -489,8 +493,8 @@ module.exports = class extends think.cmswing.modIndex {
     }
     // 删除模型
     await this.model('model').where({id: m.id}).delete();
-    update_cache('model');// 更新模型缓存
-    update_cache('category');// 更新栏目缓存
+    //更新缓存
+    await update_cache('model');
     return this.success({name: '卸载成功，移动到未安装！'});
   }
   /**
@@ -553,7 +557,8 @@ module.exports = class extends think.cmswing.modIndex {
     if (!res) {
       return this.fail('删除失败');
     } else {
-      update_cache('model');// 更新模型缓存
+      //更新缓存
+      await update_cache('model');
       return this.success({name: '删除成功！'});
     }
   }

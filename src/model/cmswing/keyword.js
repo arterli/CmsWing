@@ -45,6 +45,7 @@ module.exports = class extends think.Model {
      * 删除话题
      */
   async delkey(docid, mod_id, db = false) {
+    let keyword_data;
     if (!db) {
       keyword_data = this.model('keyword_data');
     } else {

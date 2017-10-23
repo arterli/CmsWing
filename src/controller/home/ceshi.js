@@ -95,4 +95,10 @@ module.exports = class extends think.Controller {
     await this.hook('adminArticleEdit', {'$hook_key2': 'bbbb', '$hook_type2': 2});
     return this.display();
   }
+  async cacheAction(){
+    const data = await this.model('cmswing/ext').extcache('editor','setting');
+
+    //console.log(data);
+    return this.body=data;
+  }
 };

@@ -7,7 +7,7 @@ module.exports = class extends think.cmswing.extIndex {
    */
   async adminEdit(name, value, type = false) {
     // 钩子业务处理
-    const setting = await this.extConfig('editor');
+    const setting = await this.extConfig('editor','setting');
     if (type && !think.isEmpty(type.$hook_type)) {
       const t = type.$hook_type.split('_');
       if (!think.isEmpty(t[0])) {
@@ -35,7 +35,7 @@ module.exports = class extends think.cmswing.extIndex {
      */
   async homeEdit(name, value, type = false) {
       // 钩子业务处理
-    const setting = await this.extConfig('editor');
+    const setting = await this.extConfig('editor','setting');
     if (type && !think.isEmpty(type.$hook_type)) {
       const t = type.$hook_type.split('_');
       if (!think.isEmpty(t[0])) {
@@ -66,7 +66,7 @@ module.exports = class extends think.cmswing.extIndex {
      */
   async pageHeader(name, value, type = false) {
     // 钩子业务处理
-    const setting = await this.extConfig('editor');
+    const setting = await this.extConfig('editor','setting');
     if (type && !think.isEmpty(type.$hook_type)) {
       const t = type.$hook_type.split('_');
       if (!think.isEmpty(t[0])) {
@@ -97,7 +97,7 @@ module.exports = class extends think.cmswing.extIndex {
      */
   async pageFooter(name, value, type = false) {
     // 钩子业务处理
-    const setting = await this.extConfig('editor');
+    const setting = await this.extConfig('editor','setting');
     if (type && !think.isEmpty(type.$hook_type)) {
       const t = type.$hook_type.split('_');
       if (!think.isEmpty(t[0])) {
@@ -128,7 +128,7 @@ module.exports = class extends think.cmswing.extIndex {
      */
   async pageContent(name, value, type = false) {
     // 钩子业务处理
-    const setting = await this.extConfig('editor');
+    const setting = await this.extConfig('editor','setting');
     if (type && !think.isEmpty(type.$hook_type)) {
       const t = type.$hook_type.split('_');
       if (!think.isEmpty(t[0])) {

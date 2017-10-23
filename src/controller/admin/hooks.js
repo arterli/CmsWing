@@ -28,6 +28,7 @@ module.exports = class extends think.cmswing.admin {
       const data = this.post();
       data.update_time = new Date().getTime();
       const res = await this.model('hooks').add(data);
+      await update_cache('hooks');
       return res ? this.success({name: '添加成功!', url: '/admin/hooks/index'}) : this.fail('添加失败!');
     } else {
       return this.display();
@@ -42,6 +43,7 @@ module.exports = class extends think.cmswing.admin {
       data.update_time = new Date().getTime();
       console.log(data);
       const res = await this.model('hooks').update(data);
+      await update_cache('hooks');
       return res ? this.success({name: '更新成功!', url: '/admin/hooks/index'}) : this.fail('更新失败!');
     } else {
       const id = this.get('id');
@@ -54,6 +56,7 @@ module.exports = class extends think.cmswing.admin {
   async delAction() {
     const id = this.get('id');
     await this.model('hooks').where({id: id}).delete();
+    await update_cache('hooks');
     return this.success({name: '删除成功！'});
   }
   /**

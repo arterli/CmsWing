@@ -89,44 +89,37 @@ module.exports = {
     return think.modService(name, ser, ...args);
   },
   async hook(hooks, ...args) {
-    let hook;
-    if (hooks.split('_').length === 2) {
-      hook = hooks.split('_')[1];
-    } else {
-      hook = hooks;
-    }
     try {
-      const h = await this.model('hooks').where({name: hook}).find();
+      const h = await this.model('cmswing/hooks').hookscache(hooks);
       if (!think.isEmpty(h.ext)) {
         const ext = h.ext.split(',');
         const hookarr = [];
         for (const c of ext) {
-          if (hooks.split('_')[0] === 'ext' || hooks.split('_').length === 1) {
           // 查询插件状态
-            const status = await this.model('ext').where({ext: c}).getField('status', true);
-            if (Number(status) === 1) {
-              const ep = `ext/${c}/hooks`;
-              const Cls = this.controller(ep);
-              if (Number(h.type) === 1) {
-                hookarr.push(await Cls[hook](...args));
-              } else {
-                return Cls[hook](...args);
-              }
+          const status = await this.extConfig(c, 'status');
+          if (Number(status) === 1) {
+            const ep = `ext/${c}/hooks`;
+            const Cls = this.controller(ep);
+            if (Number(h.type) === 1) {
+              hookarr.push(await Cls[hooks](...args));
+            } else {
+              return Cls[hooks](...args);
             }
-          } else if (hooks.split('_')[0] === 'mod') {
+          } else {
             const models = await this.model('cmswing/model').get_model(null, null, {name: c});
             // console.log(models);
             if (!think.isEmpty(models)) {
               const ep = `mod/${c}/hooks`;
               const Cls = this.controller(ep);
               if (Number(h.type) === 1) {
-                hookarr.push(await Cls[hook](...args));
+                hookarr.push(await Cls[hooks](...args));
               } else {
-                return Cls[hook](...args);
+                return Cls[hooks](...args);
               }
             }
           }
         }
+
         const type = think._.last(args);
         if (think.isObject(type) && !think.isEmpty(type.$hook_key) && !think.isEmpty(type.$hook_type)) {
           const cachehook = await think.cache(`hooks_${hooks}${type.$hook_type}${this.cookie('thinkjs')}`);
@@ -141,6 +134,8 @@ module.exports = {
           return this.assign(`HOOK@${hooks}@${type.$hook_type}`, hookarr.join(''));
         }
         if (think.isObject(type) && !think.isEmpty(type.$hook_key)) {
+          console.log("sfasfa");
+          console.log(hookarr);
           const hookobj = think.isEmpty(await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`)) ? {} : await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`);
           if (!think.isEmpty(hookarr)) {
             hookobj[type.$hook_key] = hookarr.join('');
@@ -154,7 +149,7 @@ module.exports = {
       think.logger.error(e);
     }
   },
-  async extConfig(extname) {
-    return await this.model('cmswing/ext').getset(extname);
+  async extConfig(extname, key) {
+    return await this.model('cmswing/ext').extcache(extname, key);
   }
 };

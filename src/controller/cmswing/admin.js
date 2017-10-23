@@ -107,16 +107,19 @@ module.exports = class extends think.Controller {
     msg = think.extend({ 'success': '操作成功！', 'error': '操作失败！', 'url': '', 'ajax': this.isAjax() }, msg);
     const res = await this.model(model).where(where).update(data);
     if (res) {
+      console.log(model);
       switch (model) {
         case 'channel':// 更新频道缓存信息
-          update_cache('channel');// 更新频道缓存信息
+          await update_cache('channel');// 更新频道缓存信息
           break;
         case 'category':// 更新全站分类缓存
-          update_cache('category');// 更新栏目缓存
+          await update_cache('category');// 更新栏目缓存
           break;
         case 'model':
-          update_cache('model');// 更新栏目缓存
+          await update_cache('model');// 更新栏目缓存
           break;
+        case 'ext':
+          await update_cache('ext');
       }
       return this.success({ name: msg.success, url: msg.url });
     } else {

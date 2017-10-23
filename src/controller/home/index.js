@@ -23,10 +23,10 @@ module.exports = class extends think.cmswing.center {
     this.description = this.config('setup.WEB_SITE_DESCRIPTION') ? this.config('setup.WEB_SITE_DESCRIPTION') : '';// seo描述
     this.active = ['/', '/index', '/index.html'];
     // 首页内容钩子
-    await this.hook('mod_hometitle');
-    await this.hook('mod_homelist');
+    await this.hook('hometitle');
+    await this.hook('homelist');
     // 右边的钩子
-    await this.hook('mod_homeright');
+    await this.hook('homeright');
     await this.hook('homeright');
     // debugger;
     // 判断浏览客户端

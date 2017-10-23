@@ -3,16 +3,15 @@
 <section class="vbox">
     <header class="header bg-light dk">
         <p>{{controller.meta_title}}</p>
+        <div class="btn-group pull-right">
+            <a href="/{{ctx.controller}}/unallcache" class="btn btn-sm btn-default ajax-get"><i class="fa fa-refresh"></i>
+                更新全站缓存</a>
+
+        </div>
     </header>
     <section class="scrollable wrapper">
-
-
-
         <div class="row">
-        {{HOOK@AdminIndex|safe}}
-
-
-
+            {{HOOK@AdminIndex|safe}}
         </div>
     </section>
 </section>

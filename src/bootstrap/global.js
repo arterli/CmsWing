@@ -520,12 +520,7 @@ global.array_diff = function(arr1, arr2) {
   // }
   return temparray;
 };
-// global.call_user_func = function (cb, params) {
-//    let func = global.cb;
-//    func.apply(cb, params);
-// }
-/* 解析列表定义规则 */
-/* global get_list_field */
+
 global.get_list_field = function(data, grid, controller, module) {
   module = module || 'admin';
   // console.log(module);
@@ -1227,20 +1222,26 @@ global.MathRand = function() {
 };
 
 // 更新缓存
-global.update_cache = (type) => {
+global.update_cache = async(type) => {
   switch (type) {
     case 'category':
       // 更新栏目缓存
-      think.cache('sys_category_list', null);
-      think.cache('all_category', null);
-      think.cache('all_priv', null);// 栏目权限缓存
+      await think.cache('sys_category_list', null);
+      await think.cache('all_category', null);
+      await think.cache('all_priv', null);// 栏目权限缓存
       break;
     case 'channel':// 更新频道缓存信息
-      think.cache('get_channel_cache', null);
+      await think.cache('get_channel_cache', null);
       break;
     case 'model':
-      think.cache('get_document_model', null);// 清除模型缓存
-      think.cache('get_model', null);// 清除模型缓存
+      await think.cache('get_document_model', null);// 清除模型缓存
+      await think.cache('get_model', null);// 清除模型缓存
+      break;
+    case 'ext':
+      await think.cache('extcache');
+      break;
+    case 'hooks':
+      await think.cache('hookscache');
       break;
   }
 };

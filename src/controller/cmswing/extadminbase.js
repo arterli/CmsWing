@@ -61,6 +61,8 @@ module.exports = class extends Admin {
       data.push(map);
     }
     await this.model(table).updateMany(data);
+    await update_cache('ext');
+    await update_cache('hooks');
     return this.success({ name: '更新排序成功！'});
   }
 
@@ -76,6 +78,8 @@ module.exports = class extends Admin {
       // console.log(data);
       const res = await this.model('ext').where({ext: this.ext.ext}).update({setting: JSON.stringify(data)});
       if (res) {
+        await update_cache('ext');
+        await update_cache('hooks');
         process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
         return this.success({ name: '更新成功！'});
       } else {
@@ -262,6 +266,8 @@ module.exports = class extends Admin {
         return this.fail('数据表导入失败，请在控制台下查看具体的错误信息，并在 GitHub 上发 issue。');
       }
     }
+    await update_cache('ext');
+    await update_cache('hooks');
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
     return this.success({name: `安装成功！`, url: `/admin/ext/index`});
   }
@@ -287,6 +293,8 @@ module.exports = class extends Admin {
     // 删除数据库，表
     const tables = data.table;
     await this.deltable(tables);
+    await update_cache('ext');
+    await update_cache('hooks');
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
     return this.success({name: '卸载成功!'});
   }
@@ -324,6 +332,8 @@ module.exports = class extends Admin {
     }
     // 导入数据库文件
     // todo
+    await update_cache('ext');
+    await update_cache('hooks');
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
     return this.success({name: '重载成功！', url: '/admin/ext/index'});
   }
@@ -343,6 +353,8 @@ module.exports = class extends Admin {
     await think.rmdir(extpath).then(() => {
       console.log('删除完成');
     });
+    await update_cache('ext');
+    await update_cache('hooks');
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
     return this.success({name: '删除成功！'});
   }
