@@ -711,9 +711,9 @@ module.exports = class extends think.cmswing.admin {
       // 行为记录
       if (!res.data.id) {
         // await this.model("cmswing/action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
-        this.success({name: '添加成功', url: '/admin/article/index/?cate_id=' + res.data.category_id});
+        this.success({name: '添加成功', url: data.backurl});
       } else {
-        this.success({name: '更新成功', url: '/admin/article/index/?cate_id=' + res.data.category_id});
+        this.success({name: '更新成功', url: data.backurl});
       }
     } else {
       this.fail('操作失败！');

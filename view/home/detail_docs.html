@@ -5,8 +5,9 @@
 {%else%}
 {%column data="column",cid=category.id%}
 {%endif%}
-<script src="/static/admin/js/udeitor/ueditor.parse.min.js"></script>
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
+<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
 <style>
     .active > .text{
         display: block !important;
@@ -155,4 +156,11 @@ CLASSES:
 
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
+<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
+<script>
+  $(function () {
+    $("#category").treetable({ expandable: true });
+    $("#category").treetable("expandAll");
+  })
+</script>
 {% endblock %}

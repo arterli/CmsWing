@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-10-23 20:17:38
+Date: 2017-10-25 00:40:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4287,7 +4287,7 @@ CREATE TABLE `cmswing_category` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `uk_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
 
 -- ----------------------------
 -- Records of cmswing_category
@@ -6802,7 +6802,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1695', '', '1452513965683', '0', '1508729542985', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1699', '', '1452513965683', '0', '1508863115220', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '98', 'cmswing@cmswing.com', '296', '13571883578', '1458989485616', '0', '1508760181138', '0', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '5', '', '1458990106486', '0', '1505443722915', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
@@ -7704,7 +7704,7 @@ INSERT INTO `cmswing_model` VALUES ('5', 'picture', '图片', '1', '', '1', '{\"
 INSERT INTO `cmswing_model` VALUES ('6', 'video', '视频', '1', '', '1', '{\"1\":[\"2\",\"3\",\"5\",\"9\",\"12\",\"19\"],\"2\":[\"91\",\"96\"],\"3\":[\"10\",\"13\",\"14\",\"16\",\"17\",\"20\",\"93\"]}', '1:基础,2:资源,3:扩展', '91,93,96,2,3,5,9,10,12,13,14,16,17,19,20', 'level:集数', '', '', '', '', '10', '', '', '1465188045066', '1465555443764', '1', 'InnoDB', '1', '1', '1', '1', '1', null, null, '1', null, null, null, null, '0', '0');
 INSERT INTO `cmswing_model` VALUES ('7', 'test', 'test', '1', '', '1', '{\"1\":[]}', '1:基础', '99', '', '', '', '', '', '10', '', '', '1474018905811', '1505202060851', '0', 'InnoDB', '0', '1', '1', '1', '1', null, null, '0', null, null, null, null, '0', '0');
 INSERT INTO `cmswing_model` VALUES ('8', 'question', '社区', '0', '', '1', '{\"1\":[]}', '1:基础', null, '', '', '', '', '', '10', '', '', '1475621679496', '1507950865899', '1', 'InnoDB', '1', '0', '0', '1', '1', 'init:查看\r\nadd:添加\r\nedit:编辑\r\ndelete:删除\r\nexamine:审核', 'visit:访问\r\nadd:发布\r\naddexa:发布是否审核', '1', 'homelist,hometitle,homeright', '1.0', 'cmswing', 'question,question_answer,question_answer_comments,question_answer_thanks,question_answer_uninterested,question_answer_vote,question_focus,question_user', '1', '0');
-INSERT INTO `cmswing_model` VALUES ('11', 'docs', '文档', '1', '', '1', '{\"1\":[\"3\",\"9\",\"149\"],\"2\":[\"2\",\"5\",\"12\",\"10\",\"11\",\"20\",\"16\"]}', '1:基础,2:扩展', '149,2,3,5,9,10,11,12,16,20,21', 'title:文档标题\r\ntype:文档类型', '', '', '', '', '10', '', '', '1508464623427', '1508474264751', '1', 'InnoDB', '1', '1', '1', '1', '1', null, null, '1', null, null, null, null, '0', '3');
+INSERT INTO `cmswing_model` VALUES ('11', 'docs', '文档', '1', '', '1', '{\"1\":[\"3\",\"9\",\"149\",\"21\"],\"2\":[\"2\",\"5\",\"12\",\"19\",\"10\",\"11\",\"20\",\"16\"]}', '1:基础,2:扩展', '149,2,3,5,9,10,11,12,16,19,20,21', 'title:文档标题\r\ntype:文档类型', '', '', '', '', '10', '', '', '1508464623427', '1508863154134', '1', 'InnoDB', '1', '1', '1', '1', '1', null, null, '1', null, null, null, null, '0', '3');
 
 -- ----------------------------
 -- Table structure for cmswing_order
@@ -7936,7 +7936,7 @@ CREATE TABLE `cmswing_question` (
   `sort` tinyint(2) unsigned NOT NULL DEFAULT '0',
   `group_id` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '所属分组',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question
@@ -7979,7 +7979,7 @@ CREATE TABLE `cmswing_question_answer` (
   KEY `force_fold` (`force_fold`),
   KEY `anonymous` (`anonymous`),
   KEY `publich_source` (`publish_source`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='回答';
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='回答';
 
 -- ----------------------------
 -- Records of cmswing_question_answer
@@ -8013,7 +8013,7 @@ CREATE TABLE `cmswing_question_answer_comments` (
   PRIMARY KEY (`id`),
   KEY `answer_id` (`answer_id`),
   KEY `time` (`time`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_question_answer_comments
