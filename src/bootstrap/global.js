@@ -1238,10 +1238,10 @@ global.update_cache = async(type) => {
       await think.cache('get_model', null);// 清除模型缓存
       break;
     case 'ext':
-      await think.cache('extcache');
+      await think.cache('extcache',null);
       break;
     case 'hooks':
-      await think.cache('hookscache');
+      await think.cache('hookscache',null);
       break;
   }
 };
