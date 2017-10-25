@@ -170,14 +170,17 @@
                         </a>
                                         </div>
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/{{ctx.controller}}/move">
                                             移动
                                         </a>
-                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" href="/{{ctx.controller}}/copy">
                                             复制
                                         </a>
-                                            <a class="btn btn-sm btn-info todo" target-form="ids" href="#">
+                                            <a class="btn btn-sm btn-info ajax-post" target-form="ids" hide-data="true" href="/{{ctx.controller}}/paste">
                                             粘贴
+                                                <input type="hidden" class="hide-data" name="cate_id" value="{{cate_id}}">
+                                                <input type="hidden" class="hide-data" name="pid" value="{{pid}}">
+                                                <input type="hidden" class="hide-data" name="sort_id" value="{{sortid}}">
                                         </a>
                                         </div>
 
