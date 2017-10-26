@@ -5,8 +5,7 @@ jQuery(document).ready(function() {
 
 	// Make Content Visible
 	jQuery(".fullwidthbanner ul , .fullscreenbanner ul").removeClass('hide');
-
-
+	
 	/**
 		@HALFSCREEN SLIDER
 	**/

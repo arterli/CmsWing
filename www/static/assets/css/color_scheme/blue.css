@@ -9,8 +9,6 @@
 	::-webkit-selection {
 		background: #179BD7; /* Safari */
 	}
-
-
 	a,
 	a:focus:not(.btn),
 	section.dark a,
