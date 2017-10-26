@@ -6,8 +6,6 @@
 {%column data="column",cid=category.id%}
 {%endif%}
 <link rel="stylesheet" href="/static/assets/plugins/share/css/share.min.css">
-<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.css">
-<link rel="stylesheet" href="/static/assets/plugins/jquery-treetable/css/jquery.treetable.theme.default.css">
 <style>
     .active > .text{
         display: block !important;
@@ -83,19 +81,25 @@ CLASSES:
                         <h2 class="panel-title"><a href="{{pinfo.name|get_url(pinfo.id)}}">{{pinfo.title}}</a></h2>
                     </div>
                     <div class="panel-body nopadding">
-                        <ul class="list-group list-group-bordered list-group-noicon uppercase">
-                            <table class="table table-hover  treetable" id="category">
-                                <tbody>
-                                {%for val in ptree%}
-                                <tr data-tt-id="{{val.id}}" {%if val.pid != topid %} data-tt-parent-id="{{val.pid}}"{%endif%} {%if val.id == controller.get("id")%}class="active" {%endif%}>
-                                <td><a href="{{val.name|get_url(val.id)}}" class="text-info"><span class='folder ui-draggable'>{{val.title}}</span></a></td>
-                                </tr>
+                        <!-- CATEGORIES -->
+                        <div class="side-nav margin-bottom-10">
+                            <ul class="list-group list-group-bordered list-group-noicon uppercase">
+                                {%for val in ptree2%}
+                                <li class="list-group-item {{'active' if (val.id == info.id or val.id == info.pid) }}">
+                                    <a class="{{'dropdown-toggle' if val.children}}" href="{{val.name|get_url(val.id)}}">{{val.title}}</a>
+                                    {% if val.children%}
+                                    <ul>
+                                        {%for v in val.children%}
+                                        <li class="{{'active' if (v.id == info.id or v.id == info.pid) }}"><a href="{{v.name|get_url(v.id)}}">{{v.title}}</a></li>
+                                        {%endfor%}
+                                    </ul>
+                                    {%endif%}
+                                </li>
                                 {%endfor%}
+                            </ul>
 
-
-                                </tbody>
-                            </table>
-                        </ul>
+                        </div>
+                        <!-- /CATEGORIES -->
                     </div>
                 </div>
             </div>
@@ -108,11 +112,9 @@ CLASSES:
                         <h2 class="panel-title">{{info.title}}</h2>
                     </div>
                     <div class="panel-body nopadding">
-
                         <!--页面内容钩子加载-->
                         {{content(pagehook)}}
                         <!--/页面内容钩子加载结束-->
-
                     </div>
                     {% rkeywords data ="tags",type="0",mod_id=info.model_id,id=info.id%}
                     {%if tags%}
@@ -156,11 +158,4 @@ CLASSES:
 
 {% block script %}
 <script src="/static/assets/plugins/share/js/social-share.min.js"></script>
-<script src="/static/admin/js/treetable/jquery.treetable.js" type="text/javascript"></script>
-<script>
-  $(function () {
-    $("#category").treetable({ expandable: true });
-    $("#category").treetable("expandAll");
-  })
-</script>
 {% endblock %}

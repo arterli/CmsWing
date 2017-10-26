@@ -122,11 +122,13 @@ module.exports = class extends think.cmswing.center {
     }
     // console.log(plist);
     // 文档无限级目录
-    const ptree_ = await document.where({topid: pid}).field('id,title,pid,name,level as sort').select();
+    const ptree_ = await document.where({topid: pid}).field('id,title,pid,name,level as sort').order('level DESC,create_time ASC').select();
     const ptree = get_children(ptree_, pid, 1);
+    const ptree2 = arr_to_tree(ptree_, pid);
     // console.log(ptree);
     this.assign('topid', pid);
     this.assign('ptree', ptree);
+    this.assign('ptree2',ptree2)
 
     // 如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
     if (info.type == 1 && (think.isEmpty(info.template) || info.template == 0) && info.model_id == 6) {
