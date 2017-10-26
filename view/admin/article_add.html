@@ -45,7 +45,6 @@
             <section>
                 <section class="vbox">
                     <section class="scrollable wrapper">
-
                         <!-- .breadcrumb -->
                         <ul class="breadcrumb">
                             <li><a href="/admin/article/index"><i class="fa fa-home"></i> 网站内容</a></li>
@@ -1513,6 +1512,7 @@
                             <input type="hidden" name="model_id" value="{{info.model_id}}"/>
                             <input type="hidden" name="category_id" value="{{info.category_id}}">
                             <input type="hidden" name="uid" value="{{userinfo.uid}}">
+                            <input type="hidden" name="backurl" value="{{ctx.referer()}}">
                         </div>
                     </div>
                     </form>

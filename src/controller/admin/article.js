@@ -711,9 +711,9 @@ module.exports = class extends think.cmswing.admin {
       // 行为记录
       if (!res.data.id) {
         // await this.model("cmswing/action").log("add_document", "document", res.id, this.user.uid, this.ip(), this.http.url);
-        this.success({name: '添加成功', url: '/admin/article/index/?cate_id=' + res.data.category_id});
+        this.success({name: '添加成功', url: data.backurl});
       } else {
-        this.success({name: '更新成功', url: '/admin/article/index/?cate_id=' + res.data.category_id});
+        this.success({name: '更新成功', url: data.backurl});
       }
     } else {
       this.fail('操作失败！');
@@ -770,6 +770,166 @@ module.exports = class extends think.cmswing.admin {
     }
   }
 
+  /**
+   * 移动文档
+   * @returns {Promise.<*>}
+   */
+  async moveAction() {
+    let data = this.post('ids');
+    if (think.isEmpty(data)) {
+      return this.fail('请选择要移动的文档！');
+    }
+    if (!think.isArray(data)) {
+      data = data.split(',');
+    }
+    await this.session('moveArticle', data);
+    await this.session('copyArticle', null);
+    return this.success({name: '请选择要移动到的分类！'});
+  }
+
+  /**
+   * 复制文档
+   * @returns {Promise.<*>}
+   */
+  async copyAction() {
+    let data = this.post('ids');
+    if (think.isEmpty(data)) {
+      return this.fail('请选择要复制的文档！');
+    }
+    if (!think.isArray(data)) {
+      data = data.split(',');
+    }
+    await this.session('copyArticle', data);
+    await this.session('moveArticle', null);
+    return this.success({name: '请选择要复制到的分类！'});
+  }
+
+  /**
+   * 粘贴文档
+   * @returns {Promise.<*>}
+   */
+  async pasteAction() {
+    const moveList = await this.session('moveArticle');
+    const copyList = await this.session('copyArticle');
+    if (think.isEmpty(moveList) && think.isEmpty(copyList)) {
+      return this.fail('没有选择文档！');
+    }
+    const cate_id = this.post('cate_id'); // 当前分类
+    const pid = this.post('pid') || 0; // 当前父类数据id
+    const sort_id = this.post('sort_id') || 0;
+    if (think.isEmpty(cate_id)) {
+      return this.fail('请选择要粘贴到的分类！');
+    }
+    // 检查所选择的数据是否符合粘贴要求
+    const check = await this.checkPaste(think.isEmpty(moveList) ? copyList : moveList, cate_id, pid);
+    if (!check['status']) {
+      return this.fail(check['info']);
+    }
+    let res;
+    if (!think.isEmpty(moveList)) { // 移动    TODO:检查name重复
+      for (const v of moveList) {
+        const Model = this.model('cmswing/document');
+        const map = {};
+        map.id = v;
+        const data = {};
+        data.category_id = cate_id;
+        data.pid = pid;
+        data.sort_id = sort_id;
+        // 获取root
+        if (pid == 0) {
+          data.root = 0;
+        } else {
+          const p_root = await Model.where({id: pid}).getField('root', true);
+          data.root = p_root == 0 ? pid : p_root;
+        }
+        res = await Model.where(map).update(data);
+      }
+      await this.session('moveArticle', null);
+      if (!think.isEmpty(res)) {
+        return this.success({name: '文档移动成功！'});
+      } else {
+        return this.fail('文档移动失败！');
+      }
+    } else if (!think.isEmpty(copyList)) { // 复制
+      for (const v of copyList) {
+        const Model = this.model('document');
+        const info = await Model.find(v);
+        const table = await this.model('cmswing/model').get_table_name(info.model_id);
+        const detail = await this.model(table).find(v);
+        const data = think.extend({}, info, detail);
+        delete data.id;
+        delete data.name;
+        data.category_id = cate_id;
+        data.pid = pid;
+        data.sort_id = sort_id;
+        data.create_time = new Date().getTime();
+        data.update_time = new Date().getTime();
+        // 获取root
+        if (pid == 0) {
+          data.root = 0;
+        } else {
+          const p_root = await Model.where({id: pid}).getField('root', true);
+          data.root = p_root == 0 ? pid : p_root;
+        }
+        res = await this.model('cmswing/document').updates(data);
+      }
+      await this.session('copyArticle', null);
+      if (res) {
+        return this.success({name: '文档复制成功！'});
+      } else {
+        return this.fail('文档复制失败！');
+      }
+    }
+  }
+
+  /**
+   * 检查数据是否符合粘贴的要求
+   * @param list
+   * @param cid
+   * @param pid
+   * @returns {Promise.<void>}
+   */
+  async checkPaste(list, cid, pid) {
+    const ret = {'status': 1};
+    const Document = this.model('cmswing/document');
+
+    // 检查支持的文档模型
+    const modelList = await this.model('category').where({id: cid}).getField('model', true); // 当前分类支持的文档模型
+    for (const v of list) {
+      // 不能将自己粘贴为自己的子内容
+      if (v == pid) {
+        ret['status'] = 0;
+        ret['info'] = '不能将编号为 ' + v + ' 的数据粘贴为他的子内容！';
+        return ret;
+      }
+      // 移动文档的所属文档模型
+      const modelType = await Document.where({id: v}).getField('model_id', true);
+      if (!in_array(modelType, modelList.split(','))) {
+        ret['status'] = 0;
+        ret['info'] = '当前分类的文档模型不支持编号为 ' + v + ' 的数据！';
+        return ret;
+      }
+    }
+    // 检查支持的文档类型和层级规则
+    const typeList = await this.model('category').where({id: cid}).getField('type', true); // 当前分类支持的文档模型
+    for (const v of list) {
+      // 移动文档的所属文档模型
+      const modelType = await Document.where({id: v}).getField('type', true);
+      if (!in_array(modelType, typeList.split(','))) {
+        ret['status'] = 0;
+        ret['info'] = '当前分类的文档类型不支持编号为 ' + v + ' 的数据！';
+        return ret;
+      }
+      const res = await Document.checkdoctype(modelType, pid);
+      if (res['errno']) {
+        ret['status'] = 0;
+        ret['info'] = res['errmsg'] + '。错误数据编号：' + v;
+        return ret;
+      }
+    }
+
+    return ret;
+  }
   /**
    * 回收站列表
    */
