@@ -54,7 +54,7 @@ module.exports = class extends think.Model {
     const where = {};
     where.hide = 0;
     where.pid = 0;
-    if (!think.config('setup.DEVELOP_MODE')) { // 是否开发者模式
+    if (think.config('setup.DEVELOP_MODE')==1) { // 是否开发者模式
       where.is_dev = 0;
     }
     const menu = await this.where(where).order('sort asc').select();
@@ -67,7 +67,7 @@ module.exports = class extends think.Model {
     const where = {};
     where.hide = 0;
     where.pid = id;
-    if (!think.config('setup.DEVELOP_MODE')) { // 是否开发者模式
+    if (think.config('setup.DEVELOP_MODE')==1) { // 是否开发者模式
       where.is_dev = 0;
     }
     const groups = await this.where(where).field('group').order('sort asc').select();
