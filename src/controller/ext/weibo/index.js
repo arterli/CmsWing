@@ -35,7 +35,7 @@ module.exports = class extends think.cmswing.extIndex {
       return this.redirect(`https://api.weibo.com/oauth2/authorize?client_id=${this.config('ext.weibo.appkey')}&redirect_uri=${redirectURI}&response_type=code`);
     } else {
       const code = this.get('code');
-      const weibo = this.extService('weibo', code, redirectURI);
+      const weibo = this.extService('weibo','weibo', code, redirectURI);
       const token = await weibo.gettoken();
       // console.log(token);
       const userinfo = await weibo.getuserinfo(token.access_token, token.uid);
@@ -83,8 +83,8 @@ module.exports = class extends think.cmswing.extIndex {
     }
     const id = this.get('id');
     const sina_user = await this.model('ext_weibo').find(id);
-    // console.log(sina_user);
-    this.assign('ext_weibo', sina_user);
+    console.log(sina_user);
+    this.assign('sina_user', sina_user);
     this.meta_title = '账号绑定';
     return this.isMobile ? this.extDisplay('m') : this.extDisplay();
   }

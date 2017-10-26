@@ -36,7 +36,7 @@ module.exports = class extends think.cmswing.extIndex {
       return this.redirect('/center/index');
     }
     const res = this.get();
-    const qq = this.extService('qq', res.access_token, res.openid);
+    const qq = this.extService('qq','qq', res.access_token, res.openid);
     const userinfo = await qq.get_user_info();
     const qq_user = await this.model('ext_qq').where({openid: res.openid}).find();
     if (think.isEmpty(qq_user)) {
