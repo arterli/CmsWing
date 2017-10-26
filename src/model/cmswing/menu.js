@@ -10,7 +10,7 @@ module.exports = class extends think.Model {
   async getallmenu(uid, is_admin) {
     const where = {};
     where.hide = 0;
-    if (!think.config('setup.DEVELOP_MODE')) { // 是否开发者模式
+    if (think.config('setup.DEVELOP_MODE')==1) { // 是否开发者模式
       where.is_dev = 0;
     }
     const groups = think.config('setup.MENU_GROUP');
