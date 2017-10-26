@@ -24,7 +24,7 @@ module.exports = class extends think.cmswing.extIndex {
     if (this.is_login) {
       return this.redirect('/center/index');
     }
-    return this.display();
+    return this.extDisplay();
   }
   /** 获取qq登陆信息 */
   async loginresultAction() {
