@@ -15,20 +15,37 @@ module.exports = class extends think.cmswing.extAdmin {
   async indexAction() {
     // 分页列表实例
 
-    // let data = await this.model("ext_表名").page(this.get('page')).countSelect();
-    // let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-    // let pages = new Pages(this.http); //实例化 Adapter
-    // let page = pages.pages(data);
-    // this.assign('pagerData', page); //分页展示使用
-    // this.assign('list', data.data);
+    // -- 获取插件目录名
+    // this.ext.ext;
 
-    // 获取当前插件的分类,插件如有分类的需求，直接调用。
-
+    // -- 获取当前分类
     // await this.gettype()
+
+    // -- model调用
     // const list = await this.extModel('demo').select();
-    // console.log(list);
-      // 入口模版渲染
-   return this.extDisplay();
+    // const list2 = await this.extModel('demo').demo();
+    // const list3 = await think.extModel('demo','demo').demo();
+
+    // -- 分页
+    // const model = this.extModel('demo');
+    // const data = await model.page(this.get('page')).countSelect(); // 获取分页数据
+    // console.log(data);
+    // const html = this.pagination(data); // 调取分页
+    // this.assign('pagerData', html); // 分页展示使用
+
+    // -- ext service
+    // 无参数类的实例化
+    // const Ser1 = this.extService('demo');
+    // const Ser1 = think.extService('demo','demo');
+    // const ser1 = Ser1.bbb('bbb');
+    // console.log(ser1);
+    // 有参数类的实例化
+    // const Ser2 = this.extService('demo','demo','aaa','bbb');
+    // const Ser2 = think.extService('demo','demo','aaa','bbb');
+    // const ser2 = Ser2.aaa();
+    // console.log(ser2);
+    // 入口模版渲染
+    return this.extDisplay();
   }
 
   /**
