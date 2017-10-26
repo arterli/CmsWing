@@ -117,49 +117,16 @@ CLASSES:
                         </div>
                         <ul class="shop-item-list row list-inline nomargin">
                             {% for val in list %}
-                            {% set categoryname = val.category_id|get_cate %}
+                            <div class="col-md-4">
 
-                            <!-- ITEM -->
-                            <li class="col-lg-2 col-sm-2">
-
-                                <div class="shop-item">
-
-                                    <div class="thumbnail">
-                                        <!-- product image(s) -->
-                                        <a class="shop-item-image" href="{{val.name|get_url(val.id)}}" target="_blank">
-                                            <img class="img-responsive" src="{{val.cover_id|get_pic('m=1,w=265,h=360')}}" alt="shop first image" />
-                                        </a>
-                                        <!-- /product image(s) -->
-
-                                        <!-- hover buttons -->
-                                        <div class="shop-option-over"><!-- replace data-item-id width the real item ID - used by js/view/demo.shop.js -->
-                                            <a class="btn btn-default add-wishlist" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Wishlist"><i class="fa fa-heart nopadding"></i></a>
-                                            <a class="btn btn-default add-compare" href="#" data-item-id="10" data-toggle="tooltip" title="Add To Compare"><i class="fa fa-bar-chart-o nopadding" data-toggle="tooltip"></i></a>
-                                        </div>
-                                        <!-- /hover buttons -->
-                                    </div>
-
-                                    <div class="shop-item-summary text-center">
+                                <div class="box-icon box-icon-center box-icon-round box-icon-transparent box-icon-large box-icon-content">
+                                    <a class="box-icon-title" href="{{val.name|get_url(val.id)}}" target="_blank">
+                                        {%if val.cover_id%}<i><img class="thumbnail rounded" src="{{val.cover_id|get_pic('m=0')}}" style="width: 65px;height: 65px; margin-top: -1px;margin-left: -2px"></i>{%else%}<i class="et-document" style="font-size: 32px"></i>{%endif%}
                                         <h2>{{val.title}}</h2>
-
-                                        <!-- rating -->
-                                        <div class="shop-item-rating-line">
-                                            <div class="rating rating-5 size-13"><!-- rating-0 ... rating-5 --></div>
-                                        </div>
-                                        <!-- /rating -->
-
-                                        <!-- price -->
-                                        <div class=" size-12">
-                                            {{val.update_time|dateformat('Y-m-d H:i')}}
-                                        </div>
-                                        <!-- /price -->
-                                    </div>
-
+                                    </a>
                                 </div>
 
-                            </li>
-                            <!-- /ITEM -->
-
+                            </div>
                             {%endfor%}
                         </ul>
                     </div>
