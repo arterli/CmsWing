@@ -5206,10 +5206,7 @@ section.dark .box-icon a.box-icon-more {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 }
-.bg-grey .box-icon.box-icon-content {
-	background-color:#fff;
 
-}
 	section.dark .box-icon.box-icon-content {
 		background-color:rgba(0,0,0,0.1);
 	}
