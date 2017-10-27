@@ -21,7 +21,6 @@ module.exports = class extends think.Service {
     this.type = type;
     this.ctx = ctx;
   }
-
   /**
      * 写入初始数据
      * @return boolean true - 写入成功，false - 写入失败

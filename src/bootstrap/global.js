@@ -452,7 +452,8 @@ global.get_attribute_type = function(type) {
     'price': ['价格', 'varchar(255) NOT NULL'],
     'freight': ['运费', 'varchar(255) NOT NULL'],
     'keyword': ['关键词', 'varchar(255) NOT NULL'],
-    'relation': ['关联', 'varchar(100) NOT NULL']
+    'relation': ['关联', 'varchar(100) NOT NULL'],
+    'atlas': ['图集', 'text NOT NULL']
   };
   return type ? _type[type][0] : _type;
 };
@@ -702,8 +703,8 @@ global.get_url = (name, id) => {
   }
 };
 global.get_pdq = (id) => {
-  return parse_config_attr(think.config('ext.attachment.pdn'),'@')[id];
-}
+  return parse_config_attr(think.config('ext.attachment.pdn'), '@')[id];
+};
 /**
  * 获取文档封面图片
  * @param int cover_id
@@ -1136,10 +1137,8 @@ global.get_file = async(file_id, field, key = false) => {
     return false;
   }
   const file = await think.model('ext_attachment_file').find(file_id);
-    console.log(file);
-    if (file.type > 0 && key && key !== 1) {
-      console.log('fdsafsad');
-      file.savename = `//${get_pdq(file.type)}/${file.savename}?download/${file.savename}`;
+  if (file.type > 0 && key && key !== 1) {
+    file.savename = `//${get_pdq(file.type)}/${file.savename}?download/${file.savename}`;
   } else if (file.type > 0 && key === 1) {
     file.savename = `//${get_pdq(file.type)}/${file.savename}`;
   } else {
@@ -1238,10 +1237,10 @@ global.update_cache = async(type) => {
       await think.cache('get_model', null);// 清除模型缓存
       break;
     case 'ext':
-      await think.cache('extcache',null);
+      await think.cache('extcache', null);
       break;
     case 'hooks':
-      await think.cache('hookscache',null);
+      await think.cache('hookscache', null);
       break;
   }
 };

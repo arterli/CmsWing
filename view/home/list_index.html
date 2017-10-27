@@ -117,7 +117,7 @@ CLASSES:
                             <!-- IMAGE -->
                             {% if val.cover_id>0 %}
                             <figure class="blog-item-small-image margin-bottom-0">
-                                <img class="img-responsive lazy" src="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
+                                <img class="img-responsive lazy" data-original="{{val.cover_id|get_pic('m=1,w=200,h=120')}}" alt="">
                             </figure>
                             {% endif %}
                             <div class="blog-item-small-content">
