@@ -261,6 +261,10 @@ module.exports = class extends think.cmswing.center {
     this.assign('category', cate);
     this.assign('list', data.data);
     this.assign('count', data.count);
+    if(this.get('rss')==1){
+      this.header('Content-Type','text/xml');
+      return this.display('cmswing/rss.xml')
+    }
     // console.log(cate)
     let temp = cate.template_lists ? `${cate.template_lists}` : 'index';
     // console.log(cate);

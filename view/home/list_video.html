@@ -103,8 +103,8 @@ CLASSES:
                                 <a class="btn btn-default height-auto {%if order<2%}active{%endif%}" href="{{cate.url}}-{%if order<2%}{{1-order}}{%else%}0{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" >按时间 <span class="glyphicon {%if order ==0%}glyphicon-arrow-down{%elif order==1%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span> </a>
                                 <a class="btn btn-default height-auto {%if order>=2%}active{%endif%}" href="{{cate.url}}-{%if order>=2%}{%if order ==2%}3{%else%}2{%endif%}{%else%}2{%endif%}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}{{sorturl}}" style="height: auto">按人气<span class="glyphicon  {%if order ==2%}glyphicon-arrow-down{%elif order==3%}glyphicon-arrow-up{%else%}glyphicon-arrow-down{%endif%}"></span></a>
                             </div>
-                            <div class="divider divider-circle divider-center nomargin"><!-- divider -->
-                                <a href="#"><i class="fa fa-rss"></i></a>
+                            <div class="divider divider-circle divider-center margin-top-0"><!-- divider -->
+                                <a href="{{cate.url}}-{{order}}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}?rss=1" target="_blank"><i class="fa fa-rss"></i></a>
                             </div>
                         </div>
                     </div>

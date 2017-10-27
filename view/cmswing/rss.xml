@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+{%set cate = category.id|get_cate()%}
+<rss version="2.0" xmlns:blogChannel="http://backend.userland.com/blogChannelModule">
+    <channel>
+        <title>{{category.title}}</title>
+        <link>http://{{ctx.host}}{{cate.url}}-{{order}}{%if group_id or sort%}-{{group_id}}{%endif%}{%if sort%}-{{sortid}}{%endif%}{%if sorturl %}-{%endif%}</link>
+        <description>{{category.title if category.description}}</description>
+        <language>zh-cn</language>
+        <blogChannel:blogRoll>http://radio.weblogs.com/0001015/userland/scriptingNewsLeftLinks.opml</blogChannel:blogRoll>
+        <blogChannel:mySubscriptions>http://radio.weblogs.com/0001015/gems/mySubscriptions.opml</blogChannel:mySubscriptions>
+        <blogChannel:blink>http://diveintomark.org/</blogChannel:blink>
+        <copyright>Copyright {{ctx.host}}</copyright>
+        <generator>{{ctx.host}}</generator>
+        <ttl>40</ttl>
+        {% for item in list%}
+        <item>
+            <title>{{item.title}}</title>
+            <link>http://{{ctx.host}}{{item.name|get_url(item.id)}}</link>
+            <description>
+                {{item.description}}
+            </description>
+            <pubDate>{{item.create_time|moment('YYYY-MM-DD HH:mm:ss')}}</pubDate>
+        </item>
+        {%endfor%}
+    </channel>
+</rss>
