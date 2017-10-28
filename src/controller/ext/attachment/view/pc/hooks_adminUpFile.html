@@ -49,9 +49,12 @@
     {%else%}
 <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
     <div id="thelist_{{name}}" class="uploader-list"></div>
-    <div class="btns">
+    <div class="btns" id="file_list_hine">
         <div id="picker_{{name}}" class="picker">选择文件</div>
         <a id="ctlBtn_{{name}}" class="btn btn-default">开始上传</a>
+    </div>
+    <div class="hidden alert alert-success" id="file_list_show">
+        <button data-dismiss="alert" id="file_list_show_close" class="close" type="button">×</button>
     </div>
 <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -61,7 +64,22 @@
                 $btn_{{name}} = $('#ctlBtn_{{name}}'),
                 state = 'pending',
                 uploader_{{name}};
-
+            var file_id = $("input[name="+{{name}}+"]").val();
+            if(file_id!=""){
+              $.get('/ext/attachment/adminfile/fileinfo',{id:file_id},function (data) {
+                if(data!=null){
+                  $('#file_list_hine').hide();
+                  $('#file_list_show').removeClass('hidden').append(
+                    `<p>文件名称:&nbsp${data.name}</p>`+
+                    `<p>文件大小:&nbsp${data.size}</p>`+
+                    `<p>上传时间:&nbsp${data.time}</p>`);
+                  $('#file_list_show_close').click(function () {
+                    $('#file_list_hine').show();
+                    $('#file_list_show').addClass('hidden')
+                  });
+                }
+              });
+            }
             uploader_{{name}} = WebUploader.create({
 
                 // 不压缩image

@@ -207,4 +207,12 @@ module.exports = class extends think.Controller {
       return this.fail('删除文件失败!');
     }
   }
+  // 文件信息
+  async fileinfoAction(){
+    const res = await this.fdb.find(this.get('id'));
+    if(!think.isEmpty(res)){
+      res.time = this.moment(res.create_time).format('lll');
+    }
+    return this.json(res);
+  }
 };
