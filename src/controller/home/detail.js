@@ -5,6 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
+const fs = require('fs');
 module.exports = class extends think.cmswing.center {
   // 详情页[核心]
   async indexAction() {
@@ -217,17 +218,17 @@ module.exports = class extends think.cmswing.center {
     // console.log(file_id);
     let dlink;
     if (Number(id[1]) === 1) {
-      const location = await this.model('file').where({id: file_id}).getField('location', true);
+      // const location = await this.model('file').where({id: file_id}).getField('location', true);
       // console.log(location);
       const d = await get_file(file_id);
-      if (Number(this.config('ext.qiniu.is')) === 1 && Number(location) === 1) {
+      if (Number(this.config('ext.qiniu.is')) === 1) {
         // 七牛下载
         // dlink = await get_file(file_id,"savename",true);
         const qiniu = this.extService('qiniu', 'qiniu');
         dlink = await qiniu.download(d.savename);
       } else {
         // 本地下载
-        dlink = d.savepath + d.savename + '?attname=';
+        dlink = `http://${this.ctx.host}/download/${d.id}/${d.name}`;
       }
       // console.log(dlink);
       // 访问统计
@@ -266,5 +267,12 @@ module.exports = class extends think.cmswing.center {
         return this.display();
       }
     }
+  }
+  // 下载文件
+  async downloadAction(){
+    const file = await get_file(this.get('id'));
+    this.header('Content-Disposition', `attachment; filename=${file.name}`);
+    const filePath = `${think.ROOT_PATH}/www${file.savename}`;
+    this.body = fs.readFileSync(filePath);
   }
 };

@@ -64,8 +64,9 @@
                 $btn_{{name}} = $('#ctlBtn_{{name}}'),
                 state = 'pending',
                 uploader_{{name}};
-            var file_id = $("input[name="+{{name}}+"]").val();
-            if(file_id!=""){
+            // 使用异步请求的方式
+            var file_id = $("input[name={{name}}]").val();
+            if(file_id!=0){
               $.get('/ext/attachment/adminfile/fileinfo',{id:file_id},function (data) {
                 if(data!=null){
                   $('#file_list_hine').hide();
