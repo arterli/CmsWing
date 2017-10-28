@@ -5,7 +5,6 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const fs = require('fs');
 module.exports = class extends think.cmswing.center {
   // 详情页[核心]
   async indexAction() {
@@ -129,7 +128,7 @@ module.exports = class extends think.cmswing.center {
     // console.log(ptree);
     this.assign('topid', pid);
     this.assign('ptree', ptree);
-    this.assign('ptree2',ptree2)
+    this.assign('ptree2', ptree2);
 
     // 如果是目录并且模板为空,模块为视频时，目录id，显示最后更新的主题
     if (info.type == 1 && (think.isEmpty(info.template) || info.template == 0) && info.model_id == 6) {
@@ -218,17 +217,16 @@ module.exports = class extends think.cmswing.center {
     // console.log(file_id);
     let dlink;
     if (Number(id[1]) === 1) {
-      // const location = await this.model('file').where({id: file_id}).getField('location', true);
       // console.log(location);
       const d = await get_file(file_id);
-      if (Number(this.config('ext.qiniu.is')) === 1) {
+      if (Number(d.type) === 2) {
         // 七牛下载
         // dlink = await get_file(file_id,"savename",true);
-        const qiniu = this.extService('qiniu', 'qiniu');
+        const qiniu = this.extService('qiniu', 'attachment');
         dlink = await qiniu.download(d.savename);
       } else {
         // 本地下载
-        dlink = `http://${this.ctx.host}/download/${d.id}/${d.name}`;
+        dlink = `/home/detail/download?id=${d.id}#${d.name}`;
       }
       // console.log(dlink);
       // 访问统计
@@ -269,10 +267,19 @@ module.exports = class extends think.cmswing.center {
     }
   }
   // 下载文件
-  async downloadAction(){
+  async downloadAction() {
     const file = await get_file(this.get('id'));
-    this.header('Content-Disposition', `attachment; filename=${file.name}`);
     const filePath = `${think.ROOT_PATH}/www${file.savename}`;
-    this.body = fs.readFileSync(filePath);
+    const userAgent = this.userAgent.toLowerCase();
+    let hfilename = '';
+    if (userAgent.indexOf('msie') >= 0 || userAgent.indexOf('chrome') >= 0) {
+      hfilename = `=${encodeURIComponent(file.name)}`;
+    } else if (userAgent.indexOf('firefox') >= 0) {
+      hfilename = `*="utf8''${encodeURIComponent(file.name)}"`;
+    } else {
+      hfilename = `=${Buffer.from(file.name).toString('binary')}`;
+    }
+    this.ctx.set('Content-Disposition', `attachment; filename${hfilename}`);
+    return this.download(filePath);
   }
 };
