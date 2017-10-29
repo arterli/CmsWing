@@ -35,14 +35,14 @@ module.exports = class extends think.Logic {
     // 先验证一个长度试一下
     if (field.validate_type == 'length') {
       // 规则
-      const obj = {}, rules = {};
+      let obj = {}, rules = {};
       obj[field.validate_type] = JSON.parse(field.validate_rule);
       obj.aliasName = field.title;
       rules[field.name] = obj;
       // 消息
-      let msgs = {};
+      const msgs = {};
       msgs[field.validate_type] = `{name}:  ${field.error_info || ''}`;
-      const flag = this.validate(rules,msgs);
+      const flag = this.validate(rules, msgs);
       // console.log("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=", flag, rules);
       if (!flag) {
         return this.validateErrors;
