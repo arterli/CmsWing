@@ -261,6 +261,10 @@ global.topic = function() {
     if (!think.isEmpty(args.position)) {
       where = think.extend(where, {position: args.position});
     }
+    // 条件
+    if (!think.isEmpty(args.where)) {
+      where = think.extend(where,JSON.parse(args.where));
+    }
     // 是否缩略图
     if (!think.isEmpty(args.ispic)) {
       if (args.ispic == 1) {
