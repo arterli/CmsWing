@@ -70,4 +70,12 @@ module.exports = class extends think.cmswing.extAdmin {
   async delAction() {
 
   }
+  // 禁止卸载
+  async uninstallAction() {
+    return this.fail('禁止卸载!');
+  }
+  // 禁止删除
+  async delextAction() {
+    return this.fail('禁止删除!');
+  }
 };

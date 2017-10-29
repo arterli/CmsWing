@@ -230,18 +230,13 @@
         </div>
     </div>
     <div class="mui-content-padded">
-        {%set picurls = info.pictureurls|strToArray%}
+        {%set picurls = info.atlas|strToJson%}
         {%for v in picurls%}
-        <p><img src="{{v|get_pic('m=4,w=1024,h=768')}}" alt="" data-preview-src="" data-preview-group="1"></p>
+        <p><img src="{{v.id|get_pic('m=4,w=1024,h=768')}}" alt="{{v.info}}" data-preview-src="" data-preview-group="1"></p>
+        <p>{{v.info}}</p>
         {%endfor%}
     </div>
-    <div class="mui-content-padded">
-        <article class="article-content">
-            <!--内容钩子加载-->
-            {{content(pagehook)}}
-            <!--/内容钩子加载结束-->
-        </article>
-    </div>
+
     {{HOOK@documentDetailAfter|safe}}
 
 </div>

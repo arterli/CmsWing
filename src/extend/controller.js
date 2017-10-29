@@ -134,8 +134,6 @@ module.exports = {
           return this.assign(`HOOK@${hooks}@${type.$hook_type}`, hookarr.join(''));
         }
         if (think.isObject(type) && !think.isEmpty(type.$hook_key)) {
-          console.log("sfasfa");
-          console.log(hookarr);
           const hookobj = think.isEmpty(await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`)) ? {} : await think.cache(`hooks_${hooks}${this.cookie('thinkjs')}`);
           if (!think.isEmpty(hookarr)) {
             hookobj[type.$hook_key] = hookarr.join('');

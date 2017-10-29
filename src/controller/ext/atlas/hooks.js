@@ -17,8 +17,10 @@ module.exports = class extends think.cmswing.extIndex {
    * 【视图】
    * @param ...val
    */
-  async homeAtlas(...val) {
+  async homeAtlas(name,val) {
     // 钩子业务处理
+    this.assign('name',name);
+    this.assign('val',val);
     const html = await this.hookRender('homeAtlas', 'atlas');
     return html;
   }

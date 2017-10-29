@@ -101,4 +101,24 @@ module.exports = class extends think.Controller {
     //console.log(data);
     return this.body=data;
   }
+  async topicsAction(){
+    let list = await this.model('document_picture').where({id:['!=',311]}).select();
+    for(let v of list){
+      let arr = [];
+      if(v.pictureurls){
+        for (let vv of v.pictureurls.split(',')){
+          let obj ={}
+          obj.id = vv;
+          obj.name = vv;
+          obj.src = vv;
+          obj.info = vv;
+          arr.push(obj);
+        }
+      }
+      console.log(arr);
+      let data = {atlas: JSON.stringify(arr)};
+      await this.model('document_picture').where({id:v.id}).update(data);
+    }
+    return this.body =22;
+  }
 };

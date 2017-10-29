@@ -53,13 +53,11 @@ CLASSES:
 <!-- -->
 <section class="padding-0 " style=" background-color:#fff">
     <div class="container">
-        <!-- OWL SLIDER -->
-
         <ul class="pgwSlideshow">
-            {%set picurls = info.pictureurls|strToArray%}
+            {%set picurls = info.atlas|strToJson%}
             {%set i =0%}
             {%for v in picurls%}
-            <li><img src="{{v|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v|get_pic('m=0,w=847,h=640')}}" alt="" data-description=""></li>
+            <li><img src="{{v.id|get_pic('m=1,w=80,h=80')}}"  data-large-src="{{v.id|get_pic('m=0,w=847,h=640')}}" alt="" data-description="{{v.info}}"></li>
             {%set i=i+1%}
             {%endfor%}
         </ul>

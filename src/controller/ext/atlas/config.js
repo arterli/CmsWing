@@ -9,41 +9,5 @@ module.exports = {
   table: [], // 插件包含的 数据库表，不包含表前缀，如：cmswing_ext_table 就是 table，多个['table','table_2']没有留空数组。
   sql: '', // 插件安装的时候会找个名字的sql文件导入，默认 插件目录名.sql;
   hooks: ['adminAtlas','homeAtlas'], // 挂载的钩子，数组格式，如['hooks1', 'hooks2'],不挂载留空：[]
-  setting: [
-    {
-      '图集设置': [
-        {
-          'name': 'title', // 配置在表单中的键名 ,这个会是this.config('title')
-          'label': '显示标题:', // 表单的文字
-          'type': 'text', // 表单的类型：text、radio、select
-          'value': 'cmswing开发团队', // 表单的默认值
-          'html': '说明支持<code>html</code>'
-        },
-        {
-          'name': 'width',
-          'label': '显示宽度:',
-          'type': 'select',
-          'options': {'1': '1格', '2': '2格', '4': '4格'},
-          'value': '2'
-        },
-        {
-          'name': 'display',
-          'label': '是否显示:',
-          'type': 'radio',
-          'options': {'1': '显示', '0': '不显示'},
-          'value': '1'
-        }
-      ]
-    },
-    {
-      '配置项二': [
-        {
-          'name': 'p2',
-          'label': '1111',
-          'type': 'text',
-          'value': '1111'
-        }
-      ]
-    }
-  ]
+  setting: []
 };

@@ -334,6 +334,8 @@ module.exports = class extends think.cmswing.center {
           await this.hook('homeUpPics', f.name, '', {$hook_key: f.name});
         } else if (f.type === 'file') {
           await this.hook('homeUpFile', f.name, 0, {$hook_key: f.name});
+        } else if (f.type === 'atlas') {
+          await this.hook('homeAtlas', f.name, '', {$hook_key: f.name});
         };
       };
     };
@@ -429,7 +431,7 @@ module.exports = class extends think.cmswing.center {
     this.assign('model_id', data.model_id);
     this.assign('model', model);
     const editor = !think.isEmpty(data.editor) ? data.editor : await this.model('cmswing/model').get_model(data.model_id, 'editor');
-      for (const key in parse_config_attr(model.field_group)) {
+    for (const key in parse_config_attr(model.field_group)) {
       for (const f of fields[key]) {
         if (f.type === 'editor') {
           // 添加编辑器钩子
@@ -444,6 +446,8 @@ module.exports = class extends think.cmswing.center {
           await this.hook('homeUpPics', f.name, data[f.name], {$hook_key: f.name});
         } else if (f.type === 'file') {
           await this.hook('homeUpFile', f.name, data[f.name], {$hook_key: f.name});
+        } else if (f.type === 'atlas') {
+          await this.hook('homeAtlas', f.name, data[f.name], {$hook_key: f.name});
         };
       };
     };

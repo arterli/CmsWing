@@ -568,6 +568,8 @@ module.exports = class extends think.cmswing.admin {
           await this.hook('adminUpPics', f.name, '', {$hook_key: f.name});
         } else if (f.type === 'file') {
           await this.hook('adminUpFile', f.name, 0, {$hook_key: f.name});
+        } else if (f.type === 'atlas') {
+          await this.hook('adminAtlas', f.name, '', {$hook_key: f.name});
         };
       };
     };
@@ -691,6 +693,8 @@ module.exports = class extends think.cmswing.admin {
           await this.hook('adminUpPics', f.name, data[f.name], {$hook_key: f.name});
         } else if (f.type === 'file') {
           await this.hook('adminUpFile', f.name, data[f.name], {$hook_key: f.name});
+        } else if (f.type === 'atlas') {
+          await this.hook('adminAtlas', f.name, data[f.name], {$hook_key: f.name});
         };
       };
     };

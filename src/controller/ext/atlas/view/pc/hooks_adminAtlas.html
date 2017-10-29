@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
-<input type="hidden" name="{{name}}" class="form-control" value="{{val}}" id="{{name}}" />
+<input type="hidden" name="{{name}}" class="form-control" value='{{val|safe}}' id="{{name}}" />
 <div id="uploader" class="wu-example">
     <div class="queueList">
         <div id="dndArea" class="placeholder">
@@ -18,8 +18,11 @@
     </div>
 </div>
 <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
+<script src="/static/admin/js/sortable/jquery.sortable.js"></script>
 <script>
   jQuery(function () {
+
+
     var pics_ids = "{{name}}";
     var $ = jQuery,    // just in case. Make sure it's not an other libaray.
 
@@ -81,7 +84,26 @@
       alert('Web Uploader 不支持您的浏览器！如果你使用的是IE浏览器，请尝试升级 flash 播放器');
       throw new Error('WebUploader does not support the browser you are using.');
     }
-
+    //排序
+    $queue.sortable().bind('sortupdate', function() {
+      //Triggered when the user stopped sorting and the DOM position has changed.
+      var arr = []
+      $.each($(this).find('.panel'),function (i,n) {
+        arr.push($.trim($(n).find('a.text-info').text()));
+      })
+      var ids =$("#"+pics_ids).val();
+      if(ids){
+        var idss = [];
+        $.each(arr,function (key,name) {
+          $.each(JSON.parse(ids),function (k,res) {
+            if(name === res.name){
+              idss.push(res);
+            }
+          })
+        })
+        $("#"+pics_ids).val(JSON.stringify(idss));
+        }
+    });
     // 实例化
     uploader = WebUploader.create({
       pick: {
@@ -104,7 +126,7 @@
 
       chunked: true,
       // server: 'http://webuploader.duapp.com/server/fileupload.php',
-      server: '/ext/attachment/adminfile/uploadpic',
+      server: '/ext/attachment/adminfile/uploadpic?type=atlas',
       fileNumLimit: 300,
       fileSizeLimit: 5 * 1024 * 1024,    // 200 M
       fileSingleSizeLimit: 1 * 1024 * 1024    // 50 M
@@ -117,24 +139,56 @@
     });
     uploader.on('uploadSuccess', function (file, res) {
       var id = $("#"+pics_ids).val();
+      console.log(id);
       var ids;
       if(id){
-        ids = id+','+res
+        ids = JSON.parse(id);
+        var obj = {};
+        obj.id = res.id;
+        obj.name = res.name;
+        obj.info = pobj(res.name);
+        obj.src = res.src;
+        //addpic(obj)
+        ids.push(obj);
       }else{
-        ids = res;
+        ids = [];
+        var obj = {};
+        obj.id = res.id;
+        obj.name = res.name;
+        obj.info = pobj(res.name);
+        obj.src = res.src;
+        //addpic(obj)
+        ids.push(obj);
       }
 
-      console.log(ids);
-      $("#"+pics_ids).val(ids);
+      $("#"+pics_ids).val(JSON.stringify(ids));
     });
+    //更改文字
+
+      $(document).on('change','.textarea_{{name}}',function(){
+        if($("#"+pics_ids).val()){
+          var ids = [];
+          $.each(JSON.parse($("#"+pics_ids).val()),function (k,res) {
+            var obj = {};
+            obj.id = res.id;
+            obj.name = res.name;
+            obj.info = pobj(res.name);
+            obj.src = res.src;
+            ids.push(obj);
+          })
+          $("#"+pics_ids).val(JSON.stringify(ids));
+        }
+      });
+
     //编辑的时候载入图片
     if("{{val}}".length >0){
-      {% for pval in val|strToArray%}
+      {% for val in val|strToJson%}
       var picobj = {}
-      var picurl = "{{pval|get_pic('m=1,w=110,h=110')}}";
+      var picurl = "{{val.id|get_pic('m=1,w=110,h=110')}}";
       picobj.src = picurl;
-      picobj.id = {{pval}};
-      picobj.name = {{pval}};
+      picobj.id = '{{val.id}}';
+      picobj.name = '{{val.name}}';
+      picobj.info = '{{val.info}}';
       addpic(picobj);
       {% endfor %}
     }
@@ -142,18 +196,24 @@
       $placeHolder.addClass('element-invisible');
       $statusBar.show();
       $queue.parent().addClass('filled');
-      var $li = $('<li id="' + file.id + '" class="up">' +
-          '<p class="title">' + file.name + '</p>' +
-          '<p class="imgWrap"></p>' +
+      var $li = $('<div id="' + file.id + '" class="panel clearfix" style="position: relative;margin-bottom: 5px;padding-bottom: 5px">\n' +
+          '                        <div class="panel-body" style="padding: 0">\n' +
+          '                          <a href="#" class=" imgWrap thumb-wrapper pull-left m-r">\n' +
+          '                          </a>\n' +
+          '                          <div class="clear">\n' +
+          '                            <a href="#" class="text-info"><i class="fa fa-picture-o"></i> ' + file.name + '</a>\n' +
           '<p class="progress"><span></span></p>' +
-          '</li>'),
+          '                            <small class="block text-muted"><textarea class="form-control textarea_{{name}}" placeholder="图片文字描述">' + file.info + '</textarea></small>\n' +
+          '                          </div>\n' +
+          '                        </div>\n' +
+          '                      </div>'),
 
           $btns = $('<div class="file-panel">' +
               '<span class="cancel">删除</span>' +
               '<span class="rotateRight">向右旋转</span>' +
               '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
           $prgress = $li.find('p.progress span'),
-          $wrap = $li.find('p.imgWrap'),
+          $wrap = $li.find('a.imgWrap'),
           $info = $('<p class="error"></p>');
       $li.on('mouseenter', function () {
         $btns.stop().animate({ height: 30 });
@@ -180,29 +240,39 @@
             // file.rotation -= 90;
             break;
         }
-
-
-
-
       });
-      var img = $('<img src="' + file.src + '">');
+      var img = $('<img style="height: 87px;width: 87px" src="' + file.src + '">');
       $wrap.empty().append(img);
       $li.appendTo($queue);
+
+
     }
     // 当有文件添加进来时执行，负责view的创建
     function addFile(file) {
-      var $li = $('<li id="' + file.id + '">' +
-          '<p class="title">' + file.name + '</p>' +
-          '<p class="imgWrap"></p>' +
-          '<p class="progress"><span></span></p>' +
-          '</li>'),
 
+//      var $li = $('<li id="' + file.id + '">' +
+//          '<p class="title">' + file.name + '</p>' +
+//          '<p class="imgWrap"></p>' +
+//          '<p class="progress"><span></span></p>' +
+//          '</li>'),
+      //alert(file);
+      var $li = $('<div id="' + file.id + '" class="panel clearfix" style="position: relative;margin-bottom: 5px;padding-bottom: 5px">\n' +
+          '                        <div class="panel-body" style="padding: 0">\n' +
+          '                          <a href="#" class=" imgWrap thumb-wrapper pull-left m-r">\n' +
+          '                          </a>\n' +
+          '                          <div class="clear">\n' +
+          '                            <a href="#" class="text-info"><i class="fa fa-picture-o"></i> ' + file.name + '</a>\n' +
+          '<p class="progress"><span></span></p>' +
+          '                            <small class="block text-muted"><textarea class="form-control textarea_{{name}}" placeholder="图片文字描述"></textarea></small>\n' +
+          '                          </div>\n' +
+          '                        </div>\n' +
+          '                      </div>'),
           $btns = $('<div class="file-panel">' +
               '<span class="cancel">删除</span>' +
               '<span class="rotateRight">向右旋转</span>' +
               '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
           $prgress = $li.find('p.progress span'),
-          $wrap = $li.find('p.imgWrap'),
+          $wrap = $li.find('a.imgWrap'),
           $info = $('<p class="error"></p>'),
 
           showError = function (code) {
@@ -234,7 +304,7 @@
             return;
           }
 
-          var img = $('<img src="' + src + '">');
+          var img = $('<img style="height: 87px;width: 87px" src="' + src + '">');
           $wrap.empty().append(img);
         }, thumbnailWidth, thumbnailHeight);
 
@@ -328,9 +398,17 @@
 
       $li.appendTo($queue);
     }
-
+    function pobj (name) {
+      var $panels = $('.filled').find('.panel');
+      var $pobj = {};
+      $.each($panels,function (k,v) {
+        $pobj[$.trim($(v).find('a.text-info').text())] = $(v).find('textarea').val();
+      })
+      return $pobj[name];
+    }
     // 负责view的销毁
     function removeFile(file) {
+      console.log(file);
       var $li = $('#' + file.id);
 
       delete percentages[file.id];

@@ -1288,8 +1288,12 @@
     </div>
                                     {% elif field.type == "pics" %}
                                     <div class="col-md-10">
-{{HOOKS@adminUpPics[field.name]|safe}}
+                                 {{HOOKS@adminUpPics[field.name]|safe}}
                                 </div>
+                        {% elif field.type == "atlas" %}
+                        <div class="col-md-10">
+                            {{HOOKS@adminAtlas[field.name]|safe}}
+                        </div>
                                     {% elif field.type == "bool" %}
                                     <div class="col-md-4">
                                         <select class="form-control" name="{{field.name}}">

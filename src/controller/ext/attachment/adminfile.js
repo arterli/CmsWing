@@ -149,7 +149,7 @@ module.exports = class extends think.Controller {
       }
     }
     const res = await this.pdb.add(data);
-    const r = {id: res, url: await get_pic(res)};
+    const r = {id: res, url: await get_pic(res), name: (file.name).trim()};
     let rr = {};
     if (!think.isEmpty(att) && !think.isEmpty(att.rule)) {
       const match = att.rule.match(/\${(\S+?)\}/g);
