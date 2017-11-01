@@ -753,12 +753,12 @@ module.exports = class extends think.cmswing.admin {
         }
         break;
     }
-    await super.setstatusAction('document');
+
     if (this.para('status') == -1 || this.para('status') == 0) {
       for (const v of data) {
         // 删除
         await this.model('cmswing/search').delsearch(v.model_id, v.id);
-        if (!think.isEmpty(v.keyname)) {
+        if (!think.isEmpty(v.keyname) || v.keyname != 0) {
           await this.model('cmswing/keyword').delkey(v.id, v.model_id);
         }
       }
@@ -767,11 +767,12 @@ module.exports = class extends think.cmswing.admin {
         // 添加到搜索
         await this.model('cmswing/search').addsearch(v.model_id, v.id, v);
         console.log(v.keyname);
-        if (!think.isEmpty(v.keyname)) {
+        if (!think.isEmpty(v.keyname) || v.keyname != 0) {
           await this.model('cmswing/keyword').addkey(v.keyname, v.id, v.uid, v.model_id, 0);
         }
       }
     }
+    await super.setstatusAction('document');
   }
 
   /**

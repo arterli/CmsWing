@@ -52,7 +52,7 @@ module.exports = class extends think.Model {
       keyword_data = this.model('keyword_data').db(db);
     }
     const tagid = await keyword_data.where({docid: docid, mod_id: mod_id}).getField('tagid', true);
-    if (tagid) {
+    if (!think.isEmpty(tagid)) {
       await keyword_data.where({docid: docid, mod_id: mod_id}).delete();
       await this.where({id: tagid}).decrement('videonum');
     }

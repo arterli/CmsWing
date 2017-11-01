@@ -8,8 +8,8 @@
 /**
  * Role-Based Access Control
 
- DROP TABLE IF EXISTS `think_auth_role`;
- CREATE TABLE `think_auth_role` (
+ DROP TABLE IF EXISTS `cmswing_auth_role`;
+ CREATE TABLE `cmswing_auth_role` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
  `desc` varchar(255) NOT NULL DEFAULT '',
  `status` tinyint(11) NOT NULL DEFAULT '1',
@@ -17,8 +17,8 @@
  PRIMARY KEY (`id`)
  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
- DROP TABLE IF EXISTS `think_auth_rule`;
- CREATE TABLE `think_auth_rule` (
+ DROP TABLE IF EXISTS `cmswing_auth_rule`;
+ CREATE TABLE `cmswing_auth_rule` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '',
  `desc` varchar(255) NOT NULL DEFAULT '' COMMENT '',
@@ -30,8 +30,8 @@
  KEY `status` (`status`)
  ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
- DROP TABLE IF EXISTS `think_auth_user_role`;
- CREATE TABLE `think_auth_user_role` (
+ DROP TABLE IF EXISTS `cmswing_auth_user_role`;
+ CREATE TABLE `cmswing_auth_user_role` (
  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
  `user_id` int(11) NOT NULL,
  `role_id` int(11) NOT NULL,
