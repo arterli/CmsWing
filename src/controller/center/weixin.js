@@ -112,9 +112,9 @@ module.exports = class extends think.cmswing.center {
     this.meta_title = `扫码关注`;
     // 判断浏览客户端
     if (this.isMobile) {
-      return this.display(`center/mobile/${this.ctx.controller}_${this.ctx.action}`);
+      return this.display(this.mtpl());
     } else {
-      return this.display();
+      return this.display(this.mtpl());
     }
   }
 
