@@ -25,7 +25,7 @@ module.exports = class extends think.Service {
     // console.log(fileField);
     // console.log(http);
     if (type === 'remote') {
-      this.saveRemote();
+      //this.saveRemote();
     } else if (type === 'base64') {
       this.upBase64();
     } else {
