@@ -5,7 +5,7 @@
 // +----------------------------------------------------------------------
 // | Author: arterli <arterli@qq.com>
 // +----------------------------------------------------------------------
-const pingpp = require('pingpp');
+// const pingpp = require('pingpp');
 const API = require('co-wechat-api');
 const fs = require('fs');
 const superagent = require('superagent');
@@ -30,13 +30,15 @@ module.exports = class extends think.cmswing.center {
     // let openid = null;
     if (this.isweixin && think.isEmpty(openid)) {
       this.cookie('cmswing_wx_url', this.ctx.url);
+      const pingpp = require('pingpp')(this.config('setup.wx_AppSecret'));
       const oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.config('setup.wx_AppID'), `http://${this.ctx.host}/center/weixin/getopenid?showwxpaytitle=1`);
-      // console.log(oauthUrl)
+      console.log(oauthUrl)
       return this.redirect(oauthUrl);
     }
   }
   // 用微信客户端获取getopenid
   async getopenidAction() {
+    const pingpp = require('pingpp')(this.config('setup.wx_AppSecret'));
     // 获取用户openid
     const code = this.get('code');
     console.log(code);
@@ -112,9 +114,9 @@ module.exports = class extends think.cmswing.center {
     this.meta_title = `扫码关注`;
     // 判断浏览客户端
     if (this.isMobile) {
-      return this.display(`mobile/${this.ctx.controller}/${this.ctx.action}`);
+      return this.display(this.mtpl());
     } else {
-      return this.display();
+      return this.display(this.mtpl());
     }
   }
 
