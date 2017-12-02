@@ -89,7 +89,7 @@ global.mytags = function() {
  *  {% column data="list",pid=1 %}
  * @param pid: 获取同级栏目
  * {% column data="list",cid=1 %}
- * @param cid: 获取里栏目
+ * @param cid: 获取子栏目
  * {% column data="list",tree=1 %}
  * @param tree:获取栏目的树结构 tree="0",从pid为0开始获取
  * @param isapp: 是否在在移动端调用 iaapp="all" 调用全部栏目 isapp="1" pid为0的栏目,isindex="1",除去封面。
