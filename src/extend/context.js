@@ -6,6 +6,9 @@ const path = require('path');
 moment.locale('zh-cn');
 module.exports = {
   get isMobile() {
+    if(Number(this.config('setup.ISM'))===0){
+      return false;
+    }
     const userAgent = this.userAgent.toLowerCase();
     const mList = ['iphone', 'android'];
     return mList.some(item => userAgent.indexOf(item) > -1);
