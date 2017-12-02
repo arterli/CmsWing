@@ -125,7 +125,7 @@ module.exports = class extends think.Controller {
       ] /* 列出的文件类型 */
 
     };
-    const action = this.get('action');
+    const action = this.get('action') || this.get('editorid');
     // think.log(action);
     let result;
     switch (action) {
@@ -142,10 +142,21 @@ module.exports = class extends think.Controller {
       case 'uploadvideo':
         /* 上传文件 */
       case 'uploadfile':
-
         result = await this.uploads();
         // console.log(result);
         break;
+      case 'myEditor':
+        const p = await this.uploads();
+        result = {
+          'originalName': p.original,
+          'name': p.title,
+          'url': p.url,
+          'size': p.size,
+          'type': p.type,
+          'state': p.state
+        };
+        this.header('Content-Type', 'text/html');
+        return this.body = JSON.stringify(result);
 
         /* 列出图片 */
       case 'listimage':
@@ -169,7 +180,7 @@ module.exports = class extends think.Controller {
         break;
     }
     // 返回结果
-    return this.jsonp(result);
+    return this.json(result);
   }
 
   async uploads() {

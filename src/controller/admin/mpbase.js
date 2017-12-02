@@ -785,10 +785,10 @@ module.exports = class extends think.cmswing.admin {
     // 上传图片
     // this.end("暂不开发");
     const thumb_id = this.get('thumb_id');
-    const model = this.model('picture');
+    const model = this.model('ext_attachment_pic');
     // let data = await model.where({id:thumb_id}).find();
     // 获取图片
-    let pic = await get_pic(thumb_id, 1, 900, 500);
+    //let pic = await get_pic(thumb_id, 1, 900, 500);
     // console.log(pic);
     // return false;
     // 判断是本地还是外地,如果是外地就抓回来
@@ -798,12 +798,12 @@ module.exports = class extends think.cmswing.admin {
     // console.log(type);
     if (type != 0) {
       // 判断http||https
-      const _http = this.config('http_') == 1 ? 'http:' : 'https:';
+      //const _http = this.config('http_') == 1 ? 'http:' : 'https:';
 
       think.mkdir(filePath);
       const name = await get_cover(thumb_id, 'path');
-      pic = _http + pic;
-      // console.log(pic);
+      //pic = _http + pic;
+      //console.log(pic);
       const longpic = await this.spiderImage(pic, filePath, name);
       paths = longpic;
     } else {
@@ -815,6 +815,7 @@ module.exports = class extends think.cmswing.admin {
     if (think.isBuffer(img_result)) {
       img_result = JSON.parse(img_result.toString());
     }
+    console.log(img_result);
     if (img_result) {
       // 删除远程文件
       if (type != 0) fs.unlinkSync(paths);

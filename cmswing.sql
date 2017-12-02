@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-12-02 12:26:47
+Date: 2017-12-02 14:36:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -5503,7 +5503,7 @@ CREATE TABLE `cmswing_ext_attachment_pic` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信2:七牛',
   `source_id` varchar(255) CHARACTER SET utf8 DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=949 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=957 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_ext_attachment_pic
@@ -6456,6 +6456,14 @@ INSERT INTO `cmswing_ext_attachment_pic` VALUES ('945', 'upload_2b745b2ff5f47ebd
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('946', 'upload_374e2c628bbaf803455f931f8aa94a3b.jpg', '', '', 'FtnOpZFNWXTJAdc31K1HSVdTbPD-', '1', '1509271597638', '2', '');
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('947', 'upload_8a50a083c3677b58f8d60f2c2cfc2822.png', '', '', 'FlR17hHcdMOpYCnk14EacKNm9Ql-', '1', '1509271597688', '2', '');
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('948', 'upload_de05d3eb3baccf29d7762441b5096b6f.jpg', '', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1509271597679', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('949', 'upload_a169462008aea5a7a18d399d11326972.jpg', '', '', 'FuYjAglMEyCodcRXQwKMHy2g0ISq', '1', '1512192517034', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('950', 'upload_57a18e3567467b9deb6b04321829920a.jpg', '', '', 'FuYjAglMEyCodcRXQwKMHy2g0ISq', '1', '1512192798214', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('951', 'upload_b3745ac1847ae3d0dd996dbfa34882a4.jpg', '', '', 'FuYjAglMEyCodcRXQwKMHy2g0ISq', '1', '1512192946366', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('952', 'upload_dc7929280685e92832211397c35c5255.jpg', '', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512193117996', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('953', 'upload_fa4699ca0f50eaba8904fba0d6f202d6.jpg', '', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512193223745', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('954', 'upload_5d8bd77211fa3a80a2187e2317c0060d.jpg', '', '', 'FuYjAglMEyCodcRXQwKMHy2g0ISq', '1', '1512193875183', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('955', 'upload_1f5e6566f65e80ad62a42b1509812636.jpg', '', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512194087258', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('956', 'upload_355f0ccc20def52a5766bd8b60bf6185.jpg', 'http://mmbiz.qpic.cn/mmbiz_jpg/leHXzTibibDU2BFISWn8J9ywOmAhd5QFibw3VwGslvh1zPzic73YOpknACHJrdsNQlSNUuWzIicFONH15kTHLxd9NOQ/0?wx_fmt=jpeg', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512194769056', '2', 'gbuGasFHrDYdVAtnDo76aQtKlu4V7FT25OUT-dIDOpM');
 
 -- ----------------------------
 -- Table structure for cmswing_ext_changyan
@@ -8611,9 +8619,9 @@ INSERT INTO `cmswing_setup` VALUES ('68', 'PINGXX_APP_ID', '1', 'Ping++ ID(APP_I
 INSERT INTO `cmswing_setup` VALUES ('69', 'PINGXX_LIVE_SECRET_KEY', '1', 'Live Secret Key', '0', '', '', '0', '1458704598345', '1', 'sk_test_10unXHm9WPeD54OaT8Cubz9K', '0');
 INSERT INTO `cmswing_setup` VALUES ('70', 'COD', '4', '货到付款', '5', '0:支持货到付款\r\n1:不支持货到付款', '货到付款只针对实物商品', '0', '1458706395582', '1', '0', '0');
 INSERT INTO `cmswing_setup` VALUES ('71', 'PREPAID', '4', '预付款消费', '5', '0:支持预付款消费\r\n1:不支持预付款消费', '网站是否支持预付款消费，默认支持。', '1458707195813', '1458706636445', '1', '0', '0');
-INSERT INTO `cmswing_setup` VALUES ('72', 'wx_AppID', '1', 'AppID(应用ID)', '6', '', 'AppID(应用ID)</br>\r\nURL(服务器地址):<code>http://你的域名/uc/wechat</code></br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483601879208', '1460919119581', '1', 'wx459494050fd3cc5a', '3');
-INSERT INTO `cmswing_setup` VALUES ('73', 'wx_AppSecret', '1', 'AppSecret(应用密钥)', '6', '', 'AppSecret(应用密钥)</br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483601985777', '1460919187704', '1', '4e24b6dcebd27caa17d1866cfd4aca49', '4');
-INSERT INTO `cmswing_setup` VALUES ('74', 'wx_Token', '1', 'Token(令牌)', '6', '', 'Token(令牌)</br>\r\n<code>⚠️ 修改此项，需要重启服务.</code>', '1483602109838', '1460919336290', '1', 'cmswing', '5');
+INSERT INTO `cmswing_setup` VALUES ('72', 'wx_AppID', '1', 'AppID(应用ID)', '6', '', 'AppID(应用ID)</br>\r\nURL(服务器地址):<code>http(s)://你的域名/home/wechat</code></br>', '1512191788712', '1460919119581', '1', 'wxadce60f0c68b9b58', '3');
+INSERT INTO `cmswing_setup` VALUES ('73', 'wx_AppSecret', '1', 'AppSecret(应用密钥)', '6', '', 'AppSecret(应用密钥)', '1512191800962', '1460919187704', '1', '41318d0bc30d292f278a720758d14833', '4');
+INSERT INTO `cmswing_setup` VALUES ('74', 'wx_Token', '1', 'Token(令牌)', '6', '', 'Token(令牌)', '1512191810973', '1460919336290', '1', 'cmswing', '5');
 INSERT INTO `cmswing_setup` VALUES ('86', 'WEB_TONGJI', '2', '统计代码', '1', '', '统计代码', '1464687748400', '1464687707759', '1', '<script>\r\nvar _hmt = _hmt || [];\r\n(function() {\r\n  var hm = document.createElement(\"script\");\r\n  hm.src = \"//hm.baidu.com/hm.js?db1838bfd0b81ebff469f5ef62a0621a\";\r\n  var s = document.getElementsByTagName(\"script\")[0]; \r\n  s.parentNode.insertBefore(hm, s);\r\n})();\r\n</script>', '10');
 INSERT INTO `cmswing_setup` VALUES ('116', 'SYS_PRIV_ROLE', '3', '系统模型角色权限', '3', '', '格式<code>权限名(英文):说明</code>', '1483457388320', '1483457345106', '1', 'init:查看\r\nadd:添加\r\nedit:编辑\r\ndelete:删除\r\nexamine:审核\r\ndisable:禁用\r\nlistorder:排序\r\npush:推送\r\nmove:移动', '3');
 INSERT INTO `cmswing_setup` VALUES ('117', 'SYS_PRIV_GROUP', '3', '系统模型会员组权限', '3', '', '格式 <code>权限名(英文):说明</code>', '1483461870509', '1483457987068', '1', 'visit:访问\r\nadd:允许投稿\r\naddexa:投稿审核\r\neditexa:编辑审核', '4');

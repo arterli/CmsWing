@@ -1,5 +1,5 @@
  var _HS_UM  = UM.getEditor('myEditor', {
-    imageUrl:'/admin/ueditor/index',
+    imageUrl:'/ext/editor/adminueditor/index',
     lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
     langPath:UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
     focus: true
@@ -11,7 +11,7 @@ var _hs_uploader = WebUploader.create({
     // swf文件路径
     swf: '/static/hswx/js/Uploader.swf',
     // 文件接收服务端。
-    server: '/admin/file/uploadpic',
+    server: '/ext/attachment/adminfile/uploadpic',
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
     pick: '#hsfilePicker',
