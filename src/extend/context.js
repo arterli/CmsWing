@@ -6,7 +6,7 @@ const path = require('path');
 moment.locale('zh-cn');
 module.exports = {
   get isMobile() {
-    if(Number(this.config('setup.ISM'))===0){
+    if (Number(this.config('setup.ISM')) === 0) {
       return false;
     }
     const userAgent = this.userAgent.toLowerCase();
