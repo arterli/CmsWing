@@ -102,6 +102,7 @@ function Init(is_ajax) {
   _widget_media();
   _cart();
 	    // _login();
+  _swal();
   _ajax_post();
 	    _ajax_get();
 	    _pingpp();
@@ -3191,6 +3192,19 @@ function disable_overlay() {
   });
 })(jQuery);
 
+/** 55. sweetalert
+ class="boxed" should be added to body.
+ Add to body - example: data-background="assets/images/boxed_background/1.jpg"
+ **************************************************************** **/
+function _swal() {
+  var data_background = $('.swal') || '';
+
+  if(data_background != '') {
+    loadScript(plugin_path + 'sweetalert/dist/sweetalert.min.js', function() {
+    });
+
+  }
+}
 
 /** Appear
 	https://github.com/bas2k/jquery.appear/

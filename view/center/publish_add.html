@@ -68,7 +68,7 @@
                         {%if loop.index != mm%}
                         <div id="tabl-{{key}}" class="tab-pane  {% if 1 == key %}active{% endif %}">
                             {%if sort and key ==1%}
-                            <input type="hidden" name="sort_id" value="{{http.get('sortid')}}">
+                            <input type="hidden" name="sort_id" value="{{controller.get('sortid')}}">
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label">
                                     分类

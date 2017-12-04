@@ -717,7 +717,7 @@ global.get_cover = async(cover_id, field) => {
   if (think.isEmpty(cover_id)) {
     return false;
   }
-  const picture = await think.model('picture').where({ 'status': 1 }).find(cover_id);
+  const picture = await think.model('ext_attachment_pic').where({ 'status': 1 }).find(cover_id);
   return think.isEmpty(field) ? picture : picture[field];
 };
 /**
