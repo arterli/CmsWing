@@ -13,10 +13,24 @@ module.exports = class extends think.cmswing.admin {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
+    this.api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'), async function() {
+      // 传入一个获取全局token的方法
+      try {
+        const fn = think.promisify(fs.readFile, fs);
+        const txt = await fn(think.ROOT_PATH + '/private/access_token.txt');
+        return JSON.parse(txt);
+      } catch (e) {
+        return null;
+      }
+    }, async function(token) {
+      // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+      // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+      const fns = think.promisify(fs.writeFile, fs);
+      await fns(think.ROOT_PATH + '/private/access_token.txt', JSON.stringify(token));
+    });
   }
   async xxxAction() {
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    const ddd = await api.getMaterials('image');
+    const ddd = await this.api.getMaterials('image');
     console.log(ddd);
     return this.body = 'ddd';
   }
@@ -148,8 +162,7 @@ module.exports = class extends think.cmswing.admin {
      */
   async massAction() {
     this.meta_title = '群发功能';
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    const groups = await api.getGroups();
+    const groups = await this.api.getGroups();
     this.assign('groups', groups.groups);// 用户分组
     this.assign({'navxs': true});
     return this.display();
@@ -180,19 +193,7 @@ module.exports = class extends think.cmswing.admin {
     const menu_model = this.model('wx_menu');
     const data = await menu_model.select();
     const menu = buildselfmenu(data);
-
-    const info = function(api) {
-      const deferred = think.defer();
-      api.createMenu(menu, (err, result) => {
-        if (!think.isEmpty(result)) {
-          deferred.resolve(result);
-        } else {
-          Console.error('err' + err);
-        }
-      });
-      return deferred.promise;
-    };
-    const res = await info(api);
+    const res = await this.api.createMenu(menu);
     if (res.errmsg == 'ok') {
       return this.json('ok');
     } else {
@@ -281,10 +282,9 @@ module.exports = class extends think.cmswing.admin {
     const FromUserName = 'openid';// 发送方帐号（一个OpenID）
     const Event = 'subscribe';// subscribe(订阅)、unsubscribe(取消订阅)
     const user_model = this.model('wx_user');
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     if (Event == 'subscribe' && !thik.isEmpty(FromUserName)) {
       // 通过openid获取用户基本信息
-      const resusers = await api.getUser(FromUserName);
+      const resusers = await this.api.getUser(FromUserName);
       // 添加到本地库中
       await user_model.add(resusers);
     } else {
@@ -301,12 +301,11 @@ module.exports = class extends think.cmswing.admin {
     const materid = this.post('id');
     const materialinfo = await material_model.where({id: materid}).find();
     // let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     const self = this;
     // let res =  await
     //    info(api);
     //
-    const res = await api.getMaterial(materialinfo.media_id);
+    const res = await this.api.getMaterial(materialinfo.media_id);
     console.log(res);
   }
 
@@ -316,11 +315,10 @@ module.exports = class extends think.cmswing.admin {
   async getusersAction() {
     this.meta_title = '获取粉丝信息';
     const user_model = this.model('wx_user');
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     const self = this;
     // 获取关注者列表
 
-    const res = await api.getFollowers();
+    const res = await this.api.getFollowers();
     console.log(res);
     const useropenid = res['data']['openid'];
     const count = res['count'];
@@ -334,7 +332,7 @@ module.exports = class extends think.cmswing.admin {
     for (let i = 0; i < count; i++) {
       tmp_openids.push(useropenid[i]);
       if ((i + 1) % 100 == 0 || i == (count - 1)) {
-        const resusers = await api.batchGetUsers(tmp_openids);
+        const resusers = await this.api.batchGetUsers(tmp_openids);
         const resinfo = resusers['user_info_list'];
         console.log('开始：');
         for (const key in resinfo) {
@@ -375,9 +373,6 @@ module.exports = class extends think.cmswing.admin {
      * 通过分组groupid进行群发，认证后的订阅号和服务号都可以使用
      */
   async masssendAction() {
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    // let api = new API('wxe8c1b5ac7db990b6', 'ebcd685e93715b3470444cf6b7e763e6');
-    // let api = new API('wxec8fffd0880eefbe', 'a084f19ebb6cc5dddd2988106e739a07');
     const model = this.model('wx_user');
     const media_model = this.model('wx_material');
     const masssend_model = this.model('wx_masssend');
@@ -423,38 +418,38 @@ module.exports = class extends think.cmswing.admin {
       // 分组群发
       switch (send_type) {
         case 'newsArea':// 图文
-          res = await api.massSendNews(media_id, group_id);
+          res = await this.api.massSendNews(media_id, group_id);
           break;
         case 'textArea':// 文本
-          res = await api.massSendText(content, group_id);
+          res = await this.api.massSendText(content, group_id);
           break;
         case 'imageArea':// 图片
-          res = await api.massSendImage(media_id, group_id);
+          res = await this.api.massSendImage(media_id, group_id);
           break;
         case 'audioArea':// 语音
-          res = await api.massSendVoice(media_id, group_id);
+          res = await this.api.massSendVoice(media_id, group_id);
           break;
         case 'videoArea':// 视频
-          res = await api.massSendVideo(media_id, group_id);
+          res = await this.api.massSendVideo(media_id, group_id);
           break;
       }
     } else {
       // 根据条件通过openid进行群发
       switch (send_type) {
         case 'newsArea':// 图文
-          res = await api.massSendNews(media_id, openids);
+          res = await this.api.massSendNews(media_id, openids);
           break;
         case 'textArea':// 文本
-          res = await api.massSendText(content, openids);
+          res = await this.api.massSendText(content, openids);
           break;
         case 'imageArea':// 图片
-          res = await api.massSendImage(media_id, openids);
+          res = await this.api.massSendImage(media_id, openids);
           break;
         case 'audioArea':// 语音
-          res = await api.massSendVoice(media_id, openids);
+          res = await this.api.massSendVoice(media_id, openids);
           break;
         case 'videoArea':// 视频
-          res = await api.massSendVideo(media_id, openids);
+          res = await this.api.massSendVideo(media_id, openids);
           break;
       }
     }
@@ -590,23 +585,7 @@ module.exports = class extends think.cmswing.admin {
     const menu_model = this.model('wx_menu');
     const data = await menu_model.order('pid ASC, sort ASC').select();
     const menu = buildselfmenu(data);
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    // let api = new API('wx3e72261823fb62dd', '593bf2b86a00c913d8e38e9cf1d4e1ec');
-
-    console.log(menu);
-    const info = function(api) {
-      const deferred = think.defer();
-      api.createMenu(menu, (err, result) => {
-        if (!think.isEmpty(result)) {
-          deferred.resolve(result);
-        } else {
-          Console.error('err' + err);
-        }
-      });
-      return deferred.promise;
-    };
-    const res = await info(api);
-    console.log(res);
+    const res = await this.api.createMenu(menu);
     if (res.errmsg == 'ok') {
       return this.json('1');
     } else {
@@ -718,7 +697,6 @@ module.exports = class extends think.cmswing.admin {
      * 删除素材
      */
   async deletefodderAction() {
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     const self = this;
     const id = self.get('id');
     // let ids = self.get('ids')
@@ -727,7 +705,7 @@ module.exports = class extends think.cmswing.admin {
     const olddata = await model.where({id: ['IN', id]}).getField('media_id', false);
     // return self.end(olddata);
     if (!think.isEmpty(olddata)) {
-      let wxres = await api.removeMaterial(olddata[0]);
+      let wxres = await this.api.removeMaterial(olddata[0]);
       // console.log(wxres);
       if (think.isBuffer(wxres)) {
         wxres = JSON.parse(wxres.toString());
@@ -809,9 +787,8 @@ module.exports = class extends think.cmswing.admin {
     } else {
       paths = think.ROOT_PATH + '/www/' + pic;
     }
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    console.log(paths);
-    let img_result = await api.uploadMaterial(paths, 'thumb');
+
+    let img_result = await this.api.uploadMaterial(paths, 'thumb');
     if (think.isBuffer(img_result)) {
       img_result = JSON.parse(img_result.toString());
     }
@@ -835,21 +812,19 @@ module.exports = class extends think.cmswing.admin {
     const params = self.post('params');
     const edit_id = self.get('edit_id');
     const model = self.model('wx_material');
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
     if (edit_id) {
       const olddata = await model.where({id: edit_id}).find();
-      await api.removeMaterial(olddata.media_id);
+      await this.api.removeMaterial(olddata.media_id);
       await model.where({id: edit_id}).delete();
     }
     try {
       var anews = JSON.parse(params);
-      let wxres = await api.uploadNewsMaterial(anews);
+      let wxres = await this.api.uploadNewsMaterial(anews);
       if (think.isBuffer(wxres)) {
         wxres = JSON.parse(wxres.toString());
       }
-      console.log(wxres);
       if (wxres) {
-        const wx_news = await api.getMaterial(wxres.media_id);
+        const wx_news = await this.api.getMaterial(wxres.media_id);
         // let wx_news_str = JSON.stringify(wx_news);
         const time = new Date().getTime();
         const data = {
@@ -1279,7 +1254,6 @@ module.exports = class extends think.cmswing.admin {
     const newv = self.post('newv');
     const menuid = self.post('menuid');// 菜单ID
     const currwebtoken = 0;
-    console.log(newv);
     // return false;
     try {
       // return self.end(newv);
@@ -1334,9 +1308,6 @@ module.exports = class extends think.cmswing.admin {
     //     });
     //     return deferred.promise;
     // }
-
-    console.log(data);
-
     const dataObj = JSON.parse(data.custom_menu);
     const final = {button: []};
     // for(let i = 0; i < dataObj.button.length; i++){
@@ -1398,14 +1369,11 @@ module.exports = class extends think.cmswing.admin {
         }
       }
       final.button.push(tmpbtn);
-      console.log(tmpbtn);
     }
     // think.log(final)
     // return false;
-    const api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
-    const res = await api.createMenu(final);
+    const res = await this.api.createMenu(final);
     // let res = true;
-    console.log(res);
     if (res) {
       return self.success({name: '微信菜单生成成功'});
     } else {
