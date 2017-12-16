@@ -2,10 +2,12 @@
 const fs = require('fs');
 module.exports = class extends think.Controller {
   async fetchAction() {
-    //  const res = await this.fetch('https://assets-cdn.github.com/images/modules/logos_page/Octocat.png');
+    const res = await this.fetch('https://assets-cdn.github.com/images/modules/logos_page/Octocat.png');
+   // console.log(res);
     // const dest = fs.createWriteStream('./octocat.png');
     // res.body.pipe(dest);
-    return this.body = 'ccc';
+    this.header('Content-Type', 'image/png');
+    return this.body = res.body;
   }
   async donatesAction() {
     return this.body = 'donates';
@@ -80,8 +82,8 @@ module.exports = class extends think.Controller {
   }
 
   async extAction() {
-      console.log(parse_config_attr(think.config('ext.attachment.loactionurl'),'@')[1]);
-      return this.body = this.config('ext.qq.appkey');
+    console.log(parse_config_attr(think.config('ext.attachment.loactionurl'), '@')[1]);
+    return this.body = this.config('ext.qq.appkey');
   }
   async hooksAction() {
     // 带 $hook_type 参数的 视图钩子调用， 参数1，参数2，...{'$hook_type':1},如果由多个参数，{'$hook_type':1} 放最后一个。
@@ -95,19 +97,19 @@ module.exports = class extends think.Controller {
     await this.hook('adminArticleEdit', {'$hook_key2': 'bbbb', '$hook_type2': 2});
     return this.display();
   }
-  async cacheAction(){
-    const data = await this.model('cmswing/ext').extcache('editor','setting');
+  async cacheAction() {
+    const data = await this.model('cmswing/ext').extcache('editor', 'setting');
 
-    //console.log(data);
-    return this.body=data;
+    // console.log(data);
+    return this.body = data;
   }
-  async topicsAction(){
-    let list = await this.model('document_picture').where({id:['!=',311]}).select();
-    for(let v of list){
-      let arr = [];
-      if(v.pictureurls){
-        for (let vv of v.pictureurls.split(',')){
-          let obj ={}
+  async topicsAction() {
+    const list = await this.model('document_picture').where({id: ['!=', 311]}).select();
+    for (const v of list) {
+      const arr = [];
+      if (v.pictureurls) {
+        for (const vv of v.pictureurls.split(',')) {
+          const obj = {};
           obj.id = vv;
           obj.name = vv;
           obj.src = vv;
@@ -116,9 +118,9 @@ module.exports = class extends think.Controller {
         }
       }
       console.log(arr);
-      let data = {atlas: JSON.stringify(arr)};
-      await this.model('document_picture').where({id:v.id}).update(data);
+      const data = {atlas: JSON.stringify(arr)};
+      await this.model('document_picture').where({id: v.id}).update(data);
     }
-    return this.body =22;
+    return this.body = 22;
   }
 };

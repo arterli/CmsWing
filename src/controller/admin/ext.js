@@ -31,13 +31,13 @@ module.exports = class extends think.cmswing.admin {
   /**
      * 已安装插件后台管理
      */
-  async adminAction(){
-      const extadminleftlist = await this.db.where({status:1,isadm:1}).order('sort DESC, installtime DESC').select();
-      this.assign('extadminleftlist', extadminleftlist);
-      this.tactive = 'article';
+  async adminAction() {
+    const extadminleftlist = await this.db.where({status: 1, isadm: 1}).order('sort DESC, installtime DESC').select();
+    this.assign('extadminleftlist', extadminleftlist);
+    this.tactive = 'article';
     this.assign({'navxs': true});
     this.meta_title = '已安装插件后台';
-    return this.display()
+    return this.display();
   }
   /**
    *  未安装的插件
@@ -156,14 +156,15 @@ module.exports = class extends think.cmswing.admin {
 
       // 创建钩子控制器
       const hookaction = [];
-      if (!think.isArray(data.hooks)) {
-        data.hooks = data.hooks.split(',');
-      }
-      for (const v of data.hooks) {
-        const type = await this.model('hooks').where({name: v}).getField('type', true);
-        console.log(type);
-        if (Number(type) === 1) {
-          hookaction.push(`/**
+      if (!think.isEmpty(data.hooks)) {
+        if (!think.isArray(data.hooks)) {
+          data.hooks = data.hooks.split(',');
+        }
+        for (const v of data.hooks) {
+          const type = await this.model('hooks').where({name: v}).getField('type', true);
+          console.log(type);
+          if (Number(type) === 1) {
+            hookaction.push(`/**
    * 实现的AdminIndex钩子方法
    * 【视图】
    * @param ...val
@@ -173,25 +174,25 @@ module.exports = class extends think.cmswing.admin {
     const html = await this.hookRender('${v}', '${data.ext}');
     return html;
   }`);
-          const mvp = `${extpath}/view`;
-          think.mkdir(`${mvp}/pc`);
-          fs.writeFileSync(`${mvp}/pc/hooks_${v}.html`, `${data.ext}`);
-          think.mkdir(`${mvp}/mobile`);
-          fs.writeFileSync(`${mvp}/mobile/hooks_${v}.html`, `${data.ext}`);
-        } else {
-          hookaction.push(` // 实现的${v}钩子方法
+            const mvp = `${extpath}/view`;
+            think.mkdir(`${mvp}/pc`);
+            fs.writeFileSync(`${mvp}/pc/hooks_${v}.html`, `${data.ext}`);
+            think.mkdir(`${mvp}/mobile`);
+            fs.writeFileSync(`${mvp}/mobile/hooks_${v}.html`, `${data.ext}`);
+          } else {
+            hookaction.push(` // 实现的${v}钩子方法
   ${v}() {
     // 钩子业务处理
   }`);
+          }
         }
-      }
-      const hookhtml = hookaction.join(';\n  ');
-      const hooksstr = `// hooks
+        const hookhtml = hookaction.join(';\n  ');
+        const hooksstr = `// hooks
 module.exports = class extends think.cmswing.extIndex {
   ${hookhtml}
 }`;
-      fs.writeFileSync(`${extpath}/hooks.js`, hooksstr);
-
+        fs.writeFileSync(`${extpath}/hooks.js`, hooksstr);
+      }
       // 创建插件view 目录
       this.copy(`${extdir}/demo/view`, `${extpath}/view`, this.copy);
       // 创建插件model 目录

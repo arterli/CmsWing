@@ -33,7 +33,11 @@ module.exports = class extends think.cmswing.admin {
     // console.log(cate_id);
     if (!think.isEmpty(cate_id)) {
       // 权限验证
-      await this.admin_priv('init', cate_id, '您没有权限查看本栏目！');
+      const priv = await this.admin_priv('init', cate_id, '您没有权限查看本栏目！');
+      if (!priv) {
+        const error = this.controller('cmswing/error');
+        return error.noAction('您没有权限查看本栏目！');
+      }
       // 获取分类信息
       let sort = await this.model('cmswing/category').get_category(cate_id, 'documentsorts');
       if (sort) {
@@ -462,8 +466,11 @@ module.exports = class extends think.cmswing.admin {
     // think.isEmpty(cate_id) && this.fail("参数不能为空");
     // think.isEmpty(model_id) && this.fail("该分类未绑定模型");
     // 权限验证
-    await this.admin_priv('add', cate_id);
-
+    const priv = await this.admin_priv('add', cate_id);
+    if (!priv) {
+      const error = this.controller('cmswing/error');
+      return error.noAction('您无权添加内容！');
+    }
     // 获取分组定义
     let groups = await this.model('cmswing/category').get_category(cate_id, 'groups');
     if (groups) {
@@ -588,7 +595,11 @@ module.exports = class extends think.cmswing.admin {
     const document = this.model('cmswing/document');
     const data = await document.details(id);
     // 权限验证
-    await this.admin_priv('edit', data.category_id);
+    const priv = await this.admin_priv('edit', data.category_id);
+    if (!priv) {
+      const error = this.controller('cmswing/error');
+      return error.noAction('您无权编辑内容！');
+    }
     // let model =  this.model("model").getmodel(2);
     if (data.pid != 0) {
       // 获取上级文档
@@ -737,19 +748,31 @@ module.exports = class extends think.cmswing.admin {
       case -1:
         for (const v of data) {
           // 权限验证
-          await this.admin_priv('delete', v.category_id);
+          const priv = await this.admin_priv('delete', v.category_id);
+          if (!priv) {
+            const error = this.controller('cmswing/error');
+            return error.noAction('您无权进行该操作！');
+          }
         }
         break;
       case 1:
         for (const v of data) {
           // 权限验证
-          await this.admin_priv('examine', v.category_id);
+          const priv = await this.admin_priv('examine', v.category_id);
+          if (!priv) {
+            const error = this.controller('cmswing/error');
+            return error.noAction('您无权进行该操作！');
+          }
         }
         break;
       case 0:
         for (const v of data) {
           // 权限验证
-          await this.admin_priv('disable', v.category_id);
+          const priv = await this.admin_priv('disable', v.category_id);
+          if (!priv) {
+            const error = this.controller('cmswing/error');
+            return error.noAction('您无权进行该操作！');
+          }
         }
         break;
     }
