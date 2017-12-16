@@ -376,6 +376,7 @@ module.exports = class extends think.Controller {
       //   return error.noAction(errors);
       // }
     }
+    return true;
   }
   // 获取分类信息
   /**
