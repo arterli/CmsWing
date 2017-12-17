@@ -369,11 +369,14 @@ module.exports = class extends think.Controller {
     if (!this.is_admin) {
       // 访问控制
       const priv = await this.model('cmswing/category_priv').priv(cid, this.roleid, ac, 1);
-      if (!priv) {
-        const error = this.controller('cmswing/error');
-        return error.noAction(errors);
-      }
+      return priv;
+      // if (!priv) {
+      //   console.log('fdsfs');
+      //   const error = this.controller('cmswing/error');
+      //   return error.noAction(errors);
+      // }
     }
+    return true;
   }
   // 获取分类信息
   /**

@@ -13,8 +13,24 @@ module.exports = class extends think.cmswing.center {
   constructor(ctx) {
     super(ctx); // 调用父级的 constructor 方法，并把 ctx 传递进去
     // 其他额外的操作
-    this.api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
+    // this.api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'));
+    this.api = new API(this.config('setup.wx_AppID'), this.config('setup.wx_AppSecret'), async function() {
+      // 传入一个获取全局token的方法
+      try {
+        const fn = think.promisify(fs.readFile, fs);
+        const txt = await fn(think.ROOT_PATH + '/private/access_token.txt');
+        return JSON.parse(txt);
+      } catch (e) {
+        return null;
+      }
+    }, async function(token) {
+      // 请将token存储到全局，跨进程、跨机器级别的全局，比如写到数据库、redis等
+      // 这样才能在cluster模式及多机情况下使用，以下为写入到文件的示例
+      const fns = think.promisify(fs.writeFile, fs);
+      await fns(think.ROOT_PATH + '/private/access_token.txt', JSON.stringify(token));
+    });
   }
+
   /**
      * index action
      * @return {Promise} []
@@ -32,7 +48,7 @@ module.exports = class extends think.cmswing.center {
       this.cookie('cmswing_wx_url', this.ctx.url);
       const pingpp = require('pingpp')(this.config('setup.wx_AppSecret'));
       const oauthUrl = pingpp.wxPubOauth.createOauthUrlForCode(this.config('setup.wx_AppID'), `http://${this.ctx.host}/center/weixin/getopenid?showwxpaytitle=1`);
-      console.log(oauthUrl)
+      console.log(oauthUrl);
       return this.redirect(oauthUrl);
     }
   }

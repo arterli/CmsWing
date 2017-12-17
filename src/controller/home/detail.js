@@ -44,8 +44,7 @@ module.exports = class extends think.cmswing.center {
         img = image_view(str, 640, 4);
       } else {
         // pc端
-
-        img = image_view(str, 847, 0);
+        img = image_view(str, 818, 0);
       }
       info.content = img;
     }
