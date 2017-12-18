@@ -6,33 +6,38 @@ module.exports = class extends think.Service {
   constructor(...para) {
     super(para);
     // 白名单
-    this.suffixs = ['png', 'jpg'];
+    this.suffixs = ['.png', '.jpg'];
     // 边距
     this.edge = {
-      right: 10,
-      bottom: 10,
-      minLeft: 100,
-      minTop: 100
+      right: think.config('ext.mark.right'),
+      bottom: think.config('ext.mark.bottom'),
+      minLeft: think.config('ext.mark.left'),
+      minTop: think.config('ext.mark.top')
     };
     // 水印路径
+    this.markpic = think.config('ext.mark.mark');
+    // 状态
+    this.state = think.config('ext.mark.state');
     this.markpath = '/Users/zzu/Desktop/demo/mark.png';
   }
 
   // 添加水印
-  mark(imgPath, option) {
+  async mark(imgPath, option) {
     try {
       return this.draw(imgPath);
     } catch (e) {
+      console.error(e);
       return false;
     }
   }
 
   // 绘制
-  draw(imgPath) {
+  async draw(imgPath) {
     // 存在且是图片
-    if (think.isFile(imgPath) && in_array(path.extname(imgPath), this.suffixs)) {
+    if (think.isFile(imgPath) && in_array(path.extname(imgPath), this.suffixs) && this.state == 1) {
       // 加载资源
       const sourceImg = images(imgPath);
+      this.markpath = await this.GetPath(this.markpic);
       const markImg = images(this.markpath);
       // 计算水印位置
       const markX = sourceImg.width() - markImg.width() - this.edge.right;
@@ -47,7 +52,14 @@ module.exports = class extends think.Service {
         .draw(markImg, markX, markY)
         // 保存格式会自动识别
         .save(imgPath);
+      return false;
     }
-    return true;
+    return false;
+  }
+
+  // 获得水印路径
+  async GetPath(pic){
+    const path =  await get_pic(pic);
+    return `${think.resource}/${path}`;
   }
 };
