@@ -10,6 +10,7 @@
   "dependencies": {
     "co-wechat-api": "^3.3.2",
     "gt3-sdk": "^2.0.0",
+    "images": "^3.0.1",
     "jimp": "^0.2.28",
     "lodash": "4.x.x",
     "moment": "^2.19.4",
