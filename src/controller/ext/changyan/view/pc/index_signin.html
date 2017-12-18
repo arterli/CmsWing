@@ -76,7 +76,7 @@
         }else {
             $.ajax({
                 type:"post",
-                url:"/center/changyan/signin",
+                url:"/ext/changyan/index/signin",
                 data:{username:username,password:password},
                 success:function (data) {
                     if(data.errno==1000){

@@ -232,7 +232,7 @@ module.exports = class extends think.cmswing.extIndex {
         return this.fail(fail);
       }
     } else {
-      return this.display();
+      return this.extDisplay();
     }
   }
   // //签名验证
