@@ -14,20 +14,22 @@ module.exports = class extends think.cmswing.extAdmin {
    */
   async indexAction() {
     // todo 附件管理
-
-    // let data = await this.model("ext_表名").page(this.get('page')).countSelect();
-    // let Pages = think.adapter("pages", "page"); //加载名为 dot 的 Template Adapter
-    // let pages = new Pages(this.http); //实例化 Adapter
-    // let page = pages.pages(data);
-    // this.assign('pagerData', page); //分页展示使用
-    // this.assign('list', data.data);
-
-    // 获取当前插件的分类,插件如有分类的需求，直接调用。
-
-    // await this.gettype()
-    // const list = await this.extModel('demo').select();
-    // console.log(list);
+    const model = this.extModel('attachment_pic');
+    const data = await model.page(this.get('page'), 20).order('id DESC').countSelect(); // 获取分页数据
+    const html = this.pagination(data); // 调取分页
+    this.assign('pagerData', html); // 分页展示使用
+    for (const item of data.data) {
+      item.time = think.datetime(item.create_time);
+      item.path = await get_pic(item.id);
+    }
+    this.assign('list', data.data);
     // 入口模版渲染
+    return this.extDisplay();
+  }
+  async fileAction() {
+    return this.extDisplay();
+  }
+  async uploadAction() {
     return this.extDisplay();
   }
   /**

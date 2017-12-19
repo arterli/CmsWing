@@ -1,5 +1,5 @@
-const images = require('images');
 const path = require('path');
+const Jimp = require("jimp");
 
 module.exports = class extends think.Service {
   // 初始化构造函数
@@ -36,30 +36,40 @@ module.exports = class extends think.Service {
     // 存在且是图片
     if (think.isFile(imgPath) && in_array(path.extname(imgPath), this.suffixs) && this.state == 1) {
       // 加载资源
-      const sourceImg = images(imgPath);
+      const sourceImg = await this.LoadImage(imgPath);
       this.markpath = await this.GetPath(this.markpic);
-      const markImg = images(this.markpath);
+      const markImg = await this.LoadImage(this.markpath);
       // 计算水印位置
-      const markX = sourceImg.width() - markImg.width() - this.edge.right;
-      const markY = sourceImg.height() - markImg.height() - this.edge.bottom;
+      const markX = sourceImg.bitmap.width - markImg.bitmap.width - this.edge.right;
+      const markY = sourceImg.bitmap.height - markImg.bitmap.height - this.edge.bottom;
       // 判断最小范围
       if (markX < this.edge.minLeft || markY < this.edge.minTop) {
         return false;
       }
       // 绘制水印
-      images(sourceImg)
+      sourceImg
       // 设置绘制的坐标位置，右下角距离 10px
-        .draw(markImg, markX, markY)
+        .mask(markImg, markX, markY)
         // 保存格式会自动识别
-        .save(imgPath);
+        .write(imgPath);
       return false;
     }
     return false;
   }
 
+  // 加载图片
+  async LoadImage(path) {
+    const deferred = think.defer();
+    Jimp.read(path, function (err, lenna) {
+      if (err) throw err;
+      deferred.resolve(lenna);
+    });
+    return deferred.promise;
+  }
+
   // 获得水印路径
-  async GetPath(pic){
-    const path =  await get_pic(pic);
+  async GetPath(pic) {
+    const path = await get_pic(pic);
     return `${think.resource}/${path}`;
   }
 };
