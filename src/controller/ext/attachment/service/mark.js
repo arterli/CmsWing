@@ -1,5 +1,5 @@
-var images = require('images');
-var path = require('path');
+const images = require('images');
+const path = require('path');
 
 module.exports = class extends think.Service {
   // 初始化构造函数
@@ -9,15 +9,15 @@ module.exports = class extends think.Service {
     this.suffixs = ['.png', '.jpg'];
     // 边距
     this.edge = {
-      right: think.config('ext.mark.right'),
-      bottom: think.config('ext.mark.bottom'),
-      minLeft: think.config('ext.mark.left'),
-      minTop: think.config('ext.mark.top')
+      right: think.config('ext.attachment.right'),
+      bottom: think.config('ext.attachment.bottom'),
+      minLeft: think.config('ext.attachment.left'),
+      minTop: think.config('ext.attachment.top')
     };
     // 水印路径
-    this.markpic = think.config('ext.mark.mark');
+    this.markpic = think.config('ext.attachment.mark');
     // 状态
-    this.state = think.config('ext.mark.state');
+    this.state = think.config('ext.attachment.state');
     this.markpath = '/Users/zzu/Desktop/demo/mark.png';
   }
 

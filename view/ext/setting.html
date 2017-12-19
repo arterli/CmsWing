@@ -189,6 +189,20 @@
 {% block style %}
 {{ super() }}
 <link rel="stylesheet" href="/static/admin/js/webuploader/webuploader.css" type="text/css">
+    <style type="text/css">
+        .tab-content > .tab-pane{
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+            clip: rect(1px,1px,1px,1px);
+            display: block;
+        }
+        .tab-content > .active {
+            position:static !important;
+            clip: inherit; /* IE6, IE7 */
+            clip:inherit;
+            display: block;
+        }
+    </style>
 {% endblock%}
 {% block script%}
 {{ super() }}

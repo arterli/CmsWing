@@ -59,6 +59,53 @@ module.exports = {
                     </div>`
         }
       ]
+    },
+    {
+      '水印设置': [
+        {
+          'name': 'mark',
+          'label': '图片:',
+          'type': 'pic',
+          'value': '960',
+          'html': '水印图片'
+        },
+        {
+          'name': 'right',
+          'label': '右边距:',
+          'type': 'text',
+          'value': '10',
+          'html': '只需要填写数字,列如:<code>10</code>'
+        },
+        {
+          'name': 'bottom',
+          'label': '下边距:',
+          'type': 'text',
+          'value': '10',
+          'html': '只需要填写数字,列如:<code>10</code>'
+        },
+        {
+          'name': 'left',
+          'label': '最小左边距:',
+          'type': 'text',
+          'value': '100',
+          'html': '只需要填写数字,列如:<code>100</code>'
+        },
+        {
+          'name': 'top',
+          'label': '最小上边距:',
+          'type': 'text',
+          'value': '100',
+          'html': '只需要填写数字,列如:<code>100</code>'
+        },
+        {
+          'name': 'state', // 配置在表单中的键名 ,这个会是this.config('title')
+          'label': '是否启用:', // 表单的文字
+          'type': 'radio',
+          'options': {'1': '启用', '0': '禁用'},
+          'value': '0',
+          'html': '选择启用后,符合条件的图片将会添加水印'
+        }
+      ]
     }
   ]
 };

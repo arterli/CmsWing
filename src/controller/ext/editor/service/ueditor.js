@@ -67,7 +67,7 @@ module.exports = class extends think.Service {
     fs.renameSync(file.path, this.filePath);
     // 添加水印
     if (this.config.mark == true) {
-      const mark = think.extService('mark', 'mark');
+      const mark = think.extService('mark', 'attachment');
       mark.mark(this.filePath);
     }
     if (think.isFile(this.filePath)) {
@@ -110,7 +110,7 @@ module.exports = class extends think.Service {
     fs.writeFileSync(this.filePath, img);
     // 添加水印
     if (this.config.mark == true) {
-      const mark = think.extService('mark', 'mark');
+      const mark = think.extService('mark', 'attachment');
       mark.mark(this.filePath);
     }
     if (think.isFile(this.filePath)) {

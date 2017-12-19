@@ -138,7 +138,7 @@ module.exports = class extends think.cmswing.center {
         };
         // 添加水印
         if (att.mark == 1) {
-          const mark = this.extService('mark', 'mark');
+          const mark = this.extService('mark', 'attachment');
           mark.mark(file.path);
         }
       } else {
