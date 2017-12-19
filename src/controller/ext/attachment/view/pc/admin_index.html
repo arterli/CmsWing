@@ -3,23 +3,16 @@
 <section class="panel panel-default">
     <header class="panel-heading text-right bg-light  clearfix">
         <ul class="nav nav-tabs pull-left">
-            <li class="{{'active' if ctx.action == 'index'}}"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
-            <li class="{{'active' if ctx.action == 'api'}}"><a  href="/{{ctx.controller}}/api">接口管理</a></li>
-
+            <li class="{{'active' if ctx.action == 'index'}}"><a href="/{{ctx.controller}}/index">图片管理</a></li>
+            <li class="{{'active' if ctx.action == 'file'}}"><a href="/{{ctx.controller}}/file">文件管理</a></li>
+            <li class="{{'active' if ctx.action == 'api'}}"><a href="/{{ctx.controller}}/api">接口管理</a></li>
         </ul>
     </header>
     <div class="row wrapper">
         <!--按钮操作区 不需要可以删除-->
         <div class="col-sm-12 m-b-xs">
-            <div class="btn-group" >
-                <a href="/{{ctx.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
-                    全部
-                </a>
-                {%for t in type%}
-                <a href="/{{ctx.controller}}/index/?typeid={{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
-                    {{t.name}}
-                </a>
-                {%endfor%}
+            <div class="btn-group">
+                <a href="/{{ctx.controller}}/upload" class="btn btn-sm btn-default action" data-toggle="ajaxModal">图片上传</a>
             </div>
         </div>
         <!--//按钮操作区 不需要可以删除-->
@@ -30,39 +23,43 @@
             <thead>
             <tr>
                 <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                <th style="width:80px;">排序</th>
-                <th style="">网站名称</th>
-                <th class="">网站logo</th>
-                <th class="">分类</th>
-                <th class="">链接类型</th>
-                <th class="">状态</th>
-                <th >操作</th>
+                <th style="width:80px;">ID</th>
+                <th style="">预览</th>
+                <th class="">类型</th>
+                <th class="">路径</th>
+                <th>复制</th>
             </tr>
             </thead>
             <tbody>
             {% for item in list %}
             <tr>
-                <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.id}}"/></td>
-                <td>{{item.name}}</td>
-                <td>{%if item.logo%}<img src="{{item.logo}}" style="height: 31px;width: 88px">{%else%}无{%endif%}</td>
-                <td>{{item.version}}</td>
-                <td>{%if item.linktype ==1%}logo链接{%else%}文字链接{%endif%}</td>
-                <td>{%if item.passed ==1%}已通过{%else%}待审核{%endif%}</td>
+                <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids"
+                                                                value="{{item.id}}"><i></i></label></td>
+                <td>{{item.id}}</td>
                 <td>
-
-                    <a href="/{{ctx.controller}}/ajaxedit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
-                    <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
-
+                    <div style="width: 120px">
+                        <img class="img-responsive lazy" src="{{item.path}}">
+                    </div>
+                </td>
+                <td>{%if item.type == 0%}本地{%else%}千牛{%endif%}</td>
+                <td>{{item.path}}</td>
+                <td>
+                    {%if item.type == 0%}
+                    <a href="#" data-path="{{ctx.host}}{{item.path}}" class="copy-btn text-info">复制完全路径</a>
+                    {%endif%}
+                    <a href="#" data-path="{{item.path}}" class="copy-btn text-info">复制路径</a>
+                </td>
             </tr>
             {% else %}
-            <tr><td colspan="8"><div class="alert alert-warning alert-block">
-                <button data-dismiss="alert" class="close" type="button">×</button>
-                <p>附件管理功能稍后完成！</p>
-            </div></td></tr>
-
+            <tr>
+                <td colspan="8">
+                    <div class="alert alert-warning alert-block">
+                        <button data-dismiss="alert" class="close" type="button">×</button>
+                        <p>附件管理功能稍后完成！</p>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
-
             </tbody>
         </table>
     </div>
@@ -70,14 +67,12 @@
     <!--分页底部导航-->
     <footer class="panel-footer">
         <div class="row">
-
             <div class="col-sm-6 text-center-xs">
-                <div class="btn-group">
-                    <a href="/{{ctx.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>
-                    <a href="/{{ctx.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
-                </div>
+                <!--<div class="btn-group">-->
+                <!--<a href="/{{ctx.controller}}/sort" class="btn btn-default ajax-post" target-form="sort">排序</a>-->
+                <!--<a href="/{{ctx.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>-->
+                <!--</div>-->
             </div>
-
             <div class="col-sm-6 text-right text-center-xs">
                 {{pagerData | safe}}
             </div>
@@ -86,3 +81,27 @@
     <!--分页底部导航-->
 </section>
 {% endblock %}
+{% block script%}
+{{ super() }}
+<script type="text/javascript">
+  // 复制文本内容
+  function CopyText(content) {
+    var oInput = document.createElement('input');
+    oInput.value = content;
+    document.body.appendChild(oInput);
+    oInput.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+    oInput.style.display = 'none';
+    toastr.success('复制成功: ' + content);
+  }
+
+  // 初始化copy
+  $(function () {
+    $('.copy-btn').click(function () {
+      var _this = $(this);
+      var content = _this.attr('data-path');
+      CopyText(content);
+    });
+  })
+</script>
+{% endblock%}
