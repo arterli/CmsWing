@@ -14,7 +14,6 @@ Date: 2017-12-19 11:11:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
 -- ----------------------------
 -- Table structure for cmswing_action
 -- ----------------------------
