@@ -126,21 +126,21 @@ module.exports = class extends think.cmswing.center {
         };
       }
     } else {
-      const uploadPath = think.resource + '/upload/picture/' + dateformat('Y-m-d', new Date().getTime());
-      think.mkdir(uploadPath);
-      if (think.isFile(filepath)) {
-        fs.renameSync(filepath, uploadPath + '/' + basename);
-      } else {
-        console.log('文件不存在！');
-      }
-      file.path = uploadPath + '/' + basename;
+      // 默认路径
+      const uploadPath = this.saveFile(filepath, 'picture', basename, att);
+      // 返回最新路径
+      file.path = uploadPath.path + '/' + basename;
       if (think.isFile(file.path)) {
         data = {
-          path: '/upload/picture/' + dateformat('Y-m-d', new Date().getTime()) + '/' + basename,
+          path: uploadPath.root + '/' + basename,
           create_time: new Date().getTime(),
           status: 1
-
         };
+        // 添加水印
+        if (att.mark == 1) {
+          const mark = this.extService('mark', 'mark');
+          mark.mark(file.path);
+        }
       } else {
         console.log('not exist');
       }
@@ -165,7 +165,26 @@ module.exports = class extends think.cmswing.center {
     }
     return think.isEmpty(rr) ? this.json(res) : this.json(rr);
   }
-
+  // 转移文件
+  saveFile(filepath, defpath, basename, attr) {
+    // 处理路径
+    if (!think.isEmpty(attr.path.trim())) {
+      defpath = attr.path.trim();
+    };
+    // 生成目录
+    const rootpath = `/upload/${defpath}/${dateformat('Y-m-d', new Date().getTime())}`;
+    const uploadPath = `${think.resource}${rootpath}`;
+    think.mkdir(uploadPath);
+    // 转移文件
+    if (think.isFile(filepath)) {
+      fs.renameSync(filepath, uploadPath + '/' + basename);
+    }
+    return {
+      path: uploadPath,
+      root: rootpath,
+      def: defpath
+    };
+  }
   // 获取七牛token
   async getqiniuuptokenAction() {
     const qiniu = this.extService('qiniu', 'attachment');

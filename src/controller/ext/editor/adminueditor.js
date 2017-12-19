@@ -205,7 +205,8 @@ module.exports = class extends think.Controller {
         config = {
           pathFormat: this.config['imagePathFormat'],
           maxSize: this.config['imageMaxSize'],
-          allowFiles: this.config['imageAllowFiles']
+          allowFiles: this.config['imageAllowFiles'],
+          mark: true
         };
         fieldName = this.config['imageFieldName'];
         break;

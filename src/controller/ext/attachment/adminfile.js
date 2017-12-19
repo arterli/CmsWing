@@ -16,21 +16,24 @@ module.exports = class extends think.Controller {
       return this.fail('非法操作!');
     }
   }
+
   constructor(ctx) {
     super(ctx);
     this.pdb = this.model('ext_attachment_pic');
     this.fdb = this.model('ext_attachment_file');
   }
+
   /**
-     * 判断是否登录
-     * @returns {boolean}
-     */
+   * 判断是否登录
+   * @returns {boolean}
+   */
   async islogin() {
     // 判断是否登录
     const user = await this.session('userInfo');
     const res = think.isEmpty(user) ? false : user.uid;
     return res;
   }
+
   /**
    * index action
    * @return {Promise} []
@@ -39,6 +42,7 @@ module.exports = class extends think.Controller {
     // auto render template file index_index.html
     return this.display();
   }
+
   // 上传文件
   async uploadAction() {
     const file = think.extend({}, this.file('file'));
@@ -93,7 +97,6 @@ module.exports = class extends think.Controller {
     const res = await this.fdb.add(data);
     return this.json({id: res, size: file.size});
   }
-
   // 上传图片
   async uploadpicAction() {
     const type = this.get('type');
@@ -129,45 +132,48 @@ module.exports = class extends think.Controller {
         };
       }
     } else {
-      const uploadPath = think.resource + '/upload/picture/' + dateformat('Y-m-d', new Date().getTime());
-      think.mkdir(uploadPath);
-      if (think.isFile(filepath)) {
-        fs.renameSync(filepath, uploadPath + '/' + basename);
-      } else {
-        console.log('文件不存在！');
-      }
-      file.path = uploadPath + '/' + basename;
+      // 默认路径
+      const uploadPath = this.saveFile(filepath, 'picture', basename, att);
+      // 返回最新路径
+      file.path = uploadPath.path + '/' + basename;
       if (think.isFile(file.path)) {
         data = {
-          path: '/upload/picture/' + dateformat('Y-m-d', new Date().getTime()) + '/' + basename,
+          path: uploadPath.root + '/' + basename,
           create_time: new Date().getTime(),
           status: 1
-
         };
+        // 添加水印
+        if (att.mark == 1) {
+          const mark = this.extService('mark', 'mark');
+          mark.mark(file.path);
+        }
       } else {
         console.log('not exist');
       }
     }
+
+    // 添加文件并返回结果
     const res = await this.pdb.add(data);
     const r = {id: res, url: await get_pic(res), name: (file.name).trim()};
     let rr = {};
     if (!think.isEmpty(att) && !think.isEmpty(att.rule)) {
       const match = att.rule.match(/\${(\S+?)\}/g);
-      console.log(match);
+      // console.log(match);
       const replace = [];
       for (let val of match) {
         val = val.replace(/(^\${)|(\}$)/g, '');
         replace.push(r[val]);
       }
-      console.log(replace);
+      // console.log(replace);
       rr = str_replace(match, replace, att.rule);
-      console.log(rr);
+      // console.log(rr);
       if (att.rule.indexOf('{') === 0) {
         rr = JSON.parse(rr);
       }
     }
     return think.isEmpty(rr) ? this.json(res) : this.json(rr);
   }
+
   // 获取七牛token
   async getqiniuuptokenAction() {
     const qiniu = this.extService('qiniu', 'attachment');
@@ -176,6 +182,26 @@ module.exports = class extends think.Controller {
     this.json({
       'uptoken': uptoken
     });
+  }
+  // 转移文件
+  saveFile(filepath, defpath, basename, attr) {
+    // 处理路径
+    if (attr.path != null && !think.isEmpty(attr.path.trim())) {
+      defpath = attr.path.trim();
+    };
+    // 生成目录
+    const rootpath = `/upload/${defpath}/${dateformat('Y-m-d', new Date().getTime())}`;
+    const uploadPath = `${think.resource}${rootpath}`;
+    think.mkdir(uploadPath);
+    // 转移文件
+    if (think.isFile(filepath)) {
+      fs.renameSync(filepath, uploadPath + '/' + basename);
+    }
+    return {
+      path: uploadPath,
+      root: rootpath,
+      def: defpath
+    };
   }
   // 添加
   async qiniuaddAction() {
@@ -194,6 +220,7 @@ module.exports = class extends think.Controller {
     const res = await this.fdb.add(data);
     return this.json(res);
   }
+
   // 删除七牛资源
   async delqiniufileAction() {
     const id = this.get('id');
@@ -207,10 +234,11 @@ module.exports = class extends think.Controller {
       return this.fail('删除文件失败!');
     }
   }
+
   // 文件信息
-  async fileinfoAction(){
+  async fileinfoAction() {
     const res = await this.fdb.find(this.get('id'));
-    if(!think.isEmpty(res)){
+    if (!think.isEmpty(res)) {
       res.time = this.moment(res.create_time).format('lll');
     }
     return this.json(res);
