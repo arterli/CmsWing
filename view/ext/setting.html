@@ -27,6 +27,8 @@
                     {%for input in amount%}
                     {%if input.type == 'text'%}
                     {{forms.text(setting,label= input.label, name= input.name, value=input.value, html= input.html)}}
+                    {%elif input.type == 'pass'%}
+                    {{forms.pass(setting,label= input.label, name= input.name, value=input.value, html= input.html)}}
                     {%elif input.type == 'radio'%}
                     {{forms.radio(setting,label=input.label, name=input.name, value=input.value,
                     options=input.options,html=input.html)}}

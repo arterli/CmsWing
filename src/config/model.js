@@ -16,7 +16,7 @@ module.exports = {
   mysql: {
     handle: mysql, // Adapter handle
     user: 'root', // 用户名
-    password: 'root', // 密码
+    password: '', // 密码
     database: 'cmswing', // 数据库
     host: '127.0.0.1', // host
     port: 3306, // 端口
