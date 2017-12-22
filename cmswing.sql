@@ -10,10 +10,11 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-12-19 11:11:13
+Date: 2017-12-22 14:12:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
 -- ----------------------------
 -- Table structure for cmswing_action
 -- ----------------------------
@@ -6501,6 +6502,27 @@ CREATE TABLE `cmswing_ext_changyan` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for cmswing_ext_collector
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_ext_collector`;
+CREATE TABLE `cmswing_ext_collector` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
+  `name` char(30) NOT NULL DEFAULT '' COMMENT '模型标识',
+  `title` char(30) NOT NULL DEFAULT '' COMMENT '模型名称',
+  `attribute_list` text COMMENT '属性列表（表的字段）',
+  `model` char(30) NOT NULL DEFAULT '' COMMENT '列表绑定模型',
+  `info` varchar(255) DEFAULT NULL COMMENT '接口说明',
+  `create_time` bigint(15) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` bigint(15) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of cmswing_ext_collector
+-- ----------------------------
+INSERT INTO `cmswing_ext_collector` VALUES ('1', 'article', '文章模型采集接口', null, 'article', '反代萨法法师打', '1513831600982', '1513831600982');
+
+-- ----------------------------
 -- Table structure for cmswing_ext_demo
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_ext_demo`;
@@ -6899,7 +6921,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1724', '', '1452513965683', '0', '1513648885294', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1725', '', '1452513965683', '0', '1513824368931', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '98', 'cmswing@cmswing.com', '299', '13571883578', '1458989485616', '0', '1511613943734', '0', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '5', '', '1458990106486', '0', '1505443722915', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);

@@ -263,7 +263,7 @@ global.topic = function() {
     }
     // 条件
     if (!think.isEmpty(args.where)) {
-      where = think.extend(where,JSON.parse(args.where));
+      where = think.extend(where, JSON.parse(args.where));
     }
     // 是否缩略图
     if (!think.isEmpty(args.ispic)) {

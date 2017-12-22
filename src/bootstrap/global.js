@@ -28,7 +28,6 @@
  * @returns {number}
  * @private
  */
-/* global _ip2int(ip) */
 global._ip2int = function(ip) {
   var num = 0;
   ip = ip.split('.');
@@ -42,7 +41,6 @@ global._ip2int = function(ip) {
  * @returns {string|*}
  * @private
  */
-/* global _int2ip(num: number) */
 global._int2iP = function(num) {
   var str;
   var tt = new Array();
@@ -60,7 +58,6 @@ global._int2iP = function(num) {
  * @param md5encoded true-密码不加密，默认加密
  * @returns {*}
  */
-/* global encryptPassword */
 global.encryptPassword = function(password, md5encoded) {
   md5encoded = md5encoded || false;
   password = md5encoded ? password : think.md5(password);
@@ -72,7 +69,6 @@ global.encryptPassword = function(password, md5encoded) {
  * @param arr
  * @returns {Array}
  */
-/* global unique */
 global.unique = function(arr) {
   // var result = [], hash = {};
   // for (var i = 0, elem; (elem = arr[i]) != null; i++) {
@@ -90,7 +86,6 @@ global.unique = function(arr) {
  * @param arrayToSearch
  * @returns {boolean}
  */
-/* global in_array */
 global.in_array = function(stringToSearch, arrayToSearch) {
   for (let s = 0; s < arrayToSearch.length; s++) {
     const thisEntry = arrayToSearch[s].toString();

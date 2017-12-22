@@ -7,20 +7,15 @@
             <li class="{{'active' if ctx.action=='api'}}"><a  href="/{{ctx.controller}}/api">接口管理</a></li>
 
         </ul>
-        <span class="hidden-sm"><a href="/{{ctx.controller}}/add" class="text-info " data-toggle="ajaxModal">操作按钮不需要可以删除</a></span>
     </header>
     <div class="row wrapper">
         <!--按钮操作区 不需要可以删除-->
         <div class="col-sm-12 m-b-xs">
             <div class="btn-group" >
-                <a href="/{{ctx.controller}}/index" class="btn btn-sm btn-default {%if typeid == 0%}active{%endif%}">
-                    全部
+                <a href="/{{ctx.controller}}/addapi" class="btn btn-sm btn-primary">
+                    添加入库接口
                 </a>
-                {%for t in type%}
-                <a href="/{{ctx.controller}}/index/?typeid={{t.typeid}}" class="btn btn-sm btn-default {%if typeid == t.typeid%}active{%endif%}">
-                    {{t.name}}
-                </a>
-                {%endfor%}
+
             </div>
         </div>
         <!--//按钮操作区 不需要可以删除-->
@@ -30,30 +25,28 @@
         <table class="table table-striped b-t b-light">
             <thead>
             <tr>
-                <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
-                <th style="width:80px;">排序</th>
-                <th style="">网站名称</th>
-                <th class="">网站logo</th>
-                <th class="">分类</th>
-                <th class="">链接类型</th>
-                <th class="">状态</th>
+                <th style="width:80px;">ID</th>
+                <th style="">接口标识</th>
+                <th class="">接口名称</th>
+                <th class="">所属模型</th>
+                <th class="">对应数据表</th>
+                <th class="">创建时间</th>
                 <th >操作</th>
             </tr>
             </thead>
             <tbody>
             {% for item in list %}
             <tr>
-                <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
-                <td><input class="form-control form-control-text sort" value="{{item.sort}}" name="sort" data-id="{{item.id}}"/></td>
+                <td>{{ item.id }}</td>
                 <td>{{item.name}}</td>
-                <td>{%if item.logo%}<img src="{{item.logo}}" style="height: 31px;width: 88px">{%else%}无{%endif%}</td>
-                <td>{{item.version}}</td>
-                <td>{%if item.linktype ==1%}logo链接{%else%}文字链接{%endif%}</td>
-                <td>{%if item.passed ==1%}已通过{%else%}待审核{%endif%}</td>
+                <td>{{ item.title }}</td>
+                <td>{{item.model}}</td>
+                <td><code>{{ config.model.mysql.prefix }}ext_collector_{{ item.name }}</code>  [<a href="/{{ctx.controller}}/attribute" class="text-info" data-toggle="ajaxModal">入库字段</a>]</td>
+                <td>{{item.create_time | moment('YYYY-MM-DD HH:mm')}}</td>
                 <td>
 
-                    <a href="/{{ctx.controller}}/ajaxedit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
-                    <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
+                    <a href="/{{ctx.controller}}/editapi/?id={{item.id}}" class="text-info">修改</a>
+                    <a href="/{{ctx.controller}}/delaip/?id={{item.id}}" class="confirm ajax-get text-info">删除</a></td>
 
             </tr>
             {% else %}
