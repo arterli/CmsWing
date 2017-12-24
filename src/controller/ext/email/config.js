@@ -13,6 +13,20 @@ module.exports = {
     {
       '邮件设置': [
         {
+          'name': 'host', // 配置在表单中的键名 ,这个会是this.config('title')
+          'label': '邮件服务器:', // 表单的文字
+          'type': 'text', // 表单的类型：text、radio、select
+          'value': 'admin@163.com', // 表单的默认值
+          'html': '邮箱账号'
+        },
+        {
+          'name': 'port', // 配置在表单中的键名 ,这个会是this.config('title')
+          'label': '端口:', // 表单的文字
+          'type': 'text', // 表单的类型：text、radio、select
+          'value': '587', // 表单的默认值
+          'html': '邮箱账号'
+        },
+        {
           'name': 'user', // 配置在表单中的键名 ,这个会是this.config('title')
           'label': '邮箱账号:', // 表单的文字
           'type': 'text', // 表单的类型：text、radio、select
@@ -25,13 +39,6 @@ module.exports = {
           'type': 'pass',
           'value': 'pass',
           'html': '邮箱的授权码'
-        },
-        {
-          'name': 'display',
-          'label': '是否显示:',
-          'type': 'radio',
-          'options': {'1': '显示', '0': '不显示'},
-          'value': '1'
         }
       ]
     }
