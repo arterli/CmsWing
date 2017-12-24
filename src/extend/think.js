@@ -19,8 +19,8 @@ module.exports = {
   },
   extModel(modelName = '', extName = '', config = think.config('model.mysql'), prefix = 'ext_') {
     try {
-        const Cls = think.app.controllers[`ext/${extName}/model/${modelName}`];
-        return new Cls(`${prefix}${modelName}`, config);
+      const Cls = think.app.controllers[`ext/${extName}/model/${modelName}`];
+      return new Cls(`${prefix}${modelName}`, config);
     } catch (e) {
       return think.model(`${prefix}${modelName}`);
     }

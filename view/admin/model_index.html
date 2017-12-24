@@ -59,7 +59,7 @@
                                         <td>{{item.id}}</td>
                                         <td>{{item.name}}</td>
                                         <td><a data-id="{{item.id}}" href="/admin/model/{%if item.extend==0%}{%if item.id==1%}edit{%else%}editext{%endif%}{%else%}edit{%endif%}?id={{item.id}}" class="text-info">{{item.title}}</a></td>
-                                        <td>{{item.create_time | format_time(1)}}</td>
+                                        <td>{{item.create_time | moment('YYYY-MM-DD HH:mm')}}</td>
                                         <td>{%if item.extend==0%}{%if item.id==1%}系统{%else%}独立模型{%endif%}{%else%}系统模型{%endif%}</td>
                                         <td>
                                             <a href="/admin/model/setstatus/?ids={{item.id}}&status={{1-item.status}}" class="active ajax-get" data-toggle="class">
