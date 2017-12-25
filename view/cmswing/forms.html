@@ -62,6 +62,27 @@
 </div>
 {% endmacro %}
 <!--text-->
+{%macro pass(setting, label, name, value= '',html= '')%}
+<div class="form-group">
+    <label class="col-sm-2 control-label">{{label}}</label>
+    <div class="col-sm-10">
+        <div class="row">
+
+            <div class="col-md-10">
+                <input type="password" class="form-control" name="{{name}}" value="{% if setting[name] %}{{setting[name]}}{%else%}{{value}}{%endif%}">
+            </div>
+
+            <div class="col-md-12">
+                <span class="help-block m-b-none text-muted"><i class="fa fa-code"></i> <code>this.config('ext.{{setting.ext}}.{{name}}')</code></span>
+                {%if html%}
+                <span class="help-block m-b-none text-muted"><i class="fa fa-info-circle text-info"></i>  {{html|safe}}</span>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+<!--text-->
 {%macro select(setting, label, name, value= '', options={},html= '')%}
 <div class="form-group">
     <label class="col-sm-2 control-label">{{label}}</label>
