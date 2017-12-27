@@ -1,0 +1,61 @@
+{% extends "view/home/inc_base.html" %} {% block content %}
+<section class="page-header page-header-xs">
+    <div class="container">
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb breadcrumb-inverse">
+            <li><a href="/index">首页</a></li>
+            <li class="active">注册</li>
+        </ol>
+        <!-- /breadcrumbs -->
+    </div>
+</section>
+<!-- /PAGE HEADER -->
+<!-- -->
+<section>
+    <div class="container">
+        <div class="row">
+            <!-- LOGIN -->
+            <fieldset class="col-md-12 col-sm-12">
+                <form class="form-horizontal sky-form boxed nomargin guestbook" action="/ext/guestbook/index" method="post">
+                    <header>
+                        <i class="fa fa-users"></i> {{controller.meta_title}}
+                    </header>
+                    <fieldset class="nomargin">
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">用户名：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="用户名" name="username" value="{{userInfo.username}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">电话：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="电话" name="mobile" value="{{userInfo.mobile}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">标题：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="留言标题" name="title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label">留言内容：</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="3" placeholder="留言内容" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary ajax-post" target-form="guestbook" ><i class="fa fa-check"></i> 提交留言</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <!-- /LOGIN -->
+
+        </div>
+    </div>
+</section>
+{% endblock %}
