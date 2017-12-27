@@ -1,0 +1,64 @@
+{% extends "view/admin/ext_admin.html" %}
+{% block extadmin %}
+<section class="panel panel-default">
+    <header class="panel-heading text-right bg-light  clearfix">
+        <ul class="nav nav-tabs pull-left">
+            <li class="{{'active' if controller.get('demo')==null}}"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+
+        </ul>
+    </header>
+    <!--列表，可以根据自己的实际业务，些内容-->
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+            <tr>
+                <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                <th style="">用户名</th>
+                <th style="">标题</th>
+                <th class="">内容</th>
+                <th class="">时间</th>
+                <th >操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in list %}
+            <tr>
+                <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                <td>{{item.username}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.content}}</td>
+                <td>{{item.create_time|dateformat('Y-m-d H:i:s')}}</td>
+                <td>
+                    <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <p>暂时没有留言反馈！</p>
+            </div></td></tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <!--列表，可以根据自己的实际业务，些内容-->
+    <!--分页底部导航-->
+    <footer class="panel-footer">
+        <div class="row">
+
+            <div class="col-sm-6 text-center-xs">
+                <div class="btn-group">
+                    <a href="/{{ctx.controller}}/del" class="btn btn-default ajax-post confirm" target-form="ids">删除</a>
+                </div>
+            </div>
+
+            <div class="col-sm-6 text-right text-center-xs">
+                {{pagerData | safe}}
+            </div>
+        </div>
+    </footer>
+    <!--分页底部导航-->
+</section>
+{% endblock %}

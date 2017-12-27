@@ -1,0 +1,129 @@
+{% extends "view/center/mobile/inc/appbase.html" %}
+{% block style%}
+<style>
+    .area {
+        margin: 50px auto 0px auto;
+        background: white;
+    }
+
+    .mui-input-group {
+        margin-top: 10px;
+    }
+
+    .mui-input-group:first-child {
+        margin-top: 20px;
+    }
+
+    .mui-input-group label {
+        width: 22%;
+    }
+
+    .mui-input-row label~input,
+    .mui-input-row label~select,
+    .mui-input-row label~textarea {
+        width: 78%;
+    }
+
+    .mui-checkbox input[type=checkbox],
+    .mui-radio input[type=radio] {
+        top: 6px;
+    }
+
+    .mui-content-padded {
+        margin-top: 25px;
+    }
+    .mui-btn {
+        padding: 10px;
+    }
+    .oauth-area .oauth-btn {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: 30px 30px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin: 0px 20px;
+        /*-webkit-filter: grayscale(100%); */
+        border: solid 1px #ddd;
+        border-radius: 25px;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<header class="mui-bar mui-bar-nav">
+    <a href="/index" class=" mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left"><span class="mui-icon mui-icon-left-nav"></span>首页</a>
+    <h1 class="mui-title">{{controller.meta_title}}</h1>
+</header>
+<section>
+    <div class="mui-content area">
+        <form id='login-form' class="mui-input-group">
+            <div class="mui-input-row">
+                <label>用户名</label>
+                <input type="text" class="form-control" placeholder="用户名" id="username" name="username" value="{{userInfo.username}}" readonly>
+            </div>
+            <div class="mui-input-row">
+                <label>电话</label>
+                <input type="text" class="form-control" placeholder="电话" id="mobile" name="mobile" value="{{userInfo.mobile}}">
+            </div>
+            <div class="mui-input-row">
+                <label>标题</label>
+                <input type="text" class="form-control" placeholder="留言标题" id="title" name="title">
+            </div>
+        </form>
+        <div class="mui-content-padded">
+            <div class="mui-input-row">
+                <textarea class="form-control" rows="3" placeholder="留言内容" id="content" name="content"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="mui-content-padded">
+        <button id='btn' class="mui-btn mui-btn-block mui-btn-primary">提交留言</button>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+
+<script>
+    var btn = document.getElementById("btn"),
+        username = document.getElementById("username"),
+        mobile = document.getElementById("mobile"),
+        title = document.getElementById('title'),
+        content = document.getElementById('content');
+    btn.addEventListener("tap", function () {
+        if(!username.value){
+            mui.toast("账号不能为空");
+            return;
+        }
+        if(!mobile.value){
+            mui.toast('手机不能为空');
+            return;
+        }
+        if(!title.value){
+            mui.toast('留言标题不能为空');
+            return;
+        }
+        if(!content.value){
+            mui.toast('留言内容不能为空');
+            return;
+        }
+        mui.post('/ext/guestbook/index',{
+                username:username.value,
+                mobile:mobile.value,
+                title:title.value,
+                content:content.value
+            },function(msg){
+                if(msg.errno === 1000){
+                    mui.toast(msg.errmsg);
+                }else{
+                    mui.toast(msg.data.name);
+                    setTimeout(function(){
+                        mui.openWindow({url: msg.data.url})
+                    },1500);
+                }
+            },'json'
+        );
+
+    });
+</script>
+
+{% endblock %}
