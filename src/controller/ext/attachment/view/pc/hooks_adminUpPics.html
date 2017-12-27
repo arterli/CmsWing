@@ -337,6 +337,24 @@
             updateTotalProgress();
             $li.off().find('.file-panel').off().end().remove();
         }
+      function removepics(id) {
+          alert(1)
+        var $li = $('#' + id);
+
+        delete percentages[id];
+        updateTotalProgress();
+        $li.off().find('.file-panel').off().end().remove();
+        if($("#"+pics_ids).val()){
+          var ids = [];
+          $.each($("#"+pics_ids).val().split(','),function (k,res) {
+            if(id != res){
+              ids.push(res);
+            }
+
+          })
+          $("#"+pics_ids).val(ids.join(','));
+        }
+      }
 
         function updateTotalProgress() {
             var loaded = 0,

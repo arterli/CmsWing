@@ -225,7 +225,8 @@
       $btns.on('click', 'span', function () {
         var index = $(this).index(),
             deg;
-        var id=$(this).parents("li.up").attr("id");
+        var id=$(this).parents("div.panel").attr("id");
+        console.log(id);
         switch (index) {
           case 0:
             removepics(id);
@@ -408,7 +409,6 @@
     }
     // 负责view的销毁
     function removeFile(file) {
-      console.log(file);
       var $li = $('#' + file.id);
 
       delete percentages[file.id];
@@ -416,6 +416,23 @@
       $li.off().find('.file-panel').off().end().remove();
     }
 
+    function removepics(id) {
+      var $li = $('#' + id);
+      console.log($li);
+      delete percentages[id];
+      updateTotalProgress();
+      $li.off().find('.file-panel').off().end().remove();
+      if($("#"+pics_ids).val()){
+        var ids = [];
+        $.each(JSON.parse($("#"+pics_ids).val()),function (k,res) {
+          if(id != res.id){
+            ids.push(res);
+          }
+
+        })
+        $("#"+pics_ids).val(JSON.stringify(ids));
+      }
+    }
     function updateTotalProgress() {
       var loaded = 0,
           total = 0,

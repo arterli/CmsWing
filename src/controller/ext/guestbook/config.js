@@ -6,8 +6,8 @@ module.exports = {
   isindex: 1, // 是否需要前台访问，1：需要，0：不需要,入口地址:'/ext/guestbook/index/index'
   version: '1.0', // 版本号
   author: 'Zysdo', // 作者
-  table: [], // 插件包含的 数据库表，不包含表前缀，如：cmswing_ext_table 就是 table，多个['table','table_2']没有留空数组。
-  sql: '', // 插件安装的时候会找个名字的sql文件导入，默认 插件目录名.sql;
+  table: ['guestbook'], // 插件包含的 数据库表，不包含表前缀，如：cmswing_ext_table 就是 table，多个['table','table_2']没有留空数组。
+  sql: 'guestbook.sql', // 插件安装的时候会找个名字的sql文件导入，默认 插件目录名.sql;
   hooks: ['loginBefore'], // 挂载的钩子，数组格式，如['hooks1', 'hooks2'],不挂载留空：[]
   setting: [
     {
