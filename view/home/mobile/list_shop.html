@@ -133,7 +133,7 @@
   var createFragment = function(count, page) {
     //无限加载
     var table = document.body.querySelector('#pullrefresh .mui-table-view');
-    var lastIndex = table.querySelectorAll('mui-card').length;
+    var lastIndex = table.querySelectorAll('.mui-card').length;
     console.log(lastIndex);
     var pages = page || Math.ceil((lastIndex+count)/count);
     console.log(pages);
