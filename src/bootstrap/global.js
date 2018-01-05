@@ -1133,9 +1133,9 @@ global.get_file = async(file_id, field, key = false) => {
   }
   const file = await think.model('ext_attachment_file').find(file_id);
   if (file.type > 0 && key && key !== 1) {
-    file.savename = `//${get_pdq(file.type)}/${file.savename}?download/${file.savename}`;
+    file.savename = `${get_pdq(file.type)}/${file.savename}?download/${file.savename}`;
   } else if (file.type > 0 && key === 1) {
-    file.savename = `//${get_pdq(file.type)}/${file.savename}`;
+    file.savename = `${get_pdq(file.type)}/${file.savename}`;
   } else {
     file.savename = `${file.savepath}/${file.savename}`;
   }
@@ -1296,3 +1296,21 @@ global.html_encode = function(str) {
   s = s.replace(/\n/g, '<br>');
   return s;
 };
+/**
+ * 检查pos(推荐位的值)是否包含指定推荐位contain
+ * @param number pos 推荐位的值
+ * @param number contain 指定推荐位
+ * @return boolean true 包含 ， false 不包含
+ */
+global.check_document_position = (pos = 0, contain = 0) => {
+  if(think.isEmpty(pos) || think.isEmpty(contain)){
+    return false;
+  }
+  // 将两个参数进行按位与运算，不为0则表示$contain属于$pos
+  const res = pos & contain;
+  if (res !== 0){
+    return true;
+  }else{
+    return false;
+  }
+}

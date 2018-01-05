@@ -1401,57 +1401,57 @@ table tr td{
         <div class="col-md-10">
             {{HOOKS@adminUpPics[field.name]|safe}}
         </div>
-                                                        {% elif field.type == "atlas" %}
-                                                        <div class="col-md-10">
-                                                            {{HOOKS@adminAtlas[field.name]|safe}}
-                                                        </div>
-                                                        {% elif field.type == "bool" %}
-                                                        <div class="col-md-4">
-                                                            <select class="form-control " name="{{field.name}}">
-                                                                {% for k ,v in field.extra|parse_config_attr %}
-                                                                <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                        {% elif field.type == "select" %}
-                                                        <div class="col-md-3">
-                                                            <select class="form-control " name="{{field.name}}">
-                                                                {% for k ,v in field.extra|parse_config_attr %}
-                                                                <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                        {% elif field.type == "radio" %}
-                                                        <div class="col-sm-10">
-                                                            {% for k ,v in field.extra|parse_config_attr %}
-                                                            <label class="radio-inline i-checks">
-                                                                <input type="radio" value="{{k}}" name="{{field.name}}" {% if data[field.name] == k%} checked {%endif%}><i></i> {{v}}
-                                                            </label>
-                                                            {% endfor %}
-                                                        </div>
-                                                        {% elif field.type == "checkbox" %}
-                                                        <div class="col-sm-10">
-                                                            {% for k ,v in field.extra|parse_config_attr %}
-                                                            <label class="checkbox-inline i-checks">
-                                                                <input type="checkbox" value="{{k}}" name="{{field.name}}" {% if data[field.name] == k%} checked {%endif%}><i></i> {{v}}
-                                                            </label>
-                                                            {% endfor %}
-                                                        </div>
-                                                        {% elif field.type == "editor" %}
-                                                        <H5 class="col-sm-12 ">{{field.title}} {% if field.remark%}<span class="m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark|safe}}</span> {%endif%}</H5>
-                                                        <div class="col-sm-12" >
-                                                            {%if editor == '1'%}
-                                                            {{HOOKS@adminEdit@1[field.name]|safe}}
-                                                            {%elif editor == '2_1'%}
-                                                            {{HOOKS@adminEdit@2_1[field.name]|safe}}
-                                                            {%elif editor == '2_2'%}
-                                                            {{HOOKS@adminEdit@2_2[field.name]|safe}}
-                                                            {%elif editor == '3'%}
-                                                            {{HOOKS@adminEdit@3[field.name]|safe}}
-                                                            {%else%}
-                                                            {{HOOKS@adminEdit[field.name]|safe}}
-                                                            {%endif%}
-                                                        </div>
+    {% elif field.type == "atlas" %}
+    <div class="col-md-10">
+        {{HOOKS@adminAtlas[field.name]|safe}}
+    </div>
+    {% elif field.type == "bool" %}
+    <div class="col-md-4">
+        <select class="form-control " name="{{field.name}}">
+            {% for k ,v in field.extra|parse_config_attr %}
+            <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% elif field.type == "select" %}
+    <div class="col-md-3">
+        <select class="form-control " name="{{field.name}}">
+            {% for k ,v in field.extra|parse_config_attr %}
+            <option value="{{k}}" {% if data[field.name] == k%} selected {%endif%}>{{v}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% elif field.type == "radio" %}
+    <div class="col-sm-10">
+        {% for k ,v in field.extra|parse_config_attr %}
+        <label class="radio-inline i-checks">
+            <input type="radio" value="{{k}}" name="{{field.name}}" {% if data[field.name] == k%} checked {%endif%}><i></i> {{v}}
+        </label>
+        {% endfor %}
+    </div>
+    {% elif field.type == "checkbox" %}
+    <div class="col-sm-10">
+        {% for k ,v in field.extra|parse_config_attr %}
+        <label class="checkbox-inline i-checks">
+            <input type="checkbox" value="{{k}}" name="{{field.name}}" {% if data[field.name]|check_document_position(k)%} checked {%endif%}><i></i> {{v}}
+        </label>
+        {% endfor %}
+    </div>
+    {% elif field.type == "editor" %}
+    <H5 class="col-sm-12 ">{{field.title}} {% if field.remark%}<span class="m-b-none text-muted"><i class="fa fa-info-circle text-info"></i> {{field.remark|safe}}</span> {%endif%}</H5>
+    <div class="col-sm-12" >
+        {%if editor == '1'%}
+        {{HOOKS@adminEdit@1[field.name]|safe}}
+        {%elif editor == '2_1'%}
+        {{HOOKS@adminEdit@2_1[field.name]|safe}}
+        {%elif editor == '2_2'%}
+        {{HOOKS@adminEdit@2_2[field.name]|safe}}
+        {%elif editor == '3'%}
+        {{HOOKS@adminEdit@3[field.name]|safe}}
+        {%else%}
+        {{HOOKS@adminEdit[field.name]|safe}}
+        {%endif%}
+    </div>
     {% elif field.type == "picture" %}
     <div class="col-sm-10">
         {{HOOKS@adminUpPic[field.name]|safe}}
