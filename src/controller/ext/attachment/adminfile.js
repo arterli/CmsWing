@@ -228,7 +228,7 @@ module.exports = class extends think.Controller {
     const qiniu = this.extService('qiniu', 'attachment');
     const res = await qiniu.remove(file.savename);
     if (res) {
-      this.model('file').where({id: id}).delete();
+      await this.extModel('attachment').where({id: id}).delete();
       return this.success({name: '删除文件成功!'});
     } else {
       return this.fail('删除文件失败!');
