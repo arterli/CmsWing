@@ -179,9 +179,13 @@ module.exports = class extends think.cmswing.admin {
         data.password = encryptPassword(data.password);
       }
       if (data.vip == 1) {
+        if (think.isEmpty(data.overduedate)) {
+          data.overduedate = new Date();
+        }
         data.overduedate = new Date(data.overduedate).getTime();
       } else {
         data.overduedate = 0;
+        data.vip = 0;
       }
       // 添加角色
       if (data.is_admin == 1) {
