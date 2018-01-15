@@ -3,13 +3,13 @@
     <div class="form-group">
         <label>账号</label>
 
-        <input type="text" name="username" class="form-control" placeholder="邮箱/手机号/昵称" required="">
+        <input type="text" name="usernamelogin" class="form-control" placeholder="邮箱/手机号/昵称" required="">
 
     </div>
     <div class="form-group">
         <label>密码</label>
 
-        <input type="password" name="password" class="form-control" placeholder="密码" required="">
+        <input type="password" name="passwordlogin" class="form-control" placeholder="密码" required="">
         <div class="clearfix note">
             <a href="#" class="pull-right">忘记密码?</a>
         </div>
@@ -60,8 +60,8 @@
         type: 'POST',
         dataType: 'json',
         data: {
-          username: $("input[name='username']").val(),
-          password: $("input[name='password']").val(),
+          username: $("input[name='usernamelogin']").val(),
+          password: $("input[name='passwordlogin']").val(),
           geetest_challenge: result.geetest_challenge,
           geetest_validate: result.geetest_validate,
           geetest_seccode: result.geetest_seccode
