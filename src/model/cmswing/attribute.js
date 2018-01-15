@@ -198,10 +198,8 @@ module.exports = class extends think.Model {
   async updateField(_field) {
     // 检查表是否存在
     await this.checkTableExist(_field.model_id);
-
     // 获取原字段名
     const last_field = await this.where({id: _field.id}).getField('name');
-
     // 获取默认值
     let def;
     var value = _field.value;
