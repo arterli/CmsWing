@@ -241,14 +241,14 @@ module.exports = class extends think.Controller {
       data.push(map);
     }
     const res = await this.model(model).updateMany(data);
-    if (res > 0) {
+    if (res.length > 0) {
       // 更新缓存
       switch (model) {
         case 'channel':// 更新频道缓存信息
-          update_cache('channel');// 更新频道缓存信息
+          await update_cache('channel');// 更新频道缓存信息
           break;
         case 'category':// 更新全站分类缓存
-          update_cache('category');// 更新栏目缓存
+          await update_cache('category');// 更新栏目缓存
           break;
       }
       return this.success({ name: '更新排序成功！'});
