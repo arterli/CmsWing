@@ -24,7 +24,7 @@ module.exports = class extends think.cmswing.admin {
      */
   async indexAction() {
     // auto render template file index_index.html
-    const tree = await this.db.get_channel_cache();
+    const tree = await this.db.get_channel(0);
     // console.log(tree)
     this.assign('list', tree);
     this.meta_title = '导航管理';
