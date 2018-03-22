@@ -471,7 +471,11 @@ global.model = function() {
     }
     // 查询条数
     if (limit) {
-      model.limit(limit);
+      if (limit.split(',').length === 2) {
+        model.limit(limit.split(',')[0], limit.split(',')[1]);
+      } else {
+        model.limit(limit);
+      }
     }
     // join查询c
     if (join) {
