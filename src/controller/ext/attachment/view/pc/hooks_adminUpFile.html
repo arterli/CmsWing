@@ -58,121 +58,131 @@
     </div>
 <script src="/static/admin/js/webuploader/webuploader.js" type="text/javascript"></script>
     <script type="text/javascript">
+        function initUpload(){
+          var $ = jQuery,
+            $list_{{name}} = $('#thelist_{{name}}'),
+            $btn_{{name}} = $('#ctlBtn_{{name}}'),
+            state = 'pending',
+            uploader_{{name}};
+
+          uploader_{{name}} = WebUploader.create({
+
+            // 不压缩image
+            resize: false,
+
+            // swf文件路径
+            swf:'/static/admin/js/webuploader/Uploader.swf',
+
+            // 文件接收服务端。
+            server: '/ext/attachment/adminfile/upload',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: {
+              id:'#picker_{{name}}',
+              multiple: false
+            },
+            fileNumLimit:1,
+
+          });
+
+          // 当有文件添加进来的时候
+          uploader_{{name}}.on( 'fileQueued', function( file ) {
+
+            $list_{{name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
+              ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
+              '<h4 class="info">' + file.name + '</h4>' +
+              '<p class="state">等待上传...</p>' +
+              '</div>' );
+            var $li_{{name}} = $( '#'+file.id );
+            $li_{{name}}.on('click', '.remove-this', function() {
+              uploader_{{name}}.removeFile( file.id );
+//                                                                                 $list_{{name}}.html("");
+            })
+
+          });
+
+          // 文件上传过程中创建进度条实时显示。
+          uploader_{{name}}.on( 'uploadProgress', function( file, percentage ) {
+            var $li_{{name}} = $( '#'+file.id ),
+              $percent_{{name}} = $li_{{name}}.find('.progress .progress-bar');
+
+            // 避免重复创建
+            if ( !$percent_{{name}}.length ) {
+              $percent_{{name}} = $('<div class="progress progress-striped active">' +
+                '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                '</div>' +
+                '</div>').appendTo( $li_{{name}} ).find('.progress-bar');
+            }
+
+            $li_{{name}}.find('p.state').text('上传中');
+
+            $percent_{{name}}.css( 'width', percentage * 100 + '%' );
+          });
+
+          uploader_{{name}}.on( 'uploadSuccess', function( file,res ) {
+            var name = "{{name}}";
+            $("input[name="+name+"]").val(res.id);
+            $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
+          });
+
+          uploader_{{name}}.on( 'uploadError', function( file ) {
+            $( '#'+file.id ).find('p.state').text('上传出错');
+          });
+
+          uploader_{{name}}.on( 'uploadComplete', function( file ) {
+            $( '#'+file.id ).find('.progress').fadeOut();
+          });
+
+          uploader_{{name}}.on( 'all', function( type ) {
+            if ( type === 'startUpload' ) {
+              state = 'uploading';
+            } else if ( type === 'stopUpload' ) {
+              state = 'paused';
+            } else if ( type === 'uploadFinished' ) {
+              state = 'done';
+            }
+
+            if ( state === 'uploading' ) {
+              $btn_{{name}}.text('暂停上传');
+            } else {
+              $btn_{{name}}.text('开始上传');
+            }
+          });
+
+          $btn_{{name}}.on( 'click', function() {
+            if ( state === 'uploading' ) {
+              uploader_{{name}}.stop();
+            } else {
+              uploader_{{name}}.upload();
+            }
+          });
+
+        }
         jQuery(function() {
             var $ = jQuery,
                 $list_{{name}} = $('#thelist_{{name}}'),
-                $btn_{{name}} = $('#ctlBtn_{{name}}'),
-                state = 'pending',
-                uploader_{{name}};
+                $btn_{{name}} = $('#ctlBtn_{{name}}');
             // 使用异步请求的方式
             var file_id = $("input[name={{name}}]").val();
             if(file_id!=0){
               $.get('/ext/attachment/adminfile/fileinfo',{id:file_id},function (data) {
                 if(data!=null){
-                  $('#file_list_hine').hide();
+                  $('#file_list_hine').addClass('hidden');
                   $('#file_list_show').removeClass('hidden').append(
                     `<p>文件名称:&nbsp${data.name}</p>`+
                     `<p>文件大小:&nbsp${data.size}</p>`+
                     `<p>上传时间:&nbsp${data.time}</p>`);
                   $('#file_list_show_close').click(function () {
-                    $('#file_list_hine').show();
-                    $('#file_list_show').addClass('hidden')
+                    $('#file_list_hine').removeClass('hidden');
+                    $('#file_list_show').addClass('hidden');
+                    initUpload();
                   });
                 }
               });
+            } else {
+              initUpload();
             }
-            uploader_{{name}} = WebUploader.create({
-
-                // 不压缩image
-                resize: false,
-
-                // swf文件路径
-                swf:'/static/admin/js/webuploader/Uploader.swf',
-
-                // 文件接收服务端。
-                server: '/ext/attachment/adminfile/upload',
-
-                // 选择文件的按钮。可选。
-                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                pick: {
-                    id:'#picker_{{name}}',
-                    multiple: false
-                },
-                fileNumLimit:1,
-
-            });
-
-            // 当有文件添加进来的时候
-            uploader_{{name}}.on( 'fileQueued', function( file ) {
-
-                $list_{{name}}.html( '<div id="' + file.id + '" class="alert alert-info">' +
-                    ' <button data-dismiss="alert" class="close remove-this" type="button">×</button>'+
-                    '<h4 class="info">' + file.name + '</h4>' +
-                    '<p class="state">等待上传...</p>' +
-                    '</div>' );
-                var $li_{{name}} = $( '#'+file.id );
-                $li_{{name}}.on('click', '.remove-this', function() {
-                    uploader_{{name}}.removeFile( file.id );
-//                                                                                 $list_{{name}}.html("");
-                })
-
-            });
-
-            // 文件上传过程中创建进度条实时显示。
-            uploader_{{name}}.on( 'uploadProgress', function( file, percentage ) {
-                var $li_{{name}} = $( '#'+file.id ),
-                    $percent_{{name}} = $li_{{name}}.find('.progress .progress-bar');
-
-                // 避免重复创建
-                if ( !$percent_{{name}}.length ) {
-                    $percent_{{name}} = $('<div class="progress progress-striped active">' +
-                        '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                        '</div>' +
-                        '</div>').appendTo( $li_{{name}} ).find('.progress-bar');
-                }
-
-                $li_{{name}}.find('p.state').text('上传中');
-
-                $percent_{{name}}.css( 'width', percentage * 100 + '%' );
-            });
-
-            uploader_{{name}}.on( 'uploadSuccess', function( file,res ) {
-                var name = "{{name}}";
-                $("input[name="+name+"]").val(res.id);
-                $( '#'+file.id ).find('p.state').text('已上传,文件大小:'+res.size);
-            });
-
-            uploader_{{name}}.on( 'uploadError', function( file ) {
-                $( '#'+file.id ).find('p.state').text('上传出错');
-            });
-
-            uploader_{{name}}.on( 'uploadComplete', function( file ) {
-                $( '#'+file.id ).find('.progress').fadeOut();
-            });
-
-            uploader_{{name}}.on( 'all', function( type ) {
-                if ( type === 'startUpload' ) {
-                    state = 'uploading';
-                } else if ( type === 'stopUpload' ) {
-                    state = 'paused';
-                } else if ( type === 'uploadFinished' ) {
-                    state = 'done';
-                }
-
-                if ( state === 'uploading' ) {
-                    $btn_{{name}}.text('暂停上传');
-                } else {
-                    $btn_{{name}}.text('开始上传');
-                }
-            });
-
-            $btn_{{name}}.on( 'click', function() {
-                if ( state === 'uploading' ) {
-                    uploader_{{name}}.stop();
-                } else {
-                    uploader_{{name}}.upload();
-                }
-            });
         });
 
     </script>
