@@ -26,7 +26,6 @@ module.exports = class extends think.cmswing.center {
     await this.hook('hometitle');
     await this.hook('homelist');
     // 右边的钩子
-
     await this.hook('homeright');
     // debugger;
     // 判断浏览客户端
