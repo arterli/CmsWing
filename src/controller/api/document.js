@@ -1,13 +1,13 @@
 module.exports = class extends think.cmswing.rest {
   /**
-   * 默认最新列表
-   * "/api/document/1" 调用id为1的文章
-   * "/api/document/?cid=1" 调用栏目id为1的列表
-   * "/api/document/?cid=0" 调用全部栏目列表
-   * cid:栏目id
-   * order: new:默认最新，hot:热点,
-   * @returns {Promise<PreventPromise>}
-   */
+     * 默认最新列表
+     * "/api/document/1" 调用id为1的文章
+     * "/api/document/?cid=1" 调用栏目id为1的列表
+     * "/api/document/?cid=0" 调用全部栏目列表
+     * cid:栏目id
+     * order: new:默认最新，hot:热点,
+     * @returns {Promise<PreventPromise>}
+     */
 
   async getAction() {
     let data;
@@ -49,7 +49,10 @@ module.exports = class extends think.cmswing.rest {
       const imgarr = [];
       if (v.cover_id != 0) {
         const pic = await get_pic(v.cover_id, 1, 360, 240);
-        if (pic.indexOf('//') == 0) {
+
+        if (pic.indexOf('http') == 0) {
+          http__ = '';
+        } else if (pic.indexOf('//') == 0) {
           http__ = `${http_}:`;
         } else {
           http__ = `${http_}://${this.ctx.host}`;
@@ -60,7 +63,9 @@ module.exports = class extends think.cmswing.rest {
         const pics = v.pics.split(',');
         for (const i of pics) {
           const pic = await get_pic(i, 1, 360, 240);
-          if (pic.indexOf('//') == 0) {
+          if (pic.indexOf('http') == 0) {
+            http__ = '';
+          } else if (pic.indexOf('//') == 0) {
             http__ = `${http_}:`;
           } else {
             http__ = `${http_}://${this.ctx.host}`;
