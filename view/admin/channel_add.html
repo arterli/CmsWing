@@ -135,7 +135,8 @@
 
         //获取上级菜单
         $.ajax({
-            url: "/admin/channel/getchannel",
+            url: "/admin/category/gettree",
+            data:{mold:'all'},
             success: function (msg) {
                 /* 展示生成的HTML */
                 $("#pid").html(category_to_html(msg));

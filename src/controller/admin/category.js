@@ -34,15 +34,18 @@ module.exports = class extends think.cmswing.admin {
   }
   async gettreeAction() {
     // 添加,编辑,移动合并
-    let mold = 0;
-    if (!think.isEmpty(this.get('mold'))) {
-      mold = this.get('mold');
+    let mold = {};
+    if (this.get('mold') === 'all') {
+      mold = {mold: ['<', 3]};
+    } else if (!think.isEmpty(this.get('mold'))) {
+      mold = {mold: this.get('mold')};
     } else {
-      const cid = this.get('from') || this.get('cid') || 0;
-      const res = await this.model('category').field('mold').find(cid);
-      if (!think.isEmpty(res)) { mold = res.mold }
+      // const cid = this.get('from') || this.get('cid') || 0;
+      // const res = await this.model('category').field('mold').find(cid);
+      // if (!think.isEmpty(res)) { mold = { mold: res.mold } }
+      mold = {mold: ['<', 3]};
     }
-    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status', {mold: mold});
+    const tree = await this.db.gettree(0, 'id,name,title,sort,pid,allow_publish,status', mold);
     return this.json(tree);
   }
 
@@ -433,7 +436,7 @@ module.exports = class extends think.cmswing.admin {
         if (data.merge == 1) { // 如果合并删除源栏目
           await this.model('category').delete({where: {id: data.source}});
         }
-       await update_cache('category');// 更新栏目缓存
+        await update_cache('category');// 更新栏目缓存
         return this.success({name: '成功！', url: '/admin/category/index'});
       }
     } else {
@@ -489,7 +492,7 @@ module.exports = class extends think.cmswing.admin {
       if (data.merge == 1) { // 如果合并删除源栏目
         await this.model('category').delete({where: {id: data.source_id}});
       }
-     await update_cache('category');// 更新栏目缓存
+      await update_cache('category');// 更新栏目缓存
       return this.success({name: '成功！', url: '/admin/category/index'});
     } else {
       const data = this.get();
@@ -521,7 +524,7 @@ module.exports = class extends think.cmswing.admin {
   async isappAction() {
     const up = await this.model('category').where({id: this.get('ids')}).update({isapp: this.get('isapp')});
     if (up) {
-     await update_cache('category');// 更新栏目缓存
+      await update_cache('category');// 更新栏目缓存
       return this.success({name: '操作成功!'});
     } else {
       return this.fail('操作失败!');
