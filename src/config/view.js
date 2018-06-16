@@ -451,14 +451,14 @@ module.exports = {
       env.addFilter('get_pdq', (id) => {
         return get_pdq(id);
       });
-        /**
+      /**
         * 检查pos(推荐位的值)是否包含指定推荐位contain
         * @param number pos 推荐位的值
         * @param number contain 指定推荐位
         * @return boolean true 包含 ， false 不包含
         */
-      env.addFilter('check_document_position',(pos = 0, contain = 0) => {
-        return check_document_position(pos,contain);
+      env.addFilter('check_document_position', (pos = 0, contain = 0) => {
+        return check_document_position(pos, contain);
       });
     }
   }

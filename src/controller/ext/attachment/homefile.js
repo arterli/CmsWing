@@ -71,7 +71,11 @@ module.exports = class extends think.cmswing.center {
     } else {
       const uploadPath = think.resource + '/upload/download/' + dateformat('Y-m-d', new Date().getTime());
       think.mkdir(uploadPath);
-      fs.renameSync(filepath, uploadPath + '/' + basename);
+      try {
+        fs.renameSync(filepath, uploadPath + '/' + basename);
+      } catch (err) {
+        await this.streamup(filepath, uploadPath + '/' + basename);
+      }
       file.path = uploadPath + '/' + basename;
       if (think.isFile(file.path)) {
         data = {
@@ -127,7 +131,7 @@ module.exports = class extends think.cmswing.center {
       }
     } else {
       // 默认路径
-      const uploadPath = this.saveFile(filepath, 'picture', basename, att);
+      const uploadPath = await this.saveFile(filepath, 'picture', basename, att);
       // 返回最新路径
       file.path = uploadPath.path + '/' + basename;
       if (think.isFile(file.path)) {
@@ -166,7 +170,7 @@ module.exports = class extends think.cmswing.center {
     return think.isEmpty(rr) ? this.json(res) : this.json(rr);
   }
   // 转移文件
-  saveFile(filepath, defpath, basename, attr) {
+  async saveFile(filepath, defpath, basename, attr) {
     // 处理路径
     if (!think.isEmpty(attr.path.trim())) {
       defpath = attr.path.trim();
@@ -177,7 +181,11 @@ module.exports = class extends think.cmswing.center {
     think.mkdir(uploadPath);
     // 转移文件
     if (think.isFile(filepath)) {
-      fs.renameSync(filepath, uploadPath + '/' + basename);
+      try {
+        fs.renameSync(filepath, uploadPath + '/' + basename);
+      } catch (err) {
+        await this.streamup(filepath, uploadPath + '/' + basename);
+      }
     }
     return {
       path: uploadPath,
@@ -223,5 +231,16 @@ module.exports = class extends think.cmswing.center {
     } else {
       return this.fail('删除文件失败!');
     }
+  }
+  // 使用stream 移动文件解决跨盘问题
+  streamup(filepath, newpath) {
+    const defer = think.defer();
+    const readStream = fs.createReadStream(filepath);
+    const writeStream = fs.createWriteStream(newpath);
+    readStream.pipe(writeStream);
+    readStream.on('end', () => {
+      defer.resolve('1');
+    });
+    return defer.promise;
   }
 };

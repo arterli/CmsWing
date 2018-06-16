@@ -232,6 +232,7 @@ module.exports = class extends think.Controller {
     } else {
       // return self.uploader(fieldName, config, oriName, size, path, base64);
       const up = this.extService('ueditor', 'editor', fieldName, config, base64, this.ctx); // 加载名为 ueditor 的 editor Adapter
+      await up.up();
       // console.log("ddddddd"+upload.getFileInfo);
       return up.getFileInfo;
     }

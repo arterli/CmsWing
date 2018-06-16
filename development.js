@@ -3,7 +3,7 @@ const watcher = require('think-watcher');
 const instance = new Application({
   ROOT_PATH: __dirname,
   watcher: watcher,
-  env: 'development',
+  env: 'development'
 });
 
 instance.run();

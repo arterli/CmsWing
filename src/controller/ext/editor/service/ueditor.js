@@ -24,20 +24,26 @@ module.exports = class extends think.Service {
     this.type = type;
     // console.log(fileField);
     // console.log(http);
-    if (type === 'remote') {
-      //this.saveRemote();
-    } else if (type === 'base64') {
+    // if (type === 'remote') {
+    //   // this.saveRemote();
+    // } else if (type === 'base64') {
+    //   this.upBase64();
+    // } else {
+    //   this.upFile();
+    // }
+  }
+  async up() {
+    if (this.type === 'base64') {
       this.upBase64();
     } else {
-      this.upFile();
+      await this.upFile();
     }
   }
-
   /**
      * 上传文件的主处理方法
      * @return mixed
      */
-  upFile() {
+  async upFile() {
     const http = this.http;
     const file = http.file(this.fileField);
     console.log(file);
@@ -64,7 +70,11 @@ module.exports = class extends think.Service {
       return;
     }
     // 移动文件
-    fs.renameSync(file.path, this.filePath);
+    try {
+      fs.renameSync(file.path, this.filePath);
+    } catch (err) {
+      await this.streamup(file.path, this.filePath);
+    }
     // 添加水印
     if (this.config.mark == true) {
       const mark = think.extService('mark', 'attachment');
@@ -119,7 +129,17 @@ module.exports = class extends think.Service {
       this.stateInfo = '文件保存时出错';
     }
   }
-
+  // 使用stream 移动文件解决跨盘问题
+  streamup(filepath, newpath) {
+    const defer = think.defer();
+    const readStream = fs.createReadStream(filepath);
+    const writeStream = fs.createWriteStream(newpath);
+    readStream.pipe(writeStream);
+    readStream.on('end', () => {
+      defer.resolve('1');
+    });
+    return defer.promise;
+  }
   spiderImage(imgUrl, filePath) {
     const deferred = think.defer();
     superagent
