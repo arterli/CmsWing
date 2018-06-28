@@ -13,6 +13,5 @@ module.exports = [
   ['/admin/mod/:cate_id', 'cmswing/modadminbase/index', 'get'],
   ['/q/:id', 'mod/question/index/detail', 'get'],
   [/\/api\/(\w+)(?:\/(\d+))?/, 'api/:1?id=:2', 'rest'],
-  // [/^(?!\/admin\/|\/home\/|\/center\/|\/api\/|\/uxxx\/):id/i, '/home/route/index/:1/', 'get'],
-  ['/:category', 'cmswing/route/index', 'get']
+  [/(^(?!\/admin\/|\/home\/|\/center\/|\/api\/|\/mod\/|\/ext\/).*)$/, 'cmswing/route/index?category=:1', 'get']
 ];

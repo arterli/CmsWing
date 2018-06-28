@@ -15,7 +15,7 @@ module.exports = class extends think.cmswing.center {
     let id = 0;
     const query = get.split('-');
     if (get != 0) {
-      id = query[0];
+      id = query[0].slice(1);
     }
 
     let cate = await this.category(id);
@@ -261,9 +261,9 @@ module.exports = class extends think.cmswing.center {
     this.assign('category', cate);
     this.assign('list', data.data);
     this.assign('count', data.count);
-    if(this.get('rss')==1){
-      this.header('Content-Type','text/xml');
-      return this.display('cmswing/rss.xml')
+    if (this.get('rss') == 1) {
+      this.header('Content-Type', 'text/xml');
+      return this.display('cmswing/rss.xml');
     }
     // console.log(cate)
     let temp = cate.template_lists ? `${cate.template_lists}` : 'index';

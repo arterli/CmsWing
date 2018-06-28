@@ -15,7 +15,7 @@ module.exports = class extends Index {
      */
   async __before() {
     await super.__before();// 继承父类before
-    const getCategory = this.get('category') ? this.get('category').split('-')[0] : false;
+    const getCategory = this.get('category') ? this.get('category').split('-')[0].slice(1) : false;
     if (this.get('category') || this.get('cid')) {
       // 获取当前模型栏目id
       this.m_cate = await this.category(getCategory || this.get('cid'));

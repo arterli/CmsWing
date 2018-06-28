@@ -10,7 +10,7 @@ module.exports = class extends think.cmswing.center {
      * 解析路由，判断是频道页面还是列表页面
      */
   async indexAction() {
-    const cate = await this.category(this.get('category').split('-')[0]);
+    const cate = await this.category(this.get('category').split('-')[0].slice(1));
     if (think.isEmpty(cate)) {
       return cate;
     }

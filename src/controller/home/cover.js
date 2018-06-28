@@ -12,11 +12,11 @@ module.exports = class extends think.cmswing.home {
      */
   // 频道页
   async indexAction() {
-    // auto render template file index_index.html
     const get = this.get('category') || 0;
     let id = 0;
-    if (get != 0) {
-      id = get.split('-')[0];
+    const query = get.split('-');
+    if (get !== 0) {
+      id = query[0].slice(1);
     }
 
     let cate = await this.category(id);
