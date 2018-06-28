@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-05-10 17:13:42
+Date: 2018-06-28 18:55:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4689,7 +4689,7 @@ INSERT INTO `cmswing_document` VALUES ('205', '1', '', '镜头下汪星人与“
 INSERT INTO `cmswing_document` VALUES ('206', '1', '', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '81', '3', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '0', '0', '0', '5', '2', '2', '0', '620', '1', '0', '0', '15', '0', '0', '0', '1466496944022', '1466496944022', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('207', '1', '', '百余只“喵星人”争艳卖萌 观众大饱眼福', '81', '3', '百余只“喵星人”争艳卖萌 观众大饱眼福', '0', '0', '0', '5', '2', '0', '0', '627', '1', '0', '0', '9', '0', '0', '0', '1466497154172', '1466497154172', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('208', '1', '', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩', '81', '0', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩', '0', '0', '0', '5', '2', '0', '0', '637', '1', '0', '0', '9', '0', '0', '0', '1466497304929', '1466497304929', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('209', '1', '', '英男童与狗狗形影不离亲似兄弟', '81', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '2', '0', '642', '1', '0', '0', '35', '0', '0', '0', '1466497716678', '1466497716678', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('209', '1', '', '英男童与狗狗形影不离亲似兄弟', '81', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '0', '0', '642', '1', '0', '0', '35', '0', '0', '0', '1466497680000', '1530182005320', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('210', '1', '', 'ACA/北美电器 AB-3CN03面包机家用全自动多功能智能酸奶蛋糕和面', '51', '0', 'ACA/北美电器 AB-3CN03面包机家用全自动多功能智能酸奶蛋糕和面', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '31', '0', '0', '0', '1468920727338', '1468920727334', '1', '653,654', '{\"present_price\":\"269\",\"discount_price\":\"1588\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('211', '1', '', 'Apple iPad mini 2 平板电脑 7.9英寸（16G WLAN版/A7芯片/Retina显示屏 ME279CH）', '51', '0', 'Apple iPad mini 2 平板电脑 7.9英寸（16G WLAN版/A7芯片/Retina显示屏 ME279CH）', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '76', '0', '0', '0', '1468920668893', '1468920668886', '1', '655,656,657,658,659,660', '{\"present_price\":\"1-2148\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('213', '1', '', '老笠', '85', '0', '《老笠》改编自同台舞台剧，演员阵容包括郭伟亮、姜皓文、冯淬帆、曾国祥、马志威、卢惠光、崔碧珈及雷琛瑜[1]  。', '0', '0', '0', '6', '2', '0', '0', '663', '1', '0', '0', '37', '0', '0', '0', '1466569380000', '1505338326383', '1', '', '', '0', '0');
@@ -4715,8 +4715,8 @@ INSERT INTO `cmswing_document` VALUES ('302', '2', '', 'fdasfdsafdsafasf', '1', 
 INSERT INTO `cmswing_document` VALUES ('303', '1', '', '333333333333333333', '85', '0', '3333333333333', '0', '0', '0', '6', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1505213097136', '1508673419919', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('304', '2', '', 'fdsafdsafdasf', '81', '0', 'fdsafasd', '0', '0', '0', '5', '2', '0', '0', '883', '1', '0', '0', '0', '0', '0', '0', '1508673342095', '1508673439175', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('305', '2', '', 'fdsafdsaf', '63', '0', 'fdsafdas', '0', '0', '0', '3', '2', '0', '0', '885', '1', '0', '0', '0', '0', '0', '0', '1508673402966', '1508673442258', '-1', '', '', '0', null);
-INSERT INTO `cmswing_document` VALUES ('306', '1', '', '英男童与狗狗形影不离亲似兄弟', '82', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '2', '0', '642', '1', '0', '0', '35', '0', '0', '0', '1508920653693', '1508920653695', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('307', '1', '', '英男童与狗狗形影不离亲似兄弟', '83', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '2', '0', '642', '1', '0', '0', '36', '0', '0', '0', '1508920762245', '1508920762248', '1', '', '', '7', '0');
+INSERT INTO `cmswing_document` VALUES ('306', '1', '', '英男童与狗狗形影不离亲似兄弟', '82', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '4', '0', '642', '1', '0', '0', '35', '0', '0', '0', '1508920620000', '1530183151309', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('307', '1', '', '英男童与狗狗形影不离亲似兄弟', '83', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '0', '0', '642', '1', '0', '0', '36', '0', '0', '0', '1508920740000', '1530181981254', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('308', '1', '', '清纯妹子琳琳ailin性感大片风情万种', '83', '3', '清纯妹子琳琳ailin性感大片风情万种', '0', '0', '0', '5', '2', '4', '0', '575', '1', '0', '0', '155', '0', '0', '0', '1508920763408', '1508920763410', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('309', '1', '', '本地上传测试', '63', '0', '本地上传测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '3', '0', '0', '0', '1509164657717', '1509164657721', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('310', '1', '', '七牛上传测试', '63', '0', '七牛上传测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1509165661329', '1509165661332', '-1', '', '', '0', null);
@@ -6800,7 +6800,7 @@ INSERT INTO `cmswing_keyword` VALUES ('35', 'MySQL', '', '1', '0', null, '0', '0
 INSERT INTO `cmswing_keyword` VALUES ('36', '中文全文索引', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1482217120304', '0');
 INSERT INTO `cmswing_keyword` VALUES ('37', '插件开发', '', '3', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1509526354807', '0');
 INSERT INTO `cmswing_keyword` VALUES ('38', '33333', '', '1', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1498204876835', '0');
-INSERT INTO `cmswing_keyword` VALUES ('40', '0', '', '9', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1509526375036', '0');
+INSERT INTO `cmswing_keyword` VALUES ('40', '0', '', '7', '0', null, '0', '0', '0', '0', null, '0', null, '0', '0', '0', '0', '1509526375036', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_keyword_data
@@ -6826,8 +6826,6 @@ INSERT INTO `cmswing_keyword_data` VALUES ('66', '21', '1', '1503940848308', '1'
 INSERT INTO `cmswing_keyword_data` VALUES ('67', '21', '202', '1503940918102', '1', '0', '2');
 INSERT INTO `cmswing_keyword_data` VALUES ('68', '21', '33', '1503947911775', '2', '1', '8');
 INSERT INTO `cmswing_keyword_data` VALUES ('69', '21', '10', '1503947937213', '2', '1', '8');
-INSERT INTO `cmswing_keyword_data` VALUES ('70', '40', '306', '1508920653721', '1', '0', '5');
-INSERT INTO `cmswing_keyword_data` VALUES ('71', '40', '307', '1508920762345', '1', '0', '5');
 INSERT INTO `cmswing_keyword_data` VALUES ('72', '40', '308', '1508920763419', '1', '0', '5');
 INSERT INTO `cmswing_keyword_data` VALUES ('73', '40', '103', '1509526353974', '1', '0', '2');
 INSERT INTO `cmswing_keyword_data` VALUES ('74', '37', '104', '1509526354809', '1', '0', '2');
@@ -6921,7 +6919,7 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1727', '', '1452513965683', '0', '1525942051902', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1728', '', '1452513965683', '0', '1530181629255', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
 INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '98', 'cmswing@cmswing.com', '299', '13571883578', '1458989485616', '0', '1511613943734', '0', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '5', '', '1458990106486', '0', '1505443722915', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
@@ -8475,7 +8473,7 @@ INSERT INTO `cmswing_search` VALUES ('3310', '5', '205', '1466496728582', '镜�
 INSERT INTO `cmswing_search` VALUES ('3311', '5', '206', '1466496944022', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠 0 英国 艺术家 灌木丛 创作 出 逼真 猫咪 纪念 爱 宠 0');
 INSERT INTO `cmswing_search` VALUES ('3312', '5', '207', '1466497154172', '百余只“喵星人”争艳卖萌 观众大饱眼福 0 百余 只 喵星人 争艳 卖萌 观众 大饱眼福 0');
 INSERT INTO `cmswing_search` VALUES ('3313', '5', '208', '1466497304929', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩 0 郑州 上演 狗刨 大赛 萌犬 下水 临阵 退缩 0');
-INSERT INTO `cmswing_search` VALUES ('3314', '5', '209', '1466497716678', '英男童与狗狗形影不离亲似兄弟 0 英 男童 与 狗狗 形影不离 亲似 兄弟 0');
+INSERT INTO `cmswing_search` VALUES ('3314', '5', '209', '1466497716678', '英男童与狗狗形影不离亲似兄弟  英 男童 与 狗狗 形影不离 亲似 兄弟');
 INSERT INTO `cmswing_search` VALUES ('3315', '5', '223', '1467799875267', '简约室内客厅电视背景墙图片大全 0 简约 室内 客厅 电视 背景墙 图片 大全 0');
 INSERT INTO `cmswing_search` VALUES ('3316', '5', '224', '1467800228012', '主卧室吊顶装修效果图大全 0 主 卧室 吊顶 装修 效果图 大全 0');
 INSERT INTO `cmswing_search` VALUES ('3317', '5', '225', '1467800485779', '主卧室吊顶装修效果图大全 0 主 卧室 吊顶 装修 效果图 大全 0');
@@ -8509,7 +8507,7 @@ INSERT INTO `cmswing_search` VALUES ('3344', '8', '40', '1485229307267', '检测
 INSERT INTO `cmswing_search` VALUES ('3345', '8', '41', '1485229319846', '测试 测试');
 INSERT INTO `cmswing_search` VALUES ('3346', '8', '42', '1487231629134', '34543 34543');
 INSERT INTO `cmswing_search` VALUES ('3347', '8', '44', '1502216303443', 'ffsfs ffsfs');
-INSERT INTO `cmswing_search` VALUES ('3394', '5', '306', '1508920653693', '英男童与狗狗形影不离亲似兄弟 0 英 男童 与 狗狗 形影不离 亲似 兄弟 0');
+INSERT INTO `cmswing_search` VALUES ('3394', '5', '306', '1508920653693', '英男童与狗狗形影不离亲似兄弟  英 男童 与 狗狗 形影不离 亲似 兄弟');
 INSERT INTO `cmswing_search` VALUES ('3407', '2', '101', '1463393721507', '特稿│百度科学家眼中的复杂中国 0 特稿 百度 科学家 眼中 的 复杂 中国 0');
 INSERT INTO `cmswing_search` VALUES ('3353', '6', '268', '1505205346473', 'dsfdsafdsa  dsfdsafdsa');
 INSERT INTO `cmswing_search` VALUES ('3360', '4', '274', '1505369387779', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机  得力 deli DL 888 D 热敏 不干胶 打印机 电子 面 单 条码 标签打印机');
@@ -8532,7 +8530,7 @@ INSERT INTO `cmswing_search` VALUES ('3408', '2', '102', '1463394000000', '为�
 INSERT INTO `cmswing_search` VALUES ('3380', '8', '56', '1508522406264', 'fdsafsadf fdsafsadf');
 INSERT INTO `cmswing_search` VALUES ('3381', '8', '57', '1508522435922', 'fdsafdasf fdsafdasf');
 INSERT INTO `cmswing_search` VALUES ('3382', '8', '58', '1508522469350', 'fdsafdsaf fdsafdsaf');
-INSERT INTO `cmswing_search` VALUES ('3395', '5', '307', '1508920762245', '英男童与狗狗形影不离亲似兄弟 0 英 男童 与 狗狗 形影不离 亲似 兄弟 0');
+INSERT INTO `cmswing_search` VALUES ('3395', '5', '307', '1508920762245', '英男童与狗狗形影不离亲似兄弟  英 男童 与 狗狗 形影不离 亲似 兄弟');
 INSERT INTO `cmswing_search` VALUES ('3387', '8', '60', '1508673424899', 'fdsafdsafdsaf fdsafdsafdsaf');
 INSERT INTO `cmswing_search` VALUES ('3388', '8', '61', '1508673427780', 'fdsafdsafas fdsafdsafas');
 INSERT INTO `cmswing_search` VALUES ('3389', '8', '62', '1508673430784', 'fdsafsadf fdsafsadf');
@@ -9044,6 +9042,14 @@ INSERT INTO `cmswing_typeoptionvar` VALUES ('9', '292', '51', '32', '0', ' ');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('9', '292', '51', '33', '0', ' ');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('9', '292', '51', '34', '0', ' ');
 INSERT INTO `cmswing_typeoptionvar` VALUES ('13', '293', '56', '47', '0', '1');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '12', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '13', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '14', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '16', '0', '0');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '17', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '23', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '24', '0', '');
+INSERT INTO `cmswing_typeoptionvar` VALUES ('7', '307', '83', '25', '0', '');
 
 -- ----------------------------
 -- Table structure for cmswing_typevar
@@ -9327,6 +9333,7 @@ INSERT INTO `cmswing_type_optionvalue7` VALUES ('225', '83', '0', '0', '0', '3',
 INSERT INTO `cmswing_type_optionvalue7` VALUES ('226', '83', '0', '0', '12', '2', '4', '5', 'sfdfdgdfgdfg', '4.1.2', '0', 'sdada', '1', '[\"1\",\"2\"]');
 INSERT INTO `cmswing_type_optionvalue7` VALUES ('227', '83', '0', '0', '0', '2', '3', '4', '', '1.2.1', '0', '', '1', '0');
 INSERT INTO `cmswing_type_optionvalue7` VALUES ('299', '83', '0', '0', '12', '', '', '', 'sfdfdgdfgdfg', '1', '0', 'sdada', '0', '0');
+INSERT INTO `cmswing_type_optionvalue7` VALUES ('307', '83', '0', '0', '0', '', '', '', '', '', '0', '', '0', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_type_optionvalue8

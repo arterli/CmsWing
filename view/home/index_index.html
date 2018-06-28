@@ -41,7 +41,7 @@
                     -->
 					<div class="fullwidthbanner" data-height="550" data-shadow="" data-navigationStyle="preview2">
 						<ul class="hide">
-							{% topic data = "slider",limit= "5",position='2',issub="1"%}
+							{% topic data = "slider",limit= "5",position='home',issub="1"%}
 							{%for val in slider%}
 							{%if val.model_id==4%} {% set pic = val.pics|strToArray%}{%else%}{%set pic = val.cover_id%}{%endif%}
 							<!-- SLIDE  -->

@@ -57,17 +57,18 @@ module.exports = class extends think.Model {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
   async updates(data, time = new Date().getTime()) {
-
-    if(!think.isEmpty(data.position)){
-      if(!think.isArray(data.position)){
+    if (!think.isEmpty(data.position)) {
+      if (!think.isArray(data.position)) {
         data.position = data.position || 0;
       } else {
         let pos = 0;
-        for (let p of data.position){
-          pos += p;
+        for (const p of data.position) {
+          pos += p * 1;
         }
         data.position = pos;
       }
+    } else {
+      data.position = 0;
     }
     // 获取子表的表明
     const model = await this.modelinfo(data.model_id);

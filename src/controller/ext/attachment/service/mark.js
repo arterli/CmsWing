@@ -1,5 +1,5 @@
 const path = require('path');
-const Jimp = require("jimp");
+const Jimp = require('jimp');
 
 module.exports = class extends think.Service {
   // 初始化构造函数
@@ -60,7 +60,7 @@ module.exports = class extends think.Service {
   // 加载图片
   async LoadImage(path) {
     const deferred = think.defer();
-    Jimp.read(path, function (err, lenna) {
+    Jimp.read(path, function(err, lenna) {
       if (err) throw err;
       deferred.resolve(lenna);
     });

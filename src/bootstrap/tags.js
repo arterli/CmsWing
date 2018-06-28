@@ -202,7 +202,7 @@ global.groups = function() {
  * {{name|get_url(id)}}文章链接
  * type: 标签类型,hot-安装浏览量从高到底,level-安装优先级从高到低排序,默认安装更新时间排序
  * //{% topic data = "data",limit= "5",cid=category.id,type="hot"%}
- * position:1:列表推荐,2:频道推荐,4:首页推荐
+ * position:1[list]:列表推荐,2[index]:频道推荐,4[home]:首页推荐
  * ispic:是否包涵缩略图,1:包含缩略图的内容,2:不包含缩略图,默认所有
  * issub:1:包含自栏目,2:不包含自栏目,默认包含自栏目
  * isstu:1:获取副表内容,2:只从主表拿数据,默认只从主表拿
@@ -259,7 +259,19 @@ global.topic = function() {
     }
     // 推荐
     if (!think.isEmpty(args.position)) {
-      where = think.extend(where, {position: args.position});
+      switch (args.position) {
+        case 'home':// 4,5,6,7 首页
+          where = think.extend(where, {position: ['IN', '4,5,6,7']});
+          break;
+        case 'index':// 2,3,6,7 频道
+          where = think.extend(where, {position: ['IN', '2,3,6,7']});
+          break;
+        case 'list':// 1,3,5,7 列表
+          where = think.extend(where, {position: ['IN', '1,3,5,7']});
+          break;
+        default:
+          where = think.extend(where, {position: args.position});
+      }
     }
     // 条件
     if (!think.isEmpty(args.where)) {
