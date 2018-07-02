@@ -310,7 +310,20 @@ module.exports = class extends think.cmswing.admin {
     // console.log(field);
     // console.log(1111111);
     if (!think.isEmpty(position)) {
-      map['position'] = position;
+      // map['position'] = position;
+      switch (Number(position)) {
+        case 4:// 4,5,6,7 首页
+          map.position = ['IN', '4,5,6,7'];
+          break;
+        case 2:// 2,3,6,7 频道
+          map.position = ['IN', '2,3,6,7'];
+          break;
+        case 1:// 1,3,5,7 列表
+          map.position = ['IN', '1,3,5,7'];
+          break;
+        default:
+          map.position = position;
+      }
     }
     if (!think.isEmpty(group_id)) {
       map['group_id'] = group_id;
