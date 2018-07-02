@@ -113,7 +113,6 @@ module.exports = class extends think.Controller {
     if (!think.isEmpty(att) && !think.isEmpty(att.name)) {
       name = att.name;
     }
-
     const file = think.extend({}, this.file(name));
     const filepath = file.path;
     const extname = path.extname(file.name);

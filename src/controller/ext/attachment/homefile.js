@@ -106,7 +106,6 @@ module.exports = class extends think.cmswing.center {
     if (!think.isEmpty(att) && !think.isEmpty(att.name)) {
       name = att.name;
     }
-
     const file = think.extend({}, this.file(name));
     const filepath = file.path;
     const extname = path.extname(file.name);
@@ -154,7 +153,6 @@ module.exports = class extends think.cmswing.center {
     let rr = {};
     if (!think.isEmpty(att) && !think.isEmpty(att.rule)) {
       const match = att.rule.match(/\${(\S+?)\}/g);
-      console.log(match);
       const replace = [];
       for (let val of match) {
         val = val.replace(/(^\${)|(\}$)/g, '');
@@ -162,7 +160,6 @@ module.exports = class extends think.cmswing.center {
       }
       console.log(replace);
       rr = str_replace(match, replace, att.rule);
-      console.log(rr);
       if (att.rule.indexOf('{') === 0) {
         rr = JSON.parse(rr);
       }
@@ -172,7 +169,7 @@ module.exports = class extends think.cmswing.center {
   // 转移文件
   async saveFile(filepath, defpath, basename, attr) {
     // 处理路径
-    if (!think.isEmpty(attr.path.trim())) {
+    if (attr.path != null && !think.isEmpty(attr.path.trim())) {
       defpath = attr.path.trim();
     };
     // 生成目录
