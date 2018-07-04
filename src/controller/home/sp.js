@@ -12,12 +12,10 @@ module.exports = class extends think.cmswing.center {
    */
   async indexAction() {
     // auto render template file index_index.html
-    const get = this.get('category') || 0;
-
+    const get = this.get('category').slice(1) || 0;
     let cate = await this.category(get);
     const sp = await this.model('category_sp').find({where: {cid: cate.id}});
     cate = think.extend({}, cate, sp);
-    // console.log(cate);
     // 访问控制
     let roleid = 8;// 游客
     if (this.is_login) {
