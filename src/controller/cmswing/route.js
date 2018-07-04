@@ -39,7 +39,7 @@ module.exports = class extends think.cmswing.center {
         await this.action('home/sp', 'index');
         break;
       default:
-        return this.body = 'haha';
+        this.body = 'haha';
     }
     // this.end(cate.allow_publish)
     // 获取当前栏目的模型
