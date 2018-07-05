@@ -19,7 +19,7 @@
                     <tr>
 
                         <td>{{k}}</td>
-                        <td>{{v|safe}}</td>
+                        <td>{% if k =='content'%}{{v|safe}}{%else%}{{v}}{%endif%}</td>
 
                     </tr>
                     {%endfor%}

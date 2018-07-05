@@ -20,7 +20,7 @@
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
      */
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-    ///console.log(getUEBasePath());
+
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -32,7 +32,7 @@
         // 服务器统一请求接口路径
         , serverUrl: "/admin/ueditor/index"
 
-        //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
+        //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
             'fullscreen', 'source', '|', 'undo', 'redo', '|',
             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
@@ -44,14 +44,13 @@
             'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
             'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
-            'print', 'preview', 'searchreplace', 'help', 'drafts'
+            'print', 'preview', 'searchreplace', 'drafts', 'help'
         ]]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
         //    'anchor':'', 'undo':''
         //}
-        //抓取远程图片是否开启,默认true
-        ,catchRemoteImageEnable:true
+
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
         //,lang:"zh-cn"
@@ -62,7 +61,7 @@
         //,theme:'default'
         //,themePath:URL +"themes/"
 
-        ,zIndex : 99999     //编辑器层级的基数,默认是900
+        //,zIndex : 900     //编辑器层级的基数,默认是900
 
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
@@ -84,14 +83,14 @@
         //如果自定义，最好给p标签如下的行高，要不输入中文时，会有跳动感
         //,initialStyle:'p{line-height:1em}'//编辑器层级的基数,可以用来改变字体等
 
-        //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑器内部引入一个css文件
+        //,iframeCssUrl: URL + '/themes/iframe.css' //给编辑区域的iframe引入一个css文件
 
         //indentValue
         //首行缩进距离,默认是2em
         //,indentValue:'2em'
 
         //,initialFrameWidth:1000  //初始化编辑器宽度,默认1000
-       // ,initialFrameHeight:600  //初始化编辑器高度,默认320
+        //,initialFrameHeight:320  //初始化编辑器高度,默认320
 
         //,readonly : false //编辑器初始化结束后,编辑区域是否是只读的，默认是false
 
@@ -140,6 +139,7 @@
         //        }
         //    }
         //}()
+
         //,allHtmlEnabled:false //提交到后台的数据是否包含整个html字符串
 
         //insertorderedlist
@@ -281,17 +281,20 @@
 
         //scaleEnabled
         //是否可以拉伸长高,默认true(当开启时，自动长高失效)
-        ,scaleEnabled:true
-       // ,minFrameWidth:400    //编辑器拖动时最小宽度,默认800
+        //,scaleEnabled:false
+        //,minFrameWidth:800    //编辑器拖动时最小宽度,默认800
         //,minFrameHeight:220  //编辑器拖动时最小高度,默认220
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true
-        ,autoFloatEnabled:false
+        //,autoFloatEnabled:true
         //浮动时工具栏距离浏览器顶部的高度，用于某些具有固定头部的页面
-        // ,topOffset:60
+        //,topOffset:30
         //编辑器底部距离工具栏高度(如果参数大于等于编辑器高度，则设置无效)
         //,toolbarTopOffset:400
+
+        //设置远程图片是否抓取到本地保存
+        //,catchRemoteImageEnable: true //设置是否抓取远程图片
 
         //pageBreakTag
         //分页标识符,默认是_ueditor_page_break_tag_
@@ -321,7 +324,7 @@
         //表格是否可以拖拽
         //,tableDragable: true
 
-        //,disabledTableInTable:true  //禁止表格嵌套
+
 
         //sourceEditor
         //源码的查看方式,codemirror 是代码高亮，textarea是文本框,默认是codemirror
@@ -341,8 +344,89 @@
         //    'anchor':'~/dialogs/anchor/anchor.html',
         //}
 
+        //allowLinkProtocol 允许的链接地址，有这些前缀的链接地址不会自动添加http
+        //, allowLinkProtocols: ['http:', 'https:', '#', '/', 'ftp:', 'mailto:', 'tel:', 'git:', 'svn:']
+
         //webAppKey 百度应用的APIkey，每个站长必须首先去百度官网注册一个key后方能正常使用app功能，注册介绍，http://app.baidu.com/static/cms/getapikey.html
         //, webAppKey: ""
+
+        //默认过滤规则相关配置项目
+        //,disabledTableInTable:true  //禁止表格嵌套
+        //,allowDivTransToP:true      //允许进入编辑器的div标签自动变成p标签
+        //,rgb2Hex:true               //默认产出的数据中的color自动从rgb格式变成16进制格式
+
+		// xss 过滤是否开启,inserthtml等操作
+		,xssFilterRules: true
+		//input xss过滤
+		,inputXssFilter: true
+		//output xss过滤
+		,outputXssFilter: true
+		// xss过滤白名单 名单来源: https://raw.githubusercontent.com/leizongmin/js-xss/master/lib/default.js
+		,whitList: {
+			a:      ['target', 'href', 'title', 'class', 'style'],
+			abbr:   ['title', 'class', 'style'],
+			address: ['class', 'style'],
+			area:   ['shape', 'coords', 'href', 'alt'],
+			article: [],
+			aside:  [],
+			audio:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'class', 'style'],
+			b:      ['class', 'style'],
+			bdi:    ['dir'],
+			bdo:    ['dir'],
+			big:    [],
+			blockquote: ['cite', 'class', 'style'],
+			br:     [],
+			caption: ['class', 'style'],
+			center: [],
+			cite:   [],
+			code:   ['class', 'style'],
+			col:    ['align', 'valign', 'span', 'width', 'class', 'style'],
+			colgroup: ['align', 'valign', 'span', 'width', 'class', 'style'],
+			dd:     ['class', 'style'],
+			del:    ['datetime'],
+			details: ['open'],
+			div:    ['class', 'style'],
+			dl:     ['class', 'style'],
+			dt:     ['class', 'style'],
+			em:     ['class', 'style'],
+			font:   ['color', 'size', 'face'],
+			footer: [],
+			h1:     ['class', 'style'],
+			h2:     ['class', 'style'],
+			h3:     ['class', 'style'],
+			h4:     ['class', 'style'],
+			h5:     ['class', 'style'],
+			h6:     ['class', 'style'],
+			header: [],
+			hr:     [],
+			i:      ['class', 'style'],
+			img:    ['src', 'alt', 'title', 'width', 'height', 'id', '_src', 'loadingclass', 'class', 'data-latex'],
+			ins:    ['datetime'],
+			li:     ['class', 'style'],
+			mark:   [],
+			nav:    [],
+			ol:     ['class', 'style'],
+			p:      ['class', 'style'],
+			pre:    ['class', 'style'],
+			s:      [],
+			section:[],
+			small:  [],
+			span:   ['class', 'style'],
+			sub:    ['class', 'style'],
+			sup:    ['class', 'style'],
+			strong: ['class', 'style'],
+			table:  ['width', 'border', 'align', 'valign', 'class', 'style'],
+			tbody:  ['align', 'valign', 'class', 'style'],
+			td:     ['width', 'rowspan', 'colspan', 'align', 'valign', 'class', 'style'],
+			tfoot:  ['align', 'valign', 'class', 'style'],
+			th:     ['width', 'rowspan', 'colspan', 'align', 'valign', 'class', 'style'],
+			thead:  ['align', 'valign', 'class', 'style'],
+			tr:     ['rowspan', 'align', 'valign', 'class', 'style'],
+			tt:     [],
+			u:      [],
+			ul:     ['class', 'style'],
+			video:  ['autoplay', 'controls', 'loop', 'preload', 'src', 'height', 'width', 'class', 'style']
+		}
     };
 
     function getUEBasePath(docUrl, confUrl) {
