@@ -50,7 +50,7 @@
                     <tr>
                         <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
                         <td><a href="/admin/user/showuser/?id={{item.uid}}" class="text-info" data-toggle="ajaxModal">{{item.uid|get_nickname}}</a></td>
-                        <td><a href="/admin/approval/details/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">{{item.title}} <i class="fa fa-search-plus"></i> </a> </td>
+                        <td>{{item.title|delhtmltags}}   </td>
                         <td>{{item.time | moment('YYYY-MM-DD HH:mm:ss')}}</td>
 
 

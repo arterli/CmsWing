@@ -25,7 +25,7 @@ module.exports = class extends think.cmswing.center {
     } else {
       const time = this.get('d');
       let search_time, sql_time, sql;
-      const m_id = this.get('m') || 0;
+      const m_id = Number(this.get('m')) || 0;
       // 按时间搜索
       if (time == 'day') {
         search_time = new Date().getTime() - 86400000;
@@ -81,7 +81,6 @@ module.exports = class extends think.cmswing.center {
           sql += sql_time;
         }
       }
-
       const numsPerPage = 10;
       const currentPage = Number(this.get('page')) || 1;
       const count = await this.model('mysql').query(`SELECT count(search_id) FROM __SEARCH__ WHERE ${sql}`);
