@@ -1,0 +1,60 @@
+{% extends "view/admin/ext_admin.html" %}
+{% block extadmin %}
+<section class="panel panel-default">
+    <header class="panel-heading text-right bg-light  clearfix">
+        <ul class="nav nav-tabs pull-left">
+            <li class="{{'active' if controller.get('demo')==null}}"><a  href="/{{ctx.controller}}/index">{{controller.meta_title}}</a></li>
+            <li>
+                <a href="/{{ctx.controller}}/setting">插件配置</a>
+            </li>
+        </ul>
+       
+    </header>
+    
+    <!--列表，可以根据自己的实际业务，些内容-->
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+            <tr>
+                <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                <th style="width:80px;">uid</th>
+                <th style="">openid</th>
+                <th class="">头像</th>
+                <th class="">昵称</th>
+                <th class="">性别</th>
+                <th class="">UnionId</th>
+                <!-- <th >操作</th> -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in list %}
+            <tr>
+                <td><label class="checkbox m-n i-checks"><input class="ids" type="checkbox" name="ids" value="{{item.id}}"><i></i></label></td>
+                <td>{{item.uid}}</td>
+                <td>{{item.openid}}</td>
+                <td>{%if item.headimgurl%}<img src="{{item.headimgurl}}" style="height: 32px;width: 32px">{%else%}无{%endif%}</td>
+                <td>{{item.nickname}}</td>
+                <td>{%if item.sex ==1%}男{%else%}女{%endif%}</td>
+                <td>{{item.unionid}}</td>
+                <!-- <td>
+                    <a href="/{{ctx.controller}}/ajaxedit/?id={{item.id}}" class="text-info" data-toggle="ajaxModal">修改</a>
+                    <a href="/{{ctx.controller}}/del/?ids={{item.id}}" class="confirm ajax-get text-info">删除</a></td> -->
+
+            </tr>
+            {% else %}
+            <tr><td colspan="8"><div class="alert alert-warning alert-block">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <p>暂无数据</p>
+            </div></td></tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <!--列表，可以根据自己的实际业务，些内容-->
+    <!--分页底部导航-->
+   
+    <!--分页底部导航-->
+</section>
+{% endblock %}

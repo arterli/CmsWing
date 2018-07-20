@@ -38,7 +38,6 @@ module.exports = class extends think.cmswing.extIndex {
         'is_login': 0// 为登录
       };
     }
-    console.log(ret);
     return this.jsonp(ret);
   }
   // 用户登录接口
