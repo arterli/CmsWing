@@ -462,7 +462,7 @@ module.exports = class extends think.cmswing.center {
     // 绑定发布者id
     data.uid = this.user.uid;
     // 安全验证
-    if (data.is_ajax != 'true') {
+    if (data.is_ajax !== 'true') {
       return this.fail('非法提交！');
     }
     // 验证权限
