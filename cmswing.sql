@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-06-28 21:49:00
+Date: 2018-07-20 16:56:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -157,7 +157,7 @@ CREATE TABLE `cmswing_approval` (
   KEY `uid` (`uid`),
   KEY `time` (`time`),
   KEY `model` (`model`)
-) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_approval
@@ -4237,7 +4237,7 @@ CREATE TABLE `cmswing_cart` (
   `url` varchar(255) NOT NULL COMMENT '商品地址',
   `weight` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_cart
@@ -4248,7 +4248,7 @@ INSERT INTO `cmswing_cart` VALUES ('35', '77', '210', '1', '', '269.00', 'ACA/�
 INSERT INTO `cmswing_cart` VALUES ('36', '38', '211', '1', '深空灰色,16G,壳膜超值套装版', '2092.90', 'Apple iPad mini 2 平板电脑 7.9英寸（16G WLAN版/A7芯片/Retina显示屏 ME279CH）', '2092.90', 'http://data.cmswing.com/kexWPoEkVhoEkIiVTarpcG7t.jpg?imageView2/1/w/100/h/100', '/detail/211', '1000');
 INSERT INTO `cmswing_cart` VALUES ('41', '1', '87', '1', '50 1.8D', '5128.00', '系统测试：尼康（Nikon） D7100 单反双镜头套机（18-140mmf/3.5-5.6G 镜头 + DX 35mm f/1.8G自动对焦镜头）黑色', '5128.00', '/upload/picture/2016-03-31/WH_vpPQS7nOxQDXdDD8RnK3k.jpg', '/p/87.html', '500');
 INSERT INTO `cmswing_cart` VALUES ('42', '1', '244', '1', 'i5 4GB 192GB固态 定制版', '7399.01', 'ThinkPad T460 20FNA01VCD', '7399.01', '//data.cmswing.com/-Gt309mzF_HwDdxtjxYCdyZ-.jpg?imageView2/1/w/100/h/100', '/p/244.html', '1000');
-INSERT INTO `cmswing_cart` VALUES ('47', '2', '293', '2', '黑色,套装1', '878.00', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机', '439.00', 'https://odhs9iog7.qnssl.com/upload_cc142a22975e5704eaac0ef8769ca0db.jpg?imageView2/1/w/100/h/100', '/p/293.html', '1000');
+INSERT INTO `cmswing_cart` VALUES ('48', '2', '244', '1', 'i5 4GB 500GB机械 定制版', '6899.01', 'ThinkPad T460 20FNA01VCD11', '6899.01', 'https://data.cmswing.com/-Gt309mzF_HwDdxtjxYCdyZ-.jpg?imageView2/1/w/100/h/100', '/p/244.html', '1000');
 
 -- ----------------------------
 -- Table structure for cmswing_category
@@ -4292,12 +4292,12 @@ CREATE TABLE `cmswing_category` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `uk_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类表';
 
 -- ----------------------------
 -- Records of cmswing_category
 -- ----------------------------
-INSERT INTO `cmswing_category` VALUES ('1', 'wenzhangceshi', '文章测试', '0', '1', '0', '', 'fsf,犯得上发射点,', 'fdsfdsafdsafas', '', '', '', '', '2', '2', '1,2,3', '0', '1', '1', '0', '0', '1', '', '1379474947', '1505399357488', '1', '0', '1:人物\r\n2: 电商\r\n3: 投创\r\n4:智能硬件\r\n5:互联网＋\r\n6:巨头', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('1', 'wenzhangceshi', '文章测试', '0', '1', '0', '', 'fsf,犯得上发射点,', 'fdsfdsafdsafas', '', '', '', '', '2,3,4,5,6,11', '2', '1,2,3', '0', '1', '1', '0', '0', '1', '', '1379474947', '1530501692894', '1', '0', '1:人物\r\n2: 电商\r\n3: 投创\r\n4:智能硬件\r\n5:互联网＋\r\n6:巨头', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('40', 'tupianceshi', '图片测试', '0', '2', '12', '', '', '', '', 'picture', '', '', '5', '5', '1,2,3', '0', '1', '1', '0', '0', '1', null, '4294967295', '1530184055807', '1', '0', '', '', '0', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('45', 'shangchengceshi', '商城测试', '0', '5', '20', '', '', '', '', 'shop', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1506747141603', '1', '0', '', '', '0', '1', '', 'shop', '');
 INSERT INTO `cmswing_category` VALUES ('50', '', '我要服务', '45', '7', '0', '', '', '', '', 'shop', '', '', '4', '4', '1,2,3', '0', '1', '1', '0', '0', '', null, '4294967295', '1474140160549', '1', '0', '', '{\"required\":0,\"prefix\":0,\"default\":\"1\",\"defaultshow\":\"15\",\"types\":[{\"enable\":\"15\",\"name\":\"服务搜索内容\",\"description\":\"服务搜索内容\",\"show\":0}]}', '0', '1', '', '', '');
@@ -4342,6 +4342,7 @@ INSERT INTO `cmswing_category` VALUES ('126', '', '模板制作', '123', '3', '1
 INSERT INTO `cmswing_category` VALUES ('127', '', '二次开发', '123', '4', '10', '', '', '在二次开发，插件开发过程中遇到的问题可以在这里讨论。', '', '', '', '', '8', '', '', '0', '1', '1', '0', '0', '', null, '1475925482691', '1508522499918', '1', '784', '', null, '1', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('128', 'contribute', '贡献者名单', '112', '5', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1475981861307', '1505388562745', '1', '0', '', null, '2', '1', '', '', '');
 INSERT INTO `cmswing_category` VALUES ('129', 'docs', '文档测试', '0', '8', '10', '', '', '', '', 'documentation', '', '', '11', '11', '1,2,3', '0', '1', '1', '0', '0', '', null, '1508473537558', '1508561333384', '1', '0', '', '', '0', '1', '', '', '');
+INSERT INTO `cmswing_category` VALUES ('130', 'about/ceshi', '测试', '112', '0', '10', '', '', '', '', '', '', '', '', '', '', '0', '0', '1', '0', '0', '', null, '1530715018576', '0', '1', '0', '', null, '2', '1', '', '', '');
 
 -- ----------------------------
 -- Table structure for cmswing_category_priv
@@ -4473,6 +4474,7 @@ INSERT INTO `cmswing_category_sp` VALUES ('115', '0', '', '<h1>免责声明内�
 INSERT INTO `cmswing_category_sp` VALUES ('116', '0', '', '<h1>授权协议内容整理中</h1>', '0', '', null, '', '0');
 INSERT INTO `cmswing_category_sp` VALUES ('128', '2', '', '<h3>总策划</h3><table interlaced=\"disabled\"><tbody><tr class=\"firstRow\"><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><span style=\"font-size: 18px;\">阿特</span></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><br/></td></tr></tbody></table><p><br/></p><p><br/></p><h3>产品设计及研发团队</h3><table><tbody><tr class=\"firstRow\"><td width=\"153\" valign=\"top\" style=\"word-break: break-all; border-width: 1px; border-style: solid;\"><span style=\"font-size: 18px;\">阿特</span></td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid; word-break: break-all;\">横坐标</td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid;\"><br/></td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid;\"><br/></td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid;\"><br/></td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid;\"><br/></td><td width=\"153\" valign=\"top\" style=\"border-width: 1px; border-style: solid;\"><br/></td></tr></tbody></table><h3><br/></h3><h3>界面及用户体验团队<br/></h3><table><tbody><tr class=\"firstRow\"><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><span style=\"font-size: 18px;\">阿特</span></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td></tr></tbody></table><h3><br/></h3><h3>文档编写团队<br/></h3><table><tbody><tr class=\"firstRow\"><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><span style=\"font-size: 18px;\">阿特</span></td><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><span style=\"font-size: 18px;\">媄玅亽甡</span></td><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><a href=\"https://github.com/phantomk\" target=\"_blank\" style=\"font-size: 18px; text-decoration: underline;\"><span style=\"font-size: 18px;\">phantomk</span></a></td><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\"><a href=\"http://www.reake.com\" target=\"_blank\"><span style=\"font-size: 18px;\">reake</span></a><br/></td><td width=\"153\" valign=\"top\" style=\"word-break: break-all;\">横坐标</td><td width=\"153\" valign=\"top\"><br/></td><td width=\"153\" valign=\"top\"><br/></td></tr></tbody></table><p><br/></p>', '0', '', null, 'http://www.baidu.com', '0');
 INSERT INTO `cmswing_category_sp` VALUES ('112', '0', '', '<p>额外企鹅驱蚊器 额外去额外去恶</p>', '0', '', '<p style=\"box-sizing: inherit; margin-top: 0px; margin-bottom: 15px; line-height: 25px; text-align: justify; word-break: break-word; color: rgb(119, 119, 119); font-family: Lato, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif; font-size: 15px; white-space: normal; background-color: rgb(250, 250, 250);\">github地址：<a href=\"https://github.com/arterli/CmsWing\" class=\"md_relative_url\" style=\"box-sizing: inherit; color: rgb(65, 131, 196); text-decoration: none; background: transparent; cursor: pointer !important; word-wrap: break-word;\">https://github.com/arterli/CmsWing</a></p><p style=\"box-sizing: inherit; margin-top: 0px; margin-bottom: 15px; line-height: 25px; text-align: justify; word-break: break-word; color: rgb(119, 119, 119); font-family: Lato, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif; font-size: 15px; white-space: normal; background-color: rgb(250, 250, 250);\">码云地址：<a href=\"http://git.oschina.net/arterli/CmsWing\" class=\"md_relative_url\" target=\"_blank\" style=\"box-sizing: inherit; color: rgb(65, 131, 196); text-decoration: none; background: transparent; cursor: pointer !important; word-wrap: break-word;\">http://git.oschina.net/arterli/CmsWing</a></p><p style=\"box-sizing: inherit; margin-top: 0px; margin-bottom: 15px; line-height: 25px; text-align: justify; word-break: break-word; color: rgb(119, 119, 119); font-family: Lato, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif; font-size: 15px; white-space: normal; background-color: rgb(250, 250, 250);\">coding.net:<a href=\"https://coding.net/u/arterli/p/CmsWing/git\" class=\"md_relative_url\" style=\"box-sizing: inherit; color: rgb(65, 131, 196); text-decoration: none; background: transparent; cursor: pointer !important; word-wrap: break-word;\">https://coding.net/u/arterli/p/CmsWing/git</a></p><p style=\"box-sizing: inherit; margin-top: 0px; margin-bottom: 15px; line-height: 25px; text-align: justify; word-break: break-word; color: rgb(119, 119, 119); font-family: Lato, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif; font-size: 15px; white-space: normal; background-color: rgb(250, 250, 250);\"><strong style=\"box-sizing: inherit;\">简介:</strong></p><ul class=\"task-list list-paddingleft-2\" style=\"box-sizing: inherit; font-size: 14px; line-height: 24px; padding-left: 30px; color: rgb(119, 119, 119); font-family: Lato, &quot;Helvetica Neue&quot;, &quot;Microsoft YaHei&quot;, Arial, Helvetica, sans-serif; white-space: normal; background-color: rgb(250, 250, 250);\"><li><p>模块化：全新的架构和模块化的开发机制，便于灵活扩展和二次开发。</p></li><li><p>模型/栏目/分类信息体系：通过栏目和模型绑定，以及不同的模型类型，不同栏目可以实现差异化的功能，轻松实现诸如资讯、下载、讨论和图片等功能。通过分类信息和栏目绑定，可以自动建立索引表，轻松实现复杂的信息检索。</p></li><li><p>用户行为：支持自定义用户行为，可以对单个用户或者群体用户的行为进行记录及分享，为您的运营决策提供有效参考数据。</p></li><li><p>云服务支持：支持云存储、云安全、云过滤和云统计等服务，更多贴心的服务让您的网站更安心。</p></li><li><p>安全稳健：提供稳健的安全策略，包括备份恢复、容错、防止恶意攻击登录，网页防篡改等多项安全管理功能，保证系统安全，可靠、稳定的运行。</p></li></ul><p><br/></p>', '', '0');
+INSERT INTO `cmswing_category_sp` VALUES ('130', '0', '', '<p>请输入内容...</p>', '0', '', null, '', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_channel
@@ -4545,7 +4547,7 @@ CREATE TABLE `cmswing_document` (
   KEY `idx_category_status` (`category_id`,`status`),
   KEY `idx_status_type_pid` (`status`,`uid`,`pid`),
   KEY `keyname` (`keyname`)
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文档模型基础表';
+) ENGINE=InnoDB AUTO_INCREMENT=314 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文档模型基础表';
 
 -- ----------------------------
 -- Records of cmswing_document
@@ -4686,7 +4688,7 @@ INSERT INTO `cmswing_document` VALUES ('201', '1', '', '第2集 约定的假期 
 INSERT INTO `cmswing_document` VALUES ('202', '1', '', '这是文章内容分页的一个测试！！！', '1', '0', '这是文章内容分页的一个测试！！！', '0', '0', '0', '2', '2', '0', '0', '597', '1', '0', '0', '185', '0', '0', '0', '1465809360000', '1503940918045', '1', '', '', '0', 'cmswing');
 INSERT INTO `cmswing_document` VALUES ('204', '1', '', '可爱女孩萌宠狗狗', '81', '5', '可爱女孩萌宠狗狗', '0', '0', '0', '5', '2', '0', '0', '601', '1', '1970', '0', '11', '0', '0', '0', '1466496300000', '1466496372924', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('205', '1', '', '镜头下汪星人与“爹地”的日常', '81', '5', '镜头下汪星人与“爹地”的日常', '0', '0', '0', '5', '2', '2', '0', '603', '1', '0', '0', '15', '0', '0', '0', '1466496728582', '1466496728582', '1', '', '', '0', '0');
-INSERT INTO `cmswing_document` VALUES ('206', '1', '', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '81', '3', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '0', '0', '0', '5', '2', '2', '0', '620', '1', '0', '0', '15', '0', '0', '0', '1466496944022', '1466496944022', '1', '', '', '0', '0');
+INSERT INTO `cmswing_document` VALUES ('206', '1', '', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '81', '3', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠', '0', '0', '0', '5', '2', '6', '0', '620', '1', '0', '0', '15', '0', '0', '0', '1466496900000', '1530502248483', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('207', '1', '', '百余只“喵星人”争艳卖萌 观众大饱眼福', '81', '3', '百余只“喵星人”争艳卖萌 观众大饱眼福', '0', '0', '0', '5', '2', '0', '0', '627', '1', '0', '0', '9', '0', '0', '0', '1466497154172', '1466497154172', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('208', '1', '', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩', '81', '0', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩', '0', '0', '0', '5', '2', '0', '0', '637', '1', '0', '0', '9', '0', '0', '0', '1466497304929', '1466497304929', '1', '', '', '0', '0');
 INSERT INTO `cmswing_document` VALUES ('209', '1', '', '英男童与狗狗形影不离亲似兄弟', '81', '0', '英男童与狗狗形影不离亲似兄弟', '0', '0', '0', '5', '2', '0', '0', '642', '1', '0', '0', '35', '0', '0', '0', '1466497680000', '1530182005320', '1', '', '', '0', '0');
@@ -4698,11 +4700,11 @@ INSERT INTO `cmswing_document` VALUES ('224', '1', '', '主卧室吊顶装修效
 INSERT INTO `cmswing_document` VALUES ('225', '1', '', '主卧室吊顶装修效果图大全', '83', '0', '主卧室吊顶装修效果图大全', '0', '0', '0', '5', '2', '0', '0', '688', '1', '0', '0', '19', '0', '0', '0', '1467800485779', '1467800485779', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('226', '1', '', '简约卧室吊顶装修效果图大全', '83', '0', '简约卧室吊顶装修效果图大全简约卧室吊顶装修效果图大全简约卧室吊顶装修效果图大全', '0', '0', '0', '5', '2', '0', '0', '697', '1', '1970', '0', '42', '0', '0', '0', '1467801000000', '1467968706920', '1', '', '', '7', '0');
 INSERT INTO `cmswing_document` VALUES ('243', '1', '', 'ThinkPad S5 20B3A03VCD', '51', '0', 'i5-4210U Windows 8.1中文版 4GB 500GB+8GB SSHD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '28', '0', '0', '0', '1469008981003', '1498031516708', '1', '698,699,700', '{\"present_price\":\"5499\",\"discount_price\":\"0\"}', '9', '0');
-INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD11', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '160', '0', '0', '0', '1471515221084', '1505214924170', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
+INSERT INTO `cmswing_document` VALUES ('244', '1', '', 'ThinkPad T460 20FNA01VCD11', '51', '0', 'ThinkPad T460 20FNA01VCD', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '162', '0', '0', '0', '1471515221084', '1505214924170', '1', '701,702,703,704,705', '{\"present_price\":\"6899.01-11399.01\",\"discount_price\":\"0\"}', '9', '0');
 INSERT INTO `cmswing_document` VALUES ('245', '1', '', '谁说AR没有未来？它的未来就在汽车上', '1', '0', 'VR 和 AR，即虚拟现实和增强现实，在过去的几年里几乎为人们展示了什么叫“风口”，什么叫“泡沫”。但是，直到现在，我们都还没有见到任何真正意义上的 AR 和 VR 产品。而且，在未来的 10 年里，真正的 AR 几乎无法走入大众的生活当中，除了一个领域之外：汽车。', '0', '0', '0', '2', '2', '0', '0', '848', '1', '0', '0', '62', '0', '0', '0', '1504009609191', '1504009609191', '1', '', '', '0', '');
 INSERT INTO `cmswing_document` VALUES ('273', '1', '', '测试测试', '1', '0', '测试测试', '0', '0', '0', '2', '2', '0', '0', '858', '1', '0', '0', '1', '0', '0', '0', '1505366700000', '1505366952325', '-1', '', '', '0', '');
 INSERT INTO `cmswing_document` VALUES ('292', '1', '', 'fdsafdafas', '51', '0', 'fdsafadsf', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1505376379040', '1505376742912', '-1', '861,862', '{\"present_price\":\"4534\",\"discount_price\":\"0\"}', '9', null);
-INSERT INTO `cmswing_document` VALUES ('293', '1', '', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机', '56', '0', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '15', '0', '0', '0', '1505377047492', '1505378300909', '1', '863,864', '{\"present_price\":\"439\",\"discount_price\":\"500\"}', '13', null);
+INSERT INTO `cmswing_document` VALUES ('293', '1', '', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机', '56', '0', '得力（deli）DL-888D 热敏不干胶打印机 电子面单 条码标签打印机', '0', '0', '0', '4', '2', '0', '0', '0', '1', '0', '0', '16', '0', '0', '0', '1505377047492', '1505378300909', '1', '863,864', '{\"present_price\":\"439\",\"discount_price\":\"500\"}', '13', null);
 INSERT INTO `cmswing_document` VALUES ('294', '1', '', 'dsfdsafdsa', '85', '0', 'fdsafdsaf', '0', '0', '0', '6', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1505205346473', '1507538784928', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('295', '1', '', '测试测试', '1', '0', '测试测试', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1508404380000', '1508405208300', '-1', '', '', '0', '');
 INSERT INTO `cmswing_document` VALUES ('296', '1', '', '测试测试测试风的撒风', '1', '0', '风的撒风的撒发达', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1508405280000', '1508515042345', '-1', '', '', '0', '');
@@ -4721,6 +4723,7 @@ INSERT INTO `cmswing_document` VALUES ('308', '1', '', '清纯妹子琳琳ailin�
 INSERT INTO `cmswing_document` VALUES ('309', '1', '', '本地上传测试', '63', '0', '本地上传测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '3', '0', '0', '0', '1509164657717', '1509164657721', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('310', '1', '', '七牛上传测试', '63', '0', '七牛上传测试', '0', '0', '0', '3', '2', '0', '0', '0', '1', '0', '0', '2', '0', '0', '0', '1509165661329', '1509165661332', '-1', '', '', '0', null);
 INSERT INTO `cmswing_document` VALUES ('312', '1', '', 'fdsafdsaf', '1', '0', 'fdsafdasfafdsaf', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1509280694211', '1509280694218', '-1', '', '', '0', '');
+INSERT INTO `cmswing_document` VALUES ('313', '1', '', '公司新闻', '1', '0', '公司新闻', '0', '0', '0', '2', '2', '0', '0', '0', '1', '0', '0', '1', '0', '0', '0', '1531462819161', '1531462819165', '-1', '', '', '0', '');
 
 -- ----------------------------
 -- Table structure for cmswing_document_article
@@ -4733,7 +4736,7 @@ CREATE TABLE `cmswing_document_article` (
   `template` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '详情页显示模板',
   `bookmark` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '收藏数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='文档模型文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=314 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='文档模型文章表';
 
 -- ----------------------------
 -- Records of cmswing_document_article
@@ -4765,6 +4768,7 @@ INSERT INTO `cmswing_document_article` VALUES ('296', '2_1', 0x3C703EE8AFB7E8BE9
 INSERT INTO `cmswing_document_article` VALUES ('297', '3', 0x215B6664736166615D282F2F6F64687339696F67372E716E73736C2E636F6D2F75706C6F61645F32363261613635316630666239633564643564393061366533643535383334362E6A706720226664736166612229E8AFB7E8BE93E585A5E58685E5AEB92E2E2E, '', '0');
 INSERT INTO `cmswing_document_article` VALUES ('302', '2_1', 0x3C703EE8AFB7E8BE93E585A5E58685E5AEB92E2E2E3C2F703E3C703E666473616664736166616473663C2F703E3C703E61666473613C2F703E3C703E66643C2F703E3C703E7361663C2F703E3C703E6461733C2F703E, '', '0');
 INSERT INTO `cmswing_document_article` VALUES ('312', '2_1', 0x3C703EE8AFB7E8BE93E585A5E58685E5AEB92E2E2E64736166647361666461733C2F703E, '', '0');
+INSERT INTO `cmswing_document_article` VALUES ('313', '2_1', 0x3C703EE8AFB7E8BE93E585A5E58685E5AEB92E2E2EE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BBE585ACE58FB8E696B0E997BB3C2F703E3C7461626C653E3C74626F64793E3C747220636C6173733D226669727374526F77223E3C74642077696474683D22333435222076616C69676E3D22746F7022207374796C653D22776F72642D627265616B3A20627265616B2D616C6C3B223E313C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F7022207374796C653D22776F72642D627265616B3A20627265616B2D616C6C3B223E323C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F7022207374796C653D22776F72642D627265616B3A20627265616B2D616C6C3B223E333C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F7022207374796C653D22776F72642D627265616B3A20627265616B2D616C6C3B223E343C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C74723E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C74642077696474683D22333435222076616C69676E3D22746F70223E3C62722F3E3C2F74643E3C2F74723E3C2F74626F64793E3C2F7461626C653E3C703E3C696D67207372633D222F75706C6F61642F656469746F722F696D6167652F32303138303731332F313533313436323831353338363439313033342E6A706722207469746C653D22313533313436323831353338363439313033342E6A70672220616C743D223231203030312E6A7067222F3E3C2F703E, '', '0');
 
 -- ----------------------------
 -- Table structure for cmswing_document_docs
@@ -5261,6 +5265,7 @@ INSERT INTO `cmswing_ext` VALUES ('sitestat', '站点统计信息', '1.0', '统�
 INSERT INTO `cmswing_ext` VALUES ('sysinfo', '系统环境信息', '1.0', '用于显示一些服务器的信息', '{\"title\":\"系统信息\",\"width\":\"2\",\"display\":\"1\",\"ext\":\"sysinfo\"}', '0', '1', '1507207781572', '0', '0', 'CmsWing');
 INSERT INTO `cmswing_ext` VALUES ('videojj', 'videojj视频播放器', '1.0', '用于显示一些服务器的信息', '{\"appkey\":\"VJa72yR7W\",\"vnewsEnable\":\"1\",\"ext\":\"videojj\"}', '0', '1', '1507353855575', '0', '0', 'CmsWing');
 INSERT INTO `cmswing_ext` VALUES ('weibo', '新浪微博登录', '1.0', '新浪微博登录', '{\"appkey\":\"3868482864\",\"appsecre\":\"ec0c3346d244d91c6e0189b4448fb326\",\"ext\":\"weibo\"}', '0', '1', '1507286607483', '1', '0', 'CmsWing');
+INSERT INTO `cmswing_ext` VALUES ('weixin', '微信扫码登录', '1.0', '通过接入微信的开放平台来实现网站的扫码登录', '{\"appid\":\"wx85ee8ad668c3d09b\",\"secret\":\"\",\"ext\":\"weixin\"}', '0', '1', '1532074697410', '1', '0', 'NickMa');
 
 -- ----------------------------
 -- Table structure for cmswing_ext_ad
@@ -5517,7 +5522,7 @@ CREATE TABLE `cmswing_ext_attachment_pic` (
   `type` int(2) DEFAULT '0' COMMENT '图片来源，或模块区分 1:微信2:七牛',
   `source_id` varchar(255) CHARACTER SET utf8 DEFAULT '' COMMENT '来源id，当关联其他平台时该平台生产的id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=958 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=963 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_ext_attachment_pic
@@ -6479,6 +6484,11 @@ INSERT INTO `cmswing_ext_attachment_pic` VALUES ('954', 'upload_5d8bd77211fa3a80
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('955', 'upload_1f5e6566f65e80ad62a42b1509812636.jpg', '', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512194087258', '2', '');
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('956', 'upload_355f0ccc20def52a5766bd8b60bf6185.jpg', 'http://mmbiz.qpic.cn/mmbiz_jpg/leHXzTibibDU2BFISWn8J9ywOmAhd5QFibw3VwGslvh1zPzic73YOpknACHJrdsNQlSNUuWzIicFONH15kTHLxd9NOQ/0?wx_fmt=jpeg', '', 'FrpldGsyPbYHf3KNw2ZZT0feCwnu', '1', '1512194769056', '2', 'gbuGasFHrDYdVAtnDo76aQtKlu4V7FT25OUT-dIDOpM');
 INSERT INTO `cmswing_ext_attachment_pic` VALUES ('957', 'upload_761a38db9dc866afaa9bf5d1fea27c32.png', '', '', 'FigG5-kJijmXZvuyb1g6xYzafQPO', '1', '1513652371469', '2', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('958', '/upload/picture/2018-07-02/upload_8bd31bb1e84d85c6c9d940061e41fb89.png', '', '', '', '1', '1530516606502', '0', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('959', '/upload/picture/2018-07-02/upload_f414a5eeb28f33db028622280788a8c6.png', '', '', '', '1', '1530516942066', '0', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('960', '/upload/picture/2018-07-02/upload_76277d7d24f9d02264c0b17a3a940a22.png', '', '', '', '1', '1530517102761', '0', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('961', '/upload/picture/2018-07-02/upload_f0ff5b86e607279d1142e5904218425c.png', '', '', '', '1', '1530517227119', '0', '');
+INSERT INTO `cmswing_ext_attachment_pic` VALUES ('962', '/upload/picture/2018-07-02/upload_566ee61e953260d6a07e8649a80b64a9.png', '', '', '', '1', '1530517613069', '0', '');
 
 -- ----------------------------
 -- Table structure for cmswing_ext_changyan
@@ -6683,6 +6693,30 @@ CREATE TABLE `cmswing_ext_weibo` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for cmswing_ext_weixin
+-- ----------------------------
+DROP TABLE IF EXISTS `cmswing_ext_weixin`;
+CREATE TABLE `cmswing_ext_weixin` (
+  `openid` varchar(50) NOT NULL COMMENT 'OopenId',
+  `unionid` varchar(50) NOT NULL COMMENT 'UnionId',
+  `nickname` varchar(255) DEFAULT NULL COMMENT '微信昵称',
+  `sex` int(5) DEFAULT NULL COMMENT '性别',
+  `language` varchar(20) DEFAULT NULL COMMENT '用户的语言',
+  `city` varchar(50) DEFAULT NULL COMMENT '城市',
+  `province` varchar(50) DEFAULT NULL COMMENT '省',
+  `country` varchar(50) DEFAULT NULL COMMENT '国家',
+  `headimgurl` varchar(255) DEFAULT NULL COMMENT '头像url',
+  `access_token` varchar(255) DEFAULT NULL COMMENT 'access_token',
+  `refresh_token` varchar(255) DEFAULT NULL COMMENT 'refresh_token',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`openid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmswing_ext_weixin
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for cmswing_fare
 -- ----------------------------
 DROP TABLE IF EXISTS `cmswing_fare`;
@@ -6735,7 +6769,7 @@ INSERT INTO `cmswing_hooks` VALUES ('8', 'adminEdit', '后台内容编辑页编�
 INSERT INTO `cmswing_hooks` VALUES ('13', 'AdminIndex', '后台首页小格子个性化显示', '1', '4294967295', 'sitestat,devteam,sysinfo', '1');
 INSERT INTO `cmswing_hooks` VALUES ('14', 'topicComment', '评论提交方式扩展钩子。', '1', '1380163518', '', '1');
 INSERT INTO `cmswing_hooks` VALUES ('16', 'appbegin', '应用开始', '2', '4294967295', '', '1');
-INSERT INTO `cmswing_hooks` VALUES ('20', 'logins', '第三方登陆钩子', '1', '4294967295', 'qq,weibo', '1');
+INSERT INTO `cmswing_hooks` VALUES ('20', 'logins', '第三方登陆钩子', '1', '4294967295', 'qq,weibo,weixin', '1');
 INSERT INTO `cmswing_hooks` VALUES ('19', 'homeEnd', '前台首页内容结尾显示', '1', '4294967295', 'link', '1');
 INSERT INTO `cmswing_hooks` VALUES ('21', 'videoPlayer', '视频播放器钩子', '1', '4294967295', 'videojj', '1');
 INSERT INTO `cmswing_hooks` VALUES ('22', 'signinBefore', '后台登录之前验证钩子', '2', '4294967295', 'geetest', '1');
@@ -6919,8 +6953,8 @@ CREATE TABLE `cmswing_member` (
 -- ----------------------------
 -- Records of cmswing_member
 -- ----------------------------
-INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1729', '', '1452513965683', '0', '1530191823274', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
-INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '98', 'cmswing@cmswing.com', '299', '13571883578', '1458989485616', '0', '1511613943734', '0', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
+INSERT INTO `cmswing_member` VALUES ('1', 'admin', '7fe293a2a8994cca42668d5a37747d4f', '2364', 'arterli@qq.com', '1734', '', '1452513965683', '0', '1532073458605', '0', '0', '1', '1', '5', '10001.00', '0', '0', '0', '0', '0', '0', '120000', '120100', '120102', '', '1', '0', '0', '0', '');
+INSERT INTO `cmswing_member` VALUES ('2', 'cmswing', '877d01a63db292aadf94c7276a246781', '98', 'cmswing@cmswing.com', '302', '13571883578', '1458989485616', '0', '1530793108869', '0', '0', '1', '0', '2', '16.50', '0', '0', '0', '0', '0', '0', '110000', '110100', '110104', '111111', '1', '455587200000', '0', '0', '12344');
 INSERT INTO `cmswing_member` VALUES ('3', 'test', '7fe293a2a8994cca42668d5a37747d4f', '10', 'test@cmswing.com', '5', '', '1458990106486', '0', '1505443722915', '0', '0', '1', '1', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('4', 'test1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'test1@cmswing.com', '0', '', '1458990176636', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
 INSERT INTO `cmswing_member` VALUES ('5', 'user1', '7fe293a2a8994cca42668d5a37747d4f', '0', 'user1@cmswing.com', '0', '', '1458990710203', '0', '0', '0', '0', '1', '0', '2', '0.00', '0', '0', '0', '0', '0', '0', null, null, null, null, '1', null, '0', '0', null);
@@ -8345,7 +8379,7 @@ CREATE TABLE `cmswing_search` (
   PRIMARY KEY (`search_id`),
   KEY `m_id` (`m_id`,`d_id`),
   FULLTEXT KEY `data` (`data`)
-) ENGINE=MyISAM AUTO_INCREMENT=3409 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=3410 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmswing_search
@@ -8470,7 +8504,7 @@ INSERT INTO `cmswing_search` VALUES ('3307', '5', '181', '1464863280000', '天�
 INSERT INTO `cmswing_search` VALUES ('3308', '5', '182', '1464867420000', '清纯妹子琳琳ailin性感大片风情万种 0 清纯 妹子 琳琳 ailin 性感 大片 风情万种 0');
 INSERT INTO `cmswing_search` VALUES ('3309', '5', '204', '1466496300000', '可爱女孩萌宠狗狗 0 可爱 女孩 萌宠狗狗 0');
 INSERT INTO `cmswing_search` VALUES ('3310', '5', '205', '1466496728582', '镜头下汪星人与“爹地”的日常 0 镜头 下 汪星 人 与 爹地 的 日常 0');
-INSERT INTO `cmswing_search` VALUES ('3311', '5', '206', '1466496944022', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠 0 英国 艺术家 灌木丛 创作 出 逼真 猫咪 纪念 爱 宠 0');
+INSERT INTO `cmswing_search` VALUES ('3311', '5', '206', '1466496944022', '英国艺术家灌木丛创作出逼真\"猫咪\"纪念爱宠  英国 艺术家 灌木丛 创作 出 逼真 猫咪 纪念 爱 宠');
 INSERT INTO `cmswing_search` VALUES ('3312', '5', '207', '1466497154172', '百余只“喵星人”争艳卖萌 观众大饱眼福 0 百余 只 喵星人 争艳 卖萌 观众 大饱眼福 0');
 INSERT INTO `cmswing_search` VALUES ('3313', '5', '208', '1466497304929', '郑州上演\"狗刨\"大赛 萌犬下水临阵退缩 0 郑州 上演 狗刨 大赛 萌犬 下水 临阵 退缩 0');
 INSERT INTO `cmswing_search` VALUES ('3314', '5', '209', '1466497716678', '英男童与狗狗形影不离亲似兄弟  英 男童 与 狗狗 形影不离 亲似 兄弟');
