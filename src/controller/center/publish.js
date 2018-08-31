@@ -12,8 +12,7 @@ module.exports = class extends think.cmswing.center {
     // await this.weblogin();
     if (!this.is_login) {
       // 判断浏览客户端
-      if (this.isMobile) {
-        // 手机端直接跳转到登录页面
+      if (this.isMobile) {// 手机端直接跳转到登录页面
         return this.redirect('/center/public/login');
       } else {
         return this.redirect('/cmswing/error/login');
@@ -462,7 +461,7 @@ module.exports = class extends think.cmswing.center {
     // 绑定发布者id
     data.uid = this.user.uid;
     // 安全验证
-    if (data.is_ajax != 'true') {
+    if (data.is_ajax !== 'true') {
       return this.fail('非法提交！');
     }
     // 验证权限

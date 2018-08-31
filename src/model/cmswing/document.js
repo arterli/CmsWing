@@ -57,34 +57,37 @@ module.exports = class extends think.Model {
      * @returns boolean fasle 失败 ， int  成功 返回完整的数据
      */
   async updates(data, time = new Date().getTime()) {
-    if (!think.isEmpty(data.position)) {
-      if (!think.isArray(data.position)) {
-        data.position = data.position || 0;
-      } else {
-        let pos = 0;
-        for (const p of data.position) {
-          pos += p * 1;
-        }
-        data.position = pos;
-      }
-    } else {
-      data.position = 0;
-    }
     // 获取子表的表明
     const model = await this.modelinfo(data.model_id);
     // console.log(model);
-
-    for (const v in data) {
-      const vs = v.split('|||');
-
-      if (vs.length > 1) {
-        // console.log(data[v]);
-        data[vs[1]] = (think.isEmpty(data[v]) || data[v] == 0) ? 0 : new Date(data[v]).getTime();
-      };
+    for (const [k, v] of Object.entries(data)) {
+      // 判断字段类型
+      const atttype = await this.model('attribute').where({name: k}).getField('type', true);
+      switch (atttype) {
+        case 'checkbox':
+          if (!think.isEmpty(v)) {
+            if (!think.isArray(v)) {
+              data[k] = v || 0;
+            } else {
+              let pos = 0;
+              for (const p of v) {
+                pos += p * 1;
+              }
+              data[k] = pos;
+            }
+          } else {
+            data[k] = 0;
+          }
+          break;
+        case 'date':
+        case 'datetime':
+          data[k] = (think.isEmpty(v) || Number(v) === 0) ? 0 : new Date(v).getTime();
+          break;
+      }
+      // console.log(v);
     }
-    // console.log(data);
     data = data || null;
-    console.log(data);
+    // console.log(data);
     // 检查文档类型是否符合要求
     const type = data.type || 2;
     const pid = data.pid;
