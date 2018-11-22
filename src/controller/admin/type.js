@@ -148,13 +148,11 @@ module.exports = class extends think.cmswing.admin {
     for (const val of data) {
       // 添加
       if (val.isdel == 0 && val.title != 0 && val.optionid == 0) { // 添加
-        this.model('typeoption').add(val);
+        await this.model('typeoption').add(val);
       } else if (val.isdel == 0 && val.title != 0 && val.optionid != 0) { // 更新
-        this.model('typeoption').update(val, {optionid: val.optionid});
+        await this.model('typeoption').where({optionid: val.optionid}).update(val);
       } else if (val.isdel == 1) {
-        this.model('typeoption').delete({
-          where: {optionid: val.optionid}
-        });
+        await this.model('typeoption').where({optionid: val.optionid}).delete();
       }
     }
     return this.success({name: '操作成功'});

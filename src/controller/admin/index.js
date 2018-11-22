@@ -23,15 +23,15 @@ module.exports = class extends think.cmswing.admin {
     await this.hook('AdminIndex');
     return this.display();
   }
-  async unallcacheAction(){
+  async unallcacheAction() {
     // const model = ['category', 'channel', 'model','ext','hooks'];
     // for (const m of model){
     //  await update_cache(m)
     // }
-    think.rmdir(path.join(think.ROOT_PATH, 'runtime/cache'), true).then(()=>{
-      console.log('删除完成')
+    think.rmdir(path.join(think.ROOT_PATH, 'runtime/cache'), true).then(() => {
+      // console.log('删除完成')
     });
     process.send('think-cluster-reload-workers'); // 给主进程发送重启的指令
-    return this.success({name:'更新全站缓存成功!'});
+    return this.success({name: '更新全站缓存成功!'});
   }
 };

@@ -79,6 +79,6 @@ module.exports = class extends think.cmswing.center {
       pic = fs.readFileSync(think.resource + '/upload/avatar/avatar.jpg');
     }
     this.header('Content-Type', 'image/png');
-    return this.body = pic;
+    this.body = pic;
   }
 };

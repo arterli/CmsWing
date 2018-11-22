@@ -179,7 +179,7 @@ module.exports = class extends think.cmswing.center {
           }
         }
       }
-      // console.log(typevar);
+      console.log(typevar);
       this.assign('typevar', typevar);
     }
     // console.log(sortarr);
@@ -219,8 +219,8 @@ module.exports = class extends think.cmswing.center {
     }
     // console.log(map);
     // return false;
-    // console.log(sort);
-    // console.log(nsobj);
+    console.log(sort);
+    console.log(nsobj);
     this.assign('sort', sort);
     this.assign('nsobj', nsobj);
 

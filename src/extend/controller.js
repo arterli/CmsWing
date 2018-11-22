@@ -96,7 +96,7 @@ module.exports = {
         const hookarr = [];
         for (const c of ext) {
           // 查询插件状态
-          const status = await this.extConfig(c, 'status');
+          const status = await this.model('cmswing/ext').extcache(c, 'status');
           if (Number(status) === 1) {
             const ep = `ext/${c}/hooks`;
             const Cls = this.controller(ep);
