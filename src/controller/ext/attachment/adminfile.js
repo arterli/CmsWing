@@ -228,19 +228,19 @@ module.exports = class extends think.Controller {
     return this.json(res);
   }
 
-  // 删除七牛资源
-  async delqiniufileAction() {
-    const id = this.get('id');
-    const file = await this.model('file').find(id);
-    const qiniu = this.extService('qiniu', 'attachment');
-    const res = await qiniu.remove(file.savename);
-    if (res) {
-      await this.extModel('attachment').where({id: id}).delete();
-      return this.success({name: '删除文件成功!'});
-    } else {
-      return this.fail('删除文件失败!');
+    // 删除七牛资源
+    async delqiniufileAction() {
+        const id = this.get('id');
+        const file = await this.extModel('attachment_file').find(id);
+        const qiniu = this.extService('qiniu', 'attachment');
+        const res = await qiniu.remove(file.savename);
+        if (res) {
+            await this.extModel('attachment_file').where({id: id}).delete();
+            return this.success({name: '删除文件成功!'});
+        } else {
+            return this.fail('删除文件失败!');
+        }
     }
-  }
 
   // 文件信息
   async fileinfoAction() {
