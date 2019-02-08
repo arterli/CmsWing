@@ -1,6 +1,7 @@
 module.exports = [
   ['', 'home/index/index', 'get'],
   ['/index', 'home/index/index', 'get'],
+  ['/admin', 'admin/index/', 'get'],
   ['/index/:order', 'home/index/index', 'get'],
   ['/p/:id', 'home/detail/index', 'get'],
   ['/dlink/:id', 'home/detail/downloadgetid', 'get'],
