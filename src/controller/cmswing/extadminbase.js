@@ -120,7 +120,9 @@ module.exports = class extends Admin {
       map.sort = v.sort;
       data.push(map);
     }
-    const res = await this.model('ext_type').updateMany(data);
+    const type = this.model('ext_type');
+    type._pk = 'typeid'; // 通过 _pk 属性设置 pk
+    const res = await type.updateMany(data);
     if (res > 0) {
       return this.success({ name: '更新排序成功！'});
     } else {
