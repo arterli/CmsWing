@@ -556,7 +556,7 @@
 			}
 
 			addEvent("mousedown", mousedown);
-			addEvent("mousewheel", wheel);
+			addEvent("mousewheel", wheel, {passive: false});
 			addEvent("load", init);
 
 		}
