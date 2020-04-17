@@ -123,9 +123,11 @@ module.exports = class extends think.Model {
                 ;`;
         sql = this.parseSql(sql);
       }
+      const res = await this.model('mysql').execute(sql);
+      return res >= 0;
+    }else{
+      return 0;
     }
-    const res = await this.model('mysql').execute(sql);
-    return res >= 0;
   }
   /**
      * 新建表字段
