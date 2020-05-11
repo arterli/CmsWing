@@ -268,7 +268,7 @@ module.exports = class extends think.cmswing.admin {
 
         // 将模型添加到钩子
         if (!think.isEmpty(data.hooks)) {
-          for (const h of data.hooks.split(',')) {
+          for (const h of data.hooks) {
             const hooks = await this.model('hooks').where({name: h}).find();
             let extarr = hooks.ext ? hooks.ext.split(',') : [];
             extarr.push(data.name);
