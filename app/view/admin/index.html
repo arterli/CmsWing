@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link
+      rel="Shortcut Icon"
+      href="/public/admin/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/public/admin/sdk/sdk.css" />
+    <link rel="stylesheet" href="/public/admin/sdk/helper.css" />
+    <link rel="stylesheet" href="/public/admin/sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="/public/admin/sdk/sdk.js"></script>
+    <script src="/public/admin/sdk/vue@2.js"></script>
+    <script src="/public/admin/sdk/history.js"></script>
+    <script>
+      (function () {
+        let amis = amisRequire("amis/embed");
+        const match = amisRequire("path-to-regexp").match;
+
+        // 如果想用 browserHistory 请切换下这处代码, 其他不用变
+        // const history = History.createBrowserHistory();
+        const history = History.createHashHistory();
+
+        const app = {
+          type: "app",
+          brandName: "CmsWing",
+          logo: "/public/admin/logo.svg",
+          header: {
+            type: "flex",
+            justify: "space-between",
+            className: "w-full",
+            items: [
+              {
+                style: {
+                  backgroundColor: "#1A5CFF",
+                  width: 100,
+                  height: 30,
+                  margin: 5,
+                },
+                type: "tpl",
+                tpl: "fdsafa",
+              },
+              {
+                type: "flex",
+                justify: "flex-end",
+                items: [
+                  {
+                    style: {
+                      backgroundColor: "#1A5CFF",
+                      width: 100,
+                      height: 30,
+                      margin: 5,
+                    },
+                    type: "tpl",
+                    tpl: "",
+                  },
+                  {
+                    label: "重启服务",
+                    type: "button",
+                    icon:"fa-solid fa-power-off",
+                    actionType: "dialog",
+                    className: "ml-2",
+                    "tooltip": "只在生产环境中生效",
+                    "api": "/admin/sys/server/restart?waitSeconds=1",
+                    dialog: {
+                      title: "重启服务",
+                      "actions": [],
+                      body: {
+      "type": "log",
+      "height": 300,
+      "placeholder": " 执行中...",
+      "source":"/admin/sys/server/restart",
+    },
+                    },
+                  },
+                  {
+                    type: "dropdown-button",
+                    label: "{{ctx.userInfo.username}}",
+                    align: "right",
+                    icon: "fa-solid fa-user",
+                    className: "ml-2",
+                    buttons: [
+                      {
+                        type: "button",
+                        label: "按钮1",
+                        disabled: true,
+                      },
+                      {
+                        type: "button",
+                        label: "按钮2",
+                      },
+                      {
+                        type: "divider",
+                      },
+                      {
+                        type: "button",
+                        icon: "fa-solid fa-arrow-right-from-bracket",
+                        label: " 退出登陆",
+                        actionType: "url",
+                        url: "/admin/logout",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          // header: {
+          //   type: 'tpl',
+          //   inline: false,
+          //   className: 'w-full',
+          //   tpl: '<div class="flex justify-between"><div>顶部区域左侧</div><div>fdafa</div></div>'
+
+          // },
+          // footer: '<div class="p-2 text-center bg-light">底部区域</div>',
+          // asideBefore: '<div class="p-2 text-center">菜单前面区域</div>',
+          // asideAfter: '<div class="p-2 text-center">菜单后面区域</div>',
+          api: "/admin/pages/site.json",
+        };
+        function normalizeLink(to, location = history.location) {
+          to = to || "";
+
+          if (to && to[0] === "#") {
+            to = location.pathname + location.search + to;
+          } else if (to && to[0] === "?") {
+            to = location.pathname + to;
+          }
+
+          const idx = to.indexOf("?");
+          const idx2 = to.indexOf("#");
+          let pathname = ~idx
+            ? to.substring(0, idx)
+            : ~idx2
+            ? to.substring(0, idx2)
+            : to;
+          let search = ~idx ? to.substring(idx, ~idx2 ? idx2 : undefined) : "";
+          let hash = ~idx2 ? to.substring(idx2) : location.hash;
+
+          if (!pathname) {
+            pathname = location.pathname;
+          } else if (pathname[0] != "/" && !/^https?\:\/\//.test(pathname)) {
+            let relativeBase = location.pathname;
+            const paths = relativeBase.split("/");
+            paths.pop();
+            let m;
+            while ((m = /^\.\.?\//.exec(pathname))) {
+              if (m[0] === "../") {
+                paths.pop();
+              }
+              pathname = pathname.substring(m[0].length);
+            }
+            pathname = paths.concat(pathname).join("/");
+          }
+
+          return pathname + search + hash;
+        }
+
+        function isCurrentUrl(to, ctx) {
+          if (!to) {
+            return false;
+          }
+          const pathname = history.location.pathname;
+          const link = normalizeLink(to, {
+            ...location,
+            pathname,
+            hash: "",
+          });
+
+          if (!~link.indexOf("http") && ~link.indexOf(":")) {
+            let strict = ctx && ctx.strict;
+            return match(link, {
+              decode: decodeURIComponent,
+              strict: typeof strict !== "undefined" ? strict : true,
+            })(pathname);
+          }
+
+          return decodeURI(pathname) === link;
+        }
+
+        let amisInstance = amis.embed(
+          "#root",
+          app,
+          {
+            location: history.location,
+          },
+          {
+            // watchRouteChange: fn => {
+            //   return history.listen(fn);
+            // },
+            updateLocation: (location, replace) => {
+              location = normalizeLink(location);
+              if (location === "goBack") {
+                return history.goBack();
+              } else if (
+                (!/^https?\:\/\//.test(location) &&
+                  location ===
+                    history.location.pathname + history.location.search) ||
+                location === history.location.href
+              ) {
+                // 目标地址和当前地址一样，不处理，免得重复刷新
+                return;
+              } else if (/^https?\:\/\//.test(location) || !history) {
+                return (window.location.href = location);
+              }
+
+              history[replace ? "replace" : "push"](location);
+            },
+            jumpTo: (to, action) => {
+              if (to === "goBack") {
+                return history.goBack();
+              }
+
+              to = normalizeLink(to);
+
+              if (isCurrentUrl(to)) {
+                return;
+              }
+
+              if (action && action.actionType === "url") {
+                action.blank === false
+                  ? (window.location.href = to)
+                  : window.open(to, "_blank");
+                return;
+              } else if (action && action.blank) {
+                window.open(to, "_blank");
+                return;
+              }
+
+              if (/^https?:\/\//.test(to)) {
+                window.location.href = to;
+              } else if (
+                (!/^https?\:\/\//.test(to) &&
+                  to === history.pathname + history.location.search) ||
+                to === history.location.href
+              ) {
+                // do nothing
+              } else {
+                history.push(to);
+              }
+            },
+            isCurrentUrl: isCurrentUrl,
+            theme: "cxd",
+          }
+        );
+
+        history.listen((state) => {
+          amisInstance.updateProps({
+            location: state.location || state,
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
