@@ -56,16 +56,33 @@
             justify: "space-between",
             className: "w-full",
             items: [
-              {
-                style: {
-                  backgroundColor: "#1A5CFF",
-                  width: 100,
-                  height: 30,
-                  margin: 5,
-                },
-                type: "tpl",
-                tpl: "fdsafa",
+            {
+                type: "flex",
+                justify: "flex-start",
+                items: [
+                  {
+                    type: "button",
+                    label: "graphql",
+                    align: "right",
+                    icon: "fa-brands fa-connectdevelop",
+                    className: "ml-2",
+                    visibleOn: "${ {{ctx.userInfo.admin}} }",
+                    "actionType": "link",
+                    "link": "/sys/graphql"
+                  },
+                  {
+                    type: "button",
+                    label: "swagger",
+                    align: "right",
+                    icon: "fa-solid fa-code",
+                    className: "ml-2",
+                    visibleOn: "${ {{ctx.userInfo.admin}} }",
+                    "actionType": "link",
+                    "link": "/sys/swagger"
+                  },
+                ],
               },
+              
               {
                 type: "flex",
                 justify: "flex-end",
@@ -83,20 +100,20 @@
                   {
                     label: "重启服务",
                     type: "button",
-                    icon:"fa-solid fa-power-off",
+                    icon: "fa-solid fa-power-off",
                     actionType: "dialog",
                     className: "ml-2",
-                    "tooltip": "只在生产环境中生效",
-                    "api": "/admin/sys/server/restart?waitSeconds=1",
+                    tooltip: "只在生产环境中生效",
+                    api: "/admin/sys/server/restart?waitSeconds=1",
                     dialog: {
                       title: "重启服务",
-                      "actions": [],
+                      actions: [],
                       body: {
-      "type": "log",
-      "height": 300,
-      "placeholder": " 执行中...",
-      "source":"/admin/sys/server/restart",
-    },
+                        type: "log",
+                        height: 300,
+                        placeholder: " 执行中...",
+                        source: "/admin/sys/server/restart",
+                      },
                     },
                   },
                   {
@@ -124,6 +141,7 @@
                         label: " 退出登陆",
                         actionType: "url",
                         url: "/admin/logout",
+                        blank: false,
                       },
                     ],
                   },
@@ -131,13 +149,7 @@
               },
             ],
           },
-          // header: {
-          //   type: 'tpl',
-          //   inline: false,
-          //   className: 'w-full',
-          //   tpl: '<div class="flex justify-between"><div>顶部区域左侧</div><div>fdafa</div></div>'
-
-          // },
+         
           // footer: '<div class="p-2 text-center bg-light">底部区域</div>',
           // asideBefore: '<div class="p-2 text-center">菜单前面区域</div>',
           // asideAfter: '<div class="p-2 text-center">菜单后面区域</div>',

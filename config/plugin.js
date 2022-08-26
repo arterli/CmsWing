@@ -22,4 +22,8 @@ module.exports = {
     enable: true,
     package: 'egg-sequelize',
   },
+  graphql: {
+    enable: true,
+    package: 'egg-graphql',
+  },
 };

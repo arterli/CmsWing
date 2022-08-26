@@ -1,0 +1,13 @@
+
+
+type Mutation {
+
+  # Item
+  createItem (userID: ID!, content: String!, expire: Date): Item
+  updateItem (id: ID!, content: String, expire: Date, done: Boolean): Item
+  deleteItem (id: ID!): Item 
+
+  # Tag
+  attachTag (itemID: ID!, tag: String!): Tag 
+  removeTag (id: ID!): Tag 
+}

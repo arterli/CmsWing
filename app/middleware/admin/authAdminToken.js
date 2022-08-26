@@ -9,15 +9,15 @@ module.exports = options => {
       ctx.userInfo = userInfo;
       await next();
     } else {
-      if (ctx.get('Content-Type')) {
+      if (ctx.request.accepts([ 'json', 'html' ]) === 'html') {
+        ctx.session.adminToken = null;
+        ctx.redirect('/admin/login');
+      } else {
         ctx.body = {
           status: 401,
           msg: '未登录',
           data: { isLogin: false },
         };
-      } else {
-        ctx.session.adminToken = null;
-        ctx.redirect('/admin/login');
       }
     }
 

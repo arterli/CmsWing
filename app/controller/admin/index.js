@@ -18,7 +18,7 @@ class IndexController extends Controller {
   }
   /**
   * @summary 登录接口
-  * @description 登录接口
+  * @description 登录接口1
   * @router get /admin/loginPost
   * @request body loginPost *body desc
   * @response 200 baseRes desc
@@ -51,7 +51,7 @@ class IndexController extends Controller {
   }
   async getJson() {
     const { ctx } = this;
-    const { name } = ctx.params;
+    const name = ctx.params[0];
     const jsonDir = path.join(this.app.baseDir, 'app', 'pages', name);
     const json = require(jsonDir);
     ctx.body = json;

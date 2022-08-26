@@ -100,14 +100,12 @@
       },
       {
         "label": "系统",
+        "url": "/sys",
         "children": [
           {
-            "label": "用户管理",
-            "schema": {
-              "type": "page",
-              "title": "用户管理",
-              "body": "页面C"
-            }
+            "label": "模型管理",
+            "url": "models",
+            "schemaApi": "get:/admin/pages/sys/models.json"
           },
           {
             "label": "外部链接",
@@ -118,9 +116,16 @@
             "schemaApi": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3"
           },
           {
-            "label": "jsonp 返回示例",
-            "schemaApi": "jsonp:/admin/pages/jsonp.js?callback=jsonpCallback"
-          }
+            "label": "graphql",
+            "url": "graphql",
+            "visible":false,
+            "schemaApi": "get:/admin/pages/sys/graphql.json"
+          }, {
+          "label": "swagger",
+          "url": "swagger",
+          "visible":false,
+          "schemaApi": "get:/admin/pages/sys/swagger.json"
+        }
         ]
       }
     ]
