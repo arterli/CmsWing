@@ -56,55 +56,61 @@
             justify: "space-between",
             className: "w-full",
             items: [
-            {
+              {
                 type: "flex",
                 justify: "flex-start",
                 items: [
                   {
                     type: "button",
-                    label: "graphql",
+                    label: "GraphQL",
                     align: "right",
-                    icon: "fa-brands fa-connectdevelop",
+                    icon: "/public/admin/graphql.svg",
                     className: "ml-2",
                     visibleOn: "${ {{ctx.userInfo.admin}} }",
-                    "actionType": "link",
-                    "link": "/sys/graphql"
+                    actionType: "drawer",
+                    drawer: {
+                      size: "xl",
+                      position: "right",
+                      title: "GraphQL",
+                      actions: [],
+                      bodyClassName: "-m-6",
+                      body: [{ type: "iframe", src: "/graphql" }],
+                    },
                   },
                   {
                     type: "button",
                     label: "swagger",
                     align: "right",
-                    icon: "fa-solid fa-code",
+                    icon: "/public/admin/swagger.svg",
                     className: "ml-2",
                     visibleOn: "${ {{ctx.userInfo.admin}} }",
-                    "actionType": "link",
-                    "link": "/sys/swagger"
+                    actionType: "drawer",
+                    drawer: {
+                      size: "xl",
+                      position: "right",
+                      title: "Swagger",
+                      actions: [],
+                      bodyClassName: "-m-6",
+                      body: [{ type: "iframe", src: "/swagger-ui.html" }],
+                    },
                   },
                 ],
               },
-              
+
               {
                 type: "flex",
                 justify: "flex-end",
                 items: [
-                  {
-                    style: {
-                      backgroundColor: "#1A5CFF",
-                      width: 100,
-                      height: 30,
-                      margin: 5,
-                    },
-                    type: "tpl",
-                    tpl: "",
-                  },
+                
                   {
                     label: "重启服务",
                     type: "button",
-                    icon: "fa-solid fa-power-off",
+                    icon: "fa-solid fa-rotate",
                     actionType: "dialog",
                     className: "ml-2",
                     tooltip: "只在生产环境中生效",
                     api: "/admin/sys/server/restart?waitSeconds=1",
+                    level:'null',
                     dialog: {
                       title: "重启服务",
                       actions: [],
@@ -120,8 +126,9 @@
                     type: "dropdown-button",
                     label: "{{ctx.userInfo.username}}",
                     align: "right",
-                    icon: "fa-solid fa-user",
+                    icon: "fa-regular fa-user",
                     className: "ml-2",
+                    level:'null',
                     buttons: [
                       {
                         type: "button",
@@ -137,7 +144,7 @@
                       },
                       {
                         type: "button",
-                        icon: "fa-solid fa-arrow-right-from-bracket",
+                        icon: "fa-solid fa-power-off",
                         label: " 退出登陆",
                         actionType: "url",
                         url: "/admin/logout",
@@ -149,7 +156,7 @@
               },
             ],
           },
-         
+
           // footer: '<div class="p-2 text-center bg-light">底部区域</div>',
           // asideBefore: '<div class="p-2 text-center">菜单前面区域</div>',
           // asideAfter: '<div class="p-2 text-center">菜单后面区域</div>',

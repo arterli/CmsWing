@@ -31,6 +31,16 @@
         margin: 0;
         padding: 0;
       }
+      .login-ontainer {
+        background-image: url(/public/admin/login.svg);
+        background-repeat: no-repeat;
+        background-position: center 110px;
+        background-size: 100%;
+        background-color: #f0f2f5;
+      }
+      .cxd-Image {
+        border: none !important;
+      }
     </style>
   </head>
   <body>
@@ -42,28 +52,172 @@
         // 通过替换下面这个配置来生成不同页面
         let amisJSON = {
           type: "page",
-          title: "登录",
-          body: {
-            type: "form",
-            mode: "horizontal",
-            api: "/admin/loginPost",
-            redirect: "/admin",
-            title:"dddd",
-            body: [
-              {
-                label: "用户名",
-                type: "input-text",
-                name: "username",
-                required: true,
-              },
-              {
-                label: "密码",
-                type: "input-password",
-                name: "password",
-                required: true,
-              },
-            ],
-          },
+          title: false,
+          bodyClassName: "login-ontainer",
+          body: [
+            {
+              type: "flex",
+              direction: "column",
+              alignItems: "center",
+              className: "mt-20",
+              items: [
+                {
+                  type: "flex",
+                  justify: "center",
+                  items: [
+                    {
+                      type: "image",
+                      width: "44px",
+                      height: "44px",
+                      imageMode: "original",
+                      src: "/public/admin/logo.svg",
+                      className: "mr-3",
+                    },
+                    {
+                      // style: {
+                      //   position: "relative",
+                      //   top: "2px",
+                      //   color: "rgba(0,0,0,.85)",
+                      //   fontWeight: 600,
+                      //   fontSize: " 33px",
+                      // },
+                      type: "tpl",
+                      tpl: "CmsWing",
+                      className: "font-serif text-3xl font-semibold",
+                    },
+                  ],
+                },
+                {
+                  type: "tpl",
+                  tpl: "基于GraphQ，Egg.js 的 NodeJS web迅捷开发框架！",
+                  className: " text-md p-3 text-center text-secondary",
+                },
+                
+                {
+                  type: "tpl",
+                  tpl: `<i class="fa-solid fa-feather-pointed"></i> 账户密码登录`,
+                  className:
+                    "w-96 border-b border-gray-300 border-solid border-0 text-lg p-3 mb-7 mt-6 text-info font-semibold",
+                },
+                {
+                  id: "login",
+                  className: "w-96",
+                  type: "form",
+                  mode: "horizontal",
+                  api: "/admin/loginPost",
+                  redirect: "/admin",
+                  title: "账户密码登录",
+                  wrapWithPanel: false,
+                  actions: [],
+                  body: [
+                    {
+                      label: false,
+                      type: "input-text",
+                      name: "username",
+                      borderMode: "half",
+                      placeholder: "请输入账号",
+                      required: true,
+                      prefix: "账号：",
+                      validationErrors: {
+                        isRequired: "请输入账号",
+                      },
+                    },
+                    {
+                      label: false,
+                      type: "input-password",
+                      name: "password",
+                      borderMode: "half",
+                      placeholder: "请输入密码",
+                      required: true,
+                      prefix: "密码：",
+                      validationErrors: {
+                        isRequired: "请输入密码",
+                      },
+                    },
+
+                    {
+                      type: "group",
+                      body: [
+                        {
+                          label: false,
+                          name: "checkbox",
+                          type: "checkbox",
+                          option: "记住登录",
+                          mode: "inline",
+                        },
+                        {
+                          className: "pt-1 inline-block float-right",
+                          type: "link",
+                          href: "#",
+                          body: "忘记密码？",
+                        },
+                      ],
+                    },
+                  ],
+                },
+
+                {
+                  className: "w-96 mt-7",
+                  label: "登录",
+                  primary: true,
+                  type: "button",
+                  size: "lg",
+                  onEvent: {
+                    click: {
+                      actions: [
+                        {
+                          actionType: "submit",
+                          componentId: "login",
+                        },
+                      ],
+                    },
+                  },
+                },
+                {
+                  type: "button-group",
+                  className: "mt-6",
+                  btnLevel: "light",
+                  buttons: [
+                    {
+                      type: "button",
+                      icon: "/public/admin/graphql.svg",
+                      tooltip: "GraphQL",
+                    },
+                    {
+                      type: "button",
+                      icon: "/public/admin/swagger.svg",
+                      tooltip: "Swagger",
+                    },
+                    {
+                      type: "button",
+                      icon: "/public/admin/eggjs.svg",
+                      tooltip: "Egg.js",
+                    },
+                    {
+                      type: "button",
+                      icon: "fa-brands fa-node-js",
+                      tooltip: "Node.js",
+                    },
+                    {
+                      type: "button",
+                      icon: "fa-brands fa-html5",
+                      tooltip: "HTML5",
+                    },
+                    {
+                      type: "button",
+                      icon: "/public/admin/mysql.svg",
+                      tooltip: "MySQL",
+                    },
+                    {
+                      type: "button",
+                      icon: "/public/admin/sequelize.svg",
+                      tooltip: "Sequelize",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         };
         let amisScoped = amis.embed("#root", amisJSON);
       })();
