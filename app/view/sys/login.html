@@ -11,12 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link
       rel="Shortcut Icon"
-      href="/public/admin/favicon.ico"
+      href="/public/sys/favicon.ico"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="/public/admin/sdk/sdk.css" />
-    <link rel="stylesheet" href="/public/admin/sdk/helper.css" />
-    <link rel="stylesheet" href="/public/admin/sdk/iconfont.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/sdk.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/helper.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/iconfont.css" />
     <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
     <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
     <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
@@ -32,7 +32,7 @@
         padding: 0;
       }
       .login-ontainer {
-        background-image: url(/public/admin/login.svg);
+        background-image: url(/public/sys/login.svg);
         background-repeat: no-repeat;
         background-position: center 110px;
         background-size: 100%;
@@ -45,7 +45,7 @@
   </head>
   <body>
     <div id="root" class="app-wrapper"></div>
-    <script src="/public/admin/sdk/sdk.js"></script>
+    <script src="/public/sys/sdk/sdk.js"></script>
     <script type="text/javascript">
       (function () {
         let amis = amisRequire("amis/embed");
@@ -70,7 +70,7 @@
                       width: "44px",
                       height: "44px",
                       imageMode: "original",
-                      src: "/public/admin/logo.svg",
+                      src: "/public/sys/logo.svg",
                       className: "mr-3",
                     },
                     {
@@ -180,17 +180,17 @@
                   buttons: [
                     {
                       type: "button",
-                      icon: "/public/admin/graphql.svg",
+                      icon: "/public/sys/graphql.svg",
                       tooltip: "GraphQL",
                     },
                     {
                       type: "button",
-                      icon: "/public/admin/swagger.svg",
+                      icon: "/public/sys/swagger.svg",
                       tooltip: "Swagger",
                     },
                     {
                       type: "button",
-                      icon: "/public/admin/eggjs.svg",
+                      icon: "/public/sys/eggjs.svg",
                       tooltip: "Egg.js",
                     },
                     {
@@ -205,12 +205,12 @@
                     },
                     {
                       type: "button",
-                      icon: "/public/admin/mysql.svg",
+                      icon: "/public/sys/mysql.svg",
                       tooltip: "MySQL",
                     },
                     {
                       type: "button",
-                      icon: "/public/admin/sequelize.svg",
+                      icon: "/public/sys/sequelize.svg",
                       tooltip: "Sequelize",
                     },
                   ],

@@ -2,7 +2,7 @@
 /**
 * @controller admin/sys/server 系统服务
 */
-const Controller = require('../../../core/base_controller');
+const Controller = require('../../core/base_controller');
 class ServerController extends Controller {
   async index() {
     this.success(1);
@@ -18,7 +18,7 @@ class ServerController extends Controller {
     this.ctx.status = 200;
     this.ctx.set('Content-Type', 'text/plain');
     this.ctx.res.write('🚗服务重启中... \n');
-    await this.service.admin.sys.server.restart();
+    await this.service.sys.server.restart();
     this.ctx.res.write('🚗关闭服务... \n');
     await this.ctx.helper.waitTime(1500);
     this.ctx.res.write('🚗重新启动服务... \n');

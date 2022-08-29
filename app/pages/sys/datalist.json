@@ -1,0 +1,30 @@
+{
+  "type": "crud",
+  "title":"fdsfas${models_id}",
+  "headerToolbar": [
+    "reload",
+    "export-csv",
+    "export-excel",
+    {
+      "type": "button",
+      "actionType": "dialog",
+      "label": "添加数据",
+      "icon": "fa fa-plus pull-left",
+      "primary": true
+    }
+  ],
+  "syncLocation": false,
+  "api": "https://aisuda.bce.baidu.com/amis/api/sample?perPage=10&id=${id}&waitSeconds=0&models=${models}",
+  "columns": [
+    {
+      "name": "engine",
+      "label": "Rendering engine",
+      "type": "text"
+    },
+    {
+      "name": "version",
+      "label": "Engine version",
+      "type": "text"
+    }
+  ]
+}

@@ -11,12 +11,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link
       rel="Shortcut Icon"
-      href="/public/admin/favicon.ico"
+      href="/public/sys/favicon.ico"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="/public/admin/sdk/sdk.css" />
-    <link rel="stylesheet" href="/public/admin/sdk/helper.css" />
-    <link rel="stylesheet" href="/public/admin/sdk/iconfont.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/sdk.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/helper.css" />
+    <link rel="stylesheet" href="/public/sys/sdk/iconfont.css" />
     <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
     <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
     <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
@@ -35,9 +35,9 @@
   </head>
   <body>
     <div id="root" class="app-wrapper"></div>
-    <script src="/public/admin/sdk/sdk.js"></script>
-    <script src="/public/admin/sdk/vue@2.js"></script>
-    <script src="/public/admin/sdk/history.js"></script>
+    <script src="/public/sys/sdk/sdk.js"></script>
+    <script src="/public/sys/sdk/vue@2.js"></script>
+    <script src="/public/sys/sdk/history.js"></script>
     <script>
       (function () {
         let amis = amisRequire("amis/embed");
@@ -50,7 +50,7 @@
         const app = {
           type: "app",
           brandName: "CmsWing",
-          logo: "/public/admin/logo.svg",
+          logo: "/public/sys/logo.svg",
           header: {
             type: "flex",
             justify: "space-between",
@@ -64,7 +64,7 @@
                     type: "button",
                     label: "GraphQL",
                     align: "right",
-                    icon: "/public/admin/graphql.svg",
+                    icon: "/public/sys/graphql.svg",
                     className: "ml-2",
                     visibleOn: "${ {{ctx.userInfo.admin}} }",
                     actionType: "drawer",
@@ -81,7 +81,7 @@
                     type: "button",
                     label: "swagger",
                     align: "right",
-                    icon: "/public/admin/swagger.svg",
+                    icon: "/public/sys/swagger.svg",
                     className: "ml-2",
                     visibleOn: "${ {{ctx.userInfo.admin}} }",
                     actionType: "drawer",

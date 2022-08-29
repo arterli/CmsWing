@@ -2,7 +2,7 @@
 const moment = require('moment');
 module.exports = app => {
   const DataTypes = app.Sequelize;
-  const User = app.model.define('user', {
+  const SysUser = app.model.define('sys_user', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -58,6 +58,6 @@ module.exports = app => {
   // User.associate = function() {
   //   app.model.Admin.User.belongsTo(app.model.Admin.Org, { foreignKey: 'org_id', targetKey: 'id', constraints: false });
   // };
-  User.sync({ alter: true });
-  return User;
+  SysUser.sync({ alter: true });
+  return SysUser;
 };

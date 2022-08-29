@@ -7,14 +7,14 @@ const path = require('path');
 class IndexController extends Controller {
   async index() {
     const { ctx } = this;
-    await ctx.render('admin/index');
+    await ctx.render('sys/index');
   }
   async login() {
     const { ctx } = this;
     if (ctx.session.adminToken) {
       ctx.redirect('/admin');
     }
-    await ctx.render('admin/login');
+    await ctx.render('sys/login');
   }
   /**
   * @summary 登录接口
@@ -27,7 +27,7 @@ class IndexController extends Controller {
     const { ctx } = this;
     let { username, password } = ctx.request.body;
     password = ctx.helper.cipher(password);
-    const user = await ctx.model.Admin.User.findOne({
+    const user = await ctx.model.SysUser.findOne({
       where: {
         username,
         password,
@@ -47,7 +47,7 @@ class IndexController extends Controller {
   async logout() {
     const { ctx } = this;
     ctx.session.adminToken = null;
-    ctx.redirect('/admin/login');
+    ctx.redirect('/sys/login');
   }
   async getJson() {
     const { ctx } = this;
