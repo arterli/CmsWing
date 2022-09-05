@@ -1,0 +1,63 @@
+{
+  "type": "form",
+  "title":"${name}[${desc}]",
+  "debug": false,
+  "initApi": "/admin/sys/models/indexes?id=$models_id",
+  "api": "/admin/sys/models/updateIndexes",
+  "body": {
+    "type": "combo",
+    "name": "sys_models_indexes",
+    "label": false,
+    "multiple": true,
+    "deleteBtn": {
+      "type": "button",
+      "label": false,
+      "icon": "fa-solid fa-trash-can",
+      "tooltip": "删除",
+      "tooltipPlacement": "top"
+    },
+    "draggable": true,
+    "items": [
+      {
+        "type": "group",
+        "body": [
+        
+          {
+            "name": "fields",
+            "label": "字段",
+            "type": "select",
+            "searchable": true,
+            "sortable": true,
+            "multiple": true,
+            "required": true,
+            "source": {
+              "method": "get",
+              "url":"/admin/sys/models/indexes?id=$models_id",
+              "responseData": {
+                "options": "${sys_models_fields}"
+              }
+            },
+            "columnRatio": 9
+          },{
+            "name": "unique",
+            "type": "checkbox",
+            "label": false,
+            "value": false,
+            "option": "唯一索引",
+            "columnRatio": 2
+          }
+        ]
+      },
+      {
+        "type": "hidden",
+        "name": "models_uuid",
+        "value": "${m_uuid}"
+      },
+      {
+        "type": "hidden",
+        "name": "uuid",
+        "value": "${uuid}"
+      }
+    ]
+  }
+}

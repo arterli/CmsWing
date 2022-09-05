@@ -1,0 +1,218 @@
+
+    
+    type SysModelsIndexes {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      uuid:String
+      models_uuid:String
+      unique:Boolean
+      fields:String
+      sort:Int
+      
+      sys_models: SysModels
+ 
+    }
+    
+    
+    input WhereSysModelsIndexes_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_models_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_unique {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_fields {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsIndexes_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysModelsIndexes{
+    id:WhereSysModelsIndexes_id
+      createdAt:WhereSysModelsIndexes_createdAt
+      updatedAt:WhereSysModelsIndexes_updatedAt
+      uuid:WhereSysModelsIndexes_uuid
+      models_uuid:WhereSysModelsIndexes_models_uuid
+      unique:WhereSysModelsIndexes_unique
+      fields:WhereSysModelsIndexes_fields
+      sort:WhereSysModelsIndexes_sort
+      
+    }
+
+    input WhereSysModelsIndexes {
+      id:WhereSysModelsIndexes_id
+      createdAt:WhereSysModelsIndexes_createdAt
+      updatedAt:WhereSysModelsIndexes_updatedAt
+      uuid:WhereSysModelsIndexes_uuid
+      models_uuid:WhereSysModelsIndexes_models_uuid
+      unique:WhereSysModelsIndexes_unique
+      fields:WhereSysModelsIndexes_fields
+      sort:WhereSysModelsIndexes_sort
+      
+      op_and: [WhereFieldSysModelsIndexes]
+      op_or: [WhereFieldSysModelsIndexes]
+      op_not: [WhereFieldSysModelsIndexes]
+    }
+    
+    
+    input AddSysModelsIndexes {
+    models_uuid: String!
+      unique: Boolean!
+      fields: String
+      sort: Int!
+      
+    }
+    
+    
+    input EditSysModelsIndexes {
+    models_uuid: String
+      unique: Boolean
+      fields: String
+      sort: Int
+      
+    }
+    
+    type CountSysModelsIndexes {
+      count: Int
+      rows: [SysModelsIndexes]
+    }
+    type ResDelSysModelsIndexes {
+      count: Int
+    }
+    type ResEditSysModelsIndexes {
+      ids: [Int]
+    }
+    

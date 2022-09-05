@@ -1,6 +1,0 @@
-
-type Tag {
-  id: ID!
-  userID: ID!
-  content: String!
-}

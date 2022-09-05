@@ -1,0 +1,220 @@
+
+    
+    type SysModels {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      uuid:String
+      name:String
+      desc:String
+      oldName:String
+      paranoid:Boolean
+      
+      sys_models_fields(order:[[String]],limit:Int,offset:Int): [SysModelsFields]
+sys_models_indexes(order:[[String]],limit:Int,offset:Int): [SysModelsIndexes]
+sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate]
+
+    }
+    
+    
+    input WhereSysModels_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_desc {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_oldName {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModels_paranoid {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysModels{
+    id:WhereSysModels_id
+      createdAt:WhereSysModels_createdAt
+      updatedAt:WhereSysModels_updatedAt
+      uuid:WhereSysModels_uuid
+      name:WhereSysModels_name
+      desc:WhereSysModels_desc
+      oldName:WhereSysModels_oldName
+      paranoid:WhereSysModels_paranoid
+      
+    }
+
+    input WhereSysModels {
+      id:WhereSysModels_id
+      createdAt:WhereSysModels_createdAt
+      updatedAt:WhereSysModels_updatedAt
+      uuid:WhereSysModels_uuid
+      name:WhereSysModels_name
+      desc:WhereSysModels_desc
+      oldName:WhereSysModels_oldName
+      paranoid:WhereSysModels_paranoid
+      
+      op_and: [WhereFieldSysModels]
+      op_or: [WhereFieldSysModels]
+      op_not: [WhereFieldSysModels]
+    }
+    
+    
+    input AddSysModels {
+    name: String!
+      desc: String!
+      oldName: String
+      paranoid: Boolean
+      
+    }
+    
+    
+    input EditSysModels {
+    name: String
+      desc: String
+      oldName: String
+      paranoid: Boolean
+      
+    }
+    
+    type CountSysModels {
+      count: Int
+      rows: [SysModels]
+    }
+    type ResDelSysModels {
+      count: Int
+    }
+    type ResEditSysModels {
+      ids: [Int]
+    }
+    

@@ -1,0 +1,239 @@
+
+    
+    type SysRoutesClassify {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      name:String
+      uuid:String
+      middleware:String
+      remarks:String
+      sort:Int
+      sys:Boolean
+      
+      sys_routes(order:[[String]],limit:Int,offset:Int): [SysRoutes]
+
+    }
+    
+    
+    input WhereSysRoutesClassify_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_middleware {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_remarks {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutesClassify_sys {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysRoutesClassify{
+    id:WhereSysRoutesClassify_id
+      createdAt:WhereSysRoutesClassify_createdAt
+      updatedAt:WhereSysRoutesClassify_updatedAt
+      name:WhereSysRoutesClassify_name
+      uuid:WhereSysRoutesClassify_uuid
+      middleware:WhereSysRoutesClassify_middleware
+      remarks:WhereSysRoutesClassify_remarks
+      sort:WhereSysRoutesClassify_sort
+      sys:WhereSysRoutesClassify_sys
+      
+    }
+
+    input WhereSysRoutesClassify {
+      id:WhereSysRoutesClassify_id
+      createdAt:WhereSysRoutesClassify_createdAt
+      updatedAt:WhereSysRoutesClassify_updatedAt
+      name:WhereSysRoutesClassify_name
+      uuid:WhereSysRoutesClassify_uuid
+      middleware:WhereSysRoutesClassify_middleware
+      remarks:WhereSysRoutesClassify_remarks
+      sort:WhereSysRoutesClassify_sort
+      sys:WhereSysRoutesClassify_sys
+      
+      op_and: [WhereFieldSysRoutesClassify]
+      op_or: [WhereFieldSysRoutesClassify]
+      op_not: [WhereFieldSysRoutesClassify]
+    }
+    
+    
+    input AddSysRoutesClassify {
+    name: String!
+      middleware: String
+      remarks: String
+      sort: Int
+      
+    }
+    
+    
+    input EditSysRoutesClassify {
+    name: String
+      middleware: String
+      remarks: String
+      sort: Int
+      
+    }
+    
+    type CountSysRoutesClassify {
+      count: Int
+      rows: [SysRoutesClassify]
+    }
+    type ResDelSysRoutesClassify {
+      count: Int
+    }
+    type ResEditSysRoutesClassify {
+      ids: [Int]
+    }
+    

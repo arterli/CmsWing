@@ -97,40 +97,14 @@ module.exports = {
     return filesList;
   },
   // 数组转换成树
-  arr_to_tree(data, pid, key) {
+  arr_to_tree(data, pid, _id = 'id', _pid = 'pid') {
     const result = [];
     let temp;
     const length = data.length;
     for (let i = 0; i < length; i++) {
-      if (key) {
-        if (data[i].menuHeaderRender === true) {
-          delete data[i].dataValues.menuHeaderRender;
-        }
-        if (data[i].menuRender === true) {
-          delete data[i].dataValues.menuRender;
-        }
-        if (data[i].hideInBreadcrumb === false) {
-          delete data[i].dataValues.hideInBreadcrumb;
-        }
-        if (data[i].hideChildrenInMenu === false) {
-          delete data[i].dataValues.hideChildrenInMenu;
-        }
-        if (data[i].hideInMenu === false) {
-          delete data[i].dataValues.hideInMenu;
-        }
-        if (data[i].flatMenu === false) {
-          delete data[i].dataValues.flatMenu;
-        }
-        if (data[i].headerRender === true) {
-          delete data[i].dataValues.headerRender;
-        }
-        if (data[i].footerRender === true) {
-          delete data[i].dataValues.footerRender;
-        }
-      }
-      if (data[i].pid === pid) {
+      if (data[i][_pid] == pid) {
         result.push(data[i]);
-        temp = this.arr_to_tree(data, data[i].id);
+        temp = this.arr_to_tree(data, data[i][_id], _id, _pid);
         if (temp.length > 0) {
           if (data[i].dataValues) {
             data[i].dataValues.children = temp;
@@ -172,5 +146,34 @@ module.exports = {
         resolve(true);
       }, time);
     });
+  },
+  // 格式化where
+  formatWhere(where) {
+    if (!where) return {};
+    const res = {};
+    for (const key in where) {
+      if (Object.hasOwnProperty.call(where, key)) {
+        const arr1 = [];
+        for (const v of where[key]) {
+          const obj1 = {};
+          const obj2 = {};
+          for (const key2 in v[Object.keys(v)[0]]) {
+            if (Object.hasOwnProperty.call(v[Object.keys(v)[0]], key2)) {
+              if (v[Object.keys(v)[0]][key2]) {
+                obj2[`$${key2}`] = v[Object.keys(v)[0]][key2];
+              }
+
+            }
+          }
+          if (!this._.isEmpty(obj2)) {
+            obj1[Object.keys(v)[0]] = obj2;
+          }
+
+          arr1.push(obj1);
+        }
+        res[`$${key}`] = arr1;
+      }
+    }
+    return res;
   },
 };

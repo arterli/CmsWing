@@ -1,0 +1,197 @@
+{
+  "type": "page",
+  "asideSticky": true,
+  "cssVars": {
+    "--Page-aside-width": "260px",
+    "--Page-body-padding": 0
+  },
+  "css": {
+    ".cxd-AppBcn": {
+      "display": "none"
+    },
+    ".amis-scope .cxd-TableCell-searchPopOver": {
+      "min-width": "auto"
+    }
+  },
+  "aside": [
+    {
+      "type": "page",
+      "title": "模型管理",
+      "remark": "bla bla bla",
+      "toolbar": [
+        {
+          "type": "button",
+          "actionType": "dialog",
+          "label": "新增模型",
+          "icon": "fa fa-plus pull-left",
+          "primary": true,
+          "disabledOn": "${models_id}",
+          "dialog": {
+            "title": "新增模型",
+            "body": {
+              "type": "form",
+              "name": "addModels",
+              "api": "/admin/sys/models/addModels",
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "name",
+                  "label": "模型名称",
+                  "required": true,
+                  "description": "命名格式 模块名_表名 例如:sys_models"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "desc",
+                  "label": "模型描述",
+                  "required": true,
+                  "description": "模型说明"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "name": "paranoid",
+                  "type": "switch",
+                  "label": "偏执表",
+                  "value": false,
+                  "labelRemark": "paranoid",
+                  "description": "Sequelize 支持 paranoid 表的概念. 一个 paranoid 表是一个被告知删除记录时不会真正删除它的表.反而一个名为 deletedAt 的特殊列会将其值设置为该删除请求的时间戳."
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "body": {
+        "type": "picker",
+        "name": "models_id",
+        "joinValues": true,
+        "valueField": "id",
+        "labelField": "name",
+        "label": false,
+        "source": {
+          "method": "post",
+          "url": "/graphql?mdoels=${models}",
+          "graphql": "query($orderBy:String, $orderDir:String,$name:String) {item: SysModels_findAll(order: [[$orderBy, $orderDir]],where:{name:{op_substring:$name}}) {id name desc}}",
+          "data": {
+            "orderBy": "name",
+            "orderDir": "${orderDir|default:'asc'}",
+            "name": "${name|default:''}"
+          }
+        },
+        "value": "${models_id}",
+        "embed": true,
+        "pickerSchema": {
+          "mode": "table",
+          "name": "thelist",
+          "autoFillHeight": true,
+          "footerToolbar": [
+            {
+              "type": "tpl",
+              "tpl": "当前有 ${COUNT(item)} 个模型。",
+              "className": "v-middle pl-3"
+            }
+          ],
+          "headerToolbar": false,
+          "columns": [
+            {
+              "name": "name",
+              "label": "模型",
+              "sortable": true,
+              "searchable": true,
+              "type": "text"
+            },
+            {
+              "type": "operation",
+              "label": "",
+              "width": 10,
+              "className": "text-center",
+              "buttons": [
+                {
+                  "type": "button",
+                  "disabledOn": "${models_id}",
+                  "icon": "fa fa-times text-danger",
+                  "actionType": "ajax",
+                  "confirmText": "您确认要删除 $name 吗？删除后可能会导致程序错误！",
+                  "tooltip": "删除",
+                  "api": {
+                    "url": "/graphql",
+                    "method": "post",
+                    "graphql": "mutation($id:ID!){SysModels_destroy(where:{id:{op_eq:$id}}){count}}",
+                    "data": {
+                      "id": "${id}"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "body": [
+    {
+      "type": "service",
+      "body": [
+        {
+          "type": "tabs",
+          "visibleOn": "${models_id>0}",
+          "tabsMode": "sidebar",
+          "sidePosition": "right",
+          "showTip": true,
+          "tabs": [
+            {
+              "title": "基础",
+              "icon": "fa-solid fa-table",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/pages/sys/models/editModels.json?models_id=${models_id}"
+              }
+            },
+            {
+              "title": "字段",
+              "icon": "fa-solid fa-table-columns",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/pages/sys/models/fieldModels.json?models_id=${models_id}"
+              }
+            },
+            {
+              "title": "索引",
+              "icon": "fa-solid fa-trowel-bricks",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/pages/sys/models/indexesModels.json?models_id=${models_id}"
+              }
+            },
+            {
+              "title": "关联",
+              "icon": "fa-solid fa-arrows-down-to-people",
+              "body": {
+                "type": "service",
+                "schemaApi": "get:/pages/sys/models/associateModels.json?models_id=${models_id}"
+              }
+            }
+          ]
+        },
+       
+        {
+          "type": "wrapper",
+          "visibleOn": "${!models_id}",
+          "body": {
+            "type": "alert",
+            "title": "系统提示",
+            "body": "请选择左侧的模型进行编辑 ${SysModels_create.id}",
+            "level": "info",
+            "className": "mb-3"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -14,7 +14,7 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1661321361697_9234';
   config.graphql = {
-    router: '/graphql',
+    router: '/graphql-dev',
     // 是否加载到 app 上，默认开启
     app: true,
     // 是否加载到 agent 上，默认关闭
@@ -25,12 +25,14 @@ module.exports = appInfo => {
     defaultEmptySchema: false,
     // graphQL 路由前的拦截器
     async onPreGraphQL(ctx) { // console.log(ctx); return { a: 1 };
+      const userInfo = ctx.helper.deToken(ctx.session.adminToken);
+      if (!userInfo || !userInfo?.admin) {
+        throw new Error('response status is not 200');
+      }
     },
     // 开发工具 graphiQL 路由前的拦截器，建议用于做权限操作(如只提供开发者使用)
     async onPreGraphiQL(ctx) {
-      console.log('ddddd', ctx.session.adminToken);
       const userInfo = ctx.helper.deToken(ctx.session.adminToken);
-      console.log(userInfo);
       if (!userInfo || !userInfo?.admin) {
         ctx.redirect('/admin/login');
       }

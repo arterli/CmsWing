@@ -25,5 +25,37 @@ class ServerController extends Controller {
     await this.ctx.helper.waitTime(1000);
     this.ctx.res.end('\n🚗执行成功!!!!!!');
   }
+  /**
+  * @summary 获取中间件
+  * @description 获取中间件
+  * @router get /admin/sys/server/getMiddleware
+  * @response 200 baseRes desc
+  */
+  async getMiddleware() {
+    const list = await this.ctx.service.sys.server.getMiddleware();
+    this.success(list);
+  }
+  /**
+  * @summary 获取控制器
+  * @description 获取控制器
+  * @router get /admin/sys/server/getController
+  * @response 200 baseRes desc
+  */
+  async getController() {
+    const list = await this.ctx.service.sys.server.getController();
+    this.success(list);
+  }
+  /**
+  * @summary 获取控制器方法
+  * @description 获取控制器方法
+  * @router get /admin/sys/server/getAction
+  * @request query integer *c 控制器名称
+  * @response 200 baseRes errorCode:0成功
+  */
+  async getAction() {
+    const { c } = this.ctx.query;
+    const data = await this.ctx.service.sys.server.getAction(c);
+    this.success(data);
+  }
 }
 module.exports = ServerController;

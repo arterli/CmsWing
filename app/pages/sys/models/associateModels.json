@@ -1,0 +1,162 @@
+{
+  "type": "wrapper",
+  "body": [
+    {
+      "type": "alert",
+      "body": "创建一个 一对一 关系, hasOne 和 belongsTo 关联一起使用;<br>创建一个 一对多 关系, hasMany he belongsTo 关联一起使用;<br>创建一个 多对多 关系, 两个 belongsToMany 调用一起使用",
+      "showIcon": true,
+      "className": "mb-1"
+    },
+    {
+      "title": "${name}[${desc}]",
+      "type": "form",
+      "debug": false,
+      "mode": "horizontal",
+      "multiLine": true,
+      "initApi": "/admin/sys/models/associate?id=${models_id}",
+      "api": "/admin/sys/models/updateAssociate",
+      "body": [
+        {
+          "type": "combo",
+          "name": "sys_models_associates",
+          "label": false,
+          "multiple": true,
+          "multiLine": true,
+          "inline": true,
+          "draggable": true,
+          "items": [
+            {
+              "name": "type",
+              "type": "select",
+              "label": "类型",
+              "required": true,
+              "options": ["HasOne", "HasMany","BelongsTo", "BelongsToMany"]
+            },
+            {
+              "name": "parent_uuid",
+              "type": "select",
+              "label": "父表",
+              "required": true,
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql",
+                "graphql": "query($orderBy:String, $orderDir:String) {options: SysModels_findAll(order: [[$orderBy, $orderDir]]) {value:uuid label:name}}",
+                "data": {
+                  "orderBy": "name",
+                  "orderDir": "asc"
+                }
+              }
+            },
+            {
+              "name": "targetKey",
+              "type": "select",
+              "label": "父键",
+              "required": true,
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql?uuid=${parent_uuid}",
+                "graphql": "query($id:ID!,$order:[String]){options:SysModelsFields_findAll(where:{models_uuid:{op_eq:$id}},order:[$order]){value:uuid label:name}}",
+                "data": {
+                  "id": "${parent_uuid}",
+                  "order": ["sort", "asc"]
+                }
+              }
+            },
+            {
+              "name": "through_uuid",
+              "type": "select",
+              "label": "中间表",
+              "options": [
+                "HasOne",
+                "BelongsTo",
+                "HasMany",
+                "BelongsToMany"
+              ],
+              "requiredOn": "${type === 'BelongsToMany'}",
+              "visibleOn": "${OR(type==='BelongsToMany')}",
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql",
+                "graphql": "query($orderBy:String, $orderDir:String) {options: SysModels_findAll(order: [[$orderBy, $orderDir]]) {value:uuid label:name}}",
+                "data": {
+                  "orderBy": "name",
+                  "orderDir": "asc"
+                }
+              }
+            },
+            {
+              "name": "throughKey",
+              "type": "select",
+              "label": "中间键(对应父键)",
+              "requiredOn": "${type === 'BelongsToMany'}",
+              "visibleOn": "${OR(type==='BelongsToMany')}",
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql?uuid=${through_uuid}",
+                "graphql": "query($id:ID!,$order:[String]){options:SysModelsFields_findAll(where:{models_uuid:{op_eq:$id}},order:[$order]){value:uuid label:name}}",
+                "data": {
+                  "id": "${through_uuid}",
+                  "order": ["sort", "asc"]
+                }
+              }
+            },
+            {
+              "name": "child_uuid",
+              "type": "select",
+              "label": "子表",
+              "required": true,
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql",
+                "graphql": "query($orderBy:String, $orderDir:String) {options: SysModels_findAll(order: [[$orderBy, $orderDir]]) {value:uuid label:name}}",
+                "data": {
+                  "orderBy": "name",
+                  "orderDir": "asc"
+                }
+              }
+            },
+            {
+              "name": "foreignKey",
+              "type": "select",
+              "label": "子键",
+              "required": true,
+              "searchable": true,
+              "source": {
+                "method": "post",
+                "url": "/graphql?uuid=${child_uuid}",
+                "graphql": "query($id:ID!,$order:[String]){options:SysModelsFields_findAll(where:{models_uuid:{op_eq:$id}},order:[$order]){value:uuid label:name}}",
+                "data": {
+                  "id": "${child_uuid}",
+                  "order": ["sort", "asc"]
+                }
+              }
+            },
+            {
+              "name": "constraints",
+              "type": "checkbox",
+              "label": false,
+              "option": "约束",
+              "value": false
+            },
+            {
+              "type": "hidden",
+              "name": "models_uuid",
+              "value": "${m_uuid}"
+            },
+            {
+              "type": "hidden",
+              "name": "uuid",
+              "value": "${uuid}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "size": "none"
+}

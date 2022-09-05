@@ -1,13 +1,53 @@
 
-
 type Mutation {
 
-  # Item
-  createItem (userID: ID!, content: String!, expire: Date): Item
-  updateItem (id: ID!, content: String, expire: Date, done: Boolean): Item
-  deleteItem (id: ID!): Item 
+  #SysModels 添加
+  SysModels_create(data:AddSysModels):SysModels
+  #SysModels 删除
+  SysModels_destroy(where:WhereSysModels!):ResDelSysModels
+  #SysModels 更新
+  SysModels_update(data:EditSysModels!,where:WhereSysModels!):ResEditSysModels
 
-  # Tag
-  attachTag (itemID: ID!, tag: String!): Tag 
-  removeTag (id: ID!): Tag 
+  #SysUser 添加
+  SysUser_create(data:AddSysUser):SysUser
+  #SysUser 删除
+  SysUser_destroy(where:WhereSysUser!):ResDelSysUser
+  #SysUser 更新
+  SysUser_update(data:EditSysUser!,where:WhereSysUser!):ResEditSysUser
+
+  #SysModelsFields 添加
+  SysModelsFields_create(data:AddSysModelsFields):SysModelsFields
+  #SysModelsFields 删除
+  SysModelsFields_destroy(where:WhereSysModelsFields!):ResDelSysModelsFields
+  #SysModelsFields 更新
+  SysModelsFields_update(data:EditSysModelsFields!,where:WhereSysModelsFields!):ResEditSysModelsFields
+
+  #SysModelsIndexes 添加
+  SysModelsIndexes_create(data:AddSysModelsIndexes):SysModelsIndexes
+  #SysModelsIndexes 删除
+  SysModelsIndexes_destroy(where:WhereSysModelsIndexes!):ResDelSysModelsIndexes
+  #SysModelsIndexes 更新
+  SysModelsIndexes_update(data:EditSysModelsIndexes!,where:WhereSysModelsIndexes!):ResEditSysModelsIndexes
+
+  #SysModelsAssociate 添加
+  SysModelsAssociate_create(data:AddSysModelsAssociate):SysModelsAssociate
+  #SysModelsAssociate 删除
+  SysModelsAssociate_destroy(where:WhereSysModelsAssociate!):ResDelSysModelsAssociate
+  #SysModelsAssociate 更新
+  SysModelsAssociate_update(data:EditSysModelsAssociate!,where:WhereSysModelsAssociate!):ResEditSysModelsAssociate
+
+  #SysRoutes 添加
+  SysRoutes_create(data:AddSysRoutes):SysRoutes
+  #SysRoutes 删除
+  SysRoutes_destroy(where:WhereSysRoutes!):ResDelSysRoutes
+  #SysRoutes 更新
+  SysRoutes_update(data:EditSysRoutes!,where:WhereSysRoutes!):ResEditSysRoutes
+
+  #SysRoutesClassify 添加
+  SysRoutesClassify_create(data:AddSysRoutesClassify):SysRoutesClassify
+  #SysRoutesClassify 删除
+  SysRoutesClassify_destroy(where:WhereSysRoutesClassify!):ResDelSysRoutesClassify
+  #SysRoutesClassify 更新
+  SysRoutesClassify_update(data:EditSysRoutesClassify!,where:WhereSysRoutesClassify!):ResEditSysRoutesClassify
+
 }

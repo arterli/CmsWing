@@ -1,0 +1,333 @@
+
+    
+    type SysModelsAssociate {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      type:String
+      uuid:String
+      models_uuid:String
+      parent_uuid:String
+      through_uuid:String
+      child_uuid:String
+      targetKey:String
+      foreignKey:String
+      constraints:Boolean
+      sort:Int
+      
+      sys_models: SysModels
+ 
+    }
+    
+    
+    input WhereSysModelsAssociate_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_type {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_models_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_parent_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_through_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_child_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_targetKey {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_foreignKey {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_constraints {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsAssociate_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysModelsAssociate{
+    id:WhereSysModelsAssociate_id
+      createdAt:WhereSysModelsAssociate_createdAt
+      updatedAt:WhereSysModelsAssociate_updatedAt
+      type:WhereSysModelsAssociate_type
+      uuid:WhereSysModelsAssociate_uuid
+      models_uuid:WhereSysModelsAssociate_models_uuid
+      parent_uuid:WhereSysModelsAssociate_parent_uuid
+      through_uuid:WhereSysModelsAssociate_through_uuid
+      child_uuid:WhereSysModelsAssociate_child_uuid
+      targetKey:WhereSysModelsAssociate_targetKey
+      foreignKey:WhereSysModelsAssociate_foreignKey
+      constraints:WhereSysModelsAssociate_constraints
+      sort:WhereSysModelsAssociate_sort
+      
+    }
+
+    input WhereSysModelsAssociate {
+      id:WhereSysModelsAssociate_id
+      createdAt:WhereSysModelsAssociate_createdAt
+      updatedAt:WhereSysModelsAssociate_updatedAt
+      type:WhereSysModelsAssociate_type
+      uuid:WhereSysModelsAssociate_uuid
+      models_uuid:WhereSysModelsAssociate_models_uuid
+      parent_uuid:WhereSysModelsAssociate_parent_uuid
+      through_uuid:WhereSysModelsAssociate_through_uuid
+      child_uuid:WhereSysModelsAssociate_child_uuid
+      targetKey:WhereSysModelsAssociate_targetKey
+      foreignKey:WhereSysModelsAssociate_foreignKey
+      constraints:WhereSysModelsAssociate_constraints
+      sort:WhereSysModelsAssociate_sort
+      
+      op_and: [WhereFieldSysModelsAssociate]
+      op_or: [WhereFieldSysModelsAssociate]
+      op_not: [WhereFieldSysModelsAssociate]
+    }
+    
+    
+    input AddSysModelsAssociate {
+    type: String!
+      models_uuid: String!
+      parent_uuid: String!
+      through_uuid: String
+      child_uuid: String!
+      targetKey: String!
+      foreignKey: String!
+      constraints: Boolean!
+      sort: Int!
+      
+    }
+    
+    
+    input EditSysModelsAssociate {
+    type: String
+      models_uuid: String
+      parent_uuid: String
+      through_uuid: String
+      child_uuid: String
+      targetKey: String
+      foreignKey: String
+      constraints: Boolean
+      sort: Int
+      
+    }
+    
+    type CountSysModelsAssociate {
+      count: Int
+      rows: [SysModelsAssociate]
+    }
+    type ResDelSysModelsAssociate {
+      count: Int
+    }
+    type ResEditSysModelsAssociate {
+      ids: [Int]
+    }
+    

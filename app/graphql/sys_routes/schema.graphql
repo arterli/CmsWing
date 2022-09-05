@@ -1,0 +1,473 @@
+
+    
+    type SysRoutes {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      uuid:String
+      name:String
+      path:String
+      icon:String
+      verb:String
+      middleware:String
+      ignoreMiddleware:String
+      controller:String
+      action:String
+      admin:Boolean
+      role:Boolean
+      class_uuid:String
+      puuid:String
+      sort:Int
+      linkType:String
+      link:String
+      
+      sys_routes_classify: SysRoutesClassify
+ 
+    }
+    
+    
+    input WhereSysRoutes_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_path {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_icon {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_verb {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_middleware {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_ignoreMiddleware {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_controller {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_action {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_admin {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_role {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_class_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_puuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_linkType {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysRoutes_link {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysRoutes{
+    id:WhereSysRoutes_id
+      createdAt:WhereSysRoutes_createdAt
+      updatedAt:WhereSysRoutes_updatedAt
+      uuid:WhereSysRoutes_uuid
+      name:WhereSysRoutes_name
+      path:WhereSysRoutes_path
+      icon:WhereSysRoutes_icon
+      verb:WhereSysRoutes_verb
+      middleware:WhereSysRoutes_middleware
+      ignoreMiddleware:WhereSysRoutes_ignoreMiddleware
+      controller:WhereSysRoutes_controller
+      action:WhereSysRoutes_action
+      admin:WhereSysRoutes_admin
+      role:WhereSysRoutes_role
+      class_uuid:WhereSysRoutes_class_uuid
+      puuid:WhereSysRoutes_puuid
+      sort:WhereSysRoutes_sort
+      linkType:WhereSysRoutes_linkType
+      link:WhereSysRoutes_link
+      
+    }
+
+    input WhereSysRoutes {
+      id:WhereSysRoutes_id
+      createdAt:WhereSysRoutes_createdAt
+      updatedAt:WhereSysRoutes_updatedAt
+      uuid:WhereSysRoutes_uuid
+      name:WhereSysRoutes_name
+      path:WhereSysRoutes_path
+      icon:WhereSysRoutes_icon
+      verb:WhereSysRoutes_verb
+      middleware:WhereSysRoutes_middleware
+      ignoreMiddleware:WhereSysRoutes_ignoreMiddleware
+      controller:WhereSysRoutes_controller
+      action:WhereSysRoutes_action
+      admin:WhereSysRoutes_admin
+      role:WhereSysRoutes_role
+      class_uuid:WhereSysRoutes_class_uuid
+      puuid:WhereSysRoutes_puuid
+      sort:WhereSysRoutes_sort
+      linkType:WhereSysRoutes_linkType
+      link:WhereSysRoutes_link
+      
+      op_and: [WhereFieldSysRoutes]
+      op_or: [WhereFieldSysRoutes]
+      op_not: [WhereFieldSysRoutes]
+    }
+    
+    
+    input AddSysRoutes {
+    createdAt: Date!
+      name: String!
+      path: String!
+      icon: String
+      verb: String!
+      middleware: String
+      ignoreMiddleware: String
+      controller: String
+      action: String
+      admin: Boolean
+      role: Boolean
+      class_uuid: String!
+      puuid: String
+      sort: Int
+      linkType: String
+      link: String
+      
+    }
+    
+    
+    input EditSysRoutes {
+    updatedAt: Date
+      name: String
+      path: String
+      icon: String
+      verb: String
+      middleware: String
+      ignoreMiddleware: String
+      controller: String
+      action: String
+      admin: Boolean
+      role: Boolean
+      class_uuid: String
+      puuid: String
+      sort: Int
+      linkType: String
+      link: String
+      
+    }
+    
+    type CountSysRoutes {
+      count: Int
+      rows: [SysRoutes]
+    }
+    type ResDelSysRoutes {
+      count: Int
+    }
+    type ResEditSysRoutes {
+      ids: [Int]
+    }
+    

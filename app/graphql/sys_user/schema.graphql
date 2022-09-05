@@ -1,0 +1,265 @@
+
+    
+    type SysUser {
+      id:ID
+      username:String
+      password:String
+      email:String
+      mobile:String
+      state:Boolean
+      org_id:Int
+      admin:Boolean
+      createdAt:Date
+      updatedAt:Date
+      
+      
+    }
+    
+    
+    input WhereSysUser_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_username {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_password {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_email {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_mobile {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_state {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_org_id {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_admin {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUser_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysUser{
+    id:WhereSysUser_id
+      username:WhereSysUser_username
+      password:WhereSysUser_password
+      email:WhereSysUser_email
+      mobile:WhereSysUser_mobile
+      state:WhereSysUser_state
+      org_id:WhereSysUser_org_id
+      admin:WhereSysUser_admin
+      createdAt:WhereSysUser_createdAt
+      updatedAt:WhereSysUser_updatedAt
+      
+    }
+
+    input WhereSysUser {
+      id:WhereSysUser_id
+      username:WhereSysUser_username
+      password:WhereSysUser_password
+      email:WhereSysUser_email
+      mobile:WhereSysUser_mobile
+      state:WhereSysUser_state
+      org_id:WhereSysUser_org_id
+      admin:WhereSysUser_admin
+      createdAt:WhereSysUser_createdAt
+      updatedAt:WhereSysUser_updatedAt
+      
+      op_and: [WhereFieldSysUser]
+      op_or: [WhereFieldSysUser]
+      op_not: [WhereFieldSysUser]
+    }
+    
+    
+    input AddSysUser {
+    username: String!
+      password: String!
+      email: String
+      mobile: String
+      state: Boolean
+      org_id: Int
+      admin: Boolean
+      
+    }
+    
+    
+    input EditSysUser {
+    username: String
+      password: String
+      email: String
+      mobile: String
+      state: Boolean
+      org_id: Int
+      admin: Boolean
+      
+    }
+    
+    type CountSysUser {
+      count: Int
+      rows: [SysUser]
+    }
+    type ResDelSysUser {
+      count: Int
+    }
+    type ResEditSysUser {
+      ids: [Int]
+    }
+    
