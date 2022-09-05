@@ -731,5 +731,32 @@ ${item}
       console.error(err);
     }
   }
+  // 生成页面
+  async pages(data) {
+    if (data.linkType === 'schemaApi' && !data.admin && !this.ctx.helper._.isEmpty(data.link)) {
+      const url = data.link.split(':');
+      console.log(url);
+      if (url[0] === 'get') {
+        const ff = path.join(this.app.baseDir, 'app', url[1]);
+        console.log(ff);
+        const exist = fsSync.existsSync(ff);
+        console.log(exist);
+        if (!exist) {
+          const mulu = path.join(this.app.baseDir, 'app', path.dirname(url[1]));
+          this.ctx.helper.mkdirsSync(mulu);
+          const sdata = { type: 'page', title: data.name, body: [{ type: 'tpl', tpl: '请编辑您的页面' }] };
+          try {
+            const schemaData = new Uint8Array(Buffer.from(JSON.stringify(sdata)));
+            await fs.writeFile(ff, schemaData);
+          // Abort the request before the promise settles.
+          } catch (err) {
+          // When a request is aborted - err is an AbortError
+            console.error(err);
+          }
+        }
+
+      }
+    }
+  }
 }
 module.exports = GenerateService;

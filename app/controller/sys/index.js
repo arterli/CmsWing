@@ -92,98 +92,98 @@ class IndexController extends Controller {
       arr.push(obj);
     }
     const tree = this.ctx.helper.arr_to_tree(arr, '0', 'uuid', 'puuid');
-    console.log(JSON.stringify(tree, null, 2));
-    const site = {
-      pages: [
-        {
-          label: '模块',
-          children: [
-            {
-              label: '首页',
-              url: '/',
-              redirect: '/index/1',
-              icon: 'fa-solid fa-house-chimney-window',
-            },
+    // console.log(JSON.stringify(tree, null, 2));
+    // const site = {
+    //   pages: [
+    //     {
+    //       label: '模块',
+    //       children: [
+    //         {
+    //           label: '首页',
+    //           url: '/',
+    //           redirect: '/index/1',
+    //           icon: 'fa-solid fa-house-chimney-window',
+    //         },
 
-            {
-              label: 'BBS',
-              icon: 'fa-solid fa-b',
-              schema: {
-                type: 'page',
-                title: '页面B',
-                body: '页面B',
-              },
-            },
-            {
-              label: '测试模块',
-              icon: 'fa fa-cube',
-              children: [
-                {
-                  label: '列表',
-                  url: '/crud/list',
-                  icon: 'fa fa-list',
-                  schemaApi: 'get:/pages/crud-list.json',
-                },
-                {
-                  label: '新增',
-                  url: '/crud/new',
-                  icon: 'fa fa-plus',
-                  schemaApi: 'get:/pages/crud-new.json',
-                },
-                {
-                  label: '查看',
-                  url: '/crud/:id',
-                  schemaApi: 'get:/pages/crud-view.json',
-                },
-                {
-                  label: '修改',
-                  url: '/crud/:id/edit',
-                  schemaApi: 'get:/pages/crud-edit.json',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: '系统',
-          icon: 'fa-solid fa-user',
-          children: [
-            {
-              label: '会员管理',
-              icon: 'fa-solid fa-user',
-              schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-            },
-            {
-              label: '系统用户',
-              icon: 'fa-solid fa-user-gear',
-              schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-            },
-            {
-              label: '模型管理',
-              icon: 'fa-solid fa-database',
-              url: '/sys/models',
-              schemaApi: 'get:/pages/sys/models/index.json',
-            },
-            {
-              label: '路由管理',
-              icon: 'fa-solid fa-route',
-              url: '/sys/routes',
-              schemaApi: 'get:/pages/sys/routes/index.json',
-            },
-            {
-              label: '权限管理',
-              icon: 'fa-solid fa-shield-virus',
-              schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-            },
-            {
-              label: '外部链接',
-              icon: 'fa-solid fa-link',
-              link: 'http://baidu.gitee.io/amis',
-            },
-          ],
-        },
-      ],
-    };
+    //         {
+    //           label: 'BBS',
+    //           icon: 'fa-solid fa-b',
+    //           schema: {
+    //             type: 'page',
+    //             title: '页面B',
+    //             body: '页面B',
+    //           },
+    //         },
+    //         {
+    //           label: '测试模块',
+    //           icon: 'fa fa-cube',
+    //           children: [
+    //             {
+    //               label: '列表',
+    //               url: '/crud/list',
+    //               icon: 'fa fa-list',
+    //               schemaApi: 'get:/pages/crud-list.json',
+    //             },
+    //             {
+    //               label: '新增',
+    //               url: '/crud/new',
+    //               icon: 'fa fa-plus',
+    //               schemaApi: 'get:/pages/crud-new.json',
+    //             },
+    //             {
+    //               label: '查看',
+    //               url: '/crud/:id',
+    //               schemaApi: 'get:/pages/crud-view.json',
+    //             },
+    //             {
+    //               label: '修改',
+    //               url: '/crud/:id/edit',
+    //               schemaApi: 'get:/pages/crud-edit.json',
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //     {
+    //       label: '系统',
+    //       icon: 'fa-solid fa-user',
+    //       children: [
+    //         {
+    //           label: '会员管理',
+    //           icon: 'fa-solid fa-user',
+    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
+    //         },
+    //         {
+    //           label: '系统用户',
+    //           icon: 'fa-solid fa-user-gear',
+    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
+    //         },
+    //         {
+    //           label: '模型管理',
+    //           icon: 'fa-solid fa-database',
+    //           url: '/sys/models',
+    //           schemaApi: 'get:/pages/sys/models/index.json',
+    //         },
+    //         {
+    //           label: '路由管理',
+    //           icon: 'fa-solid fa-route',
+    //           url: '/sys/routes',
+    //           schemaApi: 'get:/pages/sys/routes/index.json',
+    //         },
+    //         {
+    //           label: '权限管理',
+    //           icon: 'fa-solid fa-shield-virus',
+    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
+    //         },
+    //         {
+    //           label: '外部链接',
+    //           icon: 'fa-solid fa-link',
+    //           link: 'http://baidu.gitee.io/amis',
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
     this.success({ pages: tree });
   }
   async test() {

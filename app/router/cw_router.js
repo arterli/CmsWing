@@ -11,5 +11,7 @@ module.exports = app => {
   app.router.post('编辑路由', '/admin/sys/routes/editRoutes', app.middleware.sys.authAdminToken(), 'sys.routes.editRoutes');
   app.router.get('删除路由', '/admin/sys/routes/delRoutes', app.middleware.sys.authAdminToken(), 'sys.routes.delRoutes');
   app.router.get('获取上级路由', '/admin/sys/routes/topRoutes', app.middleware.sys.authAdminToken(), 'sys.routes.topRoutes');
+  app.router.post('视图编辑页面', '/admin/sys/routes/editPages', app.middleware.sys.authAdminToken(), 'sys.routes.editPages');
+  app.router.post('路由排序', '/admin/sys/routes/saveOrder', app.middleware.sys.authAdminToken(), 'sys.routes.saveOrder');
 
 };

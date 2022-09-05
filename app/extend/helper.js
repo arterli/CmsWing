@@ -12,6 +12,7 @@ const iv = Buffer.alloc(16, 0);
 const algorithm = 'aes-192-cbc';
 const _ = require('lodash');
 const fs = require('fs/promises');
+const fsSync = require('fs');
 const path = require('path');
 module.exports = {
   _,
@@ -175,5 +176,15 @@ module.exports = {
       }
     }
     return res;
+  },
+  // 递归创建目录 同步方法
+  mkdirsSync(dirname) {
+    if (fsSync.existsSync(dirname)) {
+      return true;
+    }
+    if (this.mkdirsSync(path.dirname(dirname))) {
+      fsSync.mkdirSync(dirname);
+      return true;
+    }
   },
 };

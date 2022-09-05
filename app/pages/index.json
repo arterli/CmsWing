@@ -1,5 +1,1 @@
-{
-  "type": "page",
-  "title": "Dashboard",
-  "body": "body..."
-}
+{"type":"page","title":"首页","body":[{"type":"tpl","tpl":"body...","inline":false,"id":"u:6f72c6ce4f53"}],"id":"u:0fdc9e106470","messages":{},"pullRefresh":{}}
