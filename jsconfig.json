@@ -1,5 +1,6 @@
 {
   "include": [
     "**/*"
-  ]
+  ],
+  "exclude": ["app/public/amis-editor"]
 }
