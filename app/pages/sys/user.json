@@ -1,0 +1,316 @@
+{
+  "type":"page",
+  "asideResizor": true,
+  "asideMinWidth": 220,
+  "asideMaxWidth": 500,
+  "title": false,
+  "cssVars": {
+    "--Page-aside-width": "220px"
+  },
+  "css": {
+    ".cxd-AppBcn": {
+      "display": "none"
+    }
+  },
+  "aside": {
+    "type": "form",
+    "wrapWithPanel": false,
+    "submitOnInit": true,
+    "target": "userList",
+    "body": [
+      {
+        "type": "input-tree",
+        "name": "group",
+        "inputClassName": "no-border",
+        "submitOnChange": true,
+        "selectFirst": true,
+        "creatable": true,
+        "addControls": [
+          {
+            "label": "分组名称",
+            "type": "input-text",
+            "required": true,
+            "name": "name"
+          },
+          {
+            "label": "排序",
+            "type": "input-number",
+            "name": "sort"
+          }
+        ],
+        "addApi":"/admin/sys/user/groupAdd",
+        "removable": true,
+        "deleteApi":"get:/admin/sys/user/groupDel?uuid=$uuid",
+        "editable": true,
+        "editControls": [
+          {
+            "label": "分组名称",
+            "type": "input-text",
+            "required": true,
+            "name": "name"
+          },{
+            "label": "上级节点",
+            "type": "tree-select",
+            "name": "puuid",
+            "required": true,
+            "searchable": true,
+            "source": "/admin/sys/user/groupList",
+            "labelField":"name",
+             "valueField":"uuid"
+          },
+          {
+            "label": "排序",
+            "type": "input-number",
+            "name": "sort"
+          },
+          {
+            "type":"hidden",
+            "name":"uuid"
+          }
+        ],
+        "editApi":"/admin/sys/user/groupEdit",
+        "source":"/admin/sys/user/groupList",
+        "labelField":"name",
+        "valueField":"uuid"
+      }
+    ]
+  },
+  
+  "body": {
+    "type": "crud",
+    "className": "w-full",
+    "name":"userList",
+    "api": {
+      "url": "/admin/sys/user/userList"
+    },
+    "headerToolbar": [
+      {
+        "type": "tpl",
+        "tpl": "一共有${total}位用户"
+      },
+      {
+        "type": "button",
+        "actionType": "dialog",
+        "label": "新增用户",
+        "primary": true,
+        "align": "right",
+        "dialog": {
+          "title": "新增用户",
+          "body": {
+            "type": "form",
+            "name": "sample-edit-form",
+            "api": "/admin/sys/user/userAdd",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "username",
+                "label": "用户名",
+                "required": true
+              },
+             
+              {
+                "type": "input-text",
+                "name": "password",
+                "label": "密码",
+                "required": true
+              },
+              
+              {
+                "type": "input-text",
+                "name": "mobile",
+                "label": "手机号码"
+              },
+             
+              {
+                "type": "input-text",
+                "name": "email",
+                "label": "邮箱"
+              },
+              {
+                "name": "group_uuid",
+                "label": "部门",
+                "type": "tree-select",
+          "source": "/admin/sys/user/groupList",
+            "labelField":"name",
+             "valueField":"uuid"
+              },
+              {
+                "name": "role_ids",
+                "label": "角色",
+                "type": "tree-select",
+                "multiple": true,
+                "source": "/admin/sys/user/roleList",
+            "labelField":"name",
+             "valueField":"uuid"
+              }
+            ]
+          }
+        }
+      }
+     
+    ],
+    "quickSaveItemApi": "/admin/sys/user/userEdit",
+    "columns": [
+      {
+        "name": "id",
+        "label": "ID",
+        "width": 20,
+        "sortable": true,
+        "type": "text",
+        "toggled": true,
+        "fixed": "left"
+      },
+      {
+        "name": "username",
+        "label": "用户名",
+        "sortable": true,
+        "searchable": true,
+        "type": "text",
+        "toggled": true,
+        "fixed": "left"
+      },
+      {
+        "name": "group_uuid",
+        "label": "部门",
+        "quickEdit": {
+          "mode": "inline",
+          "type": "tree-select",
+          "source": "/admin/sys/user/groupList",
+            "labelField":"name",
+             "valueField":"uuid",
+          "saveImmediately": true
+        },
+        "type": "text",
+        "toggled": true,
+        "syncLocation": false
+      },
+      {
+        "name": "role_ids",
+        "label": "角色",
+        "quickEdit": {
+          "mode": "inline",
+          "multiple": true,
+          "type": "select",
+          "source": "/admin/sys/user/roleList",
+            "labelField":"name",
+             "valueField":"uuid",
+          "saveImmediately": true
+        },
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "name": "mobile",
+        "label": "手机号码",
+        "quickEdit": {
+          "saveImmediately": true
+        },
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "name": "email",
+        "label": "邮箱",
+        "quickEdit": {
+          "saveImmediately": true
+        },
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "label": "添加时间"
+        
+      },
+      {
+        "name": "state",
+        "type": "text",
+        "label": "状态",
+        "width": 60,
+        "quickEdit": {
+          "type": "switch",
+          "mode": "inline",
+          "saveImmediately": true
+        },
+        "toggled": true
+      },
+      {
+        "type": "operation",
+        "label": "操作",
+        "width": 50,
+        "fixed": "right",
+        "buttons": [
+          {
+            "type": "button",
+            "icon": "fa fa-pencil",
+            "actionType": "dialog",
+            "dialog": {
+              "title": "编辑用户",
+              "body": {
+                "type": "form",
+                "api": "/admin/sys/user/userEdit",
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "username",
+                    "label": "用户名",
+                    "required": true
+                  },
+                 
+                  {
+                    "type": "input-text",
+                    "name": "newpassword",
+                    "label": "新密码",
+                    "description": "如果不修改密码请不要填写"
+                  },
+                  
+                  {
+                    "type": "input-text",
+                    "name": "mobile",
+                    "label": "手机号码"
+                  },
+                 
+                  {
+                    "type": "input-text",
+                    "name": "email",
+                    "label": "邮箱"
+                  },
+                  {
+                    "name": "group_uuid",
+                    "label": "部门",
+                    "type": "tree-select",
+              "source": "/admin/sys/user/groupList",
+                "labelField":"name",
+                 "valueField":"uuid"
+                  },
+                  {
+                    "name": "role_ids",
+                    "label": "角色",
+                    "type": "tree-select",
+                    "multiple": true,
+                    "source": "/admin/sys/user/roleList",
+                "labelField":"name",
+                 "valueField":"uuid"
+                  },{
+                    "name":"uuid",
+                    "type":"hidden"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "button",
+            "icon": "fa fa-times text-danger",
+            "actionType": "ajax",
+            "confirmText": "您确认要删除 ${username}?",
+            "api": "get:/admin/sys/user/userDel?uuid=$uuid",
+            "disabledOn":"${uuid==='32316132-086b-44cc-baa9-419618531dff'}"
+          }
+        ],
+        "toggled": true
+      }
+    ]
+  }
+}

@@ -7,12 +7,15 @@
       email:String
       mobile:String
       state:Boolean
-      org_id:Int
+      group_uuid:String
       admin:Boolean
       createdAt:Date
       updatedAt:Date
+      uuid:String
       
-      
+      sys_user_group: SysUserGroup
+ sys_user_role(order:[[String]],limit:Int,offset:Int): [SysUserRole]
+    
     }
     
     
@@ -124,18 +127,18 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysUser_org_id {
-        op_eq: Int
-  op_ne: Int
-  op_or: [Int]
-  op_gt: Int
-  op_gte: Int
-  op_lt: Int
-  op_lte: Int
-  op_between: [Int]
-  op_notBetween: [Int]
-  op_in: [Int]
-  op_notIn: [Int]
+      input WhereSysUser_group_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
   op_like: String
   op_notLike: String
   op_startsWith: String
@@ -196,6 +199,24 @@
   op_endsWith: String
   op_substring: String
       }
+      input WhereSysUser_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
       
     input WhereFieldSysUser{
     id:WhereSysUser_id
@@ -204,10 +225,11 @@
       email:WhereSysUser_email
       mobile:WhereSysUser_mobile
       state:WhereSysUser_state
-      org_id:WhereSysUser_org_id
+      group_uuid:WhereSysUser_group_uuid
       admin:WhereSysUser_admin
       createdAt:WhereSysUser_createdAt
       updatedAt:WhereSysUser_updatedAt
+      uuid:WhereSysUser_uuid
       
     }
 
@@ -218,10 +240,11 @@
       email:WhereSysUser_email
       mobile:WhereSysUser_mobile
       state:WhereSysUser_state
-      org_id:WhereSysUser_org_id
+      group_uuid:WhereSysUser_group_uuid
       admin:WhereSysUser_admin
       createdAt:WhereSysUser_createdAt
       updatedAt:WhereSysUser_updatedAt
+      uuid:WhereSysUser_uuid
       
       op_and: [WhereFieldSysUser]
       op_or: [WhereFieldSysUser]
@@ -235,8 +258,9 @@
       email: String
       mobile: String
       state: Boolean
-      org_id: Int
+      group_uuid: String
       admin: Boolean
+      uuid: String!
       
     }
     
@@ -247,7 +271,7 @@
       email: String
       mobile: String
       state: Boolean
-      org_id: Int
+      group_uuid: String
       admin: Boolean
       
     }

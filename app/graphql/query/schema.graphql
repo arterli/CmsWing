@@ -64,4 +64,31 @@ type Query {
   #路由分类 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   SysRoutesClassify_findAndCountAll(where:WhereSysRoutesClassify,order:[[String]],limit:Int!,offset:Int!):CountSysRoutesClassify
 
+  #系统用户组 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysUserGroup_findAll(where:WhereSysUserGroup,order:[[String]],limit:Int,offset:Int):[SysUserGroup]
+  #系统用户组 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysUserGroup_findByPk(id:ID!):SysUserGroup
+  #系统用户组 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysUserGroup_findOne(where:WhereSysUserGroup):SysUserGroup
+  #系统用户组 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysUserGroup_findAndCountAll(where:WhereSysUserGroup,order:[[String]],limit:Int!,offset:Int!):CountSysUserGroup
+
+  #角色表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysRole_findAll(where:WhereSysRole,order:[[String]],limit:Int,offset:Int):[SysRole]
+  #角色表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysRole_findByPk(id:ID!):SysRole
+  #角色表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysRole_findOne(where:WhereSysRole):SysRole
+  #角色表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysRole_findAndCountAll(where:WhereSysRole,order:[[String]],limit:Int!,offset:Int!):CountSysRole
+
+  #用户角色中间表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysUserRole_findAll(where:WhereSysUserRole,order:[[String]],limit:Int,offset:Int):[SysUserRole]
+  #用户角色中间表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysUserRole_findByPk(id:ID!):SysUserRole
+  #用户角色中间表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysUserRole_findOne(where:WhereSysUserRole):SysUserRole
+  #用户角色中间表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysUserRole_findAndCountAll(where:WhereSysUserRole,order:[[String]],limit:Int!,offset:Int!):CountSysUserRole
+
 }

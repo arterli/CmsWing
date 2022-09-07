@@ -7,6 +7,9 @@ const path = require('path');
 class IndexController extends Controller {
   async index() {
     const { ctx } = this;
+    console.log(ctx.userInfo);
+    const dd = await ctx.service.sys.rbac.getRoleIds(ctx.userInfo.uuid);
+    console.log(dd);
     await ctx.render('sys/index');
   }
   async login() {

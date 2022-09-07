@@ -3,6 +3,7 @@ const Service = require('egg').Service;
 const path = require('path');
 const fs = require('fs/promises');
 const fsSync = require('fs');
+const fse = require('fs-extra');
 const { Op } = require('sequelize');
 class GenerateService extends Service {
   // 生成模型
@@ -12,9 +13,6 @@ class GenerateService extends Service {
     const modInfo = await ctx.model.SysModels.findOne({ where: { uuid } });
     const className = ctx.helper._.upperFirst(ctx.helper._.camelCase(modInfo.name));
     const tableName = modInfo.name;
-    console.log(tableName, className);
-    // return false;
-    console.log(uuid);
     // 获取字段
     const fieldList = await ctx.model.SysModelsFields.findAll({ where: { models_uuid: uuid }, order: [[ 'sort', 'ASC' ]] });
     // console.log(fieldList);
@@ -198,28 +196,42 @@ module.exports = app => {
       console.error(err);
     }
   }
+  // 生成全部模型
+  async modelsAll() {
+    const { ctx } = this;
+    const rootFolder = path.join(this.app.baseDir, 'app', 'model');
+    await fse.remove(rootFolder);
+    const exist = fsSync.existsSync(rootFolder);
+    if (!exist) {
+      await fs.mkdir(rootFolder);
+    }
+    const model = path.join(this.app.baseDir, 'app', 'core', 'model');
+    const newmodel = path.join(this.app.baseDir, 'app', 'model');
+    await fse.copy(model, newmodel);
+    // 获取全部模型
+    const allModels = await ctx.model.SysModels.findAll();
+    for (const v of allModels) {
+      await this.models(v.uuid);
+    }
+  }
   // 生成graphql
   async graphql(uuid) {
     const { ctx } = this;
     const modInfo = await ctx.model.SysModels.findOne({ where: { uuid } });
     const className = ctx.helper._.upperFirst(ctx.helper._.camelCase(modInfo.name));
     const tableName = modInfo.name;
-    console.log(tableName, className);
     // 分析关联模型
     let associateStr = ''; // 绑定resolver
     let associateFieldStr = '';// 绑定字段
     // 一对一
     const hasOne = await ctx.model.SysModelsAssociate.findAll({ where: { type: 'HasOne', parent_uuid: uuid } });
     for (const v of hasOne) {
-      const parent_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.parent_uuid } });
       const child_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.child_uuid } });
       const target_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.targetKey } });
       const foreign_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.foreignKey } });
-      const parent = ctx.helper._.upperFirst(ctx.helper._.camelCase(parent_uuid.name));
       const child = ctx.helper._.upperFirst(ctx.helper._.camelCase(child_uuid.name));
       const targetKey = target_key.name;
       const foreignKey = foreign_key.name;
-      console.log(parent, child, targetKey, foreignKey);
       associateFieldStr += `${child_uuid.name}: ${child}
 `;
       associateStr += `
@@ -233,15 +245,12 @@ module.exports = app => {
     // 一对多
     const hasMany = await ctx.model.SysModelsAssociate.findAll({ where: { type: 'HasMany', parent_uuid: uuid } });
     for (const v of hasMany) {
-      const parent_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.parent_uuid } });
       const child_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.child_uuid } });
       const target_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.targetKey } });
       const foreign_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.foreignKey } });
-      const parent = ctx.helper._.upperFirst(ctx.helper._.camelCase(parent_uuid.name));
       const child = ctx.helper._.upperFirst(ctx.helper._.camelCase(child_uuid.name));
       const targetKey = target_key.name;
       const foreignKey = foreign_key.name;
-      console.log(parent, child, targetKey, foreignKey);
       associateFieldStr += `${child_uuid.name}(order:[[String]],limit:Int,offset:Int): [${child}]
 `;
       associateStr += `
@@ -265,14 +274,11 @@ module.exports = app => {
     const belongsTo = await ctx.model.SysModelsAssociate.findAll({ where: { type: 'BelongsTo', child_uuid: uuid } });
     for (const v of belongsTo) {
       const parent_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.parent_uuid } });
-      const child_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.child_uuid } });
       const target_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.targetKey } });
       const foreign_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.foreignKey } });
       const parent = ctx.helper._.upperFirst(ctx.helper._.camelCase(parent_uuid.name));
-      const child = ctx.helper._.upperFirst(ctx.helper._.camelCase(child_uuid.name));
       const targetKey = target_key.name;
       const foreignKey = foreign_key.name;
-      console.log(parent, child, targetKey, foreignKey);
       associateFieldStr += `${parent_uuid.name}: ${parent}
  `;
       associateStr += `
@@ -282,6 +288,52 @@ module.exports = app => {
     return await ctx.connector.${parent_uuid.name}.findOne(map);
   },
  `;
+    }
+    // 多对多
+    const belongsToMany = await ctx.model.SysModelsAssociate.findAll({ where: { type: 'BelongsToMany', parent_uuid: uuid } });
+    for (const v of belongsToMany) {
+      const through_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.through_uuid } });
+      const target_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.targetKey } });
+      const through_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.throughKey } });
+      const through = ctx.helper._.upperFirst(ctx.helper._.camelCase(through_uuid.name));
+      const targetKey = target_key.name;
+      const throughKey = through_key.name;
+      associateFieldStr += `${through_uuid.name}(order:[[String]],limit:Int,offset:Int): [${through}]
+    `;
+      associateStr += `
+      async ${through_uuid.name}(root, params, ctx) {
+        const map = {};
+        map.where = { ${throughKey}: root.${targetKey} };
+        if (Object.hasOwnProperty.call(params, 'limit')) {
+          map.limit = params.limit;
+        }
+        if (Object.hasOwnProperty.call(params, 'offset')) {
+          map.offset = params.offset;
+        }
+        if (Object.hasOwnProperty.call(params, 'order')) {
+          map.order = params.order;
+        }
+        return await ctx.connector.${through_uuid.name}.findAll(map);
+      },
+    `;
+    }
+    const throughs = await ctx.model.SysModelsAssociate.findAll({ where: { type: 'BelongsToMany', through_uuid: uuid } });
+    for (const v of throughs) {
+      const parent_uuid = await ctx.model.SysModels.findOne({ where: { uuid: v.parent_uuid } });
+      const target_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.targetKey } });
+      const through_key = await ctx.model.SysModelsFields.findOne({ where: { uuid: v.throughKey } });
+      const parent = ctx.helper._.upperFirst(ctx.helper._.camelCase(parent_uuid.name));
+      const targetKey = target_key.name;
+      const throughKey = through_key.name;
+      associateFieldStr += `${parent_uuid.name}: ${parent}
+    `;
+      associateStr += `
+      async ${parent_uuid.name}(root, params, ctx) {
+        const map = {};
+        map.where = { ${targetKey}: root.${throughKey} };
+        return await ctx.connector.${parent_uuid.name}.findOne(map);
+      },
+    `;
     }
     // console.log(associateFieldStr);
     // console.log(associateStr);
@@ -593,10 +645,15 @@ module.exports = {
   async graphqlAll() {
     const { ctx } = this;
     const rootFolder = path.join(this.app.baseDir, 'app', 'graphql');
+    await fse.remove(rootFolder);
+    const common = path.join(this.app.baseDir, 'app', 'core', 'graphql', 'common');
+    const newcommon = path.join(this.app.baseDir, 'app', 'graphql', 'common');
+    await fse.copy(common, newcommon);
     const exist = fsSync.existsSync(rootFolder);
     if (!exist) {
       await fs.mkdir(rootFolder);
     }
+
     // 获取全部模型
     const allModels = await ctx.model.SysModels.findAll();
     let query = '';
@@ -616,11 +673,11 @@ module.exports = {
   ${className}_findAndCountAll(where:Where${className},order:[[String]],limit:Int!,offset:Int!):Count${className}
 `;
         mutation += `
-  #${className} 添加
+  #${v.desc} 添加
   ${className}_create(data:Add${className}):${className}
-  #${className} 删除
+  #${v.desc} 删除
   ${className}_destroy(where:Where${className}!):ResDel${className}
-  #${className} 更新
+  #${v.desc} 更新
   ${className}_update(data:Edit${className}!,where:Where${className}!):ResEdit${className}
 `;
       }
@@ -735,7 +792,6 @@ ${item}
   async pages(data) {
     if (data.linkType === 'schemaApi' && !data.admin && !this.ctx.helper._.isEmpty(data.link)) {
       const url = data.link.split(':');
-      console.log(url);
       if (url[0] === 'get') {
         const ff = path.join(this.app.baseDir, 'app', url[1]);
         console.log(ff);

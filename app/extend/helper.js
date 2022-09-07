@@ -103,6 +103,7 @@ module.exports = {
     let temp;
     const length = data.length;
     for (let i = 0; i < length; i++) {
+      // eslint-disable-next-line eqeqeq
       if (data[i][_pid] == pid) {
         result.push(data[i]);
         temp = this.arr_to_tree(data, data[i][_id], _id, _pid);

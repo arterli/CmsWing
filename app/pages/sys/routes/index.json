@@ -1,8 +1,5 @@
 {
   "type": "page",
-  "cssVars": {
-    "--Drawer-body-padding": 0
-  },
   "body": {
     "type": "service",
     "name":"routers",
@@ -762,6 +759,7 @@
                                   "type": "drawer",
                                   "title": false,
                                   "width": "100%",
+                                  "bodyClassName":"pa-0",
                                   "showCloseButton":false,
                                   "headerClassName":"hidden",
                                   "data": {

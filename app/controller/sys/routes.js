@@ -6,7 +6,7 @@ const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
 const path = require('path');
 const fs = require('fs/promises');
-class routesController extends Controller {
+class RoutesController extends Controller {
   async index() {
     this.success(1);
   }
@@ -79,7 +79,7 @@ class routesController extends Controller {
     map.attributes = [[ 'name', 'label' ], [ 'uuid', 'value' ], 'uuid', 'puuid' ];
     const list = await ctx.model.SysRoutes.findAll(map);
     const tree = ctx.helper.arr_to_tree(list, 0, 'uuid', 'puuid');
-    this.success([{ label: '一级节点', value: 0 }, ...tree ]);
+    this.success({ options: [{ label: '一级节点', value: 0 }, ...tree ] });
   }
   // 编辑页面
   async editPages() {
@@ -124,4 +124,4 @@ class routesController extends Controller {
     this.success(1);
   }
 }
-module.exports = routesController;
+module.exports = RoutesController;

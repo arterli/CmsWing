@@ -49,7 +49,7 @@ class ModelsController extends Controller {
       await ctx.model.SysModelsFields.bulkCreate(addData);
     }
     // 生成实体模型
-    await ctx.service.sys.generate.models(add.uuid);
+    await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
     this.success(add);
@@ -89,7 +89,7 @@ class ModelsController extends Controller {
       order: [[ 'sort', 'ASC' ]],
     });
     // 生成实体模型
-    await ctx.service.sys.generate.models(models_uuid);
+    await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
     return this.success({ sys_models_fields: res });
@@ -142,7 +142,7 @@ class ModelsController extends Controller {
       order: [[ 'sort', 'ASC' ]],
     });
     // 生成实体模型
-    await ctx.service.sys.generate.models(models_uuid);
+    await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
     this.success({ sys_models_indexes: res });
@@ -194,7 +194,7 @@ class ModelsController extends Controller {
     });
 
     // 生成实体模型
-    await ctx.service.sys.generate.models(models_uuid);
+    await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
     this.success({ sys_models_associates: res });

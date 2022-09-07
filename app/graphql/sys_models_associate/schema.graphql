@@ -8,9 +8,10 @@
       uuid:String
       models_uuid:String
       parent_uuid:String
-      through_uuid:String
-      child_uuid:String
       targetKey:String
+      through_uuid:String
+      throughKey:String
+      child_uuid:String
       foreignKey:String
       constraints:Boolean
       sort:Int
@@ -146,6 +147,24 @@
   op_endsWith: String
   op_substring: String
       }
+      input WhereSysModelsAssociate_targetKey {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
       input WhereSysModelsAssociate_through_uuid {
         op_eq: String
   op_ne: String
@@ -164,7 +183,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModelsAssociate_child_uuid {
+      input WhereSysModelsAssociate_throughKey {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -182,7 +201,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModelsAssociate_targetKey {
+      input WhereSysModelsAssociate_child_uuid {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -263,9 +282,10 @@
       uuid:WhereSysModelsAssociate_uuid
       models_uuid:WhereSysModelsAssociate_models_uuid
       parent_uuid:WhereSysModelsAssociate_parent_uuid
-      through_uuid:WhereSysModelsAssociate_through_uuid
-      child_uuid:WhereSysModelsAssociate_child_uuid
       targetKey:WhereSysModelsAssociate_targetKey
+      through_uuid:WhereSysModelsAssociate_through_uuid
+      throughKey:WhereSysModelsAssociate_throughKey
+      child_uuid:WhereSysModelsAssociate_child_uuid
       foreignKey:WhereSysModelsAssociate_foreignKey
       constraints:WhereSysModelsAssociate_constraints
       sort:WhereSysModelsAssociate_sort
@@ -280,9 +300,10 @@
       uuid:WhereSysModelsAssociate_uuid
       models_uuid:WhereSysModelsAssociate_models_uuid
       parent_uuid:WhereSysModelsAssociate_parent_uuid
-      through_uuid:WhereSysModelsAssociate_through_uuid
-      child_uuid:WhereSysModelsAssociate_child_uuid
       targetKey:WhereSysModelsAssociate_targetKey
+      through_uuid:WhereSysModelsAssociate_through_uuid
+      throughKey:WhereSysModelsAssociate_throughKey
+      child_uuid:WhereSysModelsAssociate_child_uuid
       foreignKey:WhereSysModelsAssociate_foreignKey
       constraints:WhereSysModelsAssociate_constraints
       sort:WhereSysModelsAssociate_sort
@@ -297,9 +318,10 @@
     type: String!
       models_uuid: String!
       parent_uuid: String!
-      through_uuid: String
-      child_uuid: String!
       targetKey: String!
+      through_uuid: String
+      throughKey: String
+      child_uuid: String!
       foreignKey: String!
       constraints: Boolean!
       sort: Int!
@@ -311,9 +333,10 @@
     type: String
       models_uuid: String
       parent_uuid: String
-      through_uuid: String
-      child_uuid: String
       targetKey: String
+      through_uuid: String
+      throughKey: String
+      child_uuid: String
       foreignKey: String
       constraints: Boolean
       sort: Int
