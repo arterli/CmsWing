@@ -1,0 +1,577 @@
+{
+  "config": {
+    "session": {
+      "maxAge": 86400000,
+      "key": "EGG_SESS",
+      "httpOnly": true,
+      "encrypt": true,
+      "logValue": true,
+      "overwrite": true,
+      "signed": true,
+      "autoCommit": true,
+      "encode": "<Function encode>",
+      "decode": "<Function decode>",
+      "genid": "<Function v4>"
+    },
+    "security": {
+      "domainWhiteList": [],
+      "protocolWhiteList": [],
+      "defaultMiddleware": "csrf,hsts,methodnoallow,noopen,nosniff,csp,xssProtection,xframe,dta",
+      "csrf": {
+        "enable": true,
+        "type": "ctoken",
+        "ignoreJSON": false,
+        "useSession": false,
+        "cookieName": "csrfToken",
+        "sessionName": "csrfToken",
+        "headerName": "x-csrf-token",
+        "bodyName": "_csrf",
+        "queryName": "_csrf",
+        "supportedRequests": [
+          {
+            "path": {},
+            "methods": [
+              "POST",
+              "PATCH",
+              "DELETE",
+              "PUT",
+              "CONNECT"
+            ]
+          }
+        ],
+        "refererWhiteList": [],
+        "matching": "<Function anonymous>"
+      },
+      "xframe": {
+        "enable": true,
+        "value": "SAMEORIGIN",
+        "matching": "<Function anonymous>"
+      },
+      "hsts": {
+        "enable": false,
+        "maxAge": 31536000,
+        "includeSubdomains": false
+      },
+      "dta": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "methodnoallow": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "noopen": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "nosniff": {
+        "enable": true,
+        "matching": "<Function anonymous>"
+      },
+      "referrerPolicy": {
+        "enable": false,
+        "value": "no-referrer-when-downgrade"
+      },
+      "xssProtection": {
+        "enable": true,
+        "value": "1; mode=block",
+        "matching": "<Function anonymous>"
+      },
+      "csp": {
+        "enable": false,
+        "policy": {}
+      },
+      "ssrf": {
+        "ipBlackList": null,
+        "ipExceptionList": null,
+        "checkAddress": null
+      },
+      "_protocolWhiteListSet": "<Set>"
+    },
+    "helper": {
+      "shtml": {}
+    },
+    "jsonp": {
+      "limit": 50,
+      "callback": [
+        "_callback",
+        "callback"
+      ],
+      "csrf": false
+    },
+    "onerror": {
+      "errorPageUrl": "",
+      "appErrorFilter": null,
+      "templatePath": "/Users/liguilu/project/CmsWing/node_modules/egg-onerror/lib/onerror_page.mustache"
+    },
+    "i18n": {
+      "defaultLocale": "en_US",
+      "dirs": [
+        "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-jsonp/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-onerror/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-schedule/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg-view/config/locales",
+        "/Users/liguilu/project/CmsWing/node_modules/egg/config/locales",
+        "/Users/liguilu/project/CmsWing/config/locales"
+      ],
+      "queryField": "locale",
+      "cookieField": "locale",
+      "cookieDomain": "",
+      "cookieMaxAge": "1y",
+      "functionName": "__"
+    },
+    "watcher": {
+      "type": "development",
+      "eventSources": {
+        "default": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/lib/event-sources/default",
+        "development": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/lib/event-sources/development"
+      }
+    },
+    "customLogger": {
+      "scheduleLogger": {
+        "consoleLevel": "NONE",
+        "file": "egg-schedule.log"
+      }
+    },
+    "schedule": {
+      "directory": []
+    },
+    "multipart": {
+      "mode": "stream",
+      "autoFields": false,
+      "defaultCharset": "utf8",
+      "fieldNameSize": 100,
+      "fieldSize": 102400,
+      "fields": 10,
+      "fileSize": 10485760,
+      "files": 10,
+      "fileExtensions": [],
+      "whitelist": null,
+      "allowArrayField": false,
+      "tmpdir": "/var/folders/7b/dvv3qntx2td_mgt08wb89w8m0000gn/T/egg-multipart-tmp/CMSWing",
+      "cleanSchedule": {
+        "cron": "0 30 4 * * *",
+        "disable": false
+      }
+    },
+    "development": {
+      "watchDirs": [],
+      "ignoreDirs": [],
+      "fastReady": false,
+      "reloadOnDebug": true,
+      "overrideDefault": false,
+      "overrideIgnore": false
+    },
+    "logrotator": {
+      "filesRotateByHour": null,
+      "hourDelimiter": "-",
+      "filesRotateBySize": null,
+      "maxFileSize": 52428800,
+      "maxFiles": 10,
+      "rotateDuration": 60000,
+      "maxDays": 31
+    },
+    "static": {
+      "prefix": "/public/",
+      "dir": "/Users/liguilu/project/CmsWing/app/public",
+      "dynamic": true,
+      "preload": false,
+      "buffer": false,
+      "maxFiles": 1000
+    },
+    "view": {
+      "root": "/Users/liguilu/project/CmsWing/app/view",
+      "cache": false,
+      "defaultExtension": ".html",
+      "defaultViewEngine": "",
+      "mapping": {}
+    },
+    "env": "local",
+    "name": "CMSWing",
+    "keys": "<String len: 0>",
+    "cookies": {},
+    "proxy": false,
+    "maxIpsCount": 0,
+    "maxProxyCount": 0,
+    "protocolHeaders": "x-forwarded-proto",
+    "ipHeaders": "x-forwarded-for",
+    "hostHeaders": "",
+    "pkg": {
+      "name": "CMSWing",
+      "description": "基于ThinkJS(Node.js MVC)和MySQL的功能强大的电子商务平台及CMS建站系统",
+      "version": "1.3.8",
+      "scripts": {
+        "start": "node development.js",
+        "lint": "eslint src/",
+        "lint-fix": "eslint --fix src/"
+      },
+      "dependencies": {
+        "co-wechat-api": "^3.7.0",
+        "gt3-sdk": "^2.0.0",
+        "jimp": "^0.2.28",
+        "lodash": "^4.17.10",
+        "moment": "^2.22.2",
+        "pingpp": "^2.1.3",
+        "qiniu": "^7.2.1",
+        "segment": "^0.1.3",
+        "superagent": "^3.8.3",
+        "tar.gz": "^1.0.7",
+        "think-cache": "^1.0.7",
+        "think-cache-file": "^1.0.10",
+        "think-email": "^1.1.0",
+        "think-fetch": "^1.1.0",
+        "think-logger3": "^1.1.1",
+        "think-model": "^1.2.2",
+        "think-model-mysql": "^1.0.6",
+        "think-pagination": "^2.0.0",
+        "think-session": "^1.0.3",
+        "think-session-file": "^1.0.6",
+        "think-view": "^1.0.11",
+        "think-view-nunjucks": "^1.0.7",
+        "think-wechat": "^1.1.0",
+        "thinkjs": "^3.2.8"
+      },
+      "devDependencies": {
+        "eslint": "^4.13.1",
+        "eslint-config-think": "^1.0.2",
+        "think-watcher": "^3.0.3"
+      },
+      "repository": "",
+      "license": "MIT",
+      "engines": {
+        "node": ">=7.6.0"
+      },
+      "readmeFilename": "README.md"
+    },
+    "baseDir": "/Users/liguilu/project/CmsWing",
+    "HOME": "/Users/liguilu",
+    "rundir": "/Users/liguilu/project/CmsWing/run",
+    "dump": {
+      "ignore": "<Set>"
+    },
+    "confusedConfigurations": {
+      "bodyparser": "bodyParser",
+      "notFound": "notfound",
+      "sitefile": "siteFile",
+      "middlewares": "middleware",
+      "httpClient": "httpclient"
+    },
+    "notfound": {
+      "pageUrl": ""
+    },
+    "siteFile": {
+      "/favicon.ico": "<Buffer len: 6463>",
+      "cacheControl": "public, max-age=2592000"
+    },
+    "bodyParser": {
+      "enable": true,
+      "encoding": "utf8",
+      "formLimit": "1mb",
+      "jsonLimit": "1mb",
+      "textLimit": "1mb",
+      "strict": true,
+      "queryString": {
+        "arrayLimit": 100,
+        "depth": 5,
+        "parameterLimit": 1000
+      },
+      "returnRawBody": true
+    },
+    "logger": {
+      "dir": "/Users/liguilu/project/CmsWing/logs/CMSWing",
+      "encoding": "utf8",
+      "env": "local",
+      "level": "INFO",
+      "consoleLevel": "INFO",
+      "disableConsoleAfterReady": false,
+      "outputJSON": false,
+      "buffer": true,
+      "appLogName": "CMSWing-web.log",
+      "coreLogName": "egg-web.log",
+      "agentLogName": "egg-agent.log",
+      "errorLogName": "common-error.log",
+      "coreLogger": {
+        "consoleLevel": "WARN"
+      },
+      "allowDebugAtProd": false,
+      "enablePerformanceTimer": false,
+      "type": "application"
+    },
+    "httpclient": {
+      "enableDNSCache": false,
+      "dnsCacheLookupInterval": 10000,
+      "dnsCacheMaxLength": 1000,
+      "request": {
+        "timeout": 5000
+      },
+      "httpAgent": {
+        "keepAlive": true,
+        "freeSocketTimeout": 4000,
+        "maxSockets": 9007199254740991,
+        "maxFreeSockets": 256
+      },
+      "httpsAgent": {
+        "keepAlive": true,
+        "freeSocketTimeout": 4000,
+        "maxSockets": 9007199254740991,
+        "maxFreeSockets": 256
+      },
+      "useHttpClientNext": false
+    },
+    "meta": {
+      "enable": true,
+      "logging": false
+    },
+    "coreMiddleware": [
+      "meta",
+      "siteFile",
+      "notfound",
+      "static",
+      "bodyParser",
+      "overrideMethod",
+      "session",
+      "securities",
+      "i18n",
+      "eggLoaderTrace"
+    ],
+    "workerStartTimeout": 600000,
+    "serverTimeout": null,
+    "cluster": {
+      "listen": {
+        "path": "",
+        "port": 7001,
+        "hostname": ""
+      }
+    },
+    "clusterClient": {
+      "maxWaitTime": 60000,
+      "responseTimeout": 60000
+    },
+    "onClientError": null,
+    "coreMiddlewares": "~config~coreMiddleware",
+    "appMiddlewares": [],
+    "appMiddleware": "~config~appMiddlewares",
+    "multipartParseOptions": {
+      "autoFields": false,
+      "defCharset": "utf8",
+      "limits": {
+        "fieldNameSize": 100,
+        "fieldSize": 102400,
+        "fields": 10,
+        "fileSize": 10485760,
+        "files": 10
+      },
+      "checkFile": "<Function checkFile>"
+    }
+  },
+  "plugins": {
+    "onerror": {
+      "enable": true,
+      "package": "egg-onerror",
+      "name": "onerror",
+      "dependencies": [],
+      "optionalDependencies": [
+        "jsonp"
+      ],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-onerror",
+      "version": "2.1.1"
+    },
+    "session": {
+      "enable": true,
+      "package": "egg-session",
+      "name": "session",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-session",
+      "version": "3.3.0"
+    },
+    "i18n": {
+      "enable": true,
+      "package": "egg-i18n",
+      "name": "i18n",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n",
+      "version": "2.1.1"
+    },
+    "watcher": {
+      "enable": true,
+      "package": "egg-watcher",
+      "name": "watcher",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher",
+      "version": "3.1.1"
+    },
+    "multipart": {
+      "enable": true,
+      "package": "egg-multipart",
+      "name": "multipart",
+      "dependencies": [],
+      "optionalDependencies": [
+        "schedule"
+      ],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart",
+      "version": "2.13.1"
+    },
+    "security": {
+      "enable": true,
+      "package": "egg-security",
+      "name": "security",
+      "dependencies": [],
+      "optionalDependencies": [
+        "session"
+      ],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-security",
+      "version": "2.11.0"
+    },
+    "development": {
+      "enable": true,
+      "package": "egg-development",
+      "name": "development",
+      "dependencies": [
+        "watcher"
+      ],
+      "optionalDependencies": [],
+      "env": [
+        "local"
+      ],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-development",
+      "version": "2.7.0"
+    },
+    "logrotator": {
+      "enable": true,
+      "package": "egg-logrotator",
+      "name": "logrotator",
+      "dependencies": [
+        "schedule"
+      ],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator",
+      "version": "3.1.0"
+    },
+    "schedule": {
+      "enable": true,
+      "package": "egg-schedule",
+      "name": "schedule",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-schedule",
+      "version": "3.6.6"
+    },
+    "static": {
+      "enable": true,
+      "package": "egg-static",
+      "name": "static",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-static",
+      "version": "2.2.0"
+    },
+    "jsonp": {
+      "enable": true,
+      "package": "egg-jsonp",
+      "name": "jsonp",
+      "dependencies": [],
+      "optionalDependencies": [
+        "security"
+      ],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-jsonp",
+      "version": "2.0.0"
+    },
+    "view": {
+      "enable": true,
+      "package": "egg-view",
+      "name": "view",
+      "dependencies": [],
+      "optionalDependencies": [],
+      "env": [],
+      "from": "/Users/liguilu/project/CmsWing/node_modules/egg/config/plugin.js",
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg-view",
+      "version": "2.1.3"
+    }
+  },
+  "appInfo": {
+    "name": "CMSWing",
+    "baseDir": "/Users/liguilu/project/CmsWing",
+    "env": "local",
+    "HOME": "/Users/liguilu",
+    "pkg": {
+      "name": "CMSWing",
+      "description": "基于ThinkJS(Node.js MVC)和MySQL的功能强大的电子商务平台及CMS建站系统",
+      "version": "1.3.8",
+      "scripts": {
+        "start": "node development.js",
+        "lint": "eslint src/",
+        "lint-fix": "eslint --fix src/"
+      },
+      "dependencies": {
+        "co-wechat-api": "^3.7.0",
+        "gt3-sdk": "^2.0.0",
+        "jimp": "^0.2.28",
+        "lodash": "^4.17.10",
+        "moment": "^2.22.2",
+        "pingpp": "^2.1.3",
+        "qiniu": "^7.2.1",
+        "segment": "^0.1.3",
+        "superagent": "^3.8.3",
+        "tar.gz": "^1.0.7",
+        "think-cache": "^1.0.7",
+        "think-cache-file": "^1.0.10",
+        "think-email": "^1.1.0",
+        "think-fetch": "^1.1.0",
+        "think-logger3": "^1.1.1",
+        "think-model": "^1.2.2",
+        "think-model-mysql": "^1.0.6",
+        "think-pagination": "^2.0.0",
+        "think-session": "^1.0.3",
+        "think-session-file": "^1.0.6",
+        "think-view": "^1.0.11",
+        "think-view-nunjucks": "^1.0.7",
+        "think-wechat": "^1.1.0",
+        "thinkjs": "^3.2.8"
+      },
+      "devDependencies": {
+        "eslint": "^4.13.1",
+        "eslint-config-think": "^1.0.2",
+        "think-watcher": "^3.0.3"
+      },
+      "repository": "",
+      "license": "MIT",
+      "engines": {
+        "node": ">=7.6.0"
+      },
+      "readmeFilename": "README.md"
+    },
+    "root": "/Users/liguilu/project/CmsWing"
+  }
+}

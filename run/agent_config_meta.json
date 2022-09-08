@@ -1,0 +1,423 @@
+{
+  "keys": "/Users/liguilu/project/CmsWing/config/config.default.js",
+  "graphql": {
+    "router": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "app": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "agent": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "graphiql": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "defaultEmptySchema": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "onPreGraphQL": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "onPreGraphiQL": "/Users/liguilu/project/CmsWing/config/config.default.js"
+  },
+  "middleware": "/Users/liguilu/project/CmsWing/config/config.default.js",
+  "view": {
+    "defaultViewEngine": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "defaultExtension": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "mapping": {
+      ".html": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    },
+    "root": "/Users/liguilu/project/CmsWing/node_modules/egg-view/config/config.default.js",
+    "cache": "/Users/liguilu/project/CmsWing/node_modules/egg-view/config/config.local.js"
+  },
+  "multipart": {
+    "mode": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "fileExtensions": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "autoFields": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "defaultCharset": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "fieldNameSize": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "fieldSize": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "fields": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "fileSize": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "files": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "whitelist": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "allowArrayField": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "tmpdir": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+    "cleanSchedule": {
+      "cron": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js",
+      "disable": "/Users/liguilu/project/CmsWing/node_modules/egg-multipart/config/config.default.js"
+    }
+  },
+  "security": {
+    "csrf": {
+      "enable": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "type": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "ignoreJSON": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "useSession": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "cookieName": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "sessionName": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "headerName": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "bodyName": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "queryName": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "supportedRequests": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "refererWhiteList": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "domainWhiteList": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+    "protocolWhiteList": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+    "defaultMiddleware": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+    "xframe": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "hsts": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.local.js",
+      "maxAge": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "includeSubdomains": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "dta": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "noopen": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "nosniff": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "xssProtection": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "csp": {
+      "enable": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "policy": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "ipExceptionList": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js",
+      "checkAddress": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+    }
+  },
+  "jsonp": {
+    "callback": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "limit": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "csrf": "/Users/liguilu/project/CmsWing/node_modules/egg-jsonp/config/config.default.js"
+  },
+  "cors": {
+    "origin": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "allowMethods": "/Users/liguilu/project/CmsWing/config/config.default.js"
+  },
+  "swaggerdoc": {
+    "dirScanner": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "apiInfo": {
+      "title": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "description": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "version": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    },
+    "schemes": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "consumes": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "produces": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "securityDefinitions": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "enableSecurity": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "routerMap": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "enable": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "basePath": "/Users/liguilu/project/CmsWing/node_modules/egg-swagger-docs/config/config.default.js"
+  },
+  "sequelize": {
+    "dialect": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "host": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "port": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "database": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "username": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "password": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "timezone": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "define": {
+      "freezeTableName": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "underscored": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    },
+    "operatorsAliases": {
+      "op_eq": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_ne": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_gte": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_gt": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_lte": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_lt": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_not": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_in": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notIn": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_is": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_like": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notLike": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_iLike": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notILike": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_startsWith": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_endsWith": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_substring": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_regexp": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notRegexp": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_iRegexp": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notIRegexp": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_between": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_notBetween": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_overlap": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_contains": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_contained": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_adjacent": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_strictLeft": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_strictRight": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_noExtendRight": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_noExtendLeft": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_and": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_or": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_any": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_all": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_values": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "op_col": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    }
+  },
+  "upload": {
+    "type": "/Users/liguilu/project/CmsWing/config/config.default.js",
+    "local": {
+      "domain": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "path": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    },
+    "qiniu": {
+      "AccessKey": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "SecretKey": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "Bucket": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "domain": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    },
+    "huawei": {
+      "access_key_id": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "secret_access_key": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "Bucket": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "server": "/Users/liguilu/project/CmsWing/config/config.default.js",
+      "domain": "/Users/liguilu/project/CmsWing/config/config.default.js"
+    }
+  },
+  "session": {
+    "maxAge": "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/config.default.js",
+    "key": "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/config.default.js",
+    "httpOnly": "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/config.default.js",
+    "encrypt": "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/config.default.js",
+    "logValue": "/Users/liguilu/project/CmsWing/node_modules/egg-session/config/config.default.js"
+  },
+  "helper": {
+    "shtml": "/Users/liguilu/project/CmsWing/node_modules/egg-security/config/config.default.js"
+  },
+  "onerror": {
+    "errorPageUrl": "/Users/liguilu/project/CmsWing/node_modules/egg-onerror/config/config.default.js",
+    "appErrorFilter": "/Users/liguilu/project/CmsWing/node_modules/egg-onerror/config/config.default.js",
+    "templatePath": "/Users/liguilu/project/CmsWing/node_modules/egg-onerror/config/config.default.js"
+  },
+  "i18n": {
+    "defaultLocale": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js",
+    "dirs": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js",
+    "queryField": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js",
+    "cookieField": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js",
+    "cookieDomain": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js",
+    "cookieMaxAge": "/Users/liguilu/project/CmsWing/node_modules/egg-i18n/config/config.default.js"
+  },
+  "watcher": {
+    "type": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/config/config.local.js",
+    "eventSources": {
+      "default": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/config/config.default.js",
+      "development": "/Users/liguilu/project/CmsWing/node_modules/egg-watcher/config/config.default.js"
+    }
+  },
+  "customLogger": {
+    "scheduleLogger": {
+      "consoleLevel": "/Users/liguilu/project/CmsWing/node_modules/egg-schedule/config/config.default.js",
+      "file": "/Users/liguilu/project/CmsWing/node_modules/egg-schedule/config/config.default.js"
+    }
+  },
+  "schedule": {
+    "directory": "/Users/liguilu/project/CmsWing/node_modules/egg-schedule/config/config.default.js"
+  },
+  "development": {
+    "watchDirs": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js",
+    "ignoreDirs": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js",
+    "fastReady": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js",
+    "reloadOnDebug": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js",
+    "overrideDefault": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js",
+    "overrideIgnore": "/Users/liguilu/project/CmsWing/node_modules/egg-development/config/config.default.js"
+  },
+  "logrotator": {
+    "filesRotateByHour": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "hourDelimiter": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "filesRotateBySize": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "maxFileSize": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "maxFiles": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "rotateDuration": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js",
+    "maxDays": "/Users/liguilu/project/CmsWing/node_modules/egg-logrotator/config/config.default.js"
+  },
+  "static": {
+    "prefix": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js",
+    "dir": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js",
+    "dynamic": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js",
+    "preload": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js",
+    "buffer": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js",
+    "maxFiles": "/Users/liguilu/project/CmsWing/node_modules/egg-static/config/config.default.js"
+  },
+  "nunjucks": {
+    "autoescape": "/Users/liguilu/project/CmsWing/node_modules/egg-view-nunjucks/config/config.default.js",
+    "throwOnUndefined": "/Users/liguilu/project/CmsWing/node_modules/egg-view-nunjucks/config/config.default.js",
+    "trimBlocks": "/Users/liguilu/project/CmsWing/node_modules/egg-view-nunjucks/config/config.default.js",
+    "lstripBlocks": "/Users/liguilu/project/CmsWing/node_modules/egg-view-nunjucks/config/config.default.js",
+    "cache": "/Users/liguilu/project/CmsWing/node_modules/egg-view-nunjucks/config/config.local.js"
+  },
+  "env": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "name": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "cookies": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "proxy": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "maxIpsCount": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "maxProxyCount": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "protocolHeaders": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "ipHeaders": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "hostHeaders": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "pkg": {
+    "name": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "version": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "description": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "private": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "egg": {
+      "declarations": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "dependencies": {
+      "dataloader": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-cors": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-graphql": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-scripts": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-sequelize": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-swagger-docs": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-view-nunjucks": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "fs-extra": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "graphql": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "jsonwebtoken": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "mysql2": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "devDependencies": {
+      "autod": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "autod-egg": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-bin": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-ci": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "egg-mock": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "eslint": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "eslint-config-egg": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "engines": {
+      "node": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "scripts": {
+      "start": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "stop": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "dev": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "debug": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "test": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "test-local": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "cov": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "lint": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "ci": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "autod": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "ci": {
+      "version": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "type": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "repository": {
+      "type": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "url": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "author": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "license": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "baseDir": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "HOME": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "rundir": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "dump": {
+    "ignore": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "confusedConfigurations": {
+    "bodyparser": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "notFound": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "sitefile": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "middlewares": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "httpClient": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "notfound": {
+    "pageUrl": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "siteFile": {
+    "/favicon.ico": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "cacheControl": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "bodyParser": {
+    "enable": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "encoding": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "formLimit": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "jsonLimit": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "textLimit": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "strict": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "queryString": {
+      "arrayLimit": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "depth": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "parameterLimit": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "onerror": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "logger": {
+    "dir": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "encoding": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "env": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "level": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "consoleLevel": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "disableConsoleAfterReady": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "outputJSON": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "buffer": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "appLogName": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "coreLogName": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "agentLogName": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "errorLogName": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "coreLogger": {
+      "consoleLevel": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.local.js"
+    },
+    "allowDebugAtProd": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "enablePerformanceTimer": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "httpclient": {
+    "enableDNSCache": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "dnsCacheLookupInterval": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "dnsCacheMaxLength": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "request": {
+      "timeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "httpAgent": {
+      "keepAlive": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "freeSocketTimeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "maxSockets": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "httpsAgent": {
+      "keepAlive": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "freeSocketTimeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "maxSockets": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    },
+    "useHttpClientNext": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "meta": {
+    "enable": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "logging": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "coreMiddleware": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "workerStartTimeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "serverTimeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+  "cluster": {
+    "listen": {
+      "path": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "port": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+      "hostname": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+    }
+  },
+  "clusterClient": {
+    "maxWaitTime": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js",
+    "responseTimeout": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+  },
+  "onClientError": "/Users/liguilu/project/CmsWing/node_modules/egg/config/config.default.js"
+}
