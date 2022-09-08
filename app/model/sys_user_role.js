@@ -29,6 +29,6 @@ module.exports = app => {
           });
           
       };
-  SysUserRole.sync({ alter: true });
+  //SysUserRole.sync({ alter: true });
   return SysUserRole;
 };

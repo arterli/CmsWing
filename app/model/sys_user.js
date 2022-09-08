@@ -31,6 +31,6 @@ module.exports = app => {
           });
           
       };
-  SysUser.sync({ alter: true });
+  //SysUser.sync({ alter: true });
   return SysUser;
 };

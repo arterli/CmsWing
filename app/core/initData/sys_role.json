@@ -1,0 +1,28 @@
+{
+  "RECORDS": [
+    {
+      "name": "系统管理员",
+      "uuid": "9f42247a-46e7-4b9c-8d05-660573cf5b2b",
+      "desc": "系统管理员",
+      "r_uuids": "740d33b4-3cc1-4022-bce0-d49ff11a2978,e232f3ac-9081-4151-8ad2-9674e4db8d45,ca05ecef-b079-462b-ac1b-9283f6ec4375,3632bf23-e4a9-4b0d-af83-9b2f02316894,2aab780a-0fa4-46b7-b94b-5c374a391ed9,73dc4727-4985-4c91-8feb-28fc3a6c4296,f6f71ab9-feef-43da-823a-cdf0a686a8c8,f015a652-70ed-43dc-9066-a13e33c80d49,8bce1410-e917-4ff5-8de5-ad1cf7d7584f,c5f8768a-f1f4-406b-b587-755e03332823,823cebf1-907b-415b-b4fb-de2ad56d51d9,e3ed0596-b2ac-453f-96c3-bb0a0df310f8,3875cb33-900a-47ab-b8c6-989f28093616,14ff665f-d269-4e73-a92f-a6123beb3fbb,c4be3ef0-4e44-4d6c-b66f-c02dac0c9e34,f51bfdba-4d28-4da0-9815-0eb6b9d51613,28a77709-e078-4150-aa5b-5c6e7583436a,e4944075-2f8a-4272-b546-07212be1e36e,8fc3ad21-c92c-4de2-be10-f0a57a7d88e5,200bc50e-59a7-4548-9965-0e5f704fd721,ac1b6b88-5c20-4085-95f2-fab6a385b1ff,f2bcb02e-769c-4b7d-8378-7909dff9e50a,0401d923-2fa3-4b57-a62d-8afa7f3eb10d,83650b01-98ce-418e-aa93-d0a96aa16ca0,610c4563-0c2c-4187-9fdf-9e9cdde7bb69,70870f97-ee19-495e-8326-4efe0166437b,1319d800-090b-4d3a-8bd6-7e776821fb05,61e8fbb6-ccc1-428c-a5ee-4df47afdd3d6,a786208b-71f3-4e04-b140-ee29cb10812b,99844a9b-5c26-477c-b91e-e831b64cd525,31709085-24db-4d99-b529-093ecb0405d3,135f7c98-6e44-4b8b-a76d-863821203d46,492db2de-0bd3-4050-a5d1-15d8192bf1cf,045e4001-f740-4e4f-8878-34b875f1bd1a,20ab6174-7a28-4637-a68f-c0d7bbf29f3c,7c360902-ba2a-49eb-a9f4-9c9334616efb,197babdc-4666-418d-bd55-b5aad784fa39,bf46002c-0907-493d-a021-5d77a475f1ae",
+      "g_uuids": "queryType,SysModels_findAll,SysModels_findByPk,SysModels_findOne,SysModels_findAndCountAll,SysUser_findAll,SysUser_findByPk,SysUser_findOne,SysUser_findAndCountAll,SysModelsFields_findAll,SysModelsFields_findByPk,SysModelsFields_findOne,SysModelsFields_findAndCountAll,SysModelsIndexes_findAll,SysModelsIndexes_findByPk,SysModelsIndexes_findOne,SysModelsIndexes_findAndCountAll,SysModelsAssociate_findAll,SysModelsAssociate_findByPk,SysModelsAssociate_findOne,SysModelsAssociate_findAndCountAll,SysRoutes_findAll,SysRoutes_findByPk,SysRoutes_findOne,SysRoutes_findAndCountAll,SysRoutesClassify_findAll,SysRoutesClassify_findByPk,SysRoutesClassify_findOne,SysRoutesClassify_findAndCountAll,SysUserGroup_findAll,SysUserGroup_findByPk,SysUserGroup_findOne,SysUserGroup_findAndCountAll,SysRole_findAll,SysRole_findByPk,SysRole_findOne,SysRole_findAndCountAll,SysUserRole_findAll,SysUserRole_findByPk,SysUserRole_findOne,SysUserRole_findAndCountAll,mutationType,SysModels_create,SysModels_destroy,SysModels_update,SysUser_create,SysUser_destroy,SysUser_update,SysModelsFields_create,SysModelsFields_destroy,SysModelsFields_update,SysModelsIndexes_create,SysModelsIndexes_destroy,SysModelsIndexes_update,SysModelsAssociate_create,SysModelsAssociate_destroy,SysModelsAssociate_update,SysRoutes_create,SysRoutes_destroy,SysRoutes_update,SysRoutesClassify_create,SysRoutesClassify_destroy,SysRoutesClassify_update,SysUserGroup_create,SysUserGroup_destroy,SysUserGroup_update,SysRole_create,SysRole_destroy,SysRole_update,SysUserRole_create,SysUserRole_destroy,SysUserRole_update",
+      "state": 1
+    },
+    {
+      "name": "开发",
+      "uuid": "2154b89e-8a29-4758-b77f-1e54a9f397e2",
+      "desc": "开发",
+      "r_uuids": "740d33b4-3cc1-4022-bce0-d49ff11a2978,e232f3ac-9081-4151-8ad2-9674e4db8d45,ca05ecef-b079-462b-ac1b-9283f6ec4375,3632bf23-e4a9-4b0d-af83-9b2f02316894,2aab780a-0fa4-46b7-b94b-5c374a391ed9,f6f71ab9-feef-43da-823a-cdf0a686a8c8,823cebf1-907b-415b-b4fb-de2ad56d51d9,e3ed0596-b2ac-453f-96c3-bb0a0df310f8,3875cb33-900a-47ab-b8c6-989f28093616,14ff665f-d269-4e73-a92f-a6123beb3fbb,c4be3ef0-4e44-4d6c-b66f-c02dac0c9e34,f51bfdba-4d28-4da0-9815-0eb6b9d51613,28a77709-e078-4150-aa5b-5c6e7583436a,e4944075-2f8a-4272-b546-07212be1e36e,8fc3ad21-c92c-4de2-be10-f0a57a7d88e5,73dc4727-4985-4c91-8feb-28fc3a6c4296,8bce1410-e917-4ff5-8de5-ad1cf7d7584f,70870f97-ee19-495e-8326-4efe0166437b,1319d800-090b-4d3a-8bd6-7e776821fb05,61e8fbb6-ccc1-428c-a5ee-4df47afdd3d6,a786208b-71f3-4e04-b140-ee29cb10812b,99844a9b-5c26-477c-b91e-e831b64cd525,31709085-24db-4d99-b529-093ecb0405d3,3632bf23-e4a9-4b0d-af83-9b2f02316894",
+      "g_uuids": "SysModels_create,SysModels_destroy,SysModels_update,SysModels_findAll,SysModels_findByPk,SysModels_findOne,SysModels_findAndCountAll",
+      "state": 1
+    },
+    {
+      "name": "管理员",
+      "uuid": "8cf0b447-b49f-4886-bc45-922bc00da975",
+      "desc": null,
+      "r_uuids": null,
+      "g_uuids": null,
+      "state": 1
+    }
+  ]
+}

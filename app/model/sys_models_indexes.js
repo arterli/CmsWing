@@ -16,6 +16,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysModelsIndexes.sync({ alter: true });
+  //SysModelsIndexes.sync({ alter: true });
   return SysModelsIndexes;
 };

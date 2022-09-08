@@ -16,6 +16,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysUserGroup.sync({ alter: true });
+  //SysUserGroup.sync({ alter: true });
   return SysUserGroup;
 };

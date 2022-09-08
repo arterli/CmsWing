@@ -10,7 +10,7 @@ module.exports = {
   timezone: '+08:00',
   define: {
     freezeTableName: true, // 强制表名称等于模型名称
-    underscored: true,
+    underscored: false,
   },
   operatorsAliases: {
     op_eq: Op.eq,

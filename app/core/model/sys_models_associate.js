@@ -10,11 +10,11 @@ module.exports = app => {
     uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, comment: 'uuid' },
     models_uuid: { type: DataTypes.UUID, comment: 'models_uuid' },
     parent_uuid: { type: DataTypes.UUID, comment: '父表' },
-    through_uuid: { type: DataTypes.UUID, comment: '中间表' },
-    child_uuid: { type: DataTypes.UUID, comment: '子表' },
     targetKey: { type: DataTypes.UUID, comment: '父键' },
+    through_uuid: { type: DataTypes.UUID, comment: '中间表' },
+    throughKey: { type: DataTypes.UUID, comment: '中间键' },
+    child_uuid: { type: DataTypes.UUID, comment: '子表' },
     foreignKey: { type: DataTypes.UUID, comment: '子键' },
-    throughKey: { type: DataTypes.UUID, comment: '中间件' },
     constraints: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '约束' },
     sort: { type: DataTypes.INTEGER, defaultValue: 0, comment: '排序' },
   }, {
@@ -22,6 +22,6 @@ module.exports = app => {
     paranoid: false,
   });
 
-  SysModelsAssociate.sync({ alter: true });
+  // SysModelsAssociate.sync({ alter: true });
   return SysModelsAssociate;
 };

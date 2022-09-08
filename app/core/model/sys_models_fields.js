@@ -32,6 +32,6 @@ module.exports = app => {
     paranoid: false,
   });
 
-  SysModelsFields.sync({ alter: true });
+  // SysModelsFields.sync({ alter: true });
   return SysModelsFields;
 };

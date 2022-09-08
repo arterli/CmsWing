@@ -48,6 +48,6 @@ module.exports = app => {
     });
 
   };
-  SysModels.sync({ alter: true });
+  // SysModels.sync({ alter: true });
   return SysModels;
 };

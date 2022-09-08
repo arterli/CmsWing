@@ -9,7 +9,7 @@ class HomeController extends Controller {
     // await ctx.service.sys.generate.models('1796faf3-5ec8-42ee-8db9-9cf86af0fe12');
     // await ctx.service.sys.generate.graphqlAll();
     // await ctx.service.sys.generate.graphql('c6f54355-e957-4f8c-93f8-c8357dd78088');
-    // await ctx.service.sys.generate.modelsAll();
+    await ctx.service.sys.generate.modelsAll();
     // await ctx.service.sys.generate.routes();
     // 生成目录
     // const rootFolder = path.join(this.app.baseDir, 'app', 'pages', 'aaa', 'bbbbb');

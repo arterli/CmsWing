@@ -39,6 +39,6 @@ module.exports = app => {
           });
           
       };
-  SysRoutes.sync({ alter: true });
+  //SysRoutes.sync({ alter: true });
   return SysRoutes;
 };

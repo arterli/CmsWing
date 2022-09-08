@@ -181,7 +181,7 @@ module.exports = app => {
   paranoid: ${modInfo.paranoid},
 });
   ${associateStr}
-  ${className}.sync({ alter: true });
+  //${className}.sync({ alter: true });
   return ${className};
 };
 `;

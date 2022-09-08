@@ -66,6 +66,7 @@
               {
                 "type": "card",
                 "header": false,
+                "defaultIsOpened":true,
                 "body": "说明：${remarks}，中间件：${middleware}，排序：${sort}，系统：${sys?'是':'否'}",
                 "actions": [
                   {

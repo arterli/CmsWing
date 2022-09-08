@@ -22,6 +22,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysModelsAssociate.sync({ alter: true });
+  //SysModelsAssociate.sync({ alter: true });
   return SysModelsAssociate;
 };

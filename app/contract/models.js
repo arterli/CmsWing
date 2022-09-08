@@ -2,7 +2,7 @@
 'use strict';
 // 本文件由Cmswing系统生成，请勿修改！
 module.exports = {
-
+  
   // 模型管理
   sys_models_item: {
     createdAt: { type: 'string', description: '创建时间' },
@@ -13,21 +13,21 @@ module.exports = {
     paranoid: { type: 'boolean', description: '偏执表' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_models_add: {
     desc: { type: 'string', description: '模型说明', required: true },
     name: { type: 'string', description: '模型名称', required: true },
     oldName: { type: 'string', description: '改变后的模型名称', required: false },
     paranoid: { type: 'boolean', description: '偏执表', required: false },
-
+    
   },
   sys_models_edit: {
     desc: { type: 'string', description: '模型说明' },
     name: { type: 'string', description: '模型名称' },
     oldName: { type: 'string', description: '改变后的模型名称' },
     paranoid: { type: 'boolean', description: '偏执表' },
-
+    
   },
 
   // 系统用户
@@ -43,7 +43,7 @@ module.exports = {
     updatedAt: { type: 'string', description: '更新时间' },
     username: { type: 'string', description: '用户名' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_user_add: {
     admin: { type: 'boolean', description: '系统管理员', required: false },
@@ -54,7 +54,7 @@ module.exports = {
     state: { type: 'boolean', description: '状态false禁用true正常', required: false },
     username: { type: 'string', description: '用户名', required: true },
     uuid: { type: 'string', description: 'uuid', required: true },
-
+    
   },
   sys_user_edit: {
     admin: { type: 'boolean', description: '系统管理员' },
@@ -64,7 +64,7 @@ module.exports = {
     password: { type: 'string', description: '密码' },
     state: { type: 'boolean', description: '状态false禁用true正常' },
     username: { type: 'string', description: '用户名' },
-
+    
   },
 
   // 模型字段表
@@ -93,7 +93,7 @@ module.exports = {
     uuidtype: { type: 'string', description: 'uuid类型' },
     where: { type: 'boolean', description: '查询' },
     zerofill: { type: 'boolean', description: '零填充' },
-
+    
   },
   sys_models_fields_add: {
     add: { type: 'boolean', description: '添加', required: false },
@@ -116,7 +116,7 @@ module.exports = {
     uuidtype: { type: 'string', description: 'uuid类型', required: false },
     where: { type: 'boolean', description: '查询', required: false },
     zerofill: { type: 'boolean', description: '零填充', required: false },
-
+    
   },
   sys_models_fields_edit: {
     add: { type: 'boolean', description: '添加' },
@@ -139,7 +139,7 @@ module.exports = {
     uuidtype: { type: 'string', description: 'uuid类型' },
     where: { type: 'boolean', description: '查询' },
     zerofill: { type: 'boolean', description: '零填充' },
-
+    
   },
 
   // 模型索引
@@ -152,21 +152,21 @@ module.exports = {
     unique: { type: 'boolean', description: '唯一' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_models_indexes_add: {
     fields: { type: 'string', description: '索引字段', required: false },
     models_uuid: { type: 'string', description: '关联模型uuid', required: true },
     sort: { type: 'string', description: '排序', required: true },
     unique: { type: 'boolean', description: '唯一', required: true },
-
+    
   },
   sys_models_indexes_edit: {
     fields: { type: 'string', description: '索引字段' },
     models_uuid: { type: 'string', description: '关联模型uuid' },
     sort: { type: 'string', description: '排序' },
     unique: { type: 'boolean', description: '唯一' },
-
+    
   },
 
   // 模型关联
@@ -185,6 +185,7 @@ module.exports = {
     type: { type: 'string', description: '关联类型' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
+    
   },
   sys_models_associate_add: {
     child_uuid: { type: 'string', description: '子表', required: true },
@@ -197,7 +198,7 @@ module.exports = {
     throughKey: { type: 'string', description: '中间键', required: false },
     through_uuid: { type: 'string', description: '中间表', required: false },
     type: { type: 'string', description: '关联类型', required: true },
-
+    
   },
   sys_models_associate_edit: {
     child_uuid: { type: 'string', description: '子表' },
@@ -210,7 +211,7 @@ module.exports = {
     throughKey: { type: 'string', description: '中间键' },
     through_uuid: { type: 'string', description: '中间表' },
     type: { type: 'string', description: '关联类型' },
-
+    
   },
 
   // 路由管理
@@ -234,7 +235,7 @@ module.exports = {
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
     verb: { type: 'string', description: '用户触发动作，支持 get，post 等所有 HTTP 方法' },
-
+    
   },
   sys_routes_add: {
     action: { type: 'string', description: '控制器方法', required: false },
@@ -253,7 +254,7 @@ module.exports = {
     role: { type: 'boolean', description: '是否为角色权限节点', required: false },
     sort: { type: 'string', description: '排序', required: false },
     verb: { type: 'string', description: '用户触发动作，支持 get，post 等所有 HTTP 方法', required: true },
-
+    
   },
   sys_routes_edit: {
     action: { type: 'string', description: '控制器方法' },
@@ -272,7 +273,7 @@ module.exports = {
     sort: { type: 'string', description: '排序' },
     updatedAt: { type: 'string', description: '更新时间' },
     verb: { type: 'string', description: '用户触发动作，支持 get，post 等所有 HTTP 方法' },
-
+    
   },
 
   // 路由分类
@@ -286,21 +287,21 @@ module.exports = {
     sys: { type: 'boolean', description: '是否系统' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_routes_classify_add: {
     middleware: { type: 'string', description: '在 Router 里面可以配置多个 Middleware', required: false },
     name: { type: 'string', description: '分类名称', required: true },
     remarks: { type: 'string', description: '备注', required: false },
     sort: { type: 'string', description: '越小越靠前', required: false },
-
+    
   },
   sys_routes_classify_edit: {
     middleware: { type: 'string', description: '在 Router 里面可以配置多个 Middleware' },
     name: { type: 'string', description: '分类名称' },
     remarks: { type: 'string', description: '备注' },
     sort: { type: 'string', description: '越小越靠前' },
-
+    
   },
 
   // 系统用户组
@@ -313,7 +314,7 @@ module.exports = {
     sort: { type: 'string', description: '排序' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_user_group_add: {
     desc: { type: 'string', description: '分组说明', required: false },
@@ -321,7 +322,7 @@ module.exports = {
     puuid: { type: 'string', description: '父uuid', required: false },
     sort: { type: 'string', description: '排序', required: false },
     uuid: { type: 'string', description: 'uuid', required: true },
-
+    
   },
   sys_user_group_edit: {
     desc: { type: 'string', description: '分组说明' },
@@ -329,7 +330,7 @@ module.exports = {
     puuid: { type: 'string', description: '父uuid' },
     sort: { type: 'string', description: '排序' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
 
   // 角色表
@@ -343,7 +344,7 @@ module.exports = {
     state: { type: 'boolean', description: '状态' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_role_add: {
     desc: { type: 'string', description: '角色说明', required: false },
@@ -352,7 +353,7 @@ module.exports = {
     r_uuids: { type: 'string', description: '路由节点', required: false },
     state: { type: 'boolean', description: '状态', required: false },
     uuid: { type: 'string', description: 'uuid', required: true },
-
+    
   },
   sys_role_edit: {
     desc: { type: 'string', description: '角色说明' },
@@ -360,7 +361,7 @@ module.exports = {
     name: { type: 'string', description: '角色名称' },
     r_uuids: { type: 'string', description: '路由节点' },
     state: { type: 'boolean', description: '状态' },
-
+    
   },
 
   // 用户角色中间表
@@ -370,17 +371,17 @@ module.exports = {
     role_uuid: { type: 'string', description: '角色uuid' },
     updatedAt: { type: 'string', description: '更新时间' },
     user_uuid: { type: 'string', description: '用户uuid' },
-
+    
   },
   sys_user_role_add: {
     role_uuid: { type: 'string', description: '角色uuid', required: true },
     user_uuid: { type: 'string', description: '用户uuid', required: true },
-
+    
   },
   sys_user_role_edit: {
     role_uuid: { type: 'string', description: '角色uuid' },
     user_uuid: { type: 'string', description: '用户uuid' },
-
+    
   },
 
   // 开放接口
@@ -390,17 +391,17 @@ module.exports = {
     open_uuids: { type: 'string', description: '开放接口节点' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
   sys_openApi_add: {
     open_uuids: { type: 'string', description: '开放接口节点', required: false },
     uuid: { type: 'string', description: 'uuid', required: false },
-
+    
   },
   sys_openApi_edit: {
     open_uuids: { type: 'string', description: '开放接口节点' },
     uuid: { type: 'string', description: 'uuid' },
-
+    
   },
 
 };

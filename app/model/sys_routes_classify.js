@@ -17,6 +17,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysRoutesClassify.sync({ alter: true });
+  //SysRoutesClassify.sync({ alter: true });
   return SysRoutesClassify;
 };

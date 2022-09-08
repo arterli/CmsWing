@@ -13,6 +13,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysOpenApi.sync({ alter: true });
+  //SysOpenApi.sync({ alter: true });
   return SysOpenApi;
 };

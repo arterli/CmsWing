@@ -17,6 +17,6 @@ module.exports = app => {
   paranoid: false,
 });
   
-  SysRole.sync({ alter: true });
+  //SysRole.sync({ alter: true });
   return SysRole;
 };
