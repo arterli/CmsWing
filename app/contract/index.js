@@ -5,16 +5,12 @@
 // d.Description.参数描述
 // c.如果你想给query或者path的参数设置example，你可以在Description前添加以'eg:'开头的参数，实例如下
 module.exports = {
-  tokenReq: {
+  token: {
     token: { type: 'string', description: '用户token', required: true, example: 'fdsafaslfjdsafjdadsafkjhfjdakj' },
   },
   baseRes: {
     status: { type: 'integer', required: true, example: 0 },
     data: { type: 'string', required: true, example: '请求成功' },
     msg: { type: 'string', required: true, example: 'ok' },
-  },
-  loginPost: {
-    username: { type: 'string', required: true, example: 'username' },
-    password: { type: 'string', required: true, example: 'password' },
   },
 };

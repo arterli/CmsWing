@@ -1,6 +1,6 @@
 'use strict';
 /**
-* @controller admin/sys/server 系统服务
+* @controller 系统服务
 */
 const Controller = require('../../core/base_controller');
 class ServerController extends Controller {

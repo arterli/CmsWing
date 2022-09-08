@@ -1,6 +1,6 @@
 'use strict';
 /**
-* @controller
+* @controller 路由管理
 */
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
@@ -10,7 +10,15 @@ class RoutesController extends Controller {
   async index() {
     this.success(1);
   }
-  // 路由列表
+
+  /**
+  * @summary 路由列表
+  * @description 路由列表
+  * @router get /admin/sys/routes/routesList
+  * @request query string class_uuid desc
+  * @request query string s_name desc
+  * @response 200 baseRes desc
+  */
   async routesList() {
     const { ctx } = this;
     const data = ctx.query;
@@ -35,7 +43,14 @@ class RoutesController extends Controller {
     }
     this.success({ items: tree });
   }
-  // 添加路由
+
+  /**
+  * @summary 添加路由
+  * @description 添加路由
+  * @router post /admin/sys/routes/addRoutes
+  * @request body sys_routes_add body desc
+  * @response 200 baseRes desc
+  */
   async addRoutes() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -44,7 +59,14 @@ class RoutesController extends Controller {
     await ctx.service.sys.generate.pages(data.sys_routes);
     this.success(add);
   }
-  // 编辑路由
+
+  /**
+  * @summary 编辑路由
+  * @description 编辑路由
+  * @router post /admin/sys/routes/editRoutes
+  * @request body sys_routes_edit body desc
+  * @response 200 baseRes desc
+  */
   async editRoutes() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -53,7 +75,13 @@ class RoutesController extends Controller {
     await ctx.service.sys.generate.pages(data.SysRoutes_findOne);
     this.success(edit);
   }
-  // 删除路由
+  /**
+  * @summary 删除路由
+  * @description 删除路由
+  * @router get /admin/sys/routes/delRoutes
+  * @request query string uuid desc
+  * @response 200 baseRes desc
+  */
   async delRoutes() {
     const { ctx } = this;
     const uuid = ctx.query.uuid;
@@ -82,6 +110,7 @@ class RoutesController extends Controller {
     this.success({ options: [{ label: '一级节点', value: 0 }, ...tree ] });
   }
   // 编辑页面
+
   async editPages() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -96,7 +125,7 @@ class RoutesController extends Controller {
     ctx.helper.mkdirsSync(mulu);
     const wenjian = path.join(mulu, path.basename(url[1]));
     try {
-      const schemaData = new Uint8Array(Buffer.from(data.schema));
+      const schemaData = new Uint8Array(Buffer.from(decodeURIComponent(data.schema)));
       await fs.writeFile(wenjian, schemaData);
       // Abort the request before the promise settles.
     } catch (err) {
@@ -110,7 +139,6 @@ class RoutesController extends Controller {
   async saveOrder() {
     const { ctx } = this;
     const data = ctx.request.body;
-    console.log(data);
     const paixun = async rows => {
       for (let index = 0; index < rows.length; index++) {
         const element = rows[index];
@@ -123,5 +151,22 @@ class RoutesController extends Controller {
     await paixun(data.rows);
     this.success(1);
   }
+  // 添加分类
+  async addClassify() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    const add = await ctx.model.SysRoutesClassify.create(data);
+    await ctx.service.sys.generate.routes();
+    this.success(add);
+  }
+  // 编辑分类
+  async editClassify() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    const edit = await ctx.model.SysRoutesClassify.update(data, { where: { uuid: data.uuid } });
+    await ctx.service.sys.generate.routes();
+    this.success(edit);
+  }
+
 }
 module.exports = RoutesController;

@@ -16,6 +16,8 @@ class HomeController extends Controller {
     // ctx.helper.mkdirsSync(rootFolder);
     // const mulu = path.join(this.app.baseDir, 'app', path.dirname('/fdsafsda/fdsaf/fsda.js'));
     // console.log(mulu);
+    // // 生成contract
+    // await ctx.service.sys.generate.contract();
     ctx.body = 'dd';
   }
 }

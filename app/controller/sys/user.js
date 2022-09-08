@@ -2,12 +2,17 @@
 
 'use strict';
 /**
-* @controller admin/sys/server 系统服务
+* @controller 用户管理
 */
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
 class UserController extends Controller {
-  // 分组列表
+  /**
+  * @summary 分组列表
+  * @description 分组列表
+  * @router get /admin/sys/user/groupList
+  * @response 200 baseRes desc
+  */
   async groupList() {
     const { ctx } = this;
     const map = {};
@@ -16,11 +21,17 @@ class UserController extends Controller {
     const tree = ctx.helper.arr_to_tree(list, 0, 'uuid', 'puuid');
     this.success({ options: [{ name: '全部分组', uuid: '0', creatable: false, removable: false, editable: false }, ...tree ] });
   }
-  // 添加分组
+
+  /**
+  * @summary 添加分组
+  * @description 添加分组
+  * @router post /admin/sys/user/groupAdd
+  * @request body sys_user_group_add body desc
+  * @response 200 baseRes desc
+  */
   async groupAdd() {
     const { ctx } = this;
     const data = ctx.request.body;
-    console.log(data);
     const addData = {};
     addData.name = data.name;
     if (data.parent) {
@@ -34,14 +45,28 @@ class UserController extends Controller {
     const add = await ctx.model.SysUserGroup.create(addData);
     this.success(add);
   }
-  // 更新分组
+
+  /**
+  * @summary 更新分组
+  * @description 更新分组
+  * @router post /admin/sys/user/groupEdit
+  * @request body sys_user_group_edit body desc
+  * @response 200 baseRes desc
+  */
   async groupEdit() {
     const { ctx } = this;
     const data = ctx.request.body;
     const update = await ctx.model.SysUserGroup.update(data, { where: { uuid: data.uuid } });
     this.success(update);
   }
-  // 删除分组
+
+  /**
+  * @summary 删除分组
+  * @description 删除分组
+  * @router get /admin/sys/user/groupDel
+  * @request query string uuid desc
+  * @response 200 baseRes desc
+  */
   async groupDel() {
     const { ctx } = this;
     const { uuid } = ctx.query;
@@ -49,7 +74,19 @@ class UserController extends Controller {
     await ctx.model.SysUserGroup.destroy({ where: { puuid: { [Op.eq]: uuid } } });
     this.success(del);
   }
-  // 用户列表
+
+  /**
+  * @summary 用户列表
+  * @description 用户列表
+  * @router get /admin/sys/user/userList
+  * @request query integer page desc
+  * @request query integer perPage desc
+  * @request query string group desc
+  * @request query string username desc
+  * @request query string orderBy desc
+  * @request query string orderDir desc
+  * @response 200 baseRes desc
+  */
   async userList() {
     const { ctx } = this;
     const data = ctx.query;
@@ -80,7 +117,14 @@ class UserController extends Controller {
     // console.log(list);
     this.success({ items: list.rows, total: list.count });
   }
-  // 添加用户
+
+  /**
+  * @summary 添加用户
+  * @description 添加用户
+  * @router post /admin/sys/user/userAdd
+  * @request body sys_user_add body desc
+  * @response 200 baseRes desc
+  */
   async userAdd() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -94,7 +138,14 @@ class UserController extends Controller {
     }
     this.success(add);
   }
-  // 编辑用户
+
+  /**
+  * @summary 编辑用户
+  * @description 编辑用户
+  * @router post /admin/sys/user/userEdit
+  * @request body sys_user_edit body desc
+  * @response 200 baseRes desc
+  */
   async userEdit() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -111,7 +162,14 @@ class UserController extends Controller {
     }
     this.success(edit);
   }
-  // 删除用户
+
+  /**
+  * @summary 删除用户
+  * @description 删除用户
+  * @router get /admin/sys/user/userDel
+  * @request query string uuid desc
+  * @response 200 baseRes desc
+  */
   async userDel() {
     const { ctx } = this;
     const { uuid } = ctx.query;
@@ -119,7 +177,13 @@ class UserController extends Controller {
     await ctx.model.SysUserRole.destroy({ where: { user_uuid: uuid } });
     this.success(del);
   }
-  // 获取角色
+
+  /**
+  * @summary 获取角色
+  * @description 获取角色
+  * @router get /admin/sys/user/roleList
+  * @response 200 baseRes desc
+  */
   async roleList() {
     const { ctx } = this;
     const list = await ctx.model.SysRole.findAll();

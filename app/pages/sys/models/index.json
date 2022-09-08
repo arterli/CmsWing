@@ -186,7 +186,10 @@
           "body": {
             "type": "alert",
             "title": "系统提示",
-            "body": "请选择左侧的模型进行编辑 ${SysModels_create.id}",
+            "body": {
+              "type":"tpl",
+              "tpl": "<p>请选择左侧的模型进行编辑&nbsp;</p><p>创建模型后会自动生成增、删、改、查的GraphQL接口，<br>具体语法请到<a title=\"GraphQL官网\" href=\"https://graphql.cn/\" target=\"_blank\" rel=\"noopener\">GraphQL官网</a>查询，具体方法和测试请点击系统顶部【GraphQL】按钮查询。</p>"
+            },
             "level": "info",
             "className": "mb-3"
           }

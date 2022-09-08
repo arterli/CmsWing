@@ -1,12 +1,18 @@
 /* eslint-disable jsdoc/check-tag-names */
 'use strict';
 /**
-* @controller sys/models 系统服务
+* @controller 模型管理
 */
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
 class ModelsController extends Controller {
-  // 添加模型
+  /**
+  * @summary 添加模型
+  * @description 添加模型
+  * @router post /admin/sys/models/addModels
+  * @request body sys_models_add body desc
+  * @response 200 baseRes desc
+  */
   async addModels() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -52,12 +58,15 @@ class ModelsController extends Controller {
     await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
+    // 生成contract
+    await ctx.service.sys.generate.contract();
     this.success(add);
   }
   /**
-  * @summary 添加字段
-  * @description 添加字段
-  * @router post admin/sys/models/updateFields
+  * @summary 更新字段
+  * @description 更新字段
+  * @router post /admin/sys/models/updateFields
+  * @request body sys_models_fields_edit body desc
   * @response 200 baseRes desc
   */
   async updateFields() {
@@ -92,9 +101,18 @@ class ModelsController extends Controller {
     await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
+    // 生成contract
+    await ctx.service.sys.generate.contract();
     return this.success({ sys_models_fields: res });
   }
-  // 获取索引列表
+
+  /**
+  * @summary 获取索引列表
+  * @description 获取索引列表
+  * @router get /admin/sys/models/indexes
+  * @request query integer id desc
+  * @response 200 baseRes desc
+  */
   async indexes() {
     const { ctx } = this;
     const { id } = ctx.query;
@@ -112,7 +130,13 @@ class ModelsController extends Controller {
     const res = await ctx.model.SysModels.findOne(map);
     this.success(res);
   }
-  // 添加索引
+  /**
+  * @summary 更新索引
+  * @description 更新索引
+  * @router post /admin/sys/models/updateIndexes
+  * @request body sys_models_indexes_add body desc
+  * @response 200 baseRes desc
+  */
   async updateIndexes() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -145,9 +169,18 @@ class ModelsController extends Controller {
     await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
+    // 生成contract
+    await ctx.service.sys.generate.contract();
     this.success({ sys_models_indexes: res });
   }
-  // 获取索引列表
+
+  /**
+  * @summary 获取索引列表
+  * @description 获取索引列表
+  * @router get /admin/sys/models/associate
+  * @request query integer id desc
+  * @response 200 baseRes desc
+  */
   async associate() {
     const { ctx } = this;
     const { id } = ctx.query;
@@ -164,6 +197,13 @@ class ModelsController extends Controller {
     this.success(res);
   }
   // 添加索引
+  /**
+  * @summary 添加索引
+  * @description 添加索引
+  * @router post /admin/sys/models/updateAssociate
+  * @request body sys_models_associate_add body desc
+  * @response 200 baseRes desc
+  */
   async updateAssociate() {
     const { ctx } = this;
     const data = ctx.request.body;
@@ -197,6 +237,8 @@ class ModelsController extends Controller {
     await ctx.service.sys.generate.modelsAll();
     // 生成graphql
     await ctx.service.sys.generate.graphqlAll();
+    // 生成contract
+    await ctx.service.sys.generate.contract();
     this.success({ sys_models_associates: res });
   }
 

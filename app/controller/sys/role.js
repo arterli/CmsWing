@@ -2,7 +2,7 @@
 
 'use strict';
 /**
-* @controller admin/sys/server 系统服务
+* @controller 角色管理
 */
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
@@ -10,7 +10,15 @@ class RoleController extends Controller {
   async index() {
     this.success(1);
   }
-  // 角色列表
+  /**
+  * @summary 角色列表
+  * @description 角色列表
+  * @router get /admin/sys/role/roleList
+  * @request query integer page desc
+  * @request query integer perPage desc
+  * @request query string name desc
+  * @response 200 baseRes desc
+  */
   async roleList() {
     const { ctx } = this;
     const data = ctx.query;
@@ -27,31 +35,55 @@ class RoleController extends Controller {
 
     this.success({ items: list.rows, total: list.count });
   }
-  // 添加角色
+  /**
+  * @summary 添加角色
+  * @description 添加角色
+  * @router post /admin/sys/role/addRole
+  * @request body sys_role_add body desc
+  * @response 200 baseRes desc
+  */
   async addRole() {
     const { ctx } = this;
     const data = ctx.request.body;
     const add = await ctx.model.SysRole.create(data);
     this.success(add);
   }
-  // 更新角色
+
+  /**
+  * @summary 更新角色
+  * @description 更新角色
+  * @router post /admin/sys/role/update
+  * @request body sys_role_edit body desc
+  * @response 200 baseRes desc
+  */
   async update() {
     const { ctx } = this;
     const data = ctx.request.body;
     const update = await ctx.model.SysRole.update(data, { where: { uuid: data.uuid } });
     this.success(update);
   }
-  // 删除角色
+  /**
+  * @summary 删除角色
+  * @description 删除角色
+  * @router get /admin/sys/role/del
+  * @request query string uuid desc
+  * @response 200 baseRes desc
+  */
   async del() {
     const { ctx } = this;
     const { uuid } = ctx.query;
     const del = await ctx.model.SysRole.destroy({ where: { uuid: { [Op.eq]: uuid } } });
     this.success(del);
   }
-  // 路由节点
+
+  /**
+  * @summary 路由节点
+  * @description 路由节点
+  * @router get /admin/sys/role/routingNode
+  * @response 200 baseRes desc
+  */
   async routingNode() {
     const { ctx } = this;
-
     const map = {};
     map.order = [[ 'sort', 'ASC' ]];
     map.where = {};

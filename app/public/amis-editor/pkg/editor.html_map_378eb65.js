@@ -196,7 +196,7 @@ amis.require.resourceMap({
   },
   "pkg": {
     "p5": {
-      "url": "/public/amis-editor/pkg/rest_cc501e1.js",
+      "url": "/public/amis-editor/pkg/rest_14015c2.js",
       "type": "js"
     },
     "p4": {

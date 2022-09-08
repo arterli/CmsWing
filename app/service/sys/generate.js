@@ -814,5 +814,81 @@ ${item}
       }
     }
   }
+  // 生成 contract
+  async contract() {
+    const { ctx } = this;
+    // 获取全部模型
+    const map = {};
+    map.include = [{
+      model: ctx.model.SysModelsFields,
+    }];
+    const allModels = await ctx.model.SysModels.findAll(map);
+    // console.log(JSON.stringify(allModels, null, 2));
+    let contract = '';
+    for (const v of allModels) {
+      let item = '';
+      let add = '';
+      let edit = '';
+      for (const f of v.sys_models_fields) {
+        let type = '';
+        if (f.type === 'BOOLEAN') {
+          type = 'boolean';
+        } else if (v.type === 'INTEGER' || v.type === 'BIGINT') {
+          type = 'integer';
+        } else if (f.type === 'FLOAT' || f.type === 'DOUBLE' || f.type === 'DECIMAL') {
+          type = 'number';
+        } else if (f.type === 'STRING' || f.type === 'TEXT' || f.type === 'UUID' || f.type === 'JSON') {
+          type = 'string';
+        } else if (v.type === 'DATE' || v.type === 'DATEONLY') {
+          type = 'string';
+        } else if (v.type === 'ENUM') {
+          type = 'string';
+        } else {
+          type = 'string';
+        }
+        item += `${f.name}: { type: '${type}', description: '${f.comment}' },
+    `;
+        if (f.add) {
+          add += `${f.name}: { type: '${type}', description: '${f.comment}', required: ${f.allowNull} },
+    `;
+        }
+        if (f.edit) {
+          edit += `${f.name}: { type: '${type}', description: '${f.comment}' },
+    `;
+        }
+      }
+      contract += `
+  // ${v.desc}
+  ${v.name}_item: {
+    ${item}
+  },
+  ${v.name}_add: {
+    ${add}
+  },
+  ${v.name}_edit: {
+    ${edit}
+  },
+`;
+    }
+    // console.log(contract);
+    const file = `
+'use strict';
+// 本文件由Cmswing系统生成，请勿修改！
+module.exports = {
+  ${contract}
+};
+`;
+    // console.log(file);
+    // console.log(modeDoc);
+    const filepath = path.join(this.app.baseDir, 'app', 'contract', 'models.js');
+    try {
+      const data = new Uint8Array(Buffer.from(file));
+      await fs.writeFile(filepath, data);
+      // Abort the request before the promise settles.
+    } catch (err) {
+      // When a request is aborted - err is an AbortError
+      console.error(err);
+    }
+  }
 }
 module.exports = GenerateService;

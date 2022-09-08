@@ -71,4 +71,11 @@ type Mutation {
   #用户角色中间表 更新
   SysUserRole_update(data:EditSysUserRole!,where:WhereSysUserRole!):ResEditSysUserRole
 
+  #开放接口 添加
+  SysOpenApi_create(data:AddSysOpenApi):SysOpenApi
+  #开放接口 删除
+  SysOpenApi_destroy(where:WhereSysOpenApi!):ResDelSysOpenApi
+  #开放接口 更新
+  SysOpenApi_update(data:EditSysOpenApi!,where:WhereSysOpenApi!):ResEditSysOpenApi
+
 }

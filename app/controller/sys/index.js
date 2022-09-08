@@ -1,15 +1,13 @@
 'use strict';
 const Controller = require('../../core/base_controller');
 const path = require('path');
+const { Op } = require('sequelize');
 /**
-* @controller admin/index
+* @controller 系统入口
 */
 class IndexController extends Controller {
   async index() {
     const { ctx } = this;
-    console.log(ctx.userInfo);
-    const dd = await ctx.service.sys.rbac.getRoleIds(ctx.userInfo.uuid);
-    console.log(dd);
     await ctx.render('sys/index');
   }
   async login() {
@@ -21,9 +19,9 @@ class IndexController extends Controller {
   }
   /**
   * @summary 登录接口
-  * @description 登录接口1
-  * @router get /admin/loginPost
-  * @request body loginPost *body desc
+  * @description 登录接口
+  * @router post /admin/loginPost
+  * @request body sys_user_add *body desc
   * @response 200 baseRes desc
   */
   async lginPost() {
@@ -46,7 +44,12 @@ class IndexController extends Controller {
       this.fail('账号密码错误');
     }
   }
-  // 退出登陆
+  /**
+  * @summary 退出登录
+  * @description 退出登录
+  * @router get /admin/logout
+  * @response 200 baseRes desc
+  */
   async logout() {
     const { ctx } = this;
     ctx.session.adminToken = null;
@@ -63,6 +66,57 @@ class IndexController extends Controller {
   // graphql接口暴漏
   async graphql() {
     const body = this.ctx.request.body;
+    const { model } = this.ctx.params;
+    // 后台接口
+    if (!model || model === 'admin') {
+      // 验证权限
+      const token = this.ctx.session.adminToken || this.ctx.get('token');
+      const userInfo = this.ctx.helper.deToken(token);
+      if (userInfo) {
+        if (!userInfo.admin) {
+          const check = await this.service.sys.rbac.graphql(body.query, userInfo.uuid);
+          if (!check) {
+            this.ctx.body = {
+              status: 403,
+              msg: '对不起，您无权访问此接口。',
+              data: {
+                path: this.ctx.url,
+              },
+            };
+            return false;
+          }
+        }
+      } else {
+        this.ctx.body = {
+          status: 401,
+          msg: '未登录',
+          data: { isLogin: false },
+        };
+        return false;
+      }
+    } else if (model === 'open') {
+      // 开放接口
+      const check = await this.service.sys.rbac.openApi(body.query);
+      if (!check) {
+        this.ctx.body = {
+          status: 403,
+          msg: '对不起，您无权访问此接口。',
+          data: {
+            path: this.ctx.url,
+          },
+        };
+        return false;
+      }
+    } else {
+      this.ctx.body = {
+        status: 403,
+        msg: '对不起，您无权访问此接口。',
+        data: {
+          path: this.ctx.url,
+        },
+      };
+      return false;
+    }
     const res = await this.ctx.graphqlQuery(JSON.stringify(body));
     // console.log(body);
     // console.log(JSON.stringify(res.data, null, 2));
@@ -73,10 +127,14 @@ class IndexController extends Controller {
     };
   }
   async site() {
-    const ml = await this.ctx.model.SysRoutes.findAll({
-      order: [[ 'sort', 'ASC' ]],
-      where: { admin: false },
-    });
+    const map = {};
+    map.order = [[ 'sort', 'ASC' ]];
+    map.where = { admin: false };
+    const roleIds = await this.ctx.service.sys.rbac.getRoleIds(this.ctx.userInfo.uuid);
+    if (!this.ctx.helper._.isEmpty(roleIds)) {
+      map.where.uuid = { [Op.in]: roleIds };
+    }
+    const ml = await this.ctx.model.SysRoutes.findAll(map);
     const arr = [];
     for (const v of ml) {
       const obj = {};
@@ -95,7 +153,6 @@ class IndexController extends Controller {
       arr.push(obj);
     }
     const tree = this.ctx.helper.arr_to_tree(arr, '0', 'uuid', 'puuid');
-    // console.log(JSON.stringify(tree, null, 2));
     // const site = {
     //   pages: [
     //     {

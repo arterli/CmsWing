@@ -23,11 +23,7 @@
               "title": "添加分类",
               "body": {
                 "type": "form",
-                "api": {
-                  "method": "post",
-                  "url": "/graphql",
-                  "graphql": "mutation($name:String!,$middleware:String,$remarks:String,$sort:Int){SysRoutesClassify_create(data:{name:$name,middleware:$middleware,remarks:$remarks,sort:$sort}){uuid}}"
-                },
+                "api": "/admin/sys/routes/addClassify",
                 "reload": "routers",
                 "body": [
                   {
@@ -82,11 +78,7 @@
                       "title": "编辑分类",
                       "body": {
                         "type": "form",
-                        "api": {
-                          "method": "post",
-                          "url": "/graphql",
-                          "graphql": "mutation($name:String!,$middleware:String,$remarks:String,$sort:Int,$uuid:String){SysRoutesClassify_update(data:{name:$name,middleware:$middleware,remarks:$remarks,sort:$sort},where:{uuid:{op_eq:$uuid}}){uuid,name,middleware,remarks,sort}}"
-                        },
+                        "api": "/admin/sys/routes/editClassify",
                         "reload": "routers",
                         "body": [
                           {
@@ -779,7 +771,7 @@
                                       "actions": [
                                         {
                                           "actionType": "custom",
-                                          "script": "event.setData({id:event.data.id,schema:window.localStorage.getItem(event.data.id)})"
+                                          "script": "event.setData({id:event.data.id,schema:encodeURIComponent(window.localStorage.getItem(event.data.id))})"
                                         },
                                         {
                                           "actionType": "ajax",

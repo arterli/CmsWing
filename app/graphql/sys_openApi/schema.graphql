@@ -1,0 +1,150 @@
+
+    
+    type SysOpenApi {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      open_uuids:String
+      uuid:String
+      
+      
+    }
+    
+    
+    input WhereSysOpenApi_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysOpenApi_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysOpenApi_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysOpenApi_open_uuids {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysOpenApi_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysOpenApi{
+    id:WhereSysOpenApi_id
+      createdAt:WhereSysOpenApi_createdAt
+      updatedAt:WhereSysOpenApi_updatedAt
+      open_uuids:WhereSysOpenApi_open_uuids
+      uuid:WhereSysOpenApi_uuid
+      
+    }
+
+    input WhereSysOpenApi {
+      id:WhereSysOpenApi_id
+      createdAt:WhereSysOpenApi_createdAt
+      updatedAt:WhereSysOpenApi_updatedAt
+      open_uuids:WhereSysOpenApi_open_uuids
+      uuid:WhereSysOpenApi_uuid
+      
+      op_and: [WhereFieldSysOpenApi]
+      op_or: [WhereFieldSysOpenApi]
+      op_not: [WhereFieldSysOpenApi]
+    }
+    
+    
+    input AddSysOpenApi {
+    open_uuids: String
+      uuid: String
+      
+    }
+    
+    
+    input EditSysOpenApi {
+    open_uuids: String
+      uuid: String
+      
+    }
+    
+    type CountSysOpenApi {
+      count: Int
+      rows: [SysOpenApi]
+    }
+    type ResDelSysOpenApi {
+      count: Int
+    }
+    type ResEditSysOpenApi {
+      ids: [Int]
+    }
+    
