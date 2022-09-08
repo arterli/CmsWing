@@ -1,3 +1,4 @@
 {
-  "extends": "think"
+  "extends": "eslint-config-egg",
+  "root": true
 }

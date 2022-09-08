@@ -1,0 +1,28 @@
+<!-- htmlcs-disable -->
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Editor</title>
+        <!-- <meta http-equiv="Content-Type" content="text/html" /> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />            
+    <link rel="stylesheet" href="/public/amis-editor/pkg/style_69d28d3.css" />
+</head>
+
+    <body>
+        <div id="root" class="app-wrapper"></div>    
+<script type="text/javascript" src="/public/amis-editor/pkg/rich-text_da4a21a.js"></script>
+<script src="/public/amis-editor/pkg/npm_1722957.js"></script>
+<script type="text/javascript" src="/public/amis-editor/pkg/editor.html_map_378eb65.js"></script>
+<script type="text/javascript">
+            /* @require ./index.jsx 标记为同步依赖，提前加载 */
+
+            // 备注: 需要带上自定义组件，避免移动端渲染异常
+            /* globals amis */
+            amis.require(['39ea9ea','3c5b02d','de955de'], function (editor, reactDom) {
+                editor.mountInIframe(document.getElementById('root'), reactDom);
+            });
+        </script>
+</body>
+</html>

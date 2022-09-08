@@ -1,0 +1,586 @@
+
+    
+    type SysModelsFields {
+      id:ID
+      uuid:String
+      models_uuid:String
+      name:String
+      comment:String
+      type:String
+      enumValue:String
+      uuidtype:String
+      booleantype:String
+      defaultValue:String
+      lengths:Int
+      point:Int
+      primaryKey:Boolean
+      defaulttonow:Boolean
+      allowNull:Boolean
+      where:Boolean
+      add:Boolean
+      edit:Boolean
+      autoIncrement:Boolean
+      unsigned:Boolean
+      zerofill:Boolean
+      sort:Int
+      createdAt:Date
+      updatedAt:Date
+      
+      sys_models: SysModels
+ 
+    }
+    
+    
+    input WhereSysModelsFields_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_models_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_comment {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_type {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_enumValue {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_uuidtype {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_booleantype {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_defaultValue {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_lengths {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_point {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_primaryKey {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_defaulttonow {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_allowNull {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_where {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_add {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_edit {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_autoIncrement {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_unsigned {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_zerofill {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysModelsFields_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysModelsFields{
+    id:WhereSysModelsFields_id
+      uuid:WhereSysModelsFields_uuid
+      models_uuid:WhereSysModelsFields_models_uuid
+      name:WhereSysModelsFields_name
+      comment:WhereSysModelsFields_comment
+      type:WhereSysModelsFields_type
+      enumValue:WhereSysModelsFields_enumValue
+      uuidtype:WhereSysModelsFields_uuidtype
+      booleantype:WhereSysModelsFields_booleantype
+      defaultValue:WhereSysModelsFields_defaultValue
+      lengths:WhereSysModelsFields_lengths
+      point:WhereSysModelsFields_point
+      primaryKey:WhereSysModelsFields_primaryKey
+      defaulttonow:WhereSysModelsFields_defaulttonow
+      allowNull:WhereSysModelsFields_allowNull
+      where:WhereSysModelsFields_where
+      add:WhereSysModelsFields_add
+      edit:WhereSysModelsFields_edit
+      autoIncrement:WhereSysModelsFields_autoIncrement
+      unsigned:WhereSysModelsFields_unsigned
+      zerofill:WhereSysModelsFields_zerofill
+      sort:WhereSysModelsFields_sort
+      createdAt:WhereSysModelsFields_createdAt
+      updatedAt:WhereSysModelsFields_updatedAt
+      
+    }
+
+    input WhereSysModelsFields {
+      id:WhereSysModelsFields_id
+      uuid:WhereSysModelsFields_uuid
+      models_uuid:WhereSysModelsFields_models_uuid
+      name:WhereSysModelsFields_name
+      comment:WhereSysModelsFields_comment
+      type:WhereSysModelsFields_type
+      enumValue:WhereSysModelsFields_enumValue
+      uuidtype:WhereSysModelsFields_uuidtype
+      booleantype:WhereSysModelsFields_booleantype
+      defaultValue:WhereSysModelsFields_defaultValue
+      lengths:WhereSysModelsFields_lengths
+      point:WhereSysModelsFields_point
+      primaryKey:WhereSysModelsFields_primaryKey
+      defaulttonow:WhereSysModelsFields_defaulttonow
+      allowNull:WhereSysModelsFields_allowNull
+      where:WhereSysModelsFields_where
+      add:WhereSysModelsFields_add
+      edit:WhereSysModelsFields_edit
+      autoIncrement:WhereSysModelsFields_autoIncrement
+      unsigned:WhereSysModelsFields_unsigned
+      zerofill:WhereSysModelsFields_zerofill
+      sort:WhereSysModelsFields_sort
+      createdAt:WhereSysModelsFields_createdAt
+      updatedAt:WhereSysModelsFields_updatedAt
+      
+      op_and: [WhereFieldSysModelsFields]
+      op_or: [WhereFieldSysModelsFields]
+      op_not: [WhereFieldSysModelsFields]
+    }
+    
+    
+    input AddSysModelsFields {
+    models_uuid: String!
+      name: String!
+      comment: String!
+      type: String
+      enumValue: String
+      uuidtype: String
+      booleantype: String
+      defaultValue: String
+      lengths: Int
+      point: Int
+      primaryKey: Boolean
+      defaulttonow: Boolean
+      allowNull: Boolean
+      where: Boolean
+      add: Boolean
+      edit: Boolean
+      autoIncrement: Boolean
+      unsigned: Boolean
+      zerofill: Boolean
+      sort: Int!
+      
+    }
+    
+    
+    input EditSysModelsFields {
+    models_uuid: String
+      name: String
+      comment: String
+      type: String
+      enumValue: String
+      uuidtype: String
+      booleantype: String
+      defaultValue: String
+      lengths: Int
+      point: Int
+      primaryKey: Boolean
+      defaulttonow: Boolean
+      allowNull: Boolean
+      where: Boolean
+      add: Boolean
+      edit: Boolean
+      autoIncrement: Boolean
+      unsigned: Boolean
+      zerofill: Boolean
+      sort: Int
+      
+    }
+    
+    type CountSysModelsFields {
+      count: Int
+      rows: [SysModelsFields]
+    }
+    type ResDelSysModelsFields {
+      count: Int
+    }
+    type ResEditSysModelsFields {
+      ids: [Int]
+    }
+    

@@ -1,0 +1,817 @@
+{
+  "type": "page",
+  "body": {
+    "type": "service",
+    "name":"routers",
+    "api": {
+      "method": "post",
+      "url": "/graphql",
+      "graphql": "query($order:[String]){SysRoutesClassify_findAll(order:[$order]){id,uuid,name,remarks,middleware,sys,sort}}",
+      "data": { "order": ["sort", "ASC"] }
+    },
+    "body": [
+      {
+        "type": "tabs",
+        "tabsMode": "strong",
+        "toolbar": [
+          {
+            "type": "button",
+            "label": "添加分类",
+            "icon": "fa-solid fa-plus",
+            "actionType": "dialog",
+            "dialog": {
+              "title": "添加分类",
+              "body": {
+                "type": "form",
+                "api": "/admin/sys/routes/addClassify",
+                "reload": "routers",
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "name",
+                    "required": true,
+                    "placeholder": "请输入分类名称",
+                    "label": "分类名称"
+                  },
+                  {
+                    "label": "中间件",
+                    "type": "select",
+                    "name": "middleware",
+                    "multiple": true,
+                    "source": "/admin/sys/server/getMiddleware"
+                  },
+                  {
+                    "name": "remarks",
+                    "type": "textarea",
+                    "label": "说明",
+                    "minRows": 2,
+                    "maxRows": 5
+                  },
+                  {
+                    "type": "input-number",
+                    "name": "sort",
+                    "label": "排序"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "source": "${SysRoutesClassify_findAll}",
+        "tabs": [
+          {
+            "title": "$name",
+            "reload":true,
+            "tab": [
+              {
+                "type": "card",
+                "header": false,
+                "defaultIsOpened":true,
+                "body": "说明：${remarks}，中间件：${middleware}，排序：${sort}，系统：${sys?'是':'否'}",
+                "actions": [
+                  {
+                    "type": "button",
+                    "label": "编辑",
+                    "actionType": "dialog",
+                    "className": "mr-4",
+                    "icon": "fa fa-pencil",
+                    "dialog": {
+                      "title": "编辑分类",
+                      "body": {
+                        "type": "form",
+                        "api": "/admin/sys/routes/editClassify",
+                        "reload": "routers",
+                        "body": [
+                          {
+                            "type": "input-text",
+                            "name": "name",
+                            "required": true,
+                            "placeholder": "请输入分类名称",
+                            "label": "分类名称"
+                          },
+                          {
+                            "label": "中间件",
+                            "type": "select",
+                            "name": "middleware",
+                            "multiple": true,
+                            "source": "/admin/sys/server/getMiddleware"
+                          },
+                          {
+                            "name": "remarks",
+                            "type": "textarea",
+                            "label": "说明",
+                            "minRows": 2,
+                            "maxRows": 5
+                          },
+                          {
+                            "type": "input-number",
+                            "name": "sort",
+                            "label": "排序"
+                          },
+                          {
+                            "type":"hidden",
+                            "name":"uuid"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "button",
+                    "label": "删除${sys}",
+                    "className": "mr-4",
+                    "actionType": "ajax",
+                    "confirmText": "您确认要删除 $name 吗？",
+                    "icon": "fa fa-trash",
+                    "disabledOn": "${sys}",
+                    "reload": "routers", 
+                    "api": {
+                      "url": "/graphql",
+                      "method": "post",
+                      "graphql": "mutation($uuid:ID!){SysRoutesClassify_destroy(where:{uuid:{op_eq:$uuid}}){count}}"
+                    }
+                  }
+                ]
+              },
+              {
+               
+                "type": "crud",
+                "className": "w-full",
+                "name":"routersList",
+                "draggable": true,
+                "saveOrderApi":"/admin/sys/routes/saveOrder",
+                "api":{
+                  "method": "get",
+                  "url": "/admin/sys/routes/routesList",
+                  "data": {
+                    "&": "$$",
+                    "class_uuid":"${uuid}"
+                  }
+                } ,
+                "syncLocation": false,
+                "filter": {
+                  "title": "条件搜索",
+                  "submitText": "",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "s_name",
+                      "label":"名称",
+                      "placeholder": "通过关键字搜索"
+                    }
+                  ],
+                  "actions": [
+                   
+                    {
+                      "type": "reset",
+                      "label": "重置"
+                    },
+                    {
+                      "type": "submit",
+                      "level": "primary",
+                      "label": "查询"
+                    }
+                  ]
+                },
+                "filterTogglable": true,
+                "filterDefaultVisible":false,
+                "headerToolbar": [
+                  "filter-toggler",
+                  {
+                    "type": "button",
+                    "label": "添加路由",
+                    "icon": "fa-solid fa-plus",
+                    "level":"primary",
+                    "align": "right",
+                    "actionType": "dialog",
+                    "dialog": {
+                      "title": "添加路由",
+                      "size": "lg",
+                      "body": {
+                        "type": "form",
+                        "api": "/admin/sys/routes/addRoutes",
+                        "debug":false,
+                        "body": [
+                          {
+                            "type": "group",
+                            "body": [
+                              {
+                                "type": "button-group-select",
+                                "label": "类型",
+                                "name": "sys_routes.admin",
+                                "value":false,
+                                "columnRatio": 3,
+                                "options": [
+                                  
+                                  {
+                                    "label": "页面",
+                                    "value": false
+                                  },{
+                                    "label": "路由",
+                                    "value": true
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "button-group-select",
+                                "label": "权限",
+                                "name": "sys_routes.role",
+                                "value":true,
+                                "options": [
+                                  {
+                                    "label": "添加到权限节点",
+                                    "value": true
+                                  },
+                                  {
+                                    "label": "不添加权限节点",
+                                    "value": false
+                                  }
+                                ]
+                              },
+                              {
+                                "label": "上级节点",
+                                "type": "tree-select",
+                                "name": "sys_routes.puuid",
+                                "required": true,
+                                "searchable": true,
+                                "source": "/admin/sys/routes/topRoutes?class_uuid=${uuid}"
+                              }
+                            ]
+                          },
+                          
+                          {
+                            "type": "group",
+                            "body": [
+                              {
+                                "type": "input-text",
+                                "name": "sys_routes.name",
+                                "required": true,
+                                "placeholder": "请输入名称",
+                                "label": "${sys_routes.admin?'路由':'页面'}名称"
+                              },
+                              {
+                                "type": "input-text",
+                                "name": "sys_routes.path",
+                                "label": "${sys_routes.admin?'路由':'页面'}URL",
+                                "requiredOn": "${sys_routes.admin}",
+                                "placeholder": "请输入URL"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "group",
+                            "visibleOn":"${!sys_routes.admin}",
+                            "body": [
+                              {
+                                "type": "input-group",
+                              
+                                "label": "菜单图标",
+                                "body": [
+                                  {
+                                    "type": "input-text",
+                                    "placeholder": "请输入图标",
+                                    "inputClassName": "b-r-none p-r-none",
+                                    "name": "sys_routes.icon"
+                                  },
+                                  {
+                                    "type": "button",
+                                    "label": "选择图标",
+                                    "level": "primary",
+                                    "actionType": "url",
+                                    "url": "https://fontawesome.com/search?o=r&m=free"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "input-group",
+                                "label": "页面地址",
+                                "body": [
+                                  {
+                                    "type": "select",
+                                    "name": "sys_routes.linkType",
+                                    "options": [
+                                      {
+                                        "label": "内部页面",
+                                        "value": "schemaApi"
+                                      },
+                                      {
+                                        "label": "外部地址",
+                                        "value": "link"
+                                      }
+                                    ],
+                                    "value": "schemaApi"
+                                  },
+                                  {
+                                    "type": "input-text",
+                                    "name": "sys_routes.link"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "type": "button-group-select",
+                            "label": "触发动作",
+                            "name": "sys_routes.verb",
+                            "value":"get",
+                            "visibleOn":"${sys_routes.admin}",
+                            "options": [
+                              {
+                                "label": "get",
+                                "value": "get"
+                              },
+                              {
+                                "label": "post",
+                                "value": "post"
+                              },
+                              {
+                                "label": "redirect",
+                                "value": "redirect"
+                              },
+                              {
+                                "label": "resources",
+                                "value": "resources"
+                              },
+                              {
+                                "label": "put",
+                                "value": "put"
+                              },
+                              {
+                                "label": "del",
+                                "value": "del"
+                              },
+                              {
+                                "label": "head",
+                                "value": "head"
+                              },
+                              {
+                                "label": "options",
+                                "value": "options"
+                              },
+                              {
+                                "label": "patch",
+                                "value": "patch"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "group",
+                            "visibleOn":"${sys_routes.admin}",
+                            "body": [
+                              {
+                                "label": "控制器",
+                                "type": "select",
+                                "name": "sys_routes.controller",
+                                "requiredOn": "${sys_routes.admin}",
+                                "visibleOn":"${sys_routes.admin}",
+                                "source": "/admin/sys/server/getController"
+                              },
+                              {
+                                "label": "方法",
+                                "type": "select",
+                                "name": "sys_routes.action",
+                                "requiredOn": "${sys_routes.admin}",
+                                "visibleOn":"${sys_routes.admin}",
+                                "source": "/admin/sys/server/getAction?c=${sys_routes.controller}"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "group",
+                            "visibleOn":"${sys_routes.admin}",
+                            "body": [
+                              {
+                                "label": "中间件",
+                                "type": "select",
+                                "name": "sys_routes.middleware",
+                                "multiple": true,
+                                "source": "/admin/sys/server/getMiddleware"
+                              },
+                              {
+                                "label": "排除中间件",
+                                "type": "select",
+                                "name": "sys_routes.ignoreMiddleware",
+                                "multiple": true,
+                                "source": "/admin/sys/server/getMiddleware"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "sys_routes.class_uuid",
+                            "type": "hidden",
+                            "value":"${uuid}"
+                          }
+                          
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "footerToolbar": false,
+                "columns": [
+                 
+                  {
+                    "label": "名称",
+                    "name": "name",
+                    "type": "tpl",
+                    "fixed": "left",
+                    "width": 150,
+                    "tpl":"<i class='${icon}'></i> ${name}"
+                  },
+                  {
+                    "name": "path",
+                    "label": "URL",
+                    "type": "text"
+                    
+                    
+                  },
+                 
+                  {
+                    "name": "admin",
+                    "label": "类型",
+                    "type": "mapping",
+                   
+                    "map": {
+                      "true": "<span class='label label-info'>路由</span>",
+                      "false": "<span class='label label-success'>页面</span>"
+                    }
+                   
+                  },
+                  {
+                    "name": "verb",
+                    "label": "请求",
+                    "type": "text"
+                  },
+                  {
+                    "name": "role",
+                    "label": "权限节点",
+                    "type": "status"
+                  },
+                  {
+                    "name": "controller",
+                    "label": "控制器",
+                    "type": "text"
+                  },
+                  {
+                    "name": "action",
+                    "label": "方法",
+                    "type": "text"
+                  },
+                  {
+                    "name": "middleware",
+                    "label": "中间件",
+                    "type": "text"
+                  },
+                  {
+                    "name": "ignoreMiddleware",
+                    "label": "排除中间件",
+                    "type": "text"
+                  },
+                  {
+                    "name": "linkType",
+                    "label": "页面类型",
+                    "type": "text"
+                  },
+                  {
+                    "name": "link",
+                    "label": "页面地址",
+                    "type": "text"
+                  },
+                  {
+                    "type": "operation",
+                    "label": "操作",
+                    "width": 120,
+                    "buttons": [
+                     
+                      {
+                        "type": "button",
+                        "icon": "fa fa-pencil",
+                        "tooltip": "编辑",
+                        "actionType": "dialog",
+                        "dialog": {
+                          "title": "编辑路由",
+                          "size": "lg",
+                          "body": {
+                            "type": "form",
+                            "initApi": {
+                              "method": "post",
+                              "url": "/graphql",
+                              "graphql": "query($uuid:String){SysRoutes_findOne(where:{uuid:{op_eq:$uuid}}){uuid name path icon verb middleware ignoreMiddleware controller action admin role class_uuid puuid sort linkType link }}",
+                              "data": { "uuid": "${uuid}" }
+                            },
+                            "api": "/admin/sys/routes/editRoutes",
+                            
+                            "debug":false,
+                            "body": [
+                              {
+                                "type": "group",
+                                "body": [
+                                  {
+                                    "type": "button-group-select",
+                                    "label": "类型",
+                                    "name": "SysRoutes_findOne.admin",
+                                    "value":false,
+                                    "columnRatio": 3,
+                                    "options": [
+                                      
+                                      {
+                                        "label": "页面",
+                                        "value": false
+                                      },{
+                                        "label": "路由",
+                                        "value": true
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "button-group-select",
+                                    "label": "权限",
+                                    "name": "SysRoutes_findOne.role",
+                                    "value":true,
+                                    "options": [
+                                      {
+                                        "label": "添加到权限节点",
+                                        "value": true
+                                      },
+                                      {
+                                        "label": "不添加权限节点",
+                                        "value": false
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "label": "上级节点",
+                                    "type": "tree-select",
+                                    "name": "SysRoutes_findOne.puuid",
+                                    "required": true,
+                                    "searchable": true,
+                                    "source": "/admin/sys/routes/topRoutes?class_uuid=${SysRoutes_findOne.class_uuid}"
+                                  }
+                                ]
+                              },
+                              
+                              {
+                                "type": "group",
+                                "body": [
+                                  {
+                                    "type": "input-text",
+                                    "name": "SysRoutes_findOne.name",
+                                    "required": true,
+                                    "placeholder": "请输入名称",
+                                    "label": "${SysRoutes_findOne.admin?'路由':'页面'}名称"
+                                  },
+                                  {
+                                    "type": "input-text",
+                                    "name": "SysRoutes_findOne.path",
+                                    "label": "${SysRoutes_findOne.admin?'路由':'页面'}URL",
+                                    "requiredOn": "${SysRoutes_findOne.admin}",
+                                    "placeholder": "请输入URL"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "group",
+                                "visibleOn":"${!SysRoutes_findOne.admin}",
+                                "body": [
+                                  {
+                                    "type": "input-group",
+                                  
+                                    "label": "菜单图标",
+                                    "body": [
+                                      {
+                                        "type": "input-text",
+                                        "placeholder": "请输入图标",
+                                        "inputClassName": "b-r-none p-r-none",
+                                        "name": "SysRoutes_findOne.icon"
+                                      },
+                                      {
+                                        "type": "button",
+                                        "label": "选择图标",
+                                        "level": "primary",
+                                        "actionType": "url",
+                                        "url": "https://fontawesome.com/search?o=r&m=free"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "input-group",
+                                    "label": "页面地址",
+                                    "body": [
+                                      {
+                                        "type": "select",
+                                        "name": "SysRoutes_findOne.linkType",
+                                        "options": [
+                                          {
+                                            "label": "内部页面",
+                                            "value": "schemaApi"
+                                          },
+                                          {
+                                            "label": "外部地址",
+                                            "value": "link"
+                                          }
+                                        ],
+                                        "value": "schemaApi"
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "name": "SysRoutes_findOne.link"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "button-group-select",
+                                "label": "触发动作",
+                                "name": "SysRoutes_findOne.verb",
+                                "value":"get",
+                                "visibleOn":"${SysRoutes_findOne.admin}",
+                                "options": [
+                                  {
+                                    "label": "get",
+                                    "value": "get"
+                                  },
+                                  {
+                                    "label": "post",
+                                    "value": "post"
+                                  },
+                                  {
+                                    "label": "redirect",
+                                    "value": "redirect"
+                                  },
+                                  {
+                                    "label": "resources",
+                                    "value": "resources"
+                                  },
+                                  {
+                                    "label": "put",
+                                    "value": "put"
+                                  },
+                                  {
+                                    "label": "del",
+                                    "value": "del"
+                                  },
+                                  {
+                                    "label": "head",
+                                    "value": "head"
+                                  },
+                                  {
+                                    "label": "options",
+                                    "value": "options"
+                                  },
+                                  {
+                                    "label": "patch",
+                                    "value": "patch"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "group",
+                                "visibleOn":"${SysRoutes_findOne.admin}",
+                                "body": [
+                                  {
+                                    "label": "控制器",
+                                    "type": "select",
+                                    "name": "SysRoutes_findOne.controller",
+                                    "requiredOn": "${SysRoutes_findOne.admin}",
+                                    "visibleOn":"${SysRoutes_findOne.admin}",
+                                    "source": "/admin/sys/server/getController"
+                                  },
+                                  {
+                                    "label": "方法",
+                                    "type": "select",
+                                    "name": "SysRoutes_findOne.action",
+                                    "requiredOn": "${SysRoutes_findOne.admin}",
+                                    "visibleOn":"${SysRoutes_findOne.admin}",
+                                    "source": "/admin/sys/server/getAction?c=${SysRoutes_findOne.controller}"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "group",
+                                "visibleOn":"${SysRoutes_findOne.admin}",
+                                "body": [
+                                  {
+                                    "label": "中间件",
+                                    "type": "select",
+                                    "name": "SysRoutes_findOne.middleware",
+                                    "multiple": true,
+                                    "source": "/admin/sys/server/getMiddleware"
+                                  },
+                                  {
+                                    "label": "排除中间件",
+                                    "type": "select",
+                                    "name": "SysRoutes_findOne.ignoreMiddleware",
+                                    "multiple": true,
+                                    "source": "/admin/sys/server/getMiddleware"
+                                  }
+                                ]
+                              },
+                              {
+                                "name": "SysRoutes_findOne.class_uuid",
+                                "type": "hidden"
+                              }
+                              
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "icon": "fa fa-times text-danger",
+                        "actionType": "ajax",
+                        "tooltip": "删除",
+                        "confirmText": "您确认要删除 ${name}?",
+                        "api": "get:/admin/sys/routes/delRoutes?uuid=${uuid}"
+                      },
+                      {
+                        "type": "button",
+                        "label": "编辑页面",
+                        "level": "primary",
+                        "visibleOn": "${linkType == 'schemaApi' && !admin && link!=null }",
+                        "size":"xs",
+                        "onEvent": {
+                          "click": {
+                            "actions": [
+                              {
+                                "actionType": "ajax",
+                                "args": {
+                                  "api": "${event.data.link}"
+                                }
+                              },
+                              {
+                                "actionType": "custom",
+                                "script": "window.localStorage.setItem(event.data.uuid, JSON.stringify(event.data.responseResult.responseData))"
+                              },
+                              {
+                                "actionType": "drawer",
+                                "args": {
+                                  "id": "${event.data.uuid}"
+                                },
+                                "drawer": {
+                                  "type": "drawer",
+                                  "title": false,
+                                  "width": "100%",
+                                  "bodyClassName":"pa-0",
+                                  "showCloseButton":false,
+                                  "headerClassName":"hidden",
+                                  "data": {
+                                    "id": "${id}"
+                                  },
+                                  "body": [{ "type": "iframe", "src": "/public/amis-editor/index.html#/edit/${id}" }],
+                                  "onEvent": {
+                                    "cancel": {
+                                      "actions": [
+                                        {
+                                          "actionType": "custom",
+                                          "script": "window.localStorage.removeItem(event.data.id)"
+                                        }
+                                      ]
+                                    },
+                                    "confirm":{
+                                      "actions": [
+                                        {
+                                          "actionType": "custom",
+                                          "script": "event.setData({id:event.data.id,schema:encodeURIComponent(window.localStorage.getItem(event.data.id))})"
+                                        },
+                                        {
+                                          "actionType": "ajax",
+                                          "args": {
+                                            "api": {
+                                              "url": "/admin/sys/routes/editPages",
+                                              "method": "post",
+                                              "data":{
+                                                "uuid":"${event.data.id}",
+                                                "schema":"${event.data.schema}"
+                                              }
+                                            },
+                                            "messages": {
+                                              "success": "成功了！欧耶",
+                                              "failed": "失败了呢。。"
+                                            }
+                          
+                                          }
+                                        }
+                                      ]
+                                    }
+                                    
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ],
+                    "toggled": true,
+                    "fixed": "right"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

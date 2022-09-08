@@ -1,0 +1,152 @@
+
+    
+    type SysUserRole {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      role_uuid:String
+      user_uuid:String
+      
+      sys_user: SysUser
+    sys_role: SysRole
+    
+    }
+    
+    
+    input WhereSysUserRole_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserRole_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserRole_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserRole_role_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserRole_user_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysUserRole{
+    id:WhereSysUserRole_id
+      createdAt:WhereSysUserRole_createdAt
+      updatedAt:WhereSysUserRole_updatedAt
+      role_uuid:WhereSysUserRole_role_uuid
+      user_uuid:WhereSysUserRole_user_uuid
+      
+    }
+
+    input WhereSysUserRole {
+      id:WhereSysUserRole_id
+      createdAt:WhereSysUserRole_createdAt
+      updatedAt:WhereSysUserRole_updatedAt
+      role_uuid:WhereSysUserRole_role_uuid
+      user_uuid:WhereSysUserRole_user_uuid
+      
+      op_and: [WhereFieldSysUserRole]
+      op_or: [WhereFieldSysUserRole]
+      op_not: [WhereFieldSysUserRole]
+    }
+    
+    
+    input AddSysUserRole {
+    role_uuid: String!
+      user_uuid: String!
+      
+    }
+    
+    
+    input EditSysUserRole {
+    role_uuid: String
+      user_uuid: String
+      
+    }
+    
+    type CountSysUserRole {
+      count: Int
+      rows: [SysUserRole]
+    }
+    type ResDelSysUserRole {
+      count: Int
+    }
+    type ResEditSysUserRole {
+      ids: [Int]
+    }
+    

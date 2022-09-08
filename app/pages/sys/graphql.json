@@ -1,0 +1,13 @@
+{
+  "type": "page",
+  "title": false,
+  "cssVars": {
+    "--Page-body-padding": 0
+  },
+  "css": {
+    ".cxd-AppBcn": {
+      "display": "none"
+    }
+  },
+  "body": [{ "type": "iframe", "src": "/graphql" }]
+}

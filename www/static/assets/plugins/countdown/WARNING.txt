@@ -1,3 +1,0 @@
-DO NOT DELETE 
-jquery.countdown.pack.min.js
-

@@ -1,0 +1,24 @@
+{
+  "RECORDS": [
+    {
+      "username": "admin",
+      "password": "173894bacc4b950248a50341325439ca",
+      "email": "arterli@qq.com",
+      "mobile": "18681851637",
+      "state": 1,
+      "admin": 1,
+      "group_uuid": "9decbce5-3006-482b-9c0a-c85aa534c766",
+      "uuid": "32316132-086b-44cc-baa9-419618531dff"
+    },
+    {
+      "username": "ceshi",
+      "password": "173894bacc4b950248a50341325439ca",
+      "email": "cmswing@cmswing.com",
+      "mobile": "12345678901",
+      "state": 1,
+      "admin": 0,
+      "group_uuid": "984a0cba-7e19-49a3-92b3-6aa497367a66",
+      "uuid": "19789f2a-7abc-434e-9fe1-ed66db1cf8f3"
+    }
+  ]
+}

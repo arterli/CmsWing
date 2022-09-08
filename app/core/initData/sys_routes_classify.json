@@ -1,0 +1,20 @@
+{
+  "RECORDS": [
+    {
+      "name": "后台",
+      "uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "middleware": "sys.authAdminToken,sys.rbac",
+      "remarks": "系统后台",
+      "sort": 0,
+      "sys": 1
+    },
+    {
+      "name": "前台",
+      "uuid": "dc92053d-d9cf-48ae-b0c1-6c237b5010ca",
+      "middleware": null,
+      "remarks": "系统前台",
+      "sort": 1,
+      "sys": 1
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+
+type Mutation {
+
+  #模型管理 添加
+  SysModels_create(data:AddSysModels):SysModels
+  #模型管理 删除
+  SysModels_destroy(where:WhereSysModels!):ResDelSysModels
+  #模型管理 更新
+  SysModels_update(data:EditSysModels!,where:WhereSysModels!):ResEditSysModels
+
+  #系统用户 添加
+  SysUser_create(data:AddSysUser):SysUser
+  #系统用户 删除
+  SysUser_destroy(where:WhereSysUser!):ResDelSysUser
+  #系统用户 更新
+  SysUser_update(data:EditSysUser!,where:WhereSysUser!):ResEditSysUser
+
+  #模型字段表 添加
+  SysModelsFields_create(data:AddSysModelsFields):SysModelsFields
+  #模型字段表 删除
+  SysModelsFields_destroy(where:WhereSysModelsFields!):ResDelSysModelsFields
+  #模型字段表 更新
+  SysModelsFields_update(data:EditSysModelsFields!,where:WhereSysModelsFields!):ResEditSysModelsFields
+
+  #模型索引 添加
+  SysModelsIndexes_create(data:AddSysModelsIndexes):SysModelsIndexes
+  #模型索引 删除
+  SysModelsIndexes_destroy(where:WhereSysModelsIndexes!):ResDelSysModelsIndexes
+  #模型索引 更新
+  SysModelsIndexes_update(data:EditSysModelsIndexes!,where:WhereSysModelsIndexes!):ResEditSysModelsIndexes
+
+  #模型关联 添加
+  SysModelsAssociate_create(data:AddSysModelsAssociate):SysModelsAssociate
+  #模型关联 删除
+  SysModelsAssociate_destroy(where:WhereSysModelsAssociate!):ResDelSysModelsAssociate
+  #模型关联 更新
+  SysModelsAssociate_update(data:EditSysModelsAssociate!,where:WhereSysModelsAssociate!):ResEditSysModelsAssociate
+
+  #路由管理 添加
+  SysRoutes_create(data:AddSysRoutes):SysRoutes
+  #路由管理 删除
+  SysRoutes_destroy(where:WhereSysRoutes!):ResDelSysRoutes
+  #路由管理 更新
+  SysRoutes_update(data:EditSysRoutes!,where:WhereSysRoutes!):ResEditSysRoutes
+
+  #路由分类 添加
+  SysRoutesClassify_create(data:AddSysRoutesClassify):SysRoutesClassify
+  #路由分类 删除
+  SysRoutesClassify_destroy(where:WhereSysRoutesClassify!):ResDelSysRoutesClassify
+  #路由分类 更新
+  SysRoutesClassify_update(data:EditSysRoutesClassify!,where:WhereSysRoutesClassify!):ResEditSysRoutesClassify
+
+  #系统用户组 添加
+  SysUserGroup_create(data:AddSysUserGroup):SysUserGroup
+  #系统用户组 删除
+  SysUserGroup_destroy(where:WhereSysUserGroup!):ResDelSysUserGroup
+  #系统用户组 更新
+  SysUserGroup_update(data:EditSysUserGroup!,where:WhereSysUserGroup!):ResEditSysUserGroup
+
+  #角色表 添加
+  SysRole_create(data:AddSysRole):SysRole
+  #角色表 删除
+  SysRole_destroy(where:WhereSysRole!):ResDelSysRole
+  #角色表 更新
+  SysRole_update(data:EditSysRole!,where:WhereSysRole!):ResEditSysRole
+
+  #用户角色中间表 添加
+  SysUserRole_create(data:AddSysUserRole):SysUserRole
+  #用户角色中间表 删除
+  SysUserRole_destroy(where:WhereSysUserRole!):ResDelSysUserRole
+  #用户角色中间表 更新
+  SysUserRole_update(data:EditSysUserRole!,where:WhereSysUserRole!):ResEditSysUserRole
+
+  #开放接口 添加
+  SysOpenApi_create(data:AddSysOpenApi):SysOpenApi
+  #开放接口 删除
+  SysOpenApi_destroy(where:WhereSysOpenApi!):ResDelSysOpenApi
+  #开放接口 更新
+  SysOpenApi_update(data:EditSysOpenApi!,where:WhereSysOpenApi!):ResEditSysOpenApi
+
+}

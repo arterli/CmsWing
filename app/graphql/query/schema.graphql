@@ -1,0 +1,103 @@
+
+type Query {
+
+  #模型管理 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysModels_findAll(where:WhereSysModels,order:[[String]],limit:Int,offset:Int):[SysModels]
+  #模型管理 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysModels_findByPk(id:ID!):SysModels
+  #模型管理 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysModels_findOne(where:WhereSysModels):SysModels
+  #模型管理 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysModels_findAndCountAll(where:WhereSysModels,order:[[String]],limit:Int!,offset:Int!):CountSysModels
+
+  #系统用户 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysUser_findAll(where:WhereSysUser,order:[[String]],limit:Int,offset:Int):[SysUser]
+  #系统用户 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysUser_findByPk(id:ID!):SysUser
+  #系统用户 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysUser_findOne(where:WhereSysUser):SysUser
+  #系统用户 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysUser_findAndCountAll(where:WhereSysUser,order:[[String]],limit:Int!,offset:Int!):CountSysUser
+
+  #模型字段表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysModelsFields_findAll(where:WhereSysModelsFields,order:[[String]],limit:Int,offset:Int):[SysModelsFields]
+  #模型字段表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysModelsFields_findByPk(id:ID!):SysModelsFields
+  #模型字段表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysModelsFields_findOne(where:WhereSysModelsFields):SysModelsFields
+  #模型字段表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysModelsFields_findAndCountAll(where:WhereSysModelsFields,order:[[String]],limit:Int!,offset:Int!):CountSysModelsFields
+
+  #模型索引 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysModelsIndexes_findAll(where:WhereSysModelsIndexes,order:[[String]],limit:Int,offset:Int):[SysModelsIndexes]
+  #模型索引 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysModelsIndexes_findByPk(id:ID!):SysModelsIndexes
+  #模型索引 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysModelsIndexes_findOne(where:WhereSysModelsIndexes):SysModelsIndexes
+  #模型索引 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysModelsIndexes_findAndCountAll(where:WhereSysModelsIndexes,order:[[String]],limit:Int!,offset:Int!):CountSysModelsIndexes
+
+  #模型关联 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysModelsAssociate_findAll(where:WhereSysModelsAssociate,order:[[String]],limit:Int,offset:Int):[SysModelsAssociate]
+  #模型关联 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysModelsAssociate_findByPk(id:ID!):SysModelsAssociate
+  #模型关联 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysModelsAssociate_findOne(where:WhereSysModelsAssociate):SysModelsAssociate
+  #模型关联 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysModelsAssociate_findAndCountAll(where:WhereSysModelsAssociate,order:[[String]],limit:Int!,offset:Int!):CountSysModelsAssociate
+
+  #路由管理 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysRoutes_findAll(where:WhereSysRoutes,order:[[String]],limit:Int,offset:Int):[SysRoutes]
+  #路由管理 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysRoutes_findByPk(id:ID!):SysRoutes
+  #路由管理 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysRoutes_findOne(where:WhereSysRoutes):SysRoutes
+  #路由管理 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysRoutes_findAndCountAll(where:WhereSysRoutes,order:[[String]],limit:Int!,offset:Int!):CountSysRoutes
+
+  #路由分类 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysRoutesClassify_findAll(where:WhereSysRoutesClassify,order:[[String]],limit:Int,offset:Int):[SysRoutesClassify]
+  #路由分类 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysRoutesClassify_findByPk(id:ID!):SysRoutesClassify
+  #路由分类 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysRoutesClassify_findOne(where:WhereSysRoutesClassify):SysRoutesClassify
+  #路由分类 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysRoutesClassify_findAndCountAll(where:WhereSysRoutesClassify,order:[[String]],limit:Int!,offset:Int!):CountSysRoutesClassify
+
+  #系统用户组 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysUserGroup_findAll(where:WhereSysUserGroup,order:[[String]],limit:Int,offset:Int):[SysUserGroup]
+  #系统用户组 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysUserGroup_findByPk(id:ID!):SysUserGroup
+  #系统用户组 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysUserGroup_findOne(where:WhereSysUserGroup):SysUserGroup
+  #系统用户组 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysUserGroup_findAndCountAll(where:WhereSysUserGroup,order:[[String]],limit:Int!,offset:Int!):CountSysUserGroup
+
+  #角色表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysRole_findAll(where:WhereSysRole,order:[[String]],limit:Int,offset:Int):[SysRole]
+  #角色表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysRole_findByPk(id:ID!):SysRole
+  #角色表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysRole_findOne(where:WhereSysRole):SysRole
+  #角色表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysRole_findAndCountAll(where:WhereSysRole,order:[[String]],limit:Int!,offset:Int!):CountSysRole
+
+  #用户角色中间表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysUserRole_findAll(where:WhereSysUserRole,order:[[String]],limit:Int,offset:Int):[SysUserRole]
+  #用户角色中间表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysUserRole_findByPk(id:ID!):SysUserRole
+  #用户角色中间表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysUserRole_findOne(where:WhereSysUserRole):SysUserRole
+  #用户角色中间表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysUserRole_findAndCountAll(where:WhereSysUserRole,order:[[String]],limit:Int!,offset:Int!):CountSysUserRole
+
+  #开放接口 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysOpenApi_findAll(where:WhereSysOpenApi,order:[[String]],limit:Int,offset:Int):[SysOpenApi]
+  #开放接口 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysOpenApi_findByPk(id:ID!):SysOpenApi
+  #开放接口 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysOpenApi_findOne(where:WhereSysOpenApi):SysOpenApi
+  #开放接口 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysOpenApi_findAndCountAll(where:WhereSysOpenApi,order:[[String]],limit:Int!,offset:Int!):CountSysOpenApi
+
+}

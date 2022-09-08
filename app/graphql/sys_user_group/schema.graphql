@@ -1,0 +1,220 @@
+
+    
+    type SysUserGroup {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      name:String
+      uuid:String
+      desc:String
+      puuid:String
+      sort:Int
+      
+      sys_user(order:[[String]],limit:Int,offset:Int): [SysUser]
+
+    }
+    
+    
+    input WhereSysUserGroup_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_desc {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_puuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysUserGroup_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysUserGroup{
+    id:WhereSysUserGroup_id
+      createdAt:WhereSysUserGroup_createdAt
+      updatedAt:WhereSysUserGroup_updatedAt
+      name:WhereSysUserGroup_name
+      uuid:WhereSysUserGroup_uuid
+      desc:WhereSysUserGroup_desc
+      puuid:WhereSysUserGroup_puuid
+      sort:WhereSysUserGroup_sort
+      
+    }
+
+    input WhereSysUserGroup {
+      id:WhereSysUserGroup_id
+      createdAt:WhereSysUserGroup_createdAt
+      updatedAt:WhereSysUserGroup_updatedAt
+      name:WhereSysUserGroup_name
+      uuid:WhereSysUserGroup_uuid
+      desc:WhereSysUserGroup_desc
+      puuid:WhereSysUserGroup_puuid
+      sort:WhereSysUserGroup_sort
+      
+      op_and: [WhereFieldSysUserGroup]
+      op_or: [WhereFieldSysUserGroup]
+      op_not: [WhereFieldSysUserGroup]
+    }
+    
+    
+    input AddSysUserGroup {
+    name: String!
+      uuid: String!
+      desc: String
+      puuid: String
+      sort: Int
+      
+    }
+    
+    
+    input EditSysUserGroup {
+    name: String
+      uuid: String
+      desc: String
+      puuid: String
+      sort: Int
+      
+    }
+    
+    type CountSysUserGroup {
+      count: Int
+      rows: [SysUserGroup]
+    }
+    type ResDelSysUserGroup {
+      count: Int
+    }
+    type ResEditSysUserGroup {
+      ids: [Int]
+    }
+    

@@ -1,0 +1,235 @@
+{
+  "type": "wrapper",
+  "body": [
+    {
+      "type": "alert",
+      "body": "默认情况下会自动向每个模型添加 主键[id]、创建时间[createdAt] 和 更新时间[updatedAt] 字段，因此您无需手动添加这三个字段",
+      "level": "warning",
+      "showIcon": true,
+      "className": "mb-1"
+    },
+    {
+    "type": "form",
+    "debug": false,
+    "name": "fileds",
+    "mode": "horizontal",
+    "title": "${name}[${desc}]",
+    "initApi": {
+      "method": "post",
+      "url": "/graphql",
+      "graphql": "query($id:ID!,$order:[String]){SysModels_findByPk(id:$id){id name desc m_uuid:uuid sys_models_fields(order:[$order]){name,primaryKey,allowNull,where,add,edit,autoIncrement,unsigned,zerofill,type,comment,defaultValue,lengths,point,models_uuid,uuid,defaulttonow,uuidtype,booleantype,enumValue}}}",
+      "data": {
+        "id": "${models_id}",
+        "order": ["sort", "asc"]
+      },
+      "responseData": {
+        "&": "${SysModels_findByPk}"
+      }
+    },
+    "api": "/admin/sys/models/updateFields",
+    "body": [
+      {
+        "type": "combo",
+        "name": "sys_models_fields",
+        "label": false,
+        "multiple": true,
+        "multiLine": true,
+        "deleteBtn": {
+          "type": "button",
+          "label": false,
+          "icon": "fa-solid fa-trash-can",
+          "tooltip": "删除",
+          "tooltipPlacement": "top"
+        },
+        "draggable": true,
+        "items": [
+          {
+            "type": "group",
+            "mode": "inline",
+            "body": [
+              {
+                "name": "name",
+                "label": "字段",
+                "type": "input-text",
+                "placeholder": "字段名",
+                "required": true,
+                "unique": true,
+                "size": "sm"
+              },
+              {
+                "name": "comment",
+                "label": "说明",
+                "type": "input-text",
+                "placeholder": "说明",
+                "required": true,
+                "size": "md"
+              },
+              {
+                "name": "primaryKey",
+                "type": "checkbox",
+                "label": false,
+                "option": "主键",
+                "value": false
+              },
+              {
+                "name": "allowNull",
+                "type": "checkbox",
+                "label": false,
+                "option": "必填",
+                "value": false
+              },
+              {
+                "name": "where",
+                "type": "checkbox",
+                "label": false,
+                "option": "查询",
+                "value": true
+              },
+              {
+                "name": "add",
+                "type": "checkbox",
+                "label": false,
+                "option": "增加",
+                "value": true
+              },
+              {
+                "name": "edit",
+                "type": "checkbox",
+                "label": false,
+                "option": "修改",
+                "value": true
+              }
+            ]
+          },
+          {
+            "type": "group",
+            "mode": "inline",
+            "body": [
+              {
+                "name": "type",
+                "type": "select",
+                "placeholder": "请选择类型",
+                "required": true,
+                "label": "类型",
+                "size": "sm",
+                "options": [
+                  "STRING",
+                  "TEXT",
+                  "BOOLEAN",
+                  "INTEGER",
+                  "BIGINT",
+                  "FLOAT",
+                  "DOUBLE",
+                  "DECIMAL",
+                  "ENUM",
+                  "DATE",
+                  "DATEONLY",
+                  "UUID",
+                  "JSON"
+                ]
+              },
+              {
+                "name": "defaultValue",
+                "label": "默认",
+                "type": "input-text",
+                "placeholder": "默认值",
+                "size": "sm",
+                "visibleOn": "${OR(type==='STRING',type==='INTEGER',type==='BIGINT',type==='FLOAT',type==='DECIMAL',type==='DOUBLE',type==='ENUM')}"
+              },
+              {
+                "name": "defaulttonow",
+                "type": "checkbox",
+                "label": false,
+                "option": "默认当前时间",
+                "value": false,
+                "visibleOn": "${OR(type==='DATE')}"
+              },
+              {
+                "name": "uuidtype",
+                "type": "select",
+                "placeholder": "请选择类型",
+                "label": "UUID类型",
+                "size": "sm",
+                "options": ["none", "UUIDV1", "UUIDV4"],
+                "visibleOn": "${OR(type==='UUID')}"
+              },
+              {
+                "name": "booleantype",
+                "type": "select",
+                "placeholder": "请选择类型",
+                "label": "BOOLEAN类型",
+                "size": "sm",
+                "options": ["true", "false"],
+                "visibleOn": "${OR(type==='BOOLEAN')}"
+              },
+              {
+                "name": "enumValue",
+                "type": "textarea",
+                "label": "枚举值",
+                "placeholder": "请输入",
+                "clearable": true,
+                "size": "lg",
+                "minRows":1,
+                "maxRows":3,
+                "visibleOn": "${OR(type==='ENUM')}"
+              },
+              {
+                "type": "input-number",
+                "name": "lengths",
+                "placeholder": "长度",
+                "label": "长度",
+                "size": "xs",
+                "visibleOn": "${OR(type==='STRING',type==='BIGINT',type==='FLOAT',type==='DECIMAL',type==='DOUBLE',type==='DATE')}"
+              },
+  
+              {
+                "name": "point",
+                "type": "input-number",
+                "placeholder": "小数点",
+                "label": "小数",
+                "size": "xs",
+                "visibleOn": "${OR(type==='FLOAT',type==='DECIMAL',type==='DOUBLE')}"
+              },
+              {
+                "name": "autoIncrement",
+                "type": "checkbox",
+                "label": false,
+                "option": "自动递增",
+                "value": false,
+                "visibleOn": "${OR(type==='INTEGER',type==='BIGINT',type==='FLOAT',type==='DOUBLE')}"
+              },
+              {
+                "name": "unsigned",
+                "type": "checkbox",
+                "label": false,
+                "option": "无符号",
+                "value": false,
+                "visibleOn": "${OR(type==='INTEGER',type==='BIGINT',type==='FLOAT',type==='DECIMAL',type==='DOUBLE')}"
+              },
+              {
+                "name": "zerofill",
+                "type": "checkbox",
+                "label": false,
+                "option": "零填充",
+                "value": false,
+                "visibleOn": "${OR(type==='INTEGER',type==='BIGINT',type==='FLOAT',type==='DECIMAL',type==='DOUBLE')}"
+              },
+              {
+                "type": "hidden",
+                "name": "models_uuid",
+                "value": "${m_uuid}"
+              },
+              {
+                "type": "hidden",
+                "name": "uuid",
+                "value": "${uuid}"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  ],
+  "size": "none"
+}

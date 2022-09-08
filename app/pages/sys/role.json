@@ -1,0 +1,191 @@
+{
+  "type": "page",
+  "title": "",
+  "body": [
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": "/admin/sys/role/roleList",
+      "columns": [
+        { "name": "id", "label": "ID", "type": "text", "id": "u:95335406ebd3" },
+        {
+          "name": "name",
+          "label": "名称",
+          "type": "text",
+          "searchable": true,
+          "id": "u:f34d9f6f5cee"
+        },
+        {
+          "type": "text",
+          "label": "备注",
+          "name": "desc",
+          "id": "u:854f814f9940"
+        },
+        {
+          "type": "date",
+          "label": "创建时间",
+          "name": "createdAt",
+          "id": "u:8fbb85400f10"
+        },
+        {
+          "type": "date",
+          "label": "修改时间",
+          "name": "updatedAt",
+          "id": "u:62a4096c5018"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "dialog": {
+                "title": "编辑角色",
+                "size": "lg",
+                "body": {
+                  "type": "form",
+                  "api": "/admin/sys/role/update",
+                  "body": [
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "type": "input-text",
+                          "name": "name",
+                          "label": "角色名称",
+                          "columnRatio": 4,
+                          "required":true
+                        },
+                        {
+                          "type": "input-text",
+                          "name": "desc",
+                          "label": "角色备注",
+                          "required":true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "type": "input-tree",
+                          "name": "r_uuids",
+                          "label": "路由权限",
+                          "multiple": true,
+                          "cascade": true,
+                          "source": "/admin/sys/role/routingNode",
+                          "required":true
+                        },
+                        {
+                          "type": "input-tree",
+                          "name": "g_uuids",
+                          "label": "GraphQL",
+                          "multiple": true,
+                          "cascade": true,
+                          "source": "/admin/sys/role/graphQL",
+                          "required":true
+                        }
+                      ]
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "uuid"
+                    }
+                  ]
+                }
+              },
+              "id": "u:fc9b3f3483b3"
+            },
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要删除？",
+              "api": "get:/admin/sys/role/del?uuid=${uuid}",
+              "id": "u:fa399127d4ac"
+            }
+          ],
+          "id": "u:170bf3ee1894"
+        }
+      ],
+      "bulkActions": [],
+      "itemActions": [],
+      "features": ["filter", "update", "delete", "create"],
+      "filterColumnCount": 3,
+      "headerToolbar": [
+        {
+          "label": "新增角色",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "dialog": {
+            "title": "新增角色",
+            "size": "lg",
+            "body": {
+              "type": "form",
+              "debug": false,
+              "api": { "method": "post", "url": "/admin/sys/role/addRole" },
+              "body": [
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "name",
+                      "label": "角色名称",
+                      "columnRatio": 4,
+                      "required":true
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "desc",
+                      "label": "角色备注",
+                      "required":true
+                    }
+                  ]
+                },
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "type": "input-tree",
+                      "name": "r_uuids",
+                      "label": "路由权限",
+                      "multiple": true,
+                      "cascade": true,
+                      "source": "/admin/sys/role/routingNode",
+                      "required":true
+                    },
+                    {
+                      "type": "input-tree",
+                      "name": "g_uuids",
+                      "label": "GraphQL",
+                      "multiple": true,
+                      "cascade": true,
+                      "source": "/admin/sys/role/graphQL",
+                      "required":true
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "id": "u:d6d1df93f57f"
+        },
+        "bulkActions"
+      ],
+      "id": "u:4d4883b970f6",
+      "perPageAvailable": [10],
+      "messages": {},
+      "initFetch": true
+    }
+  ],
+  "id": "u:03208fb1fc17",
+  "messages": {},
+  "pullRefresh": {}
+}

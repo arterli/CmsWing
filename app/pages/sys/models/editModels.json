@@ -1,0 +1,64 @@
+{
+  "type": "form",
+  "name": "editModels",
+  "title":"${name}[${desc}]",
+  "initApi": {
+    "method": "post",
+    "url": "/graphql",
+    "graphql": "query($id:ID!){SysModels_findByPk(id:$id){id name desc paranoid}}",
+    "data": {
+      "id": "${models_id}"
+    },
+    "responseData": {
+      "&": "${SysModels_findByPk}",
+      "oldName":"${SysModels_findByPk.name}"
+    }
+  },
+  "api": {
+    "url": "/graphql",
+    "method": "post",
+    "graphql": "mutation($name:String,$desc:String,$paranoid:Boolean,$id:ID!,$oldName:String){SysModels_update(data:{name:$name,desc:$desc,paranoid:$paranoid,oldName:$oldName},where:{id:{op_eq:$id}}){ids}}"
+  },
+  "body": [
+    {
+      "type": "input-text",
+      "name": "name",
+      "label": "模型名称",
+      "required": true,
+      "description": "命名格式 模块名_表名 例如:sys_models,修改模型名称会导致实体模型名称改变,影响所有调用模型的接口，非必要请不要随意修改！"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "input-text",
+      "name": "desc",
+      "label": "模型描述",
+      "required": true,
+      "description": "模型说明"
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "name": "paranoid",
+      "type": "switch",
+      "label": "偏执表",
+      "value": false,
+      "labelRemark": "paranoid",
+      "description": "Sequelize 支持 paranoid 表的概念. 一个 paranoid 表是一个被告知删除记录时不会真正删除它的表.反而一个名为 deletedAt 的特殊列会将其值设置为该删除请求的时间戳."
+    },
+    {
+      "type": "input-text",
+      "label": "id",
+      "name": "id",
+      "hidden": true
+    },
+    {
+      "type": "input-text",
+      "label": "oldName",
+      "name": "oldName",
+      "hidden": true
+    }
+  ]
+}
