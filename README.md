@@ -13,7 +13,7 @@ see [egg docs][egg] for more detail.
 ### 启动说明
 git clone 到本地后，进入项目根目录
 #### 修改数据库
-/congfig/sequelize.js
+/config/sequelize.js
 ```bash
 {
   dialect: 'mysql',
