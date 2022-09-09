@@ -1,5 +1,5 @@
 # 重要说明
-基础框架已经开放完成，文档和新官网近期发布。。。
+基础框架已经开发完成，文档和新官网近期发布。。。
 # CmsWing
 
 CmsWing 2.0
@@ -35,12 +35,12 @@ $ open http://localhost:7001/
 启动项目后会自动生成表结构，和初始化信息。
 ### 后台登录
 
-后台地址：http://localhost:7001/admin
-账号：admin
-密码：123456
+后台地址：http://localhost:7001/admin  
+账号：admin  
+密码：123456  
 
 ### 技术栈
-egg https://www.eggjs.org/
-amis https://aisuda.bce.baidu.com/amis/zh-CN/docs/index
-sequelize https://www.sequelize.cn/
-graphql https://graphql.cn/
+egg https://www.eggjs.org/  
+amis https://aisuda.bce.baidu.com/amis/zh-CN/docs/index  
+sequelize https://www.sequelize.cn/  
+graphql https://graphql.cn/  
