@@ -13,7 +13,8 @@
       updatedAt:Date
       uuid:String
       
-      sys_user_group: SysUserGroup
+      cms_doc(order:[[String]],limit:Int,offset:Int): [CmsDoc]
+sys_user_group: SysUserGroup
  sys_user_role(order:[[String]],limit:Int,offset:Int): [SysUserRole]
     
     }

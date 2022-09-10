@@ -1,0 +1,500 @@
+
+    
+    type CmsDoc {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      user_uuid:String
+      title:String
+      classify_id:Int
+      classify_sub:String
+      description:String
+      root:Int
+      pid:Int
+      models_uuid:String
+      type:Int
+      position:String
+      ext_link:String
+      cover_url:String
+      display:Boolean
+      deadline:Date
+      view:Int
+      level:Int
+      status:Int
+      
+      cms_doc_article: CmsDocArticle
+cms_doc_download: CmsDocDownload
+cms_doc_picture: CmsDocPicture
+cms_classify: CmsClassify
+ sys_user: SysUser
+ 
+    }
+    
+    
+    input WhereCmsDoc_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_user_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_title {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_classify_id {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_classify_sub {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_description {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_root {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_pid {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_models_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_type {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_position {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_ext_link {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_cover_url {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_display {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_deadline {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_view {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_level {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_status {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsDoc{
+    id:WhereCmsDoc_id
+      createdAt:WhereCmsDoc_createdAt
+      updatedAt:WhereCmsDoc_updatedAt
+      user_uuid:WhereCmsDoc_user_uuid
+      title:WhereCmsDoc_title
+      classify_id:WhereCmsDoc_classify_id
+      classify_sub:WhereCmsDoc_classify_sub
+      description:WhereCmsDoc_description
+      root:WhereCmsDoc_root
+      pid:WhereCmsDoc_pid
+      models_uuid:WhereCmsDoc_models_uuid
+      type:WhereCmsDoc_type
+      position:WhereCmsDoc_position
+      ext_link:WhereCmsDoc_ext_link
+      cover_url:WhereCmsDoc_cover_url
+      display:WhereCmsDoc_display
+      deadline:WhereCmsDoc_deadline
+      view:WhereCmsDoc_view
+      level:WhereCmsDoc_level
+      status:WhereCmsDoc_status
+      
+    }
+
+    input WhereCmsDoc {
+      id:WhereCmsDoc_id
+      createdAt:WhereCmsDoc_createdAt
+      updatedAt:WhereCmsDoc_updatedAt
+      user_uuid:WhereCmsDoc_user_uuid
+      title:WhereCmsDoc_title
+      classify_id:WhereCmsDoc_classify_id
+      classify_sub:WhereCmsDoc_classify_sub
+      description:WhereCmsDoc_description
+      root:WhereCmsDoc_root
+      pid:WhereCmsDoc_pid
+      models_uuid:WhereCmsDoc_models_uuid
+      type:WhereCmsDoc_type
+      position:WhereCmsDoc_position
+      ext_link:WhereCmsDoc_ext_link
+      cover_url:WhereCmsDoc_cover_url
+      display:WhereCmsDoc_display
+      deadline:WhereCmsDoc_deadline
+      view:WhereCmsDoc_view
+      level:WhereCmsDoc_level
+      status:WhereCmsDoc_status
+      
+      op_and: [WhereFieldCmsDoc]
+      op_or: [WhereFieldCmsDoc]
+      op_not: [WhereFieldCmsDoc]
+    }
+    
+    
+    input AddCmsDoc {
+    user_uuid: String
+      title: String
+      classify_id: Int
+      classify_sub: String
+      description: String
+      root: Int
+      pid: Int
+      models_uuid: String!
+      type: Int!
+      position: String
+      ext_link: String
+      cover_url: String
+      display: Boolean
+      deadline: Date
+      view: Int
+      level: Int
+      status: Int
+      
+    }
+    
+    
+    input EditCmsDoc {
+    user_uuid: String
+      title: String
+      classify_id: Int
+      classify_sub: String
+      description: String
+      root: Int
+      pid: Int
+      models_uuid: String
+      type: Int
+      position: String
+      ext_link: String
+      cover_url: String
+      display: Boolean
+      deadline: Date
+      view: Int
+      level: Int
+      status: Int
+      
+    }
+    
+    type CountCmsDoc {
+      count: Int
+      rows: [CmsDoc]
+    }
+    type ResDelCmsDoc {
+      count: Int
+    }
+    type ResEditCmsDoc {
+      ids: [Int]
+    }
+    

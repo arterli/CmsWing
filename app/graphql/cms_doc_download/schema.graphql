@@ -1,0 +1,174 @@
+
+    
+    type CmsDocDownload {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      doc_id:Int
+      content:String
+      template:String
+      
+      cms_doc: CmsDoc
+ 
+    }
+    
+    
+    input WhereCmsDocDownload_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocDownload_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocDownload_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocDownload_doc_id {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocDownload_content {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocDownload_template {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsDocDownload{
+    id:WhereCmsDocDownload_id
+      createdAt:WhereCmsDocDownload_createdAt
+      updatedAt:WhereCmsDocDownload_updatedAt
+      doc_id:WhereCmsDocDownload_doc_id
+      content:WhereCmsDocDownload_content
+      template:WhereCmsDocDownload_template
+      
+    }
+
+    input WhereCmsDocDownload {
+      id:WhereCmsDocDownload_id
+      createdAt:WhereCmsDocDownload_createdAt
+      updatedAt:WhereCmsDocDownload_updatedAt
+      doc_id:WhereCmsDocDownload_doc_id
+      content:WhereCmsDocDownload_content
+      template:WhereCmsDocDownload_template
+      
+      op_and: [WhereFieldCmsDocDownload]
+      op_or: [WhereFieldCmsDocDownload]
+      op_not: [WhereFieldCmsDocDownload]
+    }
+    
+    
+    input AddCmsDocDownload {
+    doc_id: Int!
+      content: String
+      template: String
+      
+    }
+    
+    
+    input EditCmsDocDownload {
+    doc_id: Int
+      content: String
+      template: String
+      
+    }
+    
+    type CountCmsDocDownload {
+      count: Int
+      rows: [CmsDocDownload]
+    }
+    type ResDelCmsDocDownload {
+      count: Int
+    }
+    type ResEditCmsDocDownload {
+      ids: [Int]
+    }
+    

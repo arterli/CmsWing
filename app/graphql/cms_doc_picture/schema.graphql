@@ -1,0 +1,174 @@
+
+    
+    type CmsDocPicture {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      doc_id:Int
+      content:String
+      template:String
+      
+      cms_doc: CmsDoc
+ 
+    }
+    
+    
+    input WhereCmsDocPicture_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocPicture_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocPicture_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocPicture_doc_id {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocPicture_content {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDocPicture_template {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsDocPicture{
+    id:WhereCmsDocPicture_id
+      createdAt:WhereCmsDocPicture_createdAt
+      updatedAt:WhereCmsDocPicture_updatedAt
+      doc_id:WhereCmsDocPicture_doc_id
+      content:WhereCmsDocPicture_content
+      template:WhereCmsDocPicture_template
+      
+    }
+
+    input WhereCmsDocPicture {
+      id:WhereCmsDocPicture_id
+      createdAt:WhereCmsDocPicture_createdAt
+      updatedAt:WhereCmsDocPicture_updatedAt
+      doc_id:WhereCmsDocPicture_doc_id
+      content:WhereCmsDocPicture_content
+      template:WhereCmsDocPicture_template
+      
+      op_and: [WhereFieldCmsDocPicture]
+      op_or: [WhereFieldCmsDocPicture]
+      op_not: [WhereFieldCmsDocPicture]
+    }
+    
+    
+    input AddCmsDocPicture {
+    doc_id: Int!
+      content: String
+      template: String
+      
+    }
+    
+    
+    input EditCmsDocPicture {
+    doc_id: Int
+      content: String
+      template: String
+      
+    }
+    
+    type CountCmsDocPicture {
+      count: Int
+      rows: [CmsDocPicture]
+    }
+    type ResDelCmsDocPicture {
+      count: Int
+    }
+    type ResEditCmsDocPicture {
+      ids: [Int]
+    }
+    

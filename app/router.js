@@ -14,6 +14,8 @@ module.exports = app => {
   router.get('/admin/logout', app.middleware.sys.authAdminToken(), controller.sys.index.logout);
   router.post('/graphql', controller.sys.index.graphql);
   router.post('/graphql/:model', controller.sys.index.graphql);
+  router.post('/upload', controller.sys.upload.index);
+  router.post('/upload/:sessionKey', controller.sys.upload.index);
   router.get(/^\/pages\/(.*)$/, app.middleware.sys.authAdminToken(), controller.sys.index.getJson);
   router.get('/admin/site.json', app.middleware.sys.authAdminToken(), controller.sys.index.site);
   router.get('/admin/sys/server/getMiddleware', app.middleware.sys.authAdminToken(), controller.sys.server.getMiddleware);

@@ -1,0 +1,565 @@
+
+    
+    type CmsClassify {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      name:String
+      title:String
+      pid:Int
+      sort:Int
+      list_row:Int
+      meta_title:String
+      keywords:String
+      description:String
+      template_index:String
+      template_lists:String
+      template_detail:String
+      models_uuid:String
+      type:String
+      allow_publish:Int
+      display:Int
+      reply:Boolean
+      check:Boolean
+      sub:String
+      status:Boolean
+      icon:String
+      
+      cms_doc(order:[[String]],limit:Int,offset:Int): [CmsDoc]
+
+    }
+    
+    
+    input WhereCmsClassify_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_title {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_pid {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_list_row {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_meta_title {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_keywords {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_description {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_template_index {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_template_lists {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_template_detail {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_models_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_type {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_allow_publish {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_display {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_reply {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_check {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_sub {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_status {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsClassify_icon {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsClassify{
+    id:WhereCmsClassify_id
+      createdAt:WhereCmsClassify_createdAt
+      updatedAt:WhereCmsClassify_updatedAt
+      name:WhereCmsClassify_name
+      title:WhereCmsClassify_title
+      pid:WhereCmsClassify_pid
+      sort:WhereCmsClassify_sort
+      list_row:WhereCmsClassify_list_row
+      meta_title:WhereCmsClassify_meta_title
+      keywords:WhereCmsClassify_keywords
+      description:WhereCmsClassify_description
+      template_index:WhereCmsClassify_template_index
+      template_lists:WhereCmsClassify_template_lists
+      template_detail:WhereCmsClassify_template_detail
+      models_uuid:WhereCmsClassify_models_uuid
+      type:WhereCmsClassify_type
+      allow_publish:WhereCmsClassify_allow_publish
+      display:WhereCmsClassify_display
+      reply:WhereCmsClassify_reply
+      check:WhereCmsClassify_check
+      sub:WhereCmsClassify_sub
+      status:WhereCmsClassify_status
+      icon:WhereCmsClassify_icon
+      
+    }
+
+    input WhereCmsClassify {
+      id:WhereCmsClassify_id
+      createdAt:WhereCmsClassify_createdAt
+      updatedAt:WhereCmsClassify_updatedAt
+      name:WhereCmsClassify_name
+      title:WhereCmsClassify_title
+      pid:WhereCmsClassify_pid
+      sort:WhereCmsClassify_sort
+      list_row:WhereCmsClassify_list_row
+      meta_title:WhereCmsClassify_meta_title
+      keywords:WhereCmsClassify_keywords
+      description:WhereCmsClassify_description
+      template_index:WhereCmsClassify_template_index
+      template_lists:WhereCmsClassify_template_lists
+      template_detail:WhereCmsClassify_template_detail
+      models_uuid:WhereCmsClassify_models_uuid
+      type:WhereCmsClassify_type
+      allow_publish:WhereCmsClassify_allow_publish
+      display:WhereCmsClassify_display
+      reply:WhereCmsClassify_reply
+      check:WhereCmsClassify_check
+      sub:WhereCmsClassify_sub
+      status:WhereCmsClassify_status
+      icon:WhereCmsClassify_icon
+      
+      op_and: [WhereFieldCmsClassify]
+      op_or: [WhereFieldCmsClassify]
+      op_not: [WhereFieldCmsClassify]
+    }
+    
+    
+    input AddCmsClassify {
+    name: String
+      title: String!
+      pid: Int
+      sort: Int
+      list_row: Int
+      meta_title: String
+      keywords: String
+      description: String
+      template_index: String
+      template_lists: String
+      template_detail: String
+      models_uuid: String!
+      type: String
+      allow_publish: Int
+      display: Int
+      reply: Boolean
+      check: Boolean
+      sub: String
+      status: Boolean
+      icon: String
+      
+    }
+    
+    
+    input EditCmsClassify {
+    name: String
+      title: String
+      pid: Int
+      sort: Int
+      list_row: Int
+      meta_title: String
+      keywords: String
+      description: String
+      template_index: String
+      template_lists: String
+      template_detail: String
+      models_uuid: String
+      type: String
+      allow_publish: Int
+      display: Int
+      reply: Boolean
+      check: Boolean
+      sub: String
+      status: Boolean
+      icon: String
+      
+    }
+    
+    type CountCmsClassify {
+      count: Int
+      rows: [CmsClassify]
+    }
+    type ResDelCmsClassify {
+      count: Int
+    }
+    type ResEditCmsClassify {
+      ids: [Int]
+    }
+    

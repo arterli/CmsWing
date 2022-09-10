@@ -18,7 +18,8 @@ class HomeController extends Controller {
     // console.log(mulu);
     // // 生成contract
     // await ctx.service.sys.generate.contract();
-    ctx.body = 'dd';
+    // ctx.body = 'dd';
+    await ctx.render('index');
   }
 }
 

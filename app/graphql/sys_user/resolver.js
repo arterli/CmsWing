@@ -2,6 +2,21 @@
 'use strict';
 module.exports = {
   SysUser: {
+  async cms_doc(root, params, ctx) {
+    const map = {};
+    map.where = { user_uuid: root.uuid };
+    if (Object.hasOwnProperty.call(params, 'limit')) {
+      map.limit = params.limit;
+    }
+    if (Object.hasOwnProperty.call(params, 'offset')) {
+      map.offset = params.offset;
+    }
+    if (Object.hasOwnProperty.call(params, 'order')) {
+      map.order = params.order;
+    }
+    return await ctx.connector.cms_doc.findAll(map);
+  },
+
   async sys_user_group(root, params, ctx) {
     const map = {};
     map.where = { uuid: root.group_uuid };

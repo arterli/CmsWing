@@ -78,4 +78,39 @@ type Mutation {
   #开放接口 更新
   SysOpenApi_update(data:EditSysOpenApi!,where:WhereSysOpenApi!):ResEditSysOpenApi
 
+  #cms内容主表 添加
+  CmsDoc_create(data:AddCmsDoc):CmsDoc
+  #cms内容主表 删除
+  CmsDoc_destroy(where:WhereCmsDoc!):ResDelCmsDoc
+  #cms内容主表 更新
+  CmsDoc_update(data:EditCmsDoc!,where:WhereCmsDoc!):ResEditCmsDoc
+
+  #cms分类 添加
+  CmsClassify_create(data:AddCmsClassify):CmsClassify
+  #cms分类 删除
+  CmsClassify_destroy(where:WhereCmsClassify!):ResDelCmsClassify
+  #cms分类 更新
+  CmsClassify_update(data:EditCmsClassify!,where:WhereCmsClassify!):ResEditCmsClassify
+
+  #cms文章类型 添加
+  CmsDocArticle_create(data:AddCmsDocArticle):CmsDocArticle
+  #cms文章类型 删除
+  CmsDocArticle_destroy(where:WhereCmsDocArticle!):ResDelCmsDocArticle
+  #cms文章类型 更新
+  CmsDocArticle_update(data:EditCmsDocArticle!,where:WhereCmsDocArticle!):ResEditCmsDocArticle
+
+  #cms图片模型 添加
+  CmsDocPicture_create(data:AddCmsDocPicture):CmsDocPicture
+  #cms图片模型 删除
+  CmsDocPicture_destroy(where:WhereCmsDocPicture!):ResDelCmsDocPicture
+  #cms图片模型 更新
+  CmsDocPicture_update(data:EditCmsDocPicture!,where:WhereCmsDocPicture!):ResEditCmsDocPicture
+
+  #cms下载模型 添加
+  CmsDocDownload_create(data:AddCmsDocDownload):CmsDocDownload
+  #cms下载模型 删除
+  CmsDocDownload_destroy(where:WhereCmsDocDownload!):ResDelCmsDocDownload
+  #cms下载模型 更新
+  CmsDocDownload_update(data:EditCmsDocDownload!,where:WhereCmsDocDownload!):ResEditCmsDocDownload
+
 }
