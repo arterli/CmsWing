@@ -1,6 +1,5 @@
 'use strict';
 const Controller = require('../../core/base_controller');
-const path = require('path');
 const { Op } = require('sequelize');
 /**
 * @controller cms分类

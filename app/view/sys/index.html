@@ -13,9 +13,10 @@
       href="/public/sys/favicon.ico"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="/public/sys/sdk/sdk.css" />
+    <link rel="stylesheet" title="default" href="/public/sys/sdk/sdk.css" />
+    <link rel="stylesheet" title="default" href="/public/sys/sdk/thirds/tinymce/skins/ui/oxide/skin.css" />
     <link rel="stylesheet" href="/public/sys/sdk/helper.css" />
-    <link rel="stylesheet" href="/public/sys/sdk/iconfont.css" />
+    <!-- <link rel="stylesheet" href="/public/sys/sdk/iconfont.css" /> -->
     <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
     <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
     <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
@@ -36,13 +37,27 @@
       .cxd-AppBcn{
       display: none !important
     }
+    .mt-0{
+      margin-top: 0 !important;
+    }
+    .tox-tinymce-aux{
+      z-index: 9999;
+    }
+    .tdimg .cxd-Image-thumb{
+    width:1.7rem !important;
+    height:1.7rem !important;
+    
+  }
+  .tdimg .cxd-Image--thumb{
+    padding: 0px;
+  }
     </style>
   </head>
   <body>
     <div id="root" class="app-wrapper"></div>
     <script src="/public/sys/sdk/sdk.js"></script>
-    <script src="/public/sys/sdk/vue@2.js"></script>
-    <script src="/public/sys/sdk/history.js"></script>
+    <script src="/public/sys/vue@2.js"></script>
+    <script src="/public/sys/history.js"></script>
     <script>
       (function () {
         let amis = amisRequire("amis/embed");

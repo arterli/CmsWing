@@ -1,12 +1,6 @@
 {
   "type": "page",
   "title": "分类管理",
-  "css":{
-  ".tdimg .cxd-Image-thumb":{
-    "width":"2rem",
-    "height":"2rem"
-  }
-  },
   "body": [
     {
       "type": "crud",
@@ -305,11 +299,8 @@
                                       "valuePlaceholder": "值",
                                       "columnRatio": 5,
                                       "className":"mr-5"
-                                    },
-                                    {
-                                      "type":"hidden",
-                                      "name":"id"
                                     }
+                                    
                                   ]
                                 }
                               ]
@@ -317,6 +308,10 @@
                           ]
                         }
                       ]
+                    },
+                    {
+                      "type":"hidden",
+                      "name":"id"
                     }
                   ]
                 }

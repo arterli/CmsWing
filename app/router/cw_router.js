@@ -1,14 +1,24 @@
 'use strict';
 module.exports = app => {
   app.router.get('路由列表', '/admin/sys/routes/routesList', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.routes.routesList');
+  app.router.get('删除文档', '/admin/cms/doc/docDel', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.docDel');
+  app.router.post('添加内容', '/admin/cms/doc/docAdd', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.docAdd');
   app.router.get('分组列表', '/admin/sys/user/groupList', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.user.groupList');
   app.router.post('分类排序', '/admin/cms/classify/saveOrder', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.saveOrder');
   app.router.post('更新字段', '/admin/sys/models/updateFields', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.models.updateFields');
+  app.router.get('获取子分类', '/admin/cms/doc/classifySub', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.classifySub');
   app.router.get('路由权限节点', '/admin/sys/role/routingNode', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.role.routingNode');
   app.router.post('添加分类', '/admin/cms/classify/classifyAdd', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.classifyAdd');
   app.router.post('编辑分类', '/admin/sys/routes/editClassify', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.routes.editClassify');
+  app.router.get('获取所属分类', '/admin/cms/doc/selectClassify', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.selectClassify');
+  app.router.get('上级文档', '/admin/cms/doc/pdoc', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.pdoc');
+  app.router.get('全部分类', '/admin/cms/doc/topClassify', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.topClassify');
+  app.router.get('子分类表单', '/admin/cms/doc/classifySubFrom', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.classifySubFrom');
   app.router.post('编辑分类', '/admin/cms/classify/classifyEdit', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.classifyEdit');
   app.router.get('分类列表', '/admin/cms/classify/index', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.index');
+  app.router.post('编辑文档', '/admin/cms/doc/docEdit', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.docEdit');
+  app.router.get('内容列表', '/admin/cms/doc/index', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.index');
+  app.router.get('模型表单', '/admin/cms/doc/getContent', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.doc.getContent');
   app.router.get('删除分类', '/admin/cms/classify/classifyDel', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.classifyDel');
   app.router.get('获取上级分类', '/admin/cms/classify/topClassify', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'cms.classify.topClassify');
   app.router.post('添加分类', '/admin/sys/routes/addClassify', app.middleware.sys.authAdminToken(), app.middleware.sys.rbac(), 'sys.routes.addClassify');

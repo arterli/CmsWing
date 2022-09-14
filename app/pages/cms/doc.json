@@ -1,351 +1,687 @@
-
 {
-  "type":"page",
-  "title": "内容管理",
+  "type": "page",
+  "css": {
+    ".cxd-TreeControl": {
+      "padding-left": "0 !important"
+    },
+    ".cxd-Link.is-disabled":{
+      "color":"#333 !important"
+    }
+  },
   "aside": {
     "type": "form",
     "wrapWithPanel": false,
-    "target": "docList",
+    "target": "docList?pid=0&classifyId=${classifyId}",
     "submitOnInit": true,
     "body": [
       {
         "type": "input-tree",
-        "name": "cat",
+        "name": "classifyId",
         "inputClassName": "no-border",
         "submitOnChange": true,
         "selectFirst": true,
-        "options": [
-          {
-            "label": "分类1",
-            "value": "cat1"
-          },
-          {
-            "label": "分类2",
-            "value": "cat2",
-            "children": [
-              {
-                "label": "分类 2.1",
-                "value": "cat2.1"
-              },
-              {
-                "label": "分类 2.2",
-                "value": "cat2.2"
-              }
-            ]
-          },
-          {
-            "label": "分类3",
-            "value": "cat3"
-          },
-          {
-            "label": "分类4",
-            "value": "cat4"
-          }
-        ]
+        "source": "/admin/cms/doc/topClassify"
       }
     ]
   },
-  "toolbar": [
+  "body": [
     {
-      "type": "button",
-      "actionType": "dialog",
-      "label": "新增内容",
-      "primary": true,
-      "dialog": {
-        "title": "新增内容",
-        "body": {
-          "type": "form",
-          "name": "sample-edit-form",
-          "api": "post:/amis/api/sample",
-          "body": [
-            {
-              "type": "input-text",
-              "name": "engine",
-              "label": "Engine",
-              "required": true
-            },
-            {
-              "type": "divider"
-            },
-            {
-              "type": "input-text",
-              "name": "browser",
-              "label": "Browser",
-              "required": true
-            },
-            {
-              "type": "divider"
-            },
-            {
-              "type": "input-text",
-              "name": "platform",
-              "label": "Platform(s)",
-              "required": true
-            },
-            {
-              "type": "divider"
-            },
-            {
-              "type": "input-text",
-              "name": "version",
-              "label": "Engine version"
-            },
-            {
-              "type": "divider"
-            },
-            {
-              "type": "input-text",
-              "name": "grade",
-              "label": "CSS grade"
-            }
-          ]
-        }
-      }
-    }
-  ],
-  "body": {
-    "type": "crud",
-    "draggable": true,
-    "name":"docList",
-    "api": {
-      "url": "/amis/api/sample",
-      "sendOn": "this.cat"
-    },
-    "filter": {
-      "title": "条件搜索",
-      "submitText": "",
-      "body": [
-        {
-          "type": "input-text",
-          "name": "keywords",
-          "placeholder": "通过关键字搜索",
-          "addOn": {
-            "label": "搜索",
-            "type": "submit"
-          }
-        },
-        {
-          "type": "plain",
-          "text": "这里的表单项可以配置多个"
-        }
-      ]
-    },
-    "bulkActions": [
-      {
-        "label": "批量删除",
-        "actionType": "ajax",
-        "api": "delete:/amis/api/sample/$ids",
-        "confirmText": "确定要批量删除?"
+      "type": "crud",
+      "draggable": true,
+      "name": "docList",
+      "id": "docList",
+      "api": "/admin/cms/doc/index",
+      "defaultParams": {
+        "pid": 0,
+        "classifyId": "0"
       },
-      {
-        "label": "批量修改",
-        "actionType": "dialog",
-        "dialog": {
-          "title": "批量编辑",
-          "name": "sample-bulk-edit",
-          "body": {
-            "type": "form",
-            "api": "/amis/api/sample/bulkUpdate2",
-            "body": [
+      "itemBadge": {
+        "text": "${level}",
+        "mode": "ribbon",
+        "position": "top-left",
+        "level": "info",
+        "visibleOn": "this.level"
+      },
+      "perPageAvailable":[5, 10, 20, 50, 100],
+      "filter": {
+        "title": "${classify.title}",
+        "body": [
+          {
+            "type": "input-text",
+            "name": "doc_title",
+            "label": "标题",
+            "clearable": true,
+            "placeholder": "通过标题搜索",
+            "size": "md"
+          },
+          {
+            "label": "推荐位",
+            "type": "select",
+            "name": "doc_position",
+            "multiple": true,
+            "clearable": true,
+            "options": [
               {
-                "type": "hidden",
-                "name": "ids"
+                "label": "列表",
+                "value": "1"
               },
               {
-                "type": "input-text",
-                "name": "engine",
-                "label": "Engine"
+                "label": "频道",
+                "value": "2"
+              },
+              {
+                "label": "首页",
+                "value": "4"
               }
-            ]
-          }
-        }
-      }
-    ],
-    "quickSaveApi": "/amis/api/sample/bulkUpdate",
-    "quickSaveItemApi": "/amis/api/sample/$id",
-    "columns": [
-      {
-        "name": "id",
-        "label": "ID",
-        "width": 20,
-        "sortable": true,
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "name": "engine",
-        "label": "Rendering engine",
-        "sortable": true,
-        "searchable": true,
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "name": "browser",
-        "label": "Browser",
-        "sortable": true,
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "name": "platform",
-        "label": "Platform(s)",
-        "sortable": true,
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "name": "version",
-        "label": "Engine version",
-        "quickEdit": true,
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "name": "grade",
-        "label": "CSS grade",
-        "quickEdit": {
-          "mode": "inline",
-          "type": "select",
-          "options": [
-            "A",
-            "B",
-            "C",
-            "D",
-            "X"
-          ],
-          "saveImmediately": true
-        },
-        "type": "text",
-        "toggled": true
-      },
-      {
-        "type": "operation",
-        "label": "操作",
-        "width": 130,
-        "buttons": [
-          {
-            "type": "button",
-            "icon": "fa fa-eye",
-            "actionType": "dialog",
-            "dialog": {
-              "title": "查看",
-              "body": {
-                "type": "form",
-                "body": [
-                  {
-                    "type": "static",
-                    "name": "engine",
-                    "label": "Engine"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "static",
-                    "name": "browser",
-                    "label": "Browser"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "static",
-                    "name": "platform",
-                    "label": "Platform(s)"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "static",
-                    "name": "version",
-                    "label": "Engine version"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "static",
-                    "name": "grade",
-                    "label": "CSS grade"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "html",
-                    "html": "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>"
-                  }
-                ]
-              }
-            }
+            ],
+            "size": "md"
           },
           {
-            "type": "button",
-            "icon": "fa fa-pencil",
-            "actionType": "dialog",
-            "dialog": {
-              "title": "编辑",
-              "body": {
-                "type": "form",
-                "name": "sample-edit-form",
-                "api": "/amis/api/sample/$id",
-                "body": [
-                  {
-                    "type": "input-text",
-                    "name": "engine",
-                    "label": "Engine",
-                    "required": true
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "input-text",
-                    "name": "browser",
-                    "label": "Browser",
-                    "required": true
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "input-text",
-                    "name": "platform",
-                    "label": "Platform(s)",
-                    "required": true
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "input-text",
-                    "name": "version",
-                    "label": "Engine version"
-                  },
-                  {
-                    "type": "divider"
-                  },
-                  {
-                    "type": "input-text",
-                    "name": "grade",
-                    "label": "CSS grade"
-                  }
-                ]
+            "name": "doc_type",
+            "type": "select",
+            "label": "类型",
+            "clearable": true,
+            "options": [
+              {
+                "label": "目录",
+                "value": 1
+              },
+              {
+                "label": "主题",
+                "value": 2
+              },
+              {
+                "label": "段落",
+                "value": 3
               }
-            }
+            ],
+            "size": "sm"
           },
           {
-            "type": "button",
-            "icon": "fa fa-times text-danger",
-            "actionType": "ajax",
-            "confirmText": "您确认要删除?",
-            "api": "delete:/amis/api/sample/$id"
+            "label": "状态",
+            "type": "select",
+            "name": "doc_status",
+            "clearable": true,
+            "options": [
+              {
+                "label": "正常",
+                "value": 1
+              },
+              {
+                "label": "草稿",
+                "value": 3
+              },
+              {
+                "label": "禁用",
+                "value": 0
+              }
+            ],
+            "size": "sm"
+          },
+          {
+            "type": "service",
+            "schemaApi": "get:/admin/cms/doc/classifySub?id=${classifyId}"
           }
         ],
-        "toggled": true
-      }
-    ]
-  }
+        "actions": [
+          {
+            "type": "service",
+            "className":"float-left",
+            "schemaApi": "get:/admin/cms/doc/pdoc?pid=${pid}"
+          },
+          {
+            "type": "reset",
+            "label": "重置"
+          },
+          {
+            "type": "submit",
+            "level": "primary",
+            "label": "查询"
+          }
+        ]
+      },
+      "filterTogglable": true,
+      "headerToolbar": [
+        {
+          "type": "columns-toggler",
+          "align": "left"
+        },
+        {
+          "type": "drag-toggler",
+          "align": "left"
+        },
+        "bulkActions",
+        {
+          "type": "filter-toggler",
+          "align": "right"
+        },
+        {
+          "type": "reload",
+          "align": "right"
+        },
+        {
+          "type": "button",
+          "actionType": "drawer",
+          "label": "新增内容",
+          "primary": true,
+          "hiddenOn": "${classifyId==0}",
+          "align": "right",
+          "drawer": {
+            "title": "新增内容",
+            "size": "xl",
+            "body": {
+              "type": "form",
+              "debug": true,
+              "mode": "horizontal",
+              "horizontal": {
+                "leftFixed": "xs"
+              },
+              "api": "/admin/cms/doc/docAdd",
+              "body": [
+                {
+                  "type": "hidden",
+                  "name": "pid"
+                },
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "title",
+                      "placeholder": "请输入标题",
+                      "label": "标题",
+                      "required": true
+                    },
+                    {
+                      "label": "推荐",
+                      "type": "select",
+                      "name": "position",
+                      "multiple": true,
+                      "columnRatio": 2,
+                      "options": [
+                        {
+                          "label": "列表推荐",
+                          "value": "1"
+                        },
+                        {
+                          "label": "频道页推荐",
+                          "value": "2"
+                        },
+                        {
+                          "label": "首页推荐",
+                          "value": "4"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "排序",
+                      "type": "input-number",
+                      "name": "level",
+                      "columnRatio": 2,
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "type": "input-image",
+                      "name": "cover_url",
+                      "label": "封面",
+                      "maxLength": 1,
+                      "receiver": "/upload/adminToken",
+                      "columnRatio": 2
+                    },
+                    {
+                      "name": "description",
+                      "type": "textarea",
+                      "clearable": true,
+                      "minRows": 4,
+                      "showCounter": true,
+                      "maxLength": 800,
+                      "label": "简介"
+                    }
+                  ]
+                },
+                {
+                  "type": "group",
+
+                  "body": [
+                    {
+                      "name": "classify_modelName",
+                      "type": "static",
+                      "label": "模型",
+                      "value": "${classify.modelName}",
+                      "columnRatio": 2
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "models_uuid",
+                      "value": "${classify.models_uuid}"
+                    },
+                    {
+                      "name": "classify_title",
+                      "type": "static",
+                      "label": "分类",
+                      "value": "${classify.title}",
+                      "columnRatio": 2
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "classify_id",
+                      "value": "${classify.id}"
+                    },
+                    {
+                      "type": "service",
+                      "schemaApi": "get:/admin/cms/doc/classifySubFrom?id=${classifyId}"
+                    }
+                  ]
+                },
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "name": "type",
+                      "type": "radios",
+                      "label": "类型",
+                      "selectFirst": true,
+                      "source": "${classify.type}",
+                      "columnRatio": 3
+                    },
+                    {
+                      "label": "状态",
+                      "type": "select",
+                      "name": "status",
+                      "columnRatio": 2,
+                      "value": 1,
+                      "options": [
+                        {
+                          "label": "正常",
+                          "value": 1
+                        },
+                        {
+                          "label": "草稿",
+                          "value": 3
+                        },
+                        {
+                          "label": "禁用",
+                          "value": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "ext_link",
+                      "placeholder": "请输入外链接",
+                      "label": "外链"
+                    }
+                  ]
+                },
+                {
+                  "type": "service",
+                  "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${classify.models_uuid}"
+                }
+              ]
+            }
+          }
+        }
+        
+      ],
+      "bulkActions": [
+        {
+          "label": "批量删除",
+          "actionType": "ajax",
+          "api": "delete:/amis/api/sample/$ids",
+          "confirmText": "确定要批量删除?"
+        },
+        {
+          "label": "批量修改",
+          "actionType": "dialog",
+          "dialog": {
+            "title": "批量编辑",
+            "name": "sample-bulk-edit",
+            "body": {
+              "type": "form",
+              "api": "/amis/api/sample/bulkUpdate2",
+              "body": [
+                {
+                  "type": "hidden",
+                  "name": "ids"
+                },
+                {
+                  "type": "input-text",
+                  "name": "engine",
+                  "label": "Engine"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "footerToolbar":["switch-per-page","statistics", "pagination"],
+      "quickSaveApi": "/amis/api/sample/bulkUpdate",
+      "quickSaveItemApi": "/amis/api/sample/$id",
+      "columns": [
+        {
+          "name": "id",
+          "label": "ID",
+          "width": 20,
+          "sortable": true,
+          "type": "text",
+          "toggled": true
+        },
+        {
+          "label": "封面",
+          "type": "image",
+          "name": "cover_url",
+          "className": "tdimg"
+        },
+        {
+          "label": "标题",
+          "type": "action",
+          "body": [
+            {
+              "type": "link",
+              "name": "title",
+              "className":"mr-2",
+              "disabledOn": "${type===3}"
+            },{
+              "name": "positionarr",
+              "type": "mapping",
+              "map": {
+                "1": "<span class='label label-info'>列</span>",
+                "2": "<span class='label label-success'>频</span>",
+                "4": "<span class='label label-warning'>首</span>",
+                "*": "<span class='label label-default'>其他</span>"
+              }
+            }
+          ],
+          "toggled": true,
+          "actionType": "reload",
+          "target": "docList?pid=${id}",
+          "disabledOn": "${type===3}"
+        },
+        {
+          "name": "type",
+          "label": "类型",
+          "type": "mapping",
+          "map": {
+            "1": "<span class='label label-info'>目录</span>",
+            "2": "<span class='label label-success'>主题</span>",
+            "3": "<span class='label label-warning'>段落</span>",
+            "*": "其他：${type}"
+          }
+        },
+        {
+          "name": "pathTitle",
+          "label": "分类",
+          "type": "text",
+          "toggled": true
+        },
+        {
+          "name": "modelName",
+          "label": "模型",
+          "type": "text",
+          "toggled": true
+        },
+        {
+          "name": "updatedAt",
+          "label": "最后更新时间",
+          "sortable": true,
+          "type": "date",
+          "toggled": true,
+          "format": "YYYY-MM-DD HH:mm"
+        },
+        {
+          "name": "status",
+          "label": "状态",
+          "type": "mapping",
+          "map": {
+            "0": "<span class='label label-danger'>禁用</span>",
+            "1": "<span class='label label-success'>正常</span>",
+            "2": "<span class='label label-warning'>待审核</span>",
+            "3": "<span class='label label-info'>草稿</span>",
+            "*": "其他：${type}"
+          }
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "width": 80,
+          "buttons": [
+            {
+              "type": "button",
+              "icon": "fa fa-eye",
+              "actionType": "dialog",
+              "dialog": {
+                "title": "查看",
+                "body": {
+                  "type": "form",
+                  "body": [
+                    {
+                      "type": "static",
+                      "name": "engine",
+                      "label": "Engine"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "static",
+                      "name": "browser",
+                      "label": "Browser"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "static",
+                      "name": "platform",
+                      "label": "Platform(s)"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "static",
+                      "name": "version",
+                      "label": "Engine version"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "static",
+                      "name": "grade",
+                      "label": "CSS grade"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "html",
+                      "html": "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "button",
+              "icon": "fa fa-pencil",
+              "actionType": "drawer",
+              "drawer": {
+                "title": "编辑内容",
+                "size": "xl",
+                "body": {
+                  "type": "form",
+                  "debug": true,
+                  "mode": "horizontal",
+                  "horizontal": {
+                    "leftFixed": "xs"
+                  },
+                  "api": "/admin/cms/doc/docEdit",
+                  "body": [
+                    {
+                      "type": "hidden",
+                      "name": "pid"
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "id"
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "type": "input-text",
+                          "name": "title",
+                          "placeholder": "请输入标题",
+                          "label": "标题",
+                          "required": true
+                        },
+                        {
+                          "label": "推荐",
+                          "type": "select",
+                          "name": "position",
+                          "multiple": true,
+                          "columnRatio": 2,
+                          "options": [
+                            {
+                              "label": "列表推荐",
+                              "value": "1"
+                            },
+                            {
+                              "label": "频道页推荐",
+                              "value": "2"
+                            },
+                            {
+                              "label": "首页推荐",
+                              "value": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "排序",
+                          "type": "input-number",
+                          "name": "level",
+                          "columnRatio": 2,
+                          "value": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "type": "input-image",
+                          "name": "cover_url",
+                          "label": "封面",
+                          "maxLength": 1,
+                          "receiver": "/upload/adminToken",
+                          "columnRatio": 2
+                        },
+                        {
+                          "name": "description",
+                          "type": "textarea",
+                          "clearable": true,
+                          "minRows": 4,
+                          "showCounter": true,
+                          "maxLength": 800,
+                          "label": "简介"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "name": "classify_modelName",
+                          "type": "static",
+                          "label": "模型",
+                          "value": "${modelName}",
+                          "columnRatio": 2
+                        },
+                        {
+                          "type": "hidden",
+                          "name": "models_uuid",
+                          "value": "${models_uuid}"
+                        },
+                        {
+                          "label": "分类",
+                          "type": "tree-select",
+                          "name": "classify_id",
+                          "required": true,
+                          "searchable": true,
+                          "columnRatio": 3,
+                          "source": "/admin/cms/doc/selectClassify?models_uuid=${models_uuid}"
+                        },
+                        {
+                          "type": "service",
+                          "schemaApi": "get:/admin/cms/doc/classifySubFrom?id=${classify_id}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "name": "type",
+                          "type": "radios",
+                          "label": "类型",
+                          "selectFirst": true,
+                          "source": "${classify.type}",
+                          "columnRatio": 3
+                        },
+                        {
+                          "label": "状态",
+                          "type": "select",
+                          "name": "status",
+                          "columnRatio": 2,
+                          "value": 1,
+                          "options": [
+                            {
+                              "label": "正常",
+                              "value": 1
+                            },
+                            {
+                              "label": "草稿",
+                              "value": 3
+                            },
+                            {
+                              "label": "禁用",
+                              "value": 0
+                            }
+                          ]
+                        },
+                        {
+                          "type": "input-text",
+                          "name": "ext_link",
+                          "placeholder": "请输入外链接",
+                          "label": "外链"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "service",
+                      "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${models_uuid}"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "button",
+              "icon": "fa fa-times text-danger",
+              "actionType": "ajax",
+              "confirmText": "您确认要删除?",
+              "api": "get:/admin/cms/doc/docDel?id=$id"
+            }
+          ],
+          "toggled": true
+        }
+      ]
+    }
+  ]
 }
