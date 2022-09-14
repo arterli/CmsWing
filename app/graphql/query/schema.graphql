@@ -118,31 +118,31 @@ type Query {
   #cms分类 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   CmsClassify_findAndCountAll(where:WhereCmsClassify,order:[[String]],limit:Int!,offset:Int!):CountCmsClassify
 
-  #cms文章类型 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  #文章 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
   CmsDocArticle_findAll(where:WhereCmsDocArticle,order:[[String]],limit:Int,offset:Int):[CmsDocArticle]
-  #cms文章类型 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  #文章 findByPk 方法使用提供的主键从表中仅获得一个条目.
   CmsDocArticle_findByPk(id:ID!):CmsDocArticle
-  #cms文章类型 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  #文章 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
   CmsDocArticle_findOne(where:WhereCmsDocArticle):CmsDocArticle
-  #cms文章类型 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  #文章 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   CmsDocArticle_findAndCountAll(where:WhereCmsDocArticle,order:[[String]],limit:Int!,offset:Int!):CountCmsDocArticle
 
-  #cms图片模型 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  #图片 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
   CmsDocPicture_findAll(where:WhereCmsDocPicture,order:[[String]],limit:Int,offset:Int):[CmsDocPicture]
-  #cms图片模型 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  #图片 findByPk 方法使用提供的主键从表中仅获得一个条目.
   CmsDocPicture_findByPk(id:ID!):CmsDocPicture
-  #cms图片模型 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  #图片 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
   CmsDocPicture_findOne(where:WhereCmsDocPicture):CmsDocPicture
-  #cms图片模型 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  #图片 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   CmsDocPicture_findAndCountAll(where:WhereCmsDocPicture,order:[[String]],limit:Int!,offset:Int!):CountCmsDocPicture
 
-  #cms下载模型 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  #下载 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
   CmsDocDownload_findAll(where:WhereCmsDocDownload,order:[[String]],limit:Int,offset:Int):[CmsDocDownload]
-  #cms下载模型 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  #下载 findByPk 方法使用提供的主键从表中仅获得一个条目.
   CmsDocDownload_findByPk(id:ID!):CmsDocDownload
-  #cms下载模型 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  #下载 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
   CmsDocDownload_findOne(where:WhereCmsDocDownload):CmsDocDownload
-  #cms下载模型 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  #下载 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   CmsDocDownload_findAndCountAll(where:WhereCmsDocDownload,order:[[String]],limit:Int!,offset:Int!):CountCmsDocDownload
 
 }

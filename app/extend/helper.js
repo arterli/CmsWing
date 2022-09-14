@@ -14,8 +14,10 @@ const _ = require('lodash');
 const fs = require('fs/promises');
 const fsSync = require('fs');
 const path = require('path');
+const moment = require('moment');
 module.exports = {
   _,
+  moment,
   /**
    * 加密助手函数
    * @param {string} str 明文数据

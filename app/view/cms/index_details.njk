@@ -1,0 +1,676 @@
+{% extends "./inc_base.njk" %}
+{% block middle %}
+     <!-- start :: blog content -->
+			<div class="section pt-5">
+				<div class="container"> 
+
+					<div class="row g-xl-5">
+
+						<div class="col-lg-9 order-2 order-lg-1">
+
+							<div class="mb-4">
+
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb small mb-3">
+										<li class="breadcrumb-item"><a href="#">Home</a></li>
+										<li class="breadcrumb-item"><a href="#">Blog</a></li>
+										<li class="breadcrumb-item"><a href="#">Category</a></li>
+									</ol>
+								</nav>
+								<h1 class="h3 mb-0">
+									{{details.title}}
+								</h1>
+								<p class="d-block text-muted small">
+									发布时间: <time datetime="{{helper.moment(details.createdAt).format('YYYY-MM-DD HH:mm:ss')}}">{{helper.moment(details.createdAt).format('YYYY-MM-DD HH:mm:ss')}}</time>
+								</p>
+
+							</div>
+
+
+
+							<!-- post image -->
+							{# <figure class="d-block text-center rounded overflow-hidden mb-5">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-GoYNk3CrgxQ-unsplash-min.jpg" alt="...">
+							</figure>  #}
+
+
+
+							<!--
+								.article-format class will add some slightly formattings for a good text visuals. 
+								This is because most editors are not ready formatted for bootstrap
+								Blog content should come inside this container, as it is from database!
+								src/scss/_core/base/_typography.scss
+							-->
+							<div class="article-format">
+              {{details.cms_doc_article.content|safe}}
+							</div>
+
+
+							<p class="text-muted border-bottom pb-2 small mt-5">
+							最后更新时间: {{helper.moment(details.updatedAt).format('YYYY-MM-DD HH:mm:ss')}}
+							</p>
+
+
+							<!-- Tags and share -->
+							<div class="row">
+								<div class="col-6">
+
+									<h4 class="smaller text-muted">
+										Similar posts by tag
+									</h4>
+
+									<a href="#!" class="text-dark bg-light small rounded py-2 px-3 m-1 text-decoration-none" rel="nofollow">
+										tag 1
+									</a>
+
+									<a href="#!" class="text-dark bg-light small rounded py-2 px-3 m-1 text-decoration-none" rel="nofollow">
+										tag 2
+									</a>
+
+									<a href="#!" class="text-dark bg-light small rounded py-2 px-3 m-1 text-decoration-none" rel="nofollow">
+										tag 3
+									</a>
+
+								</div>
+
+								<div class="col-6 col-6 text-align-end">
+
+									<h4 class="smaller text-muted">
+										Share with your friends &amp; family
+									</h4>
+
+									<a href="#" class="btn btn-sm btn-facebook rounded-circle transition-hover-top mb-2" rel="noopener" target="smarty">
+										<i class="fi fi-social-facebook m-0"></i>
+									</a>
+									<a href="#" class="btn btn-sm btn-twitter rounded-circle transition-hover-top mb-2" rel="noopener" target="smarty">
+										<i class="fi fi-social-twitter m-0"></i>
+									</a>
+
+								</div>
+							</div>
+							<!-- /Tags and share -->
+
+
+
+							<!-- Related Posts -->
+							<h3 class="h5 mt-5 mb-4">
+								Related Posts
+							</h3>
+
+							<div class="row">
+
+								<!-- post -->
+								<a href="blog-page-single-sidebar.html" class="col-6 col-md-4 mb-5 position-relative text-dark clearfix text-decoration-none">
+
+									<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+										<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-CYEgCGYm2JY-unsplash-min.jpg" alt="...">
+									</figure>
+
+									<p class="mt-3 fs-2 mb-2">
+										<span class="h6 text-dark d-block">
+											Let There Be Light: Retail Lighting Designs to Encourage Sales
+										</span>
+
+										<span class="d-block text-muted font-regular fs-6">
+											Post Date: <time datetime="2019-12-03">Dec 03, 2019</time>
+										</span>
+									</p>
+
+								</a>
+								<!-- /post -->
+
+
+
+								<!-- post -->
+								<a href="blog-page-single-sidebar.html" class="col-6 col-md-4 mb-5 position-relative text-dark clearfix text-decoration-none">
+
+									<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+										<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-D1KrCHVipIw-unsplash-min.jpg" alt="...">
+									</figure>
+
+									<p class="mt-3 fs-2 mb-2">
+										<span class="h6 text-dark d-block">
+											Let There Be Light: Retail Lighting Designs to Encourage Sales
+										</span>
+
+										<span class="d-block text-muted font-regular fs-6">
+											Post Date: <time datetime="2019-12-03">Dec 03, 2019</time>
+										</span>
+									</p>
+
+								</a>
+								<!-- /post -->
+
+
+
+								<!-- post -->
+								<a href="blog-page-single-sidebar.html" class="col-6 col-md-4 mb-5 position-relative text-dark clearfix text-decoration-none">
+
+									<figure class="d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+										<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-na5pGXdsMOU-unsplash-min.jpg" alt="...">
+									</figure>
+
+									<p class="mt-3 fs-2 mb-2">
+										<span class="h6 text-dark d-block">
+											Let There Be Light: Retail Lighting Designs to Encourage Sales
+										</span>
+
+										<span class="d-block text-muted font-regular fs-6">
+											Post Date: <time datetime="2019-12-03">Dec 03, 2019</time>
+										</span>
+									</p>
+
+								</a>
+								<!-- /post -->
+
+							</div>
+							<!-- /Related Posts -->
+
+
+
+							<!-- COMMENTS -->
+							<div class="clearfix mt-5">
+								
+								<h3 class="mb-4">Comments</h3>
+
+								<!-- already logged in -->
+								<span class="d-block text-muted small mb-1">
+									Logged in as: <b>John Doe</b>. 
+									Not you? Please <a rel="nofollow" href="#!">sign out!</a>
+								</span>
+
+								<!-- Write Comment Form -->
+								<form novalidate method="post" action="#" class="bs-validate d-block bg-white shadow-primary-xs rounded p-3 mb-5">
+
+									<div class="row g-2">
+
+										<div class="col-12 col-md-6">
+
+											<div class="form-floating mb-2">
+												<input required placeholder="Name" id="comment_name" type="text" value="" class="form-control">
+												<label for="comment_name">Name</label>
+											</div>
+
+										</div>
+
+										<div class="col-12 col-md-6">
+
+											<div class="form-floating mb-2">
+												<input required placeholder="Email" id="comment_email" type="email" value="" class="form-control">
+												<label for="comment_email">Email</label>
+											</div>
+
+										</div>
+
+									</div>
+
+
+									<div class="clearfix mb-3">
+
+										<div class="form-floating">
+											<textarea required rows="3" style="min-height:120px" id="comment_description"
+													data-output-target=".js-form-advanced-char-left" 
+													class="form-control js-form-advanced-char-count-down" 
+													maxlength="3000" placeholder="Your comment"></textarea>
+											<label for="comment_description">Your comment</label>
+										</div>
+
+										<span class="smaller text-muted text-align-end float-end mt-1">
+											characters left: <span class="js-form-advanced-char-left">3000</span>
+										</span>
+
+									</div>
+
+
+                    
+									<!-- 
+										GDPR CONSENT 
+										!only if user not logged in!
+									-->
+                  <div class="mb-3 border p-3 rounded">
+
+                    <p class="small mb-3 pb-3 border-bottom">
+                      I consent that my personal data is stored according to <span class="fw-medium">2016/679/UE (UE GDPR)</span>. 
+                    </p>
+
+                    <label class="form-checkbox form-checkbox-primary">
+                      <input required type="checkbox" name="gdpr">
+                      <i></i> 
+                      <span>  
+                        I do accept Smarty <a class="text-decoration-none" href="page-terms-and-conditions.html" target="_blank">terms & conditions</a>.
+                      </span>
+                    </label>
+
+                  </div>
+                  <!-- /GDPR CONSENT -->
+
+
+									<button type="submit" class="btn btn-primary btn-sm">
+										Submit Comment
+									</button>
+								</form>
+								<!-- /Write Comment Form -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+								<!-- LIST COMMENTS -->
+								<h3 class="mb-4">3 Comments</h3>
+
+
+
+								<!-- Comment 1 + Reply -->
+								<div class="d-flex mb-4">
+
+									<!-- avatar : as background -->
+									<div style="width:180px" class="text-center">
+										<div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:70px; height:70px;background-image:url('/public/cms/demo.files/images/unsplash/team/thumb_330/erik-mclean-06vpBIHmiYc-unsplash.jpg')"></div>
+										<span class="d-block text-dark">Mark</span>
+										<small class="d-block text-dark smaller">3 weeks ago</small>
+									</div>
+									
+									<div class="w-100">
+										<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+
+										<!-- options -->
+										<ul class="list-inline my-3">
+
+											<!-- like -->
+											<li class="list-inline-item">
+
+												<!-- 
+													NOTE: working ajax button! Check console for debug 
+													No security implemented to block multiple votes
+													So on page refresh, should be handled by backend!
+												-->
+												<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
+													data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+													
+													<span class="group-icon">
+														<i class="fi fi-like"></i>
+														<i class="fi fi-like text-primary"></i>
+													</span>
+
+													<span>like</span>
+												</a>
+
+											</li>
+											<!-- /like -->
+
+											<!-- reply -->
+											<li class="list-inline-item">
+
+												<!-- 
+
+													Replies are using an ajax modal!
+													Replace with wordpress style, if wordpress used!
+
+													This format can be used on custom blog CMS.
+
+												-->
+												<a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+													data-href="_ajax/modal_blog_comment_reply.html?comment_id=1#hash1"
+													data-ajax-modal-size="modal-md"
+													data-ajax-modal-centered="false"
+													data-ajax-modal-backdrop="static">
+													<i class="fi fi-plus"></i>
+													<span>reply</span>
+												</a>
+
+											</li>
+											<!-- /reply -->
+
+										</ul>
+										<!-- /options -->
+
+
+										<!-- ... replies here ... -->
+
+
+										<!-- REPLY -->
+										<div class="d-flex my-4 ms-n4">
+
+											<!-- avatar : as background -->
+											<div style="width:140px" class="text-center">
+												<div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:50px; height:50px;background-image:url('/public/cms/demo.files/images/unsplash/team/thumb_330/michael-dam-mEZ3PoFGs_k-unsplash.jpg')"></div>
+												<span class="d-block text-dark">Jessica</span>
+												<small class="d-block text-dark smaller">just now</small>
+											</div>
+											
+											<div class="w-100">
+												<p>Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at.</p>
+
+												<ul class="list-inline my-3">
+
+													<!-- like -->
+													<li class="list-inline-item">
+
+														<!-- 
+															NOTE: working ajax button! Check console for debug 
+															No security implemented to block multiple votes
+															So on page refresh, should be handled by backend!
+														-->
+														<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
+															data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+															
+															<span class="group-icon">
+																<i class="fi fi-like"></i>
+																<i class="fi fi-like text-primary"></i>
+															</span>
+
+															<span>like</span>
+														</a>
+
+													</li>
+													<!-- /like -->
+
+												</ul>
+
+											</div>
+
+										</div>
+										<!-- /REPLY -->
+
+									</div>
+
+								</div>
+								<!-- /Comment 1 + Reply -->
+
+
+
+								<!-- Comment Anonymous : no avatar -->
+								<div class="d-flex mb-4">
+
+									<!-- avatar : as background -->
+									<div style="width:180px" class="text-center">
+										<div style="width:70px; height:70px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+											<i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+										</div>
+										<span class="d-block text-dark">Parker</span>
+										<small class="d-block text-dark smaller">2 days ago</small>
+									</div>
+									
+									<div class="w-100">
+										<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</p>
+
+										<!-- options -->
+										<ul class="list-inline my-3">
+
+											<!-- like -->
+											<li class="list-inline-item">
+
+												<!-- 
+													NOTE: working ajax button! Check console for debug 
+													No security implemented to block multiple votes
+													So on page refresh, should be handled by backend!
+												-->
+												<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
+													data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+													
+													<span class="group-icon">
+														<i class="fi fi-like"></i>
+														<i class="fi fi-like text-primary"></i>
+													</span>
+
+													<span>like</span>
+												</a>
+
+											</li>
+											<!-- /like -->
+
+											<!-- reply -->
+											<li class="list-inline-item">
+
+												<!-- 
+
+													Replies are using an ajax modal!
+													Replace with wordpress style, if wordpress used!
+
+													This format can be used on custom blog CMS.
+
+												-->
+												<a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+													data-href="_ajax/modal_blog_comment_reply.html?comment_id=1#hash1"
+													data-ajax-modal-size="modal-md"
+													data-ajax-modal-centered="false"
+													data-ajax-modal-backdrop="static">
+													<i class="fi fi-plus"></i>
+													<span>reply</span>
+												</a>
+
+											</li>
+											<!-- /reply -->
+
+										</ul>
+										<!-- /options -->
+
+
+										<!-- ... replies here ... -->
+
+									</div>
+
+								</div>
+								<!-- /Comment Anonymous : no avatar -->
+
+								<!-- /LIST COMMENTS -->
+
+
+
+							</div>
+							<!-- /COMMENTS -->
+
+
+
+
+							<!-- SUBSCRIBE -->
+							<form novalidate method="post" action="#" class="bs-validate d-block bg-white shadow-primary-xs px-4 py-5 mt-5 text-center rounded">
+								<div class="py-4 col-lg-8 ms-lg-auto me-lg-auto">
+
+									<h3 class="mb-0">Subscribe</h3>
+									<p class="lead mb-5 text-muted">Get for free our tips, tricks &amp; news</p>
+
+									<input required placeholder="your email address..." name="subscriber_email" class="form-control text-center mb-2" type="email" value="">
+
+									<button type="submit" class="btn btn-primary w-100">
+										Subscribe me!
+									</button>
+
+								</div>
+							</form>
+							<!-- /SUBSCRIBE -->
+
+
+						</div>
+
+						<div class="col-lg-3 order-1 order-lg-2 mb-5">
+
+
+							<!-- SEARCH -->
+							<form method="get" action="#" class="input-group-over d-block mb-2">
+								
+								<div class="form-floating mb-3">
+									<input required placeholder="内容搜索..." id="blog_search" name="keywords" type="text" class="form-control">
+									<label for="blog_search">内容搜索...</label>
+								</div>
+
+								<button type="submit" class="btn smaller">
+									<i class="fi fi-search m-0"></i>
+								</button>
+
+							</form>
+							<!-- /SEARCH -->
+
+
+
+							<!-- CATEGORIES -->
+							<nav class="nav-deep nav-deep-light mb-2">
+
+								<!-- mobile only -->
+								<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+									<span class="group-icon px-2 py-2 float-start">
+										<i class="fi fi-bars-2"></i>
+										<i class="fi fi-close"></i>
+									</span>
+
+									<span class="h5 py-2 m-0 float-start">
+										Categories
+									</span>
+								</button>
+
+								<!-- desktop only -->
+								<h3 class="h5 py-3 m-0 d-none d-lg-block">
+									Categories
+								</h3>
+
+
+								<!-- navbar : navigation -->
+								<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+
+									<li class="nav-item active">
+										<a class="nav-link px-0" href="account-orders.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Development
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="account-favourites.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Trends
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="account-settings.html">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												Case Studies
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="#">
+											<span class="group-icon">
+												<i class="fi fi-arrow-end"></i>
+												<i class="fi fi-arrow-down"></i>
+											</span>
+
+											<span class="px-2 d-inline-block">
+												Multi level
+											</span>
+										</a>
+
+										<ul class="nav flex-column px-3">
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 1
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 2
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													Option 3
+												</a>
+											</li>
+										</ul>
+
+									</li>
+
+								</ul>
+
+							</nav>
+							<!-- /CATEGORIES -->
+
+
+
+
+
+
+
+							<!-- mobile trigger : expand -->
+							<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#sidebar_expand_mobile" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+								<span class="group-icon px-2 py-2 float-start">
+									<i class="fi fi-bars-2"></i>
+									<i class="fi fi-close"></i>
+								</span>
+
+								<span class="h5 py-2 m-0 float-start">
+									Explore
+								</span>
+							</button>
+
+
+							<div id="sidebar_expand_mobile" class="d-none d-lg-block">
+
+								<!-- RECOMMENDED -->
+								<h3 class="h5 mt-5 mt-0-xs">
+									Top Recommended
+								</h3>
+								<ul class="list-unstyled">
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">How Retailers Can Build</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Build an Engaged Customer Base</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Retail Lighting Designs to Encourage Sales</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Let there be light</a>
+									</li>
+
+									<li class="list-item border-bottom py-1">
+										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Build an Engaged Customer Base</a>
+									</li>
+
+								</ul>
+								<!-- /RECOMMENDED -->
+
+
+
+
+								<!-- BANNER -->
+								<a href="#!" class="mt-5 d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
+									<img class="w-100 img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-6RTh34xCS1M-unsplash-min.jpg" alt="...">
+								</a>
+								<h4 class="small text-gray-500 fw-normal mt-1 mb-0">
+									Sponsored Ad
+								</h4>
+								<!-- /BANNER -->
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>	
+			<!-- end :: blog content -->
+
+{% endblock %}

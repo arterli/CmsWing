@@ -452,60 +452,10 @@
           "buttons": [
             {
               "type": "button",
-              "icon": "fa fa-eye",
-              "actionType": "dialog",
-              "dialog": {
-                "title": "查看",
-                "body": {
-                  "type": "form",
-                  "body": [
-                    {
-                      "type": "static",
-                      "name": "engine",
-                      "label": "Engine"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "type": "static",
-                      "name": "browser",
-                      "label": "Browser"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "type": "static",
-                      "name": "platform",
-                      "label": "Platform(s)"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "type": "static",
-                      "name": "version",
-                      "label": "Engine version"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "type": "static",
-                      "name": "grade",
-                      "label": "CSS grade"
-                    },
-                    {
-                      "type": "divider"
-                    },
-                    {
-                      "type": "html",
-                      "html": "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>"
-                    }
-                  ]
-                }
-              }
+              "icon": "fa fa-link",
+              "actionType": "url",
+              "url": "/cms/details/${id}",
+              "blank":true
             },
             {
               "type": "button",

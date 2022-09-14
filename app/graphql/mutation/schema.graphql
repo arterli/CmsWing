@@ -92,25 +92,25 @@ type Mutation {
   #cms分类 更新
   CmsClassify_update(data:EditCmsClassify!,where:WhereCmsClassify!):ResEditCmsClassify
 
-  #cms文章类型 添加
+  #文章 添加
   CmsDocArticle_create(data:AddCmsDocArticle):CmsDocArticle
-  #cms文章类型 删除
+  #文章 删除
   CmsDocArticle_destroy(where:WhereCmsDocArticle!):ResDelCmsDocArticle
-  #cms文章类型 更新
+  #文章 更新
   CmsDocArticle_update(data:EditCmsDocArticle!,where:WhereCmsDocArticle!):ResEditCmsDocArticle
 
-  #cms图片模型 添加
+  #图片 添加
   CmsDocPicture_create(data:AddCmsDocPicture):CmsDocPicture
-  #cms图片模型 删除
+  #图片 删除
   CmsDocPicture_destroy(where:WhereCmsDocPicture!):ResDelCmsDocPicture
-  #cms图片模型 更新
+  #图片 更新
   CmsDocPicture_update(data:EditCmsDocPicture!,where:WhereCmsDocPicture!):ResEditCmsDocPicture
 
-  #cms下载模型 添加
+  #下载 添加
   CmsDocDownload_create(data:AddCmsDocDownload):CmsDocDownload
-  #cms下载模型 删除
+  #下载 删除
   CmsDocDownload_destroy(where:WhereCmsDocDownload!):ResDelCmsDocDownload
-  #cms下载模型 更新
+  #下载 更新
   CmsDocDownload_update(data:EditCmsDocDownload!,where:WhereCmsDocDownload!):ResEditCmsDocDownload
 
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    {{helper.cw.cipher('fdsafdsafas')}} {{ctx.query.id}} {{ctx.locals|dump}}
+    {{c}},{{d}} /-------/
+    <hr />
+    {# {% set aa=helper.cms.ceshi(123)%} cms:{{aa}} #}
+    <hr />
+    {%set user = "{
+  where: {
+    rank: {
+      [Op.or]: {
+        [Op.lt]: 1000,
+        [Op.eq]: null
+      }
+    },
+    {
+      createdAt: {
+        [Op.lt]: new Date(),
+        [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
+      }
+    },
+    {
+      [Op.or]: [
+        {
+          title: {
+            [Op.like]: 'Boat%'
+          }
+        },
+        {
+          description: {
+            [Op.like]: '%boat%'
+          }
+        }
+      ]
+    }
+  }
+}"|@cms_list %}
+    {{user|safe}}
+  </body>
+</html>

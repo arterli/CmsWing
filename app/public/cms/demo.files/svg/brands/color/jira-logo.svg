@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.jira-logo-original-0{fill:#2684FF;}
+	.jira-logo-original-1{fill:url(#SVGID_1_);}
+	.jira-logo-original-2{fill:url(#SVGID_2_);}
+</style>
+<path class="jira-logo-original-0" d="M115,0H57.2c0,14.4,11.7,26.1,26.1,26.1h10.6v10.3c0,14.4,11.7,26.1,26.1,26.1V5C120,2.2,117.8,0,115,0z"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-899.7225" y1="466.2087" x2="-899.7436" y2="466.1869" gradientTransform="matrix(1168.1589 0 0 -1161.3224 1051109.125 541447.5)">
+	<stop  offset="0.18" style="stop-color:#0052CC"/>
+	<stop  offset="1" style="stop-color:#2684FF"/>
+</linearGradient>
+<path class="jira-logo-original-1" d="M86.4,28.8H28.6c0,14.4,11.7,26.1,26.1,26.1h10.6v10.3c0,14.4,11.7,26.1,26.1,26.1V33.8
+	C91.4,31,89.2,28.8,86.4,28.8L86.4,28.8z"/>
+<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="-899.29" y1="466.6447" x2="-899.3144" y2="466.6209" gradientTransform="matrix(1168.1676 0 0 -1161.3223 1050584.75 541982.6875)">
+	<stop  offset="0.18" style="stop-color:#0052CC"/>
+	<stop  offset="1" style="stop-color:#2684FF"/>
+</linearGradient>
+<path class="jira-logo-original-2" d="M57.8,57.6H0C0,72,11.7,83.7,26.1,83.7h10.7v10.3c0,14.4,11.7,26,26,26.1V62.6C62.8,59.8,60.6,57.6,57.8,57.6
+	L57.8,57.6z"/>
+</svg>

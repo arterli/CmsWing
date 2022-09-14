@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>CmsWing</title>
+    <meta name="description" content="...">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+    <!-- up to 10% speed up for external res -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <!-- preloading icon font is helping to speed up a little bit -->
+    <link rel="preload" href="/public/cms/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link rel="stylesheet" href="/public/cms/css/core.min.css">
+    <link rel="stylesheet" href="/public/cms/css/vendor_bundle.min.css">
+     <link rel="stylesheet" href="/public/cms/css/app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/public/cms/favicon.ico">
+    <link rel="apple-touch-icon" href="/public/cms/demo.files/logo/icon_512x512.png">
+
+  </head>
+
+  <body data-s2t-class="btn-primary bg-gradient" data-bs-spy="scroll" data-bs-target="#demos-scrollspy" data-bs-offset="0">
+
+
+    <div id="wrapper">
+   {% include "./inc_header.njk" %}
+ {% block middle %}{% endblock %}
+
+      <!-- info box : yellow -->
+      <!--
+      <div class="bg-warning py-4">
+        <div class="container">
+
+          <div class="row g-4">
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="0" data-aos-offset="0">
+
+              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/trendy.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+              <div class="ps-3">
+                <h3 class="fs-5 mb-1">Trendy & Modern</h3>
+                <p class="m-0">Love it! Use it! Reuse it!</p>
+              </div>
+
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="150" data-aos-offset="0">
+
+              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/hot_deal.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+              <div class="ps-3">
+                <h3 class="fs-5 mb-1">Free Updates</h3>
+                <p class="m-0">Lifetime <b>free</b> updates!</p>
+              </div>
+
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="250" data-aos-offset="0">
+
+              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/new.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+              <div class="ps-3">
+                <h3 class="fs-5 mb-1">Frontend & Admin</h3>
+                <p class="m-0">Sharing the same core!</p>
+              </div>
+
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="350" data-aos-offset="0">
+
+              <a href="#" class="text-dark text-decoration-none d-flex">
+
+                <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/ok_like.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+                <div class="ps-3">
+                  <h3 class="fs-5 mb-1">You're Covered</h3>
+                  <p class="m-0">Frontend + Admin</p>
+                </div>
+
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      -->
+      <!-- /info box : yellow -->
+
+{% include "./inc_footer.njk" %}
+    </div><!-- /#wrapper -->
+
+
+
+
+    <!-- floating buttons (demos, buy now) -->
+    <div class="text-rotate position-fixed start-0 bottom-0 mb-3" style="z-index:1021">
+      <a href="#offcanvasDemos" data-bs-toggle="offcanvas" aria-controls="offcanvasDemos" class="btn btn-sm btn-primary bg-gradient rounded-xl rounded-start-0 mx-0 mt-1 ps-1 px-2">Licenses</a>
+      <!-- <a href="../_rtl/html_frontend/index.html" target="_blank" rel="noopener nofollow" class="btn btn-sm btn-warning bg-gradient rounded-xl rounded-start-0 mx-0 mt-1 ps-1 px-2">RTL</a> -->
+    </div>
+    <!-- /floating buttons (demos, buy now) -->
+
+
+    <!-- offcanvas : demos -->
+    <div class="offcanvas offcanvas-lg offcanvas-start" tabindex="-1" id="offcanvasDemos" aria-labelledby="offcanvasDemosLabel">
+      
+      <!-- offcanvas : header -->
+      <div class="offcanvas-header border-bottom">
+        <div class="offcanvas-title lh-1" id="offcanvasDemosLabel">
+          <span class="d-block fs-4 mb-1 text-danger-gradient fw-bold">Smarty 5</span>
+          <span class="d-block small fw-medium">Frontend + Admin</span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+
+      <!-- offcanvas : body -->
+      <div class="offcanvas-body p-4 p-xl-5">
+
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="h5 text-dark fw-bold">Licenses</h3>
+          <a class="small fw-medium" href="https://support.wrapbootstrap.com/help/usage-licenses" target="_blank" rel="noopener nofollow">License FAQ</a>
+        </div>
+
+        <!-- licenses -->
+        <div class="border border-dashed rounded p-3 mb-3">
+          <h6 class="d-flex justify-content-between mb-0">
+            <span>Single license</span>
+            <span class="fs-5"><span class="smaller text-muted">$</span>24</span>
+          </h6>
+          <p class="mb-0 text-muted small">For single end product used by you or one client</p>
+
+          <div class="border border-dashed border-bottom-0 my-3"><!-- divider --></div>
+
+          <h6 class="d-flex justify-content-between mb-0">
+            <span>Multiple license</span>
+            <span class="fs-5"><span class="smaller text-muted">$</span>128</span>
+          </h6>
+          <p class="mb-0 text-muted small">Multiple instalations used by you or one client</p>
+
+          <div class="border border-dashed border-bottom-0 my-3"><!-- divider --></div>
+
+          <h6 class="d-flex justify-content-between mb-0">
+            <span>Extended license</span>
+            <span class="fs-5"><span class="smaller text-muted">$</span>1200</span>
+          </h6>
+          <p class="mb-0 text-muted small">For single SaaS app, paying users</p>
+        </div>
+
+        <div class="d-grid mb-5">
+          <a href="https://wrapbootstrap.com/theme/smarty-website-admin-rtl-WB02DSN1B" target="_blank" rel="noopener nofollow" class="btn btn-primary bg-gradient w-100">
+            Buy Now
+          </a>
+        </div>
+
+        <!-- smarty performance -->
+        <img width="403" height="167" class="img-fluid" src="/public/cms/demo.files/images/smarty_lighthouse_403.png" alt="smarty performance">
+
+      </div>
+
+    </div>
+    <!-- /offcanvas : demos -->
+
+
+
+
+
+
+    <!-- modal offer -->
+    <!--
+    <div class="hide js-onload js-ajax-modal" 
+        data-href="_ajax/modal_offer.html" 
+        data-ajax-modal-delay="1000" 
+        data-ajax-modal-size="modal-lg" 
+        data-ajax-modal-centered="true" 
+        data-ajax-modal-backdrop=""></div>
+    -->
+
+
+    <script src="/public/cms/js/core.min.js"></script>
+
+  </body>
+</html>

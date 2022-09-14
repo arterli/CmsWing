@@ -7,7 +7,6 @@ module.exports = app => {
   // 后台生成 web路由
   require('./router/cw_router')(app);
   const { router, controller } = app;
-  router.get('/', controller.home.index);
   router.get('/admin', app.middleware.sys.authAdminToken(), controller.sys.index.index);
   router.get('/admin/login', controller.sys.index.login);
   router.post('/admin/loginPost', controller.sys.index.lginPost);

@@ -543,7 +543,7 @@ module.exports = {
     
   },
 
-  // cms文章类型
+  // 文章
   cms_doc_article_item: {
     content: { type: 'string', description: '文章内容' },
     createdAt: { type: 'string', description: '创建时间' },
@@ -566,7 +566,7 @@ module.exports = {
     
   },
 
-  // cms图片模型
+  // 图片
   cms_doc_picture_item: {
     content: { type: 'string', description: '图片内容' },
     createdAt: { type: 'string', description: '创建时间' },
@@ -589,7 +589,7 @@ module.exports = {
     
   },
 
-  // cms下载模型
+  // 下载
   cms_doc_download_item: {
     content: { type: 'string', description: '下载内容' },
     createdAt: { type: 'string', description: '创建时间' },

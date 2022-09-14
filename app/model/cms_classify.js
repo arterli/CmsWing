@@ -3,7 +3,7 @@
 module.exports = app => {
   const DataTypes = app.Sequelize;
   const CmsClassify = app.model.define('cms_classify', {
-    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, comment: '主键' },
+    id: { type: DataTypes.INTEGER, autoIncrement:true, primaryKey: true, comment: '主键' },
     createdAt: { type: DataTypes.DATE, comment: '创建时间' },
     updatedAt: { type: DataTypes.DATE, comment: '更新时间' },
     name: { type: DataTypes.STRING, comment: '标识' },
@@ -26,11 +26,11 @@ module.exports = app => {
     sub: { type: DataTypes.TEXT, comment: '子分类' },
     status: { type: DataTypes.BOOLEAN, defaultValue: true, comment: '状态' },
     icon: { type: DataTypes.STRING, comment: '分类图片' },
-  }, {
-
-    paranoid: false,
-  });
-
-  // CmsClassify.sync({ alter: true });
+  },{
+  
+  paranoid: false,
+});
+  
+  //CmsClassify.sync({ alter: true });
   return CmsClassify;
 };
