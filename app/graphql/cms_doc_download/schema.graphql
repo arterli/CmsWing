@@ -147,16 +147,14 @@
     
     
     input AddCmsDocDownload {
-    doc_id: Int!
-      content: String
+    content: String
       template: String
       
     }
     
     
     input EditCmsDocDownload {
-    doc_id: Int
-      content: String
+    content: String
       template: String
       
     }

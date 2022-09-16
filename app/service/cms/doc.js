@@ -5,7 +5,7 @@ class DocService extends Service {
   async pdoc(pid) {
     const breadcrumb = [];
     if (!pid) return breadcrumb;
-    while (pid != 0) {
+    while (pid !== 0) {
       const nav = await this.ctx.model.CmsDoc.findOne({ where: { id: { [Op.eq]: pid } } });
       breadcrumb.push(nav);
       pid = nav.pid;

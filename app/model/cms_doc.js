@@ -3,7 +3,7 @@
 module.exports = app => {
   const DataTypes = app.Sequelize;
   const CmsDoc = app.model.define('cms_doc', {
-    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, comment: '主键' },
+    id: { type: DataTypes.INTEGER, autoIncrement:true, primaryKey: true, comment: '主键' },
     createdAt: { type: DataTypes.DATE, comment: '创建时间' },
     updatedAt: { type: DataTypes.DATE, comment: '更新时间' },
     user_uuid: { type: DataTypes.UUID, comment: '作者uuid' },
@@ -23,63 +23,63 @@ module.exports = app => {
     view: { type: DataTypes.INTEGER, defaultValue: 0, comment: '浏览量' },
     level: { type: DataTypes.INTEGER, defaultValue: 0, comment: '优先级（越高排序越靠前）' },
     status: { type: DataTypes.INTEGER, defaultValue: 1, comment: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
-  }, {
-    indexes: [{ unique: false, fields: [ 'classify_id' ] }, { unique: false, fields: [ 'pid' ] }, { unique: false, fields: [ 'models_uuid' ] }],
-    paranoid: true,
-  });
+  },{
+  indexes:[{"unique":false,"fields":["classify_id"]},{"unique":false,"fields":["pid"]},{"unique":false,"fields":["models_uuid"]}],
+  paranoid: true,
+});
   CmsDoc.associate = function() {
-    app.model.CmsClassify.hasMany(app.model.CmsDoc, {
-      foreignKey: 'classify_id',
-      sourceKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDoc.belongsTo(app.model.CmsClassify, {
-      foreignKey: 'classify_id',
-      targetKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDoc.hasOne(app.model.CmsDocArticle, {
-      foreignKey: 'doc_id',
-      sourceKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDocArticle.belongsTo(app.model.CmsDoc, {
-      foreignKey: 'doc_id',
-      targetKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDoc.hasOne(app.model.CmsDocDownload, {
-      foreignKey: 'doc_id',
-      sourceKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDocDownload.belongsTo(app.model.CmsDoc, {
-      foreignKey: 'doc_id',
-      targetKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDoc.hasOne(app.model.CmsDocPicture, {
-      foreignKey: 'doc_id',
-      sourceKey: 'id',
-      constraints: false,
-    });
-    app.model.CmsDocPicture.belongsTo(app.model.CmsDoc, {
-      foreignKey: 'doc_id',
-      targetKey: 'id',
-      constraints: false,
-    });
-    app.model.SysUser.hasMany(app.model.CmsDoc, {
-      foreignKey: 'user_uuid',
-      sourceKey: 'uuid',
-      constraints: false,
-    });
-    app.model.CmsDoc.belongsTo(app.model.SysUser, {
-      foreignKey: 'user_uuid',
-      targetKey: 'uuid',
-      constraints: false,
-    });
-
-  };
-  // CmsDoc.sync({ alter: true });
+       app.model.CmsClassify.hasMany(app.model.CmsDoc, {
+            foreignKey: 'classify_id',
+            sourceKey: 'id',
+            constraints: false,
+          });
+           app.model.CmsDoc.belongsTo(app.model.CmsClassify, {
+            foreignKey: 'classify_id',
+            targetKey: 'id',
+            constraints: false,
+          });
+          app.model.CmsDoc.hasOne(app.model.CmsDocArticle, {
+            foreignKey: 'doc_id',
+            sourceKey: 'id',
+            constraints: false,
+          });
+           app.model.CmsDocArticle.belongsTo(app.model.CmsDoc, {
+            foreignKey: 'doc_id',
+            targetKey: 'id',
+            constraints: false,
+          });
+          app.model.CmsDoc.hasOne(app.model.CmsDocDownload, {
+            foreignKey: 'doc_id',
+            sourceKey: 'id',
+            constraints: false,
+          });
+           app.model.CmsDocDownload.belongsTo(app.model.CmsDoc, {
+            foreignKey: 'doc_id',
+            targetKey: 'id',
+            constraints: false,
+          });
+          app.model.CmsDoc.hasOne(app.model.CmsDocPicture, {
+            foreignKey: 'doc_id',
+            sourceKey: 'id',
+            constraints: false,
+          });
+           app.model.CmsDocPicture.belongsTo(app.model.CmsDoc, {
+            foreignKey: 'doc_id',
+            targetKey: 'id',
+            constraints: false,
+          });
+          app.model.SysUser.hasMany(app.model.CmsDoc, {
+            foreignKey: 'user_uuid',
+            sourceKey: 'uuid',
+            constraints: false,
+          });
+           app.model.CmsDoc.belongsTo(app.model.SysUser, {
+            foreignKey: 'user_uuid',
+            targetKey: 'uuid',
+            constraints: false,
+          });
+          
+      };
+  //CmsDoc.sync({ alter: true });
   return CmsDoc;
 };

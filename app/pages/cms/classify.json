@@ -34,6 +34,12 @@
           "sortable": true
         },
         {
+          "label": "地址",
+          "type": "text",
+          "name": "url",
+          "copyable": true
+        },
+        {
           "label": "添加时间",
           "type": "date",
           "name": "createdAt",

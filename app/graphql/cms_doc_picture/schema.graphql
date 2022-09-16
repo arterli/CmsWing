@@ -147,16 +147,14 @@
     
     
     input AddCmsDocPicture {
-    doc_id: Int!
-      content: String
+    content: String
       template: String
       
     }
     
     
     input EditCmsDocPicture {
-    doc_id: Int
-      content: String
+    content: String
       template: String
       
     }

@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 'use strict';
 const Controller = require('../../core/base_controller');
 const path = require('path');

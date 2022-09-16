@@ -172,7 +172,7 @@
             "body": {
               "type": "form",
               "debug": true,
-              "mode": "horizontal",
+              "mode": "normal",
               "horizontal": {
                 "leftFixed": "xs"
               },
@@ -253,7 +253,7 @@
                       "type": "static",
                       "label": "模型",
                       "value": "${classify.modelName}",
-                      "columnRatio": 2
+                      "columnRatio": 1
                     },
                     {
                       "type": "hidden",
@@ -320,7 +320,7 @@
                 },
                 {
                   "type": "service",
-                  "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${classify.models_uuid}"
+                  "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${classify.models_uuid}&type=add"
                 }
               ]
             }
@@ -467,7 +467,7 @@
                 "body": {
                   "type": "form",
                   "debug": true,
-                  "mode": "horizontal",
+                  "mode": "normal",
                   "horizontal": {
                     "leftFixed": "xs"
                   },
@@ -551,7 +551,7 @@
                           "type": "static",
                           "label": "模型",
                           "value": "${modelName}",
-                          "columnRatio": 2
+                          "columnRatio": 1
                         },
                         {
                           "type": "hidden",
@@ -564,7 +564,7 @@
                           "name": "classify_id",
                           "required": true,
                           "searchable": true,
-                          "columnRatio": 3,
+                          "columnRatio": 2,
                           "source": "/admin/cms/doc/selectClassify?models_uuid=${models_uuid}"
                         },
                         {
@@ -615,7 +615,7 @@
                     },
                     {
                       "type": "service",
-                      "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${models_uuid}"
+                      "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${models_uuid}&type=edit"
                     }
                   ]
                 }

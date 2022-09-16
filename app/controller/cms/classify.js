@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 'use strict';
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
@@ -31,6 +32,7 @@ class ClassifyController extends Controller {
     const list = await ctx.model.CmsClassify.findAll(map);
     for (const v of list) {
       v.dataValues.sub = v.sub ? JSON.parse(v.sub) : v.sub;
+      v.dataValues.url = `/cms/list/${v.name ? v.name : v.id}`;
     }
     let tree;
     if (data.name || data.title) {
@@ -94,14 +96,14 @@ class ClassifyController extends Controller {
   async classifyDel() {
     const { ctx } = this;
     const { id } = ctx.query;
-    const del = ctx.model.CmsClassify.destroy({ where: { id } });
-    ctx.model.CmsClassify.destroy({ where: { pid: id } });
+    const ids = await ctx.service.cms.classify.getSubClassifyIds(id);
+    const del = ctx.model.CmsClassify.destroy({ where: { id: { [Op.in]: ids } } });
     this.success(del);
   }
   /**
   * @summary 排序
   * @description 排序
-  * @router get /admin/cms/classify/saveOrder
+  * @router post /admin/cms/classify/saveOrder
   * @request body cms_classify_add body desc
   * @response 200 baseRes desc
   */

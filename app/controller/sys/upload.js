@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 'use strict';
 /**
 * @controller 文件上传

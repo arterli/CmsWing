@@ -1,0 +1,160 @@
+{% extends "./inc_base.njk" %}
+{%block body%}class="header-scroll-reveal"{%endblock%}
+{% block middle %}
+    <!-- PAGE TITLE -->
+			<div class="container pt-5">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb fs-6">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item"><a href="#">Portfolio</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Project Name</li>
+					</ol>
+				</nav>
+			</div>
+			<!-- /PAGE TITLE -->
+
+			<!-- -->
+			<div class="section pt-3">
+				<div class="container">
+
+					<div class="row g-xl-5">
+
+						<div class="col-12 col-lg-4 mb-5">
+
+							<div class="sticky-kit z-index-0">
+
+								<h2 class="m-0 fs-25">
+									{{details.title}}
+								</h2>
+								<h6 class="fw-normal mb-4">
+									{{helper.moment(details.createdAt).format('YYYY-MM-DD HH:mm:ss')}}
+								</h6>
+
+								<p>
+									{{details.description}}
+								</p>
+
+							
+
+								<div class="mt-5">
+									<a href="https://unsplash.com/@boxedwater" target="unsplash" rel="noopener" class="btn btn-lg btn-outline-dark shadow-none w-100">
+										Visit Website
+									</a>
+								</div>
+
+							</div>
+
+						</div>
+
+
+						<!--
+							In order for lazyload to work, a height is required, else all images are in viewport.
+							By default, an empty png is set with 400px height:
+							http://png-pixel.com/
+						-->
+						<div class="col-12 col-lg-8">
+             {% for item in details.cms_doc_picture.content%}
+							<div class="bg-white shadow-primary-xs mb-5">
+								<img height="500" class="img-fluid lazy rounded" data-src="{{item.url}}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAGQCAQAAADFUcJQAAAAFElEQVR42mNkYGAcRaNoFI2ioYAAsLUBkdmEbfIAAAAASUVORK5CYII=" alt="...">
+							</div>
+              {%endfor%}
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<!-- / -->
+
+
+
+
+
+
+			<!-- -->
+			<div class="section bg-theme-color-light">
+				<div class="container">
+
+
+					<h2 class="display-5 fw-bold text-center">
+						More from our  
+
+						<!-- typed -->
+						<span class="typed text-primary" 
+								data-typed-string="team|professionals|seniors"
+								data-typed-speed-forward="80" 
+								data-typed-speed-back="30" 
+								data-typed-back-delay="700" 
+								data-typed-loop-times="infinite" 
+								data-typed-smart-backspace="true" 
+								data-typed-shuffle="false" 
+								data-typed-cursor="|"></span>
+
+					</h2>
+
+
+
+
+					<div class="swiper-container swiper-secondary" data-aos="fade-in" data-aos-delay="0" data-aos-offset="0" data-swiper='{
+							"slidesPerView": 4,
+							"spaceBetween": 15,
+							"slidesPerGroup": 1,
+							"loop": true,
+							"autoplay": { "delay" : 5500, "disableOnInteraction": false },
+							"breakpoints": {
+								"1024": { "slidesPerView": "4" },
+								"920": 	{ "slidesPerView": "4" },
+								"768": 	{ "slidesPerView": "2" },
+								"460": 	{ "slidesPerView": "1" }
+							}
+						}'>
+
+						<div class="hide swiper-wrapper py-5">
+
+							<a href="portfolio-single-3.html" class="swiper-slide transition-hover-top transition-all-ease-150 p-2 shadow-md rounded text-center text-decoration-none">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-HwTkJ5AvEjE-unsplash-min.jpg" alt="...">
+								<h3 class="h6 my-3">
+									<span class="text-dark">Project 1</span>
+								</h3>
+							</a>
+
+							<a href="portfolio-single-3.html" class="swiper-slide transition-hover-top transition-all-ease-150 p-2 shadow-md rounded text-center text-decoration-none">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-9fl-u7IcgOY-unsplash-min.jpg" alt="...">
+								<h3 class="h6 my-3">
+									<span class="text-dark">Project 2</span>
+								</h3>
+							</a>
+
+							<a href="portfolio-single-3.html" class="swiper-slide transition-hover-top transition-all-ease-150 p-2 shadow-md rounded text-center text-decoration-none">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-hhXhUjF6erk-unsplash-min.jpg" alt="...">
+								<h3 class="h6 my-3">
+									<span class="text-dark">Project 3</span>
+								</h3>
+							</a>
+
+							<a href="portfolio-single-3.html" class="swiper-slide transition-hover-top transition-all-ease-150 p-2 shadow-md rounded text-center text-decoration-none">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-fbbxMwwKqZk-unsplash-min.jpg" alt="...">
+								<h3 class="h6 my-3">
+									<span class="text-dark">Project 4</span>
+								</h3>
+							</a>
+
+							<a href="portfolio-single-3.html" class="swiper-slide transition-hover-top transition-all-ease-150 p-2 shadow-md rounded text-center text-decoration-none">
+								<img class="img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/boxed-water-is-better-6RTh34xCS1M-unsplash-min.jpg" alt="...">
+								<h3 class="h6 my-3">
+									<span class="text-dark">Project 5</span>
+								</h3>
+							</a>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+			</div>
+			<!-- / -->
+
+
+{% endblock %}

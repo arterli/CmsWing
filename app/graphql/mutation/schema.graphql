@@ -113,4 +113,11 @@ type Mutation {
   #下载 更新
   CmsDocDownload_update(data:EditCmsDocDownload!,where:WhereCmsDocDownload!):ResEditCmsDocDownload
 
+  #系统导航 添加
+  SysNavigation_create(data:AddSysNavigation):SysNavigation
+  #系统导航 删除
+  SysNavigation_destroy(where:WhereSysNavigation!):ResDelSysNavigation
+  #系统导航 更新
+  SysNavigation_update(data:EditSysNavigation!,where:WhereSysNavigation!):ResEditSysNavigation
+
 }

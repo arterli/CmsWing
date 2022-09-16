@@ -1,0 +1,240 @@
+
+    
+    type SysNavigation {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      pid:Int
+      title:String
+      url:String
+      sort:Int
+      target:Boolean
+      status:Boolean
+      
+      
+    }
+    
+    
+    input WhereSysNavigation_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_pid {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_title {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_url {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_target {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysNavigation_status {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysNavigation{
+    id:WhereSysNavigation_id
+      createdAt:WhereSysNavigation_createdAt
+      updatedAt:WhereSysNavigation_updatedAt
+      pid:WhereSysNavigation_pid
+      title:WhereSysNavigation_title
+      url:WhereSysNavigation_url
+      sort:WhereSysNavigation_sort
+      target:WhereSysNavigation_target
+      status:WhereSysNavigation_status
+      
+    }
+
+    input WhereSysNavigation {
+      id:WhereSysNavigation_id
+      createdAt:WhereSysNavigation_createdAt
+      updatedAt:WhereSysNavigation_updatedAt
+      pid:WhereSysNavigation_pid
+      title:WhereSysNavigation_title
+      url:WhereSysNavigation_url
+      sort:WhereSysNavigation_sort
+      target:WhereSysNavigation_target
+      status:WhereSysNavigation_status
+      
+      op_and: [WhereFieldSysNavigation]
+      op_or: [WhereFieldSysNavigation]
+      op_not: [WhereFieldSysNavigation]
+    }
+    
+    
+    input AddSysNavigation {
+    title: String
+      url: String
+      sort: Int
+      target: Boolean
+      status: Boolean
+      
+    }
+    
+    
+    input EditSysNavigation {
+    title: String
+      url: String
+      sort: Int
+      target: Boolean
+      status: Boolean
+      
+    }
+    
+    type CountSysNavigation {
+      count: Int
+      rows: [SysNavigation]
+    }
+    type ResDelSysNavigation {
+      count: Int
+    }
+    type ResEditSysNavigation {
+      ids: [Int]
+    }
+    

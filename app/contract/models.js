@@ -554,14 +554,12 @@ module.exports = {
     
   },
   cms_doc_article_add: {
-    content: { type: 'string', description: '文章内容', required: false },
-    doc_id: { type: 'string', description: '主表id', required: true },
+    content: { type: 'string', description: '文章内容', required: true },
     template: { type: 'string', description: '详情页模版', required: false },
     
   },
   cms_doc_article_edit: {
     content: { type: 'string', description: '文章内容' },
-    doc_id: { type: 'string', description: '主表id' },
     template: { type: 'string', description: '详情页模版' },
     
   },
@@ -578,13 +576,11 @@ module.exports = {
   },
   cms_doc_picture_add: {
     content: { type: 'string', description: '图片内容', required: false },
-    doc_id: { type: 'string', description: '主表id', required: true },
     template: { type: 'string', description: '详情页显示模板', required: false },
     
   },
   cms_doc_picture_edit: {
     content: { type: 'string', description: '图片内容' },
-    doc_id: { type: 'string', description: '主表id' },
     template: { type: 'string', description: '详情页显示模板' },
     
   },
@@ -601,14 +597,42 @@ module.exports = {
   },
   cms_doc_download_add: {
     content: { type: 'string', description: '下载内容', required: false },
-    doc_id: { type: 'string', description: '主表id', required: true },
     template: { type: 'string', description: '详情页显示模板', required: false },
     
   },
   cms_doc_download_edit: {
     content: { type: 'string', description: '下载内容' },
-    doc_id: { type: 'string', description: '主表id' },
     template: { type: 'string', description: '详情页显示模板' },
+    
+  },
+
+  // 系统导航
+  sys_navigation_item: {
+    createdAt: { type: 'string', description: '创建时间' },
+    id: { type: 'string', description: '主键' },
+    pid: { type: 'string', description: '上级导航ID' },
+    sort: { type: 'string', description: '排序' },
+    status: { type: 'boolean', description: '状态' },
+    target: { type: 'boolean', description: '是否新窗口打开' },
+    title: { type: 'string', description: '导航标题' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    url: { type: 'string', description: '导航链接' },
+    
+  },
+  sys_navigation_add: {
+    sort: { type: 'string', description: '排序', required: false },
+    status: { type: 'boolean', description: '状态', required: false },
+    target: { type: 'boolean', description: '是否新窗口打开', required: false },
+    title: { type: 'string', description: '导航标题', required: false },
+    url: { type: 'string', description: '导航链接', required: false },
+    
+  },
+  sys_navigation_edit: {
+    sort: { type: 'string', description: '排序' },
+    status: { type: 'boolean', description: '状态' },
+    target: { type: 'boolean', description: '是否新窗口打开' },
+    title: { type: 'string', description: '导航标题' },
+    url: { type: 'string', description: '导航链接' },
     
   },
 

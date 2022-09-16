@@ -58,7 +58,7 @@ class classifyService extends Service {
     if (!id) return breadcrumb;
     const n = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: id } } });
     breadcrumb.push(n.title);
-    while (n.pid != 0) {
+    while (n.pid !== 0) {
       const nav = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: n.pid } } });
       breadcrumb.push(nav.title);
       n.pid = nav.pid;

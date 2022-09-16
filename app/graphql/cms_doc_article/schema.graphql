@@ -147,16 +147,14 @@
     
     
     input AddCmsDocArticle {
-    doc_id: Int!
-      content: String
+    content: String!
       template: String
       
     }
     
     
     input EditCmsDocArticle {
-    doc_id: Int
-      content: String
+    content: String
       template: String
       
     }

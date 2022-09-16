@@ -237,7 +237,7 @@ class DocController extends Controller {
       const subobj = {};
       if (subarr.length > 0) {
         subobj.type = 'group';
-        subobj.mode = 'inline';
+        subobj.mode = 'normal';
         subobj.body = subarr;
       }
       res = subobj;
@@ -253,18 +253,157 @@ class DocController extends Controller {
   */
   async getContent() {
     const { ctx } = this;
-    const { models_uuid } = ctx.query;
-    const model = await ctx.model.SysModels.findOne({ where: { uuid: models_uuid } });
+    const { models_uuid, type } = ctx.query;
+    const map = {};
+    map.include = [{
+      model: ctx.model.SysModelsFields,
+      where: {
+        [type]: {
+          [Op.eq]: true,
+        },
+      },
+    }];
+    map.where = {};
+    map.where.uuid = models_uuid;
+    const model = await ctx.model.SysModels.findOne(map);
     const body = [];
-    if (model.name === 'cms_doc_article') {
+    // if (model.name === 'cms_doc_article') {
+    //   const obj = {};
+    //   obj.type = 'input-rich-text';
+    //   obj.name = `${model.name}.content`;
+    //   obj.label = '内容';
+    //   obj.required = true;
+    //   obj.options = {
+    //     height: 600,
+    //   };
+    //   body.push(obj);
+    // }
+    // console.log(JSON.stringify(model, null, 2));
+    for (const v of model.sys_models_fields) {
       const obj = {};
-      obj.type = 'input-rich-text';
-      obj.name = `${model.name}.content`;
-      obj.label = '内容';
-      obj.required = true;
-      obj.options = {
-        height: 600,
-      };
+      obj.name = `${model.name}.${v.name}`;
+      obj.label = v.comment;
+      if (v.allowNull) {
+        obj.required = true;
+      }
+      if (model.name === 'cms_doc_article') {
+        // 文章
+        if (v.name === 'content') {
+          obj.type = 'input-rich-text';
+          obj.options = {
+            height: 600,
+          };
+        } else {
+          obj.type = 'input-text';
+        }
+
+      } else if (model.name === 'cms_doc_picture') {
+        // 图片
+        if (v.name === 'content') {
+          obj.type = 'combo';
+          obj.multiple = true;
+          obj.unique = true;
+          obj.draggable = true;
+          obj.multiLine = true;
+          obj.items = [
+            {
+              type: 'group',
+              mode: 'horizontal',
+              className: 'pr-5',
+              body: [
+                {
+                  type: 'input-image',
+                  name: 'url',
+                  label: '图片',
+                  maxLength: 1,
+                  receiver: '/upload/adminToken',
+                  columnRatio: 2,
+                },
+                {
+                  name: 'desc',
+                  type: 'textarea',
+                  clearable: true,
+                  minRows: 4,
+                  showCounter: true,
+                  maxLength: 800,
+                  label: '简介',
+                },
+              ],
+            },
+
+          ];
+        } else {
+          obj.type = 'input-text';
+        }
+
+      } else if (model.name === 'cms_doc_download') {
+        // 下载
+        if (v.name === 'content') {
+          obj.type = 'combo';
+          obj.multiple = true;
+          obj.unique = true;
+          obj.draggable = true;
+          obj.multiLine = true;
+          obj.items = [
+            {
+              type: 'group',
+              mode: 'horizontal',
+              className: 'pr-5',
+              body: [
+                {
+                  name: 'd_title',
+                  label: '下载名称',
+                  clearable: true,
+                  type: 'input-text',
+                  columnRatio: 3,
+                },
+                {
+                  name: 'd_type',
+                  label: '下载类型',
+                  type: 'select',
+                  options: [
+                    {
+                      label: '本地',
+                      value: '1',
+                    },
+                    {
+                      label: '网盘',
+                      value: '2',
+                    },
+                  ],
+                  columnRatio: 2,
+                },
+                {
+                  type: 'input-file',
+                  name: 'd_url',
+                  label: '上传文件',
+                  accept: '*',
+                  receiver: '/upload/adminToken',
+                  visibleOn: '${d_type==="1"}',
+                },
+                {
+                  name: 'd_url',
+                  label: '网盘地址',
+                  type: 'input-text',
+                  clearable: true,
+                  visibleOn: '${d_type==="2"}',
+                },
+                {
+                  name: 'd_password',
+                  type: 'input-text',
+                  clearable: true,
+                  label: '网盘密码',
+                  visibleOn: '${d_type==="2"}',
+                  columnRatio: 2,
+                },
+              ],
+            },
+
+          ];
+        } else {
+          obj.type = 'input-text';
+        }
+      }
       body.push(obj);
     }
     this.success(body);
@@ -283,6 +422,12 @@ class DocController extends Controller {
     if (data.cms_doc_article) {
       data.cms_doc_article.doc_id = add.id;
       await ctx.model.CmsDocArticle.create(data.cms_doc_article);
+    } else if (data.cms_doc_picture) {
+      data.cms_doc_picture.doc_id = add.id;
+      await ctx.model.CmsDocPicture.create(data.cms_doc_picture);
+    } else if (data.cms_doc_download) {
+      data.cms_doc_download.doc_id = add.id;
+      await ctx.model.CmsDocDownload.create(data.cms_doc_download);
     }
     this.success(add);
   }
@@ -299,6 +444,10 @@ class DocController extends Controller {
     const edit = await ctx.model.CmsDoc.update(data, { where: { id: data.id } });
     if (data.cms_doc_article) {
       await ctx.model.CmsDocArticle.update(data.cms_doc_article, { where: { doc_id: { [Op.eq]: data.id } } });
+    } else if (data.cms_doc_picture) {
+      await ctx.model.CmsDocPicture.update(data.cms_doc_picture, { where: { doc_id: { [Op.eq]: data.id } } });
+    } else if (data.cms_doc_download) {
+      await ctx.model.CmsDocDownload.update(data.cms_doc_download, { where: { doc_id: { [Op.eq]: data.id } } });
     }
     this.success(edit);
   }
