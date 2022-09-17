@@ -1,0 +1,290 @@
+{% extends "./inc_base.njk" %}
+{%block body%}class="header-scroll-reveal"{%endblock%}
+{% block middle %}
+    
+			<div class="section pt-5">
+				<div class="container">
+
+					<div class="row">
+
+						<div class="col-12 col-lg-10 order-2">
+
+							<div class="shadow-xs bg-white mb-4 p-3 rounded clearfix">
+
+								<label class="h5 mb-0">
+									{{classify.title}}
+								</label>
+
+								<div class="float-end position-relative mt-1 small">
+									排序: &nbsp; <a href="#" class="text-danger text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+										Best Match &nbsp; 
+										<i class="fi fi-arrow-down-slim smaller"></i>
+									</a>
+
+									<ul class="dropdown-menu border-0 mt-3 rounded fs-6">
+										<li class="dropdown-item active"><a href="#" class="text-muted small py-2 d-block">Best Match</a></li>
+										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Latest Updated</a></li>
+										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Price: Low to High</a></li>
+										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Price: High to Low</a></li>
+									</ul>
+								</div>
+								<hr>
+                 <h1 class="h6 mb-0">
+									找到 359 个相关结果
+								</h1>
+
+							</div>
+
+
+         {%for item in list.rows%}
+							<!-- item -->
+							<div class="shadow-xs rounded mb-3 p-3">
+
+								<div class="row g-0">
+
+									<div class="col-12 col-md-3 p--0">
+
+										<figure class="overflow-hidden text-center clearfix d-block m-0 position-relative">
+											
+											<a href="/cms/details/{{item.id}}" class="text-decoration-none">
+											{%if not item.cover_url%}
+												<svg class="d-block w-100 fs-1 rounded" xmlns="http://www.w3.org/2000/svg" role="img" style="text-anchor: middle;user-select: none;">
+												<rect width="100%" height="100%" fill="#c6d3e6"></rect>
+												<text x="50%" y="50%" fill="#869ab8" dy=".3em">暂无图片</text>
+												</svg>
+												{%else%}
+												<img class="img-fluid rounded lazy" data-src="{{item.cover_url}}" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+												{%endif%}
+											</a>
+										</figure>
+
+									</div>
+									<div class="col-12 mt-3 d-block d-sm-none"><!-- mobile spacer --></div>
+									<div class="col-12 col-md-9 order-xs-3 order-md-2 order-lg-2 p-0">
+
+										<div class="p-0 p-lg-3">
+
+											<h3 class="h5 mb-2">
+												<a href="/cms/details/{{item.id}}">
+													{{item.title}}
+												</a>
+											</h3>
+
+                			<p class="mb-2">
+                				{{item.description|truncate(80, true, "...")}}
+                			</p>
+
+											<ul class="list-inline text-gray-700 small mb-2">
+											    <li class="list-inline-item">	{{item.pathTitle}}</li>
+											    <li class="list-inline-item">/</li>
+											    <li class="list-inline-item">{{helper.moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}}</li>
+											    <li class="list-inline-item">/</li>
+											    <li class="list-inline-item">5 Baths</li>
+											</ul>
+                      
+
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+							<!-- /item -->
+        {%endfor%}
+							<!-- pagination -->
+							<nav aria-label="pagination" class="mt-5">
+								{{pagination|safe}}
+							</nav>
+							<!-- pagination -->
+
+						</div>
+
+
+						<div class="col-12 col-lg-2 mb-5 order-1">
+							<form method="get" action="#" class="input-group-over d-block mb-2">
+								
+								<div class="form-floating mb-3">
+									<input required="" placeholder="搜索..." id="blog_search" name="keywords" type="text" class="form-control">
+									<label for="blog_search">搜索...</label>
+								</div>
+
+								<button type="submit" class="btn smaller">
+									<i class="fi fi-search m-0"></i>
+								</button>
+
+							</form>
+							<!-- CATEGORIES -->
+							<nav class="nav-deep nav-deep-light mb-4 shadow-xs shadow-none-md shadow-none-xs px-3 pb-3 p-0-md p-0-xs rounded">
+
+								<!-- mobile trigger : categories -->
+								<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+									<span class="group-icon px-2 py-2 float-start">
+										<i class="fi fi-bars-2"></i>
+										<i class="fi fi-close"></i>
+									</span>
+
+									<span class="h5 py-2 m-0 float-start">
+										分类
+									</span>
+								</button>
+
+								<!-- desktop only -->
+								<h5 class="py-3 m-0 d-none d-lg-block">
+									分类
+								</h5>
+
+
+								<!-- navbar : navigation -->
+								<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="#">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												分类一
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="#">
+											<i class="fi fi-arrow-end m-0 smaller"></i> 
+											<span class="px-2 d-inline-block">
+												分类二
+											</span>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link px-0" href="#">
+											<span class="group-icon">
+												<i class="fi fi-arrow-end"></i>
+												<i class="fi fi-arrow-down"></i>
+											</span>
+
+											<span class="px-2 d-inline-block">
+												分类三
+											</span>
+										</a>
+
+										<ul class="nav flex-column ps-2">
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													aaaa 1
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													bbbb 2
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#">
+													cccc 3
+												</a>
+											</li>
+										</ul>
+
+									</li>
+
+								</ul>
+
+							</nav>
+							<!-- /CATEGORIES -->
+
+
+							<!-- Suggestions -->
+							<div class="card rounded border-0 shadow-xs d-block mb-4 p-3">
+								<h6 class="mb-4">单选</h6>
+
+							<!--
+
+	Remove data-checkgroup-ajax-* for non-ajax
+
+-->
+<div class="checkgroup"
+		data-checkgroup-checkbox-single="true"
+		data-checkgroup-ajax-url="../demo.files/php/demo.ajax_request.php"
+		data-checkgroup-ajax-method="GET"
+		data-checkgroup-ajax-params="['param1','value1']['param2','value2']"
+		data-checkgroup-ajax-toast-success="Changes Saved!"
+		data-checkgroup-ajax-toast-position="top-center">
+
+	<div class="form-check"><!-- item -->
+		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-1">
+		<label class="form-check-label" for="option-1">
+			橘子
+		</label>
+	</div>
+
+	<div class="form-check"><!-- item -->
+		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-2" data-params="['optionalParam1','optionalValue1']['optionalParam2','optionalValue2']">
+		<label class="form-check-label" for="option-2">
+			苹果
+		</label>
+	</div>
+
+	<div class="form-check"><!-- item -->
+		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-3">
+		<label class="form-check-label" for="option-3">
+			香蕉
+		</label>
+	</div>
+
+</div>
+
+							</div>
+							<!-- /Suggestions -->
+<!-- Suggestions -->
+							<div class="card rounded border-0 shadow-xs d-block mb-4 p-3">
+								<h6 class="mb-4">多选</h6>
+
+								<div class="form-check mb-2"><!-- check all -->
+	<input data-checkall-container="#checkall-list" class="form-check-input form-check-input-default" type="checkbox" value="" id="checkall-top">
+	<label class="form-check-label" for="checkall-top">
+		全选/不选
+	</label>
+</div>
+
+<div id="checkall-list" class="ps-0">
+
+	<div class="form-check mb-2"><!-- item -->
+		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-1">
+		<label class="form-check-label" for="option-1">
+			大象
+		</label>
+	</div>
+	<div class="form-check mb-2"><!-- item -->
+		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-2">
+		<label class="form-check-label" for="option-2">
+			麻雀
+		</label>
+	</div>
+	<div class="form-check mb-2"><!-- item -->
+		<input class="form-check-input form-check-input-primary js-ignore" type="checkbox" value="" id="checkIgnored">
+		<label class="form-check-label" for="checkIgnored">
+			雄鹰
+		</label>
+	</div>
+
+</div>
+
+<div class="form-check mb-2"><!-- check all -->
+	<input data-checkall-container="#checkall-list" class="form-check-input form-check-input-default" type="checkbox" value="" id="checkall-bottom">
+	<label class="form-check-label" for="checkall-bottom">
+		全选/不选
+	</label>
+</div>
+
+							</div>
+							<!-- /Suggestions -->
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+{% endblock %}
