@@ -28,7 +28,6 @@ class WebController extends Controller {
   // 首页
   async index() {
     const { ctx } = this;
-
     await ctx.render('cms/index_index.njk');
   }
   // 列表

@@ -15,9 +15,11 @@ const fs = require('fs/promises');
 const fsSync = require('fs');
 const path = require('path');
 const moment = require('moment');
+const utils = require('utility');
 module.exports = {
   _,
   moment,
+  utils,
   /**
    * 加密助手函数
    * @param {string} str 明文数据

@@ -10,6 +10,7 @@
     "dataloader": "^2.1.0",
     "egg": "^3.1.0",
     "egg-cors": "^2.2.3",
+    "egg-downloader": "^1.0.5",
     "egg-graphql": "^2.8.0",
     "egg-scripts": "^2.17.0",
     "egg-sequelize": "^6.0.0",
@@ -20,7 +21,8 @@
     "graphql": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
-    "qiniu": "^7.7.0"
+    "qiniu": "^7.7.0",
+    "utility": "^1.17.0"
   },
   "devDependencies": {
     "autod": "^3.1.2",
