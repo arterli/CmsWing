@@ -192,4 +192,24 @@ module.exports = {
       return true;
     }
   },
+  /**
+ * escape html
+ * @param str
+ */
+  escapeHtml(str) {
+    return (str + '').replace(/[<>'"]/g, a => {
+      switch (a) {
+        case '<':
+          return '&lt;';
+        case '>':
+          return '&gt;';
+        case '"':
+          return '&quote;';
+        case '\'':
+          return '&#39;';
+        default:
+          return '';
+      }
+    });
+  },
 };
