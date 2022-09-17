@@ -24,7 +24,8 @@ class UploadController extends Controller {
       if (!token) throw new Error('请在接口携带toekn');
       const userInfo = ctx.helper.deToken(token);
       if (!userInfo) throw new Error('无效toekn');
-      data.resBody = data.resBody ? data.resBody : '{"status": 0,"msg": "","data":{"name":"{{name}}","mime":"{{mime}}","size":{{size}},"type":"{{type}}","savename":"{{savename}}","hash":"{{hash}}","value":"{{value}}"}}';
+      data.resBody = data.resBody || ctx.get('resBody');
+      data.resBody = data.resBody ? data.resBody : '{"status": 0,"msg": "","data":{"name":"{{name}}","mime":"{{mime}}","size":{{size}},"type":"{{type}}","savename":"{{savename}}","hash":"{{hash}}","value":"{{value}}","link":"{{value}}"}}';
       const testresbody = await ctx.renderString(data.resBody, {
         name: '123 (1).png',
         mime: 'image/png',

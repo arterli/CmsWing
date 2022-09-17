@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 'use strict';
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
@@ -9,6 +10,7 @@ class DocController extends Controller {
   * @summary 分类列表
   * @description 分类列表
   * @router get /admin/cms/doc/index
+  // eslint-disable-next-line jsdoc/check-tag-names
   * @request query integer field_name desc
   * @response 200 baseRes desc
   */
@@ -290,8 +292,28 @@ class DocController extends Controller {
         // 文章
         if (v.name === 'content') {
           obj.type = 'input-rich-text';
+          obj.receiver = {
+            method: 'post',
+            url: '/upload/adminToken',
+            headers: {
+              resBody: '{"link":"{{value}}"}',
+            },
+          };
           obj.options = {
             height: 600,
+            codesample_languages: [
+              { text: 'HTML', value: 'html' },
+              { text: 'JavaScript', value: 'javascript' },
+              { text: 'CSS', value: 'css' },
+              { text: 'json', value: 'json' },
+              { text: 'graphql', value: 'graphql' },
+              { text: 'bash', value: 'bash' },
+              { text: 'git', value: 'git' },
+              { text: 'markdown', value: 'markdown' },
+              { text: 'sql', value: 'sql' },
+              { text: 'typescript', value: 'typescript' },
+            ],
+            content_css: '/public/sys/prism.css',
           };
         } else {
           obj.type = 'input-text';

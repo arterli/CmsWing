@@ -1,1 +1,30 @@
-{"type":"page","title":"首页","body":[{"type":"tpl","tpl":"body...","inline":false,"id":"u:6f72c6ce4f53"},{"type":"input-rich-text","label":"富文本","name":"rich-text","id":"u:39d997389e98"}],"id":"u:0fdc9e106470","messages":{},"pullRefresh":{}}
+{
+  "type": "page",
+  "title": "首页",
+  "body": [
+    {
+      "type": "tpl",
+      "tpl": "body...",
+      "inline": false,
+      "id": "u:6f72c6ce4f53"
+    },
+    {
+      "type": "input-rich-text",
+      "label": "富文本",
+      "name": "rich-text",
+      "options":{
+        "codesample_languages": [
+          { "text": "HTML", "value": "html" },
+          { "text": "JavaScript", "value": "javascript" },
+          { "text": "CSS", "value": "css" },
+          { "text": "graphql", "value": "graphql" }
+        ],
+        "content_css": "/public/sys/prism.css"
+      }
+     
+    }
+  ],
+  "id": "u:0fdc9e106470",
+  "messages": {},
+  "pullRefresh": {}
+}
