@@ -1,8 +1,8 @@
 {% extends "./inc_base.njk" %}
 {%block body%}class="header-scroll-reveal"{%endblock%}
 {% block middle %}
-    
-			<div class="section pt-5">
+
+			<div class="section pt-5 pb-5">
 				<div class="container">
 
 					<div class="row">
@@ -16,21 +16,20 @@
 								</label>
 
 								<div class="float-end position-relative mt-1 small">
-									排序: &nbsp; <a href="#" class="text-danger text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-										Best Match &nbsp; 
+									排序: &nbsp; <a href="{{ orderby.def.url }}" class="text-danger text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+										{{ orderby.def.name }}
 										<i class="fi fi-arrow-down-slim smaller"></i>
 									</a>
 
 									<ul class="dropdown-menu border-0 mt-3 rounded fs-6">
-										<li class="dropdown-item active"><a href="#" class="text-muted small py-2 d-block">Best Match</a></li>
-										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Latest Updated</a></li>
-										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Price: Low to High</a></li>
-										<li class="dropdown-item"><a href="#" class="text-muted small py-2 d-block">Price: High to Low</a></li>
+										{% for item in orderby.list %}
+										<li class="dropdown-item {% if ctx.query.orderby==item.id %}active{% endif %}"><a href="{{ item.url }}" class="text-muted small py-2 d-block">{{ item.name }}</a></li>
+										{% endfor %}
 									</ul>
 								</div>
 								<hr>
                  <h1 class="h6 mb-0">
-									找到 359 个相关结果
+									找到 <span class="text-danger">{{ list.count }}</span> 个相关结果
 								</h1>
 
 							</div>
@@ -45,7 +44,7 @@
 									<div class="col-12 col-md-3 p--0">
 
 										<figure class="overflow-hidden text-center clearfix d-block m-0 position-relative">
-											
+
 											<a href="/cms/details/{{item.id}}" class="text-decoration-none">
 											{%if not item.cover_url%}
 												<svg class="d-block w-100 fs-1 rounded" xmlns="http://www.w3.org/2000/svg" role="img" style="text-anchor: middle;user-select: none;">
@@ -81,7 +80,7 @@
 											    <li class="list-inline-item">/</li>
 											    <li class="list-inline-item">5 Baths</li>
 											</ul>
-                      
+
 
 										</div>
 
@@ -101,12 +100,14 @@
 						</div>
 
 
-						<div class="col-12 col-lg-2 mb-5 order-1">
-							<form method="get" action="#" class="input-group-over d-block mb-2">
-								
+						<div class="col-12 col-lg-2 mb-3 order-1">
+							<form method="get" action="{{ classify.url }}" class="input-group-over d-block mb-2">
 								<div class="form-floating mb-3">
-									<input required="" placeholder="搜索..." id="blog_search" name="keywords" type="text" class="form-control">
-									<label for="blog_search">搜索...</label>
+									<input placeholder="搜索..." id="doc_search" name="keywords" type="text" class="form-control" value="{{ ctx.query.keywords }}">
+									{% if ctx.query.sub %}
+									<input name="sub" type="hidden" value="{{ ctx.query.sub }}">
+									{% endif %}
+									<label for="doc_search">搜索...</label>
 								</div>
 
 								<button type="submit" class="btn smaller">
@@ -114,8 +115,11 @@
 								</button>
 
 							</form>
+							{%set classifyList = classify.id|@classify('top')%}
+
+							{%if classifyList%}
 							<!-- CATEGORIES -->
-							<nav class="nav-deep nav-deep-light mb-4 shadow-xs shadow-none-md shadow-none-xs px-3 pb-3 p-0-md p-0-xs rounded">
+							<nav class="nav-deep nav-deep-light mb-3 shadow-xs shadow-none-md shadow-none-xs px-3 pb-3 p-0-md p-0-xs rounded">
 
 								<!-- mobile trigger : categories -->
 								<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
@@ -123,7 +127,6 @@
 										<i class="fi fi-bars-2"></i>
 										<i class="fi fi-close"></i>
 									</span>
-
 									<span class="h5 py-2 m-0 float-start">
 										分类
 									</span>
@@ -137,148 +140,102 @@
 
 								<!-- navbar : navigation -->
 								<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
-
-									<li class="nav-item">
-										<a class="nav-link px-0" href="#">
-											<i class="fi fi-arrow-end m-0 smaller"></i> 
-											<span class="px-2 d-inline-block">
-												分类一
-											</span>
-										</a>
-									</li>
-
-									<li class="nav-item">
-										<a class="nav-link px-0" href="#">
-											<i class="fi fi-arrow-end m-0 smaller"></i> 
-											<span class="px-2 d-inline-block">
-												分类二
-											</span>
-										</a>
-									</li>
-
-									<li class="nav-item">
+                 {%for item in classifyList%}
+									<li class="nav-item {%if (item.id ==classify.id) or (classify.id in (item.arrId or [])) %}active{%endif%}">
+										{%if item.children%}
 										<a class="nav-link px-0" href="#">
 											<span class="group-icon">
 												<i class="fi fi-arrow-end"></i>
 												<i class="fi fi-arrow-down"></i>
 											</span>
-
 											<span class="px-2 d-inline-block">
-												分类三
+												{{item.title}}
 											</span>
 										</a>
-
-										<ul class="nav flex-column ps-2">
-											<li class="nav-item">
-												<a class="nav-link" href="#">
-													aaaa 1
+										{%else%}
+											<a class="nav-link px-0" href="{{item.url}}">
+											<i class="fi fi-arrow-end m-0 smaller"></i>
+											<span class="px-2 d-inline-block">
+												{{item.title}}
+											</span>
+										</a>
+										{%endif%}
+										{%if item.children%}
+											<ul class="nav flex-column ps-2">
+												{%for _item in item.children%}
+											<li class="nav-item {%if _item.id ==classify.id%}active{%endif%}">
+												<a class="nav-link" href="{{_item.url}}">
+													{{_item.title}}
 												</a>
 											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#">
-													bbbb 2
-												</a>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" href="#">
-													cccc 3
-												</a>
-											</li>
+											{%endfor%}
 										</ul>
-
+										{%endif%}
 									</li>
-
+                  {%endfor%}
 								</ul>
 
 							</nav>
 							<!-- /CATEGORIES -->
-
-
+              {%endif%}
+							{% set subclassify = classify.id|@classify('sub') %}
+							{% for item in  subclassify%}
 							<!-- Suggestions -->
-							<div class="card rounded border-0 shadow-xs d-block mb-4 p-3">
-								<h6 class="mb-4">单选</h6>
+							<div class="card border-0 shadow-xs d-block mb-3 px-3 pb-3 shadow-none-md shadow-none-xs p-0-md p-0-xs rounded">
+								<!-- mobile trigger : categories -->
+								<button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
+								data-bs-target="#nav_{{ item.name }}"
+								data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+									<span class="group-icon px-2 py-2 float-start">
+										<i class="fi fi-bars-2"></i>
+										<i class="fi fi-close"></i>
+									</span>
+									<span class="h5 py-2 m-0 float-start">
+										{{ item.label }}
+									</span>
+								</button>
+								<!-- desktop only -->
+								<h6 class="py-3 m-0 d-none d-lg-block">
+									{{ item.label }}
+								</h6>
+			{% if item.type=='radios' %}
+						<div id="nav_{{ item.name }}" class="checkgroup flex-column d-none d-lg-block classify-sub" data-type="{{ item.type }}" data-name="{{ item.name }}" data-url="{{ item.url }}" data-checkgroup-checkbox-single="true">
+            {% for v in item.options %}
+						<div class="form-check mb-1" ><!-- item -->
+						<input class="form-check-input form-check-input-primary class-sub-input" name="{{ item.name }}" type="checkbox" value="{{ v.value }}" id="{{ item.name }}-{{ v.value }}" {% if v.check %}checked{% endif %}>
+						<label class="form-check-label" for="{{ item.name }}-{{ v.value }}">
+						{{ v.label }}
+						</label>
+						</div>
+             {% endfor %}
+						</div>
+				{% elif item.type=='checkboxes' %}
+				<div id="nav_{{ item.name }}" class="checkgroup flex-column d-none d-lg-block">
+					<div class="form-check mb-2"><!-- check all -->
+						<input data-checkall-container="#checkall-{{ item.name }}" class="form-check-input form-check-input-default class-sub-input" type="checkbox" value="" id="checkall-{{ item.name }}-top">
+						<label class="form-check-label" for="checkall-{{ item.name }}-top">
+							全选/不选
+						</label>
+					</div>
 
-							<!--
+					<div id="checkall-{{ item.name }}" class="ps-0 classify-sub" data-type="{{ item.type }}" data-name="{{ item.name }}" data-url="{{ item.url }}">
 
-	Remove data-checkgroup-ajax-* for non-ajax
+						{% for v in item.options %}
+							<div class="form-check mb-1" ><!-- item -->
+								<input class="form-check-input form-check-input-primary class-sub-input" name="{{ item.name }}" type="checkbox" value="{{ v.value }}" id="{{ item.name }}-{{ v.value }}" {% if v.check %}checked{% endif %}>
+								<label class="form-check-label" for="{{ item.name }}-{{ v.value }}">
+									{{ v.label }}
+								</label>
+							</div>
+						{% endfor %}
 
--->
-<div class="checkgroup"
-		data-checkgroup-checkbox-single="true"
-		data-checkgroup-ajax-url="../demo.files/php/demo.ajax_request.php"
-		data-checkgroup-ajax-method="GET"
-		data-checkgroup-ajax-params="['param1','value1']['param2','value2']"
-		data-checkgroup-ajax-toast-success="Changes Saved!"
-		data-checkgroup-ajax-toast-position="top-center">
 
-	<div class="form-check"><!-- item -->
-		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-1">
-		<label class="form-check-label" for="option-1">
-			橘子
-		</label>
-	</div>
-
-	<div class="form-check"><!-- item -->
-		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-2" data-params="['optionalParam1','optionalValue1']['optionalParam2','optionalValue2']">
-		<label class="form-check-label" for="option-2">
-			苹果
-		</label>
-	</div>
-
-	<div class="form-check"><!-- item -->
-		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-3">
-		<label class="form-check-label" for="option-3">
-			香蕉
-		</label>
-	</div>
-
-</div>
-
+					</div>
+				</div>
+{% endif %}
 							</div>
 							<!-- /Suggestions -->
-<!-- Suggestions -->
-							<div class="card rounded border-0 shadow-xs d-block mb-4 p-3">
-								<h6 class="mb-4">多选</h6>
-
-								<div class="form-check mb-2"><!-- check all -->
-	<input data-checkall-container="#checkall-list" class="form-check-input form-check-input-default" type="checkbox" value="" id="checkall-top">
-	<label class="form-check-label" for="checkall-top">
-		全选/不选
-	</label>
-</div>
-
-<div id="checkall-list" class="ps-0">
-
-	<div class="form-check mb-2"><!-- item -->
-		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-1">
-		<label class="form-check-label" for="option-1">
-			大象
-		</label>
-	</div>
-	<div class="form-check mb-2"><!-- item -->
-		<input class="form-check-input form-check-input-primary" type="checkbox" value="" id="option-2">
-		<label class="form-check-label" for="option-2">
-			麻雀
-		</label>
-	</div>
-	<div class="form-check mb-2"><!-- item -->
-		<input class="form-check-input form-check-input-primary js-ignore" type="checkbox" value="" id="checkIgnored">
-		<label class="form-check-label" for="checkIgnored">
-			雄鹰
-		</label>
-	</div>
-
-</div>
-
-<div class="form-check mb-2"><!-- check all -->
-	<input data-checkall-container="#checkall-list" class="form-check-input form-check-input-default" type="checkbox" value="" id="checkall-bottom">
-	<label class="form-check-label" for="checkall-bottom">
-		全选/不选
-	</label>
-</div>
-
-							</div>
-							<!-- /Suggestions -->
+							{% endfor %}
 
 						</div>
 
@@ -288,3 +245,40 @@
 			</div>
 
 {% endblock %}
+{%block script%}
+ <script type="text/javascript">
+  $(function(){
+       $('input.class-sub-input').on('change',function(){
+		   classifyUpdate()
+	   })
+
+	  function classifyUpdate(){
+		   var url = '';
+		  var qarr = [];
+		 $(".classify-sub").each(function(i){
+         // console.log(this)
+		     url = $(this).data('url');
+			var inputs =  $(this).find('input');
+		    var name = $(this).data('name');
+		 // console.log(inputs)
+			 var idarr = [];
+			 $(inputs).each(function(m){
+				 var checked = $(this).is(":checked");
+				 var val = $(this).val();
+				// console.log(checked)
+				 if(checked){
+					 idarr.push(val)
+				 }
+			 })
+			 if(idarr.length>0){
+				 qarr.push(`${name}-${idarr.join(',')}`)
+			 }
+
+    });
+		  var query = qarr.length>0?'?sub='+qarr.join('|'):''
+		  // console.log(query)
+		  window.location.href=url+query
+	  }
+    })
+ </script>
+{%endblock%}

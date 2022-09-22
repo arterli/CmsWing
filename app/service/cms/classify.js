@@ -44,6 +44,21 @@ class classifyService extends Service {
     return {};
 
   }
+  // 获取最顶级栏目id
+  async getTopId(cid) {
+    const n = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: cid } } });
+    if (n.pid === 0) return n.id;
+    let id = 0;
+    while (n.pid !== 0) {
+      const nav = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: n.pid } } });
+      if (nav.pid === 0) {
+        id = nav.id;
+      }
+      n.pid = nav.pid;
+    }
+    return id;
+  }
+  // 获取子栏目包括本栏目
   async getSubClassifyIds(pid, ids = []) {
     ids.push(Number(pid));
     const items = await this.ctx.model.CmsClassify.findAll({ where: { pid } });
@@ -65,6 +80,26 @@ class classifyService extends Service {
     }
     const pathTitle = breadcrumb.reverse().join('/');
     return { pathTitle };
+  }
+  getUrl(url) {
+    const { ctx } = this;
+    let pageUrl = url;
+    if (pageUrl) {
+      let prefix = '?';
+      const querys = [];
+      for (const name in ctx.query) {
+        if (name === 'orderby') {
+          continue;
+        }
+        querys.push(ctx.helper.escapeHtml(name) + '=' + ctx.helper.escapeHtml(ctx.query[name]));
+      }
+      prefix += querys.join('&');
+      if (querys.length) {
+        prefix += '&';
+      }
+      pageUrl += prefix + 'orderby=__ORDER__';
+    }
+    return pageUrl;
   }
 }
 module.exports = classifyService;

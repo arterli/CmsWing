@@ -53,7 +53,7 @@ class ClassifyController extends Controller {
     const map = {};
     map.order = [[ 'sort', 'ASC' ]];
     map.where = {};
-    map.attributes = [[ 'name', 'label' ], [ 'id', 'value' ], 'id', 'pid' ];
+    map.attributes = [[ 'title', 'label' ], [ 'id', 'value' ], 'id', 'pid' ];
     const list = await ctx.model.CmsClassify.findAll(map);
     const tree = ctx.helper.arr_to_tree(list, 0);
     this.success({ options: [{ label: '一级分类', value: 0 }, ...tree ] });

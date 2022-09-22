@@ -116,6 +116,7 @@ module.exports = {
             data[i].dataValues.children = temp;
           } else {
             data[i].children = temp;
+            data[i].arrId = data[i].children.map(item => item.id);
           }
         }
       }

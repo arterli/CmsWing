@@ -95,10 +95,10 @@ module.exports = appInfo => {
     // myAppName: 'egg',
   };
 
-  const uploadConfig = require('./upload.config');
+  const objectStorageConfig = require('./objectStorage.config');
   return {
     ...config,
     ...userConfig,
-    ...uploadConfig,
+    ...objectStorageConfig,
   };
 };

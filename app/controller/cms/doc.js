@@ -296,7 +296,7 @@ class DocController extends Controller {
             method: 'post',
             url: '/upload/adminToken',
             headers: {
-              resBody: '{"link":"{{value}}"}',
+              resBody: '{"link":"{{url}}"}',
             },
           };
           obj.options = {
