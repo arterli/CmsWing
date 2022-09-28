@@ -13,7 +13,9 @@
       third:String
       avatar:String
       
-      
+      cms_comments(order:[[String]],limit:Int,offset:Int): [CmsComments]
+cms_comments_reply(order:[[String]],limit:Int,offset:Int): [CmsCommentsReply]
+
     }
     
     

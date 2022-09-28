@@ -1,0 +1,176 @@
+
+    
+    type CmsComments {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      content:String
+      member_uuid:String
+      doc_id:Int
+      
+      cms_comments_reply(order:[[String]],limit:Int,offset:Int): [CmsCommentsReply]
+mc_member: McMember
+ cms_doc: CmsDoc
+ 
+    }
+    
+    
+    input WhereCmsComments_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsComments_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsComments_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsComments_content {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsComments_member_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsComments_doc_id {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsComments{
+    id:WhereCmsComments_id
+      createdAt:WhereCmsComments_createdAt
+      updatedAt:WhereCmsComments_updatedAt
+      content:WhereCmsComments_content
+      member_uuid:WhereCmsComments_member_uuid
+      doc_id:WhereCmsComments_doc_id
+      
+    }
+
+    input WhereCmsComments {
+      id:WhereCmsComments_id
+      createdAt:WhereCmsComments_createdAt
+      updatedAt:WhereCmsComments_updatedAt
+      content:WhereCmsComments_content
+      member_uuid:WhereCmsComments_member_uuid
+      doc_id:WhereCmsComments_doc_id
+      
+      op_and: [WhereFieldCmsComments]
+      op_or: [WhereFieldCmsComments]
+      op_not: [WhereFieldCmsComments]
+    }
+    
+    
+    input AddCmsComments {
+    content: String
+      member_uuid: String!
+      doc_id: Int!
+      
+    }
+    
+    
+    input EditCmsComments {
+    content: String
+      member_uuid: String
+      doc_id: Int
+      
+    }
+    
+    type CountCmsComments {
+      count: Int
+      rows: [CmsComments]
+    }
+    type ResDelCmsComments {
+      count: Int
+    }
+    type ResEditCmsComments {
+      ids: [Int]
+    }
+    

@@ -20,6 +20,21 @@ module.exports = {
     return await ctx.connector.cms_doc_picture.findOne(map);
   },
 
+  async cms_comments(root, params, ctx) {
+    const map = {};
+    map.where = { doc_id: root.id };
+    if (Object.hasOwnProperty.call(params, 'limit')) {
+      map.limit = params.limit;
+    }
+    if (Object.hasOwnProperty.call(params, 'offset')) {
+      map.offset = params.offset;
+    }
+    if (Object.hasOwnProperty.call(params, 'order')) {
+      map.order = params.order;
+    }
+    return await ctx.connector.cms_comments.findAll(map);
+  },
+
   async cms_classify(root, params, ctx) {
     const map = {};
     map.where = { id: root.classify_id };

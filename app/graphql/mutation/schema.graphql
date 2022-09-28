@@ -127,4 +127,18 @@ type Mutation {
   #会员管理 更新
   McMember_update(data:EditMcMember!,where:WhereMcMember!):ResEditMcMember
 
+  #cms评论 添加
+  CmsComments_create(data:AddCmsComments):CmsComments
+  #cms评论 删除
+  CmsComments_destroy(where:WhereCmsComments!):ResDelCmsComments
+  #cms评论 更新
+  CmsComments_update(data:EditCmsComments!,where:WhereCmsComments!):ResEditCmsComments
+
+  #cms评论回复 添加
+  CmsCommentsReply_create(data:AddCmsCommentsReply):CmsCommentsReply
+  #cms评论回复 删除
+  CmsCommentsReply_destroy(where:WhereCmsCommentsReply!):ResDelCmsCommentsReply
+  #cms评论回复 更新
+  CmsCommentsReply_update(data:EditCmsCommentsReply!,where:WhereCmsCommentsReply!):ResEditCmsCommentsReply
+
 }

@@ -78,8 +78,9 @@ class IndexController extends Controller {
   */
   async logout() {
     const { ctx } = this;
+    const { url } = ctx.query;
     ctx.session.mcToken = null;
-    ctx.redirect('/');
+    ctx.redirect(url ? url : '/');
   }
 }
 module.exports = IndexController;

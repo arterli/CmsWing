@@ -26,6 +26,7 @@
       cms_doc_article: CmsDocArticle
 cms_doc_download: CmsDocDownload
 cms_doc_picture: CmsDocPicture
+cms_comments(order:[[String]],limit:Int,offset:Int): [CmsComments]
 cms_classify: CmsClassify
  sys_user: SysUser
  

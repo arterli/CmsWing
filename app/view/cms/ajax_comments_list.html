@@ -1,0 +1,139 @@
+<h3 class="mb-4">{{list.count}} 条评论</h3>
+{%for item in list.rows%}
+ <!-- Comment 1 + Reply -->
+ <div class="d-flex mb-4">
+  <!-- avatar : as background -->
+  <div style="width:180px" class="text-center">
+    {%if item.mc_member.avatar%}
+    <div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:70px; height:70px;background-image:url('{{item.mc_member.avatar}}')"></div>
+    {%else%}
+    <div style="width:70px; height:70px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+      <i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+    </div>
+    {%endif%}
+    <span class="d-block text-dark">{{item.mc_member.username}}</span>
+    <small class="d-block text-dark smaller">{{helper.moment(item.createdAt).fromNow()}}</small>
+  </div>
+  
+  <div class="w-100">
+    <p>{{item.content|safe}}</p>
+
+    <!-- options -->
+    <ul class="list-inline my-3">
+
+      <!-- like -->
+      <li class="list-inline-item">
+
+        <!-- 
+          NOTE: working ajax button! Check console for debug 
+          No security implemented to block multiple votes
+          So on page refresh, should be handled by backend!
+        -->
+        <a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
+          data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+          
+          <span class="group-icon">
+            <i class="fi fi-like"></i>
+            <i class="fi fi-like text-primary"></i>
+          </span>
+
+          <span>点赞</span>
+        </a>
+
+      </li>
+      <!-- /like -->
+      {%if ctx.userInfo%}
+      <!-- reply -->
+      <li class="list-inline-item">
+
+        <!-- 
+
+          Replies are using an ajax modal!
+          Replace with wordpress style, if wordpress used!
+
+          This format can be used on custom blog CMS.
+
+        -->
+        <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+          data-href="/cms/comments/modalCommentReply?id={{item.id}}&page={{ctx.query.page or 1}}"
+          data-ajax-modal-size="modal-md"
+          data-ajax-modal-centered="false"
+          data-ajax-modal-backdrop="static"
+          data-ajax-modal-callback-function="">
+          <i class="fi fi-plus"></i>
+          <span>回复</span>
+        </a>
+
+      </li>
+      <!-- /reply -->
+      {%endif%}
+    </ul>
+    <!-- /options -->
+
+
+    <!-- ... replies here ... -->
+
+   {%for _item in item.cms_comments_replies%}
+    <!-- REPLY -->
+    <div class="d-flex my-4 ms-n4">
+
+      <!-- avatar : as background -->
+      <div style="width:140px" class="text-center">
+        {%if _item.mc_member.avatar%}
+    <div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:50px; height:50px;background-image:url('{{_item.mc_member.avatar}}')"></div>
+    {%else%}
+    <div style="width:50px; height:50px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+      <i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+    </div>
+    {%endif%}
+    <span class="d-block text-dark">{{_item.mc_member.username}}</span>
+    <small class="d-block text-dark smaller">{{helper.moment(_item.createdAt).fromNow()}}</small>
+      </div>
+      
+      <div class="w-100">
+        <p>{{_item.content|safe}}</p>
+
+        <ul class="list-inline my-3">
+
+          <!-- like -->
+          <li class="list-inline-item">
+
+            <!-- 
+              NOTE: working ajax button! Check console for debug 
+              No security implemented to block multiple votes
+              So on page refresh, should be handled by backend!
+            -->
+            <a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
+              data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+              
+              <span class="group-icon">
+                <i class="fi fi-like"></i>
+                <i class="fi fi-like text-primary"></i>
+              </span>
+
+              <span>点赞</span>
+            </a>
+
+          </li>
+          <!-- /like -->
+
+        </ul>
+
+      </div>
+
+    </div>
+    <!-- /REPLY -->
+    {%endfor%}
+  </div>
+
+</div>
+<!-- /Comment 1 + Reply -->
+{%else%}
+<div class="alert alert-primary" role="alert">
+	暂无评论！
+</div>
+{%endfor%}
+ <!-- pagination -->
+ <nav aria-label="pagination" class="mt-4">{{pagination|safe}}</nav>
+ <!-- pagination -->
+

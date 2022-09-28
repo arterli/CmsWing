@@ -164,243 +164,7 @@
 
 
 							<!-- COMMENTS -->
-							<div class="clearfix mt-5">
-								
-								<h3 class="mb-4">评论</h3>
-
-								<!-- already logged in -->
-								<span class="d-block text-muted small mb-1">
-									登录用户: <b>阿特</b>. 
-									不是你吗? 请 <a rel="nofollow" href="#!">退出登录!</a>
-								</span>
-
-								<!-- Write Comment Form -->
-								<form novalidate method="post" action="#" class="bs-validate d-block bg-white shadow-primary-xs rounded p-3 mb-5">
-									<div class="clearfix mb-3">
-
-										<div class="form-floating">
-											<textarea required rows="3" style="min-height:120px" id="comment_description"
-													data-output-target=".js-form-advanced-char-left" 
-													class="form-control js-form-advanced-char-count-down" 
-													maxlength="3000" placeholder="Your comment"></textarea>
-											<label for="comment_description">阿特：</label>
-										</div>
-
-										<span class="smaller text-muted text-align-end float-end mt-1">
-											剩余字符: <span class="js-form-advanced-char-left">3000</span>
-										</span>
-
-									</div>
-
-									<button type="submit" class="btn btn-primary btn-sm">
-										提交
-									</button>
-								</form>
-								<!-- /Write Comment Form -->
-
-								<!-- LIST COMMENTS -->
-								<h3 class="mb-4">3 条评论</h3>
-
-
-
-								<!-- Comment 1 + Reply -->
-								<div class="d-flex mb-4">
-
-									<!-- avatar : as background -->
-									<div style="width:180px" class="text-center">
-										<div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:70px; height:70px;background-image:url('/public/cms/demo.files/images/unsplash/team/thumb_330/erik-mclean-06vpBIHmiYc-unsplash.jpg')"></div>
-										<span class="d-block text-dark">Mark</span>
-										<small class="d-block text-dark smaller">3 weeks ago</small>
-									</div>
-									
-									<div class="w-100">
-										<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-
-										<!-- options -->
-										<ul class="list-inline my-3">
-
-											<!-- like -->
-											<li class="list-inline-item">
-
-												<!-- 
-													NOTE: working ajax button! Check console for debug 
-													No security implemented to block multiple votes
-													So on page refresh, should be handled by backend!
-												-->
-												<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
-													data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
-													
-													<span class="group-icon">
-														<i class="fi fi-like"></i>
-														<i class="fi fi-like text-primary"></i>
-													</span>
-
-													<span>like</span>
-												</a>
-
-											</li>
-											<!-- /like -->
-
-											<!-- reply -->
-											<li class="list-inline-item">
-
-												<!-- 
-
-													Replies are using an ajax modal!
-													Replace with wordpress style, if wordpress used!
-
-													This format can be used on custom blog CMS.
-
-												-->
-												<a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
-													data-href="_ajax/modal_blog_comment_reply.html?comment_id=1#hash1"
-													data-ajax-modal-size="modal-md"
-													data-ajax-modal-centered="false"
-													data-ajax-modal-backdrop="static">
-													<i class="fi fi-plus"></i>
-													<span>reply</span>
-												</a>
-
-											</li>
-											<!-- /reply -->
-
-										</ul>
-										<!-- /options -->
-
-
-										<!-- ... replies here ... -->
-
-
-										<!-- REPLY -->
-										<div class="d-flex my-4 ms-n4">
-
-											<!-- avatar : as background -->
-											<div style="width:140px" class="text-center">
-												<div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:50px; height:50px;background-image:url('/public/cms/demo.files/images/unsplash/team/thumb_330/michael-dam-mEZ3PoFGs_k-unsplash.jpg')"></div>
-												<span class="d-block text-dark">Jessica</span>
-												<small class="d-block text-dark smaller">just now</small>
-											</div>
-											
-											<div class="w-100">
-												<p>Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at.</p>
-
-												<ul class="list-inline my-3">
-
-													<!-- like -->
-													<li class="list-inline-item">
-
-														<!-- 
-															NOTE: working ajax button! Check console for debug 
-															No security implemented to block multiple votes
-															So on page refresh, should be handled by backend!
-														-->
-														<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
-															data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
-															
-															<span class="group-icon">
-																<i class="fi fi-like"></i>
-																<i class="fi fi-like text-primary"></i>
-															</span>
-
-															<span>like</span>
-														</a>
-
-													</li>
-													<!-- /like -->
-
-												</ul>
-
-											</div>
-
-										</div>
-										<!-- /REPLY -->
-
-									</div>
-
-								</div>
-								<!-- /Comment 1 + Reply -->
-
-
-
-								<!-- Comment Anonymous : no avatar -->
-								<div class="d-flex mb-4">
-
-									<!-- avatar : as background -->
-									<div style="width:180px" class="text-center">
-										<div style="width:70px; height:70px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
-											<i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
-										</div>
-										<span class="d-block text-dark">Parker</span>
-										<small class="d-block text-dark smaller">2 days ago</small>
-									</div>
-									
-									<div class="w-100">
-										<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</p>
-
-										<!-- options -->
-										<ul class="list-inline my-3">
-
-											<!-- like -->
-											<li class="list-inline-item">
-
-												<!-- 
-													NOTE: working ajax button! Check console for debug 
-													No security implemented to block multiple votes
-													So on page refresh, should be handled by backend!
-												-->
-												<a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
-													data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
-													
-													<span class="group-icon">
-														<i class="fi fi-like"></i>
-														<i class="fi fi-like text-primary"></i>
-													</span>
-
-													<span>like</span>
-												</a>
-
-											</li>
-											<!-- /like -->
-
-											<!-- reply -->
-											<li class="list-inline-item">
-
-												<!-- 
-
-													Replies are using an ajax modal!
-													Replace with wordpress style, if wordpress used!
-
-													This format can be used on custom blog CMS.
-
-												-->
-												<a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
-													data-href="_ajax/modal_blog_comment_reply.html?comment_id=1#hash1"
-													data-ajax-modal-size="modal-md"
-													data-ajax-modal-centered="false"
-													data-ajax-modal-backdrop="static">
-													<i class="fi fi-plus"></i>
-													<span>reply</span>
-												</a>
-
-											</li>
-											<!-- /reply -->
-
-										</ul>
-										<!-- /options -->
-
-
-										<!-- ... replies here ... -->
-
-									</div>
-
-								</div>
-								<!-- /Comment Anonymous : no avatar -->
-
-								<!-- /LIST COMMENTS -->
-
-
-
-							</div>
+							{% include "./inc_comments.html" %}
 							<!-- /COMMENTS -->
 
 
@@ -514,6 +278,7 @@
                 </div>
 							{%endif%}
 							<!-- mobile trigger : expand -->
+							
 							<button class="mt-3 clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#sidebar_expand_mobile" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
 								<span class="group-icon px-2 py-2 float-start">
 									<i class="fi fi-bars-2"></i>
@@ -526,39 +291,6 @@
 							</button>
 
 							<div  id="sidebar_expand_mobile" class="d-none d-lg-block">
-
-								<!-- RECOMMENDED -->
-								<h3 class="h5 mt-5 mt-0-xs">
-									评论
-								</h3>
-								<ul class="list-unstyled">
-
-									<li class="list-item border-bottom py-1">
-										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">How Retailers Can Build</a>
-									</li>
-
-									<li class="list-item border-bottom py-1">
-										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Build an Engaged Customer Base</a>
-									</li>
-
-									<li class="list-item border-bottom py-1">
-										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Retail Lighting Designs to Encourage Sales</a>
-									</li>
-
-									<li class="list-item border-bottom py-1">
-										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Let there be light</a>
-									</li>
-
-									<li class="list-item border-bottom py-1">
-										<a class="text-dark fw-light fs-6" href="blog-page-single-sidebar.html">Build an Engaged Customer Base</a>
-									</li>
-
-								</ul>
-								<!-- /RECOMMENDED -->
-
-
-
-
 								<!-- BANNER -->
 								<a href="#!" class="mt-3 d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
 									<img class="w-100 img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-6RTh34xCS1M-unsplash-min.jpg" alt="...">
@@ -569,7 +301,7 @@
 								<!-- /BANNER -->
 
 							</div>
-
+               
 						</div>
 
 					</div>
@@ -579,3 +311,27 @@
 			<!-- end :: blog content -->
 
 {% endblock %}
+{%block script%}
+<script>
+  //评论
+  var cms_comments_callback = function(from,data){
+		if(data.status===1000){
+          $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+        }else{
+          $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+          $(from).find('[name="content"]').empty()
+					$.SOW.core.ajax_content.__ajaxDivProcess('cms_comments_container', '/cms/comments/ajaxList?doc_id={{detail.id}}', '#cms_comments_container',$.SOW.core.ajax_content.config.method,null,$.SOW.core.ajax_content.config.callback_function,$.SOW.core.ajax_content.config.callback_before_push);
+        }
+	}
+	var cms_comments_reply_callback = function(from,data){
+		if(data.status===1000){
+          $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+        }else{
+          $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+          $(from).find('[name="content"]').empty()
+					$('#sow_ajax_modal').modal('hide');
+					$.SOW.core.ajax_content.__ajaxDivProcess('cms_comments_container', '/cms/comments/ajaxList?doc_id={{detail.id}}&page='+data.data, '#cms_comments_container',$.SOW.core.ajax_content.config.method,null,$.SOW.core.ajax_content.config.callback_function,$.SOW.core.ajax_content.config.callback_before_push);
+        }
+	 }
+</script>
+{%endblock%}

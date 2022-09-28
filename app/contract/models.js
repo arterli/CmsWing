@@ -671,4 +671,50 @@ module.exports = {
     
   },
 
+  // cms评论
+  cms_comments_item: {
+    content: { type: 'string', description: '内容' },
+    createdAt: { type: 'string', description: '创建时间' },
+    doc_id: { type: 'string', description: '文档关联id' },
+    id: { type: 'string', description: '主键' },
+    member_uuid: { type: 'string', description: '用户关联uuid' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    
+  },
+  cms_comments_add: {
+    content: { type: 'string', description: '内容', required: false },
+    doc_id: { type: 'string', description: '文档关联id', required: true },
+    member_uuid: { type: 'string', description: '用户关联uuid', required: true },
+    
+  },
+  cms_comments_edit: {
+    content: { type: 'string', description: '内容' },
+    doc_id: { type: 'string', description: '文档关联id' },
+    member_uuid: { type: 'string', description: '用户关联uuid' },
+    
+  },
+
+  // cms评论回复
+  cms_comments_reply_item: {
+    comments_id: { type: 'string', description: '评论关联id' },
+    content: { type: 'string', description: '回复内容' },
+    createdAt: { type: 'string', description: '创建时间' },
+    id: { type: 'string', description: '主键' },
+    member_uuid: { type: 'string', description: '用户关联uuid' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    
+  },
+  cms_comments_reply_add: {
+    comments_id: { type: 'string', description: '评论关联id', required: false },
+    content: { type: 'string', description: '回复内容', required: false },
+    member_uuid: { type: 'string', description: '用户关联uuid', required: false },
+    
+  },
+  cms_comments_reply_edit: {
+    comments_id: { type: 'string', description: '评论关联id' },
+    content: { type: 'string', description: '回复内容' },
+    member_uuid: { type: 'string', description: '用户关联uuid' },
+    
+  },
+
 };
