@@ -421,6 +421,7 @@ module.exports = {
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）' },
     root: { type: 'string', description: '根节点' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
+    template: { type: 'string', description: '模版详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     updatedAt: { type: 'string', description: '更新时间' },
@@ -442,6 +443,7 @@ module.exports = {
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）', required: false },
     root: { type: 'string', description: '根节点', required: false },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）', required: false },
+    template: { type: 'string', description: '模版详情', required: false },
     title: { type: 'string', description: '内容标题', required: false },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）', required: true },
     user_uuid: { type: 'string', description: '作者uuid', required: false },
@@ -462,6 +464,7 @@ module.exports = {
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）' },
     root: { type: 'string', description: '根节点' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
+    template: { type: 'string', description: '模版详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     user_uuid: { type: 'string', description: '作者uuid' },
@@ -549,18 +552,15 @@ module.exports = {
     createdAt: { type: 'string', description: '创建时间' },
     doc_id: { type: 'string', description: '主表id' },
     id: { type: 'string', description: '主键' },
-    template: { type: 'string', description: '详情页模版' },
     updatedAt: { type: 'string', description: '更新时间' },
     
   },
   cms_doc_article_add: {
     content: { type: 'string', description: '文章内容', required: true },
-    template: { type: 'string', description: '详情页模版', required: false },
     
   },
   cms_doc_article_edit: {
     content: { type: 'string', description: '文章内容' },
-    template: { type: 'string', description: '详情页模版' },
     
   },
 
@@ -570,18 +570,15 @@ module.exports = {
     createdAt: { type: 'string', description: '创建时间' },
     doc_id: { type: 'string', description: '主表id' },
     id: { type: 'string', description: '主键' },
-    template: { type: 'string', description: '详情页显示模板' },
     updatedAt: { type: 'string', description: '更新时间' },
     
   },
   cms_doc_picture_add: {
     content: { type: 'string', description: '图片内容', required: false },
-    template: { type: 'string', description: '详情页显示模板', required: false },
     
   },
   cms_doc_picture_edit: {
     content: { type: 'string', description: '图片内容' },
-    template: { type: 'string', description: '详情页显示模板' },
     
   },
 
@@ -589,20 +586,20 @@ module.exports = {
   cms_doc_download_item: {
     content: { type: 'string', description: '下载内容' },
     createdAt: { type: 'string', description: '创建时间' },
+    desc: { type: 'string', description: '下载介绍' },
     doc_id: { type: 'string', description: '主表id' },
     id: { type: 'string', description: '主键' },
-    template: { type: 'string', description: '详情页显示模板' },
     updatedAt: { type: 'string', description: '更新时间' },
     
   },
   cms_doc_download_add: {
     content: { type: 'string', description: '下载内容', required: false },
-    template: { type: 'string', description: '详情页显示模板', required: false },
+    desc: { type: 'string', description: '下载介绍', required: false },
     
   },
   cms_doc_download_edit: {
     content: { type: 'string', description: '下载内容' },
-    template: { type: 'string', description: '详情页显示模板' },
+    desc: { type: 'string', description: '下载介绍' },
     
   },
 
@@ -633,6 +630,44 @@ module.exports = {
     target: { type: 'boolean', description: '是否新窗口打开' },
     title: { type: 'string', description: '导航标题' },
     url: { type: 'string', description: '导航链接' },
+    
+  },
+
+  // 会员管理
+  mc_member_item: {
+    avatar: { type: 'string', description: '头像' },
+    createdAt: { type: 'string', description: '创建时间' },
+    email: { type: 'string', description: '邮箱' },
+    id: { type: 'string', description: '主键' },
+    mobile: { type: 'string', description: '手机' },
+    password: { type: 'string', description: '密码' },
+    state: { type: 'boolean', description: '状态' },
+    third: { type: 'string', description: '第三方扩展' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    username: { type: 'string', description: '用户名' },
+    uuid: { type: 'string', description: 'UUid' },
+    
+  },
+  mc_member_add: {
+    avatar: { type: 'string', description: '头像', required: false },
+    email: { type: 'string', description: '邮箱', required: false },
+    mobile: { type: 'string', description: '手机', required: false },
+    password: { type: 'string', description: '密码', required: false },
+    state: { type: 'boolean', description: '状态', required: false },
+    third: { type: 'string', description: '第三方扩展', required: false },
+    username: { type: 'string', description: '用户名', required: false },
+    uuid: { type: 'string', description: 'UUid', required: true },
+    
+  },
+  mc_member_edit: {
+    avatar: { type: 'string', description: '头像' },
+    email: { type: 'string', description: '邮箱' },
+    mobile: { type: 'string', description: '手机' },
+    password: { type: 'string', description: '密码' },
+    state: { type: 'boolean', description: '状态' },
+    third: { type: 'string', description: '第三方扩展' },
+    username: { type: 'string', description: '用户名' },
+    uuid: { type: 'string', description: 'UUid' },
     
   },
 

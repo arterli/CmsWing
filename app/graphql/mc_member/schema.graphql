@@ -1,0 +1,288 @@
+
+    
+    type McMember {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      username:String
+      password:String
+      email:String
+      mobile:String
+      state:Boolean
+      uuid:String
+      third:String
+      avatar:String
+      
+      
+    }
+    
+    
+    input WhereMcMember_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_username {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_password {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_email {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_mobile {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_state {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_third {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereMcMember_avatar {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldMcMember{
+    id:WhereMcMember_id
+      createdAt:WhereMcMember_createdAt
+      updatedAt:WhereMcMember_updatedAt
+      username:WhereMcMember_username
+      password:WhereMcMember_password
+      email:WhereMcMember_email
+      mobile:WhereMcMember_mobile
+      state:WhereMcMember_state
+      uuid:WhereMcMember_uuid
+      third:WhereMcMember_third
+      avatar:WhereMcMember_avatar
+      
+    }
+
+    input WhereMcMember {
+      id:WhereMcMember_id
+      createdAt:WhereMcMember_createdAt
+      updatedAt:WhereMcMember_updatedAt
+      username:WhereMcMember_username
+      password:WhereMcMember_password
+      email:WhereMcMember_email
+      mobile:WhereMcMember_mobile
+      state:WhereMcMember_state
+      uuid:WhereMcMember_uuid
+      third:WhereMcMember_third
+      avatar:WhereMcMember_avatar
+      
+      op_and: [WhereFieldMcMember]
+      op_or: [WhereFieldMcMember]
+      op_not: [WhereFieldMcMember]
+    }
+    
+    
+    input AddMcMember {
+    username: String
+      password: String
+      email: String
+      mobile: String
+      state: Boolean
+      uuid: String!
+      third: String
+      avatar: String
+      
+    }
+    
+    
+    input EditMcMember {
+    username: String
+      password: String
+      email: String
+      mobile: String
+      state: Boolean
+      uuid: String
+      third: String
+      avatar: String
+      
+    }
+    
+    type CountMcMember {
+      count: Int
+      rows: [McMember]
+    }
+    type ResDelMcMember {
+      count: Int
+    }
+    type ResEditMcMember {
+      ids: [Int]
+    }
+    

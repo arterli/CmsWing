@@ -23,6 +23,7 @@ module.exports = app => {
     view: { type: DataTypes.INTEGER, defaultValue: 0, comment: '浏览量' },
     level: { type: DataTypes.INTEGER, defaultValue: 0, comment: '优先级（越高排序越靠前）' },
     status: { type: DataTypes.INTEGER, defaultValue: 1, comment: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
+    template: { type: DataTypes.STRING, comment: '模版详情' },
   },{
   indexes:[{"unique":false,"fields":["classify_id"]},{"unique":false,"fields":["pid"]},{"unique":false,"fields":["models_uuid"]}],
   paranoid: true,

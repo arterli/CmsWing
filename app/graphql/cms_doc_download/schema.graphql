@@ -6,7 +6,7 @@
       updatedAt:Date
       doc_id:Int
       content:String
-      template:String
+      desc:String
       
       cms_doc: CmsDoc
  
@@ -103,7 +103,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsDocDownload_template {
+      input WhereCmsDocDownload_desc {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -128,7 +128,7 @@
       updatedAt:WhereCmsDocDownload_updatedAt
       doc_id:WhereCmsDocDownload_doc_id
       content:WhereCmsDocDownload_content
-      template:WhereCmsDocDownload_template
+      desc:WhereCmsDocDownload_desc
       
     }
 
@@ -138,7 +138,7 @@
       updatedAt:WhereCmsDocDownload_updatedAt
       doc_id:WhereCmsDocDownload_doc_id
       content:WhereCmsDocDownload_content
-      template:WhereCmsDocDownload_template
+      desc:WhereCmsDocDownload_desc
       
       op_and: [WhereFieldCmsDocDownload]
       op_or: [WhereFieldCmsDocDownload]
@@ -148,14 +148,14 @@
     
     input AddCmsDocDownload {
     content: String
-      template: String
+      desc: String
       
     }
     
     
     input EditCmsDocDownload {
     content: String
-      template: String
+      desc: String
       
     }
     

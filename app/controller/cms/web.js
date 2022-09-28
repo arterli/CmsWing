@@ -5,24 +5,13 @@ const { Op } = require('sequelize');
 class WebController extends Controller {
   constructor(ctx) {
     super(ctx);
+    ctx.userInfo = ctx.helper.deToken(ctx.session.mcToken);
     this.app.nunjucks.addFilter('@cms_list', async (m, callback) => {
       // console.log(m);
       const user = await ctx.model.SysUser.findOne();
       // console.log(user);
       const html = await ctx.renderString('<h1>hi, {{ user.username }}</h1>', { user });
       callback(null, html);
-    }, true);
-    // 系统导航标签 {{'sys'|@navigation}}
-    this.app.nunjucks.addFilter('@navigation', async (m, callback) => {
-      // console.log(m);
-      // if (m !== 'sys') return [];
-      const map = {};
-      map.order = [[ 'sort', 'ASC' ], [ 'id', 'ASC' ]];
-      map.where = {};
-      map.status = true;
-      const list = (await ctx.model.SysNavigation.findAll(map)).map(item => item.toJSON());
-      const tree = ctx.helper.arr_to_tree(list, 0);
-      callback(null, tree);
     }, true);
     // 分类标签 {{'cid'|@classify(type)}}
     // type等于 top 获取当前栏目最顶级父栏目下所有的子栏目
@@ -88,11 +77,16 @@ class WebController extends Controller {
       }
 
     }, true);
+
   }
   // 首页
   async index() {
     const { ctx } = this;
-    await ctx.render('cms/index_index.njk');
+    ctx.meta_title = '首页';
+    ctx.keywords = this.config.sys.keywords;
+    ctx.description = this.config.sys.description;
+    // await ctx.service.sys.generate.graphqlAll();
+    await ctx.render('cms/index_index.html');
   }
   // 列表
   async list() {
@@ -102,8 +96,12 @@ class WebController extends Controller {
     const isnum = ctx.helper.isStringNumber(id);
     const idKey = isnum ? 'id' : 'name';
     const classify = await ctx.model.CmsClassify.findOne({ where: { [idKey]: { [Op.eq]: id } } });
+    // SEO
+    ctx.meta_title = classify.meta_title || classify.title;
+    ctx.keywords = classify.keywords;
+    ctx.description = classify.description;
     classify.url = `/cms/list/${classify.name ? classify.name : classify.id}`;
-    const models = await ctx.model.SysModels.findOne({ where: { uuid: classify.models_uuid } });
+    // const models = await ctx.model.SysModels.findOne({ where: { uuid: classify.models_uuid } });
     const orderby = query.orderby || '1';
     const map = {};
     const page = query.page || 1;
@@ -130,23 +128,25 @@ class WebController extends Controller {
       }
       map.where.classify_sub = await ctx.service.cms.classify.subQuery(classify.id, subobj);
     }
+    if (query.keywords) {
+      map.where.title = { [Op.like]: `%${query.keywords}%` };
+    }
     // console.log(map.where)
     map.where.status = true;
     const ids = await ctx.service.cms.classify.getSubClassifyIds(classify.id);
     map.where.classify_id = { [Op.in]: ids };
     const list = await ctx.model.CmsDoc.findAndCountAll(map);
     const pagination = ctx.service.sys.pagination.pagination(list, { limit });
-    console.log(pagination);
+    // console.log(pagination);
     for (const v of list.rows) {
       v.pathTitle = (await ctx.service.cms.classify.info(v.classify_id)).pathTitle;
     }
     let temp;
-    if (models.name === 'cms_doc_article') {
-      temp = 'cms/list_article.njk';
-    } else if (models.name === 'cms_doc_picture') {
-      temp = 'cms/list_picture.njk';
-    } else if (models.name === 'cms_doc_download') {
-      temp = 'cms/list_download.njk';
+    // 查询栏目有没有绑定模版
+    if (classify.template_lists) {
+      temp = `cms/${classify.template_lists}`;
+    } else {
+      temp = 'cms/list_default.html';
     }
     const url = await ctx.service.cms.classify.getUrl(classify.url);
     const orderList = [
@@ -156,10 +156,10 @@ class WebController extends Controller {
       { name: '浏览量:从低到高', url: url.replace('__ORDER__', 4), id: '4' },
     ];
     const def = orderList.find(item => item.id === orderby);
-    await ctx.render(temp, { list, pagination, classify, orderby: { list:orderList, def } });
+    await ctx.render(temp, { list, pagination, classify, orderby: { list: orderList, def } });
   }
   // 详情
-  async details() {
+  async detail() {
     const { ctx } = this;
     const { id } = ctx.params;
     if (!id) return this.notFound();
@@ -169,21 +169,35 @@ class WebController extends Controller {
     }];
     map.where = {};
     map.where.id = { [Op.eq]: id };
-    const info = await ctx.model.CmsDoc.findOne(map);
+    const info = (await ctx.model.CmsDoc.findOne(map)).toJSON();
     if (!info) return this.notFound();
+    // SEO
+    ctx.meta_title = info.title;
+    ctx.keywords = info.title;
+    ctx.description = info.description;
+    // 跳转外部连连
+    if (info.ext_link) {
+      return ctx.redirect(info.ext_link);
+    }
+    // 面包屑
+    const breadcrumb = await ctx.service.cms.classify.breadcrumb(info.classify_id);
+
     const models = await ctx.model.SysModels.findOne({ where: { uuid: info.models_uuid } });
     const className = ctx.helper._.upperFirst(ctx.helper._.camelCase(models.name));
-    info[models.name] = await ctx.model[className].findOne({ where: { doc_id: info.id } });
-    // console.log(info);
+    info[models.name] = (await ctx.model[className].findOne({ where: { doc_id: info.id } })).toJSON();
+    console.log(JSON.stringify(info, null, 2));
     let temp;
-    if (models.name === 'cms_doc_article') {
-      temp = 'cms/details_article.njk';
-    } else if (models.name === 'cms_doc_picture') {
-      temp = 'cms/details_picture.njk';
-    } else if (models.name === 'cms_doc_download') {
-      temp = 'cms/details_download.njk';
+    // 查询栏目有没有绑定模版
+    if (info.template) {
+      temp = `cms/${info.template}`;
+    } else if (info.cms_classify.template_detail) {
+      temp = `cms/${info.cms_classify.template_detail}`;
+    } else {
+      temp = 'cms/detail_default.html';
     }
-    await ctx.render(temp, { details: info });
+    // 增加浏览次数
+    await ctx.model.CmsDoc.increment({ view: 1 }, { where: { id } });
+    await ctx.render(temp, { detail: info, breadcrumb });
   }
 
 }

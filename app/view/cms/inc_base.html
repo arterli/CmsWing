@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8">
-    <title>CmsWing</title>
-    <meta name="description" content="...">
-
+    <title>{{ctx.meta_title}}-{{ctx.app.config.sys.name}}</title>
+    <meta name="keywords" content="{{ctx.keywords}}" />
+    <meta name="description" content="{{ctx.description}}" />
     <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
@@ -28,76 +28,22 @@
   </head>
 
   <body {%block body%}{%endblock%}>
-
-
+<!-- wrapper -->
     <div id="wrapper">
-   {% include "./inc_header.njk" %}
- {% block middle %}{% endblock %}
+   {# 网站头部 #}
+   {% include "./inc_header.html" %}
+   {# 网站头部结束 #}
 
-      <!-- info box : yellow -->
-      <!--
-      <div class="bg-warning py-4">
-        <div class="container">
-
-          <div class="row g-4">
-
-            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="0" data-aos-offset="0">
-
-              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/trendy.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
-              <div class="ps-3">
-                <h3 class="fs-5 mb-1">Trendy & Modern</h3>
-                <p class="m-0">Love it! Use it! Reuse it!</p>
-              </div>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="150" data-aos-offset="0">
-
-              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/hot_deal.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
-              <div class="ps-3">
-                <h3 class="fs-5 mb-1">Free Updates</h3>
-                <p class="m-0">Lifetime <b>free</b> updates!</p>
-              </div>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="250" data-aos-offset="0">
-
-              <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/new.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
-              <div class="ps-3">
-                <h3 class="fs-5 mb-1">Frontend & Admin</h3>
-                <p class="m-0">Sharing the same core!</p>
-              </div>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3 d-flex text-center-xs py-2 py-sm-3 py-lg-4" data-aos="fade-in" data-aos-delay="350" data-aos-offset="0">
-
-              <a href="#" class="text-dark text-decoration-none d-flex">
-
-                <img width="60" height="60" class="lazy" data-src="/public/cms/demo.files/svg/various/ok_like.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
-                <div class="ps-3">
-                  <h3 class="fs-5 mb-1">You're Covered</h3>
-                  <p class="m-0">Frontend + Admin</p>
-                </div>
-
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-      -->
-      <!-- /info box : yellow -->
-
-{% include "./inc_footer.njk" %}
-    </div><!-- /#wrapper -->
-
-
-
-
+   {# 网站内容 #}
+   {% block middle %}{% endblock %}
+   {# 网站内容结束 #}
+   
+   {# 网站底部 #}
+   {% include "./inc_footer.html" %}
+   {# 网站底部结束 #}
+    </div>
+  <!-- /#wrapper -->
+{#
     <!-- floating buttons (demos, buy now) -->
     <div class="text-rotate position-fixed start-0 bottom-0 mb-3" style="z-index:1021">
       <a href="#offcanvasDemos" data-bs-toggle="offcanvas" aria-controls="offcanvasDemos" class="btn btn-sm btn-primary bg-gradient rounded-xl rounded-start-0 mx-0 mt-1 ps-1 px-2">Licenses</a>
@@ -164,22 +110,34 @@
 
     </div>
     <!-- /offcanvas : demos -->
-
-
-
-
-
-
-    <!-- modal offer -->
-    <!--
-    <div class="hide js-onload js-ajax-modal" 
-        data-href="_ajax/modal_offer.html" 
-        data-ajax-modal-delay="1000" 
-        data-ajax-modal-size="modal-lg" 
-        data-ajax-modal-centered="true" 
-        data-ajax-modal-backdrop=""></div>
-    -->
+#}
     <script src="/public/cms/js/core.min.js"></script>
-    {%block script%}{%endblock%}
+    <div id="page_js_files">
+      <script>
+       //登录
+        var mc_sign_callback = function(form,data){
+          if(data.status===1000){
+            $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+          }else{
+            $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+            location.reload();
+          }
+        }
+        //注册
+        var mc_signup_callback = function(form,data){
+        if(data.status===1000){
+          $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+        }else{
+          $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+          $(form)[0].reset();
+          $("#accordionAccountSignUp").removeClass('show');
+          $("#accordionAccountSignIn").addClass('show')
+        }
+        }
+      </script>
+      <!-- additional javascripts inside here -->
+      {%block script%}{%endblock%}
+    </div>
+    
   </body>
 </html>

@@ -171,7 +171,7 @@
             "size": "xl",
             "body": {
               "type": "form",
-              "debug": true,
+              "debug": false,
               "mode": "normal",
               "horizontal": {
                 "leftFixed": "xs"
@@ -191,34 +191,6 @@
                       "placeholder": "请输入标题",
                       "label": "标题",
                       "required": true
-                    },
-                    {
-                      "label": "推荐",
-                      "type": "select",
-                      "name": "position",
-                      "multiple": true,
-                      "columnRatio": 2,
-                      "options": [
-                        {
-                          "label": "列表推荐",
-                          "value": "1"
-                        },
-                        {
-                          "label": "频道页推荐",
-                          "value": "2"
-                        },
-                        {
-                          "label": "首页推荐",
-                          "value": "4"
-                        }
-                      ]
-                    },
-                    {
-                      "label": "排序",
-                      "type": "input-number",
-                      "name": "level",
-                      "columnRatio": 2,
-                      "value": 0
                     }
                   ]
                 },
@@ -293,7 +265,7 @@
                       "label": "状态",
                       "type": "select",
                       "name": "status",
-                      "columnRatio": 2,
+                      "columnRatio": 3,
                       "value": 1,
                       "options": [
                         {
@@ -310,11 +282,52 @@
                         }
                       ]
                     },
+                     {
+                      "label": "推荐",
+                      "type": "select",
+                      "name": "position",
+                      "multiple": true,
+                      "columnRatio": 3,
+                      "options": [
+                        {
+                          "label": "列表推荐",
+                          "value": "1"
+                        },
+                        {
+                          "label": "频道页推荐",
+                          "value": "2"
+                        },
+                        {
+                          "label": "首页推荐",
+                          "value": "4"
+                        }
+                      ]
+                    },
+                    {
+                      "label": "排序",
+                      "type": "input-number",
+                      "name": "level",
+                      "columnRatio": 3,
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "group",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "template",
+                      "placeholder": "请输入详情模版",
+                      "label": "详情模版",
+                      "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
+                    },
                     {
                       "type": "input-text",
                       "name": "ext_link",
                       "placeholder": "请输入外链接",
-                      "label": "外链"
+                      "label": "外链",
+                      "description": "如果填写链接,会跳转到这个链接,不填不跳转"
                     }
                   ]
                 },
@@ -466,7 +479,7 @@
                 "size": "xl",
                 "body": {
                   "type": "form",
-                  "debug": true,
+                  "debug": false,
                   "mode": "normal",
                   "horizontal": {
                     "leftFixed": "xs"
@@ -490,35 +503,8 @@
                           "placeholder": "请输入标题",
                           "label": "标题",
                           "required": true
-                        },
-                        {
-                          "label": "推荐",
-                          "type": "select",
-                          "name": "position",
-                          "multiple": true,
-                          "columnRatio": 2,
-                          "options": [
-                            {
-                              "label": "列表推荐",
-                              "value": "1"
-                            },
-                            {
-                              "label": "频道页推荐",
-                              "value": "2"
-                            },
-                            {
-                              "label": "首页推荐",
-                              "value": "4"
-                            }
-                          ]
-                        },
-                        {
-                          "label": "排序",
-                          "type": "input-number",
-                          "name": "level",
-                          "columnRatio": 2,
-                          "value": 0
                         }
+                        
                       ]
                     },
                     {
@@ -588,7 +574,7 @@
                           "label": "状态",
                           "type": "select",
                           "name": "status",
-                          "columnRatio": 2,
+                          "columnRatio": 3,
                           "value": 1,
                           "options": [
                             {
@@ -605,11 +591,52 @@
                             }
                           ]
                         },
+                         {
+                          "label": "推荐",
+                          "type": "select",
+                          "name": "position",
+                          "multiple": true,
+                          "columnRatio": 3,
+                          "options": [
+                            {
+                              "label": "列表推荐",
+                              "value": "1"
+                            },
+                            {
+                              "label": "频道页推荐",
+                              "value": "2"
+                            },
+                            {
+                              "label": "首页推荐",
+                              "value": "4"
+                            }
+                          ]
+                        },
+                        {
+                          "label": "排序",
+                          "type": "input-number",
+                          "name": "level",
+                          "columnRatio": 3,
+                          "value": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "body": [
+                        {
+                          "type": "input-text",
+                          "name": "template",
+                          "placeholder": "请输入详情模版",
+                          "label": "详情模版",
+                          "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
+                        },
                         {
                           "type": "input-text",
                           "name": "ext_link",
                           "placeholder": "请输入外链接",
-                          "label": "外链"
+                          "label": "外链",
+                          "description": "如果填写链接,会跳转到这个链接,不填不跳转"
                         }
                       ]
                     },

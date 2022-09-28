@@ -58,6 +58,39 @@ class classifyService extends Service {
     }
     return id;
   }
+  // 获取面包屑
+  async breadcrumb(cid) {
+    const n = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: cid } } });
+    const barr = [];
+    const no = {};
+    no.name = n.title;
+    no.url = `/cms/list/${n.name ? n.name : n.id}`;
+    const nn = await this.ctx.model.SysNavigation.findOne({ where: { [Op.or]: [
+      { url: `/cms/list/${n.name}` },
+      { url: `/cms/list/${n.id}` },
+    ] } });
+    if (nn) {
+      no.name = nn.title;
+    }
+    barr.push(no);
+    while (n.pid !== 0) {
+      const nav = await this.ctx.model.CmsClassify.findOne({ where: { id: { [Op.eq]: n.pid } } });
+      const obj = {};
+      obj.name = nav.title;
+      obj.url = `/cms/list/${nav.name ? nav.name : nav.id}`;
+      const navn = await this.ctx.model.SysNavigation.findOne({ where: { [Op.or]: [
+        { url: `/cms/list/${nav.name}` },
+        { url: `/cms/list/${nav.id}` },
+      ] } });
+      if (navn) {
+        obj.name = navn.title;
+      }
+      barr.push(obj);
+      n.pid = nav.pid;
+    }
+    barr.push({ name: '首页', url: '/' });
+    return barr.reverse();
+  }
   // 获取子栏目包括本栏目
   async getSubClassifyIds(pid, ids = []) {
     ids.push(Number(pid));

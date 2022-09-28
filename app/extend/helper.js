@@ -15,6 +15,7 @@ const fs = require('fs/promises');
 const fsSync = require('fs');
 const path = require('path');
 const moment = require('moment');
+moment.locale('zh-cn');
 const utils = require('utility');
 module.exports = {
   _,

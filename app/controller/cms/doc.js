@@ -422,6 +422,31 @@ class DocController extends Controller {
             },
 
           ];
+        } else if (v.name === 'desc') {
+          obj.type = 'input-rich-text';
+          obj.receiver = {
+            method: 'post',
+            url: '/upload/adminToken',
+            headers: {
+              resBody: '{"link":"{{url}}"}',
+            },
+          };
+          obj.options = {
+            height: 600,
+            codesample_languages: [
+              { text: 'HTML', value: 'html' },
+              { text: 'JavaScript', value: 'javascript' },
+              { text: 'CSS', value: 'css' },
+              { text: 'json', value: 'json' },
+              { text: 'graphql', value: 'graphql' },
+              { text: 'bash', value: 'bash' },
+              { text: 'git', value: 'git' },
+              { text: 'markdown', value: 'markdown' },
+              { text: 'sql', value: 'sql' },
+              { text: 'typescript', value: 'typescript' },
+            ],
+            content_css: '/public/sys/prism.css',
+          };
         } else {
           obj.type = 'input-text';
         }

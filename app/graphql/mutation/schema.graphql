@@ -120,4 +120,11 @@ type Mutation {
   #系统导航 更新
   SysNavigation_update(data:EditSysNavigation!,where:WhereSysNavigation!):ResEditSysNavigation
 
+  #会员管理 添加
+  McMember_create(data:AddMcMember):McMember
+  #会员管理 删除
+  McMember_destroy(where:WhereMcMember!):ResDelMcMember
+  #会员管理 更新
+  McMember_update(data:EditMcMember!,where:WhereMcMember!):ResEditMcMember
+
 }

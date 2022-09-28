@@ -1,4 +1,4 @@
-{% extends "./inc_base.njk" %}
+{% extends "./inc_base.html" %}
 {%block body%}data-s2t-class="btn-primary bg-gradient" data-bs-spy="scroll" data-bs-target="#demos-scrollspy" data-bs-offset="0"{%endblock%}
 {% block middle %}
       <!-- hero -->
@@ -18,9 +18,10 @@
               <div class="mb-5">
                 <h2 class="mb-5 display-2 fw-bold">
                   <span class="d-block" >CmsWing</span>
-                  <span class="d-block fs-1 text-primary text-danger-gradient">企业级 Node.js WEB开发框架!</span>
+                  <span class="d-block fs-1 text-primary text-danger-gradient">企业级Node WEB开发框架!</span>
                 </h2>
-                <p class="fs-4 fw-light">使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！</p>
+                <p class="fs-5 fw-light"><i class="fi mdi-filter_1"></i> 使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！</p>
+                <p class="fs-5 fw-light"><i class="fi mdi-filter_2"></i> CmsWing 基础框架免费开源可商用，遵循MIT开源协议，源码开放无后门，安全保障。</p>
               </div>
 
               <div class="text-center-xs">
@@ -30,13 +31,13 @@
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
                   </svg>
                 </a>
-              <a href="https://gitee.com/cmswing/CmsWing.git" target="_blank" rel="noopener nofollow" class="btn bg-light-hover btn-ghost row-pill fw-medium d-inline-flex align-items-center px-4 mb-3">
+              <a href="https://gitee.com/cmswing/CmsWing.git" target="_blank" rel="noopener nofollow" class="btn bg-light-hover btn-ghost row-pill fw-medium d-inline-flex align-items-center px-4 p-0-xs mb-3">
                   <span class="me-1">Gitee</span>
                   <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">  
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
                   </svg>
                 </a>
-                <a href="https://github.com/arterli/CmsWing.git" target="_blank" rel="noopener nofollow" class="btn bg-light-hover btn-ghost row-pill fw-medium d-inline-flex align-items-center px-4 mb-3">
+                <a href="https://github.com/arterli/CmsWing.git" target="_blank" rel="noopener nofollow" class="btn bg-light-hover btn-ghost row-pill fw-medium d-inline-flex align-items-center px-4 p-0-xs mb-3">
                   <span class="me-1">GitHub</span>
                   <svg width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">  
                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
@@ -45,8 +46,6 @@
               </div>
               
             </div>
-
-            <div class="col-12 my-5 d-lg-none"><!-- mobile spacer --></div>
 
             <div class="col-lg-6 col-xl-6" data-aos="fade-up" data-aos-delay="100">
 
@@ -62,7 +61,7 @@
                 </svg>
 
                 <!-- images -->
-                <span class="d-inline-block ratio ratio-1x1 rounded-circle rounded-top bg-cover mx-1 z-index-0 " style="max-width:500px; background-image:url(/public/cms/demo.files/home_1.png);"></span>
+                <span class="d-inline-block ratio ratio-1x1 rounded-circle bg-cover mx-1 z-index-0 " style="max-width:500px; background-image:url(/public/cms/demo.files/home_1.png);"></span>
                 <div class="position-absolute bottom-0 w-100 z-index-1">
                   <span class="d-inline-block ratio ratio-1x1 rounded-circle bg-cover mx-1 mb-n5 shadow-lg" data-jarallax-element="-30" style="max-width:200px; background-image:url(/public/cms/demo.files/home_2.png);"></span>
                   <span class="d-inline-block ratio ratio-1x1 rounded-circle bg-cover mx-1 mt-n5 " data-jarallax-element="-60" style="max-width:100px; background-image:url(/public/sys/eggjs.svg);"></span>
@@ -89,7 +88,7 @@
 
           <div class="row col-border text-center overflow-hidden">
 
-            <div class="col-6 col-md-4 py-5 z-index-1" data-aos="fade-up" data-aos-delay="50" data-aos-offset="0">
+            <div class="col-6 col-md-4 py-4 z-index-1" data-aos="fade-up" data-aos-delay="50" data-aos-offset="0">
 
               <a href="#" class="d-block text-decoration-none text-dark transition-hover-top transition-all-ease-250">
               
@@ -107,7 +106,7 @@
 
             </div>
 
-            <div class="col-6 col-md-4 py-5 z-index-1" data-aos="fade-up" data-aos-delay="250" data-aos-offset="0">
+            <div class="col-6 col-md-4 py-4 z-index-1" data-aos="fade-up" data-aos-delay="250" data-aos-offset="0">
 
               <a href="#admin" class="scroll-to d-block text-decoration-none text-dark transition-hover-top transition-all-ease-250">
 
@@ -125,7 +124,7 @@
 
             </div>
 
-            <div class="col-12 col-md-4 py-5 z-index-1 border-top-xs" data-aos="fade-up" data-aos-delay="450" data-aos-offset="0">
+            <div class="col-12 col-md-4 py-4 z-index-1 border-top-xs" data-aos="fade-up" data-aos-delay="450" data-aos-offset="0">
 
               <a href="#" class="d-block text-decoration-none text-dark transition-hover-top transition-all-ease-250">
 

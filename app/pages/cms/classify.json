@@ -235,21 +235,16 @@
                                 "mode": "none",
                                 "body": [
                                   {
-                                    "name": "template_index",
-                                    "type": "input-text",
-                                    "label": "频道页模板"
-                                  },
-                                  {
                                     "name": "template_lists",
                                     "type": "input-text",
-                                    "label": "列表页模板"
-                                    
+                                    "label": "列表页模板",
+                                    "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
                                   },
                                   {
                                     "name": "template_detail",
                                     "type": "input-text",
-                                    "label": "详情页模板"
-                                    
+                                    "label": "详情页模板",
+                                    "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                                   }
                                 ]
                               }
@@ -519,21 +514,16 @@
                         "mode": "none",
                         "body": [
                           {
-                            "name": "template_index",
-                            "type": "input-text",
-                            "label": "频道页模板"
-                          },
-                          {
                             "name": "template_lists",
                             "type": "input-text",
-                            "label": "列表页模板"
-                            
+                            "label": "列表页模板",
+                            "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
                           },
                           {
                             "name": "template_detail",
                             "type": "input-text",
-                            "label": "详情页模板"
-                            
+                            "label": "详情页模板",
+                            "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                           }
                         ]
                       }

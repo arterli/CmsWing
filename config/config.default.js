@@ -90,6 +90,7 @@ module.exports = appInfo => {
   };
   config.swaggerdoc = require('./swagger');
   config.sequelize = require('./sequelize');
+  config.sys = require('./sys.config');
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

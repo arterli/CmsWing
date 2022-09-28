@@ -3,11 +3,22 @@
 
 'use strict';
 /**
-* @controller 用户管理
+* @controller 会员管理
 */
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
-class UserController extends Controller {
+class MemberController extends Controller {
+  /**
+  * @summary 会员列表
+  * @description 会员列表
+  * @router get /admin/sys/member/list
+  * @request query integer field_name desc
+  * @response 200 baseRes desc
+  */
+  async list() {
+    const { ctx } = this;
+    this.success(1);
+  }
   /**
   * @summary 分组列表
   * @description 分组列表
@@ -130,22 +141,14 @@ class UserController extends Controller {
     const { ctx } = this;
     const data = ctx.request.body;
     data.password = ctx.helper.cipher(data.password);
-    const [ add, created ] = await ctx.model.SysUser.findOrCreate({
-      where: { username: data.username, email: data.email, mobile: data.mobile },
-      defaults: data,
-    });
-    if (created) {
-      if (data.role_ids) {
-        const roleList = data.role_ids.split(',');
-        for (const v of roleList) {
-          await ctx.model.SysUserRole.create({ user_uuid: add.uuid, role_uuid: v });
-        }
+    const add = await ctx.model.SysUser.create(data);
+    if (data.role_ids) {
+      const roleList = data.role_ids.split(',');
+      for (const v of roleList) {
+        await ctx.model.SysUserRole.create({ user_uuid: add.uuid, role_uuid: v });
       }
-      this.success(add);
-    } else {
-      this.fail('用户名，手机号，邮箱 重复,请重试！');
     }
-
+    this.success(add);
   }
 
   /**
@@ -199,4 +202,4 @@ class UserController extends Controller {
     this.success({ options: list });
   }
 }
-module.exports = UserController;
+module.exports = MemberController;
