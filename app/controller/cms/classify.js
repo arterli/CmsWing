@@ -97,7 +97,11 @@ class ClassifyController extends Controller {
     const { ctx } = this;
     const { id } = ctx.query;
     const ids = await ctx.service.cms.classify.getSubClassifyIds(id);
-    const del = ctx.model.CmsClassify.destroy({ where: { id: { [Op.in]: ids } } });
+    const del = await ctx.model.CmsClassify.destroy({ where: { id: { [Op.in]: ids } } });
+    const docs = await ctx.model.CmsDoc.findAll({ where: { classify_id: { [Op.in]: ids } } });
+    for (const v of docs) {
+      await ctx.service.cms.doc.destroy(v.id);
+    }
     this.success(del);
   }
   /**

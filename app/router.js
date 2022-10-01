@@ -21,5 +21,7 @@ module.exports = app => {
   router.get('/admin/sys/server/getController', app.middleware.sys.authAdminToken(), controller.sys.server.getController);
   router.get('/admin/sys/server/getAction', app.middleware.sys.authAdminToken(), controller.sys.server.getAction);
   router.get('/admin/sys/server/restart', app.middleware.sys.authAdminToken(), controller.sys.server.restart);
-  router.get('/admin/test/', controller.sys.index.test);
+  router.get('/admin/sys/gitee', controller.sys.index.gitee);
+  router.get('/admin/sys/sysInfo', controller.sys.index.sysInfo);
+  router.get('/admin/sys/team', controller.sys.index.team);
 };

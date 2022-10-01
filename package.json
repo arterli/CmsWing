@@ -1,7 +1,7 @@
 {
   "name": "cmswing",
   "version": "2.0.0",
-  "description": "CmsWing 2.0",
+  "description": "企业级Node WEB开发框架，使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本。",
   "private": true,
   "egg": {
     "declarations": true

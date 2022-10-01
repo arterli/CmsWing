@@ -1,5 +1,4 @@
 {% extends "./inc_base.html" %}
-{%block body%}class="header-scroll-reveal"{%endblock%}
 {% block middle %}
      <!-- start :: blog content -->
 			<div class="section pt-4">
@@ -7,7 +6,7 @@
 
 					<div class="row g-xl-5">
 
-						<div class="col-lg-9 order-2 order-lg-1">
+						<div class="col-lg-9 order-2">
 
 							<div class="mb-4">
 								<nav aria-label="breadcrumb">
@@ -170,9 +169,7 @@
 
 						</div>
 
-						<div class="col-lg-3 order-1 order-lg-2 mb-5 d-none d-lg-block">
-
-
+						<div class="col-lg-3 order-1 mb-3">
 							<!-- SEARCH -->
 							<form method="get" action="{{detail.classify_url}}" class="input-group-over d-block mb-2">
 								
@@ -187,120 +184,73 @@
 
 							</form>
 							<!-- /SEARCH -->
+<!-- CATEGORIES -->
+<nav
+class="sticky-kit z-index-0 nav-deep nav-deep-light nav-deep-hover nav-deep-xs mb-3 pb-3 shadow-xs shadow-none-md shadow-none-xs p-0-md p-0-xs rounded"
+>
+<!-- mobile trigger : categories -->
+<button
+	class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
+	data-bs-target="#nav_responsive"
+	data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded"
+>
+	<span class="group-icon px-2 py-2 float-start">
+		<i class="fi fi-bars-2"></i>
+		<i class="fi fi-close"></i>
+	</span>
+	<span class="h5 py-2 m-0 float-start"> 目录 </span>
+</button>
 
+<!-- desktop only -->
+<h5 class="p-3 m-0 d-none d-lg-block">目录</h5>
 
-
-						 {%set classifyList = detail.classify_id|@classify('top')%} {%if classifyList%}
-        <!-- CATEGORIES -->
-        <nav
-          class="nav-deep nav-deep-light mb-3 shadow-xs shadow-none-md shadow-none-xs px-3 pb-3 p-0-md p-0-xs rounded"
-        >
-          <!-- mobile trigger : categories -->
-          <button
-            class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
-            data-bs-target="#nav_responsive"
-            data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3"
-          >
-            <span class="group-icon px-2 py-2 float-start">
-              <i class="fi fi-bars-2"></i>
-              <i class="fi fi-close"></i>
-            </span>
-            <span class="h5 py-2 m-0 float-start"> 分类 </span>
-          </button>
-
-          <!-- desktop only -->
-          <h5 class="py-3 m-0 d-none d-lg-block">分类</h5>
-
-          <!-- navbar : navigation -->
-          <ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
-            {%for item in classifyList%}
-            <li
-              class="nav-item {%if (item.id ==classify.id) or (classify.id in (item.arrId or [])) %}active{%endif%}"
-            >
-              {%if item.children%}
-              <a class="nav-link px-0" href="#">
-                <span class="group-icon">
-                  <i class="fi fi-arrow-end"></i>
-                  <i class="fi fi-arrow-down"></i>
-                </span>
-                <span class="px-2 d-inline-block"> {{item.title}} </span>
-              </a>
-              {%else%}
-              <a class="nav-link px-0" href="{{item.url}}">
-                <i class="fi fi-arrow-end m-0 smaller"></i>
-                <span class="px-2 d-inline-block"> {{item.title}} </span>
-              </a>
-              {%endif%} {%if item.children%}
-              <ul class="nav flex-column ps-2">
-                {%for _item in item.children%}
-                <li
-                  class="nav-item {%if _item.id ==classify.id%}active{%endif%}"
-                >
-                  <a class="nav-link" href="{{_item.url}}"> {{_item.title}} </a>
-                </li>
-                {%endfor%}
-              </ul>
-              {%endif%}
-            </li>
-            {%endfor%}
-          </ul>
-        </nav>
-        <!-- /CATEGORIES -->
-        {%endif%}
-				{% set hotlist = 'cms_doc'|@findAll({
-  where:{
-    classify_id:detail.classify_id
-  },
-  offset: 0,
-  limit: 5,
-	order:[['view','desc']]
-  })%}
-	{%if hotlist%}
- <div class="d-none d-lg-block">
-                  <h3 class="h5 mt-5 mt-0-xs">热点</h3>
-
-                  <ul class="list-unstyled mb-0">
-               {%for item in hotlist%}
-                    <li class="list-item d-flex align-items-center position-relative mt-4">
-                      <div class="ratio ratio-16x9 bg-light me-3" style="max-width: 50px;">
-                        <div class="bg-cover rounded" style="background-image:url({{item.cover_url}});"></div>
-                      </div>
-                      <a href="/cms/detail/{{item.id}}" class="link-normal small stretched-link">{{item.title|truncate(20, true, "...")}}</a>
-                    </li>
-                   {%endfor%}
-                  </ul>
-
-                </div>
-							{%endif%}
-							<!-- mobile trigger : expand -->
-							
-							<button class="mt-3 clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded mb-1 d-block d-lg-none" data-bs-target="#sidebar_expand_mobile" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
-								<span class="group-icon px-2 py-2 float-start">
-									<i class="fi fi-bars-2"></i>
-									<i class="fi fi-close"></i>
-								</span>
-
-								<span class="h5 py-2 m-0 float-start ">
-									Explore
-								</span>
-							</button>
-
-							<div  id="sidebar_expand_mobile" class="d-none d-lg-block">
-								<!-- BANNER -->
-								<a href="#!" class="mt-3 d-block text-center overlay-dark-hover overlay-opacity-2 rounded overflow-hidden">
-									<img class="w-100 img-fluid rounded" src="/public/cms/demo.files/images/unsplash/portfolio/thumb_330/boxed-water-is-better-6RTh34xCS1M-unsplash-min.jpg" alt="...">
-								</a>
-								<h4 class="small text-gray-500 fw-normal mt-1 mb-0">
-									Sponsored Ad
-								</h4>
-								<!-- /BANNER -->
-
-							</div>
-               
+<!-- navbar : navigation -->
+<ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+	{%set nav = 'cms_doc'|@findAll({where:{classify_id:detail.cms_classify.id,pid:0,status:1},order:[[ 'sort', 'ASC' ]]})%}
+	{%for n in nav%}
+	{%set _nav = 'cms_doc'|@findAll({where:{classify_id:detail.cms_classify.id,pid:n.id,status:1},order:[[ 'sort', 'ASC' ]]})%}
+	{%if _nav|length>0%}
+	<li class="nav-item {%if (n.id in (pdocids or []))%}active{%endif%}">
+		<a class="nav-link" href="#">
+			<span class="group-icon float-end">
+				<i class="fi fi-arrow-end-slim"></i>
+				<i class="fi fi-arrow-down-slim"></i>
+			</span>
+			{{n.title}}
+		</a>
+		<ul class="nav flex-column ps-3">
+			{%for _n in _nav%}
+			{%set __nav = 'cms_doc'|@findAll({where:{classify_id:detail.cms_classify.id,pid:_n.id,status:1},order:[[ 'sort', 'ASC' ]]})%}
+			{%if __nav|length>0%}
+			<li class="nav-item {%if (_n.id in (pdocids or []))%}active{%endif%}">
+				<a class="nav-link" href="#">
+					<span class="group-icon float-end">
+						<i class="fi fi-arrow-end-slim"></i>
+						<i class="fi fi-arrow-down-slim"></i>
+					</span>
+					{{_n.title}}
+				</a>
+				<ul class="nav flex-column">
+					{%for __n in __nav%}
+					<li class="nav-item {%if __n.id == detail.id%}active{%endif%}"><a class="nav-link" href="/cms/detail/{{__n.id}}">{{__n.title}}</a></li>
+					{%endfor%}
+				</ul>
+			</li>
+			{%else%}
+			<li class="nav-item {%if _n.id == detail.id%}active{%endif%}"><a class="nav-link" href="/cms/detail/{{_n.id}}">{{_n.title}}</a></li>
+			{%endif%}
+			{%endfor%}
+		</ul>
+	</li>
+	{%else%}
+	<li class="nav-item  {%if n.id ==detail.id%}active{%endif%}"><a class="nav-link" href="/cms/detail/{{n.id}}">{{n.title}}</a></li>
+	{%endif%}
+	{%endfor%}
+</ul>
+</nav>
+<!-- /CATEGORIES -->
 						</div>
-
 					</div>
-
 				</div>
 			</div>	
 			<!-- end :: blog content -->

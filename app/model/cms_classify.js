@@ -19,7 +19,7 @@ module.exports = app => {
     template_detail: { type: DataTypes.STRING, comment: '详情页模板' },
     models_uuid: { type: DataTypes.STRING, comment: '关联模型UUID' },
     type: { type: DataTypes.STRING, comment: '允许发布的内容类型' },
-    allow_publish: { type: DataTypes.INTEGER, comment: '是否允许发布内容' },
+    allow_publish: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否允许发布内容' },
     display: { type: DataTypes.INTEGER, comment: '可见性' },
     reply: { type: DataTypes.BOOLEAN, defaultValue: true, comment: '是否允许回复' },
     check: { type: DataTypes.BOOLEAN, defaultValue: true, comment: '发布的文章是否需要审核' },

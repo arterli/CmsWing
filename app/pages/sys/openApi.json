@@ -1,6 +1,6 @@
 {
   "type": "page",
-  "title": "开放接口",
+  "title": false,
   "css": { ".amis-scope .cxd-Form-control": { "max-height": "100%" } },
   "body": [
     {

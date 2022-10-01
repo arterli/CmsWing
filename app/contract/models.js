@@ -420,7 +420,9 @@ module.exports = {
     pid: { type: 'string', description: '所属ID' },
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）' },
     root: { type: 'string', description: '根节点' },
+    sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
+    tags: { type: 'string', description: '标签' },
     template: { type: 'string', description: '模版详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
@@ -442,7 +444,9 @@ module.exports = {
     pid: { type: 'string', description: '所属ID', required: false },
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）', required: false },
     root: { type: 'string', description: '根节点', required: false },
+    sort: { type: 'string', description: '排序同级有效越小越靠前', required: false },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）', required: false },
+    tags: { type: 'string', description: '标签', required: false },
     template: { type: 'string', description: '模版详情', required: false },
     title: { type: 'string', description: '内容标题', required: false },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）', required: true },
@@ -463,7 +467,9 @@ module.exports = {
     pid: { type: 'string', description: '所属ID' },
     position: { type: 'string', description: '推荐位(1-列表推荐，2-频道页推荐，4-首页推荐）' },
     root: { type: 'string', description: '根节点' },
+    sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
+    tags: { type: 'string', description: '标签' },
     template: { type: 'string', description: '模版详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
@@ -474,7 +480,7 @@ module.exports = {
 
   // cms分类
   cms_classify_item: {
-    allow_publish: { type: 'string', description: '是否允许发布内容' },
+    allow_publish: { type: 'boolean', description: '是否允许发布内容' },
     check: { type: 'boolean', description: '发布的文章是否需要审核' },
     createdAt: { type: 'string', description: '创建时间' },
     description: { type: 'string', description: '描述' },
@@ -500,7 +506,7 @@ module.exports = {
     
   },
   cms_classify_add: {
-    allow_publish: { type: 'string', description: '是否允许发布内容', required: false },
+    allow_publish: { type: 'boolean', description: '是否允许发布内容', required: false },
     check: { type: 'boolean', description: '发布的文章是否需要审核', required: false },
     description: { type: 'string', description: '描述', required: false },
     display: { type: 'string', description: '可见性', required: false },
@@ -523,7 +529,7 @@ module.exports = {
     
   },
   cms_classify_edit: {
-    allow_publish: { type: 'string', description: '是否允许发布内容' },
+    allow_publish: { type: 'boolean', description: '是否允许发布内容' },
     check: { type: 'boolean', description: '发布的文章是否需要审核' },
     description: { type: 'string', description: '描述' },
     display: { type: 'string', description: '可见性' },

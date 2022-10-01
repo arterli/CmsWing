@@ -1,1 +1,70 @@
-{"type":"page","title":"评论管理","body":[{"type":"tpl","tpl":"请编辑您的页面"}]}
+{
+  "type": "page",
+  "body": {
+    "type": "crud",
+    "syncLocation": false,
+    "api": "/admin/cms/comments/adminList",
+    "headerToolbar": [
+      "bulkActions"
+    ],
+    "bulkActions": [
+      {
+        "label": "批量删除",
+        "actionType": "ajax",
+        "api": "/admin/cms/comments/adminBulkDel",
+        "confirmText": "确定要批量删除?"
+      }
+    ],
+    "columns": [
+      {
+        "name": "id",
+        "label": "ID"
+      },
+      {
+        "name": "content",
+        "type": "tpl",
+        "label": "评论内容",
+        "searchable": true
+      },
+      {
+        "name": "mc_member.username",
+        "label": "会员"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "label": "发布时间",
+        "format": "YYYY-MM-DD HH:mm"
+      },
+      {
+        "name": "cms_doc.title",
+        "label": "评论文档"
+      },
+      {
+        "type": "operation",
+        "label": "操作",
+        "width": 100,
+        "buttons": [
+          {
+            "type": "button",
+            "icon": "fa fa-eye",
+            "actionType": "url",
+            "tooltip": "查看",
+            "url": "/cms/detail/${cms_doc.id}",
+            "blank":true,
+            "visibleOn": "${cms_doc.id>0}"
+          },
+          {
+            "type": "button",
+            "icon": "fa fa-times text-danger",
+            "actionType": "ajax",
+            "tooltip": "删除",
+            "confirmText": "您确认要删除?",
+            "api": "get:/admin/cms/comments/adminDel?id=${id}&doc_id=${cms_doc.id}"
+          }
+        ],
+        "toggled": true
+      }
+    ]
+  }
+}

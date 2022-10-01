@@ -3,7 +3,7 @@
  <!-- Comment 1 + Reply -->
  <div class="d-flex mb-4">
   <!-- avatar : as background -->
-  <div style="width:180px" class="text-center">
+  <div style="width:140px" class="text-center">
     {%if item.mc_member.avatar%}
     <div class="mb-1 rounded-circle d-inline-block bg-light bg-cover" style="width:70px; height:70px;background-image:url('{{item.mc_member.avatar}}')"></div>
     {%else%}
@@ -20,28 +20,68 @@
 
     <!-- options -->
     <ul class="list-inline my-3">
-
-      <!-- like -->
-      <li class="list-inline-item">
+    {%if item.member_uuid === ctx.userInfo.uuid%}
+       <!-- like -->
+       <li class="list-inline-item">
 
         <!-- 
           NOTE: working ajax button! Check console for debug 
           No security implemented to block multiple votes
           So on page refresh, should be handled by backend!
         -->
-        <a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
-          data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
+        <a href="#"
+        data-href="/cms/comments/del?id={{item.id}}&page={{ctx.query.page or 1}}"
+        class="js-ajax-confirm btn-toggle btn btn-light py-1 px-2 fs-6"
+      
+        data-ajax-confirm-mode="ajax"
+        data-ajax-confirm-method="GET"
+      
+        data-ajax-confirm-size="modal-md"
+        data-ajax-confirm-centered="false"
+      
+        data-ajax-confirm-title="请确认"
+        data-ajax-confirm-body="您确定要删除该评论吗?"
+      
+        data-ajax-confirm-btn-yes-class="btn-sm btn-primary"
+        data-ajax-confirm-btn-yes-text="确定"
+        data-ajax-confirm-btn-yes-icon="fi fi-check"
+      
+        data-ajax-confirm-btn-no-class="btn-sm btn-light"
+        data-ajax-confirm-btn-no-text="取消"
+        data-ajax-confirm-btn-no-icon="fi fi-close"
+      
+        data-ajax-confirm-callback-function="cms_comments_reply_callback">
           
-          <span class="group-icon">
-            <i class="fi fi-like"></i>
-            <i class="fi fi-like text-primary"></i>
-          </span>
+          <i class="fi fi-close"></i>
 
-          <span>点赞</span>
+          <span>删除</span>
         </a>
 
       </li>
       <!-- /like -->
+       <!-- like -->
+       <li class="list-inline-item">
+
+        <!-- 
+          NOTE: working ajax button! Check console for debug 
+          No security implemented to block multiple votes
+          So on page refresh, should be handled by backend!
+        -->
+        <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+          data-href="/cms/comments/modalCommentEdit?id={{item.id}}&page={{ctx.query.page or 1}}"
+          data-ajax-modal-size="modal-md"
+          data-ajax-modal-centered="false"
+          data-ajax-modal-backdrop="static"
+          data-ajax-modal-callback-function="">
+          
+          <i class="fi fi-pencil"></i>
+
+          <span>编辑</span>
+        </a>
+
+      </li>
+      <!-- /like -->
+      {%endif%}
       {%if ctx.userInfo%}
       <!-- reply -->
       <li class="list-inline-item">
@@ -95,27 +135,68 @@
 
         <ul class="list-inline my-3">
 
+          {%if _item.member_uuid === ctx.userInfo.uuid%}
           <!-- like -->
           <li class="list-inline-item">
-
-            <!-- 
-              NOTE: working ajax button! Check console for debug 
-              No security implemented to block multiple votes
-              So on page refresh, should be handled by backend!
-            -->
-            <a href="#" class="btn-toggle btn btn-light py-1 px-2 fs-6"
-              data-toggle-ajax-url-on="/public/cms/demo.files/php/demo.ajax_request.php?comment_id=1&amp;vote=1">
-              
-              <span class="group-icon">
-                <i class="fi fi-like"></i>
-                <i class="fi fi-like text-primary"></i>
-              </span>
-
-              <span>点赞</span>
-            </a>
-
-          </li>
-          <!-- /like -->
+   
+           <!-- 
+             NOTE: working ajax button! Check console for debug 
+             No security implemented to block multiple votes
+             So on page refresh, should be handled by backend!
+           -->
+           <a href="#"
+           data-href="/cms/comments/replyDel?id={{_item.id}}&page={{ctx.query.page or 1}}"
+           class="js-ajax-confirm btn-toggle btn btn-light py-1 px-2 fs-6"
+         
+           data-ajax-confirm-mode="ajax"
+           data-ajax-confirm-method="GET"
+         
+           data-ajax-confirm-size="modal-md"
+           data-ajax-confirm-centered="false"
+         
+           data-ajax-confirm-title="请确认"
+           data-ajax-confirm-body="您确定要删除该回复吗?"
+         
+           data-ajax-confirm-btn-yes-class="btn-sm btn-primary"
+           data-ajax-confirm-btn-yes-text="确定"
+           data-ajax-confirm-btn-yes-icon="fi fi-check"
+         
+           data-ajax-confirm-btn-no-class="btn-sm btn-light"
+           data-ajax-confirm-btn-no-text="取消"
+           data-ajax-confirm-btn-no-icon="fi fi-close"
+         
+           data-ajax-confirm-callback-function="cms_comments_reply_callback">
+             
+             <i class="fi fi-close"></i>
+   
+             <span>删除</span>
+           </a>
+   
+         </li>
+         <!-- /like -->
+          <!-- like -->
+          <li class="list-inline-item">
+   
+           <!-- 
+             NOTE: working ajax button! Check console for debug 
+             No security implemented to block multiple votes
+             So on page refresh, should be handled by backend!
+           -->
+           <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+             data-href="/cms/comments/modalCommentReplyEdit?id={{_item.id}}&page={{ctx.query.page or 1}}"
+             data-ajax-modal-size="modal-md"
+             data-ajax-modal-centered="false"
+             data-ajax-modal-backdrop="static"
+             data-ajax-modal-callback-function="">
+             
+             <i class="fi fi-pencil"></i>
+   
+             <span>编辑</span>
+           </a>
+   
+         </li>
+         <!-- /like -->
+         {%endif%}
 
         </ul>
 

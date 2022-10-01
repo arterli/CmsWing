@@ -2,7 +2,8 @@
   "type": "page",
   "css": {
     ".cxd-TreeControl": {
-      "padding-left": "0 !important"
+      "padding-left": "0 !important",
+      "max-height": "90vh !important"
     },
     ".cxd-Link.is-disabled":{
       "color":"#333 !important"
@@ -31,6 +32,7 @@
       "name": "docList",
       "id": "docList",
       "api": "/admin/cms/doc/index",
+      "saveOrderApi":"/admin/cms/doc/saveOrder",
       "defaultParams": {
         "pid": 0,
         "classifyId": "0"
@@ -52,7 +54,7 @@
             "label": "标题",
             "clearable": true,
             "placeholder": "通过标题搜索",
-            "size": "md"
+            "size": "sm"
           },
           {
             "label": "推荐位",
@@ -74,7 +76,7 @@
                 "value": "4"
               }
             ],
-            "size": "md"
+            "size": "sm"
           },
           {
             "name": "doc_type",
@@ -117,6 +119,16 @@
               }
             ],
             "size": "sm"
+          },
+          {
+            "name": "noclassify",
+            "type": "checkbox",
+            "label": false,
+            "option": "未分类",
+            "trueValue": "1",
+            "falseValue": "0",
+            "value": "0",
+            "size": "xs"
           },
           {
             "type": "service",
@@ -332,6 +344,18 @@
                   ]
                 },
                 {
+                  "type": "group",
+                  "mode": "horizontal",
+                  "body": [
+                    {
+                      "type": "input-tag",
+                      "name": "tags",
+                      "label": "标签",
+                      "placeholder": "请选择标签"
+                    }
+                  ]
+                },
+                {
                   "type": "service",
                   "schemaApi": "get:/admin/cms/doc/getContent?models_uuid=${classify.models_uuid}&type=add"
                 }
@@ -345,31 +369,8 @@
         {
           "label": "批量删除",
           "actionType": "ajax",
-          "api": "delete:/amis/api/sample/$ids",
+          "api": "/admin/cms/doc/bulkDel",
           "confirmText": "确定要批量删除?"
-        },
-        {
-          "label": "批量修改",
-          "actionType": "dialog",
-          "dialog": {
-            "title": "批量编辑",
-            "name": "sample-bulk-edit",
-            "body": {
-              "type": "form",
-              "api": "/amis/api/sample/bulkUpdate2",
-              "body": [
-                {
-                  "type": "hidden",
-                  "name": "ids"
-                },
-                {
-                  "type": "input-text",
-                  "name": "engine",
-                  "label": "Engine"
-                }
-              ]
-            }
-          }
         }
       ],
       "footerToolbar":["switch-per-page","statistics", "pagination"],
@@ -467,7 +468,7 @@
               "type": "button",
               "icon": "fa fa-link",
               "actionType": "url",
-              "url": "/cms/details/${id}",
+              "url": "/cms/detail/${id}",
               "blank":true
             },
             {
@@ -637,6 +638,18 @@
                           "placeholder": "请输入外链接",
                           "label": "外链",
                           "description": "如果填写链接,会跳转到这个链接,不填不跳转"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "group",
+                      "mode": "horizontal",
+                      "body": [
+                        {
+                          "type": "input-tag",
+                          "name": "tags",
+                          "label": "标签",
+                          "placeholder": "请选择标签"
                         }
                       ]
                     },

@@ -25,41 +25,50 @@ class DocController extends Controller {
       modelName,
       models_uuid,
       title;
-    if (data.classifyId && data.classifyId !== '0') {
-      const classify = await ctx.model.CmsClassify.findByPk(data.classifyId);
-      const model = await ctx.model.SysModels.findOne({ where: { uuid: classify.models_uuid } });
-      isSub = !!classify.sub;
-      title = classify.title;
-      classifyId = classify.id;
-      modelName = model.desc;
-      models_uuid = classify.models_uuid;
-      type = [];
-      for (const v of classify.type.split(',')) {
-        const obj = {};
-        if (v == 1) {
-          obj.label = '目录';
-          obj.value = v;
-        } else if (v == 2) {
-          obj.label = '主题';
-          obj.value = v;
-        } else if (v == 3) {
-          obj.label = '段落';
-          obj.value = v;
-        }
-        type.push(obj);
-      }
-      const ids = await ctx.service.cms.classify.getSubClassifyIds(data.classifyId);
-      map.where.classify_id = { [Op.in]: ids };
-    } else {
+    if (data.noclassify === '1') {
       isSub = false;
-      title = '全部分类';
+      title = '未分类';
+      const nc = await ctx.model.CmsClassify.findAll();
+      const ncids = nc.map(item => item.id);
+      map.where.classify_id = { [Op.notIn]: ncids };
+    } else {
+      if (data.classifyId && data.classifyId !== '0') {
+        const classify = await ctx.model.CmsClassify.findByPk(data.classifyId);
+        const model = await ctx.model.SysModels.findOne({ where: { uuid: classify.models_uuid } });
+        isSub = !!classify.sub;
+        title = classify.title;
+        classifyId = classify.id;
+        modelName = model.desc;
+        models_uuid = classify.models_uuid;
+        type = [];
+        for (const v of classify.type.split(',')) {
+          const obj = {};
+          if (v == 1) {
+            obj.label = '目录';
+            obj.value = v;
+          } else if (v == 2) {
+            obj.label = '主题';
+            obj.value = v;
+          } else if (v == 3) {
+            obj.label = '段落';
+            obj.value = v;
+          }
+          type.push(obj);
+        }
+        const ids = await ctx.service.cms.classify.getSubClassifyIds(data.classifyId);
+        map.where.classify_id = { [Op.in]: ids };
+      } else {
+        isSub = false;
+        title = '全部分类';
+      }
     }
+
     // console.log(ctx.query);
     const page = data.page || 1;
     const limit = data.perPage || 15;
     map.offset = (Number(page) - 1) * limit;
     map.limit = Number(limit);
-    map.order = [[ 'level', 'DESC' ], [ 'id', 'DESC' ]];
+    map.order = [[ 'level', 'DESC' ], [ 'sort', 'ASC' ], [ 'id', 'DESC' ]];
     if (data.orderBy && data.orderDir) {
       map.order = [[ data.orderBy, data.orderDir ]];
     }
@@ -208,6 +217,7 @@ class DocController extends Controller {
     let res = [];
     if (id && id !== '0') {
       const classify = await ctx.model.CmsClassify.findByPk(id);
+      if (!classify) return this.success(res);
       // isSub = !!classify.sub;
       // console.log(JSON.parse(classify.sub, null, 2));
       const sub = classify.sub ? JSON.parse(classify.sub) : [];
@@ -508,14 +518,23 @@ class DocController extends Controller {
   async docDel() {
     const { ctx } = this;
     const { id } = ctx.query;
-    const ids = await ctx.service.cms.doc.getSubDocIds(id);
-    // console.log(ids);
-    const doc = await ctx.model.CmsDoc.findOne({ where: { id } });
-    const del = await ctx.model.CmsDoc.destroy({ where: { id: { [Op.in]: ids } } });
-    const data = await ctx.model.SysModels.findOne({ where: { uuid: doc.models_uuid } });
-    const className = ctx.helper._.upperFirst(ctx.helper._.camelCase(data.name));
-    await ctx.model[className].destroy({ where: { doc_id: { [Op.in]: ids } } });
-    this.success(del);
+    await this.service.cms.doc.destroy(id);
+    this.success(1);
+  }
+  /**
+  * @summary 批量删除
+  * @description 批量删除
+  * @router post /admin/cms/doc/bulkDel
+  * @request body cms_doc_edit *body desc
+  * @response 200 baseRes desc
+  */
+  async bulkDel() {
+    const { ctx } = this;
+    const data = ctx.request.body;
+    for (const v of data.selectedItems) {
+      await this.service.cms.doc.destroy(v.id);
+    }
+    this.success(1);
   }
   /**
   * @summary 获取所属分类
@@ -546,16 +565,10 @@ class DocController extends Controller {
   async saveOrder() {
     const { ctx } = this;
     const data = ctx.request.body;
-    const paixun = async rows => {
-      for (let index = 0; index < rows.length; index++) {
-        const element = rows[index];
-        await ctx.model.CmsClassify.update({ sort: index }, { where: { id: element.id } });
-        if (element.children) {
-          paixun(element.children);
-        }
-      }
-    };
-    await paixun(data.rows);
+    for (let index = 0; index < data.rows.length; index++) {
+      const element = data.rows[index];
+      await ctx.model.CmsDoc.update({ sort: index }, { where: { id: element.id } });
+    }
     this.success(1);
   }
 }

@@ -1,1 +1,32 @@
-{"type":"page","title":"系统配置","body":[{"type":"tpl","tpl":"请编辑您的页面"}]}
+{
+  "type": "page",
+  "body": {
+    "type": "form",
+    "title": "系统配置",
+    "mode": "horizontal",
+    "debug":false,
+    "initApi": "/admin/sys/config/info",
+    "api": "/admin/sys/config/edit",
+    "body": [
+      {
+        "type": "input-text",
+        "name": "name",
+        "label": "系统名称"
+      },
+      {
+        "type": "input-tag",
+        "name": "keywords",
+        "label": "关键词"
+      },
+      {
+        "type": "input-text",
+        "name": "description",
+        "label": "系统简介"
+      },{
+        "type": "input-text",
+        "name": "icp",
+        "label": "ICP备案号"
+      }
+    ]
+  }
+}

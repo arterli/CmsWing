@@ -68,7 +68,6 @@ class IndexController extends Controller {
     } else {
       this.fail('用户名，手机号，邮箱 重复,请重试！');
     }
-
   }
   /**
   * @summary 退出登录

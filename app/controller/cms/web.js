@@ -101,6 +101,8 @@ class WebController extends Controller {
     ctx.keywords = classify.keywords;
     ctx.description = classify.description;
     classify.url = `/cms/list/${classify.name ? classify.name : classify.id}`;
+    // 面包屑
+    const breadcrumb = await ctx.service.cms.classify.breadcrumb(classify.id);
     // const models = await ctx.model.SysModels.findOne({ where: { uuid: classify.models_uuid } });
     const orderby = query.orderby || '1';
     const map = {};
@@ -156,7 +158,7 @@ class WebController extends Controller {
       { name: '浏览量:从低到高', url: url.replace('__ORDER__', 4), id: '4' },
     ];
     const def = orderList.find(item => item.id === orderby);
-    await ctx.render(temp, { list, pagination, classify, orderby: { list: orderList, def } });
+    await ctx.render(temp, { list, pagination, classify, orderby: { list: orderList, def }, breadcrumb });
   }
   // 详情
   async detail() {
@@ -181,11 +183,13 @@ class WebController extends Controller {
     }
     // 面包屑
     const breadcrumb = await ctx.service.cms.classify.breadcrumb(info.classify_id);
-
+    const pdoc = await ctx.service.cms.doc.pdoc(info.pid);
+    const pdocids = pdoc.map(item => item.id);
+    // console.log('fdsafsadfas', pdoc, pdocids);
     const models = await ctx.model.SysModels.findOne({ where: { uuid: info.models_uuid } });
     const className = ctx.helper._.upperFirst(ctx.helper._.camelCase(models.name));
     info[models.name] = (await ctx.model[className].findOne({ where: { doc_id: info.id } })).toJSON();
-    console.log(JSON.stringify(info, null, 2));
+    // console.log(JSON.stringify(info, null, 2));
     let temp;
     // 查询栏目有没有绑定模版
     if (info.template) {
@@ -195,9 +199,10 @@ class WebController extends Controller {
     } else {
       temp = 'cms/detail_default.html';
     }
+    info.classify_url = `/cms/list/${info.cms_classify.name ? info.cms_classify.name : info.cms_classify.id}`;
     // 增加浏览次数
     await ctx.model.CmsDoc.increment({ view: 1 }, { where: { id } });
-    await ctx.render(temp, { detail: info, breadcrumb });
+    await ctx.render(temp, { detail: info, breadcrumb, pdoc, pdocids });
   }
 
 }

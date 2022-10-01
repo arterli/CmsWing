@@ -17,7 +17,7 @@
       template_detail:String
       models_uuid:String
       type:String
-      allow_publish:Int
+      allow_publish:Boolean
       display:Int
       reply:Boolean
       check:Boolean
@@ -319,17 +319,17 @@
   op_substring: String
       }
       input WhereCmsClassify_allow_publish {
-        op_eq: Int
-  op_ne: Int
-  op_or: [Int]
-  op_gt: Int
-  op_gte: Int
-  op_lt: Int
-  op_lte: Int
-  op_between: [Int]
-  op_notBetween: [Int]
-  op_in: [Int]
-  op_notIn: [Int]
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
   op_like: String
   op_notLike: String
   op_startsWith: String
@@ -517,7 +517,7 @@
       template_detail: String
       models_uuid: String!
       type: String
-      allow_publish: Int
+      allow_publish: Boolean
       display: Int
       reply: Boolean
       check: Boolean
@@ -542,7 +542,7 @@
       template_detail: String
       models_uuid: String
       type: String
-      allow_publish: Int
+      allow_publish: Boolean
       display: Int
       reply: Boolean
       check: Boolean

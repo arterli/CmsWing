@@ -24,6 +24,8 @@ module.exports = app => {
     level: { type: DataTypes.INTEGER, defaultValue: 0, comment: '优先级（越高排序越靠前）' },
     status: { type: DataTypes.INTEGER, defaultValue: 1, comment: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
     template: { type: DataTypes.STRING, comment: '模版详情' },
+    tags: { type: DataTypes.STRING, comment: '标签' },
+    sort: { type: DataTypes.INTEGER, defaultValue: 0, comment: '排序同级有效越小越靠前' },
   },{
   indexes:[{"unique":false,"fields":["classify_id"]},{"unique":false,"fields":["pid"]},{"unique":false,"fields":["models_uuid"]}],
   paranoid: true,

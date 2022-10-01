@@ -220,11 +220,12 @@
 									</div>
 
 									<!-- search -->
+									{#
 									<form method="get" action="#!search" class="input-group-over mb-4 bg-light p-2 form-control-pill">
 										<input type="text" name="keyword" value="" placeholder="Quick search..." class="form-control border-dashed">
 										<button class="btn btn-sm fi fi-search mx-3"></button>
 									</form>
-
+                  #}
 								</li>
              {%for item in 'sys'|@navigation%}
 						 
@@ -257,6 +258,7 @@
 						 {%endfor%}
              
 								<!-- social icons : mobile only -->
+								{#
 								<li class="nav-item d-block d-sm-none text-center mb-4">
 
 									<h3 class="h6 text-muted">Follow Us</h3>
@@ -291,7 +293,7 @@
 										Get Smarty
 									</a>
 								</li>
-
+                 #}
 							</ul>
 							<!-- /navbar : navigation -->
 
@@ -356,12 +358,12 @@
                     </svg>
                     <span>我的订单</span>
                   </a> -->
-                  <a class="dropdown-item" href="account-favourites.html">
+                  <!-- <a class="dropdown-item" href="account-favourites.html">
                     <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                       <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
                     </svg>
                     <span>我的收藏</span>
-                  </a>
+                  </a> -->
                   <!-- <a class="dropdown-item" href="account-reward.html">
                     <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                       <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
@@ -390,13 +392,13 @@
                     </svg>
                     <span>我的退款</span>
                   </a> -->
-                  <a class="dropdown-item" href="account-addresses.html">
+                  <!-- <a class="dropdown-item" href="account-addresses.html">
                     <svg class="text-gray-600 float-start" width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                     <span>我的地址</span>
-                  </a>
+                  </a> -->
                   <a class="dropdown-item" href="/mc/setup">
                     <svg class="text-gray-600 float-start" width="18px" height="18px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                       <path fill-rule="evenodd" d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364L.102 2.223zm13.37 9.019L13 11l-.471.242-.529.026-.287.445-.445.287-.026.529L11 13l.242.471.026.529.445.287.287.445.529.026L13 15l.471-.242.529-.026.287-.445.445-.287.026-.529L15 13l-.242-.471-.026-.529-.445-.287-.287-.445-.529-.026z"></path>

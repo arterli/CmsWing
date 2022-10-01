@@ -22,6 +22,8 @@
       level:Int
       status:Int
       template:String
+      tags:String
+      sort:Int
       
       cms_doc_article: CmsDocArticle
 cms_doc_download: CmsDocDownload
@@ -411,6 +413,42 @@ cms_classify: CmsClassify
   op_endsWith: String
   op_substring: String
       }
+      input WhereCmsDoc_tags {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsDoc_sort {
+        op_eq: Int
+  op_ne: Int
+  op_or: [Int]
+  op_gt: Int
+  op_gte: Int
+  op_lt: Int
+  op_lte: Int
+  op_between: [Int]
+  op_notBetween: [Int]
+  op_in: [Int]
+  op_notIn: [Int]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
       
     input WhereFieldCmsDoc{
     id:WhereCmsDoc_id
@@ -434,6 +472,8 @@ cms_classify: CmsClassify
       level:WhereCmsDoc_level
       status:WhereCmsDoc_status
       template:WhereCmsDoc_template
+      tags:WhereCmsDoc_tags
+      sort:WhereCmsDoc_sort
       
     }
 
@@ -459,6 +499,8 @@ cms_classify: CmsClassify
       level:WhereCmsDoc_level
       status:WhereCmsDoc_status
       template:WhereCmsDoc_template
+      tags:WhereCmsDoc_tags
+      sort:WhereCmsDoc_sort
       
       op_and: [WhereFieldCmsDoc]
       op_or: [WhereFieldCmsDoc]
@@ -485,6 +527,8 @@ cms_classify: CmsClassify
       level: Int
       status: Int
       template: String
+      tags: String
+      sort: Int
       
     }
     
@@ -508,6 +552,8 @@ cms_classify: CmsClassify
       level: Int
       status: Int
       template: String
+      tags: String
+      sort: Int
       
     }
     

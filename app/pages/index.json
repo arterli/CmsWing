@@ -1,27 +1,65 @@
 {
   "type": "page",
-  "title": "首页",
+  "title": false,
   "body": [
     {
-      "type": "tpl",
-      "tpl": "body...",
-      "inline": false,
-      "id": "u:6f72c6ce4f53"
+      "type": "grid",
+      "columns": [
+        {
+          "type": "panel",
+          "title": "系统信息",
+          "name": "chart-local",
+          "body": [
+            {
+              "type": "crud",
+              "api": "/admin/sys/sysInfo",
+              "affixHeader": false,
+              "combineNum": 1,
+              "columns": [
+                {
+                  "name": "name",
+                  "label": "",
+                  "isHead": true
+                },
+                {
+                  "name": "value",
+                  "type":"tpl",
+                  "label": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "title": "CmsWing 开发团队",
+          "name": "chart-local",
+          "body": [
+            {
+              "type": "crud",
+              "api": "/admin/sys/team",
+              "affixHeader": false,
+              "combineNum": 1,
+              "columns": [
+                {
+                  "name": "name",
+                  "label": "",
+                  "isHead": true
+                },
+                {
+                  "name": "value",
+                  "type":"tpl",
+                  "label": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
-      "type": "input-rich-text",
-      "label": "富文本",
-      "name": "rich-text",
-      "options":{
-        "codesample_languages": [
-          { "text": "HTML", "value": "html" },
-          { "text": "JavaScript", "value": "javascript" },
-          { "text": "CSS", "value": "css" },
-          { "text": "graphql", "value": "graphql" }
-        ],
-        "content_css": "/public/sys/prism.css"
-      }
-     
+      "type": "iframe",
+      "src": "/admin/sys/gitee"
     }
   ],
   "id": "u:0fdc9e106470",
