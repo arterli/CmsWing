@@ -82,15 +82,17 @@ class WebController extends Controller {
   // 首页
   async index() {
     const { ctx } = this;
+    const templatePath = await this.cmsTemplatePath();
     ctx.meta_title = '首页';
     ctx.keywords = this.config.sys.keywords;
     ctx.description = this.config.sys.description;
     // await ctx.service.sys.generate.graphqlAll();
-    await ctx.render('cms/index_index.html');
+    await ctx.render(`cms/${templatePath}/index_index.html`);
   }
   // 列表
   async list() {
     const { ctx } = this;
+    const templatePath = await this.cmsTemplatePath();
     const { id } = ctx.params;
     const query = ctx.query;
     const isnum = ctx.helper.isStringNumber(id);
@@ -146,9 +148,9 @@ class WebController extends Controller {
     let temp;
     // 查询栏目有没有绑定模版
     if (classify.template_lists) {
-      temp = `cms/${classify.template_lists}`;
+      temp = `cms/${templatePath}/${classify.template_lists}`;
     } else {
-      temp = 'cms/list_default.html';
+      temp = `cms/${templatePath}/list_default.html`;
     }
     const url = await ctx.service.cms.classify.getUrl(classify.url);
     const orderList = [
@@ -163,6 +165,7 @@ class WebController extends Controller {
   // 详情
   async detail() {
     const { ctx } = this;
+    const templatePath = await this.cmsTemplatePath();
     const { id } = ctx.params;
     if (!id) return this.notFound();
     const map = {};
@@ -193,11 +196,11 @@ class WebController extends Controller {
     let temp;
     // 查询栏目有没有绑定模版
     if (info.template) {
-      temp = `cms/${info.template}`;
+      temp = `cms/${templatePath}/${info.template}`;
     } else if (info.cms_classify.template_detail) {
-      temp = `cms/${info.cms_classify.template_detail}`;
+      temp = `cms/${templatePath}/${info.cms_classify.template_detail}`;
     } else {
-      temp = 'cms/detail_default.html';
+      temp = `cms/${templatePath}/detail_default.html`;
     }
     info.classify_url = `/cms/list/${info.cms_classify.name ? info.cms_classify.name : info.cms_classify.id}`;
     // 增加浏览次数

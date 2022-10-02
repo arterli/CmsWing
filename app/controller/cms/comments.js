@@ -141,7 +141,8 @@ class CommentsController extends Controller {
     const { ctx } = this;
     const { id } = ctx.query;
     const info = await ctx.model.CmsComments.findOne({ where: { id } });
-    await ctx.render('cms/ajax_modal_comment_edit', { info });
+    const templatePath = await this.cmsTemplatePath();
+    await ctx.render(`cms/${templatePath}/ajax_modal_comment_edit`, { info });
   }
   /**
   * @summary ajax回复评论
@@ -153,7 +154,8 @@ class CommentsController extends Controller {
   async modalCommentReply() {
     const { ctx } = this;
     const { id } = ctx.query;
-    await ctx.render('cms/ajax_modal_comment_reply', { id });
+    const templatePath = await this.cmsTemplatePath();
+    await ctx.render(`cms/${templatePath}/ajax_modal_comment_reply`, { id });
   }
   /**
   * @summary ajax回复编辑
@@ -166,7 +168,8 @@ class CommentsController extends Controller {
     const { ctx } = this;
     const { id } = ctx.query;
     const info = await ctx.model.CmsCommentsReply.findOne({ where: { id } });
-    await ctx.render('cms/ajax_modal_comment_reply_edit', { info });
+    const templatePath = await this.cmsTemplatePath();
+    await ctx.render(`cms/${templatePath}/ajax_modal_comment_reply_edit`, { info });
   }
   /**
   * @summary 添加回复
@@ -241,7 +244,8 @@ class CommentsController extends Controller {
     const html = ctx.service.sys.pagination.pagination(list, { limit });
     const reg = new RegExp('class="page-link" href="', 'g'); // 创建正则RegExp对象
     const pagination = html.replace(reg, 'data-ajax-target-container="#cms_comments_container" data-ajax-update-url="false" class="page-link js-ajax" href="#" data-href="/cms/comments/ajaxList');
-    await ctx.render('cms/ajax_comments_list', { list, pagination });
+    const templatePath = await this.cmsTemplatePath();
+    await ctx.render(`cms/${templatePath}/ajax_comments_list`, { list, pagination });
   }
 }
 module.exports = CommentsController;

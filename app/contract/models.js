@@ -723,4 +723,39 @@ module.exports = {
     
   },
 
+  // cms模版管理
+  cms_template_item: {
+    author: { type: 'string', description: '作者' },
+    createdAt: { type: 'string', description: '创建时间' },
+    id: { type: 'string', description: '主键' },
+    isu: { type: 'boolean', description: '正在使用' },
+    name: { type: 'string', description: '模版名称' },
+    path: { type: 'string', description: '模版目录' },
+    sys: { type: 'boolean', description: '系统模版' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    uuid: { type: 'string', description: 'uuid' },
+    version: { type: 'string', description: '版本号' },
+    
+  },
+  cms_template_add: {
+    author: { type: 'string', description: '作者', required: true },
+    isu: { type: 'boolean', description: '正在使用', required: false },
+    name: { type: 'string', description: '模版名称', required: true },
+    path: { type: 'string', description: '模版目录', required: true },
+    sys: { type: 'boolean', description: '系统模版', required: false },
+    uuid: { type: 'string', description: 'uuid', required: true },
+    version: { type: 'string', description: '版本号', required: true },
+    
+  },
+  cms_template_edit: {
+    author: { type: 'string', description: '作者' },
+    isu: { type: 'boolean', description: '正在使用' },
+    name: { type: 'string', description: '模版名称' },
+    path: { type: 'string', description: '模版目录' },
+    sys: { type: 'boolean', description: '系统模版' },
+    uuid: { type: 'string', description: 'uuid' },
+    version: { type: 'string', description: '版本号' },
+    
+  },
+
 };

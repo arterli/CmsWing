@@ -1,0 +1,124 @@
+{
+  "type":"page",
+  "body": {
+    "type": "crud",
+    "api": "/admin/cms/template",
+    "mode": "cards",
+    "defaultParams": {
+      "perPage": 16
+    },
+    "headerToolbar": [
+      {
+        "label": "新增模版",
+        "type": "button",
+        "actionType": "dialog",
+        "level": "primary",
+        "align": "right",
+        "dialog": {
+          "title": "新增模版",
+          "body": {
+            "type": "form",
+            "api": "/admin/cms/template/add",
+            "body": [
+              {
+                "type": "input-text",
+                "name": "name",
+                "label": "模版名称",
+                "required": true
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "input-text",
+                "name": "path",
+                "label": "模版目录前缀",
+                "required": true,
+                "description":"实际模板目录 view/cms/${path}-{uuid}"
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "input-text",
+                "name": "author",
+                "label": "模版作者",
+                "required": true
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "input-text",
+                "name": "version",
+                "label": "版本号",
+                "required": true
+              }
+            ]
+          }
+        },
+        "id": "u:c38154c3ee32"
+      }
+    ],
+    "card": {
+      "toolbar": [
+        {
+          "type": "tpl",
+          "tpl": "使用中",
+          "className": "label label-danger"
+        }
+      ],
+      "header": {
+        "title": "$name",
+        "subTitle": "${path}-${uuid}",
+        "subTitlePlaceholder": "暂无说明",
+        "avatar": "/public/cms/${path}-${uuid}/images/logo/icon_512x512.png",
+        "avatarClassName": "pull-left thumb b-3x m-r"
+      },
+      "actions": [
+        {
+          "type": "button",
+          "label": "查看",
+          "actionType": "dialog",
+          "dialog": {
+            "title": "查看",
+            "body": {
+              "type": "image",
+              "src": "/public/cms/${path}-${uuid}/images/preview.png",
+              "enlargeAble": true
+            }
+          }
+        },
+        {
+          "type": "button",
+          "label": "编辑",
+          "actionType": "link",
+          "link": "/cms/template/${uuid}"
+        },
+        {
+          "type": "button",
+          "label": "删除",
+          "actionType": "ajax",
+          "confirmText": "您确认要删除?",
+          "api": "delete:/amis/api/sample/$id",
+          "hiddenOn":"${sys}"
+        }
+      ],
+      "body": [
+        {
+          "name": "uuid",
+          "label": "UUID"
+        },
+        {
+          "name": "author",
+          "label": "作者"
+        },
+        
+        {
+          "name": "version",
+          "label": "版本号"
+        }
+      ]
+    }
+  }
+}

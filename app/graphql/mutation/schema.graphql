@@ -141,4 +141,11 @@ type Mutation {
   #cms评论回复 更新
   CmsCommentsReply_update(data:EditCmsCommentsReply!,where:WhereCmsCommentsReply!):ResEditCmsCommentsReply
 
+  #cms模版管理 添加
+  CmsTemplate_create(data:AddCmsTemplate):CmsTemplate
+  #cms模版管理 删除
+  CmsTemplate_destroy(where:WhereCmsTemplate!):ResDelCmsTemplate
+  #cms模版管理 更新
+  CmsTemplate_update(data:EditCmsTemplate!,where:WhereCmsTemplate!):ResEditCmsTemplate
+
 }

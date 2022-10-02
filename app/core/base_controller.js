@@ -4,17 +4,10 @@ class BaseController extends Controller {
   constructor(ctx) {
     super(ctx);
     const { Sequelize } = this.app;
-    // 系统导航标签 {{'sys'|@navigation}}
-    this.app.nunjucks.addFilter('@navigation', async (m, callback) => {
-      // console.log(m);
-      // if (m !== 'sys') return [];
-      const map = {};
-      map.order = [[ 'sort', 'ASC' ], [ 'id', 'ASC' ]];
-      map.where = {};
-      map.status = true;
-      const list = (await ctx.model.SysNavigation.findAll(map)).map(item => item.toJSON());
-      const tree = ctx.helper.arr_to_tree(list, 0);
-      callback(null, tree);
+    // cms模版路径 {{'cms'|@templatePath}}
+    this.app.nunjucks.addFilter('@templatePath', async (m, callback) => {
+      const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+      callback(null, `${temp.path}-${temp.uuid}`);
     }, true);
 
     // findAll {{'mdoel'|@findOne('{where:{a:1}}')}}
@@ -56,6 +49,18 @@ class BaseController extends Controller {
       const res = (await ctx.model[modelName].findAll(map)).map(item => item.toJSON());
       callback(null, res);
     }, true);
+    // 系统导航标签 {{'sys'|@navigation}}
+    this.app.nunjucks.addFilter('@navigation', async (m, callback) => {
+      // console.log(m);
+      // if (m !== 'sys') return [];
+      const map = {};
+      map.order = [[ 'sort', 'ASC' ], [ 'id', 'ASC' ]];
+      map.where = {};
+      map.status = true;
+      const list = (await ctx.model.SysNavigation.findAll(map)).map(item => item.toJSON());
+      const tree = ctx.helper.arr_to_tree(list, 0);
+      callback(null, tree);
+    }, true);
   }
   get user() {
     return this.ctx.session.user;
@@ -78,6 +83,10 @@ class BaseController extends Controller {
   notFound(msg) {
     msg = msg || 'not found';
     this.ctx.throw(404, msg);
+  }
+  async cmsTemplatePath() {
+    const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+    return `${temp.path}-${temp.uuid}`;
   }
 }
 module.exports = BaseController;
