@@ -17,7 +17,19 @@ module.exports = app => {
   indexes:[{"unique":true,"fields":["uuid"]}],
   paranoid: false,
 });
-  
+  CmsTemplate.associate = function() {
+       app.model.CmsTemplate.hasMany(app.model.CmsTemplateList, {
+            foreignKey: 'template_uuid',
+            sourceKey: 'uuid',
+            constraints: false,
+          });
+           app.model.CmsTemplateList.belongsTo(app.model.CmsTemplate, {
+            foreignKey: 'template_uuid',
+            targetKey: 'uuid',
+            constraints: false,
+          });
+          
+      };
   //CmsTemplate.sync({ alter: true });
   return CmsTemplate;
 };

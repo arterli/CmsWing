@@ -148,4 +148,11 @@ type Mutation {
   #cms模版管理 更新
   CmsTemplate_update(data:EditCmsTemplate!,where:WhereCmsTemplate!):ResEditCmsTemplate
 
+  #模版文件 添加
+  CmsTemplateList_create(data:AddCmsTemplateList):CmsTemplateList
+  #模版文件 删除
+  CmsTemplateList_destroy(where:WhereCmsTemplateList!):ResDelCmsTemplateList
+  #模版文件 更新
+  CmsTemplateList_update(data:EditCmsTemplateList!,where:WhereCmsTemplateList!):ResEditCmsTemplateList
+
 }

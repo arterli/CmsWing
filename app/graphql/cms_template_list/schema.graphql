@@ -1,23 +1,24 @@
 
     
-    type CmsTemplate {
+    type CmsTemplateList {
       id:ID
       createdAt:Date
       updatedAt:Date
+      template_uuid:String
+      title:String
+      type:String
       name:String
-      path:String
-      author:String
-      sys:Boolean
+      html:String
+      isd:Boolean
       isu:Boolean
       uuid:String
-      version:String
       
-      cms_template_list(order:[[String]],limit:Int,offset:Int): [CmsTemplateList]
-
+      cms_template: CmsTemplate
+ 
     }
     
     
-    input WhereCmsTemplate_id {
+    input WhereCmsTemplateList_id {
         op_eq: ID
   op_ne: ID
   op_or: [ID]
@@ -35,7 +36,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_createdAt {
+      input WhereCmsTemplateList_createdAt {
         op_eq: Date
   op_ne: Date
   op_or: [Date]
@@ -53,7 +54,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_updatedAt {
+      input WhereCmsTemplateList_updatedAt {
         op_eq: Date
   op_ne: Date
   op_or: [Date]
@@ -71,7 +72,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_name {
+      input WhereCmsTemplateList_template_uuid {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -89,7 +90,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_path {
+      input WhereCmsTemplateList_title {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -107,7 +108,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_author {
+      input WhereCmsTemplateList_type {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -125,7 +126,43 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_sys {
+      input WhereCmsTemplateList_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_html {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_isd {
         op_eq: Boolean
   op_ne: Boolean
   op_or: [Boolean]
@@ -143,7 +180,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_isu {
+      input WhereCmsTemplateList_isu {
         op_eq: Boolean
   op_ne: Boolean
   op_or: [Boolean]
@@ -161,25 +198,7 @@
   op_endsWith: String
   op_substring: String
       }
-      input WhereCmsTemplate_uuid {
-        op_eq: String
-  op_ne: String
-  op_or: [String]
-  op_gt: String
-  op_gte: String
-  op_lt: String
-  op_lte: String
-  op_between: [String]
-  op_notBetween: [String]
-  op_in: [String]
-  op_notIn: [String]
-  op_like: String
-  op_notLike: String
-  op_startsWith: String
-  op_endsWith: String
-  op_substring: String
-      }
-      input WhereCmsTemplate_version {
+      input WhereCmsTemplateList_uuid {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -198,69 +217,73 @@
   op_substring: String
       }
       
-    input WhereFieldCmsTemplate{
-    id:WhereCmsTemplate_id
-      createdAt:WhereCmsTemplate_createdAt
-      updatedAt:WhereCmsTemplate_updatedAt
-      name:WhereCmsTemplate_name
-      path:WhereCmsTemplate_path
-      author:WhereCmsTemplate_author
-      sys:WhereCmsTemplate_sys
-      isu:WhereCmsTemplate_isu
-      uuid:WhereCmsTemplate_uuid
-      version:WhereCmsTemplate_version
+    input WhereFieldCmsTemplateList{
+    id:WhereCmsTemplateList_id
+      createdAt:WhereCmsTemplateList_createdAt
+      updatedAt:WhereCmsTemplateList_updatedAt
+      template_uuid:WhereCmsTemplateList_template_uuid
+      title:WhereCmsTemplateList_title
+      type:WhereCmsTemplateList_type
+      name:WhereCmsTemplateList_name
+      html:WhereCmsTemplateList_html
+      isd:WhereCmsTemplateList_isd
+      isu:WhereCmsTemplateList_isu
+      uuid:WhereCmsTemplateList_uuid
       
     }
 
-    input WhereCmsTemplate {
-      id:WhereCmsTemplate_id
-      createdAt:WhereCmsTemplate_createdAt
-      updatedAt:WhereCmsTemplate_updatedAt
-      name:WhereCmsTemplate_name
-      path:WhereCmsTemplate_path
-      author:WhereCmsTemplate_author
-      sys:WhereCmsTemplate_sys
-      isu:WhereCmsTemplate_isu
-      uuid:WhereCmsTemplate_uuid
-      version:WhereCmsTemplate_version
+    input WhereCmsTemplateList {
+      id:WhereCmsTemplateList_id
+      createdAt:WhereCmsTemplateList_createdAt
+      updatedAt:WhereCmsTemplateList_updatedAt
+      template_uuid:WhereCmsTemplateList_template_uuid
+      title:WhereCmsTemplateList_title
+      type:WhereCmsTemplateList_type
+      name:WhereCmsTemplateList_name
+      html:WhereCmsTemplateList_html
+      isd:WhereCmsTemplateList_isd
+      isu:WhereCmsTemplateList_isu
+      uuid:WhereCmsTemplateList_uuid
       
-      op_and: [WhereFieldCmsTemplate]
-      op_or: [WhereFieldCmsTemplate]
-      op_not: [WhereFieldCmsTemplate]
+      op_and: [WhereFieldCmsTemplateList]
+      op_or: [WhereFieldCmsTemplateList]
+      op_not: [WhereFieldCmsTemplateList]
     }
     
     
-    input AddCmsTemplate {
-    name: String!
-      path: String!
-      author: String!
-      sys: Boolean
+    input AddCmsTemplateList {
+    template_uuid: String!
+      title: String!
+      type: String!
+      name: String!
+      html: String
+      isd: Boolean
       isu: Boolean
       uuid: String!
-      version: String!
       
     }
     
     
-    input EditCmsTemplate {
-    name: String
-      path: String
-      author: String
-      sys: Boolean
+    input EditCmsTemplateList {
+    template_uuid: String
+      title: String
+      type: String
+      name: String
+      html: String
+      isd: Boolean
       isu: Boolean
       uuid: String
-      version: String
       
     }
     
-    type CountCmsTemplate {
+    type CountCmsTemplateList {
       count: Int
-      rows: [CmsTemplate]
+      rows: [CmsTemplateList]
     }
-    type ResDelCmsTemplate {
+    type ResDelCmsTemplateList {
       count: Int
     }
-    type ResEditCmsTemplate {
+    type ResEditCmsTemplateList {
       ids: [Int]
     }
     

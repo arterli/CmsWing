@@ -9,6 +9,7 @@
   "dependencies": {
     "@alicloud/openapi-client": "^0.4.1",
     "ali-oss": "^6.17.1",
+    "compressing": "^1.6.2",
     "cos-nodejs-sdk-v5": "^2.11.12",
     "dataloader": "^2.1.0",
     "egg": "^3.1.0",

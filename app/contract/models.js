@@ -758,4 +758,42 @@ module.exports = {
     
   },
 
+  // 模版文件
+  cms_template_list_item: {
+    createdAt: { type: 'string', description: '创建时间' },
+    html: { type: 'string', description: '文件内容' },
+    id: { type: 'string', description: '主键' },
+    isd: { type: 'boolean', description: '是否默认' },
+    isu: { type: 'boolean', description: '使用中' },
+    name: { type: 'string', description: '文件名称' },
+    template_uuid: { type: 'string', description: '模版UUID' },
+    title: { type: 'string', description: '模版名称' },
+    type: { type: 'string', description: '类型' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    uuid: { type: 'string', description: 'UUID' },
+    
+  },
+  cms_template_list_add: {
+    html: { type: 'string', description: '文件内容', required: false },
+    isd: { type: 'boolean', description: '是否默认', required: false },
+    isu: { type: 'boolean', description: '使用中', required: false },
+    name: { type: 'string', description: '文件名称', required: true },
+    template_uuid: { type: 'string', description: '模版UUID', required: true },
+    title: { type: 'string', description: '模版名称', required: true },
+    type: { type: 'string', description: '类型', required: true },
+    uuid: { type: 'string', description: 'UUID', required: true },
+    
+  },
+  cms_template_list_edit: {
+    html: { type: 'string', description: '文件内容' },
+    isd: { type: 'boolean', description: '是否默认' },
+    isu: { type: 'boolean', description: '使用中' },
+    name: { type: 'string', description: '文件名称' },
+    template_uuid: { type: 'string', description: '模版UUID' },
+    title: { type: 'string', description: '模版名称' },
+    type: { type: 'string', description: '类型' },
+    uuid: { type: 'string', description: 'UUID' },
+    
+  },
+
 };

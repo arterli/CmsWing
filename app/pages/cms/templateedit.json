@@ -2,150 +2,51 @@
   "type": "page",
   "body": [
     {
-      "type": "card",
-      "header": {
-        "title": "标题"
-      },
-      "media": {
-        "type": "image",
-        "className": "w-36 h-24",
-        "url": "https://internal-amis-res.cdn.bcebos.com/images/2020-1/1578395692722/4f3cb4202335.jpeg@s_0,w_216,l_1,f_jpg,q_80",
-        "position": "left"
-      },
-      "body": "这里是内容",
-      "secondary": "次要说明",
-      "actions": [
+      "type": "service",
+      "api": "/admin/cms/template/info?uuid=${params.uuid}",
+      "body": [
         {
-          "type": "button",
-          "label": "操作",
-          "actionType": "dialog",
-          "className": "mr-4",
-          "dialog": {
-            "title": "操作",
-            "body": "你正在编辑该卡片"
-          }
-        },
-        {
-          "type": "button",
-          "label": "操作",
-          "actionType": "dialog",
-          "className": "mr-2.5",
-          "dialog": {
-            "title": "操作",
-            "body": "你正在编辑该卡片"
-          }
-        },
-        {
-          "type": "dropdown-button",
-          "level": "link",
-          "icon": "fa fa-ellipsis-h",
-          "className": "pr-1 flex",
-          "hideCaret": true,
-          "buttons": [
+          "type": "card",
+          "header": {
+            "title": "$info.name",
+            "subTitle": "目录：app/view/cms/${info.path}-${info.uuid}",
+            "description": "作者：${info.author}",
+            "avatarClassName": "pull-left thumb-md b-3x m-r",
+            "avatar": "$info.preview"
+          },
+          "toolbar": [
+            {
+              "type": "tpl",
+              "tpl": "使用中",
+              "className": "label label-danger",
+              "visibleOn": "${info.isu}"
+            }
+          ],
+          "actions": [
             {
               "type": "button",
-              "label": "编辑",
-              "actionType": "dialog",
-              "dialog": {
-                "title": "编辑",
-                "body": "你正在编辑该卡片"
-              }
+              "label": "返回",
+              "icon": "fa-solid fa-chevron-left",
+              "actionType": "link",
+              "link": "/cms/template"
             },
             {
               "type": "button",
-              "label": "删除",
+              "icon": "fa-solid fa-pen-to-square",
+              "label": "编辑",
+            
               "actionType": "dialog",
-              "dialog": {
-                "title": "提示",
-                "body": "你删掉了该卡片"
-              }
-            }
-          ]
-        }
-      ],
-      "toolbar": [
-        {
-          "type": "tpl",
-          "tpl": "标签",
-          "className": "label label-warning"
-        }
-      ]
-    },
-    {
-      "id": "tableList",
-      "type": "crud",
-      "api": "https://aisuda.bce.baidu.com/amis/api/mock2/sample",
-      "sendOn": "this.cat",
-      "syncLocation": true,
-      "headerToolbar":[ {
-        "type": "form",
-        "mode": "horizontal",
-        "wrapWithPanel": false,
-        "onEvent": {
-          "change": {
-            "actions": [
-              {
-                "actionType": "reload",
-                "componentId": "tableList",
-                "args": {
-                  "cat": "${event.data.cat}"
-                }
-              }
-            ]
-          }
-        },
-        "body": [
-          {
-            "label": false,
-            "type": "list-select",
-            "multiple": false,
-            "labelClassName": "text-muted",
-            "name": "cat",
-            "inline": true,
-            "value":"index",
-            "options": [
-              {
-                "label": "首页模版",
-                "value": "index"
-              },
-              {
-                "label": "列表模版",
-                "value": "list"
-              },
-              {
-                "label": "详情模版",
-                "value": "detail"
-              },
-              {
-                "label": "公共模版",
-                "value": "inc"
-              },
-              {
-                "label": "评论模版",
-                "value": "comment"
-              }
-            ]
-          }
-          
-        ]
-      },{
-        "type": "columns-toggler",
-        "align": "right"
-      }, {
-        "label": "新增模版",
-        "type": "button",
-        "actionType": "dialog",
         "level": "primary",
         "align": "right",
         "dialog": {
           "title": "新增模版",
           "body": {
             "type": "form",
-            "api": "/admin/cms/template/add",
+            "api": "/admin/cms/template/edit",
             "body": [
               {
                 "type": "input-text",
-                "name": "name",
+                "name": "info.name",
                 "label": "模版名称",
                 "required": true
               },
@@ -154,17 +55,7 @@
               },
               {
                 "type": "input-text",
-                "name": "path",
-                "label": "模版目录前缀",
-                "required": true,
-                "description":"实际模板目录 view/cms/${path}-{uuid}"
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "input-text",
-                "name": "author",
+                "name": "info.author",
                 "label": "模版作者",
                 "required": true
               },
@@ -173,94 +64,263 @@
               },
               {
                 "type": "input-text",
-                "name": "version",
+                "name": "info.version",
                 "label": "版本号",
                 "required": true
+              },
+              {
+                "type":"hidden",
+                "name":"info.uuid"
               }
             ]
           }
+        }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tableList",
+      "type": "crud",
+      "api": {
+        "url": "/admin/cms/template/list",
+        "data": {
+          "&": "$$",
+          "template_uuid": "${params.uuid}"
+        }
+      },
+      "itemBadge": {
+        "text": "使用",
+        "mode": "ribbon",
+        "position": "top-left",
+        "level": "success",
+        "visibleOn": "${isu}"
+      },
+      "syncLocation": true,
+      "headerToolbar": [
+        {
+          "type": "form",
+          "mode": "horizontal",
+          "wrapWithPanel": false,
+          "onEvent": {
+            "change": {
+              "actions": [
+                {
+                  "actionType": "reload",
+                  "componentId": "tableList",
+                  "args": {
+                    "cat": "${event.data.cat}"
+                  }
+                }
+              ]
+            }
+          },
+          "body": [
+            {
+              "label": false,
+              "type": "list-select",
+              "multiple": false,
+              "labelClassName": "text-muted",
+              "name": "cat",
+              "inline": true,
+              "value": "index",
+              "options": [
+                {
+                  "label": "首页模版",
+                  "value": "index"
+                },
+                {
+                  "label": "列表模版",
+                  "value": "list"
+                },
+                {
+                  "label": "详情模版",
+                  "value": "detail"
+                },
+                {
+                  "label": "公共模版",
+                  "value": "inc"
+                },
+                {
+                  "label": "评论模版",
+                  "value": "comment"
+                }
+              ]
+            }
+          ]
         },
-        "id": "u:c38154c3ee32"
-      }],
+        {
+          "type": "columns-toggler",
+          "align": "right"
+        },
+        {
+          "label": "新增模版",
+          "type": "button",
+          "actionType": "drawer",
+          "level": "primary",
+          "align": "right",
+          "drawer": {
+            "title": "新增模版",
+            "size": "xl",
+            "position": "right",
+            "body": {
+              "type": "form",
+              "api": "/admin/cms/template/listadd",
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "title",
+                  "label": "模版名称",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "name",
+                  "label": "文件名称",
+                  "required": true,
+                  "description": "app/view/cms/${info.path}-${info.uuid}/${cat?cat:'index'}_${name}.html"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "editor",
+                  "size": "xl",
+                  "name": "html",
+                  "label": "模版代码",
+                  "placeholder": "请输入",
+                  "language": "html",
+                  "required": true
+                },
+                {
+                  "type": "hidden",
+                  "name": "type",
+                  "value": "${cat?cat:'index'}"
+                },
+                {
+                  "type": "hidden",
+                  "name": "template_uuid",
+                  "value": "${info.uuid}"
+                },
+                {
+                  "type": "hidden",
+                  "name": "path",
+                  "value": "${info.path}-${info.uuid}"
+                }
+              ]
+            }
+          },
+          "id": "u:c38154c3ee32"
+        }
+      ],
       "columns": [
         {
           "name": "id",
           "label": "ID"
         },
         {
-          "name": "engine",
-          "label": "Rendering engine"
+          "name": "title",
+          "label": "模版名称"
         },
         {
-          "name": "browser",
-          "label": "Browser"
-        },
-        {
-          "name": "platform",
-          "label": "Platform(s)"
-        },
-        {
-          "name": "version",
-          "label": "Engine version"
-        },
-        {
-          "name": "grade",
-          "label": "CSS grade"
+          "name": "name",
+          "label": "文件名称",
+          "type": "tpl",
+          "tpl": "app/view/cms/${info.path}-${info.uuid}/${type}_${name}.html"
         },
         {
           "type": "operation",
           "label": "操作",
           "buttons": [
             {
-              "label": "详情",
+              "type": "button",
+              "label": "使用",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要使用该首页模版吗？",
+              "api": "get:/admin/cms/template/listuse?uuid=$uuid",
+              "visibleOn": "${!isu && cat ==='index'}"
+            },
+            {
+              "label": "编辑",
               "type": "button",
               "level": "link",
-              "actionType": "dialog",
-              "dialog": {
-                "title": "查看详情",
+              "actionType": "drawer",
+              "drawer": {
+                "title": "编辑模版",
+                "size": "xl",
+                "position": "right",
                 "body": {
                   "type": "form",
+
+                  "api": "/admin/cms/template/listedit",
                   "body": [
                     {
                       "type": "input-text",
-                      "name": "engine",
-                      "label": "Engine"
+                      "name": "title",
+                      "label": "模版名称",
+                      "required": true
+                    },
+                    {
+                      "type": "divider"
                     },
                     {
                       "type": "input-text",
-                      "name": "browser",
-                      "label": "Browser"
+                      "name": "name",
+                      "label": "文件名称",
+                      "required": true,
+                      "disabled": true,
+                      "description": "app/view/cms/${info.path}-${info.uuid}/${cat?cat:'index'}_${name}.html"
                     },
                     {
-                      "type": "input-text",
-                      "name": "platform",
-                      "label": "platform"
+                      "type": "divider"
                     },
                     {
-                      "type": "input-text",
-                      "name": "version",
-                      "label": "version"
+                      "type": "editor",
+                      "size": "xl",
+                      "name": "html",
+                      "label": "模版代码",
+                      "placeholder": "请输入",
+                      "language": "html",
+                      "required": true
                     },
                     {
-                      "type": "control",
-                      "label": "grade",
-                      "body": {
-                        "type": "tag",
-                        "label": "${grade}",
-                        "displayMode": "normal",
-                        "color": "active"
-                      }
+                      "type": "hidden",
+                      "name": "type",
+                      "value": "${cat?cat:'index'}"
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "template_uuid",
+                      "value": "${info.uuid}"
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "path",
+                      "value": "${info.path}-${info.uuid}"
+                    },
+                    {
+                      "type": "hidden",
+                      "name": "uuid"
                     }
                   ]
                 }
               }
             },
             {
-              "label": "删除",
               "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
               "level": "link",
               "className": "text-danger",
-              "disabledOn": "this.grade === 'A'"
+              "confirmText": "确定要删除？",
+              "api": "get:/admin/cms/template/listdel?uuid=$uuid",
+              "visibleOn": "${!isd && !isu}"
             }
           ]
         }

@@ -72,6 +72,7 @@ module.exports = appInfo => {
       '.xls',
       '.xlsx',
       '.pdf',
+      '.tar',
     ],
   };
   config.security = {

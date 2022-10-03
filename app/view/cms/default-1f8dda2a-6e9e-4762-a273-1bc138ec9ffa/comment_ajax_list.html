@@ -1,0 +1,189 @@
+<h3 class="mb-4">{{list.count}} 条评论</h3>
+{%for item in list.rows%}
+<!-- Comment 1 + Reply -->
+<div class="d-flex mb-4">
+    <!-- avatar : as background -->
+    <div style="width:140px" class="text-center">
+        {%if item.mc_member.avatar%}
+        <div class="mb-1 rounded-circle d-inline-block bg-light bg-cover"
+            style="width:70px; height:70px;background-image:url('{{item.mc_member.avatar}}')"></div>
+        {%else%}
+        <div style="width:70px; height:70px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+            <i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+        </div>
+        {%endif%}
+        <span class="d-block text-dark">{{item.mc_member.username}}</span>
+        <small class="d-block text-dark smaller">{{helper.moment(item.createdAt).fromNow()}}</small>
+    </div>
+
+    <div class="w-100">
+        <p>{{item.content|safe}}</p>
+
+        <!-- options -->
+        <ul class="list-inline my-3">
+            {%if item.member_uuid === ctx.userInfo.uuid%}
+            <!-- like -->
+            <li class="list-inline-item">
+
+                <!-- 
+          NOTE: working ajax button! Check console for debug 
+          No security implemented to block multiple votes
+          So on page refresh, should be handled by backend!
+        -->
+                <a href="#" data-href="/cms/comments/del?id={{item.id}}&page={{ctx.query.page or 1}}"
+                    class="js-ajax-confirm btn-toggle btn btn-light py-1 px-2 fs-6" data-ajax-confirm-mode="ajax"
+                    data-ajax-confirm-method="GET" data-ajax-confirm-size="modal-md" data-ajax-confirm-centered="false"
+                    data-ajax-confirm-title="请确认" data-ajax-confirm-body="您确定要删除该评论吗?"
+                    data-ajax-confirm-btn-yes-class="btn-sm btn-primary" data-ajax-confirm-btn-yes-text="确定"
+                    data-ajax-confirm-btn-yes-icon="fi fi-check" data-ajax-confirm-btn-no-class="btn-sm btn-light"
+                    data-ajax-confirm-btn-no-text="取消" data-ajax-confirm-btn-no-icon="fi fi-close"
+                    data-ajax-confirm-callback-function="cms_comments_reply_callback">
+
+                    <i class="fi fi-close"></i>
+
+                    <span>删除</span>
+                </a>
+
+            </li>
+            <!-- /like -->
+            <!-- like -->
+            <li class="list-inline-item">
+
+                <!-- 
+          NOTE: working ajax button! Check console for debug 
+          No security implemented to block multiple votes
+          So on page refresh, should be handled by backend!
+        -->
+                <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+                    data-href="/cms/comments/modalCommentEdit?id={{item.id}}&page={{ctx.query.page or 1}}"
+                    data-ajax-modal-size="modal-md" data-ajax-modal-centered="false" data-ajax-modal-backdrop="static"
+                    data-ajax-modal-callback-function="">
+
+                    <i class="fi fi-pencil"></i>
+
+                    <span>编辑</span>
+                </a>
+
+            </li>
+            <!-- /like -->
+            {%endif%}
+            {%if ctx.userInfo%}
+            <!-- reply -->
+            <li class="list-inline-item">
+
+                <!-- 
+
+          Replies are using an ajax modal!
+          Replace with wordpress style, if wordpress used!
+
+          This format can be used on custom blog CMS.
+
+        -->
+                <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+                    data-href="/cms/comments/modalCommentReply?id={{item.id}}&page={{ctx.query.page or 1}}"
+                    data-ajax-modal-size="modal-md" data-ajax-modal-centered="false" data-ajax-modal-backdrop="static"
+                    data-ajax-modal-callback-function="">
+                    <i class="fi fi-plus"></i>
+                    <span>回复</span>
+                </a>
+
+            </li>
+            <!-- /reply -->
+            {%endif%}
+        </ul>
+        <!-- /options -->
+
+
+        <!-- ... replies here ... -->
+
+        {%for _item in item.cms_comments_replies%}
+        <!-- REPLY -->
+        <div class="d-flex my-4 ms-n4">
+
+            <!-- avatar : as background -->
+            <div style="width:140px" class="text-center">
+                {%if _item.mc_member.avatar%}
+                <div class="mb-1 rounded-circle d-inline-block bg-light bg-cover"
+                    style="width:50px; height:50px;background-image:url('{{_item.mc_member.avatar}}')"></div>
+                {%else%}
+                <div style="width:50px; height:50px;" class="mb-1 rounded-circle d-inline-block bg-light bg-cover">
+                    <i class="fi fi-user-male fs-1 d-block mt-1 text-gray-500"></i>
+                </div>
+                {%endif%}
+                <span class="d-block text-dark">{{_item.mc_member.username}}</span>
+                <small class="d-block text-dark smaller">{{helper.moment(_item.createdAt).fromNow()}}</small>
+            </div>
+
+            <div class="w-100">
+                <p>{{_item.content|safe}}</p>
+
+                <ul class="list-inline my-3">
+
+                    {%if _item.member_uuid === ctx.userInfo.uuid%}
+                    <!-- like -->
+                    <li class="list-inline-item">
+
+                        <!-- 
+             NOTE: working ajax button! Check console for debug 
+             No security implemented to block multiple votes
+             So on page refresh, should be handled by backend!
+           -->
+                        <a href="#" data-href="/cms/comments/replyDel?id={{_item.id}}&page={{ctx.query.page or 1}}"
+                            class="js-ajax-confirm btn-toggle btn btn-light py-1 px-2 fs-6"
+                            data-ajax-confirm-mode="ajax" data-ajax-confirm-method="GET"
+                            data-ajax-confirm-size="modal-md" data-ajax-confirm-centered="false"
+                            data-ajax-confirm-title="请确认" data-ajax-confirm-body="您确定要删除该回复吗?"
+                            data-ajax-confirm-btn-yes-class="btn-sm btn-primary" data-ajax-confirm-btn-yes-text="确定"
+                            data-ajax-confirm-btn-yes-icon="fi fi-check"
+                            data-ajax-confirm-btn-no-class="btn-sm btn-light" data-ajax-confirm-btn-no-text="取消"
+                            data-ajax-confirm-btn-no-icon="fi fi-close"
+                            data-ajax-confirm-callback-function="cms_comments_reply_callback">
+
+                            <i class="fi fi-close"></i>
+
+                            <span>删除</span>
+                        </a>
+
+                    </li>
+                    <!-- /like -->
+                    <!-- like -->
+                    <li class="list-inline-item">
+
+                        <!-- 
+             NOTE: working ajax button! Check console for debug 
+             No security implemented to block multiple votes
+             So on page refresh, should be handled by backend!
+           -->
+                        <a href="#" class="js-ajax-modal btn btn-light py-1 px-2 fs-6"
+                            data-href="/cms/comments/modalCommentReplyEdit?id={{_item.id}}&page={{ctx.query.page or 1}}"
+                            data-ajax-modal-size="modal-md" data-ajax-modal-centered="false"
+                            data-ajax-modal-backdrop="static" data-ajax-modal-callback-function="">
+
+                            <i class="fi fi-pencil"></i>
+
+                            <span>编辑</span>
+                        </a>
+
+                    </li>
+                    <!-- /like -->
+                    {%endif%}
+
+                </ul>
+
+            </div>
+
+        </div>
+        <!-- /REPLY -->
+        {%endfor%}
+    </div>
+
+</div>
+<!-- /Comment 1 + Reply -->
+{%else%}
+<div class="alert alert-primary" role="alert">
+    暂无评论！
+</div>
+{%endfor%}
+<!-- pagination -->
+<nav aria-label="pagination" class="mt-4">{{pagination|safe}}</nav>
+<!-- pagination -->

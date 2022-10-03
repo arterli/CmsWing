@@ -1,7 +1,23 @@
 
 'use strict';
 module.exports = {
-  
+  CmsTemplate: {
+  async cms_template_list(root, params, ctx) {
+    const map = {};
+    map.where = { template_uuid: root.uuid };
+    if (Object.hasOwnProperty.call(params, 'limit')) {
+      map.limit = params.limit;
+    }
+    if (Object.hasOwnProperty.call(params, 'offset')) {
+      map.offset = params.offset;
+    }
+    if (Object.hasOwnProperty.call(params, 'order')) {
+      map.order = params.order;
+    }
+    return await ctx.connector.cms_template_list.findAll(map);
+  },
+},
+    
   Query: {
     async CmsTemplate_findAll(_root, params, ctx) {
       return await ctx.connector.cms_template.findAll(params);

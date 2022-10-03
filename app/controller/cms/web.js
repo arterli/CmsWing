@@ -82,12 +82,13 @@ class WebController extends Controller {
   // 首页
   async index() {
     const { ctx } = this;
-    const templatePath = await this.cmsTemplatePath();
     ctx.meta_title = '首页';
     ctx.keywords = this.config.sys.keywords;
     ctx.description = this.config.sys.description;
     // await ctx.service.sys.generate.graphqlAll();
-    await ctx.render(`cms/${templatePath}/index_index.html`);
+    const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+    const tempinfo = await this.ctx.model.CmsTemplateList.findOne({ where: { isu: true, template_uuid: temp.uuid } });
+    await ctx.render(`cms/${temp.path}-${temp.uuid}/index_${tempinfo.name}.html`);
   }
   // 列表
   async list() {

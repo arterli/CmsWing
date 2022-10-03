@@ -142,7 +142,7 @@ class CommentsController extends Controller {
     const { id } = ctx.query;
     const info = await ctx.model.CmsComments.findOne({ where: { id } });
     const templatePath = await this.cmsTemplatePath();
-    await ctx.render(`cms/${templatePath}/ajax_modal_comment_edit`, { info });
+    await ctx.render(`cms/${templatePath}/comment_ajax_edit`, { info });
   }
   /**
   * @summary ajax回复评论
@@ -155,7 +155,7 @@ class CommentsController extends Controller {
     const { ctx } = this;
     const { id } = ctx.query;
     const templatePath = await this.cmsTemplatePath();
-    await ctx.render(`cms/${templatePath}/ajax_modal_comment_reply`, { id });
+    await ctx.render(`cms/${templatePath}/comment_ajax_reply`, { id });
   }
   /**
   * @summary ajax回复编辑
@@ -169,7 +169,7 @@ class CommentsController extends Controller {
     const { id } = ctx.query;
     const info = await ctx.model.CmsCommentsReply.findOne({ where: { id } });
     const templatePath = await this.cmsTemplatePath();
-    await ctx.render(`cms/${templatePath}/ajax_modal_comment_reply_edit`, { info });
+    await ctx.render(`cms/${templatePath}/comment_ajax_reply_edit`, { info });
   }
   /**
   * @summary 添加回复
@@ -245,7 +245,7 @@ class CommentsController extends Controller {
     const reg = new RegExp('class="page-link" href="', 'g'); // 创建正则RegExp对象
     const pagination = html.replace(reg, 'data-ajax-target-container="#cms_comments_container" data-ajax-update-url="false" class="page-link js-ajax" href="#" data-href="/cms/comments/ajaxList');
     const templatePath = await this.cmsTemplatePath();
-    await ctx.render(`cms/${templatePath}/ajax_comments_list`, { list, pagination });
+    await ctx.render(`cms/${templatePath}/comment_ajax_list`, { list, pagination });
   }
 }
 module.exports = CommentsController;
