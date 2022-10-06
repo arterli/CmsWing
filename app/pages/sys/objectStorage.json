@@ -1,1 +1,327 @@
-{"type":"page","title":false,"body":[{"type":"tabs","tabs":[{"title":"存储配置","tab":{"type":"form","title":"存储配置","debug":false,"initApi":"/admin/sys/objectStorage/objectStorageConfig","api":"/admin/sys/objectStorage/edit","body":[{"type":"button-group-select","btnLevel":"light","btnActiveLevel":"primary","name":"type","label":"默认存储类型","required":true,"options":[{"label":"七牛云","value":"kodo"},{"label":"阿里云","value":"oss"},{"label":"腾讯云","value":"cos"},{"label":"华为云","value":"obs"},{"label":"本地","value":"local"}],"id":"u:e9c5404b5536"},{"type":"fieldSet","title":"七牛云","collapsable":true,"body":[{"type":"group","body":[{"type":"input-password","name":"kodo.AccessKey","label":"AccessKey","description":"开通<a href='https://portal.qiniu.com/signup?ref=developer.qiniu.com' target='_blank'>七牛开发者帐号</a>,登录平台，查看 <a href='https://portal.qiniu.com/user/key?ref=developer.qiniu.com' target='_blank'>Access Key</a>","id":"u:e377d8787e3d"},{"type":"input-password","name":"kodo.SecretKey","label":"SecretKey","description":"开通<a href='https://portal.qiniu.com/signup?ref=developer.qiniu.com' target='_blank'>七牛开发者帐号</a>,登录平台，查看 <a href='https://portal.qiniu.com/user/key?ref=developer.qiniu.com' target='_blank'>Secret Key</a>","id":"u:9ea8373d5069"},{"type":"input-text","name":"kodo.Bucket","label":"Bucket","description":"存储桶的名称","id":"u:7cb474f484a7"}],"id":"u:0c98aac63917"},{"type":"group","body":[{"type":"input-text","name":"kodo.Region","label":"Region","description":"存储区域 ID 列表见 <a href='https://developer.qiniu.com/kodo/1671/region-endpoint-fq' target='_blank'>存储区域列表</a>","id":"u:2aada62be8a8"},{"type":"input-text","name":"kodo.domain","label":"域名","description":"空间绑定的域名,如:https://data.cmswing.com","id":"u:5f9c9920a09a"},{"type":"input-text","name":"kodo.path","label":"储存目录","description":"储存目录,比如填写 a/b 就是 a/b/test.txt","id":"u:f0728d5cd897"}],"id":"u:d8ca3c78d209"}],"id":"u:58cc074e00fb"},{"type":"fieldSet","title":"阿里云","collapsable":true,"body":[{"type":"group","body":[{"type":"input-password","name":"oss.AccessKey","label":"accessKeyId","description":"通过阿里云控制台创建的AccessKey ID。","id":"u:aef9f2d74a05"},{"type":"input-password","name":"oss.SecretKey","label":"accessKeySecret","description":"通过阿里云控制台创建的AccessKey Secret。","id":"u:808b89bf2a39"},{"type":"input-text","name":"oss.Bucket","label":"Bucket","description":"存储桶的名称","id":"u:1effe73d7f42"}],"id":"u:dc5347e53bd6"},{"type":"group","body":[{"type":"input-text","name":"oss.Region","label":"Region","description":"存储区域 列表见 <a href='https://help.aliyun.com/document_detail/31837.htm?spm=a2c4g.11186623.0.0.347d6cf0uxhCzC#concept-zt4-cvy-5db' target='_blank'>存储区域列表</a>","id":"u:b93005a563f4"},{"type":"input-text","name":"oss.domain","label":"域名","description":"空间绑定的域名,如:https://data.cmswing.com","id":"u:85a7aca614bc"},{"type":"input-text","name":"oss.path","label":"储存目录","description":"储存目录,比如填写 a/b 就是 a/b/test.txt","id":"u:e451913b2c8d"}],"id":"u:ac6fca69aff2"}],"id":"u:d3b6dff99d83"},{"type":"fieldSet","title":"腾讯云","collapsable":true,"body":[{"type":"group","body":[{"type":"input-password","name":"cos.AccessKey","label":"SecretId","description":"请先在访问管理控制台中的 <a href='https://console.cloud.tencent.com/cam/capi' target='_blank'>API 密钥管理</a> 页面获取","id":"u:0c31d11bb674"},{"type":"input-password","name":"cos.SecretKey","label":"SecretKey","description":"请先在访问管理控制台中的 <a href='https://console.cloud.tencent.com/cam/capi' target='_blank'>API 密钥管理</a> 页面获取","id":"u:3efe575c016f"},{"type":"input-text","name":"cos.Bucket","label":"Bucket","description":"存储桶的名称","id":"u:f1af6363babf"}],"id":"u:9caed794cec9"},{"type":"group","body":[{"type":"input-text","name":"cos.Region","label":"Region","description":"存储区域 列表见 <a href='https://cloud.tencent.com/document/product/436/6224' target='_blank'>存储区域列表</a>","id":"u:000326ccaf78"},{"type":"input-text","name":"cos.domain","label":"域名","description":"空间绑定的域名,如:https://data.cmswing.com","id":"u:be1143573360"},{"type":"input-text","name":"cos.path","label":"储存目录","description":"储存目录,比如填写 a/b 就是 a/b/test.txt","id":"u:e6e5c4b3a5a7"}],"id":"u:5eaf79e5cc85"}],"id":"u:5ac00cd18c60"},{"type":"fieldSet","title":"华为云","collapsable":true,"body":[{"type":"group","body":[{"type":"input-password","name":"obs.AccessKey","label":"access_key_id","description":"请先在访问管理控制台中的 <a href='https://support.huaweicloud.com/qs-obs/obs_qs_0005.html' target='_blank'>API 密钥管理</a> 页面获取","id":"u:c37718589fde"},{"type":"input-password","name":"obs.SecretKey","label":"secret_access_key","description":"请先在访问管理控制台中的 <a href='https://support.huaweicloud.com/qs-obs/obs_qs_0005.html' target='_blank'>API 密钥管理</a> 页面获取","id":"u:ffa01d448b25"},{"type":"input-text","name":"obs.Bucket","label":"Bucket","description":"存储桶的名称","id":"u:072257fcca64"}],"id":"u:b4178bfd5895"},{"type":"group","body":[{"type":"input-text","name":"obs.Region","label":"Region","description":"存储区域 列表见 <a href='https://developer.huaweicloud.com/endpoint?OBS' target='_blank'>存储区域列表</a>","id":"u:7a862ffc130e"},{"type":"input-text","name":"obs.domain","label":"域名","description":"空间绑定的域名,如:https://data.cmswing.com","id":"u:c963bf1c60da"},{"type":"input-text","name":"obs.path","label":"储存目录","description":"储存目录,比如填写 a/b 就是 a/b/test.txt","id":"u:d211df1fd776"}],"id":"u:17182c27d600"}],"id":"u:0dda61036815"},{"type":"fieldSet","title":"华为云","collapsable":true,"body":[{"type":"group","body":[{"type":"input-text","name":"local.domain","label":"域名","description":"空间绑定的域名,如:https://data.cmswing.com","id":"u:f90767f8d533"},{"type":"input-text","name":"local.path","label":"储存目录","description":"储存目录,比如填写 a/b 就是 a/b/test.txt","id":"u:fd8021eb9343"}],"id":"u:c0cb79a075e0"}],"id":"u:211b16dcf9a0"}],"id":"u:2be59c3b5bc7"}},{"title":"使用文档","tab":{"type":"tpl","tpl":"<p>请求地址: /upload</p>\n<p>请求参数:&nbsp;</p>\n<table style=\"border-collapse: collapse; width: 100%; height: 343.5px; border-width: 1px;\" border=\"1\"><colgroup><col style=\"width: 25.0644%;\"><col style=\"width: 25.0644%;\"><col style=\"width: 25.0644%;\"><col style=\"width: 24.8067%;\"></colgroup>\n<tbody>\n<tr style=\"height: 22.5px;\">\n<td style=\"height: 22.5px; border-width: 1px;\">参数名</td>\n<td style=\"height: 22.5px; border-width: 1px;\">描述</td>\n<td style=\"height: 22.5px; border-width: 1px;\">类型</td>\n<td style=\"height: 22.5px; border-width: 1px;\">是否必填</td>\n</tr>\n<tr style=\"height: 21px;\">\n<td style=\"height: 21px; border-width: 1px;\">type</td>\n<td style=\"border-width: 1px; height: 50px;\">\n<p>对象储存类型qiniu|七牛 oss|阿里云OSS cos|腾讯云COS obs|华为云OBS ,如果不传该参数 使用系统默认类型</p>\n</td>\n<td style=\"height: 21px; border-width: 1px;\">String</td>\n<td style=\"height: 21px; border-width: 1px;\">否</td>\n</tr>\n<tr style=\"height: 54.5px;\">\n<td style=\"height: 54.5px; border-width: 1px;\">\n<div>\n<div>resBody</div>\n</div>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">\n<p>自定义返回格式</p>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">String</td>\n<td style=\"height: 54.5px; border-width: 1px;\">否</td>\n</tr>\n<tr style=\"height: 54.5px;\">\n<td style=\"height: 54.5px; border-width: 1px;\">\n<div>\n<div>token</div>\n</div>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">\n<p>token</p>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">String</td>\n<td style=\"height: 54.5px; border-width: 1px;\">是</td>\n</tr>\n</tbody>\n</table>\n<p><br><strong>自定义返回格式<br></strong>自定义返回格式 比如:{'{\"id\":{{id}},\"path\":\"{{url}}\"}'},具体支持参数</p>\n<div>\n<div>//说明: number 类型的 定义格式时直接输入{{}}, string 类型的定义格式时要加&ldquo;&rdquo;,比如'{\"id\":{{id}},\"size\":{{size}},\"url\":\"{{url}}\"}'</div>\n<div>{{id}}&lt;number&gt; //文件id</div>\n<div>{{name}}&lt;string&gt; // 原始文件名</div>\n<div>{{mime}}&lt;string&gt; // 文件mime类型</div>\n<div>{{size}}&lt;number&gt; // 文件大小kb</div>\n<div>{{type}}&lt;string&gt; // 文件保存位置</div>\n<div>{{savename}}&lt;string&gt; // 保存名称</div>\n<div>{{url}}&lt;string&gt; // 文件地址</div>\n<div>//如果请求时不携带 resBody ，默认返回 '{</div>\n<div>\"id\":{{id}},</div>\n<div>\"name\":\"{{name}}\",</div>\n<div>\"mime\":\"{{mime}}\",</div>\n<div>\"size\":{{size}},</div>\n<div>\"type\":\"{{type}}\",</div>\n<div>\"savename\":\"{{savename}}\",</div>\n<div>\"url\":\"{{url}}\"</div>\n<div>}'</div>\n</div>\n<p><strong>&nbsp;</strong></p>","inline":true,"id":"u:15fd9d8820ff"}}],"id":"u:db099a8cba4e"}],"id":"u:6c97c3a6fc76"}
+{
+  "type": "page",
+  "title": false,
+  "body": [
+    {
+      "type": "tabs",
+      "tabs": [
+        {
+          "title": "存储配置",
+          "tab": {
+            "type": "form",
+            "title": "存储配置",
+            "debug": false,
+            "initApi": "/admin/sys/objectStorage/objectStorageConfig",
+            "api": "/admin/sys/objectStorage/edit",
+            "body": [
+              {
+                "type": "button-group-select",
+                "btnLevel": "light",
+                "btnActiveLevel": "primary",
+                "name": "type",
+                "label": "默认存储类型",
+                "required": true,
+                "options": [
+                  { "label": "七牛云", "value": "kodo" },
+                  { "label": "阿里云", "value": "oss" },
+                  { "label": "腾讯云", "value": "cos" },
+                  { "label": "华为云", "value": "obs" },
+                  { "label": "本地", "value": "local" }
+                ],
+                "id": "u:e9c5404b5536"
+              },
+              {
+                "type": "fieldSet",
+                "title": "七牛云",
+                "collapsable": true,
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-password",
+                        "name": "kodo.AccessKey",
+                        "label": "AccessKey",
+                        "description": "开通<a href='https://portal.qiniu.com/signup?ref=developer.qiniu.com' target='_blank'>七牛开发者帐号</a>,登录平台，查看 <a href='https://portal.qiniu.com/user/key?ref=developer.qiniu.com' target='_blank'>Access Key</a>",
+                        "id": "u:e377d8787e3d"
+                      },
+                      {
+                        "type": "input-password",
+                        "name": "kodo.SecretKey",
+                        "label": "SecretKey",
+                        "description": "开通<a href='https://portal.qiniu.com/signup?ref=developer.qiniu.com' target='_blank'>七牛开发者帐号</a>,登录平台，查看 <a href='https://portal.qiniu.com/user/key?ref=developer.qiniu.com' target='_blank'>Secret Key</a>",
+                        "id": "u:9ea8373d5069"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "kodo.Bucket",
+                        "label": "Bucket",
+                        "description": "存储桶的名称",
+                        "id": "u:7cb474f484a7"
+                      }
+                    ],
+                    "id": "u:0c98aac63917"
+                  },
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "kodo.Region",
+                        "label": "Region",
+                        "description": "存储区域 ID 列表见 <a href='https://developer.qiniu.com/kodo/1671/region-endpoint-fq' target='_blank'>存储区域列表</a>",
+                        "id": "u:2aada62be8a8"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "kodo.domain",
+                        "label": "域名",
+                        "description": "空间绑定的域名,如:https://data.cmswing.com",
+                        "id": "u:5f9c9920a09a"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "kodo.path",
+                        "label": "储存目录",
+                        "description": "储存目录,比如填写 a/b 就是 a/b/test.txt",
+                        "id": "u:f0728d5cd897"
+                      }
+                    ],
+                    "id": "u:d8ca3c78d209"
+                  }
+                ],
+                "id": "u:58cc074e00fb"
+              },
+              {
+                "type": "fieldSet",
+                "title": "阿里云",
+                "collapsable": true,
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-password",
+                        "name": "oss.AccessKey",
+                        "label": "accessKeyId",
+                        "description": "通过阿里云控制台创建的AccessKey ID。",
+                        "id": "u:aef9f2d74a05"
+                      },
+                      {
+                        "type": "input-password",
+                        "name": "oss.SecretKey",
+                        "label": "accessKeySecret",
+                        "description": "通过阿里云控制台创建的AccessKey Secret。",
+                        "id": "u:808b89bf2a39"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "oss.Bucket",
+                        "label": "Bucket",
+                        "description": "存储桶的名称",
+                        "id": "u:1effe73d7f42"
+                      }
+                    ],
+                    "id": "u:dc5347e53bd6"
+                  },
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "oss.Region",
+                        "label": "Region",
+                        "description": "存储区域 列表见 <a href='https://help.aliyun.com/document_detail/31837.htm?spm=a2c4g.11186623.0.0.347d6cf0uxhCzC#concept-zt4-cvy-5db' target='_blank'>存储区域列表</a>",
+                        "id": "u:b93005a563f4"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "oss.domain",
+                        "label": "域名",
+                        "description": "空间绑定的域名,如:https://data.cmswing.com",
+                        "id": "u:85a7aca614bc"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "oss.path",
+                        "label": "储存目录",
+                        "description": "储存目录,比如填写 a/b 就是 a/b/test.txt",
+                        "id": "u:e451913b2c8d"
+                      }
+                    ],
+                    "id": "u:ac6fca69aff2"
+                  }
+                ],
+                "id": "u:d3b6dff99d83"
+              },
+              {
+                "type": "fieldSet",
+                "title": "腾讯云",
+                "collapsable": true,
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-password",
+                        "name": "cos.AccessKey",
+                        "label": "SecretId",
+                        "description": "请先在访问管理控制台中的 <a href='https://console.cloud.tencent.com/cam/capi' target='_blank'>API 密钥管理</a> 页面获取",
+                        "id": "u:0c31d11bb674"
+                      },
+                      {
+                        "type": "input-password",
+                        "name": "cos.SecretKey",
+                        "label": "SecretKey",
+                        "description": "请先在访问管理控制台中的 <a href='https://console.cloud.tencent.com/cam/capi' target='_blank'>API 密钥管理</a> 页面获取",
+                        "id": "u:3efe575c016f"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "cos.Bucket",
+                        "label": "Bucket",
+                        "description": "存储桶的名称",
+                        "id": "u:f1af6363babf"
+                      }
+                    ],
+                    "id": "u:9caed794cec9"
+                  },
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "cos.Region",
+                        "label": "Region",
+                        "description": "存储区域 列表见 <a href='https://cloud.tencent.com/document/product/436/6224' target='_blank'>存储区域列表</a>",
+                        "id": "u:000326ccaf78"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "cos.domain",
+                        "label": "域名",
+                        "description": "空间绑定的域名,如:https://data.cmswing.com",
+                        "id": "u:be1143573360"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "cos.path",
+                        "label": "储存目录",
+                        "description": "储存目录,比如填写 a/b 就是 a/b/test.txt",
+                        "id": "u:e6e5c4b3a5a7"
+                      }
+                    ],
+                    "id": "u:5eaf79e5cc85"
+                  }
+                ],
+                "id": "u:5ac00cd18c60"
+              },
+              {
+                "type": "fieldSet",
+                "title": "华为云",
+                "collapsable": true,
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-password",
+                        "name": "obs.AccessKey",
+                        "label": "access_key_id",
+                        "description": "请先在访问管理控制台中的 <a href='https://support.huaweicloud.com/qs-obs/obs_qs_0005.html' target='_blank'>API 密钥管理</a> 页面获取",
+                        "id": "u:c37718589fde"
+                      },
+                      {
+                        "type": "input-password",
+                        "name": "obs.SecretKey",
+                        "label": "secret_access_key",
+                        "description": "请先在访问管理控制台中的 <a href='https://support.huaweicloud.com/qs-obs/obs_qs_0005.html' target='_blank'>API 密钥管理</a> 页面获取",
+                        "id": "u:ffa01d448b25"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "obs.Bucket",
+                        "label": "Bucket",
+                        "description": "存储桶的名称",
+                        "id": "u:072257fcca64"
+                      }
+                    ],
+                    "id": "u:b4178bfd5895"
+                  },
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "obs.Region",
+                        "label": "Region",
+                        "description": "存储区域 列表见 <a href='https://developer.huaweicloud.com/endpoint?OBS' target='_blank'>存储区域列表</a>",
+                        "id": "u:7a862ffc130e"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "obs.domain",
+                        "label": "域名",
+                        "description": "空间绑定的域名,如:https://data.cmswing.com",
+                        "id": "u:c963bf1c60da"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "obs.path",
+                        "label": "储存目录",
+                        "description": "储存目录,比如填写 a/b 就是 a/b/test.txt",
+                        "id": "u:d211df1fd776"
+                      }
+                    ],
+                    "id": "u:17182c27d600"
+                  }
+                ],
+                "id": "u:0dda61036815"
+              },
+              {
+                "type": "fieldSet",
+                "title": "本地",
+                "collapsable": true,
+                "body": [
+                  {
+                    "type": "group",
+                    "body": [
+                      {
+                        "type": "input-text",
+                        "name": "local.domain",
+                        "label": "域名",
+                        "description": "空间绑定的域名,如:https://data.cmswing.com",
+                        "id": "u:f90767f8d533"
+                      },
+                      {
+                        "type": "input-text",
+                        "name": "local.path",
+                        "label": "储存目录",
+                        "description": "储存目录,比如填写 a/b 就是 a/b/test.txt",
+                        "id": "u:fd8021eb9343"
+                      }
+                    ],
+                    "id": "u:c0cb79a075e0"
+                  }
+                ],
+                "id": "u:211b16dcf9a0"
+              }
+            ],
+            "id": "u:2be59c3b5bc7"
+          }
+        },
+        {
+          "title": "使用文档",
+          "tab": {
+            "type": "tpl",
+            "tpl": "<p>请求地址: /upload</p>\n<p>请求参数:&nbsp;</p>\n<table style=\"border-collapse: collapse; width: 100%; height: 343.5px; border-width: 1px;\" border=\"1\"><colgroup><col style=\"width: 25.0644%;\"><col style=\"width: 25.0644%;\"><col style=\"width: 25.0644%;\"><col style=\"width: 24.8067%;\"></colgroup>\n<tbody>\n<tr style=\"height: 22.5px;\">\n<td style=\"height: 22.5px; border-width: 1px;\">参数名</td>\n<td style=\"height: 22.5px; border-width: 1px;\">描述</td>\n<td style=\"height: 22.5px; border-width: 1px;\">类型</td>\n<td style=\"height: 22.5px; border-width: 1px;\">是否必填</td>\n</tr>\n<tr style=\"height: 21px;\">\n<td style=\"height: 21px; border-width: 1px;\">type</td>\n<td style=\"border-width: 1px; height: 50px;\">\n<p>对象储存类型qiniu|七牛 oss|阿里云OSS cos|腾讯云COS obs|华为云OBS ,如果不传该参数 使用系统默认类型</p>\n</td>\n<td style=\"height: 21px; border-width: 1px;\">String</td>\n<td style=\"height: 21px; border-width: 1px;\">否</td>\n</tr>\n<tr style=\"height: 54.5px;\">\n<td style=\"height: 54.5px; border-width: 1px;\">\n<div>\n<div>resBody</div>\n</div>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">\n<p>自定义返回格式</p>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">String</td>\n<td style=\"height: 54.5px; border-width: 1px;\">否</td>\n</tr>\n<tr style=\"height: 54.5px;\">\n<td style=\"height: 54.5px; border-width: 1px;\">\n<div>\n<div>token</div>\n</div>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">\n<p>token</p>\n</td>\n<td style=\"height: 54.5px; border-width: 1px;\">String</td>\n<td style=\"height: 54.5px; border-width: 1px;\">是</td>\n</tr>\n</tbody>\n</table>\n<p><br><strong>自定义返回格式<br></strong>自定义返回格式 比如:{'{\"id\":{{id}},\"path\":\"{{url}}\"}'},具体支持参数</p>\n<div>\n<div>//说明: number 类型的 定义格式时直接输入{{}}, string 类型的定义格式时要加&ldquo;&rdquo;,比如'{\"id\":{{id}},\"size\":{{size}},\"url\":\"{{url}}\"}'</div>\n<div>{{id}}&lt;number&gt; //文件id</div>\n<div>{{name}}&lt;string&gt; // 原始文件名</div>\n<div>{{mime}}&lt;string&gt; // 文件mime类型</div>\n<div>{{size}}&lt;number&gt; // 文件大小kb</div>\n<div>{{type}}&lt;string&gt; // 文件保存位置</div>\n<div>{{savename}}&lt;string&gt; // 保存名称</div>\n<div>{{url}}&lt;string&gt; // 文件地址</div>\n<div>//如果请求时不携带 resBody ，默认返回 '{</div>\n<div>\"id\":{{id}},</div>\n<div>\"name\":\"{{name}}\",</div>\n<div>\"mime\":\"{{mime}}\",</div>\n<div>\"size\":{{size}},</div>\n<div>\"type\":\"{{type}}\",</div>\n<div>\"savename\":\"{{savename}}\",</div>\n<div>\"url\":\"{{url}}\"</div>\n<div>}'</div>\n</div>\n<p><strong>&nbsp;</strong></p>",
+            "inline": true,
+            "id": "u:15fd9d8820ff"
+          }
+        }
+      ],
+      "id": "u:db099a8cba4e"
+    }
+  ],
+  "id": "u:6c97c3a6fc76"
+}
