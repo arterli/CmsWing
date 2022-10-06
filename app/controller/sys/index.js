@@ -143,6 +143,7 @@ class IndexController extends Controller {
       obj.label = v.name;
       obj.uuid = v.uuid;
       obj.puuid = v.puuid;
+      obj.visible = v.is_menu;
       if (v.icon) {
         obj.icon = v.icon;
       }

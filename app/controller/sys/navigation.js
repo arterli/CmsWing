@@ -23,6 +23,7 @@ class NavigationController extends Controller {
       map.order = [[ data.orderBy, data.orderDir ]];
     }
     map.where = {};
+    map.where.type = data.cat;
     if (data.title) {
       map.where.title = { [Op.like]: `%${data.title}%` };
     }

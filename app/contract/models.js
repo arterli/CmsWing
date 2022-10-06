@@ -224,6 +224,7 @@ module.exports = {
     icon: { type: 'string', description: '配置菜单的图标' },
     id: { type: 'string', description: '主键' },
     ignoreMiddleware: { type: 'string', description: '排除模块统一设置的middleware' },
+    is_menu: { type: 'boolean', description: '是否是菜单' },
     link: { type: 'string', description: '页面地址' },
     linkType: { type: 'string', description: '链接类型' },
     middleware: { type: 'string', description: '在 Router 里面可以配置多个 Middleware' },
@@ -245,6 +246,7 @@ module.exports = {
     createdAt: { type: 'string', description: '创建时间', required: true },
     icon: { type: 'string', description: '配置菜单的图标', required: false },
     ignoreMiddleware: { type: 'string', description: '排除模块统一设置的middleware', required: false },
+    is_menu: { type: 'boolean', description: '是否是菜单', required: false },
     link: { type: 'string', description: '页面地址', required: false },
     linkType: { type: 'string', description: '链接类型', required: false },
     middleware: { type: 'string', description: '在 Router 里面可以配置多个 Middleware', required: false },
@@ -263,6 +265,7 @@ module.exports = {
     controller: { type: 'string', description: '控制器' },
     icon: { type: 'string', description: '配置菜单的图标' },
     ignoreMiddleware: { type: 'string', description: '排除模块统一设置的middleware' },
+    is_menu: { type: 'boolean', description: '是否是菜单' },
     link: { type: 'string', description: '页面地址' },
     linkType: { type: 'string', description: '链接类型' },
     middleware: { type: 'string', description: '在 Router 里面可以配置多个 Middleware' },
@@ -618,6 +621,7 @@ module.exports = {
     status: { type: 'boolean', description: '状态' },
     target: { type: 'boolean', description: '是否新窗口打开' },
     title: { type: 'string', description: '导航标题' },
+    type: { type: 'string', description: '位置类型' },
     updatedAt: { type: 'string', description: '更新时间' },
     url: { type: 'string', description: '导航链接' },
     
@@ -627,6 +631,7 @@ module.exports = {
     status: { type: 'boolean', description: '状态', required: false },
     target: { type: 'boolean', description: '是否新窗口打开', required: false },
     title: { type: 'string', description: '导航标题', required: false },
+    type: { type: 'string', description: '位置类型', required: false },
     url: { type: 'string', description: '导航链接', required: false },
     
   },
@@ -635,6 +640,7 @@ module.exports = {
     status: { type: 'boolean', description: '状态' },
     target: { type: 'boolean', description: '是否新窗口打开' },
     title: { type: 'string', description: '导航标题' },
+    type: { type: 'string', description: '位置类型' },
     url: { type: 'string', description: '导航链接' },
     
   },

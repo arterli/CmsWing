@@ -12,6 +12,7 @@ module.exports = app => {
     sort: { type: DataTypes.INTEGER, comment: '排序' },
     target: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否新窗口打开' },
     status: { type: DataTypes.BOOLEAN, defaultValue: true, comment: '状态' },
+    type: { type: DataTypes.STRING, comment: '位置类型' },
   },{
   indexes:[{"unique":false,"fields":["pid"]}],
   paranoid: false,

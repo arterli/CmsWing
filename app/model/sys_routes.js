@@ -22,6 +22,7 @@ module.exports = app => {
     sort: { type: DataTypes.INTEGER, defaultValue: 0, comment: '排序' },
     linkType: { type: DataTypes.ENUM, values: ["schemaApi","link"], defaultValue: 'schemaApi', comment: '链接类型' },
     link: { type: DataTypes.STRING, comment: '页面地址' },
+    is_menu: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否是菜单' },
   },{
   indexes:[{"unique":true,"fields":["uuid"]},{"unique":false,"fields":["puuid"]}],
   paranoid: false,

@@ -118,6 +118,7 @@ module.exports = {
           } else {
             data[i].children = temp;
             data[i].arrId = data[i].children.map(item => item.id);
+            data[i].arrPath = data[i].children.map(item => item.path);
           }
         }
       }

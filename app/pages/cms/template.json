@@ -114,11 +114,23 @@
             "actionType": "dialog",
             "dialog": {
               "title": "查看",
-              "body": {
-                "type": "image",
-                "src": "/public/cms/${path}-${uuid}/images/preview.png",
-                "enlargeAble": true
-              }
+              "body": [
+                {
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/index.png",
+                  "enlargeAble": true
+                },{
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/list.png",
+                  "className":"ml-5",
+                  "enlargeAble": true
+                },{
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/detail.png",
+                  "className":"ml-5",
+                  "enlargeAble": true
+                }
+              ]
             }
           },
           {

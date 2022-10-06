@@ -141,7 +141,7 @@ class TemplateController extends Controller {
     const { ctx } = this;
     const { uuid } = ctx.query;
     const info = (await ctx.model.CmsTemplate.findOne({ where: { uuid } })).toJSON();
-    info.preview = `/public/cms/${info.path}-${info.uuid}/images/preview.png`;
+    info.preview = `/public/cms/${info.path}-${info.uuid}/images/index.png`;
     this.success({ info });
   }
   /**
@@ -359,6 +359,31 @@ class TemplateController extends Controller {
       await fs.unlink(file.filepath);
     }
     this.success(1);
+  }
+  /**
+  * @summary 获取模版
+  * @description 获取模版
+  * @router get /admin/cms/template/getTemplate
+  * @request query string *type desc
+  * @response 200 baseRes desc
+  */
+  async getTemplate() {
+    const { ctx } = this;
+    const { type } = ctx.query;
+    const temp = await ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+    const map = {};
+    map.where = {};
+    map.where.type = type;
+    map.where.template_uuid = temp.uuid;
+    const list = await ctx.model.CmsTemplateList.findAll(map);
+    const arr = [{ label: '默认模版', value: '' }];
+    for (const v of list) {
+      const obj = {};
+      obj.label = `${v.title}(${v.type}_${v.name}.html)`;
+      obj.value = `${v.type}_${v.name}.html`;
+      arr.push(obj);
+    }
+    this.success(arr);
   }
 }
 module.exports = TemplateController;

@@ -328,10 +328,13 @@
                   "type": "group",
                   "body": [
                     {
-                      "type": "input-text",
+                      "type": "select",
                       "name": "template",
                       "placeholder": "请输入详情模版",
                       "label": "详情模版",
+                      "searchable": true,
+                      "selectFirst": true,
+                      "source": "/admin/cms/template/getTemplate?type=detail",
                       "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                     },
                     {
@@ -626,10 +629,13 @@
                       "type": "group",
                       "body": [
                         {
-                          "type": "input-text",
+                          "type": "select",
                           "name": "template",
                           "placeholder": "请输入详情模版",
                           "label": "详情模版",
+                          "searchable": true,
+                          "selectFirst": true,
+                          "source": "/admin/cms/template/getTemplate?type=detail",
                           "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                         },
                         {

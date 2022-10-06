@@ -15,6 +15,14 @@
       "remarks": "系统前台",
       "sort": 1,
       "sys": 1
+    },
+    {
+      "name": "MCenter",
+      "uuid": "1cfc8cb1-ca26-4d5e-8499-cc0222bbc4c9",
+      "middleware": "mc.authMcToken",
+      "remarks": "会员中心(MCenter),Member Center 简称 MC,整个系统的会员管理系统。",
+      "sort": 0,
+      "sys": 1
     }
   ]
 }

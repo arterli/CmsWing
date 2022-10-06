@@ -1,5 +1,6 @@
 'use strict';
 const { Controller } = require('egg');
+const { Op } = require('sequelize');
 class BaseController extends Controller {
   constructor(ctx) {
     super(ctx);
@@ -49,16 +50,30 @@ class BaseController extends Controller {
       const res = (await ctx.model[modelName].findAll(map)).map(item => item.toJSON());
       callback(null, res);
     }, true);
-    // 系统导航标签 {{'sys'|@navigation}}
-    this.app.nunjucks.addFilter('@navigation', async (m, callback) => {
+    // 系统导航标签 {{'header'|@navigation}} header/footer
+    this.app.nunjucks.addFilter('@navigation', async (m = 'header', callback) => {
       // console.log(m);
       // if (m !== 'sys') return [];
       const map = {};
       map.order = [[ 'sort', 'ASC' ], [ 'id', 'ASC' ]];
       map.where = {};
+      map.where.type = m;
       map.status = true;
       const list = (await ctx.model.SysNavigation.findAll(map)).map(item => item.toJSON());
       const tree = ctx.helper.arr_to_tree(list, 0);
+      callback(null, tree);
+    }, true);
+    // mc 菜单 {{ctx.userInfo.uuid|@mc_menu}}
+    this.app.nunjucks.addFilter('@mc_menu', async (uuid, callback) => {
+      const map = {};
+      map.order = [[ 'sort', 'ASC' ]];
+      map.where = { is_menu: true, class_uuid: '1cfc8cb1-ca26-4d5e-8499-cc0222bbc4c9' };
+      // const roleIds = await this.ctx.service.sys.rbac.getRoleIds(this.ctx.userInfo.uuid);
+      // if (!this.ctx.helper._.isEmpty(roleIds)) {
+      //   map.where.uuid = { [Op.in]: roleIds };
+      // }
+      const ml = (await ctx.model.SysRoutes.findAll(map)).map(item => item.toJSON());
+      const tree = ctx.helper.arr_to_tree(ml, '0', 'uuid', 'puuid');
       callback(null, tree);
     }, true);
   }

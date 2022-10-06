@@ -255,14 +255,20 @@
                                 "body": [
                                   {
                                     "name": "template_lists",
-                                    "type": "input-text",
+                                    "type": "select",
                                     "label": "列表页模板",
+                                    "searchable": true,
+                                    "selectFirst": true,
+                                    "source": "/admin/cms/template/getTemplate?type=list",
                                     "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
                                   },
                                   {
                                     "name": "template_detail",
-                                    "type": "input-text",
+                                    "type": "select",
                                     "label": "详情页模板",
+                                    "searchable": true,
+                                    "selectFirst": true,
+                                    "source": "/admin/cms/template/getTemplate?type=detail",
                                     "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                                   }
                                 ]
@@ -550,16 +556,23 @@
                           "type": "group",
                           "mode": "none",
                           "body": [
+                            
                             {
                               "name": "template_lists",
-                              "type": "input-text",
+                              "type": "select",
                               "label": "列表页模板",
+                              "searchable": true,
+                              "selectFirst": true,
+                              "source": "/admin/cms/template/getTemplate?type=list",
                               "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
                             },
                             {
                               "name": "template_detail",
-                              "type": "input-text",
+                              "type": "select",
                               "label": "详情页模板",
+                              "searchable": true,
+                              "selectFirst": true,
+                              "source": "/admin/cms/template/getTemplate?type=detail",
                               "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
                             }
                           ]

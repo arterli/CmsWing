@@ -67,7 +67,7 @@
                 "type": "card",
                 "header": false,
                 "defaultIsOpened":true,
-                "body": "说明：${remarks}，中间件：${middleware}，排序：${sort}，系统：${sys?'是':'否'}",
+                "body": "说明：${remarks}，中间件：${middleware}，排序：${sort}，系统：${sys?'是':'否'}，UUID：$uuid",
                 "actions": [
                   {
                     "type": "button",
@@ -255,6 +255,12 @@
                                 "label": "${sys_routes.admin?'路由':'页面'}URL",
                                 "requiredOn": "${sys_routes.admin}",
                                 "placeholder": "请输入URL"
+                              },
+                              {
+                                "name": "sys_routes.is_menu",
+                                "type": "switch",
+                                "columnRatio": 2,
+                                "label": "菜单"
                               }
                             ]
                           },
@@ -264,7 +270,6 @@
                             "body": [
                               {
                                 "type": "input-group",
-                              
                                 "label": "菜单图标",
                                 "body": [
                                   {
@@ -448,6 +453,11 @@
                     "type": "status"
                   },
                   {
+                    "name": "is_menu",
+                    "label": "菜单",
+                    "type": "status"
+                  },
+                  {
                     "name": "controller",
                     "label": "控制器",
                     "type": "text"
@@ -496,7 +506,7 @@
                             "initApi": {
                               "method": "post",
                               "url": "/graphql",
-                              "graphql": "query($uuid:String){SysRoutes_findOne(where:{uuid:{op_eq:$uuid}}){uuid name path icon verb middleware ignoreMiddleware controller action admin role class_uuid puuid sort linkType link }}",
+                              "graphql": "query($uuid:String){SysRoutes_findOne(where:{uuid:{op_eq:$uuid}}){uuid name path icon verb middleware ignoreMiddleware controller action admin role class_uuid puuid sort linkType link is_menu }}",
                               "data": { "uuid": "${uuid}" }
                             },
                             "api": "/admin/sys/routes/editRoutes",
@@ -566,6 +576,11 @@
                                     "label": "${SysRoutes_findOne.admin?'路由':'页面'}URL",
                                     "requiredOn": "${SysRoutes_findOne.admin}",
                                     "placeholder": "请输入URL"
+                                  }, {
+                                    "name": "SysRoutes_findOne.is_menu",
+                                    "type": "switch",
+                                    "columnRatio": 2,
+                                    "label": "菜单"
                                   }
                                 ]
                               },
@@ -573,9 +588,10 @@
                                 "type": "group",
                                 "visibleOn":"${!SysRoutes_findOne.admin}",
                                 "body": [
+                                 
                                   {
                                     "type": "input-group",
-                                  
+                                    "columnRatio": 5,
                                     "label": "菜单图标",
                                     "body": [
                                       {

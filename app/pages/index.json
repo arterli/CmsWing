@@ -59,6 +59,7 @@
     },
     {
       "type": "iframe",
+      "height":"450px",
       "src": "/admin/sys/gitee"
     }
   ],

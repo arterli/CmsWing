@@ -247,5 +247,16 @@ class CommentsController extends Controller {
     const templatePath = await this.cmsTemplatePath();
     await ctx.render(`cms/${templatePath}/comment_ajax_list`, { list, pagination });
   }
+  /**
+  * @summary mc评论管理
+  * @description mc评论管理
+  * @router get /mc/cms/comment
+  * @request query integer field_name desc
+  * @response 200 baseRes desc
+  */
+  async mcComment() {
+    const { ctx } = this;
+    await ctx.render('cms/mc/comment');
+  }
 }
 module.exports = CommentsController;

@@ -4,17 +4,16 @@
     <!-- expandable : hidden by default -->
     <div id="footer_expand" class="collapse">
         <div class="container py-3">
-
+      {%set footernav = 'footer'|@navigation%}
+      {%if footernav|length>0%}
             <ul class="mt-3 mb-0 breadcrumb bg-transparent p-0 block-xs">
-                <li class="breadcrumb-item"><a href="#">联系我们</a></li>
-                <li class="breadcrumb-item"><a href="#">关于我们</a></li>
-                <li class="breadcrumb-item"><a href="#">团队介绍</a></li>
-                <li class="breadcrumb-item"><a href="#">服务协议 &amp; 隐私政策</a></li>
-                <li class="breadcrumb-item"><a href="#">商务合作</a></li>
+                {%for item in footernav%}
+                <li class="breadcrumb-item"><a href="{{item.url}}" {%if item.target%}target="_blank"{%endif%}>{{item.title}}</a></li>
+                {%endfor%}
             </ul>
-
+       {%endif%}
             <div class="text-muted mt-3">
-                <p>CmsWing 企业级 Node.js WEB开发框架! 使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！</p>
+               {{ctx.app.config.sys.description|safe}}
             </div>
 
         </div>
@@ -60,38 +59,6 @@
                     <!-- mobile spacer -->
                 </div>
             </div>
-
-
-            <!-- credit card -->
-            <ul class="list-inline mb-0 mt-2 float-end float-none-xs d-none">
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/visa.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="visa credit card icon">
-                </li>
-
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/mastercard.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="mastercard credit card icon">
-                </li>
-
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/discover.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="discover credit card icon">
-                </li>
-
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/amazon.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="amazon credit card icon">
-                </li>
-
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/paypal.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="paypal credit card icon">
-                </li>
-
-                <li class="list-inline-item m-0">
-                    <img width="38" height="24" class="lazy" data-src="/public/cms/images/credit_card/skrill.svg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="skrill credit card icon">
-                </li>
-
-                <!-- more vendors on /public/cms/images/credit_card/ -->
-
-            </ul>
-            <!-- /credit card -->
 
         </div>
 

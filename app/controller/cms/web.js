@@ -99,6 +99,7 @@ class WebController extends Controller {
     const isnum = ctx.helper.isStringNumber(id);
     const idKey = isnum ? 'id' : 'name';
     const classify = await ctx.model.CmsClassify.findOne({ where: { [idKey]: { [Op.eq]: id } } });
+    if (!classify) return await ctx.render(`cms/${templatePath}/inc_404`);
     // SEO
     ctx.meta_title = classify.meta_title || classify.title;
     ctx.keywords = classify.keywords;
@@ -175,8 +176,9 @@ class WebController extends Controller {
     }];
     map.where = {};
     map.where.id = { [Op.eq]: id };
-    const info = (await ctx.model.CmsDoc.findOne(map)).toJSON();
-    if (!info) return this.notFound();
+    const detail = await ctx.model.CmsDoc.findOne(map);
+    if (!detail) return await ctx.render(`cms/${templatePath}/inc_404`);
+    const info = detail.toJSON();
     // SEO
     ctx.meta_title = info.title;
     ctx.keywords = info.title;
