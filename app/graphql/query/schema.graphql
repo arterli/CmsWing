@@ -100,4 +100,103 @@ type Query {
   #开放接口 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
   SysOpenApi_findAndCountAll(where:WhereSysOpenApi,order:[[String]],limit:Int!,offset:Int!):CountSysOpenApi
 
+  #cms内容主表 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsDoc_findAll(where:WhereCmsDoc,order:[[String]],limit:Int,offset:Int):[CmsDoc]
+  #cms内容主表 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsDoc_findByPk(id:ID!):CmsDoc
+  #cms内容主表 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsDoc_findOne(where:WhereCmsDoc):CmsDoc
+  #cms内容主表 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsDoc_findAndCountAll(where:WhereCmsDoc,order:[[String]],limit:Int!,offset:Int!):CountCmsDoc
+
+  #cms分类 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsClassify_findAll(where:WhereCmsClassify,order:[[String]],limit:Int,offset:Int):[CmsClassify]
+  #cms分类 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsClassify_findByPk(id:ID!):CmsClassify
+  #cms分类 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsClassify_findOne(where:WhereCmsClassify):CmsClassify
+  #cms分类 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsClassify_findAndCountAll(where:WhereCmsClassify,order:[[String]],limit:Int!,offset:Int!):CountCmsClassify
+
+  #文章 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsDocArticle_findAll(where:WhereCmsDocArticle,order:[[String]],limit:Int,offset:Int):[CmsDocArticle]
+  #文章 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsDocArticle_findByPk(id:ID!):CmsDocArticle
+  #文章 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsDocArticle_findOne(where:WhereCmsDocArticle):CmsDocArticle
+  #文章 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsDocArticle_findAndCountAll(where:WhereCmsDocArticle,order:[[String]],limit:Int!,offset:Int!):CountCmsDocArticle
+
+  #图片 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsDocPicture_findAll(where:WhereCmsDocPicture,order:[[String]],limit:Int,offset:Int):[CmsDocPicture]
+  #图片 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsDocPicture_findByPk(id:ID!):CmsDocPicture
+  #图片 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsDocPicture_findOne(where:WhereCmsDocPicture):CmsDocPicture
+  #图片 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsDocPicture_findAndCountAll(where:WhereCmsDocPicture,order:[[String]],limit:Int!,offset:Int!):CountCmsDocPicture
+
+  #下载 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsDocDownload_findAll(where:WhereCmsDocDownload,order:[[String]],limit:Int,offset:Int):[CmsDocDownload]
+  #下载 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsDocDownload_findByPk(id:ID!):CmsDocDownload
+  #下载 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsDocDownload_findOne(where:WhereCmsDocDownload):CmsDocDownload
+  #下载 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsDocDownload_findAndCountAll(where:WhereCmsDocDownload,order:[[String]],limit:Int!,offset:Int!):CountCmsDocDownload
+
+  #系统导航 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  SysNavigation_findAll(where:WhereSysNavigation,order:[[String]],limit:Int,offset:Int):[SysNavigation]
+  #系统导航 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  SysNavigation_findByPk(id:ID!):SysNavigation
+  #系统导航 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  SysNavigation_findOne(where:WhereSysNavigation):SysNavigation
+  #系统导航 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  SysNavigation_findAndCountAll(where:WhereSysNavigation,order:[[String]],limit:Int!,offset:Int!):CountSysNavigation
+
+  #会员管理 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  McMember_findAll(where:WhereMcMember,order:[[String]],limit:Int,offset:Int):[McMember]
+  #会员管理 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  McMember_findByPk(id:ID!):McMember
+  #会员管理 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  McMember_findOne(where:WhereMcMember):McMember
+  #会员管理 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  McMember_findAndCountAll(where:WhereMcMember,order:[[String]],limit:Int!,offset:Int!):CountMcMember
+
+  #cms评论 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsComments_findAll(where:WhereCmsComments,order:[[String]],limit:Int,offset:Int):[CmsComments]
+  #cms评论 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsComments_findByPk(id:ID!):CmsComments
+  #cms评论 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsComments_findOne(where:WhereCmsComments):CmsComments
+  #cms评论 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsComments_findAndCountAll(where:WhereCmsComments,order:[[String]],limit:Int!,offset:Int!):CountCmsComments
+
+  #cms评论回复 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsCommentsReply_findAll(where:WhereCmsCommentsReply,order:[[String]],limit:Int,offset:Int):[CmsCommentsReply]
+  #cms评论回复 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsCommentsReply_findByPk(id:ID!):CmsCommentsReply
+  #cms评论回复 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsCommentsReply_findOne(where:WhereCmsCommentsReply):CmsCommentsReply
+  #cms评论回复 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsCommentsReply_findAndCountAll(where:WhereCmsCommentsReply,order:[[String]],limit:Int!,offset:Int!):CountCmsCommentsReply
+
+  #cms模版管理 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsTemplate_findAll(where:WhereCmsTemplate,order:[[String]],limit:Int,offset:Int):[CmsTemplate]
+  #cms模版管理 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsTemplate_findByPk(id:ID!):CmsTemplate
+  #cms模版管理 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsTemplate_findOne(where:WhereCmsTemplate):CmsTemplate
+  #cms模版管理 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsTemplate_findAndCountAll(where:WhereCmsTemplate,order:[[String]],limit:Int!,offset:Int!):CountCmsTemplate
+
+  #模版文件 findAll 方法. 它生成一个标准的 SELECT 查询,该查询将从表中检索所有条目(除非受到 where 子句的限制).
+  CmsTemplateList_findAll(where:WhereCmsTemplateList,order:[[String]],limit:Int,offset:Int):[CmsTemplateList]
+  #模版文件 findByPk 方法使用提供的主键从表中仅获得一个条目.
+  CmsTemplateList_findByPk(id:ID!):CmsTemplateList
+  #模版文件 findOne 方法获得它找到的第一个条目(它可以满足提供的可选查询参数).
+  CmsTemplateList_findOne(where:WhereCmsTemplateList):CmsTemplateList
+  #模版文件 findAndCountAll 方法是结合了 findAll 和 count 的便捷方法. 在处理与分页有关的查询时非常有用,在分页中,你想检索带有 limit 和 offset 的数据,但又需要知道与查询匹配的记录总数.
+  CmsTemplateList_findAndCountAll(where:WhereCmsTemplateList,order:[[String]],limit:Int!,offset:Int!):CountCmsTemplateList
+
 }

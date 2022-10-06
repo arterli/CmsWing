@@ -14,8 +14,13 @@ const _ = require('lodash');
 const fs = require('fs/promises');
 const fsSync = require('fs');
 const path = require('path');
+const moment = require('moment');
+moment.locale('zh-cn');
+const utils = require('utility');
 module.exports = {
   _,
+  moment,
+  utils,
   /**
    * 加密助手函数
    * @param {string} str 明文数据
@@ -112,6 +117,8 @@ module.exports = {
             data[i].dataValues.children = temp;
           } else {
             data[i].children = temp;
+            data[i].arrId = data[i].children.map(item => item.id);
+            data[i].arrPath = data[i].children.map(item => item.path);
           }
         }
       }
@@ -187,5 +194,25 @@ module.exports = {
       fsSync.mkdirSync(dirname);
       return true;
     }
+  },
+  /**
+ * escape html
+ * @param str
+ */
+  escapeHtml(str) {
+    return (str + '').replace(/[<>'"]/g, a => {
+      switch (a) {
+        case '<':
+          return '&lt;';
+        case '>':
+          return '&gt;';
+        case '"':
+          return '&quote;';
+        case '\'':
+          return '&#39;';
+        default:
+          return '';
+      }
+    });
   },
 };

@@ -1,0 +1,38 @@
+  {%set templatePath = 'cms'|@templatePath%}
+  {% extends "../"+templatePath+"/inc_base.html" %} 
+  {%block body%}class="header-scroll-reveal"{%endblock%} 
+  {% block middle %}
+  <!-- -->
+  <div class="container py-4">
+
+    <div class="row g-4">
+      <!-- sidebar -->
+      {% include "../../mc/inc_sidebar.html" %}
+      <!-- content -->
+      <div class="col-12 col-lg-10">
+
+        <!-- Activity -->
+        <div class="card mb-4">
+          <div class="card-body p-4">
+
+            <div class="mb-4">
+              <h2 class="h5 mb-0">评论管理</h2>
+              <small class="fw-bold"></small>
+            </div>
+
+          </div>
+        </div>
+
+
+      
+      </div>
+
+    </div>
+
+  </div>
+  <!-- / -->
+  {% endblock %} 
+  {%block script%}
+  
+  {%endblock%}
+  

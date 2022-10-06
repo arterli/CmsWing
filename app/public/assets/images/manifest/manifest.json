@@ -1,0 +1,20 @@
+{
+	"short_name": "Smarty",
+	"name": "Smarty Reborn",
+	"icons": [
+		{
+			"src": "icon_192x192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},{
+			"src": "icon_512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": 			"index.html",
+	"background_color": 	"#ffffff",
+	"display": 				"standalone",
+	"scope": 				"/",
+	"theme_color": 			"#377dff"
+}

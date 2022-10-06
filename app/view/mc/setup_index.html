@@ -1,0 +1,372 @@
+  {%set templatePath = 'cms'|@templatePath%}
+  {% extends "../cms/"+templatePath+"/inc_base.html" %} 
+  {%block body%}class="header-scroll-reveal"{%endblock%} 
+  {% block middle %}
+  <!-- -->
+  <div class="container py-4">
+
+    <div class="row g-4">
+      <!-- sidebar -->
+      {% include "./inc_sidebar.html" %}
+      <!-- content -->
+      <div class="col-12 col-lg-10">
+
+
+        <div class="row g-2">
+
+          <!-- name, etc -->
+          <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between">
+              <label style="width:120px" class="me-4 rounded-circle text-center position-relative d-inline-block cursor-pointer border border-secondary border-dashed bg-white">
+
+                <!-- remove button -->
+                <a href="#" class="js-file-upload-avatar-ajax-circle-remove hide position-absolute absolute-top w-100 z-index-3">
+                  <span class="d-inline-block btn btn-sm btn-pill bg-secondary text-white p-0 m-1 mt-n3 lh-1 d-inline-flex align-items-center justify-content-center" style="width:30px;height:30px" title="remove avatar" data-tooltip="tooltip">
+                    <i class="fi fi-close m-0"></i>
+                  </span>
+                </a>
+
+                <span class="z-index-2 js-file-input-avatar-ajax-circle-container d-block absolute-full z-index-1 hide-empty">
+                  {%if ctx.userInfo.avatar %}
+                  <span data-id="0" 
+                  data-file-name="avatar.jpg" 
+                  style="background-image:url('{{ctx.userInfo.avatar}}')" 
+                  class="js-file-input-item d-inline-block position-relative overflow-hidden text-center rounded-circle m-0 p-0 animate-bouncein bg-cover w-100 h-100">
+              </span>
+              {%endif%}
+                </span>
+
+                <!-- hidden input (out of viewport, or safari will ignore it) -->
+                <input type="file" name="file" 
+                    data-file-ext="jpg, png, gif" 
+                    data-file-max-size-kb-per-file="11500" 
+                    data-file-ext-err-msg="Allowed:" 
+                    data-file-size-err-item-msg="File too large!" 
+                    data-file-size-err-total-msg="Total allowed size exceeded!" 
+                    data-file-toast-position="bottom-center" 
+                    data-file-preview-container=".js-file-input-avatar-ajax-circle-container" 
+                    data-file-preview-show-info="false" 
+                    data-file-preview-class="rounded-circle m-0 p-0 animate-bouncein" 
+                    data-file-preview-img-height="100%" 
+                    data-file-btn-clear="a.js-file-upload-avatar-ajax-circle-remove" 
+                    data-file-preview-img-cover="true" 
+
+                    data-file-ajax-upload-enable="true" 
+                    data-file-ajax-upload-url="/mc/setup/avatar" 
+                    data-file-ajax-upload-params="['action','upload']['param2','value2']" 
+
+                    data-file-ajax-delete-enable="true" 
+                    data-file-ajax-delete-url="/mc/setup/avatar" 
+                    data-file-ajax-delete-params="['action','delete']" 
+
+                    data-file-ajax-toast-success-txt="Successfully Uploaded!" 
+                    data-file-ajax-toast-error-txt="One or more files not uploaded!" 
+                    class="custom-file-input absolute-full">
+
+                <svg class="fill-gray-600 rounded-circle m-4 z-index-0" viewBox="0 0 60 60">
+                  <path d="M41.014,45.389l-9.553-4.776C30.56,40.162,30,39.256,30,38.248v-3.381c0.229-0.28,0.47-0.599,0.719-0.951c1.239-1.75,2.232-3.698,2.954-5.799C35.084,27.47,36,26.075,36,24.5v-4c0-0.963-0.36-1.896-1-2.625v-5.319c0.056-0.55,0.276-3.824-2.092-6.525C30.854,3.688,27.521,2.5,23,2.5s-7.854,1.188-9.908,3.53c-2.368,2.701-2.148,5.976-2.092,6.525v5.319c-0.64,0.729-1,1.662-1,2.625v4c0,1.217,0.553,2.352,1.497,3.109c0.916,3.627,2.833,6.36,3.503,7.237v3.309c0,0.968-0.528,1.856-1.377,2.32l-8.921,4.866C1.801,46.924,0,49.958,0,53.262V57.5h46v-4.043C46,50.018,44.089,46.927,41.014,45.389z"/>
+                  <path d="M55.467,46.526l-9.723-4.21c-0.23-0.115-0.485-0.396-0.704-0.771l6.525-0.005c0,0,0.377,0.037,0.962,0.037c1.073,0,2.638-0.122,4-0.707c0.817-0.352,1.425-1.047,1.669-1.907c0.246-0.868,0.09-1.787-0.426-2.523c-1.865-2.654-6.218-9.589-6.354-16.623c-0.003-0.121-0.397-12.083-12.21-12.18c-1.187,0.01-2.309,0.156-3.372,0.413c0.792,2.094,0.719,3.968,0.665,4.576v4.733c0.648,0.922,1,2.017,1,3.141v4c0,1.907-1.004,3.672-2.607,4.662c-0.748,2.022-1.738,3.911-2.949,5.621c-0.15,0.213-0.298,0.414-0.443,0.604v2.86c0,0.442,0.236,0.825,0.631,1.022l9.553,4.776c3.587,1.794,5.815,5.399,5.815,9.41V57.5H60v-3.697C60,50.711,58.282,47.933,55.467,46.526z"/>
+                </svg>
+
+              </label>
+              <div class="w-100">
+                <strong class="d-block fs-5 fw-medium">用户信息</strong> 
+                <ul class="list-unstyled small mb-0">
+                  <li class="list-item">账号: {{member.username}}</li>
+                  <li class="list-item">电话: {{member.mobile}}</li>
+                </ul>
+              </div>
+              <div class="flex-none">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-account-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                  编辑
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal : May detail -->
+          <div class="modal fade" id="modal-account-edit" tabindex="-1" aria-hidden="true">
+            <form method="post" action="/mc/setup/updateInfo" novalidate class="bs-validate modal-dialog modal-dialog-centered js-ajax" 
+		data-ajax-update-url="false"
+		data-ajax-show-loading-icon="true"
+		data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> 请填写所有必填字段！"
+		data-error-toast-delay="3000"
+		data-error-toast-position="top-center"
+
+		data-error-scroll-up="true"
+		data-ajax-callback-function="mc_update_callback">
+             
+              <div class="modal-content">
+                <div class="modal-header border-0 pb-0 px-4">
+                  <h5 class="modal-title">用户信息</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="text" class="form-control" id="username" name="username" placeholder="用户名称" value="{{member.username}}">
+                        <label for="username">账户</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="tel" class="form-control" id="mobile" name="mobile" placeholder="电话" value="{{member.mobile}}">
+                        <label for="mobile">电话</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                  <button type="submit" class="btn btn-primary">
+                    <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="ps-2">保存更改</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- email -->
+          <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between">
+              <span class="flex-none pt-1" style="width:40px">
+                <svg width="24" height="24" class="text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
+                </svg>
+              </span>
+              <span class="w-100">
+                <strong class="d-block fs-5 fw-medium">电子邮箱地址</strong> 
+                <small>当前邮箱地址: {{member.email}}</small>
+              </span>
+              <span class="flex-none">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-email-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                  编辑
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <!-- Modal : Email address -->
+          <div class="modal fade" id="modal-email-edit" tabindex="-1" aria-hidden="true">
+            <form method="post" action="/mc/setup/upEmail" novalidate class="no-validate modal-dialog modal-dialog-centered js-ajax"
+            data-ajax-update-url="false"
+		data-ajax-show-loading-icon="true"
+		data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> 请填写所有必填字段！"
+		data-error-toast-delay="3000"
+		data-error-toast-position="top-center"
+
+		data-error-scroll-up="true"
+		data-ajax-callback-function="mc_update_callback">
+
+              <div class="modal-content">
+                <div class="modal-header border-0 pb-0 px-4">
+                  <h5 class="modal-title">更新邮箱</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="email" class="form-control" id="email" name="email" placeholder="新的邮箱" value="{{member.email}}" autocomplete="off">
+                        <label for="email">新的邮箱</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="password" class="form-control" id="password" name="password" placeholder="登录密码"  autocomplete="password">
+                        <label for="password">登录密码</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                  <button type="submit" class="btn btn-primary">
+                    <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="ps-2">保存更改</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- password -->
+          <div class="card mb-3">
+            <div class="card-body d-flex justify-content-between">
+              <span class="flex-none pt-1" style="width:40px">
+                <svg width="24" height="24" class="text-gray-300" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                  <path fill-rule="evenodd" d="M8 .5c-.662 0-1.77.249-2.813.525a61.11 61.11 0 0 0-2.772.815 1.454 1.454 0 0 0-1.003 1.184c-.573 4.197.756 7.307 2.368 9.365a11.192 11.192 0 0 0 2.417 2.3c.371.256.715.451 1.007.586.27.124.558.225.796.225s.527-.101.796-.225c.292-.135.636-.33 1.007-.586a11.191 11.191 0 0 0 2.418-2.3c1.611-2.058 2.94-5.168 2.367-9.365a1.454 1.454 0 0 0-1.003-1.184 61.09 61.09 0 0 0-2.772-.815C9.77.749 8.663.5 8 .5zm.5 7.415a1.5 1.5 0 1 0-1 0l-.385 1.99a.5.5 0 0 0 .491.595h.788a.5.5 0 0 0 .49-.595L8.5 7.915z"></path>
+                </svg>
+              </span>
+              <span class="w-100">
+                <strong class="d-block fs-5 fw-medium">修改登录密码</strong> 
+                <small>最好有一个强密码，不要在其他地方使用。</small>
+              </span>
+              <span class="flex-none">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modal-passwd-edit" class="bg-primary text-white rounded px-2 py-1 small">
+                  编辑
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <!-- Modal : Password -->
+          <div class="modal fade" id="modal-passwd-edit" tabindex="-1" aria-hidden="true">
+            <form method="post" action="/mc/setup/upPassword" novalidate class="form-validate modal-dialog modal-dialog-centered js-ajax"
+            data-ajax-update-url="false"
+            data-ajax-show-loading-icon="true"
+            data-error-toast-text="<i class='fi fi-circle-spin fi-spin float-start'></i> 请填写所有必填字段！"
+            data-error-toast-delay="3000"
+            data-error-toast-position="top-center"
+        
+            data-error-scroll-up="true"
+            data-ajax-callback-function="mc_update_callback">
+
+              <input tabindex="-1" class="d-none" type="text" name="csrf_token" value="">
+              <input tabindex="-1" class="d-none" type="text" name="action" value="user:password:edit">
+              
+              <div class="modal-content">
+                <div class="modal-header border-0 pb-0 px-4">
+                  <h5 class="modal-title">修改登录密码</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="password" class="form-control" id="user-currpass-new" name="password" placeholder="当前密码" value="" autocomplete="new-password">
+                        <label for="user-currpass-new">当前密码</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+
+                      <div class="input-group-over">
+                        <div class="form-floating mb-3">
+                          <input required placeholder="新的密码" id="user-newpass" type="password" name="password_new" class="form-control" autocomplete="new-password">
+                          <label for="user-newpass">新的密码</label>
+                        </div>
+
+                        <!-- `SOW : Form Advanced` plugin used -->
+                        <a href="#" class="btn smaller btn-password-type-toggle" data-target="#user-newpass">
+                          <span class="group-icon">
+                            <i class="fi fi-eye m-0"></i>
+                            <i class="fi fi-close m-0"></i>
+                          </span>
+                        </a>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                  <button type="submit" class="btn btn-primary">
+                    <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="ps-2">保存更改</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+          <!-- account delete 
+                  user_area
+                    0 = any
+                    1 = admin
+                    2 = frontend -->
+          <!-- <div class="position-relative mb-3">
+            
+            <div class="card">
+              <div class="card-body d-flex justify-content-between">
+                <span class="flex-none pt-1" style="width:40px">
+                  <svg width="24" height="24" class="text-gray-300" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                    <path fill-rule="evenodd" d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"></path>
+                  </svg>
+                </span>
+                <span class="w-100">
+                  <strong class="d-block fs-5 fw-medium">删除账号</strong> 
+                  <small>删除账号前请仔细确认，删除后会清空所有信息并无法恢复！</small>
+                </span>
+                <span class="flex-none">
+                  <a href="#" data-bs-toggle="modal" data-bs-target="#modal-account-del" class="bg-primary text-white rounded px-2 py-1 small">
+                    edit
+                  </a>
+                </span>
+              </div>
+            </div>
+
+          </div> -->
+
+          <!-- Modal : Account delete -->
+          <!-- <div class="modal fade" id="modal-account-del" tabindex="-1" aria-hidden="true">
+            <form method="post" action="#" class="form-validate modal-dialog modal-dialog-centered">
+
+              <div class="modal-content">
+                <div class="modal-header border-0 pb-0 px-4">
+                  <h5 class="modal-title">Account delete</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <input required type="password" class="form-control" id="user-currpass-del" name="user[user_password]" placeholder="Account password" value="" autocomplete="new-password">
+                        <label for="user-currpass-del">Account password</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                  <button type="submit" class="btn btn-danger">
+                    <svg width="18px" height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="ps-2">Delete account</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div> -->
+
+
+        </div>
+
+
+        </div>
+
+    </div>
+
+  </div>
+  <!-- / -->
+  {% endblock %} 
+  {%block script%}
+  <script>
+    //注册
+    var mc_update_callback = function(form,data){
+        if(data.status===1000){
+          $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+        }else{
+          $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+          location.reload()
+        }
+        }
+  </script>
+  {%endblock%}
+  

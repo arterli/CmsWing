@@ -1,0 +1,184 @@
+{% extends "./inc_base.html" %}
+<!-- 默认使用亮色logo -->
+{%set logo ='light'%}
+{%block body%}class="header-sticky header-over"{%endblock%}
+{% block middle %}
+<!-- INTRO -->
+<div class="section bg-light position-relative overflow-hidden overlay-dark overlay-opacity-5 bg-cover jarallax" 
+style="background-image:url('/public/assets/demo.files/video/hd0936.jpg')" 
+data-speed="1.4" 
+data-jarallax-video="mp4:/public/assets/demo.files/video/hd0936.mp4,webm:/public/assets/demo.files/video/hd0936.webm,ogv:/public/assets/demo.files/video/hd0936.ogv">
+
+<div class="container position-relative z-index-2 d-middle"> 
+        
+    <div class="text-center text-white py-7" data-aos="fade-in" data-aos-delay="0" data-aos-offset="0">
+
+        <!-- main title -->
+        <h1 class="display-4 mb-0 fw-bold">
+            CmsWing 演示
+        </h1>
+        
+        <!-- slogan -->
+        <p class="h5 fw-normal mb-0">
+            简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。
+        </p>
+
+        <!-- play button -->
+        <div class="clearfix mt-5">
+            <span class="d-inline-block rounded-circle border border-white border-3 p-1 transition-hover-zoom transition-all-ease-150 shadow-warning-lg">
+                <a href="/public/assets/demo.files/video/hd0936.mp4" 
+                    data-ajax-modal-type="video" 
+                    data-ajax-modal-size="modal-xl". 
+                    data-ajax-modal-centered="true" 
+                    class="js-ajax-modal d-inline-flex bg-white text-dark rounded-circle align-items-center justify-content-center text-decoration-none" 
+                    style="width:60px;height:60px;">
+  <svg width="34" height="34" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">  
+    <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"></path>
+  </svg>
+                </a>
+            </span>
+
+            <small class="d-block mt-2">
+                查看演示视频
+            </small>
+        </div>
+        <!-- /play button -->
+
+    </div>
+
+</div>
+
+<div class="absolute-full w-100 overflow-hidden opacity-5 z-index-1">
+    <img class="img-fluid" width="2000" height="2000" src="/public/assets/images/masks/shape-line-lense.svg" alt="...">
+</div>
+
+</div>	
+<!-- /INTRO -->
+	<!-- CALL TO ACTION -->
+    <div class="section py-5 position-relative mb-1">
+        <div class="container position-relative z-index-1">
+            <div class="row text-center-xs">
+
+                <div class="col-12 col-md-8">
+                    <h3 class="m-0">响应式布局自动适配各种终端和场景!</h3>
+                    <p class="m-0">简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。</p>
+                </div>
+                
+                <div class="col-12 mt-4 d-block d-md-none"><!-- mobile spacer --></div>
+
+                <div class="col-12 col-md-4 text-align-end">
+                    <a href="https://gitee.com/cmswing/CmsWing.git" target="_blank" class="btn btn-pill btn-primary d-block-xs">
+                        <b class="fw-medium">CmsWing</b> / 获取
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- svg shape -->
+        <svg class="absolute-full z-index-0" width="100%" height="100%" viewBox="0 0 1920 90" preserveAspectRatio="none">
+            <path fill="rgba(55,125,255,.04)" d="M1920,0C1217,0,120.574,155.567,0,0v90h1920V0z"></path>
+        </svg>
+
+    </div>
+    <!-- /CALL TO ACTION -->
+<!-- blog news -->
+<div class="container">
+<div class="mt-5">
+
+    <!-- News -->
+    <h2 class="fw-bold mb-0">
+       最新动态!
+    </h2>
+    <p class="fw-medium">随时了解最新最热行业信息！</p>
+    {% set top = 'cms_doc'|@findAll({
+        include : 'cms_classify',
+        offset: 0,
+        limit: 1,
+        order:[['id','desc']]
+        })%}
+    <!-- sticky article -->
+    <div class="row mt-6">
+        <a href="/cms/detail/{{top[0].id}}" target="_blank" class="col-12 col-md-4 mb-4">
+            <img class="img-fluid w-100 rounded"
+                src="{{top[0].cover_url}}"
+                alt="...">
+        </a>
+
+        <div class="col pb-4">
+
+            <!-- title -->
+            <div class="mb-4">
+
+                <h2 class="h4 mb-0">
+                    <a href="/cms/detail/{{top[0].id}}" class="text-dark fw-medium">
+                        {{top[0].title}}
+                    </a>
+                </h2>
+
+                <!-- publish date -->
+                <span class="text-muted">
+                    {{helper.moment(top[0].createdAt).fromNow()}}
+                </span>
+
+            </div>
+
+            <!-- content preview -->
+            <div class="mb-4">
+                <p>{{top[0].description}}</p>
+            </div>
+
+            <a href="/cms/list/{{top[0].cms_classify.name or top[0].cms_classify.id}}" target="_blank" class="link-muted">{{top[0].cms_classify.title}}</a>
+
+        </div>
+
+    </div>
+    <!-- /sticky article -->
+    <!-- more articles / blog -->
+    <div class="py-4 mt-3">
+
+        <div class="row">
+            {% set newlist = 'cms_doc'|@findAll({
+                include : 'cms_classify',
+                offset: 1,
+                limit: 4,
+                order:[['id','desc']]
+                })%}
+{% for items in newlist | batch(2) %}
+<div class="col-12 col-md-6">
+     {% for item in items %}
+     <div class="d-flex mb-3 text-decoration-none">
+
+        <!-- image -->
+        <div style="width:100px;height:100px"
+            class="text-center bg-light rounded bg-cover lazy"
+            data-background-image="{{item.cover_url}}">
+        </div>
+
+        <div class="col px-3">
+
+            <h3 class="h5 fw-bold">
+                <a href="/cms/detail/{{item.id}}" target="_blank" class="text-dark">
+                    {{item.title}}
+                </a>
+            </h3>
+
+            <p class="small">
+                <strong>({{helper.moment(item.createdAt).fromNow()}})</strong>  {{item.description|truncate(50, true, "...")}}
+            </p>
+
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+            {% endfor %}
+       
+        </div>
+
+    </div>
+    <!-- /more articles / blog -->
+</div>
+</div>
+<!-- /blog news -->
+{% endblock %}

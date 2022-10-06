@@ -1,0 +1,266 @@
+
+    
+    type CmsTemplate {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      name:String
+      path:String
+      author:String
+      sys:Boolean
+      isu:Boolean
+      uuid:String
+      version:String
+      
+      cms_template_list(order:[[String]],limit:Int,offset:Int): [CmsTemplateList]
+
+    }
+    
+    
+    input WhereCmsTemplate_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_path {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_author {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_sys {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_isu {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplate_version {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsTemplate{
+    id:WhereCmsTemplate_id
+      createdAt:WhereCmsTemplate_createdAt
+      updatedAt:WhereCmsTemplate_updatedAt
+      name:WhereCmsTemplate_name
+      path:WhereCmsTemplate_path
+      author:WhereCmsTemplate_author
+      sys:WhereCmsTemplate_sys
+      isu:WhereCmsTemplate_isu
+      uuid:WhereCmsTemplate_uuid
+      version:WhereCmsTemplate_version
+      
+    }
+
+    input WhereCmsTemplate {
+      id:WhereCmsTemplate_id
+      createdAt:WhereCmsTemplate_createdAt
+      updatedAt:WhereCmsTemplate_updatedAt
+      name:WhereCmsTemplate_name
+      path:WhereCmsTemplate_path
+      author:WhereCmsTemplate_author
+      sys:WhereCmsTemplate_sys
+      isu:WhereCmsTemplate_isu
+      uuid:WhereCmsTemplate_uuid
+      version:WhereCmsTemplate_version
+      
+      op_and: [WhereFieldCmsTemplate]
+      op_or: [WhereFieldCmsTemplate]
+      op_not: [WhereFieldCmsTemplate]
+    }
+    
+    
+    input AddCmsTemplate {
+    name: String!
+      path: String!
+      author: String!
+      sys: Boolean
+      isu: Boolean
+      uuid: String!
+      version: String!
+      
+    }
+    
+    
+    input EditCmsTemplate {
+    name: String
+      path: String
+      author: String
+      sys: Boolean
+      isu: Boolean
+      uuid: String
+      version: String
+      
+    }
+    
+    type CountCmsTemplate {
+      count: Int
+      rows: [CmsTemplate]
+    }
+    type ResDelCmsTemplate {
+      count: Int
+    }
+    type ResEditCmsTemplate {
+      ids: [Int]
+    }
+    

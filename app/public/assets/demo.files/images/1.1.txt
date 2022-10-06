@@ -1,0 +1,8 @@
+1x1.gif 		= 37 bytes! 	transparent background
+
+useful for lazy loading! any png image would be larger!
+
+1x1.gif
+<img width="38" height="24" class="lazy" data-src="image.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="...">
+
+

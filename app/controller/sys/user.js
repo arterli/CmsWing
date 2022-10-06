@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/check-tag-names */
 // Routing node
 
 'use strict';
@@ -129,14 +130,22 @@ class UserController extends Controller {
     const { ctx } = this;
     const data = ctx.request.body;
     data.password = ctx.helper.cipher(data.password);
-    const add = await ctx.model.SysUser.create(data);
-    if (data.role_ids) {
-      const roleList = data.role_ids.split(',');
-      for (const v of roleList) {
-        await ctx.model.SysUserRole.create({ user_uuid: add.uuid, role_uuid: v });
+    const [ add, created ] = await ctx.model.SysUser.findOrCreate({
+      where: { username: data.username, email: data.email, mobile: data.mobile },
+      defaults: data,
+    });
+    if (created) {
+      if (data.role_ids) {
+        const roleList = data.role_ids.split(',');
+        for (const v of roleList) {
+          await ctx.model.SysUserRole.create({ user_uuid: add.uuid, role_uuid: v });
+        }
       }
+      this.success(add);
+    } else {
+      this.fail('用户名，手机号，邮箱 重复,请重试！');
     }
-    this.success(add);
+
   }
 
   /**

@@ -1,24 +1,32 @@
 {
   "name": "cmswing",
-  "version": "1.0.0",
-  "description": "CmsWing 2.0",
+  "version": "2.0.0",
+  "description": "企业级Node WEB开发框架，使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本。",
   "private": true,
   "egg": {
     "declarations": true
   },
   "dependencies": {
+    "@alicloud/openapi-client": "^0.4.1",
+    "ali-oss": "^6.17.1",
+    "compressing": "^1.6.2",
+    "cos-nodejs-sdk-v5": "^2.11.12",
     "dataloader": "^2.1.0",
     "egg": "^3.1.0",
     "egg-cors": "^2.2.3",
+    "egg-downloader": "^1.0.5",
     "egg-graphql": "^2.8.0",
     "egg-scripts": "^2.17.0",
     "egg-sequelize": "^6.0.0",
     "egg-swagger-docs": "^2.3.5",
     "egg-view-nunjucks": "^2.3.0",
+    "esdk-obs-nodejs": "^3.21.6",
     "fs-extra": "^10.1.0",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "qiniu": "^7.7.0",
+    "utility": "^1.17.0"
   },
   "devDependencies": {
     "autod": "^3.1.2",

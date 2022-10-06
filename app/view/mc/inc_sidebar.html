@@ -1,0 +1,92 @@
+<div class="col-12 col-lg-2">
+
+  <nav class="sticky-kit nav-deep nav-deep-light">
+
+    <div class="card">
+      <div class="card-body p-0 p-md-3">
+
+        <!-- mobile only -->
+        <button class="clearfix btn btn-toggle btn-sm w-100 text-align-left shadow-md border rounded d-block d-lg-none" data-bs-target="#nav_responsive" data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+          <span class="group-icon px-2 py-2 float-start">
+            <i class="fi fi-bars-2"></i>
+            <i class="fi fi-close"></i>
+          </span>
+
+          <span class="h5 py-2 m-0 float-start">
+            会员中心菜单
+          </span>
+        </button>
+
+
+        <!-- navbar : navigation -->
+        <ul id="nav_responsive" class="nav flex-column d-none d-lg-block mt-1 mt-lg-0">
+          <li><!-- account name -->
+            <div class="d-flex align-items-center mb-3 pb-3 border-bottom">
+              {%if ctx.userInfo.avatar %}
+              <div style="width: 40px;height: 40px;">
+              <div class="avatar rounded-circle" style="background-image:url({{ctx.userInfo.avatar}});width: 40px;height: 40px;"></div>
+            </div>
+              {%else%}
+              <div class="flex-none p-1 border rounded-circle">
+                <svg class="text-gray-300" width="34px" height="34px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.8 460.8" fill="currentColor">
+                  <path d="M230.432,0c-65.829,0-119.641,53.812-119.641,119.641s53.812,119.641,119.641,119.641s119.641-53.812,119.641-119.641S296.261,0,230.432,0z"></path>
+                  <path d="M435.755,334.89c-3.135-7.837-7.314-15.151-12.016-21.943c-24.033-35.527-61.126-59.037-102.922-64.784c-5.224-0.522-10.971,0.522-15.151,3.657c-21.943,16.196-48.065,24.555-75.233,24.555s-53.29-8.359-75.233-24.555c-4.18-3.135-9.927-4.702-15.151-3.657c-41.796,5.747-79.412,29.257-102.922,64.784c-4.702,6.792-8.882,14.629-12.016,21.943c-1.567,3.135-1.045,6.792,0.522,9.927c4.18,7.314,9.404,14.629,14.106,20.898c7.314,9.927,15.151,18.808,24.033,27.167c7.314,7.314,15.673,14.106,24.033,20.898c41.273,30.825,90.906,47.02,142.106,47.02s100.833-16.196,142.106-47.02c8.359-6.269,16.718-13.584,24.033-20.898c8.359-8.359,16.718-17.241,24.033-27.167c5.224-6.792,9.927-13.584,14.106-20.898C436.8,341.682,437.322,338.024,435.755,334.89z"></path>
+                </svg>
+                
+              </div>
+              {%endif%}
+              <div class="w-100 px-2">
+                <span>你好,</span>
+                <span class="d-block fw-bold">
+                  {{ctx.userInfo.username}}
+                </span>
+              </div>
+            </div>
+          </li>
+          {% set classifyList=ctx.userInfo.uuid|@mc_menu %}
+          {%for item in classifyList%}
+          <li
+              class="nav-item {%if (item.path ==ctx.url) or (ctx.url in (item.arrPath or [])) %}active{%endif%}">
+              {%if item.children%}
+              <a class="nav-link px-0" href="#">
+                  <span class="group-icon">
+    <i class="fi fi-arrow-end"></i>
+    <i class="fi fi-arrow-down"></i>
+  </span>
+                  <span class="px-2 d-inline-block"> {{item.name}} </span>
+              </a>
+              {%else%}
+              <a class="nav-link px-0" href="{{item.path}}">
+                  <i class="fi fi-arrow-end m-0 smaller"></i>
+                  <span class="px-2 d-inline-block"> {{item.name}} </span>
+              </a>
+              {%endif%} {%if item.children%}
+              <ul class="nav flex-column ps-2">
+                  {%for _item in item.children%}
+                  <li class="nav-item {%if _item.path ==ctx.url%}active{%endif%}">
+                      <a class="nav-link" href="{{_item.path}}"> {{_item.name}} </a>
+                  </li>
+                  {%endfor%}
+              </ul>
+              {%endif%}
+          </li>
+          {%endfor%}
+      
+
+          <li class="nav-item border-top my-3"></li>
+
+          <li class="nav-item">
+            <a class="nav-link px-0" href="/mc/logout">
+              <i class="fi fi-power float-start"></i>
+              退出登录
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+  </nav>
+
+</div>

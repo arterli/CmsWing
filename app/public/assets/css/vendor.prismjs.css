@@ -1,0 +1,362 @@
+/* 
+
+  Prismjs : Code Highlighter;
+
+*/
+pre {
+  font-size: 14px;
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  border-radius: 4px;
+  position: relative;
+  -webkit-overflow-scrolling: touch; }
+
+pre:not(.bg-light) {
+  background: #25324c; }
+
+pre::before {
+  background: black;
+  border-radius: 0 0 0.25rem 0.25rem;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.025rem;
+  padding: 0.1rem 0.5rem;
+  position: absolute;
+  /*right: 1rem; 
+  text-align: right;
+  */
+  left: 50%;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  top: 0; }
+
+pre.language-markdown::before {
+  content: "md";
+  color: #22222f;
+  /* white */
+  background: white; }
+
+pre.language-javascript::before,
+pre.language-js::before {
+  content: "js";
+  background: #f7df1e;
+  /* yellow */
+  color: black; }
+
+pre.language-html::before {
+  content: "html";
+  background: #74a988;
+  /* blue: #7ec699; */
+  color: white; }
+
+pre.language-css::before {
+  content: "css";
+  background: #ff9800;
+  /* orange */
+  color: white; }
+
+pre.language-php::before {
+  content: "php";
+  background: #63dbc6;
+  /* info */
+  color: white; }
+
+pre.language-java::before {
+  content: "java";
+  background: #e2777a;
+  /* red */
+  color: white; }
+
+pre.language-py::before {
+  content: "py";
+  background: #ac5ece;
+  /* purple */
+  color: white; }
+
+pre.language-json::before {
+  content: "json";
+  background: #6bba66;
+  /* green */
+  color: white; }
+
+/* PrismJS 1.17.1
+https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+c+csharp+bash+cpp+coffeescript+ruby+diff+markup-templating+dns-zone-file+docker+lua+git+go+java+php+markdown+json+jsonp+matlab+typescript+nginx+objectivec+perl+sql+scss+python&plugins=autolinker+file-highlight+toolbar+highlight-keywords+unescaped-markup+normalize-whitespace+show-language+copy-to-clipboard+download-button */
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  hyphens: none; }
+
+pre:not(.bg-light)[class*="language-"] {
+  color: #f8f8f2; }
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal; }
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #94959c;
+  /* #999999 */ }
+
+pre.bg-light .token.comment,
+pre.bg-light .token.block-comment,
+pre.bg-light .token.prolog,
+pre.bg-light .token.doctype,
+pre.bg-light .token.cdata {
+  color: #7D8B99; }
+
+.token.punctuation {
+  color: #94959c; }
+
+pre.bg-light .token.punctuation {
+  color: #5F6364; }
+
+/*.token.tag,*/
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+  color: #e2777a; }
+
+.token.tag {
+  color: #e2777a; }
+
+pre.bg-light .token.tag,
+pre.bg-light .token.attr-name,
+pre.bg-light .token.namespace,
+pre.bg-light .token.deleted {
+  color: #c92c2c; }
+
+.token.function-name {
+  color: #6196cc; }
+
+pre.bg-light .token.function-name {
+  color: #c92c2c; }
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49; }
+
+pre.bg-light .token.boolean,
+pre.bg-light .token.number,
+pre.bg-light .token.function {
+  color: #c92c2c; }
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555; }
+
+pre.bg-light .token.property,
+pre.bg-light .token.class-name,
+pre.bg-light .token.constant,
+pre.bg-light .token.symbol {
+  color: #c92c2c; }
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd; }
+
+pre.bg-light .token.selector,
+pre.bg-light .token.important,
+pre.bg-light .token.atrule,
+pre.bg-light .token.keyword,
+pre.bg-light .token.builtin {
+  color: #1990b8; }
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #8dc3a1;
+  /* #7ec699; */ }
+
+pre.bg-light .token.string,
+pre.bg-light .token.char,
+pre.bg-light .token.attr-value,
+pre.bg-light .token.regex,
+pre.bg-light .token.variable {
+  color: #2f9c0a; }
+
+.token.operator,
+.token.entity,
+.token.url {
+  color: #67cdcc; }
+
+pre.bg-light .token.operator,
+pre.bg-light .token.entity,
+pre.bg-light .token.url {
+  color: #a67f59; }
+
+.token.important,
+.token.bold {
+  font-weight: bold; }
+
+.token.italic {
+  font-style: italic; }
+
+.token.entity {
+  cursor: help; }
+
+.token.inserted {
+  color: green; }
+
+.token a {
+  color: inherit; }
+
+div.code-toolbar {
+  position: relative; }
+
+div.code-toolbar > .toolbar {
+  position: absolute;
+  top: .3em;
+  right: .2em;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0; }
+
+div.code-toolbar:hover > .toolbar {
+  opacity: 1; }
+
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+div.code-toolbar:focus-within > .toolbar {
+  opacity: 1; }
+
+div.code-toolbar > .toolbar .toolbar-item {
+  display: inline-block; }
+
+div.code-toolbar > .toolbar a {
+  cursor: pointer; }
+
+div.code-toolbar > .toolbar button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-user-select: none;
+  /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none; }
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+  color: #bbb;
+  font-size: .8em;
+  padding: 0 .5em;
+  background: #f5f2f0;
+  background: rgba(224, 224, 224, 0.2);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  border-radius: .5em; }
+
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
+  color: inherit;
+  text-decoration: none; }
+
+/* Fallback, in case JS does not run, to ensure the code is at least visible */
+[class*='lang-'] script[type='text/plain'],
+[class*='language-'] script[type='text/plain'],
+script[type='text/plain'][class*='lang-'],
+script[type='text/plain'][class*='language-'] {
+  display: block;
+  font: 100% Consolas, Monaco, monospace;
+  white-space: pre;
+  overflow: auto; }
+
+/* copy button */
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+  margin: 0.53em 0.5em !important;
+  color: #121212;
+  background: #ffffff;
+  font-size: .8em;
+  padding: 0 .5em;
+  border-radius: 3px;
+  padding: 0.25rem .5rem;
+  text-transform: uppercase;
+  box-shadow: none !important; }
+
+div.code-toolbar > pre.bg-light + .toolbar a,
+div.code-toolbar > pre.bg-light + .toolbar button,
+div.code-toolbar > pre.bg-light + .toolbar span {
+  color: #ffffff !important;
+  background: #121212 !important; }
+
+/* line numbers plugin */
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber; }
+
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit; }
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  font-size: 100%;
+  left: -3.8em;
+  width: 3em;
+  /* works for line-numbers below 1000 lines */
+  letter-spacing: -1px;
+  border-right: 1px solid #999;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+.line-numbers-rows > span {
+  pointer-events: none;
+  display: block;
+  counter-increment: linenumber; }
+
+.line-numbers-rows > span:before {
+  content: counter(linenumber);
+  color: #999;
+  display: block;
+  padding-right: 0.8em;
+  text-align: right; }
+
+/**
+
+  Fixes
+
+**/
+.note-editor pre {
+  color: #ffffff; }

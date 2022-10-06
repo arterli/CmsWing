@@ -123,6 +123,7 @@
           "type": "button",
           "actionType": "dialog",
           "level": "primary",
+          "align":"right",
           "dialog": {
             "title": "新增角色",
             "size": "lg",

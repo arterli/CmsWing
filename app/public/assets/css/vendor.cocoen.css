@@ -1,0 +1,58 @@
+/*$modal-backdrop-bg:                   #131f43 !default;*/
+.cocoen {
+  box-sizing: border-box;
+  cursor: pointer;
+  line-height: 0;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none; }
+  .cocoen img,
+  .cocoen picture > img {
+    max-width: none; }
+  .cocoen > img,
+  .cocoen > picture > img {
+    display: block;
+    width: 100%; }
+  .cocoen > div:first-child,
+  picture .cocoen > div {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 50%; }
+  .cocoen-drag {
+    background: rgba(255, 255, 255, 0.3);
+    width: 1px;
+    bottom: 0;
+    cursor: move;
+    left: 50%;
+    margin-left: -1px;
+    position: absolute;
+    top: 0; }
+    .cocoen-drag::before {
+      content: '';
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      margin-left: -22px;
+      margin-top: -22px;
+      height: 44px;
+      width: 44px;
+      border-radius: 50rem;
+      background-color: #574fec;
+      overflow: hidden;
+      box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+    .cocoen-drag::after {
+      font-family: Flaticon !important;
+      content: "\f14d";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: #fff;
+      margin-left: -10px;
+      font-size: 22px; }

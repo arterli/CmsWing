@@ -37,7 +37,11 @@ amis https://aisuda.bce.baidu.com/amis/zh-CN/docs/index
 sequelize https://www.sequelize.cn/  
 graphql https://graphql.cn/  
 
+<<<<<<< HEAD
 ### 预览
+=======
+## 预览
+>>>>>>> develop
 ![输入图片说明](https://data.cmswing.com/gitee/iShot_2022-09-09_13.26.23.png)
 ![输入图片说明](https://data.cmswing.com/gitee/BE7BB4FF53BB4011E2DFB8686C61B8BD.jpg)
 ![输入图片说明](https://data.cmswing.com/gitee/C3798F02C41884147C6791148935F746.jpg)

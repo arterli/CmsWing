@@ -1,0 +1,289 @@
+
+    
+    type CmsTemplateList {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      template_uuid:String
+      title:String
+      type:String
+      name:String
+      html:String
+      isd:Boolean
+      isu:Boolean
+      uuid:String
+      
+      cms_template: CmsTemplate
+ 
+    }
+    
+    
+    input WhereCmsTemplateList_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_template_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_title {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_type {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_html {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_isd {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_isu {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereCmsTemplateList_uuid {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldCmsTemplateList{
+    id:WhereCmsTemplateList_id
+      createdAt:WhereCmsTemplateList_createdAt
+      updatedAt:WhereCmsTemplateList_updatedAt
+      template_uuid:WhereCmsTemplateList_template_uuid
+      title:WhereCmsTemplateList_title
+      type:WhereCmsTemplateList_type
+      name:WhereCmsTemplateList_name
+      html:WhereCmsTemplateList_html
+      isd:WhereCmsTemplateList_isd
+      isu:WhereCmsTemplateList_isu
+      uuid:WhereCmsTemplateList_uuid
+      
+    }
+
+    input WhereCmsTemplateList {
+      id:WhereCmsTemplateList_id
+      createdAt:WhereCmsTemplateList_createdAt
+      updatedAt:WhereCmsTemplateList_updatedAt
+      template_uuid:WhereCmsTemplateList_template_uuid
+      title:WhereCmsTemplateList_title
+      type:WhereCmsTemplateList_type
+      name:WhereCmsTemplateList_name
+      html:WhereCmsTemplateList_html
+      isd:WhereCmsTemplateList_isd
+      isu:WhereCmsTemplateList_isu
+      uuid:WhereCmsTemplateList_uuid
+      
+      op_and: [WhereFieldCmsTemplateList]
+      op_or: [WhereFieldCmsTemplateList]
+      op_not: [WhereFieldCmsTemplateList]
+    }
+    
+    
+    input AddCmsTemplateList {
+    template_uuid: String!
+      title: String!
+      type: String!
+      name: String!
+      html: String
+      isd: Boolean
+      isu: Boolean
+      uuid: String!
+      
+    }
+    
+    
+    input EditCmsTemplateList {
+    template_uuid: String
+      title: String
+      type: String
+      name: String
+      html: String
+      isd: Boolean
+      isu: Boolean
+      uuid: String
+      
+    }
+    
+    type CountCmsTemplateList {
+      count: Int
+      rows: [CmsTemplateList]
+    }
+    type ResDelCmsTemplateList {
+      count: Int
+    }
+    type ResEditCmsTemplateList {
+      ids: [Int]
+    }
+    

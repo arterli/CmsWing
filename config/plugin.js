@@ -26,4 +26,8 @@ module.exports = {
     enable: true,
     package: 'egg-graphql',
   },
+  downloader: {
+    enable: true,
+    package: 'egg-downloader',
+  },
 };

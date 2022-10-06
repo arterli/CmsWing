@@ -1,0 +1,13 @@
+{
+  "RECORDS": [
+    {
+      "pid": 0,
+      "title": "首页",
+      "url": "/",
+      "sort": null,
+      "target": 0,
+      "status": 1,
+      "type": "header"
+    }
+  ]
+}

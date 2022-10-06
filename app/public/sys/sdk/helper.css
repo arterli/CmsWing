@@ -556,7 +556,6 @@ a.text-black:hover {
 .no-select {
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .l-h {
@@ -20029,7 +20028,6 @@ https://www.w3school.com.cn/cssref/pr_class_position.asp
   position: relative;
 }
 .sticky {
-  position: -webkit-sticky;
   position: sticky;
 }
 @media (max-width: 768px) {
@@ -20050,7 +20048,6 @@ https://www.w3school.com.cn/cssref/pr_class_position.asp
   }
 
   .m\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 }
@@ -20072,7 +20069,6 @@ https://www.w3school.com.cn/cssref/pr_class_position.asp
   }
 
   .pc\:sticky {
-    position: -webkit-sticky;
     position: sticky;
   }
 }

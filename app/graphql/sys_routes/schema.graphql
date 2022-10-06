@@ -20,6 +20,7 @@
       sort:Int
       linkType:String
       link:String
+      is_menu:Boolean
       
       sys_routes_classify: SysRoutesClassify
  
@@ -368,6 +369,24 @@
   op_endsWith: String
   op_substring: String
       }
+      input WhereSysRoutes_is_menu {
+        op_eq: Boolean
+  op_ne: Boolean
+  op_or: [Boolean]
+  op_gt: Boolean
+  op_gte: Boolean
+  op_lt: Boolean
+  op_lte: Boolean
+  op_between: [Boolean]
+  op_notBetween: [Boolean]
+  op_in: [Boolean]
+  op_notIn: [Boolean]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
       
     input WhereFieldSysRoutes{
     id:WhereSysRoutes_id
@@ -389,6 +408,7 @@
       sort:WhereSysRoutes_sort
       linkType:WhereSysRoutes_linkType
       link:WhereSysRoutes_link
+      is_menu:WhereSysRoutes_is_menu
       
     }
 
@@ -412,6 +432,7 @@
       sort:WhereSysRoutes_sort
       linkType:WhereSysRoutes_linkType
       link:WhereSysRoutes_link
+      is_menu:WhereSysRoutes_is_menu
       
       op_and: [WhereFieldSysRoutes]
       op_or: [WhereFieldSysRoutes]
@@ -436,6 +457,7 @@
       sort: Int
       linkType: String
       link: String
+      is_menu: Boolean
       
     }
     
@@ -457,6 +479,7 @@
       sort: Int
       linkType: String
       link: String
+      is_menu: Boolean
       
     }
     

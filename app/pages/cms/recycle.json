@@ -1,0 +1,132 @@
+{
+  "type": "page",
+  "title": false,
+  "body": {
+    "type": "crud",
+    "api": "/admin/cms/recycle/index",
+    "headerToolbar": [
+      "bulkActions",
+      {
+        "type": "columns-toggler",
+        "className": "pull-right",
+        "align": "right"
+      },
+      {
+        "type": "search-box",
+        "align": "right",
+        "name": "doc_title",
+        "placeholder": "请输入关键字",
+        "mini": true
+      },
+      {
+        "type": "drag-toggler",
+        "align": "right"
+      }
+    ],
+    "footerToolbar":["switch-per-page","statistics", "pagination"],
+    "itemActions": [
+      {
+        "type": "button",
+        "label": "恢复",
+        "actionType": "ajax",
+        "confirmText": "您确认要恢复?",
+        "api": "get:/admin/cms/recycle/restore?id=${id}"
+      },
+      {
+        "type": "button",
+        "label": "删除",
+        "actionType": "ajax",
+        "confirmText": "您确认要删除?",
+        "api": "get:/admin/cms/recycle/del?id=${id}"
+      }
+    ],
+    "bulkActions": [
+      {
+        "label": "批量恢复",
+        "actionType": "ajax",
+        "api": "/admin/cms/recycle/bulkRestore",
+        "confirmText": "确定要批量恢复?",
+        "type": "button"
+      },
+      {
+        "label": "批量删除",
+        "actionType": "ajax",
+        "api": "/admin/cms/recycle/bulkDel",
+        "confirmText": "确定要批量删除?",
+        "type": "button"
+      }
+    ],
+    "columns": [
+      {
+        "name": "id",
+        "label": "ID",
+        "width": 20,
+        "sortable": true,
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "label": "封面",
+        "type": "image",
+        "name": "cover_url",
+        "className": "tdimg"
+      },
+      {
+        "label": "标题",
+        "type": "text",
+        "name": "title",
+        "toggled": true
+      },
+      {
+        "name": "type",
+        "label": "类型",
+        "type": "mapping",
+        "map": {
+          "1": "<span class='label label-info'>目录</span>",
+          "2": "<span class='label label-success'>主题</span>",
+          "3": "<span class='label label-warning'>段落</span>",
+          "*": "其他：${type}"
+        }
+      },
+      {
+        "name": "pathTitle",
+        "label": "分类",
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "name": "modelName",
+        "label": "模型",
+        "type": "text",
+        "toggled": true
+      },
+      {
+        "name": "updatedAt",
+        "label": "最后更新时间",
+        "sortable": true,
+        "type": "date",
+        "toggled": true,
+        "format": "YYYY-MM-DD HH:mm"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "type": "mapping",
+        "map": {
+          "0": "<span class='label label-danger'>禁用</span>",
+          "1": "<span class='label label-success'>正常</span>",
+          "2": "<span class='label label-warning'>待审核</span>",
+          "3": "<span class='label label-info'>草稿</span>",
+          "*": "其他：${type}"
+        }
+      },{
+        "name": "deletedAt",
+        "label": "删除时间",
+        "sortable": true,
+        "type": "date",
+        "toggled": true,
+        "format": "YYYY-MM-DD HH:mm"
+      }
+    ]
+  }
+}

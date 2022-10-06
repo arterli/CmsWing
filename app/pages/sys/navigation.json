@@ -1,0 +1,262 @@
+{
+  "type": "page",
+  "title": false,
+  "body": [
+    {
+      "id": "tableList",
+      "type": "crud",
+      "syncLocation": false,
+      "api": "/admin/sys/navigation/index",
+      "defaultParams": {
+        "cat": "header"
+      },
+      "saveOrderApi": "/admin/sys/navigation/saveOrder",
+      "draggable": true,
+      "columns": [
+        { "label": "ID", "type": "text", "name": "id", "id": "u:c304d60a9179" },
+        {
+          "label": "导航名称",
+          "type": "text",
+          "name": "title",
+          "id": "u:c8731b5cac7c",
+          "searchable": true,
+          "sortable": true
+        },
+        {
+          "label": "位置",
+          "type": "text",
+          "name": "type"
+        },
+        {
+          "label": "导航地址",
+          "type": "text",
+          "name": "url",
+          "id": "u:cc2eb314f47a"
+        },
+        {
+          "label": "添加时间",
+          "type": "date",
+          "name": "createdAt",
+          "id": "u:baf452c0fff9"
+        },
+        {
+          "label": "更新时间",
+          "type": "date",
+          "name": "updatedAt",
+          "id": "u:ab1940615ee7"
+        },
+        {
+          "label": "状态",
+          "type": "status",
+          "name": "status",
+          "id": "u:e8a86827f75d"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "dialog": {
+                "title": "编辑导航",
+
+                "body": {
+                  "type": "form",
+                  "debug": false,
+
+                  "api": "/admin/sys/navigation/navigationEdit",
+
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "title",
+                      "placeholder": "请输入导航名称",
+                      "label": "导航名称",
+                      "required": true
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "url",
+                      "placeholder": "请输入导航地址",
+                      "label": "导航地址",
+                      "required": true
+                    },
+                    {
+                      "label": "上级导航",
+                      "type": "tree-select",
+                      "name": "pid",
+                      "required": true,
+                      "searchable": true,
+                      "source": "/admin/sys/navigation/topNavigation"
+                    },
+                    {
+                      "label": "位置",
+                      "type": "select",
+                      "name": "type",
+                      "selectFirst": true,
+                      "options": [
+                        {
+                          "label": "头部导航",
+                          "value": "header"
+                        },
+                        {
+                          "label": "底部导航",
+                          "value": "footer"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "target",
+                      "type": "switch",
+                      "label": "新窗口打开",
+                      "mode": "inline"
+                    },
+                    {
+                      "name": "status",
+                      "type": "switch",
+                      "label": "导航状态",
+                      "value": true,
+                      "mode": "inline"
+                    },
+                    {
+                      "name": "id",
+                      "type": "hidden"
+                    }
+                  ]
+                }
+              },
+              "id": "u:e46a4137188c"
+            },
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要删除？",
+              "api": "get:/admin/sys/navigation/navigationDel?id=$id",
+              "id": "u:071f4b3e2fee"
+            }
+          ],
+          "id": "u:e9c8477079a2"
+        }
+      ],
+      "bulkActions": [],
+      "itemActions": [],
+      "headerToolbar": [
+        "bulkActions",
+        {
+          "type": "form",
+          "mode": "horizontal",
+          "wrapWithPanel": false,
+          "onEvent": {
+            "change": {
+              "actions": [
+                {
+                  "actionType": "reload",
+                  "componentId": "tableList",
+                  "args": {
+                    "cat": "${event.data.cat}"
+                  }
+                }
+              ]
+            }
+          },
+          "body": [
+            {
+              "label": false,
+              "type": "list-select",
+              "multiple": false,
+              "labelClassName": "text-muted",
+              "name": "cat",
+              "inline": true,
+              "value": "header",
+              "options": [
+                {
+                  "label": "头部导航",
+                  "value": "header"
+                },
+                {
+                  "label": "底部导航",
+                  "value": "footer"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "button",
+          "actionType": "dialog",
+          "label": "新增导航",
+          "level": "info",
+          "align": "right",
+          "dialog": {
+            "title": "新增导航",
+            "body": {
+              "type": "form",
+              "debug": false,
+              "api": "/admin/sys/navigation/navigationAdd",
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "title",
+                  "placeholder": "请输入导航名称",
+                  "label": "导航名称",
+                  "required": true
+                },
+                {
+                  "type": "input-text",
+                  "name": "url",
+                  "placeholder": "请输入导航地址",
+                  "label": "导航地址",
+                  "required": true
+                },
+                {
+                  "label": "上级导航",
+                  "type": "tree-select",
+                  "name": "pid",
+                  "required": true,
+                  "searchable": true,
+                  "source": "/admin/sys/navigation/topNavigation"
+                },
+                {
+                  "label": "位置",
+                  "type": "select",
+                  "name": "type",
+                  "selectFirst": true,
+                  "options": [
+                    {
+                      "label": "头部导航",
+                      "value": "header"
+                    },
+                    {
+                      "label": "底部导航",
+                      "value": "footer"
+                    }
+                  ]
+                },
+                {
+                  "name": "target",
+                  "type": "switch",
+                  "label": "新窗口打开",
+                  "mode": "inline"
+                },
+                {
+                  "name": "status",
+                  "type": "switch",
+                  "label": "导航状态",
+                  "value": true,
+                  "mode": "inline"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "id": "u:e47dc6e41bc2"
+}

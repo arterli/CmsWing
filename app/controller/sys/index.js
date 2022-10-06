@@ -1,5 +1,7 @@
+/* eslint-disable jsdoc/check-tag-names */
 'use strict';
 const Controller = require('../../core/base_controller');
+const fs = require('fs-extra');
 const path = require('path');
 const { Op } = require('sequelize');
 /**
@@ -60,7 +62,7 @@ class IndexController extends Controller {
     const name = ctx.params[0];
     console.log(name);
     const jsonDir = path.join(this.app.baseDir, 'app', 'pages', name);
-    const json = require(jsonDir);
+    const json = await fs.readJson(jsonDir, { throws: false });
     ctx.body = json;
   }
   // graphql接口暴漏
@@ -129,7 +131,7 @@ class IndexController extends Controller {
   async site() {
     const map = {};
     map.order = [[ 'sort', 'ASC' ]];
-    map.where = { admin: false };
+    map.where = { admin: false, class_uuid: '8f5757a3-8af9-45db-8819-d767aaddfadb' };
     const roleIds = await this.ctx.service.sys.rbac.getRoleIds(this.ctx.userInfo.uuid);
     if (!this.ctx.helper._.isEmpty(roleIds)) {
       map.where.uuid = { [Op.in]: roleIds };
@@ -141,6 +143,7 @@ class IndexController extends Controller {
       obj.label = v.name;
       obj.uuid = v.uuid;
       obj.puuid = v.puuid;
+      obj.visible = v.is_menu;
       if (v.icon) {
         obj.icon = v.icon;
       }
@@ -153,108 +156,54 @@ class IndexController extends Controller {
       arr.push(obj);
     }
     const tree = this.ctx.helper.arr_to_tree(arr, '0', 'uuid', 'puuid');
-    // const site = {
-    //   pages: [
-    //     {
-    //       label: '模块',
-    //       children: [
-    //         {
-    //           label: '首页',
-    //           url: '/',
-    //           redirect: '/index/1',
-    //           icon: 'fa-solid fa-house-chimney-window',
-    //         },
-
-    //         {
-    //           label: 'BBS',
-    //           icon: 'fa-solid fa-b',
-    //           schema: {
-    //             type: 'page',
-    //             title: '页面B',
-    //             body: '页面B',
-    //           },
-    //         },
-    //         {
-    //           label: '测试模块',
-    //           icon: 'fa fa-cube',
-    //           children: [
-    //             {
-    //               label: '列表',
-    //               url: '/crud/list',
-    //               icon: 'fa fa-list',
-    //               schemaApi: 'get:/pages/crud-list.json',
-    //             },
-    //             {
-    //               label: '新增',
-    //               url: '/crud/new',
-    //               icon: 'fa fa-plus',
-    //               schemaApi: 'get:/pages/crud-new.json',
-    //             },
-    //             {
-    //               label: '查看',
-    //               url: '/crud/:id',
-    //               schemaApi: 'get:/pages/crud-view.json',
-    //             },
-    //             {
-    //               label: '修改',
-    //               url: '/crud/:id/edit',
-    //               schemaApi: 'get:/pages/crud-edit.json',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       label: '系统',
-    //       icon: 'fa-solid fa-user',
-    //       children: [
-    //         {
-    //           label: '会员管理',
-    //           icon: 'fa-solid fa-user',
-    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-    //         },
-    //         {
-    //           label: '系统用户',
-    //           icon: 'fa-solid fa-user-gear',
-    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-    //         },
-    //         {
-    //           label: '模型管理',
-    //           icon: 'fa-solid fa-database',
-    //           url: '/sys/models',
-    //           schemaApi: 'get:/pages/sys/models/index.json',
-    //         },
-    //         {
-    //           label: '路由管理',
-    //           icon: 'fa-solid fa-route',
-    //           url: '/sys/routes',
-    //           schemaApi: 'get:/pages/sys/routes/index.json',
-    //         },
-    //         {
-    //           label: '权限管理',
-    //           icon: 'fa-solid fa-shield-virus',
-    //           schemaApi: 'https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/service/form?tpl=tpl3',
-    //         },
-    //         {
-    //           label: '外部链接',
-    //           icon: 'fa-solid fa-link',
-    //           link: 'http://baidu.gitee.io/amis',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
     this.success({ pages: tree });
   }
-  async test() {
-    const { Op } = require('sequelize');
-    const res = await this.ctx.model.SysModels.destroy({
-      where: {
-        id: { [Op.in]: [ 18, 19 ] },
-      },
-    });
-    console.log('destroy', res);
-    this.success(res);
+  async team() {
+    const items = [];
+    items.push({ name: '总策划&主开发', value: '<a href=\'https://www.cmswing.com\' target=\'_blank\'>阿特</a>' });
+    items.push({ name: '研发团队', value: '<a href=\'https://www.cmswing.com\' target=\'_blank\'>阿特</a>' });
+    items.push({ name: '开源贡献者', value: '-' });
+    items.push({ name: '开源协议', value: '<a href=\'https://gitee.com/cmswing/CmsWing/blob/master/LICENSE\' target=\'_blank\'> MulanPSL-2.0</a>' });
+    items.push({ name: '相关链接', value: '<a href=\'https://www.cmswing.com\' target=\'_blank\'>CmsWing官网</a>，<a href=\'https://www.eggjs.org/zh-CN\' target=\'_blank\'>EggJS官网</a>' });
+    this.success({ items });
+  }
+  async sysInfo() {
+    const items = [];
+    const packagePath = path.join(this.app.baseDir, 'package.json');
+    const packageInfo = await fs.readJson(packagePath, { throws: false });
+    items.push({ name: 'CmsWing 程序版本', value: packageInfo.version });
+    items.push({ name: 'egg 程序版本', value: packageInfo.dependencies.egg });
+    items.push({ name: 'Node.js 版本', value: process.version });
+    items.push({ name: '服务器系统', value: `${process.platform}/${process.arch}` });
+    items.push({ name: '服务器 MySQL 版本', value: (await this.ctx.model.query('select version()'))[0][0]['version()'] });
+    // console.log(packageInfo);
+    console.log((await this.ctx.model.query('select version()')));
+    this.success({ items });
+  }
+  async gitee() {
+    this.ctx.body = `<script src='https://gitee.com/cmswing/CmsWing/widget_preview' async defer></script>
+    <div id="osc-gitee-widget-tag"></div>
+    <script>
+    window.onload=function(){
+    var aList = document.getElementsByTagName('a');//获取所有的标签a
+    for(var i=0;i<aList.length;i++){
+      aList[i].target='_blank';//定义成打开新窗口
+      }
+   }
+    </script>
+    <style>
+    body {
+      display: block;
+      margin: 0px;
+      padding:0;
+    }
+    .osc_pro_color {color: #4183c4 !important;}
+    .osc_panel_color {background-color: #ffffff !important;}
+    .osc_background_color {background-color: #ffffff !important;}
+    .osc_border_color {border-color: #e3e9ed !important;}
+    .osc_desc_color {color: #666666 !important;}
+    .osc_link_color * {color: #9b9b9b !important;}
+    </style>`;
   }
 }
 module.exports = IndexController;

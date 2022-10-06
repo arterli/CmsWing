@@ -1,0 +1,184 @@
+{
+  "type": "page",
+  "body": [
+    {
+      "type": "alert",
+      "title": "特别提醒",
+      "body": "如果您要修改模版，不要使用默认模版,可以点击【添加模版】会从默认模版复制一份新的模版，请在新的模版上进行制作修改！",
+      "level": "info",
+      "showIcon": true,
+      "className": "mb-3"
+    },
+    {
+      "type": "crud",
+      "api": "/admin/cms/template",
+      "mode": "cards",
+      "defaultParams": {
+        "perPage": 16
+      },
+      "headerToolbar": [
+        {
+          "label": "新增模版",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "align": "right",
+          "dialog": {
+            "title": "新增模版",
+            "body": {
+              "type": "form",
+              "api": "/admin/cms/template/add",
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "name",
+                  "label": "模版名称",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "path",
+                  "label": "模版目录前缀",
+                  "required": true,
+                  "description": "实际模板目录 view/cms/${path}-{uuid}"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "author",
+                  "label": "模版作者",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "version",
+                  "label": "版本号",
+                  "required": true
+                }
+              ]
+            }
+          }
+        },{
+          "label": "导入模版",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "success",
+          "align": "right",
+          "dialog": {
+            "title": "导入模版",
+            "body":  {
+              "type": "form",
+              "api": "/admin/cms/template/import",
+              "debug": false,
+              "body": [
+                {
+                  "type": "input-file",
+                  "name": "file",
+                  "label": "模版文件",
+                  "accept": "*",
+                  "asBlob": true
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "card": {
+        "toolbar": [
+          {
+            "type": "tpl",
+            "tpl": "使用中",
+            "className": "label label-danger",
+            "visibleOn": "${isu}"
+          }
+        ],
+        "header": {
+          "title": "$name",
+          "subTitle": "${path}-${uuid}",
+          "subTitlePlaceholder": "暂无说明",
+          "avatar": "$avatar",
+          "avatarClassName": "pull-left thumb b-3x m-r"
+        },
+        "actions": [
+          {
+            "type": "button",
+            "label": "查看",
+            "actionType": "dialog",
+            "dialog": {
+              "title": "查看",
+              "body": [
+                {
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/index.png",
+                  "enlargeAble": true
+                },{
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/list.png",
+                  "className":"ml-5",
+                  "enlargeAble": true
+                },{
+                  "type": "image",
+                  "src": "/public/cms/${path}-${uuid}/images/detail.png",
+                  "className":"ml-5",
+                  "enlargeAble": true
+                }
+              ]
+            }
+          },
+          {
+            "type": "button",
+            "label": "编辑",
+            "actionType": "link",
+            "link": "/cms/template/${uuid}"
+          },
+         
+          {
+            "type": "button",
+            "label": "删除",
+            "actionType": "ajax",
+            "confirmText": "您确认要删除?",
+            "api": "get:/admin/cms/template/del?uuid=$uuid",
+            "visibleOn": "${!sys && !isu}"
+          },{
+            "label": "导出",
+            "type": "button",
+            "actionType": "download",
+            "api": "/admin/cms/template/export?uuid=$uuid"
+          }, {
+            "type": "button",
+            "label": "使用",
+            "actionType": "ajax",
+            "level": "link",
+            "className": "text-danger",
+            "confirmText": "确定要使用该模版吗？使用后请检查栏目和详情的模版！",
+            "api": "get:/admin/cms/template/use?uuid=$uuid",
+            "visibleOn": "${!isu}"
+          }
+        ],
+        "body": [
+          {
+            "name": "uuid",
+            "label": "UUID"
+          },
+          {
+            "name": "author",
+            "label": "作者"
+          },
+
+          {
+            "name": "version",
+            "label": "版本号"
+          }
+        ]
+      }
+    }
+  ]
+}

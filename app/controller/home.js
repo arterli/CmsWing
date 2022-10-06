@@ -18,7 +18,16 @@ class HomeController extends Controller {
     // console.log(mulu);
     // // 生成contract
     // await ctx.service.sys.generate.contract();
-    ctx.body = 'dd';
+    // ctx.body = 'dd';
+    // 下载为 package.json
+    // this.ctx.downloader('./package.json');
+
+    // 下载为 new-name.json
+    // this.ctx.downloader('package.json', 'new-name.json');
+
+    // 下载为 new-name.json, header: X-Token: 123
+    // this.ctx.downloader('package.json', 'new-name.json', { 'x-token': '123' });
+    await ctx.render('index');
   }
 }
 

@@ -72,6 +72,7 @@ module.exports = appInfo => {
       '.xls',
       '.xlsx',
       '.pdf',
+      '.tar',
     ],
   };
   config.security = {
@@ -90,15 +91,16 @@ module.exports = appInfo => {
   };
   config.swaggerdoc = require('./swagger');
   config.sequelize = require('./sequelize');
+  config.sys = require('./sys.config');
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
   };
 
-  const uploadConfig = require('./upload.config');
+  const objectStorageConfig = require('./objectStorage.config');
   return {
     ...config,
     ...userConfig,
-    ...uploadConfig,
+    ...objectStorageConfig,
   };
 };

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ctx.meta_title}}-{{ctx.app.config.sys.name}}</title>
+    <meta name="keywords" content="{{ctx.keywords}}" />
+    <meta name="description" content="{{ctx.description}}" />
+    <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+    <!-- preloading icon font is helping to speed up a little bit -->
+    <link rel="preload" href="/public/assets/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/public/assets/css/core.min.css">
+    <link rel="stylesheet" href="/public/assets/css/vendor_bundle.min.css">
+
+
+    <link rel="stylesheet" href="/public/cms/{{'cms'|@templatePath}}/css/app.css">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/public/cms/{{'cms'|@templatePath}}/favicon.ico">
+    <link rel="apple-touch-icon" href="/public/cms/{{'cms'|@templatePath}}/logo/icon_512x512.png">
+
+</head>
+
+<body {%block body%}{%endblock%}>
+    <!-- wrapper -->
+    <div id="wrapper">
+        {# 网站头部 #}
+        {% include "./inc_header.html" %}
+        {# 网站头部结束 #}
+
+        {# 网站内容 #}
+        {% block middle %}{% endblock %}
+        {# 网站内容结束 #}
+
+        {# 网站底部 #}
+        {% include "./inc_footer.html" %}
+        {# 网站底部结束 #}
+    </div>
+    <!-- /#wrapper -->
+    <script src="/public/assets/js/core.min.js"></script>
+    <div id="page_js_files">
+        <script>
+            //登录
+        var mc_sign_callback = function(form,data){
+          if(data.status===1000){
+            $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+          }else{
+            $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+            location.reload();
+          }
+        }
+        //注册
+        var mc_signup_callback = function(form,data){
+        if(data.status===1000){
+          $.SOW.core.toast.show('danger', 'Error', data.msg, 'top-end');
+        }else{
+          $.SOW.core.toast.show('success', 'Success', data.msg, 'top-end');
+          $(form)[0].reset();
+          $("#accordionAccountSignUp").removeClass('show');
+          $("#accordionAccountSignIn").addClass('show')
+        }
+        }
+        </script>
+        <!-- additional javascripts inside here -->
+        {%block script%}{%endblock%}
+    </div>
+
+</body>
+
+</html>
