@@ -15,16 +15,17 @@ class ServerController extends Controller {
   * @response 200 baseRes desc
   */
   async restart() {
-    // await this.ctx.helper.waitTime(2000);
-    this.ctx.status = 200;
-    this.ctx.set('Content-Type', 'text/plain');
-    this.ctx.res.write('🚗服务重启中... \n');
+    // await this.ctx.helper.waitTime(5000);
+    // this.ctx.status = 200;
+    // this.ctx.set('Content-Type', 'text/plain');
+    // this.ctx.res.write('🚗服务重启中... \n');
+    // this.ctx.res.write('🚗关闭服务... \n');
+    // await this.ctx.helper.waitTime(1500);
+    // this.ctx.res.write('🚗重新启动服务... \n');
+    // await this.ctx.helper.waitTime(1000);
+    // this.ctx.res.end('\n🚗执行成功!!!!!!');
     await this.service.sys.server.restart();
-    this.ctx.res.write('🚗关闭服务... \n');
-    await this.ctx.helper.waitTime(1500);
-    this.ctx.res.write('🚗重新启动服务... \n');
-    await this.ctx.helper.waitTime(1000);
-    this.ctx.res.end('\n🚗执行成功!!!!!!');
+    this.success(null, '重启成功');
   }
   /**
   * @summary 获取中间件
