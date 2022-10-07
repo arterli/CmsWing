@@ -4,9 +4,7 @@
     <meta charset="UTF-8" />
     <title>CmsWing</title>
     <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> -->
-    <meta
-      name="viewport" content="width=device-width, initial-scale=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link
       rel="Shortcut Icon"
@@ -32,26 +30,25 @@
         margin: 0;
         padding: 0;
       }
-      .pa-0{
+      .pa-0 {
         padding: 0 !important;
       }
-      .cxd-AppBcn{
-      display: none !important
-    }
-    .mt-0{
-      margin-top: 0 !important;
-    }
-    .tox-tinymce-aux{
-      z-index: 9999;
-    }
-    .tdimg .cxd-Image-thumb{
-    width:1.7rem !important;
-    height:1.7rem !important;
-    
-  }
-  .tdimg .cxd-Image--thumb{
-    padding: 0px;
-  }
+      .cxd-AppBcn {
+        display: none !important;
+      }
+      .mt-0 {
+        margin-top: 0 !important;
+      }
+      .tox-tinymce-aux {
+        z-index: 9999;
+      }
+      .tdimg .cxd-Image-thumb {
+        width: 1.7rem !important;
+        height: 1.7rem !important;
+      }
+      .tdimg .cxd-Image--thumb {
+        padding: 0px;
+      }
     </style>
   </head>
   <body>
@@ -123,47 +120,59 @@
                 type: "flex",
                 justify: "flex-end",
                 items: [
-                
                   {
-                    label: "重启服务",
+                    id: "restart",
                     type: "button",
                     icon: "fa-solid fa-rotate",
-                    actionType: "dialog",
+                    label: "重启服务",
+                    level: "null",
+                    confirmText:
+                      "重启服务只有在生产环境中有效，线上[模版][路由][配置][模型]修改时需要重启服务才能生效，本地开发不需要重启服务。重启大概需要1-3秒，重启时会中断服务，请在闲时使用该功能！",
                     className: "ml-2",
-                    tooltip: "只在生产环境中生效",
-                    api: "/admin/sys/server/restart?waitSeconds=1",
-                    level:'null',
-                    dialog: {
-                      title: "重启服务",
-                      actions: [],
-                      body: {
-                        type: "log",
-                        height: 300,
-                        placeholder: " 执行中...",
-                        source: "/admin/sys/server/restart",
+                    onEvent: {
+                      click: {
+                        actions: [
+                          {
+                            componentId: "restart",
+                            actionType: "disabled",
+                          },
+                          {
+                            actionType: "ajax",
+                            args: {
+                              api: {
+                                url: "/admin/sys/server/restart",
+                                method: "get",
+                              },
+                              options: {
+                                silent: true,
+                              },
+                            },
+                          },
+                          {
+                            actionType: "toast",
+                            expression:
+                              "${event.data.responseResult.responseStatus!=='yes'}",
+                            args: {
+                              msg: "服务重启成功！",
+                            },
+                          },
+                          {
+                            componentId: "restart",
+                            actionType: "enabled",
+                          },
+                        ],
                       },
                     },
                   },
+
                   {
                     type: "dropdown-button",
                     label: "{{ctx.userInfo.username}}",
                     align: "right",
                     icon: "fa-regular fa-user",
                     className: "ml-2",
-                    level:'null',
+                    level: "null",
                     buttons: [
-                      {
-                        type: "button",
-                        label: "按钮1",
-                        disabled: true,
-                      },
-                      {
-                        type: "button",
-                        label: "按钮2",
-                      },
-                      {
-                        type: "divider",
-                      },
                       {
                         type: "button",
                         icon: "fa-solid fa-power-off",
