@@ -1,5 +1,7 @@
 # 重要说明
-基础框架已经开发完成，文档和新官网近期发布。。。
+cmswing2.0 基础框架+CMS模块已经开发完成,可以正式使用，文档正在编写中。。。
+
+官方网站 https://www.cmswing.com/
 # CmsWing
 
 CmsWing 2.0
