@@ -1,0 +1,173 @@
+
+    
+    type SysConfig {
+      id:ID
+      createdAt:Date
+      updatedAt:Date
+      name:String
+      label:String
+      value:String
+      
+      
+    }
+    
+    
+    input WhereSysConfig_id {
+        op_eq: ID
+  op_ne: ID
+  op_or: [ID]
+  op_gt: ID
+  op_gte: ID
+  op_lt: ID
+  op_lte: ID
+  op_between: [ID]
+  op_notBetween: [ID]
+  op_in: [ID]
+  op_notIn: [ID]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysConfig_createdAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysConfig_updatedAt {
+        op_eq: Date
+  op_ne: Date
+  op_or: [Date]
+  op_gt: Date
+  op_gte: Date
+  op_lt: Date
+  op_lte: Date
+  op_between: [Date]
+  op_notBetween: [Date]
+  op_in: [Date]
+  op_notIn: [Date]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysConfig_name {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysConfig_label {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysConfig_value {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      
+    input WhereFieldSysConfig{
+    id:WhereSysConfig_id
+      createdAt:WhereSysConfig_createdAt
+      updatedAt:WhereSysConfig_updatedAt
+      name:WhereSysConfig_name
+      label:WhereSysConfig_label
+      value:WhereSysConfig_value
+      
+    }
+
+    input WhereSysConfig {
+      id:WhereSysConfig_id
+      createdAt:WhereSysConfig_createdAt
+      updatedAt:WhereSysConfig_updatedAt
+      name:WhereSysConfig_name
+      label:WhereSysConfig_label
+      value:WhereSysConfig_value
+      
+      op_and: [WhereFieldSysConfig]
+      op_or: [WhereFieldSysConfig]
+      op_not: [WhereFieldSysConfig]
+    }
+    
+    
+    input AddSysConfig {
+    name: String!
+      label: String!
+      value: String!
+      
+    }
+    
+    
+    input EditSysConfig {
+    name: String
+      label: String
+      value: String
+      
+    }
+    
+    type CountSysConfig {
+      count: Int
+      rows: [SysConfig]
+    }
+    type ResDelSysConfig {
+      count: Int
+    }
+    type ResEditSysConfig {
+      ids: [Int]
+    }
+    

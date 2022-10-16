@@ -155,4 +155,11 @@ type Mutation {
   #模版文件 更新
   CmsTemplateList_update(data:EditCmsTemplateList!,where:WhereCmsTemplateList!):ResEditCmsTemplateList
 
+  #系统配置 添加
+  SysConfig_create(data:AddSysConfig):SysConfig
+  #系统配置 删除
+  SysConfig_destroy(where:WhereSysConfig!):ResDelSysConfig
+  #系统配置 更新
+  SysConfig_update(data:EditSysConfig!,where:WhereSysConfig!):ResEditSysConfig
+
 }

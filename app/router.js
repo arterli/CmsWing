@@ -15,6 +15,8 @@ module.exports = app => {
   router.post('/graphql/:model', controller.sys.index.graphql);
   router.post('/upload', controller.sys.objectStorage.upload);
   router.post('/upload/:sessionKey', controller.sys.objectStorage.upload);
+  router.get('/admin/sys/config/:name', app.middleware.sys.authAdminToken(), controller.sys.config.info);
+  router.post('/admin/sys/config/:name/update', app.middleware.sys.authAdminToken(), controller.sys.config.edit);
   router.get(/^\/pages\/(.*)$/, app.middleware.sys.authAdminToken(), controller.sys.index.getJson);
   router.get('/admin/site.json', app.middleware.sys.authAdminToken(), controller.sys.index.site);
   router.get('/admin/sys/server/getMiddleware', app.middleware.sys.authAdminToken(), controller.sys.server.getMiddleware);
@@ -24,4 +26,5 @@ module.exports = app => {
   router.get('/admin/sys/gitee', controller.sys.index.gitee);
   router.get('/admin/sys/sysInfo', controller.sys.index.sysInfo);
   router.get('/admin/sys/team', controller.sys.index.team);
+  router.get('/cmswingceshi', controller.home.index);
 };

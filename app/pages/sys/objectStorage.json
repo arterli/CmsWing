@@ -11,8 +11,8 @@
             "type": "form",
             "title": "存储配置",
             "debug": false,
-            "initApi": "/admin/sys/objectStorage/objectStorageConfig",
-            "api": "/admin/sys/objectStorage/edit",
+            "initApi": "/admin/sys/config/objectStorage",
+            "api": "/admin/sys/config/objectStorage/update",
             "body": [
               {
                 "type": "button-group-select",

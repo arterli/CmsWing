@@ -1,0 +1,139 @@
+{
+  "type": "page",
+  "title": "",
+  "body": [
+    {
+      "type": "crud",
+      "syncLocation": false,
+      "api": { "method": "get", "url": "/admin/sys/setup" },
+      "columns": [
+        {
+          "label": "配置名称",
+          "type": "text",
+          "name": "label",
+          "id": "u:2acc8b7f36cf"
+        },
+        {
+          "label": "配置key",
+          "type": "text",
+          "name": "name",
+          "id": "u:5b79ff363ef8"
+        },
+        {
+          "label": "取值",
+          "type": "tpl",
+          "tpl": "this.config.${name}"
+        },
+        
+        {
+          "label": "配置值",
+          "type": "json",
+          "name": "value",
+          "levelExpand": 0,
+          "id": "u:7900d587e219"
+        },
+        {
+          "type": "operation",
+          "label": "操作",
+          "buttons": [
+            {
+              "label": "编辑",
+              "type": "button",
+              "actionType": "dialog",
+              "level": "link",
+              "dialog": {
+                "title": "编辑配置",
+                "body": {
+                  "type": "form",
+                  "debug":false,
+                  "api": "/admin/sys/setupEdit",
+                  "body": [
+                    { "name": "id", "type": "hidden" },
+                    {
+                      "label": "配置key",
+                      "name": "name",
+                      "type": "input-text"
+                    },
+                    {
+                      "label": "配置名称",
+                      "name": "label",
+                      "type": "input-text"
+                    }
+                  ]
+                }
+              },
+              "id": "u:662470535193"
+            },
+            {
+              "type": "button",
+              "label": "删除",
+              "actionType": "ajax",
+              "level": "link",
+              "className": "text-danger",
+              "confirmText": "确定要删除？",
+              "api": { "method": "get", "url": "/admin/sys/setupDel?id=${id}" },
+              "id": "u:77a351ebba92"
+            }
+          ],
+          "id": "u:af83584d3484"
+        }
+      ],
+      "bulkActions": [],
+      "itemActions": [],
+      "filterSettingSource": [
+        "id",
+        "createdAt",
+        "updatedAt",
+        "name",
+        "label",
+        "value"
+      ],
+      "features": ["create", "update", "delete"],
+      "headerToolbar": [
+        {
+          "label": "新增配置",
+          "type": "button",
+          "actionType": "dialog",
+          "level": "primary",
+          "align": "right",
+          "dialog": {
+            "type": "dialog",
+            "title": "新增配置",
+            "body": [
+              {
+                "type": "form",
+                "api": { "method": "post", "url": "/admin/sys/setupAdd" },
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "配置key",
+                    "id": "u:72691b0b28ed",
+                    "description": "请用对应应用的前缀，比如cms",
+                    "required": true
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "label",
+                    "label": "配置名称",
+                    "id": "u:9e21afbd4b1f",
+                    "required": true
+                  }
+                ],
+                "id": "u:6de67bdc7c54"
+              }
+            ],
+            "id": "u:55ad03957a91"
+          },
+          "id": "u:c8ffd58dcd89",
+          "className": ""
+        },
+        "bulkActions"
+      ],
+      "id": "u:4e4e67afd12b"
+    }
+  ],
+  "id": "u:80a8c6cd9e11",
+  "messages": {},
+  "pullRefresh": {}
+}

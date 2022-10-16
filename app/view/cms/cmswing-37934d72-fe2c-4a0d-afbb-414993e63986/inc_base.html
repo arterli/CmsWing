@@ -10,15 +10,15 @@
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
     <!-- preloading icon font is helping to speed up a little bit -->
-    <link rel="preload" href="/public/assets/fonts/flaticon/Flaticon.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="/public/assets/css/core.min.css">
-    <link rel="stylesheet" href="/public/assets/css/vendor_bundle.min.css">
+    <link rel="preload" href="/public/assets/fonts/flaticon/Flaticon.woff2?v={{ctx.app.config.pkg.version}}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/public/assets/css/core.min.css?v={{ctx.app.config.pkg.version}}">
+    <link rel="stylesheet" href="/public/assets/css/vendor_bundle.min.css?v={{ctx.app.config.pkg.version}}">
 
 
-    <link rel="stylesheet" href="/public/cms/{{'cms'|@templatePath}}/css/app.css">
+    <link rel="stylesheet" href="/public/cms/{{'cms'|@template('path')}}/css/app.css?v={{'cms'|@template('version')}}">
     <!-- favicon -->
-    <link rel="shortcut icon" href="/public/cms/{{'cms'|@templatePath}}/favicon.ico">
-    <link rel="apple-touch-icon" href="/public/cms/{{'cms'|@templatePath}}/logo/icon_512x512.png">
+    <link rel="shortcut icon" href="/public/cms/{{'cms'|@template('path')}}/favicon.ico?v={{'cms'|@template('version')}}">
+    <link rel="apple-touch-icon" href="/public/cms/{{'cms'|@template('path')}}/logo/icon_512x512.png?v={{'cms'|@template('version')}}">
 
 </head>
 

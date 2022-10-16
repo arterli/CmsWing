@@ -18,9 +18,9 @@
 
                 <!-- navbar : brand (logo) -->
                 <a class="navbar-brand" href="/">
-                    <img src="/public/cms/{{'cms'|@templatePath}}/images/logo/logo_dark.svg" width="145" height="38" alt="...">
+                    <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_dark.svg?v={{'cms'|@template('version')}}" width="145" height="38" alt="...">
                     {%if logo==='light'%}
-                    <img src="/public/cms/{{'cms'|@templatePath}}/images/logo/logo_light.svg" width="145" height="38" alt="...">
+                    <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_light.svg?v={{'cms'|@template('version')}}" width="145" height="38" alt="...">
                     {%endif%}
                 </a>
 
@@ -83,7 +83,7 @@
 									Logo : height: 70px max
 								-->
                     <a class="navbar-brand" href="index.html">
-                        <img src="/public/cms/{{'cms'|@templatePath}}/images/logo/logo_dark.svg" width="140" height="38" alt="...">
+                        <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_dark.svg" width="140" height="38" alt="...">
                     </a>
 
                 </div>

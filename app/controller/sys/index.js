@@ -205,5 +205,8 @@ class IndexController extends Controller {
     .osc_link_color * {color: #9b9b9b !important;}
     </style>`;
   }
+  async ceshi() {
+    this.ctx.body = this.config.objectStorage;
+  }
 }
 module.exports = IndexController;

@@ -1,0 +1,14 @@
+{
+  "RECORDS": [
+    {
+      "name": "objectStorage",
+      "label": "对象储存配置",
+      "value": "{\"cos\": {\"path\": \"upload\"}, \"obs\": {\"path\": \"upload\", \"Bucket\": \"\"}, \"oss\": {\"path\": \"upload\", \"Bucket\": \"cmswing\", \"Region\": \"oss-cn-shanghai\", \"domain\": \"\", \"AccessKey\": \"\", \"SecretKey\": \"\"}, \"kodo\": {\"path\": \"upload\"}, \"type\": \"local\", \"local\": {\"path\": \"upload\", \"domain\": \"http://127.0.0.1:7001\"}}"
+    },
+    {
+      "name": "sys",
+      "label": "系统配置",
+      "value": "{\"icp\": \"\", \"name\": \"CmsWing\", \"keywords\": \"nodejs,eggjs,cmswing\", \"description\": \"企业级 Node.js WEB开发框架,使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！\"}"
+    }
+  ]
+}

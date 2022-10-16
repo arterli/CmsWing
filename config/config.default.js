@@ -10,7 +10,12 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
-
+  // 修改默认端口
+  // config.cluster = {
+  //   listen: {
+  //     port: 8001,
+  //   },
+  // };
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1661321361697_9234';
   config.graphql = {
@@ -89,18 +94,25 @@ module.exports = appInfo => {
     origin: '*',
     allowMethods: 'GET, PUT, POST, DELETE, PATCH',
   };
+  config.remoteConfig = {
+    async handler(ctx) {
+      const data = await ctx.model.SysConfig.findAll();
+      const cdata = {};
+      for (const v of data) {
+        cdata[v.name] = v.value;
+      }
+      return cdata;
+    },
+  };
   config.swaggerdoc = require('./swagger');
   config.sequelize = require('./sequelize');
-  config.sys = require('./sys.config');
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
   };
 
-  const objectStorageConfig = require('./objectStorage.config');
   return {
     ...config,
     ...userConfig,
-    ...objectStorageConfig,
   };
 };

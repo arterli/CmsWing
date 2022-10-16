@@ -1,6 +1,6 @@
 {
   "name": "cmswing",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "企业级Node WEB开发框架，使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本。",
   "private": true,
   "egg": {
@@ -16,6 +16,7 @@
     "egg-cors": "^2.2.3",
     "egg-downloader": "^1.0.5",
     "egg-graphql": "^2.8.0",
+    "egg-remote-config": "^1.0.1",
     "egg-scripts": "^2.17.0",
     "egg-sequelize": "^6.0.0",
     "egg-swagger-docs": "^2.3.5",

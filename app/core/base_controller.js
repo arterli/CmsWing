@@ -5,10 +5,18 @@ class BaseController extends Controller {
   constructor(ctx) {
     super(ctx);
     const { Sequelize } = this.app;
-    // cms模版路径 {{'cms'|@templatePath}}
-    this.app.nunjucks.addFilter('@templatePath', async (m, callback) => {
-      const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
-      callback(null, `${temp.path}-${temp.uuid}`);
+    // cms模版路径 {{'cms'|@template('path')}}
+    this.app.nunjucks.addFilter('@template', async (m, n, callback) => {
+      let res = '';
+      if (m === 'cms') {
+        const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+        if (n === 'path') {
+          res = `${temp.path}-${temp.uuid}`;
+        } else {
+          res = temp[n] ? temp[n] : '';
+        }
+      }
+      callback(null, res);
     }, true);
 
     // findAll {{'mdoel'|@findOne('{where:{a:1}}')}}
@@ -78,7 +86,7 @@ class BaseController extends Controller {
     }, true);
   }
   get user() {
-    return this.ctx.session.user;
+    return this.ctx.userInfo;
   }
 
   success(data, msg = '操作成功') {
@@ -88,9 +96,9 @@ class BaseController extends Controller {
       data,
     };
   }
-  fail(msg, errorCode = 1000, data) {
+  fail(msg, status = 1000, data) {
     this.ctx.body = {
-      status: errorCode,
+      status,
       msg,
       data,
     };

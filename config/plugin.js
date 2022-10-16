@@ -30,4 +30,8 @@ module.exports = {
     enable: true,
     package: 'egg-downloader',
   },
+  remoteConfig: {
+    enable: true,
+    package: 'egg-remote-config',
+  },
 };

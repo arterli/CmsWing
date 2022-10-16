@@ -1,103 +1,5 @@
 <!-- Header -->
 <header id="header" class="shadow-primary-xs">
-
-    <!-- TOP BAR -->
-    {# <div id="top_bar" class="bg-light">
-        <!-- optional if body.header-sticky is present: add .js-ignore class to ignore autohide and stay visible all the time -->
-        <div class="container">
-
-            <div class="text-nowrap">
-                <!-- change with .scrollable-horizontal to horizontally scroll, if -only- no dropdown is present -->
-                <div class="d-flex justify-content-between">
-
-                    <div class="d-inline-block float-start">
-                        <ul class="list-inline m-0">
-
-                            <!-- LANGUAGE -->
-                            <li class="dropdown list-inline-item m-0">
-
-                                <a id="topDDLanguage" href="#" class="py-2 d-inline-block" data-bs-toggle="dropdown"
-                                    aria-expanded="false" aria-haspopup="true">
-                                    <i class="flag flag-us"></i>
-                                    <span class="text-muted px-2">English</span>
-                                </a>
-
-                                <div aria-labelledby="topDDLanguage"
-                                    class="dropdown-menu dropdown-menu-hover p-1 pb-0 scrollable-vertical">
-                                    <a href="#" class="active dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        <i class="flag flag-us"></i>
-                                        English
-                                    </a>
-                                    <a href="#" class="dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        <i class="flag flag-de"></i>
-                                        German
-                                    </a>
-                                    <a href="#" class="dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        <i class="flag flag-fr"></i>
-                                        Francaise
-                                    </a>
-                                </div>
-
-                            </li>
-                            <!-- /LANGUAGE -->
-
-
-                            <!-- CURRENCY -->
-                            <li class="dropdown list-inline-item m-0">
-
-                                <span class="text-muted">/</span><!-- optional separator -->
-
-                                <a id="topDDCurrency" href="#" class="py-2 d-inline-block" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <span class="text-muted px-2">USD</span>
-                                </a>
-
-                                <div aria-labelledby="topDDCurrency"
-                                    class="dropdown-menu dropdown-menu-hover text-uppercase text-center p-1 pb-0 w-auto">
-                                    <a href="#" class="active dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        USD
-                                    </a>
-                                    <a href="#" class="dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        EUR
-                                    </a>
-                                    <a href="#" class="dropdown-item text-muted text-truncate lh-1 rounded mb-1">
-                                        GBP
-                                    </a>
-                                </div>
-
-                            </li>
-                            <!-- /CURRENCY -->
-
-                        </ul>
-                    </div>
-
-
-                    <div class="d-inline-block float-end">
-
-                        <ul class="list-inline m-0">
-
-                            <li class="dropdown list-inline-item">
-
-                                <a href="tel:+01-555-5555" class="p-2 d-inline-block fw-medium">
-                                    <i class="float-start fi fi-phone"></i> (+01) 555-5555
-                                </a>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div> #}
-    <!-- /TOP BAR -->
-
-
-
-
     <!-- Navbar -->
     <div class="container position-relative">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-lg-between justify-content-md-inherit">
@@ -116,7 +18,10 @@
 
                 <!-- navbar : brand (logo) -->
                 <a class="navbar-brand" href="/">
-                    <img src="/public/cms/{{'cms'|@templatePath}}/images/logo/logo_dark.svg" width="145" height="38" alt="...">
+                    <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_dark.svg?v={{'cms'|@template('version')}}" width="145" height="38" alt="...">
+                    {%if logo==='light'%}
+                    <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_light.svg?v={{'cms'|@template('version')}}" width="145" height="38" alt="...">
+                    {%endif%}
                 </a>
 
             </div>
@@ -178,7 +83,7 @@
 									Logo : height: 70px max
 								-->
                     <a class="navbar-brand" href="index.html">
-                        <img src="/public/cms/{{'cms'|@templatePath}}/images/logo/logo_dark.svg" width="110" height="38" alt="...">
+                        <img src="/public/cms/{{'cms'|@template('path')}}/images/logo/logo_dark.svg" width="140" height="38" alt="...">
                     </a>
 
                 </div>

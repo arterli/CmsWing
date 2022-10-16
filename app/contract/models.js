@@ -802,4 +802,27 @@ module.exports = {
     
   },
 
+  // 系统配置
+  sys_config_item: {
+    createdAt: { type: 'string', description: '创建时间' },
+    id: { type: 'string', description: '主键' },
+    label: { type: 'string', description: '配置名称' },
+    name: { type: 'string', description: '配置key' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    value: { type: 'string', description: '配置value' },
+    
+  },
+  sys_config_add: {
+    label: { type: 'string', description: '配置名称', required: true },
+    name: { type: 'string', description: '配置key', required: true },
+    value: { type: 'string', description: '配置value', required: true },
+    
+  },
+  sys_config_edit: {
+    label: { type: 'string', description: '配置名称' },
+    name: { type: 'string', description: '配置key' },
+    value: { type: 'string', description: '配置value' },
+    
+  },
+
 };

@@ -372,5 +372,5 @@
 
 {% endblock %}
 {%block script%}
-<script src="/public/cms/{{'cms'|@templatePath}}/js/list.js"></script>
+<script src="/public/cms/{{'cms'|@template('path')}}/js/list.js?v={{'cms'|@template('version')}}"></script>
 {%endblock%}
