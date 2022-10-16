@@ -143,14 +143,14 @@
     {
       "uuid": "0f4dcc6a-defa-4046-a106-6a4c4a7b9c9c",
       "name": "cms_template",
-      "desc": "cms模版管理",
+      "desc": "cms模板管理",
       "oldName": null,
       "paranoid": 0
     },
     {
       "uuid": "53b2557e-7e75-4480-a97a-dd451b206f2e",
       "name": "cms_template_list",
-      "desc": "模版文件",
+      "desc": "模板文件",
       "oldName": null,
       "paranoid": 0
     }

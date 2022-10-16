@@ -4,7 +4,7 @@
     {
       "type": "alert",
       "title": "特别提醒",
-      "body": "如果您要修改模版，不要使用默认模版,可以点击【添加模版】会从默认模版复制一份新的模版，请在新的模版上进行制作修改！",
+      "body": "如果您要修改模板，不要使用默认模板,可以点击【添加模板】会从默认模板复制一份新的模板，请在新的模板上进行制作修改！",
       "level": "info",
       "showIcon": true,
       "className": "mb-3"
@@ -18,13 +18,13 @@
       },
       "headerToolbar": [
         {
-          "label": "新增模版",
+          "label": "新增模板",
           "type": "button",
           "actionType": "dialog",
           "level": "primary",
           "align": "right",
           "dialog": {
-            "title": "新增模版",
+            "title": "新增模板",
             "body": {
               "type": "form",
               "api": "/admin/cms/template/add",
@@ -32,7 +32,7 @@
                 {
                   "type": "input-text",
                   "name": "name",
-                  "label": "模版名称",
+                  "label": "模板名称",
                   "required": true
                 },
                 {
@@ -41,7 +41,7 @@
                 {
                   "type": "input-text",
                   "name": "path",
-                  "label": "模版目录前缀",
+                  "label": "模板目录前缀",
                   "required": true,
                   "description": "实际模板目录 view/cms/${path}-{uuid}"
                 },
@@ -51,7 +51,7 @@
                 {
                   "type": "input-text",
                   "name": "author",
-                  "label": "模版作者",
+                  "label": "模板作者",
                   "required": true
                 },
                 {
@@ -67,13 +67,13 @@
             }
           }
         },{
-          "label": "导入模版",
+          "label": "导入模板",
           "type": "button",
           "actionType": "dialog",
           "level": "success",
           "align": "right",
           "dialog": {
-            "title": "导入模版",
+            "title": "导入模板",
             "body":  {
               "type": "form",
               "api": "/admin/cms/template/import",
@@ -82,7 +82,7 @@
                 {
                   "type": "input-file",
                   "name": "file",
-                  "label": "模版文件",
+                  "label": "模板文件",
                   "accept": "*",
                   "asBlob": true
                 }
@@ -158,7 +158,7 @@
             "actionType": "ajax",
             "level": "link",
             "className": "text-danger",
-            "confirmText": "确定要使用该模版吗？使用后请检查栏目和详情的模版！",
+            "confirmText": "确定要使用该模板吗？使用后请检查栏目和详情的模板！",
             "api": "get:/admin/cms/template/use?uuid=$uuid",
             "visibleOn": "${!isu}"
           }

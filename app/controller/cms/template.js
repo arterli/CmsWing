@@ -5,12 +5,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const compressing = require('compressing');
 /**
-* @controller cms模版管理
+* @controller cms模板管理
 */
 class TemplateController extends Controller {
   /**
-  * @summary 模版列表
-  * @description 模版列表
+  * @summary 模板列表
+  * @description 模板列表
   * @router get /admin/cms/template
   * @request query integer field_name desc
   * @response 200 baseRes desc
@@ -51,8 +51,8 @@ class TemplateController extends Controller {
     this.success({ items: list.rows, total: list.count });
   }
   /**
-  * @summary 添加模版
-  * @description 添加模版
+  * @summary 添加模板
+  * @description 添加模板
   * @router post /admin/cms/template/add
   * @request body cms_template_add #body desc
   * @response 200 baseRes desc
@@ -84,8 +84,8 @@ class TemplateController extends Controller {
     this.success(add);
   }
   /**
-  * @summary 删除模版
-  * @description 删除模版
+  * @summary 删除模板
+  * @description 删除模板
   * @router get /admin/cms/template/del
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -104,8 +104,8 @@ class TemplateController extends Controller {
     this.success(del);
   }
   /**
-  * @summary 编辑模版
-  * @description 编辑模版
+  * @summary 编辑模板
+  * @description 编辑模板
   * @router post /admin/cms/template/edit
   * @request body cms_template_add #body desc
   * @response 200 baseRes desc
@@ -117,8 +117,8 @@ class TemplateController extends Controller {
     this.success(add);
   }
   /**
-  * @summary 使用模版
-  * @description 使用模版
+  * @summary 使用模板
+  * @description 使用模板
   * @router get /admin/cms/template/use
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -131,8 +131,8 @@ class TemplateController extends Controller {
     this.success(up);
   }
   /**
-  * @summary 模版详情
-  * @description 模版详情
+  * @summary 模板详情
+  * @description 模板详情
   * @router get /admin/cms/template/info
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -145,8 +145,8 @@ class TemplateController extends Controller {
     this.success({ info });
   }
   /**
-  * @summary 模版列表
-  * @description 模版列表
+  * @summary 模板列表
+  * @description 模板列表
   * @router get /admin/cms/template/list
   * @request query integer field_name desc
   * @response 200 baseRes desc
@@ -190,8 +190,8 @@ class TemplateController extends Controller {
     this.success({ items: list.rows, total: list.count });
   }
   /**
-  * @summary 添加模版文件
-  * @description 添加模版文件
+  * @summary 添加模板文件
+  * @description 添加模板文件
   * @router post /admin/cms/template/listadd
   * @request body cms_template_list_add *body desc
   * @response 200 baseRes desc
@@ -213,8 +213,8 @@ class TemplateController extends Controller {
     this.success(add);
   }
   /**
-  * @summary 编辑模版文件
-  * @description 编辑模版文件
+  * @summary 编辑模板文件
+  * @description 编辑模板文件
   * @router post /admin/cms/template/listedit
   * @request body cms_template_list_edit *body desc
   * @response 200 baseRes desc
@@ -236,8 +236,8 @@ class TemplateController extends Controller {
     this.success(edit);
   }
   /**
-  * @summary 删除模版文件
-  * @description 删除模版文件
+  * @summary 删除模板文件
+  * @description 删除模板文件
   * @router get /admin/cms/template/listdel
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -257,8 +257,8 @@ class TemplateController extends Controller {
     this.success(del);
   }
   /**
-  * @summary 使用首页模版
-  * @description 使用首页模版
+  * @summary 使用首页模板
+  * @description 使用首页模板
   * @router get /admin/cms/template/listuse
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -272,8 +272,8 @@ class TemplateController extends Controller {
     this.success(up);
   }
   /**
-  * @summary 导出模版
-  * @description 导出模版
+  * @summary 导出模板
+  * @description 导出模板
   * @router get /admin/cms/template/export
   * @request query string *uuid desc
   * @response 200 baseRes desc
@@ -314,8 +314,8 @@ class TemplateController extends Controller {
     // this.success(1);
   }
   /**
-  * @summary 导入模版
-  * @description 导入模版
+  * @summary 导入模板
+  * @description 导入模板
   * @router post /admin/cms/template/import
   * @request body cms_template_add body desc
   * @response 200 baseRes desc
@@ -361,8 +361,8 @@ class TemplateController extends Controller {
     this.success(1);
   }
   /**
-  * @summary 获取模版
-  * @description 获取模版
+  * @summary 获取模板
+  * @description 获取模板
   * @router get /admin/cms/template/getTemplate
   * @request query string *type desc
   * @response 200 baseRes desc
@@ -376,7 +376,7 @@ class TemplateController extends Controller {
     map.where.type = type;
     map.where.template_uuid = temp.uuid;
     const list = await ctx.model.CmsTemplateList.findAll(map);
-    const arr = [{ label: '默认模版', value: '' }];
+    const arr = [{ label: '默认模板', value: '' }];
     for (const v of list) {
       const obj = {};
       obj.label = `${v.title}(${v.type}_${v.name}.html)`;

@@ -1,7 +1,7 @@
 {
   "RECORDS": [
     {
-      "name": "默认模版",
+      "name": "默认模板",
       "path": "default",
       "author": "arterli",
       "sys": 1,
@@ -10,7 +10,7 @@
       "version": "1.0"
     },
     {
-      "name": "CmsWing官网模版",
+      "name": "CmsWing官网模板",
       "path": "cmswing",
       "author": "阿特",
       "sys": 0,

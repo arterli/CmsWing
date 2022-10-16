@@ -40,7 +40,7 @@
         "level": "primary",
         "align": "right",
         "dialog": {
-          "title": "新增模版",
+          "title": "新增模板",
           "body": {
             "type": "form",
             "api": "/admin/cms/template/edit",
@@ -48,7 +48,7 @@
               {
                 "type": "input-text",
                 "name": "info.name",
-                "label": "模版名称",
+                "label": "模板名称",
                 "required": true
               },
               {
@@ -57,7 +57,7 @@
               {
                 "type": "input-text",
                 "name": "info.author",
-                "label": "模版作者",
+                "label": "模板作者",
                 "required": true
               },
               {
@@ -128,23 +128,23 @@
               "value": "index",
               "options": [
                 {
-                  "label": "首页模版",
+                  "label": "首页模板",
                   "value": "index"
                 },
                 {
-                  "label": "列表模版",
+                  "label": "列表模板",
                   "value": "list"
                 },
                 {
-                  "label": "详情模版",
+                  "label": "详情模板",
                   "value": "detail"
                 },
                 {
-                  "label": "公共模版",
+                  "label": "公共模板",
                   "value": "inc"
                 },
                 {
-                  "label": "评论模版",
+                  "label": "评论模板",
                   "value": "comment"
                 }
               ]
@@ -156,13 +156,13 @@
           "align": "right"
         },
         {
-          "label": "新增模版",
+          "label": "新增模板",
           "type": "button",
           "actionType": "drawer",
           "level": "primary",
           "align": "right",
           "drawer": {
-            "title": "新增模版",
+            "title": "新增模板",
             "size": "xl",
             "position": "right",
             "body": {
@@ -172,7 +172,7 @@
                 {
                   "type": "input-text",
                   "name": "title",
-                  "label": "模版名称",
+                  "label": "模板名称",
                   "required": true
                 },
                 {
@@ -192,7 +192,7 @@
                   "type": "editor",
                   "size": "xl",
                   "name": "html",
-                  "label": "模版代码",
+                  "label": "模板代码",
                   "placeholder": "请输入",
                   "language": "html",
                   "required": true
@@ -225,7 +225,7 @@
         },
         {
           "name": "title",
-          "label": "模版名称"
+          "label": "模板名称"
         },
         {
           "name": "name",
@@ -243,7 +243,7 @@
               "actionType": "ajax",
               "level": "link",
               "className": "text-danger",
-              "confirmText": "确定要使用该首页模版吗？",
+              "confirmText": "确定要使用该首页模板吗？",
               "api": "get:/admin/cms/template/listuse?uuid=$uuid",
               "visibleOn": "${!isu && cat ==='index'}"
             },
@@ -253,7 +253,7 @@
               "level": "link",
               "actionType": "drawer",
               "drawer": {
-                "title": "编辑模版",
+                "title": "编辑模板",
                 "size": "xl",
                 "position": "right",
                 "body": {
@@ -264,7 +264,7 @@
                     {
                       "type": "input-text",
                       "name": "title",
-                      "label": "模版名称",
+                      "label": "模板名称",
                       "required": true
                     },
                     {
@@ -285,7 +285,7 @@
                       "type": "editor",
                       "size": "xl",
                       "name": "html",
-                      "label": "模版代码",
+                      "label": "模板代码",
                       "placeholder": "请输入",
                       "language": "html",
                       "required": true

@@ -247,7 +247,7 @@
                             },
                             {
                               "type": "fieldSet",
-                              "title": "模版设置",
+                              "title": "模板设置",
                               "collapsable": true,
                               "body": {
                                 "type": "group",
@@ -260,7 +260,7 @@
                                     "searchable": true,
                                     "selectFirst": true,
                                     "source": "/admin/cms/template/getTemplate?type=list",
-                                    "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
+                                    "description": "模板在/app/view/cms内,命名规则 list_模板名称.html"
                                   },
                                   {
                                     "name": "template_detail",
@@ -269,7 +269,7 @@
                                     "searchable": true,
                                     "selectFirst": true,
                                     "source": "/admin/cms/template/getTemplate?type=detail",
-                                    "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
+                                    "description": "模板在/app/view/cms内,命名规则 detail_模板名称.html"
                                   }
                                 ]
                               }
@@ -550,7 +550,7 @@
                       
                       {
                         "type": "fieldSet",
-                        "title": "模版设置",
+                        "title": "模板设置",
                         "collapsable": true,
                         "body": {
                           "type": "group",
@@ -564,7 +564,7 @@
                               "searchable": true,
                               "selectFirst": true,
                               "source": "/admin/cms/template/getTemplate?type=list",
-                              "description": "模版在/app/view/cms内,命名规则 list_模版名称.html"
+                              "description": "模板在/app/view/cms内,命名规则 list_模板名称.html"
                             },
                             {
                               "name": "template_detail",
@@ -573,7 +573,7 @@
                               "searchable": true,
                               "selectFirst": true,
                               "source": "/admin/cms/template/getTemplate?type=detail",
-                              "description": "模版在/app/view/cms内,命名规则 detail_模版名称.html"
+                              "description": "模板在/app/view/cms内,命名规则 detail_模板名称.html"
                             }
                           ]
                         }

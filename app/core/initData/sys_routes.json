@@ -2206,7 +2206,7 @@
     },
     {
       "uuid": "da683795-5e01-4470-8fbc-ac1b8fff2aa4",
-      "name": "模版管理",
+      "name": "模板管理",
       "path": "/cms/template",
       "icon": "fa-solid fa-code",
       "verb": "get",
@@ -2225,7 +2225,7 @@
     },
     {
       "uuid": "d3ae5a1a-5937-4730-9223-2c44d8ac7ce5",
-      "name": "模版列表",
+      "name": "模板列表",
       "path": "/admin/cms/template",
       "icon": null,
       "verb": "get",
@@ -2244,7 +2244,7 @@
     },
     {
       "uuid": "5f6a52cb-02a8-4d4f-8c12-07d49de2d283",
-      "name": "添加模版",
+      "name": "添加模板",
       "path": "/admin/cms/template/add",
       "icon": null,
       "verb": "post",
@@ -2263,7 +2263,7 @@
     },
     {
       "uuid": "7e4ffa63-5073-43f6-9813-95d73f4132ce",
-      "name": "编辑模版",
+      "name": "编辑模板",
       "path": "/cms/template/:uuid",
       "icon": null,
       "verb": "get",
@@ -2282,7 +2282,7 @@
     },
     {
       "uuid": "e015adf3-bc53-4afe-ad1c-73d75ad9bb51",
-      "name": "模版详情",
+      "name": "模板详情",
       "path": "/admin/cms/template/info",
       "icon": null,
       "verb": "get",
@@ -2301,7 +2301,7 @@
     },
     {
       "uuid": "8227a516-85b2-4321-b10b-7abbdc8590e9",
-      "name": "模版列表",
+      "name": "模板列表",
       "path": "/admin/cms/template/list",
       "icon": null,
       "verb": "get",
@@ -2320,7 +2320,7 @@
     },
     {
       "uuid": "e3fcb7ba-0e04-423a-810e-e28be1103578",
-      "name": "添加模版",
+      "name": "添加模板",
       "path": "/admin/cms/template/listadd",
       "icon": null,
       "verb": "post",
@@ -2339,7 +2339,7 @@
     },
     {
       "uuid": "81e816b8-2ef0-4565-bc1c-6b47075ad6aa",
-      "name": "编辑模版文件",
+      "name": "编辑模板文件",
       "path": "/admin/cms/template/listedit",
       "icon": null,
       "verb": "post",
@@ -2358,7 +2358,7 @@
     },
     {
       "uuid": "9569c4e6-5e78-485f-90e9-6b9880c0a282",
-      "name": "删除模版文件",
+      "name": "删除模板文件",
       "path": "/admin/cms/template/listdel",
       "icon": null,
       "verb": "get",
@@ -2377,7 +2377,7 @@
     },
     {
       "uuid": "60abe343-9962-42e5-b3a7-1babe4caa281",
-      "name": "使用首页模版",
+      "name": "使用首页模板",
       "path": "/admin/cms/template/listuse",
       "icon": null,
       "verb": "get",
@@ -2396,7 +2396,7 @@
     },
     {
       "uuid": "9a5ee2dc-058c-416c-b2a5-3a853ed0d7f4",
-      "name": "编辑模版",
+      "name": "编辑模板",
       "path": "/admin/cms/template/edit",
       "icon": null,
       "verb": "post",
@@ -2415,7 +2415,7 @@
     },
     {
       "uuid": "c091b22b-1013-4c5b-adcd-9a509cafd2fb",
-      "name": "删除模版",
+      "name": "删除模板",
       "path": "/admin/cms/template/del",
       "icon": null,
       "verb": "get",
@@ -2434,7 +2434,7 @@
     },
     {
       "uuid": "5ef2e0fb-6f55-4b60-8746-77fa51f2e773",
-      "name": "使用模版",
+      "name": "使用模板",
       "path": "/admin/cms/template/use",
       "icon": null,
       "verb": "get",
@@ -2453,7 +2453,7 @@
     },
     {
       "uuid": "e98243f4-70d9-49ca-a374-b480d0ab55ce",
-      "name": "导出模版",
+      "name": "导出模板",
       "path": "/admin/cms/template/export",
       "icon": null,
       "verb": "get",
@@ -2472,7 +2472,7 @@
     },
     {
       "uuid": "cdcf4c23-f1b8-4b73-bc3b-7bfa4c2378aa",
-      "name": "导入模版",
+      "name": "导入模板",
       "path": "/admin/cms/template/import",
       "icon": null,
       "verb": "post",
@@ -2491,7 +2491,7 @@
     },
     {
       "uuid": "00c400a2-63dc-468a-9f4a-c56457d69009",
-      "name": "获取模版",
+      "name": "获取模板",
       "path": "/admin/cms/template/getTemplate",
       "icon": null,
       "verb": "get",

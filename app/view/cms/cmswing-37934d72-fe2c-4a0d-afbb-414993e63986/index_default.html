@@ -192,7 +192,7 @@ data-bs-offset="0"{%endblock%} {% block middle %}
       <span class="py-2 px-2 text-gray-300">&bull;</span>
     </li>
     <li class="list-inline-item">
-      <a href="#template" class="scroll-to d-block py-2 link-normal">模版</a>
+      <a href="#template" class="scroll-to d-block py-2 link-normal">模板</a>
     </li>
     <li class="list-inline-item">
       <span class="py-2 px-2 text-gray-300">&bull;</span>
@@ -223,8 +223,7 @@ data-bs-offset="0"{%endblock%} {% block middle %}
    })%}
   <div class="container">
     <div class="d-inline-block mx-auto">
-      <a class="fw-bold d-block mt-3 small" href="/cms/list/{{template.name or template.id}}">Blog <i class="fi fi-arrow-right-slim small"></i></a>
-      <small class="fw-bold mt-3 d-block">Blog</small>
+      <a class="fw-bold d-block mt-3 small" href="/cms/list/{{blog.name or blog.id}}">Blog <i class="fi fi-arrow-right-slim small"></i></a>
       <h2 class="display-7 mb-3 fw-bold">博客</h2>
     </div> 
     
@@ -330,7 +329,7 @@ data-bs-offset="0"{%endblock%} {% block middle %}
   <div class="container">
     <div class="d-inline-block mx-auto">
       <a class="fw-bold d-block mt-3 small" href="/cms/list/{{template.name or template.id}}">Template <i class="fi fi-arrow-right-slim small"></i></a>
-      <h2 class="display-7 mb-3 text-center fw-bold">模版</h2>
+      <h2 class="display-7 mb-3 text-center fw-bold">模板</h2>
     </div>
     
        {% set templatelist = 'cms_doc'|@findAll({

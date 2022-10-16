@@ -148,7 +148,7 @@ class WebController extends Controller {
       v.pathTitle = (await ctx.service.cms.classify.info(v.classify_id)).pathTitle;
     }
     let temp;
-    // 查询栏目有没有绑定模版
+    // 查询栏目有没有绑定模板
     if (classify.template_lists) {
       temp = `cms/${templatePath}/${classify.template_lists}`;
     } else {
@@ -197,7 +197,7 @@ class WebController extends Controller {
     info[models.name] = (await ctx.model[className].findOne({ where: { doc_id: info.id } })).toJSON();
     // console.log(JSON.stringify(info, null, 2));
     let temp;
-    // 查询栏目有没有绑定模版
+    // 查询栏目有没有绑定模板
     if (info.template) {
       temp = `cms/${templatePath}/${info.template}`;
     } else if (info.cms_classify.template_detail) {

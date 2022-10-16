@@ -141,18 +141,18 @@ type Mutation {
   #cms评论回复 更新
   CmsCommentsReply_update(data:EditCmsCommentsReply!,where:WhereCmsCommentsReply!):ResEditCmsCommentsReply
 
-  #cms模版管理 添加
+  #cms模板管理 添加
   CmsTemplate_create(data:AddCmsTemplate):CmsTemplate
-  #cms模版管理 删除
+  #cms模板管理 删除
   CmsTemplate_destroy(where:WhereCmsTemplate!):ResDelCmsTemplate
-  #cms模版管理 更新
+  #cms模板管理 更新
   CmsTemplate_update(data:EditCmsTemplate!,where:WhereCmsTemplate!):ResEditCmsTemplate
 
-  #模版文件 添加
+  #模板文件 添加
   CmsTemplateList_create(data:AddCmsTemplateList):CmsTemplateList
-  #模版文件 删除
+  #模板文件 删除
   CmsTemplateList_destroy(where:WhereCmsTemplateList!):ResDelCmsTemplateList
-  #模版文件 更新
+  #模板文件 更新
   CmsTemplateList_update(data:EditCmsTemplateList!,where:WhereCmsTemplateList!):ResEditCmsTemplateList
 
   #系统配置 添加

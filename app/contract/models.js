@@ -426,7 +426,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
     tags: { type: 'string', description: '标签' },
-    template: { type: 'string', description: '模版详情' },
+    template: { type: 'string', description: '模板详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     updatedAt: { type: 'string', description: '更新时间' },
@@ -450,7 +450,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前', required: false },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）', required: false },
     tags: { type: 'string', description: '标签', required: false },
-    template: { type: 'string', description: '模版详情', required: false },
+    template: { type: 'string', description: '模板详情', required: false },
     title: { type: 'string', description: '内容标题', required: false },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）', required: true },
     user_uuid: { type: 'string', description: '作者uuid', required: false },
@@ -473,7 +473,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
     tags: { type: 'string', description: '标签' },
-    template: { type: 'string', description: '模版详情' },
+    template: { type: 'string', description: '模板详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     user_uuid: { type: 'string', description: '作者uuid' },
@@ -729,15 +729,15 @@ module.exports = {
     
   },
 
-  // cms模版管理
+  // cms模板管理
   cms_template_item: {
     author: { type: 'string', description: '作者' },
     createdAt: { type: 'string', description: '创建时间' },
     id: { type: 'string', description: '主键' },
     isu: { type: 'boolean', description: '正在使用' },
-    name: { type: 'string', description: '模版名称' },
-    path: { type: 'string', description: '模版目录' },
-    sys: { type: 'boolean', description: '系统模版' },
+    name: { type: 'string', description: '模板名称' },
+    path: { type: 'string', description: '模板目录' },
+    sys: { type: 'boolean', description: '系统模板' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
     version: { type: 'string', description: '版本号' },
@@ -746,9 +746,9 @@ module.exports = {
   cms_template_add: {
     author: { type: 'string', description: '作者', required: true },
     isu: { type: 'boolean', description: '正在使用', required: false },
-    name: { type: 'string', description: '模版名称', required: true },
-    path: { type: 'string', description: '模版目录', required: true },
-    sys: { type: 'boolean', description: '系统模版', required: false },
+    name: { type: 'string', description: '模板名称', required: true },
+    path: { type: 'string', description: '模板目录', required: true },
+    sys: { type: 'boolean', description: '系统模板', required: false },
     uuid: { type: 'string', description: 'uuid', required: true },
     version: { type: 'string', description: '版本号', required: true },
     
@@ -756,15 +756,15 @@ module.exports = {
   cms_template_edit: {
     author: { type: 'string', description: '作者' },
     isu: { type: 'boolean', description: '正在使用' },
-    name: { type: 'string', description: '模版名称' },
-    path: { type: 'string', description: '模版目录' },
-    sys: { type: 'boolean', description: '系统模版' },
+    name: { type: 'string', description: '模板名称' },
+    path: { type: 'string', description: '模板目录' },
+    sys: { type: 'boolean', description: '系统模板' },
     uuid: { type: 'string', description: 'uuid' },
     version: { type: 'string', description: '版本号' },
     
   },
 
-  // 模版文件
+  // 模板文件
   cms_template_list_item: {
     createdAt: { type: 'string', description: '创建时间' },
     html: { type: 'string', description: '文件内容' },
@@ -772,8 +772,8 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认' },
     isu: { type: 'boolean', description: '使用中' },
     name: { type: 'string', description: '文件名称' },
-    template_uuid: { type: 'string', description: '模版UUID' },
-    title: { type: 'string', description: '模版名称' },
+    template_uuid: { type: 'string', description: '模板UUID' },
+    title: { type: 'string', description: '模板名称' },
     type: { type: 'string', description: '类型' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'UUID' },
@@ -784,8 +784,8 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认', required: false },
     isu: { type: 'boolean', description: '使用中', required: false },
     name: { type: 'string', description: '文件名称', required: true },
-    template_uuid: { type: 'string', description: '模版UUID', required: true },
-    title: { type: 'string', description: '模版名称', required: true },
+    template_uuid: { type: 'string', description: '模板UUID', required: true },
+    title: { type: 'string', description: '模板名称', required: true },
     type: { type: 'string', description: '类型', required: true },
     uuid: { type: 'string', description: 'UUID', required: true },
     
@@ -795,8 +795,8 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认' },
     isu: { type: 'boolean', description: '使用中' },
     name: { type: 'string', description: '文件名称' },
-    template_uuid: { type: 'string', description: '模版UUID' },
-    title: { type: 'string', description: '模版名称' },
+    template_uuid: { type: 'string', description: '模板UUID' },
+    title: { type: 'string', description: '模板名称' },
     type: { type: 'string', description: '类型' },
     uuid: { type: 'string', description: 'UUID' },
     

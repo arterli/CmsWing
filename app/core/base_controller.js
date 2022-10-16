@@ -5,7 +5,7 @@ class BaseController extends Controller {
   constructor(ctx) {
     super(ctx);
     const { Sequelize } = this.app;
-    // cms模版路径 {{'cms'|@template('path')}}
+    // cms模板路径 {{'cms'|@template('path')}}
     this.app.nunjucks.addFilter('@template', async (m, n, callback) => {
       let res = '';
       if (m === 'cms') {
@@ -35,8 +35,8 @@ class BaseController extends Controller {
           }
         }
       }
-      let res = await ctx.model[modelName].findOne(map);
-      res = res ? res.toJSON() : res;
+      map.raw = true;
+      const res = await ctx.model[modelName].findOne(map);
       callback(null, res);
     }, true);
     // findAll {{'mdoel'|@findAll('{where:{a:1}}')}}
@@ -55,9 +55,11 @@ class BaseController extends Controller {
           }
         }
       }
-      const res = (await ctx.model[modelName].findAll(map)).map(item => item.toJSON());
+      map.raw = true;
+      const res = await ctx.model[modelName].findAll(map);
       callback(null, res);
     }, true);
+
     // 系统导航标签 {{'header'|@navigation}} header/footer
     this.app.nunjucks.addFilter('@navigation', async (m = 'header', callback) => {
       // console.log(m);
