@@ -14,11 +14,6 @@
 <div align="center">
   QQ 群: 49757468
 </div>
-## QuickStart
-
-<!-- add docs here for user -->
-
-see [egg docs][egg] for more detail.
 
 ### 启动说明
 git clone 到本地后，进入项目根目录
