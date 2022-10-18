@@ -83,8 +83,8 @@ class WebController extends Controller {
   async index() {
     const { ctx } = this;
     ctx.meta_title = '首页';
-    ctx.keywords = this.config.sys.keywords;
-    ctx.description = this.config.sys.description;
+    ctx.keywords = this.config.cms.keywords;
+    ctx.description = this.config.cms.description;
     // await ctx.service.sys.generate.graphqlAll();
     const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
     const tempinfo = await this.ctx.model.CmsTemplateList.findOne({ where: { isu: true, template_uuid: temp.uuid } });

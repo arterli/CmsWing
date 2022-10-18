@@ -2,30 +2,95 @@
   "type": "page",
   "body": {
     "type": "form",
-    "title": "系统配置",
+    "title": "Config 配置",
     "mode": "horizontal",
+    "horizontal": {
+      "leftFixed": "lg"
+    },
     "debug":false,
-    "initApi": "/admin/sys/config/sys",
-    "api": "/admin/sys/config/sys/update",
+    "initApi": "/admin/sys/config/egg",
+    "api": "/admin/sys/config/egg/update",
     "body": [
       {
         "type": "input-text",
-        "name": "name",
-        "label": "系统名称"
+        "label": "签名密钥(keys)",
+        "name": "keys",
+        "required": true,
+        "description": "用于cookie签名密钥，应更改为您自己的并保持安全"
       },
       {
-        "type": "input-tag",
-        "name": "keywords",
-        "label": "关键词"
+        "type": "fieldSet",
+        "title": "启动配置项(cluster)",
+        "collapsable": true,
+        "body": [
+          {
+            "name": "cluster.listen.port",
+            "type": "input-number",
+            "label": "端口号(port)",
+            "required": true,
+            "description":"端口号，默认会读取环境变量 process.env.PORT，如未传递将使用框架内置端口 7001"
+          },
+          {
+            "name": "cluster.listen.hostname",
+            "type": "input-text",
+            "label": "主机名(hostname)",
+            "required": true,
+            "description":"生产环境不建议设置 hostname 为 '0.0.0.0'，它将允许来自外部网络和来源的连接，请在知晓风险的情况下使用，生产环境中可以设置为 ‘127.0.0.1’"
+          }
+        ]
       },
       {
-        "type": "input-text",
-        "name": "description",
-        "label": "系统简介"
-      },{
-        "type": "input-text",
-        "name": "icp",
-        "label": "ICP备案号"
+        "type": "fieldSet",
+        "title": "上传配置项(multipart)",
+        "collapsable": true,
+        "body": [
+          {
+            "name": "multipart.mode",
+            "type": "input-text",
+            "required": true,
+            "label": "模式(mode)",
+            "description":"启用模式file"
+          },
+          {
+            "name": "multipart.fileSize",
+            "type": "input-text",
+            "label": "最大上传(fileSize)",
+            "required": true,
+            "description":"默认上传最大文件为 100mb ,如果上传大文件，可以修改此配置。"
+          },
+          {
+            "name": "multipart.whitelist",
+            "label": "白名单(whitelist)",
+            "type": "input-array",
+            "inline": true,
+            "itemsWrapperClassName":"clear-both",
+            "itemClassName":"float-left mt-0 mb-3 mr-4",
+            "items": {
+              "type": "input-text",
+              "clearable": false
+            }
+          },
+          {
+            "type": "fieldSet",
+            "title": "跨域配置项(cors)",
+            "collapsable": true,
+            "body": [
+              {
+                "name": "cors.origin",
+                "type": "input-text",
+                "label": "origin",
+                "required": true,
+                "description":"如果origin设置了，插件将跟随它设置Access-Control-Allow-Origin并忽略security.domainWhiteList. 否则，security.domainWhiteList默认设置将如上所述生效。"
+              },
+              {
+                "name": "cors.allowMethods",
+                "type": "input-tag",
+                "required": true,
+                "label": "allowMethods"
+              }
+            ]
+          }
+        ]
       }
     ]
   }

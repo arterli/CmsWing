@@ -10,14 +10,26 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
-  // 修改默认端口
-  // config.cluster = {
-  //   listen: {
-  //     port: 8001,
-  //   },
-  // };
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1661321361697_9234';
+  config.remoteConfig = {
+    async handler(ctx) {
+      const data = await ctx.model.SysConfig.findAll();
+      const cdata = {};
+      for (const v of data) {
+        if (v.name === 'egg') {
+          for (const key in v.value) {
+            if (Object.hasOwnProperty.call(v.value, key)) {
+              cdata[key] = v.value[key];
+            }
+          }
+        } else {
+          cdata[v.name] = v.value;
+        }
+      }
+      return cdata;
+    },
+  };
+  // add your middleware config here
+  config.middleware = [ 'graphql' ];
   config.graphql = {
     router: '/graphql-dev',
     // 是否加载到 app 上，默认开启
@@ -62,8 +74,6 @@ module.exports = appInfo => {
     //   cors,
     // },
   };
-  // add your middleware config here
-  config.middleware = [ 'graphql' ];
   config.view = {
     defaultViewEngine: 'nunjucks',
     defaultExtension: '.html',
@@ -71,37 +81,9 @@ module.exports = appInfo => {
       '.html': 'nunjucks',
     },
   };
-  config.multipart = {
-    mode: 'file',
-    fileExtensions: [
-      '.xls',
-      '.xlsx',
-      '.pdf',
-      '.tar',
-    ],
-  };
   config.security = {
     csrf: {
       enable: false,
-    },
-  };
-  config.jsonp = {
-    callback: 'jsonpCallback', // 识别 query 中的 `callback` 参数
-    limit: 100, // 函数名最长为 100 个字符
-  };
-  // 允许跨域的方法
-  config.cors = {
-    origin: '*',
-    allowMethods: 'GET, PUT, POST, DELETE, PATCH',
-  };
-  config.remoteConfig = {
-    async handler(ctx) {
-      const data = await ctx.model.SysConfig.findAll();
-      const cdata = {};
-      for (const v of data) {
-        cdata[v.name] = v.value;
-      }
-      return cdata;
     },
   };
   config.swaggerdoc = require('./swagger');

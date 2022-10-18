@@ -1,0 +1,37 @@
+{
+  "type": "page",
+  "body": {
+    "type": "form",
+    "title": "CMS配置",
+    "mode": "horizontal",
+    "debug":false,
+    "initApi": "/admin/sys/config/cms",
+    "api": "/admin/sys/config/cms/update",
+    "body": [
+      {
+        "type": "input-text",
+        "name": "name",
+        "label": "应用名称"
+      },
+      {
+        "type": "input-tag",
+        "name": "keywords",
+        "label": "关键词"
+      },
+      {
+        "type": "input-text",
+        "name": "description",
+        "label": "应用简介"
+      },{
+        "type": "input-text",
+        "name": "icp",
+        "label": "ICP备案号"
+      },{
+        "type": "editor",
+        "name": "tongji",
+        "label": "统计代码",
+        "language": "javascript"
+      }
+    ]
+  }
+}

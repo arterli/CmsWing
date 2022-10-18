@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ctx.meta_title}}-{{ctx.app.config.sys.name}}</title>
+    <title>{{ctx.meta_title}}-{{ctx.app.config.cms.name}}</title>
     <meta name="keywords" content="{{ctx.keywords}}" />
     <meta name="description" content="{{ctx.description}}" />
     <meta name="viewport" content="width=device-width, maximum-scale=5, initial-scale=1">
@@ -19,7 +19,7 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="/public/cms/{{'cms'|@template('path')}}/favicon.ico?v={{'cms'|@template('version')}}">
     <link rel="apple-touch-icon" href="/public/cms/{{'cms'|@template('path')}}/logo/icon_512x512.png?v={{'cms'|@template('version')}}">
-
+{{ctx.app.config.cms.tongji|dump}}
 </head>
 
 <body {%block body%}{%endblock%}>

@@ -110,7 +110,7 @@ class BaseController extends Controller {
     this.ctx.throw(404, msg);
   }
   async cmsTemplatePath() {
-    const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: true } });
+    const temp = await this.ctx.model.CmsTemplate.findOne({ where: { isu: { [Op.eq]: true } } });
     return `${temp.path}-${temp.uuid}`;
   }
 }
