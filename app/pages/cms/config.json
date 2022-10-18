@@ -11,26 +11,31 @@
       {
         "type": "input-text",
         "name": "name",
-        "label": "应用名称"
+        "label": "应用名称",
+        "description":"后台调用 this.config.cms.name , 模版调用 {{ctx.app.config.cms.name}}"
       },
       {
         "type": "input-tag",
         "name": "keywords",
-        "label": "关键词"
+        "label": "关键词",
+        "description":"后台调用 this.config.cms.keywords , 模版调用 {{ctx.app.config.cms.keywords}}"
       },
       {
         "type": "input-text",
         "name": "description",
-        "label": "应用简介"
+        "label": "应用简介",
+        "description":"后台调用 this.config.cms.description , 模版调用 {{ctx.app.config.cms.description}}"
       },{
         "type": "input-text",
         "name": "icp",
-        "label": "ICP备案号"
+        "label": "ICP备案号",
+        "description":"后台调用 this.config.cms.icp , 模版调用 {{ctx.app.config.cms.icp}}"
       },{
         "type": "editor",
         "name": "tongji",
         "label": "统计代码",
-        "language": "javascript"
+        "language": "javascript",
+        "description":"后台调用 this.config.cms.tongji , 模版调用 {{ctx.app.config.cms.tongji}}"
       }
     ]
   }

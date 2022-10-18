@@ -96,6 +96,18 @@ class IndexController extends Controller {
         };
         return false;
       }
+    } else if (model === 'mc') {
+      // MCenter 验证权限
+      const token = this.ctx.session.mcToken || this.ctx.get('token');
+      const userInfo = this.ctx.helper.deToken(token);
+      if (!userInfo) {
+        this.ctx.body = {
+          status: 401,
+          msg: '未登录',
+          data: { isLogin: false },
+        };
+        return false;
+      }
     } else if (model === 'open') {
       // 开放接口
       const check = await this.service.sys.rbac.openApi(body.query);
