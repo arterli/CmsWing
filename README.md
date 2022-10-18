@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img width="280" src="https://www.cmswing.com/public/cms/cmswing-37934d72-fe2c-4a0d-afbb-414993e63986/images/logo/logo_dark.svg">
+    <img width="280" src="https://oss.cmswing.com/gitee/logo_dark.svg">
   </p>
 
 [CmsWing 是什么](https://www.cmswing.com/cms/detail/2) |
