@@ -1,9 +1,27 @@
-# 重要说明
-cmswing2.0 基础框架+CMS模块已经开发完成,可以正式使用，文档正在编写中。。。
+<div align="center">
+  <p>
+    <img width="50%" src="https://www.cmswing.com/public/cms/cmswing-37934d72-fe2c-4a0d-afbb-414993e63986/images/logo/logo_dark.svg">
+  </p>
 
-官方网站 https://www.cmswing.com/
-# CmsWing
+[CmsWing 是什么？](https://www.cmswing.com/cms/detail/2) |
+[快速入门](https://www.cmswing.com/cms/detail/3) |
+[CMS 使用指南](https://www.cmswing.com/cms/detail/6) |
+[开发手册](https://www.cmswing.com/cms/detail/11) |
+[CmsWing 官网](https://www.cmswing.com)
 
+</div>
+
+<div align="center">
+  QQ 群: 1147750223（已满） |
+  QQ 群2: 651547026 |
+  如流群：3395342 |
+  如流群2：5511067|
+</div>
+## QuickStart
+
+<!-- add docs here for user -->
+
+see [egg docs][egg] for more detail.
 
 ### 启动说明
 git clone 到本地后，进入项目根目录
