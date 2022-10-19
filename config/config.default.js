@@ -39,6 +39,9 @@ module.exports = appInfo => {
   };
   // add your middleware config here
   config.middleware = [ 'graphql' ];
+  config.multipart = {
+    mode: 'file',
+  };
   config.graphql = {
     router: '/graphql-dev',
     // 是否加载到 app 上，默认开启
