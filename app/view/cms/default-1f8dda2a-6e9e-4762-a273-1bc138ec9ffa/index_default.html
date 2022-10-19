@@ -130,7 +130,7 @@ data-jarallax-video="mp4:/public/assets/demo.files/video/hd0936.mp4,webm:/public
                 <p>{{top[0].description}}</p>
             </div>
 
-            <a href="/cms/list/{{top[0].cms_classify.name or top[0].cms_classify.id}}" target="_blank" class="link-muted">{{top[0].cms_classify.title}}</a>
+            <a href="/cms/list/{{top[0]['cms_classify.name'] or top[0]['cms_classify.id']}}" target="_blank" class="link-muted">{{top[0]['cms_classify.title']}}</a>
 
         </div>
 

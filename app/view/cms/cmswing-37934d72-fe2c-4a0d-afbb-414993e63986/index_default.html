@@ -265,10 +265,10 @@ data-bs-offset="0"{%endblock%} {% block middle %}
         </div>
 
         <a
-          href="/cms/list/{{top.cms_classify.name or top.cms_classify.id}}"
+          href="/cms/list/{{top['cms_classify.name'] or top['cms_classify.id']}}"
           target="_blank"
           class="link-muted"
-          >{{top.cms_classify.title}}</a
+          >{{top['cms_classify.title']}}</a
         >
       </div>
     </div>

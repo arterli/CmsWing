@@ -27,7 +27,7 @@ where:{classify_id:classify.id,pid:0,status:1},order:[[ 'sort', 'ASC' ]]
                     </p>
                 </div>
                 <div class="article-format" data-id="{{detail.id}}">
-                    {{detail.cms_doc_article.content|safe}}
+                    {{detail['cms_doc_article.content']|safe}}
                 </div>
                 <p class="text-muted border-bottom pb-2 small mt-5">
                     最后更新时间: {{helper.moment(detail.updatedAt).format('YYYY-MM-DD HH:mm:ss')}}

@@ -75,7 +75,7 @@
                                     <a href="/cms/detail/{{item.id}}" class="card-title"
                                         target="_blank">{{item.title|truncate(26, true, "...")}}</a>
                                     <p class="card-text">
-                                        <small class="text-muted">{{item.cms_classify.title}}/{{helper.moment(item.createdAt).fromNow()}}</small>
+                                        <small class="text-muted">{{item['cms_classify.title']}}/{{helper.moment(item.createdAt).fromNow()}}</small>
                                     </p>
                                 </div>
                             </div>
