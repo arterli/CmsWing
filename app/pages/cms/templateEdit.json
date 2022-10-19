@@ -1,7 +1,6 @@
 {
   "type": "page",
   "body": [
-
     {
       "type": "service",
       "api": "/admin/cms/template/info?uuid=${params.uuid}",
