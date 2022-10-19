@@ -3,17 +3,91 @@
     {
       "name": "objectStorage",
       "label": "对象储存配置",
-      "value": "{\"cos\": {\"path\": \"upload\"}, \"obs\": {\"path\": \"upload\", \"Bucket\": \"\"}, \"oss\": {\"path\": \"upload\", \"Bucket\": \"cmswing\", \"Region\": \"oss-cn-shanghai\", \"domain\": \"\", \"AccessKey\": \"\", \"SecretKey\": \"\"}, \"kodo\": {\"path\": \"upload\"}, \"type\": \"local\", \"local\": {\"path\": \"upload\", \"domain\": \"http://127.0.0.1:7001\"}}"
+      "value": {
+        "cos": {
+            "path": "upload"
+        },
+        "obs": {
+            "path": "upload",
+            "Bucket": ""
+        },
+        "oss": {
+            "path": "upload",
+            "Bucket": "cmswing",
+            "Region": "oss-cn-shanghai",
+            "domain": "",
+            "AccessKey": "",
+            "SecretKey": ""
+        },
+        "kodo": {
+            "path": "upload"
+        },
+        "type": "local",
+        "local": {
+            "path": "upload",
+            "domain": "http://127.0.0.1:7001"
+        }
+    }
     },
     {
       "name": "egg",
       "label": "Config 配置",
-      "value": "{\"cors\": {\"origin\": \"*\", \"allowMethods\": \"GET, PUT, POST, DELETE, PATCH\"}, \"keys\": \"gjkfldsifjerkfhsdjkahfuids\", \"cluster\": {\"listen\": {\"port\": 7001, \"hostname\": \"0.0.0.0\"}}, \"multipart\": {\"mode\": \"file\", \"fileSize\": \"100mb\", \"whitelist\": [\".jpg\", \".jpeg\", \".png\", \".gif\", \".bmp\", \".wbmp\", \".webp\", \".tif\", \".psd\", \".svg\", \".js\", \".jsx\", \".json\", \".css\", \".less\", \".html\", \".htm\", \".xml\", \".zip\", \".gz\", \".tgz\", \".gzip\", \".mp3\", \".mp4\", \".avi\", \".tar\"]}}"
+      "value": {
+        "cors": {
+            "origin": "*",
+            "allowMethods": "GET, PUT, POST, DELETE, PATCH"
+        },
+        "keys": "gjkfldsifjerkfhsdjkahfuids",
+        "cluster": {
+            "listen": {
+                "port": 7001,
+                "hostname": "0.0.0.0"
+            }
+        },
+        "multipart": {
+            "mode": "file",
+            "fileSize": "100mb",
+            "whitelist": [
+                ".jpg",
+                ".jpeg",
+                ".png",
+                ".gif",
+                ".bmp",
+                ".wbmp",
+                ".webp",
+                ".tif",
+                ".psd",
+                ".svg",
+                ".js",
+                ".jsx",
+                ".json",
+                ".css",
+                ".less",
+                ".html",
+                ".htm",
+                ".xml",
+                ".zip",
+                ".gz",
+                ".tgz",
+                ".gzip",
+                ".mp3",
+                ".mp4",
+                ".avi",
+                ".tar"
+            ]
+        }
+    }
     },
     {
       "name": "cms",
       "label": "CMS配置",
-      "value": "{\"icp\": \"陕ICP备19013609号-6\", \"name\": \"CmsWing\", \"tongji\": \"<script>\\n    var _hmt = _hmt || [];\\n    (function() {\\n  var hm = document.createElement(\\\"script\\\");\\n    hm.src = \\\"https://hm.baidu.com/hm.js?c479407a5725732813bcd8384c174467\\\";\\n    var s = document.getElementsByTagName(\\\"script\\\")[0];\\n    s.parentNode.insertBefore(hm, s);\\n})();\\n</script>\", \"keywords\": \"nodejs,cms,eggjs\", \"description\": \"企业级 Node.js WEB开发框架,使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！\"}"
+      "value": {
+        "icp": "陕ICP备19013609号-6",
+        "name": "CmsWing",
+        "tongji": "<script>\n    var _hmt = _hmt || [];\n    (function() {\n  var hm = document.createElement(\"script\");\n    hm.src = \"https://hm.baidu.com/hm.js?c479407a5725732813bcd8384c174467\";\n    var s = document.getElementsByTagName(\"script\")[0];\n    s.parentNode.insertBefore(hm, s);\n})();\n</script>",
+        "keywords": "nodejs,cms,eggjs",
+        "description": "企业级 Node.js WEB开发框架,使用 Egg.js 和 GraphQ 构建更好的 NodeJS 应用程序，帮助开发人员降低开发和维护成本！"
+    }
     }
   ]
 }
