@@ -4,6 +4,8 @@
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
+const fs = require('fs-extra');
+const path = require('path');
 module.exports = appInfo => {
   /**
    * built-in config
@@ -12,7 +14,14 @@ module.exports = appInfo => {
   const config = exports = {};
   config.remoteConfig = {
     async handler(ctx) {
-      const data = await ctx.model.SysConfig.findAll();
+      let data;
+      try {
+        data = await ctx.model.SysConfig.findAll();
+      } catch (error) {
+        const { RECORDS } = await fs.readJson(path.join(appInfo.baseDir, 'app/core/initData/sys_config.json'), { throws: false });
+        data = RECORDS;
+      }
+
       const cdata = {};
       for (const v of data) {
         if (v.name === 'egg') {
