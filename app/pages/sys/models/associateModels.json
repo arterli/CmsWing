@@ -3,7 +3,7 @@
   "body": [
     {
       "type": "alert",
-      "body": "创建一个 一对一 关系, hasOne 和 belongsTo 关联一起使用;<br>创建一个 一对多 关系, hasMany he belongsTo 关联一起使用;<br>创建一个 多对多 关系, 两个 belongsToMany 调用一起使用",
+      "body": "创建一个 一对一 关系, hasOne 和 belongsTo 关联一起使用;<br>创建一个 一对多 关系, hasMany 和 belongsTo 关联一起使用;<br>创建一个 多对多 关系, 两个 belongsToMany 关联一起使用",
       "showIcon": true,
       "className": "mb-1"
     },
