@@ -1,6 +1,7 @@
 {
   "type": "page",
   "body": [
+
     {
       "type": "service",
       "api": "/admin/cms/template/info?uuid=${params.uuid}",
@@ -34,7 +35,7 @@
               "type": "button",
               "icon": "fa-solid fa-pen-to-square",
               "label": "编辑",
-            
+
               "actionType": "dialog",
         "level": "primary",
         "align": "right",
