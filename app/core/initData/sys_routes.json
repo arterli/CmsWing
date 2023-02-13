@@ -17,7 +17,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "3632bf23-e4a9-4b0d-af83-9b2f02316894",
@@ -36,7 +37,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "e232f3ac-9081-4151-8ad2-9674e4db8d45",
@@ -55,7 +57,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": "get:/pages/index.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
@@ -71,10 +74,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
-      "sort": 0,
+      "sort": 1,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/models/index.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "c5f8768a-f1f4-406b-b587-755e03332823",
@@ -90,10 +94,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
-      "sort": 1,
+      "sort": 2,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/routes/index.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "70870f97-ee19-495e-8326-4efe0166437b",
@@ -112,7 +117,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "1319d800-090b-4d3a-8bd6-7e776821fb05",
@@ -128,10 +134,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
-      "sort": 1,
+      "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "61e8fbb6-ccc1-428c-a5ee-4df47afdd3d6",
@@ -147,10 +154,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
-      "sort": 2,
+      "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "a786208b-71f3-4e04-b140-ee29cb10812b",
@@ -166,10 +174,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
-      "sort": 3,
+      "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "99844a9b-5c26-477c-b91e-e831b64cd525",
@@ -185,10 +194,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
-      "sort": 4,
+      "sort": 6,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "31709085-24db-4d99-b529-093ecb0405d3",
@@ -204,10 +214,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
-      "sort": 5,
+      "sort": 7,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "135f7c98-6e44-4b8b-a76d-863821203d46",
@@ -226,7 +237,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "492db2de-0bd3-4050-a5d1-15d8192bf1cf",
@@ -242,10 +254,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 3,
+      "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "045e4001-f740-4e4f-8878-34b875f1bd1a",
@@ -261,10 +274,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 4,
+      "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "20ab6174-7a28-4637-a68f-c0d7bbf29f3c",
@@ -280,10 +294,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 5,
+      "sort": 6,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "7c360902-ba2a-49eb-a9f4-9c9334616efb",
@@ -299,10 +314,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 6,
+      "sort": 7,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
@@ -321,7 +337,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "197babdc-4666-418d-bd55-b5aad784fa39",
@@ -337,10 +354,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 7,
+      "sort": 8,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "bf46002c-0907-493d-a021-5d77a475f1ae",
@@ -356,10 +374,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 8,
+      "sort": 9,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "2aab780a-0fa4-46b7-b94b-5c374a391ed9",
@@ -378,7 +397,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "f6f71ab9-feef-43da-823a-cdf0a686a8c8",
@@ -397,7 +417,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/user.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "f015a652-70ed-43dc-9066-a13e33c80d49",
@@ -416,7 +437,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/role.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "200bc50e-59a7-4548-9965-0e5f704fd721",
@@ -435,7 +457,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "ac1b6b88-5c20-4085-95f2-fab6a385b1ff",
@@ -454,7 +477,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "f2bcb02e-769c-4b7d-8378-7909dff9e50a",
@@ -473,7 +497,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "0401d923-2fa3-4b57-a62d-8afa7f3eb10d",
@@ -492,7 +517,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "83650b01-98ce-418e-aa93-d0a96aa16ca0",
@@ -511,7 +537,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "610c4563-0c2c-4187-9fdf-9e9cdde7bb69",
@@ -530,7 +557,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "823cebf1-907b-415b-b4fb-de2ad56d51d9",
@@ -549,7 +577,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "e3ed0596-b2ac-453f-96c3-bb0a0df310f8",
@@ -568,7 +597,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "3875cb33-900a-47ab-b8c6-989f28093616",
@@ -587,7 +617,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "14ff665f-d269-4e73-a92f-a6123beb3fbb",
@@ -606,7 +637,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "c4be3ef0-4e44-4d6c-b66f-c02dac0c9e34",
@@ -625,7 +657,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "f51bfdba-4d28-4da0-9815-0eb6b9d51613",
@@ -644,7 +677,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "28a77709-e078-4150-aa5b-5c6e7583436a",
@@ -663,7 +697,8 @@
       "sort": 6,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "e4944075-2f8a-4272-b546-07212be1e36e",
@@ -682,7 +717,8 @@
       "sort": 7,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "8fc3ad21-c92c-4de2-be10-f0a57a7d88e5",
@@ -701,7 +737,8 @@
       "sort": 8,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "7c521a78-823f-40e9-98f1-e018d6dc8098",
@@ -720,7 +757,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/openApi.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "5db7f488-1be5-467b-ac22-22b456fa7b21",
@@ -736,10 +774,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 1,
+      "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "a4ee857d-6ce5-4729-8ec4-7c68f0812d4a",
@@ -755,10 +794,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
-      "sort": 2,
+      "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "cb56c9d4-544b-49c3-ada1-200c6c155413",
@@ -777,7 +817,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "994e88d4-39a4-495c-bb57-9c8b220924e5",
@@ -796,7 +837,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/doc.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "f60b69c5-4fa0-408c-bf1b-cc169920fb3b",
@@ -815,7 +857,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/classify.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "f0840f4a-05aa-4715-8c75-dd9557558068",
@@ -834,7 +877,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/recycle.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "4a3b18dc-b940-4641-b37c-76e2cea8f48d",
@@ -853,7 +897,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "2264cc0a-47b5-4c47-801d-0bb417fb2cfb",
@@ -872,7 +917,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "e125570a-64f3-490a-bcb0-2d583ec995fb",
@@ -891,7 +937,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "8908d97a-87b5-401e-9119-1ba6e0861f2d",
@@ -910,7 +957,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "2af26b1a-711c-4083-aab8-437c11e71dda",
@@ -929,7 +977,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "a2da1360-3fce-457a-b144-ad6a3601fe5a",
@@ -948,7 +997,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "1cf3d2e7-d626-4bbb-aaf2-8a7cc62153c3",
@@ -967,7 +1017,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "ef668817-5ac9-485d-968e-7fd73e6b5cf5",
@@ -986,7 +1037,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "f3a2f89c-2799-428f-8d9c-b37689efa897",
@@ -1005,7 +1057,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "7561ecfb-7d16-4155-982f-f67754199619",
@@ -1024,7 +1077,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "470704bf-d301-4d02-b408-f4d1baf58aac",
@@ -1043,7 +1097,8 @@
       "sort": 6,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "d9d14fd3-6a22-45d8-9e08-2b8e34687aca",
@@ -1062,7 +1117,8 @@
       "sort": 7,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "22494650-550d-4500-82cd-989180dc9505",
@@ -1081,7 +1137,8 @@
       "sort": 8,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "43376bb2-83b9-451a-ad12-311bfa16cbdd",
@@ -1100,7 +1157,8 @@
       "sort": 9,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "4f33e729-cb8a-4237-b0d5-cec25dbcebf1",
@@ -1119,7 +1177,8 @@
       "sort": 10,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "926d2ddf-551b-4b87-8d70-471294398c5c",
@@ -1138,7 +1197,8 @@
       "sort": 11,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "b95be4ff-869f-4066-9d48-3143b4289783",
@@ -1157,7 +1217,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "82b67b52-48cf-4c73-97ed-2995c91c6d02",
@@ -1176,7 +1237,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "f07f1bab-5200-44d9-a74a-5a45b21d2142",
@@ -1195,7 +1257,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "583e62ee-ea44-48f9-9b40-61d9b2d3d6b6",
@@ -1214,7 +1277,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "b303244c-9fac-4fb0-8f56-75fe4a5f3687",
@@ -1233,7 +1297,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/navigation.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "ec8396b8-cb2d-4678-b5c4-f0131ebae417",
@@ -1252,7 +1317,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "2bf43e0a-dc45-4aff-b358-dba528018353",
@@ -1271,7 +1337,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "1f7de75e-78d1-4bef-b216-bf859a3e87ff",
@@ -1290,7 +1357,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "5b62519c-cd93-42e9-abbd-e45afede34ab",
@@ -1309,7 +1377,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "a29eb821-c694-4ed2-9ecd-5670b8321d51",
@@ -1328,7 +1397,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "0d6ef1bd-dba8-421c-950b-fbeb277d98c9",
@@ -1347,7 +1417,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "7ebc20ee-ef8b-4a26-b62e-bbfecb35afbe",
@@ -1366,7 +1437,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "c97b54dd-a9e4-41b1-9517-8356505e65b2",
@@ -1382,10 +1454,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
-      "sort": 2,
+      "sort": 3,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/objectStorage.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "52962835-0f8a-4e95-88ac-83410bcdc20c",
@@ -1404,7 +1477,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "883ae755-d8a9-4ba9-af41-55c79c0c8fd3",
@@ -1423,7 +1497,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "7c6869d0-ddbd-4d8e-9ab4-6054f76042f8",
@@ -1442,7 +1517,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/config.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "a6ed311a-f95c-48f2-ad7a-f0faf76abf77",
@@ -1461,7 +1537,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "28bc57ac-c0eb-4ea2-91f1-324c7394298b",
@@ -1480,7 +1557,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": "get:/pages/mc/member.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "3cf946a1-ee6e-42db-a8e9-4ad45bc8831c",
@@ -1499,7 +1577,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "4cdd68af-7c28-4da8-8a9e-7851f80f9713",
@@ -1518,7 +1597,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "b5408317-a7a9-45f7-a14e-27f922768bd1",
@@ -1537,7 +1617,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "fe48c36e-05f0-4d8e-bbbe-0b9091378444",
@@ -1556,7 +1637,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "9df155b0-54ac-4050-a050-0ad742e4eb18",
@@ -1575,7 +1657,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "938fe349-6fee-43a9-8df0-fd8bd5281016",
@@ -1594,7 +1677,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "781b0489-4a79-4153-a0f9-06c64170d6e8",
@@ -1613,7 +1697,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "9be5d585-7d18-4aa7-b204-0626f4ec632c",
@@ -1632,7 +1717,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "c6b3eed1-0cc7-4339-b55e-4d7c76792799",
@@ -1651,7 +1737,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "85c698d9-6cb1-4f49-a3ee-39f184253826",
@@ -1670,7 +1757,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "cd820dc6-7088-488e-aa3e-f63f1b07dbe9",
@@ -1689,7 +1777,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/comments.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "df1cd882-409c-42cc-a259-bfc2f2d20ba3",
@@ -1708,7 +1797,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "7e2e27e1-77a0-4911-b030-96c1d9fb30f2",
@@ -1727,7 +1817,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "10a7b4ec-0a1b-496e-89bb-af75c472f99a",
@@ -1746,7 +1837,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "63a6b950-455e-429b-802b-fed8c12ce5ef",
@@ -1765,7 +1857,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "734dc692-b837-4060-a613-ce09b4df42f8",
@@ -1784,7 +1877,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "4d316773-95ab-4e1b-8781-3523f0066480",
@@ -1803,7 +1897,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "7ff5e064-eb5f-4179-95aa-e4f98f93181e",
@@ -1822,7 +1917,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "d58b542a-ff2d-4006-b6a5-a8bce6a5f1f5",
@@ -1841,7 +1937,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "42b6b485-0033-4b50-9d20-5363e3ef3573",
@@ -1860,7 +1957,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "ac813b26-b80c-498e-ae15-e06c97530ee3",
@@ -1879,7 +1977,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "f7282af9-43ef-4daf-ac72-8042c2521a56",
@@ -1898,7 +1997,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "e5a053e6-f53e-4cb4-be21-3285c40a9496",
@@ -1917,7 +2017,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "c6d4b929-5244-4e65-bfc8-a4fb0fb07711",
@@ -1936,7 +2037,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "91072ee6-2ce4-4d6d-94a5-6c54755ca401",
@@ -1955,7 +2057,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "d023ca51-547d-41f2-9c47-22788c05643e",
@@ -1974,7 +2077,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "364cf1a7-06f7-402a-a1a9-e41b00f3a067",
@@ -1993,7 +2097,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "f1d1dd33-be9c-46ee-b7de-4243f06e7e38",
@@ -2012,7 +2117,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "42a56206-34ee-424f-a746-85e26088611b",
@@ -2031,7 +2137,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "c1c232e0-f972-4f30-b84f-b58f9774ede0",
@@ -2050,7 +2157,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "7ddca162-2176-4c6b-b9c4-eb6617fcc2b8",
@@ -2069,7 +2177,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "ae87c0f7-0bad-4599-abc1-1dba32dbb8a2",
@@ -2088,7 +2197,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "fec429c3-7851-4900-ade7-cbb34cbd8ead",
@@ -2107,7 +2217,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "aa8a6e25-53fb-4ee2-ae97-fb4683137926",
@@ -2126,7 +2237,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "82708cbc-ce22-49e7-bb1a-b6a7a46aeb6c",
@@ -2145,7 +2257,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "a568df82-5598-4913-8c25-5a72f2357c1f",
@@ -2164,7 +2277,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "mc"
     },
     {
       "uuid": "da683795-5e01-4470-8fbc-ac1b8fff2aa4",
@@ -2183,7 +2297,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/template.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
     },
     {
       "uuid": "d3ae5a1a-5937-4730-9223-2c44d8ac7ce5",
@@ -2202,7 +2317,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "5f6a52cb-02a8-4d4f-8c12-07d49de2d283",
@@ -2221,7 +2337,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "7e4ffa63-5073-43f6-9813-95d73f4132ce",
@@ -2240,7 +2357,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/templateEdit.json",
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "e015adf3-bc53-4afe-ad1c-73d75ad9bb51",
@@ -2259,7 +2377,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "8227a516-85b2-4321-b10b-7abbdc8590e9",
@@ -2278,7 +2397,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "e3fcb7ba-0e04-423a-810e-e28be1103578",
@@ -2297,7 +2417,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "81e816b8-2ef0-4565-bc1c-6b47075ad6aa",
@@ -2316,7 +2437,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "9569c4e6-5e78-485f-90e9-6b9880c0a282",
@@ -2335,7 +2457,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "60abe343-9962-42e5-b3a7-1babe4caa281",
@@ -2354,7 +2477,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "9a5ee2dc-058c-416c-b2a5-3a853ed0d7f4",
@@ -2373,7 +2497,8 @@
       "sort": 4,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "c091b22b-1013-4c5b-adcd-9a509cafd2fb",
@@ -2392,7 +2517,8 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "5ef2e0fb-6f55-4b60-8746-77fa51f2e773",
@@ -2411,7 +2537,8 @@
       "sort": 6,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "e98243f4-70d9-49ca-a374-b480d0ab55ce",
@@ -2430,7 +2557,8 @@
       "sort": 7,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "cdcf4c23-f1b8-4b73-bc3b-7bfa4c2378aa",
@@ -2449,7 +2577,8 @@
       "sort": 8,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "00c400a2-63dc-468a-9f4a-c56457d69009",
@@ -2468,7 +2597,8 @@
       "sort": 9,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "cms"
     },
     {
       "uuid": "9854cf99-9933-44cf-b6bb-e58c58a33547",
@@ -2487,7 +2617,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "51b6a4e0-8c94-4047-b8dc-5f3c14c07191",
@@ -2506,7 +2637,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "mc"
     },
     {
       "uuid": "3ad18fdb-1bea-484a-b443-a64041b374d2",
@@ -2522,10 +2654,11 @@
       "role": 1,
       "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
       "puuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
-      "sort": 3,
+      "sort": 4,
       "linkType": "schemaApi",
       "link": "get:/pages/sys/setup.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "sys"
     },
     {
       "uuid": "ab0076a0-9ba5-4ab4-9ef3-33571ae806d8",
@@ -2544,7 +2677,8 @@
       "sort": 0,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "45bff19c-c659-4e8d-8a6a-48df2a856c9c",
@@ -2563,7 +2697,8 @@
       "sort": 1,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "8e513bfa-3a16-4ef5-91ec-94d0cc644deb",
@@ -2582,7 +2717,8 @@
       "sort": 2,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "aa9167d4-0c4e-4ea2-97b2-2b60825448dc",
@@ -2601,7 +2737,8 @@
       "sort": 3,
       "linkType": "schemaApi",
       "link": null,
-      "is_menu": 0
+      "is_menu": 0,
+      "app": "sys"
     },
     {
       "uuid": "3574841e-30a0-407a-bbe2-6a06187ea51e",
@@ -2620,7 +2757,148 @@
       "sort": 5,
       "linkType": "schemaApi",
       "link": "get:/pages/cms/config.json",
-      "is_menu": 1
+      "is_menu": 1,
+      "app": "cms"
+    },
+    {
+      "uuid": "8d960fd1-2500-4e47-ac16-e909401cabbb",
+      "name": "应用管理",
+      "path": "/sys/application",
+      "icon": "fa-brands fa-app-store",
+      "verb": "get",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": null,
+      "action": null,
+      "admin": 0,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "73dc4727-4985-4c91-8feb-28fc3a6c4296",
+      "sort": 0,
+      "linkType": "schemaApi",
+      "link": "get:/pages/sys/application.json",
+      "is_menu": 1,
+      "app": "sys"
+    },
+    {
+      "uuid": "dc57a554-7950-4f74-acc9-dd79a51ed792",
+      "name": "获取应用",
+      "path": "/admin/sys/routes/application",
+      "icon": null,
+      "verb": "get",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.routes",
+      "action": "application",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "c5f8768a-f1f4-406b-b587-755e03332823",
+      "sort": 1,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "6739cee2-8e6b-4a51-8f2f-f824067445dd",
+      "name": "模型列表",
+      "path": "/admin/sys/models",
+      "icon": null,
+      "verb": "get",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.models",
+      "action": "index",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
+      "sort": 1,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "82b50233-32a2-458c-a940-f17c369146e7",
+      "name": "获取应用",
+      "path": "/admin/sys/models/application",
+      "icon": null,
+      "verb": "get",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.models",
+      "action": "application",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "8bce1410-e917-4ff5-8de5-ad1cf7d7584f",
+      "sort": 2,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "8c686c6d-bc0d-465c-bf54-66dd2b7f09ae",
+      "name": "应用列表",
+      "path": "/admin/sys/application",
+      "icon": null,
+      "verb": "get",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.application",
+      "action": "index",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "8d960fd1-2500-4e47-ac16-e909401cabbb",
+      "sort": 0,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "50e92d9a-0527-4167-9e8e-30becce7d55b",
+      "name": "添加应用",
+      "path": "/admin/sys/application/add",
+      "icon": null,
+      "verb": "post",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.application",
+      "action": "add",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "8d960fd1-2500-4e47-ac16-e909401cabbb",
+      "sort": 1,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "9e0421ab-4726-41d7-a76f-5f21f42993e7",
+      "name": "编辑应用",
+      "path": "/admin/sys/application/edit",
+      "icon": null,
+      "verb": "post",
+      "middleware": null,
+      "ignoreMiddleware": null,
+      "controller": "sys.application",
+      "action": "edit",
+      "admin": 1,
+      "role": 1,
+      "class_uuid": "8f5757a3-8af9-45db-8819-d767aaddfadb",
+      "puuid": "8d960fd1-2500-4e47-ac16-e909401cabbb",
+      "sort": 2,
+      "linkType": "schemaApi",
+      "link": null,
+      "is_menu": 0,
+      "app": "sys"
     }
   ]
 }

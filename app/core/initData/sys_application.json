@@ -1,0 +1,31 @@
+{
+  "RECORDS": [
+    {
+      "name": "sys",
+      "title": "系统应用",
+      "intro": "系统应用",
+      "explain": "系统应用",
+      "author": "arterli",
+      "version": "1.0",
+      "sys": 1
+    },
+    {
+      "name": "mc",
+      "title": "用户中心",
+      "intro": "用户中心",
+      "explain": "用户中心",
+      "author": "arterli",
+      "version": "1.0",
+      "sys": 0
+    },
+    {
+      "name": "cms",
+      "title": "内容管理系统",
+      "intro": "内容管理系统",
+      "explain": "内容管理系统",
+      "author": "arterli",
+      "version": "1.0",
+      "sys": 0
+    }
+  ]
+}

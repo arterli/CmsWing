@@ -8,7 +8,7 @@ module.exports = app => {
     updatedAt: { type: DataTypes.DATE, comment: '更新时间' },
     name: { type: DataTypes.STRING, comment: '应用标识' },
     title: { type: DataTypes.STRING, comment: '应用名称' },
-    intro: { type: DataTypes.STRING, comment: '简介' },
+    intro: { type: DataTypes.STRING, comment: 'intro' },
     explain: { type: DataTypes.TEXT, comment: '说明' },
     author: { type: DataTypes.STRING, comment: '作者' },
     version: { type: DataTypes.STRING, comment: '版本' },

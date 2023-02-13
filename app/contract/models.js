@@ -17,7 +17,7 @@ module.exports = {
     
   },
   sys_models_add: {
-    app: { type: 'string', description: '所属应用', required: true },
+    app: { type: 'string', description: '所属应用', required: false },
     desc: { type: 'string', description: '模型说明', required: true },
     name: { type: 'string', description: '模型名称', required: true },
     oldName: { type: 'string', description: '改变后的模型名称', required: false },
@@ -78,8 +78,8 @@ module.exports = {
     booleantype: { type: 'string', description: 'BOOLEAN类型' },
     comment: { type: 'string', description: '字段说明' },
     createdAt: { type: 'string', description: '创建时间' },
-    defaultValue: { type: 'string', description: '默认值' },
     defaulttonow: { type: 'boolean', description: '默认当前时间' },
+    defaultValue: { type: 'string', description: '默认值' },
     edit: { type: 'boolean', description: '编辑' },
     enumValue: { type: 'string', description: '枚举值' },
     id: { type: 'string', description: '主键' },
@@ -104,8 +104,8 @@ module.exports = {
     autoIncrement: { type: 'boolean', description: '自动递增', required: false },
     booleantype: { type: 'string', description: 'BOOLEAN类型', required: false },
     comment: { type: 'string', description: '字段说明', required: true },
-    defaultValue: { type: 'string', description: '默认值', required: false },
     defaulttonow: { type: 'boolean', description: '默认当前时间', required: false },
+    defaultValue: { type: 'string', description: '默认值', required: false },
     edit: { type: 'boolean', description: '编辑', required: false },
     enumValue: { type: 'string', description: '枚举值', required: false },
     lengths: { type: 'string', description: '长度', required: false },
@@ -127,8 +127,8 @@ module.exports = {
     autoIncrement: { type: 'boolean', description: '自动递增' },
     booleantype: { type: 'string', description: 'BOOLEAN类型' },
     comment: { type: 'string', description: '字段说明' },
-    defaultValue: { type: 'string', description: '默认值' },
     defaulttonow: { type: 'boolean', description: '默认当前时间' },
+    defaultValue: { type: 'string', description: '默认值' },
     edit: { type: 'boolean', description: '编辑' },
     enumValue: { type: 'string', description: '枚举值' },
     lengths: { type: 'string', description: '长度' },
@@ -183,8 +183,8 @@ module.exports = {
     parent_uuid: { type: 'string', description: '父表' },
     sort: { type: 'string', description: '排序' },
     targetKey: { type: 'string', description: '父键' },
-    throughKey: { type: 'string', description: '中间键' },
     through_uuid: { type: 'string', description: '中间表' },
+    throughKey: { type: 'string', description: '中间键' },
     type: { type: 'string', description: '关联类型' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
@@ -198,8 +198,8 @@ module.exports = {
     parent_uuid: { type: 'string', description: '父表', required: true },
     sort: { type: 'string', description: '排序', required: true },
     targetKey: { type: 'string', description: '父键', required: true },
-    throughKey: { type: 'string', description: '中间键', required: false },
     through_uuid: { type: 'string', description: '中间表', required: false },
+    throughKey: { type: 'string', description: '中间键', required: false },
     type: { type: 'string', description: '关联类型', required: true },
     
   },
@@ -211,8 +211,8 @@ module.exports = {
     parent_uuid: { type: 'string', description: '父表' },
     sort: { type: 'string', description: '排序' },
     targetKey: { type: 'string', description: '父键' },
-    throughKey: { type: 'string', description: '中间键' },
     through_uuid: { type: 'string', description: '中间表' },
+    throughKey: { type: 'string', description: '中间键' },
     type: { type: 'string', description: '关联类型' },
     
   },
@@ -432,7 +432,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
     tags: { type: 'string', description: '标签' },
-    template: { type: 'string', description: '模版详情' },
+    template: { type: 'string', description: '模板详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     updatedAt: { type: 'string', description: '更新时间' },
@@ -456,7 +456,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前', required: false },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）', required: false },
     tags: { type: 'string', description: '标签', required: false },
-    template: { type: 'string', description: '模版详情', required: false },
+    template: { type: 'string', description: '模板详情', required: false },
     title: { type: 'string', description: '内容标题', required: false },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）', required: true },
     user_uuid: { type: 'string', description: '作者uuid', required: false },
@@ -479,7 +479,7 @@ module.exports = {
     sort: { type: 'string', description: '排序同级有效越小越靠前' },
     status: { type: 'string', description: '数据状态（0-禁用，1-正常，2-待审核，3-草稿）' },
     tags: { type: 'string', description: '标签' },
-    template: { type: 'string', description: '模版详情' },
+    template: { type: 'string', description: '模板详情' },
     title: { type: 'string', description: '内容标题' },
     type: { type: 'string', description: '内容类型（1-目录，2-主题，3-段落）' },
     user_uuid: { type: 'string', description: '作者uuid' },
@@ -735,15 +735,15 @@ module.exports = {
     
   },
 
-  // cms模版管理
+  // cms模板管理
   cms_template_item: {
     author: { type: 'string', description: '作者' },
     createdAt: { type: 'string', description: '创建时间' },
     id: { type: 'string', description: '主键' },
     isu: { type: 'boolean', description: '正在使用' },
-    name: { type: 'string', description: '模版名称' },
-    path: { type: 'string', description: '模版目录' },
-    sys: { type: 'boolean', description: '系统模版' },
+    name: { type: 'string', description: '模板名称' },
+    path: { type: 'string', description: '模板目录' },
+    sys: { type: 'boolean', description: '系统模板' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'uuid' },
     version: { type: 'string', description: '版本号' },
@@ -752,9 +752,9 @@ module.exports = {
   cms_template_add: {
     author: { type: 'string', description: '作者', required: true },
     isu: { type: 'boolean', description: '正在使用', required: false },
-    name: { type: 'string', description: '模版名称', required: true },
-    path: { type: 'string', description: '模版目录', required: true },
-    sys: { type: 'boolean', description: '系统模版', required: false },
+    name: { type: 'string', description: '模板名称', required: true },
+    path: { type: 'string', description: '模板目录', required: true },
+    sys: { type: 'boolean', description: '系统模板', required: false },
     uuid: { type: 'string', description: 'uuid', required: true },
     version: { type: 'string', description: '版本号', required: true },
     
@@ -762,15 +762,15 @@ module.exports = {
   cms_template_edit: {
     author: { type: 'string', description: '作者' },
     isu: { type: 'boolean', description: '正在使用' },
-    name: { type: 'string', description: '模版名称' },
-    path: { type: 'string', description: '模版目录' },
-    sys: { type: 'boolean', description: '系统模版' },
+    name: { type: 'string', description: '模板名称' },
+    path: { type: 'string', description: '模板目录' },
+    sys: { type: 'boolean', description: '系统模板' },
     uuid: { type: 'string', description: 'uuid' },
     version: { type: 'string', description: '版本号' },
     
   },
 
-  // 模版文件
+  // 模板文件
   cms_template_list_item: {
     createdAt: { type: 'string', description: '创建时间' },
     html: { type: 'string', description: '文件内容' },
@@ -778,8 +778,8 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认' },
     isu: { type: 'boolean', description: '使用中' },
     name: { type: 'string', description: '文件名称' },
-    template_uuid: { type: 'string', description: '模版UUID' },
-    title: { type: 'string', description: '模版名称' },
+    template_uuid: { type: 'string', description: '模板UUID' },
+    title: { type: 'string', description: '模板名称' },
     type: { type: 'string', description: '类型' },
     updatedAt: { type: 'string', description: '更新时间' },
     uuid: { type: 'string', description: 'UUID' },
@@ -790,8 +790,8 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认', required: false },
     isu: { type: 'boolean', description: '使用中', required: false },
     name: { type: 'string', description: '文件名称', required: true },
-    template_uuid: { type: 'string', description: '模版UUID', required: true },
-    title: { type: 'string', description: '模版名称', required: true },
+    template_uuid: { type: 'string', description: '模板UUID', required: true },
+    title: { type: 'string', description: '模板名称', required: true },
     type: { type: 'string', description: '类型', required: true },
     uuid: { type: 'string', description: 'UUID', required: true },
     
@@ -801,10 +801,45 @@ module.exports = {
     isd: { type: 'boolean', description: '是否默认' },
     isu: { type: 'boolean', description: '使用中' },
     name: { type: 'string', description: '文件名称' },
-    template_uuid: { type: 'string', description: '模版UUID' },
-    title: { type: 'string', description: '模版名称' },
+    template_uuid: { type: 'string', description: '模板UUID' },
+    title: { type: 'string', description: '模板名称' },
     type: { type: 'string', description: '类型' },
     uuid: { type: 'string', description: 'UUID' },
+    
+  },
+
+  // 应用表
+  sys_application_item: {
+    author: { type: 'string', description: '作者' },
+    createdAt: { type: 'string', description: '创建时间' },
+    explain: { type: 'string', description: '说明' },
+    id: { type: 'string', description: '主键' },
+    intro: { type: 'string', description: 'intro' },
+    name: { type: 'string', description: '应用标识' },
+    sys: { type: 'boolean', description: '是否系统' },
+    title: { type: 'string', description: '应用名称' },
+    updatedAt: { type: 'string', description: '更新时间' },
+    version: { type: 'string', description: '版本' },
+    
+  },
+  sys_application_add: {
+    author: { type: 'string', description: '作者', required: false },
+    explain: { type: 'string', description: '说明', required: false },
+    intro: { type: 'string', description: 'intro', required: false },
+    name: { type: 'string', description: '应用标识', required: true },
+    sys: { type: 'boolean', description: '是否系统', required: false },
+    title: { type: 'string', description: '应用名称', required: true },
+    version: { type: 'string', description: '版本', required: false },
+    
+  },
+  sys_application_edit: {
+    author: { type: 'string', description: '作者' },
+    explain: { type: 'string', description: '说明' },
+    intro: { type: 'string', description: 'intro' },
+    name: { type: 'string', description: '应用标识' },
+    sys: { type: 'boolean', description: '是否系统' },
+    title: { type: 'string', description: '应用名称' },
+    version: { type: 'string', description: '版本' },
     
   },
 
@@ -828,41 +863,6 @@ module.exports = {
     label: { type: 'string', description: '配置名称' },
     name: { type: 'string', description: '配置key' },
     value: { type: 'string', description: '配置value' },
-    
-  },
-
-  // 应用管理
-  sys_application_item: {
-    author: { type: 'string', description: '作者' },
-    createdAt: { type: 'string', description: '创建时间' },
-    explain: { type: 'string', description: '说明' },
-    id: { type: 'string', description: '主键' },
-    intro: { type: 'string', description: '简介' },
-    name: { type: 'string', description: '应用标识' },
-    sys: { type: 'boolean', description: '是否系统' },
-    title: { type: 'string', description: '应用名称' },
-    updatedAt: { type: 'string', description: '更新时间' },
-    version: { type: 'string', description: '版本' },
-    
-  },
-  sys_application_add: {
-    author: { type: 'string', description: '作者', required: true },
-    explain: { type: 'string', description: '说明', required: false },
-    intro: { type: 'string', description: '简介', required: false },
-    name: { type: 'string', description: '应用标识', required: true },
-    sys: { type: 'boolean', description: '是否系统', required: true },
-    title: { type: 'string', description: '应用名称', required: true },
-    version: { type: 'string', description: '版本', required: true },
-    
-  },
-  sys_application_edit: {
-    author: { type: 'string', description: '作者' },
-    explain: { type: 'string', description: '说明' },
-    intro: { type: 'string', description: '简介' },
-    name: { type: 'string', description: '应用标识' },
-    sys: { type: 'boolean', description: '是否系统' },
-    title: { type: 'string', description: '应用名称' },
-    version: { type: 'string', description: '版本' },
     
   },
 

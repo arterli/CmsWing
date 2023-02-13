@@ -234,9 +234,9 @@
       title: String!
       intro: String
       explain: String
-      author: String!
-      version: String!
-      sys: Boolean!
+      author: String
+      version: String
+      sys: Boolean
       
     }
     

@@ -532,7 +532,7 @@
                             },
                             "api": "/admin/sys/routes/editRoutes",
                             
-                            "debug":false,
+                            "debug":true,
                             "body": [
                               {
                                 "type": "group",
@@ -594,7 +594,7 @@
                                     "name": "SysRoutes_findOne.puuid",
                                     "required": true,
                                     "searchable": true,
-                                    "source": "/admin/sys/routes/topRoutes?class_uuid=${uuid}"
+                                    "source": "/admin/sys/routes/topRoutes?class_uuid=${class_uuid}"
                                   }
                                 ]
                               },

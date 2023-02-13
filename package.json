@@ -7,12 +7,12 @@
     "declarations": true
   },
   "dependencies": {
-    "@alicloud/openapi-client": "^0.4.1",
+    "@alicloud/openapi-client": "^0.4.5",
     "ali-oss": "^6.17.1",
-    "compressing": "^1.6.2",
-    "cos-nodejs-sdk-v5": "^2.11.12",
-    "dataloader": "^2.1.0",
-    "egg": "^3.1.0",
+    "compressing": "^1.7.0",
+    "cos-nodejs-sdk-v5": "^2.11.19",
+    "dataloader": "^2.2.1",
+    "egg": "^3.15.0",
     "egg-cors": "^2.2.3",
     "egg-downloader": "^1.0.5",
     "egg-graphql": "^2.8.0",
@@ -32,11 +32,11 @@
   "devDependencies": {
     "autod": "^3.1.2",
     "autod-egg": "^1.1.0",
-    "egg-bin": "^5.2.0",
-    "egg-ci": "^2.1.0",
-    "egg-mock": "^4.2.1",
-    "eslint": "^8.22.0",
-    "eslint-config-egg": "^12.0.0"
+    "egg-bin": "^6.0.0",
+    "egg-ci": "^2.2.0",
+    "egg-mock": "^5.10.4",
+    "eslint": "^8.34.0",
+    "eslint-config-egg": "^12.1.0"
   },
   "engines": {
     "node": ">=16.0.0"

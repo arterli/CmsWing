@@ -216,7 +216,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
       desc: String!
       oldName: String
       paranoid: Boolean
-      app: String!
+      app: String
       
     }
     

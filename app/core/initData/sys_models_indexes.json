@@ -244,6 +244,34 @@
       "unique": 1,
       "fields": "ac63efc4-feac-4aac-9983-3bcb62ec16e2",
       "sort": 1
+    },
+    {
+      "uuid": "93d0bbe5-2204-4905-b438-a52e53671656",
+      "models_uuid": "8940f820-eb65-41e6-af3e-e958ac77edd7",
+      "unique": 1,
+      "fields": "2d8fb9e1-ddc0-46e0-a0d1-29a15c49221d",
+      "sort": 0
+    },
+    {
+      "uuid": "6f05b20d-f427-49fb-8a3a-929e843137f4",
+      "models_uuid": "1796faf3-5ec8-42ee-8db9-9cf86af0fe12",
+      "unique": 0,
+      "fields": "73f3ab14-6c3e-4583-af5c-e00a6d0e71d6",
+      "sort": 2
+    },
+    {
+      "uuid": "9f05c7ce-b677-4fd6-bf6e-c9eebf872cbc",
+      "models_uuid": "d749c0ee-f449-45c8-a5b1-0cf5f07d6d64",
+      "unique": 1,
+      "fields": "70b5c4da-6eca-4c3f-aa2c-b67c99df60e7",
+      "sort": 0
+    },
+    {
+      "uuid": "f7a687aa-4f56-4a1c-89cf-8702b671ca11",
+      "models_uuid": "bff1476c-5357-4d00-9a04-f18e1d8c7eae",
+      "unique": 0,
+      "fields": "51ae3cf2-d880-414e-94ab-d361337b5961",
+      "sort": 2
     }
   ]
 }

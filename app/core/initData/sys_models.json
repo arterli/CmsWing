@@ -5,154 +5,192 @@
       "name": "sys_models",
       "desc": "模型管理",
       "oldName": "sys_models",
-      "paranoid": 0
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "440166cc-cf10-44af-b8b5-b51ad699ffb3",
       "name": "sys_user",
       "desc": "系统用户",
       "oldName": "sys_user",
-      "paranoid": 1
+      "paranoid": 1,
+      "app": "sys"
     },
     {
       "uuid": "ef0a5dad-2ec1-41d2-9b50-ac9633e5f3a8",
       "name": "sys_models_fields",
       "desc": "模型字段表",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_models_fields",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "b19cea90-d4c1-45b2-9e1e-e9ccb91ccc4e",
       "name": "sys_models_indexes",
       "desc": "模型索引",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_models_indexes",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "67218318-57ca-41e0-9ce0-95d6e3bd01c4",
       "name": "sys_models_associate",
       "desc": "模型关联",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_models_associate",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "bff1476c-5357-4d00-9a04-f18e1d8c7eae",
       "name": "sys_routes",
       "desc": "路由管理",
       "oldName": "sys_routes",
-      "paranoid": 0
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "a6142c33-b86a-4e0a-ab45-6ea68c03d321",
       "name": "sys_routes_classify",
       "desc": "路由分类",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_routes_classify",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "161f3657-96b0-4a44-b872-92e42f446039",
       "name": "sys_user_group",
       "desc": "系统用户组",
       "oldName": "sys_user_group",
-      "paranoid": 0
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "c6f54355-e957-4f8c-93f8-c8357dd78088",
       "name": "sys_role",
       "desc": "角色表",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_role",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "603a57cd-64c0-49bf-8019-05676ae6622f",
       "name": "sys_user_role",
       "desc": "用户角色中间表",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_user_role",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "ca731164-4846-4fb9-a9d4-a7741b0bfafd",
       "name": "sys_openApi",
       "desc": "开放接口",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_openApi",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "d0806a84-19fa-43cd-b85b-18a1999acbe8",
       "name": "cms_doc",
       "desc": "cms内容主表",
       "oldName": "cms_doc",
-      "paranoid": 1
+      "paranoid": 1,
+      "app": "cms"
     },
     {
       "uuid": "a73f9f46-bcb7-4816-a2b8-f12d9082721b",
       "name": "cms_classify",
       "desc": "cms分类",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "cms_classify",
+      "paranoid": 0,
+      "app": null
     },
     {
       "uuid": "e86401ba-85cb-47f7-9f53-853e26b939bd",
       "name": "cms_doc_article",
       "desc": "文章",
       "oldName": "cms_doc_article",
-      "paranoid": 1
+      "paranoid": 1,
+      "app": "cms"
     },
     {
       "uuid": "4e0da60c-13af-4965-8f35-e2b13742398e",
       "name": "cms_doc_picture",
       "desc": "图片",
       "oldName": "cms_doc_picture",
-      "paranoid": 1
+      "paranoid": 1,
+      "app": "cms"
     },
     {
       "uuid": "aac4b5a3-89f2-4c41-9213-39f43dcc0860",
       "name": "cms_doc_download",
       "desc": "下载",
       "oldName": "cms_doc_download",
-      "paranoid": 1
+      "paranoid": 1,
+      "app": "cms"
     },
     {
       "uuid": "12595142-74b1-40c3-ab20-b76ea941bcfa",
       "name": "sys_navigation",
       "desc": "系统导航",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "sys_navigation",
+      "paranoid": 0,
+      "app": "sys"
     },
     {
       "uuid": "bbd1ba38-99cb-4c6f-84ba-23e438638a26",
       "name": "mc_member",
       "desc": "会员管理",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "mc_member",
+      "paranoid": 0,
+      "app": "mc"
     },
     {
       "uuid": "6f45d480-ac5d-49fd-a36b-1265aa65c07e",
       "name": "cms_comments",
       "desc": "cms评论",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "cms_comments",
+      "paranoid": 0,
+      "app": "cms"
     },
     {
       "uuid": "7d611f59-0461-4a81-a9ad-6ceaa578d89b",
       "name": "cms_comments_reply",
       "desc": "cms评论回复",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "cms_comments_reply",
+      "paranoid": 0,
+      "app": "cms"
     },
     {
       "uuid": "0f4dcc6a-defa-4046-a106-6a4c4a7b9c9c",
       "name": "cms_template",
       "desc": "cms模板管理",
-      "oldName": null,
-      "paranoid": 0
+      "oldName": "cms_template",
+      "paranoid": 0,
+      "app": "cms"
     },
     {
       "uuid": "53b2557e-7e75-4480-a97a-dd451b206f2e",
       "name": "cms_template_list",
       "desc": "模板文件",
+      "oldName": "cms_template_list",
+      "paranoid": 0,
+      "app": "cms"
+    },
+    {
+      "uuid": "8940f820-eb65-41e6-af3e-e958ac77edd7",
+      "name": "sys_application",
+      "desc": "应用表",
+      "oldName": "sys_application",
+      "paranoid": 0,
+      "app": "sys"
+    },
+    {
+      "uuid": "d749c0ee-f449-45c8-a5b1-0cf5f07d6d64",
+      "name": "sys_config",
+      "desc": "系统配置",
       "oldName": null,
-      "paranoid": 0
+      "paranoid": 0,
+      "app": "sys"
     }
   ]
 }
