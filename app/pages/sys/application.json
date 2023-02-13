@@ -1,0 +1,270 @@
+{
+  "type":"page",
+  "body": {
+    "type": "crud",
+    "api": "/admin/sys/application",
+    "mode": "cards",
+    "columnsCount": 3,
+    "defaultParams": {
+      "perPage": 12
+    },
+    "headerToolbar": [
+      {
+        "type": "search-box",
+        "name": "keywords",
+        "placeholder": "应用标识或名称",
+        "clearable": true
+      },
+      {
+        "label": "新增应用",
+        "type": "button",
+        "actionType": "dialog",
+        "level": "primary",
+        "align": "right",
+        "dialog": {
+          "title": "新增应用",
+          "size": "lg",
+          "body": {
+            "type": "form",
+            "debug":true,
+            "api": "/admin/sys/application/add",
+            "body": [
+              {
+                "type": "group",
+                "body": [
+                  {
+                    "type": "input-text",
+                    "name": "name",
+                    "label": "应用标识",
+                    "required":true
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "title",
+                    "label": "应用名称",
+                    "required":true
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "author",
+                    "label": "应用作者",
+                    "required":true
+                  },
+                  {
+                    "type": "input-text",
+                    "name": "version",
+                    "label": "应用版本",
+                    "required":true
+                  }
+                ]
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "input-text",
+                "name": "intro",
+                "label": "应用简介",
+                "required": true
+              },
+              {
+                "type": "divider"
+              },
+              {
+                "type": "group",
+                "label":"应用说明",
+                "mode":"normal",
+                "body": [
+                  {
+                    "type": "editor",
+                    "name": "explain",
+                    "language": "markdown"
+                  },
+                  {
+                    "type": "markdown",
+                    "name": "explain"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },{
+        "label": "导入应用",
+        "type": "button",
+        "actionType": "dialog",
+        "level": "success",
+        "align": "right",
+        "dialog": {
+          "title": "导入应用",
+          "body":  {
+            "type": "form",
+            "api": "/admin/cms/template/import",
+            "debug": false,
+            "body": [
+              {
+                "type": "input-file",
+                "name": "file",
+                "label": "模板文件",
+                "accept": "*",
+                "asBlob": true
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "card": {
+      "toolbar": [
+        {
+          "type": "tpl",
+          "tpl": "系统",
+          "className": "label label-danger",
+          "visibleOn": "${sys}"
+        }
+      ],
+      "header": {
+        "title": "$title",
+        "subTitle": "$intro",
+        "avatarText": "$name"
+      },
+      "actions": [
+        {
+          "type": "button",
+          "label": "查看",
+          "actionType": "dialog",
+          "dialog": {
+            "title": "查看",
+            "body": {
+              "type": "form",
+              "body": [
+                {
+                  "type": "static",
+                  "name": "engine",
+                  "label": "Engine"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "static",
+                  "name": "browser",
+                  "label": "Browser"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "static",
+                  "name": "platform",
+                  "label": "Platform(s)"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "static",
+                  "name": "version",
+                  "label": "Engine version"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "static",
+                  "name": "grade",
+                  "label": "CSS grade"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "html",
+                  "html": "<p>添加其他 <span>Html 片段</span> 需要支持变量替换（todo）.</p>"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "button",
+          "label": "编辑",
+          "actionType": "dialog",
+          "visibleOn": "${!sys}",
+          "dialog": {
+            "title": "编辑",
+            "body": {
+              "type": "form",
+              "name": "sample-edit-form",
+              "api": "/amis/api/sample/$id",
+              "body": [
+                {
+                  "type": "input-text",
+                  "name": "engine",
+                  "label": "Engine",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "browser",
+                  "label": "Browser",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "platform",
+                  "label": "Platform(s)",
+                  "required": true
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "version",
+                  "label": "Engine version"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "input-text",
+                  "name": "grade",
+                  "label": "CSS grade"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "button",
+          "label": "删除",
+          "visibleOn": "${!sys}",
+          "actionType": "ajax",
+          "confirmText": "您确认要删除?",
+          "api": "delete:/amis/api/sample/$id"
+        }
+      ],
+      "body": [
+        {
+          "name": "name",
+          "label": "标识"
+        },
+        {
+          "name": "author",
+          "label": "作者"
+        },
+        {
+          "name": "version",
+          "label": "版本"
+        }
+      ]
+    }
+  }
+}

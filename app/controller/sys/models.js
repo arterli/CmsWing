@@ -7,6 +7,28 @@ const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
 class ModelsController extends Controller {
   /**
+  * @summary 模型列表
+  * @description 模型列表
+  * @router get /admin/sys/models
+  * @request query integer field_name desc
+  * @response 200 baseRes desc
+  */
+  async index() {
+    const { ctx } = this;
+    const { app, orderBy, orderDir } = ctx.query;
+    const map = {};
+    map.where = {};
+    map.order = [[ 'name', 'ASC' ]];
+    if (orderBy && orderDir) {
+      map.order = [[ orderBy, orderDir ]];
+    }
+    if (app && app !== 'all') {
+      map.where.app = app;
+    }
+    const list = await ctx.model.SysModels.findAll(map);
+    this.success({ item: list });
+  }
+  /**
   * @summary 添加模型
   * @description 添加模型
   * @router post /admin/sys/models/addModels
@@ -16,6 +38,9 @@ class ModelsController extends Controller {
   async addModels() {
     const { ctx } = this;
     const data = ctx.request.body;
+    if (data.app !== data.name.split('_')[0]) {
+      return this.fail('模型名称前缀要跟选择的应用标识一致！');
+    }
     const add = await ctx.model.SysModels.create(data);
     if (add.uuid) {
       const addData = [{
@@ -241,6 +266,27 @@ class ModelsController extends Controller {
     await ctx.service.sys.generate.contract();
     this.success({ sys_models_associates: res });
   }
-
+  /**
+  * @summary 获取应用
+  * @description 获取应用
+  * @router get /admin/sys/models/application
+  * @request query string type desc
+  * @response 200 baseRes desc
+  */
+  async application() {
+    const { ctx } = this;
+    const { type } = ctx.query;
+    const map = {};
+    map.order = [[ 'id', 'ASC' ]];
+    map.where = {};
+    map.attributes = [[ 'name', 'label' ], [ 'name', 'value' ]];
+    map.raw = true;
+    const list = await ctx.model.SysApplication.findAll(map);
+    let res = list;
+    if (type === 'all') {
+      res = { options: [{ label: '全部模型', value: 'all' }, ...list ] };
+    }
+    this.success(res);
+  }
 }
 module.exports = ModelsController;

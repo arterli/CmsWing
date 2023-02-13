@@ -45,7 +45,7 @@ module.exports = {objectStorage: ${JSON.stringify(data)}};`;
     data.type = data.type || ctx.get('type');
     try {
       // 处理文件，比如上传到云端
-      console.log(file);
+      // console.log(file);
       // 身份验证
       let token = '';
       if (sessionKey) {
@@ -76,14 +76,15 @@ module.exports = {objectStorage: ${JSON.stringify(data)}};`;
         resdata.type = upload.location;// 文件保存位置
         resdata.savename = upload.savename;// 保存名称
         resdata.url = upload.url;
-        console.log(resdata);
+        // console.log(resdata);
         const reshtml = await ctx.renderString(data.resBody, resdata);
+        console.log(reshtml);
         ctx.body = JSON.parse(reshtml);
       } else {
         throw new Error('上传失败');
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       this.fail(e.toString());
     } finally {
       // 需要删除临时文件

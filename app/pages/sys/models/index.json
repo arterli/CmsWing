@@ -15,57 +15,10 @@
   },
   "aside": [
     {
-      "type": "page",
-      "title": "模型管理",
-      "remark": "bla bla bla",
-      "toolbar": [
-        {
-          "type": "button",
-          "actionType": "dialog",
-          "label": "新增模型",
-          "icon": "fa fa-plus pull-left",
-          "primary": true,
-          "disabledOn": "${models_id}",
-          "dialog": {
-            "title": "新增模型",
-            "body": {
-              "type": "form",
-              "name": "addModels",
-              "api": "/admin/sys/models/addModels",
-              "body": [
-                {
-                  "type": "input-text",
-                  "name": "name",
-                  "label": "模型名称",
-                  "required": true,
-                  "description": "命名格式 模块名_表名 例如:sys_models"
-                },
-                {
-                  "type": "divider"
-                },
-                {
-                  "type": "input-text",
-                  "name": "desc",
-                  "label": "模型描述",
-                  "required": true,
-                  "description": "模型说明"
-                },
-                {
-                  "type": "divider"
-                },
-                {
-                  "name": "paranoid",
-                  "type": "switch",
-                  "label": "偏执表",
-                  "value": false,
-                  "labelRemark": "paranoid",
-                  "description": "Sequelize 支持 paranoid 表的概念. 一个 paranoid 表是一个被告知删除记录时不会真正删除它的表.反而一个名为 deletedAt 的特殊列会将其值设置为该删除请求的时间戳."
-                }
-              ]
-            }
-          }
-        }
-      ],
+      "type": "service",
+      "debug":true,
+      "data":{"apps":"all"},
+      "id":"models-reload",
       "body": {
         "type": "picker",
         "name": "models_id",
@@ -73,16 +26,20 @@
         "valueField": "id",
         "labelField": "name",
         "label": false,
-        "source": {
-          "method": "post",
-          "url": "/graphql?mdoels=${models}",
-          "graphql": "query($orderBy:String, $orderDir:String,$name:String) {item: SysModels_findAll(order: [[$orderBy, $orderDir]],where:{name:{op_substring:$name}}) {id name desc}}",
-          "data": {
-            "orderBy": "name",
-            "orderDir": "${orderDir|default:'asc'}",
-            "name": "${name|default:''}"
+        "onEvent": {
+          "change": {
+            "actions": [
+              {
+                "actionType": "setValue",
+                "componentId": "models-detail",
+                "args": {
+                  "value":{"models_id":"$event.data.value"}
+                }
+              }
+            ]
           }
         },
+        "source": {"url":"/admin/sys/models?app=$apps","data":{"&": "$$"}},
         "value": "${models_id}",
         "embed": true,
         "pickerSchema": {
@@ -96,7 +53,86 @@
               "className": "v-middle pl-3"
             }
           ],
-          "headerToolbar": false,
+          "headerToolbar": [
+            {
+              "type": "select",
+              "name": "app",
+             "source":"/admin/sys/models/application?type=all",
+             "selectFirst": true,
+              "onEvent": {
+                "change": {
+                  "actions": [
+                    {
+                      "actionType": "setValue",
+                      "componentId": "models-reload",
+                      "args": {
+                        "value":{"apps":"$event.data.value","models_id":""}
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "button",
+              "actionType": "dialog",
+              "label": "新增",
+              "align": "right",
+              "icon": "fa fa-plus pull-left",
+              "primary": true,
+              "disabledOn": "${models_id}",
+              "dialog": {
+                "title": "新增模型",
+                "body": {
+                  "type": "form",
+                  "name": "addModels",
+                  "debug":true,
+                  "api": "/admin/sys/models/addModels",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "name": "name",
+                      "label": "模型名称",
+                      "required": true,
+                      "description": "命名格式 应用标识_表名 例如:sys_models"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "type": "input-text",
+                      "name": "desc",
+                      "label": "模型描述",
+                      "required": true,
+                      "description": "模型说明"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                    "label": "应用标识",
+                    "type": "select",
+                    "name": "app",
+                     "source":"/admin/sys/models/application",
+                     "required": true,
+                     "description": "选择的应用的标识就是模型名称的前缀"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "name": "paranoid",
+                      "type": "switch",
+                      "label": "偏执表",
+                      "value": false,
+                      "labelRemark": "paranoid",
+                      "description": "Sequelize 支持 paranoid 表的概念. 一个 paranoid 表是一个被告知删除记录时不会真正删除它的表.反而一个名为 deletedAt 的特殊列会将其值设置为该删除请求的时间戳."
+                    }
+                  ]
+                }
+              }
+            }
+          ],
           "columns": [
             {
               "name": "name",
@@ -137,6 +173,7 @@
   "body": [
     {
       "type": "service",
+      "id":"models-detail",
       "body": [
         {
           "type": "tabs",

@@ -36,11 +36,11 @@ class objectStorageService extends Service {
       }
       // await fs.rename(localFile, path.join(this.app.baseDir, 'app', 'public', config.path, key));
       await fs.copyFile(localFile, path.join(this.app.baseDir, 'app', 'public', key));
-      res.savename = path.join('public', key);
       let keyname = path.basename(localFile);
       if (config.path) {
         keyname = `${config.path}/${keyname}`;
       }
+      res.savename = keyname;
       res.url = `${config.domain}/public/${keyname}`;
       res.result = {};
     } else if (type === 'kodo') { // 七牛上传

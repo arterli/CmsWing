@@ -5,7 +5,7 @@
   "initApi": {
     "method": "post",
     "url": "/graphql",
-    "graphql": "query($id:ID!){SysModels_findByPk(id:$id){id name desc paranoid}}",
+    "graphql": "query($id:ID!){SysModels_findByPk(id:$id){id name desc paranoid app}}",
     "data": {
       "id": "${models_id}"
     },
@@ -17,7 +17,7 @@
   "api": {
     "url": "/graphql",
     "method": "post",
-    "graphql": "mutation($name:String,$desc:String,$paranoid:Boolean,$id:ID!,$oldName:String){SysModels_update(data:{name:$name,desc:$desc,paranoid:$paranoid,oldName:$oldName},where:{id:{op_eq:$id}}){ids}}"
+    "graphql": "mutation($name:String,$desc:String,$paranoid:Boolean,$id:ID!,$oldName:String,$app:String){SysModels_update(data:{name:$name,desc:$desc,paranoid:$paranoid,oldName:$oldName,app:$app},where:{id:{op_eq:$id}}){ids}}"
   },
   "body": [
     {
@@ -40,6 +40,17 @@
     {
       "type": "divider"
     },
+    {
+      "label": "应用标识",
+      "type": "select",
+      "name": "app",
+       "source":"/admin/sys/models/application",
+       "required": true,
+       "description": "选择的应用的标识就是模型名称的前缀"
+      },
+      {
+        "type": "divider"
+      },
     {
       "name": "paranoid",
       "type": "switch",

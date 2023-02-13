@@ -13,8 +13,9 @@
       "type": "crud",
       "api": "/admin/cms/template",
       "mode": "cards",
+      "columnsCount": 3,
       "defaultParams": {
-        "perPage": 16
+        "perPage": 15
       },
       "headerToolbar": [
         {

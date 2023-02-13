@@ -141,18 +141,18 @@ type Mutation {
   #cms评论回复 更新
   CmsCommentsReply_update(data:EditCmsCommentsReply!,where:WhereCmsCommentsReply!):ResEditCmsCommentsReply
 
-  #cms模板管理 添加
+  #cms模版管理 添加
   CmsTemplate_create(data:AddCmsTemplate):CmsTemplate
-  #cms模板管理 删除
+  #cms模版管理 删除
   CmsTemplate_destroy(where:WhereCmsTemplate!):ResDelCmsTemplate
-  #cms模板管理 更新
+  #cms模版管理 更新
   CmsTemplate_update(data:EditCmsTemplate!,where:WhereCmsTemplate!):ResEditCmsTemplate
 
-  #模板文件 添加
+  #模版文件 添加
   CmsTemplateList_create(data:AddCmsTemplateList):CmsTemplateList
-  #模板文件 删除
+  #模版文件 删除
   CmsTemplateList_destroy(where:WhereCmsTemplateList!):ResDelCmsTemplateList
-  #模板文件 更新
+  #模版文件 更新
   CmsTemplateList_update(data:EditCmsTemplateList!,where:WhereCmsTemplateList!):ResEditCmsTemplateList
 
   #系统配置 添加
@@ -161,5 +161,12 @@ type Mutation {
   SysConfig_destroy(where:WhereSysConfig!):ResDelSysConfig
   #系统配置 更新
   SysConfig_update(data:EditSysConfig!,where:WhereSysConfig!):ResEditSysConfig
+
+  #应用管理 添加
+  SysApplication_create(data:AddSysApplication):SysApplication
+  #应用管理 删除
+  SysApplication_destroy(where:WhereSysApplication!):ResDelSysApplication
+  #应用管理 更新
+  SysApplication_update(data:EditSysApplication!,where:WhereSysApplication!):ResEditSysApplication
 
 }

@@ -34,10 +34,13 @@ class RoutesController extends Controller {
     if (data.s_name) {
       map.where.name = { [Op.like]: `%${data.s_name}%` };
     }
+    if (data.app && data.app !== 'all') {
+      map.where.app = data.app;
+    }
     map.where.class_uuid = data.class_uuid;
     const list = await ctx.model.SysRoutes.findAll(map);
     let tree;
-    if (data.s_name) {
+    if (data.s_name || (data.app && data.app !== 'all')) {
       tree = list;
     } else {
       tree = ctx.helper.arr_to_tree(list, 0, 'uuid', 'puuid');
@@ -168,6 +171,27 @@ class RoutesController extends Controller {
     await ctx.service.sys.generate.routes();
     this.success(edit);
   }
-
+  /**
+  * @summary 获取应用
+  * @description 获取应用
+  * @router get /admin/sys/routes/application
+  * @request query string type desc
+  * @response 200 baseRes desc
+  */
+  async application() {
+    const { ctx } = this;
+    const { type } = ctx.query;
+    const map = {};
+    map.order = [[ 'id', 'ASC' ]];
+    map.where = {};
+    map.attributes = [[ 'name', 'label' ], [ 'name', 'value' ]];
+    map.raw = true;
+    const list = await ctx.model.SysApplication.findAll(map);
+    let res = list;
+    if (type === 'all') {
+      res = { options: [{ label: '全部模型', value: 'all' }, ...list ] };
+    }
+    this.success(res);
+  }
 }
 module.exports = RoutesController;

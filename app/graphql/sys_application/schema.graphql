@@ -1,24 +1,22 @@
 
     
-    type SysModels {
+    type SysApplication {
       id:ID
       createdAt:Date
       updatedAt:Date
-      uuid:String
       name:String
-      desc:String
-      oldName:String
-      paranoid:Boolean
-      app:String
+      title:String
+      intro:String
+      explain:String
+      author:String
+      version:String
+      sys:Boolean
       
-      sys_models_fields(order:[[String]],limit:Int,offset:Int): [SysModelsFields]
-sys_models_indexes(order:[[String]],limit:Int,offset:Int): [SysModelsIndexes]
-sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate]
-
+      
     }
     
     
-    input WhereSysModels_id {
+    input WhereSysApplication_id {
         op_eq: ID
   op_ne: ID
   op_or: [ID]
@@ -36,7 +34,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_createdAt {
+      input WhereSysApplication_createdAt {
         op_eq: Date
   op_ne: Date
   op_or: [Date]
@@ -54,7 +52,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_updatedAt {
+      input WhereSysApplication_updatedAt {
         op_eq: Date
   op_ne: Date
   op_or: [Date]
@@ -72,7 +70,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_uuid {
+      input WhereSysApplication_name {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -90,7 +88,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_name {
+      input WhereSysApplication_title {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -108,7 +106,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_desc {
+      input WhereSysApplication_intro {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -126,7 +124,7 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_oldName {
+      input WhereSysApplication_explain {
         op_eq: String
   op_ne: String
   op_or: [String]
@@ -144,7 +142,43 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_paranoid {
+      input WhereSysApplication_author {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysApplication_version {
+        op_eq: String
+  op_ne: String
+  op_or: [String]
+  op_gt: String
+  op_gte: String
+  op_lt: String
+  op_lte: String
+  op_between: [String]
+  op_notBetween: [String]
+  op_in: [String]
+  op_notIn: [String]
+  op_like: String
+  op_notLike: String
+  op_startsWith: String
+  op_endsWith: String
+  op_substring: String
+      }
+      input WhereSysApplication_sys {
         op_eq: Boolean
   op_ne: Boolean
   op_or: [Boolean]
@@ -162,82 +196,70 @@ sys_models_associate(order:[[String]],limit:Int,offset:Int): [SysModelsAssociate
   op_endsWith: String
   op_substring: String
       }
-      input WhereSysModels_app {
-        op_eq: String
-  op_ne: String
-  op_or: [String]
-  op_gt: String
-  op_gte: String
-  op_lt: String
-  op_lte: String
-  op_between: [String]
-  op_notBetween: [String]
-  op_in: [String]
-  op_notIn: [String]
-  op_like: String
-  op_notLike: String
-  op_startsWith: String
-  op_endsWith: String
-  op_substring: String
-      }
       
-    input WhereFieldSysModels{
-    id:WhereSysModels_id
-      createdAt:WhereSysModels_createdAt
-      updatedAt:WhereSysModels_updatedAt
-      uuid:WhereSysModels_uuid
-      name:WhereSysModels_name
-      desc:WhereSysModels_desc
-      oldName:WhereSysModels_oldName
-      paranoid:WhereSysModels_paranoid
-      app:WhereSysModels_app
+    input WhereFieldSysApplication{
+    id:WhereSysApplication_id
+      createdAt:WhereSysApplication_createdAt
+      updatedAt:WhereSysApplication_updatedAt
+      name:WhereSysApplication_name
+      title:WhereSysApplication_title
+      intro:WhereSysApplication_intro
+      explain:WhereSysApplication_explain
+      author:WhereSysApplication_author
+      version:WhereSysApplication_version
+      sys:WhereSysApplication_sys
       
     }
 
-    input WhereSysModels {
-      id:WhereSysModels_id
-      createdAt:WhereSysModels_createdAt
-      updatedAt:WhereSysModels_updatedAt
-      uuid:WhereSysModels_uuid
-      name:WhereSysModels_name
-      desc:WhereSysModels_desc
-      oldName:WhereSysModels_oldName
-      paranoid:WhereSysModels_paranoid
-      app:WhereSysModels_app
+    input WhereSysApplication {
+      id:WhereSysApplication_id
+      createdAt:WhereSysApplication_createdAt
+      updatedAt:WhereSysApplication_updatedAt
+      name:WhereSysApplication_name
+      title:WhereSysApplication_title
+      intro:WhereSysApplication_intro
+      explain:WhereSysApplication_explain
+      author:WhereSysApplication_author
+      version:WhereSysApplication_version
+      sys:WhereSysApplication_sys
       
-      op_and: [WhereFieldSysModels]
-      op_or: [WhereFieldSysModels]
-      op_not: [WhereFieldSysModels]
+      op_and: [WhereFieldSysApplication]
+      op_or: [WhereFieldSysApplication]
+      op_not: [WhereFieldSysApplication]
     }
     
     
-    input AddSysModels {
+    input AddSysApplication {
     name: String!
-      desc: String!
-      oldName: String
-      paranoid: Boolean
-      app: String!
+      title: String!
+      intro: String
+      explain: String
+      author: String!
+      version: String!
+      sys: Boolean!
       
     }
     
     
-    input EditSysModels {
+    input EditSysApplication {
     name: String
-      desc: String
-      oldName: String
-      paranoid: Boolean
-      app: String
+      title: String
+      intro: String
+      explain: String
+      author: String
+      version: String
+      sys: Boolean
       
     }
     
-    type CountSysModels {
+    type CountSysApplication {
       count: Int
-      rows: [SysModels]
+      rows: [SysApplication]
     }
-    type ResDelSysModels {
+    type ResDelSysApplication {
       count: Int
     }
-    type ResEditSysModels {
+    type ResEditSysApplication {
       ids: [Int]
     }
     

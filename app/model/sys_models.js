@@ -11,8 +11,9 @@ module.exports = app => {
     desc: { type: DataTypes.STRING, comment: '模型说明' },
     oldName: { type: DataTypes.STRING(50), comment: '改变后的模型名称' },
     paranoid: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '偏执表' },
+    app: { type: DataTypes.STRING, comment: '所属应用' },
   },{
-  indexes:[{"unique":true,"fields":["uuid"]},{"unique":false,"fields":["name"]}],
+  indexes:[{"unique":true,"fields":["uuid"]},{"unique":false,"fields":["name"]},{"unique":false,"fields":["app"]}],
   paranoid: false,
 });
   SysModels.associate = function() {

@@ -158,7 +158,13 @@
                       "name": "s_name",
                       "label":"名称",
                       "placeholder": "通过关键字搜索"
-                    }
+                    },
+                    {
+                      "label": "应用标识",
+                      "type": "select",
+                      "name": "app",
+                       "source":"/admin/sys/routes/application?type=all"
+                      }
                   ],
                   "actions": [
                    
@@ -200,7 +206,6 @@
                                 "label": "类型",
                                 "name": "sys_routes.admin",
                                 "value":false,
-                                "columnRatio": 3,
                                 "options": [
                                   
                                   {
@@ -229,6 +234,24 @@
                                 ]
                               },
                               {
+                                "name": "sys_routes.is_menu",
+                                "type": "switch",
+                                "label": "在菜单显示"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "group",
+                            "body": [
+                              {
+                                "label": "所属应用",
+                                "type": "select",
+                                "name": "sys_routes.app",
+                                "required": true,
+                                "columnRatio": 3,
+                                 "source":"/admin/sys/routes/application"
+                                },
+                              {
                                 "label": "上级节点",
                                 "type": "tree-select",
                                 "name": "sys_routes.puuid",
@@ -238,7 +261,6 @@
                               }
                             ]
                           },
-                          
                           {
                             "type": "group",
                             "body": [
@@ -255,13 +277,8 @@
                                 "label": "${sys_routes.admin?'路由':'页面'}URL",
                                 "requiredOn": "${sys_routes.admin}",
                                 "placeholder": "请输入URL"
-                              },
-                              {
-                                "name": "sys_routes.is_menu",
-                                "type": "switch",
-                                "columnRatio": 2,
-                                "label": "菜单"
                               }
+                              
                             ]
                           },
                           {
@@ -430,7 +447,11 @@
                     
                     
                   },
-                 
+                  {
+                    "name": "app",
+                    "label": "应用",
+                    "type": "text"
+                  },
                   {
                     "name": "admin",
                     "label": "类型",
@@ -506,7 +527,7 @@
                             "initApi": {
                               "method": "post",
                               "url": "/graphql",
-                              "graphql": "query($uuid:String){SysRoutes_findOne(where:{uuid:{op_eq:$uuid}}){uuid name path icon verb middleware ignoreMiddleware controller action admin role class_uuid puuid sort linkType link is_menu }}",
+                              "graphql": "query($uuid:String){SysRoutes_findOne(where:{uuid:{op_eq:$uuid}}){uuid name path icon verb middleware ignoreMiddleware controller action admin role class_uuid puuid sort linkType link is_menu app }}",
                               "data": { "uuid": "${uuid}" }
                             },
                             "api": "/admin/sys/routes/editRoutes",
@@ -521,7 +542,7 @@
                                     "label": "类型",
                                     "name": "SysRoutes_findOne.admin",
                                     "value":false,
-                                    "columnRatio": 3,
+                                   
                                     "options": [
                                       
                                       {
@@ -548,18 +569,35 @@
                                         "value": false
                                       }
                                     ]
-                                  },
+                                  }, {
+                                    "name": "SysRoutes_findOne.is_menu",
+                                    "type": "switch",
+                                    
+                                    "label": "在菜单显示"
+                                  }
+                                ]
+                              },
+                              {
+                                "type": "group",
+                                "body": [
+                                  {
+                                    "label": "所属应用",
+                                    "type": "select",
+                                    "name": "SysRoutes_findOne.app",
+                                    "required": true,
+                                    "columnRatio": 3,
+                                     "source":"/admin/sys/routes/application"
+                                    },
                                   {
                                     "label": "上级节点",
                                     "type": "tree-select",
                                     "name": "SysRoutes_findOne.puuid",
                                     "required": true,
                                     "searchable": true,
-                                    "source": "/admin/sys/routes/topRoutes?class_uuid=${SysRoutes_findOne.class_uuid}"
+                                    "source": "/admin/sys/routes/topRoutes?class_uuid=${uuid}"
                                   }
                                 ]
                               },
-                              
                               {
                                 "type": "group",
                                 "body": [
@@ -576,11 +614,6 @@
                                     "label": "${SysRoutes_findOne.admin?'路由':'页面'}URL",
                                     "requiredOn": "${SysRoutes_findOne.admin}",
                                     "placeholder": "请输入URL"
-                                  }, {
-                                    "name": "SysRoutes_findOne.is_menu",
-                                    "type": "switch",
-                                    "columnRatio": 2,
-                                    "label": "菜单"
                                   }
                                 ]
                               },

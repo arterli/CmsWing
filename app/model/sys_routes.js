@@ -23,8 +23,9 @@ module.exports = app => {
     linkType: { type: DataTypes.ENUM, values: ["schemaApi","link"], defaultValue: 'schemaApi', comment: '链接类型' },
     link: { type: DataTypes.STRING, comment: '页面地址' },
     is_menu: { type: DataTypes.BOOLEAN, defaultValue: false, comment: '是否是菜单' },
+    app: { type: DataTypes.STRING, comment: '应用标识' },
   },{
-  indexes:[{"unique":true,"fields":["uuid"]},{"unique":false,"fields":["puuid"]}],
+  indexes:[{"unique":true,"fields":["uuid"]},{"unique":false,"fields":["puuid"]},{"unique":false,"fields":["app"]}],
   paranoid: false,
 });
   SysRoutes.associate = function() {
