@@ -26,6 +26,5 @@ module.exports = app => {
   router.get('/admin/sys/gitee', controller.sys.index.gitee);
   router.get('/admin/sys/sysInfo', controller.sys.index.sysInfo);
   router.get('/admin/sys/team', controller.sys.index.team);
-  router.get('/admin/sys/routes/application', controller.sys.routes.application);
   router.get('/cmswingceshi', controller.home.index);
 };

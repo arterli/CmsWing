@@ -1,7 +1,5 @@
 /* eslint-disable jsdoc/check-tag-names */
 'use strict';
-const fs = require('fs/promises');
-const path = require('path');
 const Controller = require('../../core/base_controller');
 const { Op } = require('sequelize');
 class ConfigController extends Controller {
@@ -28,6 +26,7 @@ class ConfigController extends Controller {
     const { ctx } = this;
     const { name } = ctx.params;
     const data = ctx.request.body;
+    console.log(data);
     await ctx.model.SysConfig.update({ value: data }, { where: { name } });
     this.success(data);
   }

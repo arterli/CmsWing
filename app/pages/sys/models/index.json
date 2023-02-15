@@ -86,7 +86,7 @@
                 "body": {
                   "type": "form",
                   "name": "addModels",
-                  "debug":true,
+                  "debug":false,
                   "api": "/admin/sys/models/addModels",
                   "body": [
                     {

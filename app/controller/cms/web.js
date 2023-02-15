@@ -210,6 +210,5 @@ class WebController extends Controller {
     await ctx.model.CmsDoc.increment({ view: 1 }, { where: { id } });
     await ctx.render(temp, { detail: info, breadcrumb, pdoc, pdocids });
   }
-
 }
 module.exports = WebController;

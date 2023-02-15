@@ -532,7 +532,7 @@
                             },
                             "api": "/admin/sys/routes/editRoutes",
                             
-                            "debug":true,
+                            "debug":false,
                             "body": [
                               {
                                 "type": "group",

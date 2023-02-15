@@ -13,10 +13,10 @@ module.exports = appInfo => {
    **/
   const config = exports = {};
   config.remoteConfig = {
-    async handler(ctx) {
+    async handler(agent) {
       let data;
       try {
-        data = await ctx.model.SysConfig.findAll();
+        data = await agent.model.SysConfig.findAll();
       } catch (error) {
         const { RECORDS } = await fs.readJson(path.join(appInfo.baseDir, 'app/core/initData/sys_config.json'), { throws: false });
         data = RECORDS;

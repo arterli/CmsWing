@@ -102,7 +102,7 @@
       "desc": "cms分类",
       "oldName": "cms_classify",
       "paranoid": 0,
-      "app": null
+      "app": "cms"
     },
     {
       "uuid": "e86401ba-85cb-47f7-9f53-853e26b939bd",
