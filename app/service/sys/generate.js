@@ -76,7 +76,7 @@ class GenerateService extends Service {
         if (v.autoIncrement) {
           autoIncrement = `, autoIncrement:${v.autoIncrement}`;
         }
-      } else if (v.type === 'FLOAT' || v.type === 'DOUBLE' || v.type === 'DOUBLE') {
+      } else if (v.type === 'FLOAT' || v.type === 'DOUBLE' || v.type === 'DECIMAL') {
         const tt = `type: DataTypes.${v.type}`;
         if (v.unsigned && v.zerofill) {
           type = `${tt}.UNSIGNED.ZEROFILL`;
