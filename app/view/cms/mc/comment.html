@@ -1,4 +1,4 @@
-  {%set templatePath = 'cms'|@templatePath%}
+  {%set templatePath = 'cms'|@template('path')%}
   {% extends "../"+templatePath+"/inc_base.html" %} 
   {%block body%}class="header-scroll-reveal"{%endblock%} 
   {% block middle %}
