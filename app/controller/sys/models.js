@@ -233,7 +233,7 @@ class ModelsController extends Controller {
     const { ctx } = this;
     const data = ctx.request.body;
     let i = 0;
-    let models_uuid = '';
+    let models_uuid = data.m_uuid;
     const notids = [];
     for (const v of data.sys_models_associates) {
       v.sort = i;
