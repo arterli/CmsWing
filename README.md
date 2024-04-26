@@ -3,11 +3,11 @@
     <img width="280" src="https://oss.cmswing.com/gitee/logo_dark.svg">
   </p>
 
-[CmsWing 是什么](https://www.cmswing.com/cms/detail/2) |
-[快速入门](https://www.cmswing.com/cms/detail/3) |
-[CMS 使用指南](https://www.cmswing.com/cms/detail/6) |
-[开发手册](https://www.cmswing.com/cms/detail/11) |
-[CmsWing 官网](https://www.cmswing.com) |
+[CmsWing 是什么](https://www.cmswing.net/cms/detail/2) |
+[快速入门](https://www.cmswing.net/cms/detail/3) |
+[CMS 使用指南](https://www.cmswing.net/cms/detail/6) |
+[开发手册](https://www.cmswing.net/cms/detail/11) |
+[CmsWing 官网](https://www.cmswing.net) |
 [GitHub](https://github.com/arterli/CmsWing) |
 [Gitee](https://gitee.com/cmswing/CmsWing) 
 
